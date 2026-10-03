@@ -14,9 +14,11 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 - [ ] Build the starter course (stations + A–D doors), playtest with the order-of-ops cartridge
 
 ## G3 — More cartridges
-- [ ] Second topic via `fnm new`, proving plug-and-play end to end (candidate: Aaron picks)
+- [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes
 
 ## Backlog (from 2026-10-02 build audit)
-- [ ] Order-of-ops content: M_BEFORE_D never appears and A_BEFORE_S only 3×; add `a ÷ b × c` / `a − b + c` patterns (T1/T2), bump to 1.1.0
-- [ ] ARITH is 320 of 600 distractors — look for more misconception-driven wrong answers
+- [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)
+- [x] Order-of-ops ARITH 53% → 41% via compound misreadings (labelled with first misconception only — playtest whether that feedback reads well)
+- [ ] integer-ops T3 (× ÷) is 67% ARITH: only one ×/÷ misconception exists — add one (e.g. sign of quotient vs. dividend) or make T3 3-choice
+- [ ] integer-ops T4/T5 occasionally produce zero intermediates (`(−10 + 10) × (−6)`) — trivial-feeling, filter them
 - [ ] Confirm `UEFN_VERSE_SUBPATH` in `fnm/maps.py` against a real UEFN project (sync destination)

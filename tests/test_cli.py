@@ -15,7 +15,8 @@ def test_insert_and_list(tmp_repo, capsys):
     assert (tmp_repo / "emulator" / "carts.js").exists()
     assert run(tmp_repo, "list") == 0
     out = capsys.readouterr().out
-    assert "t1:40" in out and "slot: order-of-ops-exponents 1.0.0 (unicode)" in out
+    version = json.loads((tmp_repo / "cartridges" / CID / "cartridge.json").read_text(encoding="utf-8"))["version"]
+    assert "t1:40" in out and f"slot: order-of-ops-exponents {version} (unicode)" in out
 
 
 def test_insert_stops_before_emit_on_invalid(tmp_repo, capsys):

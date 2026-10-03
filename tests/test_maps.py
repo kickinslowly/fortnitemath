@@ -100,7 +100,8 @@ def test_emit_every_map(tmp_repo):
     assert [m for m, _, _ in out] == ["starter", "tiny"]
     tiny = (tmp_repo / "maps" / "tiny" / "generated" / "fnm_active_cartridge.verse").read_text(encoding="utf-8")
     assert "profile: ascii" in tiny and "max_choices: 2" in tiny and lint(tiny) == []
-    assert read_slot("tiny", tmp_repo) == {"id": CID, "version": "1.0.0", "profile": "ascii"}
+    version = json.loads((tmp_repo / "cartridges" / CID / "cartridge.json").read_text(encoding="utf-8"))["version"]
+    assert read_slot("tiny", tmp_repo) == {"id": CID, "version": version, "profile": "ascii"}
     # --profile override
     emit_maps(CID, tmp_repo, profile_override="unicode")
     assert read_slot("tiny", tmp_repo)["profile"] == "unicode"

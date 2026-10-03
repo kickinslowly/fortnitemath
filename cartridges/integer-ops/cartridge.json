@@ -1,0 +1,48 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "integer-ops",
+  "version": "1.0.0",
+  "title": "Integer Operations",
+  "subtitle": "Positive & Negative Numbers",
+  "grade": "7",
+  "standards": ["CCSS.MATH.CONTENT.7.NS.A.1", "CCSS.MATH.CONTENT.7.NS.A.2", "CCSS.MATH.CONTENT.7.NS.A.3"],
+  "seed": 20261003,
+  "items_per_tier": 40,
+  "tiers": [
+    { "tier": 1, "name": "Adding", "description": "Add positive and negative numbers." },
+    { "tier": 2, "name": "Subtracting", "description": "Subtract integers. Subtracting a negative means adding." },
+    { "tier": 3, "name": "Multiply & Divide", "description": "Multiply and divide integers. Watch the signs." },
+    { "tier": 4, "name": "Mixed Signs", "description": "Two or three operations with negatives, in the right order." },
+    { "tier": 5, "name": "Boss Level", "description": "Longer expressions, including powers of negative numbers." }
+  ],
+  "misconceptions": {
+    "NEG_NEG_ADD": {
+      "student": "Two negatives make a positive only when you multiply or divide.",
+      "teacher": "Applies the multiplication sign rule to addition: −3 + (−5) = 8."
+    },
+    "ADD_SIZES": {
+      "student": "Different signs: subtract the sizes, keep the sign of the bigger one.",
+      "teacher": "Adds absolute values when signs differ: −7 + 3 = −10."
+    },
+    "WRONG_SIGN": {
+      "student": "Right size, wrong sign. Which number is farther from 0?",
+      "teacher": "Correct magnitude, wrong sign on a sum or difference."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative is adding: 4 − (−6) = 4 + 6.",
+      "teacher": "Treats subtracting a negative as subtracting a positive: 4 − (−6) = −2."
+    },
+    "SIGN_RULE_PRODUCT": {
+      "student": "One negative makes it negative. Two negatives make it positive.",
+      "teacher": "Wrong sign on a product or quotient; magnitude correct."
+    },
+    "ORDER": {
+      "student": "Do × and ÷ before + and −.",
+      "teacher": "Evaluates left to right, ignoring precedence, in a mixed-sign expression."
+    },
+    "NEG_POWER": {
+      "student": "−3^2 means −(3 × 3). (−3)^2 means (−3) × (−3).",
+      "teacher": "Confuses −a^n with (−a)^n."
+    }
+  }
+}

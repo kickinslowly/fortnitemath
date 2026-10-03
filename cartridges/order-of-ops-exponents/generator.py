@@ -61,6 +61,51 @@ RULES = {
 LABEL_PRIORITY = ("EXP_AS_MULT", "EXP_AFTER_MULT", "IGNORE_PARENS", "M_BEFORE_D",
                   "A_BEFORE_S", "ADD_FIRST", "LTR")
 
+# Compound misreadings: two misconceptions applied together (a real student move, e.g. skipping the
+# parentheses AND working left to right). Used only to fill distractor slots before falling back to
+# ARITH. A compound is labelled with whichever of its two parts comes first in LABEL_PRIORITY.
+# At most one part may change the precedence table, except the literal-PEMDAS pair (x before /
+# and + before -), whose combined table is given explicitly.
+COMPOUNDS = (
+    ("EXP_AS_MULT", "IGNORE_PARENS"),
+    ("EXP_AS_MULT", "M_BEFORE_D"),
+    ("EXP_AS_MULT", "A_BEFORE_S"),
+    ("EXP_AS_MULT", "ADD_FIRST"),
+    ("EXP_AS_MULT", "LTR"),
+    ("EXP_AFTER_MULT", "IGNORE_PARENS"),
+    ("IGNORE_PARENS", "M_BEFORE_D"),
+    ("IGNORE_PARENS", "A_BEFORE_S"),
+    ("IGNORE_PARENS", "ADD_FIRST"),
+    ("IGNORE_PARENS", "LTR"),
+    ("M_BEFORE_D", "A_BEFORE_S"),
+)
+_PEMDAS_LITERAL_PREC = {SUB: 1, ADD: 2, DIV: 3, MUL: 4, POW: 5}
+
+
+def compound_rule(a: str, b: str) -> Rule:
+    ra, rb = RULES[a], RULES[b]
+    pa, pb = ra.prec != _CORRECT_PREC, rb.prec != _CORRECT_PREC
+    if pa and pb:
+        if {a, b} != {"M_BEFORE_D", "A_BEFORE_S"}:
+            raise ValueError(f"cannot compose {a} + {b}")
+        prec = _PEMDAS_LITERAL_PREC
+    else:
+        prec = ra.prec if pa else rb.prec
+    return Rule(f"{a}+{b}", prec,
+                right_assoc=(ra.right_assoc | rb.right_assoc) if not (pa or pb) else frozenset(),
+                strip_parens=ra.strip_parens or rb.strip_parens,
+                exp_as_mult=ra.exp_as_mult or rb.exp_as_mult)
+
+
+def compound_label(a: str, b: str) -> str:
+    return min((a, b), key=LABEL_PRIORITY.index)
+
+
+COMPOUND_RULES = {(a, b): compound_rule(a, b) for a, b in COMPOUNDS}
+
+# The "PEMDAS read literally" pair: order WITHIN a precedence level.
+SAME_LEVEL = ("M_BEFORE_D", "A_BEFORE_S")
+
 
 class Invalid(Exception):
     """Raised when an expression cannot be evaluated under a rule (÷0, huge power, ...)."""
@@ -344,10 +389,81 @@ class TierSpec:
     ops: tuple
     max_pow: int
     check: callable = field(repr=False)
+    # Extra check for ordinary (non-quota) slots only.
+    regular: callable = field(default=None, repr=False)
+    # Quota of items that must carry a single-rule M_BEFORE_D or A_BEFORE_S distractor.
+    same_level: int = 0
+    # Builders for quota slots (rng -> tree); empty = random _build plus rejection.
+    templates: tuple = field(default=(), repr=False)
 
 
-def _t1(text, c):  # two ops, no parens/powers, a naive LTR reading differs
-    return "(" not in text and POW not in text and _differs(text, c, "LTR")
+# --- Same-level templates: order WITHIN a precedence level matters. Numbers are chosen so the
+# --- literal-PEMDAS reading is a usable (non-negative integer) distractor.
+def _md_triple(rng, max_a=MAX_LEAF):
+    """b, c >= 2 and k >= 2 with b*c*k <= max_a (so a / (b * c) = k is exact)."""
+    while True:
+        b, c = rng.randint(2, 10), rng.randint(2, 10)
+        top = max_a // (b * c)
+        if top >= 2:
+            return b, c, rng.randint(2, top)
+
+
+def _tpl_div_mul(rng):  # a ÷ b × c
+    b, c, k = _md_triple(rng)
+    return (MUL, (DIV, b * c * k, b), c)
+
+
+def _tpl_sub_add(rng):  # a − b + c, with a >= b + c
+    b, c = rng.randint(2, 20), rng.randint(2, 20)
+    a = rng.randint(b + c, min(MAX_LEAF, b + c + 30))
+    return (ADD, (SUB, a, b), c)
+
+
+def _tpl_group_div_mul(rng):  # (a ± b) ÷ c × d
+    c, d, k = _md_triple(rng)
+    s = c * d * k
+    if rng.random() < 0.5:
+        a = rng.randint(2, s - 2)
+        return (MUL, (DIV, (ADD, a, s - a), c), d)
+    b = rng.randint(2, 20)
+    if s + b > MAX_LEAF:
+        raise _Retry
+    return (MUL, (DIV, (SUB, s + b, b), c), d)
+
+
+def _tpl_div_group_mul(rng):  # a ÷ (b + c) × d
+    s = rng.randint(4, 12)
+    d = rng.randint(2, 6)
+    top = MAX_LEAF // (s * d)
+    if top < 2:
+        raise _Retry
+    k = rng.randint(2, top)
+    b = rng.randint(2, s - 2)
+    return (MUL, (DIV, s * d * k, (ADD, b, s - b)), d)
+
+
+def _tpl_sub_group_add(rng):  # a − (b ± c) + d, with a >= (b ± c) + d
+    if rng.random() < 0.5:
+        b, c = rng.randint(2, 20), rng.randint(2, 20)
+        g, inner = b + c, (ADD, b, c)
+    else:
+        b = rng.randint(4, 30)
+        c = rng.randint(2, b - 2)
+        g, inner = b - c, (SUB, b, c)
+    d = rng.randint(2, 20)
+    if g + d > MAX_LEAF:
+        raise _Retry
+    a = rng.randint(g + d, min(MAX_LEAF, g + d + 30))
+    return (ADD, (SUB, a, inner), d)
+
+
+def _t1(text, c):  # two ops, no parens/powers; LTR or a literal-PEMDAS reading differs
+    return ("(" not in text and POW not in text
+            and _differs(text, c, "LTR", "M_BEFORE_D", "A_BEFORE_S"))
+
+
+def _t1_regular(text, c):  # the precedence items (x / before + -): naive LTR differs
+    return _differs(text, c, "LTR")
 
 
 def _t2(text, c):  # exactly one paren group, and it changes the result
@@ -368,11 +484,13 @@ def _t5(text, c):  # 4-5 ops, ÷ and ^ present, at least one paren group
 
 
 TIERS = {
-    1: TierSpec((2,), ASMD, 0, _t1),
-    2: TierSpec((2, 3), ASMD, 0, _t2),
+    1: TierSpec((2,), ASMD, 0, _t1, regular=_t1_regular, same_level=10,
+                templates=(_tpl_div_mul, _tpl_sub_add)),
+    2: TierSpec((2, 3), ASMD, 0, _t2, same_level=8,
+                templates=(_tpl_group_div_mul, _tpl_div_group_mul, _tpl_sub_group_add)),
     3: TierSpec((2, 3), ALL, 1, _t3),
     4: TierSpec((2, 3, 4), ALL, 2, _t4),
-    5: TierSpec((4, 5), ALL, 2, _t5),
+    5: TierSpec((4, 5), ALL, 2, _t5, same_level=5),
 }
 
 
@@ -393,6 +511,28 @@ def _unicode_len(s: str) -> int:
     return len(re.sub(r"\^(\d+)", lambda m: m.group(1).translate(_SUPER), s))
 
 
+def _usable(v, seen) -> bool:
+    return v is not None and v.denominator == 1 and 0 <= v <= MAX_VALUE and v not in seen
+
+
+def compound_values(text: str, declared, seen) -> list:
+    """[(label, value)] for compound misreadings (COMPOUNDS order) giving a usable value not in
+    ``seen`` (which is not modified)."""
+    seen, out = set(seen), []
+    for (a, b), rule in COMPOUND_RULES.items():
+        if a not in declared or b not in declared:
+            continue
+        try:
+            v = _eval_tree(parse(tokenize(text), rule), rule, None)
+        except Invalid:
+            continue
+        if not _usable(v, seen):
+            continue
+        seen.add(v)
+        out.append((compound_label(a, b), int(v)))
+    return out
+
+
 def misconception_values(text: str, declared) -> list:
     """[(label, value)] for every declared misconception rule yielding a distinct usable wrong value,
     labelled by LABEL_PRIORITY when rules collide."""
@@ -402,7 +542,7 @@ def misconception_values(text: str, declared) -> list:
         if label not in declared:
             continue
         v = evaluate(text, label)
-        if v is None or v.denominator != 1 or not 0 <= v <= MAX_VALUE or v in seen:
+        if not _usable(v, seen):
             continue
         seen.add(v)
         out.append((label, int(v)))
@@ -412,15 +552,37 @@ def misconception_values(text: str, declared) -> list:
 _ARITH_OFFSETS = (1, -1, 2, -2, 10, -10, 3, -3, 4, -4, 5, -5)
 
 
-def make_item(text: str, tier: int, declared, answer_pos: int, rng: random.Random):
+def make_item(text: str, tier: int, declared, answer_pos: int, rng: random.Random,
+              require: tuple = ()):
+    """``require``: if non-empty, the item must keep at least one single-rule distractor whose
+    label is in it (else None)."""
     correct = int(evaluate(text))
     wrong = misconception_values(text, declared)
     if not wrong:
         return None
+    req = [i for i, (lab, _) in enumerate(wrong) if lab in require]
+    if require and not req:
+        return None
     if len(wrong) > 3:
-        keep = sorted(rng.sample(range(len(wrong)), 3))
+        if req:
+            must = rng.choice(req)
+            keep = sorted([must] + rng.sample([i for i in range(len(wrong)) if i != must], 2))
+        else:
+            keep = sorted(rng.sample(range(len(wrong)), 3))
         wrong = [wrong[i] for i in keep]
     used = {correct} | {v for _, v in wrong}
+    # Fill from compound misreadings before falling back to ARITH. Prefer a label the item does
+    # not already show (so feedback varies), random among equals.
+    extra = compound_values(text, declared, used)
+    rng.shuffle(extra)
+    extra.sort(key=lambda lv: lv[0] in {lab for lab, _ in wrong})
+    for lab, v in extra:
+        if len(wrong) == 3:
+            break
+        if v in used:
+            continue
+        used.add(v)
+        wrong.append((lab, v))
     offsets = list(_ARITH_OFFSETS)
     rng.shuffle(offsets)
     for off in offsets:
@@ -449,25 +611,35 @@ def gen_tier(tier: int, count: int, declared, rng: random.Random, max_attempts: 
     spec = TIERS[tier]
     positions = [i % 4 for i in range(count)]  # exact balance: count/4 per position
     rng.shuffle(positions)
+    quota = set(rng.sample(range(count), spec.same_level))  # slots that must be same-level items
     items, prompts = [], set()
     attempts = 0
     while len(items) < count:
         attempts += 1
         if attempts > max_attempts:
             raise RuntimeError(f"tier {tier}: could not generate {count} items")
+        special = len(items) in quota
         try:
-            tree = _build(rng, rng.choice(spec.n_ops), spec.ops, spec.max_pow)
+            if special and spec.templates:
+                tree = spec.templates[len(items) % len(spec.templates)](rng)
+            else:
+                tree = _build(rng, rng.choice(spec.n_ops), spec.ops, spec.max_pow)
         except _Retry:
             continue
         text = render(tree)
         if text in prompts or len(text) > 60 or not _all_steps_ok(text):
+            continue
+        if any(isinstance(n, int) and n > MAX_LEAF for n in tokenize(text)):
             continue
         c = evaluate(text)
         if c is None or c.denominator != 1 or not 0 <= c <= MAX_VALUE:
             continue
         if not spec.check(text, c):
             continue
-        item = make_item(text, tier, declared, positions[len(items)], rng)
+        if not special and spec.regular is not None and not spec.regular(text, c):
+            continue
+        item = make_item(text, tier, declared, positions[len(items)], rng,
+                         require=SAME_LEVEL if special else ())
         if item is None:
             continue
         prompts.add(text)

@@ -12,7 +12,10 @@ GOLDEN = [
     ("2 × 3^2", {"CORRECT": 18, "EXP_AFTER_MULT": 36, "EXP_AS_MULT": 12}),
     ("(3 + 4) × 2", {"CORRECT": 14, "IGNORE_PARENS": 11}),
     ("12 ÷ 2 × 3", {"CORRECT": 18, "M_BEFORE_D": 2}),
-    ("10 − 3 + 2", {"CORRECT": 9, "A_BEFORE_S": 5}),
+    ("24 ÷ 4 × 2", {"CORRECT": 12, "M_BEFORE_D": 3, "LTR": 12, "ADD_FIRST": 12}),
+    ("10 − 3 + 2", {"CORRECT": 9, "A_BEFORE_S": 5, "LTR": 9, "ADD_FIRST": 9}),
+    ("(8 + 16) ÷ 4 × 2", {"CORRECT": 12, "M_BEFORE_D": 3, "IGNORE_PARENS": 16}),
+    ("20 − (6 − 2) + 3", {"CORRECT": 19, "A_BEFORE_S": 13, "IGNORE_PARENS": 15}),
     ("(1 + 2)^2", {"CORRECT": 9, "IGNORE_PARENS": 5}),
 ]
 
@@ -21,6 +24,37 @@ GOLDEN = [
 def test_golden(gen, text, expected):
     for rule, value in expected.items():
         assert gen.evaluate(text, rule) == value, (text, rule)
+
+
+COMPOUND_GOLDEN = [
+    # (text, (a, b), value, label)
+    ("(1 + 2) × 3^2", ("EXP_AS_MULT", "IGNORE_PARENS"), 13, "EXP_AS_MULT"),
+    ("10 − (2 + 3) × 2", ("IGNORE_PARENS", "LTR"), 22, "IGNORE_PARENS"),
+    ("40 ÷ 2 × 2 − 3 + 2", ("M_BEFORE_D", "A_BEFORE_S"), 5, "M_BEFORE_D"),
+]
+
+
+@pytest.mark.parametrize("text,pair,value,label", COMPOUND_GOLDEN)
+def test_compound_golden(gen, text, pair, value, label):
+    assert pair in gen.COMPOUNDS
+    assert gen.evaluate(text, gen.compound_rule(*pair)) == value
+    assert gen.compound_label(*pair) == label
+
+
+def test_compounds_only_declared_keys(baked, gen):
+    declared = set(baked["misconceptions"])
+    for a, b in gen.COMPOUNDS:
+        assert a in declared and b in declared
+
+
+def _label_values(gen, prompt, label):
+    """Every value a distractor labelled ``label`` may legitimately carry: the single rule, or any
+    compound whose label it is."""
+    vals = {gen.evaluate(prompt, label)}
+    for pair in gen.COMPOUNDS:
+        if gen.compound_label(*pair) == label:
+            vals.add(gen.evaluate(prompt, gen.compound_rule(*pair)))
+    return vals
 
 
 def test_display_format(gen):
@@ -51,10 +85,10 @@ def test_items_shape(baked, gen):
         for c in it["choices"]:
             assert 0 <= int(c) <= 999
         assert len(render(it["explanation"], "unicode")) <= 160
-        # Each labelled distractor really is that rule's value.
+        # Each labelled distractor really is that rule's (or one of its compounds') value.
         for c, m in zip(it["choices"], it["misconceptions"]):
             if m not in (None, "ARITH"):
-                assert gen.evaluate(it["prompt"], m) == int(c), (it["id"], m)
+                assert int(c) in _label_values(gen, it["prompt"], m), (it["id"], m)
         nums = [int(n) for n in re.findall(r"\d+", it["prompt"])]
         assert all(n <= 100 for n in nums), it["id"]
 
@@ -66,7 +100,9 @@ def test_tier_rules(baked, gen):
         n = _ops(p)
         if t == 1:
             assert n == 2 and "(" not in p and "^" not in p
-            assert gen.evaluate(p, "LTR") != c
+            # LTR differs (precedence item) OR a literal-PEMDAS reading differs (same-level item)
+            assert any(gen.evaluate(p, r) not in (None, c)
+                       for r in ("LTR", "M_BEFORE_D", "A_BEFORE_S")), it["id"]
         elif t == 2:
             assert 2 <= n <= 3 and p.count("(") == 1 and "^" not in p
             assert gen.evaluate(p, "IGNORE_PARENS") != c
@@ -106,3 +142,37 @@ def test_explanation_follows_taught_order(gen, text, expected):
 
 def test_explanation_identical_subexpressions(gen):
     assert gen.explanation("2 × 3 + 2 × 3") == "2 × 3 = 6, then 2 × 3 = 6, then 6 + 6 = 12."
+
+
+# --- Baked content mix (v1.1.0): literal-PEMDAS coverage and ARITH share --------------------------
+def _count(baked, label, tier=None):
+    return sum(m == label for it in baked["items"] if tier in (None, it["tier"])
+               for m in it["misconceptions"])
+
+
+def _carries_same_level(it):
+    return bool({"M_BEFORE_D", "A_BEFORE_S"} & set(it["misconceptions"]))
+
+
+def test_same_level_misconceptions_present(baked):
+    assert _count(baked, "M_BEFORE_D") >= 8
+    assert _count(baked, "A_BEFORE_S") >= 8
+
+
+def test_arith_share(baked):
+    wrong = sum(m is not None for it in baked["items"] for m in it["misconceptions"])
+    assert _count(baked, "ARITH") / wrong <= 0.45
+
+
+def test_t1_same_level_items(baked, gen):
+    # Same-level item: both ops on one precedence level, so LTR is right and only the
+    # literal-PEMDAS reading (a ÷ (b × c), a − (b + c)) is wrong.
+    same = [it for it in baked["items"] if it["tier"] == 1
+            and gen.evaluate(it["prompt"], "LTR") == gen.evaluate(it["prompt"])]
+    assert len(same) >= 8
+    assert all(_carries_same_level(it) for it in same)
+
+
+@pytest.mark.parametrize("tier,minimum", [(2, 6), (5, 4)])
+def test_same_level_distractors_per_tier(baked, tier, minimum):
+    assert sum(_carries_same_level(it) for it in baked["items"] if it["tier"] == tier) >= minimum
