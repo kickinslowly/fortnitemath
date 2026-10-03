@@ -16,9 +16,13 @@ work yet. **Idea**: not built. The "how" column names the UEFN API or device it 
 ## Built
 | Penalty | Effect | How | Status |
 |---|---|---|---|
-| Freeze | Stuck in place for 5 s, then back to the station entry | `fort_character.PutInStasis` / `ReleaseFromStasis` | **Live** (no ice visual yet) |
-| Spike | Eliminated on the spot, respawn, put back at the station entry | `fort_character.Damage(1000)`, poll for respawn, `TeleportTo` | **Live** (no spike visual yet) |
-| Yeet | Flung backwards down the hallway | `SetLinearVelocity` | **Broken**: a no-op on players ("physics disabled"). Out of the default pool. Fix: a launcher device the code moves under the player (below) |
+| Freeze | Encased in a block of ice for 5 s, then back to the station entry | `PutInStasis` + an ice-cube rig moved onto them | **Live** |
+| Spike | A ring of 6 spears bursts out of the floor around them; eliminated, respawn, back to the station entry | spear rig (`MoveTo` up in 0.12 s) + `Damage(1000)`, poll for respawn | **Live** |
+| Yeet | An air vent appears under them and blasts them ~75 m up into a skydive; on landing (max 8 s) back to the station entry | air-vent rig moved under them, then the player is hopped 40 cm so they *enter* the gust | **Live** |
+
+Rigs: `console/verse/fnm_rig.verse` (runtime) + `tools/build_rigs.py` (places 4 sets, parked underground, tagged
+`fnm_ice` / `fnm_spike` / `fnm_yeet`). Rerun the builder after changing a rig. Real Fortnite traps can't be
+rigs: a placed trap (BR or Creative/Figment floor spikes) fails island validation as an illegal reference.
 
 ## Catalog: what UEFN can do (from the 42.30 Verse digest and device list)
 Gentle → harsh. Every row is controllable from Verse for one specific player.
@@ -33,7 +37,6 @@ Gentle → harsh. Every row is controllable from Verse for one specific player.
 | Pinball | Bumpers ping them around the vestibule | `pinball_bumper_device.Activate()` |
 | Kaboom | An explosion knocks them back (non-lethal damage) | `explosive_device.Explode(agent)` |
 | Zap | An electric wall/ceiling trap shocks them | Figment trap assets `Figment_Trap_Wall_Electric_Athena` / `_Ceiling_Electric_` |
-| Spike (visual) | Real floor spikes shoot up | Damage trap item `Items-DamageTrap_BR`, or a spike prop on a `prop_mover_device` |
 | Mud | Slowed to a crawl for 5 s | `movement_modulator_device.Activate(agent)` (speed multiplier) |
 | Moon gravity | Floaty, slow-motion jumping for a while | `player_movement_settings_device.AddTo(agent)` / `mutator_zone_device` |
 | Flood | The vestibule fills with water; swim out | `water_device.BeginVerticalFilling()` |

@@ -28,7 +28,8 @@ settings, launch-once rule, Easy Anti-Cheat, GUI automation) live in the global 
 before UEFN work. Project-specific:
 - Tools: `tools/uefn_mcp.py` (MCP client), `tools/build_course.py` (rebuilds the whole course, idempotent via
   actor tag `fnm_course`), `tools/capture.py` (viewport PNG — look at it), `tools/uefn_status.py`,
-  `tools/playtest.py` (relaunch session → game screenshot + the director's `FNM:` log lines; `--watch N`).
+  `tools/playtest.py` (relaunch session → game screenshot + the director's `FNM:` log lines; `--watch N`),
+  `tools/build_rigs.py` (penalty props the director moves onto a punished player; idempotent via `fnm_rigs`).
 - To test penalties without walking: director `DebugAutoWrongAnswers` (Verse default; ship value 0).
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,

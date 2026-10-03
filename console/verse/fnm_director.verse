@@ -69,20 +69,39 @@ fnm_director := class(creative_device):
     @editable
     CorrectFeedbackSeconds : float = 4.0
 
-    # Wrong-door penalties this map can draw from, one at random per wrong answer. Yeet is out of the
-    # default pool until it launches for real: SetLinearVelocity is a no-op on players (verified 2026-10-03).
+    # Wrong-door penalties this map can draw from, one at random per wrong answer. Each penalty's visual
+    # is a rig (fnm_rig.verse) placed by tools/build_rigs.py.
     @editable
-    Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike}
+    Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike, fnm_penalty.Yeet}
     @editable
     FreezeSeconds : float = 5.0
-    # Yeet launch velocity in m/s: back along the course (-Y) and up.
+    # Seconds the air vent stays under a yeeted player, and the most seconds they stay airborne before
+    # being put back at the station entry.
     @editable
-    YeetBackSpeed : float = 25.0
+    YeetSeconds : float = 1.5
     @editable
-    YeetUpSpeed : float = 12.0
-    # Damage dealt by Spike; more than full health + shield eliminates.
+    YeetAirSeconds : float = 8.0
+    # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
+    # the player, burst up SpearRise in SpearSeconds, then SpikeDamage eliminates (more than full health
+    # + shield). The ring stays up SpikeHoldSeconds.
+    @editable
+    SpearCount : int = 6
+    @editable
+    SpearRing : float = 55.0
+    @editable
+    SpearDepth : float = 220.0
+    @editable
+    SpearRise : float = 250.0
+    @editable
+    SpearSeconds : float = 0.12
+    @editable
+    SpikeHoldSeconds : float = 1.5
     @editable
     SpikeDamage : float = 1000.0
+    # A character's reported position is its capsule centre; feet are this far below it (cm, measured
+    # standing on the course floor 2026-10-03).
+    @editable
+    FeetDrop : float = 77.0
 
     # Test hook: each joining player auto-answers this many questions wrong, one every 12 s, cycling
     # through Penalties in order, so every penalty can be watched without walking. 0 = off (ship value).
@@ -129,12 +148,18 @@ fnm_director := class(creative_device):
     var TierPools : [][]int = array{}
     var PlayerStates : [player]fnm_player_state = map{}
     var Ready : logic = false
+    var IceRig : fnm_rig = fnm_rig{Name := "ice", Parts := array{}, Homes := array{}}
+    var SpikeRig : fnm_rig = fnm_rig{Name := "spike", Parts := array{}, Homes := array{}}
+    var YeetRig : fnm_rig = fnm_rig{Name := "yeet", Parts := array{}, Homes := array{}}
 
     OnBegin<override>()<suspends>:void =
         set Cartridge = FnmActiveCartridge()
         set TierCount = Cartridge.Tiers.Length
         set TierPools = FnmBuildTierPools(Cartridge.Items, TierCount)
         set Stations = BuildStations()
+        set IceRig = BuildRig("ice", fnm_ice)
+        set SpikeRig = BuildRig("spike", fnm_spike)
+        set YeetRig = BuildRig("yeet", fnm_yeet)
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
         else if (TierCount = 0):
@@ -203,6 +228,21 @@ fnm_director := class(creative_device):
             if (Value := DifficultyOverrides[K]):
                 set OverridePercent = Value
             fnm_station{Doors := StationDoors, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
+
+    # Every movable object carrying RigTag, remembered at its parked transform.
+    BuildRig(Name:string, RigTag:castable_subtype(tag)):fnm_rig =
+        var Parts : []creative_object = array{}
+        var Seen : int = 0
+        for (Object : FindCreativeObjectsWithTag(RigTag)):
+            set Seen += 1
+            if (Prop := creative_prop[Object]):
+                set Prop.CanBeDamaged = false
+                set Parts += array{Prop}
+            else if (Device := creative_device_base[Object]):
+                set Parts += array{Device}
+        Print("FNM: rig {Name}: {Parts.Length} movable of {Seen} tagged")
+        Homes := for (Part : Parts) { Part.GetTransform() }
+        fnm_rig{Name := Name, Parts := Parts, Homes := Homes}
 
     # A station with fewer doors than an item has choices could hide the right answer.
     WarnAboutDoorCounts():void =
@@ -342,29 +382,69 @@ fnm_director := class(creative_device):
         Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
         if (Kind = fnm_penalty.Freeze):
             if (Character := Player.GetFortCharacter[]):
-                Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := true, AllowEmotes := false})
+                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
+                Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                Ice := IceRig.NextIndex()
+                Placed := IceRig.Place(Ice, Feet, 0.0)
+                Print("FNM: ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
                 Sleep(FreezeSeconds)
+                IceRig.Park(Ice)
                 Character.ReleaseFromStasis()
             SendTo(Player, Station.RetryTeleporter)
         else if (Kind = fnm_penalty.Yeet):
             if (Character := Player.GetFortCharacter[]):
-                FnmYeet(Character, YeetBackSpeed, YeetUpSpeed)
-                Sleep(0.2)
-                Print("FNM: yeet {FnmVelocityLine(Character)}")
-            Sleep(1.5)
+                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
+                Vent := YeetRig.NextIndex()
+                Placed := YeetRig.Place(Vent, Feet, 0.0)
+                if (Part := YeetRig.PartAt[Vent], AirVent := air_vent_device[Part]):
+                    AirVent.Enable()
+                    AirVent.Activate()
+                # The vent only launches a player who ENTERS its gust; one standing still as it arrives is
+                # ignored. Hop them up into it.
+                Sleep(0.1)
+                Hop := Character.GetTransform()
+                if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
+                Print("FNM: vent {Vent} placed={FnmYesNo(Placed)} at {Feet}")
+                Sleep(YeetSeconds)
+                Print("FNM: yeet height {Character.GetTransform().Translation.Z - Feet.Z} cm")
+                YeetRig.Park(Vent)
+                # Rooms have no roof, so a glider can land outside its room: once they touch down (or after
+                # YeetAirSeconds), put them back at the station entry.
+                var Airborne : float = 0.0
+                loop:
+                    if (Character.IsOnGround[]) then break
+                    if (Airborne >= YeetAirSeconds) then break
+                    Sleep(0.25)
+                    set Airborne += 0.25
+                Print("FNM: yeet landed after {Airborne} s")
+            SendTo(Player, Station.RetryTeleporter)
         else:
             if (Character := Player.GetFortCharacter[]):
+                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
+                Spears := SpikeRig.NextIndices(SpearCount)
+                var Placed : int = 0
+                for (K -> Index : Spears):
+                    Angle := 2.0 * PiFloat * (K * 1.0) / (Max(Spears.Length, 1) * 1.0)
+                    Spot := Feet + vector3{X := SpearRing * Cos(Angle), Y := SpearRing * Sin(Angle), Z := -SpearDepth}
+                    if (SpikeRig.Place(Index, Spot, Angle * 180.0 / PiFloat)?):
+                        set Placed += 1
+                Print("FNM: spears placed {Placed}/{Spears.Length} at {Feet}")
+                for (Index : Spears):
+                    spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
+                Sleep(SpearSeconds)
                 Character.Damage(SpikeDamage)
-            # Wait out the elimination, then for the respawned character (gives up after ~20 s).
-            Sleep(1.0)
+                Sleep(SpikeHoldSeconds)
+                for (Index : Spears):
+                    SpikeRig.Park(Index)
+            # Wait for the respawned character (gives up after ~20 s).
             var Waited : int = 0
             loop:
+                Sleep(0.25)
                 if (Character := Player.GetFortCharacter[], Character.IsActive[]):
                     break
                 if (Waited >= 80):
                     break
                 set Waited += 1
-                Sleep(0.25)
             Print("FNM: spike respawn after {Waited} polls")
             SendTo(Player, Station.RetryTeleporter)
 

@@ -22,9 +22,10 @@ The right door opens onto the next hallway with no stall. A wrong door triggers 
 map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. Penalty catalog: `console/PENALTIES.md`.
 - [x] Penalty runtime: random pick from the map's pool; Freeze and Spike live; big verdict flash; right answer moves on at once
 - [x] Players start at station 1 facing the doors (Play-From-Here ignores the requested spawn point)
-- [ ] Yeet via a launcher device moved under the player (SetLinearVelocity is a no-op on players)
-- [ ] Penalty visuals: ice block around a frozen player, spike prop or real damage trap
-- [ ] Spike once logged "respawn after 0 polls" in live play (IsActive still true 1 s after Damage?) — make the wait key off the elimination, not a fixed 1 s
+- [x] Penalty visuals (2026-10-03, seen in play): ice block around a frozen player, a spear ring bursting up for Spike, an air-vent launch for Yeet (rigs: `tools/build_rigs.py`)
+- [x] Yeet launches for real (air vent moved under the player, ~75 m skydive); back at the station entry on landing
+- [x] Spike respawn wait no longer races the elimination (polls start after the damage; "after 8 polls" in play)
+- [ ] Aaron playtest of the three penalties by walking through wrong doors (debug hook verified only)
 - [ ] Course layout v2: hallways + real doors (prop with a door + `lock_device`), per-player passage via `barrier_device.AddToIgnoreList`
 - [ ] Map profile chooses its penalty pool (map.json → director `Penalties`)
 - [ ] More penalties from the catalog
