@@ -1,21 +1,17 @@
 # GOALS
 
-## G1 — Cartridge protocol v1 (no UEFN needed)
-Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm insert <id>`).
-- [x] Protocol spec, Verse types, first manifest (order of operations w/ exponents + parentheses)
-- [x] Toolchain `fnm/` (validate / bake / emit / insert / new) + order-of-ops generator + tests
-- [x] Browser emulator (`emulator/`) — plays any cartridge per §6; inspector for proofreading
-- [x] Verse console runtime (`console/verse/`) + UEFN wiring guide — written blind, compile pending G2
+## ✅ G1 — Cartridge protocol v1 — archived to DEEP_MEMORY.md (2026-10-03)
 
 ## G2 — First map in UEFN
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
 - [ ] Visual pass: rooms are plain white engine cubes — colour per tier or a themed kit
-- [ ] O1 font test (×, ÷, −, superscripts) — ÷ and − render in-game (2026-10-03); × and superscripts unchecked → pick Verse render profile
+- [ ] O1 font test (×, ÷, −, superscripts) — ÷ − × render in-game (2026-10-03); ✓ ✗ do NOT (missing-glyph diamond); superscripts unchecked → pick Verse render profile
 - [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
 - [x] First live session 2026-10-03: EAC installed, StartSession → match Running, HUD shows title/problem/choices, no FNM errors in client log
 - [x] Wrong-door return sank the player into the entry pad (`teleporter_device.Teleport`). Fixed: director `SendTo` uses `TeleportTo` 300 cm past the pad, +100 cm, facing +Y — Aaron confirmed in play 2026-10-03
-- [ ] Playtest pass: walk a correct and a wrong door, reach finish; stage subtitle (blue on pale wall) is hard to read — fix contrast
+- [x] Doors playtested by Aaron 2026-10-03: right and wrong doors work, stations 1→4 reached
+- [ ] Reach the finish in play; stage subtitle (blue on pale wall) is hard to read — fix contrast
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes
@@ -28,6 +24,7 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Players start at station 1 facing the doors (Play-From-Here ignores the requested spawn point)
 - [ ] Yeet via a launcher device moved under the player (SetLinearVelocity is a no-op on players)
 - [ ] Penalty visuals: ice block around a frozen player, spike prop or real damage trap
+- [ ] Spike once logged "respawn after 0 polls" in live play (IsActive still true 1 s after Damage?) — make the wait key off the elimination, not a fixed 1 s
 - [ ] Course layout v2: hallways + real doors (prop with a door + `lock_device`), per-player passage via `barrier_device.AddToIgnoreList`
 - [ ] Map profile chooses its penalty pool (map.json → director `Penalties`)
 - [ ] More penalties from the catalog
