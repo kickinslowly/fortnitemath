@@ -1,5 +1,9 @@
 # FNM console runtime -- the device that plays the active cartridge on a linear course of stations.
-# Place ONE fnm_director in the level and fill its @editable Stations array (see console/README.md).
+# Place ONE fnm_director in the level. It finds the course by Verse tags (fnm_tags.verse), so there is
+# nothing to wire: tag each station's entry teleporter fnm_station_NN + fnm_entry, each door trigger
+# fnm_station_NN + fnm_door_a..d, and the finish teleporter fnm_finish (see console/README.md).
+# Why tags: UEFN 42.30 rejected trigger/teleporter references in this device's @editable arrays from
+# both MCP and the Details panel ("is not valid trigger_device"), while tags set cleanly.
 #
 # Per player: own stage, own question, own HUD, own draw decks (PROTOCOL 6).
 # Wrong door  -> that choice's Feedback on the HUD, teleport to the station's RetryTeleporter, same question.
@@ -9,26 +13,18 @@
 using { /Fortnite.com/Devices }
 using { /Verse.org/Colors }
 using { /Verse.org/Simulation }
+using { /Verse.org/Simulation/Tags }
 
-# One question station. Doors are listed in A, B, C, D order (2-4 doors).
-fnm_station := class<concrete>:
+# One question station, assembled at OnBegin from the director's flat config.
+fnm_station := class:
     # trigger_devices for the doors, in order A, B, C, D.
-    @editable
-    Doors : []trigger_device = array{}
-
-    # Where a player is sent after a wrong answer (in front of this station's doors).
-    @editable
-    RetryTeleporter : teleporter_device = teleporter_device{}
-
-    # Where a player is sent after a right answer: the next station's start
-    # (for the last station: the finish area).
-    @editable
-    NextTeleporter : teleporter_device = teleporter_device{}
-
-    # Difficulty position in percent, 0 (easiest tier) .. 100 (hardest tier).
-    # -1 = automatic: spread evenly from first station (easiest) to last (hardest).
-    @editable
-    DifficultyOverride : int = -1
+    Doors : []trigger_device
+    # Where a player is sent after a wrong answer (this station's entry point).
+    RetryTeleporter : teleporter_device
+    # Where a player is sent after a right answer: the next station's entry (last station: finish).
+    NextTeleporter : teleporter_device
+    # Difficulty position in percent, 0 (easiest tier) .. 100 (hardest tier); -1 = automatic.
+    DifficultyOverride : int
 
 # Everything the director knows about one player's run.
 fnm_player_state := class:
@@ -56,8 +52,10 @@ fnm_door_handler := class:
         Director.OnDoor(MaybeAgent, StationIndex, DoorIndex)
 
 fnm_director := class(creative_device):
+    # Optional difficulty position per station in percent (0 easiest .. 100 hardest); -1 or a missing
+    # entry = automatic, spread evenly from first station to last (PROTOCOL 6).
     @editable
-    Stations : []fnm_station = array{}
+    DifficultyOverrides : []int = array{}
 
     # Seconds the wrong-answer feedback stays on the HUD (the player is teleported back immediately).
     @editable
@@ -90,6 +88,7 @@ fnm_director := class(creative_device):
         Subtitle := ""
         Tiers := array{}
         Items := array{}
+    var Stations : []fnm_station = array{}
     var TierCount : int = 0
     var TierPools : [][]int = array{}
     var PlayerStates : [player]fnm_player_state = map{}
@@ -99,8 +98,9 @@ fnm_director := class(creative_device):
         set Cartridge = FnmActiveCartridge()
         set TierCount = Cartridge.Tiers.Length
         set TierPools = FnmBuildTierPools(Cartridge.Items, TierCount)
+        set Stations = BuildStations()
         if (Stations.Length = 0):
-            Print("FNM: fnm_director has no Stations configured.")
+            Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
         else if (TierCount = 0):
             Print("FNM: the active cartridge has no tiers.")
         else:
@@ -115,6 +115,58 @@ fnm_director := class(creative_device):
             Playspace.PlayerRemovedEvent().Subscribe(OnPlayerRemoved)
             for (Joined : Playspace.GetPlayers()):
                 StartPlayer(Joined)
+
+    # One station's tagged parts: its entry teleporter and its doors in A..D order (missing letters skipped).
+    FindStationParts(StationTag:castable_subtype(tag)):tuple(?teleporter_device, []trigger_device) =
+        var Entry : ?teleporter_device = false
+        var DoorA : ?trigger_device = false
+        var DoorB : ?trigger_device = false
+        var DoorC : ?trigger_device = false
+        var DoorD : ?trigger_device = false
+        for (Object : FindCreativeObjectsWithTag(StationTag)):
+            if (Teleporter := teleporter_device[Object]):
+                set Entry = option{Teleporter}
+            else if (Trigger := trigger_device[Object]):
+                ObjectTags := Object.GetTags()
+                if (ObjectTags.Has[fnm_door_a{}]):
+                    set DoorA = option{Trigger}
+                else if (ObjectTags.Has[fnm_door_b{}]):
+                    set DoorB = option{Trigger}
+                else if (ObjectTags.Has[fnm_door_c{}]):
+                    set DoorC = option{Trigger}
+                else if (ObjectTags.Has[fnm_door_d{}]):
+                    set DoorD = option{Trigger}
+        Doors := for (MaybeDoor : array{DoorA, DoorB, DoorC, DoorD}, Door := MaybeDoor?):
+            Door
+        (Entry, Doors)
+
+    # Stations 1, 2, ... in order until the first station tag with no entry teleporter. A wrong answer
+    # returns the player to their station's entry; a right answer sends them to the next entry (last
+    # station: the fnm_finish teleporter).
+    BuildStations():[]fnm_station =
+        var Finish : ?teleporter_device = false
+        for (Object : FindCreativeObjectsWithTag(fnm_finish), Teleporter := teleporter_device[Object]):
+            set Finish = option{Teleporter}
+        var Entries : []teleporter_device = array{}
+        var DoorSets : [][]trigger_device = array{}
+        var Searching : logic = true
+        for (StationTag : FnmStationTags()):
+            Parts := FindStationParts(StationTag)
+            if (Searching?, Entry := Parts(0)?):
+                set Entries = Entries + array{Entry}
+                set DoorSets = DoorSets + array{Parts(1)}
+            else:
+                set Searching = false
+        for (K -> Entry : Entries, StationDoors := DoorSets[K]):
+            var Next : teleporter_device = Entry
+            if (Following := Entries[K + 1]):
+                set Next = Following
+            else if (FinishPoint := Finish?):
+                set Next = FinishPoint
+            var OverridePercent : int = -1
+            if (Value := DifficultyOverrides[K]):
+                set OverridePercent = Value
+            fnm_station{Doors := StationDoors, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
 
     # A station with fewer doors than an item has choices could hide the right answer.
     WarnAboutDoorCounts():void =

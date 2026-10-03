@@ -35,7 +35,7 @@ def _init():
                           "clientInfo": {"name": "fnm", "version": "0"}}})
 
 
-def call(toolset, tool, args=None, timeout=600):
+def call(toolset, tool, args=None, timeout=600, raw=False):
     """Call a toolset tool. Returns parsed JSON of the text result when possible, else the text.
     Raises RuntimeError when the tool reports an error."""
     _init()
@@ -46,6 +46,8 @@ def call(toolset, tool, args=None, timeout=600):
     if "error" in res:
         raise RuntimeError(res["error"])
     result = res["result"]
+    if raw:
+        return result
     text = "".join(c.get("text", "") for c in result.get("content", []))
     if result.get("isError"):
         raise RuntimeError(text)
