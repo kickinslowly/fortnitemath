@@ -11,9 +11,11 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
 - [ ] Visual pass: rooms are plain white engine cubes — colour per tier or a themed kit
-- [ ] O1 font test (×, ÷, −, superscripts) → pick Verse render profile
+- [ ] O1 font test (×, ÷, −, superscripts) — ÷ and − render in-game (2026-10-03); × and superscripts unchecked → pick Verse render profile
 - [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
-- [ ] Playtest: blocked on Easy Anti-Cheat install (UAC, Aaron) — then StartSession, check HUD, walk a door
+- [x] First live session 2026-10-03: EAC installed, StartSession → match Running, HUD shows title/problem/choices, no FNM errors in client log
+- [x] Wrong-door return sank the player into the entry pad (`teleporter_device.Teleport`). Fixed: director `SendTo` uses `TeleportTo` 300 cm past the pad, +100 cm, facing +Y — Aaron confirmed in play 2026-10-03
+- [ ] Playtest pass: walk a correct and a wrong door, reach finish; stage subtitle (blue on pale wall) is hard to read — fix contrast
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes

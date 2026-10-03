@@ -10,7 +10,9 @@
 # Right door  -> Explanation on the HUD for CorrectFeedbackSeconds, next question, teleport to NextTeleporter.
 # After the last station -> first-try accuracy on the HUD (optionally activates an end_game_device).
 
+using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
+using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/Colors }
 using { /Verse.org/Simulation }
 using { /Verse.org/Simulation/Tags }
@@ -64,6 +66,17 @@ fnm_director := class(creative_device):
     # Seconds the explanation shows before the player moves on to the next station.
     @editable
     CorrectFeedbackSeconds : float = 3.0
+
+    # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
+    # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
+    # playtest), so they land in open floor between the pad and the doors, a little above the ground.
+    @editable
+    ArrivalForward : float = 300.0
+    @editable
+    ArrivalLift : float = 100.0
+    # World yaw a moved player faces (90 = +Y, toward the doors).
+    @editable
+    ArrivalYaw : float = 90.0
 
     # Seconds "No choice X here" / "not your station" notices stay up.
     @editable
@@ -262,7 +275,7 @@ fnm_director := class(creative_device):
             else:
                 set State.MissedCurrent = true
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, DoorIndex), NamedColors.Tomato)
-                Station.RetryTeleporter.Teleport(State.Player)
+                SendTo(State.Player, Station.RetryTeleporter)
                 set State.Busy = false
                 Sleep(WrongFeedbackSeconds)
                 State.Hud.ClearFeedbackIf(Generation)
@@ -277,7 +290,19 @@ fnm_director := class(creative_device):
         else:
             DrawItem(State)
             ShowCurrent(State)
-        Station.NextTeleporter.Teleport(State.Player)
+        SendTo(State.Player, Station.NextTeleporter)
+
+    # Move Player into open floor just past Pad, facing the doors; falls back to the pad's own teleport
+    # if the character can't be moved directly.
+    SendTo(Player:player, Pad:teleporter_device):void =
+        PadAt := Pad.GetTransform().Translation
+        Spot := PadAt + vector3{X := 0.0, Y := ArrivalForward, Z := ArrivalLift}
+        Facing := MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)
+        if (Character := Player.GetFortCharacter[], Character.TeleportTo[Spot, Facing]):
+            Print("FNM: moved player to {Spot} (pad {PadAt})")
+            return
+        Print("FNM: direct move failed; using the pad's own teleport")
+        Pad.Teleport(Player)
 
     FinishPlayer(State:fnm_player_state):void =
         set State.Finished = true
