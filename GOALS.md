@@ -11,7 +11,8 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
 - [ ] O1 font test (×, ÷, −, superscripts) → pick Verse render profile
-- [ ] Build the starter course (stations + A–D doors), playtest with the order-of-ops cartridge
+- [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
+- [ ] Playtest: blocked on Easy Anti-Cheat install (UAC, Aaron) — then StartSession, check HUD, walk a door
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes
