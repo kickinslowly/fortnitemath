@@ -1,0 +1,108 @@
+"""Order-of-ops generator: golden misconception values and per-tier constraints."""
+import re
+from collections import Counter
+
+import pytest
+
+from fnm.profiles import render
+
+GOLDEN = [
+    ("3 + 4 × 2", {"CORRECT": 11, "ADD_FIRST": 14}),
+    ("2 × 3 + 4 × 5", {"CORRECT": 26, "LTR": 50, "ADD_FIRST": 70}),
+    ("2 × 3^2", {"CORRECT": 18, "EXP_AFTER_MULT": 36, "EXP_AS_MULT": 12}),
+    ("(3 + 4) × 2", {"CORRECT": 14, "IGNORE_PARENS": 11}),
+    ("12 ÷ 2 × 3", {"CORRECT": 18, "M_BEFORE_D": 2}),
+    ("10 − 3 + 2", {"CORRECT": 9, "A_BEFORE_S": 5}),
+    ("(1 + 2)^2", {"CORRECT": 9, "IGNORE_PARENS": 5}),
+]
+
+
+@pytest.mark.parametrize("text,expected", GOLDEN)
+def test_golden(gen, text, expected):
+    for rule, value in expected.items():
+        assert gen.evaluate(text, rule) == value, (text, rule)
+
+
+def test_display_format(gen):
+    assert gen.render(("×", ("+", 3, 4), 2)) == "(3 + 4) × 2"
+    assert gen.render(("^", ("+", 1, 2), 2)) == "(1 + 2)^2"
+    assert gen.render(("×", 2, ("^", 3, 2))) == "2 × 3^2"
+    assert gen.render(("−", 10, ("−", 3, 2))) == "10 − (3 − 2)"
+
+
+def test_label_priority_on_collision(gen):
+    # 2 × 3^2: LTR gives (2 × 3)^2 = 36 too; EXP_AFTER_MULT outranks LTR.
+    labels = dict(gen.misconception_values("2 × 3^2", set(gen.LABEL_PRIORITY)))
+    assert labels["EXP_AFTER_MULT"] == 36
+    assert "LTR" not in labels
+
+
+def _ops(prompt):
+    return sum(prompt.count(o) for o in "+−×÷^")
+
+
+def test_items_shape(baked, gen):
+    declared = set(baked["misconceptions"])
+    for it in baked["items"]:
+        assert len(it["choices"]) == 4, it["id"]
+        labels = [m for m in it["misconceptions"] if m not in (None, "ARITH")]
+        assert labels, f"{it['id']} has no misconception distractor"
+        assert set(labels) <= declared
+        for c in it["choices"]:
+            assert 0 <= int(c) <= 999
+        assert len(render(it["explanation"], "unicode")) <= 160
+        # Each labelled distractor really is that rule's value.
+        for c, m in zip(it["choices"], it["misconceptions"]):
+            if m not in (None, "ARITH"):
+                assert gen.evaluate(it["prompt"], m) == int(c), (it["id"], m)
+        nums = [int(n) for n in re.findall(r"\d+", it["prompt"])]
+        assert all(n <= 100 for n in nums), it["id"]
+
+
+def test_tier_rules(baked, gen):
+    for it in baked["items"]:
+        p, t = it["prompt"], it["tier"]
+        c = gen.evaluate(p)
+        n = _ops(p)
+        if t == 1:
+            assert n == 2 and "(" not in p and "^" not in p
+            assert gen.evaluate(p, "LTR") != c
+        elif t == 2:
+            assert 2 <= n <= 3 and p.count("(") == 1 and "^" not in p
+            assert gen.evaluate(p, "IGNORE_PARENS") != c
+        elif t == 3:
+            assert 2 <= n <= 3 and p.count("^") == 1 and "(" not in p
+        elif t == 4:
+            assert "^" in p and "(" in p and 2 <= n <= 4
+        elif t == 5:
+            assert 4 <= n <= 5 and "÷" in p and "^" in p
+
+
+def test_intermediates_and_powers(baked, gen):
+    for it in baked["items"]:
+        for op, a, b, v in gen.trace(it["prompt"]):
+            assert v.denominator == 1 and 0 <= v <= 999, it["id"]
+            if op == "^":
+                assert 2 <= a <= 10 and b in (2, 3) and v <= 1000, it["id"]
+
+
+def test_answer_balance_exact(baked):
+    for t in range(1, 6):
+        cnt = Counter(it["answer"] for it in baked["items"] if it["tier"] == t)
+        assert cnt == {0: 10, 1: 10, 2: 10, 3: 10}
+
+
+@pytest.mark.parametrize("text,expected", [
+    ("9 × 12 + 8^2", "8^2 = 64, then 9 × 12 = 108, then 108 + 64 = 172."),
+    ("11 + (12 − 11) × 9^2", "12 − 11 = 1, then 9^2 = 81, then 1 × 81 = 81, then 11 + 81 = 92."),
+    ("5^3 − (136 ÷ (10 + 7) − 6)",
+     "10 + 7 = 17, then 136 ÷ 17 = 8, then 8 − 6 = 2, then 5^3 = 125, then 125 − 2 = 123."),
+    ("3 + 4 × 2", "4 × 2 = 8, then 3 + 8 = 11."),
+])
+def test_explanation_follows_taught_order(gen, text, expected):
+    # parentheses (innermost first), then ^, then × ÷, then + −, left to right
+    assert gen.explanation(text) == expected
+
+
+def test_explanation_identical_subexpressions(gen):
+    assert gen.explanation("2 × 3 + 2 × 3") == "2 × 3 = 6, then 2 × 3 = 6, then 6 + 6 = 12."

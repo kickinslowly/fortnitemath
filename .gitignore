@@ -1,2 +1,10 @@
 .venv/
 .idea/
+
+# emulator e2e (Playwright)
+emulator/node_modules/
+emulator/e2e/test-results/
+emulator/e2e/screens/
+emulator/playwright-report/
+__pycache__/
+.pytest_cache/

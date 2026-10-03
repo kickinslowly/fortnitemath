@@ -112,8 +112,20 @@ procedural cartridge ships a test that re-checks every baked answer by an indepe
 
 ## 6. Console contract
 
+Maps differ (station count, doors per station, linear or free-roam). The rule: **the protocol fixes the
+minimums both sides meet; each map declares its shape in a map profile (§6a); the toolchain adapts the
+cartridge to the map at emit time.** Content is never truncated mid-string, and every map spans the
+cartridge's full difficulty range — easiest tier first, hardest tier last — whatever its size.
+
 A console MUST:
-- Declare a stage count S. Stage s (1-based) draws from tier `1 + floor((s - 1) * T / S)`.
+- Give every question station a **difficulty position** p ∈ [0, 1]. Station tier =
+  `1 + round_half_up(p * (T - 1))`. A linear map with S stations uses p = (s - 1) / (S - 1) for
+  stage s (1-based); S = 1 gives p = 0. Integer form (Verse, no floats):
+  `tier = 1 + (2*(s-1)*(T-1) + (S-1)) div (2*(S-1))` for S > 1, else 1.
+  Examples, T = 5: S = 3 → 1, 3, 5. S = 5 → 1, 2, 3, 4, 5. S = 10 → 1,1,2,2,3,3,4,4,5,5.
+  A free-roam map sets p per station by hand (e.g. the tower top is p = 1).
+- Display the §5 rule-6 maximum lengths without truncation. A map that cannot fit them is not a
+  conforming console.
 - Draw items within a tier at random **without replacement** per player per run; reshuffle when exhausted.
 - On a wrong choice, show that choice's misconception `student` text (or "Check your arithmetic." for `ARITH`).
 - On a correct choice, show the item's `explanation`.
@@ -121,6 +133,35 @@ A console MUST:
 - Never depend on a specific cartridge id, tier count, or item content.
 
 What happens after a wrong answer (retry, respawn, lose a life) is map design, not protocol.
+
+## 6a. Map profiles
+
+Every map is registered as `maps/<map-id>/map.json`:
+
+```json
+{
+  "protocol": "fnm-cart/1",
+  "id": "starter",
+  "title": "Starter Course",
+  "max_choices": 4,
+  "render_profile": "unicode",
+  "uefn_project": null
+}
+```
+
+- `max_choices` (2–4): doors/pads per station. When an item has more choices than this, emit keeps the
+  correct choice and drops distractors in this order until it fits: `ARITH` choices first (last in baked
+  order first), then misconception choices (last in baked order first). Remaining choices keep their
+  baked relative order; `Answer`/`Feedback` are re-indexed.
+- `render_profile`: §7 profile for this map's fonts.
+- `uefn_project`: absolute path to the UEFN project root, or null until it exists. When set,
+  `fnm sync <map-id>` copies `console/verse/*.verse` + the map's generated slot into the project's Verse folder.
+- Station count and difficulty positions are NOT in the profile — they live in the map (Verse @editable
+  config), because the map's runtime already knows its stations. The protocol's tier formula makes any
+  count work.
+
+`fnm insert <cartridge>` emits to **every** registered map: `maps/<map-id>/generated/fnm_active_cartridge.verse`.
+Which cartridge a map currently holds is recorded in `maps/<map-id>/generated/SLOT.txt` (id, version, profile).
 
 ## 7. Emit targets and render profiles
 
@@ -134,7 +175,7 @@ Baked text is canonical. Emitters apply a **render profile**:
 Non-digit exponents (`2^(1 + 1)`) stay `^` in both. Which profile the UEFN map uses is decided once by
 an in-editor font test (open item O1); the emulator uses `unicode`.
 
-**Verse target** — `console/verse/generated/fnm_active_cartridge.verse`, defining exactly one function:
+**Verse target** — `maps/<map-id>/generated/fnm_active_cartridge.verse` (one per registered map, §6a), defining exactly one function:
 
 ```verse
 FnmActiveCartridge():fnm_cartridge = fnm_cartridge{ ... }

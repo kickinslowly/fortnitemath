@@ -4,6 +4,15 @@ Control folder for a UEFN island built with Claude. The UEFN project itself live
 `%USERPROFILE%\Documents\Fortnite Projects\<ProjectName>` (UEFN creates it); this folder
 holds the MCP wiring, notes, and planning docs.
 
+## Architecture
+Cartridge (topic) ↔ console (map) contract: **PROTOCOL.md** is the single source of truth.
+- `cartridges/<id>/` topic source + committed `baked.json`
+- `fnm/` Python toolchain — `.venv/Scripts/python -m fnm insert <id>` plugs a cartridge in
+- `console/verse/` shared map runtime (every map uses the same code)
+- `maps/<id>/map.json` map profile (doors per station, font profile, UEFN path); `maps/<id>/generated/` is that map's cartridge slot (never hand-edit)
+- `emulator/` browser console for testing cartridges without Fortnite
+- Goals: GOALS.md
+
 ## How Claude drives UEFN
 - UEFN 42.00+ (Aug 2026) embeds an official MCP server: http://127.0.0.1:8000/mcp (`.mcp.json` here).
 - Per UEFN project, once: Project Settings → enable **Python Editor Scripting** and **UEFN MCP Toolsets**;

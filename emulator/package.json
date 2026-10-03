@@ -1,0 +1,12 @@
+{
+  "name": "fnm-emulator",
+  "private": true,
+  "description": "Browser console for fnm-cart/1 cartridges. Static files; npm is only for the e2e check.",
+  "scripts": {
+    "e2e": "playwright test --config e2e/playwright.config.mjs",
+    "screens": "node e2e/screens.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

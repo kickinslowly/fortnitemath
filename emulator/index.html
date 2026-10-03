@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FNM Emulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app" class="app">
+  <noscript>The emulator needs JavaScript.</noscript>
+</div>
+<script>
+  // Load the cartridge file: emulator/carts.js by default, or ?carts=<path> (relative to this page).
+  // Works from file:// because it is a plain <script src>, not fetch/XHR.
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var src = params.get("carts") || "carts.js";
+    window.FNM_CARTS_SRC = src;
+    var s = document.createElement("script");
+    s.src = src;
+    s.onload = function () { window.FNM_CARTS_STATUS = "loaded"; boot(); };
+    s.onerror = function () { window.FNM_CARTS_STATUS = "missing"; boot(); };
+    function boot() {
+      if (window.FNM_EMU && window.FNM_EMU.boot) window.FNM_EMU.boot();
+      else window.FNM_BOOT_PENDING = true;
+    }
+    document.head.appendChild(s);
+  })();
+</script>
+<script src="app.js"></script>
+</body>
+</html>

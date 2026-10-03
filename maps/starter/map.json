@@ -1,0 +1,8 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "starter",
+  "title": "Starter Course",
+  "max_choices": 4,
+  "render_profile": "unicode",
+  "uefn_project": null
+}
