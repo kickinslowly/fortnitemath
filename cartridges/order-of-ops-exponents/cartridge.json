@@ -1,0 +1,48 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "order-of-ops-exponents",
+  "version": "1.0.0",
+  "title": "Order of Operations",
+  "subtitle": "Exponents & Parentheses",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.EE.A.1", "CCSS.MATH.CONTENT.5.OA.A.1"],
+  "seed": 20261002,
+  "items_per_tier": 40,
+  "tiers": [
+    { "tier": 1, "name": "Warm-up", "description": "Two operations. Multiply or divide before you add or subtract." },
+    { "tier": 2, "name": "Parentheses", "description": "Parentheses first, then the rest." },
+    { "tier": 3, "name": "Exponents", "description": "Exponents come before multiplying, dividing, adding and subtracting." },
+    { "tier": 4, "name": "Power Moves", "description": "Exponents and parentheses together." },
+    { "tier": 5, "name": "Boss Level", "description": "Four or more steps, nested parentheses, all operations." }
+  ],
+  "misconceptions": {
+    "LTR": {
+      "student": "Worked left to right. Do × and ÷ before + and −.",
+      "teacher": "Evaluates strictly left to right, ignoring precedence."
+    },
+    "ADD_FIRST": {
+      "student": "Added or subtracted too early. × and ÷ come first.",
+      "teacher": "Performs addition/subtraction before multiplication/division."
+    },
+    "IGNORE_PARENS": {
+      "student": "Skipped the parentheses. Do what's inside them first.",
+      "teacher": "Ignores grouping symbols and applies normal precedence to the flat expression."
+    },
+    "EXP_AS_MULT": {
+      "student": "3^2 means 3 × 3, not 3 × 2.",
+      "teacher": "Treats a^b as a × b."
+    },
+    "EXP_AFTER_MULT": {
+      "student": "Exponent goes on its base only, before multiplying.",
+      "teacher": "Evaluates exponents after multiplication/division, e.g. 2 × 3^2 as (2 × 3)^2."
+    },
+    "M_BEFORE_D": {
+      "student": "× and ÷ are a team: go left to right between them.",
+      "teacher": "Reads PEMDAS literally and multiplies before dividing regardless of position."
+    },
+    "A_BEFORE_S": {
+      "student": "+ and − are a team: go left to right between them.",
+      "teacher": "Reads PEMDAS literally and adds before subtracting regardless of position."
+    }
+  }
+}
