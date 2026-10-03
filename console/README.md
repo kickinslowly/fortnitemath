@@ -16,9 +16,7 @@ was written); see **First compile checklist** at the bottom.
 
 ## 1. Put the Verse files in the UEFN project
 
-All five files go **flat, in one folder** — the project's Verse source folder (in UEFN: *Verse → Verse
-Explorer*, right-click the project → *Open in File Explorer*; typically
-`Documents\Fortnite Projects\<Project>\Plugins\<Project>\Content\`).
+All Verse files go **flat, in one folder** — the project's Verse root, `<project>\Content\` (verified on UEFN 42.30).
 
 - `fnm sync <map-id>` does this: copies `console/verse/*.verse` plus
   `maps/<map-id>/generated/fnm_active_cartridge.verse` into the project's Verse folder (needs
@@ -33,37 +31,37 @@ Content Browser under the project's *CreativeDevices* folder.
 Swapping cartridges later: `fnm insert <cartridge>` → `fnm sync <map-id>` → Build Verse Code → push
 changes. No device or level edits.
 
-## 2. Build each station (repeat S times)
+## 2. Build the course
 
-| Device | Count | Settings to change |
+The fast path is `python tools/build_course.py [--stations 10] [--doors 4]` with UEFN open: it builds every
+room, door, sign and teleporter, tags them, and places the director (idempotent: it first removes every
+actor tagged `fnm_course`). To build by hand instead, per station:
+
+| Device | Count | Settings |
 |---|---|---|
-| **Trigger** (`trigger_device`) | one per door: 2, 3 or 4 (the map's `max_choices`) | *Times Can Trigger*: **Unlimited** (or 0 / ∞ — whatever the dropdown calls it). *Triggered by Player*: **On**. *Triggered by Vehicles*/*Sequencers*/*Water*: **Off**. *Trigger Delay* and *Reset Delay*: **0**. *Visible in Game*: **Off**. Scale it to fill the doorway. |
-| **Teleporter** — retry point | 1 | Placed in front of this station's doors, facing them. **No** *Teleporter Group* / *Target Group* (it is only a destination). *Visible in Game*: **Off**. Turn off anything that lets a player walking over it get teleported (e.g. leave target group empty). |
-| **Teleporter** — next point | 1 (can be shared: station k's next point = station k+1's start) | Same as above. For the **last** station this is the **finish area**. |
-| Door labels A/B/C/D | per door | Static signs/billboards. Not driven by Verse. Left-to-right order must match the Doors array order. |
+| **Trigger** (`PID_Device_Trigger`, not the legacy one) | 2–4, one per door, sealed behind its doorway | *Visible in Game* off, *Reset Delay* 0, unlimited triggers, vehicles/water/physics off |
+| **Teleporter** — station entry | 1 | *Teleporter Group* / *Target Group* = None (it is only a destination) |
+| Door labels A–D | per door | Static billboards. A is on the player's LEFT when facing the doors. |
 
-Verse never reads the teleporters' own groups: it calls `Teleport(Player)` on the device you assign,
-which moves the player *to that device*.
+Plus one **finish** teleporter, and **Player Spawn Pads** in station 1.
 
-Also place:
-- **Player Spawn Pads** at station 1's start (mid-game joiners start at stage 1).
-- Optional **End Game** device for the finish (see `UseEndGameDevice`).
+## 3. Tag the devices (no wiring)
 
-## 3. Place and fill `fnm_director`
+The director finds the course at runtime by Verse tags (`verse/fnm_tags.verse`). In each device's Details
+panel add a **Verse Tag Markup** component and set its tags:
 
-Drag one `fnm_director` into the level. In its Details panel:
-
-| Property | Fill with |
+| Device | Tags |
 |---|---|
-| `Stations` | Add one element per station, **in course order** (element 0 = stage 1). |
-| `Stations[i].Doors` | Add 2–4 elements and pick that station's triggers in order **A, B, C, D**. |
-| `Stations[i].RetryTeleporter` | That station's retry teleporter. |
-| `Stations[i].NextTeleporter` | Next station's start teleporter (last station: finish-area teleporter). |
-| `Stations[i].DifficultyOverride` | `-1` (default) = automatic, evenly from tier 1 at the first station to tier T at the last. `0..100` = this station's difficulty position in percent (0 = easiest tier, 100 = hardest). |
-| `WrongFeedbackSeconds` | How long a wrong answer's feedback stays up (player is teleported back immediately). Default 4. |
-| `CorrectFeedbackSeconds` | How long the explanation shows before the player is moved on. Default 3. |
-| `NoticeSeconds` | "No choice D here" / "not your station" notices. Default 2. |
-| `UseEndGameDevice` + `EndGameDevice` | Tick and pick an End Game device to fire `EndGameDelaySeconds` after a player finishes. Check that device's own settings — it can end the round for everyone. |
+| Station N entry teleporter | `fnm_station_NN` + `fnm_entry` |
+| Station N door trigger | `fnm_station_NN` + `fnm_door_a` / `_b` / `_c` / `_d` |
+| Finish teleporter | `fnm_finish` |
+
+Stations are read 01, 02, ... until the first number with no entry teleporter (max 20). Then place one
+`fnm_director` anywhere. Optional settings: `DifficultyOverrides` (percent per station, -1 = automatic,
+spread evenly from tier 1 at the first station to tier T at the last), feedback/notice seconds, End Game device.
+
+Why tags: in UEFN 42.30 a Verse device's @editable `trigger_device` / `teleporter_device` arrays refused
+these devices from both MCP and the Details panel ("is not valid trigger_device"); tags set cleanly.
 
 Automatic difficulty (PROTOCOL §6, T = 5 tiers): 10 stations → tiers 1,1,2,2,3,3,4,4,5,5; 5 → 1..5;
 3 → 1,3,5.

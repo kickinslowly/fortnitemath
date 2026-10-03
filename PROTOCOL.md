@@ -237,5 +237,5 @@ needs the catalog. Ids stay in `baked.json` for later analytics.
 ## 10. Open items
 
 - **O1** Which glyphs the Fortnite billboard/UI fonts render (superscripts, `×`, `÷`, `−`). Decides the Verse render profile.
-- **O2** Verse compile of the generated file at ~200 items — any literal-size or build-time limit.
-- **O3** Whether Verse needs `<public>` / module paths on these types once the map has multiple Verse files.
+- ~~O2~~ Resolved 2026-10-03: the 200-item generated file compiles clean in UEFN 42.30 and cooks server-side.
+- ~~O3~~ Resolved: all Verse files sit flat in `<project>/Content/` (one module); no `<public>` needed.

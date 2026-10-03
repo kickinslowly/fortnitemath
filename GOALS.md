@@ -10,6 +10,7 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 ## G2 — First map in UEFN
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
+- [ ] Visual pass: rooms are plain white engine cubes — colour per tier or a themed kit
 - [ ] O1 font test (×, ÷, −, superscripts) → pick Verse render profile
 - [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
 - [ ] Playtest: blocked on Easy Anti-Cheat install (UAC, Aaron) — then StartSession, check HUD, walk a door
