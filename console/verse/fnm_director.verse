@@ -6,14 +6,16 @@
 # both MCP and the Details panel ("is not valid trigger_device"), while tags set cleanly.
 #
 # Per player: own stage, own question, own HUD, own draw decks (PROTOCOL 6).
-# Wrong door  -> that choice's Feedback on the HUD, teleport to the station's RetryTeleporter, same question.
-# Right door  -> Explanation on the HUD for CorrectFeedbackSeconds, next question, teleport to NextTeleporter.
+# Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
+# Right door  -> big green check, next question, teleport to NextTeleporter at once (no stall); the
+#                Explanation stays on the HUD for CorrectFeedbackSeconds while the player moves on.
 # After the last station -> first-try accuracy on the HUD (optionally activates an end_game_device).
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/Colors }
+using { /Verse.org/Random }
 using { /Verse.org/Simulation }
 using { /Verse.org/Simulation/Tags }
 
@@ -63,9 +65,30 @@ fnm_director := class(creative_device):
     @editable
     WrongFeedbackSeconds : float = 4.0
 
-    # Seconds the explanation shows before the player moves on to the next station.
+    # Seconds the explanation of a right answer stays on the HUD (the player moves on immediately).
     @editable
-    CorrectFeedbackSeconds : float = 3.0
+    CorrectFeedbackSeconds : float = 4.0
+
+    # Wrong-door penalties this map can draw from, one at random per wrong answer. Yeet is out of the
+    # default pool until it launches for real: SetLinearVelocity is a no-op on players (verified 2026-10-03).
+    @editable
+    Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike}
+    @editable
+    FreezeSeconds : float = 5.0
+    # Yeet launch velocity in m/s: back along the course (-Y) and up.
+    @editable
+    YeetBackSpeed : float = 25.0
+    @editable
+    YeetUpSpeed : float = 12.0
+    # Damage dealt by Spike; more than full health + shield eliminates.
+    @editable
+    SpikeDamage : float = 1000.0
+
+    # Test hook: each joining player auto-answers this many questions wrong, one every 12 s, cycling
+    # through Penalties in order, so every penalty can be watched without walking. 0 = off (ship value).
+    @editable
+    DebugAutoWrongAnswers : int = 0
+    var DebugPenaltyCursor : int = 0
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -213,6 +236,11 @@ fnm_director := class(creative_device):
             if (set PlayerStates[Joined] = State) {}
             DrawItem(State)
             ShowCurrent(State)
+            # Start everyone at station 1 facing the doors, whatever spawn pad the island used.
+            if (First := Stations[0]):
+                SendTo(Joined, First.RetryTeleporter)
+            if (DebugAutoWrongAnswers > 0):
+                spawn{ DebugAutoWrong(State) }
 
     # ---------------------------------------------------------------- questions
 
@@ -266,16 +294,19 @@ fnm_director := class(creative_device):
             else if (DoorIndex = Item.Answer):
                 if (not State.MissedCurrent?):
                     set State.FirstTryCorrect += 1
-                Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
-                Sleep(CorrectFeedbackSeconds)
-                if (State.Player.IsActive[], not State.Finished?):
-                    State.Hud.ClearFeedbackIf(Generation)
-                    AdvancePlayer(State, Station)
+                State.Hud.FlashVerdict(true, "")
+                AdvancePlayer(State, Station)
                 set State.Busy = false
+                if (not State.Finished?):
+                    Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    Sleep(CorrectFeedbackSeconds)
+                    State.Hud.ClearFeedbackIf(Generation)
             else:
                 set State.MissedCurrent = true
+                Kind := PickPenalty()
+                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, DoorIndex), NamedColors.Tomato)
-                SendTo(State.Player, Station.RetryTeleporter)
+                Punish(State.Player, Station, Kind)
                 set State.Busy = false
                 Sleep(WrongFeedbackSeconds)
                 State.Hud.ClearFeedbackIf(Generation)
@@ -291,6 +322,51 @@ fnm_director := class(creative_device):
             DrawItem(State)
             ShowCurrent(State)
         SendTo(State.Player, Station.NextTeleporter)
+
+    PickPenalty()<transacts>:fnm_penalty =
+        Index := if (DebugAutoWrongAnswers > 0) then Mod[DebugPenaltyCursor, Max(Penalties.Length, 1)] or 0
+                 else GetRandomInt(0, Penalties.Length - 1)
+        set DebugPenaltyCursor += 1
+        if (Kind := Penalties[Index]) then Kind else fnm_penalty.Freeze
+
+    DebugAutoWrong(State:fnm_player_state)<suspends>:void =
+        for (N := 1..DebugAutoWrongAnswers):
+            Sleep(12.0)
+            if (Item := Cartridge.Items[State.CurrentItem], not State.Busy?, not State.Finished?):
+                set State.Busy = true
+                Print("FNM: debug auto-wrong {N}")
+                HandleDoor(State, State.Stage - 1, if (Item.Answer = 0) then 1 else 0)
+
+    # Applies Kind to Player, who answered wrong at Station. Returns once the player can play again.
+    Punish(Player:player, Station:fnm_station, Kind:fnm_penalty)<suspends>:void =
+        Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
+        if (Kind = fnm_penalty.Freeze):
+            if (Character := Player.GetFortCharacter[]):
+                Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := true, AllowEmotes := false})
+                Sleep(FreezeSeconds)
+                Character.ReleaseFromStasis()
+            SendTo(Player, Station.RetryTeleporter)
+        else if (Kind = fnm_penalty.Yeet):
+            if (Character := Player.GetFortCharacter[]):
+                FnmYeet(Character, YeetBackSpeed, YeetUpSpeed)
+                Sleep(0.2)
+                Print("FNM: yeet {FnmVelocityLine(Character)}")
+            Sleep(1.5)
+        else:
+            if (Character := Player.GetFortCharacter[]):
+                Character.Damage(SpikeDamage)
+            # Wait out the elimination, then for the respawned character (gives up after ~20 s).
+            Sleep(1.0)
+            var Waited : int = 0
+            loop:
+                if (Character := Player.GetFortCharacter[], Character.IsActive[]):
+                    break
+                if (Waited >= 80):
+                    break
+                set Waited += 1
+                Sleep(0.25)
+            Print("FNM: spike respawn after {Waited} polls")
+            SendTo(Player, Station.RetryTeleporter)
 
     # Move Player into open floor just past Pad, facing the doors; falls back to the pad's own teleport
     # if the character can't be moved directly.

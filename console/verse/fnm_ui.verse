@@ -19,11 +19,17 @@ fnm_hud := class:
     PromptText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 44.0, DefaultJustification := text_justification.Center}
     ChoicesText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
     FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    # Centre-screen verdict: a huge check or X, and under a wrong one the penalty's name.
+    VerdictText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 300.0, DefaultJustification := text_justification.Center}
+    VerdictLabel : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 96.0, DefaultJustification := text_justification.Center}
+    # Seconds the verdict stays up.
+    VerdictSeconds : float = 1.5
 
     var MaybePlayerUI : ?player_ui = false
     var MaybeRoot : ?canvas = false
     # Bumped on every feedback message so an older timer never clears a newer message.
     var FeedbackGeneration : int = 0
+    var VerdictGeneration : int = 0
 
     # Builds the widget tree and adds it to Player's screen. Safe to call once per player.
     Attach(Player:player):void =
@@ -59,6 +65,19 @@ fnm_hud := class:
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 40.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
+                    canvas_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := VerdictText
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                stack_box_slot:
+                                    Widget := VerdictLabel
+                                    HorizontalAlignment := horizontal_alignment.Center
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.5}, Maximum := vector2{X := 0.5, Y := 0.5}}
+                        Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
             set MaybePlayerUI = option{PlayerUI}
@@ -99,6 +118,23 @@ fnm_hud := class:
     ClearFeedbackNow():void =
         set FeedbackGeneration += 1
         FeedbackText.SetText(FnmText(""))
+
+    # Flashes a big green CORRECT! or a red X with Label under it, for VerdictSeconds.
+    FlashVerdict(Correct:logic, Label:string):void =
+        set VerdictGeneration += 1
+        Color := if (Correct?) then NamedColors.Lime else NamedColors.Red
+        VerdictText.SetTextColor(Color)
+        VerdictLabel.SetTextColor(Color)
+        # The HUD font has no check/cross glyphs (they render as a "?" diamond); plain text it is.
+        VerdictText.SetText(FnmText(if (Correct?) then "" else "X"))
+        VerdictLabel.SetText(FnmText(if (Correct?) then "CORRECT!" else Label))
+        spawn{ ClearVerdictLater(VerdictGeneration) }
+
+    ClearVerdictLater(Generation:int)<suspends>:void =
+        Sleep(VerdictSeconds)
+        if (Generation = VerdictGeneration):
+            VerdictText.SetText(FnmText(""))
+            VerdictLabel.SetText(FnmText(""))
 
     # End-of-run screen.
     ShowFinished(Headline:string, Detail:string):void =
