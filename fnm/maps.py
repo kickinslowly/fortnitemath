@@ -13,11 +13,10 @@ SLOT_DIR = "generated"
 SLOT_VERSE = "fnm_active_cartridge.verse"
 SLOT_TXT = "SLOT.txt"
 
-# TODO(G2): UEFN's Verse folder layout is UNVERIFIED. Assumed: <project>/Plugins/<ProjectName>/Content/
-# where ProjectName is the project directory's name. Confirm on the first real UEFN project and fix
-# here only. All files land flat in one folder on purpose: a subfolder is a separate Verse module and
-# its definitions are <internal> to it (PROTOCOL open item O3).
-UEFN_VERSE_SUBPATH = "Plugins/{project}/Content"
+# UEFN 42.30 layout (verified 2026-10-03 by writing a file through UEFN MCP and finding it on disk):
+# a project's Verse root is <project>/Content/. All files land flat in that one folder on purpose: a
+# subfolder is a separate Verse module and its definitions are <internal> to it (PROTOCOL O3).
+UEFN_VERSE_SUBPATH = "Content"
 
 
 def maps_dir(root: Path | None = None) -> Path:

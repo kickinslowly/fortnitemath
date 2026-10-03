@@ -115,6 +115,9 @@ def test_emit_refuses_invalid_map(tmp_repo):
 
 
 def test_sync_null_project(tmp_repo, capsys):
+    m = json.loads((tmp_repo / "maps" / "starter" / "map.json").read_text(encoding="utf-8"))
+    m["uefn_project"] = None
+    write_json(tmp_repo / "maps" / "starter" / "map.json", m)
     assert cli.main(["--root", str(tmp_repo), "sync", "starter"]) == 0
     assert "uefn_project is null" in capsys.readouterr().out
 

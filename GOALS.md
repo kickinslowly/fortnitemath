@@ -7,9 +7,9 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 - [x] Browser emulator (`emulator/`) — plays any cartridge per §6; inspector for proofreading
 - [x] Verse console runtime (`console/verse/`) + UEFN wiring guide — written blind, compile pending G2
 
-## G2 — First map in UEFN (blocked on install)
-- [ ] Create UEFN project; enable Python Editor Scripting + UEFN MCP Toolsets; confirm `unreal-mcp` connects
-- [ ] First Verse compile of console + generated cartridge; fix
+## G2 — First map in UEFN
+- [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
+- [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
 - [ ] O1 font test (×, ÷, −, superscripts) → pick Verse render profile
 - [ ] Build the starter course (stations + A–D doors), playtest with the order-of-ops cartridge
 
@@ -21,4 +21,4 @@ Spec in PROTOCOL.md. A topic plugs into any map by one command (`python -m fnm i
 - [x] Order-of-ops ARITH 53% → 41% via compound misreadings (labelled with first misconception only — playtest whether that feedback reads well)
 - [ ] integer-ops T3 (× ÷) is 67% ARITH: only one ×/÷ misconception exists — add one (e.g. sign of quotient vs. dividend) or make T3 3-choice
 - [ ] integer-ops T4/T5 occasionally produce zero intermediates (`(−10 + 10) × (−6)`) — trivial-feeling, filter them
-- [ ] Confirm `UEFN_VERSE_SUBPATH` in `fnm/maps.py` against a real UEFN project (sync destination)
+- [x] Verse root is `<project>/Content/` (verified); `fnm sync starter` works
