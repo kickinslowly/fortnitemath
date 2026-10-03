@@ -34,5 +34,8 @@ before UEFN work. Project-specific:
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,
   `fnm_door_a..d`, `fnm_entry`, `fnm_finish`); max 20 stations.
-- Course grid stays tight (`SPACING`/`COLS` in build_course.py) — the template floor ends near x≈13000.
+- The course is a straight +Y run on its own floor slabs (`maps/starter/LAYOUT.md`); the director's arrival
+  direction is fixed at +Y (`ArrivalYaw`), so a bent layout needs per-station facing first.
+- Test hooks on the director (ship values 0 / false): `DebugAutoWrongAnswers`, `DebugPassageTest` (drops the
+  player into station 1's right vestibule, then behind a wrong door; hold W with `tools/holdkey.ps1`).
 - After any Verse edit: `python -m fnm sync starter` then VerseToolset `BuildAll`.

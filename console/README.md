@@ -33,13 +33,15 @@ changes. No device or level edits.
 
 ## 2. Build the course
 
-The fast path is `python tools/build_course.py [--stations 10] [--doors 4]` with UEFN open: it builds every
-room, door, sign and teleporter, tags them, and places the director (idempotent: it first removes every
-actor tagged `fnm_course`). To build by hand instead, per station:
+The fast path is `python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]` with UEFN open: it
+builds every hallway, door, vestibule, barrier, sign and teleporter, tags them, and places the director
+(idempotent: it first removes every actor tagged `fnm_course`). Penalty props: `python tools/build_rigs.py`.
+Layout: `maps/starter/LAYOUT.md`. To build by hand instead, per station:
 
 | Device | Count | Settings |
 |---|---|---|
-| **Trigger** (`PID_Device_Trigger`, not the legacy one) | 2–4, one per door, sealed behind its doorway | *Visible in Game* off, *Reset Delay* 0, unlimited triggers, vehicles/water/physics off |
+| **Trigger** (`PID_Device_Trigger`, not the legacy one) | 2–4, one per door, in the vestibule just past the door | *Visible in Game* off, *Reset Delay* 0, unlimited triggers, vehicles/water/physics off |
+| **Barrier** (`PID_Device_Barrier`), optional | one per door, across the far end of its vestibule | *Invisible To Ignored Players* on, *Collide With Camera* off. Without barriers a right answer teleports to the next entry |
 | **Teleporter** — station entry | 1 | *Teleporter Group* / *Target Group* = None (it is only a destination) |
 | Door labels A–D | per door | Static billboards. A is on the player's LEFT when facing the doors. |
 
@@ -54,6 +56,7 @@ panel add a **Verse Tag Markup** component and set its tags:
 |---|---|
 | Station N entry teleporter | `fnm_station_NN` + `fnm_entry` |
 | Station N door trigger | `fnm_station_NN` + `fnm_door_a` / `_b` / `_c` / `_d` |
+| Station N door barrier | the same two tags as that door's trigger |
 | Finish teleporter | `fnm_finish` |
 
 Stations are read 01, 02, ... until the first number with no entry teleporter (max 20). Then place one
@@ -69,9 +72,10 @@ Automatic difficulty (PROTOCOL §6, T = 5 tiers): 10 stations → tiers 1,1,2,2,
 ## 4. What players see
 
 Top-centre HUD, per player: `Title - Subtitle`, `Stage s/S - <tier name>`, the prompt, the lettered
-choices (`A: 11     B: 14     C: 10`), and a feedback line. A wrong door shows that choice's feedback
-in red and teleports the player to the retry point with the same question still up. A right door shows
-the explanation in green, then the next question and a teleport to the next station. A door letter the
+choices (`A: 11     B: 14     C: 10`), and a feedback line. A wrong door shows a big red X, the
+penalty's name and that choice's feedback, fires the penalty, and puts the player back at the retry point
+with the same question still up. A right door shows a big green CORRECT!, the explanation, and the next
+question, and that door's barrier opens for that player (no barrier: a teleport to the next station). A door letter the
 item does not use shows "No choice D here". Doors of a station the player is not on show "This is
 not your station". After the last station: "Course complete!" and first-try accuracy.
 

@@ -2,13 +2,17 @@
 # Place ONE fnm_director in the level. It finds the course by Verse tags (fnm_tags.verse), so there is
 # nothing to wire: tag each station's entry teleporter fnm_station_NN + fnm_entry, each door trigger
 # fnm_station_NN + fnm_door_a..d, and the finish teleporter fnm_finish (see console/README.md).
+# Optional per door: a barrier_device with the same two tags as its trigger. Then a right answer makes that
+# barrier passable for that player alone and they walk on into the next hallway; without one they are
+# teleported to the next station's entry.
 # Why tags: UEFN 42.30 rejected trigger/teleporter references in this device's @editable arrays from
 # both MCP and the Details panel ("is not valid trigger_device"), while tags set cleanly.
 #
 # Per player: own stage, own question, own HUD, own draw decks (PROTOCOL 6).
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
-# Right door  -> big green check, next question, teleport to NextTeleporter at once (no stall); the
-#                Explanation stays on the HUD for CorrectFeedbackSeconds while the player moves on.
+# Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
+#                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
+#                HUD for CorrectFeedbackSeconds while the player moves on.
 # After the last station -> first-try accuracy on the HUD (optionally activates an end_game_device).
 
 using { /Fortnite.com/Characters }
@@ -23,6 +27,8 @@ using { /Verse.org/Simulation/Tags }
 fnm_station := class:
     # trigger_devices for the doors, in order A, B, C, D.
     Doors : []trigger_device
+    # Per door (same order): the barrier at the back of its vestibule, if the course has one.
+    Passages : []?barrier_device
     # Where a player is sent after a wrong answer (this station's entry point).
     RetryTeleporter : teleporter_device
     # Where a player is sent after a right answer: the next station's entry (last station: finish).
@@ -108,6 +114,11 @@ fnm_director := class(creative_device):
     @editable
     DebugAutoWrongAnswers : int = 0
     var DebugPenaltyCursor : int = 0
+    # Test hook: 8 s after joining, drop the player into station 1's RIGHT vestibule (firing its trigger),
+    # then log their position every second for 12 s, to watch them walk through the opened barrier.
+    # false = off (ship value).
+    @editable
+    DebugPassageTest : logic = false
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -177,29 +188,31 @@ fnm_director := class(creative_device):
             for (Joined : Playspace.GetPlayers()):
                 StartPlayer(Joined)
 
-    # One station's tagged parts: its entry teleporter and its doors in A..D order (missing letters skipped).
-    FindStationParts(StationTag:castable_subtype(tag)):tuple(?teleporter_device, []trigger_device) =
+    # Door letter index (0 = A .. 3 = D) from an object's tags; -1 if it has no door tag.
+    DoorLetter(Object:creative_object_interface)<transacts>:int =
+        ObjectTags := Object.GetTags()
+        if (ObjectTags.Has[fnm_door_a{}]) then 0
+        else if (ObjectTags.Has[fnm_door_b{}]) then 1
+        else if (ObjectTags.Has[fnm_door_c{}]) then 2
+        else if (ObjectTags.Has[fnm_door_d{}]) then 3
+        else -1
+
+    # One station's tagged parts: its entry teleporter, its doors in A..D order (missing letters skipped)
+    # and each door's barrier (if any).
+    FindStationParts(StationTag:castable_subtype(tag)):tuple(?teleporter_device, []trigger_device, []?barrier_device) =
         var Entry : ?teleporter_device = false
-        var DoorA : ?trigger_device = false
-        var DoorB : ?trigger_device = false
-        var DoorC : ?trigger_device = false
-        var DoorD : ?trigger_device = false
+        var Triggers : []?trigger_device = array{false, false, false, false}
+        var Barriers : []?barrier_device = array{false, false, false, false}
         for (Object : FindCreativeObjectsWithTag(StationTag)):
             if (Teleporter := teleporter_device[Object]):
                 set Entry = option{Teleporter}
             else if (Trigger := trigger_device[Object]):
-                ObjectTags := Object.GetTags()
-                if (ObjectTags.Has[fnm_door_a{}]):
-                    set DoorA = option{Trigger}
-                else if (ObjectTags.Has[fnm_door_b{}]):
-                    set DoorB = option{Trigger}
-                else if (ObjectTags.Has[fnm_door_c{}]):
-                    set DoorC = option{Trigger}
-                else if (ObjectTags.Has[fnm_door_d{}]):
-                    set DoorD = option{Trigger}
-        Doors := for (MaybeDoor : array{DoorA, DoorB, DoorC, DoorD}, Door := MaybeDoor?):
-            Door
-        (Entry, Doors)
+                if (set Triggers[DoorLetter(Object)] = option{Trigger}) {}
+            else if (Barrier := barrier_device[Object]):
+                if (set Barriers[DoorLetter(Object)] = option{Barrier}) {}
+        Doors := for (MaybeDoor : Triggers, Door := MaybeDoor?) { Door }
+        Passages := for (Letter -> MaybeDoor : Triggers, MaybeDoor?, Passage := Barriers[Letter]) { Passage }
+        (Entry, Doors, Passages)
 
     # Stations 1, 2, ... in order until the first station tag with no entry teleporter. A wrong answer
     # returns the player to their station's entry; a right answer sends them to the next entry (last
@@ -210,15 +223,17 @@ fnm_director := class(creative_device):
             set Finish = option{Teleporter}
         var Entries : []teleporter_device = array{}
         var DoorSets : [][]trigger_device = array{}
+        var PassageSets : [][]?barrier_device = array{}
         var Searching : logic = true
         for (StationTag : FnmStationTags()):
             Parts := FindStationParts(StationTag)
             if (Searching?, Entry := Parts(0)?):
                 set Entries = Entries + array{Entry}
                 set DoorSets = DoorSets + array{Parts(1)}
+                set PassageSets = PassageSets + array{Parts(2)}
             else:
                 set Searching = false
-        for (K -> Entry : Entries, StationDoors := DoorSets[K]):
+        for (K -> Entry : Entries, StationDoors := DoorSets[K], StationPassages := PassageSets[K]):
             var Next : teleporter_device = Entry
             if (Following := Entries[K + 1]):
                 set Next = Following
@@ -227,7 +242,14 @@ fnm_director := class(creative_device):
             var OverridePercent : int = -1
             if (Value := DifficultyOverrides[K]):
                 set OverridePercent = Value
-            fnm_station{Doors := StationDoors, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
+            Print("FNM: station {K + 1}: {StationDoors.Length} doors, {CountPassages(StationPassages)} passages")
+            fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
+
+    CountPassages(Passages:[]?barrier_device):int =
+        var Count : int = 0
+        for (MaybePassage : Passages, MaybePassage?):
+            set Count += 1
+        Count
 
     # Every movable object carrying RigTag, remembered at its parked transform.
     BuildRig(Name:string, RigTag:castable_subtype(tag)):fnm_rig =
@@ -262,6 +284,8 @@ fnm_director := class(creative_device):
     OnPlayerRemoved(Departed:player):void =
         if (State := PlayerStates[Departed]):
             set State.Finished = true
+        for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
+            Passage.RemoveFromIgnoreList(Departed)
         var Remaining : [player]fnm_player_state = map{}
         for (Key -> Value : PlayerStates, Key <> Departed):
             if (set Remaining[Key] = Value) {}
@@ -281,6 +305,8 @@ fnm_director := class(creative_device):
                 SendTo(Joined, First.RetryTeleporter)
             if (DebugAutoWrongAnswers > 0):
                 spawn{ DebugAutoWrong(State) }
+            if (DebugPassageTest?):
+                spawn{ DebugPassage(State) }
 
     # ---------------------------------------------------------------- questions
 
@@ -322,8 +348,9 @@ fnm_director := class(creative_device):
                 if (StationIndex = State.Stage - 1):
                     set State.Busy = true
                     spawn{ HandleDoor(State, StationIndex, DoorIndex) }
-                else:
+                else if (StationIndex > State.Stage - 1):
                     spawn{ FlashNotice(State, "This is not your station. You are on stage {State.Stage}.") }
+                # An earlier station: they are walking back through a door they already passed. Ignore.
 
     HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =
         if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
@@ -335,7 +362,7 @@ fnm_director := class(creative_device):
                 if (not State.MissedCurrent?):
                     set State.FirstTryCorrect += 1
                 State.Hud.FlashVerdict(true, "")
-                AdvancePlayer(State, Station)
+                AdvancePlayer(State, Station, DoorIndex)
                 set State.Busy = false
                 if (not State.Finished?):
                     Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
@@ -353,15 +380,21 @@ fnm_director := class(creative_device):
         else:
             set State.Busy = false
 
-    # Correct answer at Station: next stage (or finish), then move the player on.
-    AdvancePlayer(State:fnm_player_state, Station:fnm_station):void =
+    # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
+    # that door's barrier lets this player (only) through, or they are teleported to the next entry.
+    # The barrier stays open for them; walking back through it later is harmless.
+    AdvancePlayer(State:fnm_player_state, Station:fnm_station, DoorIndex:int):void =
         set State.Stage += 1
         if (State.Stage > Stations.Length):
             FinishPlayer(State)
         else:
             DrawItem(State)
             ShowCurrent(State)
-        SendTo(State.Player, Station.NextTeleporter)
+        if (MaybePassage := Station.Passages[DoorIndex], Passage := MaybePassage?):
+            Passage.AddToIgnoreList(State.Player)
+            Print("FNM: passage {FnmChoiceLetter(DoorIndex)} open for the player")
+        else:
+            SendTo(State.Player, Station.NextTeleporter)
 
     PickPenalty()<transacts>:fnm_penalty =
         Index := if (DebugAutoWrongAnswers > 0) then Mod[DebugPenaltyCursor, Max(Penalties.Length, 1)] or 0
@@ -376,6 +409,24 @@ fnm_director := class(creative_device):
                 set State.Busy = true
                 Print("FNM: debug auto-wrong {N}")
                 HandleDoor(State, State.Stage - 1, if (Item.Answer = 0) then 1 else 0)
+
+    DebugPassage(State:fnm_player_state)<suspends>:void =
+        Sleep(8.0)
+        if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[0], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+            Spot := Door.GetTransform().Translation
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: debug passage: dropped into vestibule {FnmChoiceLetter(Item.Answer)} at {Spot}")
+            for (N := 1..12):
+                Sleep(1.0)
+                Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
+            # Then behind a WRONG door's trigger at the current station, facing its (closed) barrier.
+            if (Next := Cartridge.Items[State.CurrentItem], Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (Next.Answer = 0) then 1 else 0]):
+                Behind := Wrong.GetTransform().Translation + vector3{X := 0.0, Y := 350.0, Z := 0.0}
+                if (Character.TeleportTo[Behind, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                    Print("FNM: debug passage: behind a wrong door at {Behind}")
+                for (N := 1..8):
+                    Sleep(1.0)
+                    Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
 
     # Applies Kind to Player, who answered wrong at Station. Returns once the player can play again.
     Punish(Player:player, Station:fnm_station, Kind:fnm_penalty)<suspends>:void =

@@ -5,7 +5,7 @@
 ## G2 — First map in UEFN
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
-- [ ] Visual pass: rooms are plain white engine cubes — colour per tier or a themed kit
+- [ ] Visual pass: hallways are plain white engine cubes — colour per tier or a themed kit
 - [ ] O1 font test (×, ÷, −, superscripts) — ÷ − × render in-game (2026-10-03); ✓ ✗ do NOT (missing-glyph diamond); superscripts unchecked → pick Verse render profile
 - [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
 - [x] First live session 2026-10-03: EAC installed, StartSession → match Running, HUD shows title/problem/choices, no FNM errors in client log
@@ -26,7 +26,11 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Yeet launches for real (air vent moved under the player, ~75 m skydive); back at the station entry on landing
 - [x] Spike respawn wait no longer races the elimination (polls start after the damage; "after 8 polls" in play)
 - [ ] Aaron playtest of the three penalties by walking through wrong doors (debug hook verified only)
-- [ ] Course layout v2: hallways + real doors (prop with a door + `lock_device`), per-player passage via `barrier_device.AddToIgnoreList`
+- [x] Course layout v2 (2026-10-03): 30 m hallways, real doors, vestibule triggers, per-player barrier passage
+  (`AddToIgnoreList`). Verified in play via debug hooks: right door → walk through into the next hallway;
+  a closed barrier blocks; penalties on the new course. No `lock_device` needed (doors are plain props).
+- [ ] Aaron playtest of v2 by walking the course start to finish
+- [ ] Doors B (blue) and C (hatch) read alike from a distance; find a 553 cm door prop in a clearly different colour
 - [ ] Map profile chooses its penalty pool (map.json → director `Penalties`)
 - [ ] More penalties from the catalog
 - [ ] Verdict check-mark/X as textures (the HUD font has no ✓/✗ glyphs)

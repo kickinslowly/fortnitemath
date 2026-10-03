@@ -1,12 +1,15 @@
-"""Build the Starter Course ("Gate Run") in the open UEFN project through UEFN MCP.
+"""Build the Starter Course ("Gate Run" v2: hallway race) in the open UEFN project through UEFN MCP.
 
-Layout per maps/starter/LAYOUT.md, adapted to ground level: each station is a walled room (no falls
-possible) with a door wall of N doorways (A..D) leading into sealed pockets, each pocket holding a
-hidden trigger. Rooms sit on a 5-wide grid; a finish room follows the last station.
+Layout per maps/starter/LAYOUT.md. One straight run toward +Y: each station is a long hallway ending in a
+wall of real doors (A..D, one colour each). Behind every door is a vestibule holding a hidden trigger and,
+at its far end, a barrier. The vestibules open straight onto the next station's hallway. Walking in fires
+the trigger: the right door makes that barrier passable (and invisible) for that player only, so they run
+on into the next hallway without stopping; a wrong door fires a penalty. A finish hallway follows the last
+station. The course sits on its own floor slabs, so it may run past the template's ground.
 
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
-    python tools/build_course.py [--stations 10] [--doors 4]
+    python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
 """
 import argparse
 import json
@@ -21,25 +24,40 @@ CUBE = "/Engine/BasicShapes/Cube.Cube"
 TRIGGER = "/CreativeCoreDevices/SetupAssets/PID_Device_Trigger.PID_Device_Trigger"
 TELEPORTER = "/CreativeCoreDevices/SetupAssets/PID_Device_Teleporter.PID_Device_Teleporter"
 BILLBOARD = "/CreativeCoreDevices/SetupAssets/PID_Device_Billboard.PID_Device_Billboard"
+BARRIER = "/CRD_VolumetricRegion/SetupAssets/PID_Device_Barrier.PID_Device_Barrier"
 DIRECTOR = "/{root}/_Verse.fnm_director"
 TAG_MARKUP = "/Script/VerseTags.VerseTagMarkupComponent"
+PROPS = "/CR_Legacy/Playsets/PlaysetProps"
+# Oil-rig walls with a real (openable) door, 553 wide x 384 tall, pivot centred; one look per letter:
+# A grey, B blue, C grey vault hatch, D orange. (Door_01_Green renders the same blue as Door_01_Blue.)
+DOOR_PROPS = ["OilRig_Platform_Wall_01_Door_01", "OilRig_Platform_Wall_01_Door_01_Blue",
+              "OilRig_Platform_Wall_01_Door_02_Green", "OilRig_Platform_Wall_01_Door_01_Yellow"]
 
-SPACING = 2800          # room grid pitch (cm); rooms are ~2.1 x 1.9 m*1000 -- keep the course on the template floor
-COLS = 4
-HALF_W = 1024           # room interior half-width (x)
-FRONT_Y = -768          # room interior front edge
-DOOR_Y = 768            # door wall centre line
-BACK_Y = 1024           # pocket back edge
-WALL_H = 800
+START_Y = -12000        # hallway 1 starts here; the course runs toward +Y
+DOOR_W = 553            # door prop width = door pitch
+DOOR_H = 384
+WALL_H = 600            # hallway walls; a lintel fills the door wall above the doors
 WALL_T = 40
-DOOR_W = 384
-DOOR_H = 448
+VEST = 700              # vestibule depth behind the door wall
+BARRIER_T = 40
+SLAB_T = 40             # floor slab thickness (top at z=2, just above the template ground)
+FINISH_LEN = 1500
 LETTERS = "ABCD"
+# Letter boards: bright text on a dark board, a colour per door (default billboard text is pale grey and
+# vanished against the sky in play).
+BOARD = {"showBorder": True, "backgroundColor": {"r": 0.02, "g": 0.02, "b": 0.06, "a": 1.0},
+         "textSize": 24, "textJustification": "Center"}
+LETTER_COLOURS = [(1.0, 1.0, 1.0), (0.3, 0.55, 1.0), (0.2, 0.9, 0.3), (1.0, 0.55, 0.1)]
+SIGN_COLOUR = (1.0, 0.8, 0.1)
+# Barrier zone at actor scale 1 ("volume Transform" Box): 511 x 511 x 384, bottom at the actor. Its
+# get_actor_bounds add a 128/96 cm editor margin all round, so don't size it from those.
+BARRIER_BASE = (511, 511, 384, 0)
 
 SCENE = "editor_toolset.toolsets.scene.SceneTools"
 ACTOR = "editor_toolset.toolsets.actor.ActorTools"
 OBJ = "editor_toolset.toolsets.object.ObjectTools"
 DEV = "ValkyrieToolset.DeviceToolset"
+ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 
 
 def ref(path):
@@ -67,6 +85,13 @@ def box(label, x0, x1, y0, y1, z0, z1):
     return actor
 
 
+def prop(asset, label, x, y, z, yaw=0.0):
+    r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": asset, "name": label, "xform": xform(x, y, z, yaw=yaw)})
+    actor = r["returnValue"]["refPath"]
+    tag(actor, label)
+    return actor
+
+
 def device(asset, label, x, y, z, yaw=0.0, sx=1.0, sy=1.0, sz=1.0):
     # Scale goes in the PlaceDevice transform: a later scale-only set_actor_transform resets location.
     r = u.call(DEV, "PlaceDevice", {"assetPath": ref(asset), "transform": xform(x, y, z, sx, sy, sz, yaw)})
@@ -86,90 +111,115 @@ def props(actor, values):
     u.call(OBJ, "set_properties", {"instance": ref(actor), "values": json.dumps(values)})
 
 
-def clear():
-    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})
+def clear(tag_name=TAG):
+    found = u.call(SCENE, "find_actors", {"tag": tag_name, "collision_channels": []})
     actors = found if isinstance(found, list) else found.get("returnValue", [])
     for a in actors:
         u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"] if isinstance(a, dict) else a)})
     return len(actors)
 
 
+def board(actor, text, rgb):
+    props(actor, {**BOARD, "text": text, "textColor": {"r": rgb[0], "g": rgb[1], "b": rgb[2], "a": 1.0}})
+
+
+def door_asset(name):
+    found = u.call(ASSETS, "find_assets", {"folder_path": PROPS, "name": name, "recursive": False})["returnValue"]
+    exact = [p for p in found if p.split(".")[-1] == f"PPID_CR_Legacy_{name}"]
+    if not exact:
+        sys.exit(f"door prop {name} not found")
+    return exact[0]
+
+
 def door_centres(doors):
-    """Door A first. A player facing the doors (+Y) has +X on their LEFT, so A starts at +X."""
-    pitch = 2 * HALF_W / doors
-    return [HALF_W - pitch * (i + 0.5) for i in range(doors)]
+    """Door A first. A player facing the doors (+Y) has +X on their LEFT, so A is at +X."""
+    half = doors * DOOR_W / 2
+    return [half - DOOR_W * (i + 0.5) for i in range(doors)]
 
 
-def room(prefix, ox, oy, doors):
-    """Walls + door wall + pockets for one room. Returns the door centre x offsets (empty for finish)."""
+def station(k, oy, hall, doors, project, door_assets):
+    """Station k (1-based) whose hallway starts at oy. Returns where the next hallway starts."""
+    half = doors * DOOR_W / 2
     t = WALL_T
-    box(f"{prefix}_WallL", ox - HALF_W - t, ox - HALF_W, oy + FRONT_Y - t, oy + BACK_Y + t, 0, WALL_H)
-    box(f"{prefix}_WallR", ox + HALF_W, ox + HALF_W + t, oy + FRONT_Y - t, oy + BACK_Y + t, 0, WALL_H)
-    box(f"{prefix}_WallFront", ox - HALF_W, ox + HALF_W, oy + FRONT_Y - t, oy + FRONT_Y, 0, WALL_H)
-    box(f"{prefix}_WallBack", ox - HALF_W, ox + HALF_W, oy + BACK_Y, oy + BACK_Y + t, 0, WALL_H)
-    if not doors:
-        box(f"{prefix}_WallDoor", ox - HALF_W, ox + HALF_W, oy + DOOR_Y - t / 2, oy + DOOR_Y + t / 2, 0, WALL_H)
-        return []
-    centres = door_centres(doors)
-    pitch = 2 * HALF_W / doors
-    y0, y1 = oy + DOOR_Y - t / 2, oy + DOOR_Y + t / 2
-    # Solid segments between doorways, and a lintel over the whole wall.
-    edges = [-HALF_W] + [e for c in sorted(centres) for e in (c - DOOR_W / 2, c + DOOR_W / 2)] + [HALF_W]
-    for i in range(0, len(edges), 2):
-        if edges[i + 1] > edges[i]:
-            box(f"{prefix}_DoorWall{i // 2}", ox + edges[i], ox + edges[i + 1], y0, y1, 0, DOOR_H)
-    box(f"{prefix}_Lintel", ox - HALF_W, ox + HALF_W, y0, y1, DOOR_H, WALL_H)
-    # Dividers sealing each pocket from its neighbours.
+    prefix = f"FNM_S{k:02d}"
+    door_y = oy + hall                      # door wall centre line
+    vest0 = door_y + 25                     # vestibule from the door wall's back face ...
+    vest1 = vest0 + VEST                    # ... to the barrier
+    end = vest1 + BARRIER_T                 # the next hallway starts here
+
+    box(f"{prefix}_Floor", -half - t, half + t, oy, end, 2 - SLAB_T, 2)
+    box(f"{prefix}_WallL", half, half + t, oy, end, 0, WALL_H)
+    box(f"{prefix}_WallR", -half - t, -half, oy, end, 0, WALL_H)
+    if k == 1:
+        box(f"{prefix}_WallStart", -half - t, half + t, oy - t, oy, 0, WALL_H)
+    box(f"{prefix}_Lintel", -half, half, door_y - 25, door_y + 25, DOOR_H, WALL_H)
     for i in range(1, doors):
-        x = -HALF_W + pitch * i
-        box(f"{prefix}_Divider{i}", ox + x - t / 2, ox + x + t / 2, y1, oy + BACK_Y, 0, WALL_H)
-    return centres
+        x = half - DOOR_W * i
+        box(f"{prefix}_Divider{i}", x - t / 2, x + t / 2, door_y + 25, vest1, 0, WALL_H)
+
+    tp = device(TELEPORTER, f"{prefix}_Entry", 0, oy + 150, 0, yaw=90)
+    props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
+    verse_tags(tp, project, [f"fnm_station_{k:02d}", "fnm_entry"])
+    sign = device(BILLBOARD, f"{prefix}_Sign", half - 5, oy + 600, 250, yaw=-90, sx=2, sy=2, sz=2)
+    board(sign, f"STATION {k}", SIGN_COLOUR)
+
+    bw, bd, bh, bz = BARRIER_BASE
+    for i, cx in enumerate(door_centres(doors)):
+        letter = LETTERS[i]
+        prop(door_assets[i], f"{prefix}_Door{letter}", cx, door_y, 0)
+        label = device(BILLBOARD, f"{prefix}_Label{letter}", cx, door_y - 40, DOOR_H + 20, yaw=180, sx=2, sy=2, sz=2)
+        board(label, letter, LETTER_COLOURS[i])
+        inner = DOOR_W - t                  # vestibule width between dividers
+        trig_depth = VEST * 0.6
+        trig = device(TRIGGER, f"{prefix}_Trigger{letter}", cx, vest0 + trig_depth / 2, 128,
+                      sx=inner / 600, sy=trig_depth / 600, sz=1.0)
+        # Device_Trigger_V2 names (differ from the legacy trigger's).
+        props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
+                     "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
+                     "triggeredByPhysicsProps": False})
+        verse_tags(trig, project, [f"fnm_station_{k:02d}", f"fnm_door_{letter.lower()}"])
+        sz = WALL_H / bh
+        bar = device(BARRIER, f"{prefix}_Passage{letter}", cx, vest1 + BARRIER_T / 2, -bz * sz,
+                     sx=inner / bw, sy=BARRIER_T / bd, sz=sz)
+        props(bar, {"invisibleToIgnoredPlayers": True, "collide with Camera": False})
+        verse_tags(bar, project, [f"fnm_station_{k:02d}", f"fnm_door_{letter.lower()}"])
+    return end
 
 
-def build(stations, doors):
+def finish(oy, doors, project):
+    half = doors * DOOR_W / 2
+    t = WALL_T
+    end = oy + FINISH_LEN
+    box("FNM_Finish_Floor", -half - t, half + t, oy, end + t, 2 - SLAB_T, 2)
+    box("FNM_Finish_WallL", half, half + t, oy, end, 0, WALL_H)
+    box("FNM_Finish_WallR", -half - t, -half, oy, end, 0, WALL_H)
+    box("FNM_Finish_WallEnd", -half - t, half + t, end, end + t, 0, WALL_H)
+    tp = device(TELEPORTER, "FNM_Finish_Entry", 0, oy + 150, 0, yaw=90)
+    props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
+    verse_tags(tp, project, ["fnm_finish"])
+    sign = device(BILLBOARD, "FNM_Finish_Sign", 0, end - 5, 250, yaw=180, sx=4, sy=4, sz=4)
+    board(sign, "FINISH!", SIGN_COLOUR)
+
+
+def build(stations, doors, hall):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
-    print("removed", clear(), "old course actors")
-
-    all_doors, teleporters = [], []
-    pocket_depth = BACK_Y - (DOOR_Y + WALL_T / 2)
-    for k in range(stations + 1):
-        ox, oy = SPACING * (k % COLS), SPACING * (k // COLS)
-        finish = k == stations
-        prefix = "FNM_Finish" if finish else f"FNM_S{k + 1:02d}"
-        centres = room(prefix, ox, oy, 0 if finish else doors)
-        tp = device(TELEPORTER, f"{prefix}_Entry", ox, oy - 450, 0, yaw=90)
-        props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
-        verse_tags(tp, project, ["fnm_finish"] if finish else [f"fnm_station_{k + 1:02d}", "fnm_entry"])
-        teleporters.append(tp)
-        # Billboard text faces yaw + 90 degrees: yaw 180 faces -Y (toward a player at the entry),
-        # yaw -90 faces +X (out of the left wall).
-        sign = device(BILLBOARD, f"{prefix}_Sign", ox - HALF_W + 5, oy, 250, yaw=-90, sx=2, sy=2, sz=2)
-        props(sign, {"text": "FINISH!" if finish else f"STATION {k + 1}", "textSize": 24,
-                     "textJustification": "Center"})
-        for i, cx in enumerate(centres):
-            trig = device(TRIGGER, f"{prefix}_Door{LETTERS[i]}", ox + cx, oy + DOOR_Y + WALL_T / 2 + pocket_depth / 2, 128,
-                          sx=min(DOOR_W, 2 * HALF_W / doors - WALL_T) / 600, sy=pocket_depth / 600, sz=1.0)
-            # Device_Trigger_V2 names (differ from the legacy trigger's).
-            props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
-                         "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
-                         "triggeredByPhysicsProps": False})
-            verse_tags(trig, project, [f"fnm_station_{k + 1:02d}", f"fnm_door_{LETTERS[i].lower()}"])
-            all_doors.append(trig)
-            label = device(BILLBOARD, f"{prefix}_Label{LETTERS[i]}", ox + cx, oy + DOOR_Y - WALL_T, DOOR_H - 70,
-                           yaw=180, sx=3, sy=3, sz=3)
-            props(label, {"text": LETTERS[i], "textSize": 24, "textJustification": "Center"})
-        print(prefix, "built")
-
+    print("removed", clear(), "old course actors;", clear("fnm_test"), "test actors")
+    door_assets = [door_asset(n) for n in DOOR_PROPS[:doors]]
+    oy = START_Y
+    for k in range(1, stations + 1):
+        oy = station(k, oy, hall, doors, project, door_assets)
+        print(f"station {k} built")
+    finish(oy, doors, project)
     # The director finds stations by tag (fnm_tags.verse): nothing to wire.
-    director = device(DIRECTOR.format(root=project), "FNM_Director", -2000, -2000, 0)
-    print(f"placed director; tagged {len(all_doors)} doors and {len(teleporters)} teleporters")
-    return director
+    device(DIRECTOR.format(root=project), "FNM_Director", -3000, START_Y, 0)
+    print(f"finish at y={oy}; director placed")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--stations", type=int, default=10)
     ap.add_argument("--doors", type=int, default=4)
+    ap.add_argument("--hall", type=int, default=3000, help="hallway length (cm) from entry to the door wall")
     a = ap.parse_args()
-    build(a.stations, a.doors)
+    build(a.stations, a.doors, a.hall)
