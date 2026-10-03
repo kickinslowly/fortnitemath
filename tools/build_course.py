@@ -28,10 +28,11 @@ BARRIER = "/CRD_VolumetricRegion/SetupAssets/PID_Device_Barrier.PID_Device_Barri
 DIRECTOR = "/{root}/_Verse.fnm_director"
 TAG_MARKUP = "/Script/VerseTags.VerseTagMarkupComponent"
 PROPS = "/CR_Legacy/Playsets/PlaysetProps"
-# Oil-rig walls with a real (openable) door, 553 wide x 384 tall, pivot centred; one look per letter:
-# A grey, B blue, C grey vault hatch, D orange. (Door_01_Green renders the same blue as Door_01_Blue.)
-DOOR_PROPS = ["OilRig_Platform_Wall_01_Door_01", "OilRig_Platform_Wall_01_Door_01_Blue",
-              "OilRig_Platform_Wall_01_Door_02_Green", "OilRig_Platform_Wall_01_Door_01_Yellow"]
+# Walls with a real (openable) door, 384 tall, pivot centred, stretched to DOOR_W; one look per letter:
+# A grey, B blue, C dark stone with a wooden door, D orange. (The oil-rig "Green" door renders the same
+# blue as B, and its hatch and the residential doors read alike from a distance.)
+DOOR_PROPS = [("OilRig_Platform_Wall_01_Door_01", 553), ("OilRig_Platform_Wall_01_Door_01_Blue", 553),
+              ("AD_Bank_DoorWall_01", 512), ("OilRig_Platform_Wall_01_Door_01_Yellow", 553)]
 
 START_Y = -12000        # hallway 1 starts here; the course runs toward +Y
 DOOR_W = 553            # door prop width = door pitch
@@ -85,8 +86,8 @@ def box(label, x0, x1, y0, y1, z0, z1):
     return actor
 
 
-def prop(asset, label, x, y, z, yaw=0.0):
-    r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": asset, "name": label, "xform": xform(x, y, z, yaw=yaw)})
+def prop(asset, label, x, y, z, yaw=0.0, sx=1.0):
+    r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": asset, "name": label, "xform": xform(x, y, z, sx, yaw=yaw)})
     actor = r["returnValue"]["refPath"]
     tag(actor, label)
     return actor
@@ -166,7 +167,8 @@ def station(k, oy, hall, doors, project, door_assets):
     bw, bd, bh, bz = BARRIER_BASE
     for i, cx in enumerate(door_centres(doors)):
         letter = LETTERS[i]
-        prop(door_assets[i], f"{prefix}_Door{letter}", cx, door_y, 0)
+        asset, width = door_assets[i]
+        prop(asset, f"{prefix}_Door{letter}", cx, door_y, 0, sx=DOOR_W / width)
         label = device(BILLBOARD, f"{prefix}_Label{letter}", cx, door_y - 40, DOOR_H + 20, yaw=180, sx=2, sy=2, sz=2)
         board(label, letter, LETTER_COLOURS[i])
         inner = DOOR_W - t                  # vestibule width between dividers
@@ -205,7 +207,7 @@ def build(stations, doors, hall):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
     print("removed", clear(), "old course actors;", clear("fnm_test"), "test actors")
-    door_assets = [door_asset(n) for n in DOOR_PROPS[:doors]]
+    door_assets = [(door_asset(n), width) for n, width in DOOR_PROPS[:doors]]
     oy = START_Y
     for k in range(1, stations + 1):
         oy = station(k, oy, hall, doors, project, door_assets)

@@ -3,6 +3,9 @@
     python tools/playtest.py                 # relaunch, wait for the match, one screenshot, FNM lines
     python tools/playtest.py --no-relaunch   # just screenshot + FNM lines from the running session
     python tools/playtest.py --watch 3       # also catch N "FNM: debug auto-wrong" events, 4 frames each
+    python tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5
+                                             # wait for a director log line, then hold keys in turn
+                                             # (W walk, E interact, ...), one screenshot after each
 
 Pair --watch with the director's DebugAutoWrongAnswers @editable (set it in the Verse default, sync,
 BuildAll) to see every penalty fire without walking. Screenshots land in %TEMP% as pt_*.png. Look at them.
@@ -22,6 +25,9 @@ SESSION = "ValkyrieToolset.SessionToolset"
 GUI = Path.home() / ".claude/skills/uefn-mcp/scripts/gui_act.ps1"
 # Physical-pixel position of the Fortnite taskbar icon; clicking it brings the game window forward.
 FOCUS_CLICK = "c:1677,1416"
+HOLDKEY = Path(__file__).parent / "holdkey.ps1"
+# Keyboard scan codes for --keys.
+SCANCODES = {"W": 0x11, "A": 0x1E, "S": 0x1F, "D": 0x20, "E": 0x12, "SPACE": 0x39}
 
 
 def shot(name, steps="w:0.05"):
@@ -67,18 +73,50 @@ def watch(count, timeout=150):
         time.sleep(0.3)
 
 
+def wait_for(pattern, baseline, timeout=120):
+    """Block until an editor log line matching pattern that is not in baseline appears; return it (or
+    None on timeout). Take the baseline BEFORE relaunching: a director hook can log within seconds."""
+    start = time.time()
+    while time.time() - start < timeout:
+        new = [line for line in fnm_lines(pattern) if line not in baseline]
+        if new:
+            return new[-1]
+        time.sleep(0.25)
+    return None
+
+
+def play_keys(spec):
+    """spec like "W:0.8,E:0.3,W:2.5": hold each key that many seconds in turn, screenshot after each."""
+    for k, step in enumerate(spec.split(",")):
+        key, secs = step.split(":")
+        subprocess.run(["powershell", "-NoProfile", "-File", str(HOLDKEY), "-scan", str(SCANCODES[key.upper()]),
+                        "-secs", secs], capture_output=True)
+        time.sleep(0.3)
+        print(f"  {step} ->", shot(f"pt_keys{k}"))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-relaunch", action="store_true")
     ap.add_argument("--watch", type=int, default=0)
+    ap.add_argument("--after", help="director log pattern to wait for before --keys")
+    ap.add_argument("--keys", help='key holds after --after, e.g. "W:0.8,E:0.3,W:2.5"')
     args = ap.parse_args()
     started = time.time()
+    after_baseline = set(fnm_lines(args.after)) if args.after else set()
     if not args.no_relaunch:
         relaunch()
         time.sleep(6)
     print("screenshot", shot("pt_now", FOCUS_CLICK + ";w:0.3"))
     if args.watch:
         watch(args.watch)
+    if args.keys:
+        if args.after:
+            line = wait_for(args.after, after_baseline)
+            print("after:", line.split("FNM:", 1)[1][:120] if line else "TIMED OUT")
+            time.sleep(0.5)
+        play_keys(args.keys)
+        time.sleep(6)
     since = time.strftime("%Y.%m.%d-%H.%M.%S", time.gmtime(started - 5))
     for line in fnm_lines():
         if line[1:20] >= since[:19]:

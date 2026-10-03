@@ -119,6 +119,10 @@ fnm_director := class(creative_device):
     # false = off (ship value).
     @editable
     DebugPassageTest : logic = false
+    # Test hook: 8 s after joining, stand the player 2.5 m in front of station 1's door with this index
+    # (0 = A), facing it, to check the real door opens (press E, walk in). -1 = off (ship value).
+    @editable
+    DebugDoorTest : int = -1
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -307,6 +311,8 @@ fnm_director := class(creative_device):
                 spawn{ DebugAutoWrong(State) }
             if (DebugPassageTest?):
                 spawn{ DebugPassage(State) }
+            if (DebugDoorTest >= 0):
+                spawn{ DebugDoor(State) }
 
     # ---------------------------------------------------------------- questions
 
@@ -409,6 +415,17 @@ fnm_director := class(creative_device):
                 set State.Busy = true
                 Print("FNM: debug auto-wrong {N}")
                 HandleDoor(State, State.Stage - 1, if (Item.Answer = 0) then 1 else 0)
+
+    DebugDoor(State:fnm_player_state)<suspends>:void =
+        Sleep(8.0)
+        if (Station := Stations[0], Door := Station.Doors[DebugDoorTest], Character := State.Player.GetFortCharacter[]):
+            # The trigger sits 2.3 m past the door wall; stand 2.5 m in front of the wall.
+            Spot := Door.GetTransform().Translation - vector3{X := 0.0, Y := 480.0, Z := 0.0}
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: debug door: in front of {FnmChoiceLetter(DebugDoorTest)} at {Spot}")
+            for (N := 1..12):
+                Sleep(1.0)
+                Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
 
     DebugPassage(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)

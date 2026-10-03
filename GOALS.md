@@ -30,7 +30,10 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   (`AddToIgnoreList`). Verified in play via debug hooks: right door → walk through into the next hallway;
   a closed barrier blocks; penalties on the new course. No `lock_device` needed (doors are plain props).
 - [ ] Aaron playtest of v2 by walking the course start to finish
-- [ ] Doors B (blue) and C (hatch) read alike from a distance; find a 553 cm door prop in a clearly different colour
+- [x] Door C is now a dark stone bank wall with a wooden door (oil-rig "Green" rendered blue like B)
+- [x] Every door type opens with E in play and its trigger fires on the way through (A, C, D tested 2026-10-03)
+- [ ] One test session showed "Performance Warning: See editor" on the HUD (nothing in the editor log; seen once
+  in four runs). Check UEFN's memory/perf panel after the 40 barriers + 40 door props
 - [ ] Map profile chooses its penalty pool (map.json → director `Penalties`)
 - [ ] More penalties from the catalog
 - [ ] Verdict check-mark/X as textures (the HUD font has no ✓/✗ glyphs)

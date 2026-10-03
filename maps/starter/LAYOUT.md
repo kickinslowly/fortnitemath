@@ -12,9 +12,9 @@ vestibules that open straight onto the next hallway.
 
 ```
             next hallway
-   ═══╪═══╪═══╪═══╪═══     ═ = barrier: blocks everyone, except the player whose right answer opened it
+   ═══╪═══╪═══╪═══╪═══     ═ = barrier (red stripes): blocks everyone but the player whose right answer opened it
    │ ▓ │ ▓ │ ▓ │ ▓ │       ▓ = hidden trigger: walking in answers with that door
-   ┤ A ├ B ├ C ├ D ├       real doors (grey, blue, grey hatch, orange); coloured letters on a dark board above
+   ┤ A ├ B ├ C ├ D ├       real doors, E to open (grey, blue, dark stone + wood, orange); letters on a board above
    │                 │
    │ S               │     S = "STATION N" board on the left wall
    │        E ↑      │     E = entry teleporter (arrival / retry point; the player lands 3 m past it)
@@ -36,4 +36,3 @@ puts them back at their hallway's entry. The finish hallway ends in a wall with 
 
 ## Still to do (GOALS G2/G4)
 - Visual pass: walls are plain white engine cubes; colour per tier or a themed kit.
-- Doors B (blue) and C (hatch) read alike from a distance; the letter boards carry the meaning.
