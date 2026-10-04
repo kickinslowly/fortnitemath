@@ -72,8 +72,9 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Aaron playtest of guards (2026-10-04): good. Dropped guns fill the player's slots, fine by him. Wanted:
   progressively better weapons from the guards as stations rise, so the player ends up with them. Built 2026-10-04:
   `WEAPONS` ladder in `tools/build_guards.py` (pistol → suppressed SMG → tactical shotgun → AR UC/R/VR → heavy AR VR)
-  through the spawner's `itemList`; read back in the editor, NOT yet seen in play (unverified: that the list arms
-  the guard rather than only being dropped). Stations 1–2 keep the loadout's rare pistol
+  through the spawner's `itemList`; seen in play 2026-10-04 (station 7: four guards with rifles, feed "eliminated
+  … with a rifle"). Four AR guards killed a standing player in ~6 s from first hit: balance is Aaron's call.
+  Stations 1–2 keep the loadout's rare pistol
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)
