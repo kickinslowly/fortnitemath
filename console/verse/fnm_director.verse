@@ -17,6 +17,9 @@
 #                set) a fresh run from station 1 to beat that time.
 # Engagement: a 3-2-1-GO countdown and a race clock per run; a first-try right answer builds a streak and a
 # speed boost (longer with the streak); shipping containers tagged fnm_slider sweep across the hallways.
+# Guards: a guard spawner tagged fnm_guards + fnm_station_NN (tools/build_guards.py, more guards per later station)
+# is switched on while any player is on that station and off (its guards despawn) once nobody is. Any player
+# eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol.
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
@@ -124,9 +127,9 @@ fnm_director := class(creative_device):
     PenaltyStandOff : float = 500.0
     # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
     # the player, burst up SpearRise in SpearSeconds and pin them (stasis) for SpikeWatchSeconds under the
-    # wide camera, so they see it; then SpikeDamage eliminates them (more than full health + shield). The
-    # ring stays up SpikeHoldSeconds after that. (The orbit camera as elimination camera jumped to a random
-    # wall, so the death view is Fortnite's own.)
+    # wide camera; then SpikeDamage eliminates them (more than full health + shield). The ring stays up
+    # SpikeHoldSeconds after that. (The orbit camera as elimination camera jumped to a random wall, so the death
+    # view is Fortnite's own.) Aaron 2026-10-04: the death lagged the spears (1.2 s watch), so it is near-instant.
     @editable
     SpearCount : int = 6
     @editable
@@ -138,7 +141,7 @@ fnm_director := class(creative_device):
     @editable
     SpearSeconds : float = 0.12
     @editable
-    SpikeWatchSeconds : float = 1.2
+    SpikeWatchSeconds : float = 0.05
     @editable
     SpikeHoldSeconds : float = 1.0
     @editable
@@ -205,6 +208,9 @@ fnm_director := class(creative_device):
     # Seconds the results show before the player is put back at station 1 for another run (no End Game device).
     @editable
     RestartSeconds : int = 12
+    # How often the director checks which stations have players on them, to switch their guards on or off.
+    @editable
+    GuardCheckSeconds : float = 1.0
 
     # Seconds "No choice X here" / "not your station" notices stay up.
     @editable
@@ -247,6 +253,10 @@ fnm_director := class(creative_device):
     var FrostFx : ?post_process_device = false
     var MudFx : ?post_process_device = false
     var DizzyFx : ?post_process_device = false
+    # Per station (index = stage - 1): its guard spawner, if any, and whether its guards are up.
+    var GuardSpawners : []?guard_spawner_device = array{}
+    var GuardsUp : []logic = array{}
+    var GuardsSpawned : int = 0
 
     OnBegin<override>()<suspends>:void =
         set Cartridge = FnmActiveCartridge()
@@ -287,6 +297,16 @@ fnm_director := class(creative_device):
                     Handler := fnm_door_handler{Director := Self, StationIndex := StationIndex, DoorIndex := DoorIndex}
                     Door.TriggeredEvent.Subscribe(Handler.OnTriggered)
             set Ready = true
+            StationTags := FnmStationTags()
+            set GuardSpawners = for (K -> Station : Stations):
+                if (StationTag := StationTags[K]) then FindGuards(StationTag) else false
+            set GuardsUp = for (Spawner : GuardSpawners) { false }
+            for (MaybeSpawner : GuardSpawners, Spawner := MaybeSpawner?):
+                Spawner.Disable()
+                Spawner.SpawnedEvent.Subscribe(OnGuardSpawned)
+                Spawner.EliminatedEvent.Subscribe(OnGuardEliminated)
+            Print("FNM: {CountGuardStations()} stations have guards")
+            spawn{ GuardLoop() }
             Playspace := GetPlayspace()
             Playspace.PlayerAddedEvent().Subscribe(OnPlayerAdded)
             Playspace.PlayerRemovedEvent().Subscribe(OnPlayerRemoved)
@@ -371,6 +391,80 @@ fnm_director := class(creative_device):
         Homes := for (Part : Parts) { Part.GetTransform() }
         fnm_rig{Name := Name, Parts := Parts, Homes := Homes}
 
+    # The guard spawner (fnm_guards) among a station's tagged objects, if it has one.
+    FindGuards(StationTag:castable_subtype(tag)):?guard_spawner_device =
+        var Found : ?guard_spawner_device = false
+        for (Object : FindCreativeObjectsWithTag(StationTag), Object.GetTags().Has[fnm_guards{}], Spawner := guard_spawner_device[Object]):
+            set Found = option{Spawner}
+        Found
+
+    CountGuardStations():int =
+        var Count : int = 0
+        for (MaybeSpawner : GuardSpawners, MaybeSpawner?):
+            set Count += 1
+        Count
+
+    # True while any player still racing is on stage Index + 1 (in that station's hallway).
+    StationOccupied(Index:int):logic =
+        var Found : logic = false
+        for (State : PlayerStates, not State.Finished?, State.Stage = Index + 1):
+            set Found = true
+        Found
+
+    # Guards are up only where a player is: a station's spawner is reset and enabled when its first player
+    # arrives (it fills up to its own Guard Count, a guard every second), and disabled, despawning them, once
+    # nobody is left there. A guard a player eliminates stays down until the station is emptied and refilled.
+    GuardLoop()<suspends>:void =
+        loop:
+            for (Index -> MaybeSpawner : GuardSpawners, Spawner := MaybeSpawner?, Up := GuardsUp[Index]):
+                Occupied := StationOccupied(Index)
+                if (Occupied?, not Up?):
+                    Spawner.Reset()
+                    Spawner.Enable()
+                    if (set GuardsUp[Index] = true) {}
+                    Print("FNM: guards up at station {Index + 1}")
+                else if (not Occupied?, Up?):
+                    Spawner.Disable()
+                    if (set GuardsUp[Index] = false) {}
+                    Print("FNM: guards down at station {Index + 1}")
+            Sleep(GuardCheckSeconds)
+
+    OnGuardSpawned(Guard:agent):void =
+        set GuardsSpawned += 1
+        Print("FNM: guard spawned ({GuardsSpawned} so far)")
+
+    OnGuardEliminated(Result:device_ai_interaction_result):void =
+        if (Source := Result.Source?, Player := player[Source]):
+            Print("FNM: a player eliminated a guard")
+        else:
+            Print("FNM: a guard was eliminated")
+
+    # Notices a player's elimination (any cause) and, once they respawn, puts them back at the entry of the
+    # station they were on with the starting loadout. (A Spike penalty waits for this itself.)
+    WatchLife(State:fnm_player_state)<suspends>:void =
+        var WasAlive : logic = true
+        loop:
+            Sleep(0.25)
+            if (not PlayerStates[State.Player]) then break
+            Alive := if (Character := State.Player.GetFortCharacter[], Character.IsActive[]) then true else false
+            if (WasAlive?, not Alive?):
+                Print("FNM: player eliminated at stage {State.Stage}")
+                StopBoost(State)
+                set State.Streak = 0
+            else if (not WasAlive?, Alive?):
+                Respawned(State)
+            set WasAlive = Alive
+
+    Respawned(State:fnm_player_state):void =
+        WideCamera(State.Player, false)
+        Stage := Min(State.Stage, Stations.Length)
+        if (Station := Stations[Stage - 1]):
+            SendTo(State.Player, Station.RetryTeleporter)
+        GiveLoadout(State.Player)
+        Print("FNM: respawned at stage {Stage}")
+        if (not State.Busy?, not State.Finished?):
+            spawn{ FlashNotice(State, "Eliminated! Back to the start of station {Stage}.") }
+
     FindFx(FxTag:castable_subtype(tag)):?post_process_device =
         var Found : ?post_process_device = false
         for (Object : FindCreativeObjectsWithTag(FxTag), Device := post_process_device[Object]):
@@ -423,6 +517,7 @@ fnm_director := class(creative_device):
                 Print("FNM: debug start at stage {DebugStartStage}")
             GiveLoadout(Joined)
             spawn{ Countdown(State) }
+            spawn{ WatchLife(State) }
             if (DebugAutoWrongAnswers > 0):
                 spawn{ DebugAutoWrong(State) }
             if (DebugPassageTest?):
@@ -682,7 +777,7 @@ fnm_director := class(creative_device):
                 Sleep(SpikeHoldSeconds)
                 for (Index : Spears):
                     SpikeRig.Park(Index)
-            # Wait for the respawned character (gives up after ~20 s).
+            # Wait for the respawned character (gives up after ~20 s); WatchLife puts them back at the entry.
             var Waited : int = 0
             loop:
                 Sleep(0.25)
@@ -692,9 +787,7 @@ fnm_director := class(creative_device):
                     break
                 set Waited += 1
             Print("FNM: spike respawn after {Waited} polls")
-            WideCamera(Player, false)
-            SendTo(Player, Station.RetryTeleporter)
-            GiveLoadout(Player)
+            Sleep(0.3)
 
     # Blends a screen effect in (FxOn) or out (FxOff) for Player only.
     FxOn(Player:player, Fx:?post_process_device):void =

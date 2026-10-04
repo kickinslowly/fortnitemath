@@ -49,6 +49,11 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   personal best + island record, then an automatic new run 12 s later. Boost speed (1.6x) not yet felt in play
 - [ ] Aaron playtest of the race layer and obstacles (is the boost noticeable? hurdles fun or annoying? sliders fair?)
 - [ ] Weapons / traps in the hallways (G4 "later")
+- [x] Hostile guards (Aaron, 2026-10-04; seen in play at station 5): a guard spawner per hallway, 1,1,2,2,3,3,4,4,5,5
+  guards by station (`tools/build_guards.py`), Wildlife team, low accuracy, health bars, drop their gun. Up only while a
+  player is on that station. Any elimination respawns the player at their station's entry with the pistol
+- [x] Spike death now lands with the spears (~0.4 s, was ~1.3 s), seen in play
+- [ ] Aaron playtest of guards: too many / too few, too accurate, do kids have enough to fight back with (pistol only)?
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)

@@ -29,7 +29,8 @@ before UEFN work. Project-specific:
 - Tools: `tools/uefn_mcp.py` (MCP client), `tools/build_course.py` (rebuilds the whole course, idempotent via
   actor tag `fnm_course`), `tools/capture.py` (viewport PNG — look at it), `tools/uefn_status.py`,
   `tools/playtest.py` (relaunch session → game screenshot + the director's `FNM:` log lines; `--watch N`),
-  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/import_art.py`
+  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_guards.py`
+  (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap).
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.

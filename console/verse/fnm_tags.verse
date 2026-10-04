@@ -26,6 +26,8 @@ fnm_boost := class(tag){}
 # Hallway obstacles (tools/build_course.py): shipping containers the director slides across the hallway, from
 # their placed X to the mirrored X and back.
 fnm_slider := class(tag){}
+# A station's guard spawner (tools/build_guards.py), also tagged with its fnm_station_NN.
+fnm_guards := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

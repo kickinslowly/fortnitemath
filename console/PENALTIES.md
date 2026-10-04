@@ -18,7 +18,7 @@ work yet. **Idea**: not built. The "how" column names the UEFN API or device it 
 | Penalty | Effect | How | Status |
 |---|---|---|---|
 | Freeze | Encased in a block of ice for 5 s right where they stand, seen from a wide camera (walls see-through), frosted screen, then back to the station entry | `PutInStasis` + ice-cube rig + orbit camera rig (`AddTo`/`RemoveFrom`) + `PP_Frost` | **Live** |
-| Spike | A ring of 6 spears bursts up where they stand; pinned 1.2 s under the wide camera so they see it, then eliminated; respawn, back to the entry with the pistol | spear rig + `PutInStasis` + `Damage(1000)`. The orbit camera as elimination camera jumped to a random wall, so the death view is Fortnite's own | **Live** |
+| Spike | A ring of 6 spears bursts up where they stand and they are eliminated the moment the spears land (was a 1.2 s pin; Aaron: the death lagged the spikes); respawn, back to the entry with the pistol | spear rig + `PutInStasis` + `Damage(1000)`. The orbit camera as elimination camera jumped to a random wall, so the death view is Fortnite's own | **Live** |
 | Mud | Back at the entry, slowed to half speed with a sepia screen for 8 s | `movement_modulator_device.Activate(agent)` (re-applied every 2.5 s: its 3 s Duration isn't settable from MCP) + `post_process_device` `PP_Sepia` | **Live** |
 | Dizzy | Back at the entry with a wild colour-swirl screen for 6 s | `post_process_device` `PP_Crazy`, `BlendIn(agent)` / `BlendOut(agent)` | **Live** |
 | Blackout | "LIGHTS OUT!": the screen goes fully black for 3 s, they wake up at the entry | full-screen black `color_block` on the HUD + `PutInStasis` (the `PP_Dark` effect only tinted the view) | **Live** |
