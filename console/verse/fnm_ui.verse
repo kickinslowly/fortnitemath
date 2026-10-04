@@ -19,8 +19,10 @@ fnm_hud := class:
     PromptText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 44.0, DefaultJustification := text_justification.Center}
     ChoicesText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
     FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
-    # Centre-screen verdict: a huge check or X, and under a wrong one the penalty's name.
-    VerdictText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 220.0, DefaultJustification := text_justification.Center}
+    # Verdict: a big check mark or cross (textures; the HUD font has no such glyphs) over CORRECT! or the
+    # penalty's name. FNM_Art.T_fnm_check / T_fnm_cross are imported into each map's project by
+    # tools/import_art.py.
+    VerdictImage : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_check, DefaultDesiredSize := vector2{X := 240.0, Y := 240.0}}
     VerdictLabel : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 96.0, DefaultJustification := text_justification.Center}
     # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.0}
@@ -88,7 +90,7 @@ fnm_hud := class:
                             Orientation := orientation.Vertical
                             Slots := array:
                                 stack_box_slot:
-                                    Widget := VerdictText
+                                    Widget := VerdictImage
                                     HorizontalAlignment := horizontal_alignment.Center
                                 stack_box_slot:
                                     Widget := VerdictLabel
@@ -98,6 +100,7 @@ fnm_hud := class:
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.68}, Maximum := vector2{X := 0.5, Y := 0.68}}
                         Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
+            VerdictImage.SetVisibility(widget_visibility.Collapsed)
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
             set MaybePlayerUI = option{PlayerUI}
             set MaybeRoot = option{Root}
@@ -138,21 +141,20 @@ fnm_hud := class:
         set FeedbackGeneration += 1
         FeedbackText.SetText(FnmText(""))
 
-    # Flashes a big green CORRECT! or a red X with Label under it, for VerdictSeconds.
+    # Flashes a green check over CORRECT! or a red cross over Label, for VerdictSeconds.
     FlashVerdict(Correct:logic, Label:string):void =
         set VerdictGeneration += 1
         Color := if (Correct?) then NamedColors.Lime else NamedColors.Red
-        VerdictText.SetTextColor(Color)
         VerdictLabel.SetTextColor(Color)
-        # The HUD font has no check/cross glyphs (they render as a "?" diamond); plain text it is.
-        VerdictText.SetText(FnmText(if (Correct?) then "" else "X"))
+        if (Correct?) then VerdictImage.SetImage(FNM_Art.T_fnm_check) else VerdictImage.SetImage(FNM_Art.T_fnm_cross)
+        VerdictImage.SetVisibility(widget_visibility.Visible)
         VerdictLabel.SetText(FnmText(if (Correct?) then "CORRECT!" else Label))
         spawn{ ClearVerdictLater(VerdictGeneration) }
 
     ClearVerdictLater(Generation:int)<suspends>:void =
         Sleep(VerdictSeconds)
         if (Generation = VerdictGeneration):
-            VerdictText.SetText(FnmText(""))
+            VerdictImage.SetVisibility(widget_visibility.Collapsed)
             VerdictLabel.SetText(FnmText(""))
 
     # Screen to black (On) or back. The HUD text and the verdict stay on top of it.
