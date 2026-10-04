@@ -102,3 +102,20 @@ FnmTierName(Tiers:[]fnm_tier, Tier:int)<transacts>:string =
 FnmAccuracyLine(FirstTryCorrect:int, Total:int)<transacts>:string =
     Percent := FnmDiv(FirstTryCorrect * 100, Total)
     "First-try accuracy: {FirstTryCorrect} / {Total} ({Percent}%)"
+
+# Race clock text: 83.46 s -> "1:23.4" (tenths, truncated).
+FnmClock(Seconds:float)<transacts>:string =
+    var Tenths : int = 0
+    if (T := Floor[Seconds * 10.0], T > 0):
+        set Tenths = T
+    Minutes := FnmDiv(Tenths, 600)
+    Secs := FnmDiv(Tenths, 10) - Minutes * 60
+    Tenth := Tenths - FnmDiv(Tenths, 10) * 10
+    Pad := if (Secs < 10) then "0" else ""
+    "{Minutes}:{Pad}{Secs}.{Tenth}"
+
+# Medal for a finished run, by first-try answers: all of them GOLD, 70% or more SILVER, else BRONZE.
+FnmMedal(FirstTryCorrect:int, Total:int)<transacts>:string =
+    if (FirstTryCorrect >= Total) then "GOLD"
+    else if (FirstTryCorrect * 10 >= Total * 7) then "SILVER"
+    else "BRONZE"

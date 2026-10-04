@@ -24,6 +24,9 @@ fnm_hud := class:
     # tools/import_art.py.
     VerdictImage : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_check, DefaultDesiredSize := vector2{X := 240.0, Y := 240.0}}
     VerdictLabel : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 96.0, DefaultJustification := text_justification.Center}
+    # Race clock and streak, left side.
+    ClockText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 52.0, DefaultJustification := text_justification.Left}
+    StreakText : text_block = text_block{DefaultTextColor := NamedColors.Orange, DefaultTextSize := 30.0, DefaultJustification := text_justification.Left}
     # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.0}
     # Seconds the verdict stays up.
@@ -100,6 +103,29 @@ fnm_hud := class:
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.68}, Maximum := vector2{X := 0.5, Y := 0.68}}
                         Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
+                    canvas_slot:
+                        Widget := overlay:
+                            Slots := array:
+                                overlay_slot:
+                                    Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.55}
+                                    HorizontalAlignment := horizontal_alignment.Fill
+                                    VerticalAlignment := vertical_alignment.Fill
+                                overlay_slot:
+                                    Widget := stack_box:
+                                        Orientation := orientation.Vertical
+                                        Slots := array:
+                                            stack_box_slot:
+                                                Widget := ClockText
+                                                HorizontalAlignment := horizontal_alignment.Left
+                                            stack_box_slot:
+                                                Widget := StreakText
+                                                HorizontalAlignment := horizontal_alignment.Left
+                                    Padding := margin{Left := 24.0, Top := 8.0, Right := 24.0, Bottom := 10.0}
+                        # Left, under Fortnite's GAME MODE box: top right is the minimap's (it hid the clock).
+                        Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 0.0, Y := 0.0}}
+                        Alignment := vector2{X := 0.0, Y := 0.0}
+                        Offsets := margin{Left := 20.0, Top := 230.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
             set MaybePlayerUI = option{PlayerUI}
@@ -141,21 +167,36 @@ fnm_hud := class:
         set FeedbackGeneration += 1
         FeedbackText.SetText(FnmText(""))
 
-    # Flashes a green check over CORRECT! or a red cross over Label, for VerdictSeconds.
+    # Flashes a green check over CORRECT! (or Label, if given) or a red cross over Label, for VerdictSeconds.
     FlashVerdict(Correct:logic, Label:string):void =
         set VerdictGeneration += 1
         Color := if (Correct?) then NamedColors.Lime else NamedColors.Red
         VerdictLabel.SetTextColor(Color)
         if (Correct?) then VerdictImage.SetImage(FNM_Art.T_fnm_check) else VerdictImage.SetImage(FNM_Art.T_fnm_cross)
         VerdictImage.SetVisibility(widget_visibility.Visible)
-        VerdictLabel.SetText(FnmText(if (Correct?) then "CORRECT!" else Label))
-        spawn{ ClearVerdictLater(VerdictGeneration) }
+        VerdictLabel.SetText(FnmText(if (Correct?, Label = "") then "CORRECT!" else Label))
+        spawn{ ClearVerdictLater(VerdictGeneration, VerdictSeconds) }
 
-    ClearVerdictLater(Generation:int)<suspends>:void =
-        Sleep(VerdictSeconds)
+    ClearVerdictLater(Generation:int, Seconds:float)<suspends>:void =
+        Sleep(Seconds)
         if (Generation = VerdictGeneration):
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             VerdictLabel.SetText(FnmText(""))
+
+    # Big text in the verdict spot with no image (countdown, FINISH!), for Seconds (0 = until replaced).
+    FlashBig(Text:string, TextColor:color, Seconds:float):void =
+        set VerdictGeneration += 1
+        VerdictImage.SetVisibility(widget_visibility.Collapsed)
+        VerdictLabel.SetTextColor(TextColor)
+        VerdictLabel.SetText(FnmText(Text))
+        if (Seconds > 0.0):
+            spawn{ ClearVerdictLater(VerdictGeneration, Seconds) }
+
+    SetClock(Text:string):void =
+        ClockText.SetText(FnmText(Text))
+
+    SetStreak(Text:string):void =
+        StreakText.SetText(FnmText(Text))
 
     # Screen to black (On) or back. The HUD text and the verdict stay on top of it.
     SetBlack(On:logic):void =

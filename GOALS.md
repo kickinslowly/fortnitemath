@@ -41,7 +41,14 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Verdict check mark / cross as textures (`tools/import_art.py`), seen in play; verdict moved to the lower third so
   it no longer covers the player
 - [ ] Aaron playtest of the new penalties (Mud, Dizzy, Blackout) and the tier colours
-- [ ] Obstacles / weapons / traps in the hallways (G4 "later")
+- [x] Obstacles (2026-10-04, seen in play): gold 70 cm hurdles (walking stops at one, run+jump clears it), baffle
+  walls, shipping containers sliding across the hallway (Verse `Slide`, `fnm_slider`); harder per station
+  (`OBSTACLES` in `tools/build_course.py`). Not checked: what a sliding container does to a player it hits
+- [x] Race layer (2026-10-04, seen in play via debug hooks): 3-2-1-GO countdown, race clock (left, under GAME MODE),
+  streak ("4 IN A ROW!") + speed boost on first-try right answers, FINISH + GOLD/SILVER/BRONZE medal + time +
+  personal best + island record, then an automatic new run 12 s later. Boost speed (1.6x) not yet felt in play
+- [ ] Aaron playtest of the race layer and obstacles (is the boost noticeable? hurdles fun or annoying? sliders fair?)
+- [ ] Weapons / traps in the hallways (G4 "later")
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)

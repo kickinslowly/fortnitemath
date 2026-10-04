@@ -45,6 +45,29 @@ VEST = 700              # vestibule depth behind the door wall
 BARRIER_T = 40
 SLAB_T = 40             # floor slab thickness (top at z=2, just above the template ground)
 FINISH_LEN = 1500
+# Hallway obstacles per station, as (kind, distance from the hallway start in cm). Players land 450 cm in and
+# a Yeet pulls them back to 2270 cm, so obstacles stay between 900 and 2000. Later stations get harder; a course
+# longer than this list repeats its last entry. hurdle = 70 cm bar to jump (gold), baffleL/R = a wall from one
+# side leaving a gap on the other, slider/sliderR = a shipping container the director sweeps across the hallway
+# (starting on the left / right).
+OBSTACLES = [
+    [],
+    [("hurdle", 1400)],
+    [("baffleL", 1000), ("baffleR", 1800)],
+    [("hurdle", 1000), ("hurdle", 1800)],
+    [("slider", 1400)],
+    [("baffleL", 950), ("hurdle", 1450), ("baffleR", 1950)],
+    [("slider", 1000), ("sliderR", 1800)],
+    [("hurdle", 950), ("slider", 1450), ("hurdle", 1950)],
+    [("baffleL", 950), ("slider", 1450), ("baffleR", 1950)],
+    [("slider", 950), ("hurdle", 1450), ("sliderR", 1950)],
+]
+HURDLE_H = 70
+BAFFLE_GAP = 900        # open width a baffle leaves
+CONTAINER = ("/CR_Legacy/Playsets/PlaysetProps/PPID_CR_Legacy_Apollo_Industrial_ShippingContainer_01_2bfba750."
+             "PPID_CR_Legacy_Apollo_Industrial_ShippingContainer_01_2bfba750")
+CONTAINER_W = 607       # along X; it sweeps between +SLIDE_X and -SLIDE_X
+SLIDE_X = 790
 LETTERS = "ABCD"
 # Letter boards: bright text on a dark board, a colour per door (default billboard text is pale grey and
 # vanished against the sky in play).
@@ -166,6 +189,8 @@ def station(k, oy, hall, doors, project, door_assets):
     sign = device(BILLBOARD, f"{prefix}_Sign", half - 5, oy + 600, 250, yaw=-90, sx=2, sy=2, sz=2)
     board(sign, f"STATION {k}", SIGN_COLOUR)
 
+    obstacles(k, oy, half, project)
+
     bw, bd, bh, bz = BARRIER_BASE
     for i, cx in enumerate(door_centres(doors)):
         letter = LETTERS[i]
@@ -188,6 +213,22 @@ def station(k, oy, hall, doors, project, door_assets):
         props(bar, {"invisibleToIgnoredPlayers": True, "collide with Camera": False})
         verse_tags(bar, project, [f"fnm_station_{k:02d}", f"fnm_door_{letter.lower()}"])
     return end
+
+
+def obstacles(k, oy, half, project):
+    """Station k's hallway obstacles (OBSTACLES). +X is the player's left."""
+    for n, (kind, dy) in enumerate(OBSTACLES[min(k, len(OBSTACLES)) - 1], 1):
+        y = oy + dy
+        label = f"FNM_S{k:02d}_{kind.capitalize()}{n}"
+        if kind == "hurdle":
+            box(label, -half, half, y - 20, y + 20, 0, HURDLE_H)
+        elif kind == "baffleL":
+            box(label, BAFFLE_GAP - half, half, y - WALL_T / 2, y + WALL_T / 2, 0, WALL_H)
+        elif kind == "baffleR":
+            box(label, -half, half - BAFFLE_GAP, y - WALL_T / 2, y + WALL_T / 2, 0, WALL_H)
+        else:
+            x = SLIDE_X if kind == "slider" else -SLIDE_X
+            verse_tags(prop(CONTAINER, label, x, y, 0), project, ["fnm_slider"])
 
 
 def finish(oy, doors, project):
@@ -227,11 +268,13 @@ def paint():
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     mount = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).rstrip("/")
     found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
-    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish)_(Wall|Lintel|Divider)", a.get("label", ""))]
+    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish)_(Wall|Lintel|Divider|Baffle|Hurdle)", a.get("label", ""))]
     stations = len({a["label"][5:7] for a in walls if a["label"][4] == "S"})
     tiers = tier_count()
     for a in walls:
-        key = "finish" if a["label"].startswith("FNM_Finish") else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}"
+        # Hurdles are gold (the finish colour) so they stand out against the tier colour.
+        gold = a["label"].startswith("FNM_Finish") or "_Hurdle" in a["label"]
+        key = "finish" if gold else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}"
         mat = f"{mount}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
         comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(a["actorPath"]),
                                                         "properties": ["staticMeshComponent"]})["returnValue"])

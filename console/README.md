@@ -79,7 +79,15 @@ penalty's name and that choice's feedback, fires the penalty, and puts the playe
 with the same question still up. A right door shows a big green check over CORRECT!, the explanation, and the next
 question, and that door's barrier opens for that player (no barrier: a teleport to the next station). A door letter the
 item does not use shows "No choice D here". Doors of a station the player is not on show "This is
-not your station". After the last station: "Course complete!" and first-try accuracy.
+not your station". After the last station: FINISH!, the run time, a medal (GOLD = every answer right first try,
+SILVER = 70%+, BRONZE), first-try accuracy, personal best and island record; 12 s later the player starts a fresh
+run from station 1 (unless an End Game device is set).
+
+Race layer (left side, under the GAME MODE box): a 3-2-1-GO countdown (player held in stasis) starts each run's clock. A first-try right
+answer builds a streak ("3 IN A ROW!") and a speed boost (the `fnm_boost` movement modulator, 3 s + 1 s per
+streak step, max 7 s); a wrong door ends both. Shipping containers tagged `fnm_slider` sweep across the hallways
+(placed X to mirrored X and back); hurdles and baffles are static. Obstacle plan: `OBSTACLES` in
+`tools/build_course.py`.
 
 Output log (`Print`) messages starting with `FNM:` mean misconfiguration: no stations, a cartridge
 with no tiers, or a station with fewer doors than the cartridge's items have choices.

@@ -21,6 +21,11 @@ fnm_pp_dizzy := class(tag){}
 fnm_penalty_cam := class(tag){}
 # Hidden trigger bound to the starting-loadout item granter (tools/build_rigs.py).
 fnm_loadout := class(tag){}
+# The movement modulator that speeds up a player after a first-try right answer (tools/build_rigs.py).
+fnm_boost := class(tag){}
+# Hallway obstacles (tools/build_course.py): shipping containers the director slides across the hallway, from
+# their placed X to the mirrored X and back.
+fnm_slider := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

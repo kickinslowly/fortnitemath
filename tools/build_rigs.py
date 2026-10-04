@@ -62,6 +62,11 @@ RIGS = [
      "fnm_mud", (1.0, 1.0, 1.0), True, 0,
      {"speed": 0.5, "visibleDuringGame": "No",
       "pad has Collision": False, "resetDelay": 0}),
+    # Boost: the same kind of modulator, faster; the director activates it after a first-try right answer.
+    ("Boost", "/CreativeCoreDevices/SetupAssets/PID_Device_MovementModulator.PID_Device_MovementModulator",
+     "fnm_boost", (1.0, 1.0, 1.0), True, 0,
+     {"speed": 1.6, "visibleDuringGame": "No",
+      "pad has Collision": False, "resetDelay": 0}),
 ] + [
     # Screen effects, one post-process device each, blended in and out per player from Verse. Starting strength
     # 0 so nobody sees one until BlendIn(player).

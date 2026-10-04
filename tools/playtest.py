@@ -5,7 +5,8 @@
     python tools/playtest.py --watch 3       # also catch N "FNM: debug auto-wrong" events, 4 frames each
     python tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5
                                              # wait for a director log line, then hold keys in turn
-                                             # (W walk, E interact, ...), one screenshot after each
+                                             # (W walk, E interact, ...), one screenshot after each;
+                                             # W+SPACE:4 holds W and taps jump (run and jump hurdles)
 
 Pair --watch with the director's DebugAutoWrongAnswers @editable (set it in the Verse default, sync,
 BuildAll) to see every penalty fire without walking. Screenshots land in %TEMP% as pt_*.png. Look at them.
@@ -95,8 +96,10 @@ def play_keys(spec):
     """spec like "W:0.8,E:0.3,W:2.5": hold each key that many seconds in turn, screenshot after each."""
     for k, step in enumerate(spec.split(",")):
         key, secs = step.split(":")
-        subprocess.run(["powershell", "-NoProfile", "-File", str(HOLDKEY), "-scan", str(SCANCODES[key.upper()]),
-                        "-secs", secs], capture_output=True)
+        hold, _, tap = key.upper().partition("+")   # "W+SPACE": hold W, tap SPACE (run and jump)
+        extra = ["-tap", str(SCANCODES[tap])] if tap else []
+        subprocess.run(["powershell", "-NoProfile", "-File", str(HOLDKEY), "-scan", str(SCANCODES[hold]),
+                        "-secs", secs, *extra], capture_output=True)
         time.sleep(0.3)
         print(f"  {step} ->", shot(f"pt_keys{k}"))
 

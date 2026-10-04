@@ -34,5 +34,10 @@ puts them back at their hallway's entry. The finish hallway ends in a wall with 
 - **Generic A–D doors:** each player's question is on their own HUD, so a whole class can play at once.
 - **Straight line on own slabs:** simplest geometry; the director's arrival direction is fixed at +Y.
 
-## Still to do (GOALS G2/G4)
-- Visual pass: walls are plain white engine cubes; colour per tier or a themed kit.
+## Hallway obstacles (2026-10-04)
+Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is
+clear; then a 70 cm gold hurdle, baffles (a full-height wall from one side, 9 m gap on the other), and from
+station 5 shipping containers that slide across the hallway (Verse, `fnm_slider`). Later stations mix all three.
+
+## Still to do (GOALS G4)
+- Themed prop kit beyond the tier colours, if wanted.
