@@ -178,7 +178,7 @@ Baked text is canonical. Emitters apply a **render profile**:
 | `ascii` | kept as `^` | `×`→`*`, `÷`→`/`, `−`→`-`, `≤`→`<=`, `≥`→`>=`, `≠`→`!=`, `√`→`sqrt`, `π`→`pi` |
 
 Non-digit exponents (`2^(1 + 1)`) stay `^` in both. Which profile the UEFN map uses is decided once by
-an in-editor font test (open item O1); the emulator uses `unicode`.
+an in-game font test (O1, resolved: `unicode`); the emulator uses `unicode` too.
 
 **Verse target** — `maps/<map-id>/generated/fnm_active_cartridge.verse` (one per registered map, §6a), defining exactly one function:
 
@@ -241,6 +241,7 @@ needs the catalog. Ids stay in `baked.json` for later analytics.
 
 ## 10. Open items
 
-- **O1** Which glyphs the Fortnite billboard/UI fonts render (superscripts, `×`, `÷`, `−`). Decides the Verse render profile.
+- ~~O1~~ Resolved 2026-10-04: the Fortnite UI font renders `×`, `÷`, `−` and superscript digits in play, so maps use
+  `unicode`. (✓ ✗ do not render; the console draws those as textures.)
 - ~~O2~~ Resolved 2026-10-03: the 200-item generated file compiles clean in UEFN 42.30 and cooks server-side.
 - ~~O3~~ Resolved: all Verse files sit flat in `<project>/Content/` (one module); no `<public>` needed.

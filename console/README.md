@@ -35,7 +35,9 @@ changes. No device or level edits.
 
 The fast path is `python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]` with UEFN open: it
 builds every hallway, door, vestibule, barrier, sign and teleporter, tags them, and places the director
-(idempotent: it first removes every actor tagged `fnm_course`). Penalty props: `python tools/build_rigs.py`.
+(idempotent: it first removes every actor tagged `fnm_course`). Once per UEFN project, before the first build:
+`python tools/import_art.py` (the verdict check/cross textures the HUD needs to compile, and the wall colours).
+Penalty props and effect devices: `python tools/build_rigs.py`.
 Layout: `maps/starter/LAYOUT.md`. To build by hand instead, per station:
 
 | Device | Count | Settings |
@@ -72,9 +74,9 @@ Automatic difficulty (PROTOCOL §6, T = 5 tiers): 10 stations → tiers 1,1,2,2,
 ## 4. What players see
 
 Top-centre HUD, per player: `Title - Subtitle`, `Stage s/S - <tier name>`, the prompt, the lettered
-choices (`A: 11     B: 14     C: 10`), and a feedback line. A wrong door shows a big red X, the
+choices (`A: 11     B: 14     C: 10`), and a feedback line, on a dark panel. A wrong door shows a big red cross, the
 penalty's name and that choice's feedback, fires the penalty, and puts the player back at the retry point
-with the same question still up. A right door shows a big green CORRECT!, the explanation, and the next
+with the same question still up. A right door shows a big green check over CORRECT!, the explanation, and the next
 question, and that door's barrier opens for that player (no barrier: a teleport to the next station). A door letter the
 item does not use shows "No choice D here". Doors of a station the player is not on show "This is
 not your station". After the last station: "Course complete!" and first-try accuracy.
@@ -86,8 +88,8 @@ with no tiers, or a station with fewer doors than the cartridge's items have cho
 
 - A player who is eliminated respawns at a spawn pad but keeps their stage. If eliminations are
   possible on the course, either disable them (Island Settings) or add a spawn pad per station.
-- Text uses the Fortnite UI font; whether `×`, `÷`, `−`, superscripts render decides the map's
-  `render_profile` (PROTOCOL O1). Check it on first play-test.
+- Text uses the Fortnite UI font: `×`, `÷`, `−` and superscripts render (PROTOCOL O1, `unicode` profile); ✓ and ✗
+  do not, so the verdict uses textures.
 
 ## First compile checklist
 
