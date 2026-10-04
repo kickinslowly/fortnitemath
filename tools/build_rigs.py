@@ -1,7 +1,7 @@
 """Place the penalty rigs (console/verse/fnm_rig.verse) in the open UEFN project through UEFN MCP.
 
 Each rig is a prop or device parked underground, out of sight, that the director moves onto a punished
-player: an ice cube (Freeze), a ring of spears that burst out of the floor (Spike), an air vent (Yeet).
+player: an ice cube (Freeze) and a ring of spears that burst out of the floor (Spike). Yeet needs no rig.
 COPIES of each so players punished at the same moment each get their own.
 Real Fortnite traps can't be used: placed traps (BR TID_Floor_Spikes_Athena_R_T03 and the Creative
 TID_Figment_Floor_Spikes_Athena_R_T01) both fail island validation as illegal references.
@@ -31,8 +31,6 @@ RIGS = [
     # Coliseum spear (1.8 m, pivot mid-shaft) scaled to 2.7 m; the director rings SpearCount of them.
     ("Spear", "/CR_Legacy/Playsets/PlaysetProps/PPID_CR_Legacy_Apollo_Coliseum_Spear_01.PPID_CR_Legacy_Apollo_Coliseum_Spear_01",
      "fnm_spike", (1.5, 1.5, 1.5), False, 6),
-    ("Yeet", "/CreativeCoreDevices/SetupAssets/PID_Device_AirVent_V2.PID_Device_AirVent_V2",
-     "fnm_yeet", (1.0, 1.0, 1.0), True, 1),
 ]
 
 
@@ -65,13 +63,9 @@ def build(copies):
             u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
             u.call(ACTOR, "set_label", {"actor": ref(actor), "label": f"FNM_Rig_{label}{n + 1}"})
             verse_tags(actor, project, [vtag])
-            if label == "Yeet":
-                # Skydive after the launch so they glide back down. Strength 3 threw a player 183 m up.
-                props_set(actor, {"putInDiveMode": True, "launch Strength Modifier": 1.5})
-            if label == "Ice":
-                # Visual only: with collision the third-person camera is pushed inside the cube and the screen is
-                # just ice (bNoCameraCollision is not settable from MCP; bNoCollision is).
-                props_set(actor, {"bNoCollision": True})
+            # Visual only: with collision the third-person camera is pushed inside the cube or spear ring and
+            # the view closes in (bNoCameraCollision is not settable from MCP; bNoCollision is).
+            props_set(actor, {"bNoCollision": True})
         print(label, copies * per_copy, "placed")
 
 

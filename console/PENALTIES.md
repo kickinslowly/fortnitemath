@@ -16,12 +16,15 @@ work yet. **Idea**: not built. The "how" column names the UEFN API or device it 
 ## Built
 | Penalty | Effect | How | Status |
 |---|---|---|---|
-| Freeze | Encased in a block of ice for 5 s, then back to the station entry | `PutInStasis` + an ice-cube rig moved onto them | **Live** |
-| Spike | A ring of 6 spears bursts out of the floor around them; eliminated, respawn, back to the station entry | spear rig (`MoveTo` up in 0.12 s) + `Damage(1000)`, poll for respawn | **Live** |
-| Yeet | An air vent appears under them and blasts them ~75 m up into a skydive; on landing (max 8 s) back to the station entry | air-vent rig moved under them, then the player is hopped 40 cm so they *enter* the gust | **Live** |
+| Freeze | Pulled out of the vestibule into the hallway, encased in a block of ice for 5 s, then back to the station entry | `PutInStasis` + an ice-cube rig moved onto them | **Live** |
+| Spike | Pulled out into the hallway; a ring of 6 spears bursts out of the floor around them; eliminated, respawn, back to the station entry | spear rig (`MoveTo` up in 0.12 s) + `Damage(1000)`, poll for respawn | **Live** |
+| Yeet | Flung backward ~26 m down the hallway in a 5 m-high arc, still facing the doors, landing at the station entry | `fort_character.TeleportTo` along the arc every tick for 1.4 s (player physics is off, so velocity/impulse do nothing; an air vent only throws straight up and let players glide into other rooms) | **Live** |
+
+Freeze and Spike first pull the player 5 m in front of the door wall: in the narrow vestibule the walls pushed
+the third-person camera up against them.
 
 Rigs: `console/verse/fnm_rig.verse` (runtime) + `tools/build_rigs.py` (places 4 sets, parked underground, tagged
-`fnm_ice` / `fnm_spike` / `fnm_yeet`). Rerun the builder after changing a rig. Real Fortnite traps can't be
+`fnm_ice` / `fnm_spike`, both with collision off so they don't push the camera in). Rerun the builder after changing a rig. Real Fortnite traps can't be
 rigs: a placed trap (BR or Creative/Figment floor spikes) fails island validation as an illegal reference.
 
 ## Catalog: what UEFN can do (from the 42.30 Verse digest and device list)
@@ -30,7 +33,6 @@ Gentle → harsh. Every row is controllable from Verse for one specific player.
 | Idea | What the player experiences | How |
 |---|---|---|
 | Ice block | Frozen inside a block of ice for 5 s | Freeze + spawn an ice prop around them (`SpawnProp`, `CR_Legacy_IceStatue` prop exists) + frost post-process |
-| Yeet (fixed) | Launched back down the hallway | Teleport a `bouncer_device` or directional launcher (`PID_CP_Device_DLauncherStandard`) under the player with `creative_device.TeleportTo`, then move it away |
 | Rocket | Shot straight up into the sky, glides back down | `air_vent_device.Activate` moved under the player, or a `skydive_volume_device` |
 | Trapdoor | The floor vanishes; they drop into a pit/slide that dumps them at the hallway start | `trick_tile_device.Trigger()` under each wrong-door vestibule |
 | Boulder | A boulder releases and rolls down the hallway at them | `physics_boulder_device.ReleaseRollingBoulder()` |

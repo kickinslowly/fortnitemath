@@ -81,12 +81,17 @@ fnm_director := class(creative_device):
     Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike, fnm_penalty.Yeet}
     @editable
     FreezeSeconds : float = 5.0
-    # Seconds the air vent stays under a yeeted player, and the most seconds they stay airborne before
-    # being put back at the station entry.
+    # Yeet: the player is flung backward down their hallway in an arc YeetHeight (cm) high, landing at the
+    # station entry YeetSeconds later. Scripted with TeleportTo every tick: player physics is off in UEFN,
+    # so SetLinearVelocity / ApplyLinearImpulse do nothing, and an air vent only throws them straight up.
     @editable
-    YeetSeconds : float = 1.5
+    YeetSeconds : float = 1.4
     @editable
-    YeetAirSeconds : float = 8.0
+    YeetHeight : float = 500.0
+    # Freeze and Spike first pull the player out of the narrow vestibule to this far (cm) in front of the
+    # door wall, mid-hallway: in the vestibule the walls pushed the third-person camera up against them.
+    @editable
+    PenaltyStandOff : float = 500.0
     # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
     # the player, burst up SpearRise in SpearSeconds, then SpikeDamage eliminates (more than full health
     # + shield). The ring stays up SpikeHoldSeconds.
@@ -165,7 +170,6 @@ fnm_director := class(creative_device):
     var Ready : logic = false
     var IceRig : fnm_rig = fnm_rig{Name := "ice", Parts := array{}, Homes := array{}}
     var SpikeRig : fnm_rig = fnm_rig{Name := "spike", Parts := array{}, Homes := array{}}
-    var YeetRig : fnm_rig = fnm_rig{Name := "yeet", Parts := array{}, Homes := array{}}
 
     OnBegin<override>()<suspends>:void =
         set Cartridge = FnmActiveCartridge()
@@ -174,7 +178,6 @@ fnm_director := class(creative_device):
         set Stations = BuildStations()
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
-        set YeetRig = BuildRig("yeet", fnm_yeet)
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
         else if (TierCount = 0):
@@ -379,7 +382,7 @@ fnm_director := class(creative_device):
                 Kind := PickPenalty()
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, DoorIndex), NamedColors.Tomato)
-                Punish(State.Player, Station, Kind)
+                Punish(State.Player, Station, DoorIndex, Kind)
                 set State.Busy = false
                 Sleep(WrongFeedbackSeconds)
                 State.Hud.ClearFeedbackIf(Generation)
@@ -414,7 +417,12 @@ fnm_director := class(creative_device):
             if (Item := Cartridge.Items[State.CurrentItem], not State.Busy?, not State.Finished?):
                 set State.Busy = true
                 Print("FNM: debug auto-wrong {N}")
-                HandleDoor(State, State.Stage - 1, if (Item.Answer = 0) then 1 else 0)
+                Wrong := if (Item.Answer = 0) then 1 else 0
+                # Stand them in that door's vestibule, where a real wrong answer happens.
+                if (Station := Stations[State.Stage - 1], Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
+                    if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                    Sleep(1.0)
+                HandleDoor(State, State.Stage - 1, Wrong)
 
     DebugDoor(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
@@ -445,11 +453,13 @@ fnm_director := class(creative_device):
                     Sleep(1.0)
                     Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
 
-    # Applies Kind to Player, who answered wrong at Station. Returns once the player can play again.
-    Punish(Player:player, Station:fnm_station, Kind:fnm_penalty)<suspends>:void =
+    # Applies Kind to Player, who answered wrong through door DoorIndex at Station. Returns once the player
+    # can play again.
+    Punish(Player:player, Station:fnm_station, DoorIndex:int, Kind:fnm_penalty)<suspends>:void =
         Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
         if (Kind = fnm_penalty.Freeze):
             if (Character := Player.GetFortCharacter[]):
+                PullOut(Character, Station, DoorIndex)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 Ice := IceRig.NextIndex()
@@ -461,33 +471,28 @@ fnm_director := class(creative_device):
             SendTo(Player, Station.RetryTeleporter)
         else if (Kind = fnm_penalty.Yeet):
             if (Character := Player.GetFortCharacter[]):
-                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
-                Vent := YeetRig.NextIndex()
-                Placed := YeetRig.Place(Vent, Feet, 0.0)
-                if (Part := YeetRig.PartAt[Vent], AirVent := air_vent_device[Part]):
-                    AirVent.Enable()
-                    AirVent.Activate()
-                # The vent only launches a player who ENTERS its gust; one standing still as it arrives is
-                # ignored. Hop them up into it.
-                Sleep(0.1)
-                Hop := Character.GetTransform()
-                if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
-                Print("FNM: vent {Vent} placed={FnmYesNo(Placed)} at {Feet}")
-                Sleep(YeetSeconds)
-                Print("FNM: yeet height {Character.GetTransform().Translation.Z - Feet.Z} cm")
-                YeetRig.Park(Vent)
-                # Rooms have no roof, so a glider can land outside its room: once they touch down (or after
-                # YeetAirSeconds), put them back at the station entry.
-                var Airborne : float = 0.0
+                # Straight back toward the entry (through the door wall: a step that can't fit is skipped),
+                # still facing the doors, so they watch the doors shrink away.
+                From := Character.GetTransform().Translation
+                To := ArrivalSpot(Station.RetryTeleporter)
+                Facing := MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)
+                Start := GetSimulationElapsedTime()
+                var Steps : int = 0
+                var Blocked : int = 0
                 loop:
-                    if (Character.IsOnGround[]) then break
-                    if (Airborne >= YeetAirSeconds) then break
-                    Sleep(0.25)
-                    set Airborne += 0.25
-                Print("FNM: yeet landed after {Airborne} s")
+                    T := Min((GetSimulationElapsedTime() - Start) / Max(YeetSeconds, 0.1), 1.0)
+                    At := Lerp(From, To, T) + vector3{X := 0.0, Y := 0.0, Z := 4.0 * YeetHeight * T * (1.0 - T)}
+                    if (Character.TeleportTo[At, Facing]):
+                        set Steps += 1
+                    else:
+                        set Blocked += 1
+                    if (T >= 1.0) then break
+                    Sleep(0.0)
+                Print("FNM: yeet {From} -> {To}: {Steps} steps, {Blocked} blocked")
             SendTo(Player, Station.RetryTeleporter)
         else:
             if (Character := Player.GetFortCharacter[]):
+                PullOut(Character, Station, DoorIndex)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Spears := SpikeRig.NextIndices(SpearCount)
                 var Placed : int = 0
@@ -516,14 +521,29 @@ fnm_director := class(creative_device):
             Print("FNM: spike respawn after {Waited} polls")
             SendTo(Player, Station.RetryTeleporter)
 
+    # Moves a punished player out of the vestibule behind door DoorIndex into open hallway PenaltyStandOff in
+    # front of the door wall (centred like the entry), facing the doors, and lets them land.
+    PullOut(Character:fort_character, Station:fnm_station, DoorIndex:int)<suspends>:void =
+        if (Door := Station.Doors[DoorIndex]):
+            DoorAt := Door.GetTransform().Translation
+            Entry := ArrivalSpot(Station.RetryTeleporter)
+            # The trigger sits 2.3 m past the door wall.
+            Spot := vector3{X := Entry.X, Y := DoorAt.Y - 230.0 - PenaltyStandOff, Z := Entry.Z}
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: pulled out to {Spot}")
+            Sleep(0.4)
+
+    # Where SendTo puts a player: open floor just past Pad, a little above the ground.
+    ArrivalSpot(Pad:teleporter_device)<transacts>:vector3 =
+        Pad.GetTransform().Translation + vector3{X := 0.0, Y := ArrivalForward, Z := ArrivalLift}
+
     # Move Player into open floor just past Pad, facing the doors; falls back to the pad's own teleport
     # if the character can't be moved directly.
     SendTo(Player:player, Pad:teleporter_device):void =
-        PadAt := Pad.GetTransform().Translation
-        Spot := PadAt + vector3{X := 0.0, Y := ArrivalForward, Z := ArrivalLift}
+        Spot := ArrivalSpot(Pad)
         Facing := MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)
         if (Character := Player.GetFortCharacter[], Character.TeleportTo[Spot, Facing]):
-            Print("FNM: moved player to {Spot} (pad {PadAt})")
+            Print("FNM: moved player to {Spot}")
             return
         Print("FNM: direct move failed; using the pad's own teleport")
         Pad.Teleport(Player)

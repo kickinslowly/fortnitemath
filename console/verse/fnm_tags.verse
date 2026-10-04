@@ -10,7 +10,6 @@ fnm_finish := class(tag){}
 # Penalty props parked out of sight that the director moves onto a punished player (fnm_rig.verse).
 fnm_ice := class(tag){}
 fnm_spike := class(tag){}
-fnm_yeet := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

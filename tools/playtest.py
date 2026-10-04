@@ -57,7 +57,7 @@ def relaunch():
 
 
 def watch(count, timeout=150):
-    """Screenshot each new 'debug auto-wrong N' event at +0.3 / 1 / 2.5 / 4.5 s."""
+    """Screenshot each new 'debug auto-wrong N' event at +0.5 .. 5 s (its penalty fires at +1 s)."""
     baseline = {line for line in fnm_lines("FNM: debug auto-wrong")}
     seen, start = 0, time.time()
     while seen < count and time.time() - start < timeout:
@@ -66,7 +66,7 @@ def watch(count, timeout=150):
             baseline.add(line)
             seen += 1
             last = 0.0
-            for k, at in enumerate((0.3, 1.0, 2.5, 4.5)):
+            for k, at in enumerate((0.5, 1.4, 1.9, 2.4, 3.5, 5.0)):
                 time.sleep(at - last)
                 last = at
                 print("  frame", shot(f"pt_wrong{seen}_{k}"))
