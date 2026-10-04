@@ -5,13 +5,13 @@
 ## G2 — First map in UEFN
 - [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
 - [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
-- [ ] Visual pass: hallways are plain white engine cubes — colour per tier or a themed kit
-- [ ] O1 font test (×, ÷, −, superscripts) — ÷ − × render in-game (2026-10-03); ✓ ✗ do NOT (missing-glyph diamond); superscripts unchecked → pick Verse render profile
+- [x] Visual pass v1 (2026-10-04): hallway walls coloured by tier (green, blue, purple, orange, red; finish gold) — `build_course.py --paint-only`. A themed prop kit is still open if Aaron wants more
+- [x] O1 font test: ÷ − × and superscripts (², seen 2026-10-04 at stage 7) render in-game → `unicode` profile stays. ✓ ✗ glyphs don't; the verdict uses textures instead
 - [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
 - [x] First live session 2026-10-03: EAC installed, StartSession → match Running, HUD shows title/problem/choices, no FNM errors in client log
 - [x] Wrong-door return sank the player into the entry pad (`teleporter_device.Teleport`). Fixed: director `SendTo` uses `TeleportTo` 300 cm past the pad, +100 cm, facing +Y — Aaron confirmed in play 2026-10-03
 - [x] Doors playtested by Aaron 2026-10-03: right and wrong doors work, stations 1→4 reached
-- [ ] Reach the finish in play; stage subtitle (blue on pale wall) is hard to read — fix contrast
+- [x] Finish reached in play via `DebugAutoRightAnswers` (all 10 real triggers + barriers → "Course complete! 10/10", 2026-10-04); HUD text now sits on a dark panel (contrast fixed)
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes
@@ -33,14 +33,19 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Door C is now a dark stone bank wall with a wooden door (oil-rig "Green" rendered blue like B)
 - [x] Every door type opens with E in play and its trigger fires on the way through (A, C, D tested 2026-10-03)
 - [ ] One test session showed "Performance Warning: See editor" on the HUD (nothing in the editor log; seen once
-  in four runs). Check UEFN's memory/perf panel after the 40 barriers + 40 door props
-- [ ] Map profile chooses its penalty pool (map.json → director `Penalties`)
-- [ ] More penalties from the catalog
-- [ ] Verdict check-mark/X as textures (the HUD font has no ✓/✗ glyphs)
+  in four runs). Not seen again in ~12 sessions on 2026-10-04 and not in any log; watch item. UEFN's memory panel
+  is GUI-only
+- [x] Map profile chooses its penalty pool (map.json `penalties` → generated `FnmMapPenalties`, PROTOCOL §6a)
+- [x] More penalties (2026-10-04, all seen in play): Mud (slowed + sepia), Dizzy (colour swirl), Blackout (black
+  screen, wake at entry); Freeze also frosts the screen. Catalog: `console/PENALTIES.md`
+- [x] Verdict check mark / cross as textures (`tools/import_art.py`), seen in play; verdict moved to the lower third so
+  it no longer covers the player
+- [ ] Aaron playtest of the new penalties (Mud, Dizzy, Blackout) and the tier colours
+- [ ] Obstacles / weapons / traps in the hallways (G4 "later")
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)
 - [x] Order-of-ops ARITH 53% → 41% via compound misreadings (labelled with first misconception only — playtest whether that feedback reads well)
-- [ ] integer-ops T3 (× ÷) is 67% ARITH: only one ×/÷ misconception exists — add one (e.g. sign of quotient vs. dividend) or make T3 3-choice
-- [ ] integer-ops T4/T5 occasionally produce zero intermediates (`(−10 + 10) × (−6)`) — trivial-feeling, filter them
+- [x] integer-ops 1.1.0: T3 ARITH 67% → 34% via MUL_FOR_DIV and ADD_FOR_MUL (review ADD_FOR_MUL's wording: it is
+  operation confusion more than a sign rule); T4/T5 drop items with a zero intermediate. Not yet inserted into the map
 - [x] Verse root is `<project>/Content/` (verified); `fnm sync starter` works
