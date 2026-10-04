@@ -53,7 +53,8 @@ RIGS = [
     ("PenaltyCam", "/CRD_CameraModes/SetupAssets/PID_CP_Devices_Orbit.PID_CP_Devices_Orbit",
      "fnm_penalty_cam", (1.0, 1.0, 1.0), True, 0,
      {"addToPlayersOnStart": False, "distance": 900, "pitchRotationIdeal": -30, "fieldOfView": 90,
-      "collisionType": "Transparency", "useAsEliminationCamera": "No"}),
+      "collisionType": "Transparency", "useAsEliminationCamera": "No",
+      "removeOnElimination": True}),
 ]
 
 
@@ -109,7 +110,7 @@ def loadout(project):
         u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label})
     verse_tags(trig, project, ["fnm_loadout"])
     props_set(trig, {"visible in Game": False, "reset Delay": 0.0})
-    props_set(grant, {"grantBehavior": "Keep All", "grantCondition": "Only if Not Owned", "giveExtraAmmo": 1,
+    props_set(grant, {"grantBehavior": "Keep All", "grantCondition": "Only if Not Owned", "giveExtraAmmo": 1, "equipItemOnGrant": 1,
                       "grantItem": {"eventSubscriptions": [{"object": {"refPath": trig},
                                                             "eventDescriptor": {"memberParent": {"refPath": TRIGGER_CLASS},
                                                                                 "memberName": "OnTriggered"}}]}})

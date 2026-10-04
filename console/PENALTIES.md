@@ -16,16 +16,18 @@ work yet. **Idea**: not built. The "how" column names the UEFN API or device it 
 ## Built
 | Penalty | Effect | How | Status |
 |---|---|---|---|
-| Freeze | Pulled out of the vestibule into the hallway, encased in a block of ice for 5 s under a wide camera, then back to the station entry | `PutInStasis` + ice-cube rig + the orbit camera rig (`AddTo`/`RemoveFrom`) | **Live** |
-| Spike | Pulled out into the hallway; a ring of 6 spears bursts up around them, pins them 2.5 s at 1 HP, no shield, under the wide camera; back to the entry, healed | spear rig (`MoveTo` up in 0.12 s) + `PutInStasis` + `Damage`. Not lethal: the elimination camera took over the view | **Live** |
+| Freeze | Encased in a block of ice for 5 s right where they stand, seen from a wide camera (walls see-through), then back to the station entry | `PutInStasis` + ice-cube rig + orbit camera rig (`AddTo`/`RemoveFrom`) | **Live** |
+| Spike | A ring of 6 spears bursts up where they stand; pinned 1.2 s under the wide camera so they see it, then eliminated; respawn, back to the entry with the pistol | spear rig + `PutInStasis` + `Damage(1000)`. The orbit camera as elimination camera jumped to a random wall, so the death view is Fortnite's own | **Live** |
 | Yeet | Pulled out into the hallway, then thrown ~20 m back down it by an air vent tilted 50° back (no skydive), landing at the entry | tilted air-vent rig + 40 cm hop into the gust. Per-tick `TeleportTo` was choppy; a directional launcher has no Verse class | **Live** |
 
-Every penalty first pulls the player 5 m in front of the door wall: in the narrow vestibule the walls pushed
-the camera up against them. Freeze and Spike also push an orbit camera (9 m out, walls go see-through).
+Freeze and Spike happen where the player stands (Aaron: no position change) under an orbit camera 9 m out whose
+walls go see-through. Only Yeet first pulls the player 5 m in front of the door wall, so the throw clears it.
 
 Rigs: `console/verse/fnm_rig.verse` (runtime) + `tools/build_rigs.py` (places 4 sets, parked underground, tagged
 `fnm_ice` / `fnm_spike` / `fnm_yeet`, plus `fnm_penalty_cam` and the `fnm_loadout` trigger; ice and spears have collision off). Rerun the builder after changing a rig. Real Fortnite traps can't be
-rigs: a placed trap (BR or Creative/Figment floor spikes) fails island validation as an illegal reference.
+rigs: a placed trap fails island validation as an illegal reference. Tried: the BR and Figment floor-spike item
+definitions (`TID_...`) and the trap actor class itself (`Trap_Athena_Spikes_Figment_C`, 2026-10-03). Even if one
+passed, a trap sits still and fires on anyone, including a right-answer player, and Verse can't move it.
 
 ## Catalog: what UEFN can do (from the 42.30 Verse digest and device list)
 Gentle → harsh. Every row is controllable from Verse for one specific player.

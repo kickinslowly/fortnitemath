@@ -49,9 +49,12 @@ def relaunch():
         print("StopSession:", e)
     print("StartSession:", u.call(SESSION, "StartSession", {"location": {"x": 0, "y": -300, "z": 100}}))
     for _ in range(60):
-        if "Running" in str(u.call(SESSION, "GetGameState", {})):
+        state = str(u.call(SESSION, "GetGameState", {}))
+        if "Running" in state:
             print("match running")
             return
+        if "CanStart" in state:  # sometimes the session sits in Edit Mode until the game is started
+            print("StartGame:", u.call(SESSION, "StartGame", {}))
         time.sleep(5)
     sys.exit("match never reached Running")
 

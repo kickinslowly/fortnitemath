@@ -92,15 +92,16 @@ fnm_director := class(creative_device):
     YeetSeconds : float = 0.4
     @editable
     YeetAirSeconds : float = 6.0
-    # Every penalty first pulls the player out of the narrow vestibule to this far (cm) in front of the door
-    # wall, mid-hallway: in the vestibule the walls pushed the camera up against them, and a yeet from
-    # there would hit the door wall.
+    # Yeet first pulls the player out of the narrow vestibule to this far (cm) in front of the door wall,
+    # mid-hallway, so the throw back doesn't hit the door wall. Freeze and Spike happen where the player
+    # stands (Aaron: no position change) and use the wide camera instead.
     @editable
     PenaltyStandOff : float = 500.0
     # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
-    # the player, burst up SpearRise in SpearSeconds and pin them (stasis) for SpikeHoldSeconds, knocked
-    # down to 1 HP with no shield. Not an elimination: Fortnite's death camera took over the view and
-    # Aaron wants to see the trap from the wide camera.
+    # the player, burst up SpearRise in SpearSeconds and pin them (stasis) for SpikeWatchSeconds under the
+    # wide camera, so they see it; then SpikeDamage eliminates them (more than full health + shield). The
+    # ring stays up SpikeHoldSeconds after that. (The orbit camera as elimination camera jumped to a random
+    # wall, so the death view is Fortnite's own.)
     @editable
     SpearCount : int = 6
     @editable
@@ -112,7 +113,11 @@ fnm_director := class(creative_device):
     @editable
     SpearSeconds : float = 0.12
     @editable
-    SpikeHoldSeconds : float = 2.5
+    SpikeWatchSeconds : float = 1.2
+    @editable
+    SpikeHoldSeconds : float = 1.0
+    @editable
+    SpikeDamage : float = 1000.0
     # A character's reported position is its capsule centre; feet are this far below it (cm, measured
     # standing on the course floor 2026-10-03).
     @editable
@@ -474,7 +479,6 @@ fnm_director := class(creative_device):
         Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
         if (Kind = fnm_penalty.Freeze):
             if (Character := Player.GetFortCharacter[]):
-                PullOut(Character, Station, DoorIndex)
                 WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
@@ -519,7 +523,6 @@ fnm_director := class(creative_device):
                 SendTo(Player, Station.RetryTeleporter)
         else:
             if (Character := Player.GetFortCharacter[]):
-                PullOut(Character, Station, DoorIndex)
                 WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Spears := SpikeRig.NextIndices(SpearCount)
@@ -534,12 +537,23 @@ fnm_director := class(creative_device):
                     spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
                 Sleep(SpearSeconds)
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
-                Character.SetShield(0.0)
-                Character.Damage(Max(Character.GetHealth() - 1.0, 0.0))
+                Sleep(SpikeWatchSeconds)
+                Character.ReleaseFromStasis()
+                WideCamera(Player, false)
+                Character.Damage(SpikeDamage)
                 Sleep(SpikeHoldSeconds)
                 for (Index : Spears):
                     SpikeRig.Park(Index)
-                Character.ReleaseFromStasis()
+            # Wait for the respawned character (gives up after ~20 s).
+            var Waited : int = 0
+            loop:
+                Sleep(0.25)
+                if (Character := Player.GetFortCharacter[], Character.IsActive[]):
+                    break
+                if (Waited >= 80):
+                    break
+                set Waited += 1
+            Print("FNM: spike respawn after {Waited} polls")
             WideCamera(Player, false)
             SendTo(Player, Station.RetryTeleporter)
             GiveLoadout(Player)
