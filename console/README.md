@@ -1,17 +1,20 @@
 # FNM console — UEFN wiring guide
 
 The Verse runtime that plays the active cartridge on a linear course of question stations.
-Contract: `PROTOCOL.md` §6 / §6a. Nothing here has been compiled yet (UEFN was not installed when it
-was written); see **First compile checklist** at the bottom.
+Contract: `PROTOCOL.md` §6 / §6a. Compiles clean on UEFN 42.30 (first compile 2026-10-03; the checklist at the
+bottom is kept for history).
 
 ## Files
 
 | File | What it is |
 |---|---|
 | `verse/fnm_cartridge.verse` | Protocol types (§8). Fixed. |
-| `verse/fnm_logic.verse` | Pure logic: station tier, per-tier pools, draw without replacement, choice letters, accuracy line. |
-| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): canvas → vertical stack_box → 5 text lines. |
-| `verse/fnm_director.verse` | The device: `fnm_director`, `fnm_station`, per-player state, door handling. |
+| `verse/fnm_logic.verse` | Pure logic: station tier, per-tier pools, draw without replacement, choice letters, accuracy line, race clock text, medal. |
+| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): question panel, verdict / countdown text, clock + streak panel, blackout screen. |
+| `verse/fnm_director.verse` | The device: `fnm_director`, `fnm_station`, per-player state, doors, penalties, race layer, sliders. |
+| `verse/fnm_tags.verse` | Verse tags the director finds the course, rigs and effect devices by. |
+| `verse/fnm_rig.verse` | Penalty rigs: parked props/devices moved onto a punished player. |
+| `verse/fnm_penalties.verse` | The penalty enum and labels (catalog: `PENALTIES.md`). |
 | `maps/<map-id>/generated/fnm_active_cartridge.verse` | The cartridge slot. Defines `FnmActiveCartridge():fnm_cartridge`. Written by `fnm insert`. |
 
 ## 1. Put the Verse files in the UEFN project
