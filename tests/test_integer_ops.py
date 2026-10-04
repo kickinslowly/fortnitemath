@@ -37,6 +37,13 @@ GOLDEN = [
     ("−3^2",              -9,  {"NEG_POWER": 9}),
     ("(−3)^2",            9,   {"NEG_POWER": -9}),
     ("−2 + 3 × (−4)",     -14, {"ORDER": -4}),
+    # ×/÷ magnitude misconceptions (hand-checked)
+    ("−12 ÷ 3",           -4,  {"MUL_FOR_DIV": -36, "SIGN_RULE_PRODUCT": 4}),
+    ("20 ÷ (−10)",        -2,  {"MUL_FOR_DIV": -200, "SIGN_RULE_PRODUCT": 2}),
+    ("−18 ÷ (−6)",        3,   {"MUL_FOR_DIV": 108, "SIGN_RULE_PRODUCT": -3}),
+    ("−6 × 4",            -24, {"ADD_FOR_MUL": -2, "SIGN_RULE_PRODUCT": 24}),
+    ("10 × (−3)",         -30, {"ADD_FOR_MUL": 7, "SIGN_RULE_PRODUCT": 30}),
+    ("−9 × (−4)",         36,  {"ADD_FOR_MUL": -13, "SIGN_RULE_PRODUCT": -36}),
 ]
 
 
@@ -67,6 +74,11 @@ def test_collision_neg_neg_add_beats_wrong_sign():
     ("4 × 6", "SIGN_RULE_PRODUCT"),  # no negative factor
     ("−4 × 6", "WRONG_SIGN"),        # last step is a product, not a sum/difference
     ("(−2)^3", "NEG_POWER"),         # odd exponent: (−2)^3 = −2^3, no distinct value
+    ("12 ÷ 3", "MUL_FOR_DIV"),       # no negative in the quotient
+    ("−12 × 3", "MUL_FOR_DIV"),      # a product, not a quotient
+    ("4 × 6", "ADD_FOR_MUL"),        # no negative factor
+    ("−5 × 5", "ADD_FOR_MUL"),       # sum would be 0: not offered
+    ("−12 ÷ 3", "ADD_FOR_MUL"),      # a quotient, not a product
 ])
 def test_rule_does_not_fire_where_it_does_not_apply(prompt, label):
     assert G.evaluate(prompt, label) in (None, G.evaluate(prompt))
@@ -189,3 +201,62 @@ def test_tier_shapes():
     neg_form = [it for it in t5 if re.search(r"(^|\()−\d+\^", it["prompt"])]
     paren_form = [it for it in t5 if re.search(r"\(−\d+\)\^", it["prompt"])]
     assert len(neg_form) + len(paren_form) >= 12 and neg_form and paren_form
+
+
+# ---------------------------------------------------------------------------------------------
+# v1.1: ×/÷ misconceptions cut T3's generic distractors; no zero intermediates in T4/T5
+# ---------------------------------------------------------------------------------------------
+def arith_share(tier):
+    c = Counter(m for it in by_tier(tier) for m in it["misconceptions"] if m)
+    return c["ARITH"] / sum(c.values())
+
+
+def test_t3_arith_share_below_half():
+    assert arith_share(3) < 0.5
+
+
+def test_t3_uses_the_new_misconceptions_on_their_own_operation():
+    for it in by_tier(3):
+        labels = set(it["misconceptions"])
+        if "×" in it["prompt"]:
+            assert "MUL_FOR_DIV" not in labels, it["prompt"]
+        else:
+            assert "ADD_FOR_MUL" not in labels, it["prompt"]
+    used = Counter(m for it in by_tier(3) for m in it["misconceptions"] if m)
+    assert used["MUL_FOR_DIV"] >= 10 and used["ADD_FOR_MUL"] >= 10
+
+
+def test_new_misconceptions_declared():
+    for key in ("MUL_FOR_DIV", "ADD_FOR_MUL"):
+        m = BAKED["misconceptions"][key]
+        assert m["student"] and m["teacher"] and len(m["student"]) <= 80
+
+
+def _internal_values(node):
+    """Correct value of every non-leaf node (root included), by Python's ast -- independent of
+    the generator."""
+    if isinstance(node, ast.Expression):
+        yield from _internal_values(node.body)
+    elif isinstance(node, ast.BinOp):
+        yield safe_eval(node)
+        yield from _internal_values(node.left)
+        yield from _internal_values(node.right)
+    elif isinstance(node, ast.UnaryOp):
+        if not isinstance(node.operand, ast.Constant):  # −a^n: an internal node, not a literal
+            yield safe_eval(node)
+        yield from _internal_values(node.operand)
+
+
+@pytest.mark.parametrize("item", by_tier(4) + by_tier(5),
+                         ids=[it["id"] for it in by_tier(4) + by_tier(5)])
+def test_no_zero_intermediate_in_t4_t5(item):
+    tree = ast.parse(to_python(item["prompt"]), mode="eval")
+    assert 0 not in list(_internal_values(tree)), item["prompt"]
+
+
+def test_zero_intermediate_detector():
+    assert G.has_zero_intermediate("(−10 + 10) × (−6)")
+    assert G.has_zero_intermediate("3 × (−4) + 12")  # the whole expression is 0
+    assert G.has_zero_intermediate("−3^2 + 9 − 4 × 2")
+    assert not G.has_zero_intermediate("(−10 + 7) × (−6)")
+    assert not G.has_zero_intermediate("−3^2 + 4")

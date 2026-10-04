@@ -12,11 +12,13 @@ Design
   misconception are rows in ``RULES``. A misconception rule is the correct rule with exactly one
   fault switched on:
     - a *step fault* replaces the result of one kind of binary step wherever it applies
-      (NEG_NEG_ADD, ADD_SIZES, SUB_NEG, SIGN_RULE_PRODUCT) -- a student holding the faulty rule
-      applies it every time it fits;
+      (NEG_NEG_ADD, ADD_SIZES, SUB_NEG, SIGN_RULE_PRODUCT, MUL_FOR_DIV, ADD_FOR_MUL) -- a student
+      holding the faulty rule applies it every time it fits;
     - ORDER parses + − × ÷ strictly left to right (parentheses and ^ still respected);
     - NEG_POWER swaps the meaning of −a^n and (−a)^n;
     - WRONG_SIGN negates the final answer when the last step is a sum or difference.
+* T4/T5 never contain a sub-expression (any non-leaf node, the whole prompt included) whose
+  correct value is 0, e.g. ``(−10 + 10) × (−6)``: a zero intermediate makes the rest trivial.
 * Display: negatives use U+2212. A negative that follows an operator is parenthesised
   (``5 + (−9)``), a leading negative is bare (``−7 + 3``), a negative power base is always
   parenthesised (``(−3)^2``) and ``−a^n`` (= −(a^n)) only ever appears in leading position.
@@ -26,7 +28,7 @@ Collision priority
 When several faulty rules produce the same wrong value, the label is the first rule in
 ``LABEL_PRIORITY`` that produced it: most specific (names one concrete wrong rule about one
 construct) first, generic last. NEG_POWER > SUB_NEG > NEG_NEG_ADD > ADD_SIZES >
-SIGN_RULE_PRODUCT > ORDER > WRONG_SIGN. Example: −3 + (−5) = −8; NEG_NEG_ADD and WRONG_SIGN both
+SIGN_RULE_PRODUCT > MUL_FOR_DIV > ADD_FOR_MUL > ORDER > WRONG_SIGN. Example: −3 + (−5) = −8; NEG_NEG_ADD and WRONG_SIGN both
 give 8, labelled NEG_NEG_ADD.
 """
 from __future__ import annotations
@@ -110,6 +112,20 @@ def _sign_rule(op, a, b):
     return None
 
 
+def _mul_for_div(op, a, b):
+    """Multiplies instead of dividing on a quotient with a negative: −12 ÷ 3 → −36."""
+    if op == DIV and (a < 0 or b < 0) and b != 0:
+        return a * b
+    return None
+
+
+def _add_for_mul(op, a, b):
+    """Adds instead of multiplying on a product with a negative: −6 × 4 → −2."""
+    if op == MUL and (a < 0 or b < 0) and a + b != 0:
+        return a + b
+    return None
+
+
 @dataclass(frozen=True)
 class Rule:
     name: str
@@ -125,13 +141,15 @@ RULES = {
     "ADD_SIZES": Rule("ADD_SIZES", step=_add_sizes),
     "SUB_NEG": Rule("SUB_NEG", step=_sub_neg),
     "SIGN_RULE_PRODUCT": Rule("SIGN_RULE_PRODUCT", step=_sign_rule),
+    "MUL_FOR_DIV": Rule("MUL_FOR_DIV", step=_mul_for_div),
+    "ADD_FOR_MUL": Rule("ADD_FOR_MUL", step=_add_for_mul),
     "ORDER": Rule("ORDER", ltr=True),
     "NEG_POWER": Rule("NEG_POWER", neg_power_swap=True),
     "WRONG_SIGN": Rule("WRONG_SIGN", root_negate=True),
 }
 
 LABEL_PRIORITY = ("NEG_POWER", "SUB_NEG", "NEG_NEG_ADD", "ADD_SIZES",
-                  "SIGN_RULE_PRODUCT", "ORDER", "WRONG_SIGN")
+                  "SIGN_RULE_PRODUCT", "MUL_FOR_DIV", "ADD_FOR_MUL", "ORDER", "WRONG_SIGN")
 
 _PREC = {ADD: 1, SUB: 1, MUL: 2, DIV: 2}
 _LTR_PREC = {ADD: 1, SUB: 1, MUL: 1, DIV: 1}
@@ -622,6 +640,28 @@ def _has_neg_literal(node) -> bool:
     return _has_neg_literal(node.l) or _has_neg_literal(node.r)
 
 
+def has_zero_intermediate(text: str) -> bool:
+    """True when any non-leaf node of the displayed expression (root included) is 0 under the
+    correct rule."""
+    rule = RULES["CORRECT"]
+
+    def walk(n) -> bool:
+        if isinstance(n, int) or (isinstance(n, Neg) and isinstance(n.x, int)):
+            return False  # a literal (parsed negatives are Neg(int))
+        if _eval(n, rule) == 0:
+            return True
+        if isinstance(n, Bin):
+            return walk(n.l) or walk(n.r)
+        if isinstance(n, Neg):
+            return walk(n.x)
+        return walk(n.base)
+
+    try:
+        return walk(parse(text, rule))
+    except (Invalid, ZeroDivisionError):
+        return True
+
+
 def _t45(rng, n_ops_choices, power_kind):
     """power_kind: None, 'neg' (−a^n, leading) or 'paren' ((−a)^n anywhere)."""
     n_ops = rng.choice(n_ops_choices)
@@ -642,7 +682,7 @@ def _t45(rng, n_ops_choices, power_kind):
     if not _has_neg_literal(tree):
         return None
     c = evaluate(text)
-    if c is None:
+    if c is None or has_zero_intermediate(text):
         return None
     try:
         steps = trace(text)

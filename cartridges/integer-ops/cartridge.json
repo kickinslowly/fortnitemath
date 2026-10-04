@@ -1,7 +1,7 @@
 {
   "protocol": "fnm-cart/1",
   "id": "integer-ops",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Integer Operations",
   "subtitle": "Positive & Negative Numbers",
   "grade": "7",
@@ -35,6 +35,14 @@
     "SIGN_RULE_PRODUCT": {
       "student": "One negative makes it negative. Two negatives make it positive.",
       "teacher": "Wrong sign on a product or quotient; magnitude correct."
+    },
+    "MUL_FOR_DIV": {
+      "student": "Divide, don't multiply: −12 ÷ 3 asks what times 3 makes −12.",
+      "teacher": "Multiplies instead of dividing on a quotient with a negative: −12 ÷ 3 = −36."
+    },
+    "ADD_FOR_MUL": {
+      "student": "× means groups: 4 × (−3) is 4 groups of −3, not 4 + (−3).",
+      "teacher": "Adds instead of multiplying on a product with a negative: −6 × 4 = −2."
     },
     "ORDER": {
       "student": "Do × and ÷ before + and −.",

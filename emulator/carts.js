@@ -4,7 +4,7 @@ window.FNM_CARTRIDGES = window.FNM_CARTRIDGES || {};
 window.FNM_CARTRIDGES["integer-ops"] = {
   "protocol": "fnm-cart/1",
   "id": "integer-ops",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Integer Operations",
   "subtitle": "Positive & Negative Numbers",
   "grade": "7",
@@ -62,6 +62,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
     "SIGN_RULE_PRODUCT": {
       "student": "One negative makes it negative. Two negatives make it positive.",
       "teacher": "Wrong sign on a product or quotient; magnitude correct."
+    },
+    "MUL_FOR_DIV": {
+      "student": "Divide, don't multiply: −12 ÷ 3 asks what times 3 makes −12.",
+      "teacher": "Multiplies instead of dividing on a quotient with a negative: −12 ÷ 3 = −36."
+    },
+    "ADD_FOR_MUL": {
+      "student": "× means groups: 4 × (−3) is 4 groups of −3, not 4 + (−3).",
+      "teacher": "Adds instead of multiplying on a product with a negative: −6 × 4 = −2."
     },
     "ORDER": {
       "student": "Do × and ÷ before + and −.",
@@ -1600,14 +1608,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "20 ÷ (−10)",
       "choices": [
         "2",
-        "−4",
+        "−200",
         "−2",
-        "−3"
+        "−4"
       ],
       "answer": 2,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "MUL_FOR_DIV",
         null,
         "ARITH"
       ],
@@ -1618,14 +1626,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−9 × (−4)",
       "choices": [
-        "37",
+        "−13",
         "−36",
-        "35",
+        "37",
         "36"
       ],
       "answer": 3,
       "misconceptions": [
-        "ARITH",
+        "ADD_FOR_MUL",
         "SIGN_RULE_PRODUCT",
         "ARITH",
         null
@@ -1637,16 +1645,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "10 × (−3)",
       "choices": [
-        "−32",
-        "30",
         "−31",
+        "30",
+        "7",
         "−30"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
         null
       ],
       "explanation": "10 × (−3): one negative makes it negative. 10 × 3 = 30, so −30."
@@ -1656,17 +1664,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "4 × (−9)",
       "choices": [
-        "−35",
+        "−34",
         "36",
         "−36",
-        "−34"
+        "−5"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
         "SIGN_RULE_PRODUCT",
         null,
-        "ARITH"
+        "ADD_FOR_MUL"
       ],
       "explanation": "4 × (−9): one negative makes it negative. 4 × 9 = 36, so −36."
     },
@@ -1676,14 +1684,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "16 ÷ (−8)",
       "choices": [
         "−2",
+        "−128",
         "−3",
-        "−4",
         "2"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
+        "MUL_FOR_DIV",
         "ARITH",
         "SIGN_RULE_PRODUCT"
       ],
@@ -1694,14 +1702,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−2 × (−4)",
       "choices": [
-        "6",
+        "−6",
         "8",
-        "7",
+        "6",
         "−8"
       ],
       "answer": 1,
       "misconceptions": [
-        "ARITH",
+        "ADD_FOR_MUL",
         null,
         "ARITH",
         "SIGN_RULE_PRODUCT"
@@ -1713,17 +1721,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−6 × 5",
       "choices": [
-        "−28",
+        "−32",
         "−30",
         "30",
-        "−32"
+        "−1"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
         "SIGN_RULE_PRODUCT",
-        "ARITH"
+        "ADD_FOR_MUL"
       ],
       "explanation": "−6 × 5: one negative makes it negative. 6 × 5 = 30, so −30."
     },
@@ -1732,15 +1740,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−18 ÷ (−9)",
       "choices": [
-        "3",
         "1",
+        "162",
         "−2",
         "2"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT",
         null
       ],
@@ -1751,14 +1759,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−15 ÷ 5",
       "choices": [
-        "−2",
+        "−75",
         "3",
         "−3",
-        "−4"
+        "−2"
       ],
       "answer": 2,
       "misconceptions": [
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT",
         null,
         "ARITH"
@@ -1771,16 +1779,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−20 ÷ 10",
       "choices": [
         "2",
-        "−1",
+        "−3",
         "−2",
-        "−3"
+        "−200"
       ],
       "answer": 2,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         "ARITH",
         null,
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−20 ÷ 10: one negative makes it negative. 20 ÷ 10 = 2, so −2."
     },
@@ -1790,14 +1798,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−16 ÷ (−8)",
       "choices": [
         "2",
-        "4",
+        "128",
         "−2",
-        "1"
+        "4"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT",
         "ARITH"
       ],
@@ -1809,16 +1817,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−15 ÷ (−3)",
       "choices": [
         "−5",
-        "6",
+        "3",
         "5",
-        "3"
+        "45"
       ],
       "answer": 2,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         "ARITH",
         null,
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−15 ÷ (−3): two negatives make a positive. 15 ÷ 3 = 5."
     },
@@ -1829,14 +1837,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "2",
         "−2",
-        "3",
-        "0"
+        "200",
+        "3"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "MUL_FOR_DIV",
         "ARITH"
       ],
       "explanation": "−20 ÷ (−10): two negatives make a positive. 20 ÷ 10 = 2."
@@ -1847,14 +1855,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "18 ÷ (−6)",
       "choices": [
         "−3",
+        "−108",
         "−1",
-        "−5",
         "3"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
+        "MUL_FOR_DIV",
         "ARITH",
         "SIGN_RULE_PRODUCT"
       ],
@@ -1865,14 +1873,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "10 ÷ (−5)",
       "choices": [
-        "−3",
+        "−50",
         "2",
-        "0",
+        "−3",
         "−2"
       ],
       "answer": 3,
       "misconceptions": [
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT",
         "ARITH",
         null
@@ -1884,17 +1892,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−10 ÷ (−5)",
       "choices": [
-        "0",
+        "4",
         "−2",
         "2",
-        "4"
+        "50"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
         "SIGN_RULE_PRODUCT",
         null,
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−10 ÷ (−5): two negatives make a positive. 10 ÷ 5 = 2."
     },
@@ -1905,15 +1913,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "−50",
         "50",
-        "51",
-        "49"
+        "49",
+        "−15"
       ],
       "answer": 1,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         null,
         "ARITH",
-        "ARITH"
+        "ADD_FOR_MUL"
       ],
       "explanation": "−10 × (−5): two negatives make a positive. 10 × 5 = 50."
     },
@@ -1922,14 +1930,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "14 ÷ (−7)",
       "choices": [
-        "−4",
+        "−98",
         "−2",
-        "−3",
+        "−4",
         "2"
       ],
       "answer": 1,
       "misconceptions": [
-        "ARITH",
+        "MUL_FOR_DIV",
         null,
         "ARITH",
         "SIGN_RULE_PRODUCT"
@@ -1941,16 +1949,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−14 ÷ 7",
       "choices": [
-        "−4",
-        "−2",
         "−3",
+        "−2",
+        "−98",
         "2"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT"
       ],
       "explanation": "−14 ÷ 7: one negative makes it negative. 14 ÷ 7 = 2, so −2."
@@ -1961,14 +1969,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "8 × (−6)",
       "choices": [
         "48",
+        "2",
         "−47",
-        "−50",
         "−48"
       ],
       "answer": 3,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH",
         null
       ],
@@ -1979,15 +1987,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−4 ÷ (−2)",
       "choices": [
-        "4",
         "3",
+        "8",
         "2",
         "−2"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
-        "ARITH",
+        "MUL_FOR_DIV",
         null,
         "SIGN_RULE_PRODUCT"
       ],
@@ -2000,14 +2008,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "−88",
         "88",
-        "−89",
-        "−87"
+        "3",
+        "−89"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH"
       ],
       "explanation": "−8 × 11: one negative makes it negative. 8 × 11 = 88, so −88."
@@ -2017,17 +2025,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−20 ÷ 4",
       "choices": [
-        "−7",
+        "−6",
         "−5",
         "5",
-        "−6"
+        "−80"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
         "SIGN_RULE_PRODUCT",
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−20 ÷ 4: one negative makes it negative. 20 ÷ 4 = 5, so −5."
     },
@@ -2037,15 +2045,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "9 ÷ (−3)",
       "choices": [
         "−3",
-        "−1",
         "−2",
+        "−27",
         "3"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ARITH",
-        "ARITH",
+        "MUL_FOR_DIV",
         "SIGN_RULE_PRODUCT"
       ],
       "explanation": "9 ÷ (−3): one negative makes it negative. 9 ÷ 3 = 3, so −3."
@@ -2056,15 +2064,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "20 ÷ (−4)",
       "choices": [
         "5",
-        "−4",
         "−7",
+        "−80",
         "−5"
       ],
       "answer": 3,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         "ARITH",
-        "ARITH",
+        "MUL_FOR_DIV",
         null
       ],
       "explanation": "20 ÷ (−4): one negative makes it negative. 20 ÷ 4 = 5, so −5."
@@ -2074,16 +2082,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "10 × (−6)",
       "choices": [
-        "−61",
-        "60",
         "−62",
+        "60",
+        "4",
         "−60"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
         null
       ],
       "explanation": "10 × (−6): one negative makes it negative. 10 × 6 = 60, so −60."
@@ -2093,14 +2101,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "9 × (−12)",
       "choices": [
+        "−3",
         "−110",
-        "−106",
         "108",
         "−108"
       ],
       "answer": 3,
       "misconceptions": [
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH",
         "SIGN_RULE_PRODUCT",
         null
@@ -2113,14 +2121,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−11 × (−12)",
       "choices": [
         "132",
+        "−23",
         "130",
-        "134",
         "−132"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH",
         "SIGN_RULE_PRODUCT"
       ],
@@ -2133,15 +2141,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "56",
         "−56",
-        "55",
-        "58"
+        "58",
+        "−15"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "SIGN_RULE_PRODUCT",
         "ARITH",
-        "ARITH"
+        "ADD_FOR_MUL"
       ],
       "explanation": "−8 × (−7): two negatives make a positive. 8 × 7 = 56."
     },
@@ -2150,17 +2158,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−18 ÷ 3",
       "choices": [
-        "−7",
+        "−5",
         "−6",
         "6",
-        "−5"
+        "−54"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
         "SIGN_RULE_PRODUCT",
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−18 ÷ 3: one negative makes it negative. 18 ÷ 3 = 6, so −6."
     },
@@ -2171,14 +2179,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "−20",
         "20",
-        "19",
-        "18"
+        "−9",
+        "19"
       ],
       "answer": 1,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         null,
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH"
       ],
       "explanation": "−5 × (−4): two negatives make a positive. 5 × 4 = 20."
@@ -2188,16 +2196,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−4 × 11",
       "choices": [
-        "−43",
-        "−44",
         "−45",
+        "−44",
+        "7",
         "44"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "ARITH",
+        "ADD_FOR_MUL",
         "SIGN_RULE_PRODUCT"
       ],
       "explanation": "−4 × 11: one negative makes it negative. 4 × 11 = 44, so −44."
@@ -2228,14 +2236,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "choices": [
         "21",
         "−21",
-        "−22",
-        "−23"
+        "−4",
+        "−22"
       ],
       "answer": 1,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         null,
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH"
       ],
       "explanation": "−7 × 3: one negative makes it negative. 7 × 3 = 21, so −21."
@@ -2245,14 +2253,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "−4 × (−12)",
       "choices": [
-        "46",
+        "−16",
         "−48",
         "48",
-        "50"
+        "46"
       ],
       "answer": 2,
       "misconceptions": [
-        "ARITH",
+        "ADD_FOR_MUL",
         "SIGN_RULE_PRODUCT",
         null,
         "ARITH"
@@ -2265,16 +2273,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−11 × 8",
       "choices": [
         "88",
-        "−87",
+        "−90",
         "−88",
-        "−90"
+        "−3"
       ],
       "answer": 2,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
         "ARITH",
         null,
-        "ARITH"
+        "ADD_FOR_MUL"
       ],
       "explanation": "−11 × 8: one negative makes it negative. 11 × 8 = 88, so −88."
     },
@@ -2283,17 +2291,17 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 3,
       "prompt": "16 ÷ (−4)",
       "choices": [
-        "−6",
+        "−3",
         "4",
         "−4",
-        "−3"
+        "−64"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
         "SIGN_RULE_PRODUCT",
         null,
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "16 ÷ (−4): one negative makes it negative. 16 ÷ 4 = 4, so −4."
     },
@@ -2303,16 +2311,16 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "18 ÷ (−3)",
       "choices": [
         "−6",
-        "−5",
+        "−4",
         "6",
-        "−4"
+        "−54"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ARITH",
         "SIGN_RULE_PRODUCT",
-        "ARITH"
+        "MUL_FOR_DIV"
       ],
       "explanation": "18 ÷ (−3): one negative makes it negative. 18 ÷ 3 = 6, so −6."
     },
@@ -2322,14 +2330,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "8 × (−10)",
       "choices": [
         "−80",
-        "−81",
+        "−2",
         "80",
-        "−78"
+        "−81"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
+        "ADD_FOR_MUL",
         "SIGN_RULE_PRODUCT",
         "ARITH"
       ],
@@ -2341,14 +2349,14 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "prompt": "−5 × 9",
       "choices": [
         "45",
+        "4",
         "−44",
-        "−43",
         "−45"
       ],
       "answer": 3,
       "misconceptions": [
         "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
         "ARITH",
         null
       ],
@@ -2359,15 +2367,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 4,
       "prompt": "−10 + (−7 + (−9) × 6)",
       "choices": [
-        "71",
         "−106",
+        "37",
         "−71",
         "51"
       ],
       "answer": 2,
       "misconceptions": [
-        "WRONG_SIGN",
         "ORDER",
+        "SIGN_RULE_PRODUCT",
         null,
         "NEG_NEG_ADD"
       ],
@@ -2378,15 +2386,15 @@ window.FNM_CARTRIDGES["integer-ops"] = {
       "tier": 4,
       "prompt": "−6 − 9 ÷ (−3)",
       "choices": [
-        "−9",
         "5",
+        "−9",
         "−3",
         "3"
       ],
       "answer": 2,
       "misconceptions": [
-        "SUB_NEG",
         "ORDER",
+        "SUB_NEG",
         null,
         "WRONG_SIGN"
       ],
@@ -2395,1484 +2403,1484 @@ window.FNM_CARTRIDGES["integer-ops"] = {
     {
       "id": "integer-ops/t4/003",
       "tier": 4,
-      "prompt": "−8 − (−10 + 10) × (−6)",
-      "choices": [
-        "48",
-        "−8",
-        "−9",
-        "8"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ORDER",
-        null,
-        "ARITH",
-        "WRONG_SIGN"
-      ],
-      "explanation": "−10 + 10 = 0, then 0 × (−6) = 0, then −8 − 0 = −8."
-    },
-    {
-      "id": "integer-ops/t4/004",
-      "tier": 4,
       "prompt": "−12 + 6 × 9",
       "choices": [
-        "42",
         "−42",
+        "42",
         "−54",
         "66"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
-        null,
         "WRONG_SIGN",
+        null,
         "ORDER",
         "ADD_SIZES"
       ],
       "explanation": "6 × 9 = 54, then −12 + 54 = 42."
     },
     {
-      "id": "integer-ops/t4/005",
+      "id": "integer-ops/t4/004",
       "tier": 4,
       "prompt": "12 × (−6) + 7 × (−7)",
       "choices": [
-        "−122",
+        "−121",
         "455",
-        "121",
-        "−121"
+        "−43",
+        "121"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ARITH",
+        null,
         "ORDER",
-        "NEG_NEG_ADD",
-        null
+        "ADD_FOR_MUL",
+        "NEG_NEG_ADD"
       ],
       "explanation": "12 × (−6) = −72, then 7 × (−7) = −49, then −72 + (−49) = −121."
     },
     {
-      "id": "integer-ops/t4/006",
+      "id": "integer-ops/t4/005",
       "tier": 4,
       "prompt": "−3 + (7 − (−7)) × 9",
       "choices": [
         "−3",
         "99",
-        "123",
-        "−123"
+        "−123",
+        "123"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
         "SUB_NEG",
         "ORDER",
-        null,
-        "WRONG_SIGN"
+        "WRONG_SIGN",
+        null
       ],
       "explanation": "7 − (−7) = 14, then 14 × 9 = 126, then −3 + 126 = 123."
     },
     {
-      "id": "integer-ops/t4/007",
+      "id": "integer-ops/t4/006",
       "tier": 4,
       "prompt": "(−2 − 3 × 3) × 10",
       "choices": [
+        "−1",
         "−150",
-        "−112",
-        "110",
-        "−110"
+        "−110",
+        "110"
       ],
-      "answer": 3,
+      "answer": 2,
       "misconceptions": [
+        "ADD_FOR_MUL",
         "ORDER",
-        "ARITH",
-        "SIGN_RULE_PRODUCT",
-        null
+        null,
+        "SIGN_RULE_PRODUCT"
       ],
       "explanation": "3 × 3 = 9, then −2 − 9 = −11, then −11 × 10 = −110."
     },
     {
-      "id": "integer-ops/t4/008",
+      "id": "integer-ops/t4/007",
       "tier": 4,
       "prompt": "−7 + (−6) + 2 × (−12)",
       "choices": [
-        "−37",
+        "132",
         "−11",
         "11",
-        "132"
+        "−37"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
+        "ORDER",
         "NEG_NEG_ADD",
         "SIGN_RULE_PRODUCT",
-        "ORDER"
+        null
       ],
       "explanation": "2 × (−12) = −24, then −7 + (−6) = −13, then −13 + (−24) = −37."
     },
     {
-      "id": "integer-ops/t4/009",
+      "id": "integer-ops/t4/008",
       "tier": 4,
-      "prompt": "7 − 12 × (11 − (−5))",
+      "prompt": "−9 − (−9) × (−5 − 2)",
       "choices": [
-        "−185",
-        "−65",
-        "185",
-        "−80"
+        "−72",
+        "0",
+        "7",
+        "72"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "SUB_NEG",
-        "WRONG_SIGN",
-        "ORDER"
+        "ORDER",
+        "ADD_FOR_MUL",
+        "WRONG_SIGN"
       ],
-      "explanation": "11 − (−5) = 16, then 12 × 16 = 192, then 7 − 192 = −185."
+      "explanation": "−5 − 2 = −7, then −9 × (−7) = 63, then −9 − 63 = −72."
     },
     {
-      "id": "integer-ops/t4/010",
+      "id": "integer-ops/t4/009",
       "tier": 4,
       "prompt": "(3 − (−2) × 9) ÷ 3",
       "choices": [
+        "7",
         "5",
         "15",
-        "7",
         "−5"
       ],
-      "answer": 2,
+      "answer": 0,
       "misconceptions": [
+        null,
         "SIGN_RULE_PRODUCT",
         "ORDER",
-        null,
         "SUB_NEG"
       ],
       "explanation": "−2 × 9 = −18, then 3 − (−18) = 21, then 21 ÷ 3 = 7."
     },
     {
-      "id": "integer-ops/t4/011",
+      "id": "integer-ops/t4/010",
       "tier": 4,
       "prompt": "4 − (7 − 10) × (−9)",
       "choices": [
-        "31",
         "−63",
         "23",
-        "−23"
+        "−23",
+        "16"
       ],
-      "answer": 3,
+      "answer": 2,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
         "ORDER",
         "WRONG_SIGN",
-        null
+        null,
+        "ADD_FOR_MUL"
       ],
       "explanation": "7 − 10 = −3, then −3 × (−9) = 27, then 4 − 27 = −23."
     },
     {
-      "id": "integer-ops/t4/012",
+      "id": "integer-ops/t4/011",
       "tier": 4,
       "prompt": "−9 − (−9) × 3",
       "choices": [
-        "−36",
-        "−18",
+        "−3",
         "0",
+        "−18",
         "18"
       ],
       "answer": 3,
       "misconceptions": [
-        "SUB_NEG",
-        "WRONG_SIGN",
+        "ADD_FOR_MUL",
         "ORDER",
+        "WRONG_SIGN",
         null
       ],
       "explanation": "−9 × 3 = −27, then −9 − (−27) = 18."
     },
     {
-      "id": "integer-ops/t4/013",
+      "id": "integer-ops/t4/012",
       "tier": 4,
       "prompt": "7 + (−9) × (−2)",
       "choices": [
-        "−11",
         "4",
+        "−4",
         "−25",
         "25"
       ],
       "answer": 3,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
         "ORDER",
+        "ADD_FOR_MUL",
         "WRONG_SIGN",
         null
       ],
       "explanation": "−9 × (−2) = 18, then 7 + 18 = 25."
     },
     {
+      "id": "integer-ops/t4/013",
+      "tier": 4,
+      "prompt": "−5 × (−3) − 9 × (−7)",
+      "choices": [
+        "−42",
+        "−78",
+        "−48",
+        "78"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER",
+        "SIGN_RULE_PRODUCT",
+        "SUB_NEG",
+        null
+      ],
+      "explanation": "−5 × (−3) = 15, then 9 × (−7) = −63, then 15 − (−63) = 78."
+    },
+    {
       "id": "integer-ops/t4/014",
-      "tier": 4,
-      "prompt": "−5 − 6 − 4 × 6",
-      "choices": [
-        "−34",
-        "−35",
-        "−90",
-        "35"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ORDER",
-        "WRONG_SIGN"
-      ],
-      "explanation": "4 × 6 = 24, then −5 − 6 = −11, then −11 − 24 = −35."
-    },
-    {
-      "id": "integer-ops/t4/015",
-      "tier": 4,
-      "prompt": "−7 + (−4) × 11",
-      "choices": [
-        "−51",
-        "−121",
-        "51",
-        "37"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ORDER",
-        "NEG_NEG_ADD",
-        "SIGN_RULE_PRODUCT"
-      ],
-      "explanation": "−4 × 11 = −44, then −7 + (−44) = −51."
-    },
-    {
-      "id": "integer-ops/t4/016",
       "tier": 4,
       "prompt": "−2 + (−10) × (−2) − (−5)",
       "choices": [
+        "−9",
         "23",
-        "27",
         "−23",
         "29"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
+        "ADD_FOR_MUL",
         null,
-        "ADD_SIZES",
         "WRONG_SIGN",
         "ORDER"
       ],
       "explanation": "−10 × (−2) = 20, then −2 + 20 = 18, then 18 − (−5) = 23."
     },
     {
-      "id": "integer-ops/t4/017",
+      "id": "integer-ops/t4/015",
       "tier": 4,
       "prompt": "−8 − (11 + (−10) × 5)",
       "choices": [
-        "−31",
         "31",
         "−13",
+        "−14",
         "53"
       ],
-      "answer": 1,
+      "answer": 0,
       "misconceptions": [
-        "WRONG_SIGN",
         null,
         "ORDER",
+        "ADD_FOR_MUL",
         "ADD_SIZES"
       ],
       "explanation": "−10 × 5 = −50, then 11 + (−50) = −39, then −8 − (−39) = 31."
     },
     {
-      "id": "integer-ops/t4/018",
+      "id": "integer-ops/t4/016",
       "tier": 4,
       "prompt": "8 − 4 ÷ (−2)",
       "choices": [
-        "−10",
-        "−2",
+        "10",
         "6",
-        "10"
+        "−2",
+        "−10"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "WRONG_SIGN",
-        "ORDER",
+        null,
         "SUB_NEG",
-        null
+        "ORDER",
+        "WRONG_SIGN"
       ],
       "explanation": "4 ÷ (−2) = −2, then 8 − (−2) = 10."
     },
     {
-      "id": "integer-ops/t4/019",
+      "id": "integer-ops/t4/017",
       "tier": 4,
-      "prompt": "5 − (−3 + 12) × 11",
+      "prompt": "−5 + 11 × (−9)",
       "choices": [
-        "−44",
-        "−94",
-        "94",
-        "−160"
+        "−54",
+        "−104",
+        "−3",
+        "104"
       ],
       "answer": 1,
       "misconceptions": [
         "ORDER",
         null,
-        "WRONG_SIGN",
-        "ADD_SIZES"
+        "ADD_FOR_MUL",
+        "NEG_NEG_ADD"
       ],
-      "explanation": "−3 + 12 = 9, then 9 × 11 = 99, then 5 − 99 = −94."
+      "explanation": "11 × (−9) = −99, then −5 + (−99) = −104."
     },
     {
-      "id": "integer-ops/t4/020",
+      "id": "integer-ops/t4/018",
       "tier": 4,
-      "prompt": "−3 − (−11) × 6",
+      "prompt": "−4 − 12 − 12 ÷ (−4)",
       "choices": [
-        "63",
-        "48",
-        "−69",
-        "−63"
+        "−19",
+        "7",
+        "32",
+        "−13"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
-        "ORDER",
         "SUB_NEG",
-        "WRONG_SIGN"
+        "ORDER",
+        "MUL_FOR_DIV",
+        null
       ],
-      "explanation": "−11 × 6 = −66, then −3 − (−66) = 63."
+      "explanation": "12 ÷ (−4) = −3, then −4 − 12 = −16, then −16 − (−3) = −13."
     },
     {
-      "id": "integer-ops/t4/021",
+      "id": "integer-ops/t4/019",
       "tier": 4,
       "prompt": "−12 + 11 × (−4) − (−6)",
       "choices": [
+        "38",
         "−50",
-        "10",
-        "50",
-        "38"
+        "−62",
+        "10"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
+        "SIGN_RULE_PRODUCT",
         null,
-        "ORDER",
-        "WRONG_SIGN",
-        "SIGN_RULE_PRODUCT"
+        "SUB_NEG",
+        "ORDER"
       ],
       "explanation": "11 × (−4) = −44, then −12 + (−44) = −56, then −56 − (−6) = −50."
     },
     {
-      "id": "integer-ops/t4/022",
+      "id": "integer-ops/t4/020",
       "tier": 4,
       "prompt": "12 × (−4) − (−5) × 2",
       "choices": [
-        "−58",
         "−38",
         "38",
+        "11",
         "−86"
       ],
-      "answer": 1,
+      "answer": 0,
       "misconceptions": [
-        "SUB_NEG",
         null,
         "SIGN_RULE_PRODUCT",
+        "ADD_FOR_MUL",
         "ORDER"
       ],
       "explanation": "12 × (−4) = −48, then −5 × 2 = −10, then −48 − (−10) = −38."
     },
     {
-      "id": "integer-ops/t4/023",
+      "id": "integer-ops/t4/021",
       "tier": 4,
       "prompt": "8 × (−5) − 4 × 6",
       "choices": [
-        "16",
-        "64",
+        "−64",
         "−264",
-        "−64"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        "WRONG_SIGN",
-        "ORDER",
-        null
-      ],
-      "explanation": "8 × (−5) = −40, then 4 × 6 = 24, then −40 − 24 = −64."
-    },
-    {
-      "id": "integer-ops/t4/024",
-      "tier": 4,
-      "prompt": "−11 − (−9 + (−6)) × 9",
-      "choices": [
-        "−124",
-        "36",
-        "−146",
-        "124"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "ORDER",
-        "SUB_NEG",
-        null
-      ],
-      "explanation": "−9 + (−6) = −15, then −15 × 9 = −135, then −11 − (−135) = 124."
-    },
-    {
-      "id": "integer-ops/t4/025",
-      "tier": 4,
-      "prompt": "3 − (−3) ÷ 3",
-      "choices": [
-        "2",
-        "−4",
-        "4",
-        "6"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "SUB_NEG",
-        "WRONG_SIGN",
-        null,
-        "ARITH"
-      ],
-      "explanation": "−3 ÷ 3 = −1, then 3 − (−1) = 4."
-    },
-    {
-      "id": "integer-ops/t4/026",
-      "tier": 4,
-      "prompt": "−10 − (−10) ÷ 2",
-      "choices": [
-        "5",
-        "−15",
-        "0",
-        "−5"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "SUB_NEG",
-        "ORDER",
-        null
-      ],
-      "explanation": "−10 ÷ 2 = −5, then −10 − (−5) = −5."
-    },
-    {
-      "id": "integer-ops/t4/027",
-      "tier": 4,
-      "prompt": "4 + (−12) × (−5 × 3)",
-      "choices": [
-        "184",
-        "120",
-        "−184",
-        "185"
+        "64",
+        "16"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ORDER",
         "WRONG_SIGN",
-        "ARITH"
+        "SIGN_RULE_PRODUCT"
       ],
-      "explanation": "−5 × 3 = −15, then −12 × (−15) = 180, then 4 + 180 = 184."
+      "explanation": "8 × (−5) = −40, then 4 × 6 = 24, then −40 − 24 = −64."
     },
     {
-      "id": "integer-ops/t4/028",
+      "id": "integer-ops/t4/022",
       "tier": 4,
-      "prompt": "−7 − 10 × 12",
+      "prompt": "−10 − (−10) ÷ 2",
       "choices": [
-        "127",
-        "−127",
-        "−204",
-        "−126"
+        "5",
+        "−5",
+        "10",
+        "0"
       ],
       "answer": 1,
       "misconceptions": [
         "WRONG_SIGN",
         null,
+        "MUL_FOR_DIV",
+        "ORDER"
+      ],
+      "explanation": "−10 ÷ 2 = −5, then −10 − (−5) = −5."
+    },
+    {
+      "id": "integer-ops/t4/023",
+      "tier": 4,
+      "prompt": "−7 − 10 × 12",
+      "choices": [
+        "127",
+        "−204",
+        "−126",
+        "−127"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
         "ORDER",
-        "ARITH"
+        "ARITH",
+        null
       ],
       "explanation": "10 × 12 = 120, then −7 − 120 = −127."
     },
     {
-      "id": "integer-ops/t4/029",
+      "id": "integer-ops/t4/024",
       "tier": 4,
       "prompt": "7 − (−11 − 3) × (−12)",
       "choices": [
         "161",
-        "175",
-        "−161",
-        "−252"
+        "33",
+        "−252",
+        "−161"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
         "WRONG_SIGN",
-        "SIGN_RULE_PRODUCT",
-        null,
-        "ORDER"
+        "ADD_FOR_MUL",
+        "ORDER",
+        null
       ],
       "explanation": "−11 − 3 = −14, then −14 × (−12) = 168, then 7 − 168 = −161."
     },
     {
-      "id": "integer-ops/t4/030",
+      "id": "integer-ops/t4/025",
       "tier": 4,
       "prompt": "−12 ÷ (−6) + (−10) × (−9)",
       "choices": [
+        "−17",
         "72",
-        "90",
         "92",
-        "−92"
+        "162"
       ],
       "answer": 2,
       "misconceptions": [
+        "ADD_FOR_MUL",
         "ORDER",
-        "ARITH",
         null,
-        "SIGN_RULE_PRODUCT"
+        "MUL_FOR_DIV"
       ],
       "explanation": "−12 ÷ (−6) = 2, then −10 × (−9) = 90, then 2 + 90 = 92."
     },
     {
-      "id": "integer-ops/t4/031",
+      "id": "integer-ops/t4/026",
       "tier": 4,
-      "prompt": "−3 − 2 × (−6)",
+      "prompt": "5 ÷ 5 − 10 × (−12)",
       "choices": [
-        "30",
-        "−15",
-        "9",
-        "−9"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ORDER",
-        "SUB_NEG",
-        null,
-        "WRONG_SIGN"
-      ],
-      "explanation": "2 × (−6) = −12, then −3 − (−12) = 9."
-    },
-    {
-      "id": "integer-ops/t4/032",
-      "tier": 4,
-      "prompt": "(12 − 7 × 8) × (−6)",
-      "choices": [
-        "−264",
-        "266",
-        "−240",
-        "264"
+        "3",
+        "−121",
+        "108",
+        "121"
       ],
       "answer": 3,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        "ARITH",
+        "ADD_FOR_MUL",
+        "WRONG_SIGN",
         "ORDER",
         null
       ],
-      "explanation": "7 × 8 = 56, then 12 − 56 = −44, then −44 × (−6) = 264."
+      "explanation": "5 ÷ 5 = 1, then 10 × (−12) = −120, then 1 − (−120) = 121."
     },
     {
-      "id": "integer-ops/t4/033",
+      "id": "integer-ops/t4/027",
       "tier": 4,
       "prompt": "−10 − (−7) × (−11)",
       "choices": [
         "−87",
-        "67",
+        "8",
         "33",
         "87"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "SIGN_RULE_PRODUCT",
+        "ADD_FOR_MUL",
         "ORDER",
         "WRONG_SIGN"
       ],
       "explanation": "−7 × (−11) = 77, then −10 − 77 = −87."
     },
     {
-      "id": "integer-ops/t4/034",
+      "id": "integer-ops/t4/028",
       "tier": 4,
-      "prompt": "9 − 4 × (−4)",
+      "prompt": "−8 − 8 × 2",
       "choices": [
-        "−25",
-        "25",
-        "−20",
-        "−7"
+        "−32",
+        "−24",
+        "−22",
+        "24"
       ],
       "answer": 1,
       "misconceptions": [
-        "WRONG_SIGN",
-        null,
         "ORDER",
-        "SUB_NEG"
+        null,
+        "ARITH",
+        "WRONG_SIGN"
       ],
-      "explanation": "4 × (−4) = −16, then 9 − (−16) = 25."
+      "explanation": "8 × 2 = 16, then −8 − 16 = −24."
     },
     {
-      "id": "integer-ops/t4/035",
+      "id": "integer-ops/t4/029",
       "tier": 4,
       "prompt": "8 − (−7 + 11) × 6",
       "choices": [
         "24",
-        "−16",
         "16",
+        "−16",
         "−100"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
         "ORDER",
-        null,
         "WRONG_SIGN",
+        null,
         "ADD_SIZES"
       ],
       "explanation": "−7 + 11 = 4, then 4 × 6 = 24, then 8 − 24 = −16."
     },
     {
-      "id": "integer-ops/t4/036",
+      "id": "integer-ops/t4/030",
       "tier": 4,
       "prompt": "−10 − (−6) × (−11)",
       "choices": [
-        "44",
-        "−76",
+        "7",
         "56",
-        "76"
+        "−76",
+        "44"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "ORDER",
-        null,
+        "ADD_FOR_MUL",
         "SIGN_RULE_PRODUCT",
-        "WRONG_SIGN"
+        null,
+        "ORDER"
       ],
       "explanation": "−6 × (−11) = 66, then −10 − 66 = −76."
     },
     {
-      "id": "integer-ops/t4/037",
+      "id": "integer-ops/t4/031",
+      "tier": 4,
+      "prompt": "−10 + (−5) ÷ (−5)",
+      "choices": [
+        "15",
+        "3",
+        "−9",
+        "−11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "ORDER",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "−5 ÷ (−5) = 1, then −10 + 1 = −9."
+    },
+    {
+      "id": "integer-ops/t4/032",
+      "tier": 4,
+      "prompt": "2 − 7 × (−5 − 11)",
+      "choices": [
+        "80",
+        "−110",
+        "−114",
+        "114"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER",
+        "SUB_NEG",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "−5 − 11 = −16, then 7 × (−16) = −112, then 2 − (−112) = 114."
+    },
+    {
+      "id": "integer-ops/t4/033",
       "tier": 4,
       "prompt": "−6 − (8 + (−8) × (−9))",
       "choices": [
-        "58",
         "−86",
         "86",
+        "58",
         "−6"
       ],
-      "answer": 1,
+      "answer": 0,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
         null,
         "WRONG_SIGN",
+        "SIGN_RULE_PRODUCT",
         "ORDER"
       ],
       "explanation": "−8 × (−9) = 72, then 8 + 72 = 80, then −6 − 80 = −86."
     },
     {
-      "id": "integer-ops/t4/038",
+      "id": "integer-ops/t4/034",
       "tier": 4,
       "prompt": "3 + (−4) × (−5 + 8)",
       "choices": [
+        "−55",
         "−9",
-        "−3",
-        "15",
-        "9"
+        "2",
+        "−3"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
+        "ADD_SIZES",
         null,
-        "ORDER",
-        "SIGN_RULE_PRODUCT",
-        "WRONG_SIGN"
+        "ADD_FOR_MUL",
+        "ORDER"
       ],
       "explanation": "−5 + 8 = 3, then −4 × 3 = −12, then 3 + (−12) = −9."
     },
     {
+      "id": "integer-ops/t4/035",
+      "tier": 4,
+      "prompt": "−11 ÷ 11 − (−2) × 8",
+      "choices": [
+        "−15",
+        "15",
+        "−17",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE_PRODUCT",
+        null,
+        "SUB_NEG",
+        "ORDER"
+      ],
+      "explanation": "−11 ÷ 11 = −1, then −2 × 8 = −16, then −1 − (−16) = 15."
+    },
+    {
+      "id": "integer-ops/t4/036",
+      "tier": 4,
+      "prompt": "−8 + 5 × 3 ÷ (−3)",
+      "choices": [
+        "3",
+        "−13",
+        "13",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "NEG_NEG_ADD",
+        "SIGN_RULE_PRODUCT"
+      ],
+      "explanation": "5 × 3 = 15, then 15 ÷ (−3) = −5, then −8 + (−5) = −13."
+    },
+    {
+      "id": "integer-ops/t4/037",
+      "tier": 4,
+      "prompt": "−6 + 3 × 6",
+      "choices": [
+        "−12",
+        "12",
+        "−18",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "ORDER",
+        "ADD_SIZES"
+      ],
+      "explanation": "3 × 6 = 18, then −6 + 18 = 12."
+    },
+    {
+      "id": "integer-ops/t4/038",
+      "tier": 4,
+      "prompt": "−18 ÷ (−6 − (−8) ÷ 2)",
+      "choices": [
+        "9",
+        "−180",
+        "7",
+        "−18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_FOR_DIV",
+        "ARITH",
+        "ORDER"
+      ],
+      "explanation": "−8 ÷ 2 = −4, then −6 − (−4) = −2, then −18 ÷ (−2) = 9."
+    },
+    {
       "id": "integer-ops/t4/039",
       "tier": 4,
-      "prompt": "−2 ÷ 2 + 2 × (−2)",
+      "prompt": "−9 − (−3) × (−4) ÷ (−2)",
       "choices": [
-        "−2",
-        "−4",
-        "−5",
-        "5"
+        "−15",
+        "−12",
+        "−3",
+        "15"
       ],
       "answer": 2,
       "misconceptions": [
+        "SUB_NEG",
         "ORDER",
-        "ARITH",
         null,
-        "NEG_NEG_ADD"
+        "MUL_FOR_DIV"
       ],
-      "explanation": "−2 ÷ 2 = −1, then 2 × (−2) = −4, then −1 + (−4) = −5."
+      "explanation": "−3 × (−4) = 12, then 12 ÷ (−2) = −6, then −9 − (−6) = −3."
     },
     {
       "id": "integer-ops/t4/040",
       "tier": 4,
-      "prompt": "2 − (−6) × 4",
+      "prompt": "−12 + (−3) ÷ (−3)",
       "choices": [
-        "−22",
-        "32",
-        "26",
-        "−26"
+        "−13",
+        "5",
+        "−11",
+        "11"
       ],
       "answer": 2,
       "misconceptions": [
-        "SUB_NEG",
+        "ADD_SIZES",
         "ORDER",
         null,
         "WRONG_SIGN"
       ],
-      "explanation": "−6 × 4 = −24, then 2 − (−24) = 26."
+      "explanation": "−3 ÷ (−3) = 1, then −12 + 1 = −11."
     },
     {
       "id": "integer-ops/t5/001",
       "tier": 5,
-      "prompt": "−8 − (−12 − (−10)) × 11 ÷ 2",
+      "prompt": "−6² − (−11 + (−11))",
       "choices": [
-        "3",
-        "−3",
-        "−33",
-        "−129"
+        "−58",
+        "14",
+        "−14",
+        "58"
       ],
-      "answer": 0,
+      "answer": 2,
       "misconceptions": [
-        null,
+        "SUB_NEG",
         "WRONG_SIGN",
-        "ORDER",
-        "SUB_NEG"
+        null,
+        "NEG_POWER"
       ],
-      "explanation": "−12 − (−10) = −2, then −2 × 11 = −22, then −22 ÷ 2 = −11, then −8 − (−11) = 3."
+      "explanation": "−11 + (−11) = −22, then 6² = 36, then −6² = −36, then −36 − (−22) = −14."
     },
     {
       "id": "integer-ops/t5/002",
       "tier": 5,
-      "prompt": "−12 − (−2) × (−2)² ÷ 4",
+      "prompt": "−8 + (−3) − (−12 + 4 ÷ 2)",
       "choices": [
-        "−10",
-        "−8",
-        "−14",
-        "10"
+        "1",
+        "−21",
+        "−7",
+        "−1"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
-        "ARITH",
-        "NEG_POWER",
-        "WRONG_SIGN"
+        "WRONG_SIGN",
+        "SUB_NEG",
+        "ORDER",
+        null
       ],
-      "explanation": "(−2)² = 4, then −2 × 4 = −8, then −8 ÷ 4 = −2, then −12 − (−2) = −10."
+      "explanation": "4 ÷ 2 = 2, then −12 + 2 = −10, then −8 + (−3) = −11, then −11 − (−10) = −1."
     },
     {
       "id": "integer-ops/t5/003",
       "tier": 5,
-      "prompt": "−2 − (−6 + 9) × (−7 + (−9))",
+      "prompt": "(−3)² + (−5) + (−2)",
       "choices": [
-        "238",
-        "46",
-        "80",
-        "−50"
+        "16",
+        "−16",
+        "−2",
+        "2"
       ],
-      "answer": 1,
+      "answer": 3,
       "misconceptions": [
         "ADD_SIZES",
-        null,
-        "ORDER",
-        "SUB_NEG"
+        "NEG_POWER",
+        "WRONG_SIGN",
+        null
       ],
-      "explanation": "−6 + 9 = 3, then −7 + (−9) = −16, then 3 × (−16) = −48, then −2 − (−48) = 46."
+      "explanation": "(−3)² = 9, then 9 + (−5) = 4, then 4 + (−2) = 2."
     },
     {
       "id": "integer-ops/t5/004",
       "tier": 5,
-      "prompt": "(−9 − 12 + (−7) × 10) ÷ 7",
+      "prompt": "−7 × (−5) + (−2 − (−9) × 2)",
       "choices": [
-        "−13",
-        "13",
-        "−40",
-        "7"
+        "−55",
+        "−51",
+        "49",
+        "51"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
-        "NEG_NEG_ADD",
+        "SIGN_RULE_PRODUCT",
+        "WRONG_SIGN",
         "ORDER",
-        "SIGN_RULE_PRODUCT"
+        null
       ],
-      "explanation": "−7 × 10 = −70, then −9 − 12 = −21, then −21 + (−70) = −91, then −91 ÷ 7 = −13."
+      "explanation": "−9 × 2 = −18, then −2 − (−18) = 16, then −7 × (−5) = 35, then 35 + 16 = 51."
     },
     {
       "id": "integer-ops/t5/005",
       "tier": 5,
-      "prompt": "(−6³ + 9) ÷ 3 + (−8)",
+      "prompt": "−6³ − 4 − (−6) + (−5)",
       "choices": [
-        "61",
-        "77",
-        "−83",
-        "−77"
+        "−217",
+        "−219",
+        "219",
+        "−231"
       ],
-      "answer": 3,
+      "answer": 1,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
+        "ARITH",
+        null,
         "NEG_NEG_ADD",
-        "ADD_SIZES",
-        null
+        "SUB_NEG"
       ],
-      "explanation": "6³ = 216, then −6³ = −216, then −216 + 9 = −207, then −207 ÷ 3 = −69, then −69 + (−8) = −77."
+      "explanation": "6³ = 216, then −6³ = −216, then −216 − 4 = −220, then −220 − (−6) = −214, then −214 + (−5) = −219."
     },
     {
       "id": "integer-ops/t5/006",
       "tier": 5,
-      "prompt": "−6² + 8 × 8",
-      "choices": [
-        "100",
-        "28",
-        "−224",
-        "−28"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "NEG_POWER",
-        null,
-        "ORDER",
-        "WRONG_SIGN"
-      ],
-      "explanation": "6² = 36, then −6² = −36, then 8 × 8 = 64, then −36 + 64 = 28."
-    },
-    {
-      "id": "integer-ops/t5/007",
-      "tier": 5,
-      "prompt": "−4 + 7 × (8 × (−5))",
-      "choices": [
-        "−120",
-        "284",
-        "−284",
-        "276"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ORDER",
-        "NEG_NEG_ADD",
-        null,
-        "SIGN_RULE_PRODUCT"
-      ],
-      "explanation": "8 × (−5) = −40, then 7 × (−40) = −280, then −4 + (−280) = −284."
-    },
-    {
-      "id": "integer-ops/t5/008",
-      "tier": 5,
-      "prompt": "−6² + (−6) × (−5)",
-      "choices": [
-        "−66",
-        "−6",
-        "210",
-        "66"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ADD_SIZES",
-        null,
-        "ORDER",
-        "NEG_POWER"
-      ],
-      "explanation": "6² = 36, then −6² = −36, then −6 × (−5) = 30, then −36 + 30 = −6."
-    },
-    {
-      "id": "integer-ops/t5/009",
-      "tier": 5,
-      "prompt": "11 + (−4)² − (−10)",
-      "choices": [
-        "−37",
-        "5",
-        "37",
-        "17"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "NEG_POWER",
-        null,
-        "SUB_NEG"
-      ],
-      "explanation": "(−4)² = 16, then 11 + 16 = 27, then 27 − (−10) = 37."
-    },
-    {
-      "id": "integer-ops/t5/010",
-      "tier": 5,
-      "prompt": "(9 + (−10 − (−6)³)) ÷ (−5)",
-      "choices": [
-        "−45",
-        "−43",
-        "−42",
-        "43"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "SIGN_RULE_PRODUCT"
-      ],
-      "explanation": "(−6)³ = −216, then −10 − (−216) = 206, then 9 + 206 = 215, then 215 ÷ (−5) = −43."
-    },
-    {
-      "id": "integer-ops/t5/011",
-      "tier": 5,
-      "prompt": "−3 − 11 + (11 + (−2)³)",
-      "choices": [
-        "−9",
-        "11",
-        "33",
-        "−11"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "WRONG_SIGN",
-        "ADD_SIZES",
-        null
-      ],
-      "explanation": "(−2)³ = −8, then 11 + (−8) = 3, then −3 − 11 = −14, then −14 + 3 = −11."
-    },
-    {
-      "id": "integer-ops/t5/012",
-      "tier": 5,
-      "prompt": "−18 ÷ (−6 − (−8) ÷ 2) × 10",
-      "choices": [
-        "−180",
-        "92",
-        "90",
-        "88"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ORDER",
-        "ARITH",
-        null,
-        "ARITH"
-      ],
-      "explanation": "−8 ÷ 2 = −4, then −6 − (−4) = −2, then −18 ÷ (−2) = 9, then 9 × 10 = 90."
-    },
-    {
-      "id": "integer-ops/t5/013",
-      "tier": 5,
-      "prompt": "2 + (11 − (−11)) × (−4)",
-      "choices": [
-        "90",
-        "−86",
-        "−96",
-        "86"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        null,
-        "ORDER",
-        "WRONG_SIGN"
-      ],
-      "explanation": "11 − (−11) = 22, then 22 × (−4) = −88, then 2 + (−88) = −86."
-    },
-    {
-      "id": "integer-ops/t5/014",
-      "tier": 5,
-      "prompt": "3 ÷ (−3) − 6 × (−2) × (−12)",
-      "choices": [
-        "−143",
-        "145",
-        "−168",
-        "−145"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        "WRONG_SIGN",
-        "ORDER",
-        null
-      ],
-      "explanation": "3 ÷ (−3) = −1, then 6 × (−2) = −12, then −12 × (−12) = 144, then −1 − 144 = −145."
-    },
-    {
-      "id": "integer-ops/t5/015",
-      "tier": 5,
-      "prompt": "(−2)² − (−7 − (−12))",
-      "choices": [
-        "−15",
-        "−9",
-        "−1",
-        "1"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "SUB_NEG",
-        "NEG_POWER",
-        null,
-        "WRONG_SIGN"
-      ],
-      "explanation": "−7 − (−12) = 5, then (−2)² = 4, then 4 − 5 = −1."
-    },
-    {
-      "id": "integer-ops/t5/016",
-      "tier": 5,
-      "prompt": "−2³ − 7 + (−8) × (−10)",
-      "choices": [
-        "−65",
-        "95",
-        "230",
-        "65"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "ADD_SIZES",
-        "ORDER",
-        null
-      ],
-      "explanation": "2³ = 8, then −2³ = −8, then −8 × (−10) = 80, then −8 − 7 = −15, then −15 + 80 = 65."
-    },
-    {
-      "id": "integer-ops/t5/017",
-      "tier": 5,
-      "prompt": "(−6)² − 10 × 8 ÷ 4",
-      "choices": [
-        "16",
-        "−16",
-        "−56",
-        "52"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "WRONG_SIGN",
-        "NEG_POWER",
-        "ORDER"
-      ],
-      "explanation": "(−6)² = 36, then 10 × 8 = 80, then 80 ÷ 4 = 20, then 36 − 20 = 16."
-    },
-    {
-      "id": "integer-ops/t5/018",
-      "tier": 5,
-      "prompt": "3 ÷ (−3) − (−8) × (−10) + 10",
-      "choices": [
-        "71",
-        "91",
-        "−60",
-        "−71"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "SIGN_RULE_PRODUCT",
-        "ORDER",
-        null
-      ],
-      "explanation": "3 ÷ (−3) = −1, then −8 × (−10) = 80, then −1 − 80 = −81, then −81 + 10 = −71."
-    },
-    {
-      "id": "integer-ops/t5/019",
-      "tier": 5,
-      "prompt": "(−2² + (−11) × (−5)) × (−9)",
-      "choices": [
-        "−459",
-        "−460",
-        "−675",
-        "−531"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "ORDER",
-        "NEG_POWER"
-      ],
-      "explanation": "2² = 4, then −2² = −4, then −11 × (−5) = 55, then −4 + 55 = 51, then 51 × (−9) = −459."
-    },
-    {
-      "id": "integer-ops/t5/020",
-      "tier": 5,
-      "prompt": "12 + (−7) × 11 − (−9) × 12",
-      "choices": [
-        "−173",
-        "768",
-        "−19",
-        "43"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "SUB_NEG",
-        "ORDER",
-        "SIGN_RULE_PRODUCT",
-        null
-      ],
-      "explanation": "−7 × 11 = −77, then −9 × 12 = −108, then 12 + (−77) = −65, then −65 − (−108) = 43."
-    },
-    {
-      "id": "integer-ops/t5/021",
-      "tier": 5,
-      "prompt": "11 + (−12 − ((−5)² + (−7)))",
-      "choices": [
-        "−19",
-        "−55",
-        "31",
-        "19"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ADD_SIZES",
-        "NEG_POWER",
-        "WRONG_SIGN"
-      ],
-      "explanation": "(−5)² = 25, then 25 + (−7) = 18, then −12 − 18 = −30, then 11 + (−30) = −19."
-    },
-    {
-      "id": "integer-ops/t5/022",
-      "tier": 5,
-      "prompt": "−6³ ÷ 3 ÷ 8 + (−11)",
-      "choices": [
-        "−2",
-        "20",
-        "−18",
-        "−20"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        "NEG_NEG_ADD",
-        "ARITH",
-        null
-      ],
-      "explanation": "6³ = 216, then −6³ = −216, then −216 ÷ 3 = −72, then −72 ÷ 8 = −9, then −9 + (−11) = −20."
-    },
-    {
-      "id": "integer-ops/t5/023",
-      "tier": 5,
       "prompt": "5 − (−9) − 7 × (−8)",
       "choices": [
-        "70",
         "−42",
+        "70",
         "−70",
         "−56"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
-        null,
         "SIGN_RULE_PRODUCT",
+        null,
         "WRONG_SIGN",
         "ORDER"
       ],
       "explanation": "7 × (−8) = −56, then 5 − (−9) = 14, then 14 − (−56) = 70."
     },
     {
-      "id": "integer-ops/t5/024",
+      "id": "integer-ops/t5/007",
       "tier": 5,
-      "prompt": "−3² × 4 − 5",
+      "prompt": "(−4)² × (−3) − 8",
       "choices": [
-        "−41",
-        "−40",
-        "41",
-        "31"
+        "56",
+        "−56",
+        "5",
+        "40"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
-        null,
-        "ARITH",
         "WRONG_SIGN",
+        null,
+        "ADD_FOR_MUL",
         "NEG_POWER"
       ],
-      "explanation": "3² = 9, then −3² = −9, then −9 × 4 = −36, then −36 − 5 = −41."
+      "explanation": "(−4)² = 16, then 16 × (−3) = −48, then −48 − 8 = −56."
     },
     {
-      "id": "integer-ops/t5/025",
+      "id": "integer-ops/t5/008",
       "tier": 5,
       "prompt": "−6 + 2 + (−3 − 11 × 2)",
       "choices": [
-        "−29",
         "29",
         "−33",
+        "−29",
         "−32"
       ],
-      "answer": 0,
+      "answer": 2,
       "misconceptions": [
-        null,
         "NEG_NEG_ADD",
         "ADD_SIZES",
+        null,
         "ORDER"
       ],
       "explanation": "11 × 2 = 22, then −3 − 22 = −25, then −6 + 2 = −4, then −4 + (−25) = −29."
     },
     {
-      "id": "integer-ops/t5/026",
+      "id": "integer-ops/t5/009",
       "tier": 5,
-      "prompt": "−6² ÷ (−3 × (−6))",
+      "prompt": "12 − (−8) × (−3) + (−12) ÷ 6",
       "choices": [
-        "−3",
-        "2",
-        "−2",
-        "0"
+        "−84",
+        "−12",
+        "14",
+        "−14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "ORDER",
+        "NEG_NEG_ADD",
+        null
+      ],
+      "explanation": "−8 × (−3) = 24, then −12 ÷ 6 = −2, then 12 − 24 = −12, then −12 + (−2) = −14."
+    },
+    {
+      "id": "integer-ops/t5/010",
+      "tier": 5,
+      "prompt": "((−6)² − (−3)) × (−10 − 8)",
+      "choices": [
+        "702",
+        "−594",
+        "594",
+        "−702"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_RULE_PRODUCT",
+        "SUB_NEG",
+        "NEG_POWER",
+        null
+      ],
+      "explanation": "(−6)² = 36, then 36 − (−3) = 39, then −10 − 8 = −18, then 39 × (−18) = −702."
+    },
+    {
+      "id": "integer-ops/t5/011",
+      "tier": 5,
+      "prompt": "6 − (−8) × (−10) ÷ 2",
+      "choices": [
+        "−70",
+        "34",
+        "−34",
+        "15"
       ],
       "answer": 2,
       "misconceptions": [
-        "ARITH",
-        "NEG_POWER",
+        "ORDER",
+        "WRONG_SIGN",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "−8 × (−10) = 80, then 80 ÷ 2 = 40, then 6 − 40 = −34."
+    },
+    {
+      "id": "integer-ops/t5/012",
+      "tier": 5,
+      "prompt": "−5 × ((−4 + (−5)³) ÷ (−3))",
+      "choices": [
+        "215",
+        "38",
+        "−215",
+        "−214"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "ADD_FOR_MUL",
         null,
         "ARITH"
       ],
-      "explanation": "−3 × (−6) = 18, then 6² = 36, then −6² = −36, then −36 ÷ 18 = −2."
+      "explanation": "(−5)³ = −125, then −4 + (−125) = −129, then −129 ÷ (−3) = 43, then −5 × 43 = −215."
     },
     {
-      "id": "integer-ops/t5/027",
+      "id": "integer-ops/t5/013",
       "tier": 5,
-      "prompt": "−12 − (−3) ÷ 3 − 2",
+      "prompt": "−2 − (10 − (−5)²)",
       "choices": [
-        "−15",
-        "13",
+        "−37",
+        "−17",
         "−13",
-        "−5"
+        "13"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
+        "NEG_POWER",
         "SUB_NEG",
         "WRONG_SIGN",
-        null,
-        "ORDER"
+        null
       ],
-      "explanation": "−3 ÷ 3 = −1, then −12 − (−1) = −11, then −11 − 2 = −13."
+      "explanation": "(−5)² = 25, then 10 − 25 = −15, then −2 − (−15) = 13."
     },
     {
-      "id": "integer-ops/t5/028",
+      "id": "integer-ops/t5/014",
       "tier": 5,
-      "prompt": "−3³ × (−11) − (−2)",
+      "prompt": "(−3)² + (6 − (−3))",
       "choices": [
-        "−295",
-        "−299",
-        "299",
-        "295"
+        "−18",
+        "0",
+        "18",
+        "12"
       ],
       "answer": 2,
       "misconceptions": [
-        "SIGN_RULE_PRODUCT",
         "WRONG_SIGN",
+        "NEG_POWER",
         null,
         "SUB_NEG"
       ],
-      "explanation": "3³ = 27, then −3³ = −27, then −27 × (−11) = 297, then 297 − (−2) = 299."
+      "explanation": "6 − (−3) = 9, then (−3)² = 9, then 9 + 9 = 18."
     },
     {
-      "id": "integer-ops/t5/029",
+      "id": "integer-ops/t5/015",
       "tier": 5,
-      "prompt": "−3² ÷ (−9) − (−6)",
+      "prompt": "3 − 10 − (−6) × 10",
       "choices": [
-        "−7",
-        "−5",
-        "7",
-        "5"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "SUB_NEG",
-        null,
-        "NEG_POWER"
-      ],
-      "explanation": "3² = 9, then −3² = −9, then −9 ÷ (−9) = 1, then 1 − (−6) = 7."
-    },
-    {
-      "id": "integer-ops/t5/030",
-      "tier": 5,
-      "prompt": "−9 + (10 − (−3)³)",
-      "choices": [
-        "−26",
-        "28",
-        "−28",
-        "46"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "SUB_NEG",
-        null,
-        "WRONG_SIGN",
-        "ADD_SIZES"
-      ],
-      "explanation": "(−3)³ = −27, then 10 − (−27) = 37, then −9 + 37 = 28."
-    },
-    {
-      "id": "integer-ops/t5/031",
-      "tier": 5,
-      "prompt": "4 − (−2) + (−3) ÷ (−3)",
-      "choices": [
-        "−7",
-        "−1",
-        "5",
-        "7"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "ORDER",
-        "SIGN_RULE_PRODUCT",
-        null
-      ],
-      "explanation": "−3 ÷ (−3) = 1, then 4 − (−2) = 6, then 6 + 1 = 7."
-    },
-    {
-      "id": "integer-ops/t5/032",
-      "tier": 5,
-      "prompt": "−2² ÷ (−4) × 8",
-      "choices": [
-        "10",
-        "7",
-        "−8",
-        "8"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "ARITH",
-        "NEG_POWER",
-        null
-      ],
-      "explanation": "2² = 4, then −2² = −4, then −4 ÷ (−4) = 1, then 1 × 8 = 8."
-    },
-    {
-      "id": "integer-ops/t5/033",
-      "tier": 5,
-      "prompt": "(−3² − (−12) ÷ (−2)) × (−3)",
-      "choices": [
-        "45",
-        "44",
-        "47",
-        "−9"
+        "53",
+        "−67",
+        "−10",
+        "−53"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
-        "ARITH",
-        "NEG_POWER"
+        "SUB_NEG",
+        "ORDER",
+        "WRONG_SIGN"
       ],
-      "explanation": "3² = 9, then −3² = −9, then −12 ÷ (−2) = 6, then −9 − 6 = −15, then −15 × (−3) = 45."
+      "explanation": "−6 × 10 = −60, then 3 − 10 = −7, then −7 − (−60) = 53."
     },
     {
-      "id": "integer-ops/t5/034",
-      "tier": 5,
-      "prompt": "(−2)² − (−2) × (−8)",
-      "choices": [
-        "20",
-        "−12",
-        "−20",
-        "−48"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "SIGN_RULE_PRODUCT",
-        null,
-        "NEG_POWER",
-        "ORDER"
-      ],
-      "explanation": "(−2)² = 4, then −2 × (−8) = 16, then 4 − 16 = −12."
-    },
-    {
-      "id": "integer-ops/t5/035",
-      "tier": 5,
-      "prompt": "−11 + (−4)² − (2 + 10)",
-      "choices": [
-        "7",
-        "−7",
-        "15",
-        "−39"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "WRONG_SIGN",
-        null,
-        "ADD_SIZES",
-        "NEG_POWER"
-      ],
-      "explanation": "2 + 10 = 12, then (−4)² = 16, then −11 + 16 = 5, then 5 − 12 = −7."
-    },
-    {
-      "id": "integer-ops/t5/036",
-      "tier": 5,
-      "prompt": "(−4)² − (−6 + 7)",
-      "choices": [
-        "−15",
-        "−17",
-        "15",
-        "3"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "WRONG_SIGN",
-        "NEG_POWER",
-        null,
-        "ADD_SIZES"
-      ],
-      "explanation": "−6 + 7 = 1, then (−4)² = 16, then 16 − 1 = 15."
-    },
-    {
-      "id": "integer-ops/t5/037",
+      "id": "integer-ops/t5/016",
       "tier": 5,
       "prompt": "9 − (−8 + (−4) × (−11)) + (−5)",
       "choices": [
-        "32",
-        "−32",
+        "−48",
         "56",
+        "−32",
         "−128"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "NEG_NEG_ADD",
-        null,
+        "ADD_SIZES",
         "SIGN_RULE_PRODUCT",
+        null,
         "ORDER"
       ],
       "explanation": "−4 × (−11) = 44, then −8 + 44 = 36, then 9 − 36 = −27, then −27 + (−5) = −32."
     },
     {
-      "id": "integer-ops/t5/038",
+      "id": "integer-ops/t5/017",
+      "tier": 5,
+      "prompt": "−4 + (−4)² + (−3)",
+      "choices": [
+        "9",
+        "−9",
+        "−23",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "NEG_POWER",
+        "ADD_SIZES"
+      ],
+      "explanation": "(−4)² = 16, then −4 + 16 = 12, then 12 + (−3) = 9."
+    },
+    {
+      "id": "integer-ops/t5/018",
       "tier": 5,
       "prompt": "−9 + (3 + (−6)) × (−7)",
       "choices": [
-        "72",
+        "12",
         "84",
-        "−30",
-        "12"
+        "72",
+        "−30"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ADD_SIZES",
+        null,
         "ORDER",
-        "SIGN_RULE_PRODUCT",
-        null
+        "ADD_SIZES",
+        "SIGN_RULE_PRODUCT"
       ],
       "explanation": "3 + (−6) = −3, then −3 × (−7) = 21, then −9 + 21 = 12."
     },
     {
-      "id": "integer-ops/t5/039",
+      "id": "integer-ops/t5/019",
       "tier": 5,
-      "prompt": "−2 − 4 − (−12) × 9",
+      "prompt": "(−6² + (−4)) × (−2 × (−6))",
       "choices": [
-        "−114",
-        "102",
-        "54",
-        "−102"
+        "−480",
+        "480",
+        "−48",
+        "384"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_NEG_ADD",
+        "ADD_FOR_MUL",
+        "NEG_POWER"
+      ],
+      "explanation": "6² = 36, then −6² = −36, then −2 × (−6) = 12, then −36 + (−4) = −40, then −40 × 12 = −480."
+    },
+    {
+      "id": "integer-ops/t5/020",
+      "tier": 5,
+      "prompt": "−2³ × 4 − (−4)",
+      "choices": [
+        "−36",
+        "28",
+        "0",
+        "−28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "WRONG_SIGN",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "2³ = 8, then −2³ = −8, then −8 × 4 = −32, then −32 − (−4) = −28."
+    },
+    {
+      "id": "integer-ops/t5/021",
+      "tier": 5,
+      "prompt": "−4² × (6 × (10 ÷ 10))",
+      "choices": [
+        "−96",
+        "−97",
+        "−10",
+        "96"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_FOR_MUL",
+        "NEG_POWER"
+      ],
+      "explanation": "10 ÷ 10 = 1, then 6 × 1 = 6, then 4² = 16, then −4² = −16, then −16 × 6 = −96."
+    },
+    {
+      "id": "integer-ops/t5/022",
+      "tier": 5,
+      "prompt": "9 + (−12 + (−12) − (−4)²)",
+      "choices": [
+        "1",
+        "−31",
+        "−49",
+        "17"
       ],
       "answer": 1,
       "misconceptions": [
-        "SUB_NEG",
+        "NEG_POWER",
         null,
-        "ORDER",
-        "WRONG_SIGN"
+        "ADD_SIZES",
+        "NEG_NEG_ADD"
       ],
-      "explanation": "−12 × 9 = −108, then −2 − 4 = −6, then −6 − (−108) = 102."
+      "explanation": "(−4)² = 16, then −12 + (−12) = −24, then −24 − 16 = −40, then 9 + (−40) = −31."
     },
     {
-      "id": "integer-ops/t5/040",
+      "id": "integer-ops/t5/023",
       "tier": 5,
-      "prompt": "−2 + (−4)² + 5",
+      "prompt": "−4² − 5 + 8",
       "choices": [
+        "13",
         "−13",
-        "−19",
         "19",
-        "23"
+        "−29"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "NEG_POWER",
+        "ADD_SIZES"
+      ],
+      "explanation": "4² = 16, then −4² = −16, then −16 − 5 = −21, then −21 + 8 = −13."
+    },
+    {
+      "id": "integer-ops/t5/024",
+      "tier": 5,
+      "prompt": "−4 − 8 × (3 ÷ (−3))",
+      "choices": [
+        "−11",
+        "4",
+        "−12",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "SUB_NEG",
+        "ORDER"
+      ],
+      "explanation": "3 ÷ (−3) = −1, then 8 × (−1) = −8, then −4 − (−8) = 4."
+    },
+    {
+      "id": "integer-ops/t5/025",
+      "tier": 5,
+      "prompt": "−3² − (−7) ÷ (−7)",
+      "choices": [
+        "10",
+        "−58",
+        "−10",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "MUL_FOR_DIV",
+        null,
+        "NEG_POWER"
+      ],
+      "explanation": "3² = 9, then −3² = −9, then −7 ÷ (−7) = 1, then −9 − 1 = −10."
+    },
+    {
+      "id": "integer-ops/t5/026",
+      "tier": 5,
+      "prompt": "−5² + (−12 − 4)",
+      "choices": [
+        "41",
+        "9",
+        "−41",
+        "−40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "NEG_POWER",
+        null,
+        "ARITH"
+      ],
+      "explanation": "−12 − 4 = −16, then 5² = 25, then −5² = −25, then −25 + (−16) = −41."
+    },
+    {
+      "id": "integer-ops/t5/027",
+      "tier": 5,
+      "prompt": "−5 + ((−5)² − (−2))",
+      "choices": [
+        "−28",
+        "−22",
+        "22",
+        "18"
       ],
       "answer": 2,
       "misconceptions": [
         "NEG_POWER",
         "WRONG_SIGN",
         null,
+        "SUB_NEG"
+      ],
+      "explanation": "(−5)² = 25, then 25 − (−2) = 27, then −5 + 27 = 22."
+    },
+    {
+      "id": "integer-ops/t5/028",
+      "tier": 5,
+      "prompt": "−12 + (−2) + (−10) − 12 × (−12)",
+      "choices": [
+        "120",
+        "432",
+        "148",
+        "−168"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER",
+        "NEG_NEG_ADD",
+        "SUB_NEG"
+      ],
+      "explanation": "12 × (−12) = −144, then −12 + (−2) = −14, then −14 + (−10) = −24, then −24 − (−144) = 120."
+    },
+    {
+      "id": "integer-ops/t5/029",
+      "tier": 5,
+      "prompt": "4 + 6 × (−3 + 11)",
+      "choices": [
+        "80",
+        "52",
+        "−52",
+        "88"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "WRONG_SIGN",
         "ADD_SIZES"
       ],
-      "explanation": "(−4)² = 16, then −2 + 16 = 14, then 14 + 5 = 19."
+      "explanation": "−3 + 11 = 8, then 6 × 8 = 48, then 4 + 48 = 52."
+    },
+    {
+      "id": "integer-ops/t5/030",
+      "tier": 5,
+      "prompt": "−2 × ((−2)² ÷ 4) − (−3)",
+      "choices": [
+        "1",
+        "−5",
+        "−1",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_NEG",
+        "WRONG_SIGN",
+        "NEG_POWER"
+      ],
+      "explanation": "(−2)² = 4, then 4 ÷ 4 = 1, then −2 × 1 = −2, then −2 − (−3) = 1."
+    },
+    {
+      "id": "integer-ops/t5/031",
+      "tier": 5,
+      "prompt": "2 + (−3)³ × (−9)",
+      "choices": [
+        "225",
+        "245",
+        "−245",
+        "−34"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "WRONG_SIGN",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "(−3)³ = −27, then −27 × (−9) = 243, then 2 + 243 = 245."
+    },
+    {
+      "id": "integer-ops/t5/032",
+      "tier": 5,
+      "prompt": "−4 × (−8 + (−6)² × (−6))",
+      "choices": [
+        "896",
+        "672",
+        "−832",
+        "832"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER",
+        "NEG_POWER",
+        "SIGN_RULE_PRODUCT"
+      ],
+      "explanation": "(−6)² = 36, then 36 × (−6) = −216, then −8 + (−216) = −224, then −4 × (−224) = 896."
+    },
+    {
+      "id": "integer-ops/t5/033",
+      "tier": 5,
+      "prompt": "−6² − (−12 − 3)",
+      "choices": [
+        "−51",
+        "21",
+        "51",
+        "−21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "WRONG_SIGN",
+        "NEG_POWER",
+        null
+      ],
+      "explanation": "−12 − 3 = −15, then 6² = 36, then −6² = −36, then −36 − (−15) = −21."
+    },
+    {
+      "id": "integer-ops/t5/034",
+      "tier": 5,
+      "prompt": "−5² + (−8 − 4 + (−11))",
+      "choices": [
+        "48",
+        "2",
+        "−2",
+        "−48"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "NEG_POWER",
+        "NEG_NEG_ADD",
+        null
+      ],
+      "explanation": "−8 − 4 = −12, then −12 + (−11) = −23, then 5² = 25, then −5² = −25, then −25 + (−23) = −48."
+    },
+    {
+      "id": "integer-ops/t5/035",
+      "tier": 5,
+      "prompt": "7 − (−12 + (−10) × 3)",
+      "choices": [
+        "73",
+        "49",
+        "−49",
+        "−11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "WRONG_SIGN",
+        "SIGN_RULE_PRODUCT"
+      ],
+      "explanation": "−10 × 3 = −30, then −12 + (−30) = −42, then 7 − (−42) = 49."
+    },
+    {
+      "id": "integer-ops/t5/036",
+      "tier": 5,
+      "prompt": "(−7 + 3 × 6 − (−12)) × 11",
+      "choices": [
+        "−132",
+        "407",
+        "253",
+        "−11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER",
+        "ADD_SIZES",
+        null,
+        "SUB_NEG"
+      ],
+      "explanation": "3 × 6 = 18, then −7 + 18 = 11, then 11 − (−12) = 23, then 23 × 11 = 253."
+    },
+    {
+      "id": "integer-ops/t5/037",
+      "tier": 5,
+      "prompt": "−5 − 9 + 6 × (9 × (−4))",
+      "choices": [
+        "288",
+        "−230",
+        "230",
+        "202"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "NEG_NEG_ADD",
+        "SIGN_RULE_PRODUCT"
+      ],
+      "explanation": "9 × (−4) = −36, then 6 × (−36) = −216, then −5 − 9 = −14, then −14 + (−216) = −230."
+    },
+    {
+      "id": "integer-ops/t5/038",
+      "tier": 5,
+      "prompt": "(−5² − (−6) − (−10)) ÷ (−9)",
+      "choices": [
+        "81",
+        "−1",
+        "0",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "SIGN_RULE_PRODUCT",
+        "ARITH",
+        null
+      ],
+      "explanation": "5² = 25, then −5² = −25, then −25 − (−6) = −19, then −19 − (−10) = −9, then −9 ÷ (−9) = 1."
+    },
+    {
+      "id": "integer-ops/t5/039",
+      "tier": 5,
+      "prompt": "−3 − (9 × (−4) − 8 × (−3))",
+      "choices": [
+        "9",
+        "−15",
+        "−135",
+        "−9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_RULE_PRODUCT",
+        "ORDER",
+        "WRONG_SIGN"
+      ],
+      "explanation": "9 × (−4) = −36, then 8 × (−3) = −24, then −36 − (−24) = −12, then −3 − (−12) = 9."
+    },
+    {
+      "id": "integer-ops/t5/040",
+      "tier": 5,
+      "prompt": "−3³ + (−10) ÷ (−2)",
+      "choices": [
+        "−22",
+        "−7",
+        "22",
+        "−32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_FOR_DIV",
+        "WRONG_SIGN",
+        "ADD_SIZES"
+      ],
+      "explanation": "3³ = 27, then −3³ = −27, then −10 ÷ (−2) = 5, then −27 + 5 = −22."
     }
   ],
   "render_profile": "unicode"
