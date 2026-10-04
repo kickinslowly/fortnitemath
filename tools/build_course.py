@@ -10,8 +10,10 @@ station. The course sits on its own floor slabs, so it may run past the template
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
+    python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
 """
 import argparse
+import re
 import json
 import sys
 from pathlib import Path
@@ -203,6 +205,40 @@ def finish(oy, doors, project):
     board(sign, "FINISH!", SIGN_COLOUR)
 
 
+def tier_count():
+    """Tiers in the cartridge the starter map holds (maps/starter/generated/SLOT.txt)."""
+    root = Path(__file__).parents[1]
+    slot = dict(line.split("=", 1) for line in (root / "maps/starter/generated/SLOT.txt").read_text().splitlines()
+                if "=" in line and not line.startswith("#"))
+    baked = json.loads((root / "cartridges" / slot["id"] / "baked.json").read_text(encoding="utf-8"))
+    return len(baked["tiers"])
+
+
+def auto_tier(stage, stages, tiers):
+    """fnm_logic.verse FnmAutoTier (PROTOCOL 6), so a hallway's colour matches the tier played in it."""
+    if stages > 1 and tiers > 1:
+        return max(1, min(tiers, 1 + (2 * (stage - 1) * (tiers - 1) + (stages - 1)) // (2 * (stages - 1))))
+    return 1
+
+
+def paint():
+    """Colour each hallway's walls by the tier played there (materials from tools/import_art.py), the finish
+    gold. Floors stay white. Idempotent; safe to rerun alone after a cartridge change (--paint-only)."""
+    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
+    mount = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).rstrip("/")
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish)_(Wall|Lintel|Divider)", a.get("label", ""))]
+    stations = len({a["label"][5:7] for a in walls if a["label"][4] == "S"})
+    tiers = tier_count()
+    for a in walls:
+        key = "finish" if a["label"].startswith("FNM_Finish") else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}"
+        mat = f"{mount}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
+        comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(a["actorPath"]),
+                                                        "properties": ["staticMeshComponent"]})["returnValue"])
+        props(comp["staticMeshComponent"]["refPath"], {"overrideMaterials": [ref(mat)]})
+    print(f"painted {len(walls)} walls over {stations} stations ({tiers} tiers)")
+
+
 def build(stations, doors, hall):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
@@ -216,6 +252,7 @@ def build(stations, doors, hall):
     # The director finds stations by tag (fnm_tags.verse): nothing to wire.
     device(DIRECTOR.format(root=project), "FNM_Director", -3000, START_Y, 0)
     print(f"finish at y={oy}; director placed")
+    paint()
 
 
 if __name__ == "__main__":
@@ -223,5 +260,9 @@ if __name__ == "__main__":
     ap.add_argument("--stations", type=int, default=10)
     ap.add_argument("--doors", type=int, default=4)
     ap.add_argument("--hall", type=int, default=3000, help="hallway length (cm) from entry to the door wall")
+    ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
     a = ap.parse_args()
-    build(a.stations, a.doors, a.hall)
+    if a.paint_only:
+        paint()
+    else:
+        build(a.stations, a.doors, a.hall)
