@@ -15,13 +15,15 @@ fnm_hud := class:
     WrapAt : float = 1500.0
 
     TitleText : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
-    StageText : text_block = text_block{DefaultTextColor := NamedColors.LightSkyBlue, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+    StageText : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
     PromptText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 44.0, DefaultJustification := text_justification.Center}
     ChoicesText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
     FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
     # Centre-screen verdict: a huge check or X, and under a wrong one the penalty's name.
-    VerdictText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 300.0, DefaultJustification := text_justification.Center}
+    VerdictText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 220.0, DefaultJustification := text_justification.Center}
     VerdictLabel : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 96.0, DefaultJustification := text_justification.Center}
+    # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
+    BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.0}
     # Seconds the verdict stays up.
     VerdictSeconds : float = 1.5
 
@@ -58,10 +60,25 @@ fnm_hud := class:
                         Widget := FeedbackText
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Top := 16.0}
+            # A dark translucent panel behind the text: the pale walls and sky washed out coloured text.
+            Panel : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.55}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := Lines
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Left := 32.0, Top := 12.0, Right := 32.0, Bottom := 14.0}
             Root : canvas = canvas:
                 Slots := array:
                     canvas_slot:
-                        Widget := Lines
+                        Widget := BlackScreen
+                        Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 1.0}}
+                        Offsets := margin{Left := 0.0, Top := 0.0, Right := 0.0, Bottom := 0.0}
+                    canvas_slot:
+                        Widget := Panel
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 40.0, Right := 0.0, Bottom := 0.0}
@@ -76,7 +93,9 @@ fnm_hud := class:
                                 stack_box_slot:
                                     Widget := VerdictLabel
                                     HorizontalAlignment := horizontal_alignment.Center
-                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.5}, Maximum := vector2{X := 0.5, Y := 0.5}}
+                        # Lower third: under the penalty camera the player stands mid-screen, and a centred X
+                        # hid the spears (Aaron, 2026-10-03).
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.68}, Maximum := vector2{X := 0.5, Y := 0.68}}
                         Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
@@ -135,6 +154,10 @@ fnm_hud := class:
         if (Generation = VerdictGeneration):
             VerdictText.SetText(FnmText(""))
             VerdictLabel.SetText(FnmText(""))
+
+    # Screen to black (On) or back. The HUD text and the verdict stay on top of it.
+    SetBlack(On:logic):void =
+        if (On?) then BlackScreen.SetOpacity(1.0) else BlackScreen.SetOpacity(0.0)
 
     # End-of-run screen.
     ShowFinished(Headline:string, Detail:string):void =

@@ -55,6 +55,22 @@ RIGS = [
      {"addToPlayersOnStart": False, "distance": 900, "pitchRotationIdeal": -30, "fieldOfView": 90,
       "collisionType": "Transparency", "useAsEliminationCamera": "No",
       "removeOnElimination": True}),
+    # Mud: one movement modulator, never touched (no pad, invisible); Verse calls Activate(player) on it. Its
+    # Duration (3 s default) is not settable from MCP, so the director re-activates it for MudSeconds.
+    # (speedState follows speed by itself.)
+    ("Mud", "/CreativeCoreDevices/SetupAssets/PID_Device_MovementModulator.PID_Device_MovementModulator",
+     "fnm_mud", (1.0, 1.0, 1.0), True, 0,
+     {"speed": 0.5, "visibleDuringGame": "No",
+      "pad has Collision": False, "resetDelay": 0}),
+] + [
+    # Screen effects, one post-process device each, blended in and out per player from Verse. Starting strength
+    # 0 so nobody sees one until BlendIn(player).
+    (label, "/CRD_PostProcess/SetupAssets/PID_CP_Devices_PostProcess.PID_CP_Devices_PostProcess", vtag,
+     (1.0, 1.0, 1.0), True, 0,
+     {"postProcessEffect": {"refPath": f"/Game/Creative/PostProcess/{fx}.{fx}_C"}, "effectDuration": 0,
+      "startingStrength": 0, "blendInStrength": 1, "blendInDuration": 0.3, "blendOutDuration": 0.8})
+    for label, vtag, fx in [("FxFrost", "fnm_pp_frost", "PP_Frost"), ("FxMud", "fnm_pp_mud", "PP_Sepia"),
+                            ("FxDizzy", "fnm_pp_dizzy", "PP_Crazy")]
 ]
 
 

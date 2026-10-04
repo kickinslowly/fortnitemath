@@ -145,9 +145,14 @@ Every map is registered as `maps/<map-id>/map.json`:
   "title": "Starter Course",
   "max_choices": 4,
   "render_profile": "unicode",
+  "penalties": ["Freeze", "Yeet", "Spike", "Mud", "Dizzy", "Blackout"],
   "uefn_project": null
 }
 ```
+
+- `penalties` (optional; default all): the wrong-door penalty pool, distinct names from the console's
+  `fnm_penalty` enum. `fnm insert` / `fnm sync` write it to `maps/<map-id>/generated/fnm_map_profile.verse`
+  (`FnmMapPenalties()`), which sync copies with the cartridge slot. Map design, not cartridge content.
 
 - `max_choices` (2–4): doors/pads per station. When an item has more choices than this, emit keeps the
   correct choice and drops distractors in this order until it fits: `ARITH` choices first (last in baked

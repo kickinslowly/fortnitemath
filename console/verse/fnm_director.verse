@@ -75,12 +75,23 @@ fnm_director := class(creative_device):
     @editable
     CorrectFeedbackSeconds : float = 4.0
 
-    # Wrong-door penalties this map can draw from, one at random per wrong answer. Each penalty's visual
-    # is a rig (fnm_rig.verse) placed by tools/build_rigs.py.
-    @editable
-    Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike, fnm_penalty.Yeet}
+    # Wrong-door penalties come from the map profile (map.json "penalties" -> FnmMapPenalties), one at random
+    # per wrong answer. Each penalty's visual is a rig (fnm_rig.verse) or effect device placed by
+    # tools/build_rigs.py.
+    var Penalties : []fnm_penalty = array{}
     @editable
     FreezeSeconds : float = 5.0
+    # Mud: slowed (the fnm_mud movement modulator) with a brown screen for MudSeconds. The modulator's own
+    # Duration is 3 s and can't be set from MCP, so it is re-applied every MudReapplySeconds.
+    @editable
+    MudSeconds : float = 8.0
+    @editable
+    MudReapplySeconds : float = 2.5
+    @editable
+    DizzySeconds : float = 6.0
+    # Blackout: the screen goes dark and the player is held this long, then wakes up at the station entry.
+    @editable
+    BlackoutSeconds : float = 3.0
     # Yeet: an air vent (fnm_yeet rig) appears under the player at world yaw YeetYaw, tilted YeetPitch so its
     # gust throws them back down their hallway. It stays YeetSeconds; they get YeetAirSeconds to land.
     # (Player physics is off in UEFN, so SetLinearVelocity does nothing; per-tick TeleportTo was choppy.)
@@ -137,6 +148,11 @@ fnm_director := class(creative_device):
     # (0 = A), facing it, to check the real door opens (press E, walk in). -1 = off (ship value).
     @editable
     DebugDoorTest : int = -1
+    # Test hook: each joining player answers every station right, one every 6 s, by being dropped into the
+    # right door's vestibule (the real trigger and barrier do the rest), so the finish can be checked
+    # without walking. false = off (ship value).
+    @editable
+    DebugAutoRightAnswers : logic = false
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -183,12 +199,17 @@ fnm_director := class(creative_device):
     # Found by tag (tools/build_rigs.py): the wide camera for frozen/spiked players.
     var PenaltyCam : ?gameplay_camera_orbit_device = false
     var LoadoutTrigger : ?trigger_device = false
+    var MudDevice : ?movement_modulator_device = false
+    var FrostFx : ?post_process_device = false
+    var MudFx : ?post_process_device = false
+    var DizzyFx : ?post_process_device = false
 
     OnBegin<override>()<suspends>:void =
         set Cartridge = FnmActiveCartridge()
         set TierCount = Cartridge.Tiers.Length
         set TierPools = FnmBuildTierPools(Cartridge.Items, TierCount)
         set Stations = BuildStations()
+        set Penalties = FnmMapPenalties()
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
         set YeetRig = BuildRig("yeet", fnm_yeet)
@@ -196,7 +217,13 @@ fnm_director := class(creative_device):
             set PenaltyCam = option{Camera}
         for (Object : FindCreativeObjectsWithTag(fnm_loadout), Trigger := trigger_device[Object]):
             set LoadoutTrigger = option{Trigger}
-        Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}")
+        for (Object : FindCreativeObjectsWithTag(fnm_mud), Device := movement_modulator_device[Object]):
+            set MudDevice = option{Device}
+        set FrostFx = FindFx(fnm_pp_frost)
+        set MudFx = FindFx(fnm_pp_mud)
+        set DizzyFx = FindFx(fnm_pp_dizzy)
+        Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}, mud {FnmYesNo(if (MudDevice?) then true else false)}")
+        Print("FNM: screen fx frost {FnmYesNo(if (FrostFx?) then true else false)}, mud {FnmYesNo(if (MudFx?) then true else false)}, dizzy {FnmYesNo(if (DizzyFx?) then true else false)}; {Penalties.Length} penalties in the pool")
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
         else if (TierCount = 0):
@@ -292,6 +319,12 @@ fnm_director := class(creative_device):
         Homes := for (Part : Parts) { Part.GetTransform() }
         fnm_rig{Name := Name, Parts := Parts, Homes := Homes}
 
+    FindFx(FxTag:castable_subtype(tag)):?post_process_device =
+        var Found : ?post_process_device = false
+        for (Object : FindCreativeObjectsWithTag(FxTag), Device := post_process_device[Object]):
+            set Found = option{Device}
+        Found
+
     # A station with fewer doors than an item has choices could hide the right answer.
     WarnAboutDoorCounts():void =
         var MostChoices : int = 0
@@ -336,6 +369,8 @@ fnm_director := class(creative_device):
                 spawn{ DebugPassage(State) }
             if (DebugDoorTest >= 0):
                 spawn{ DebugDoor(State) }
+            if (DebugAutoRightAnswers?):
+                spawn{ DebugAutoRight(State) }
 
     # ---------------------------------------------------------------- questions
 
@@ -444,6 +479,22 @@ fnm_director := class(creative_device):
                     Sleep(1.0)
                 HandleDoor(State, State.Stage - 1, Wrong)
 
+    DebugAutoRight(State:fnm_player_state)<suspends>:void =
+        Sleep(8.0)
+        loop:
+            if (State.Finished?) then break
+            if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[State.Stage - 1], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+                Stage := State.Stage
+                if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                    Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Item.Answer)}")
+                Sleep(6.0)
+                if (State.Stage = Stage):
+                    Print("FNM: debug auto-right stuck at stage {Stage}")
+                    break
+            else:
+                break
+        Print("FNM: debug auto-right done: finished={FnmYesNo(State.Finished)} stage={State.Stage}")
+
     DebugDoor(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
         if (Station := Stations[0], Door := Station.Doors[DebugDoorTest], Character := State.Player.GetFortCharacter[]):
@@ -482,11 +533,13 @@ fnm_director := class(creative_device):
                 WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                FxOn(Player, FrostFx)
                 Ice := IceRig.NextIndex()
                 Placed := IceRig.Place(Ice, Feet, 0.0)
                 Print("FNM: ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
                 Sleep(FreezeSeconds)
                 IceRig.Park(Ice)
+                FxOff(Player, FrostFx)
                 Character.ReleaseFromStasis()
                 WideCamera(Player, false)
             SendTo(Player, Station.RetryTeleporter)
@@ -519,6 +572,24 @@ fnm_director := class(creative_device):
                 InHallway := if (Landed.Y >= EntryY, Landed.Y <= Feet.Y + 100.0, Landed.Z <= Feet.Z + 300.0) then true else false
                 if (not InHallway?):
                     SendTo(Player, Station.RetryTeleporter)
+            else:
+                SendTo(Player, Station.RetryTeleporter)
+        else if (Kind = fnm_penalty.Mud):
+            SendTo(Player, Station.RetryTeleporter)
+            spawn{ Muddy(Player) }
+            spawn{ ScreenFx(Player, MudFx, MudSeconds) }
+        else if (Kind = fnm_penalty.Dizzy):
+            SendTo(Player, Station.RetryTeleporter)
+            spawn{ ScreenFx(Player, DizzyFx, DizzySeconds) }
+        else if (Kind = fnm_penalty.Blackout):
+            if (Character := Player.GetFortCharacter[]):
+                Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                if (State := PlayerStates[Player]) then State.Hud.SetBlack(true)
+                Sleep(BlackoutSeconds)
+                SendTo(Player, Station.RetryTeleporter)
+                Character.ReleaseFromStasis()
+                Sleep(0.5)
+                if (State := PlayerStates[Player]) then State.Hud.SetBlack(false)
             else:
                 SendTo(Player, Station.RetryTeleporter)
         else:
@@ -557,6 +628,31 @@ fnm_director := class(creative_device):
             WideCamera(Player, false)
             SendTo(Player, Station.RetryTeleporter)
             GiveLoadout(Player)
+
+    # Blends a screen effect in (FxOn) or out (FxOff) for Player only.
+    FxOn(Player:player, Fx:?post_process_device):void =
+        if (Device := Fx?):
+            Device.BlendIn(Player)
+
+    FxOff(Player:player, Fx:?post_process_device):void =
+        if (Device := Fx?):
+            Device.BlendOut(Player)
+
+    Muddy(Player:player)<suspends>:void =
+        if (Mud := MudDevice?):
+            var Elapsed : float = 0.0
+            loop:
+                if (Elapsed >= MudSeconds) then break
+                Mud.Activate(Player)
+                Wait := Min(MudReapplySeconds, MudSeconds - Elapsed)
+                Sleep(Wait)
+                set Elapsed += Wait
+            Mud.Deactivate(Player)
+
+    ScreenFx(Player:player, Fx:?post_process_device, Seconds:float)<suspends>:void =
+        FxOn(Player, Fx)
+        Sleep(Seconds)
+        FxOff(Player, Fx)
 
     # Pushes (On) or pops the wide orbit camera for Player: further out than the default camera, walls turn
     # see-through instead of pulling it in.

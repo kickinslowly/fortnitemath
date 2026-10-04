@@ -54,7 +54,10 @@ def relaunch():
             print("match running")
             return
         if "CanStart" in state:  # sometimes the session sits in Edit Mode until the game is started
-            print("StartGame:", u.call(SESSION, "StartGame", {}))
+            try:
+                print("StartGame:", u.call(SESSION, "StartGame", {}))
+            except RuntimeError as e:  # "not currently available" while the client is still loading
+                print("StartGame:", e)
         time.sleep(5)
     sys.exit("match never reached Running")
 

@@ -4,5 +4,6 @@
   "title": "Starter Course",
   "max_choices": 4,
   "render_profile": "unicode",
+  "penalties": ["Freeze", "Yeet", "Spike", "Mud", "Dizzy", "Blackout"],
   "uefn_project": "C:/Users/kicki/Documents/Fortnite Projects/FortniteMath"
 }

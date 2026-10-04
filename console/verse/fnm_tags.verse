@@ -11,6 +11,12 @@ fnm_finish := class(tag){}
 fnm_ice := class(tag){}
 fnm_spike := class(tag){}
 fnm_yeet := class(tag){}
+# Per-player effect devices (tools/build_rigs.py): the movement modulator that slows a muddy player, and one
+# post-process device per screen effect.
+fnm_mud := class(tag){}
+fnm_pp_frost := class(tag){}
+fnm_pp_mud := class(tag){}
+fnm_pp_dizzy := class(tag){}
 # The orbit camera a frozen/spiked player watches through.
 fnm_penalty_cam := class(tag){}
 # Hidden trigger bound to the starting-loadout item granter (tools/build_rigs.py).

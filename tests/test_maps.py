@@ -1,12 +1,14 @@
 """Map profiles (PROTOCOL §6a): choice reduction, map validation, per-map emit, sync."""
 import json
+import re
+from pathlib import Path
 
 import pytest
 
 from conftest import CID, write_json
 from fnm import cli
 from fnm.emit import emit_maps, verse_source
-from fnm.maps import UEFN_VERSE_SUBPATH, read_slot, reduce_item, sync, validate_map
+from fnm.maps import PENALTIES, UEFN_VERSE_SUBPATH, profile_source, read_slot, reduce_item, sync, validate_map
 from verse_lint import lint, string_literals
 
 ITEM = {
@@ -86,6 +88,9 @@ GOOD_MAP = {"protocol": "fnm-cart/1", "id": "tiny", "title": "Tiny", "max_choice
     ({"max_choices": 5}, "max_choices"),
     ({"render_profile": "fancy"}, "render_profile"),
     ({"uefn_project": "relative/path"}, "uefn_project"),
+    ({"penalties": []}, "penalties"),
+    ({"penalties": ["Freeze", "Freeze"]}, "penalties"),
+    ({"penalties": ["Explode"]}, "penalties"),
 ])
 def test_map_validation(patch, needle):
     assert validate_map(GOOD_MAP, "tiny") == []
@@ -133,4 +138,18 @@ def test_sync_copies(tmp_repo, tmp_path_factory):
     dest = proj / UEFN_VERSE_SUBPATH.format(project="MyIsland")
     names = sorted(p.name for p in dest.iterdir())
     assert "fnm_active_cartridge.verse" in names and "fnm_cartridge.verse" in names
+    assert "fnm_map_profile.verse" in names
     assert all(p.parent == dest for p in copied)
+
+
+def test_penalty_names_match_verse_enum():
+    src = (Path(__file__).parents[1] / "console" / "verse" / "fnm_penalties.verse").read_text(encoding="utf-8")
+    body = src.split("fnm_penalty := enum:", 1)[1].split("\n\n", 1)[0]
+    names = tuple(l.strip() for l in body.splitlines() if l.strip() and not l.strip().startswith("#"))
+    assert names == PENALTIES
+
+
+def test_profile_penalty_pool():
+    assert "array{fnm_penalty.Mud, fnm_penalty.Yeet}" in profile_source({**GOOD_MAP, "penalties": ["Mud", "Yeet"]})
+    every = profile_source(GOOD_MAP)
+    assert re.search(r"FnmMapPenalties\(\):\[\]fnm_penalty = array\{fnm_penalty\.Freeze, .*Blackout\}", every)
