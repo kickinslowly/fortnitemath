@@ -2,16 +2,7 @@
 
 ## ✅ G1 — Cartridge protocol v1 — archived to DEEP_MEMORY.md (2026-10-03)
 
-## ✅ G2 — First map in UEFN — done 2026-10-04 (archive to DEEP_MEMORY once stable a session)
-- [x] UEFN 42.30 project `FortniteMath` (Blank); Python + MCP Toolsets on; MCP answers on :8000 (`tools/uefn_mcp.py`)
-- [x] First Verse compile: 0 errors, 0 warnings; `fnm_director` device registered
-- [x] Visual pass v1 (2026-10-04): hallway walls coloured by tier (green, blue, purple, orange, red; finish gold) — `build_course.py --paint-only`. A themed prop kit is still open if Aaron wants more
-- [x] O1 font test: ÷ − × and superscripts (², seen 2026-10-04 at stage 7) render in-game → `unicode` profile stays. ✓ ✗ glyphs don't; the verdict uses textures instead
-- [x] Starter course built by `tools/build_course.py` (10 stations + finish, tag-discovered); session validates, uploads and cooks
-- [x] First live session 2026-10-03: EAC installed, StartSession → match Running, HUD shows title/problem/choices, no FNM errors in client log
-- [x] Wrong-door return sank the player into the entry pad (`teleporter_device.Teleport`). Fixed: director `SendTo` uses `TeleportTo` 300 cm past the pad, +100 cm, facing +Y — Aaron confirmed in play 2026-10-03
-- [x] Doors playtested by Aaron 2026-10-03: right and wrong doors work, stations 1→4 reached
-- [x] Finish reached in play via `DebugAutoRightAnswers` (all 10 real triggers + barriers → "Course complete! 10/10", 2026-10-04); HUD text now sits on a dark panel (contrast fixed)
+## ✅ G2 — First map in UEFN — done 2026-10-04, archived to DEEP_MEMORY.md (2026-10-04)
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes

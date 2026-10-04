@@ -28,11 +28,14 @@ settings, launch-once rule, Easy Anti-Cheat, GUI automation) live in the global 
 before UEFN work. Project-specific:
 - Tools: `tools/uefn_mcp.py` (MCP client), `tools/build_course.py` (rebuilds the whole course, idempotent via
   actor tag `fnm_course`), `tools/capture.py` (viewport PNG — look at it), `tools/uefn_status.py`,
-  `tools/playtest.py` (relaunch session → game screenshot + the director's `FNM:` log lines; `--watch N`),
+  `tools/playtest.py` (relaunch session → screenshot of the game via PrintWindow (`tools/wincap.ps1`, never takes the
+  foreground) + the director's `FNM:` log lines; `--watch N`; `--keys` clicks the game forward — ask first if Aaron may
+  be in another app),
   `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
-  `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap).
+  `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
+  props in place). Guard weapons per station: `WEAPONS` in `tools/build_guards.py`.
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,
   `fnm_door_a..d`, `fnm_entry`, `fnm_finish`); max 20 stations.
@@ -44,4 +47,6 @@ before UEFN work. Project-specific:
   door N), `DebugStartStage` (start at that station, to try its obstacles). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - After any Verse edit: `python -m fnm sync starter` then VerseToolset `BuildAll`.
+- Verse files are `eol=lf`; Python `write_text` on Windows rewrites them CRLF, and git then lists them modified with
+  no content change. Patch them with the Edit tool or `open(..., newline='')`.
 - The penalty pool lives in `maps/<id>/map.json` `penalties` (PROTOCOL §6a), not on the director.
