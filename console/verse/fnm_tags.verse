@@ -10,6 +10,11 @@ fnm_finish := class(tag){}
 # Penalty props parked out of sight that the director moves onto a punished player (fnm_rig.verse).
 fnm_ice := class(tag){}
 fnm_spike := class(tag){}
+fnm_yeet := class(tag){}
+# The orbit camera a frozen/spiked player watches through.
+fnm_penalty_cam := class(tag){}
+# Hidden trigger bound to the starting-loadout item granter (tools/build_rigs.py).
+fnm_loadout := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

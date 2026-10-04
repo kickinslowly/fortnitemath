@@ -1,6 +1,7 @@
 # FNM console runtime -- penalty rigs: props and devices parked out of sight that a penalty borrows,
 # moves onto the punished player, and parks again (an ice cube for Freeze, a ring of spears that burst out
-# of the floor for Spike). tools/build_rigs.py places them, tagged fnm_ice / fnm_spike. Several of each so players punished at the same moment each get their own.
+# of the floor for Spike, a tilted air vent for Yeet). tools/build_rigs.py places them, tagged fnm_ice /
+# fnm_spike / fnm_yeet. Several of each so players punished at the same moment each get their own.
 # (Real Fortnite traps can't be used: a placed trap, BR or Creative, fails island validation.)
 
 using { /Fortnite.com/Devices }
@@ -31,6 +32,14 @@ fnm_rig := class:
     Place(Index:int, Spot:vector3, Yaw:float)<transacts>:logic =
         if (Part := Parts[Index], Home := Homes[Index]):
             Moved := transform{Translation := Spot, Rotation := MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0), Scale := Home.Scale}
+            if (Part.TeleportTo[Moved]) then true else false
+        else:
+            false
+
+    # Like Place, also tilted by Pitch degrees.
+    PlaceTilted(Index:int, Spot:vector3, Yaw:float, Pitch:float)<transacts>:logic =
+        if (Part := Parts[Index], Home := Homes[Index]):
+            Moved := transform{Translation := Spot, Rotation := MakeRotationFromYawPitchRollDegrees(Yaw, Pitch, 0.0), Scale := Home.Scale}
             if (Part.TeleportTo[Moved]) then true else false
         else:
             false

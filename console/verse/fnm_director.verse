@@ -81,20 +81,26 @@ fnm_director := class(creative_device):
     Penalties : []fnm_penalty = array{fnm_penalty.Freeze, fnm_penalty.Spike, fnm_penalty.Yeet}
     @editable
     FreezeSeconds : float = 5.0
-    # Yeet: the player is flung backward down their hallway in an arc YeetHeight (cm) high, landing at the
-    # station entry YeetSeconds later. Scripted with TeleportTo every tick: player physics is off in UEFN,
-    # so SetLinearVelocity / ApplyLinearImpulse do nothing, and an air vent only throws them straight up.
+    # Yeet: an air vent (fnm_yeet rig) appears under the player at world yaw YeetYaw, tilted YeetPitch so its
+    # gust throws them back down their hallway. It stays YeetSeconds; they get YeetAirSeconds to land.
+    # (Player physics is off in UEFN, so SetLinearVelocity does nothing; per-tick TeleportTo was choppy.)
     @editable
-    YeetSeconds : float = 1.4
+    YeetYaw : float = 90.0
     @editable
-    YeetHeight : float = 500.0
-    # Freeze and Spike first pull the player out of the narrow vestibule to this far (cm) in front of the
-    # door wall, mid-hallway: in the vestibule the walls pushed the third-person camera up against them.
+    YeetPitch : float = 50.0
+    @editable
+    YeetSeconds : float = 0.4
+    @editable
+    YeetAirSeconds : float = 6.0
+    # Every penalty first pulls the player out of the narrow vestibule to this far (cm) in front of the door
+    # wall, mid-hallway: in the vestibule the walls pushed the camera up against them, and a yeet from
+    # there would hit the door wall.
     @editable
     PenaltyStandOff : float = 500.0
     # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
-    # the player, burst up SpearRise in SpearSeconds, then SpikeDamage eliminates (more than full health
-    # + shield). The ring stays up SpikeHoldSeconds.
+    # the player, burst up SpearRise in SpearSeconds and pin them (stasis) for SpikeHoldSeconds, knocked
+    # down to 1 HP with no shield. Not an elimination: Fortnite's death camera took over the view and
+    # Aaron wants to see the trap from the wide camera.
     @editable
     SpearCount : int = 6
     @editable
@@ -106,9 +112,7 @@ fnm_director := class(creative_device):
     @editable
     SpearSeconds : float = 0.12
     @editable
-    SpikeHoldSeconds : float = 1.5
-    @editable
-    SpikeDamage : float = 1000.0
+    SpikeHoldSeconds : float = 2.5
     # A character's reported position is its capsule centre; feet are this far below it (cm, measured
     # standing on the course floor 2026-10-03).
     @editable
@@ -170,6 +174,10 @@ fnm_director := class(creative_device):
     var Ready : logic = false
     var IceRig : fnm_rig = fnm_rig{Name := "ice", Parts := array{}, Homes := array{}}
     var SpikeRig : fnm_rig = fnm_rig{Name := "spike", Parts := array{}, Homes := array{}}
+    var YeetRig : fnm_rig = fnm_rig{Name := "yeet", Parts := array{}, Homes := array{}}
+    # Found by tag (tools/build_rigs.py): the wide camera for frozen/spiked players.
+    var PenaltyCam : ?gameplay_camera_orbit_device = false
+    var LoadoutTrigger : ?trigger_device = false
 
     OnBegin<override>()<suspends>:void =
         set Cartridge = FnmActiveCartridge()
@@ -178,6 +186,12 @@ fnm_director := class(creative_device):
         set Stations = BuildStations()
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
+        set YeetRig = BuildRig("yeet", fnm_yeet)
+        for (Object : FindCreativeObjectsWithTag(fnm_penalty_cam), Camera := gameplay_camera_orbit_device[Object]):
+            set PenaltyCam = option{Camera}
+        for (Object : FindCreativeObjectsWithTag(fnm_loadout), Trigger := trigger_device[Object]):
+            set LoadoutTrigger = option{Trigger}
+        Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}")
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
         else if (TierCount = 0):
@@ -310,6 +324,7 @@ fnm_director := class(creative_device):
             # Start everyone at station 1 facing the doors, whatever spawn pad the island used.
             if (First := Stations[0]):
                 SendTo(Joined, First.RetryTeleporter)
+            GiveLoadout(Joined)
             if (DebugAutoWrongAnswers > 0):
                 spawn{ DebugAutoWrong(State) }
             if (DebugPassageTest?):
@@ -460,6 +475,7 @@ fnm_director := class(creative_device):
         if (Kind = fnm_penalty.Freeze):
             if (Character := Player.GetFortCharacter[]):
                 PullOut(Character, Station, DoorIndex)
+                WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 Ice := IceRig.NextIndex()
@@ -468,31 +484,43 @@ fnm_director := class(creative_device):
                 Sleep(FreezeSeconds)
                 IceRig.Park(Ice)
                 Character.ReleaseFromStasis()
+                WideCamera(Player, false)
             SendTo(Player, Station.RetryTeleporter)
         else if (Kind = fnm_penalty.Yeet):
             if (Character := Player.GetFortCharacter[]):
-                # Straight back toward the entry (through the door wall: a step that can't fit is skipped),
-                # still facing the doors, so they watch the doors shrink away.
-                From := Character.GetTransform().Translation
-                To := ArrivalSpot(Station.RetryTeleporter)
-                Facing := MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)
-                Start := GetSimulationElapsedTime()
-                var Steps : int = 0
-                var Blocked : int = 0
+                PullOut(Character, Station, DoorIndex)
+                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
+                Pad := YeetRig.NextIndex()
+                Placed := YeetRig.PlaceTilted(Pad, Feet, YeetYaw, YeetPitch)
+                if (Part := YeetRig.PartAt[Pad], AirVent := air_vent_device[Part]):
+                    AirVent.Enable()
+                    AirVent.Activate()
+                # The vent only throws a player who ENTERS its gust; hop them into it.
+                Sleep(0.1)
+                Hop := Character.GetTransform()
+                if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
+                Print("FNM: vent {Pad} placed={FnmYesNo(Placed)} at {Feet}")
+                Sleep(YeetSeconds)
+                YeetRig.Park(Pad)
+                var Airborne : float = YeetSeconds
                 loop:
-                    T := Min((GetSimulationElapsedTime() - Start) / Max(YeetSeconds, 0.1), 1.0)
-                    At := Lerp(From, To, T) + vector3{X := 0.0, Y := 0.0, Z := 4.0 * YeetHeight * T * (1.0 - T)}
-                    if (Character.TeleportTo[At, Facing]):
-                        set Steps += 1
-                    else:
-                        set Blocked += 1
-                    if (T >= 1.0) then break
-                    Sleep(0.0)
-                Print("FNM: yeet {From} -> {To}: {Steps} steps, {Blocked} blocked")
-            SendTo(Player, Station.RetryTeleporter)
+                    if (Character.IsOnGround[]) then break
+                    if (Airborne >= YeetAirSeconds) then break
+                    Sleep(0.25)
+                    set Airborne += 0.25
+                Landed := Character.GetTransform().Translation
+                Print("FNM: yeet landed at {Landed} after {Airborne} s, {Feet.Y - Landed.Y} cm back")
+                # Where they land in their own hallway is where they carry on; anywhere else, the entry.
+                EntryY := Station.RetryTeleporter.GetTransform().Translation.Y
+                InHallway := if (Landed.Y >= EntryY, Landed.Y <= Feet.Y + 100.0, Landed.Z <= Feet.Z + 300.0) then true else false
+                if (not InHallway?):
+                    SendTo(Player, Station.RetryTeleporter)
+            else:
+                SendTo(Player, Station.RetryTeleporter)
         else:
             if (Character := Player.GetFortCharacter[]):
                 PullOut(Character, Station, DoorIndex)
+                WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Spears := SpikeRig.NextIndices(SpearCount)
                 var Placed : int = 0
@@ -505,21 +533,32 @@ fnm_director := class(creative_device):
                 for (Index : Spears):
                     spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
                 Sleep(SpearSeconds)
-                Character.Damage(SpikeDamage)
+                Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                Character.SetShield(0.0)
+                Character.Damage(Max(Character.GetHealth() - 1.0, 0.0))
                 Sleep(SpikeHoldSeconds)
                 for (Index : Spears):
                     SpikeRig.Park(Index)
-            # Wait for the respawned character (gives up after ~20 s).
-            var Waited : int = 0
-            loop:
-                Sleep(0.25)
-                if (Character := Player.GetFortCharacter[], Character.IsActive[]):
-                    break
-                if (Waited >= 80):
-                    break
-                set Waited += 1
-            Print("FNM: spike respawn after {Waited} polls")
+                Character.ReleaseFromStasis()
+            WideCamera(Player, false)
             SendTo(Player, Station.RetryTeleporter)
+            GiveLoadout(Player)
+
+    # Pushes (On) or pops the wide orbit camera for Player: further out than the default camera, walls turn
+    # see-through instead of pulling it in.
+    WideCamera(Player:player, On:logic):void =
+        if (Camera := PenaltyCam?):
+            if (On?) then Camera.AddTo(Player) else Camera.RemoveFrom(Player)
+
+    # Starting loadout: the pistol and spare ammo (fires the fnm_loadout trigger, which the item granter
+    # listens to), full health and full shield.
+    GiveLoadout(Player:player):void =
+        if (Trigger := LoadoutTrigger?):
+            Trigger.Trigger(Player)
+        if (Character := Player.GetFortCharacter[]):
+            Character.SetHealth(Character.GetMaxHealth())
+            Character.SetShield(Character.GetMaxShield())
+            Print("FNM: loadout: health {Character.GetHealth()}, shield {Character.GetShield()}")
 
     # Moves a punished player out of the vestibule behind door DoorIndex into open hallway PenaltyStandOff in
     # front of the door wall (centred like the entry), facing the doors, and lets them land.
