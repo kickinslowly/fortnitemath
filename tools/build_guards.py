@@ -11,18 +11,33 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
 
     python tools/build_guards.py
 """
+import json
 import re
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
-from build_course import ACTOR, DEV, SCENE, TAG as COURSE_TAG, clear, props, ref, verse_tags, xform  # noqa: E402
+from build_course import ACTOR, DEV, OBJ, SCENE, TAG as COURSE_TAG, clear, props, ref, verse_tags, xform  # noqa: E402
 
 TAG = "fnm_guards"
 SPAWNER = "/CRD_HenchmanSpawner/SetupAssets/PID_Device_GuardSpawner_V2.PID_Device_GuardSpawner_V2"
 # Guards alive at once per station, station 1 first; a longer course repeats the last entry.
 GUARDS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+# The weapon each station's guards carry, station 1 first; a longer course repeats the last entry. Aaron
+# (2026-10-04): weapons climb with the stations, and guards drop them (dropInventoryOnElimination), so a player
+# who beats them climbs too. Pistol (the loadout's, build_rigs.PISTOL) -> SMG -> tactical (semi-auto) shotgun ->
+# assault rifle -> heavy AR. Rarity letters: C common, UC uncommon, R rare, VR epic, SR legendary. Set through
+# the spawner's ItemList sub-object (PickupItemListComponent, itemListData), the same shape as the item granter.
+# The spawner silently drops some weapons (set_properties still answers True; WID_Pistol_AutoHeavy_* came back
+# empty), so build() reads each list back and stops on an empty one.
+_W = "/Game/Athena/Items/Weapons/{0}.{0}"
+WEAPONS = [_W.format(n) for n in (
+    "WID_Pistol_SemiAuto_Athena_R_Ore_T03", "WID_Pistol_SemiAuto_Athena_R_Ore_T03",
+    "WID_Pistol_AutoHeavySuppressed_Athena_C_Ore_T02", "WID_Pistol_AutoHeavySuppressed_Athena_UC_Ore_T03",
+    "WID_Shotgun_SemiAuto_Athena_UC_Ore_T03", "WID_Shotgun_SemiAuto_Athena_UC_Ore_T03",
+    "WID_Assault_Auto_Athena_UC_Ore_T03", "WID_Assault_Auto_Athena_R_Ore_T03",
+    "WID_Assault_Auto_Athena_VR_Ore_T03", "WID_Assault_Heavy_Athena_VR_Ore_T03")]
 # The spawner stands this far (cm) past the station's entry pad, i.e. in the back half of the 30 m hallway
 # before the doors (players land ~3 m past the pad, the door wall is ~28.5 m past it).
 SPAWN_AHEAD = 2000
@@ -63,8 +78,15 @@ def build():
         u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
         u.call(ACTOR, "set_label", {"actor": ref(actor), "label": f"FNM_S{k:02d}_Guards"})
         props(actor, {**SETTINGS, "spawnCount": n, "totalSpawnLimit": n})
+        weapon = WEAPONS[min(k, len(WEAPONS)) - 1]
+        items = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": ["itemList"]})["returnValue"])
+        props(items["itemList"]["refPath"], {"itemListData": [{"itemDefinition": ref(weapon), "itemQuantity": 1}]})
+        back = json.loads(u.call(OBJ, "get_properties", {"instance": items["itemList"],
+                                                         "properties": ["itemListData"]})["returnValue"])["itemListData"]
+        if not back or (back[0].get("itemDefinition") or {}).get("refPath") != weapon:
+            sys.exit(f"station {k}: the guard spawner refused {weapon}")
         verse_tags(actor, project, ["fnm_guards", f"fnm_station_{k:02d}"])
-        print(f"station {k}: {n} guards at y={y:.0f}")
+        print(f"station {k}: {n} guards at y={y:.0f}, {weapon.rsplit('.', 1)[1]}")
 
 
 if __name__ == "__main__":

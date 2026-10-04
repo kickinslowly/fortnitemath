@@ -11,6 +11,9 @@
 Pair --watch with the director's DebugAutoWrongAnswers @editable (set it in the Verse default, sync,
 BuildAll) to see every penalty fire without walking. Screenshots land in %TEMP% as pt_*.png. Look at them.
 Verse Print output is server-side, so it is read from the EDITOR log, not the client log.
+Screenshots come from PrintWindow on the Fortnite client (tools/wincap.ps1), so they never touch the foreground:
+Aaron may be in another game on this PC. Only --keys brings the client forward (simulated keys need it) — say so
+before using it while he is at the keyboard. A background client renders at ~10 fps.
 """
 import argparse
 import os
@@ -27,14 +30,32 @@ GUI = Path.home() / ".claude/skills/uefn-mcp/scripts/gui_act.ps1"
 # Physical-pixel position of the Fortnite taskbar icon; clicking it brings the game window forward.
 FOCUS_CLICK = "c:1677,1416"
 HOLDKEY = Path(__file__).parent / "holdkey.ps1"
+WINCAP = Path(__file__).parent / "wincap.ps1"
 # Keyboard scan codes for --keys.
 SCANCODES = {"W": 0x11, "A": 0x1E, "S": 0x1F, "D": 0x20, "E": 0x12, "SPACE": 0x39}
 
 
-def shot(name, steps="w:0.05"):
+def shot(name, steps=None):
+    """PNG of the Fortnite client window without focusing it. steps (gui_act.ps1 syntax) forces the old
+    full-screen capture after clicks/keys; the full-screen path is also the fallback when the client has no
+    window yet or is minimized."""
+    out = Path(os.environ["TEMP"]) / f"{name}.png"
+    if steps is None:
+        r = subprocess.run(["powershell", "-NoProfile", "-File", str(WINCAP), "-out", str(out)],
+                           capture_output=True, text=True)
+        if r.returncode == 0 and "ok=True" in r.stdout:
+            return out
+        print("  wincap:", (r.stdout or r.stderr).strip()[:80], "- full-screen fallback")
+        steps = "w:0.05"
     subprocess.run(["powershell", "-NoProfile", "-File", str(GUI), "-steps", steps, "-name", name],
                    capture_output=True)
-    return Path(os.environ["TEMP"]) / f"{name}.png"
+    return out
+
+
+def focus_client():
+    """Bring the game forward (taskbar click): needed for simulated keys only. Steals the foreground."""
+    subprocess.run(["powershell", "-NoProfile", "-File", str(GUI), "-steps", FOCUS_CLICK + ";w:0.3", "-name", "pt_focus"],
+                   capture_output=True)
 
 
 def fnm_lines(pattern="FNM:"):
@@ -116,7 +137,7 @@ def main():
     if not args.no_relaunch:
         relaunch()
         time.sleep(6)
-    print("screenshot", shot("pt_now", FOCUS_CLICK + ";w:0.3"))
+    print("screenshot", shot("pt_now"))
     if args.watch:
         watch(args.watch)
     if args.keys:
@@ -124,6 +145,7 @@ def main():
             line = wait_for(args.after, after_baseline)
             print("after:", line.split("FNM:", 1)[1][:120] if line else "TIMED OUT")
             time.sleep(0.5)
+        focus_client()
         play_keys(args.keys)
         time.sleep(6)
     since = time.strftime("%Y.%m.%d-%H.%M.%S", time.gmtime(started - 5))

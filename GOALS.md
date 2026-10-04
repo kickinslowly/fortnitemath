@@ -25,11 +25,12 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Penalty visuals (2026-10-03, seen in play): ice block around a frozen player, a spear ring bursting up for Spike, an air-vent launch for Yeet (rigs: `tools/build_rigs.py`)
 - [x] Yeet launches for real (air vent moved under the player, ~75 m skydive); back at the station entry on landing
 - [x] Spike respawn wait no longer races the elimination (polls start after the damage; "after 8 polls" in play)
-- [ ] Aaron playtest of the three penalties by walking through wrong doors (debug hook verified only)
+- [x] Aaron playtest of the penalties by walking through wrong doors (2026-10-04): all work (Mud not drawn that run)
 - [x] Course layout v2 (2026-10-03): 30 m hallways, real doors, vestibule triggers, per-player barrier passage
   (`AddToIgnoreList`). Verified in play via debug hooks: right door → walk through into the next hallway;
   a closed barrier blocks; penalties on the new course. No `lock_device` needed (doors are plain props).
-- [ ] Aaron playtest of v2 by walking the course start to finish
+- [x] Aaron playtest of v2 start to finish (2026-10-04): completed once; door C's whole wall stood out, so all doors
+  now share one look and the coloured letters tell them apart (`build_course.py --doors-only`, 2026-10-04; letters seen in play)
 - [x] Door C is now a dark stone bank wall with a wooden door (oil-rig "Green" rendered blue like B)
 - [x] Every door type opens with E in play and its trigger fires on the way through (A, C, D tested 2026-10-03)
 - [ ] One test session showed "Performance Warning: See editor" on the HUD (nothing in the editor log; seen once
@@ -40,20 +41,39 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   screen, wake at entry); Freeze also frosts the screen. Catalog: `console/PENALTIES.md`
 - [x] Verdict check mark / cross as textures (`tools/import_art.py`), seen in play; verdict moved to the lower third so
   it no longer covers the player
-- [ ] Aaron playtest of the new penalties (Mud, Dizzy, Blackout) and the tier colours
+- [x] Aaron playtest of the new penalties (2026-10-04): Dizzy was confusing, not dizzying. Wanted: blurred vision
+  coming in and out, spinning/wobble. Built 2026-10-04: two spins on the spot (character `TeleportTo` yaw steps) then
+  `PP_RadialBlur` pulsed in/out for 6 s; seen in frames from a background-throttled client (~10 fps), so whether the
+  spin is smooth at full fps is unverified (`DizzySpinStepSeconds` 0.033 if it strobes). A real camera wobble is not
+  exposed to Verse as far as we know
 - [x] Obstacles (2026-10-04, seen in play): gold 70 cm hurdles (walking stops at one, run+jump clears it), baffle
   walls, shipping containers sliding across the hallway (Verse `Slide`, `fnm_slider`); harder per station
   (`OBSTACLES` in `tools/build_course.py`). Not checked: what a sliding container does to a player it hits
 - [x] Race layer (2026-10-04, seen in play via debug hooks): 3-2-1-GO countdown, race clock (left, under GAME MODE),
   streak ("4 IN A ROW!") + speed boost on first-try right answers, FINISH + GOLD/SILVER/BRONZE medal + time +
   personal best + island record, then an automatic new run 12 s later. Boost speed (1.6x) not yet felt in play
-- [ ] Aaron playtest of the race layer and obstacles (is the boost noticeable? hurdles fun or annoying? sliders fair?)
-- [ ] Weapons / traps in the hallways (G4 "later")
+- [x] Aaron playtest of the race layer and obstacles (2026-10-04): obstacles feel good, harder with multi-step problems
+  and guards but achievable; hurdles great. Couldn't notice the streak (one finish). Time vs personal best vs island
+  record not obvious; wants top scores on the big finish screen. Building: big streak line, streak survives guard
+  deaths, boost 2.0x, a centre finish board with your time / best / island record (holder's name) / top 5 session
+  times / next-run countdown. Built and seen in play 2026-10-04 (two auto-right runs: NEW BEST!, NEW RECORD!, one
+  row per player). Board is per session only
+- [ ] Hurdle variation as we polish (Aaron 2026-10-04: "would recommend additional variation")
+- [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
+  `persistable`, an island-wide board needs a different store)
+- [ ] Weapons / traps in the hallways (G4 "later"; guard drops now supply weapons, traps still open)
+- [ ] Aaron playtest of the 2026-10-04 evening build: Dizzy spin smoothness, the 2.0x boost, the finish board, guard
+  weapons at stations 3/5/7/9, identical doors. Claude's own composed play pass is also pending (held while Aaron
+  was in Dota: play sessions take the foreground)
 - [x] Hostile guards (Aaron, 2026-10-04; seen in play at station 5): a guard spawner per hallway, 1,1,2,2,3,3,4,4,5,5
   guards by station (`tools/build_guards.py`), Wildlife team, low accuracy, health bars, drop their gun. Up only while a
   player is on that station. Any elimination respawns the player at their station's entry with the pistol
 - [x] Spike death now lands with the spears (~0.4 s, was ~1.3 s), seen in play
-- [ ] Aaron playtest of guards: too many / too few, too accurate, do kids have enough to fight back with (pistol only)?
+- [x] Aaron playtest of guards (2026-10-04): good. Dropped guns fill the player's slots, fine by him. Wanted:
+  progressively better weapons from the guards as stations rise, so the player ends up with them. Built 2026-10-04:
+  `WEAPONS` ladder in `tools/build_guards.py` (pistol → suppressed SMG → tactical shotgun → AR UC/R/VR → heavy AR VR)
+  through the spawner's `itemList`; read back in the editor, NOT yet seen in play (unverified: that the list arms
+  the guard rather than only being dropped). Stations 1–2 keep the loadout's rare pistol
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)

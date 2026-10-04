@@ -63,19 +63,23 @@ RIGS = [
      {"speed": 0.5, "visibleDuringGame": "No",
       "pad has Collision": False, "resetDelay": 0}),
     # Boost: the same kind of modulator, faster; the director activates it after a first-try right answer.
+    # Speed 2.0: Aaron couldn't feel 1.6 (2026-10-04 playtest).
     ("Boost", "/CreativeCoreDevices/SetupAssets/PID_Device_MovementModulator.PID_Device_MovementModulator",
      "fnm_boost", (1.0, 1.0, 1.0), True, 0,
-     {"speed": 1.6, "visibleDuringGame": "No",
+     {"speed": 2.0, "visibleDuringGame": "No",
       "pad has Collision": False, "resetDelay": 0}),
 ] + [
     # Screen effects, one post-process device each, blended in and out per player from Verse. Starting strength
     # 0 so nobody sees one until BlendIn(player).
+    # Dizzy: a radial blur the director pulses in and out (BlendIn/BlendOut every DizzyPulseSeconds), so its
+    # blends are short and even. PP_Crazy's colour swirl confused Aaron rather than dizzying him (2026-10-04).
     (label, "/CRD_PostProcess/SetupAssets/PID_CP_Devices_PostProcess.PID_CP_Devices_PostProcess", vtag,
      (1.0, 1.0, 1.0), True, 0,
      {"postProcessEffect": {"refPath": f"/Game/Creative/PostProcess/{fx}.{fx}_C"}, "effectDuration": 0,
-      "startingStrength": 0, "blendInStrength": 1, "blendInDuration": 0.3, "blendOutDuration": 0.8})
-    for label, vtag, fx in [("FxFrost", "fnm_pp_frost", "PP_Frost"), ("FxMud", "fnm_pp_mud", "PP_Sepia"),
-                            ("FxDizzy", "fnm_pp_dizzy", "PP_Crazy")]
+      "startingStrength": 0, "blendInStrength": 1, "blendInDuration": blend_in, "blendOutDuration": blend_out})
+    for label, vtag, fx, blend_in, blend_out in [("FxFrost", "fnm_pp_frost", "PP_Frost", 0.3, 0.8),
+                                                 ("FxMud", "fnm_pp_mud", "PP_Sepia", 0.3, 0.8),
+                                                 ("FxDizzy", "fnm_pp_dizzy", "PP_RadialBlur", 0.5, 0.5)]
 ]
 
 

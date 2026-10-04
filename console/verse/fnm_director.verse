@@ -13,13 +13,17 @@
 # Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
 #                HUD for CorrectFeedbackSeconds while the player moves on.
-# After the last station -> time, medal and first-try accuracy on the HUD, then (unless an end_game_device is
-#                set) a fresh run from station 1 to beat that time.
+# After the last station -> a finish board mid-screen: time, medal, personal best, island record (with the
+#                holder's name), first-try accuracy and the session's top times (best per player), then (unless
+#                an end_game_device is set) a fresh run from station 1 to beat that time.
 # Engagement: a 3-2-1-GO countdown and a race clock per run; a first-try right answer builds a streak and a
-# speed boost (longer with the streak); shipping containers tagged fnm_slider sweep across the hallways.
+# speed boost (longer with the streak), shown big in the top panel with the boost's seconds counting down;
+# shipping containers tagged fnm_slider sweep across the hallways.
 # Guards: a guard spawner tagged fnm_guards + fnm_station_NN (tools/build_guards.py, more guards per later station)
 # is switched on while any player is on that station and off (its guards despawn) once nobody is. Any player
-# eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol.
+# eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol. An
+# elimination ends a speed boost but keeps the streak: dying to a guard is not a math mistake (a Spike is a
+# wrong answer, which already reset it).
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
@@ -28,6 +32,11 @@ using { /Verse.org/Colors }
 using { /Verse.org/Random }
 using { /Verse.org/Simulation }
 using { /Verse.org/Simulation/Tags }
+
+# One finisher's best time this session, for the finish board.
+fnm_result := class:
+    Who : player
+    Time : float
 
 # One question station, assembled at OnBegin from the director's flat config.
 fnm_station := class:
@@ -104,8 +113,21 @@ fnm_director := class(creative_device):
     MudSeconds : float = 8.0
     @editable
     MudReapplySeconds : float = 2.5
+    # Dizzy: back at the entry, the view spins about DizzySpinDegreesPerSecond for DizzySpinSeconds, rounded to whole
+    # turns so it ends facing the doors (the character is re-teleported in place, yaw advanced, every
+    # DizzySpinStepSeconds, under stasis), then a radial blur
+    # pulses in and out (DizzyPulseSeconds each way) for DizzySeconds. Aaron 2026-10-04: the old colour swirl
+    # (PP_Crazy) was confusing, not dizzying.
     @editable
     DizzySeconds : float = 6.0
+    @editable
+    DizzyPulseSeconds : float = 0.7
+    @editable
+    DizzySpinSeconds : float = 1.5
+    @editable
+    DizzySpinDegreesPerSecond : float = 360.0
+    @editable
+    DizzySpinStepSeconds : float = 0.05
     # Blackout: the screen goes dark and the player is held this long, then wakes up at the station entry.
     @editable
     BlackoutSeconds : float = 3.0
@@ -166,8 +188,8 @@ fnm_director := class(creative_device):
     @editable
     DebugDoorTest : int = -1
     # Test hook: each joining player answers every station right, one every 6 s, by being dropped into the
-    # right door's vestibule (the real trigger and barrier do the rest), so the finish can be checked
-    # without walking. false = off (ship value).
+    # right door's vestibule (the real trigger and barrier do the rest), for two runs, so the finish board
+    # (and a second finish against a best time) can be checked without walking. false = off (ship value).
     @editable
     DebugAutoRightAnswers : logic = false
     # Test hook: each joining player starts at this stage's entry (to try a later hallway's obstacles). 0 or 1 =
@@ -208,6 +230,9 @@ fnm_director := class(creative_device):
     # Seconds the results show before the player is put back at station 1 for another run (no End Game device).
     @editable
     RestartSeconds : int = 12
+    # Rows on the finish board's session leaderboard (best time per player). The HUD has room for 5.
+    @editable
+    BoardSize : int = 5
     # How often the director checks which stations have players on them, to switch their guards on or off.
     @editable
     GuardCheckSeconds : float = 1.0
@@ -248,8 +273,10 @@ fnm_director := class(creative_device):
     var LoadoutTrigger : ?trigger_device = false
     var MudDevice : ?movement_modulator_device = false
     var BoostDevice : ?movement_modulator_device = false
-    # Fastest run by anyone this session (-1 = none yet).
+    # Fastest run by anyone this session (-1 = none yet); always Board[0].Time once anyone has finished.
     var IslandBest : float = -1.0
+    # The session's best time per player, fastest first, at most BoardSize rows; Board[0].Who holds the record.
+    var Board : []fnm_result = array{}
     var FrostFx : ?post_process_device = false
     var MudFx : ?post_process_device = false
     var DizzyFx : ?post_process_device = false
@@ -440,7 +467,9 @@ fnm_director := class(creative_device):
             Print("FNM: a guard was eliminated")
 
     # Notices a player's elimination (any cause) and, once they respawn, puts them back at the entry of the
-    # station they were on with the starting loadout. (A Spike penalty waits for this itself.)
+    # station they were on with the starting loadout. (A Spike penalty waits for this itself.) An elimination
+    # stops a speed boost but keeps the streak: a guard kill is not a wrong answer (a Spike death is, and
+    # HandleDoor already reset the streak for it).
     WatchLife(State:fnm_player_state)<suspends>:void =
         var WasAlive : logic = true
         loop:
@@ -450,7 +479,6 @@ fnm_director := class(creative_device):
             if (WasAlive?, not Alive?):
                 Print("FNM: player eliminated at stage {State.Stage}")
                 StopBoost(State)
-                set State.Streak = 0
             else if (not WasAlive?, Alive?):
                 Respawned(State)
             set WasAlive = Alive
@@ -643,8 +671,16 @@ fnm_director := class(creative_device):
 
     DebugAutoRight(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
+        var Finishes : int = 0
         loop:
-            if (State.Finished?) then break
+            # Two runs: after the first finish, wait out the board and the next countdown, then play run 2.
+            if (State.Finished?):
+                set Finishes += 1
+                if (Finishes >= 2) then break
+                loop:
+                    Sleep(0.5)
+                    if (not State.Finished?) then break
+                Sleep(CountdownStepSeconds * 3.0 + 2.0)
             if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[State.Stage - 1], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
                 Stage := State.Stage
                 if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
@@ -742,7 +778,8 @@ fnm_director := class(creative_device):
             spawn{ ScreenFx(Player, MudFx, MudSeconds) }
         else if (Kind = fnm_penalty.Dizzy):
             SendTo(Player, Station.RetryTeleporter)
-            spawn{ ScreenFx(Player, DizzyFx, DizzySeconds) }
+            Spin(Player)
+            spawn{ DizzyPulses(Player) }
         else if (Kind = fnm_penalty.Blackout):
             if (Character := Player.GetFortCharacter[]):
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
@@ -814,6 +851,45 @@ fnm_director := class(creative_device):
         Sleep(Seconds)
         FxOff(Player, Fx)
 
+    # Dizzy spin: held in stasis, the character is teleported in place with its yaw advanced every
+    # DizzySpinStepSeconds (a character TeleportTo turns the view too, as SendTo's facing does), then released.
+    Spin(Player:player)<suspends>:void =
+        if (Character := Player.GetFortCharacter[]):
+            Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+            Step := Max(DizzySpinStepSeconds, 0.016)
+            # Whole turns (nearest to DizzySpinDegreesPerSecond * DizzySpinSeconds, at least one), so the spin ends
+            # facing the doors again: 540 degrees left the player staring at the back wall (2026-10-04 frames).
+            Turns := Max(1, if (T := Round[DizzySpinDegreesPerSecond * DizzySpinSeconds / 360.0]) then T else 1)
+            Steps := Max(1, if (N := Ceil[DizzySpinSeconds / Step]) then N else 1)
+            StepDegrees := 360.0 * Turns / (Steps * 1.0)
+            var Yaw : float = ArrivalYaw
+            var Turned : int = 0
+            for (K := 1..Steps):
+                Sleep(Step)
+                set Yaw += StepDegrees
+                Here := Character.GetTransform().Translation
+                if (Character.TeleportTo[Here, MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0)]):
+                    set Turned += 1
+            Character.ReleaseFromStasis()
+            Print("FNM: dizzy spin {Turned} steps, ended at yaw {Yaw}")
+
+    # Dizzy blur: in for DizzyPulseSeconds, out for DizzyPulseSeconds, repeated for DizzySeconds; ends out.
+    DizzyPulses(Player:player)<suspends>:void =
+        if (Device := DizzyFx?):
+            Pulse := Max(DizzyPulseSeconds, 0.1)
+            var Elapsed : float = 0.0
+            var Pulses : int = 0
+            loop:
+                if (Elapsed >= DizzySeconds) then break
+                Device.BlendIn(Player)
+                Sleep(Pulse)
+                Device.BlendOut(Player)
+                Sleep(Pulse)
+                set Elapsed += 2.0 * Pulse
+                set Pulses += 1
+            Device.BlendOut(Player)
+            Print("FNM: dizzy blur {Pulses} pulses")
+
     # Pushes (On) or pops the wide orbit camera for Player: further out than the default camera, walls turn
     # see-through instead of pulling it in.
     WideCamera(Player:player, On:logic):void =
@@ -867,19 +943,58 @@ fnm_director := class(creative_device):
         NewBest := if (State.BestTime < 0.0 or Time < State.BestTime) then true else false
         if (NewBest?) then set State.BestTime = Time
         IslandRecord := if (IslandBest < 0.0 or Time < IslandBest) then true else false
-        if (IslandRecord?) then set IslandBest = Time
+        RecordResult(State.Player, Time)
+        set IslandBest = if (Top := Board[0]) then Top.Time else Time
         Medal := FnmMedal(State.FirstTryCorrect, Total)
         MedalColor := if (Medal = "GOLD") then NamedColors.Gold else if (Medal = "SILVER") then NamedColors.Silver else NamedColors.Peru
+        # The board is the only thing on screen besides the clock, which keeps the final time.
         State.Hud.SetClock(FnmClock(Time))
-        State.Hud.SetStreak("Best streak {State.BestStreak}")
-        State.Hud.FlashBig("FINISH!  {Medal}", MedalColor, 5.0)
-        Record := if (IslandRecord?) then "ISLAND RECORD!  " else if (NewBest?, State.Runs > 1) then "NEW PERSONAL BEST!  " else ""
-        State.Hud.ShowFinished("{Medal} MEDAL  -  {FnmClock(Time)}", "{Record}{FnmAccuracyLine(State.FirstTryCorrect, Total)}")
-        Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}")
+        State.Hud.SetTarget("")
+        State.Hud.SetStreak("")
+        State.Hud.ClearQuestion()
+        State.Hud.ClearVerdictNow()
+        BestTail := if (NewBest?, State.Runs > 1) then "   NEW BEST!" else ""
+        RecordTail := if (IslandRecord?) then "   NEW RECORD!" else ""
+        RecordLine := if (Top := Board[0]) then FnmHolder(FnmClock(Top.Time), Top.Who, RecordTail) else FnmText("Island record   -")
+        Rows := for (K -> Row : Board) { FnmRow(K + 1, Row.Who, FnmClock(Row.Time)) }
+        var OwnRow : int = -1
+        for (K -> Row : Board, Row.Who = State.Player):
+            set OwnRow = K
+        State.Hud.ShowResults(Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
+            RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}", Rows, OwnRow)
+        Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize})")
         if (UseEndGameDevice?):
+            State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
         else:
             spawn{ NextRun(State) }
+
+    # Puts Who's Time on the board: replaces their row only when faster, else adds one; fastest first, capped
+    # at BoardSize.
+    RecordResult(Who:player, Time:float):void =
+        var Rows : []fnm_result = array{}
+        var Had : logic = false
+        for (Row : Board):
+            if (Row.Who = Who):
+                set Had = true
+                set Rows += array{if (Time < Row.Time) then fnm_result{Who := Who, Time := Time} else Row}
+            else:
+                set Rows += array{Row}
+        if (not Had?):
+            set Rows += array{fnm_result{Who := Who, Time := Time}}
+        var Sorted : []fnm_result = array{}
+        for (Row : Rows):
+            var Next : []fnm_result = array{}
+            var Placed : logic = false
+            for (Other : Sorted):
+                if (not Placed?, Row.Time < Other.Time):
+                    set Next += array{Row}
+                    set Placed = true
+                set Next += array{Other}
+            if (not Placed?):
+                set Next += array{Row}
+            set Sorted = Next
+        set Board = for (K -> Row : Sorted, K < BoardSize) { Row }
 
     # Results for RestartSeconds (with a countdown), then a fresh run from station 1: barriers closed again for
     # this player, new questions, streak and clock reset.
@@ -888,11 +1003,12 @@ fnm_director := class(creative_device):
         var Left : int = Max(1, RestartSeconds)
         loop:
             if (Left <= 0) then break
-            State.Hud.ShowFeedback("Best {FnmClock(State.BestTime)}  -  island record {FnmClock(IslandBest)}  -  next run in {Left}", NamedColors.Gold)
+            State.Hud.SetCountdown("Next run in {Left}")
             Sleep(1.0)
             set Left -= 1
         if (not PlayerStates[State.Player] or State.RunGeneration <> Generation):
             return
+        State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)
         set State.Stage = 1
@@ -914,7 +1030,8 @@ fnm_director := class(creative_device):
         set State.RunGeneration += 1
         Generation := State.RunGeneration
         set State.StartTime = -1.0
-        State.Hud.SetStreak(if (State.BestTime >= 0.0) then "Beat {FnmClock(State.BestTime)}" else "")
+        State.Hud.SetTarget(if (State.BestTime >= 0.0) then "Beat {FnmClock(State.BestTime)}" else "")
+        State.Hud.SetStreak(StreakCopy(State, 0))
         MaybeCharacter := option{State.Player.GetFortCharacter[]}
         if (Character := MaybeCharacter?):
             Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := false, AllowEmotes := false})
@@ -931,31 +1048,48 @@ fnm_director := class(creative_device):
             State.Hud.SetClock(FnmClock(GetSimulationElapsedTime() - State.StartTime))
             Sleep(0.1)
 
-    # Speeds the player up (fnm_boost modulator) for Seconds; a newer boost or StopBoost ends this one.
+    # Streak line for the top panel: "" (no streak), "STREAK x3", "STREAK x3  -  SPEED BOOST 4s" or (streak 1)
+    # "SPEED BOOST 3s". BoostLeft = whole seconds of boost left (0 = none running).
+    StreakCopy(State:fnm_player_state, BoostLeft:int):string =
+        StreakPart := if (State.Streak >= 2) then "STREAK x{State.Streak}" else ""
+        if (BoostLeft <= 0) then StreakPart
+        else if (StreakPart = "") then "SPEED BOOST {BoostLeft}s"
+        else "{StreakPart}  -  SPEED BOOST {BoostLeft}s"
+
+    # Speeds the player up (fnm_boost modulator) for Seconds; a newer boost or StopBoost ends this one. Ticks once a
+    # second so the HUD counts the boost down, re-activating the modulator (3 s duration) every BoostReapplySeconds
+    # or sooner.
     Boost(State:fnm_player_state, Seconds:float)<suspends>:void =
+        set State.BoostGeneration += 1
+        Generation := State.BoostGeneration
         if (Device := BoostDevice?):
-            set State.BoostGeneration += 1
-            Generation := State.BoostGeneration
-            StreakLine := if (State.Streak >= 2) then "STREAK x{State.Streak}  -  " else ""
-            State.Hud.SetStreak("{StreakLine}SPEED BOOST!")
             var Elapsed : float = 0.0
+            var SinceApply : float = BoostReapplySeconds
             loop:
                 if (Elapsed >= Seconds or State.BoostGeneration <> Generation) then break
-                Device.Activate(State.Player)
-                Wait := Min(BoostReapplySeconds, Seconds - Elapsed)
-                Sleep(Wait)
-                set Elapsed += Wait
+                Tick := Min(1.0, Seconds - Elapsed)
+                if (SinceApply + Tick > BoostReapplySeconds):
+                    Device.Activate(State.Player)
+                    set SinceApply = 0.0
+                Left := if (Up := Ceil[Seconds - Elapsed]) then Up else 0
+                if (not State.Finished?):
+                    State.Hud.SetStreak(StreakCopy(State, Left))
+                Sleep(Tick)
+                set Elapsed += Tick
+                set SinceApply += Tick
             if (State.BoostGeneration = Generation):
                 Device.Deactivate(State.Player)
                 if (not State.Finished?):
-                    State.Hud.SetStreak(if (State.Streak >= 2) then "STREAK x{State.Streak}" else "")
+                    State.Hud.SetStreak(StreakCopy(State, 0))
+        else if (not State.Finished?):
+            State.Hud.SetStreak(StreakCopy(State, 0))
 
     StopBoost(State:fnm_player_state):void =
         set State.BoostGeneration += 1
         if (Device := BoostDevice?):
             Device.Deactivate(State.Player)
         if (not State.Finished?):
-            State.Hud.SetStreak("")
+            State.Hud.SetStreak(StreakCopy(State, 0))
 
     # Sweeps a container from its placed spot to the mirror image across the hallway (X -> -X) and back, forever.
     Slide(Slider:creative_prop)<suspends>:void =

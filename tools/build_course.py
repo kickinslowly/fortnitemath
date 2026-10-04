@@ -11,6 +11,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
 
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
     python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
+    python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
 """
 import argparse
 import re
@@ -30,11 +31,10 @@ BARRIER = "/CRD_VolumetricRegion/SetupAssets/PID_Device_Barrier.PID_Device_Barri
 DIRECTOR = "/{root}/_Verse.fnm_director"
 TAG_MARKUP = "/Script/VerseTags.VerseTagMarkupComponent"
 PROPS = "/CR_Legacy/Playsets/PlaysetProps"
-# Walls with a real (openable) door, 384 tall, pivot centred, stretched to DOOR_W; one look per letter:
-# A grey, B blue, C dark stone with a wooden door, D orange. (The oil-rig "Green" door renders the same
-# blue as B, and its hatch and the residential doors read alike from a distance.)
-DOOR_PROPS = [("OilRig_Platform_Wall_01_Door_01", 553), ("OilRig_Platform_Wall_01_Door_01_Blue", 553),
-              ("AD_Bank_DoorWall_01", 512), ("OilRig_Platform_Wall_01_Door_01_Yellow", 553)]
+# Walls with a real (openable) door, 384 tall, pivot centred, stretched to DOOR_W. One look for every door
+# (Aaron 2026-10-04: a door that looks different stands out as a hint); the coloured letter boards above
+# the doors (LETTER_COLOURS) are what tell A..D apart. Rewrite the doors alone with --doors-only.
+DOOR_PROPS = [("OilRig_Platform_Wall_01_Door_01", 553)] * 4
 
 START_Y = -12000        # hallway 1 starts here; the course runs toward +Y
 DOOR_W = 553            # door prop width = door pitch
@@ -282,6 +282,39 @@ def paint():
     print(f"painted {len(walls)} walls over {stations} stations ({tiers} tiers)")
 
 
+def doors_only():
+    """Swap every station's door props for DOOR_PROPS in place, keeping their labels; nothing else moves.
+    The door-wall line comes from the station's lintel (a cube centred on the wall), not from the old door
+    prop, whose bounds need not be symmetric in Y. Idempotent."""
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    found = [a for a in found if isinstance(a, dict)]
+    lintels = {a["label"][5:7]: a for a in found if re.fullmatch(r"FNM_S\d\d_Lintel", a.get("label", ""))}
+    by_station = {}
+    for a in found:
+        if re.fullmatch(r"FNM_S\d\d_Door[A-D]", a.get("label", "")):
+            by_station.setdefault(a["label"][5:7], []).append(a)
+    assets = {}
+    placed = 0
+    for st in sorted(by_station):
+        old = by_station[st]
+        lb = lintels[st]["bounds"]
+        door_y = (lb["min"]["y"] + lb["max"]["y"]) / 2
+        letters = sorted({a["label"][-1] for a in old})
+        n = LETTERS.index(letters[-1]) + 1
+        centres = door_centres(n)
+        for a in old:
+            u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+        for letter in letters:
+            i = LETTERS.index(letter)
+            name, width = DOOR_PROPS[i]
+            if name not in assets:
+                assets[name] = door_asset(name)
+            prop(assets[name], f"FNM_S{st}_Door{letter}", centres[i], door_y, 0, sx=DOOR_W / width)
+            placed += 1
+        print(f"station {int(st)}: removed {len(old)}, placed {len(letters)} doors at y={door_y:.0f}")
+    print(f"{placed} doors placed")
+
+
 def build(stations, doors, hall):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
@@ -304,8 +337,11 @@ if __name__ == "__main__":
     ap.add_argument("--doors", type=int, default=4)
     ap.add_argument("--hall", type=int, default=3000, help="hallway length (cm) from entry to the door wall")
     ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
+    ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
     a = ap.parse_args()
     if a.paint_only:
         paint()
+    elif a.doors_only:
+        doors_only()
     else:
         build(a.stations, a.doors, a.hall)

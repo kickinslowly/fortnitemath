@@ -11,7 +11,7 @@ fnm_penalty := enum:
     Spike
     # Back at the station entry, slowed to a crawl (brown-tinted screen) for MudSeconds.
     Mud
-    # Back at the station entry with a wild, swirling screen for DizzySeconds.
+    # Back at the station entry, the view spins, then the screen blurs in and out for DizzySeconds.
     Dizzy
     # The lights go out; they wake up back at the station entry.
     Blackout
