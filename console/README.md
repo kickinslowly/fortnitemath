@@ -1,7 +1,7 @@
 # FNM console — UEFN wiring guide
 
-The Verse runtime that plays the active cartridge on a linear course of question stations.
-Contract: `PROTOCOL.md` §6 / §6a. Compiles clean on UEFN 42.30 (first compile 2026-10-03; the checklist at the
+The Verse runtime that plays the inserted cartridges on a linear course of question stations; each player picks
+their own skill on an in-game menu. Contract: `PROTOCOL.md` §6 / §6a / §6b. Compiles clean on UEFN 42.30 (first compile 2026-10-03; the checklist at the
 bottom is kept for history).
 
 ## Files
@@ -10,12 +10,12 @@ bottom is kept for history).
 |---|---|
 | `verse/fnm_cartridge.verse` | Protocol types (§8). Fixed. |
 | `verse/fnm_logic.verse` | Pure logic: station tier, per-tier pools, draw without replacement, choice letters, accuracy line, race clock text, medal. |
-| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): question panel (with the big streak / boost line), verdict / countdown text, clock + target panel, the finish board, blackout screen. |
-| `verse/fnm_director.verse` | The device: `fnm_director`, `fnm_station`, per-player state, doors, penalties, race layer, sliders. |
+| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): question panel (with the big streak / boost line), verdict / countdown text, clock + target panel, the finish board, blackout screen; the skill picker (its own root, real Verse buttons, `InputMode All` only while shown) and the CHANGE SKILL button under the finish board. Clicks go to the director through `fnm_picker_listener`. |
+| `verse/fnm_director.verse` | The device: `fnm_director`, `fnm_station`, per-player state (including the player's own cartridge, tier pools and decks), the picker flow (`BeginPicking` → grade → skill → `Pick` → countdown; `ChangeSkill` from the finish board), doors, penalties, race layer, sliders. |
 | `verse/fnm_tags.verse` | Verse tags the director finds the course, rigs and effect devices by. |
 | `verse/fnm_rig.verse` | Penalty rigs: parked props/devices moved onto a punished player. |
 | `verse/fnm_penalties.verse` | The penalty enum and labels (catalog: `PENALTIES.md`). |
-| `maps/<map-id>/generated/fnm_active_cartridge.verse` | The cartridge slot. Defines `FnmActiveCartridge():fnm_cartridge`. Written by `fnm insert`. |
+| `maps/<map-id>/generated/fnm_active_cartridge.verse` | The cartridge slot: one `FnmCartridge_<id>()` per inserted cartridge plus `FnmCartridges():[]fnm_cartridge` in picker order (PROTOCOL §7). Written by `fnm insert`. |
 
 ## 1. Put the Verse files in the UEFN project
 
@@ -76,6 +76,14 @@ Automatic difficulty (PROTOCOL §6, T = 5 tiers): 10 stations → tiers 1,1,2,2,
 
 ## 4. What players see
 
+On joining, the player is held still at station 1 under a centre-screen menu, CHOOSE YOUR SKILL: a button per
+grade, then a button per skill of that grade (`Title  -  Subtitle`, with Back). One grade skips the grade step; one
+cartridge skips the menu. Picking starts the countdown. The finish board has a CHANGE SKILL button (shown when the
+slot holds more than one skill): it cancels the auto-restart, clears the personal best and opens the menu again.
+The island record board keeps every skill's times together. Test hook: `DebugAutoPick` (−1 = menu; N = pick
+`Cartridges[N]` on join, also after CHANGE SKILL) so automated runs skip the menu; the other debug hooks start
+when the first skill is picked.
+
 Top-centre HUD, per player: `Title - Subtitle`, `Stage s/S - <tier name>`, the prompt, the lettered
 choices (`A: 11     B: 14     C: 10`), and a feedback line, on a dark panel. A wrong door shows a big red cross, the
 penalty's name and that choice's feedback, fires the penalty, and puts the player back at the retry point
@@ -94,8 +102,8 @@ panel as "STREAK x3  -  SPEED BOOST 4s"; a wrong door ends both, an elimination 
 (placed X to mirrored X and back); hurdles and baffles are static. Obstacle plan: `OBSTACLES` in
 `tools/build_course.py`.
 
-Output log (`Print`) messages starting with `FNM:` mean misconfiguration: no stations, a cartridge
-with no tiers, or a station with fewer doors than the cartridge's items have choices.
+Output log (`Print`) messages starting with `FNM:` trace the run; these mean misconfiguration: no stations, a slot
+with no cartridges, a cartridge with no tiers, or a station with fewer doors than any cartridge's items have choices.
 
 ## Known limits
 
@@ -114,7 +122,7 @@ Signatures were checked against the **v42.20 digest files** (`Fortnite.digest.ve
 1. **`set PromptText.WrapWidth = WrapAt`** (fnm_ui.verse, `Attach`). Digest: `var WrapWidth<public>: float`
    on `text_base`. No compiled example uses it. If rejected, delete the three `set ...WrapWidth` lines
    (long explanations then won't wrap — try `text_block{..., WrapWidth := 1500.0}` instead).
-2. **`FnmActiveCartridge()` effects.** Called only from `OnBegin` (any effect allowed there). If the
+2. **`FnmCartridges()` effects** (was `FnmActiveCartridge()` before the picker). Called only from `OnBegin` (any effect allowed there). If the
    generated file adds `<computes>`/`<transacts>` that still works.
 3. **Cross-file visibility.** All files flat in one folder = one module, no `<public>` needed. If the
    generated file lands in a subfolder, expect "unknown identifier fnm_cartridge / FnmActiveCartridge".

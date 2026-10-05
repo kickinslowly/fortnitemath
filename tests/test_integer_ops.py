@@ -130,7 +130,8 @@ def safe_eval(node):
             assert a % b == 0, f"inexact division {a} ÷ {b}"
             return a // b
         if isinstance(node.op, ast.Pow):
-            assert 2 <= b <= 3 and 2 <= abs(a) <= 6, f"power {a}^{b} out of range"
+            assert (b == 2 and 2 <= abs(a) <= 10) or (b == 3 and 2 <= abs(a) <= 4), \
+                f"power {a}^{b} out of range"
             return a ** b
     raise AssertionError(f"unexpected node {ast.dump(node)}")
 
@@ -142,7 +143,9 @@ def show(n: int) -> str:
 @pytest.mark.parametrize("item", ITEMS, ids=[it["id"] for it in ITEMS])
 def test_answer_independent(item):
     value = safe_eval(ast.parse(to_python(item["prompt"]), mode="eval"))
-    assert -999 <= value <= 999
+    assert -100 <= value <= 100
+    for c in item["choices"]:
+        assert -999 <= int(c.replace(M, "-")) <= 999  # wrong choices keep the 999 ceiling
     assert item["choices"][item["answer"]] == show(value)
     assert item["explanation"].endswith(f"{show(value)}.")
     assert len(item["choices"]) == 4
@@ -192,7 +195,11 @@ def test_tier_shapes():
         for it in by_tier(t):
             assert len(re.findall(r" [+−×÷] ", it["prompt"])) == 1
             assert re.search(op_pat, it["prompt"]), it["prompt"]
-            assert all(n <= 20 for n in nums(it["prompt"]))
+            # §4a, signs as the concept: T1/T2 literals <= 12; T3 factors/divisors <= 10 and a
+            # dividend <= 20
+            assert all(n <= (12 if t < 3 else 20) for n in nums(it["prompt"]))
+            if t == 3 and "×" in it["prompt"]:
+                assert all(n <= 10 for n in nums(it["prompt"])), it["prompt"]
     for it in by_tier(1) + by_tier(3):
         assert M in it["prompt"]
     for it in by_tier(2):  # at least one negative, or the answer crosses zero
@@ -260,3 +267,110 @@ def test_zero_intermediate_detector():
     assert G.has_zero_intermediate("−3^2 + 9 − 4 × 2")
     assert not G.has_zero_intermediate("(−10 + 7) × (−6)")
     assert not G.has_zero_intermediate("−3^2 + 4")
+
+
+# ---------------------------------------------------------------------------------------------
+# PROTOCOL §4a, signs as the concept: every correct step of every baked item, walked through the
+# generator's own parse tree (values computed here)
+# ---------------------------------------------------------------------------------------------
+from fractions import Fraction  # noqa: E402
+
+_MUL, _DIV = "×", "÷"
+
+
+def _is_lit(n):
+    return isinstance(n, int) or (isinstance(n, G.Neg) and isinstance(n.x, int))
+
+
+def _lit(n):
+    return n if isinstance(n, int) else -n.x
+
+
+def bounds_violations(prompt, tier):
+    tree = G.parse(prompt, G.RULES["CORRECT"])
+    bad = []
+    addsub_hi, addsub_lo = (12, 1) if tier <= 2 else (10, 2)
+    dividend_hi = 20 if tier == 3 else 100
+
+    def lit(n, lo, hi, what):
+        if _is_lit(n) and not lo <= abs(_lit(n)) <= hi:
+            bad.append(f"{what} literal {_lit(n)} outside size {lo}..{hi}")
+
+    def walk(n):
+        if _is_lit(n):
+            return Fraction(_lit(n))
+        if isinstance(n, G.Neg):  # −a^n
+            v = -walk(n.x)
+        elif isinstance(n, G.Pow):
+            base, e = walk(n.base), n.exp
+            if not ((e == 2 and 2 <= abs(base) <= 10) or (e == 3 and 2 <= abs(base) <= 4)):
+                bad.append(f"power ({base})^{e} outside squares 2..10 / cubes 2..4")
+            v = base ** e
+        else:
+            a, b = walk(n.l), walk(n.r)
+            s = f"{a} {n.op} {b}"
+            if n.op == _MUL:
+                if abs(a) > 10 or abs(b) > 10:
+                    bad.append(f"× operand over 10: {s}")
+                if a == 0 or b == 0:
+                    bad.append(f"× operand is 0: {s}")
+                lit(n.l, 2, 10, "factor")
+                lit(n.r, 2, 10, "factor")
+                v = a * b
+            elif n.op == _DIV:
+                if b == 0 or (a / b).denominator != 1:
+                    bad.append(f"inexact ÷: {s}")
+                    return Fraction(0)
+                v = a / b
+                if not (2 <= abs(b) <= 10 and 2 <= abs(v) <= 10):
+                    bad.append(f"÷ divisor/quotient outside 2..10: {s}")
+                lit(n.l, 4, dividend_hi, "dividend")
+                lit(n.r, 2, 10, "divisor")
+            else:
+                lit(n.l, addsub_lo, addsub_hi, n.op)
+                lit(n.r, addsub_lo, addsub_hi, n.op)
+                v = a + b if n.op == "+" else a - b
+        if v.denominator != 1 or abs(v) > 100:
+            bad.append(f"intermediate {v} outside −100..100")
+        return v
+
+    walk(tree)
+    if tier >= 4:  # T4/T5 leaves 2..10 wherever they sit, except a bare dividend
+        def leaves(n, parent_div_left=False):
+            if _is_lit(n):
+                if not parent_div_left and not 2 <= abs(_lit(n)) <= 10:
+                    bad.append(f"leaf {_lit(n)} outside size 2..10")
+            elif isinstance(n, G.Neg):
+                leaves(n.x)
+            elif isinstance(n, G.Pow):
+                leaves(n.base)
+            else:
+                leaves(n.l, n.op == _DIV)
+                leaves(n.r)
+        leaves(tree)
+    return bad
+
+
+@pytest.mark.parametrize("item", ITEMS, ids=[it["id"] for it in ITEMS])
+def test_concept_over_arithmetic_bounds(item):
+    assert bounds_violations(item["prompt"], item["tier"]) == [], item["prompt"]
+    ans = G.evaluate(item["prompt"])
+    assert -100 <= ans <= 100
+
+
+@pytest.mark.parametrize("prompt,tier,expect_bad", [
+    ("−12 + 5", 1, False),
+    ("−13 + 5", 1, True),
+    ("−12 × 3", 3, True),          # factor 12
+    ("−20 ÷ (−2)", 3, False),
+    ("−6^3 + 4 × 2", 5, True),     # cube of 6 = 216
+    ("(−4)^3 + 2", 5, False),
+    ("(−8 + 2) × (−3)", 4, False),
+    ("(−8 − 5) × 2", 4, True),     # group −13 under ×
+    ("−60 ÷ 3 + 2", 4, True),      # quotient 20
+    ("12 + (−3) × 2", 4, True),    # leaf 12 in T4
+    ("(−5 + 5) × 3 + 2", 4, True),  # a group worth 0 under ×
+    ("(−5 + 6) × 3 + 2", 4, False), # a group worth 1 under × is fine
+])
+def test_bounds_checker_catches(prompt, tier, expect_bad):
+    assert bool(bounds_violations(prompt, tier)) == expect_bad, prompt

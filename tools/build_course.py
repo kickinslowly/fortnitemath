@@ -247,12 +247,17 @@ def finish(oy, doors, project):
 
 
 def tier_count():
-    """Tiers in the cartridge the starter map holds (maps/starter/generated/SLOT.txt)."""
+    """Tiers of the cartridges the starter map holds (maps/starter/generated/SLOT.txt, one `cartridge=` line each).
+    Walls are painted per tier once for every skill, so the cartridges should agree (PROTOCOL 3: use 5 tiers);
+    on a mismatch the first cartridge wins and a warning is printed."""
     root = Path(__file__).parents[1]
-    slot = dict(line.split("=", 1) for line in (root / "maps/starter/generated/SLOT.txt").read_text().splitlines()
-                if "=" in line and not line.startswith("#"))
-    baked = json.loads((root / "cartridges" / slot["id"] / "baked.json").read_text(encoding="utf-8"))
-    return len(baked["tiers"])
+    ids = [line.split("=", 1)[1].split()[0] for line in (root / "maps/starter/generated/SLOT.txt").read_text().splitlines()
+           if line.startswith("cartridge=")]
+    counts = {cid: len(json.loads((root / "cartridges" / cid / "baked.json").read_text(encoding="utf-8"))["tiers"])
+              for cid in ids}
+    if len(set(counts.values())) > 1:
+        print(f"warning: cartridges differ in tier count {counts}; painting for {ids[0]}")
+    return counts[ids[0]]
 
 
 def auto_tier(stage, stages, tiers):

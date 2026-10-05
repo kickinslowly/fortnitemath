@@ -1,7 +1,7 @@
 {
   "protocol": "fnm-cart/1",
   "id": "order-of-ops-exponents",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "title": "Order of Operations",
   "subtitle": "Exponents & Parentheses",
   "grade": "6",
@@ -68,17 +68,17 @@
       "teacher": "Reads PEMDAS literally and adds before subtracting regardless of position."
     }
   },
-  "baked_with": "fnm/0.1.0",
+  "baked_with": "fnm/0.2.0",
   "items": [
     {
       "id": "order-of-ops-exponents/t1/001",
       "tier": 1,
-      "prompt": "9 + 12 × 6",
+      "prompt": "9 + 6 × 4",
       "choices": [
-        "81",
-        "126",
-        "85",
-        "86"
+        "33",
+        "60",
+        "37",
+        "38"
       ],
       "answer": 0,
       "misconceptions": [
@@ -87,17 +87,17 @@
         "ARITH",
         "ARITH"
       ],
-      "explanation": "12 × 6 = 72, then 9 + 72 = 81."
+      "explanation": "6 × 4 = 24, then 9 + 24 = 33."
     },
     {
       "id": "order-of-ops-exponents/t1/002",
       "tier": 1,
-      "prompt": "8 − 8 ÷ 8",
+      "prompt": "7 + 7 × 7",
       "choices": [
-        "0",
-        "10",
-        "7",
-        "17"
+        "98",
+        "61",
+        "56",
+        "57"
       ],
       "answer": 2,
       "misconceptions": [
@@ -106,55 +106,55 @@
         null,
         "ARITH"
       ],
-      "explanation": "8 ÷ 8 = 1, then 8 − 1 = 7."
+      "explanation": "7 × 7 = 49, then 7 + 49 = 56."
     },
     {
       "id": "order-of-ops-exponents/t1/003",
       "tier": 1,
-      "prompt": "7 + 7 × 7",
+      "prompt": "9 + 2 × 6",
       "choices": [
-        "56",
-        "98",
-        "61",
-        "57"
+        "21",
+        "25",
+        "26",
+        "66"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ADD_FIRST",
         "ARITH",
-        "ARITH"
+        "ARITH",
+        "ADD_FIRST"
       ],
-      "explanation": "7 × 7 = 49, then 7 + 49 = 56."
+      "explanation": "2 × 6 = 12, then 9 + 12 = 21."
     },
     {
       "id": "order-of-ops-exponents/t1/004",
       "tier": 1,
-      "prompt": "12 + 2 ÷ 2",
+      "prompt": "8 + 8 ÷ 4",
       "choices": [
-        "16",
-        "13",
-        "7",
-        "17"
+        "14",
+        "10",
+        "9",
+        "4"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "ADD_FIRST",
-        "ARITH"
+        "ARITH",
+        "ADD_FIRST"
       ],
-      "explanation": "2 ÷ 2 = 1, then 12 + 1 = 13."
+      "explanation": "8 ÷ 4 = 2, then 8 + 2 = 10."
     },
     {
       "id": "order-of-ops-exponents/t1/005",
       "tier": 1,
-      "prompt": "3 + 9 × 3",
+      "prompt": "8 + 5 × 6",
       "choices": [
-        "33",
+        "37",
+        "78",
         "36",
-        "31",
-        "30"
+        "38"
       ],
       "answer": 3,
       "misconceptions": [
@@ -163,17 +163,74 @@
         "ARITH",
         null
       ],
-      "explanation": "9 × 3 = 27, then 3 + 27 = 30."
+      "explanation": "5 × 6 = 30, then 8 + 30 = 38."
     },
     {
       "id": "order-of-ops-exponents/t1/006",
       "tier": 1,
-      "prompt": "99 − 10 × 9",
+      "prompt": "6 + 2 × 5",
       "choices": [
-        "801",
-        "9",
-        "10",
-        "14"
+        "12",
+        "16",
+        "21",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ADD_FIRST"
+      ],
+      "explanation": "2 × 5 = 10, then 6 + 10 = 16."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/007",
+      "tier": 1,
+      "prompt": "3 + 5 × 8",
+      "choices": [
+        "39",
+        "33",
+        "64",
+        "43"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "ADD_FIRST",
+        null
+      ],
+      "explanation": "5 × 8 = 40, then 3 + 40 = 43."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/008",
+      "tier": 1,
+      "prompt": "6 + 8 × 10",
+      "choices": [
+        "87",
+        "140",
+        "90",
+        "86"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_FIRST",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 × 10 = 80, then 6 + 80 = 86."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/009",
+      "tier": 1,
+      "prompt": "2 + 7 × 9",
+      "choices": [
+        "81",
+        "65",
+        "70",
+        "75"
       ],
       "answer": 1,
       "misconceptions": [
@@ -182,54 +239,35 @@
         "ARITH",
         "ARITH"
       ],
-      "explanation": "10 × 9 = 90, then 99 − 90 = 9."
+      "explanation": "7 × 9 = 63, then 2 + 63 = 65."
     },
     {
-      "id": "order-of-ops-exponents/t1/007",
+      "id": "order-of-ops-exponents/t1/010",
       "tier": 1,
-      "prompt": "2 + 4 × 6",
+      "prompt": "7 + 4 × 6",
       "choices": [
+        "32",
+        "31",
         "36",
-        "22",
-        "27",
-        "26"
+        "66"
       ],
-      "answer": 3,
-      "misconceptions": [
-        "ADD_FIRST",
-        "ARITH",
-        "ARITH",
-        null
-      ],
-      "explanation": "4 × 6 = 24, then 2 + 24 = 26."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/008",
-      "tier": 1,
-      "prompt": "2 + 5 × 4",
-      "choices": [
-        "19",
-        "28",
-        "23",
-        "22"
-      ],
-      "answer": 3,
+      "answer": 1,
       "misconceptions": [
         "ARITH",
-        "ADD_FIRST",
+        null,
         "ARITH",
-        null
+        "ADD_FIRST"
       ],
-      "explanation": "5 × 4 = 20, then 2 + 20 = 22."
+      "explanation": "4 × 6 = 24, then 7 + 24 = 31."
     },
     {
-      "id": "order-of-ops-exponents/t1/009",
+      "id": "order-of-ops-exponents/t1/011",
       "tier": 1,
-      "prompt": "10 − 4 ÷ 2",
+      "prompt": "4 + 8 ÷ 4",
       "choices": [
-        "10",
-        "8",
         "11",
+        "6",
+        "10",
         "3"
       ],
       "answer": 1,
@@ -239,150 +277,112 @@
         "ARITH",
         "ADD_FIRST"
       ],
-      "explanation": "4 ÷ 2 = 2, then 10 − 2 = 8."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/010",
-      "tier": 1,
-      "prompt": "21 − 5 × 4",
-      "choices": [
-        "2",
-        "1",
-        "3",
-        "64"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "ADD_FIRST"
-      ],
-      "explanation": "5 × 4 = 20, then 21 − 20 = 1."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/011",
-      "tier": 1,
-      "prompt": "12 + 9 × 6",
-      "choices": [
-        "69",
-        "66",
-        "61",
-        "126"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "ADD_FIRST"
-      ],
-      "explanation": "9 × 6 = 54, then 12 + 54 = 66."
+      "explanation": "8 ÷ 4 = 2, then 4 + 2 = 6."
     },
     {
       "id": "order-of-ops-exponents/t1/012",
       "tier": 1,
-      "prompt": "30 − 7 + 6",
+      "prompt": "15 − 4 + 2",
       "choices": [
-        "17",
-        "39",
-        "25",
-        "29"
+        "14",
+        "23",
+        "9",
+        "13"
       ],
       "answer": 3,
       "misconceptions": [
+        "ARITH",
+        "ARITH",
         "A_BEFORE_S",
-        "ARITH",
-        "ARITH",
         null
       ],
-      "explanation": "30 − 7 = 23, then 23 + 6 = 29."
+      "explanation": "15 − 4 = 11, then 11 + 2 = 13."
     },
     {
       "id": "order-of-ops-exponents/t1/013",
       "tier": 1,
-      "prompt": "11 + 11 × 5",
+      "prompt": "10 + 7 × 2",
       "choices": [
-        "71",
-        "66",
-        "110",
-        "70"
+        "34",
+        "24",
+        "21",
+        "29"
       ],
       "answer": 1,
       "misconceptions": [
-        "ARITH",
-        null,
         "ADD_FIRST",
+        null,
+        "ARITH",
         "ARITH"
       ],
-      "explanation": "11 × 5 = 55, then 11 + 55 = 66."
+      "explanation": "7 × 2 = 14, then 10 + 14 = 24."
     },
     {
       "id": "order-of-ops-exponents/t1/014",
       "tier": 1,
-      "prompt": "7 + 5 × 4",
+      "prompt": "19 − 3 × 6",
       "choices": [
-        "29",
-        "48",
-        "27",
-        "22"
+        "5",
+        "11",
+        "1",
+        "96"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
-        "ADD_FIRST",
+        "ARITH",
         null,
-        "ARITH"
+        "ADD_FIRST"
       ],
-      "explanation": "5 × 4 = 20, then 7 + 20 = 27."
+      "explanation": "3 × 6 = 18, then 19 − 18 = 1."
     },
     {
       "id": "order-of-ops-exponents/t1/015",
       "tier": 1,
-      "prompt": "17 − 4 × 3",
+      "prompt": "7 + 4 × 8",
       "choices": [
-        "9",
-        "15",
-        "39",
-        "5"
+        "41",
+        "88",
+        "38",
+        "39"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
-        "ARITH",
         "ADD_FIRST",
+        "ARITH",
         null
       ],
-      "explanation": "4 × 3 = 12, then 17 − 12 = 5."
+      "explanation": "4 × 8 = 32, then 7 + 32 = 39."
     },
     {
       "id": "order-of-ops-exponents/t1/016",
       "tier": 1,
-      "prompt": "5 − 2 + 2",
+      "prompt": "17 − 3 + 6",
       "choices": [
-        "4",
-        "1",
-        "9",
-        "5"
+        "25",
+        "17",
+        "8",
+        "20"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
-        "A_BEFORE_S",
         "ARITH",
+        "A_BEFORE_S",
         null
       ],
-      "explanation": "5 − 2 = 3, then 3 + 2 = 5."
+      "explanation": "17 − 3 = 14, then 14 + 6 = 20."
     },
     {
       "id": "order-of-ops-exponents/t1/017",
       "tier": 1,
-      "prompt": "11 + 10 × 5",
+      "prompt": "3 + 9 × 4",
       "choices": [
-        "58",
-        "105",
-        "61",
-        "62"
+        "34",
+        "48",
+        "39",
+        "44"
       ],
       "answer": 2,
       "misconceptions": [
@@ -391,188 +391,17 @@
         null,
         "ARITH"
       ],
-      "explanation": "10 × 5 = 50, then 11 + 50 = 61."
+      "explanation": "9 × 4 = 36, then 3 + 36 = 39."
     },
     {
       "id": "order-of-ops-exponents/t1/018",
       "tier": 1,
-      "prompt": "9 + 3 × 12",
+      "prompt": "5 + 5 × 6",
       "choices": [
-        "45",
-        "144",
-        "43",
-        "49"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ADD_FIRST",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "3 × 12 = 36, then 9 + 36 = 45."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/019",
-      "tier": 1,
-      "prompt": "5 + 11 × 5",
-      "choices": [
-        "60",
-        "55",
-        "80",
-        "64"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "ADD_FIRST",
-        "ARITH"
-      ],
-      "explanation": "11 × 5 = 55, then 5 + 55 = 60."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/020",
-      "tier": 1,
-      "prompt": "40 − 3 × 12",
-      "choices": [
-        "8",
-        "444",
-        "4",
-        "0"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "ADD_FIRST",
-        null,
-        "ARITH"
-      ],
-      "explanation": "3 × 12 = 36, then 40 − 36 = 4."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/021",
-      "tier": 1,
-      "prompt": "80 ÷ 5 × 8",
-      "choices": [
-        "138",
-        "2",
-        "128",
-        "126"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "M_BEFORE_D",
-        null,
-        "ARITH"
-      ],
-      "explanation": "80 ÷ 5 = 16, then 16 × 8 = 128."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/022",
-      "tier": 1,
-      "prompt": "8 + 6 ÷ 2",
-      "choices": [
-        "12",
-        "7",
-        "11",
-        "21"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "ADD_FIRST",
-        null,
-        "ARITH"
-      ],
-      "explanation": "6 ÷ 2 = 3, then 8 + 3 = 11."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/023",
-      "tier": 1,
-      "prompt": "8 + 6 × 12",
-      "choices": [
-        "168",
-        "80",
-        "70",
-        "90"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ADD_FIRST",
-        null,
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "6 × 12 = 72, then 8 + 72 = 80."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/024",
-      "tier": 1,
-      "prompt": "62 − 10 × 6",
-      "choices": [
-        "2",
-        "312",
-        "5",
-        "0"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ADD_FIRST",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "10 × 6 = 60, then 62 − 60 = 2."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/025",
-      "tier": 1,
-      "prompt": "70 ÷ 7 × 5",
-      "choices": [
-        "48",
-        "2",
-        "50",
-        "46"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "M_BEFORE_D",
-        null,
-        "ARITH"
-      ],
-      "explanation": "70 ÷ 7 = 10, then 10 × 5 = 50."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/026",
-      "tier": 1,
-      "prompt": "31 − 19 + 9",
-      "choices": [
-        "21",
-        "3",
-        "20",
-        "24"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "A_BEFORE_S",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "31 − 19 = 12, then 12 + 9 = 21."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/027",
-      "tier": 1,
-      "prompt": "48 − 10 × 4",
-      "choices": [
-        "8",
-        "9",
-        "11",
-        "152"
+        "35",
+        "31",
+        "39",
+        "60"
       ],
       "answer": 0,
       "misconceptions": [
@@ -581,36 +410,207 @@
         "ARITH",
         "ADD_FIRST"
       ],
-      "explanation": "10 × 4 = 40, then 48 − 40 = 8."
+      "explanation": "5 × 6 = 30, then 5 + 30 = 35."
     },
     {
-      "id": "order-of-ops-exponents/t1/028",
+      "id": "order-of-ops-exponents/t1/019",
       "tier": 1,
-      "prompt": "29 − 8 + 3",
+      "prompt": "6 + 2 × 4",
       "choices": [
-        "24",
         "14",
-        "18",
-        "26"
+        "11",
+        "15",
+        "32"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ARITH",
-        "A_BEFORE_S",
+        "ARITH",
+        "ADD_FIRST"
+      ],
+      "explanation": "2 × 4 = 8, then 6 + 8 = 14."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/020",
+      "tier": 1,
+      "prompt": "3 + 10 × 5",
+      "choices": [
+        "52",
+        "65",
+        "53",
+        "58"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_FIRST",
+        null,
         "ARITH"
       ],
-      "explanation": "29 − 8 = 21, then 21 + 3 = 24."
+      "explanation": "10 × 5 = 50, then 3 + 50 = 53."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/021",
+      "tier": 1,
+      "prompt": "60 ÷ 6 × 5",
+      "choices": [
+        "2",
+        "47",
+        "50",
+        "53"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "M_BEFORE_D",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "60 ÷ 6 = 10, then 10 × 5 = 50."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/022",
+      "tier": 1,
+      "prompt": "12 − 4 ÷ 2",
+      "choices": [
+        "0",
+        "8",
+        "10",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ADD_FIRST"
+      ],
+      "explanation": "4 ÷ 2 = 2, then 12 − 2 = 10."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/023",
+      "tier": 1,
+      "prompt": "12 − 2 × 4",
+      "choices": [
+        "0",
+        "4",
+        "40",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_FIRST",
+        "ARITH"
+      ],
+      "explanation": "2 × 4 = 8, then 12 − 8 = 4."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/024",
+      "tier": 1,
+      "prompt": "8 + 10 × 5",
+      "choices": [
+        "58",
+        "90",
+        "53",
+        "61"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FIRST",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "10 × 5 = 50, then 8 + 50 = 58."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/025",
+      "tier": 1,
+      "prompt": "48 ÷ 6 × 4",
+      "choices": [
+        "2",
+        "31",
+        "32",
+        "35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "M_BEFORE_D",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "48 ÷ 6 = 8, then 8 × 4 = 32."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/026",
+      "tier": 1,
+      "prompt": "19 − 7 + 5",
+      "choices": [
+        "17",
+        "7",
+        "14",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "A_BEFORE_S",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "19 − 7 = 12, then 12 + 5 = 17."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/027",
+      "tier": 1,
+      "prompt": "10 + 80 ÷ 10",
+      "choices": [
+        "18",
+        "9",
+        "20",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FIRST",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "80 ÷ 10 = 8, then 10 + 8 = 18."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/028",
+      "tier": 1,
+      "prompt": "17 − 5 + 5",
+      "choices": [
+        "17",
+        "7",
+        "13",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "A_BEFORE_S",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "17 − 5 = 12, then 12 + 5 = 17."
     },
     {
       "id": "order-of-ops-exponents/t1/029",
       "tier": 1,
-      "prompt": "12 − 6 ÷ 6",
+      "prompt": "2 + 2 × 2",
       "choices": [
-        "10",
+        "11",
+        "8",
         "1",
-        "12",
-        "11"
+        "6"
       ],
       "answer": 3,
       "misconceptions": [
@@ -619,17 +619,17 @@
         "ARITH",
         null
       ],
-      "explanation": "6 ÷ 6 = 1, then 12 − 1 = 11."
+      "explanation": "2 × 2 = 4, then 2 + 4 = 6."
     },
     {
       "id": "order-of-ops-exponents/t1/030",
       "tier": 1,
-      "prompt": "6 + 2 ÷ 2",
+      "prompt": "12 − 12 ÷ 4",
       "choices": [
+        "6",
+        "0",
         "12",
-        "4",
-        "11",
-        "7"
+        "9"
       ],
       "answer": 3,
       "misconceptions": [
@@ -638,17 +638,17 @@
         "ARITH",
         null
       ],
-      "explanation": "2 ÷ 2 = 1, then 6 + 1 = 7."
+      "explanation": "12 ÷ 4 = 3, then 12 − 3 = 9."
     },
     {
       "id": "order-of-ops-exponents/t1/031",
       "tier": 1,
-      "prompt": "80 ÷ 10 × 4",
+      "prompt": "63 ÷ 7 × 3",
       "choices": [
-        "32",
-        "22",
-        "2",
-        "34"
+        "27",
+        "37",
+        "3",
+        "28"
       ],
       "answer": 0,
       "misconceptions": [
@@ -657,36 +657,36 @@
         "M_BEFORE_D",
         "ARITH"
       ],
-      "explanation": "80 ÷ 10 = 8, then 8 × 4 = 32."
+      "explanation": "63 ÷ 7 = 9, then 9 × 3 = 27."
     },
     {
       "id": "order-of-ops-exponents/t1/032",
       "tier": 1,
-      "prompt": "52 − 9 + 20",
+      "prompt": "12 − 2 + 3",
       "choices": [
-        "63",
-        "61",
+        "13",
+        "3",
         "23",
-        "58"
+        "7"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ARITH",
-        "A_BEFORE_S",
-        "ARITH"
+        "ARITH",
+        "A_BEFORE_S"
       ],
-      "explanation": "52 − 9 = 43, then 43 + 20 = 63."
+      "explanation": "12 − 2 = 10, then 10 + 3 = 13."
     },
     {
       "id": "order-of-ops-exponents/t1/033",
       "tier": 1,
-      "prompt": "12 − 3 ÷ 3",
+      "prompt": "19 − 2 × 7",
       "choices": [
+        "119",
         "3",
-        "9",
         "15",
-        "11"
+        "5"
       ],
       "answer": 3,
       "misconceptions": [
@@ -695,36 +695,36 @@
         "ARITH",
         null
       ],
-      "explanation": "3 ÷ 3 = 1, then 12 − 1 = 11."
+      "explanation": "2 × 7 = 14, then 19 − 14 = 5."
     },
     {
       "id": "order-of-ops-exponents/t1/034",
       "tier": 1,
-      "prompt": "12 + 12 × 3",
+      "prompt": "10 + 10 × 6",
       "choices": [
-        "72",
-        "48",
-        "38",
-        "58"
+        "69",
+        "70",
+        "80",
+        "120"
       ],
       "answer": 1,
       "misconceptions": [
-        "ADD_FIRST",
+        "ARITH",
         null,
         "ARITH",
-        "ARITH"
+        "ADD_FIRST"
       ],
-      "explanation": "12 × 3 = 36, then 12 + 36 = 48."
+      "explanation": "10 × 6 = 60, then 10 + 60 = 70."
     },
     {
       "id": "order-of-ops-exponents/t1/035",
       "tier": 1,
-      "prompt": "99 ÷ 3 × 3",
+      "prompt": "56 ÷ 7 × 4",
       "choices": [
-        "101",
-        "96",
-        "99",
-        "11"
+        "27",
+        "42",
+        "32",
+        "2"
       ],
       "answer": 2,
       "misconceptions": [
@@ -733,36 +733,36 @@
         null,
         "M_BEFORE_D"
       ],
-      "explanation": "99 ÷ 3 = 33, then 33 × 3 = 99."
+      "explanation": "56 ÷ 7 = 8, then 8 × 4 = 32."
     },
     {
       "id": "order-of-ops-exponents/t1/036",
       "tier": 1,
-      "prompt": "48 − 4 × 10",
+      "prompt": "8 + 6 × 6",
       "choices": [
-        "11",
-        "8",
-        "440",
-        "18"
+        "45",
+        "44",
+        "34",
+        "84"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "ADD_FIRST",
-        "ARITH"
+        "ARITH",
+        "ADD_FIRST"
       ],
-      "explanation": "4 × 10 = 40, then 48 − 40 = 8."
+      "explanation": "6 × 6 = 36, then 8 + 36 = 44."
     },
     {
       "id": "order-of-ops-exponents/t1/037",
       "tier": 1,
-      "prompt": "6 + 9 × 8",
+      "prompt": "3 + 4 × 10",
       "choices": [
-        "68",
-        "120",
-        "77",
-        "78"
+        "53",
+        "70",
+        "42",
+        "43"
       ],
       "answer": 3,
       "misconceptions": [
@@ -771,796 +771,815 @@
         "ARITH",
         null
       ],
-      "explanation": "9 × 8 = 72, then 6 + 72 = 78."
+      "explanation": "4 × 10 = 40, then 3 + 40 = 43."
     },
     {
       "id": "order-of-ops-exponents/t1/038",
       "tier": 1,
-      "prompt": "41 − 16 + 16",
+      "prompt": "20 − 4 + 4",
       "choices": [
-        "37",
-        "39",
-        "41",
-        "9"
+        "21",
+        "12",
+        "20",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "A_BEFORE_S",
+        null,
+        "ARITH"
+      ],
+      "explanation": "20 − 4 = 16, then 16 + 4 = 20."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/039",
+      "tier": 1,
+      "prompt": "9 + 3 × 3",
+      "choices": [
+        "36",
+        "18",
+        "23",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FIRST",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3 × 3 = 9, then 9 + 9 = 18."
+    },
+    {
+      "id": "order-of-ops-exponents/t1/040",
+      "tier": 1,
+      "prompt": "9 + 3 × 7",
+      "choices": [
+        "32",
+        "20",
+        "30",
+        "84"
       ],
       "answer": 2,
       "misconceptions": [
         "ARITH",
         "ARITH",
         null,
-        "A_BEFORE_S"
+        "ADD_FIRST"
       ],
-      "explanation": "41 − 16 = 25, then 25 + 16 = 41."
+      "explanation": "3 × 7 = 21, then 9 + 21 = 30."
     },
     {
-      "id": "order-of-ops-exponents/t1/039",
-      "tier": 1,
-      "prompt": "31 − 5 × 6",
+      "id": "order-of-ops-exponents/t2/001",
+      "tier": 2,
+      "prompt": "20 − (3 + 9)",
+      "choices": [
+        "3",
+        "26",
+        "8",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 + 9 = 12, then 20 − 12 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/002",
+      "tier": 2,
+      "prompt": "4 × (4 + 5)",
+      "choices": [
+        "36",
+        "21",
+        "33",
+        "31"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_PARENS",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "4 + 5 = 9, then 4 × 9 = 36."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/003",
+      "tier": 2,
+      "prompt": "17 − (8 + 4)",
+      "choices": [
+        "5",
+        "13",
+        "9",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_PARENS",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "8 + 4 = 12, then 17 − 12 = 5."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/004",
+      "tier": 2,
+      "prompt": "(12 + 20) ÷ 8 × 2",
+      "choices": [
+        "2",
+        "11",
+        "8",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "M_BEFORE_D",
+        "ARITH",
+        null,
+        "IGNORE_PARENS"
+      ],
+      "explanation": "12 + 20 = 32, then 32 ÷ 8 = 4, then 4 × 2 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/005",
+      "tier": 2,
+      "prompt": "2 × (2 + 10 ÷ 2)",
+      "choices": [
+        "14",
+        "7",
+        "12",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_PARENS",
+        "ADD_FIRST",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "10 ÷ 2 = 5, then 2 + 5 = 7, then 2 × 7 = 14."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/006",
+      "tier": 2,
+      "prompt": "11 − (3 + 4) + 4",
       "choices": [
         "0",
+        "16",
+        "12",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "A_BEFORE_S",
+        "IGNORE_PARENS",
+        "ARITH",
+        null
+      ],
+      "explanation": "3 + 4 = 7, then 11 − 7 = 4, then 4 + 4 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/007",
+      "tier": 2,
+      "prompt": "(9 − 3) ÷ 3",
+      "choices": [
+        "2",
+        "5",
         "1",
-        "156",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "9 − 3 = 6, then 6 ÷ 3 = 2."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/008",
+      "tier": 2,
+      "prompt": "4 × (2 + 4)",
+      "choices": [
+        "34",
+        "12",
+        "26",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 + 4 = 6, then 4 × 6 = 24."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/009",
+      "tier": 2,
+      "prompt": "(4 + 3) × 6",
+      "choices": [
+        "38",
+        "22",
+        "42",
+        "47"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4 + 3 = 7, then 7 × 6 = 42."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/010",
+      "tier": 2,
+      "prompt": "8 × (7 + 2) − 15",
+      "choices": [
+        "67",
+        "43",
+        "58",
+        "57"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        "ARITH",
+        null
+      ],
+      "explanation": "7 + 2 = 9, then 8 × 9 = 72, then 72 − 15 = 57."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/011",
+      "tier": 2,
+      "prompt": "10 × (4 − 3)",
+      "choices": [
+        "13",
+        "10",
+        "37",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "IGNORE_PARENS",
+        "ARITH"
+      ],
+      "explanation": "4 − 3 = 1, then 10 × 1 = 10."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/012",
+      "tier": 2,
+      "prompt": "7 × (2 + 7)",
+      "choices": [
+        "53",
+        "21",
+        "63",
+        "73"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + 7 = 9, then 7 × 9 = 63."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/013",
+      "tier": 2,
+      "prompt": "(16 + 2) ÷ 2 × 9",
+      "choices": [
+        "81",
+        "1",
+        "25",
+        "78"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "M_BEFORE_D",
+        "IGNORE_PARENS",
+        "ARITH"
+      ],
+      "explanation": "16 + 2 = 18, then 18 ÷ 2 = 9, then 9 × 9 = 81."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/014",
+      "tier": 2,
+      "prompt": "5 × (8 − 3) − 10",
+      "choices": [
+        "5",
+        "15",
+        "27",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "IGNORE_PARENS",
+        "ARITH"
+      ],
+      "explanation": "8 − 3 = 5, then 5 × 5 = 25, then 25 − 10 = 15."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/015",
+      "tier": 2,
+      "prompt": "19 − (15 − 8 ÷ 2)",
+      "choices": [
+        "4",
+        "0",
+        "12",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "IGNORE_PARENS",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 ÷ 2 = 4, then 15 − 4 = 11, then 19 − 11 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/016",
+      "tier": 2,
+      "prompt": "10 − (6 + 3)",
+      "choices": [
+        "4",
+        "6",
+        "1",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "IGNORE_PARENS"
+      ],
+      "explanation": "6 + 3 = 9, then 10 − 9 = 1."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/017",
+      "tier": 2,
+      "prompt": "19 − 8 × (6 − 4)",
+      "choices": [
+        "2",
+        "3",
+        "22",
+        "62"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_FIRST",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "6 − 4 = 2, then 8 × 2 = 16, then 19 − 16 = 3."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/018",
+      "tier": 2,
+      "prompt": "20 − (8 + 5) + 5",
+      "choices": [
+        "9",
+        "12",
+        "22",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "IGNORE_PARENS",
+        "A_BEFORE_S"
+      ],
+      "explanation": "8 + 5 = 13, then 20 − 13 = 7, then 7 + 5 = 12."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/019",
+      "tier": 2,
+      "prompt": "20 ÷ (4 − 2)",
+      "choices": [
+        "11",
+        "10",
+        "0",
         "3"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "ADD_FIRST",
-        "ARITH"
-      ],
-      "explanation": "5 × 6 = 30, then 31 − 30 = 1."
-    },
-    {
-      "id": "order-of-ops-exponents/t1/040",
-      "tier": 1,
-      "prompt": "7 + 4 × 10",
-      "choices": [
-        "52",
-        "110",
-        "47",
-        "50"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "ADD_FIRST",
-        null,
-        "ARITH"
-      ],
-      "explanation": "4 × 10 = 40, then 7 + 40 = 47."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/001",
-      "tier": 2,
-      "prompt": "(29 + 55) ÷ 7 × 6",
-      "choices": [
-        "2",
-        "71",
-        "69",
-        "72"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "M_BEFORE_D",
-        "ARITH",
-        "ARITH",
-        null
-      ],
-      "explanation": "29 + 55 = 84, then 84 ÷ 7 = 12, then 12 × 6 = 72."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/002",
-      "tier": 2,
-      "prompt": "6 × (4 + 3)",
-      "choices": [
-        "42",
-        "45",
-        "27",
-        "43"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "IGNORE_PARENS",
-        "ARITH"
-      ],
-      "explanation": "4 + 3 = 7, then 6 × 7 = 42."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/003",
-      "tier": 2,
-      "prompt": "38 − (16 + 9) + 10",
-      "choices": [
-        "26",
-        "3",
-        "41",
-        "23"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "A_BEFORE_S",
-        "IGNORE_PARENS",
-        null
-      ],
-      "explanation": "16 + 9 = 25, then 38 − 25 = 13, then 13 + 10 = 23."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/004",
-      "tier": 2,
-      "prompt": "(70 − 16) ÷ 9 × 3",
-      "choices": [
-        "22",
-        "20",
-        "2",
-        "18"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "ARITH",
-        "M_BEFORE_D",
-        null
-      ],
-      "explanation": "70 − 16 = 54, then 54 ÷ 9 = 6, then 6 × 3 = 18."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/005",
-      "tier": 2,
-      "prompt": "72 ÷ (7 + 2) × 4",
-      "choices": [
-        "29",
-        "32",
-        "2",
-        "33"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "M_BEFORE_D",
-        "ARITH"
-      ],
-      "explanation": "7 + 2 = 9, then 72 ÷ 9 = 8, then 8 × 4 = 32."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/006",
-      "tier": 2,
-      "prompt": "(11 − 10 ÷ 10) × 3",
-      "choices": [
-        "40",
-        "8",
-        "30",
-        "34"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "IGNORE_PARENS",
-        null,
-        "ARITH"
-      ],
-      "explanation": "10 ÷ 10 = 1, then 11 − 1 = 10, then 10 × 3 = 30."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/007",
-      "tier": 2,
-      "prompt": "8 × (6 − 2)",
-      "choices": [
-        "46",
-        "22",
-        "29",
-        "32"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "ARITH",
-        "ARITH",
-        null
-      ],
-      "explanation": "6 − 2 = 4, then 8 × 4 = 32."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/008",
-      "tier": 2,
-      "prompt": "(7 + 8) × 6 + 4",
-      "choices": [
-        "59",
-        "150",
-        "94",
-        "89"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "ADD_FIRST",
-        null,
-        "ARITH"
-      ],
-      "explanation": "7 + 8 = 15, then 15 × 6 = 90, then 90 + 4 = 94."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/009",
-      "tier": 2,
-      "prompt": "(12 + 6) ÷ 6",
-      "choices": [
-        "7",
-        "6",
-        "3",
-        "13"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "ARITH",
-        null,
-        "IGNORE_PARENS"
-      ],
-      "explanation": "12 + 6 = 18, then 18 ÷ 6 = 3."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/010",
-      "tier": 2,
-      "prompt": "21 − (10 + 2)",
-      "choices": [
-        "8",
-        "9",
-        "13",
-        "4"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "IGNORE_PARENS",
-        "ARITH"
-      ],
-      "explanation": "10 + 2 = 12, then 21 − 12 = 9."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/011",
-      "tier": 2,
-      "prompt": "(7 + 8 × 10) × 10",
-      "choices": [
-        "807",
-        "865",
-        "880",
-        "870"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "ARITH",
-        "ARITH",
-        null
-      ],
-      "explanation": "8 × 10 = 80, then 7 + 80 = 87, then 87 × 10 = 870."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/012",
-      "tier": 2,
-      "prompt": "26 − (10 + 8 ÷ 2)",
-      "choices": [
-        "12",
-        "17",
-        "20",
-        "9"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ADD_FIRST",
-        "IGNORE_PARENS",
-        "ARITH"
-      ],
-      "explanation": "8 ÷ 2 = 4, then 10 + 4 = 14, then 26 − 14 = 12."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/013",
-      "tier": 2,
-      "prompt": "5 + (11 − 9) × 10",
-      "choices": [
-        "25",
-        "23",
-        "70",
-        "26"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "ADD_FIRST",
-        "ARITH"
-      ],
-      "explanation": "11 − 9 = 2, then 2 × 10 = 20, then 5 + 20 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/014",
-      "tier": 2,
-      "prompt": "4 × 10 × (12 − 9)",
-      "choices": [
-        "120",
-        "471",
-        "124",
-        "125"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "IGNORE_PARENS",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "12 − 9 = 3, then 4 × 10 = 40, then 40 × 3 = 120."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/015",
-      "tier": 2,
-      "prompt": "60 ÷ (12 + 3)",
-      "choices": [
-        "2",
-        "4",
-        "3",
-        "8"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
         "ARITH",
         "IGNORE_PARENS"
       ],
-      "explanation": "12 + 3 = 15, then 60 ÷ 15 = 4."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/016",
-      "tier": 2,
-      "prompt": "(6 + 90) ÷ 4 × 8",
-      "choices": [
-        "193",
-        "192",
-        "3",
-        "186"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "M_BEFORE_D",
-        "IGNORE_PARENS"
-      ],
-      "explanation": "6 + 90 = 96, then 96 ÷ 4 = 24, then 24 × 8 = 192."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/017",
-      "tier": 2,
-      "prompt": "(9 + 4) × 11",
-      "choices": [
-        "143",
-        "53",
-        "144",
-        "133"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "IGNORE_PARENS",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "9 + 4 = 13, then 13 × 11 = 143."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/018",
-      "tier": 2,
-      "prompt": "3 − (4 − 2) + 8",
-      "choices": [
-        "5",
-        "11",
-        "9",
-        "14"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "ARITH",
-        null,
-        "ARITH"
-      ],
-      "explanation": "4 − 2 = 2, then 3 − 2 = 1, then 1 + 8 = 9."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/019",
-      "tier": 2,
-      "prompt": "12 × (64 − 6 × 10)",
-      "choices": [
-        "708",
-        "38",
-        "48",
-        "49"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "ARITH",
-        null,
-        "ARITH"
-      ],
-      "explanation": "6 × 10 = 60, then 64 − 60 = 4, then 12 × 4 = 48."
+      "explanation": "4 − 2 = 2, then 20 ÷ 2 = 10."
     },
     {
       "id": "order-of-ops-exponents/t2/020",
       "tier": 2,
-      "prompt": "(8 + 7) × 12",
+      "prompt": "36 ÷ (3 × 3)",
       "choices": [
-        "181",
-        "92",
-        "176",
-        "180"
+        "4",
+        "36",
+        "3",
+        "5"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ARITH",
+        null,
         "IGNORE_PARENS",
         "ARITH",
-        null
+        "ARITH"
       ],
-      "explanation": "8 + 7 = 15, then 15 × 12 = 180."
+      "explanation": "3 × 3 = 9, then 36 ÷ 9 = 4."
     },
     {
       "id": "order-of-ops-exponents/t2/021",
       "tier": 2,
-      "prompt": "(3 + 9 × 8) × 8",
+      "prompt": "13 − (2 + 4) + 5",
       "choices": [
-        "605",
-        "579",
-        "768",
-        "600"
+        "2",
+        "20",
+        "7",
+        "12"
       ],
       "answer": 3,
       "misconceptions": [
-        "ARITH",
+        "A_BEFORE_S",
         "IGNORE_PARENS",
-        "ADD_FIRST",
+        "ARITH",
         null
       ],
-      "explanation": "9 × 8 = 72, then 3 + 72 = 75, then 75 × 8 = 600."
+      "explanation": "2 + 4 = 6, then 13 − 6 = 7, then 7 + 5 = 12."
     },
     {
       "id": "order-of-ops-exponents/t2/022",
       "tier": 2,
-      "prompt": "(6 + 12) ÷ 2",
+      "prompt": "19 − (7 + 6)",
       "choices": [
-        "9",
-        "12",
-        "4",
-        "5"
+        "11",
+        "3",
+        "18",
+        "6"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
-        "IGNORE_PARENS",
         "ARITH",
-        "ARITH"
+        "ARITH",
+        "IGNORE_PARENS",
+        null
       ],
-      "explanation": "6 + 12 = 18, then 18 ÷ 2 = 9."
+      "explanation": "7 + 6 = 13, then 19 − 13 = 6."
     },
     {
       "id": "order-of-ops-exponents/t2/023",
       "tier": 2,
-      "prompt": "7 × (12 + 10)",
+      "prompt": "40 ÷ (2 + 9 ÷ 3)",
       "choices": [
-        "154",
-        "153",
-        "94",
-        "159"
+        "5",
+        "10",
+        "23",
+        "8"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
+        "ARITH",
         "ARITH",
         "IGNORE_PARENS",
-        "ARITH"
+        null
       ],
-      "explanation": "12 + 10 = 22, then 7 × 22 = 154."
+      "explanation": "9 ÷ 3 = 3, then 2 + 3 = 5, then 40 ÷ 5 = 8."
     },
     {
       "id": "order-of-ops-exponents/t2/024",
       "tier": 2,
-      "prompt": "4 × (6 − 2)",
+      "prompt": "16 − (2 + 6) + 4",
       "choices": [
-        "22",
-        "16",
-        "19",
-        "13"
+        "24",
+        "12",
+        "4",
+        "15"
       ],
       "answer": 1,
       "misconceptions": [
         "IGNORE_PARENS",
         null,
-        "ARITH",
+        "A_BEFORE_S",
         "ARITH"
       ],
-      "explanation": "6 − 2 = 4, then 4 × 4 = 16."
+      "explanation": "2 + 6 = 8, then 16 − 8 = 8, then 8 + 4 = 12."
     },
     {
       "id": "order-of-ops-exponents/t2/025",
       "tier": 2,
-      "prompt": "6 × (71 − 5 × 12)",
+      "prompt": "7 × (4 − 2)",
       "choices": [
-        "366",
-        "66",
-        "67",
-        "69"
+        "13",
+        "19",
+        "14",
+        "26"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "IGNORE_PARENS",
-        null,
         "ARITH",
-        "ARITH"
+        "ARITH",
+        null,
+        "IGNORE_PARENS"
       ],
-      "explanation": "5 × 12 = 60, then 71 − 60 = 11, then 6 × 11 = 66."
+      "explanation": "4 − 2 = 2, then 7 × 2 = 14."
     },
     {
       "id": "order-of-ops-exponents/t2/026",
       "tier": 2,
-      "prompt": "3 × (12 − 5)",
+      "prompt": "3 × (7 + 6 ÷ 2)",
       "choices": [
-        "22",
-        "19",
-        "31",
-        "21"
+        "30",
+        "33",
+        "24",
+        "25"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ARITH",
+        null,
         "ARITH",
         "IGNORE_PARENS",
-        null
+        "ARITH"
       ],
-      "explanation": "12 − 5 = 7, then 3 × 7 = 21."
+      "explanation": "6 ÷ 2 = 3, then 7 + 3 = 10, then 3 × 10 = 30."
     },
     {
       "id": "order-of-ops-exponents/t2/027",
       "tier": 2,
-      "prompt": "38 − (19 + 5) + 11",
+      "prompt": "8 × (5 − 3)",
       "choices": [
-        "24",
-        "25",
-        "3",
-        "35"
+        "16",
+        "26",
+        "37",
+        "19"
       ],
-      "answer": 1,
+      "answer": 0,
       "misconceptions": [
-        "ARITH",
         null,
-        "A_BEFORE_S",
-        "IGNORE_PARENS"
+        "ARITH",
+        "IGNORE_PARENS",
+        "ARITH"
       ],
-      "explanation": "19 + 5 = 24, then 38 − 24 = 14, then 14 + 11 = 25."
+      "explanation": "5 − 3 = 2, then 8 × 2 = 16."
     },
     {
       "id": "order-of-ops-exponents/t2/028",
       "tier": 2,
-      "prompt": "15 − (2 + 10)",
+      "prompt": "8 ÷ 4 × (8 − 7)",
       "choices": [
-        "3",
-        "23",
-        "6",
-        "5"
+        "9",
+        "0",
+        "4",
+        "2"
       ],
-      "answer": 0,
+      "answer": 3,
       "misconceptions": [
-        null,
         "IGNORE_PARENS",
         "ARITH",
-        "ARITH"
+        "ARITH",
+        null
       ],
-      "explanation": "2 + 10 = 12, then 15 − 12 = 3."
+      "explanation": "8 − 7 = 1, then 8 ÷ 4 = 2, then 2 × 1 = 2."
     },
     {
       "id": "order-of-ops-exponents/t2/029",
       "tier": 2,
-      "prompt": "7 × (4 − 1) + 11",
+      "prompt": "10 × (6 − 5 + 4)",
       "choices": [
-        "98",
-        "32",
-        "16",
-        "38"
+        "51",
+        "59",
+        "50",
+        "48"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "ADD_FIRST",
-        null,
         "IGNORE_PARENS",
-        "IGNORE_PARENS"
+        "IGNORE_PARENS",
+        null,
+        "ARITH"
       ],
-      "explanation": "4 − 1 = 3, then 7 × 3 = 21, then 21 + 11 = 32."
+      "explanation": "6 − 5 = 1, then 1 + 4 = 5, then 10 × 5 = 50."
     },
     {
       "id": "order-of-ops-exponents/t2/030",
       "tier": 2,
-      "prompt": "21 − (2 + 6 + 10)",
+      "prompt": "(9 + 7 − 12) ÷ 2",
       "choices": [
-        "35",
-        "4",
-        "3",
-        "2"
+        "0",
+        "2",
+        "10",
+        "3"
       ],
-      "answer": 2,
+      "answer": 1,
       "misconceptions": [
-        "IGNORE_PARENS",
         "ARITH",
         null,
+        "IGNORE_PARENS",
         "ARITH"
       ],
-      "explanation": "2 + 6 = 8, then 8 + 10 = 18, then 21 − 18 = 3."
+      "explanation": "9 + 7 = 16, then 16 − 12 = 4, then 4 ÷ 2 = 2."
     },
     {
       "id": "order-of-ops-exponents/t2/031",
       "tier": 2,
-      "prompt": "(10 + 9 + 10) × 10",
+      "prompt": "40 ÷ (2 + 8)",
       "choices": [
-        "280",
-        "119",
-        "288",
-        "290"
+        "4",
+        "28",
+        "9",
+        "0"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ARITH",
+        null,
         "IGNORE_PARENS",
         "ARITH",
-        null
+        "ARITH"
       ],
-      "explanation": "10 + 9 = 19, then 19 + 10 = 29, then 29 × 10 = 290."
+      "explanation": "2 + 8 = 10, then 40 ÷ 10 = 4."
     },
     {
       "id": "order-of-ops-exponents/t2/032",
       "tier": 2,
-      "prompt": "80 ÷ (4 + 6) × 4",
+      "prompt": "3 + (6 − 4) × 2",
       "choices": [
-        "2",
-        "104",
-        "32",
-        "44"
+        "1",
+        "7",
+        "3",
+        "10"
       ],
-      "answer": 2,
+      "answer": 1,
       "misconceptions": [
-        "M_BEFORE_D",
         "IGNORE_PARENS",
         null,
-        "IGNORE_PARENS"
+        "ARITH",
+        "ADD_FIRST"
       ],
-      "explanation": "4 + 6 = 10, then 80 ÷ 10 = 8, then 8 × 4 = 32."
+      "explanation": "6 − 4 = 2, then 2 × 2 = 4, then 3 + 4 = 7."
     },
     {
       "id": "order-of-ops-exponents/t2/033",
       "tier": 2,
-      "prompt": "45 − (18 + 16) + 9",
+      "prompt": "(10 + 8) ÷ 2",
       "choices": [
-        "25",
-        "20",
-        "2",
-        "52"
+        "4",
+        "12",
+        "9",
+        "14"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
         "ARITH",
+        "ARITH",
         null,
-        "A_BEFORE_S",
         "IGNORE_PARENS"
       ],
-      "explanation": "18 + 16 = 34, then 45 − 34 = 11, then 11 + 9 = 20."
+      "explanation": "10 + 8 = 18, then 18 ÷ 2 = 9."
     },
     {
       "id": "order-of-ops-exponents/t2/034",
       "tier": 2,
-      "prompt": "9 × (32 − 3 × 9)",
+      "prompt": "(8 + 2) × 3",
       "choices": [
-        "45",
-        "47",
-        "35",
-        "261"
+        "29",
+        "32",
+        "30",
+        "14"
       ],
-      "answer": 0,
+      "answer": 2,
       "misconceptions": [
+        "ARITH",
+        "ARITH",
         null,
-        "ARITH",
-        "ARITH",
         "IGNORE_PARENS"
       ],
-      "explanation": "3 × 9 = 27, then 32 − 27 = 5, then 9 × 5 = 45."
+      "explanation": "8 + 2 = 10, then 10 × 3 = 30."
     },
     {
       "id": "order-of-ops-exponents/t2/035",
       "tier": 2,
-      "prompt": "95 − 5 × (10 + 8)",
+      "prompt": "4 × (7 − 5)",
       "choices": [
-        "908",
-        "53",
-        "5",
-        "37"
+        "10",
+        "8",
+        "3",
+        "23"
       ],
-      "answer": 2,
+      "answer": 1,
       "misconceptions": [
-        "IGNORE_PARENS",
-        "IGNORE_PARENS",
+        "ARITH",
         null,
+        "ARITH",
         "IGNORE_PARENS"
       ],
-      "explanation": "10 + 8 = 18, then 5 × 18 = 90, then 95 − 90 = 5."
+      "explanation": "7 − 5 = 2, then 4 × 2 = 8."
     },
     {
       "id": "order-of-ops-exponents/t2/036",
       "tier": 2,
-      "prompt": "8 ÷ 4 × (11 − 10)",
+      "prompt": "3 × (3 + 7)",
       "choices": [
-        "1",
-        "4",
-        "2",
-        "12"
+        "28",
+        "16",
+        "25",
+        "30"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
         "ARITH",
+        "IGNORE_PARENS",
         "ARITH",
-        null,
-        "IGNORE_PARENS"
+        null
       ],
-      "explanation": "11 − 10 = 1, then 8 ÷ 4 = 2, then 2 × 1 = 2."
+      "explanation": "3 + 7 = 10, then 3 × 10 = 30."
     },
     {
       "id": "order-of-ops-exponents/t2/037",
       "tier": 2,
-      "prompt": "7 × (3 ÷ 3 + 7)",
+      "prompt": "(20 − 8) ÷ 2 × 6",
       "choices": [
-        "66",
-        "56",
-        "57",
-        "14"
+        "1",
+        "36",
+        "32",
+        "41"
       ],
       "answer": 1,
       "misconceptions": [
-        "ARITH",
+        "M_BEFORE_D",
         null,
         "ARITH",
-        "IGNORE_PARENS"
+        "ARITH"
       ],
-      "explanation": "3 ÷ 3 = 1, then 1 + 7 = 8, then 7 × 8 = 56."
+      "explanation": "20 − 8 = 12, then 12 ÷ 2 = 6, then 6 × 6 = 36."
     },
     {
       "id": "order-of-ops-exponents/t2/038",
       "tier": 2,
-      "prompt": "(7 + 5) × 10",
+      "prompt": "4 × (10 ÷ 2 + 2)",
       "choices": [
-        "120",
-        "119",
-        "115",
-        "57"
+        "28",
+        "22",
+        "10",
+        "27"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
-        "ARITH",
-        "IGNORE_PARENS"
+        "IGNORE_PARENS",
+        "ADD_FIRST",
+        "ARITH"
       ],
-      "explanation": "7 + 5 = 12, then 12 × 10 = 120."
+      "explanation": "10 ÷ 2 = 5, then 5 + 2 = 7, then 4 × 7 = 28."
     },
     {
       "id": "order-of-ops-exponents/t2/039",
       "tier": 2,
-      "prompt": "(11 + 4) × 12",
+      "prompt": "20 − (6 + 8) + 6",
       "choices": [
-        "184",
-        "175",
-        "59",
-        "180"
+        "22",
+        "0",
+        "12",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "A_BEFORE_S",
+        null,
+        "IGNORE_PARENS"
+      ],
+      "explanation": "6 + 8 = 14, then 20 − 14 = 6, then 6 + 6 = 12."
+    },
+    {
+      "id": "order-of-ops-exponents/t2/040",
+      "tier": 2,
+      "prompt": "2 × (6 − 5)",
+      "choices": [
+        "6",
+        "0",
+        "7",
+        "2"
       ],
       "answer": 3,
       "misconceptions": [
@@ -1569,339 +1588,282 @@
         "IGNORE_PARENS",
         null
       ],
-      "explanation": "11 + 4 = 15, then 15 × 12 = 180."
-    },
-    {
-      "id": "order-of-ops-exponents/t2/040",
-      "tier": 2,
-      "prompt": "6 + (7 − 4) ÷ 3",
-      "choices": [
-        "17",
-        "3",
-        "7",
-        "6"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "ADD_FIRST",
-        null,
-        "ARITH"
-      ],
-      "explanation": "7 − 4 = 3, then 3 ÷ 3 = 1, then 6 + 1 = 7."
+      "explanation": "6 − 5 = 1, then 2 × 1 = 2."
     },
     {
       "id": "order-of-ops-exponents/t3/001",
       "tier": 3,
-      "prompt": "6 + 10 × 2^2",
+      "prompt": "5^2 − 4 ÷ 2",
       "choices": [
-        "48",
-        "46",
-        "406",
-        "64"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "EXP_AFTER_MULT",
-        "ADD_FIRST"
-      ],
-      "explanation": "2^2 = 4, then 10 × 4 = 40, then 6 + 40 = 46."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/002",
-      "tier": 3,
-      "prompt": "9 × 12 + 8^2",
-      "choices": [
-        "232",
-        "172",
-        "124",
-        "684"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT",
-        "ADD_FIRST"
-      ],
-      "explanation": "8^2 = 64, then 9 × 12 = 108, then 108 + 64 = 172."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/003",
-      "tier": 3,
-      "prompt": "43 − 8 × 2^2",
-      "choices": [
-        "11",
-        "140",
-        "9",
-        "8"
+        "23",
+        "26",
+        "8",
+        "3"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ADD_FIRST",
         "ARITH",
-        "ARITH"
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
       ],
-      "explanation": "2^2 = 4, then 8 × 4 = 32, then 43 − 32 = 11."
+      "explanation": "5^2 = 25, then 4 ÷ 2 = 2, then 25 − 2 = 23."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/002",
+      "tier": 3,
+      "prompt": "2^2 × 3",
+      "choices": [
+        "10",
+        "13",
+        "12",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "EXP_AFTER_MULT"
+      ],
+      "explanation": "2^2 = 4, then 4 × 3 = 12."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/003",
+      "tier": 3,
+      "prompt": "36 ÷ 3^2",
+      "choices": [
+        "144",
+        "24",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AFTER_MULT",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "3^2 = 9, then 36 ÷ 9 = 4."
     },
     {
       "id": "order-of-ops-exponents/t3/004",
       "tier": 3,
-      "prompt": "8 + 8^3 + 7",
+      "prompt": "6^2 ÷ 9 + 9",
       "choices": [
-        "55",
-        "527",
-        "39",
-        "517"
+        "16",
+        "2",
+        "13",
+        "17"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "EXP_AS_MULT",
+        "ARITH",
+        "ADD_FIRST",
         null,
-        "EXP_AS_MULT",
         "ARITH"
       ],
-      "explanation": "8^3 = 512, then 8 + 512 = 520, then 520 + 7 = 527."
+      "explanation": "6^2 = 36, then 36 ÷ 9 = 4, then 4 + 9 = 13."
     },
     {
       "id": "order-of-ops-exponents/t3/005",
       "tier": 3,
-      "prompt": "66 − 8^2",
+      "prompt": "10 ÷ 2 + 4^2",
       "choices": [
-        "50",
-        "116",
-        "4",
-        "2"
+        "21",
+        "81",
+        "1",
+        "13"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
+        null,
+        "LTR",
         "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "ARITH",
-        null
+        "EXP_AS_MULT"
       ],
-      "explanation": "8^2 = 64, then 66 − 64 = 2."
+      "explanation": "4^2 = 16, then 10 ÷ 2 = 5, then 5 + 16 = 21."
     },
     {
       "id": "order-of-ops-exponents/t3/006",
       "tier": 3,
-      "prompt": "6 + 8^3",
-      "choices": [
-        "513",
-        "30",
-        "518",
-        "42"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT"
-      ],
-      "explanation": "8^3 = 512, then 6 + 512 = 518."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/007",
-      "tier": 3,
-      "prompt": "7 + 7^3",
-      "choices": [
-        "352",
-        "42",
-        "350",
-        "28"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT"
-      ],
-      "explanation": "7^3 = 343, then 7 + 343 = 350."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/008",
-      "tier": 3,
-      "prompt": "4 × 7 − 4^2",
-      "choices": [
-        "20",
-        "48",
-        "12",
-        "576"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        null,
-        "LTR"
-      ],
-      "explanation": "4^2 = 16, then 4 × 7 = 28, then 28 − 16 = 12."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/009",
-      "tier": 3,
-      "prompt": "7 + 10 × 8^2",
-      "choices": [
-        "643",
-        "272",
-        "647",
-        "167"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT"
-      ],
-      "explanation": "8^2 = 64, then 10 × 64 = 640, then 7 + 640 = 647."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/010",
-      "tier": 3,
       "prompt": "17 − 3^2",
       "choices": [
         "196",
-        "11",
         "8",
+        "11",
         "28"
       ],
-      "answer": 2,
+      "answer": 1,
       "misconceptions": [
         "LTR",
-        "EXP_AS_MULT",
         null,
+        "EXP_AS_MULT",
         "EXP_AS_MULT"
       ],
       "explanation": "3^2 = 9, then 17 − 9 = 8."
     },
     {
-      "id": "order-of-ops-exponents/t3/011",
+      "id": "order-of-ops-exponents/t3/007",
       "tier": 3,
       "prompt": "10 + 8^2",
       "choices": [
-        "74",
         "36",
+        "74",
         "26",
         "324"
       ],
-      "answer": 0,
+      "answer": 1,
       "misconceptions": [
-        null,
         "EXP_AS_MULT",
+        null,
         "EXP_AS_MULT",
         "LTR"
       ],
       "explanation": "8^2 = 64, then 10 + 64 = 74."
     },
     {
-      "id": "order-of-ops-exponents/t3/012",
+      "id": "order-of-ops-exponents/t3/008",
       "tier": 3,
-      "prompt": "8^2 − 12 ÷ 4",
+      "prompt": "4^2 + 90 ÷ 10",
       "choices": [
-        "61",
-        "60",
-        "13",
-        "1"
+        "15",
+        "26",
+        "25",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "4^2 = 16, then 90 ÷ 10 = 9, then 16 + 9 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/009",
+      "tier": 3,
+      "prompt": "9 + 4^2",
+      "choices": [
+        "26",
+        "17",
+        "169",
+        "25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        "LTR",
+        null
+      ],
+      "explanation": "4^2 = 16, then 9 + 16 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/010",
+      "tier": 3,
+      "prompt": "2^3 + 4 × 6",
+      "choices": [
+        "32",
+        "30",
+        "72",
+        "60"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
         "EXP_AS_MULT",
+        "ADD_FIRST",
         "EXP_AS_MULT"
       ],
-      "explanation": "8^2 = 64, then 12 ÷ 4 = 3, then 64 − 3 = 61."
+      "explanation": "2^3 = 8, then 4 × 6 = 24, then 8 + 24 = 32."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/011",
+      "tier": 3,
+      "prompt": "40 ÷ 8 + 6^2",
+      "choices": [
+        "41",
+        "22",
+        "17",
+        "121"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        "LTR"
+      ],
+      "explanation": "6^2 = 36, then 40 ÷ 8 = 5, then 5 + 36 = 41."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/012",
+      "tier": 3,
+      "prompt": "18 − 4^2",
+      "choices": [
+        "10",
+        "196",
+        "28",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "LTR",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "4^2 = 16, then 18 − 16 = 2."
     },
     {
       "id": "order-of-ops-exponents/t3/013",
       "tier": 3,
-      "prompt": "3^3 × 2",
+      "prompt": "5 + 8^2 ÷ 8",
       "choices": [
-        "50",
-        "729",
-        "18",
-        "54"
+        "14",
+        "17",
+        "13",
+        "7"
       ],
-      "answer": 3,
+      "answer": 2,
       "misconceptions": [
         "ARITH",
-        "EXP_AFTER_MULT",
-        "EXP_AS_MULT",
-        null
+        "ARITH",
+        null,
+        "EXP_AS_MULT"
       ],
-      "explanation": "3^3 = 27, then 27 × 2 = 54."
+      "explanation": "8^2 = 64, then 64 ÷ 8 = 8, then 5 + 8 = 13."
     },
     {
       "id": "order-of-ops-exponents/t3/014",
       "tier": 3,
-      "prompt": "2 + 6^3",
+      "prompt": "4 − 2 + 9^2",
       "choices": [
+        "121",
+        "22",
         "20",
-        "218",
-        "24",
-        "512"
+        "83"
       ],
-      "answer": 1,
+      "answer": 3,
       "misconceptions": [
+        "LTR",
         "EXP_AS_MULT",
-        null,
         "EXP_AS_MULT",
-        "LTR"
+        null
       ],
-      "explanation": "6^3 = 216, then 2 + 216 = 218."
+      "explanation": "9^2 = 81, then 4 − 2 = 2, then 2 + 81 = 83."
     },
     {
       "id": "order-of-ops-exponents/t3/015",
       "tier": 3,
-      "prompt": "7 + 5^2",
-      "choices": [
-        "32",
-        "24",
-        "17",
-        "144"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "LTR"
-      ],
-      "explanation": "5^2 = 25, then 7 + 25 = 32."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/016",
-      "tier": 3,
-      "prompt": "5 + 9^2",
+      "prompt": "7 + 8^2",
       "choices": [
         "23",
-        "86",
-        "196",
-        "28"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "LTR",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "9^2 = 81, then 5 + 81 = 86."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/017",
-      "tier": 3,
-      "prompt": "19 − 4^2",
-      "choices": [
-        "11",
         "225",
-        "3",
+        "71",
         "30"
       ],
       "answer": 2,
@@ -1911,1898 +1873,1708 @@
         null,
         "EXP_AS_MULT"
       ],
-      "explanation": "4^2 = 16, then 19 − 16 = 3."
+      "explanation": "8^2 = 64, then 7 + 64 = 71."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/016",
+      "tier": 3,
+      "prompt": "20 − 4^2",
+      "choices": [
+        "32",
+        "12",
+        "4",
+        "256"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null,
+        "LTR"
+      ],
+      "explanation": "4^2 = 16, then 20 − 16 = 4."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/017",
+      "tier": 3,
+      "prompt": "9 + 8^2 ÷ 8",
+      "choices": [
+        "13",
+        "11",
+        "20",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        "ARITH",
+        null
+      ],
+      "explanation": "8^2 = 64, then 64 ÷ 8 = 8, then 9 + 8 = 17."
     },
     {
       "id": "order-of-ops-exponents/t3/018",
       "tier": 3,
-      "prompt": "4 + 9^2",
+      "prompt": "9 × 2 + 6^2",
       "choices": [
-        "169",
-        "85",
-        "22",
-        "26"
+        "30",
+        "342",
+        "54",
+        "576"
       ],
-      "answer": 1,
+      "answer": 2,
       "misconceptions": [
-        "LTR",
-        null,
         "EXP_AS_MULT",
-        "EXP_AS_MULT"
+        "ADD_FIRST",
+        null,
+        "LTR"
       ],
-      "explanation": "9^2 = 81, then 4 + 81 = 85."
+      "explanation": "6^2 = 36, then 9 × 2 = 18, then 18 + 36 = 54."
     },
     {
       "id": "order-of-ops-exponents/t3/019",
       "tier": 3,
-      "prompt": "6 + 4^3 ÷ 4",
+      "prompt": "9 + 9^2",
       "choices": [
-        "9",
-        "25",
-        "22",
-        "250"
+        "36",
+        "324",
+        "27",
+        "90"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
         "EXP_AS_MULT",
-        "ARITH",
-        null,
-        "LTR"
+        "LTR",
+        "EXP_AS_MULT",
+        null
       ],
-      "explanation": "4^3 = 64, then 64 ÷ 4 = 16, then 6 + 16 = 22."
+      "explanation": "9^2 = 81, then 9 + 81 = 90."
     },
     {
       "id": "order-of-ops-exponents/t3/020",
       "tier": 3,
-      "prompt": "7 + 6^2",
+      "prompt": "4 + 4^3 − 5",
       "choices": [
-        "26",
-        "43",
-        "169",
-        "19"
+        "19",
+        "63",
+        "11",
+        "507"
       ],
       "answer": 1,
       "misconceptions": [
         "EXP_AS_MULT",
         null,
-        "LTR",
-        "EXP_AS_MULT"
+        "EXP_AS_MULT",
+        "LTR"
       ],
-      "explanation": "6^2 = 36, then 7 + 36 = 43."
+      "explanation": "4^3 = 64, then 4 + 64 = 68, then 68 − 5 = 63."
     },
     {
       "id": "order-of-ops-exponents/t3/021",
       "tier": 3,
-      "prompt": "6^3 × 2",
+      "prompt": "6 + 2^2 + 4",
       "choices": [
-        "428",
-        "36",
-        "437",
-        "432"
+        "24",
+        "20",
+        "68",
+        "14"
       ],
       "answer": 3,
       "misconceptions": [
         "ARITH",
         "EXP_AS_MULT",
-        "ARITH",
+        "LTR",
         null
       ],
-      "explanation": "6^3 = 216, then 216 × 2 = 432."
+      "explanation": "2^2 = 4, then 6 + 4 = 10, then 10 + 4 = 14."
     },
     {
       "id": "order-of-ops-exponents/t3/022",
       "tier": 3,
-      "prompt": "9 + 9 + 7^2",
-      "choices": [
-        "50",
-        "32",
-        "625",
-        "67"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "LTR",
-        null
-      ],
-      "explanation": "7^2 = 49, then 9 + 9 = 18, then 18 + 49 = 67."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/023",
-      "tier": 3,
-      "prompt": "10^2 × 2",
-      "choices": [
-        "200",
-        "190",
-        "196",
-        "40"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "10^2 = 100, then 100 × 2 = 200."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/024",
-      "tier": 3,
-      "prompt": "8^2 × 8 − 1",
-      "choices": [
-        "127",
-        "448",
-        "112",
-        "511"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "ADD_FIRST",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "8^2 = 64, then 64 × 8 = 512, then 512 − 1 = 511."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/025",
-      "tier": 3,
-      "prompt": "2^2 × 2",
-      "choices": [
-        "8",
-        "16",
-        "4",
-        "13"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AFTER_MULT",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "2^2 = 4, then 4 × 2 = 8."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/026",
-      "tier": 3,
-      "prompt": "11 + 5 + 9^3",
-      "choices": [
-        "745",
-        "43",
-        "750",
-        "75"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "9^3 = 729, then 11 + 5 = 16, then 16 + 729 = 745."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/027",
-      "tier": 3,
-      "prompt": "87 − 5 × 4^2",
-      "choices": [
-        "7",
-        "5",
-        "656",
-        "47"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "4^2 = 16, then 5 × 16 = 80, then 87 − 80 = 7."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/028",
-      "tier": 3,
       "prompt": "6 + 2^2",
       "choices": [
         "8",
+        "10",
         "64",
-        "16",
-        "10"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "LTR",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "2^2 = 4, then 6 + 4 = 10."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/029",
-      "tier": 3,
-      "prompt": "8 × 6^2",
-      "choices": [
-        "298",
-        "96",
-        "288",
-        "284"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "6^2 = 36, then 8 × 36 = 288."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/030",
-      "tier": 3,
-      "prompt": "6 ÷ 6 + 5^3",
-      "choices": [
-        "216",
-        "126",
-        "18",
         "16"
       ],
       "answer": 1,
       "misconceptions": [
+        "ARITH",
+        null,
         "LTR",
-        null,
-        "EXP_AS_MULT",
         "EXP_AS_MULT"
       ],
-      "explanation": "5^3 = 125, then 6 ÷ 6 = 1, then 1 + 125 = 126."
+      "explanation": "2^2 = 4, then 6 + 4 = 10."
     },
     {
-      "id": "order-of-ops-exponents/t3/031",
+      "id": "order-of-ops-exponents/t3/023",
       "tier": 3,
-      "prompt": "36 ÷ 2^2",
+      "prompt": "10 + 2^2",
       "choices": [
-        "6",
-        "36",
-        "9",
-        "324"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "EXP_AFTER_MULT"
-      ],
-      "explanation": "2^2 = 4, then 36 ÷ 4 = 9."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/032",
-      "tier": 3,
-      "prompt": "5 + 10^2",
-      "choices": [
-        "30",
-        "105",
-        "25",
-        "225"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT",
-        "LTR"
-      ],
-      "explanation": "10^2 = 100, then 5 + 100 = 105."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/033",
-      "tier": 3,
-      "prompt": "5 − 2 + 7^3",
-      "choices": [
-        "30",
-        "345",
         "24",
-        "346"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "ARITH",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "7^3 = 343, then 5 − 2 = 3, then 3 + 343 = 346."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/034",
-      "tier": 3,
-      "prompt": "54 ÷ 3^2",
-      "choices": [
-        "324",
-        "6",
-        "36",
-        "9"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AFTER_MULT",
-        null,
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "3^2 = 9, then 54 ÷ 9 = 6."
-    },
-    {
-      "id": "order-of-ops-exponents/t3/035",
-      "tier": 3,
-      "prompt": "4^2 ÷ 2",
-      "choices": [
         "4",
-        "9",
-        "12",
-        "8"
+        "144",
+        "14"
       ],
       "answer": 3,
       "misconceptions": [
         "EXP_AS_MULT",
         "ARITH",
-        "ARITH",
+        "LTR",
         null
       ],
-      "explanation": "4^2 = 16, then 16 ÷ 2 = 8."
+      "explanation": "2^2 = 4, then 10 + 4 = 14."
     },
     {
-      "id": "order-of-ops-exponents/t3/036",
+      "id": "order-of-ops-exponents/t3/024",
       "tier": 3,
-      "prompt": "9 + 4^2",
+      "prompt": "7^2 − 4 × 2",
       "choices": [
-        "26",
-        "17",
-        "25",
-        "169"
+        "90",
+        "6",
+        "20",
+        "41"
       ],
-      "answer": 2,
+      "answer": 3,
       "misconceptions": [
+        "ADD_FIRST",
         "EXP_AS_MULT",
         "EXP_AS_MULT",
-        null,
-        "LTR"
+        null
       ],
-      "explanation": "4^2 = 16, then 9 + 16 = 25."
+      "explanation": "7^2 = 49, then 4 × 2 = 8, then 49 − 8 = 41."
     },
     {
-      "id": "order-of-ops-exponents/t3/037",
+      "id": "order-of-ops-exponents/t3/025",
       "tier": 3,
-      "prompt": "6^2 × 5 − 4",
+      "prompt": "4 + 7^2",
       "choices": [
-        "176",
-        "12",
-        "36",
-        "56"
+        "53",
+        "18",
+        "22",
+        "121"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "EXP_AS_MULT",
-        "ADD_FIRST",
-        "EXP_AS_MULT"
+        "EXP_AS_MULT",
+        "LTR"
       ],
-      "explanation": "6^2 = 36, then 36 × 5 = 180, then 180 − 4 = 176."
+      "explanation": "7^2 = 49, then 4 + 49 = 53."
     },
     {
-      "id": "order-of-ops-exponents/t3/038",
+      "id": "order-of-ops-exponents/t3/026",
+      "tier": 3,
+      "prompt": "2 + 4^3",
+      "choices": [
+        "18",
+        "216",
+        "66",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "LTR",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "4^3 = 64, then 2 + 64 = 66."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/027",
       "tier": 3,
       "prompt": "4 + 5^2 + 6",
       "choices": [
         "24",
+        "35",
         "20",
-        "87",
-        "35"
+        "87"
       ],
-      "answer": 3,
+      "answer": 1,
       "misconceptions": [
         "EXP_AS_MULT",
+        null,
         "EXP_AS_MULT",
-        "LTR",
-        null
+        "LTR"
       ],
       "explanation": "5^2 = 25, then 4 + 25 = 29, then 29 + 6 = 35."
     },
     {
-      "id": "order-of-ops-exponents/t3/039",
+      "id": "order-of-ops-exponents/t3/028",
       "tier": 3,
-      "prompt": "8 ÷ 8 + 5^3",
+      "prompt": "3^3 − 6 ÷ 3",
       "choices": [
-        "216",
-        "16",
+        "23",
+        "25",
+        "7",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "3^3 = 27, then 6 ÷ 3 = 2, then 27 − 2 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/029",
+      "tier": 3,
+      "prompt": "4 × 2^3",
+      "choices": [
+        "512",
+        "24",
+        "32",
+        "22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AFTER_MULT",
+        "EXP_AS_MULT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2^3 = 8, then 4 × 8 = 32."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/030",
+      "tier": 3,
+      "prompt": "3^2 × 3",
+      "choices": [
+        "27",
+        "729",
         "18",
-        "126"
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AFTER_MULT",
+        "EXP_AS_MULT",
+        "ARITH"
+      ],
+      "explanation": "3^2 = 9, then 9 × 3 = 27."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/031",
+      "tier": 3,
+      "prompt": "3 + 5^2",
+      "choices": [
+        "16",
+        "13",
+        "28",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null,
+        "LTR"
+      ],
+      "explanation": "5^2 = 25, then 3 + 25 = 28."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/032",
+      "tier": 3,
+      "prompt": "7 × 3^2",
+      "choices": [
+        "441",
+        "53",
+        "42",
+        "63"
       ],
       "answer": 3,
       "misconceptions": [
-        "LTR",
-        "EXP_AS_MULT",
+        "EXP_AFTER_MULT",
+        "ARITH",
         "EXP_AS_MULT",
         null
       ],
-      "explanation": "5^3 = 125, then 8 ÷ 8 = 1, then 1 + 125 = 126."
+      "explanation": "3^2 = 9, then 7 × 9 = 63."
     },
     {
-      "id": "order-of-ops-exponents/t3/040",
+      "id": "order-of-ops-exponents/t3/033",
       "tier": 3,
-      "prompt": "3 × 6^3",
+      "prompt": "10 × 7 − 7^2",
       "choices": [
-        "648",
-        "649",
-        "54",
-        "644"
+        "21",
+        "11",
+        "56",
+        "126"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "ARITH",
         "EXP_AS_MULT",
-        "ARITH"
+        "EXP_AS_MULT"
       ],
-      "explanation": "6^3 = 216, then 3 × 216 = 648."
+      "explanation": "7^2 = 49, then 10 × 7 = 70, then 70 − 49 = 21."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/034",
+      "tier": 3,
+      "prompt": "9 + 8^2",
+      "choices": [
+        "73",
+        "34",
+        "25",
+        "289"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        "LTR"
+      ],
+      "explanation": "8^2 = 64, then 9 + 64 = 73."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/035",
+      "tier": 3,
+      "prompt": "8 + 7^2",
+      "choices": [
+        "57",
+        "225",
+        "30",
+        "22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LTR",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "7^2 = 49, then 8 + 49 = 57."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/036",
+      "tier": 3,
+      "prompt": "10 + 9^2",
+      "choices": [
+        "28",
+        "91",
+        "38",
+        "361"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "EXP_AS_MULT",
+        "LTR"
+      ],
+      "explanation": "9^2 = 81, then 10 + 81 = 91."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/037",
+      "tier": 3,
+      "prompt": "8 + 7^2 − 15",
+      "choices": [
+        "42",
+        "210",
+        "15",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LTR",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "7^2 = 49, then 8 + 49 = 57, then 57 − 15 = 42."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/038",
+      "tier": 3,
+      "prompt": "5 + 6^2",
+      "choices": [
+        "121",
+        "41",
+        "17",
+        "22"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LTR",
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "6^2 = 36, then 5 + 36 = 41."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/039",
+      "tier": 3,
+      "prompt": "10 − 2^3",
+      "choices": [
+        "24",
+        "2",
+        "4",
+        "512"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "EXP_AS_MULT",
+        "LTR"
+      ],
+      "explanation": "2^3 = 8, then 10 − 8 = 2."
+    },
+    {
+      "id": "order-of-ops-exponents/t3/040",
+      "tier": 3,
+      "prompt": "2 × 2 + 7^2",
+      "choices": [
+        "121",
+        "53",
+        "18",
+        "102"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LTR",
+        null,
+        "EXP_AS_MULT",
+        "ADD_FIRST"
+      ],
+      "explanation": "7^2 = 49, then 2 × 2 = 4, then 4 + 49 = 53."
     },
     {
       "id": "order-of-ops-exponents/t4/001",
       "tier": 4,
-      "prompt": "11 + (12 − 11) × 9^2",
+      "prompt": "(24 ÷ 8)^3",
       "choices": [
-        "972",
-        "216",
-        "29",
-        "92"
+        "27",
+        "9",
+        "17",
+        "1"
       ],
-      "answer": 3,
+      "answer": 0,
       "misconceptions": [
-        "ADD_FIRST",
+        null,
         "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        null
+        "ARITH",
+        "EXP_AS_MULT"
       ],
-      "explanation": "12 − 11 = 1, then 9^2 = 81, then 1 × 81 = 81, then 11 + 81 = 92."
+      "explanation": "24 ÷ 8 = 3, then 3^3 = 27."
     },
     {
       "id": "order-of-ops-exponents/t4/002",
       "tier": 4,
-      "prompt": "(8^2 + 6) ÷ 2",
+      "prompt": "(5 − (11 − (4 + 5)))^3",
       "choices": [
-        "67",
-        "19",
-        "11",
-        "35"
+        "5",
+        "27",
+        "115",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "IGNORE_PARENS",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "4 + 5 = 9, then 11 − 9 = 2, then 5 − 2 = 3, then 3^3 = 27."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/003",
+      "tier": 4,
+      "prompt": "(24 ÷ 6)^3",
+      "choices": [
+        "68",
+        "64",
+        "61",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "24 ÷ 6 = 4, then 4^3 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/004",
+      "tier": 4,
+      "prompt": "(2 + 6 − 4)^3 ÷ 8",
+      "choices": [
+        "0",
+        "18",
+        "8",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + 6 = 8, then 8 − 4 = 4, then 4^3 = 64, then 64 ÷ 8 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/005",
+      "tier": 4,
+      "prompt": "(5 + 5)^2",
+      "choices": [
+        "15",
+        "30",
+        "100",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "5 + 5 = 10, then 10^2 = 100."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/006",
+      "tier": 4,
+      "prompt": "(9 ÷ 3)^2 − 5",
+      "choices": [
+        "4",
+        "1",
+        "7",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "9 ÷ 3 = 3, then 3^2 = 9, then 9 − 5 = 4."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/007",
+      "tier": 4,
+      "prompt": "(19 − (2 + 9))^2",
+      "choices": [
+        "98",
+        "16",
+        "676",
+        "64"
       ],
       "answer": 3,
       "misconceptions": [
         "IGNORE_PARENS",
         "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null
+      ],
+      "explanation": "2 + 9 = 11, then 19 − 11 = 8, then 8^2 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/008",
+      "tier": 4,
+      "prompt": "(5 + (9 − 4))^2",
+      "choices": [
+        "6",
+        "98",
+        "20",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
         "EXP_AS_MULT",
         null
       ],
-      "explanation": "8^2 = 64, then 64 + 6 = 70, then 70 ÷ 2 = 35."
+      "explanation": "9 − 4 = 5, then 5 + 5 = 10, then 10^2 = 100."
     },
     {
-      "id": "order-of-ops-exponents/t4/003",
+      "id": "order-of-ops-exponents/t4/009",
       "tier": 4,
-      "prompt": "(10 − 4)^2 − 9",
+      "prompt": "(8 ÷ 4 × 5)^2",
       "choices": [
-        "30",
-        "3",
-        "27",
-        "28"
+        "100",
+        "96",
+        "20",
+        "50"
       ],
-      "answer": 2,
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXP_AS_MULT",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "8 ÷ 4 = 2, then 2 × 5 = 10, then 10^2 = 100."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/010",
+      "tier": 4,
+      "prompt": "(7 − 4)^2 + 4 ÷ 2",
+      "choices": [
+        "11",
+        "5",
+        "8",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "7 − 4 = 3, then 3^2 = 9, then 4 ÷ 2 = 2, then 9 + 2 = 11."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/011",
+      "tier": 4,
+      "prompt": "(9 + 3^2) ÷ 3",
+      "choices": [
+        "48",
+        "5",
+        "12",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LTR",
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null
+      ],
+      "explanation": "3^2 = 9, then 9 + 9 = 18, then 18 ÷ 3 = 6."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/012",
+      "tier": 4,
+      "prompt": "(3 + 9 ÷ 3)^2",
+      "choices": [
+        "12",
+        "16",
+        "4",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ADD_FIRST",
+        "IGNORE_PARENS",
+        null
+      ],
+      "explanation": "9 ÷ 3 = 3, then 3 + 3 = 6, then 6^2 = 36."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/013",
+      "tier": 4,
+      "prompt": "(5 + 4)^2",
+      "choices": [
+        "21",
+        "81",
+        "13",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        null,
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "5 + 4 = 9, then 9^2 = 81."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/014",
+      "tier": 4,
+      "prompt": "(6 ÷ 3)^3",
+      "choices": [
+        "18",
+        "8",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EXP_AS_MULT",
+        "ARITH"
+      ],
+      "explanation": "6 ÷ 3 = 2, then 2^3 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/015",
+      "tier": 4,
+      "prompt": "(50 ÷ 5)^2",
+      "choices": [
+        "5",
+        "100",
+        "2",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "IGNORE_PARENS",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "50 ÷ 5 = 10, then 10^2 = 100."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/016",
+      "tier": 4,
+      "prompt": "(14 ÷ (5 − 3))^2",
+      "choices": [
+        "47",
+        "14",
+        "44",
+        "49"
+      ],
+      "answer": 3,
       "misconceptions": [
         "ARITH",
         "EXP_AS_MULT",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 − 3 = 2, then 14 ÷ 2 = 7, then 7^2 = 49."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/017",
+      "tier": 4,
+      "prompt": "9^2 + (6 ÷ 3)^3",
+      "choices": [
+        "60",
+        "89",
+        "24",
+        "91"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "EXP_AS_MULT",
+        "ARITH"
+      ],
+      "explanation": "6 ÷ 3 = 2, then 9^2 = 81, then 2^3 = 8, then 81 + 8 = 89."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/018",
+      "tier": 4,
+      "prompt": "(8 ÷ 2)^3",
+      "choices": [
+        "12",
+        "1",
+        "64",
+        "67"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
         null,
         "ARITH"
       ],
-      "explanation": "10 − 4 = 6, then 6^2 = 36, then 36 − 9 = 27."
+      "explanation": "8 ÷ 2 = 4, then 4^3 = 64."
     },
     {
-      "id": "order-of-ops-exponents/t4/004",
+      "id": "order-of-ops-exponents/t4/019",
       "tier": 4,
-      "prompt": "(4 ÷ 2 + 8 ÷ 8)^3",
+      "prompt": "(60 ÷ 10)^2",
       "choices": [
+        "36",
+        "46",
         "3",
-        "26",
-        "27",
-        "9"
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "60 ÷ 10 = 6, then 6^2 = 36."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/020",
+      "tier": 4,
+      "prompt": "(30 ÷ 10)^2 − 4 ÷ 2",
+      "choices": [
+        "10",
+        "1",
+        "4",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "30 ÷ 10 = 3, then 3^2 = 9, then 4 ÷ 2 = 2, then 9 − 2 = 7."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/021",
+      "tier": 4,
+      "prompt": "(32 ÷ (8 ÷ 2))^2",
+      "choices": [
+        "4",
+        "1",
+        "64",
+        "16"
       ],
       "answer": 2,
       "misconceptions": [
         "EXP_AFTER_MULT",
-        "ARITH",
+        "IGNORE_PARENS",
         null,
         "EXP_AS_MULT"
       ],
-      "explanation": "4 ÷ 2 = 2, then 8 ÷ 8 = 1, then 2 + 1 = 3, then 3^3 = 27."
+      "explanation": "8 ÷ 2 = 4, then 32 ÷ 4 = 8, then 8^2 = 64."
     },
     {
-      "id": "order-of-ops-exponents/t4/005",
+      "id": "order-of-ops-exponents/t4/022",
       "tier": 4,
-      "prompt": "(6 − 2)^2",
+      "prompt": "(3 + 7)^2 − 7",
       "choices": [
-        "8",
-        "6",
-        "16",
-        "2"
+        "10",
+        "45",
+        "93",
+        "13"
       ],
       "answer": 2,
       "misconceptions": [
         "EXP_AS_MULT",
-        "ARITH",
+        "IGNORE_PARENS",
         null,
-        "IGNORE_PARENS"
+        "EXP_AS_MULT"
       ],
-      "explanation": "6 − 2 = 4, then 4^2 = 16."
+      "explanation": "3 + 7 = 10, then 10^2 = 100, then 100 − 7 = 93."
     },
     {
-      "id": "order-of-ops-exponents/t4/006",
+      "id": "order-of-ops-exponents/t4/023",
       "tier": 4,
-      "prompt": "(11 × 6 ÷ 11)^2",
+      "prompt": "(2 × 3)^2",
       "choices": [
-        "37",
-        "3",
+        "18",
+        "35",
         "36",
         "12"
       ],
       "answer": 2,
       "misconceptions": [
+        "IGNORE_PARENS",
         "ARITH",
-        "EXP_AS_MULT",
         null,
         "EXP_AS_MULT"
       ],
-      "explanation": "11 × 6 = 66, then 66 ÷ 11 = 6, then 6^2 = 36."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/007",
-      "tier": 4,
-      "prompt": "(9 + 8 − (5 + 9))^3",
-      "choices": [
-        "27",
-        "741",
-        "39",
-        "9"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "5 + 9 = 14, then 9 + 8 = 17, then 17 − 14 = 3, then 3^3 = 27."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/008",
-      "tier": 4,
-      "prompt": "(5 − 3)^2 − 4 ÷ 2",
-      "choices": [
-        "2",
-        "0",
-        "6",
-        "3"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ADD_FIRST",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "5 − 3 = 2, then 2^2 = 4, then 4 ÷ 2 = 2, then 4 − 2 = 2."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/009",
-      "tier": 4,
-      "prompt": "(4 + 5)^3",
-      "choices": [
-        "729",
-        "129",
-        "27",
-        "19"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "4 + 5 = 9, then 9^3 = 729."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/010",
-      "tier": 4,
-      "prompt": "8 × (4^2 − (7 − 6))",
-      "choices": [
-        "120",
-        "56",
-        "24",
-        "115"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        "IGNORE_PARENS"
-      ],
-      "explanation": "7 − 6 = 1, then 4^2 = 16, then 16 − 1 = 15, then 8 × 15 = 120."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/011",
-      "tier": 4,
-      "prompt": "(6 ÷ 2)^3",
-      "choices": [
-        "1",
-        "27",
-        "31",
-        "9"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "6 ÷ 2 = 3, then 3^3 = 27."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/012",
-      "tier": 4,
-      "prompt": "(49 ÷ (9 − 2))^2 + 10",
-      "choices": [
-        "60",
-        "59",
-        "55",
-        "24"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "9 − 2 = 7, then 49 ÷ 7 = 7, then 7^2 = 49, then 49 + 10 = 59."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/013",
-      "tier": 4,
-      "prompt": "(5 − 2)^3",
-      "choices": [
-        "30",
-        "27",
-        "23",
-        "9"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "5 − 2 = 3, then 3^3 = 27."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/014",
-      "tier": 4,
-      "prompt": "(15 ÷ (4 − 1))^2",
-      "choices": [
-        "22",
-        "5",
-        "10",
-        "25"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "4 − 1 = 3, then 15 ÷ 3 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/015",
-      "tier": 4,
-      "prompt": "2^3 × 12 − (12 − 8)",
-      "choices": [
-        "92",
-        "68",
-        "76",
-        "64"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        "ADD_FIRST"
-      ],
-      "explanation": "12 − 8 = 4, then 2^3 = 8, then 8 × 12 = 96, then 96 − 4 = 92."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/016",
-      "tier": 4,
-      "prompt": "(4 + (7 − 1))^2",
-      "choices": [
-        "100",
-        "10",
-        "20",
-        "9"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "7 − 1 = 6, then 4 + 6 = 10, then 10^2 = 100."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/017",
-      "tier": 4,
-      "prompt": "(10 − 6)^3 + 7",
-      "choices": [
-        "71",
-        "19",
-        "61",
-        "70"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "10 − 6 = 4, then 4^3 = 64, then 64 + 7 = 71."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/018",
-      "tier": 4,
-      "prompt": "10 ÷ 2 × (3^2 + 10)",
-      "choices": [
-        "235",
-        "55",
-        "80",
-        "95"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AFTER_MULT",
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "3^2 = 9, then 9 + 10 = 19, then 10 ÷ 2 = 5, then 5 × 19 = 95."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/019",
-      "tier": 4,
-      "prompt": "(3 + 6)^2 − 2",
-      "choices": [
-        "16",
-        "37",
-        "13",
-        "79"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "3 + 6 = 9, then 9^2 = 81, then 81 − 2 = 79."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/020",
-      "tier": 4,
-      "prompt": "(11 − 9)^3",
-      "choices": [
-        "8",
-        "5",
-        "6",
-        "3"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "EXP_AS_MULT",
-        "ARITH"
-      ],
-      "explanation": "11 − 9 = 2, then 2^3 = 8."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/021",
-      "tier": 4,
-      "prompt": "(5 ÷ 5 + 8)^2 + 2",
-      "choices": [
-        "20",
-        "19",
-        "67",
-        "83"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        null
-      ],
-      "explanation": "5 ÷ 5 = 1, then 1 + 8 = 9, then 9^2 = 81, then 81 + 2 = 83."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/022",
-      "tier": 4,
-      "prompt": "(6 − 11 ÷ 11)^3",
-      "choices": [
-        "5",
-        "15",
-        "125",
-        "123"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "EXP_AFTER_MULT",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "11 ÷ 11 = 1, then 6 − 1 = 5, then 5^3 = 125."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/023",
-      "tier": 4,
-      "prompt": "(12 − 9)^2 × (3 + 12)",
-      "choices": [
-        "135",
-        "136",
-        "39",
-        "90"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "IGNORE_PARENS",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "12 − 9 = 3, then 3 + 12 = 15, then 3^2 = 9, then 9 × 15 = 135."
+      "explanation": "2 × 3 = 6, then 6^2 = 36."
     },
     {
       "id": "order-of-ops-exponents/t4/024",
       "tier": 4,
-      "prompt": "(5 + 3 + 2 ÷ 2)^2",
-      "choices": [
-        "18",
-        "81",
-        "9",
-        "25"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "EXP_AFTER_MULT",
-        "ADD_FIRST"
-      ],
-      "explanation": "2 ÷ 2 = 1, then 5 + 3 = 8, then 8 + 1 = 9, then 9^2 = 81."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/025",
-      "tier": 4,
-      "prompt": "(9 − 12 ÷ 2)^2",
-      "choices": [
-        "6",
-        "9",
-        "10",
-        "8"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "12 ÷ 2 = 6, then 9 − 6 = 3, then 3^2 = 9."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/026",
-      "tier": 4,
-      "prompt": "12 + (4 − 2)^2",
-      "choices": [
-        "196",
-        "28",
-        "16",
-        "12"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "LTR",
-        "EXP_AS_MULT",
-        null,
-        "IGNORE_PARENS"
-      ],
-      "explanation": "4 − 2 = 2, then 2^2 = 4, then 12 + 4 = 16."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/027",
-      "tier": 4,
-      "prompt": "7^2 − (9 − 8)",
-      "choices": [
-        "32",
-        "13",
-        "48",
-        "47"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "9 − 8 = 1, then 7^2 = 49, then 49 − 1 = 48."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/028",
-      "tier": 4,
-      "prompt": "2 + (2 + 6 − 2)^2",
-      "choices": [
-        "14",
-        "64",
-        "6",
-        "38"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "LTR",
-        "IGNORE_PARENS",
-        null
-      ],
-      "explanation": "2 + 6 = 8, then 8 − 2 = 6, then 6^2 = 36, then 2 + 36 = 38."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/029",
-      "tier": 4,
-      "prompt": "29 − (11 − 6)^2 − 2",
-      "choices": [
-        "142",
-        "2",
-        "17",
-        "574"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        null,
-        "EXP_AS_MULT",
-        "LTR"
-      ],
-      "explanation": "11 − 6 = 5, then 5^2 = 25, then 29 − 25 = 4, then 4 − 2 = 2."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/030",
-      "tier": 4,
-      "prompt": "(7 + 2)^2",
+      "prompt": "(6 + 3)^2",
       "choices": [
         "81",
-        "85",
-        "11",
+        "15",
+        "12",
         "18"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ARITH",
         "IGNORE_PARENS",
+        "EXP_AS_MULT",
         "EXP_AS_MULT"
       ],
-      "explanation": "7 + 2 = 9, then 9^2 = 81."
+      "explanation": "6 + 3 = 9, then 9^2 = 81."
     },
     {
-      "id": "order-of-ops-exponents/t4/031",
+      "id": "order-of-ops-exponents/t4/025",
       "tier": 4,
-      "prompt": "7 × 4 × (46 − 6^2)",
+      "prompt": "(7 + 2)^2",
       "choices": [
-        "278",
-        "280",
-        "952",
-        "281"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "EXP_AS_MULT",
-        "ARITH"
-      ],
-      "explanation": "6^2 = 36, then 46 − 36 = 10, then 7 × 4 = 28, then 28 × 10 = 280."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/032",
-      "tier": 4,
-      "prompt": "65 − (6 + (3 − 1))^2",
-      "choices": [
-        "49",
-        "61",
-        "1",
-        "55"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        null,
-        "IGNORE_PARENS"
-      ],
-      "explanation": "3 − 1 = 2, then 6 + 2 = 8, then 8^2 = 64, then 65 − 64 = 1."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/033",
-      "tier": 4,
-      "prompt": "(7 ÷ 7 + 8)^2",
-      "choices": [
-        "18",
         "81",
-        "17",
-        "65"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT",
-        "IGNORE_PARENS"
-      ],
-      "explanation": "7 ÷ 7 = 1, then 1 + 8 = 9, then 9^2 = 81."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/034",
-      "tier": 4,
-      "prompt": "(8 − (10 − 9))^3",
-      "choices": [
-        "348",
-        "21",
-        "344",
-        "343"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        "ARITH",
-        null
-      ],
-      "explanation": "10 − 9 = 1, then 8 − 1 = 7, then 7^3 = 343."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/035",
-      "tier": 4,
-      "prompt": "(8 × 5 ÷ 8)^2",
-      "choices": [
-        "20",
-        "23",
-        "10",
-        "25"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "ARITH",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "8 × 5 = 40, then 40 ÷ 8 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/036",
-      "tier": 4,
-      "prompt": "(6 + 3 − 2)^2",
-      "choices": [
-        "5",
-        "14",
-        "49",
-        "44"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "6 + 3 = 9, then 9 − 2 = 7, then 7^2 = 49."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/037",
-      "tier": 4,
-      "prompt": "2^3 − (6 − 3) + 4",
-      "choices": [
-        "3",
-        "9",
-        "1",
-        "7"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        null,
-        "A_BEFORE_S",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "6 − 3 = 3, then 2^3 = 8, then 8 − 3 = 5, then 5 + 4 = 9."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/038",
-      "tier": 4,
-      "prompt": "(11 − 7)^3 + 12",
-      "choices": [
-        "24",
-        "2",
+        "18",
         "76",
-        "78"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "11 − 7 = 4, then 4^3 = 64, then 64 + 12 = 76."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/039",
-      "tier": 4,
-      "prompt": "(9 + 4 ÷ 4)^2",
-      "choices": [
-        "102",
-        "100",
-        "10",
-        "20"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "EXP_AFTER_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "4 ÷ 4 = 1, then 9 + 1 = 10, then 10^2 = 100."
-    },
-    {
-      "id": "order-of-ops-exponents/t4/040",
-      "tier": 4,
-      "prompt": "(6 − 2)^3 + 10 ÷ 10",
-      "choices": [
-        "13",
-        "68",
-        "1",
-        "65"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "ARITH",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "6 − 2 = 4, then 4^3 = 64, then 10 ÷ 10 = 1, then 64 + 1 = 65."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/001",
-      "tier": 5,
-      "prompt": "((35 − 5^2 + 6) ÷ 2)^3",
-      "choices": [
-        "8",
-        "99",
-        "2",
-        "512"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "A_BEFORE_S",
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        null
-      ],
-      "explanation": "5^2 = 25, then 35 − 25 = 10, then 10 + 6 = 16, then 16 ÷ 2 = 8, then 8^3 = 512."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/002",
-      "tier": 5,
-      "prompt": "(78 ÷ (12 ÷ 4 + 10))^3",
-      "choices": [
-        "273",
-        "18",
-        "219",
-        "216"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "ARITH",
-        null
-      ],
-      "explanation": "12 ÷ 4 = 3, then 3 + 10 = 13, then 78 ÷ 13 = 6, then 6^3 = 216."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/003",
-      "tier": 5,
-      "prompt": "((10 ÷ 2)^2 ÷ 5)^2",
-      "choices": [
-        "22",
-        "25",
-        "26",
-        "4"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "10 ÷ 2 = 5, then 5^2 = 25, then 25 ÷ 5 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/004",
-      "tier": 5,
-      "prompt": "(8 − 11 ÷ 11 + 2)^3",
-      "choices": [
-        "125",
-        "729",
-        "27",
-        "15"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "A_BEFORE_S",
-        null,
-        "EXP_AS_MULT",
-        "IGNORE_PARENS"
-      ],
-      "explanation": "11 ÷ 11 = 1, then 8 − 1 = 7, then 7 + 2 = 9, then 9^3 = 729."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/005",
-      "tier": 5,
-      "prompt": "12 × 12 × 4 + (8 ÷ 4)^3",
-      "choices": [
-        "584",
-        "582",
-        "27",
-        "580"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "IGNORE_PARENS",
-        "ARITH"
-      ],
-      "explanation": "8 ÷ 4 = 2, then 2^3 = 8, then 12 × 12 = 144, then 144 × 4 = 576, then 576 + 8 = 584."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/006",
-      "tier": 5,
-      "prompt": "(8 × 2 ÷ (8 − 4))^3",
-      "choices": [
-        "12",
-        "66",
-        "60",
-        "64"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "ARITH",
-        "ARITH",
-        null
-      ],
-      "explanation": "8 − 4 = 4, then 8 × 2 = 16, then 16 ÷ 4 = 4, then 4^3 = 64."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/007",
-      "tier": 5,
-      "prompt": "12 ÷ 3 + (10^2 − 2 ÷ 2)",
-      "choices": [
-        "53",
-        "23",
-        "103",
-        "97"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "LTR",
-        "EXP_AS_MULT",
-        null,
-        "IGNORE_PARENS"
-      ],
-      "explanation": "10^2 = 100, then 2 ÷ 2 = 1, then 100 − 1 = 99, then 12 ÷ 3 = 4, then 4 + 99 = 103."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/008",
-      "tier": 5,
-      "prompt": "(3^3 + 12 ÷ 4) × 9",
-      "choices": [
-        "108",
-        "270",
-        "54",
-        "36"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "IGNORE_PARENS",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "3^3 = 27, then 12 ÷ 4 = 3, then 27 + 3 = 30, then 30 × 9 = 270."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/009",
-      "tier": 5,
-      "prompt": "(45 ÷ (6 − 1) + 8 − 10)^3",
-      "choices": [
-        "343",
-        "21",
-        "45",
-        "346"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "ARITH"
-      ],
-      "explanation": "6 − 1 = 5, then 45 ÷ 5 = 9, then 9 + 8 = 17, then 17 − 10 = 7, then 7^3 = 343."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/010",
-      "tier": 5,
-      "prompt": "(6 − 2 + 6 ÷ 3)^3",
-      "choices": [
-        "8",
-        "18",
-        "12",
-        "216"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "A_BEFORE_S",
-        "EXP_AS_MULT",
-        "EXP_AFTER_MULT",
-        null
-      ],
-      "explanation": "6 ÷ 3 = 2, then 6 − 2 = 4, then 4 + 2 = 6, then 6^3 = 216."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/011",
-      "tier": 5,
-      "prompt": "(12 ÷ 4 + (4 − 3))^2",
-      "choices": [
-        "16",
-        "21",
-        "1",
-        "8"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "4 − 3 = 1, then 12 ÷ 4 = 3, then 3 + 1 = 4, then 4^2 = 16."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/012",
-      "tier": 5,
-      "prompt": "45 ÷ (3 ÷ 3 × 3)^2",
-      "choices": [
-        "405",
-        "225",
-        "45",
-        "5"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "M_BEFORE_D",
-        "EXP_AFTER_MULT",
-        "IGNORE_PARENS",
-        null
-      ],
-      "explanation": "3 ÷ 3 = 1, then 1 × 3 = 3, then 3^2 = 9, then 45 ÷ 9 = 5."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/013",
-      "tier": 5,
-      "prompt": "9^3 + 18 ÷ (7 − 5)",
-      "choices": [
-        "741",
-        "748",
-        "36",
-        "738"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "ARITH",
-        "EXP_AS_MULT",
-        null
-      ],
-      "explanation": "7 − 5 = 2, then 9^3 = 729, then 18 ÷ 2 = 9, then 729 + 9 = 738."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/014",
-      "tier": 5,
-      "prompt": "6 + (3 + 4 ÷ 4)^2",
-      "choices": [
-        "10",
-        "23",
-        "22",
-        "14"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "EXP_AFTER_MULT",
-        "ARITH",
-        null,
-        "EXP_AS_MULT"
-      ],
-      "explanation": "4 ÷ 4 = 1, then 3 + 1 = 4, then 4^2 = 16, then 6 + 16 = 22."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/015",
-      "tier": 5,
-      "prompt": "24 ÷ (3 − 1)^2 × 2",
-      "choices": [
-        "6",
-        "3",
-        "12",
-        "288"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "IGNORE_PARENS",
-        "M_BEFORE_D",
-        null,
-        "LTR"
-      ],
-      "explanation": "3 − 1 = 2, then 2^2 = 4, then 24 ÷ 4 = 6, then 6 × 2 = 12."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/016",
-      "tier": 5,
-      "prompt": "5^2 × (11 ÷ 11) + (6 + 10)",
-      "choices": [
-        "41",
-        "26",
-        "170",
-        "425"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "ADD_FIRST"
-      ],
-      "explanation": "11 ÷ 11 = 1, then 6 + 10 = 16, then 5^2 = 25, then 25 × 1 = 25, then 25 + 16 = 41."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/017",
-      "tier": 5,
-      "prompt": "(10 ÷ 10 × (10 ÷ 2))^2",
-      "choices": [
-        "27",
-        "25",
-        "20",
-        "10"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "ARITH",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "10 ÷ 2 = 5, then 10 ÷ 10 = 1, then 1 × 5 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/018",
-      "tier": 5,
-      "prompt": "27 ÷ (13 − 16 ÷ 2^2) − 1",
-      "choices": [
-        "2",
-        "0",
-        "1",
         "11"
       ],
       "answer": 0,
       "misconceptions": [
         null,
+        "EXP_AS_MULT",
         "ARITH",
-        "ARITH",
-        "LTR"
+        "IGNORE_PARENS"
       ],
-      "explanation": "2^2 = 4, then 16 ÷ 4 = 4, then 13 − 4 = 9, then 27 ÷ 9 = 3, then 3 − 1 = 2."
+      "explanation": "7 + 2 = 9, then 9^2 = 81."
     },
     {
-      "id": "order-of-ops-exponents/t5/019",
-      "tier": 5,
-      "prompt": "5 + ((6 + 2) ÷ 4)^3",
+      "id": "order-of-ops-exponents/t4/026",
+      "tier": 4,
+      "prompt": "10^2 − (8 − (3 + 2))",
       "choices": [
-        "343",
+        "91",
+        "17",
+        "87",
+        "97"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null
+      ],
+      "explanation": "3 + 2 = 5, then 8 − 5 = 3, then 10^2 = 100, then 100 − 3 = 97."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/027",
+      "tier": 4,
+      "prompt": "(9 − 2)^2",
+      "choices": [
+        "49",
+        "5",
+        "14",
+        "47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_PARENS",
+        "EXP_AS_MULT",
+        "ARITH"
+      ],
+      "explanation": "9 − 2 = 7, then 7^2 = 49."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/028",
+      "tier": 4,
+      "prompt": "(5 − 3 + 3)^2",
+      "choices": [
         "11",
+        "1",
+        "10",
+        "25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        "A_BEFORE_S",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "5 − 3 = 2, then 2 + 3 = 5, then 5^2 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/029",
+      "tier": 4,
+      "prompt": "(2 × 4)^2",
+      "choices": [
+        "16",
+        "64",
+        "32",
+        "69"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "IGNORE_PARENS",
+        "ARITH"
+      ],
+      "explanation": "2 × 4 = 8, then 8^2 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/030",
+      "tier": 4,
+      "prompt": "(9 − 6)^2",
+      "choices": [
+        "9",
+        "6",
         "13",
-        "21"
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "9 − 6 = 3, then 3^2 = 9."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/031",
+      "tier": 4,
+      "prompt": "(10 ÷ 2 + (4 − 3))^2",
+      "choices": [
+        "12",
+        "0",
+        "36",
+        "3"
       ],
       "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "4 − 3 = 1, then 10 ÷ 2 = 5, then 5 + 1 = 6, then 6^2 = 36."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/032",
+      "tier": 4,
+      "prompt": "(90 ÷ 9 ÷ 5)^3",
+      "choices": [
+        "6",
+        "5",
+        "13",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "90 ÷ 9 = 10, then 10 ÷ 5 = 2, then 2^3 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/033",
+      "tier": 4,
+      "prompt": "6 + 7^2 − (9 + 6)",
+      "choices": [
+        "154",
+        "5",
+        "52",
+        "40"
+      ],
+      "answer": 3,
       "misconceptions": [
         "LTR",
         "EXP_AS_MULT",
-        null,
-        "EXP_AS_MULT"
-      ],
-      "explanation": "6 + 2 = 8, then 8 ÷ 4 = 2, then 2^3 = 8, then 5 + 8 = 13."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/020",
-      "tier": 5,
-      "prompt": "6^2 + 4 × (5 × 11 ÷ 11)",
-      "choices": [
-        "32",
-        "80",
-        "200",
-        "56"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
-        "ADD_FIRST",
-        null
-      ],
-      "explanation": "5 × 11 = 55, then 55 ÷ 11 = 5, then 6^2 = 36, then 4 × 5 = 20, then 36 + 20 = 56."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/021",
-      "tier": 5,
-      "prompt": "(9 ÷ 3)^2 × (7 + 5^2)",
-      "choices": [
-        "102",
-        "288",
-        "32",
-        "144"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
         "IGNORE_PARENS",
-        "EXP_AS_MULT"
-      ],
-      "explanation": "5^2 = 25, then 9 ÷ 3 = 3, then 7 + 25 = 32, then 3^2 = 9, then 9 × 32 = 288."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/022",
-      "tier": 5,
-      "prompt": "6^2 + 9 + (6 ÷ 2)^3",
-      "choices": [
-        "76",
-        "30",
-        "22",
-        "72"
-      ],
-      "answer": 3,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        "EXP_AS_MULT",
         null
       ],
-      "explanation": "6 ÷ 2 = 3, then 6^2 = 36, then 3^3 = 27, then 36 + 9 = 45, then 45 + 27 = 72."
+      "explanation": "9 + 6 = 15, then 7^2 = 49, then 6 + 49 = 55, then 55 − 15 = 40."
     },
     {
-      "id": "order-of-ops-exponents/t5/023",
-      "tier": 5,
-      "prompt": "(6 ÷ (4 × 3 − (8 + 2)))^3",
+      "id": "order-of-ops-exponents/t4/034",
+      "tier": 4,
+      "prompt": "(72 ÷ 9)^2",
       "choices": [
-        "27",
-        "9",
-        "17",
-        "28"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "EXP_AS_MULT",
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "8 + 2 = 10, then 4 × 3 = 12, then 12 − 10 = 2, then 6 ÷ 2 = 3, then 3^3 = 27."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/024",
-      "tier": 5,
-      "prompt": "(50 ÷ (10 × (2 ÷ 2)))^2",
-      "choices": [
-        "28",
-        "10",
-        "25",
-        "24"
-      ],
-      "answer": 2,
-      "misconceptions": [
-        "ARITH",
-        "EXP_AS_MULT",
-        null,
-        "ARITH"
-      ],
-      "explanation": "2 ÷ 2 = 1, then 10 × 1 = 10, then 50 ÷ 10 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/025",
-      "tier": 5,
-      "prompt": "(3 + 100 ÷ (12 + 8))^3",
-      "choices": [
-        "24",
-        "514",
-        "512",
-        "507"
+        "4",
+        "61",
+        "64",
+        "16"
       ],
       "answer": 2,
       "misconceptions": [
         "EXP_AS_MULT",
         "ARITH",
         null,
-        "ARITH"
-      ],
-      "explanation": "12 + 8 = 20, then 100 ÷ 20 = 5, then 3 + 5 = 8, then 8^3 = 512."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/026",
-      "tier": 5,
-      "prompt": "(10 ÷ 2)^3 + (4 + 4)",
-      "choices": [
-        "132",
-        "133",
-        "23",
-        "135"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "ARITH",
-        null,
-        "EXP_AS_MULT",
-        "ARITH"
-      ],
-      "explanation": "10 ÷ 2 = 5, then 4 + 4 = 8, then 5^3 = 125, then 125 + 8 = 133."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/027",
-      "tier": 5,
-      "prompt": "9^3 ÷ 9 × (5 − 2)",
-      "choices": [
-        "9",
-        "243",
-        "403",
-        "27"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "IGNORE_PARENS",
-        "M_BEFORE_D"
-      ],
-      "explanation": "5 − 2 = 3, then 9^3 = 729, then 729 ÷ 9 = 81, then 81 × 3 = 243."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/028",
-      "tier": 5,
-      "prompt": "57 − 5 ÷ 5 × (8^2 − 13)",
-      "choices": [
-        "6",
-        "8",
-        "54",
-        "28"
-      ],
-      "answer": 0,
-      "misconceptions": [
-        null,
-        "ARITH",
-        "EXP_AS_MULT",
         "EXP_AS_MULT"
       ],
-      "explanation": "8^2 = 64, then 64 − 13 = 51, then 5 ÷ 5 = 1, then 1 × 51 = 51, then 57 − 51 = 6."
+      "explanation": "72 ÷ 9 = 8, then 8^2 = 64."
     },
     {
-      "id": "order-of-ops-exponents/t5/029",
-      "tier": 5,
-      "prompt": "((3 × 12 − 11) ÷ 5)^2",
+      "id": "order-of-ops-exponents/t4/035",
+      "tier": 4,
+      "prompt": "10^2 ÷ (40 ÷ 4)",
       "choices": [
+        "2",
         "10",
-        "25",
-        "29",
-        "21"
-      ],
-      "answer": 1,
-      "misconceptions": [
-        "EXP_AS_MULT",
-        null,
-        "ARITH",
-        "ARITH"
-      ],
-      "explanation": "3 × 12 = 36, then 36 − 11 = 25, then 25 ÷ 5 = 5, then 5^2 = 25."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/030",
-      "tier": 5,
-      "prompt": "12 × ((4 ÷ 2)^2 ÷ 4)",
-      "choices": [
-        "144",
-        "17",
-        "3",
+        "13",
         "12"
       ],
-      "answer": 3,
+      "answer": 1,
       "misconceptions": [
-        "IGNORE_PARENS",
+        "EXP_AS_MULT",
+        null,
         "ARITH",
-        "IGNORE_PARENS",
-        null
+        "ARITH"
       ],
-      "explanation": "4 ÷ 2 = 2, then 2^2 = 4, then 4 ÷ 4 = 1, then 12 × 1 = 12."
+      "explanation": "40 ÷ 4 = 10, then 10^2 = 100, then 100 ÷ 10 = 10."
     },
     {
-      "id": "order-of-ops-exponents/t5/031",
-      "tier": 5,
-      "prompt": "4 + 4 ÷ 2 × (3^2 × 3)",
+      "id": "order-of-ops-exponents/t4/036",
+      "tier": 4,
+      "prompt": "(8 ÷ 2)^2",
       "choices": [
-        "58",
-        "108",
-        "40",
-        "432"
+        "8",
+        "2",
+        "16",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "8 ÷ 2 = 4, then 4^2 = 16."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/037",
+      "tier": 4,
+      "prompt": "(5 × (5 − 4))^2",
+      "choices": [
+        "25",
+        "10",
+        "441",
+        "9"
       ],
       "answer": 0,
       "misconceptions": [
         null,
-        "ADD_FIRST",
-        "EXP_AS_MULT",
-        "IGNORE_PARENS"
-      ],
-      "explanation": "3^2 = 9, then 9 × 3 = 27, then 4 ÷ 2 = 2, then 2 × 27 = 54, then 4 + 54 = 58."
-    },
-    {
-      "id": "order-of-ops-exponents/t5/032",
-      "tier": 5,
-      "prompt": "6^3 + (12 − 6 ÷ 2)",
-      "choices": [
-        "27",
-        "111",
-        "225",
-        "219"
-      ],
-      "answer": 2,
-      "misconceptions": [
         "EXP_AS_MULT",
         "IGNORE_PARENS",
-        null,
-        "ADD_FIRST"
+        "IGNORE_PARENS"
       ],
-      "explanation": "6 ÷ 2 = 3, then 12 − 3 = 9, then 6^3 = 216, then 216 + 9 = 225."
+      "explanation": "5 − 4 = 1, then 5 × 1 = 5, then 5^2 = 25."
     },
     {
-      "id": "order-of-ops-exponents/t5/033",
-      "tier": 5,
-      "prompt": "(40 ÷ (7 − 2) − 3)^3",
+      "id": "order-of-ops-exponents/t4/038",
+      "tier": 4,
+      "prompt": "(80 ÷ (6 + 8 ÷ 2))^2",
       "choices": [
+        "16",
+        "64",
         "60",
-        "123",
-        "125",
-        "15"
+        "62"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "8 ÷ 2 = 4, then 6 + 4 = 10, then 80 ÷ 10 = 8, then 8^2 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/039",
+      "tier": 4,
+      "prompt": "3 + (16 − (3 + 9))^2",
+      "choices": [
+        "49",
+        "19",
+        "97",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LTR",
+        null,
+        "IGNORE_PARENS",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "3 + 9 = 12, then 16 − 12 = 4, then 4^2 = 16, then 3 + 16 = 19."
+    },
+    {
+      "id": "order-of-ops-exponents/t4/040",
+      "tier": 4,
+      "prompt": "(8 ÷ 4)^3",
+      "choices": [
+        "18",
+        "10",
+        "8",
+        "6"
       ],
       "answer": 2,
       "misconceptions": [
-        "EXP_AS_MULT",
+        "ARITH",
         "ARITH",
         null,
         "EXP_AS_MULT"
       ],
-      "explanation": "7 − 2 = 5, then 40 ÷ 5 = 8, then 8 − 3 = 5, then 5^3 = 125."
+      "explanation": "8 ÷ 4 = 2, then 2^3 = 8."
     },
     {
-      "id": "order-of-ops-exponents/t5/034",
+      "id": "order-of-ops-exponents/t5/001",
       "tier": 5,
-      "prompt": "(6 ÷ 3 × 2 − 1)^3",
+      "prompt": "(15 − (9 − 3 + 8) ÷ 2)^2",
       "choices": [
-        "9",
-        "27",
-        "3",
+        "16",
+        "256",
+        "5",
+        "64"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "A_BEFORE_S",
+        "IGNORE_PARENS",
+        null
+      ],
+      "explanation": "9 − 3 = 6, then 6 + 8 = 14, then 14 ÷ 2 = 7, then 15 − 7 = 8, then 8^2 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/002",
+      "tier": 5,
+      "prompt": "(4 − 3 + 21 ÷ 7)^2",
+      "choices": [
+        "4",
+        "8",
+        "10",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "A_BEFORE_S",
+        "EXP_AS_MULT",
+        "EXP_AFTER_MULT",
+        null
+      ],
+      "explanation": "21 ÷ 7 = 3, then 4 − 3 = 1, then 1 + 3 = 4, then 4^2 = 16."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/003",
+      "tier": 5,
+      "prompt": "16 − 48 ÷ (4 − 2)^3",
+      "choices": [
+        "8",
+        "12",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 − 2 = 2, then 2^3 = 8, then 48 ÷ 8 = 6, then 16 − 6 = 10."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/004",
+      "tier": 5,
+      "prompt": "(24 ÷ 8)^3 − 3 + (6 − 4)",
+      "choices": [
+        "8",
+        "26",
+        "22",
         "0"
       ],
       "answer": 1,
       "misconceptions": [
         "EXP_AS_MULT",
         null,
-        "IGNORE_PARENS",
-        "M_BEFORE_D"
+        "A_BEFORE_S",
+        "EXP_AS_MULT"
       ],
-      "explanation": "6 ÷ 3 = 2, then 2 × 2 = 4, then 4 − 1 = 3, then 3^3 = 27."
+      "explanation": "24 ÷ 8 = 3, then 6 − 4 = 2, then 3^3 = 27, then 27 − 3 = 24, then 24 + 2 = 26."
     },
     {
-      "id": "order-of-ops-exponents/t5/035",
+      "id": "order-of-ops-exponents/t5/005",
       "tier": 5,
-      "prompt": "54 ÷ (9 + 5 + 2^2)",
+      "prompt": "2 + 5 × 10 + (6 ÷ 2)^2",
       "choices": [
-        "3",
-        "15",
-        "169",
-        "8"
+        "61",
+        "58",
+        "28",
+        "133"
       ],
       "answer": 0,
       "misconceptions": [
         null,
+        "EXP_AS_MULT",
         "IGNORE_PARENS",
-        "IGNORE_PARENS",
-        "ARITH"
+        "ADD_FIRST"
       ],
-      "explanation": "2^2 = 4, then 9 + 5 = 14, then 14 + 4 = 18, then 54 ÷ 18 = 3."
+      "explanation": "6 ÷ 2 = 3, then 3^2 = 9, then 5 × 10 = 50, then 2 + 50 = 52, then 52 + 9 = 61."
     },
     {
-      "id": "order-of-ops-exponents/t5/036",
+      "id": "order-of-ops-exponents/t5/006",
       "tier": 5,
-      "prompt": "26 − (8 − 51 ÷ (10 + 7))^2",
+      "prompt": "(3^3 + 3^2) ÷ 4 − 6",
       "choices": [
         "6",
-        "1",
-        "16",
-        "4"
+        "3",
+        "219",
+        "0"
       ],
       "answer": 1,
       "misconceptions": [
         "ARITH",
         null,
-        "EXP_AS_MULT",
-        "ARITH"
+        "LTR",
+        "EXP_AS_MULT"
       ],
-      "explanation": "10 + 7 = 17, then 51 ÷ 17 = 3, then 8 − 3 = 5, then 5^2 = 25, then 26 − 25 = 1."
+      "explanation": "3^3 = 27, then 3^2 = 9, then 27 + 9 = 36, then 36 ÷ 4 = 9, then 9 − 6 = 3."
     },
     {
-      "id": "order-of-ops-exponents/t5/037",
+      "id": "order-of-ops-exponents/t5/007",
       "tier": 5,
-      "prompt": "6^2 − 5 × (3 ÷ 3) ÷ 5",
+      "prompt": "(2 × (4 ÷ (8 − 6)))^2",
       "choices": [
-        "34",
+        "8",
+        "25",
+        "13",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 − 6 = 2, then 4 ÷ 2 = 2, then 2 × 2 = 4, then 4^2 = 16."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/008",
+      "tier": 5,
+      "prompt": "(10 × (9 ÷ 3) ÷ 10)^2",
+      "choices": [
+        "10",
+        "8",
+        "6",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "9 ÷ 3 = 3, then 10 × 3 = 30, then 30 ÷ 10 = 3, then 3^2 = 9."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/009",
+      "tier": 5,
+      "prompt": "4^3 + 12 ÷ 4 − (9 − 8)",
+      "choices": [
+        "14",
+        "50",
+        "18",
+        "66"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "IGNORE_PARENS",
+        "LTR",
+        null
+      ],
+      "explanation": "9 − 8 = 1, then 4^3 = 64, then 12 ÷ 4 = 3, then 64 + 3 = 67, then 67 − 1 = 66."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/010",
+      "tier": 5,
+      "prompt": "10^2 − 20 ÷ (8 − 42 ÷ 7)",
+      "choices": [
+        "10",
+        "90",
+        "92",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "ARITH",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "42 ÷ 7 = 6, then 8 − 6 = 2, then 10^2 = 100, then 20 ÷ 2 = 10, then 100 − 10 = 90."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/011",
+      "tier": 5,
+      "prompt": "30 ÷ (10^2 ÷ 10) + (3 − 2)",
+      "choices": [
+        "1",
+        "10",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null
+      ],
+      "explanation": "10^2 = 100, then 100 ÷ 10 = 10, then 3 − 2 = 1, then 30 ÷ 10 = 3, then 3 + 1 = 4."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/012",
+      "tier": 5,
+      "prompt": "80 ÷ (10^2 ÷ 10) ÷ 4",
+      "choices": [
+        "6",
+        "10",
+        "12",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        "ARITH",
+        null
+      ],
+      "explanation": "10^2 = 100, then 100 ÷ 10 = 10, then 80 ÷ 10 = 8, then 8 ÷ 4 = 2."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/013",
+      "tier": 5,
+      "prompt": "7 + (40 ÷ (4 + 6) + 9^2)",
+      "choices": [
+        "29",
+        "92",
+        "176",
+        "104"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "LTR",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "4 + 6 = 10, then 9^2 = 81, then 40 ÷ 10 = 4, then 4 + 81 = 85, then 7 + 85 = 92."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/014",
+      "tier": 5,
+      "prompt": "(7 + (8 ÷ 2 − 3))^2",
+      "choices": [
+        "2",
+        "64",
+        "1",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        null,
+        "ADD_FIRST",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "8 ÷ 2 = 4, then 4 − 3 = 1, then 7 + 1 = 8, then 8^2 = 64."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/015",
+      "tier": 5,
+      "prompt": "(15 − 8^2 ÷ 8) × 9",
+      "choices": [
+        "64",
+        "117",
+        "63",
+        "73"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "8^2 = 64, then 64 ÷ 8 = 8, then 15 − 8 = 7, then 7 × 9 = 63."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/016",
+      "tier": 5,
+      "prompt": "10 + (2 + 2 + (8 ÷ 2)^2)",
+      "choices": [
+        "22",
         "30",
-        "35",
-        "11"
+        "74",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        null,
+        "LTR",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "8 ÷ 2 = 4, then 4^2 = 16, then 2 + 2 = 4, then 4 + 16 = 20, then 10 + 20 = 30."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/017",
+      "tier": 5,
+      "prompt": "6 ÷ 3 + (6^2 + 4 ÷ 2)",
+      "choices": [
+        "40",
+        "22",
+        "34",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LTR",
+        "IGNORE_PARENS",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "6^2 = 36, then 4 ÷ 2 = 2, then 36 + 2 = 38, then 6 ÷ 3 = 2, then 2 + 38 = 40."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/018",
+      "tier": 5,
+      "prompt": "10 + (8 ÷ 2 + 3^3 ÷ 9)",
+      "choices": [
+        "15",
+        "18",
+        "17",
+        "192"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
+        null,
+        "IGNORE_PARENS"
+      ],
+      "explanation": "3^3 = 27, then 8 ÷ 2 = 4, then 27 ÷ 9 = 3, then 4 + 3 = 7, then 10 + 7 = 17."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/019",
+      "tier": 5,
+      "prompt": "6^2 ÷ (9 × (2 + 4) ÷ 9)",
+      "choices": [
+        "2",
+        "10",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 + 4 = 6, then 9 × 6 = 54, then 54 ÷ 9 = 6, then 6^2 = 36, then 36 ÷ 6 = 6."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/020",
+      "tier": 5,
+      "prompt": "10 + (3^2 − 24 ÷ 8)",
+      "choices": [
+        "6",
+        "13",
+        "16",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "EXP_AS_MULT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3^2 = 9, then 24 ÷ 8 = 3, then 9 − 3 = 6, then 10 + 6 = 16."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/021",
+      "tier": 5,
+      "prompt": "4^3 + 3 + (8 − 2) ÷ 3",
+      "choices": [
+        "69",
+        "17",
+        "59",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "ARITH",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "8 − 2 = 6, then 4^3 = 64, then 6 ÷ 3 = 2, then 64 + 3 = 67, then 67 + 2 = 69."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/022",
+      "tier": 5,
+      "prompt": "(5^2 + 3 − 8) ÷ 4",
+      "choices": [
+        "5",
+        "6",
+        "11",
+        "26"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXP_AS_MULT",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "5^2 = 25, then 25 + 3 = 28, then 28 − 8 = 20, then 20 ÷ 4 = 5."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/023",
+      "tier": 5,
+      "prompt": "6^2 ÷ (9 ÷ 3 × 2) − 3",
+      "choices": [
+        "12",
+        "3",
+        "21",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FIRST",
+        null,
+        "M_BEFORE_D",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "9 ÷ 3 = 3, then 3 × 2 = 6, then 6^2 = 36, then 36 ÷ 6 = 6, then 6 − 3 = 3."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/024",
+      "tier": 5,
+      "prompt": "7^2 + (9 ÷ 3)^3",
+      "choices": [
+        "23",
+        "51",
+        "76",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "EXP_AS_MULT",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "9 ÷ 3 = 3, then 7^2 = 49, then 3^3 = 27, then 49 + 27 = 76."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/025",
+      "tier": 5,
+      "prompt": "((14 ÷ 2)^2 ÷ 7)^2",
+      "choices": [
+        "46",
+        "47",
+        "49",
+        "4"
       ],
       "answer": 2,
       "misconceptions": [
@@ -3811,64 +3583,292 @@
         null,
         "EXP_AS_MULT"
       ],
-      "explanation": "3 ÷ 3 = 1, then 6^2 = 36, then 5 × 1 = 5, then 5 ÷ 5 = 1, then 36 − 1 = 35."
+      "explanation": "14 ÷ 2 = 7, then 7^2 = 49, then 49 ÷ 7 = 7, then 7^2 = 49."
     },
     {
-      "id": "order-of-ops-exponents/t5/038",
+      "id": "order-of-ops-exponents/t5/026",
       "tier": 5,
-      "prompt": "((3 − 1) × 10 ÷ 4)^3",
+      "prompt": "6^2 ÷ (18 ÷ (2 + 9 − 8))",
       "choices": [
-        "125",
-        "15",
-        "122",
-        "115"
+        "6",
+        "1",
+        "2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXP_AS_MULT",
+        "ARITH"
+      ],
+      "explanation": "2 + 9 = 11, then 11 − 8 = 3, then 18 ÷ 3 = 6, then 6^2 = 36, then 36 ÷ 6 = 6."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/027",
+      "tier": 5,
+      "prompt": "(4 + (9 ÷ 3 + 3))^2",
+      "choices": [
+        "100",
+        "20",
+        "11",
+        "16"
       ],
       "answer": 0,
       "misconceptions": [
         null,
         "EXP_AS_MULT",
-        "ARITH",
-        "ARITH"
+        "EXP_AS_MULT",
+        "IGNORE_PARENS"
       ],
-      "explanation": "3 − 1 = 2, then 2 × 10 = 20, then 20 ÷ 4 = 5, then 5^3 = 125."
+      "explanation": "9 ÷ 3 = 3, then 3 + 3 = 6, then 4 + 6 = 10, then 10^2 = 100."
     },
     {
-      "id": "order-of-ops-exponents/t5/039",
+      "id": "order-of-ops-exponents/t5/028",
       "tier": 5,
-      "prompt": "(3^2 × 6 ÷ 6)^3",
+      "prompt": "(9 ÷ 3 − 2 + (5 − 4))^3",
       "choices": [
-        "18",
+        "8",
+        "10",
+        "0",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "A_BEFORE_S",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "5 − 4 = 1, then 9 ÷ 3 = 3, then 3 − 2 = 1, then 1 + 1 = 2, then 2^3 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/029",
+      "tier": 5,
+      "prompt": "(12 ÷ (42 ÷ 7 − 2))^3",
+      "choices": [
+        "37",
+        "27",
+        "28",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "42 ÷ 7 = 6, then 6 − 2 = 4, then 12 ÷ 4 = 3, then 3^3 = 27."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/030",
+      "tier": 5,
+      "prompt": "(4 + 10 ÷ 2)^2 − 10 × 2",
+      "choices": [
+        "61",
+        "8",
+        "78",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "ADD_FIRST",
+        "EXP_AFTER_MULT"
+      ],
+      "explanation": "10 ÷ 2 = 5, then 4 + 5 = 9, then 9^2 = 81, then 10 × 2 = 20, then 81 − 20 = 61."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/031",
+      "tier": 5,
+      "prompt": "(6 − (7 − (13 − 21 ÷ 3)))^2",
+      "choices": [
+        "28",
+        "20",
+        "25",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "21 ÷ 3 = 7, then 13 − 7 = 6, then 7 − 6 = 1, then 6 − 1 = 5, then 5^2 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/032",
+      "tier": 5,
+      "prompt": "(5 + ((5 + 10) ÷ 3)^2) ÷ 10",
+      "choices": [
+        "3",
         "2",
-        "719",
-        "729"
+        "10",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_MULT",
+        "LTR",
+        "ARITH"
+      ],
+      "explanation": "5 + 10 = 15, then 15 ÷ 3 = 5, then 5^2 = 25, then 5 + 25 = 30, then 30 ÷ 10 = 3."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/033",
+      "tier": 5,
+      "prompt": "2^3 ÷ 2 × (9 ÷ 3)",
+      "choices": [
+        "1",
+        "8",
+        "12",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXP_AS_MULT",
+        "ARITH",
+        null,
+        "EXP_AS_MULT"
+      ],
+      "explanation": "9 ÷ 3 = 3, then 2^3 = 8, then 8 ÷ 2 = 4, then 4 × 3 = 12."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/034",
+      "tier": 5,
+      "prompt": "8 ÷ 2 × ((6 − 4)^3 ÷ 4)",
+      "choices": [
+        "21",
+        "6",
+        "2",
+        "8"
       ],
       "answer": 3,
       "misconceptions": [
         "EXP_AS_MULT",
         "EXP_AS_MULT",
-        "ARITH",
+        "M_BEFORE_D",
         null
       ],
-      "explanation": "3^2 = 9, then 9 × 6 = 54, then 54 ÷ 6 = 9, then 9^3 = 729."
+      "explanation": "6 − 4 = 2, then 2^3 = 8, then 8 ÷ 4 = 2, then 8 ÷ 2 = 4, then 4 × 2 = 8."
     },
     {
-      "id": "order-of-ops-exponents/t5/040",
+      "id": "order-of-ops-exponents/t5/035",
       "tier": 5,
-      "prompt": "((2 + 10) ÷ 3 − 1)^2",
+      "prompt": "24 ÷ (24 ÷ (6^2 ÷ 9) − 3)",
       "choices": [
-        "12",
-        "6",
         "9",
-        "36"
+        "3",
+        "8",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ADD_FIRST"
+      ],
+      "explanation": "6^2 = 36, then 36 ÷ 9 = 4, then 24 ÷ 4 = 6, then 6 − 3 = 3, then 24 ÷ 3 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/036",
+      "tier": 5,
+      "prompt": "(5 − 2 + 6 ÷ 3)^2",
+      "choices": [
+        "10",
+        "9",
+        "25",
+        "1"
       ],
       "answer": 2,
       "misconceptions": [
         "EXP_AS_MULT",
+        "ADD_FIRST",
+        null,
+        "A_BEFORE_S"
+      ],
+      "explanation": "6 ÷ 3 = 2, then 5 − 2 = 3, then 3 + 2 = 5, then 5^2 = 25."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/037",
+      "tier": 5,
+      "prompt": "(3^3 − 54 ÷ 3^2) ÷ 3",
+      "choices": [
+        "27",
+        "7",
+        "0",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LTR",
+        null,
         "EXP_AS_MULT",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "3^3 = 27, then 3^2 = 9, then 54 ÷ 9 = 6, then 27 − 6 = 21, then 21 ÷ 3 = 7."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/038",
+      "tier": 5,
+      "prompt": "16 ÷ (2^3 − (4 + 2))",
+      "choices": [
+        "8",
+        "510",
+        "11",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AFTER_MULT",
+        "ARITH",
+        "IGNORE_PARENS"
+      ],
+      "explanation": "4 + 2 = 6, then 2^3 = 8, then 8 − 6 = 2, then 16 ÷ 2 = 8."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/039",
+      "tier": 5,
+      "prompt": "(10 ÷ 5 × 2^2 − 2)^2",
+      "choices": [
+        "4",
+        "196",
+        "36",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        "EXP_AFTER_MULT",
         null,
         "ADD_FIRST"
       ],
-      "explanation": "2 + 10 = 12, then 12 ÷ 3 = 4, then 4 − 1 = 3, then 3^2 = 9."
+      "explanation": "2^2 = 4, then 10 ÷ 5 = 2, then 2 × 4 = 8, then 8 − 2 = 6, then 6^2 = 36."
+    },
+    {
+      "id": "order-of-ops-exponents/t5/040",
+      "tier": 5,
+      "prompt": "(6^2 ÷ 6 × (4 − 3))^2",
+      "choices": [
+        "441",
+        "36",
+        "15",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_PARENS",
+        null,
+        "IGNORE_PARENS",
+        "EXP_AS_MULT"
+      ],
+      "explanation": "4 − 3 = 1, then 6^2 = 36, then 36 ÷ 6 = 6, then 6 × 1 = 6, then 6^2 = 36."
     }
   ]
 }

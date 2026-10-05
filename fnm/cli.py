@@ -46,8 +46,9 @@ def cmd_emit(cid, root, profile) -> int:
     written = emit.emit_maps(cid, root, profile)
     if not written:
         print("warning: no maps registered (maps/*/map.json); no Verse slot written")
+    count = len(emit.baked_cartridges(root))
     for mid, path, prof in written:
-        print(f"emitted {_rel(path, root)} (map {mid}, profile {prof})")
+        print(f"emitted {_rel(path, root)} (map {mid}, profile {prof}, {count} cartridge(s))")
     j = emit.emit_js(root)
     print(f"emitted {_rel(j, root)} (all baked cartridges, profile unicode)")
     return 0
@@ -100,8 +101,8 @@ def cmd_list(root) -> int:
     for mid in mids:
         m = maps.load_map(mid, root)
         slot = maps.read_slot(mid, root)
-        held = (f"slot: {slot.get('id')} {slot.get('version')} ({slot.get('profile')})"
-                if slot else "slot: empty")
+        held = ("slot: " + ", ".join(f"{c['id']} {c['version']}" for c in slot["cartridges"])
+                + f" ({slot.get('profile')})" if slot and slot["cartridges"] else "slot: empty")
         print(f"  {mid}  \"{m.get('title')}\"  max_choices {m.get('max_choices')}  "
               f"profile {m.get('render_profile')}  {held}")
     return 0
@@ -118,7 +119,11 @@ def main(argv=None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     for name in ("validate", "bake", "insert", "new", "emit", "sync"):
         p = sub.add_parser(name)
-        p.add_argument("id", help="map id" if name == "sync" else "cartridge id")
+        if name == "emit":
+            p.add_argument("id", nargs="?", default=None,
+                           help="optional cartridge id (must be baked); the slot always holds every baked cartridge")
+        else:
+            p.add_argument("id", help="map id" if name == "sync" else "cartridge id")
         if name in ("insert", "emit"):
             p.add_argument("--profile", choices=PROFILES, default=None,
                            help="override every map's render_profile for the Verse slot")

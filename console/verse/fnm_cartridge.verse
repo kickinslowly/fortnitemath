@@ -22,5 +22,7 @@ fnm_cartridge := struct:
     Version : string
     Title : string
     Subtitle : string
+    # The manifest's grade, the picker's grouping key (§6b). Added 2026-10-04 with the picker.
+    Grade : string
     Tiers : []fnm_tier
     Items : []fnm_item

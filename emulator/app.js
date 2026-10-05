@@ -115,6 +115,34 @@
 
   function tierCount(cart) { return (cart.tiers || []).length; }
 
+  // §6b picker order: grades ascending — numeric when every present grade parses as a number,
+  // else string order — then title within a grade. Cartridges with no grade go last ("Other").
+  function gradeOf(cart) {
+    var g = cart && cart.grade != null ? String(cart.grade).trim() : "";
+    return g;
+  }
+  function isNumeric(g) { return g !== "" && isFinite(Number(g)); }
+  function compareGrades(a, b, numeric) {
+    if (numeric) return Number(a) - Number(b);
+    return a < b ? -1 : a > b ? 1 : 0;
+  }
+  function titleOf(e) { return String((e.cart && e.cart.title) || e.key); }
+  function groupByGrade(list) {
+    var byGrade = {}, grades = [], other = [];
+    list.forEach(function (e) {
+      var g = gradeOf(e.cart);
+      if (!g) { other.push(e); return; }
+      if (!byGrade[g]) { byGrade[g] = []; grades.push(g); }
+      byGrade[g].push(e);
+    });
+    var numeric = grades.every(isNumeric);
+    grades.sort(function (a, b) { return compareGrades(a, b, numeric); });
+    var byTitle = function (x, y) { var a = titleOf(x), b = titleOf(y); return a < b ? -1 : a > b ? 1 : 0; };
+    var groups = grades.map(function (g) { return { grade: g, label: "Grade " + g, carts: byGrade[g].sort(byTitle) }; });
+    if (other.length) groups.push({ grade: "", label: "Other", carts: other.sort(byTitle) });
+    return groups;
+  }
+
   function cartProblem(cart) {
     if (!cart || typeof cart !== "object") return "not an object";
     if (!Array.isArray(cart.tiers) || !cart.tiers.length) return "no tiers";
@@ -303,7 +331,7 @@
       }).join("") + '</div>' +
       '<span class="muted small">Items with more choices drop distractors (ARITH first) to fit.</span>' +
       '</div>';
-    var cards = list.map(function (e) {
+    var card = function (e) {
       var c = e.cart, bad = cartProblem(c);
       if (bad) {
         return '<article class="card bad"><h2 class="card-title">' + esc(e.key) + '</h2>' +
@@ -326,8 +354,13 @@
         '<div class="card-foot"><span class="muted">' + c.items.length + ' items · ' + c.tiers.length + ' tier' + (c.tiers.length === 1 ? '' : 's') + '</span>' +
         '<button class="btn go" data-act="play" data-cart="' + esc(e.key) + '" data-testid="play">Play</button></div>' +
         '</article>';
+    };
+    var groups = groupByGrade(list).map(function (g) {
+      return '<section class="grade-group">' +
+        '<h2 class="grade-h" data-testid="grade-heading" data-grade="' + esc(g.grade) + '">' + esc(g.label) + '</h2>' +
+        '<div class="cards">' + g.carts.map(card).join("") + '</div></section>';
     }).join("");
-    return '<main class="screen select"><div class="controls">' + stagesCtl + doorsCtl + '</div>' + '<section class="cards">' + cards + '</section></main>';
+    return '<main class="screen select"><div class="controls">' + stagesCtl + doorsCtl + '</div>' + groups + '</main>';
   }
 
   function viewInspect(list) {

@@ -123,14 +123,20 @@ def reduce_item(item: dict, max_choices: int) -> dict:
 
 
 def read_slot(mid: str, root: Path | None = None) -> dict | None:
+    """{"cartridges": [{"id", "version"}, ...] in picker order, "profile": str}, or None if never emitted."""
     p = maps_dir(root) / mid / SLOT_DIR / SLOT_TXT
     if not p.exists():
         return None
-    out = {}
+    out: dict = {"cartridges": [], "profile": None}
     for line in p.read_text(encoding="utf-8").splitlines():
-        if "=" in line and not line.startswith("#"):
-            k, v = line.split("=", 1)
-            out[k.strip()] = v.strip()
+        if "=" not in line or line.startswith("#"):
+            continue
+        k, v = (s.strip() for s in line.split("=", 1))
+        if k == "cartridge":
+            cid, _, version = v.partition(" ")
+            out["cartridges"].append({"id": cid, "version": version})
+        else:
+            out[k] = v
     return out
 
 

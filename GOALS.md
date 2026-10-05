@@ -73,3 +73,34 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] integer-ops 1.1.0: T3 ARITH 67% → 34% via MUL_FOR_DIV and ADD_FOR_MUL (review ADD_FOR_MUL's wording: it is
   operation confusion more than a sign rule); T4/T5 drop items with a zero intermediate. Not yet inserted into the map
 - [x] Verse root is `<project>/Content/` (verified); `fnm sync starter` works
+
+## G5 — Skill picker and the simple-numbers rule (Aaron, 2026-10-04)
+"User chooses the math skill to practice when they first load in, like a load-in lobby: choose grade level, then
+the skill." Fortnite has no custom pre-game lobby and islands cannot load content at runtime, so the slot now
+holds every inserted cartridge and the choice is an in-game HUD menu per player (PROTOCOL §6b, §7). Standing
+content rule from the same conversation: simple numbers, concept over arithmetic (PROTOCOL §4a).
+- [x] Compile ceiling checked first: 12 cartridges × 200 items (862 KB) build clean in 2.4 s; disproof with a
+  planted unknown identifier reported on line 2606 (PROTOCOL O4). Cook/runtime memory still only proven at the
+  real cartridge count
+- [x] Toolchain: slot = one `FnmCartridge_<id>()` per baked cartridge + `FnmCartridges()` registry in picker
+  order (grade, then title); `fnm insert <id>` emits every baked cartridge; SLOT.txt lists them all;
+  `fnm emit` needs no id; `Grade` added to `fnm_cartridge` (§8); lint and tests updated; `build_course.py`
+  reads the new SLOT.txt
+- [x] Verse (2026-10-04 night): per-player cartridge, grade → skill picker with real `button_loud`/`button_regular`
+  widgets on their own `InputMode := All` root, CHANGE SKILL under the finish board, `DebugAutoPick` hook; guards and
+  doors ignore a player who is picking; a skill change starts a fresh personal best. Compiles clean (3506 proof);
+  headless flow seen in the editor log: `2 cartridges`, `picked integer-ops (grade 7)`, full auto-right run to
+  the finish board, `picker shown: 2 grades, 2 skills` at ship values
+- [ ] **Unverified in play** (Aaron was in Dota, client minimized, no input sent): the picker's look, whether
+  `ui_input_mode.All` shows a cursor and a real click reaches `OnClick`, the CHANGE SKILL button's spacing under
+  a 5-row board. Recipe: one session at ship values with `DebugAutoRightAnswers` on: click grade → skill →
+  auto-run finishes → click CHANGE SKILL → pick the other skill; expect `FNM: grade 7 chosen`, `picked …`,
+  `change skill` in the editor log. Takes the foreground: only when Aaron is free
+- [x] Simple-numbers rebake of both cartridges to 1.2.0 (seeds kept): new per-item bounds tests went red on 130/200
+  old order-of-ops items and 105/200 old integer items, green on the rebake; Fable's independent ast re-check of
+  all 400 answers and bounds found nothing; no tier near its attempt budget
+- [x] Emulator: home screen grouped by grade in §6b order (e2e 13 → 17); "Play again" already existed
+- [ ] Aaron playtest: pick a skill on the menu with a real click, finish, change skill; judge the new number
+  sizes in play (samples per tier in the 2026-10-04 build report; e.g. T5 `24 ÷ (24 ÷ (6^2 ÷ 9) − 3)`)
+- [ ] Decision for Aaron: the finish board's island record mixes skills now that players can pick different ones;
+  per-skill boards or one mixed board?

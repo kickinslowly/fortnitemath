@@ -8,7 +8,15 @@
 # Why tags: UEFN 42.30 rejected trigger/teleporter references in this device's @editable arrays from
 # both MCP and the Details panel ("is not valid trigger_device"), while tags set cleanly.
 #
-# Per player: own stage, own question, own HUD, own draw decks (PROTOCOL 6).
+# Per player: own cartridge, own stage, own question, own HUD, own draw decks (PROTOCOL 6).
+# Skill picker (PROTOCOL 6b): the slot holds every inserted cartridge (FnmCartridges(), registry order = grade
+# ascending, then title). A joining player is held still at station 1 and picks a grade, then a skill, on a HUD
+# menu (real Verse buttons); the grade step is skipped when only one grade exists, the menu when only one
+# cartridge does. Then the countdown starts their run. The finish board offers CHANGE SKILL (a fresh personal
+# best); otherwise the next run keeps the skill. Guards ignore a player who is picking.
+# Test hooks (all @editable, ship values in brackets): DebugAutoPick (-1) picks Cartridges[N] on join with no menu,
+# which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
+# (-1), DebugAutoRightAnswers (false), DebugStartStage (0).
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
 # Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
@@ -55,6 +63,24 @@ fnm_station := class:
 fnm_player_state := class:
     Player : player
     Hud : fnm_hud
+    # The player's chosen cartridge (PROTOCOL 6b): its index in the director's Cartridges (-1 = not picked yet),
+    # the cartridge itself, its tier count and per-tier item pools.
+    var CartridgeIndex : int = -1
+    var Cartridge : fnm_cartridge = fnm_cartridge:
+        Protocol := ""
+        Id := ""
+        Version := ""
+        Title := ""
+        Subtitle := ""
+        Grade := ""
+        Tiers := array{}
+        Items := array{}
+    var TierCount : int = 0
+    var TierPools : [][]int = array{}
+    # True while the skill picker is up for this player: doors and guards ignore them, the clock is stopped.
+    var Picking : logic = false
+    # Times this player has picked a skill (the debug hooks start on the first pick only).
+    var Picks : int = 0
     # 1-based stage; stage s is played at Stations[s - 1].
     var Stage : int = 1
     # Remaining shuffled item indices per tier (index t - 1 for tier t).
@@ -87,7 +113,7 @@ fnm_door_handler := class:
     OnTriggered(MaybeAgent:?agent):void =
         Director.OnDoor(MaybeAgent, StationIndex, DoorIndex)
 
-fnm_director := class(creative_device):
+fnm_director := class(creative_device, fnm_picker_listener):
     # Optional difficulty position per station in percent (0 easiest .. 100 hardest); -1 or a missing
     # entry = automatic, spread evenly from first station to last (PROTOCOL 6).
     @editable
@@ -196,6 +222,10 @@ fnm_director := class(creative_device):
     # station 1 (ship value 0).
     @editable
     DebugStartStage : int = 0
+    # Test hook: each joining player picks Cartridges[DebugAutoPick] at once, with no menu (also after CHANGE
+    # SKILL), so tools/playtest.py and every other debug hook run headless. -1 = off, the menu shows (ship value).
+    @editable
+    DebugAutoPick : int = -1
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -252,17 +282,10 @@ fnm_director := class(creative_device):
     @editable
     EndGameDelaySeconds : float = 10.0
 
-    var Cartridge : fnm_cartridge = fnm_cartridge:
-        Protocol := ""
-        Id := ""
-        Version := ""
-        Title := ""
-        Subtitle := ""
-        Tiers := array{}
-        Items := array{}
+    # Every cartridge in the slot (FnmCartridges(), picker order) and, per cartridge, its per-tier item pools.
+    var Cartridges : []fnm_cartridge = array{}
+    var CartridgePools : [][][]int = array{}
     var Stations : []fnm_station = array{}
-    var TierCount : int = 0
-    var TierPools : [][]int = array{}
     var PlayerStates : [player]fnm_player_state = map{}
     var Ready : logic = false
     var IceRig : fnm_rig = fnm_rig{Name := "ice", Parts := array{}, Homes := array{}}
@@ -286,9 +309,15 @@ fnm_director := class(creative_device):
     var GuardsSpawned : int = 0
 
     OnBegin<override>()<suspends>:void =
-        set Cartridge = FnmActiveCartridge()
-        set TierCount = Cartridge.Tiers.Length
-        set TierPools = FnmBuildTierPools(Cartridge.Items, TierCount)
+        set Cartridges = FnmCartridges()
+        set CartridgePools = for (Each : Cartridges) { FnmBuildTierPools(Each.Items, Each.Tiers.Length) }
+        var Listing : string = ""
+        for (K -> Each : Cartridges):
+            Separator := if (K > 0) then ", " else ""
+            set Listing += "{Separator}{Each.Id} (grade {Each.Grade})"
+        Print("FNM: {Cartridges.Length} cartridges: {Listing}")
+        for (Each : Cartridges, Each.Tiers.Length = 0):
+            Print("FNM: cartridge {Each.Id} has no tiers")
         set Stations = BuildStations()
         set Penalties = FnmMapPenalties()
         set IceRig = BuildRig("ice", fnm_ice)
@@ -315,8 +344,8 @@ fnm_director := class(creative_device):
         Print("FNM: screen fx frost {FnmYesNo(if (FrostFx?) then true else false)}, mud {FnmYesNo(if (MudFx?) then true else false)}, dizzy {FnmYesNo(if (DizzyFx?) then true else false)}; {Penalties.Length} penalties in the pool")
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
-        else if (TierCount = 0):
-            Print("FNM: the active cartridge has no tiers.")
+        else if (Cartridges.Length = 0):
+            Print("FNM: the slot holds no cartridges")
         else:
             WarnAboutDoorCounts()
             for (StationIndex -> Station : Stations):
@@ -434,7 +463,8 @@ fnm_director := class(creative_device):
     # True while any player still racing is on stage Index + 1 (in that station's hallway).
     StationOccupied(Index:int):logic =
         var Found : logic = false
-        for (State : PlayerStates, not State.Finished?, State.Stage = Index + 1):
+        # A player choosing a skill is held still at station 1: no guards for them.
+        for (State : PlayerStates, not State.Finished?, not State.Picking?, State.Stage = Index + 1):
             set Found = true
         Found
 
@@ -490,6 +520,8 @@ fnm_director := class(creative_device):
             SendTo(State.Player, Station.RetryTeleporter)
         GiveLoadout(State.Player)
         Print("FNM: respawned at stage {Stage}")
+        if (State.Picking?):
+            HoldStill(State)
         if (not State.Busy?, not State.Finished?):
             spawn{ FlashNotice(State, "Eliminated! Back to the start of station {Stage}.") }
 
@@ -499,10 +531,10 @@ fnm_director := class(creative_device):
             set Found = option{Device}
         Found
 
-    # A station with fewer doors than an item has choices could hide the right answer.
+    # A station with fewer doors than an item has choices could hide the right answer (any cartridge's item).
     WarnAboutDoorCounts():void =
         var MostChoices : int = 0
-        for (Item : Cartridge.Items):
+        for (Each : Cartridges, Item : Each.Items):
             set MostChoices = Max(MostChoices, Item.Choices.Length)
         for (StationIndex -> Station : Stations, Station.Doors.Length < MostChoices):
             StationNumber := StationIndex + 1
@@ -524,59 +556,178 @@ fnm_director := class(creative_device):
             if (set Remaining[Key] = Value) {}
         set PlayerStates = Remaining
 
+    # A joining player: HUD up, held still at station 1, then the skill picker (or an automatic pick).
     StartPlayer(Joined:player):void =
         if (Ready?, not PlayerStates[Joined]):
             Hud := fnm_hud{}
             Hud.Attach(Joined)
-            Hud.SetTitle(Cartridge.Title, Cartridge.Subtitle)
-            State := fnm_player_state{Player := Joined, Hud := Hud, Decks := FnmShuffleAll(TierPools)}
+            Hud.SetListener(Self)
+            Hud.SetTitle("Fortnite Math", "Choose your skill")
+            Hud.ClearQuestion()
+            Hud.SetClock(FnmClock(0.0))
+            State := fnm_player_state{Player := Joined, Hud := Hud}
             if (set PlayerStates[Joined] = State) {}
-            DrawItem(State)
-            ShowCurrent(State)
-            State.Hud.SetClock(FnmClock(0.0))
             # Start everyone at station 1 facing the doors, whatever spawn pad the island used.
             if (First := Stations[0]):
                 SendTo(Joined, First.RetryTeleporter)
-            if (DebugStartStage > 1, Start := Stations[DebugStartStage - 1]):
+            HoldStill(State)
+            spawn{ WatchLife(State) }
+            BeginPicking(State)
+
+    # Held still while choosing (they may look around); the countdown releases them.
+    HoldStill(State:fnm_player_state):void =
+        if (Character := State.Player.GetFortCharacter[]):
+            Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := false, AllowEmotes := false})
+
+    # ---------------------------------------------------------------- skill picker (PROTOCOL 6b)
+
+    # The distinct grades in the slot, in registry order (the registry is sorted by grade, so this is 6b's order).
+    GradeList():[]string =
+        var Grades : []string = array{}
+        for (Each : Cartridges):
+            var Seen : logic = false
+            for (Grade : Grades, Grade = Each.Grade):
+                set Seen = true
+            if (not Seen?):
+                set Grades += array{Each.Grade}
+        Grades
+
+    # Picks for the player at once (DebugAutoPick, or a slot with one cartridge), else shows the picker: the grade
+    # step, or straight to the skill step when there is only one grade.
+    BeginPicking(State:fnm_player_state):void =
+        set State.Picking = true
+        if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
+            Pick(State, DebugAutoPick)
+        else if (Cartridges.Length = 1):
+            Pick(State, 0)
+        else:
+            if (DebugAutoPick >= 0):
+                Print("FNM: DebugAutoPick {DebugAutoPick} is out of range ({Cartridges.Length} cartridges); showing the picker")
+            Grades := GradeList()
+            if (Grades.Length = 1, Only := Grades[0]):
+                ShowSkills(State, Only, false)
+            else:
+                State.Hud.ShowGradeStep(Grades)
+            Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
+
+    # The skill step for Grade: every cartridge of that grade, registry order, labelled "Title  -  Subtitle".
+    ShowSkills(State:fnm_player_state, Grade:string, WithBack:logic):void =
+        var Labels : []string = array{}
+        var Indices : []int = array{}
+        for (K -> Each : Cartridges, Each.Grade = Grade):
+            set Labels += array{if (Each.Subtitle = "") then Each.Title else "{Each.Title}  -  {Each.Subtitle}"}
+            set Indices += array{K}
+        State.Hud.ShowSkillStep(Grade, Labels, Indices, WithBack)
+
+    # A click on one of the player's HUD buttons (fnm_hud only reports clicks by its own player).
+    OnPickerChoice<override>(Player:player, Kind:fnm_pick, Index:int):void =
+        if (State := PlayerStates[Player]):
+            # A picker click while not picking is a late click on a step that is already gone: ignored.
+            if (Kind = fnm_pick.ChangeSkill):
+                if (State.Finished?, not State.Picking?):
+                    ChangeSkill(State)
+            else if (State.Picking?):
+                if (Kind = fnm_pick.Grade):
+                    Grades := GradeList()
+                    if (Grade := Grades[Index]):
+                        Print("FNM: grade {Grade} chosen")
+                        ShowSkills(State, Grade, if (Grades.Length > 1) then true else false)
+                else if (Kind = fnm_pick.Skill):
+                    Pick(State, Index)
+                else:
+                    Print("FNM: picker back")
+                    State.Hud.ShowGradeStep(GradeList())
+
+    # Gives the player cartridge Index: its tiers, pools, fresh decks and title; then the first question, the
+    # loadout and the countdown. The debug hooks start on the first pick (they read the player's cartridge live).
+    Pick(State:fnm_player_state, Index:int):void =
+        if (Chosen := Cartridges[Index], Pools := CartridgePools[Index]):
+            set State.Picking = false
+            set State.Picks += 1
+            set State.CartridgeIndex = Index
+            set State.Cartridge = Chosen
+            set State.TierCount = Chosen.Tiers.Length
+            set State.TierPools = Pools
+            set State.Decks = FnmShuffleAll(Pools)
+            set State.Stage = 1
+            State.Hud.HidePicker()
+            State.Hud.SetTitle(Chosen.Title, Chosen.Subtitle)
+            DrawItem(State)
+            ShowCurrent(State)
+            State.Hud.SetClock(FnmClock(0.0))
+            Print("FNM: picked {Chosen.Id} (grade {Chosen.Grade}) for the player")
+            if (State.Picks = 1, DebugStartStage > 1, Start := Stations[DebugStartStage - 1]):
                 set State.Stage = DebugStartStage
                 DrawItem(State)
                 ShowCurrent(State)
-                SendTo(Joined, Start.RetryTeleporter)
+                SendTo(State.Player, Start.RetryTeleporter)
                 Print("FNM: debug start at stage {DebugStartStage}")
-            GiveLoadout(Joined)
+            GiveLoadout(State.Player)
+            # The countdown holds them again; release the picker's hold first so the two never stack.
+            if (Character := State.Player.GetFortCharacter[]):
+                Character.ReleaseFromStasis()
             spawn{ Countdown(State) }
-            spawn{ WatchLife(State) }
-            if (DebugAutoWrongAnswers > 0):
-                spawn{ DebugAutoWrong(State) }
-            if (DebugPassageTest?):
-                spawn{ DebugPassage(State) }
-            if (DebugDoorTest >= 0):
-                spawn{ DebugDoor(State) }
-            if (DebugAutoRightAnswers?):
-                spawn{ DebugAutoRight(State) }
+            if (State.Picks = 1):
+                if (DebugAutoWrongAnswers > 0):
+                    spawn{ DebugAutoWrong(State) }
+                if (DebugPassageTest?):
+                    spawn{ DebugPassage(State) }
+                if (DebugDoorTest >= 0):
+                    spawn{ DebugDoor(State) }
+                if (DebugAutoRightAnswers?):
+                    spawn{ DebugAutoRight(State) }
+
+    # CHANGE SKILL on the finish board: cancels the pending next run, resets the run, and starts a fresh personal
+    # best (times across skills are not comparable, 6b); then the picker again, from station 1.
+    ChangeSkill(State:fnm_player_state):void =
+        set State.RunGeneration += 1
+        State.Hud.HideChangeSkill()
+        State.Hud.HideResults()
+        for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
+            Passage.RemoveFromIgnoreList(State.Player)
+        set State.Stage = 1
+        set State.FirstTryCorrect = 0
+        set State.Streak = 0
+        set State.BestStreak = 0
+        set State.BestTime = -1.0
+        set State.Finished = false
+        set State.Busy = false
+        set State.CurrentItem = -1
+        State.Hud.SetCountdown("")
+        State.Hud.SetTarget("")
+        State.Hud.SetStreak("")
+        State.Hud.ClearVerdictNow()
+        State.Hud.SetTitle("Fortnite Math", "Choose your skill")
+        State.Hud.ClearQuestion()
+        State.Hud.SetClock(FnmClock(0.0))
+        if (First := Stations[0]):
+            SendTo(State.Player, First.RetryTeleporter)
+        HoldStill(State)
+        Print("FNM: change skill")
+        BeginPicking(State)
 
     # ---------------------------------------------------------------- questions
 
-    # Tier for stage Stage, honouring that station's DifficultyOverride.
-    StationTier(Stage:int):int =
+    # Tier for stage Stage of the player's cartridge, honouring that station's DifficultyOverride.
+    StationTier(State:fnm_player_state, Stage:int):int =
         var OverridePercent : int = -1
         if (Station := Stations[Stage - 1]):
             set OverridePercent = Station.DifficultyOverride
-        FnmTierForStage(Stage, Stations.Length, TierCount, OverridePercent)
+        FnmTierForStage(Stage, Stations.Length, State.TierCount, OverridePercent)
 
     # Draws the player's next item for their current stage (without replacement, per player).
     DrawItem(State:fnm_player_state):void =
-        Tier := StationTier(State.Stage)
-        if (Pool := TierPools[Tier - 1], Deck := State.Decks[Tier - 1]):
+        Tier := StationTier(State, State.Stage)
+        if (Pool := State.TierPools[Tier - 1], Deck := State.Decks[Tier - 1]):
             Draw := FnmDraw(Deck, Pool)
             if (set State.Decks[Tier - 1] = Draw.Rest) {}
             set State.CurrentItem = Draw.ItemIndex
             set State.MissedCurrent = false
 
     ShowCurrent(State:fnm_player_state):void =
-        if (Item := Cartridge.Items[State.CurrentItem]):
+        if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
-            TierName := FnmTierName(Cartridge.Tiers, Item.Tier)
+            TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
             StageLine := "Stage {State.Stage}/{StageCount}  -  {TierName}"
             State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Item.Choices))
 
@@ -591,7 +742,7 @@ fnm_director := class(creative_device):
 
     OnDoor(MaybeAgent:?agent, StationIndex:int, DoorIndex:int):void =
         if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor]):
-            if (not State.Finished?, not State.Busy?):
+            if (not State.Finished?, not State.Busy?, not State.Picking?):
                 if (StationIndex = State.Stage - 1):
                     set State.Busy = true
                     spawn{ HandleDoor(State, StationIndex, DoorIndex) }
@@ -600,7 +751,7 @@ fnm_director := class(creative_device):
                 # An earlier station: they are walking back through a door they already passed. Ignore.
 
     HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =
-        if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
+        if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
             if (DoorIndex >= Item.Choices.Length):
                 set State.Busy = false
                 Letter := FnmChoiceLetter(DoorIndex)
@@ -659,7 +810,7 @@ fnm_director := class(creative_device):
     DebugAutoWrong(State:fnm_player_state)<suspends>:void =
         for (N := 1..DebugAutoWrongAnswers):
             Sleep(12.0)
-            if (Item := Cartridge.Items[State.CurrentItem], not State.Busy?, not State.Finished?):
+            if (Item := State.Cartridge.Items[State.CurrentItem], not State.Busy?, not State.Finished?):
                 set State.Busy = true
                 Print("FNM: debug auto-wrong {N}")
                 Wrong := if (Item.Answer = 0) then 1 else 0
@@ -677,11 +828,12 @@ fnm_director := class(creative_device):
             if (State.Finished?):
                 set Finishes += 1
                 if (Finishes >= 2) then break
+                # (After CHANGE SKILL, also until the new skill is picked.)
                 loop:
                     Sleep(0.5)
-                    if (not State.Finished?) then break
+                    if (not State.Finished?, not State.Picking?) then break
                 Sleep(CountdownStepSeconds * 3.0 + 2.0)
-            if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[State.Stage - 1], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+            if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[State.Stage - 1], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
                 Stage := State.Stage
                 if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                     Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Item.Answer)}")
@@ -706,7 +858,7 @@ fnm_director := class(creative_device):
 
     DebugPassage(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
-        if (Item := Cartridge.Items[State.CurrentItem], Station := Stations[0], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+        if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[0], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
             Spot := Door.GetTransform().Translation
             if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                 Print("FNM: debug passage: dropped into vestibule {FnmChoiceLetter(Item.Answer)} at {Spot}")
@@ -714,7 +866,7 @@ fnm_director := class(creative_device):
                 Sleep(1.0)
                 Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
             # Then behind a WRONG door's trigger at the current station, facing its (closed) barrier.
-            if (Next := Cartridge.Items[State.CurrentItem], Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (Next.Answer = 0) then 1 else 0]):
+            if (Next := State.Cartridge.Items[State.CurrentItem], Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (Next.Answer = 0) then 1 else 0]):
                 Behind := Wrong.GetTransform().Translation + vector3{X := 0.0, Y := 350.0, Z := 0.0}
                 if (Character.TeleportTo[Behind, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                     Print("FNM: debug passage: behind a wrong door at {Behind}")
@@ -967,6 +1119,8 @@ fnm_director := class(creative_device):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
         else:
+            if (Cartridges.Length > 1):
+                State.Hud.ShowChangeSkill()
             spawn{ NextRun(State) }
 
     # Puts Who's Time on the board: replaces their row only when faster, else adds one; fastest first, capped
@@ -997,17 +1151,19 @@ fnm_director := class(creative_device):
         set Board = for (K -> Row : Sorted, K < BoardSize) { Row }
 
     # Results for RestartSeconds (with a countdown), then a fresh run from station 1: barriers closed again for
-    # this player, new questions, streak and clock reset.
+    # this player, new questions, streak and clock reset; same skill. CHANGE SKILL (ChangeSkill) bumps RunGeneration,
+    # which cancels this.
     NextRun(State:fnm_player_state)<suspends>:void =
         Generation := State.RunGeneration
         var Left : int = Max(1, RestartSeconds)
         loop:
-            if (Left <= 0) then break
+            if (Left <= 0 or State.RunGeneration <> Generation) then break
             State.Hud.SetCountdown("Next run in {Left}")
             Sleep(1.0)
             set Left -= 1
         if (not PlayerStates[State.Player] or State.RunGeneration <> Generation):
             return
+        State.Hud.HideChangeSkill()
         State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)

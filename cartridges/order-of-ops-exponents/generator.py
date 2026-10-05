@@ -282,8 +282,13 @@ def render(node, parent_prec: int = 0, side: str = "L") -> str:
 # ---------------------------------------------------------------------------------------------
 # Value-aware random construction (keeps every intermediate a non-negative integer, ÷ exact)
 # ---------------------------------------------------------------------------------------------
-MAX_VALUE = 999
-MAX_LEAF = 100  # no number in a prompt larger than this (keeps 6th-grade mental math sane)
+# PROTOCOL §4a (concept over arithmetic): the arithmetic around the concept stays mental math.
+MAX_VALUE = 100  # every intermediate value and the answer: integers 0..100
+MAX_DISTRACTOR = 999  # wrong choices: whatever a misreading produces, up to this
+MAX_LEAF = 100  # a bare dividend (divisor × quotient, both 2..10); every other literal is smaller
+MAX_ADDEND = 20  # a literal under + or −
+MAX_FACTOR = 10  # factors, divisors, quotients, power bases; every × operand value
+MAX_CUBE_BASE = 4  # cubes of 2..4 only (power results <= 100)
 
 
 class _Retry(Exception):
@@ -298,7 +303,7 @@ def _val(node) -> int:
 
 
 def _leaf(rng: random.Random) -> int:
-    return rng.randint(2, 12)
+    return rng.randint(2, MAX_FACTOR)
 
 
 def _build(rng: random.Random, n_ops: int, ops: tuple, max_pow: int):
@@ -315,38 +320,44 @@ def _build(rng: random.Random, n_ops: int, ops: tuple, max_pow: int):
         if isinstance(base, int):
             base = rng.randint(2, 10)
             bv = base
-        if not 2 <= bv <= 10:
+        if not 2 <= bv <= MAX_FACTOR:
             raise _Retry
-        exps = [e for e in (2, 3) if bv ** e <= 1000]
+        exps = [e for e in (2, 3) if bv ** e <= MAX_VALUE]
         return (POW, base, rng.choice(exps))
     k = rng.randint(0, n_ops - 1)
     left = _build(rng, k, ops, max_pow)
     right = _build(rng, n_ops - 1 - k, ops, max_pow - _count(left, POW))
     lv, rv = _val(left), _val(right)
-    if op == DIV:
+    if op == DIV:  # exact; divisor and quotient 2..10
         if isinstance(right, int):
-            divs = [d for d in range(2, 13) if lv % d == 0 and lv // d >= 1]
+            divs = [d for d in range(2, MAX_FACTOR + 1)
+                    if lv % d == 0 and 2 <= lv // d <= MAX_FACTOR]
             if not divs:
                 if isinstance(left, int):
-                    right = rng.randint(2, 9)
-                    left = right * rng.randint(2, 9)
+                    right = rng.randint(2, MAX_FACTOR)
+                    left = right * rng.randint(2, MAX_FACTOR)
                 else:
                     raise _Retry
             else:
                 right = rng.choice(divs)
         elif isinstance(left, int):
-            if rv < 2:
+            if not 2 <= rv <= MAX_FACTOR:
                 raise _Retry
-            left = rv * rng.randint(2, 9)
-        elif rv < 2 or lv % rv:
+            left = rv * rng.randint(2, MAX_FACTOR)
+        elif not 2 <= rv <= MAX_FACTOR or lv % rv or not 2 <= lv // rv <= MAX_FACTOR:
             raise _Retry
-    elif op == SUB:
+    elif op == MUL:  # both operand values <= 10 (a group's value counts)
+        if lv > MAX_FACTOR or rv > MAX_FACTOR:
+            raise _Retry
+    elif op == SUB:  # literals under − are 2..20
         if isinstance(right, int):
-            if lv < 2:
+            if lv < 3:
                 raise _Retry
-            right = rng.randint(1, min(lv - 1, 20))
+            right = rng.randint(2, min(lv - 1, MAX_ADDEND))
         elif isinstance(left, int):
-            left = rv + rng.randint(1, 12)
+            if rv + 2 > MAX_ADDEND:
+                raise _Retry
+            left = rv + rng.randint(max(1, 2 - rv), min(12, MAX_ADDEND - rv))
         elif lv <= rv:
             raise _Retry
     if any(isinstance(x, int) and x > MAX_LEAF for x in (left, right)):
@@ -364,12 +375,44 @@ def _count(node, op) -> int:
     return (node[0] == op) + _count(node[1], op) + _count(node[2], op)
 
 
+def _literals_ok(text: str) -> bool:
+    """§4a literal sizes: under + − 2..20; factors, divisors and power bases 2..10; a bare
+    dividend <= 100 (its quotient is a step check); exponents 2..3."""
+    lims = {ADD: (2, MAX_ADDEND, 2, MAX_ADDEND), SUB: (2, MAX_ADDEND, 2, MAX_ADDEND),
+            MUL: (2, MAX_FACTOR, 2, MAX_FACTOR), DIV: (2, MAX_LEAF, 2, MAX_FACTOR),
+            POW: (2, MAX_FACTOR, 2, 3)}
+
+    def ok(node) -> bool:
+        if isinstance(node, int):
+            return True
+        op, l, r = node
+        llo, lhi, rlo, rhi = lims[op]
+        if isinstance(l, int) and not llo <= l <= lhi:
+            return False
+        if isinstance(r, int) and not rlo <= r <= rhi:
+            return False
+        return ok(l) and ok(r)
+
+    return ok(parse(tokenize(text), RULES["CORRECT"]))
+
+
 def _all_steps_ok(text: str) -> bool:
+    """THE §4a gate: every correct step (the trace) and every literal within the bounds."""
     try:
         steps = trace(text)
     except Invalid:
         return False
-    return all(v.denominator == 1 and 0 <= v <= MAX_VALUE for *_, v in steps)
+    for op, a, b, v in steps:
+        if v.denominator != 1 or not 0 <= v <= MAX_VALUE:
+            return False
+        if op == MUL and (a > MAX_FACTOR or b > MAX_FACTOR or a == 0 or b == 0):
+            return False
+        if op == DIV and not (2 <= b <= MAX_FACTOR and 2 <= v <= MAX_FACTOR):
+            return False
+        if op == POW and not (b in (2, 3)
+                              and 2 <= a <= (MAX_FACTOR if b == 2 else MAX_CUBE_BASE)):
+            return False
+    return _literals_ok(text)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -399,61 +442,59 @@ class TierSpec:
 
 # --- Same-level templates: order WITHIN a precedence level matters. Numbers are chosen so the
 # --- literal-PEMDAS reading is a usable (non-negative integer) distractor.
-def _md_triple(rng, max_a=MAX_LEAF):
-    """b, c >= 2 and k >= 2 with b*c*k <= max_a (so a / (b * c) = k is exact)."""
-    while True:
-        b, c = rng.randint(2, 10), rng.randint(2, 10)
-        top = max_a // (b * c)
-        if top >= 2:
-            return b, c, rng.randint(2, top)
+def _md_pair(rng):
+    """(divisor b, multiplier c, quotient q) for ... ÷ b × c under §4a: b, c, q all 2..10 and
+    c divides q, so the literal-PEMDAS reading ÷ (b × c) is exact too."""
+    c = rng.randint(2, MAX_FACTOR)
+    q = c * rng.randint(1, MAX_FACTOR // c)
+    return rng.randint(2, MAX_FACTOR), c, q
 
 
 def _tpl_div_mul(rng):  # a ÷ b × c
-    b, c, k = _md_triple(rng)
-    return (MUL, (DIV, b * c * k, b), c)
+    b, c, q = _md_pair(rng)
+    return (MUL, (DIV, b * q, b), c)
 
 
-def _tpl_sub_add(rng):  # a − b + c, with a >= b + c
-    b, c = rng.randint(2, 20), rng.randint(2, 20)
-    a = rng.randint(b + c, min(MAX_LEAF, b + c + 30))
+def _tpl_sub_add(rng):  # a − b + c, with a >= b + c, every literal <= 20
+    b, c = rng.randint(2, MAX_ADDEND // 2 - 1), rng.randint(2, MAX_ADDEND // 2 - 1)
+    a = rng.randint(b + c, MAX_ADDEND)
     return (ADD, (SUB, a, b), c)
 
 
 def _tpl_group_div_mul(rng):  # (a ± b) ÷ c × d
-    c, d, k = _md_triple(rng)
-    s = c * d * k
+    c, d, q = _md_pair(rng)
+    s = c * q
     if rng.random() < 0.5:
-        a = rng.randint(2, s - 2)
+        lo, hi = max(2, s - MAX_ADDEND), min(MAX_ADDEND, s - 2)
+        if lo > hi:
+            raise _Retry
+        a = rng.randint(lo, hi)
         return (MUL, (DIV, (ADD, a, s - a), c), d)
-    b = rng.randint(2, 20)
-    if s + b > MAX_LEAF:
+    if s + 2 > MAX_ADDEND:
         raise _Retry
+    b = rng.randint(2, MAX_ADDEND - s)
     return (MUL, (DIV, (SUB, s + b, b), c), d)
 
 
 def _tpl_div_group_mul(rng):  # a ÷ (b + c) × d
-    s = rng.randint(4, 12)
-    d = rng.randint(2, 6)
-    top = MAX_LEAF // (s * d)
-    if top < 2:
-        raise _Retry
-    k = rng.randint(2, top)
+    s = rng.randint(4, MAX_FACTOR)
+    _, d, q = _md_pair(rng)
     b = rng.randint(2, s - 2)
-    return (MUL, (DIV, s * d * k, (ADD, b, s - b)), d)
+    return (MUL, (DIV, s * q, (ADD, b, s - b)), d)
 
 
-def _tpl_sub_group_add(rng):  # a − (b ± c) + d, with a >= (b ± c) + d
+def _tpl_sub_group_add(rng):  # a − (b ± c) + d, with a >= (b ± c) + d, every literal <= 20
     if rng.random() < 0.5:
-        b, c = rng.randint(2, 20), rng.randint(2, 20)
+        b, c = rng.randint(2, 8), rng.randint(2, 8)
         g, inner = b + c, (ADD, b, c)
     else:
-        b = rng.randint(4, 30)
+        b = rng.randint(4, MAX_ADDEND)
         c = rng.randint(2, b - 2)
         g, inner = b - c, (SUB, b, c)
-    d = rng.randint(2, 20)
-    if g + d > MAX_LEAF:
+    if g + 2 > MAX_ADDEND:
         raise _Retry
-    a = rng.randint(g + d, min(MAX_LEAF, g + d + 30))
+    d = rng.randint(2, min(10, MAX_ADDEND - g))
+    a = rng.randint(g + d, MAX_ADDEND)
     return (ADD, (SUB, a, inner), d)
 
 
@@ -512,7 +553,7 @@ def _unicode_len(s: str) -> int:
 
 
 def _usable(v, seen) -> bool:
-    return v is not None and v.denominator == 1 and 0 <= v <= MAX_VALUE and v not in seen
+    return v is not None and v.denominator == 1 and 0 <= v <= MAX_DISTRACTOR and v not in seen
 
 
 def compound_values(text: str, declared, seen) -> list:
@@ -589,7 +630,7 @@ def make_item(text: str, tier: int, declared, answer_pos: int, rng: random.Rando
         if len(wrong) == 3:
             break
         v = correct + off
-        if 0 <= v <= MAX_VALUE and v not in used:
+        if 0 <= v <= MAX_DISTRACTOR and v not in used:
             used.add(v)
             wrong.append(("ARITH", v))
     rng.shuffle(wrong)

@@ -45,7 +45,12 @@ MINUS = "−"  # U+2212, both binary minus and the negative sign
 UNARY = "u−"  # token for a unary minus (never displayed)
 ARITH_OPS = (ADD, SUB, MUL, DIV)
 
-MAX_VALUE = 999
+# PROTOCOL §4a (concept over arithmetic; signs are this topic's concept, so literals are tighter).
+MAX_VALUE = 100  # every intermediate value and the answer: size <= 100
+MAX_DISTRACTOR = 999  # wrong choices: whatever a misreading produces, size <= this
+MAX_ADDEND = 12  # T1/T2 literal sizes 1..12
+MAX_FACTOR = 10  # factors, divisors, quotients, power bases, T4/T5 leaves; every × operand
+MAX_CUBE_BASE = 4  # cubes of 2..4 only (power results <= 100)
 
 
 def num(n) -> str:
@@ -288,7 +293,7 @@ def _eval(node, rule: Rule) -> Fraction:
         v = _correct_step(node.op, a, b)
     if v.denominator != 1:
         raise Invalid("inexact division")
-    if abs(v) > MAX_VALUE:
+    if abs(v) > MAX_DISTRACTOR:
         raise Invalid("value too large")
     return v
 
@@ -310,7 +315,7 @@ def evaluate(text: str, rule: Rule | str = "CORRECT"):
             v = _eval(tree, rule)
     except (Invalid, ZeroDivisionError):
         return None
-    if v.denominator != 1 or abs(v) > MAX_VALUE:
+    if v.denominator != 1 or abs(v) > MAX_DISTRACTOR:
         return None
     return int(v)
 
@@ -496,7 +501,7 @@ def make_item(text: str, tier: int, declared, answer_pos: int, rng: random.Rando
     for v in _arith_candidates(correct, rng):
         if len(wrong) == 3:
             break
-        if abs(v) <= MAX_VALUE and v not in used:
+        if abs(v) <= MAX_DISTRACTOR and v not in used:
             used.add(v)
             wrong.append(("ARITH", v))
     if len(wrong) < 3 or len(expl) > 160 or len(text) > 60:
@@ -529,9 +534,9 @@ def _balanced(count: int, k: int, rng: random.Random) -> list:
 # --- T1: a + b ----------------------------------------------------------------------------------
 def _t1(rng, kind):
     if kind == 0:  # both negative
-        a, b = -rng.randint(1, 20), -rng.randint(1, 20)
+        a, b = -rng.randint(1, MAX_ADDEND), -rng.randint(1, MAX_ADDEND)
     else:  # mixed sign, either order
-        a, b = rng.randint(1, 20), -rng.randint(1, 20)
+        a, b = rng.randint(1, MAX_ADDEND), -rng.randint(1, MAX_ADDEND)
         if rng.random() < 0.5:
             a, b = b, a
         if abs(a) == abs(b):
@@ -542,11 +547,11 @@ def _t1(rng, kind):
 # --- T2: a − b ----------------------------------------------------------------------------------
 def _t2(rng, kind):
     if kind in (0, 1, 2):  # subtract a negative (a either sign)
-        a, b = _nz(rng, -20, 20), -rng.randint(1, 20)
+        a, b = _nz(rng, -MAX_ADDEND, MAX_ADDEND), -rng.randint(1, MAX_ADDEND)
     elif kind == 3:  # negative minus positive
-        a, b = -rng.randint(1, 20), rng.randint(1, 20)
+        a, b = -rng.randint(1, MAX_ADDEND), rng.randint(1, MAX_ADDEND)
     else:  # positive minus bigger positive: crosses zero
-        a, b = rng.randint(1, 19), rng.randint(2, 20)
+        a, b = rng.randint(1, MAX_ADDEND - 1), rng.randint(2, MAX_ADDEND)
         if a >= b:
             return None
     if a == b:
@@ -562,10 +567,10 @@ def _signs(rng, x, y):
 
 def _t3(rng, kind):
     if kind == 0:
-        a, b = _signs(rng, rng.randint(2, 12), rng.randint(2, 12))
+        a, b = _signs(rng, rng.randint(2, MAX_FACTOR), rng.randint(2, MAX_FACTOR))
         op = MUL
-    else:  # every operand (dividend included) within −20..20, exact
-        d = rng.randint(2, 10)
+    else:  # every operand (dividend included) within −20..20, exact; divisor, quotient 2..10
+        d = rng.randint(2, MAX_FACTOR)
         q = rng.randint(2, 20 // d)
         a, b = _signs(rng, d * q, d)
         op = DIV
@@ -601,35 +606,97 @@ def _fill(rng, shape, counter, power_leaf, power_kind):
         idx = counter[0]
         counter[0] += 1
         if idx == power_leaf:
-            base, e = rng.randint(2, 6), rng.choice((2, 2, 3))
+            e = rng.choice((2, 2, 3))
+            base = rng.randint(2, MAX_FACTOR if e == 2 else MAX_CUBE_BASE)
             return Neg(Pow(base, e)) if power_kind == "neg" else Pow(-base, e)
-        v = rng.randint(2, 12)
+        v = rng.randint(2, MAX_FACTOR)
         return -v if rng.random() < 0.5 else v
     op, ls, rs = shape
     left = _fill(rng, ls, counter, power_leaf, power_kind)
     right = _fill(rng, rs, counter, power_leaf, power_kind)
-    if op == DIV:
+    if op == DIV:  # exact; divisor and quotient sizes 2..10
         lv = _value(left)
         if isinstance(right, int):
-            divs = [d for d in range(2, 13) if lv % d == 0]
+            divs = [d for d in range(2, MAX_FACTOR + 1)
+                    if lv % d == 0 and 2 <= abs(lv) // d <= MAX_FACTOR]
             if divs:
                 d = rng.choice(divs)
                 right = -d if rng.random() < 0.5 else d
             elif isinstance(left, int):
-                d = rng.randint(2, 9)
+                d = rng.randint(2, MAX_FACTOR)
                 right = -d if rng.random() < 0.5 else d
-                left = right * rng.choice((-1, 1)) * rng.randint(2, 9)
+                left = right * rng.choice((-1, 1)) * rng.randint(2, MAX_FACTOR)
             else:
                 raise _Retry
         else:
             rv = _value(right)
-            if isinstance(left, int) and 2 <= abs(rv) <= 12:
-                left = rv * rng.choice((-1, 1)) * rng.randint(2, 9)
-            elif rv == 0 or lv % rv:
+            if isinstance(left, int) and 2 <= abs(rv) <= MAX_FACTOR:
+                left = rv * rng.choice((-1, 1)) * rng.randint(2, MAX_FACTOR)
+            elif (not 2 <= abs(rv) <= MAX_FACTOR or lv % rv
+                  or not 2 <= abs(lv) // abs(rv) <= MAX_FACTOR):
                 raise _Retry
+    elif op == MUL:  # both operand values <= 10 in size (a group's value counts)
+        if abs(_value(left)) > MAX_FACTOR or abs(_value(right)) > MAX_FACTOR:
+            raise _Retry
     node = Bin(op, left, right)
-    _value(node)
+    if abs(_value(node)) > MAX_VALUE:
+        raise _Retry
     return node
+
+
+def _steps_ok(text: str, tier: int) -> bool:
+    """THE §4a gate, on the displayed text's correct tree: every intermediate and the answer size
+    <= 100; every × operand <= 10; every ÷ exact with divisor and quotient 2..10; squares of 2..10,
+    cubes of 2..4; literal sizes per tier (T1/T2 1..12, T3+ 2..10; a bare dividend <= 100, T3's
+    <= 20)."""
+    lo, hi = (1, MAX_ADDEND) if tier <= 2 else (2, MAX_FACTOR)
+    dividend_hi = 20 if tier == 3 else 100
+    rule = RULES["CORRECT"]
+
+    def lit(n):
+        if isinstance(n, int):
+            return n
+        if isinstance(n, Neg) and isinstance(n.x, int):
+            return -n.x
+        return None
+
+    def ok(n) -> bool:
+        if lit(n) is not None:
+            return True
+        if isinstance(n, Neg):
+            if not ok(n.x):
+                return False
+        elif isinstance(n, Pow):
+            if lit(n.base) is None:
+                return False
+            b = abs(lit(n.base))
+            if not (n.exp in (2, 3) and 2 <= b <= (MAX_FACTOR if n.exp == 2 else MAX_CUBE_BASE)):
+                return False
+        else:
+            if not (ok(n.l) and ok(n.r)):
+                return False
+            a, b = _eval(n.l, rule), _eval(n.r, rule)
+            la, lb = lit(n.l), lit(n.r)
+            if n.op == DIV:
+                if b == 0 or (a / b).denominator != 1:
+                    return False
+                if not (2 <= abs(b) <= MAX_FACTOR and 2 <= abs(a / b) <= MAX_FACTOR):
+                    return False
+                if la is not None and abs(la) > dividend_hi:
+                    return False
+            else:
+                if n.op == MUL and (abs(a) > MAX_FACTOR or abs(b) > MAX_FACTOR or 0 in (a, b)):
+                    return False
+                if la is not None and not lo <= abs(la) <= hi:
+                    return False
+            if lb is not None and not lo <= abs(lb) <= hi:
+                return False
+        return abs(_eval(n, rule)) <= MAX_VALUE
+
+    try:
+        return ok(parse(text, rule))
+    except (Invalid, ZeroDivisionError):
+        return False
 
 
 def _has_neg_literal(node) -> bool:
@@ -729,7 +796,7 @@ def gen_tier(tier: int, count: int, declared, rng: random.Random, max_attempts: 
         if got is None:
             continue
         text, expl = got
-        if text in prompts:
+        if text in prompts or not _steps_ok(text, tier):
             continue
         item = make_item(text, tier, declared, positions[len(items)], rng, expl)
         if item is None:

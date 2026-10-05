@@ -7,7 +7,7 @@ protocol major version. Neither side knows anything about the other beyond this 
 ```
  cartridges/<id>/                fnm (Python toolchain)                consoles
  ┌──────────────────┐   bake    ┌──────────────┐   emit    ┌──────────────────────────────────┐
- │ cartridge.json   │ ────────► │ baked.json   │ ────────► │ console/verse/generated/          │
+ │ cartridge.json   │ ────────► │ baked.json   │ ────────► │ maps/<map>/generated/             │
  │ generator.py     │ validate  │ (frozen,     │           │   fnm_active_cartridge.verse     │──► UEFN map
  │  (or items.src)  │           │  reviewable) │ ────────► │ emulator/carts.js                 │──► browser
  └──────────────────┘           └──────────────┘           └──────────────────────────────────┘
@@ -16,7 +16,9 @@ protocol major version. Neither side knows anything about the other beyond this 
 **Why build-time:** published Fortnite islands cannot read files or make network calls. A cartridge
 therefore cannot be loaded at runtime; "inserting" one means regenerating exactly one Verse file
 (`fnm_active_cartridge.verse`) and rebuilding Verse in UEFN. No other map file changes. That single
-generated file is the cartridge slot.
+generated file is the cartridge slot, and since 2026-10-04 it holds **every** inserted cartridge: the
+player picks one at run start (§6b). Twelve 200-item cartridges (862 KB of Verse) compiled clean in
+UEFN 42.30 in under 3 s (O4).
 
 ## 1. Vocabulary
 
@@ -68,6 +70,8 @@ Content comes from exactly one of:
 - `items.src.json` — a hand-authored list in the same shape. Topics written by hand.
 
 `id`: lowercase kebab-case, ≤ 40 chars, equals the directory name.
+`grade`: a short string (`"6"`, `"7"`); the skill picker groups cartridges by it (§6b).
+Tiers: use 5 unless there is a reason not to — the starter map paints its hallway walls per tier for 5.
 
 ## 4. Item shape (in `baked.json`)
 
@@ -90,6 +94,30 @@ Content comes from exactly one of:
   and the map identical, and lets `validate` check answer-position balance).
 
 `baked.json` = the manifest fields + `"baked_with": "<toolchain version>"` + `"items": [...]`.
+
+## 4a. Content rule: concept over arithmetic (Aaron, 2026-10-04)
+
+A map tests whether the player can apply the **concept**. The arithmetic around it must be mental math
+for the grade, so nobody reaches for paper or a calculator and nobody guesses because the numbers got
+heavy. Difficulty comes from step count, grouping and signs — never from number size. Applies to every
+cartridge for every map until Aaron says otherwise.
+
+Defaults every cartridge meets (a cartridge may tighten them; loosening needs Aaron's say-so, recorded in
+its manifest):
+
+| What | Bound |
+|---|---|
+| Literals under `+` / `−` | size ≤ 20 (integer topics with signs as the concept: ≤ 12) |
+| Factors and divisors | size 2–10 |
+| A bare dividend | ≤ 100 and always divisor × quotient with both ≤ 10 (a times-table fact) |
+| Every `×` step | both operand *values* ≤ 10 in size (a group's value counts: `(3 + 4) × 8` is fine, `12 × 6` is not) |
+| Every `÷` step | exact; divisor and quotient 2–10 in size |
+| Powers | result ≤ 100: squares of 2–10, cubes of 2–4 (a group as the base must land in that range) |
+| Every intermediate value and the answer | integers, size ≤ 100 (non-negative where the topic has no negatives) |
+| Wrong choices | whatever a misreading produces, size ≤ 999 — a too-big distractor is a wrong answer, not a flaw |
+
+Each procedural cartridge's tests assert its bounds against `baked.json` by walking every correct step
+(the generator's `trace`), so a generator that drifts fails before it reaches a map.
 
 ## 5. Validation rules (`fnm validate`, hard failures)
 
@@ -131,8 +159,23 @@ A console MUST:
 - On a correct choice, show the item's `explanation`.
 - Show the cartridge `title` / `subtitle` somewhere at run start.
 - Never depend on a specific cartridge id, tier count, or item content.
+- Hold every inserted cartridge and let each player choose one at run start (§6b).
 
 What happens after a wrong answer (retry, respawn, lose a life) is map design, not protocol.
+
+## 6b. Skill picker (Aaron, 2026-10-04)
+
+The slot holds every inserted cartridge (§7) and each **player** chooses one at run start — their own
+choice, so two players in the same hallway may be racing different skills through the same doors. Fortnite
+islands have no custom pre-game lobby, so the picker is in-game UI. A console MUST:
+- Before the first countdown, show a two-step picker: the grades present (`grade`, ascending, numeric when
+  every grade parses as a number), then that grade's cartridges labelled `Title - Subtitle` in registry order
+  (§7). Skip the grade step when only one grade exists; skip the picker when only one cartridge exists.
+- Hold the player still while they pick; the race clock is not running.
+- Apply every per-player rule of §6 to the chosen cartridge: tier count, pools, decks, title.
+- Offer "change skill" on the finish board. A new run with the same skill needs no re-pick. A skill change
+  starts a fresh personal best (times across skills are not comparable).
+- Provide a test hook that pre-selects a cartridge so automated runs skip the picker.
 
 ## 6a. Map profiles
 
@@ -165,8 +208,10 @@ Every map is registered as `maps/<map-id>/map.json`:
   config), because the map's runtime already knows its stations. The protocol's tier formula makes any
   count work.
 
-`fnm insert <cartridge>` emits to **every** registered map: `maps/<map-id>/generated/fnm_active_cartridge.verse`.
-Which cartridge a map currently holds is recorded in `maps/<map-id>/generated/SLOT.txt` (id, version, profile).
+`fnm insert <cartridge>` bakes and validates that cartridge, then emits **every baked cartridge** to **every**
+registered map: `maps/<map-id>/generated/fnm_active_cartridge.verse` (§7). Every baked cartridge must be valid
+or the emit stops. What a map holds is recorded in `maps/<map-id>/generated/SLOT.txt`: one `cartridge=<id> <version>`
+line per cartridge in picker order, plus `profile=`.
 
 ## 7. Emit targets and render profiles
 
@@ -180,16 +225,22 @@ Baked text is canonical. Emitters apply a **render profile**:
 Non-digit exponents (`2^(1 + 1)`) stay `^` in both. Which profile the UEFN map uses is decided once by
 an in-game font test (O1, resolved: `unicode`); the emulator uses `unicode` too.
 
-**Verse target** — `maps/<map-id>/generated/fnm_active_cartridge.verse` (one per registered map, §6a), defining exactly one function:
+**Verse target** — `maps/<map-id>/generated/fnm_active_cartridge.verse` (one per registered map, §6a), defining
+one function per baked cartridge plus the registry the console reads:
 
 ```verse
-FnmActiveCartridge():fnm_cartridge = fnm_cartridge{ ... }
+FnmCartridge_order_of_ops_exponents():fnm_cartridge = fnm_cartridge{ ..., Grade := "6", ... }
+FnmCartridge_integer_ops():fnm_cartridge = fnm_cartridge{ ..., Grade := "7", ... }
+# Every inserted cartridge in picker order: grade ascending (numeric when every grade is a number), then title.
+FnmCartridges():[]fnm_cartridge = array{FnmCartridge_order_of_ops_exponents(), FnmCartridge_integer_ops()}
 ```
 
-built only from the types in `console/verse/fnm_cartridge.verse` (§8), using struct literals and
-`array{}` — nothing else, so the generated surface stays small enough to trust without a compiler.
-Strings are escaped for Verse (`{ } " \` and any other character Verse requires). The file begins with
-a `# GENERATED by fnm — do not edit` header naming the cartridge id, version and profile.
+The per-cartridge function is `FnmCartridge_` + the id with `-` replaced by `_`. Everything is built only from
+the types in `console/verse/fnm_cartridge.verse` (§8), using struct literals and `array{}` — nothing else, so
+the generated surface stays small enough to trust without a compiler. Strings are escaped for Verse (`{ } " \`
+and any other character Verse requires). The file begins with a `# GENERATED by fnm — do not edit` header naming
+every cartridge id and version, the profile and the map. (Before 2026-10-04 the slot held one cartridge as
+`FnmActiveCartridge()`.)
 
 **Emulator target** — `emulator/carts.js`:
 
@@ -226,6 +277,8 @@ fnm_cartridge := struct:
     Version : string
     Title : string
     Subtitle : string
+    # The manifest's grade, the picker's grouping key (§6b). Added 2026-10-04 with the picker.
+    Grade : string
     Tiers : []fnm_tier
     Items : []fnm_item
 ```
@@ -245,3 +298,6 @@ needs the catalog. Ids stay in `baked.json` for later analytics.
   `unicode`. (✓ ✗ do not render; the console draws those as textures.)
 - ~~O2~~ Resolved 2026-10-03: the 200-item generated file compiles clean in UEFN 42.30 and cooks server-side.
 - ~~O3~~ Resolved: all Verse files sit flat in `<project>/Content/` (one module); no `<public>` needed.
+- O4 (2026-10-04): the all-cartridges slot is proven to **compile** at 12 cartridges × 200 items (862 KB, 2.4 s,
+  disproof: a planted unknown identifier on line 2606 was reported). Cook and runtime memory are proven only at
+  the number of cartridges actually inserted; re-check in play after each insert past ~6.

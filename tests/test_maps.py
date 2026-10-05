@@ -106,10 +106,14 @@ def test_emit_every_map(tmp_repo):
     tiny = (tmp_repo / "maps" / "tiny" / "generated" / "fnm_active_cartridge.verse").read_text(encoding="utf-8")
     assert "profile: ascii" in tiny and "max_choices: 2" in tiny and lint(tiny) == []
     version = json.loads((tmp_repo / "cartridges" / CID / "cartridge.json").read_text(encoding="utf-8"))["version"]
-    assert read_slot("tiny", tmp_repo) == {"id": CID, "version": version, "profile": "ascii"}
+    assert read_slot("tiny", tmp_repo) == {"cartridges": [{"id": CID, "version": version}], "profile": "ascii"}
     # --profile override
     emit_maps(CID, tmp_repo, profile_override="unicode")
     assert read_slot("tiny", tmp_repo)["profile"] == "unicode"
+    # emit without an id holds the same single cartridge; an unbaked id is refused
+    assert emit_maps(None, tmp_repo) and read_slot("tiny", tmp_repo)["cartridges"][0]["id"] == CID
+    with pytest.raises(ValueError, match="no baked.json"):
+        emit_maps("not-baked", tmp_repo)
 
 
 def test_emit_refuses_invalid_map(tmp_repo):

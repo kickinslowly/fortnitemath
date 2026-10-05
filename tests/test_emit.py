@@ -7,7 +7,8 @@ import pytest
 
 from conftest import CID
 from fnm.cart import REPO_ROOT
-from fnm.emit import ARITH_TEXT, carts_js_source, verse_escape, verse_source
+from fnm.emit import (ARITH_TEXT, baked_cartridges, carts_js_source, picker_order, verse_escape,
+                      verse_function_name, verse_source)
 from fnm.profiles import apply_profile, render
 from verse_lint import lint, string_literals
 
@@ -90,7 +91,46 @@ def test_generated_slot_file_lints(baked):
     assert lint(src) == []
     assert "\r" not in src
     assert "3^2" not in src  # unicode profile applied
-    assert src.count("fnm_item{") == len(baked["items"])
+    # The slot holds EVERY baked cartridge (PROTOCOL 7), each as its own function, all in the registry.
+    all_baked = baked_cartridges()
+    assert len(all_baked) >= 2
+    assert src.count("fnm_item{") == sum(len(b["items"]) for b in all_baked)
+    for b in all_baked:
+        assert f"\n{verse_function_name(b['id'])}():fnm_cartridge = fnm_cartridge{{\n" in src
+        assert f'    Grade := "{b["grade"]}",' in src
+    registry = re.search(r"^FnmCartridges\(\):\[\]fnm_cartridge = array\{(.*)\}$", src, re.M).group(1)
+    assert registry.split(", ") == [f"{verse_function_name(b['id'])}()" for b in picker_order(all_baked)]
+
+
+def _fake(baked, cid, grade, title):
+    b = _tiny_cart(baked, id=cid, grade=grade, title=title)
+    for it in b["items"]:
+        it["id"] = it["id"].replace(CID, cid)
+    return b
+
+
+def test_registry_in_picker_order(baked):
+    # grade ascending numerically (7 before 10), title within a grade, empty grade last
+    carts = [_fake(baked, "ten-a", "10", "Alpha"), _fake(baked, "seven-b", "7", "Zulu"),
+             _fake(baked, "seven-a", "7", "Beta"), _fake(baked, "none-x", "", "Mid")]
+    src = verse_source(carts, "unicode", map_id="t")
+    assert lint(src) == []
+    assert [b["id"] for b in picker_order(carts)] == ["seven-a", "seven-b", "ten-a", "none-x"]
+    reg = re.search(r"^FnmCartridges\(\):\[\]fnm_cartridge = array\{(.*)\}$", src, re.M).group(1)
+    assert reg == "FnmCartridge_seven_a(), FnmCartridge_seven_b(), FnmCartridge_ten_a(), FnmCartridge_none_x()"
+    assert src.count("():fnm_cartridge = fnm_cartridge{") == 4
+    assert "cartridges: seven-a" in src.splitlines()[1] and "profile: unicode" in src.splitlines()[1]
+    # a non-numeric grade anywhere switches every grade to string order ("10" < "7" < "K")
+    carts[3]["grade"] = "K"
+    assert [b["grade"] for b in picker_order(carts)] == ["10", "7", "7", "K"]
+
+
+def test_lint_rejects_registry_mismatch(baked):
+    src = verse_source([_fake(baked, "one-a", "6", "A"), _fake(baked, "two-b", "6", "B")], "unicode")
+    assert lint(src) == []
+    assert lint(src.replace(", FnmCartridge_two_b()", "")) != []  # a function missing from the registry
+    assert lint(src.replace('    Grade := "6",\n', "", 1)) != []  # a cartridge without the Grade field
+    assert lint(src.replace("FnmCartridges()", "FnmActiveCartridge()")) != []  # the pre-picker shape
 
 
 def test_lint_catches_breakage():

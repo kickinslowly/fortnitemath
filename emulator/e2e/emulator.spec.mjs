@@ -225,3 +225,73 @@ test('real carts.js: one full run of each cartridge', async ({ page }) => {
   }
   expect(errors).toEqual([]);
 });
+
+// §6b picker order on the home screen: the DOM sequence of headings and cards, in document order.
+const homeSequence = (page) => page.evaluate(() =>
+  [...document.querySelectorAll('[data-testid=grade-heading], [data-testid=cart-card]')].map((e) =>
+    e.dataset.testid === 'grade-heading' ? `H:${e.textContent}|${e.dataset.grade}` : `C:${e.dataset.cart}`));
+
+test('home groups cartridges by grade: real carts.js gives Grade 6 then Grade 7', async ({ page }) => {
+  test.skip(!fs.existsSync(REAL), 'emulator/carts.js not generated yet');
+  await page.goto(pageUrl());
+  const carts = await page.evaluate(() => Object.entries(window.FNM_CARTRIDGES).map(([k, c]) => [k, String(c.grade)]));
+  const g6 = carts.filter(([, g]) => g === '6').map(([k]) => `C:${k}`);
+  const g7 = carts.filter(([, g]) => g === '7').map(([k]) => `C:${k}`);
+  expect(g6.length + g7.length, 'real carts.js holds only grade 6 and 7 cartridges').toBe(carts.length);
+  expect(await homeSequence(page), 'home sequence: Grade 6 heading, its cards, Grade 7 heading, its cards')
+    .toEqual(['H:Grade 6|6', ...g6, 'H:Grade 7|7', ...g7]);
+});
+
+test('home grade order: numeric when all grades are numbers, string otherwise, no grade last as Other', async ({ page }) => {
+  const mk = (id, title, grade) => {
+    const c = { protocol: 'fnm-cart/1', id, version: '0.0.0', title, subtitle: 's', standards: [],
+      tiers: [{ tier: 1, name: 't', description: '' }], misconceptions: {},
+      items: [{ id: `${id}/t1/001`, tier: 1, prompt: 'p', choices: ['a', 'b'], answer: 0, misconceptions: [null, 'ARITH'], explanation: 'e' }] };
+    if (grade !== undefined) c.grade = grade;
+    return c;
+  };
+  const load = async (carts) => {
+    await page.addInitScript((cs) => { window.FNM_CARTRIDGES = cs; }, carts);
+    await page.goto(pageUrl('?carts=nope.js'));
+  };
+  // all numeric: 10 sorts after 8 (numeric, not string); title order within a grade; no grade -> Other, last
+  await load({ a: mk('a', 'Zeta', '10'), b: mk('b', 'Beta', '8'), c: mk('c', 'Alpha', '8'), d: mk('d', 'Nada'), e: mk('e', 'Mid', '9') });
+  expect(await homeSequence(page), 'numeric grade order').toEqual(
+    ['H:Grade 8|8', 'C:c', 'C:b', 'H:Grade 9|9', 'C:e', 'H:Grade 10|10', 'C:a', 'H:Other|', 'C:d']);
+  // one unnumbered grade switches every grade to string order; Other still last
+  const p2 = await page.context().newPage();
+  await p2.addInitScript((cs) => { window.FNM_CARTRIDGES = cs; },
+    { a: mk('a', 'A', '10'), b: mk('b', 'B', '8'), k: mk('k', 'K', 'K'), n: mk('n', 'N', '') });
+  await p2.goto(pageUrl('?carts=nope.js'));
+  expect(await homeSequence(p2), 'string grade order with an unnumbered grade').toEqual(
+    ['H:Grade 10|10', 'C:a', 'H:Grade 8|8', 'C:b', 'H:Grade K|K', 'C:k', 'H:Other|', 'C:n']);
+  await expect(p2.getByTestId('cart-card')).toHaveCount(4);
+});
+
+test('finish screen: Play again starts a new run of the same cartridge at stage 1, same settings', async ({ page }) => {
+  await page.goto(pageUrl(FIXTURE + '&seed=42'));
+  const exp = await playRun(page, 'fixture-signed-numbers', 5, 3);
+  await checkEnd(page, 5, exp);
+  await expect(page.getByTestId('again')).toBeVisible();
+  await expect(page.getByTestId('home')).toHaveText('Choose cartridge');
+  await page.getByTestId('again').click();
+  await expect(page.locator('#app')).toHaveAttribute('data-screen', 'run');
+  await expect(page.locator('.rt')).toHaveText('Signed Numbers');
+  await expect(page.getByTestId('stage-label')).toHaveAttribute('data-stage', '1');
+  await expect(page.getByTestId('stage-label')).toContainText('Stage 1 / 5');
+  const cur = await page.evaluate(() => window.FNM_EMU.current());
+  expect(cur).toMatchObject({ stage: 1, S: 5, maxDoors: 3, seed: 42, wrong: [], solved: false });
+  await expect(page.getByTestId('door')).toHaveCount(3);
+});
+
+test('Play again without ?seed draws a fresh seed', async ({ page }) => {
+  await page.goto(pageUrl(FIXTURE));
+  const exp = await playRun(page, 'fixture-even-odd', 3, 4);
+  await checkEnd(page, 3, exp);
+  const seed1 = (await page.evaluate(() => window.FNM_EMU.current())).seed;
+  await page.getByTestId('again').click();
+  const cur = await page.evaluate(() => window.FNM_EMU.current());
+  expect(cur).toMatchObject({ stage: 1, S: 3, maxDoors: 4 });
+  expect(cur.seed, 'again-run seed differs from the finished run').not.toBe(seed1);
+  await expect(page.locator('.rt')).toHaveText('Even or Odd');
+});

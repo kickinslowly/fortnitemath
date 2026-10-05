@@ -50,3 +50,7 @@ before UEFN work. Project-specific:
 - Verse files are `eol=lf`; Python `write_text` on Windows rewrites them CRLF, and git then lists them modified with
   no content change. Patch them with the Edit tool or `open(..., newline='')`.
 - The penalty pool lives in `maps/<id>/map.json` `penalties` (PROTOCOL §6a), not on the director.
+- Content rule (Aaron, 2026-10-04): simple numbers, concept over arithmetic. The bounds are PROTOCOL §4a; every
+  procedural cartridge's tests assert them against its `baked.json`. Read §4a before writing or reviewing a generator.
+- The slot holds EVERY baked cartridge (`FnmCartridge_<id>()` each + `FnmCartridges()` registry, PROTOCOL §7); the
+  player picks grade → skill on a HUD menu at run start (§6b). `fnm insert <id>` re-emits all of them.

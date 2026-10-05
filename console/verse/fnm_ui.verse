@@ -1,5 +1,7 @@
 # FNM console runtime -- per-player HUD (Verse UI: canvas + stack_box + text_blocks).
-# One fnm_hud instance per player; only that player sees it.
+# One fnm_hud instance per player; only that player sees it. The skill picker and the finish board's CHANGE SKILL
+# button are real Verse buttons on their own roots (InputMode All only while shown); clicks go to the director
+# through fnm_picker_listener (PROTOCOL 6b).
 
 using { /Fortnite.com/UI }
 using { /UnrealEngine.com/Temporary/SpatialMath }
@@ -12,6 +14,27 @@ FnmText<localizes>(Value:string):message = "{Value}"
 # Finish-board lines with a player's name: a localized message shows an interpolated agent as its display name.
 FnmRow<localizes>(Rank:int, Who:agent, Time:string):message = "{Rank}.  {Who}   {Time}"
 FnmHolder<localizes>(Time:string, Who:agent, Tail:string):message = "Island record   {Time}  by {Who}{Tail}"
+
+# What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
+# list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL on the finish board.
+fnm_pick := enum:
+    Grade
+    Skill
+    Back
+    ChangeSkill
+
+# Who hears the HUD's button clicks (the director). The HUD only reports; the listener decides what shows next.
+fnm_picker_listener := interface:
+    OnPickerChoice(Player:player, Kind:fnm_pick, Index:int):void
+
+# Binds one button to what it means, so a single callback signature serves every button (like fnm_door_handler).
+fnm_pick_handler := class:
+    Hud : fnm_hud
+    Kind : fnm_pick
+    Index : int
+
+    OnClick(Message:widget_message):void =
+        Hud.Clicked(Message.Player, Kind, Index)
 
 fnm_hud := class:
     # Width (px at 1080p) at which long lines wrap. Explanations are up to 160 chars (PROTOCOL 5 rule 6).
@@ -53,10 +76,27 @@ fnm_hud := class:
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.0}
     # Seconds the verdict stays up.
     VerdictSeconds : float = 1.5
+    # Skill picker (PROTOCOL 6b), centre screen on its own root: heading, step line, one button per grade or skill.
+    PickerHeading : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 60.0, DefaultJustification := text_justification.Center}
+    PickerStep : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    PickerButtons : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+    # Under the finish board, on its own root (shown with the board when the slot holds more than one skill).
+    # (Its text is set in Attach: a localized call can't initialise a field.)
+    ChangeSkillButton : button_regular = button_regular{}
 
     var MaybePlayerUI : ?player_ui = false
     var MaybeRoot : ?canvas = false
     var MaybeResults : ?widget = false
+    var MaybeOwner : ?player = false
+    var MaybeListener : ?fnm_picker_listener = false
+    # The picker's and the CHANGE SKILL button's roots. Each is added (InputMode All: the mouse cursor and clicks go
+    # to the buttons, the player can't move) only while shown and removed when hidden, so movement comes back.
+    var MaybePickerRoot : ?canvas = false
+    var MaybeChangeRoot : ?canvas = false
+    var PickerShown : logic = false
+    var ChangeShown : logic = false
+    # The buttons on the picker's current step (removed from PickerButtons when the step changes).
+    var PickerButtonList : []widget = array{}
     # Bumped on every feedback message so an older timer never clears a newer message.
     var FeedbackGeneration : int = 0
     var VerdictGeneration : int = 0
@@ -205,9 +245,56 @@ fnm_hud := class:
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
             set MaybePlayerUI = option{PlayerUI}
             set MaybeRoot = option{Root}
+            set MaybeOwner = option{Player}
+            # The skill picker: like the finish board, centre screen on a darker panel. Built once, added on demand.
+            PickerHeading.SetText(FnmText("CHOOSE YOUR SKILL"))
+            PickerPanel : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.78}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := PickerHeading
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                stack_box_slot:
+                                    Widget := PickerStep
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    Padding := margin{Top := 6.0}
+                                stack_box_slot:
+                                    Widget := PickerButtons
+                                    HorizontalAlignment := horizontal_alignment.Fill
+                                    Padding := margin{Top := 14.0}
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Left := 48.0, Top := 28.0, Right := 48.0, Bottom := 32.0}
+            set MaybePickerRoot = option:
+                canvas:
+                    Slots := array:
+                        canvas_slot:
+                            Widget := PickerPanel
+                            Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.45}, Maximum := vector2{X := 0.5, Y := 0.45}}
+                            Alignment := vector2{X := 0.5, Y := 0.5}
+                            SizeToContent := true
+            # CHANGE SKILL, just under the finish board (anchored by its top edge).
+            ChangeSkillButton.SetText(FnmText("CHANGE SKILL"))
+            ChangeSkillButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.ChangeSkill, Index := 0}.OnClick)
+            set MaybeChangeRoot = option:
+                canvas:
+                    Slots := array:
+                        canvas_slot:
+                            Widget := ChangeSkillButton
+                            Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.81}, Maximum := vector2{X := 0.5, Y := 0.81}}
+                            Alignment := vector2{X := 0.5, Y := 0.0}
+                            SizeToContent := true
 
     # Removes the HUD (used when the player leaves; harmless if already gone).
     Detach():void =
+        HidePicker()
+        HideChangeSkill()
         if (PlayerUI := MaybePlayerUI?, Root := MaybeRoot?):
             PlayerUI.RemoveWidget(Root)
         set MaybePlayerUI = false
@@ -336,3 +423,77 @@ fnm_hud := class:
     HideResults():void =
         if (Results := MaybeResults?):
             Results.SetVisibility(widget_visibility.Collapsed)
+
+    # ---------------------------------------------------------------- skill picker (PROTOCOL 6b)
+
+    # The director, told about every click on this HUD's buttons.
+    SetListener(Listener:fnm_picker_listener):void =
+        set MaybeListener = option{Listener}
+
+    # A button was clicked. Only this HUD's own player counts (a widget_message names who clicked).
+    Clicked(Player:player, Kind:fnm_pick, Index:int):void =
+        if (Owner := MaybeOwner?, Player = Owner, Listener := MaybeListener?):
+            Listener.OnPickerChoice(Player, Kind, Index)
+
+    # Grade step: one loud button per grade, labelled "Grade G", in the order given (the director's grade order).
+    ShowGradeStep(Grades:[]string):void =
+        Labels := for (Grade : Grades) { "Grade {Grade}" }
+        Indices := for (K -> Grade : Grades) { K }
+        ShowPickerStep("Pick a grade", Labels, fnm_pick.Grade, Indices, false)
+
+    # Skill step for Grade: one button per skill (Labels[K] picks cartridge Indices[K]), plus Back when WithBack.
+    ShowSkillStep(Grade:string, Labels:[]string, Indices:[]int, WithBack:logic):void =
+        ShowPickerStep("Grade {Grade}  -  pick a skill", Labels, fnm_pick.Skill, Indices, WithBack)
+
+    # Replaces the picker's buttons with this step's, puts the picker on screen if it isn't, and focuses the first
+    # button (so a gamepad or keyboard can press it too).
+    ShowPickerStep(Step:string, Labels:[]string, Kind:fnm_pick, Indices:[]int, WithBack:logic):void =
+        ClearPickerButtons()
+        PickerStep.SetText(FnmText(Step))
+        var Made : []widget = array{}
+        for (K -> Label : Labels, Index := Indices[K]):
+            Button := MakeButton(Kind, Label)
+            Button.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := Kind, Index := Index}.OnClick)
+            PickerButtons.AddWidget(stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}})
+            set Made += array{Button}
+        if (WithBack?):
+            Back := button_quiet{DefaultText := FnmText("Back")}
+            Back.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Back, Index := 0}.OnClick)
+            PickerButtons.AddWidget(stack_box_slot{Widget := Back, HorizontalAlignment := horizontal_alignment.Center, Padding := margin{Top := 22.0}})
+            set Made += array{Back}
+        set PickerButtonList = Made
+        if (PlayerUI := MaybePlayerUI?, PickerRoot := MaybePickerRoot?):
+            if (not PickerShown?):
+                PlayerUI.AddWidget(PickerRoot, player_ui_slot{ZOrder := 5, InputMode := ui_input_mode.All})
+                set PickerShown = true
+            if (First := Made[0]):
+                PlayerUI.SetFocus(First)
+
+    # Grade buttons are loud, skill buttons regular.
+    MakeButton(Kind:fnm_pick, Label:string):text_button_base =
+        if (Kind = fnm_pick.Grade) then button_loud{DefaultText := FnmText(Label)}
+        else button_regular{DefaultText := FnmText(Label)}
+
+    ClearPickerButtons():void =
+        for (Old : PickerButtonList):
+            PickerButtons.RemoveWidget(Old)
+        set PickerButtonList = array{}
+
+    # Takes the picker off the screen (input goes back to the game).
+    HidePicker():void =
+        if (PickerShown?, PlayerUI := MaybePlayerUI?, PickerRoot := MaybePickerRoot?):
+            PlayerUI.RemoveWidget(PickerRoot)
+        set PickerShown = false
+        ClearPickerButtons()
+
+    # CHANGE SKILL under the finish board (while it is up the player can't move; they are finished anyway).
+    ShowChangeSkill():void =
+        if (not ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):
+            PlayerUI.AddWidget(ChangeRoot, player_ui_slot{ZOrder := 4, InputMode := ui_input_mode.All})
+            set ChangeShown = true
+            PlayerUI.SetFocus(ChangeSkillButton)
+
+    HideChangeSkill():void =
+        if (ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):
+            PlayerUI.RemoveWidget(ChangeRoot)
+        set ChangeShown = false

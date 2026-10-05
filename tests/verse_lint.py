@@ -6,7 +6,7 @@ import re
 VALID_ESCAPES = set('tnr"\'\\{}<>&#~')
 ITEM_FIELDS = ("Id", "Tier", "Prompt", "Choices", "Answer", "Feedback", "Explanation")
 TIER_FIELDS = ("Tier", "Name", "Description")
-CART_FIELDS = ("Protocol", "Id", "Version", "Title", "Subtitle", "Tiers", "Items")
+CART_FIELDS = ("Protocol", "Id", "Version", "Title", "Subtitle", "Grade", "Tiers", "Items")
 PAIRS = {")": "(", "]": "[", "}": "{"}
 
 
@@ -72,12 +72,23 @@ def lint(src: str) -> list:
     for c, ln in stack:
         errors.append(f"line {ln}: unclosed {c!r}")
 
-    # Structure: one entry point, fields present.
-    if len(re.findall(r"^FnmActiveCartridge\(\):fnm_cartridge = fnm_cartridge\{$", src, re.M)) != 1:
-        errors.append("missing or duplicated 'FnmActiveCartridge():fnm_cartridge = fnm_cartridge{' line")
+    # Structure (PROTOCOL 7): one FnmCartridge_<id>() per cartridge, every field in each, and exactly one
+    # FnmCartridges() registry listing exactly those functions.
+    funcs = re.findall(r"^(FnmCartridge_\w+)\(\):fnm_cartridge = fnm_cartridge\{$", src, re.M)
+    if not funcs:
+        errors.append("no 'FnmCartridge_<id>():fnm_cartridge = fnm_cartridge{' line")
+    if len(set(funcs)) != len(funcs):
+        errors.append("duplicated cartridge function")
+    regs = re.findall(r"^FnmCartridges\(\):\[\]fnm_cartridge = array\{(.*)\}$", src, re.M)
+    if len(regs) != 1:
+        errors.append("missing or duplicated 'FnmCartridges():[]fnm_cartridge = array{...}' line")
+    else:
+        listed = [n.strip() for n in regs[0].split(",") if n.strip()]
+        if sorted(listed) != sorted(f"{f}()" for f in funcs):
+            errors.append(f"registry lists {listed}, functions defined are {funcs}")
     for f in CART_FIELDS:
-        if not re.search(rf"^    {f} := ", src, re.M):
-            errors.append(f"cartridge field {f} missing")
+        if len(re.findall(rf"^    {f} := ", src, re.M)) != len(funcs):
+            errors.append(f"cartridge field {f} missing in some cartridge")
     for n, ln in enumerate(src.splitlines(), 1):
         s = ln.strip()
         if s.startswith("fnm_item{"):

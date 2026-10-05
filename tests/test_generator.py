@@ -91,6 +91,9 @@ def test_items_shape(baked, gen):
                 assert int(c) in _label_values(gen, it["prompt"], m), (it["id"], m)
         nums = [int(n) for n in re.findall(r"\d+", it["prompt"])]
         assert all(n <= 100 for n in nums), it["id"]
+        # §4a: only a bare dividend may exceed 20
+        others = [int(n) for n in re.findall(r"(?<!\d)\d+(?!\d)(?! ÷)", it["prompt"])]
+        assert all(n <= 20 for n in others), it["id"]
 
 
 def test_tier_rules(baked, gen):
@@ -117,9 +120,10 @@ def test_tier_rules(baked, gen):
 def test_intermediates_and_powers(baked, gen):
     for it in baked["items"]:
         for op, a, b, v in gen.trace(it["prompt"]):
-            assert v.denominator == 1 and 0 <= v <= 999, it["id"]
+            assert v.denominator == 1 and 0 <= v <= 100, it["id"]
             if op == "^":
-                assert 2 <= a <= 10 and b in (2, 3) and v <= 1000, it["id"]
+                assert (b == 2 and 2 <= a <= 10) or (b == 3 and 2 <= a <= 4), it["id"]
+                assert v <= 100, it["id"]
 
 
 def test_answer_balance_exact(baked):
@@ -176,3 +180,103 @@ def test_t1_same_level_items(baked, gen):
 @pytest.mark.parametrize("tier,minimum", [(2, 6), (5, 4)])
 def test_same_level_distractors_per_tier(baked, tier, minimum):
     assert sum(_carries_same_level(it) for it in baked["items"] if it["tier"] == tier) >= minimum
+
+
+# --- PROTOCOL §4a: concept over arithmetic, every correct step of every baked item -----------------
+def _load_items():
+    import json
+    from conftest import CID
+    from fnm.cart import REPO_ROOT
+    with open(REPO_ROOT / "cartridges" / CID / "baked.json", encoding="utf-8") as f:
+        return json.load(f)["items"]
+
+
+_ITEMS = _load_items()
+_ADDSUB = ("+", "−")
+
+
+def _literal_violations(gen, prompt):
+    """Literal bounds, from the generator's own parse tree: + − literals 2..20, factors 2..10,
+    divisors 2..10, a bare dividend <= 100 (its quotient is checked as a step), power bases 2..10,
+    exponents 2..3."""
+    tree = gen.parse(gen.tokenize(prompt), gen.RULES["CORRECT"])
+    bad = []
+
+    def lit(n, lo, hi, what):
+        if isinstance(n, int) and not lo <= n <= hi:
+            bad.append(f"{what} literal {n} outside {lo}..{hi}")
+
+    def walk(node):
+        if isinstance(node, int):
+            return
+        op, l, r = node
+        if op in _ADDSUB:
+            lit(l, 2, 20, op)
+            lit(r, 2, 20, op)
+        elif op == "×":
+            lit(l, 2, 10, "factor")
+            lit(r, 2, 10, "factor")
+        elif op == "÷":
+            lit(l, 4, 100, "dividend")
+            lit(r, 2, 10, "divisor")
+        elif op == "^":
+            lit(l, 2, 10, "base")
+            lit(r, 2, 3, "exponent")
+        walk(l)
+        walk(r)
+
+    walk(tree)
+    return bad
+
+
+def _step_violations(gen, prompt):
+    """Step bounds, from the generator's trace (every correct step a student writes)."""
+    bad = []
+    steps = gen.trace(prompt)
+    for op, a, b, v in steps:
+        s = f"{a} {op} {b} = {v}"
+        if v.denominator != 1 or not 0 <= v <= 100:
+            bad.append(f"intermediate out of 0..100: {s}")
+        if op == "×" and not (abs(a) <= 10 and abs(b) <= 10):
+            bad.append(f"× operand over 10: {s}")
+        if op == "×" and (a == 0 or b == 0):
+            bad.append(f"× operand is 0: {s}")
+        if op == "^" and not 2 <= a <= 10:
+            bad.append(f"power base (a group's value counts) outside 2..10: {s}")
+        if op == "÷" and not (2 <= b <= 10 and v.denominator == 1 and 2 <= v <= 10):
+            bad.append(f"÷ divisor/quotient outside 2..10: {s}")
+        if op == "^" and not ((b == 2 and 2 <= a <= 10) or (b == 3 and 2 <= a <= 4)):
+            bad.append(f"power outside squares 2..10 / cubes 2..4: {s}")
+    if steps and steps[-1][3] != gen.evaluate(prompt):
+        bad.append("trace does not end at the answer")
+    return bad
+
+
+@pytest.mark.parametrize("item", _ITEMS, ids=[it["id"] for it in _ITEMS])
+def test_concept_over_arithmetic_bounds(gen, item):
+    p = item["prompt"]
+    assert _literal_violations(gen, p) == [], p
+    assert _step_violations(gen, p) == [], p
+    ans = int(item["choices"][item["answer"]])
+    assert 0 <= ans <= 100, p
+    for c in item["choices"]:
+        assert 0 <= int(c) <= 999, p  # wrong choices keep the 999 ceiling
+
+
+@pytest.mark.parametrize("prompt,expect_bad", [
+    ("3 + 4 × 2", False),
+    ("80 ÷ 8 × 4", False),
+    ("12 × 6", True),          # factor 12
+    ("(3 + 4) × 8", False),    # group value 7 is fine
+    ("(7 + 5) × 3", True),     # group value 12 under ×
+    ("99 − 10 × 9", True),     # literal 99 under −, 90 × fine but 99 too big
+    ("4^3", False),
+    ("5^3", True),             # 125
+    ("90 ÷ 3", True),          # quotient 30
+    ("(5 − 5) × 3 + 4", True),  # a group worth 0 under ×
+    ("(5 − 4) × 8", False),      # a group worth 1 under × is a fair parentheses test
+    ("(6 − 5)^2 + 3", True),     # 1^2: a group base must be 2..10
+])
+def test_bounds_checker_catches(gen, prompt, expect_bad):
+    bad = _literal_violations(gen, prompt) + _step_violations(gen, prompt)
+    assert bool(bad) == expect_bad, (prompt, bad)
