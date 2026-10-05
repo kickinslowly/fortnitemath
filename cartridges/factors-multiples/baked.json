@@ -1,0 +1,3922 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "factors-multiples",
+  "version": "1.0.0",
+  "title": "GCF & LCM",
+  "subtitle": "Factors, Multiples, Distributing",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.NS.B.4"
+  ],
+  "seed": 20261014,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4a, tightened. Every hidden × or ÷ is a times-table fact with both factors 2 to 10. T1: numbers ≤ 100 (factor-count numbers ≤ 36, primes ≤ 47). T2/T4/T5 GCF pairs: a = g × p, b = g × q with g, p, q ≤ 10 (p, q share no factor), so a, b ≤ 100. T3/T5 LCM operands 2 to 10 (6.NS.B.4 allows to 12; kept to 10 for §4a) with LCM ≤ 60. Correct answers ≤ 100; wrong choices ≤ 999. No two choices equal in value.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Factors & Primes",
+      "description": "Factors, multiples, primes, and counting factors."
+    },
+    {
+      "tier": 2,
+      "name": "Greatest Common Factor",
+      "description": "Find the GCF of two numbers up to 100."
+    },
+    {
+      "tier": 3,
+      "name": "Least Common Multiple",
+      "description": "Find the LCM of two or three small numbers."
+    },
+    {
+      "tier": 4,
+      "name": "Factor Out the GCF",
+      "description": "Write a sum as the GCF times a sum: 18 + 24 = 6(3 + 4)."
+    },
+    {
+      "tier": 5,
+      "name": "GCF or LCM?",
+      "description": "Story problems: pick the right tool, then use it."
+    }
+  ],
+  "misconceptions": {
+    "MULTIPLE_FOR_FACTOR": {
+      "student": "That's a multiple. A factor divides the number evenly, so it's not bigger.",
+      "teacher": "Picks a multiple of n when asked for a factor of n."
+    },
+    "FACTOR_FOR_MULTIPLE": {
+      "student": "That's a factor. A multiple is the number times 1, 2, 3, and so on.",
+      "teacher": "Picks a factor of m when asked for a multiple of m."
+    },
+    "SHARES_FACTOR": {
+      "student": "Sharing a factor isn't enough. The division must come out even.",
+      "teacher": "Accepts a number that shares a factor with n (both even) as a factor or multiple of n."
+    },
+    "SAME_LAST_DIGIT": {
+      "student": "Ending in the same digit doesn't make a multiple. Skip-count to check.",
+      "teacher": "Thinks multiples of m end in m's digit (17 for 7, 26 for 6)."
+    },
+    "ODD_IS_PRIME": {
+      "student": "Odd isn't the same as prime. Try 3, 5, 7: does one divide it?",
+      "teacher": "Treats odd composites (21, 27, 49) as prime."
+    },
+    "ONE_IS_PRIME": {
+      "student": "1 is not prime. A prime has exactly two factors: 1 and itself.",
+      "teacher": "Counts 1 as prime."
+    },
+    "FORGOT_ONE_AND_SELF": {
+      "student": "Count 1 and the number itself too. They are factors.",
+      "teacher": "Leaves 1 and n out of n's factor count."
+    },
+    "PAIRS_ONLY": {
+      "student": "Each factor pair gives two factors. Count every number, not the pairs.",
+      "teacher": "Counts factor pairs instead of factors."
+    },
+    "SQUARE_TWICE": {
+      "student": "In 6 × 6 the 6 is one factor. Don't count it twice.",
+      "teacher": "Counts the square root of a perfect square twice."
+    },
+    "LCM_FOR_GCF": {
+      "student": "That's a common multiple. The GCF divides both numbers, so it's small.",
+      "teacher": "Gives the LCM when asked for the GCF."
+    },
+    "NOT_GREATEST": {
+      "student": "That's a common factor, but not the greatest. Look for a bigger one.",
+      "teacher": "Stops at a common factor smaller than the GCF."
+    },
+    "SMALLER_NUMBER": {
+      "student": "The smaller number must divide the bigger one to be the GCF. It doesn't.",
+      "teacher": "Gives the smaller number as the GCF when it does not divide the larger."
+    },
+    "PRODUCT": {
+      "student": "a × b is a common multiple, but maybe not the least. Skip-count to check.",
+      "teacher": "Gives the product as the LCM when the numbers share a factor."
+    },
+    "GCF_FOR_LCM": {
+      "student": "That's the GCF. The LCM is a multiple of both, so it's at least as big.",
+      "teacher": "Gives the GCF when asked for the LCM."
+    },
+    "LARGER_NUMBER": {
+      "student": "The bigger number isn't a multiple of the other. Keep skip-counting.",
+      "teacher": "Gives the larger number as the LCM when the smaller does not divide it."
+    },
+    "NOT_LEAST": {
+      "student": "That's a common multiple, but not the least. A smaller one works.",
+      "teacher": "Gives a common multiple larger than the LCM."
+    },
+    "SUBTRACTED_GCF": {
+      "student": "Divide each number by the GCF. Don't subtract it.",
+      "teacher": "Subtracts the GCF from each addend instead of dividing: 18 + 24 = 6(12 + 18)."
+    },
+    "ONE_TERM": {
+      "student": "Divide BOTH numbers by the GCF, not just one.",
+      "teacher": "Divides only one addend by the GCF: 18 + 24 = 6(3 + 24)."
+    },
+    "WRONG_TOOL": {
+      "student": "Sharing into equal groups: GCF. Matching up or meeting again: LCM.",
+      "teacher": "Uses GCF for an LCM situation or LCM for a GCF situation."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "factors-multiples/t1/001",
+      "tier": 1,
+      "prompt": "How many factors does 8 have?",
+      "choices": [
+        "3",
+        "6",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "FORGOT_ONE_AND_SELF"
+      ],
+      "explanation": "Factors of 8: 1, 2, 4, 8. That's 4."
+    },
+    {
+      "id": "factors-multiples/t1/002",
+      "tier": 1,
+      "prompt": "Only one of these is prime. Which?",
+      "choices": [
+        "25",
+        "9",
+        "7",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME",
+        null,
+        "ONE_IS_PRIME"
+      ],
+      "explanation": "7 has only two factors, 1 and 7, so 7 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/003",
+      "tier": 1,
+      "prompt": "Which is a factor of 90?",
+      "choices": [
+        "4",
+        "180",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        null
+      ],
+      "explanation": "90 ÷ 10 = 9, so 10 is a factor of 90."
+    },
+    {
+      "id": "factors-multiples/t1/004",
+      "tier": 1,
+      "prompt": "Which has exactly two factors?",
+      "choices": [
+        "9",
+        "1",
+        "27",
+        "19"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        "ONE_IS_PRIME",
+        "ODD_IS_PRIME",
+        null
+      ],
+      "explanation": "19 has only two factors, 1 and 19, so 19 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/005",
+      "tier": 1,
+      "prompt": "Which is a multiple of 10?",
+      "choices": [
+        "66",
+        "92",
+        "2",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        "SHARES_FACTOR",
+        "FACTOR_FOR_MULTIPLE",
+        null
+      ],
+      "explanation": "10 × 8 = 80, so 80 is a multiple of 10."
+    },
+    {
+      "id": "factors-multiples/t1/006",
+      "tier": 1,
+      "prompt": "Find the prime.",
+      "choices": [
+        "43",
+        "49",
+        "9",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME"
+      ],
+      "explanation": "43 has only two factors, 1 and 43, so 43 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/007",
+      "tier": 1,
+      "prompt": "Which number is prime?",
+      "choices": [
+        "27",
+        "1",
+        "45",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        "ONE_IS_PRIME",
+        "ODD_IS_PRIME",
+        null
+      ],
+      "explanation": "17 has only two factors, 1 and 17, so 17 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/008",
+      "tier": 1,
+      "prompt": "How many factors does 21 have?",
+      "choices": [
+        "6",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "FORGOT_ONE_AND_SELF"
+      ],
+      "explanation": "Factors of 21: 1, 3, 7, 21. That's 4."
+    },
+    {
+      "id": "factors-multiples/t1/009",
+      "tier": 1,
+      "prompt": "Which is a multiple of 6?",
+      "choices": [
+        "56",
+        "51",
+        "26",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_LAST_DIGIT",
+        "SHARES_FACTOR",
+        "SAME_LAST_DIGIT",
+        null
+      ],
+      "explanation": "6 × 7 = 42, so 42 is a multiple of 6."
+    },
+    {
+      "id": "factors-multiples/t1/010",
+      "tier": 1,
+      "prompt": "How many factors does 27 have?",
+      "choices": [
+        "5",
+        "6",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "FORGOT_ONE_AND_SELF",
+        null
+      ],
+      "explanation": "Factors of 27: 1, 3, 9, 27. That's 4."
+    },
+    {
+      "id": "factors-multiples/t1/011",
+      "tier": 1,
+      "prompt": "Which is a factor of 18?",
+      "choices": [
+        "12",
+        "4",
+        "3",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        "SHARES_FACTOR",
+        null,
+        "MULTIPLE_FOR_FACTOR"
+      ],
+      "explanation": "18 ÷ 3 = 6, so 3 is a factor of 18."
+    },
+    {
+      "id": "factors-multiples/t1/012",
+      "tier": 1,
+      "prompt": "How many factors does 28 have?",
+      "choices": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PAIRS_ONLY",
+        "ARITH",
+        null,
+        "FORGOT_ONE_AND_SELF"
+      ],
+      "explanation": "Factors of 28: 1, 2, 4, 7, 14, 28. That's 6."
+    },
+    {
+      "id": "factors-multiples/t1/013",
+      "tier": 1,
+      "prompt": "Which number is a prime number?",
+      "choices": [
+        "27",
+        "1",
+        "9",
+        "29"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        "ONE_IS_PRIME",
+        "ODD_IS_PRIME",
+        null
+      ],
+      "explanation": "29 has only two factors, 1 and 29, so 29 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/014",
+      "tier": 1,
+      "prompt": "Which is a multiple of 4?",
+      "choices": [
+        "34",
+        "16",
+        "14",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_LAST_DIGIT",
+        null,
+        "SAME_LAST_DIGIT",
+        "FACTOR_FOR_MULTIPLE"
+      ],
+      "explanation": "4 × 4 = 16, so 16 is a multiple of 4."
+    },
+    {
+      "id": "factors-multiples/t1/015",
+      "tier": 1,
+      "prompt": "Which is a multiple of 8?",
+      "choices": [
+        "32",
+        "98",
+        "30",
+        "38"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_LAST_DIGIT",
+        "SHARES_FACTOR",
+        "SAME_LAST_DIGIT"
+      ],
+      "explanation": "8 × 4 = 32, so 32 is a multiple of 8."
+    },
+    {
+      "id": "factors-multiples/t1/016",
+      "tier": 1,
+      "prompt": "How many factors does 15 have?",
+      "choices": [
+        "2",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_ONE_AND_SELF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Factors of 15: 1, 3, 5, 15. That's 4."
+    },
+    {
+      "id": "factors-multiples/t1/017",
+      "tier": 1,
+      "prompt": "Which is a factor of 63?",
+      "choices": [
+        "9",
+        "6",
+        "126",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHARES_FACTOR",
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "63 ÷ 9 = 7, so 9 is a factor of 63."
+    },
+    {
+      "id": "factors-multiples/t1/018",
+      "tier": 1,
+      "prompt": "Which is a factor of 42?",
+      "choices": [
+        "7",
+        "84",
+        "10",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "42 ÷ 7 = 6, so 7 is a factor of 42."
+    },
+    {
+      "id": "factors-multiples/t1/019",
+      "tier": 1,
+      "prompt": "Which is a factor of 6?",
+      "choices": [
+        "9",
+        "12",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        "MULTIPLE_FOR_FACTOR",
+        null,
+        "SHARES_FACTOR"
+      ],
+      "explanation": "6 ÷ 3 = 2, so 3 is a factor of 6."
+    },
+    {
+      "id": "factors-multiples/t1/020",
+      "tier": 1,
+      "prompt": "Which is a factor of 36?",
+      "choices": [
+        "9",
+        "72",
+        "10",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "36 ÷ 9 = 4, so 9 is a factor of 36."
+    },
+    {
+      "id": "factors-multiples/t1/021",
+      "tier": 1,
+      "prompt": "Which is a factor of 24?",
+      "choices": [
+        "48",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLE_FOR_FACTOR",
+        null,
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "24 ÷ 8 = 3, so 8 is a factor of 24."
+    },
+    {
+      "id": "factors-multiples/t1/022",
+      "tier": 1,
+      "prompt": "How many factors does 24 have?",
+      "choices": [
+        "4",
+        "10",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PAIRS_ONLY",
+        "ARITH",
+        "FORGOT_ONE_AND_SELF",
+        null
+      ],
+      "explanation": "Factors of 24: 1, 2, 3, 4, 6, 8, 12, 24. That's 8."
+    },
+    {
+      "id": "factors-multiples/t1/023",
+      "tier": 1,
+      "prompt": "Which is a factor of 28?",
+      "choices": [
+        "7",
+        "10",
+        "12",
+        "56"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHARES_FACTOR",
+        "SHARES_FACTOR",
+        "MULTIPLE_FOR_FACTOR"
+      ],
+      "explanation": "28 ÷ 7 = 4, so 7 is a factor of 28."
+    },
+    {
+      "id": "factors-multiples/t1/024",
+      "tier": 1,
+      "prompt": "Which is a multiple of 7?",
+      "choices": [
+        "61",
+        "17",
+        "37",
+        "63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SAME_LAST_DIGIT",
+        "SAME_LAST_DIGIT",
+        null
+      ],
+      "explanation": "7 × 9 = 63, so 63 is a multiple of 7."
+    },
+    {
+      "id": "factors-multiples/t1/025",
+      "tier": 1,
+      "prompt": "Which of these is prime?",
+      "choices": [
+        "21",
+        "1",
+        "5",
+        "35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        "ONE_IS_PRIME",
+        null,
+        "ODD_IS_PRIME"
+      ],
+      "explanation": "5 has only two factors, 1 and 5, so 5 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/026",
+      "tier": 1,
+      "prompt": "Which is a factor of 64?",
+      "choices": [
+        "6",
+        "8",
+        "10",
+        "128"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        null,
+        "SHARES_FACTOR",
+        "MULTIPLE_FOR_FACTOR"
+      ],
+      "explanation": "64 ÷ 8 = 8, so 8 is a factor of 64."
+    },
+    {
+      "id": "factors-multiples/t1/027",
+      "tier": 1,
+      "prompt": "Which is a factor of 20?",
+      "choices": [
+        "2",
+        "40",
+        "8",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "20 ÷ 2 = 10, so 2 is a factor of 20."
+    },
+    {
+      "id": "factors-multiples/t1/028",
+      "tier": 1,
+      "prompt": "Which is a factor of 10?",
+      "choices": [
+        "20",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLE_FOR_FACTOR",
+        null,
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "10 ÷ 2 = 5, so 2 is a factor of 10."
+    },
+    {
+      "id": "factors-multiples/t1/029",
+      "tier": 1,
+      "prompt": "Which is a factor of 30?",
+      "choices": [
+        "9",
+        "3",
+        "60",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHARES_FACTOR",
+        null,
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "30 ÷ 3 = 10, so 3 is a factor of 30."
+    },
+    {
+      "id": "factors-multiples/t1/030",
+      "tier": 1,
+      "prompt": "Which is a factor of 12?",
+      "choices": [
+        "2",
+        "24",
+        "10",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "12 ÷ 2 = 6, so 2 is a factor of 12."
+    },
+    {
+      "id": "factors-multiples/t1/031",
+      "tier": 1,
+      "prompt": "How many factors does 18 have?",
+      "choices": [
+        "3",
+        "6",
+        "4",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PAIRS_ONLY",
+        null,
+        "FORGOT_ONE_AND_SELF",
+        "ARITH"
+      ],
+      "explanation": "Factors of 18: 1, 2, 3, 6, 9, 18. That's 6."
+    },
+    {
+      "id": "factors-multiples/t1/032",
+      "tier": 1,
+      "prompt": "How many factors does 10 have?",
+      "choices": [
+        "6",
+        "4",
+        "2",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FORGOT_ONE_AND_SELF",
+        "ARITH"
+      ],
+      "explanation": "Factors of 10: 1, 2, 5, 10. That's 4."
+    },
+    {
+      "id": "factors-multiples/t1/033",
+      "tier": 1,
+      "prompt": "Which is prime?",
+      "choices": [
+        "11",
+        "21",
+        "27",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME"
+      ],
+      "explanation": "11 has only two factors, 1 and 11, so 11 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/034",
+      "tier": 1,
+      "prompt": "Which is a multiple of 9?",
+      "choices": [
+        "39",
+        "3",
+        "81",
+        "84"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_LAST_DIGIT",
+        "FACTOR_FOR_MULTIPLE",
+        null,
+        "SHARES_FACTOR"
+      ],
+      "explanation": "9 × 9 = 81, so 81 is a multiple of 9."
+    },
+    {
+      "id": "factors-multiples/t1/035",
+      "tier": 1,
+      "prompt": "Which is a factor of 27?",
+      "choices": [
+        "54",
+        "9",
+        "12",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLE_FOR_FACTOR",
+        null,
+        "SHARES_FACTOR",
+        "SHARES_FACTOR"
+      ],
+      "explanation": "27 ÷ 9 = 3, so 9 is a factor of 27."
+    },
+    {
+      "id": "factors-multiples/t1/036",
+      "tier": 1,
+      "prompt": "Which is a multiple of 3?",
+      "choices": [
+        "30",
+        "23",
+        "53",
+        "31"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_LAST_DIGIT",
+        "SAME_LAST_DIGIT",
+        "ARITH"
+      ],
+      "explanation": "3 × 10 = 30, so 30 is a multiple of 3."
+    },
+    {
+      "id": "factors-multiples/t1/037",
+      "tier": 1,
+      "prompt": "Which is a factor of 14?",
+      "choices": [
+        "28",
+        "10",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLE_FOR_FACTOR",
+        "SHARES_FACTOR",
+        null,
+        "SHARES_FACTOR"
+      ],
+      "explanation": "14 ÷ 7 = 2, so 7 is a factor of 14."
+    },
+    {
+      "id": "factors-multiples/t1/038",
+      "tier": 1,
+      "prompt": "Pick the prime number.",
+      "choices": [
+        "15",
+        "11",
+        "35",
+        "45"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ODD_IS_PRIME",
+        null,
+        "ODD_IS_PRIME",
+        "ODD_IS_PRIME"
+      ],
+      "explanation": "11 has only two factors, 1 and 11, so 11 is prime."
+    },
+    {
+      "id": "factors-multiples/t1/039",
+      "tier": 1,
+      "prompt": "How many factors does 9 have?",
+      "choices": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARE_TWICE",
+        "PAIRS_ONLY",
+        "FORGOT_ONE_AND_SELF",
+        null
+      ],
+      "explanation": "Factors of 9: 1, 3, 9. That's 3."
+    },
+    {
+      "id": "factors-multiples/t1/040",
+      "tier": 1,
+      "prompt": "How many factors does 25 have?",
+      "choices": [
+        "4",
+        "1",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARE_TWICE",
+        "FORGOT_ONE_AND_SELF",
+        null,
+        "PAIRS_ONLY"
+      ],
+      "explanation": "Factors of 25: 1, 5, 25. That's 3."
+    },
+    {
+      "id": "factors-multiples/t2/001",
+      "tier": 2,
+      "prompt": "GCF of 4 and 36?",
+      "choices": [
+        "7",
+        "36",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LCM_FOR_GCF",
+        null,
+        "NOT_GREATEST"
+      ],
+      "explanation": "4 = 4 × 1, 36 = 4 × 9. 1 and 9 share no factor, so GCF = 4."
+    },
+    {
+      "id": "factors-multiples/t2/002",
+      "tier": 2,
+      "prompt": "GCF of 27 and 90?",
+      "choices": [
+        "3",
+        "270",
+        "9",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "27 = 9 × 3, 90 = 9 × 10. 3 and 10 share no factor, so GCF = 9."
+    },
+    {
+      "id": "factors-multiples/t2/003",
+      "tier": 2,
+      "prompt": "GCF of 28 and 12?",
+      "choices": [
+        "4",
+        "2",
+        "12",
+        "84"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "28 = 4 × 7, 12 = 4 × 3. 7 and 3 share no factor, so GCF = 4."
+    },
+    {
+      "id": "factors-multiples/t2/004",
+      "tier": 2,
+      "prompt": "GCF of 18 and 15?",
+      "choices": [
+        "3",
+        "90",
+        "2",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LCM_FOR_GCF",
+        "ARITH",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "18 = 3 × 6, 15 = 3 × 5. 6 and 5 share no factor, so GCF = 3."
+    },
+    {
+      "id": "factors-multiples/t2/005",
+      "tier": 2,
+      "prompt": "GCF of 28 and 32?",
+      "choices": [
+        "2",
+        "4",
+        "224",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "28 = 4 × 7, 32 = 4 × 8. 7 and 8 share no factor, so GCF = 4."
+    },
+    {
+      "id": "factors-multiples/t2/006",
+      "tier": 2,
+      "prompt": "GCF of 24 and 56?",
+      "choices": [
+        "2",
+        "168",
+        "8",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "24 = 8 × 3, 56 = 8 × 7. 3 and 7 share no factor, so GCF = 8."
+    },
+    {
+      "id": "factors-multiples/t2/007",
+      "tier": 2,
+      "prompt": "GCF of 35 and 28?",
+      "choices": [
+        "10",
+        "140",
+        "7",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LCM_FOR_GCF",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "35 = 7 × 5, 28 = 7 × 4. 5 and 4 share no factor, so GCF = 7."
+    },
+    {
+      "id": "factors-multiples/t2/008",
+      "tier": 2,
+      "prompt": "GCF of 10 and 12?",
+      "choices": [
+        "4",
+        "10",
+        "2",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SMALLER_NUMBER",
+        null,
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "10 = 2 × 5, 12 = 2 × 6. 5 and 6 share no factor, so GCF = 2."
+    },
+    {
+      "id": "factors-multiples/t2/009",
+      "tier": 2,
+      "prompt": "GCF of 63 and 56?",
+      "choices": [
+        "7",
+        "504",
+        "56",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        "ARITH"
+      ],
+      "explanation": "63 = 7 × 9, 56 = 7 × 8. 9 and 8 share no factor, so GCF = 7."
+    },
+    {
+      "id": "factors-multiples/t2/010",
+      "tier": 2,
+      "prompt": "GCF of 10 and 15?",
+      "choices": [
+        "6",
+        "10",
+        "30",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF",
+        null
+      ],
+      "explanation": "10 = 5 × 2, 15 = 5 × 3. 2 and 3 share no factor, so GCF = 5."
+    },
+    {
+      "id": "factors-multiples/t2/011",
+      "tier": 2,
+      "prompt": "GCF of 30 and 48?",
+      "choices": [
+        "30",
+        "2",
+        "240",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        null
+      ],
+      "explanation": "30 = 6 × 5, 48 = 6 × 8. 5 and 8 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t2/012",
+      "tier": 2,
+      "prompt": "GCF of 54 and 63?",
+      "choices": [
+        "3",
+        "9",
+        "378",
+        "54"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "54 = 9 × 6, 63 = 9 × 7. 6 and 7 share no factor, so GCF = 9."
+    },
+    {
+      "id": "factors-multiples/t2/013",
+      "tier": 2,
+      "prompt": "GCF of 12 and 18?",
+      "choices": [
+        "6",
+        "12",
+        "36",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF",
+        "NOT_GREATEST"
+      ],
+      "explanation": "12 = 6 × 2, 18 = 6 × 3. 2 and 3 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t2/014",
+      "tier": 2,
+      "prompt": "GCF of 12 and 32?",
+      "choices": [
+        "2",
+        "4",
+        "12",
+        "96"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "12 = 4 × 3, 32 = 4 × 8. 3 and 8 share no factor, so GCF = 4."
+    },
+    {
+      "id": "factors-multiples/t2/015",
+      "tier": 2,
+      "prompt": "GCF of 70 and 80?",
+      "choices": [
+        "10",
+        "70",
+        "2",
+        "560"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SMALLER_NUMBER",
+        "NOT_GREATEST",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "70 = 10 × 7, 80 = 10 × 8. 7 and 8 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/016",
+      "tier": 2,
+      "prompt": "GCF of 24 and 9?",
+      "choices": [
+        "72",
+        "3",
+        "5",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        null,
+        "ARITH",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "24 = 3 × 8, 9 = 3 × 3. 8 and 3 share no factor, so GCF = 3."
+    },
+    {
+      "id": "factors-multiples/t2/017",
+      "tier": 2,
+      "prompt": "GCF of 48 and 42?",
+      "choices": [
+        "336",
+        "2",
+        "6",
+        "42"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "48 = 6 × 8, 42 = 6 × 7. 8 and 7 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t2/018",
+      "tier": 2,
+      "prompt": "GCF of 80 and 90?",
+      "choices": [
+        "80",
+        "2",
+        "720",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        null
+      ],
+      "explanation": "80 = 10 × 8, 90 = 10 × 9. 8 and 9 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/019",
+      "tier": 2,
+      "prompt": "GCF of 10 and 16?",
+      "choices": [
+        "80",
+        "4",
+        "2",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "ARITH",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "10 = 2 × 5, 16 = 2 × 8. 5 and 8 share no factor, so GCF = 2."
+    },
+    {
+      "id": "factors-multiples/t2/020",
+      "tier": 2,
+      "prompt": "GCF of 72 and 27?",
+      "choices": [
+        "9",
+        "216",
+        "3",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LCM_FOR_GCF",
+        "NOT_GREATEST",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "72 = 9 × 8, 27 = 9 × 3. 8 and 3 share no factor, so GCF = 9."
+    },
+    {
+      "id": "factors-multiples/t2/021",
+      "tier": 2,
+      "prompt": "GCF of 30 and 35?",
+      "choices": [
+        "30",
+        "7",
+        "210",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "ARITH",
+        "LCM_FOR_GCF",
+        null
+      ],
+      "explanation": "30 = 5 × 6, 35 = 5 × 7. 6 and 7 share no factor, so GCF = 5."
+    },
+    {
+      "id": "factors-multiples/t2/022",
+      "tier": 2,
+      "prompt": "GCF of 56 and 40?",
+      "choices": [
+        "280",
+        "8",
+        "40",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        null,
+        "SMALLER_NUMBER",
+        "NOT_GREATEST"
+      ],
+      "explanation": "56 = 8 × 7, 40 = 8 × 5. 7 and 5 share no factor, so GCF = 8."
+    },
+    {
+      "id": "factors-multiples/t2/023",
+      "tier": 2,
+      "prompt": "GCF of 90 and 40?",
+      "choices": [
+        "360",
+        "2",
+        "40",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "NOT_GREATEST",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "90 = 10 × 9, 40 = 10 × 4. 9 and 4 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/024",
+      "tier": 2,
+      "prompt": "GCF of 20 and 25?",
+      "choices": [
+        "8",
+        "5",
+        "20",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "20 = 5 × 4, 25 = 5 × 5. 4 and 5 share no factor, so GCF = 5."
+    },
+    {
+      "id": "factors-multiples/t2/025",
+      "tier": 2,
+      "prompt": "GCF of 70 and 20?",
+      "choices": [
+        "2",
+        "10",
+        "20",
+        "140"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "70 = 10 × 7, 20 = 10 × 2. 7 and 2 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/026",
+      "tier": 2,
+      "prompt": "GCF of 9 and 21?",
+      "choices": [
+        "9",
+        "63",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "9 = 3 × 3, 21 = 3 × 7. 3 and 7 share no factor, so GCF = 3."
+    },
+    {
+      "id": "factors-multiples/t2/027",
+      "tier": 2,
+      "prompt": "GCF of 24 and 32?",
+      "choices": [
+        "2",
+        "8",
+        "24",
+        "96"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "24 = 8 × 3, 32 = 8 × 4. 3 and 4 share no factor, so GCF = 8."
+    },
+    {
+      "id": "factors-multiples/t2/028",
+      "tier": 2,
+      "prompt": "GCF of 14 and 16?",
+      "choices": [
+        "2",
+        "112",
+        "4",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LCM_FOR_GCF",
+        "ARITH",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "14 = 2 × 7, 16 = 2 × 8. 7 and 8 share no factor, so GCF = 2."
+    },
+    {
+      "id": "factors-multiples/t2/029",
+      "tier": 2,
+      "prompt": "GCF of 14 and 21?",
+      "choices": [
+        "42",
+        "9",
+        "7",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "ARITH",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "14 = 7 × 2, 21 = 7 × 3. 2 and 3 share no factor, so GCF = 7."
+    },
+    {
+      "id": "factors-multiples/t2/030",
+      "tier": 2,
+      "prompt": "GCF of 35 and 25?",
+      "choices": [
+        "175",
+        "3",
+        "25",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "ARITH",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "35 = 5 × 7, 25 = 5 × 5. 7 and 5 share no factor, so GCF = 5."
+    },
+    {
+      "id": "factors-multiples/t2/031",
+      "tier": 2,
+      "prompt": "GCF of 35 and 63?",
+      "choices": [
+        "315",
+        "35",
+        "8",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        "ARITH",
+        null
+      ],
+      "explanation": "35 = 7 × 5, 63 = 7 × 9. 5 and 9 share no factor, so GCF = 7."
+    },
+    {
+      "id": "factors-multiples/t2/032",
+      "tier": 2,
+      "prompt": "GCF of 50 and 70?",
+      "choices": [
+        "5",
+        "350",
+        "50",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "50 = 10 × 5, 70 = 10 × 7. 5 and 7 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/033",
+      "tier": 2,
+      "prompt": "GCF of 27 and 45?",
+      "choices": [
+        "27",
+        "9",
+        "3",
+        "135"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        null,
+        "NOT_GREATEST",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "27 = 9 × 3, 45 = 9 × 5. 3 and 5 share no factor, so GCF = 9."
+    },
+    {
+      "id": "factors-multiples/t2/034",
+      "tier": 2,
+      "prompt": "GCF of 9 and 15?",
+      "choices": [
+        "45",
+        "3",
+        "9",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        null,
+        "SMALLER_NUMBER",
+        "ARITH"
+      ],
+      "explanation": "9 = 3 × 3, 15 = 3 × 5. 3 and 5 share no factor, so GCF = 3."
+    },
+    {
+      "id": "factors-multiples/t2/035",
+      "tier": 2,
+      "prompt": "GCF of 30 and 18?",
+      "choices": [
+        "6",
+        "2",
+        "90",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "30 = 6 × 5, 18 = 6 × 3. 5 and 3 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t2/036",
+      "tier": 2,
+      "prompt": "GCF of 40 and 70?",
+      "choices": [
+        "280",
+        "40",
+        "5",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        "NOT_GREATEST",
+        null
+      ],
+      "explanation": "40 = 10 × 4, 70 = 10 × 7. 4 and 7 share no factor, so GCF = 10."
+    },
+    {
+      "id": "factors-multiples/t2/037",
+      "tier": 2,
+      "prompt": "GCF of 24 and 54?",
+      "choices": [
+        "6",
+        "24",
+        "216",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SMALLER_NUMBER",
+        "LCM_FOR_GCF",
+        "NOT_GREATEST"
+      ],
+      "explanation": "24 = 6 × 4, 54 = 6 × 9. 4 and 9 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t2/038",
+      "tier": 2,
+      "prompt": "GCF of 28 and 40?",
+      "choices": [
+        "2",
+        "280",
+        "28",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "28 = 4 × 7, 40 = 4 × 10. 7 and 10 share no factor, so GCF = 4."
+    },
+    {
+      "id": "factors-multiples/t2/039",
+      "tier": 2,
+      "prompt": "GCF of 10 and 8?",
+      "choices": [
+        "40",
+        "8",
+        "2",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LCM_FOR_GCF",
+        "SMALLER_NUMBER",
+        null,
+        "ARITH"
+      ],
+      "explanation": "10 = 2 × 5, 8 = 2 × 4. 5 and 4 share no factor, so GCF = 2."
+    },
+    {
+      "id": "factors-multiples/t2/040",
+      "tier": 2,
+      "prompt": "GCF of 54 and 42?",
+      "choices": [
+        "6",
+        "42",
+        "3",
+        "378"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SMALLER_NUMBER",
+        "NOT_GREATEST",
+        "LCM_FOR_GCF"
+      ],
+      "explanation": "54 = 6 × 9, 42 = 6 × 7. 9 and 7 share no factor, so GCF = 6."
+    },
+    {
+      "id": "factors-multiples/t3/001",
+      "tier": 3,
+      "prompt": "LCM of 4 and 5?",
+      "choices": [
+        "22",
+        "5",
+        "20",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LARGER_NUMBER",
+        null,
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 5: 5, 10, 15, 20. 20 is a multiple of 4 too, so LCM = 20."
+    },
+    {
+      "id": "factors-multiples/t3/002",
+      "tier": 3,
+      "prompt": "LCM of 2 and 5?",
+      "choices": [
+        "20",
+        "9",
+        "10",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_LEAST",
+        "ARITH",
+        null,
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 5: 5, 10. 10 is a multiple of 2 too, so LCM = 10."
+    },
+    {
+      "id": "factors-multiples/t3/003",
+      "tier": 3,
+      "prompt": "LCM of 3 and 8?",
+      "choices": [
+        "24",
+        "8",
+        "26",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGER_NUMBER",
+        "ARITH",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 8: 8, 16, 24. 24 is a multiple of 3 too, so LCM = 24."
+    },
+    {
+      "id": "factors-multiples/t3/004",
+      "tier": 3,
+      "prompt": "LCM of 3, 6 and 8?",
+      "choices": [
+        "48",
+        "24",
+        "144",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "PRODUCT",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 8: 8, 16, 24. 24 is a multiple of 3 and 6 too, so LCM = 24."
+    },
+    {
+      "id": "factors-multiples/t3/005",
+      "tier": 3,
+      "prompt": "LCM of 3 and 10?",
+      "choices": [
+        "32",
+        "10",
+        "60",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30. 30 is a multiple of 3 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/006",
+      "tier": 3,
+      "prompt": "LCM of 4 and 6?",
+      "choices": [
+        "12",
+        "2",
+        "36",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 6: 6, 12. 12 is a multiple of 4 too, so LCM = 12."
+    },
+    {
+      "id": "factors-multiples/t3/007",
+      "tier": 3,
+      "prompt": "LCM of 5 and 10?",
+      "choices": [
+        "5",
+        "20",
+        "50",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        "PRODUCT",
+        null
+      ],
+      "explanation": "Multiples of 10: 10. 10 is a multiple of 5 too, so LCM = 10."
+    },
+    {
+      "id": "factors-multiples/t3/008",
+      "tier": 3,
+      "prompt": "LCM of 3 and 4?",
+      "choices": [
+        "13",
+        "4",
+        "24",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Multiples of 4: 4, 8, 12. 12 is a multiple of 3 too, so LCM = 12."
+    },
+    {
+      "id": "factors-multiples/t3/009",
+      "tier": 3,
+      "prompt": "LCM of 6 and 8?",
+      "choices": [
+        "24",
+        "8",
+        "48",
+        "72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGER_NUMBER",
+        "PRODUCT",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 8: 8, 16, 24. 24 is a multiple of 6 too, so LCM = 24."
+    },
+    {
+      "id": "factors-multiples/t3/010",
+      "tier": 3,
+      "prompt": "LCM of 6 and 7?",
+      "choices": [
+        "44",
+        "42",
+        "7",
+        "84"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LARGER_NUMBER",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 7: 7, 14, 21, 28, 35, 42. 42 is a multiple of 6 too, so LCM = 42."
+    },
+    {
+      "id": "factors-multiples/t3/011",
+      "tier": 3,
+      "prompt": "LCM of 4, 5 and 10?",
+      "choices": [
+        "40",
+        "20",
+        "10",
+        "200"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "LARGER_NUMBER",
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 10: 10, 20. 20 is a multiple of 4 and 5 too, so LCM = 20."
+    },
+    {
+      "id": "factors-multiples/t3/012",
+      "tier": 3,
+      "prompt": "LCM of 5 and 8?",
+      "choices": [
+        "41",
+        "80",
+        "40",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NOT_LEAST",
+        null,
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 8: 8, 16, 24, 32, 40. 40 is a multiple of 5 too, so LCM = 40."
+    },
+    {
+      "id": "factors-multiples/t3/013",
+      "tier": 3,
+      "prompt": "LCM of 6 and 9?",
+      "choices": [
+        "3",
+        "36",
+        "18",
+        "54"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 9: 9, 18. 18 is a multiple of 6 too, so LCM = 18."
+    },
+    {
+      "id": "factors-multiples/t3/014",
+      "tier": 3,
+      "prompt": "LCM of 4, 5 and 6?",
+      "choices": [
+        "120",
+        "60",
+        "180",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PRODUCT",
+        null,
+        "NOT_LEAST",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 6: 6, 12, 18, 24, 30, 36, 42, 48, 54, 60. 60 is a multiple of 4 and 5 too, so LCM = 60."
+    },
+    {
+      "id": "factors-multiples/t3/015",
+      "tier": 3,
+      "prompt": "LCM of 2 and 8?",
+      "choices": [
+        "16",
+        "24",
+        "2",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PRODUCT",
+        "NOT_LEAST",
+        "GCF_FOR_LCM",
+        null
+      ],
+      "explanation": "Multiples of 8: 8. 8 is a multiple of 2 too, so LCM = 8."
+    },
+    {
+      "id": "factors-multiples/t3/016",
+      "tier": 3,
+      "prompt": "LCM of 3 and 9?",
+      "choices": [
+        "18",
+        "9",
+        "3",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "GCF_FOR_LCM",
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 9: 9. 9 is a multiple of 3 too, so LCM = 9."
+    },
+    {
+      "id": "factors-multiples/t3/017",
+      "tier": 3,
+      "prompt": "LCM of 2 and 10?",
+      "choices": [
+        "2",
+        "30",
+        "20",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        "PRODUCT",
+        null
+      ],
+      "explanation": "Multiples of 10: 10. 10 is a multiple of 2 too, so LCM = 10."
+    },
+    {
+      "id": "factors-multiples/t3/018",
+      "tier": 3,
+      "prompt": "LCM of 4 and 10?",
+      "choices": [
+        "60",
+        "40",
+        "10",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_LEAST",
+        "PRODUCT",
+        "LARGER_NUMBER",
+        null
+      ],
+      "explanation": "Multiples of 10: 10, 20. 20 is a multiple of 4 too, so LCM = 20."
+    },
+    {
+      "id": "factors-multiples/t3/019",
+      "tier": 3,
+      "prompt": "LCM of 2, 6 and 10?",
+      "choices": [
+        "60",
+        "30",
+        "120",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "PRODUCT",
+        "GCF_FOR_LCM"
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30. 30 is a multiple of 2 and 6 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/020",
+      "tier": 3,
+      "prompt": "LCM of 2 and 9?",
+      "choices": [
+        "9",
+        "36",
+        "18",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Multiples of 9: 9, 18. 18 is a multiple of 2 too, so LCM = 18."
+    },
+    {
+      "id": "factors-multiples/t3/021",
+      "tier": 3,
+      "prompt": "LCM of 3 and 7?",
+      "choices": [
+        "21",
+        "7",
+        "42",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        "ARITH"
+      ],
+      "explanation": "Multiples of 7: 7, 14, 21. 21 is a multiple of 3 too, so LCM = 21."
+    },
+    {
+      "id": "factors-multiples/t3/022",
+      "tier": 3,
+      "prompt": "LCM of 6 and 10?",
+      "choices": [
+        "30",
+        "2",
+        "90",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30. 30 is a multiple of 6 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/023",
+      "tier": 3,
+      "prompt": "LCM of 2, 8 and 10?",
+      "choices": [
+        "40",
+        "160",
+        "80",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "NOT_LEAST",
+        "GCF_FOR_LCM"
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30, 40. 40 is a multiple of 2 and 8 too, so LCM = 40."
+    },
+    {
+      "id": "factors-multiples/t3/024",
+      "tier": 3,
+      "prompt": "LCM of 8 and 10?",
+      "choices": [
+        "2",
+        "10",
+        "40",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GCF_FOR_LCM",
+        "LARGER_NUMBER",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30, 40. 40 is a multiple of 8 too, so LCM = 40."
+    },
+    {
+      "id": "factors-multiples/t3/025",
+      "tier": 3,
+      "prompt": "LCM of 2 and 4?",
+      "choices": [
+        "12",
+        "4",
+        "8",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "PRODUCT",
+        "GCF_FOR_LCM"
+      ],
+      "explanation": "Multiples of 4: 4. 4 is a multiple of 2 too, so LCM = 4."
+    },
+    {
+      "id": "factors-multiples/t3/026",
+      "tier": 3,
+      "prompt": "LCM of 2, 3 and 10?",
+      "choices": [
+        "10",
+        "60",
+        "30",
+        "90"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "PRODUCT",
+        null,
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 10: 10, 20, 30. 30 is a multiple of 2 and 3 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/027",
+      "tier": 3,
+      "prompt": "LCM of 4 and 8?",
+      "choices": [
+        "16",
+        "4",
+        "8",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_LEAST",
+        "GCF_FOR_LCM",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 8: 8. 8 is a multiple of 4 too, so LCM = 8."
+    },
+    {
+      "id": "factors-multiples/t3/028",
+      "tier": 3,
+      "prompt": "LCM of 2, 3 and 4?",
+      "choices": [
+        "24",
+        "4",
+        "36",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PRODUCT",
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Multiples of 4: 4, 8, 12. 12 is a multiple of 2 and 3 too, so LCM = 12."
+    },
+    {
+      "id": "factors-multiples/t3/029",
+      "tier": 3,
+      "prompt": "LCM of 2, 4 and 9?",
+      "choices": [
+        "9",
+        "36",
+        "72",
+        "108"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        null,
+        "PRODUCT",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 9: 9, 18, 27, 36. 36 is a multiple of 2 and 4 too, so LCM = 36."
+    },
+    {
+      "id": "factors-multiples/t3/030",
+      "tier": 3,
+      "prompt": "LCM of 3 and 6?",
+      "choices": [
+        "3",
+        "12",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GCF_FOR_LCM",
+        "NOT_LEAST",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 6: 6. 6 is a multiple of 3 too, so LCM = 6."
+    },
+    {
+      "id": "factors-multiples/t3/031",
+      "tier": 3,
+      "prompt": "LCM of 3, 6 and 9?",
+      "choices": [
+        "18",
+        "36",
+        "9",
+        "162"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_LEAST",
+        "LARGER_NUMBER",
+        "PRODUCT"
+      ],
+      "explanation": "Multiples of 9: 9, 18. 18 is a multiple of 3 and 6 too, so LCM = 18."
+    },
+    {
+      "id": "factors-multiples/t3/032",
+      "tier": 3,
+      "prompt": "LCM of 3 and 5?",
+      "choices": [
+        "5",
+        "17",
+        "30",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "ARITH",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Multiples of 5: 5, 10, 15. 15 is a multiple of 3 too, so LCM = 15."
+    },
+    {
+      "id": "factors-multiples/t3/033",
+      "tier": 3,
+      "prompt": "LCM of 7 and 8?",
+      "choices": [
+        "54",
+        "8",
+        "112",
+        "56"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Multiples of 8: 8, 16, 24, 32, 40, 48, 56. 56 is a multiple of 7 too, so LCM = 56."
+    },
+    {
+      "id": "factors-multiples/t3/034",
+      "tier": 3,
+      "prompt": "LCM of 4 and 7?",
+      "choices": [
+        "26",
+        "28",
+        "7",
+        "56"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LARGER_NUMBER",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 7: 7, 14, 21, 28. 28 is a multiple of 4 too, so LCM = 28."
+    },
+    {
+      "id": "factors-multiples/t3/035",
+      "tier": 3,
+      "prompt": "LCM of 2, 3 and 5?",
+      "choices": [
+        "30",
+        "60",
+        "28",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_LEAST",
+        "ARITH",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 5: 5, 10, 15, 20, 25, 30. 30 is a multiple of 2 and 3 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/036",
+      "tier": 3,
+      "prompt": "LCM of 3, 5 and 9?",
+      "choices": [
+        "135",
+        "45",
+        "9",
+        "90"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PRODUCT",
+        null,
+        "LARGER_NUMBER",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 9: 9, 18, 27, 36, 45. 45 is a multiple of 3 and 5 too, so LCM = 45."
+    },
+    {
+      "id": "factors-multiples/t3/037",
+      "tier": 3,
+      "prompt": "LCM of 3, 5 and 6?",
+      "choices": [
+        "30",
+        "90",
+        "60",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "NOT_LEAST",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Multiples of 6: 6, 12, 18, 24, 30. 30 is a multiple of 3 and 5 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/038",
+      "tier": 3,
+      "prompt": "LCM of 5 and 9?",
+      "choices": [
+        "9",
+        "90",
+        "45",
+        "46"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Multiples of 9: 9, 18, 27, 36, 45. 45 is a multiple of 5 too, so LCM = 45."
+    },
+    {
+      "id": "factors-multiples/t3/039",
+      "tier": 3,
+      "prompt": "LCM of 5 and 6?",
+      "choices": [
+        "60",
+        "32",
+        "6",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_LEAST",
+        "ARITH",
+        "LARGER_NUMBER",
+        null
+      ],
+      "explanation": "Multiples of 6: 6, 12, 18, 24, 30. 30 is a multiple of 5 too, so LCM = 30."
+    },
+    {
+      "id": "factors-multiples/t3/040",
+      "tier": 3,
+      "prompt": "LCM of 4 and 9?",
+      "choices": [
+        "36",
+        "34",
+        "9",
+        "72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "LARGER_NUMBER",
+        "NOT_LEAST"
+      ],
+      "explanation": "Multiples of 9: 9, 18, 27, 36. 36 is a multiple of 4 too, so LCM = 36."
+    },
+    {
+      "id": "factors-multiples/t4/001",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 80 + 56",
+      "choices": [
+        "8(10 + 7)",
+        "8(72 + 48)",
+        "8(10 + 56)",
+        "8(10 + 6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_GCF",
+        "ONE_TERM",
+        "ARITH"
+      ],
+      "explanation": "80 = 8 × 10, 56 = 8 × 7. GCF 8; 10 and 7 share no factor. 80 + 56 = 8(10 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/002",
+      "tier": 4,
+      "prompt": "48 + 56 = 8(? + ?)",
+      "choices": [
+        "6 + 7",
+        "6 + 56",
+        "12 + 14",
+        "40 + 48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_TERM",
+        "NOT_GREATEST",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "48 = 8 × 6, 56 = 8 × 7. GCF 8; 6 and 7 share no factor. 48 + 56 = 8(6 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/003",
+      "tier": 4,
+      "prompt": "16 + 24 = 8(? + ?)",
+      "choices": [
+        "4 + 6",
+        "8 + 16",
+        "2 + 3",
+        "2 + 24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "SUBTRACTED_GCF",
+        null,
+        "ONE_TERM"
+      ],
+      "explanation": "16 = 8 × 2, 24 = 8 × 3. GCF 8; 2 and 3 share no factor. 16 + 24 = 8(2 + 3)."
+    },
+    {
+      "id": "factors-multiples/t4/004",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 40 + 70",
+      "choices": [
+        "10(4 + 6)",
+        "10(30 + 60)",
+        "10(4 + 7)",
+        "10(40 + 7)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED_GCF",
+        null,
+        "ONE_TERM"
+      ],
+      "explanation": "40 = 10 × 4, 70 = 10 × 7. GCF 10; 4 and 7 share no factor. 40 + 70 = 10(4 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/005",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 40 + 24",
+      "choices": [
+        "8(5 + 2)",
+        "8(5 + 3)",
+        "8(32 + 16)",
+        "8(40 + 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUBTRACTED_GCF",
+        "ONE_TERM"
+      ],
+      "explanation": "40 = 8 × 5, 24 = 8 × 3. GCF 8; 5 and 3 share no factor. 40 + 24 = 8(5 + 3)."
+    },
+    {
+      "id": "factors-multiples/t4/006",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 21 + 35",
+      "choices": [
+        "7(14 + 28)",
+        "7(3 + 5)",
+        "7(3 + 4)",
+        "7(3 + 35)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        null,
+        "ARITH",
+        "ONE_TERM"
+      ],
+      "explanation": "21 = 7 × 3, 35 = 7 × 5. GCF 7; 3 and 5 share no factor. 21 + 35 = 7(3 + 5)."
+    },
+    {
+      "id": "factors-multiples/t4/007",
+      "tier": 4,
+      "prompt": "24 + 21 = 3(? + ?)",
+      "choices": [
+        "8 + 6",
+        "8 + 7",
+        "8 + 21",
+        "21 + 18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_TERM",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "24 = 3 × 8, 21 = 3 × 7. GCF 3; 8 and 7 share no factor. 24 + 21 = 3(8 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/008",
+      "tier": 4,
+      "prompt": "63 + 70 = 7(? + ?)",
+      "choices": [
+        "56 + 63",
+        "63 + 10",
+        "8 + 10",
+        "9 + 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "ONE_TERM",
+        "ARITH",
+        null
+      ],
+      "explanation": "63 = 7 × 9, 70 = 7 × 10. GCF 7; 9 and 10 share no factor. 63 + 70 = 7(9 + 10)."
+    },
+    {
+      "id": "factors-multiples/t4/009",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 54 + 42",
+      "choices": [
+        "6(9 + 6)",
+        "6(9 + 7)",
+        "6(48 + 36)",
+        "6(9 + 42)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUBTRACTED_GCF",
+        "ONE_TERM"
+      ],
+      "explanation": "54 = 6 × 9, 42 = 6 × 7. GCF 6; 9 and 7 share no factor. 54 + 42 = 6(9 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/010",
+      "tier": 4,
+      "prompt": "28 + 8 = 4(? + ?)",
+      "choices": [
+        "28 + 2",
+        "7 + 2",
+        "24 + 4",
+        "14 + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM",
+        null,
+        "SUBTRACTED_GCF",
+        "NOT_GREATEST"
+      ],
+      "explanation": "28 = 4 × 7, 8 = 4 × 2. GCF 4; 7 and 2 share no factor. 28 + 8 = 4(7 + 2)."
+    },
+    {
+      "id": "factors-multiples/t4/011",
+      "tier": 4,
+      "prompt": "16 + 12 = 4(? + ?)",
+      "choices": [
+        "4 + 3",
+        "8 + 6",
+        "4 + 12",
+        "12 + 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "ONE_TERM",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "16 = 4 × 4, 12 = 4 × 3. GCF 4; 4 and 3 share no factor. 16 + 12 = 4(4 + 3)."
+    },
+    {
+      "id": "factors-multiples/t4/012",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 90 + 80",
+      "choices": [
+        "10(9 + 80)",
+        "10(80 + 70)",
+        "10(9 + 9)",
+        "10(9 + 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        "ARITH",
+        null
+      ],
+      "explanation": "90 = 10 × 9, 80 = 10 × 8. GCF 10; 9 and 8 share no factor. 90 + 80 = 10(9 + 8)."
+    },
+    {
+      "id": "factors-multiples/t4/013",
+      "tier": 4,
+      "prompt": "16 + 56 = 8(? + ?)",
+      "choices": [
+        "4 + 14",
+        "8 + 48",
+        "16 + 7",
+        "2 + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "SUBTRACTED_GCF",
+        "ONE_TERM",
+        null
+      ],
+      "explanation": "16 = 8 × 2, 56 = 8 × 7. GCF 8; 2 and 7 share no factor. 16 + 56 = 8(2 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/014",
+      "tier": 4,
+      "prompt": "15 + 50 = 5(? + ?)",
+      "choices": [
+        "3 + 10",
+        "15 + 10",
+        "10 + 45",
+        "3 + 9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        "ARITH"
+      ],
+      "explanation": "15 = 5 × 3, 50 = 5 × 10. GCF 5; 3 and 10 share no factor. 15 + 50 = 5(3 + 10)."
+    },
+    {
+      "id": "factors-multiples/t4/015",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 81 + 72",
+      "choices": [
+        "9(72 + 63)",
+        "9(10 + 8)",
+        "9(9 + 8)",
+        "9(81 + 8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "ARITH",
+        null,
+        "ONE_TERM"
+      ],
+      "explanation": "81 = 9 × 9, 72 = 9 × 8. GCF 9; 9 and 8 share no factor. 81 + 72 = 9(9 + 8)."
+    },
+    {
+      "id": "factors-multiples/t4/016",
+      "tier": 4,
+      "prompt": "48 + 42 = 6(? + ?)",
+      "choices": [
+        "16 + 14",
+        "8 + 42",
+        "42 + 36",
+        "8 + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        null
+      ],
+      "explanation": "48 = 6 × 8, 42 = 6 × 7. GCF 6; 8 and 7 share no factor. 48 + 42 = 6(8 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/017",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6 + 16",
+      "choices": [
+        "2(4 + 14)",
+        "2(3 + 9)",
+        "2(3 + 8)",
+        "2(6 + 8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "ARITH",
+        null,
+        "ONE_TERM"
+      ],
+      "explanation": "6 = 2 × 3, 16 = 2 × 8. GCF 2; 3 and 8 share no factor. 6 + 16 = 2(3 + 8)."
+    },
+    {
+      "id": "factors-multiples/t4/018",
+      "tier": 4,
+      "prompt": "35 + 30 = 5(? + ?)",
+      "choices": [
+        "7 + 5",
+        "7 + 30",
+        "7 + 6",
+        "30 + 25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_TERM",
+        null,
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "35 = 5 × 7, 30 = 5 × 6. GCF 5; 7 and 6 share no factor. 35 + 30 = 5(7 + 6)."
+    },
+    {
+      "id": "factors-multiples/t4/019",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 42 + 48",
+      "choices": [
+        "6(36 + 42)",
+        "6(8 + 8)",
+        "6(7 + 8)",
+        "6(42 + 8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "ARITH",
+        null,
+        "ONE_TERM"
+      ],
+      "explanation": "42 = 6 × 7, 48 = 6 × 8. GCF 6; 7 and 8 share no factor. 42 + 48 = 6(7 + 8)."
+    },
+    {
+      "id": "factors-multiples/t4/020",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6 + 27",
+      "choices": [
+        "3(2 + 8)",
+        "3(2 + 9)",
+        "3(3 + 24)",
+        "3(2 + 27)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUBTRACTED_GCF",
+        "ONE_TERM"
+      ],
+      "explanation": "6 = 3 × 2, 27 = 3 × 9. GCF 3; 2 and 9 share no factor. 6 + 27 = 3(2 + 9)."
+    },
+    {
+      "id": "factors-multiples/t4/021",
+      "tier": 4,
+      "prompt": "18 + 20 = 2(? + ?)",
+      "choices": [
+        "16 + 18",
+        "9 + 10",
+        "18 + 10",
+        "10 + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        null,
+        "ONE_TERM",
+        "ARITH"
+      ],
+      "explanation": "18 = 2 × 9, 20 = 2 × 10. GCF 2; 9 and 10 share no factor. 18 + 20 = 2(9 + 10)."
+    },
+    {
+      "id": "factors-multiples/t4/022",
+      "tier": 4,
+      "prompt": "40 + 56 = 8(? + ?)",
+      "choices": [
+        "40 + 7",
+        "20 + 28",
+        "32 + 48",
+        "5 + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM",
+        "NOT_GREATEST",
+        "SUBTRACTED_GCF",
+        null
+      ],
+      "explanation": "40 = 8 × 5, 56 = 8 × 7. GCF 8; 5 and 7 share no factor. 40 + 56 = 8(5 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/023",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 48 + 40",
+      "choices": [
+        "8(6 + 5)",
+        "8(5 + 5)",
+        "8(48 + 5)",
+        "8(40 + 32)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_TERM",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "48 = 8 × 6, 40 = 8 × 5. GCF 8; 6 and 5 share no factor. 48 + 40 = 8(6 + 5)."
+    },
+    {
+      "id": "factors-multiples/t4/024",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 12 + 42",
+      "choices": [
+        "6(12 + 7)",
+        "6(6 + 36)",
+        "6(1 + 7)",
+        "6(2 + 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        "ARITH",
+        null
+      ],
+      "explanation": "12 = 6 × 2, 42 = 6 × 7. GCF 6; 2 and 7 share no factor. 12 + 42 = 6(2 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/025",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 40 + 72",
+      "choices": [
+        "8(32 + 64)",
+        "8(5 + 10)",
+        "8(40 + 9)",
+        "8(5 + 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "ARITH",
+        "ONE_TERM",
+        null
+      ],
+      "explanation": "40 = 8 × 5, 72 = 8 × 9. GCF 8; 5 and 9 share no factor. 40 + 72 = 8(5 + 9)."
+    },
+    {
+      "id": "factors-multiples/t4/026",
+      "tier": 4,
+      "prompt": "20 + 16 = 4(? + ?)",
+      "choices": [
+        "5 + 16",
+        "10 + 8",
+        "5 + 4",
+        "16 + 12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_TERM",
+        "NOT_GREATEST",
+        null,
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "20 = 4 × 5, 16 = 4 × 4. GCF 4; 5 and 4 share no factor. 20 + 16 = 4(5 + 4)."
+    },
+    {
+      "id": "factors-multiples/t4/027",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6 + 21",
+      "choices": [
+        "3(1 + 7)",
+        "3(3 + 18)",
+        "3(6 + 7)",
+        "3(2 + 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED_GCF",
+        "ONE_TERM",
+        null
+      ],
+      "explanation": "6 = 3 × 2, 21 = 3 × 7. GCF 3; 2 and 7 share no factor. 6 + 21 = 3(2 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/028",
+      "tier": 4,
+      "prompt": "12 + 30 = 6(? + ?)",
+      "choices": [
+        "2 + 5",
+        "6 + 24",
+        "4 + 10",
+        "2 + 30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_GCF",
+        "NOT_GREATEST",
+        "ONE_TERM"
+      ],
+      "explanation": "12 = 6 × 2, 30 = 6 × 5. GCF 6; 2 and 5 share no factor. 12 + 30 = 6(2 + 5)."
+    },
+    {
+      "id": "factors-multiples/t4/029",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 80 + 72",
+      "choices": [
+        "8(10 + 9)",
+        "8(72 + 64)",
+        "8(10 + 72)",
+        "8(10 + 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_GCF",
+        "ONE_TERM",
+        "ARITH"
+      ],
+      "explanation": "80 = 8 × 10, 72 = 8 × 9. GCF 8; 10 and 9 share no factor. 80 + 72 = 8(10 + 9)."
+    },
+    {
+      "id": "factors-multiples/t4/030",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 35 + 30",
+      "choices": [
+        "5(30 + 25)",
+        "5(7 + 6)",
+        "5(7 + 7)",
+        "5(7 + 30)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        null,
+        "ARITH",
+        "ONE_TERM"
+      ],
+      "explanation": "35 = 5 × 7, 30 = 5 × 6. GCF 5; 7 and 6 share no factor. 35 + 30 = 5(7 + 6)."
+    },
+    {
+      "id": "factors-multiples/t4/031",
+      "tier": 4,
+      "prompt": "30 + 48 = 6(? + ?)",
+      "choices": [
+        "5 + 48",
+        "15 + 24",
+        "5 + 8",
+        "24 + 42"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_TERM",
+        "NOT_GREATEST",
+        null,
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "30 = 6 × 5, 48 = 6 × 8. GCF 6; 5 and 8 share no factor. 30 + 48 = 6(5 + 8)."
+    },
+    {
+      "id": "factors-multiples/t4/032",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 63 + 90",
+      "choices": [
+        "9(54 + 81)",
+        "9(7 + 10)",
+        "9(63 + 10)",
+        "9(8 + 10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        null,
+        "ONE_TERM",
+        "ARITH"
+      ],
+      "explanation": "63 = 9 × 7, 90 = 9 × 10. GCF 9; 7 and 10 share no factor. 63 + 90 = 9(7 + 10)."
+    },
+    {
+      "id": "factors-multiples/t4/033",
+      "tier": 4,
+      "prompt": "16 + 40 = 8(? + ?)",
+      "choices": [
+        "2 + 5",
+        "4 + 10",
+        "16 + 5",
+        "8 + 32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "ONE_TERM",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "16 = 8 × 2, 40 = 8 × 5. GCF 8; 2 and 5 share no factor. 16 + 40 = 8(2 + 5)."
+    },
+    {
+      "id": "factors-multiples/t4/034",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 40 + 50",
+      "choices": [
+        "10(4 + 50)",
+        "10(30 + 40)",
+        "10(4 + 5)",
+        "10(4 + 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "40 = 10 × 4, 50 = 10 × 5. GCF 10; 4 and 5 share no factor. 40 + 50 = 10(4 + 5)."
+    },
+    {
+      "id": "factors-multiples/t4/035",
+      "tier": 4,
+      "prompt": "8 + 6 = 2(? + ?)",
+      "choices": [
+        "4 + 4",
+        "8 + 3",
+        "6 + 4",
+        "4 + 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        null
+      ],
+      "explanation": "8 = 2 × 4, 6 = 2 × 3. GCF 2; 4 and 3 share no factor. 8 + 6 = 2(4 + 3)."
+    },
+    {
+      "id": "factors-multiples/t4/036",
+      "tier": 4,
+      "prompt": "30 + 42 = 6(? + ?)",
+      "choices": [
+        "10 + 14",
+        "30 + 7",
+        "5 + 7",
+        "24 + 36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_GREATEST",
+        "ONE_TERM",
+        null,
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "30 = 6 × 5, 42 = 6 × 7. GCF 6; 5 and 7 share no factor. 30 + 42 = 6(5 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/037",
+      "tier": 4,
+      "prompt": "50 + 70 = 10(? + ?)",
+      "choices": [
+        "40 + 60",
+        "10 + 14",
+        "50 + 7",
+        "5 + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_GCF",
+        "NOT_GREATEST",
+        "ONE_TERM",
+        null
+      ],
+      "explanation": "50 = 10 × 5, 70 = 10 × 7. GCF 10; 5 and 7 share no factor. 50 + 70 = 10(5 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/038",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 10 + 35",
+      "choices": [
+        "5(2 + 7)",
+        "5(2 + 35)",
+        "5(5 + 30)",
+        "5(2 + 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_TERM",
+        "SUBTRACTED_GCF",
+        "ARITH"
+      ],
+      "explanation": "10 = 5 × 2, 35 = 5 × 7. GCF 5; 2 and 7 share no factor. 10 + 35 = 5(2 + 7)."
+    },
+    {
+      "id": "factors-multiples/t4/039",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 28 + 16",
+      "choices": [
+        "4(7 + 16)",
+        "4(7 + 4)",
+        "4(6 + 4)",
+        "4(24 + 12)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM",
+        null,
+        "ARITH",
+        "SUBTRACTED_GCF"
+      ],
+      "explanation": "28 = 4 × 7, 16 = 4 × 4. GCF 4; 7 and 4 share no factor. 28 + 16 = 4(7 + 4)."
+    },
+    {
+      "id": "factors-multiples/t4/040",
+      "tier": 4,
+      "prompt": "16 + 72 = 8(? + ?)",
+      "choices": [
+        "2 + 9",
+        "4 + 18",
+        "8 + 64",
+        "2 + 72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "SUBTRACTED_GCF",
+        "ONE_TERM"
+      ],
+      "explanation": "16 = 8 × 2, 72 = 8 × 9. GCF 8; 2 and 9 share no factor. 16 + 72 = 8(2 + 9)."
+    },
+    {
+      "id": "factors-multiples/t5/001",
+      "tier": 5,
+      "prompt": "60 red, 70 blue beads. Most identical bags, none left?",
+      "choices": [
+        "5",
+        "10",
+        "60",
+        "420"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Equal sharing needs a common factor of 60 and 70. 60 = 10 × 6, 70 = 10 × 7: GCF 10."
+    },
+    {
+      "id": "factors-multiples/t5/002",
+      "tier": 5,
+      "prompt": "21 boys, 9 girls in identical teams. Most teams?",
+      "choices": [
+        "9",
+        "63",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "WRONG_TOOL",
+        "ARITH",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 21 and 9. 21 = 3 × 7, 9 = 3 × 3: GCF 3."
+    },
+    {
+      "id": "factors-multiples/t5/003",
+      "tier": 5,
+      "prompt": "45 pens, 63 pads into identical kits, none left. Most kits?",
+      "choices": [
+        "9",
+        "3",
+        "45",
+        "315"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "SMALLER_NUMBER",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Equal sharing needs a common factor of 45 and 63. 45 = 9 × 5, 63 = 9 × 7: GCF 9."
+    },
+    {
+      "id": "factors-multiples/t5/004",
+      "tier": 5,
+      "prompt": "8 red, 12 blue beads. Most identical bags, none left?",
+      "choices": [
+        "4",
+        "2",
+        "8",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "SMALLER_NUMBER",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Equal sharing needs a common factor of 8 and 12. 8 = 4 × 2, 12 = 4 × 3: GCF 4."
+    },
+    {
+      "id": "factors-multiples/t5/005",
+      "tier": 5,
+      "prompt": "Two lights flash now, then every 6 s and 9 s. Next together?",
+      "choices": [
+        "36 s",
+        "18 s",
+        "54 s",
+        "3 s"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "PRODUCT",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 9. The least one is 18 s."
+    },
+    {
+      "id": "factors-multiples/t5/006",
+      "tier": 5,
+      "prompt": "Cut 6 m and 9 m ropes into equal pieces, no waste. Longest?",
+      "choices": [
+        "18 m",
+        "2 m",
+        "6 m",
+        "3 m"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "ARITH",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 6 and 9. 6 = 3 × 2, 9 = 3 × 3: GCF 3 m."
+    },
+    {
+      "id": "factors-multiples/t5/007",
+      "tier": 5,
+      "prompt": "Two lights flash now, then every 6 s and 8 s. Next together?",
+      "choices": [
+        "8 s",
+        "72 s",
+        "24 s",
+        "2 s"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 8. The least one is 24 s."
+    },
+    {
+      "id": "factors-multiples/t5/008",
+      "tier": 5,
+      "prompt": "Cups stack in 4s, lids in 6s. Fewest of each to match?",
+      "choices": [
+        "12",
+        "6",
+        "2",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGER_NUMBER",
+        "WRONG_TOOL",
+        "PRODUCT"
+      ],
+      "explanation": "Matching needs a common multiple of 4 and 6. The least one is 12."
+    },
+    {
+      "id": "factors-multiples/t5/009",
+      "tier": 5,
+      "prompt": "Hot dogs come in 8s, buns in 10s. Fewest of each to match?",
+      "choices": [
+        "40",
+        "2",
+        "120",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOOL",
+        "NOT_LEAST",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Matching needs a common multiple of 8 and 10. The least one is 40."
+    },
+    {
+      "id": "factors-multiples/t5/010",
+      "tier": 5,
+      "prompt": "27 pens, 12 pads into identical kits, none left. Most kits?",
+      "choices": [
+        "5",
+        "108",
+        "12",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_TOOL",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 27 and 12. 27 = 3 × 9, 12 = 3 × 4: GCF 3."
+    },
+    {
+      "id": "factors-multiples/t5/011",
+      "tier": 5,
+      "prompt": "Hot dogs come in 4s, buns in 6s. Fewest of each to match?",
+      "choices": [
+        "2",
+        "6",
+        "24",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "LARGER_NUMBER",
+        "PRODUCT",
+        null
+      ],
+      "explanation": "Matching needs a common multiple of 4 and 6. The least one is 12."
+    },
+    {
+      "id": "factors-multiples/t5/012",
+      "tier": 5,
+      "prompt": "Hot dogs come in 6s, buns in 9s. Fewest of each to match?",
+      "choices": [
+        "18",
+        "54",
+        "36",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "NOT_LEAST",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 9. The least one is 18."
+    },
+    {
+      "id": "factors-multiples/t5/013",
+      "tier": 5,
+      "prompt": "81 boys, 45 girls in identical teams. Most teams?",
+      "choices": [
+        "9",
+        "405",
+        "45",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOOL",
+        "SMALLER_NUMBER",
+        "NOT_GREATEST"
+      ],
+      "explanation": "Equal sharing needs a common factor of 81 and 45. 81 = 9 × 9, 45 = 9 × 5: GCF 9."
+    },
+    {
+      "id": "factors-multiples/t5/014",
+      "tier": 5,
+      "prompt": "Cups stack in 8s, lids in 6s. Fewest of each to match?",
+      "choices": [
+        "24",
+        "8",
+        "2",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGER_NUMBER",
+        "WRONG_TOOL",
+        "PRODUCT"
+      ],
+      "explanation": "Matching needs a common multiple of 8 and 6. The least one is 24."
+    },
+    {
+      "id": "factors-multiples/t5/015",
+      "tier": 5,
+      "prompt": "24 red, 30 blue beads. Most identical bags, none left?",
+      "choices": [
+        "120",
+        "3",
+        "24",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "NOT_GREATEST",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 24 and 30. 24 = 6 × 4, 30 = 6 × 5: GCF 6."
+    },
+    {
+      "id": "factors-multiples/t5/016",
+      "tier": 5,
+      "prompt": "Two lights flash now, then every 9 s and 6 s. Next together?",
+      "choices": [
+        "18 s",
+        "36 s",
+        "3 s",
+        "54 s"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_LEAST",
+        "WRONG_TOOL",
+        "PRODUCT"
+      ],
+      "explanation": "Matching needs a common multiple of 9 and 6. The least one is 18 s."
+    },
+    {
+      "id": "factors-multiples/t5/017",
+      "tier": 5,
+      "prompt": "32 pens, 24 pads into identical kits, none left. Most kits?",
+      "choices": [
+        "8",
+        "4",
+        "96",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_GREATEST",
+        "WRONG_TOOL",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 32 and 24. 32 = 8 × 4, 24 = 8 × 3: GCF 8."
+    },
+    {
+      "id": "factors-multiples/t5/018",
+      "tier": 5,
+      "prompt": "Two lights flash now, then every 4 s and 6 s. Next together?",
+      "choices": [
+        "2 s",
+        "36 s",
+        "6 s",
+        "12 s"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "NOT_LEAST",
+        "LARGER_NUMBER",
+        null
+      ],
+      "explanation": "Matching needs a common multiple of 4 and 6. The least one is 12 s."
+    },
+    {
+      "id": "factors-multiples/t5/019",
+      "tier": 5,
+      "prompt": "15 boys, 24 girls in identical teams. Most teams?",
+      "choices": [
+        "5",
+        "3",
+        "120",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WRONG_TOOL",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 15 and 24. 15 = 3 × 5, 24 = 3 × 8: GCF 3."
+    },
+    {
+      "id": "factors-multiples/t5/020",
+      "tier": 5,
+      "prompt": "Cut 14 m and 4 m ropes into equal pieces, no waste. Longest?",
+      "choices": [
+        "28 m",
+        "2 m",
+        "5 m",
+        "4 m"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TOOL",
+        null,
+        "ARITH",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 14 and 4. 14 = 2 × 7, 4 = 2 × 2: GCF 2 m."
+    },
+    {
+      "id": "factors-multiples/t5/021",
+      "tier": 5,
+      "prompt": "14 boys, 49 girls in identical teams. Most teams?",
+      "choices": [
+        "4",
+        "98",
+        "7",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_TOOL",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 14 and 49. 14 = 7 × 2, 49 = 7 × 7: GCF 7."
+    },
+    {
+      "id": "factors-multiples/t5/022",
+      "tier": 5,
+      "prompt": "Bus A comes every 8 min, bus B every 6. Both now. Next both?",
+      "choices": [
+        "48 min",
+        "24 min",
+        "2 min",
+        "8 min"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PRODUCT",
+        null,
+        "WRONG_TOOL",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Matching needs a common multiple of 8 and 6. The least one is 24 min."
+    },
+    {
+      "id": "factors-multiples/t5/023",
+      "tier": 5,
+      "prompt": "Cups stack in 6s, lids in 8s. Fewest of each to match?",
+      "choices": [
+        "48",
+        "72",
+        "24",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PRODUCT",
+        "NOT_LEAST",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 8. The least one is 24."
+    },
+    {
+      "id": "factors-multiples/t5/024",
+      "tier": 5,
+      "prompt": "Ana laps in 10 min, Ben in 4 min. Both at start again in?",
+      "choices": [
+        "40 min",
+        "60 min",
+        "20 min",
+        "2 min"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PRODUCT",
+        "NOT_LEAST",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 10 and 4. The least one is 20 min."
+    },
+    {
+      "id": "factors-multiples/t5/025",
+      "tier": 5,
+      "prompt": "Cups stack in 4s, lids in 10s. Fewest of each to match?",
+      "choices": [
+        "60",
+        "2",
+        "10",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_LEAST",
+        "WRONG_TOOL",
+        "LARGER_NUMBER",
+        null
+      ],
+      "explanation": "Matching needs a common multiple of 4 and 10. The least one is 20."
+    },
+    {
+      "id": "factors-multiples/t5/026",
+      "tier": 5,
+      "prompt": "Hot dogs come in 8s, buns in 6s. Fewest of each to match?",
+      "choices": [
+        "8",
+        "48",
+        "24",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGER_NUMBER",
+        "PRODUCT",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 8 and 6. The least one is 24."
+    },
+    {
+      "id": "factors-multiples/t5/027",
+      "tier": 5,
+      "prompt": "63 pens, 81 pads into identical kits, none left. Most kits?",
+      "choices": [
+        "3",
+        "9",
+        "63",
+        "567"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Equal sharing needs a common factor of 63 and 81. 63 = 9 × 7, 81 = 9 × 9: GCF 9."
+    },
+    {
+      "id": "factors-multiples/t5/028",
+      "tier": 5,
+      "prompt": "81 red, 18 blue beads. Most identical bags, none left?",
+      "choices": [
+        "162",
+        "3",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "NOT_GREATEST",
+        null,
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 81 and 18. 81 = 9 × 9, 18 = 9 × 2: GCF 9."
+    },
+    {
+      "id": "factors-multiples/t5/029",
+      "tier": 5,
+      "prompt": "Cut 8 m and 14 m ropes into equal pieces, no waste. Longest?",
+      "choices": [
+        "56 m",
+        "5 m",
+        "8 m",
+        "2 m"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "ARITH",
+        "SMALLER_NUMBER",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 8 and 14. 8 = 2 × 4, 14 = 2 × 7: GCF 2 m."
+    },
+    {
+      "id": "factors-multiples/t5/030",
+      "tier": 5,
+      "prompt": "Bus A comes every 9 min, bus B every 6. Both now. Next both?",
+      "choices": [
+        "36 min",
+        "18 min",
+        "3 min",
+        "54 min"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_LEAST",
+        null,
+        "WRONG_TOOL",
+        "PRODUCT"
+      ],
+      "explanation": "Matching needs a common multiple of 9 and 6. The least one is 18 min."
+    },
+    {
+      "id": "factors-multiples/t5/031",
+      "tier": 5,
+      "prompt": "50 boys, 40 girls in identical teams. Most teams?",
+      "choices": [
+        "40",
+        "200",
+        "10",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SMALLER_NUMBER",
+        "WRONG_TOOL",
+        null,
+        "NOT_GREATEST"
+      ],
+      "explanation": "Equal sharing needs a common factor of 50 and 40. 50 = 10 × 5, 40 = 10 × 4: GCF 10."
+    },
+    {
+      "id": "factors-multiples/t5/032",
+      "tier": 5,
+      "prompt": "Cut 6 m and 4 m ropes into equal pieces, no waste. Longest?",
+      "choices": [
+        "12 m",
+        "4 m",
+        "5 m",
+        "2 m"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "SMALLER_NUMBER",
+        "ARITH",
+        null
+      ],
+      "explanation": "Equal sharing needs a common factor of 6 and 4. 6 = 2 × 3, 4 = 2 × 2: GCF 2 m."
+    },
+    {
+      "id": "factors-multiples/t5/033",
+      "tier": 5,
+      "prompt": "40 pens, 50 pads into identical kits, none left. Most kits?",
+      "choices": [
+        "200",
+        "10",
+        "40",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TOOL",
+        null,
+        "SMALLER_NUMBER",
+        "NOT_GREATEST"
+      ],
+      "explanation": "Equal sharing needs a common factor of 40 and 50. 40 = 10 × 4, 50 = 10 × 5: GCF 10."
+    },
+    {
+      "id": "factors-multiples/t5/034",
+      "tier": 5,
+      "prompt": "Bus A comes every 4 min, bus B every 6. Both now. Next both?",
+      "choices": [
+        "2 min",
+        "12 min",
+        "36 min",
+        "6 min"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TOOL",
+        null,
+        "NOT_LEAST",
+        "LARGER_NUMBER"
+      ],
+      "explanation": "Matching needs a common multiple of 4 and 6. The least one is 12 min."
+    },
+    {
+      "id": "factors-multiples/t5/035",
+      "tier": 5,
+      "prompt": "Ana laps in 6 min, Ben in 10 min. Both at start again in?",
+      "choices": [
+        "2 min",
+        "10 min",
+        "90 min",
+        "30 min"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "LARGER_NUMBER",
+        "NOT_LEAST",
+        null
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 10. The least one is 30 min."
+    },
+    {
+      "id": "factors-multiples/t5/036",
+      "tier": 5,
+      "prompt": "Cut 8 m and 20 m ropes into equal pieces, no waste. Longest?",
+      "choices": [
+        "2 m",
+        "4 m",
+        "40 m",
+        "8 m"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_GREATEST",
+        null,
+        "WRONG_TOOL",
+        "SMALLER_NUMBER"
+      ],
+      "explanation": "Equal sharing needs a common factor of 8 and 20. 8 = 4 × 2, 20 = 4 × 5: GCF 4 m."
+    },
+    {
+      "id": "factors-multiples/t5/037",
+      "tier": 5,
+      "prompt": "Ana laps in 6 min, Ben in 8 min. Both at start again in?",
+      "choices": [
+        "72 min",
+        "48 min",
+        "24 min",
+        "2 min"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_LEAST",
+        "PRODUCT",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 8. The least one is 24 min."
+    },
+    {
+      "id": "factors-multiples/t5/038",
+      "tier": 5,
+      "prompt": "Ana laps in 8 min, Ben in 6 min. Both at start again in?",
+      "choices": [
+        "2 min",
+        "48 min",
+        "24 min",
+        "72 min"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TOOL",
+        "PRODUCT",
+        null,
+        "NOT_LEAST"
+      ],
+      "explanation": "Matching needs a common multiple of 8 and 6. The least one is 24 min."
+    },
+    {
+      "id": "factors-multiples/t5/039",
+      "tier": 5,
+      "prompt": "35 red, 49 blue beads. Most identical bags, none left?",
+      "choices": [
+        "8",
+        "35",
+        "7",
+        "245"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SMALLER_NUMBER",
+        null,
+        "WRONG_TOOL"
+      ],
+      "explanation": "Equal sharing needs a common factor of 35 and 49. 35 = 7 × 5, 49 = 7 × 7: GCF 7."
+    },
+    {
+      "id": "factors-multiples/t5/040",
+      "tier": 5,
+      "prompt": "Bus A comes every 6 min, bus B every 8. Both now. Next both?",
+      "choices": [
+        "24 min",
+        "72 min",
+        "48 min",
+        "2 min"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_LEAST",
+        "PRODUCT",
+        "WRONG_TOOL"
+      ],
+      "explanation": "Matching needs a common multiple of 6 and 8. The least one is 24 min."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "fraction-division",
+  "version": "1.0.0",
+  "title": "Dividing Fractions",
+  "subtitle": "How Many Groups?",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.NS.A.1"],
+  "seed": 20261012,
+  "items_per_tier": 40,
+  "bounds": "Prompt wholes 2-10; prompt fractions proper, numerator 1-9, denominator 2-10, so every cross product (a×d, b×c, whole×denominator) is a times-table fact <= 90. Answers in simplest form: whole answers <= 100; a fraction part's denominator <= 12; a mixed number's whole part <= 10. Story numbers follow the same rules. No two choices equal in value.",
+  "tiers": [
+    { "tier": 1, "name": "Whole ÷ Unit Fraction", "description": "How many 1/3s fit in 4? Each whole holds 3 of them." },
+    { "tier": 2, "name": "Fraction ÷ Whole", "description": "Split a fraction into equal parts: the answer gets smaller." },
+    { "tier": 3, "name": "Same Denominators", "description": "Same-size pieces: divide the numerators." },
+    { "tier": 4, "name": "Any Two Fractions", "description": "Multiply by the reciprocal of the divisor." },
+    { "tier": 5, "name": "Story Problems", "description": "How many groups, how much per share, or a missing side." }
+  ],
+  "misconceptions": {
+    "DIVIDED_WHOLE": {
+      "student": "Count the pieces: each whole holds as many as the denominator. Multiply.",
+      "teacher": "Divides the whole by the unit fraction's denominator (4 ÷ 1/3 -> 4/3), i.e. multiplies by the divisor."
+    },
+    "FLIPPED_ANSWER": {
+      "student": "Upside down: that is the second number ÷ the first. Keep the order.",
+      "teacher": "Gives the reciprocal of the quotient (computes divisor ÷ dividend)."
+    },
+    "MULT_WHOLE": {
+      "student": "Dividing by a whole number makes it smaller: split it into that many parts.",
+      "teacher": "Multiplies the fraction by the whole-number divisor (1/2 ÷ 4 -> 2)."
+    },
+    "ADDED_TO_DENOM": {
+      "student": "To split into n parts, multiply the denominator by n. Don't add n.",
+      "teacher": "Adds the whole-number divisor to the denominator (1/2 ÷ 4 -> 1/6)."
+    },
+    "FLIP_FIRST": {
+      "student": "Flip the second fraction, not the first: keep, change, flip.",
+      "teacher": "Inverts the dividend instead of the divisor, giving the reciprocal of the quotient."
+    },
+    "NO_FLIP": {
+      "student": "You multiplied as is. To divide, multiply by the flipped divisor.",
+      "teacher": "Multiplies straight across without inverting the divisor (2/3 ÷ 3/4 -> 1/2)."
+    },
+    "KEEP_DENOM": {
+      "student": "Same denominators: just count how many fit. No denominator in the answer.",
+      "teacher": "Divides the numerators and keeps the common denominator (3/4 ÷ 1/4 -> 3/4)."
+    },
+    "FLIP_BOTH": {
+      "student": "Flip only the second fraction. The first one stays as it is.",
+      "teacher": "Inverts both dividend and divisor before multiplying (2/3 ÷ 3/4 -> 2)."
+    },
+    "IGNORED_NUMERATOR": {
+      "student": "Flip the whole divisor: ÷ 3/4 means × 4/3, not just × 4.",
+      "teacher": "Multiplies by the divisor's denominator and ignores its numerator (6 ÷ 3/4 -> 24)."
+    },
+    "WRONG_ORDER": {
+      "student": "Backwards: start with the amount you have, then divide it.",
+      "teacher": "Swaps dividend and divisor in a story (3/4 lb shared by 3 -> 3 ÷ 3/4 = 4)."
+    }
+  }
+}

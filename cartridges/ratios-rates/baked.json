@@ -1,0 +1,3920 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "ratios-rates",
+  "version": "1.0.0",
+  "title": "Ratios & Rates",
+  "subtitle": "Equivalent Ratios, Unit Rates, Percent",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.RP.A.1",
+    "CCSS.MATH.CONTENT.6.RP.A.2",
+    "CCSS.MATH.CONTENT.6.RP.A.3"
+  ],
+  "seed": 20261011,
+  "items_per_tier": 40,
+  "bounds": "Counts 2-10 (a total <= 20). Every scale factor, unit rate, divisor and quotient 2-10; every x and ÷ a times-table fact; correct values whole numbers <= 100. Percents: 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90; tens (50 included) on wholes 10q (q 2-9), 25%/75% on wholes 4q (q 2-10), 50% also on wholes 2q (q 2-10). Sharing by a ratio: terms 2-8 summing to <= 10. Ratio answers p:q with p, q <= 20. Distractors may be fractions or decimals (what the misreading gives).",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Ratio Language",
+      "description": "Write a ratio in the order asked: part to part, part to whole."
+    },
+    {
+      "tier": 2,
+      "name": "Equivalent Ratios",
+      "description": "Scale both terms by the same number to fill the gap."
+    },
+    {
+      "tier": 3,
+      "name": "Unit Rates & Units",
+      "description": "Find the rate for 1, and convert units with a rate."
+    },
+    {
+      "tier": 4,
+      "name": "Percent of a Number",
+      "description": "Find 10%, 25%, 50%, 75% and tens of percent of a whole."
+    },
+    {
+      "tier": 5,
+      "name": "Parts, Wholes & Rates",
+      "description": "Two steps: share a total by a ratio, find a whole from a percent, scale a price."
+    }
+  ],
+  "misconceptions": {
+    "REVERSED": {
+      "student": "Order matters: write the first thing named first.",
+      "teacher": "Writes the ratio terms in the opposite order (3:5 for blue to red = 5:3)."
+    },
+    "PART_TO_WHOLE": {
+      "student": "It asks part to part. Compare the two groups, not a group to the total.",
+      "teacher": "Uses the total as one term of a part-to-part ratio."
+    },
+    "PART_TO_PART": {
+      "student": "\"To all\" means the total. Add the groups to get the second number.",
+      "teacher": "Gives a part-to-part ratio when a part-to-whole ratio is asked."
+    },
+    "WHOLE_FOR_PART": {
+      "student": "Take the known group away from the total first to get the other group.",
+      "teacher": "Uses the given total as the count of the remaining group."
+    },
+    "ADDITIVE": {
+      "student": "Ratios grow by multiplying, not adding. Times both numbers by the same amount.",
+      "teacher": "Adds the same amount to both terms instead of scaling (2:3 = 11:12)."
+    },
+    "WRONG_TERM": {
+      "student": "Multiply the number that matches, not the one you already have.",
+      "teacher": "Applies the scale factor to the given term instead of the missing one."
+    },
+    "FACTOR_ONLY": {
+      "student": "That is only the first step. Use that number to finish.",
+      "teacher": "Stops at the scale factor or unit rate and gives it as the answer."
+    },
+    "MULTIPLIED_RATE": {
+      "student": "Going to a bigger unit or finding per 1, divide. You multiplied.",
+      "teacher": "Multiplies the two quantities when the rate needs a division."
+    },
+    "DIVIDED_RATE": {
+      "student": "Going to a smaller unit, there are more of them: multiply.",
+      "teacher": "Divides by the conversion rate when converting to the smaller unit."
+    },
+    "INVERTED": {
+      "student": "Divided the wrong way. Per 1 means divide the total by the count.",
+      "teacher": "Divides the count by the total, giving the reciprocal rate."
+    },
+    "PERCENT_AS_PART": {
+      "student": "The percent is not the answer. Find that share of the whole.",
+      "teacher": "Gives the percent itself as the part (25% of 40 = 25)."
+    },
+    "SUBTRACTED": {
+      "student": "Percent of means a share of the whole, not whole minus the percent.",
+      "teacher": "Subtracts the percent from the whole (25% of 40 = 15)."
+    },
+    "TENTH_FOR_ALL": {
+      "student": "Dividing by 10 gives 10%. Then scale it to the percent asked.",
+      "teacher": "Divides by 10 for any percent."
+    },
+    "ONE_PART": {
+      "student": "That is one share (25% or 10%). Multiply by how many shares you need.",
+      "teacher": "Finds the unit share but does not scale to the percent or whole asked."
+    },
+    "OTHER_PART": {
+      "student": "Check what it asks for: this group, the other group, or the whole.",
+      "teacher": "Answers for the other group in the ratio."
+    },
+    "PART_AS_TOTAL": {
+      "student": "The big number is the total of both groups. Split it into parts first.",
+      "teacher": "Treats the given total as the count of one group."
+    },
+    "PERCENT_OF_PART": {
+      "student": "This number IS the percent. The whole is bigger than it.",
+      "teacher": "Takes the percent of the given part instead of finding the whole."
+    },
+    "TOTAL_AS_UNIT": {
+      "student": "Find the price of 1 first: total price ÷ how many.",
+      "teacher": "Multiplies the total price by the new count, skipping the unit rate."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "ratios-rates/t1/001",
+      "tier": 1,
+      "prompt": "10 pets: 3 are cats, the rest dogs. Ratio of cats to dogs?",
+      "choices": [
+        "7:3",
+        "3:10",
+        "7:10",
+        "3:7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED",
+        "WHOLE_FOR_PART",
+        "PART_TO_WHOLE",
+        null
+      ],
+      "explanation": "Dogs: 10 − 3 = 7. Cats to dogs is 3:7."
+    },
+    {
+      "id": "ratios-rates/t1/002",
+      "tier": 1,
+      "prompt": "9 hawks and 3 owls. Ratio of owls to hawks?",
+      "choices": [
+        "3:12",
+        "3:9",
+        "9:3",
+        "9:12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Owls first, then hawks: 3 to 9 is 3:9."
+    },
+    {
+      "id": "ratios-rates/t1/003",
+      "tier": 1,
+      "prompt": "16 kids: 7 are boys, the rest girls. Ratio of girls to boys?",
+      "choices": [
+        "9:7",
+        "9:16",
+        "16:7",
+        "7:9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_WHOLE",
+        "WHOLE_FOR_PART",
+        "REVERSED"
+      ],
+      "explanation": "Girls: 16 − 7 = 9. Girls to boys is 9:7."
+    },
+    {
+      "id": "ratios-rates/t1/004",
+      "tier": 1,
+      "prompt": "2 hawks and 9 owls. Ratio of hawks to owls?",
+      "choices": [
+        "2:11",
+        "9:11",
+        "2:9",
+        "9:2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Hawks first, then owls: 2 to 9 is 2:9."
+    },
+    {
+      "id": "ratios-rates/t1/005",
+      "tier": 1,
+      "prompt": "10 hawks and 9 owls. Ratio of owls to hawks?",
+      "choices": [
+        "10:9",
+        "10:19",
+        "9:10",
+        "9:19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED",
+        "PART_TO_WHOLE",
+        null,
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Owls first, then hawks: 9 to 10 is 9:10."
+    },
+    {
+      "id": "ratios-rates/t1/006",
+      "tier": 1,
+      "prompt": "For every 6 cars there are 2 vans. Ratio of vans to cars?",
+      "choices": [
+        "2:6",
+        "6:2",
+        "2:8",
+        "6:8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Vans first, then cars: 2 to 6 is 2:6."
+    },
+    {
+      "id": "ratios-rates/t1/007",
+      "tier": 1,
+      "prompt": "For every 9 hawks there are 8 owls. Ratio of owls to hawks?",
+      "choices": [
+        "9:17",
+        "8:9",
+        "8:17",
+        "9:8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        null,
+        "PART_TO_WHOLE",
+        "REVERSED"
+      ],
+      "explanation": "Owls first, then hawks: 8 to 9 is 8:9."
+    },
+    {
+      "id": "ratios-rates/t1/008",
+      "tier": 1,
+      "prompt": "For every 4 hawks there are 6 owls. Ratio of owls to hawks?",
+      "choices": [
+        "6:4",
+        "4:6",
+        "4:10",
+        "6:10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Owls first, then hawks: 6 to 4 is 6:4."
+    },
+    {
+      "id": "ratios-rates/t1/009",
+      "tier": 1,
+      "prompt": "15 kids: 5 are boys, the rest girls. Ratio of girls to boys?",
+      "choices": [
+        "15:5",
+        "5:10",
+        "10:15",
+        "10:5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_PART",
+        "REVERSED",
+        "PART_TO_WHOLE",
+        null
+      ],
+      "explanation": "Girls: 15 − 5 = 10. Girls to boys is 10:5."
+    },
+    {
+      "id": "ratios-rates/t1/010",
+      "tier": 1,
+      "prompt": "10 hawks and 3 owls. Ratio of hawks to all birds?",
+      "choices": [
+        "13:10",
+        "10:3",
+        "10:13",
+        "3:13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED",
+        "PART_TO_PART",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "All birds: 10 + 3 = 13. Hawks to all is 10:13."
+    },
+    {
+      "id": "ratios-rates/t1/011",
+      "tier": 1,
+      "prompt": "10 hawks and 7 owls. Ratio of owls to hawks?",
+      "choices": [
+        "10:7",
+        "7:10",
+        "10:17",
+        "7:17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED",
+        null,
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Owls first, then hawks: 7 to 10 is 7:10."
+    },
+    {
+      "id": "ratios-rates/t1/012",
+      "tier": 1,
+      "prompt": "For every 2 boys there are 6 girls. Ratio of boys to girls?",
+      "choices": [
+        "6:8",
+        "2:6",
+        "2:8",
+        "6:2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        null,
+        "PART_TO_WHOLE",
+        "REVERSED"
+      ],
+      "explanation": "Boys first, then girls: 2 to 6 is 2:6."
+    },
+    {
+      "id": "ratios-rates/t1/013",
+      "tier": 1,
+      "prompt": "5 hawks and 8 owls. Ratio of owls to all birds?",
+      "choices": [
+        "8:5",
+        "8:13",
+        "13:8",
+        "5:13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "REVERSED",
+        "OTHER_PART"
+      ],
+      "explanation": "All birds: 5 + 8 = 13. Owls to all is 8:13."
+    },
+    {
+      "id": "ratios-rates/t1/014",
+      "tier": 1,
+      "prompt": "For every 5 cars there are 6 vans. Ratio of vans to cars?",
+      "choices": [
+        "6:11",
+        "5:11",
+        "6:5",
+        "5:6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Vans first, then cars: 6 to 5 is 6:5."
+    },
+    {
+      "id": "ratios-rates/t1/015",
+      "tier": 1,
+      "prompt": "17 pets: 10 are cats, the rest dogs. Ratio of cats to dogs?",
+      "choices": [
+        "7:17",
+        "10:17",
+        "10:7",
+        "7:10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "WHOLE_FOR_PART",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Dogs: 17 − 10 = 7. Cats to dogs is 10:7."
+    },
+    {
+      "id": "ratios-rates/t1/016",
+      "tier": 1,
+      "prompt": "7 boys and 2 girls. Ratio of girls to all kids?",
+      "choices": [
+        "2:7",
+        "9:2",
+        "7:9",
+        "2:9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "REVERSED",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "All kids: 7 + 2 = 9. Girls to all is 2:9."
+    },
+    {
+      "id": "ratios-rates/t1/017",
+      "tier": 1,
+      "prompt": "9 boys and 8 girls. Ratio of boys to girls?",
+      "choices": [
+        "9:17",
+        "8:9",
+        "8:17",
+        "9:8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "REVERSED",
+        "PART_TO_WHOLE",
+        null
+      ],
+      "explanation": "Boys first, then girls: 9 to 8 is 9:8."
+    },
+    {
+      "id": "ratios-rates/t1/018",
+      "tier": 1,
+      "prompt": "7 cats and 8 dogs. Ratio of dogs to cats?",
+      "choices": [
+        "8:7",
+        "8:15",
+        "7:15",
+        "7:8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        "REVERSED"
+      ],
+      "explanation": "Dogs first, then cats: 8 to 7 is 8:7."
+    },
+    {
+      "id": "ratios-rates/t1/019",
+      "tier": 1,
+      "prompt": "For every 4 cars there are 10 vans. Ratio of cars to vans?",
+      "choices": [
+        "10:4",
+        "4:14",
+        "10:14",
+        "4:10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        null
+      ],
+      "explanation": "Cars first, then vans: 4 to 10 is 4:10."
+    },
+    {
+      "id": "ratios-rates/t1/020",
+      "tier": 1,
+      "prompt": "For every 8 hawks there are 4 owls. Ratio of hawks to owls?",
+      "choices": [
+        "8:4",
+        "4:8",
+        "4:12",
+        "8:12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Hawks first, then owls: 8 to 4 is 8:4."
+    },
+    {
+      "id": "ratios-rates/t1/021",
+      "tier": 1,
+      "prompt": "11 pets: 7 are cats, the rest dogs. Ratio of dogs to cats?",
+      "choices": [
+        "4:7",
+        "7:4",
+        "4:11",
+        "11:7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "WHOLE_FOR_PART"
+      ],
+      "explanation": "Dogs: 11 − 7 = 4. Dogs to cats is 4:7."
+    },
+    {
+      "id": "ratios-rates/t1/022",
+      "tier": 1,
+      "prompt": "For every 9 boys there are 4 girls. Ratio of girls to boys?",
+      "choices": [
+        "9:4",
+        "9:13",
+        "4:13",
+        "4:9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        null
+      ],
+      "explanation": "Girls first, then boys: 4 to 9 is 4:9."
+    },
+    {
+      "id": "ratios-rates/t1/023",
+      "tier": 1,
+      "prompt": "10 hawks and 8 owls. Ratio of owls to hawks?",
+      "choices": [
+        "10:18",
+        "8:10",
+        "10:8",
+        "8:18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Owls first, then hawks: 8 to 10 is 8:10."
+    },
+    {
+      "id": "ratios-rates/t1/024",
+      "tier": 1,
+      "prompt": "15 pets: 5 are cats, the rest dogs. Ratio of dogs to cats?",
+      "choices": [
+        "15:5",
+        "5:10",
+        "10:5",
+        "10:15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_PART",
+        "REVERSED",
+        null,
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Dogs: 15 − 5 = 10. Dogs to cats is 10:5."
+    },
+    {
+      "id": "ratios-rates/t1/025",
+      "tier": 1,
+      "prompt": "9 pets: 3 are cats, the rest dogs. Ratio of dogs to cats?",
+      "choices": [
+        "9:3",
+        "6:9",
+        "3:6",
+        "6:3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_PART",
+        "PART_TO_WHOLE",
+        "REVERSED",
+        null
+      ],
+      "explanation": "Dogs: 9 − 3 = 6. Dogs to cats is 6:3."
+    },
+    {
+      "id": "ratios-rates/t1/026",
+      "tier": 1,
+      "prompt": "2 cars and 3 vans. Ratio of vans to all vehicles?",
+      "choices": [
+        "3:5",
+        "3:2",
+        "2:5",
+        "5:3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "OTHER_PART",
+        "REVERSED"
+      ],
+      "explanation": "All vehicles: 2 + 3 = 5. Vans to all is 3:5."
+    },
+    {
+      "id": "ratios-rates/t1/027",
+      "tier": 1,
+      "prompt": "For every 9 boys there are 2 girls. Ratio of boys to girls?",
+      "choices": [
+        "9:2",
+        "2:11",
+        "2:9",
+        "9:11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_WHOLE",
+        "REVERSED",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Boys first, then girls: 9 to 2 is 9:2."
+    },
+    {
+      "id": "ratios-rates/t1/028",
+      "tier": 1,
+      "prompt": "For every 6 cars there are 3 vans. Ratio of vans to cars?",
+      "choices": [
+        "6:3",
+        "3:6",
+        "6:9",
+        "3:9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED",
+        null,
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Vans first, then cars: 3 to 6 is 3:6."
+    },
+    {
+      "id": "ratios-rates/t1/029",
+      "tier": 1,
+      "prompt": "9 birds: 7 are hawks, the rest owls. Ratio of hawks to owls?",
+      "choices": [
+        "7:2",
+        "2:7",
+        "2:9",
+        "7:9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "WHOLE_FOR_PART"
+      ],
+      "explanation": "Owls: 9 − 7 = 2. Hawks to owls is 7:2."
+    },
+    {
+      "id": "ratios-rates/t1/030",
+      "tier": 1,
+      "prompt": "15 pets: 6 are cats, the rest dogs. Ratio of dogs to cats?",
+      "choices": [
+        "9:6",
+        "15:6",
+        "6:9",
+        "9:15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_FOR_PART",
+        "REVERSED",
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Dogs: 15 − 6 = 9. Dogs to cats is 9:6."
+    },
+    {
+      "id": "ratios-rates/t1/031",
+      "tier": 1,
+      "prompt": "4 hawks and 2 owls. Ratio of owls to all birds?",
+      "choices": [
+        "2:4",
+        "2:6",
+        "6:2",
+        "4:6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "REVERSED",
+        "OTHER_PART"
+      ],
+      "explanation": "All birds: 4 + 2 = 6. Owls to all is 2:6."
+    },
+    {
+      "id": "ratios-rates/t1/032",
+      "tier": 1,
+      "prompt": "8 cats and 4 dogs. Ratio of dogs to all pets?",
+      "choices": [
+        "8:12",
+        "12:4",
+        "4:12",
+        "4:8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "REVERSED",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "All pets: 8 + 4 = 12. Dogs to all is 4:12."
+    },
+    {
+      "id": "ratios-rates/t1/033",
+      "tier": 1,
+      "prompt": "7 cars and 3 vans. Ratio of vans to cars?",
+      "choices": [
+        "3:10",
+        "7:10",
+        "3:7",
+        "7:3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "PART_TO_WHOLE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Vans first, then cars: 3 to 7 is 3:7."
+    },
+    {
+      "id": "ratios-rates/t1/034",
+      "tier": 1,
+      "prompt": "3 cats and 4 dogs. Ratio of cats to dogs?",
+      "choices": [
+        "3:7",
+        "4:3",
+        "3:4",
+        "4:7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        "REVERSED",
+        null,
+        "PART_TO_WHOLE"
+      ],
+      "explanation": "Cats first, then dogs: 3 to 4 is 3:4."
+    },
+    {
+      "id": "ratios-rates/t1/035",
+      "tier": 1,
+      "prompt": "8 hawks and 2 owls. Ratio of owls to all birds?",
+      "choices": [
+        "10:2",
+        "8:10",
+        "2:8",
+        "2:10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED",
+        "OTHER_PART",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "All birds: 8 + 2 = 10. Owls to all is 2:10."
+    },
+    {
+      "id": "ratios-rates/t1/036",
+      "tier": 1,
+      "prompt": "6 cats and 2 dogs. Ratio of dogs to all pets?",
+      "choices": [
+        "2:6",
+        "2:8",
+        "6:8",
+        "8:2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "OTHER_PART",
+        "REVERSED"
+      ],
+      "explanation": "All pets: 6 + 2 = 8. Dogs to all is 2:8."
+    },
+    {
+      "id": "ratios-rates/t1/037",
+      "tier": 1,
+      "prompt": "10 cats and 8 dogs. Ratio of cats to dogs?",
+      "choices": [
+        "8:18",
+        "10:8",
+        "10:18",
+        "8:10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_WHOLE",
+        null,
+        "PART_TO_WHOLE",
+        "REVERSED"
+      ],
+      "explanation": "Cats first, then dogs: 10 to 8 is 10:8."
+    },
+    {
+      "id": "ratios-rates/t1/038",
+      "tier": 1,
+      "prompt": "8 boys and 9 girls. Ratio of girls to all kids?",
+      "choices": [
+        "8:17",
+        "17:9",
+        "9:8",
+        "9:17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "REVERSED",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "All kids: 8 + 9 = 17. Girls to all is 9:17."
+    },
+    {
+      "id": "ratios-rates/t1/039",
+      "tier": 1,
+      "prompt": "4 hawks and 6 owls. Ratio of owls to all birds?",
+      "choices": [
+        "4:10",
+        "10:6",
+        "6:10",
+        "6:4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "REVERSED",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "All birds: 4 + 6 = 10. Owls to all is 6:10."
+    },
+    {
+      "id": "ratios-rates/t1/040",
+      "tier": 1,
+      "prompt": "5 kids: 2 are boys, the rest girls. Ratio of boys to girls?",
+      "choices": [
+        "3:2",
+        "3:5",
+        "2:5",
+        "2:3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED",
+        "PART_TO_WHOLE",
+        "WHOLE_FOR_PART",
+        null
+      ],
+      "explanation": "Girls: 5 − 2 = 3. Boys to girls is 2:3."
+    },
+    {
+      "id": "ratios-rates/t2/001",
+      "tier": 2,
+      "prompt": "6:8 = ?:80",
+      "choices": [
+        "60",
+        "78",
+        "10",
+        "800"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM"
+      ],
+      "explanation": "8 × 10 = 80, so 6 × 10 = 60. 6:8 = 60:80."
+    },
+    {
+      "id": "ratios-rates/t2/002",
+      "tier": 2,
+      "prompt": "5:6 = ?:48",
+      "choices": [
+        "47",
+        "8",
+        "384",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "6 × 8 = 48, so 5 × 8 = 40. 5:6 = 40:48."
+    },
+    {
+      "id": "ratios-rates/t2/003",
+      "tier": 2,
+      "prompt": "3:10 = 9:?",
+      "choices": [
+        "27",
+        "3",
+        "30",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "3 × 3 = 9, so 10 × 3 = 30. 3:10 = 9:30."
+    },
+    {
+      "id": "ratios-rates/t2/004",
+      "tier": 2,
+      "prompt": "7:2 = ?:16",
+      "choices": [
+        "56",
+        "21",
+        "8",
+        "128"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM"
+      ],
+      "explanation": "2 × 8 = 16, so 7 × 8 = 56. 7:2 = 56:16."
+    },
+    {
+      "id": "ratios-rates/t2/005",
+      "tier": 2,
+      "prompt": "10:3 = ?:9",
+      "choices": [
+        "27",
+        "30",
+        "16",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "3 × 3 = 9, so 10 × 3 = 30. 10:3 = 30:9."
+    },
+    {
+      "id": "ratios-rates/t2/006",
+      "tier": 2,
+      "prompt": "10:8 = 50:?",
+      "choices": [
+        "40",
+        "250",
+        "5",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "10 × 5 = 50, so 8 × 5 = 40. 10:8 = 50:40."
+    },
+    {
+      "id": "ratios-rates/t2/007",
+      "tier": 2,
+      "prompt": "4:10 = 16:?",
+      "choices": [
+        "22",
+        "40",
+        "4",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY",
+        "WRONG_TERM"
+      ],
+      "explanation": "4 × 4 = 16, so 10 × 4 = 40. 4:10 = 16:40."
+    },
+    {
+      "id": "ratios-rates/t2/008",
+      "tier": 2,
+      "prompt": "Paint: 5 red to 8 blue. Blue for 30 red?",
+      "choices": [
+        "180",
+        "33",
+        "48",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "5 × 6 = 30, so 8 × 6 = 48."
+    },
+    {
+      "id": "ratios-rates/t2/009",
+      "tier": 2,
+      "prompt": "7:4 = 70:?",
+      "choices": [
+        "700",
+        "10",
+        "40",
+        "67"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "7 × 10 = 70, so 4 × 10 = 40. 7:4 = 70:40."
+    },
+    {
+      "id": "ratios-rates/t2/010",
+      "tier": 2,
+      "prompt": "5:3 = ?:21",
+      "choices": [
+        "7",
+        "23",
+        "147",
+        "35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "3 × 7 = 21, so 5 × 7 = 35. 5:3 = 35:21."
+    },
+    {
+      "id": "ratios-rates/t2/011",
+      "tier": 2,
+      "prompt": "2:8 = 6:?",
+      "choices": [
+        "24",
+        "18",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TERM",
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "2 × 3 = 6, so 8 × 3 = 24. 2:8 = 6:24."
+    },
+    {
+      "id": "ratios-rates/t2/012",
+      "tier": 2,
+      "prompt": "6:3 = 42:?",
+      "choices": [
+        "39",
+        "21",
+        "7",
+        "294"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY",
+        "WRONG_TERM"
+      ],
+      "explanation": "6 × 7 = 42, so 3 × 7 = 21. 6:3 = 42:21."
+    },
+    {
+      "id": "ratios-rates/t2/013",
+      "tier": 2,
+      "prompt": "Slime: 8 glue to 9 water. Water for 32 glue?",
+      "choices": [
+        "128",
+        "36",
+        "4",
+        "33"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "8 × 4 = 32, so 9 × 4 = 36."
+    },
+    {
+      "id": "ratios-rates/t2/014",
+      "tier": 2,
+      "prompt": "Slime: 10 glue to 4 water. Glue for 40 water?",
+      "choices": [
+        "100",
+        "10",
+        "400",
+        "46"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        "ADDITIVE"
+      ],
+      "explanation": "4 × 10 = 40, so 10 × 10 = 100."
+    },
+    {
+      "id": "ratios-rates/t2/015",
+      "tier": 2,
+      "prompt": "7:10 = ?:60",
+      "choices": [
+        "42",
+        "360",
+        "57",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TERM",
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "10 × 6 = 60, so 7 × 6 = 42. 7:10 = 42:60."
+    },
+    {
+      "id": "ratios-rates/t2/016",
+      "tier": 2,
+      "prompt": "8:10 = 48:?",
+      "choices": [
+        "60",
+        "50",
+        "288",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "WRONG_TERM",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "8 × 6 = 48, so 10 × 6 = 60. 8:10 = 48:60."
+    },
+    {
+      "id": "ratios-rates/t2/017",
+      "tier": 2,
+      "prompt": "7:2 = ?:8",
+      "choices": [
+        "13",
+        "4",
+        "32",
+        "28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "2 × 4 = 8, so 7 × 4 = 28. 7:2 = 28:8."
+    },
+    {
+      "id": "ratios-rates/t2/018",
+      "tier": 2,
+      "prompt": "Trail mix: 10 nuts to 7 raisins. Raisins for 50 nuts?",
+      "choices": [
+        "250",
+        "35",
+        "47",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "10 × 5 = 50, so 7 × 5 = 35."
+    },
+    {
+      "id": "ratios-rates/t2/019",
+      "tier": 2,
+      "prompt": "Paint: 6 red to 7 blue. Red for 56 blue?",
+      "choices": [
+        "55",
+        "448",
+        "48",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "WRONG_TERM",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "7 × 8 = 56, so 6 × 8 = 48."
+    },
+    {
+      "id": "ratios-rates/t2/020",
+      "tier": 2,
+      "prompt": "2:9 = ?:90",
+      "choices": [
+        "900",
+        "10",
+        "20",
+        "83"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "9 × 10 = 90, so 2 × 10 = 20. 2:9 = 20:90."
+    },
+    {
+      "id": "ratios-rates/t2/021",
+      "tier": 2,
+      "prompt": "5:8 = 20:?",
+      "choices": [
+        "23",
+        "4",
+        "80",
+        "32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "5 × 4 = 20, so 8 × 4 = 32. 5:8 = 20:32."
+    },
+    {
+      "id": "ratios-rates/t2/022",
+      "tier": 2,
+      "prompt": "4:3 = 40:?",
+      "choices": [
+        "10",
+        "30",
+        "39",
+        "400"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE",
+        "WRONG_TERM"
+      ],
+      "explanation": "4 × 10 = 40, so 3 × 10 = 30. 4:3 = 40:30."
+    },
+    {
+      "id": "ratios-rates/t2/023",
+      "tier": 2,
+      "prompt": "7:3 = ?:12",
+      "choices": [
+        "48",
+        "28",
+        "16",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "3 × 4 = 12, so 7 × 4 = 28. 7:3 = 28:12."
+    },
+    {
+      "id": "ratios-rates/t2/024",
+      "tier": 2,
+      "prompt": "Slime: 4 glue to 8 water. Water for 12 glue?",
+      "choices": [
+        "36",
+        "24",
+        "16",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "4 × 3 = 12, so 8 × 3 = 24."
+    },
+    {
+      "id": "ratios-rates/t2/025",
+      "tier": 2,
+      "prompt": "6:5 = ?:50",
+      "choices": [
+        "500",
+        "60",
+        "10",
+        "51"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TERM",
+        null,
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "5 × 10 = 50, so 6 × 10 = 60. 6:5 = 60:50."
+    },
+    {
+      "id": "ratios-rates/t2/026",
+      "tier": 2,
+      "prompt": "4:5 = 28:?",
+      "choices": [
+        "7",
+        "196",
+        "35",
+        "29"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "4 × 7 = 28, so 5 × 7 = 35. 4:5 = 28:35."
+    },
+    {
+      "id": "ratios-rates/t2/027",
+      "tier": 2,
+      "prompt": "9:6 = 27:?",
+      "choices": [
+        "18",
+        "81",
+        "3",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "9 × 3 = 27, so 6 × 3 = 18. 9:6 = 27:18."
+    },
+    {
+      "id": "ratios-rates/t2/028",
+      "tier": 2,
+      "prompt": "Lemonade: 6 lemons to 3 cups. Cups for 12 lemons?",
+      "choices": [
+        "6",
+        "9",
+        "24",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "WRONG_TERM",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "6 × 2 = 12, so 3 × 2 = 6."
+    },
+    {
+      "id": "ratios-rates/t2/029",
+      "tier": 2,
+      "prompt": "Slime: 5 glue to 10 water. Glue for 60 water?",
+      "choices": [
+        "55",
+        "360",
+        "6",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "10 × 6 = 60, so 5 × 6 = 30."
+    },
+    {
+      "id": "ratios-rates/t2/030",
+      "tier": 2,
+      "prompt": "Trail mix: 4 nuts to 6 raisins. Nuts for 42 raisins?",
+      "choices": [
+        "294",
+        "7",
+        "28",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "6 × 7 = 42, so 4 × 7 = 28."
+    },
+    {
+      "id": "ratios-rates/t2/031",
+      "tier": 2,
+      "prompt": "Slime: 6 glue to 10 water. Water for 42 glue?",
+      "choices": [
+        "7",
+        "46",
+        "294",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "6 × 7 = 42, so 10 × 7 = 70."
+    },
+    {
+      "id": "ratios-rates/t2/032",
+      "tier": 2,
+      "prompt": "7:2 = 70:?",
+      "choices": [
+        "65",
+        "10",
+        "700",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        null
+      ],
+      "explanation": "7 × 10 = 70, so 2 × 10 = 20. 7:2 = 70:20."
+    },
+    {
+      "id": "ratios-rates/t2/033",
+      "tier": 2,
+      "prompt": "Paint: 2 red to 9 blue. Blue for 16 red?",
+      "choices": [
+        "72",
+        "23",
+        "128",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "WRONG_TERM",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "2 × 8 = 16, so 9 × 8 = 72."
+    },
+    {
+      "id": "ratios-rates/t2/034",
+      "tier": 2,
+      "prompt": "5:8 = 25:?",
+      "choices": [
+        "28",
+        "125",
+        "5",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "WRONG_TERM",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "5 × 5 = 25, so 8 × 5 = 40. 5:8 = 25:40."
+    },
+    {
+      "id": "ratios-rates/t2/035",
+      "tier": 2,
+      "prompt": "6:7 = ?:28",
+      "choices": [
+        "112",
+        "27",
+        "24",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TERM",
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "7 × 4 = 28, so 6 × 4 = 24. 6:7 = 24:28."
+    },
+    {
+      "id": "ratios-rates/t2/036",
+      "tier": 2,
+      "prompt": "2:5 = ?:20",
+      "choices": [
+        "80",
+        "17",
+        "4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TERM",
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "5 × 4 = 20, so 2 × 4 = 8. 2:5 = 8:20."
+    },
+    {
+      "id": "ratios-rates/t2/037",
+      "tier": 2,
+      "prompt": "Lemonade: 6 lemons to 10 cups. Cups for 42 lemons?",
+      "choices": [
+        "7",
+        "70",
+        "294",
+        "46"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        null,
+        "WRONG_TERM",
+        "ADDITIVE"
+      ],
+      "explanation": "6 × 7 = 42, so 10 × 7 = 70."
+    },
+    {
+      "id": "ratios-rates/t2/038",
+      "tier": 2,
+      "prompt": "9:6 = ?:36",
+      "choices": [
+        "39",
+        "6",
+        "54",
+        "216"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null,
+        "WRONG_TERM"
+      ],
+      "explanation": "6 × 6 = 36, so 9 × 6 = 54. 9:6 = 54:36."
+    },
+    {
+      "id": "ratios-rates/t2/039",
+      "tier": 2,
+      "prompt": "9:2 = ?:6",
+      "choices": [
+        "3",
+        "13",
+        "27",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null,
+        "WRONG_TERM"
+      ],
+      "explanation": "2 × 3 = 6, so 9 × 3 = 27. 9:2 = 27:6."
+    },
+    {
+      "id": "ratios-rates/t2/040",
+      "tier": 2,
+      "prompt": "Trail mix: 6 nuts to 7 raisins. Nuts for 35 raisins?",
+      "choices": [
+        "5",
+        "175",
+        "34",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "WRONG_TERM",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "7 × 5 = 35, so 6 × 5 = 30."
+    },
+    {
+      "id": "ratios-rates/t3/001",
+      "tier": 3,
+      "prompt": "4 points in 2 games. Points per game?",
+      "choices": [
+        "1/2",
+        "8",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 points ÷ 2 games = 2 points per game."
+    },
+    {
+      "id": "ratios-rates/t3/002",
+      "tier": 3,
+      "prompt": "8 tickets cost $16. Cost per ticket?",
+      "choices": [
+        "$2",
+        "$4",
+        "$128",
+        "$1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MULTIPLIED_RATE",
+        "INVERTED"
+      ],
+      "explanation": "$16 ÷ 8 = $2 per ticket."
+    },
+    {
+      "id": "ratios-rates/t3/003",
+      "tier": 3,
+      "prompt": "2 books cost $4. Cost per book?",
+      "choices": [
+        "$2",
+        "$1/2",
+        "$3",
+        "$8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "ARITH",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "$4 ÷ 2 = $2 per book."
+    },
+    {
+      "id": "ratios-rates/t3/004",
+      "tier": 3,
+      "prompt": "32 points in 4 games. Points per game?",
+      "choices": [
+        "128",
+        "1/8",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED_RATE",
+        "INVERTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "32 points ÷ 4 games = 8 points per game."
+    },
+    {
+      "id": "ratios-rates/t3/005",
+      "tier": 3,
+      "prompt": "27 laps in 3 minutes. Laps per minute?",
+      "choices": [
+        "1/9",
+        "9",
+        "81",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "MULTIPLIED_RATE",
+        "ARITH"
+      ],
+      "explanation": "27 laps ÷ 3 minutes = 9 laps per minute."
+    },
+    {
+      "id": "ratios-rates/t3/006",
+      "tier": 3,
+      "prompt": "30 miles in 5 hours. Miles per hour?",
+      "choices": [
+        "7",
+        "150",
+        "6",
+        "1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED_RATE",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "30 miles ÷ 5 hours = 6 miles per hour."
+    },
+    {
+      "id": "ratios-rates/t3/007",
+      "tier": 3,
+      "prompt": "9 cans cost $90. Cost per can?",
+      "choices": [
+        "$11",
+        "$10",
+        "$1/10",
+        "$810"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "INVERTED",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "$90 ÷ 9 = $10 per can."
+    },
+    {
+      "id": "ratios-rates/t3/008",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 7 pt = ? cups",
+      "choices": [
+        "3 1/2",
+        "2/7",
+        "14",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        "DIVIDED_RATE",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "Each pt is 2 cups: 7 × 2 = 14, so 7 pt = 14 cups."
+    },
+    {
+      "id": "ratios-rates/t3/009",
+      "tier": 3,
+      "prompt": "1 qt = 2 pt. 16 pt = ? qt",
+      "choices": [
+        "8",
+        "7",
+        "1/8",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INVERTED",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "Every 2 pt make 1 qt: 16 ÷ 2 = 8, so 16 pt = 8 qt."
+    },
+    {
+      "id": "ratios-rates/t3/010",
+      "tier": 3,
+      "prompt": "14 pages in 2 days. Pages per day?",
+      "choices": [
+        "6",
+        "7",
+        "1/7",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "INVERTED",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "14 pages ÷ 2 days = 7 pages per day."
+    },
+    {
+      "id": "ratios-rates/t3/011",
+      "tier": 3,
+      "prompt": "45 pages in 9 days. Pages per day?",
+      "choices": [
+        "6",
+        "405",
+        "5",
+        "1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED_RATE",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "45 pages ÷ 9 days = 5 pages per day."
+    },
+    {
+      "id": "ratios-rates/t3/012",
+      "tier": 3,
+      "prompt": "6 pens cost $36. Cost per pen?",
+      "choices": [
+        "$6",
+        "$216",
+        "$1/6",
+        "$7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED_RATE",
+        "INVERTED",
+        "ARITH"
+      ],
+      "explanation": "$36 ÷ 6 = $6 per pen."
+    },
+    {
+      "id": "ratios-rates/t3/013",
+      "tier": 3,
+      "prompt": "21 points in 7 games. Points per game?",
+      "choices": [
+        "2",
+        "147",
+        "1/3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED_RATE",
+        "INVERTED",
+        null
+      ],
+      "explanation": "21 points ÷ 7 games = 3 points per game."
+    },
+    {
+      "id": "ratios-rates/t3/014",
+      "tier": 3,
+      "prompt": "7 tickets cost $21. Cost per ticket?",
+      "choices": [
+        "$2",
+        "$1/3",
+        "$147",
+        "$3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        null
+      ],
+      "explanation": "$21 ÷ 7 = $3 per ticket."
+    },
+    {
+      "id": "ratios-rates/t3/015",
+      "tier": 3,
+      "prompt": "3 books cost $12. Cost per book?",
+      "choices": [
+        "$4",
+        "$5",
+        "$36",
+        "$1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MULTIPLIED_RATE",
+        "INVERTED"
+      ],
+      "explanation": "$12 ÷ 3 = $4 per book."
+    },
+    {
+      "id": "ratios-rates/t3/016",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 20 cups = ? pt",
+      "choices": [
+        "1/10",
+        "10",
+        "8",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "ARITH",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "Every 2 cups make 1 pt: 20 ÷ 2 = 10, so 20 cups = 10 pt."
+    },
+    {
+      "id": "ratios-rates/t3/017",
+      "tier": 3,
+      "prompt": "1 yd = 3 ft. 9 ft = ? yd",
+      "choices": [
+        "5",
+        "27",
+        "3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED_RATE",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "Every 3 ft make 1 yd: 9 ÷ 3 = 3, so 9 ft = 3 yd."
+    },
+    {
+      "id": "ratios-rates/t3/018",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 8 pt = ? cups",
+      "choices": [
+        "1/4",
+        "16",
+        "4",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        null,
+        "DIVIDED_RATE",
+        "ADDITIVE"
+      ],
+      "explanation": "Each pt is 2 cups: 8 × 2 = 16, so 8 pt = 16 cups."
+    },
+    {
+      "id": "ratios-rates/t3/019",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 3 pt = ? cups",
+      "choices": [
+        "1 1/2",
+        "5",
+        "6",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        "ADDITIVE",
+        null,
+        "DIVIDED_RATE"
+      ],
+      "explanation": "Each pt is 2 cups: 3 × 2 = 6, so 3 pt = 6 cups."
+    },
+    {
+      "id": "ratios-rates/t3/020",
+      "tier": 3,
+      "prompt": "2 cans cost $16. Cost per can?",
+      "choices": [
+        "$1/8",
+        "$32",
+        "$10",
+        "$8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        "ARITH",
+        null
+      ],
+      "explanation": "$16 ÷ 2 = $8 per can."
+    },
+    {
+      "id": "ratios-rates/t3/021",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 4 cups = ? pt",
+      "choices": [
+        "2",
+        "1/2",
+        "8",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        "ARITH"
+      ],
+      "explanation": "Every 2 cups make 1 pt: 4 ÷ 2 = 2, so 4 cups = 2 pt."
+    },
+    {
+      "id": "ratios-rates/t3/022",
+      "tier": 3,
+      "prompt": "9 tickets cost $72. Cost per ticket?",
+      "choices": [
+        "$8",
+        "$6",
+        "$1/8",
+        "$648"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INVERTED",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "$72 ÷ 9 = $8 per ticket."
+    },
+    {
+      "id": "ratios-rates/t3/023",
+      "tier": 3,
+      "prompt": "1 week = 7 days. 6 weeks = ? days",
+      "choices": [
+        "6/7",
+        "42",
+        "1 1/6",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        null,
+        "DIVIDED_RATE",
+        "ADDITIVE"
+      ],
+      "explanation": "Each week is 7 days: 6 × 7 = 42, so 6 weeks = 42 days."
+    },
+    {
+      "id": "ratios-rates/t3/024",
+      "tier": 3,
+      "prompt": "1 qt = 2 pt. 6 pt = ? qt",
+      "choices": [
+        "1/3",
+        "5",
+        "12",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "ARITH",
+        "MULTIPLIED_RATE",
+        null
+      ],
+      "explanation": "Every 2 pt make 1 qt: 6 ÷ 2 = 3, so 6 pt = 3 qt."
+    },
+    {
+      "id": "ratios-rates/t3/025",
+      "tier": 3,
+      "prompt": "1 gal = 4 qt. 16 qt = ? gal",
+      "choices": [
+        "2",
+        "1/4",
+        "64",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        null
+      ],
+      "explanation": "Every 4 qt make 1 gal: 16 ÷ 4 = 4, so 16 qt = 4 gal."
+    },
+    {
+      "id": "ratios-rates/t3/026",
+      "tier": 3,
+      "prompt": "50 points in 5 games. Points per game?",
+      "choices": [
+        "250",
+        "10",
+        "11",
+        "1/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED_RATE",
+        null,
+        "ARITH",
+        "INVERTED"
+      ],
+      "explanation": "50 points ÷ 5 games = 10 points per game."
+    },
+    {
+      "id": "ratios-rates/t3/027",
+      "tier": 3,
+      "prompt": "1 week = 7 days. 10 weeks = ? days",
+      "choices": [
+        "1 3/7",
+        "7/10",
+        "70",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        "DIVIDED_RATE",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "Each week is 7 days: 10 × 7 = 70, so 10 weeks = 70 days."
+    },
+    {
+      "id": "ratios-rates/t3/028",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 8 cups = ? pt",
+      "choices": [
+        "1/4",
+        "16",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Every 2 cups make 1 pt: 8 ÷ 2 = 4, so 8 cups = 4 pt."
+    },
+    {
+      "id": "ratios-rates/t3/029",
+      "tier": 3,
+      "prompt": "8 points in 4 games. Points per game?",
+      "choices": [
+        "2",
+        "1/2",
+        "3",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "ARITH",
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "8 points ÷ 4 games = 2 points per game."
+    },
+    {
+      "id": "ratios-rates/t3/030",
+      "tier": 3,
+      "prompt": "30 pages in 5 days. Pages per day?",
+      "choices": [
+        "150",
+        "6",
+        "4",
+        "1/6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED_RATE",
+        null,
+        "ARITH",
+        "INVERTED"
+      ],
+      "explanation": "30 pages ÷ 5 days = 6 pages per day."
+    },
+    {
+      "id": "ratios-rates/t3/031",
+      "tier": 3,
+      "prompt": "2 pens cost $8. Cost per pen?",
+      "choices": [
+        "$3",
+        "$1/4",
+        "$4",
+        "$16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "INVERTED",
+        null,
+        "MULTIPLIED_RATE"
+      ],
+      "explanation": "$8 ÷ 2 = $4 per pen."
+    },
+    {
+      "id": "ratios-rates/t3/032",
+      "tier": 3,
+      "prompt": "1 gal = 4 qt. 7 gal = ? qt",
+      "choices": [
+        "11",
+        "1 3/4",
+        "28",
+        "4/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "DIVIDED_RATE",
+        null,
+        "DIVIDED_RATE"
+      ],
+      "explanation": "Each gal is 4 qt: 7 × 4 = 28, so 7 gal = 28 qt."
+    },
+    {
+      "id": "ratios-rates/t3/033",
+      "tier": 3,
+      "prompt": "1 yd = 3 ft. 2 yd = ? ft",
+      "choices": [
+        "1 1/2",
+        "6",
+        "2/3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        null,
+        "DIVIDED_RATE",
+        "ADDITIVE"
+      ],
+      "explanation": "Each yd is 3 ft: 2 × 3 = 6, so 2 yd = 6 ft."
+    },
+    {
+      "id": "ratios-rates/t3/034",
+      "tier": 3,
+      "prompt": "1 week = 7 days. 21 days = ? weeks",
+      "choices": [
+        "3",
+        "1/3",
+        "147",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        "ARITH"
+      ],
+      "explanation": "Every 7 days make 1 week: 21 ÷ 7 = 3, so 21 days = 3 weeks."
+    },
+    {
+      "id": "ratios-rates/t3/035",
+      "tier": 3,
+      "prompt": "5 tickets cost $45. Cost per ticket?",
+      "choices": [
+        "$225",
+        "$1/9",
+        "$9",
+        "$10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED_RATE",
+        "INVERTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "$45 ÷ 5 = $9 per ticket."
+    },
+    {
+      "id": "ratios-rates/t3/036",
+      "tier": 3,
+      "prompt": "1 qt = 2 pt. 12 pt = ? qt",
+      "choices": [
+        "1/6",
+        "24",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED_RATE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Every 2 pt make 1 qt: 12 ÷ 2 = 6, so 12 pt = 6 qt."
+    },
+    {
+      "id": "ratios-rates/t3/037",
+      "tier": 3,
+      "prompt": "1 week = 7 days. 4 weeks = ? days",
+      "choices": [
+        "4/7",
+        "28",
+        "1 3/4",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        null,
+        "DIVIDED_RATE",
+        "ADDITIVE"
+      ],
+      "explanation": "Each week is 7 days: 4 × 7 = 28, so 4 weeks = 28 days."
+    },
+    {
+      "id": "ratios-rates/t3/038",
+      "tier": 3,
+      "prompt": "1 qt = 2 pt. 8 pt = ? qt",
+      "choices": [
+        "4",
+        "16",
+        "1/4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED_RATE",
+        "INVERTED",
+        "ARITH"
+      ],
+      "explanation": "Every 2 pt make 1 qt: 8 ÷ 2 = 4, so 8 pt = 4 qt."
+    },
+    {
+      "id": "ratios-rates/t3/039",
+      "tier": 3,
+      "prompt": "1 qt = 2 pt. 7 qt = ? pt",
+      "choices": [
+        "2/7",
+        "3 1/2",
+        "9",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_RATE",
+        "DIVIDED_RATE",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "Each qt is 2 pt: 7 × 2 = 14, so 7 qt = 14 pt."
+    },
+    {
+      "id": "ratios-rates/t3/040",
+      "tier": 3,
+      "prompt": "1 pt = 2 cups. 2 pt = ? cups",
+      "choices": [
+        "6",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_RATE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Each pt is 2 cups: 2 × 2 = 4, so 2 pt = 4 cups."
+    },
+    {
+      "id": "ratios-rates/t4/001",
+      "tier": 4,
+      "prompt": "What is 70% of 30?",
+      "choices": [
+        "3",
+        "70",
+        "21",
+        "23"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART",
+        null,
+        "ARITH"
+      ],
+      "explanation": "10% of 30 is 3, so 70% is 7 × 3 = 21."
+    },
+    {
+      "id": "ratios-rates/t4/002",
+      "tier": 4,
+      "prompt": "60% of 70 songs are pop. How many?",
+      "choices": [
+        "7",
+        "10",
+        "60",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "SUBTRACTED",
+        "PERCENT_AS_PART",
+        null
+      ],
+      "explanation": "10% of 70 is 7, so 60% is 6 × 7 = 42."
+    },
+    {
+      "id": "ratios-rates/t4/003",
+      "tier": 4,
+      "prompt": "25% of 32 songs are pop. How many?",
+      "choices": [
+        "10",
+        "7",
+        "8",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED",
+        null,
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "25% is 1/4: 32 ÷ 4 = 8."
+    },
+    {
+      "id": "ratios-rates/t4/004",
+      "tier": 4,
+      "prompt": "10% of 80 games were wins. How many?",
+      "choices": [
+        "10",
+        "7",
+        "8",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_PART",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "10% is 1/10: 80 ÷ 10 = 8."
+    },
+    {
+      "id": "ratios-rates/t4/005",
+      "tier": 4,
+      "prompt": "10% of 20 seats are empty. How many?",
+      "choices": [
+        "4",
+        "2",
+        "10",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PERCENT_AS_PART",
+        "ARITH"
+      ],
+      "explanation": "10% is 1/10: 20 ÷ 10 = 2."
+    },
+    {
+      "id": "ratios-rates/t4/006",
+      "tier": 4,
+      "prompt": "What is 30% of 90?",
+      "choices": [
+        "27",
+        "30",
+        "9",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL",
+        "SUBTRACTED"
+      ],
+      "explanation": "10% of 90 is 9, so 30% is 3 × 9 = 27."
+    },
+    {
+      "id": "ratios-rates/t4/007",
+      "tier": 4,
+      "prompt": "70% of 90 seats are empty. How many?",
+      "choices": [
+        "9",
+        "70",
+        "20",
+        "63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "10% of 90 is 9, so 70% is 7 × 9 = 63."
+    },
+    {
+      "id": "ratios-rates/t4/008",
+      "tier": 4,
+      "prompt": "What is 70% of 90?",
+      "choices": [
+        "20",
+        "63",
+        "70",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 90 is 9, so 70% is 7 × 9 = 63."
+    },
+    {
+      "id": "ratios-rates/t4/009",
+      "tier": 4,
+      "prompt": "What is 10% of 50?",
+      "choices": [
+        "40",
+        "10",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_PART",
+        null,
+        "ARITH"
+      ],
+      "explanation": "10% is 1/10: 50 ÷ 10 = 5."
+    },
+    {
+      "id": "ratios-rates/t4/010",
+      "tier": 4,
+      "prompt": "What is 75% of 8?",
+      "choices": [
+        "6",
+        "75",
+        "2",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_PART",
+        "ONE_PART",
+        "ARITH"
+      ],
+      "explanation": "25% of 8 is 8 ÷ 4 = 2, so 75% is 3 × 2 = 6."
+    },
+    {
+      "id": "ratios-rates/t4/011",
+      "tier": 4,
+      "prompt": "What is 80% of 20?",
+      "choices": [
+        "16",
+        "18",
+        "2",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "10% of 20 is 2, so 80% is 8 × 2 = 16."
+    },
+    {
+      "id": "ratios-rates/t4/012",
+      "tier": 4,
+      "prompt": "10% of 30 apples are red. How many?",
+      "choices": [
+        "3",
+        "4",
+        "10",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_PART",
+        "SUBTRACTED"
+      ],
+      "explanation": "10% is 1/10: 30 ÷ 10 = 3."
+    },
+    {
+      "id": "ratios-rates/t4/013",
+      "tier": 4,
+      "prompt": "What is 20% of 60?",
+      "choices": [
+        "6",
+        "40",
+        "20",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "SUBTRACTED",
+        "PERCENT_AS_PART",
+        null
+      ],
+      "explanation": "10% of 60 is 6, so 20% is 2 × 6 = 12."
+    },
+    {
+      "id": "ratios-rates/t4/014",
+      "tier": 4,
+      "prompt": "What is 90% of 70?",
+      "choices": [
+        "62",
+        "63",
+        "7",
+        "90"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "10% of 70 is 7, so 90% is 9 × 7 = 63."
+    },
+    {
+      "id": "ratios-rates/t4/015",
+      "tier": 4,
+      "prompt": "What is 75% of 40?",
+      "choices": [
+        "10",
+        "4",
+        "30",
+        "75"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_PART",
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "25% of 40 is 40 ÷ 4 = 10, so 75% is 3 × 10 = 30."
+    },
+    {
+      "id": "ratios-rates/t4/016",
+      "tier": 4,
+      "prompt": "10% of 20 games were wins. How many?",
+      "choices": [
+        "2",
+        "3",
+        "10",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_PART",
+        "ARITH"
+      ],
+      "explanation": "10% is 1/10: 20 ÷ 10 = 2."
+    },
+    {
+      "id": "ratios-rates/t4/017",
+      "tier": 4,
+      "prompt": "What is 70% of 60?",
+      "choices": [
+        "43",
+        "70",
+        "6",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL",
+        null
+      ],
+      "explanation": "10% of 60 is 6, so 70% is 7 × 6 = 42."
+    },
+    {
+      "id": "ratios-rates/t4/018",
+      "tier": 4,
+      "prompt": "What is 80% of 80?",
+      "choices": [
+        "64",
+        "62",
+        "80",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 80 is 8, so 80% is 8 × 8 = 64."
+    },
+    {
+      "id": "ratios-rates/t4/019",
+      "tier": 4,
+      "prompt": "What is 75% of 20?",
+      "choices": [
+        "15",
+        "2",
+        "5",
+        "75"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENTH_FOR_ALL",
+        "ONE_PART",
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "25% of 20 is 20 ÷ 4 = 5, so 75% is 3 × 5 = 15."
+    },
+    {
+      "id": "ratios-rates/t4/020",
+      "tier": 4,
+      "prompt": "What is 25% of 8?",
+      "choices": [
+        "3",
+        "2",
+        "25",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PERCENT_AS_PART",
+        "ARITH"
+      ],
+      "explanation": "25% is 1/4: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "ratios-rates/t4/021",
+      "tier": 4,
+      "prompt": "80% of 90 songs are pop. How many?",
+      "choices": [
+        "10",
+        "9",
+        "80",
+        "72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART",
+        null
+      ],
+      "explanation": "10% of 90 is 9, so 80% is 8 × 9 = 72."
+    },
+    {
+      "id": "ratios-rates/t4/022",
+      "tier": 4,
+      "prompt": "90% of 90 seats are empty. How many?",
+      "choices": [
+        "81",
+        "90",
+        "83",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_PART",
+        "ARITH",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 90 is 9, so 90% is 9 × 9 = 81."
+    },
+    {
+      "id": "ratios-rates/t4/023",
+      "tier": 4,
+      "prompt": "90% of 50 seats are empty. How many?",
+      "choices": [
+        "46",
+        "45",
+        "90",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 50 is 5, so 90% is 9 × 5 = 45."
+    },
+    {
+      "id": "ratios-rates/t4/024",
+      "tier": 4,
+      "prompt": "60% of 40 songs are pop. How many?",
+      "choices": [
+        "60",
+        "4",
+        "22",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL",
+        "ARITH",
+        null
+      ],
+      "explanation": "10% of 40 is 4, so 60% is 6 × 4 = 24."
+    },
+    {
+      "id": "ratios-rates/t4/025",
+      "tier": 4,
+      "prompt": "What is 10% of 80?",
+      "choices": [
+        "10",
+        "9",
+        "8",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_PART",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "10% is 1/10: 80 ÷ 10 = 8."
+    },
+    {
+      "id": "ratios-rates/t4/026",
+      "tier": 4,
+      "prompt": "What is 25% of 16?",
+      "choices": [
+        "2",
+        "6",
+        "25",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "PERCENT_AS_PART",
+        null
+      ],
+      "explanation": "25% is 1/4: 16 ÷ 4 = 4."
+    },
+    {
+      "id": "ratios-rates/t4/027",
+      "tier": 4,
+      "prompt": "70% of 80 apples are red. How many?",
+      "choices": [
+        "8",
+        "10",
+        "70",
+        "56"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "SUBTRACTED",
+        "PERCENT_AS_PART",
+        null
+      ],
+      "explanation": "10% of 80 is 8, so 70% is 7 × 8 = 56."
+    },
+    {
+      "id": "ratios-rates/t4/028",
+      "tier": 4,
+      "prompt": "50% of 60 kids ride a bus. How many?",
+      "choices": [
+        "10",
+        "30",
+        "6",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "10% of 60 is 6, so 50% is 5 × 6 = 30."
+    },
+    {
+      "id": "ratios-rates/t4/029",
+      "tier": 4,
+      "prompt": "What is 75% of 28?",
+      "choices": [
+        "23",
+        "75",
+        "7",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERCENT_AS_PART",
+        "ONE_PART",
+        null
+      ],
+      "explanation": "25% of 28 is 28 ÷ 4 = 7, so 75% is 3 × 7 = 21."
+    },
+    {
+      "id": "ratios-rates/t4/030",
+      "tier": 4,
+      "prompt": "25% of 16 seats are empty. How many?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "PERCENT_AS_PART"
+      ],
+      "explanation": "25% is 1/4: 16 ÷ 4 = 4."
+    },
+    {
+      "id": "ratios-rates/t4/031",
+      "tier": 4,
+      "prompt": "What is 60% of 60?",
+      "choices": [
+        "60",
+        "35",
+        "36",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_PART",
+        "ARITH",
+        null,
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 60 is 6, so 60% is 6 × 6 = 36."
+    },
+    {
+      "id": "ratios-rates/t4/032",
+      "tier": 4,
+      "prompt": "What is 75% of 12?",
+      "choices": [
+        "75",
+        "9",
+        "11",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_PART",
+        null,
+        "ARITH",
+        "ONE_PART"
+      ],
+      "explanation": "25% of 12 is 12 ÷ 4 = 3, so 75% is 3 × 3 = 9."
+    },
+    {
+      "id": "ratios-rates/t4/033",
+      "tier": 4,
+      "prompt": "90% of 20 songs are pop. How many?",
+      "choices": [
+        "2",
+        "90",
+        "20",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART",
+        "ARITH",
+        null
+      ],
+      "explanation": "10% of 20 is 2, so 90% is 9 × 2 = 18."
+    },
+    {
+      "id": "ratios-rates/t4/034",
+      "tier": 4,
+      "prompt": "What is 20% of 50?",
+      "choices": [
+        "5",
+        "10",
+        "20",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_PART",
+        "SUBTRACTED"
+      ],
+      "explanation": "10% of 50 is 5, so 20% is 2 × 5 = 10."
+    },
+    {
+      "id": "ratios-rates/t4/035",
+      "tier": 4,
+      "prompt": "75% of 36 seats are empty. How many?",
+      "choices": [
+        "27",
+        "29",
+        "75",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_PART",
+        "ONE_PART"
+      ],
+      "explanation": "25% of 36 is 36 ÷ 4 = 9, so 75% is 3 × 9 = 27."
+    },
+    {
+      "id": "ratios-rates/t4/036",
+      "tier": 4,
+      "prompt": "70% of 20 seats are empty. How many?",
+      "choices": [
+        "2",
+        "14",
+        "70",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_PART",
+        "ARITH"
+      ],
+      "explanation": "10% of 20 is 2, so 70% is 7 × 2 = 14."
+    },
+    {
+      "id": "ratios-rates/t4/037",
+      "tier": 4,
+      "prompt": "What is 90% of 80?",
+      "choices": [
+        "8",
+        "72",
+        "90",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_PART",
+        "ARITH"
+      ],
+      "explanation": "10% of 80 is 8, so 90% is 9 × 8 = 72."
+    },
+    {
+      "id": "ratios-rates/t4/038",
+      "tier": 4,
+      "prompt": "20% of 90 apples are red. How many?",
+      "choices": [
+        "70",
+        "20",
+        "18",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_PART",
+        null,
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of 90 is 9, so 20% is 2 × 9 = 18."
+    },
+    {
+      "id": "ratios-rates/t4/039",
+      "tier": 4,
+      "prompt": "25% of 40 songs are pop. How many?",
+      "choices": [
+        "4",
+        "25",
+        "10",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_PART",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "25% is 1/4: 40 ÷ 4 = 10."
+    },
+    {
+      "id": "ratios-rates/t4/040",
+      "tier": 4,
+      "prompt": "75% of 40 songs are pop. How many?",
+      "choices": [
+        "30",
+        "10",
+        "75",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_PART",
+        "PERCENT_AS_PART",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "25% of 40 is 40 ÷ 4 = 10, so 75% is 3 × 10 = 30."
+    },
+    {
+      "id": "ratios-rates/t5/001",
+      "tier": 5,
+      "prompt": "5 pens cost $25. Cost of 8 pens?",
+      "choices": [
+        "$200",
+        "$40",
+        "$5",
+        "$28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_UNIT",
+        null,
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "$25 ÷ 5 = $5 per pen. 8 × $5 = $40."
+    },
+    {
+      "id": "ratios-rates/t5/002",
+      "tier": 5,
+      "prompt": "10 books cost $30. Cost of 7 books?",
+      "choices": [
+        "$21",
+        "$3",
+        "$27",
+        "$210"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        "TOTAL_AS_UNIT"
+      ],
+      "explanation": "$30 ÷ 10 = $3 per book. 7 × $3 = $21."
+    },
+    {
+      "id": "ratios-rates/t5/003",
+      "tier": 5,
+      "prompt": "4 cans cost $12. Cost of 5 cans?",
+      "choices": [
+        "$60",
+        "$3",
+        "$13",
+        "$15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_UNIT",
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "$12 ÷ 4 = $3 per can. 5 × $3 = $15."
+    },
+    {
+      "id": "ratios-rates/t5/004",
+      "tier": 5,
+      "prompt": "4 pens cost $8. Cost of 2 pens?",
+      "choices": [
+        "$4",
+        "$16",
+        "$6",
+        "$2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_UNIT",
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "$8 ÷ 4 = $2 per pen. 2 × $2 = $4."
+    },
+    {
+      "id": "ratios-rates/t5/005",
+      "tier": 5,
+      "prompt": "5 pens cost $15. Cost of 10 pens?",
+      "choices": [
+        "$30",
+        "$3",
+        "$150",
+        "$20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACTOR_ONLY",
+        "TOTAL_AS_UNIT",
+        "ADDITIVE"
+      ],
+      "explanation": "$15 ÷ 5 = $3 per pen. 10 × $3 = $30."
+    },
+    {
+      "id": "ratios-rates/t5/006",
+      "tier": 5,
+      "prompt": "Cars:vans is 8:2. 70 vehicles in all. How many vans?",
+      "choices": [
+        "56",
+        "7",
+        "12",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "FACTOR_ONLY",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 + 2 = 10 parts. 70 ÷ 10 = 7 per part. Vans: 2 × 7 = 14."
+    },
+    {
+      "id": "ratios-rates/t5/007",
+      "tier": 5,
+      "prompt": "Cars:vans is 5:4. 90 vehicles in all. How many cars?",
+      "choices": [
+        "40",
+        "10",
+        "50",
+        "52"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "FACTOR_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "5 + 4 = 9 parts. 90 ÷ 9 = 10 per part. Cars: 5 × 10 = 50."
+    },
+    {
+      "id": "ratios-rates/t5/008",
+      "tier": 5,
+      "prompt": "Hawks:owls is 4:2. There are 8 hawks. How many birds?",
+      "choices": [
+        "2",
+        "4",
+        "10",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "OTHER_PART",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "8 hawks ÷ 4 = 2 per part. 4 + 2 = 6 parts. 6 × 2 = 12 birds."
+    },
+    {
+      "id": "ratios-rates/t5/009",
+      "tier": 5,
+      "prompt": "4 tacos cost $8. Cost of 10 tacos?",
+      "choices": [
+        "$80",
+        "$2",
+        "$14",
+        "$20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_UNIT",
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "$8 ÷ 4 = $2 per taco. 10 × $2 = $20."
+    },
+    {
+      "id": "ratios-rates/t5/010",
+      "tier": 5,
+      "prompt": "Hawks:owls is 3:7. There are 63 owls. How many birds?",
+      "choices": [
+        "9",
+        "66",
+        "90",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "63 owls ÷ 7 = 9 per part. 3 + 7 = 10 parts. 10 × 9 = 90 birds."
+    },
+    {
+      "id": "ratios-rates/t5/011",
+      "tier": 5,
+      "prompt": "Boys:girls is 4:6. There are 20 boys. How many kids?",
+      "choices": [
+        "30",
+        "26",
+        "50",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "20 boys ÷ 4 = 5 per part. 4 + 6 = 10 parts. 10 × 5 = 50 kids."
+    },
+    {
+      "id": "ratios-rates/t5/012",
+      "tier": 5,
+      "prompt": "Wins:losses is 4:5. There are 25 losses. How many games?",
+      "choices": [
+        "29",
+        "20",
+        "5",
+        "45"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "OTHER_PART",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "25 losses ÷ 5 = 5 per part. 4 + 5 = 9 parts. 9 × 5 = 45 games."
+    },
+    {
+      "id": "ratios-rates/t5/013",
+      "tier": 5,
+      "prompt": "24 is 40% of what number?",
+      "choices": [
+        "36",
+        "60",
+        "9.6",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "PERCENT_OF_PART",
+        "ONE_PART"
+      ],
+      "explanation": "24 is 40%, so 10% is 24 ÷ 4 = 6. 100% is 10 × 6 = 60."
+    },
+    {
+      "id": "ratios-rates/t5/014",
+      "tier": 5,
+      "prompt": "Boys:girls is 6:2. 56 kids in all. How many girls?",
+      "choices": [
+        "14",
+        "12",
+        "42",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "OTHER_PART",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "6 + 2 = 8 parts. 56 ÷ 8 = 7 per part. Girls: 2 × 7 = 14."
+    },
+    {
+      "id": "ratios-rates/t5/015",
+      "tier": 5,
+      "prompt": "32 is 40% of what number?",
+      "choices": [
+        "48",
+        "8",
+        "80",
+        "12.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "ONE_PART",
+        null,
+        "PERCENT_OF_PART"
+      ],
+      "explanation": "32 is 40%, so 10% is 32 ÷ 4 = 8. 100% is 10 × 8 = 80."
+    },
+    {
+      "id": "ratios-rates/t5/016",
+      "tier": 5,
+      "prompt": "7 cans cost $14. Cost of 8 cans?",
+      "choices": [
+        "$16",
+        "$15",
+        "$2",
+        "$112"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "TOTAL_AS_UNIT"
+      ],
+      "explanation": "$14 ÷ 7 = $2 per can. 8 × $2 = $16."
+    },
+    {
+      "id": "ratios-rates/t5/017",
+      "tier": 5,
+      "prompt": "Apples:pears is 4:6. There are 30 pears. How many fruits?",
+      "choices": [
+        "20",
+        "5",
+        "50",
+        "34"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "FACTOR_ONLY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "30 pears ÷ 6 = 5 per part. 4 + 6 = 10 parts. 10 × 5 = 50 fruits."
+    },
+    {
+      "id": "ratios-rates/t5/018",
+      "tier": 5,
+      "prompt": "27 is 75% of what number?",
+      "choices": [
+        "34",
+        "20.25",
+        "9",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERCENT_OF_PART",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "75% is 3 quarters: 27 ÷ 3 = 9 per quarter. 4 × 9 = 36."
+    },
+    {
+      "id": "ratios-rates/t5/019",
+      "tier": 5,
+      "prompt": "10 is 25% of what number?",
+      "choices": [
+        "2.5",
+        "40",
+        "39",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_OF_PART",
+        null,
+        "ARITH",
+        "OTHER_PART"
+      ],
+      "explanation": "25% is 1/4 of the whole, so the whole is 4 × 10 = 40."
+    },
+    {
+      "id": "ratios-rates/t5/020",
+      "tier": 5,
+      "prompt": "Boys:girls is 2:3. There are 4 boys. How many kids?",
+      "choices": [
+        "7",
+        "10",
+        "6",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "OTHER_PART",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "4 boys ÷ 2 = 2 per part. 2 + 3 = 5 parts. 5 × 2 = 10 kids."
+    },
+    {
+      "id": "ratios-rates/t5/021",
+      "tier": 5,
+      "prompt": "Cats:dogs is 7:2. There are 28 cats. How many pets?",
+      "choices": [
+        "36",
+        "8",
+        "4",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "FACTOR_ONLY",
+        "ADDITIVE"
+      ],
+      "explanation": "28 cats ÷ 7 = 4 per part. 7 + 2 = 9 parts. 9 × 4 = 36 pets."
+    },
+    {
+      "id": "ratios-rates/t5/022",
+      "tier": 5,
+      "prompt": "Boys:girls is 6:4. 100 kids in all. How many girls?",
+      "choices": [
+        "40",
+        "60",
+        "42",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "ARITH",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "6 + 4 = 10 parts. 100 ÷ 10 = 10 per part. Girls: 4 × 10 = 40."
+    },
+    {
+      "id": "ratios-rates/t5/023",
+      "tier": 5,
+      "prompt": "5 books cost $30. Cost of 3 books?",
+      "choices": [
+        "$28",
+        "$90",
+        "$18",
+        "$6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "TOTAL_AS_UNIT",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "$30 ÷ 5 = $6 per book. 3 × $6 = $18."
+    },
+    {
+      "id": "ratios-rates/t5/024",
+      "tier": 5,
+      "prompt": "Cars:vans is 3:6. 18 vehicles in all. How many cars?",
+      "choices": [
+        "9",
+        "2",
+        "6",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_AS_TOTAL",
+        "FACTOR_ONLY",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "3 + 6 = 9 parts. 18 ÷ 9 = 2 per part. Cars: 3 × 2 = 6."
+    },
+    {
+      "id": "ratios-rates/t5/025",
+      "tier": 5,
+      "prompt": "12 is 75% of what number?",
+      "choices": [
+        "9",
+        "16",
+        "4",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_OF_PART",
+        null,
+        "OTHER_PART",
+        "ARITH"
+      ],
+      "explanation": "75% is 3 quarters: 12 ÷ 3 = 4 per quarter. 4 × 4 = 16."
+    },
+    {
+      "id": "ratios-rates/t5/026",
+      "tier": 5,
+      "prompt": "3 is 50% of what number?",
+      "choices": [
+        "6",
+        "7",
+        "1.5",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_OF_PART",
+        "ARITH"
+      ],
+      "explanation": "50% is half of the whole, so the whole is 2 × 3 = 6."
+    },
+    {
+      "id": "ratios-rates/t5/027",
+      "tier": 5,
+      "prompt": "Wins:losses is 5:2. 63 games in all. How many losses?",
+      "choices": [
+        "45",
+        "17",
+        "18",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "ARITH",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "5 + 2 = 7 parts. 63 ÷ 7 = 9 per part. Losses: 2 × 9 = 18."
+    },
+    {
+      "id": "ratios-rates/t5/028",
+      "tier": 5,
+      "prompt": "Boys:girls is 2:5. 14 kids in all. How many girls?",
+      "choices": [
+        "35",
+        "2",
+        "4",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_AS_TOTAL",
+        "FACTOR_ONLY",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "2 + 5 = 7 parts. 14 ÷ 7 = 2 per part. Girls: 5 × 2 = 10."
+    },
+    {
+      "id": "ratios-rates/t5/029",
+      "tier": 5,
+      "prompt": "Apples:pears is 2:8. 40 fruits in all. How many pears?",
+      "choices": [
+        "8",
+        "32",
+        "4",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "FACTOR_ONLY",
+        "PART_AS_TOTAL"
+      ],
+      "explanation": "2 + 8 = 10 parts. 40 ÷ 10 = 4 per part. Pears: 8 × 4 = 32."
+    },
+    {
+      "id": "ratios-rates/t5/030",
+      "tier": 5,
+      "prompt": "Hawks:owls is 5:3. There are 40 hawks. How many birds?",
+      "choices": [
+        "8",
+        "64",
+        "24",
+        "43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        null,
+        "OTHER_PART",
+        "ADDITIVE"
+      ],
+      "explanation": "40 hawks ÷ 5 = 8 per part. 5 + 3 = 8 parts. 8 × 8 = 64 birds."
+    },
+    {
+      "id": "ratios-rates/t5/031",
+      "tier": 5,
+      "prompt": "7 tickets cost $14. Cost of 3 tickets?",
+      "choices": [
+        "$42",
+        "$2",
+        "$10",
+        "$6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_UNIT",
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "$14 ÷ 7 = $2 per ticket. 3 × $2 = $6."
+    },
+    {
+      "id": "ratios-rates/t5/032",
+      "tier": 5,
+      "prompt": "8 is 50% of what number?",
+      "choices": [
+        "4",
+        "16",
+        "14",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_OF_PART",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "50% is half of the whole, so the whole is 2 × 8 = 16."
+    },
+    {
+      "id": "ratios-rates/t5/033",
+      "tier": 5,
+      "prompt": "Cars:vans is 2:5. 35 vehicles in all. How many vans?",
+      "choices": [
+        "5",
+        "10",
+        "25",
+        "23"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "OTHER_PART",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + 5 = 7 parts. 35 ÷ 7 = 5 per part. Vans: 5 × 5 = 25."
+    },
+    {
+      "id": "ratios-rates/t5/034",
+      "tier": 5,
+      "prompt": "Boys:girls is 3:2. There are 4 girls. How many kids?",
+      "choices": [
+        "6",
+        "7",
+        "2",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "4 girls ÷ 2 = 2 per part. 3 + 2 = 5 parts. 5 × 2 = 10 kids."
+    },
+    {
+      "id": "ratios-rates/t5/035",
+      "tier": 5,
+      "prompt": "18 is 60% of what number?",
+      "choices": [
+        "10.8",
+        "30",
+        "12",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_OF_PART",
+        null,
+        "OTHER_PART",
+        "ONE_PART"
+      ],
+      "explanation": "18 is 60%, so 10% is 18 ÷ 6 = 3. 100% is 10 × 3 = 30."
+    },
+    {
+      "id": "ratios-rates/t5/036",
+      "tier": 5,
+      "prompt": "10 tickets cost $100. Cost of 6 tickets?",
+      "choices": [
+        "$96",
+        "$10",
+        "$60",
+        "$600"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null,
+        "TOTAL_AS_UNIT"
+      ],
+      "explanation": "$100 ÷ 10 = $10 per ticket. 6 × $10 = $60."
+    },
+    {
+      "id": "ratios-rates/t5/037",
+      "tier": 5,
+      "prompt": "8 is 40% of what number?",
+      "choices": [
+        "20",
+        "12",
+        "2",
+        "3.2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "ONE_PART",
+        "PERCENT_OF_PART"
+      ],
+      "explanation": "8 is 40%, so 10% is 8 ÷ 4 = 2. 100% is 10 × 2 = 20."
+    },
+    {
+      "id": "ratios-rates/t5/038",
+      "tier": 5,
+      "prompt": "Cats:dogs is 3:7. There are 28 dogs. How many pets?",
+      "choices": [
+        "31",
+        "40",
+        "12",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "OTHER_PART",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "28 dogs ÷ 7 = 4 per part. 3 + 7 = 10 parts. 10 × 4 = 40 pets."
+    },
+    {
+      "id": "ratios-rates/t5/039",
+      "tier": 5,
+      "prompt": "30 is 75% of what number?",
+      "choices": [
+        "10",
+        "22.5",
+        "42",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "PERCENT_OF_PART",
+        "ARITH",
+        null
+      ],
+      "explanation": "75% is 3 quarters: 30 ÷ 3 = 10 per quarter. 4 × 10 = 40."
+    },
+    {
+      "id": "ratios-rates/t5/040",
+      "tier": 5,
+      "prompt": "Apples:pears is 8:2. 80 fruits in all. How many apples?",
+      "choices": [
+        "64",
+        "320",
+        "16",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_AS_TOTAL",
+        "OTHER_PART",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "8 + 2 = 10 parts. 80 ÷ 10 = 8 per part. Apples: 8 × 8 = 64."
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "decimal-ops",
+  "version": "1.0.0",
+  "title": "Decimal Operations",
+  "subtitle": "Add, Subtract, Multiply, Divide",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.NS.B.3"],
+  "seed": 20261013,
+  "items_per_tier": 40,
+  "bounds": "Decimals (PROTOCOL §4b): every operand is 0.01-10 with at most 2 decimal places and at most 2 non-zero digits. + and −: answer 0-20, at most one carry or borrow. × and ÷: the digit work is a times-table fact (each digit factor 2-10; ÷ exact, divisor and quotient digits 2-10); answers at most 3 decimal places. Wrong choices: whatever the misreading gives, 0-999.",
+  "tiers": [
+    { "tier": 1, "name": "Add & Subtract", "description": "Line up the decimal points, then add or subtract." },
+    { "tier": 2, "name": "Decimal × Whole", "description": "Multiply the digits, then keep the decimal's places." },
+    { "tier": 3, "name": "Decimal × Decimal", "description": "Multiply the digits, then add up the places of both factors." },
+    { "tier": 4, "name": "Decimal ÷ Whole", "description": "Share tenths or hundredths: 2.4 ÷ 3 is 24 tenths ÷ 3." },
+    { "tier": 5, "name": "Divide by a Decimal", "description": "Move both points the same number of places, then divide." }
+  ],
+  "misconceptions": {
+    "ALIGN_RIGHT": {
+      "student": "Line up the decimal points, not the last digits. 0.4 is 0.40.",
+      "teacher": "Right-justifies the digits instead of aligning the points: 0.4 + 0.35 = 0.39."
+    },
+    "DROP_PLACE": {
+      "student": "Every digit counts. Write 0.4 as 0.40 so each place has a partner.",
+      "teacher": "Drops the digit with no partner in the shorter number: 0.4 + 0.35 = 0.7."
+    },
+    "BRING_DOWN": {
+      "student": "An empty place is a 0. Write 0.6 as 0.60, then borrow.",
+      "teacher": "Brings down the bottom digit under an empty place: 0.6 − 0.25 = 0.45."
+    },
+    "DECIMAL_AS_WHOLE": {
+      "student": "10 tenths make 1 whole. 0.8 + 0.5 is 13 tenths, which is 1.3.",
+      "teacher": "Adds the decimal parts as whole numbers and never carries: 0.8 + 0.5 = 0.13."
+    },
+    "PLACE_LOST": {
+      "student": "Don't drop the decimal point. Count the places and put it back.",
+      "teacher": "Gives the whole-number digit result with no decimal point: 0.3 × 4 = 12."
+    },
+    "EXTRA_PLACE": {
+      "student": "One place too many. 3 tenths × 4 is 12 tenths, which is 1.2.",
+      "teacher": "Puts one extra decimal place in a decimal-by-whole result: 0.3 × 4 = 0.12."
+    },
+    "MISSED_PLACE": {
+      "student": "One place too few. Hundredths in, hundredths out: 0.04 × 6 = 0.24.",
+      "teacher": "Puts one decimal place too few in the result: 0.04 × 6 = 2.4."
+    },
+    "COUNT_PLACES": {
+      "student": "When you multiply, add the places: 0.6 × 0.2 has 1 + 1 = 2 places.",
+      "teacher": "Gives the product as many places as the longer factor, as in addition: 0.6 × 0.2 = 1.2."
+    },
+    "TOO_MANY_PLACES": {
+      "student": "Count again: 0.6 × 0.2 has 1 + 1 = 2 places, so 0.12.",
+      "teacher": "Puts one decimal place too many in a decimal product: 0.6 × 0.2 = 0.012."
+    },
+    "BIG_INTO_SMALL": {
+      "student": "4 ÷ 5 means 4 shared by 5. Each share is less than 1.",
+      "teacher": "Divides the larger number by the smaller when the dividend is smaller: 4 ÷ 5 = 1.25."
+    },
+    "SHIFT_ONE_SIDE": {
+      "student": "Move both decimal points the same number of places, not just one.",
+      "teacher": "Shifts the point in only the divisor or only the dividend: 1.2 ÷ 0.3 = 0.4 or 40."
+    },
+    "MULT_FOR_DIV": {
+      "student": "Dividing by a number less than 1 makes it bigger: 2 ÷ 0.5 = 4.",
+      "teacher": "Multiplies by the decimal divisor (\"division makes smaller\"): 2 ÷ 0.5 = 1."
+    }
+  }
+}

@@ -1,0 +1,3980 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "expressions",
+  "version": "1.0.0",
+  "title": "Expressions",
+  "subtitle": "Write, Read, Evaluate",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.EE.A.2",
+    "CCSS.MATH.CONTENT.6.EE.A.3",
+    "CCSS.MATH.CONTENT.6.EE.A.4"
+  ],
+  "seed": 20261016,
+  "items_per_tier": 40,
+  "bounds": "No negatives anywhere. Prompt constants: added numbers 1-20, multipliers and divisors 2-10. T3 (evaluate): a substituted value is 2-10 where it is multiplied or squared and 1-20 where it is only added or subtracted; every x step a times-table fact (both values <= 10), powers are squares of 2-10 or cubes of 2-4, every step and the answer whole and 0-100. T4/T5: every coefficient product a times-table fact, every combined coefficient and constant 1-100, like-term sums of numbers <= 20.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Words to Expressions",
+      "description": "Turn words into an expression: 5 less than n is n − 5."
+    },
+    {
+      "tier": 2,
+      "name": "Parts of an Expression",
+      "description": "Terms, coefficients, constants, and naming an expression by its last step."
+    },
+    {
+      "tier": 3,
+      "name": "Evaluate",
+      "description": "Put the number in for the letter, then follow the order of operations."
+    },
+    {
+      "tier": 4,
+      "name": "Distributive Property",
+      "description": "Expand a(b + c) and factor out the greatest common factor."
+    },
+    {
+      "tier": 5,
+      "name": "Equivalent Expressions",
+      "description": "Combine like terms and spot expressions that are always equal."
+    }
+  ],
+  "misconceptions": {
+    "ORDER_SUB": {
+      "student": "Order matters for −. '5 less than n' starts at n: n − 5.",
+      "teacher": "Writes subtraction in the order the words appear: '5 less than n' as 5 − n."
+    },
+    "SWAP_DIV": {
+      "student": "Order matters for ÷. 'n divided by 3' starts with n: n ÷ 3.",
+      "teacher": "Reverses dividend and divisor when translating a quotient."
+    },
+    "WRONG_OP": {
+      "student": "Match the words: sum +, difference −, product ×, quotient ÷.",
+      "teacher": "Translates an operation word into the wrong operation."
+    },
+    "MISSING_PARENS": {
+      "student": "'Times the sum' multiplies the WHOLE sum, so use ( ): 3(n + 4).",
+      "teacher": "Omits grouping symbols: '3 times the sum of n and 4' as 3n + 4."
+    },
+    "EXTRA_PARENS": {
+      "student": "'3 more than 2n' adds 3 after multiplying: 2n + 3, no ( ).",
+      "teacher": "Adds grouping that the phrase does not have: '3 more than 2n' as 2(n + 3)."
+    },
+    "SWAPPED_NUMS": {
+      "student": "Check which number multiplies and which number is added or taken away.",
+      "teacher": "Puts each constant in the other's role (multiplier vs addend)."
+    },
+    "COEF_CONST_MIX": {
+      "student": "Coefficient: the number times a letter. Constant: a number all alone.",
+      "teacher": "Confuses the coefficient with the constant term."
+    },
+    "TERM_FOR_COEF": {
+      "student": "That's the whole term. The coefficient is just its number: 7 in 7x.",
+      "teacher": "Gives the whole term when asked for its coefficient."
+    },
+    "VARIABLE_FOR_NUMBER": {
+      "student": "That's the letter (the variable). The question asks for a number.",
+      "teacher": "Gives the variable when asked for a coefficient or constant."
+    },
+    "HIDDEN_ONE": {
+      "student": "A letter alone has coefficient 1: y means 1y.",
+      "teacher": "Says a bare variable has coefficient 0 (or none)."
+    },
+    "OTHER_VARIABLE": {
+      "student": "That number goes with a different letter. Find the one in front of it.",
+      "teacher": "Gives the coefficient of a different variable."
+    },
+    "VARIABLE_TERM": {
+      "student": "A constant has no letter. In 4a + 9 the constant is 9.",
+      "teacher": "Names a variable term (or the variable) as the constant term."
+    },
+    "COUNTS_VARIABLES": {
+      "student": "A number alone is a term too: 3a + 2b + 5 has 3 terms.",
+      "teacher": "Counts only the terms that contain a variable."
+    },
+    "COUNTS_PIECES": {
+      "student": "A term is a whole piece between + signs: 3a is one term, not two.",
+      "teacher": "Counts every number and letter separately instead of terms."
+    },
+    "INNER_OP": {
+      "student": "Name it by the LAST step: 2(x + 5) adds first, multiplies last: product.",
+      "teacher": "Names an expression by an inner operation rather than the last one done."
+    },
+    "LAST_STEP": {
+      "student": "Find the step you'd do last. That step names it: sum, product...",
+      "teacher": "Names an expression by an operation it does not use last (or at all)."
+    },
+    "CONCAT": {
+      "student": "3x means 3 times x. With x = 5 it is 3 × 5 = 15, not 35.",
+      "teacher": "Substitutes by writing digits side by side: 3x with x = 5 read as 35."
+    },
+    "ADD_COEF": {
+      "student": "A number next to a letter means multiply: 3x is 3 × x, not 3 + x.",
+      "teacher": "Adds the coefficient to the value instead of multiplying."
+    },
+    "ORDER": {
+      "student": "Multiply before you add, unless ( ) say otherwise.",
+      "teacher": "Evaluates left to right or adds before multiplying, ignoring precedence."
+    },
+    "EXP_AS_TIMES": {
+      "student": "x^2 means x × x, not x × 2. So 4^2 = 16.",
+      "teacher": "Reads an exponent as a multiplier: x^2 as 2x."
+    },
+    "SQUARE_PRODUCT": {
+      "student": "In 2a^2 only a is squared: square a first, then times 2.",
+      "teacher": "Squares the coefficient too: 2a^2 evaluated as (2a)^2."
+    },
+    "PARENS_SKIPPED": {
+      "student": "Work inside ( ) first: 5(x − 2) is 5 times the whole (x − 2).",
+      "teacher": "Ignores grouping when evaluating: 5(x − 2) as 5x − 2."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply EVERY term inside: 3(x + 4) = 3x + 12, not 3x + 4.",
+      "teacher": "Distributes to the first term only."
+    },
+    "ADD_FOR_MUL": {
+      "student": "The outside number multiplies each term: 3(x + 4) = 3x + 12.",
+      "teacher": "Adds the outside factor to a term instead of multiplying it."
+    },
+    "SIGN_DROP": {
+      "student": "Keep the minus: 3(x − 4) = 3x − 12, and 5x − x = 4x.",
+      "teacher": "Loses a subtraction sign when distributing or combining."
+    },
+    "UNLIKE_COMBINED": {
+      "student": "Only like terms combine. 3x + 12 can't become 15x.",
+      "teacher": "Combines unlike terms (a variable term with a constant)."
+    },
+    "PARTIAL_FACTOR": {
+      "student": "Divide EVERY term by the factor you take out: 6x + 9 = 3(2x + 3).",
+      "teacher": "Factors the GCF out of one term only."
+    },
+    "SUB_FOR_DIV": {
+      "student": "Factoring divides each term: 6x ÷ 3 = 2x, not 6x − 3.",
+      "teacher": "Subtracts the common factor from each term instead of dividing."
+    },
+    "X_FROM_BOTH": {
+      "student": "Only take out what EVERY term has. 9 has no x, so x can't come out.",
+      "teacher": "Factors a variable out of a term that does not contain it."
+    },
+    "POWER_FOR_SUM": {
+      "student": "Adding like terms adds the numbers: x + x + x = 3x, not x^3.",
+      "teacher": "Turns repeated addition into a power (x + x = x^2)."
+    },
+    "SUM_FOR_POWER": {
+      "student": "y × y is y^2. Adding gives 2y; multiplying gives y^2.",
+      "teacher": "Turns repeated multiplication into a coefficient (y × y = 2y)."
+    },
+    "MULT_COEF": {
+      "student": "Add like terms: 5a + 3a is 8a. Multiply only when you see ×.",
+      "teacher": "Multiplies the coefficients when combining like terms."
+    },
+    "DROPPED_TERM": {
+      "student": "Keep every term. Count all the x terms before you stop.",
+      "teacher": "Leaves a like term uncombined or drops it."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "expressions/t1/001",
+      "tier": 1,
+      "prompt": "3 less than the product of 4 and p",
+      "choices": [
+        "3p − 4",
+        "3 − 4p",
+        "4(p − 3)",
+        "4p − 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        "ORDER_SUB",
+        "EXTRA_PARENS",
+        null
+      ],
+      "explanation": "The product of 4 and p is 4p. Take 3 away from it: 4p − 3."
+    },
+    {
+      "id": "expressions/t1/002",
+      "tier": 1,
+      "prompt": "12 less than y",
+      "choices": [
+        "12 − y",
+        "y − 12",
+        "12y",
+        "y + 12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_SUB",
+        null,
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start at y and take 12 away: y − 12. 'Less than' flips the order of the words."
+    },
+    {
+      "id": "expressions/t1/003",
+      "tier": 1,
+      "prompt": "10 times the sum of x and 4",
+      "choices": [
+        "10x + 4",
+        "4(x + 10)",
+        "10(x + 4)",
+        "10 + x + 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PARENS",
+        "SWAPPED_NUMS",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "Find the sum x + 4 first, so keep it together in ( ), then times 10: 10(x + 4)."
+    },
+    {
+      "id": "expressions/t1/004",
+      "tier": 1,
+      "prompt": "17 less than k",
+      "choices": [
+        "k + 17",
+        "k − 17",
+        "17 − k",
+        "17k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "ORDER_SUB",
+        "WRONG_OP"
+      ],
+      "explanation": "Start at k and take 17 away: k − 17. 'Less than' flips the order of the words."
+    },
+    {
+      "id": "expressions/t1/005",
+      "tier": 1,
+      "prompt": "t divided by 8",
+      "choices": [
+        "t − 8",
+        "8t",
+        "t ÷ 8",
+        "8 ÷ t"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        null,
+        "SWAP_DIV"
+      ],
+      "explanation": "t is the number being split into 8 equal parts: t ÷ 8."
+    },
+    {
+      "id": "expressions/t1/006",
+      "tier": 1,
+      "prompt": "9 times the sum of p and 3",
+      "choices": [
+        "9(p + 3)",
+        "9p + 3",
+        "3(p + 9)",
+        "9 + p + 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_PARENS",
+        "SWAPPED_NUMS",
+        "WRONG_OP"
+      ],
+      "explanation": "Find the sum p + 3 first, so keep it together in ( ), then times 9: 9(p + 3)."
+    },
+    {
+      "id": "expressions/t1/007",
+      "tier": 1,
+      "prompt": "12 less than p",
+      "choices": [
+        "p + 12",
+        "12 − p",
+        "p − 12",
+        "12p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "ORDER_SUB",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "Start at p and take 12 away: p − 12. 'Less than' flips the order of the words."
+    },
+    {
+      "id": "expressions/t1/008",
+      "tier": 1,
+      "prompt": "7 more than the product of 2 and m",
+      "choices": [
+        "2m − 7",
+        "2(m + 7)",
+        "7m + 2",
+        "2m + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "EXTRA_PARENS",
+        "SWAPPED_NUMS",
+        null
+      ],
+      "explanation": "The product of 2 and m is 2m. 7 more than that: 2m + 7."
+    },
+    {
+      "id": "expressions/t1/009",
+      "tier": 1,
+      "prompt": "Divide the sum of n and 5 by 10",
+      "choices": [
+        "(n + 5) ÷ 10",
+        "10 ÷ (n + 5)",
+        "n + 5 ÷ 10",
+        "(n + 10) ÷ 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_DIV",
+        "MISSING_PARENS",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The whole sum n + 5 is divided, so it goes in ( ): (n + 5) ÷ 10."
+    },
+    {
+      "id": "expressions/t1/010",
+      "tier": 1,
+      "prompt": "5 times the difference of k and 2",
+      "choices": [
+        "5(2 − k)",
+        "5(k − 2)",
+        "5k − 2",
+        "2(k − 5)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_SUB",
+        null,
+        "MISSING_PARENS",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The difference of k and 2 is k − 2. Keep it in ( ), then times 5: 5(k − 2)."
+    },
+    {
+      "id": "expressions/t1/011",
+      "tier": 1,
+      "prompt": "Subtract p from 17",
+      "choices": [
+        "17 + p",
+        "17p",
+        "p − 17",
+        "17 − p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "ORDER_SUB",
+        null
+      ],
+      "explanation": "Start with 17, then take p away from it: 17 − p."
+    },
+    {
+      "id": "expressions/t1/012",
+      "tier": 1,
+      "prompt": "6 times the difference of x and 2",
+      "choices": [
+        "6(2 − x)",
+        "6x − 2",
+        "2(x − 6)",
+        "6(x − 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_SUB",
+        "MISSING_PARENS",
+        "SWAPPED_NUMS",
+        null
+      ],
+      "explanation": "The difference of x and 2 is x − 2. Keep it in ( ), then times 6: 6(x − 2)."
+    },
+    {
+      "id": "expressions/t1/013",
+      "tier": 1,
+      "prompt": "10 more than the product of 9 and w",
+      "choices": [
+        "9(w + 10)",
+        "9w − 10",
+        "9w + 10",
+        "10w + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PARENS",
+        "WRONG_OP",
+        null,
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The product of 9 and w is 9w. 10 more than that: 9w + 10."
+    },
+    {
+      "id": "expressions/t1/014",
+      "tier": 1,
+      "prompt": "y divided by 5",
+      "choices": [
+        "y ÷ 5",
+        "y − 5",
+        "5 ÷ y",
+        "5y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "SWAP_DIV",
+        "WRONG_OP"
+      ],
+      "explanation": "y is the number being split into 5 equal parts: y ÷ 5."
+    },
+    {
+      "id": "expressions/t1/015",
+      "tier": 1,
+      "prompt": "p divided by 2",
+      "choices": [
+        "2p",
+        "p − 2",
+        "p ÷ 2",
+        "2 ÷ p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        null,
+        "SWAP_DIV"
+      ],
+      "explanation": "p is the number being split into 2 equal parts: p ÷ 2."
+    },
+    {
+      "id": "expressions/t1/016",
+      "tier": 1,
+      "prompt": "The quotient of y and 8",
+      "choices": [
+        "8 ÷ y",
+        "8y",
+        "y − 8",
+        "y ÷ 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_DIV",
+        "WRONG_OP",
+        "WRONG_OP",
+        null
+      ],
+      "explanation": "y is the number being split into 8 equal parts: y ÷ 8."
+    },
+    {
+      "id": "expressions/t1/017",
+      "tier": 1,
+      "prompt": "Divide the sum of t and 7 by 10",
+      "choices": [
+        "(t + 10) ÷ 7",
+        "(t + 7) ÷ 10",
+        "10 ÷ (t + 7)",
+        "t + 7 ÷ 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        null,
+        "SWAP_DIV",
+        "MISSING_PARENS"
+      ],
+      "explanation": "The whole sum t + 7 is divided, so it goes in ( ): (t + 7) ÷ 10."
+    },
+    {
+      "id": "expressions/t1/018",
+      "tier": 1,
+      "prompt": "10 more than the product of 6 and t",
+      "choices": [
+        "6t − 10",
+        "10t + 6",
+        "6(t + 10)",
+        "6t + 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "SWAPPED_NUMS",
+        "EXTRA_PARENS",
+        null
+      ],
+      "explanation": "The product of 6 and t is 6t. 10 more than that: 6t + 10."
+    },
+    {
+      "id": "expressions/t1/019",
+      "tier": 1,
+      "prompt": "14 less than p",
+      "choices": [
+        "14 − p",
+        "p + 14",
+        "p − 14",
+        "14p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_SUB",
+        "WRONG_OP",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "Start at p and take 14 away: p − 14. 'Less than' flips the order of the words."
+    },
+    {
+      "id": "expressions/t1/020",
+      "tier": 1,
+      "prompt": "6 less than the product of 9 and t",
+      "choices": [
+        "9(t − 6)",
+        "9t − 6",
+        "6 − 9t",
+        "6t − 9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PARENS",
+        null,
+        "ORDER_SUB",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The product of 9 and t is 9t. Take 6 away from it: 9t − 6."
+    },
+    {
+      "id": "expressions/t1/021",
+      "tier": 1,
+      "prompt": "10 less than the product of 9 and m",
+      "choices": [
+        "10m − 9",
+        "10 − 9m",
+        "9m − 10",
+        "9(m − 10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        "ORDER_SUB",
+        null,
+        "EXTRA_PARENS"
+      ],
+      "explanation": "The product of 9 and m is 9m. Take 10 away from it: 9m − 10."
+    },
+    {
+      "id": "expressions/t1/022",
+      "tier": 1,
+      "prompt": "6 less than the product of 9 and k",
+      "choices": [
+        "9(k − 6)",
+        "6k − 9",
+        "6 − 9k",
+        "9k − 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_PARENS",
+        "SWAPPED_NUMS",
+        "ORDER_SUB",
+        null
+      ],
+      "explanation": "The product of 9 and k is 9k. Take 6 away from it: 9k − 6."
+    },
+    {
+      "id": "expressions/t1/023",
+      "tier": 1,
+      "prompt": "Subtract y from 2",
+      "choices": [
+        "2 + y",
+        "2 − y",
+        "y − 2",
+        "2y"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "ORDER_SUB",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with 2, then take y away from it: 2 − y."
+    },
+    {
+      "id": "expressions/t1/024",
+      "tier": 1,
+      "prompt": "11 less than x",
+      "choices": [
+        "x − 11",
+        "11 − x",
+        "11x",
+        "x + 11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_SUB",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start at x and take 11 away: x − 11. 'Less than' flips the order of the words."
+    },
+    {
+      "id": "expressions/t1/025",
+      "tier": 1,
+      "prompt": "Divide the sum of x and 5 by 3",
+      "choices": [
+        "x + 5 ÷ 3",
+        "3 ÷ (x + 5)",
+        "(x + 5) ÷ 3",
+        "(x + 3) ÷ 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PARENS",
+        "SWAP_DIV",
+        null,
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The whole sum x + 5 is divided, so it goes in ( ): (x + 5) ÷ 3."
+    },
+    {
+      "id": "expressions/t1/026",
+      "tier": 1,
+      "prompt": "7 times the difference of b and 5",
+      "choices": [
+        "7b − 5",
+        "7(b − 5)",
+        "5(b − 7)",
+        "7(5 − b)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PARENS",
+        null,
+        "SWAPPED_NUMS",
+        "ORDER_SUB"
+      ],
+      "explanation": "The difference of b and 5 is b − 5. Keep it in ( ), then times 7: 7(b − 5)."
+    },
+    {
+      "id": "expressions/t1/027",
+      "tier": 1,
+      "prompt": "Subtract p from 10",
+      "choices": [
+        "10 − p",
+        "10p",
+        "p − 10",
+        "10 + p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "ORDER_SUB",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with 10, then take p away from it: 10 − p."
+    },
+    {
+      "id": "expressions/t1/028",
+      "tier": 1,
+      "prompt": "3 more than the product of 8 and n",
+      "choices": [
+        "8n − 3",
+        "8n + 3",
+        "8(n + 3)",
+        "3n + 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "EXTRA_PARENS",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The product of 8 and n is 8n. 3 more than that: 8n + 3."
+    },
+    {
+      "id": "expressions/t1/029",
+      "tier": 1,
+      "prompt": "2 times the sum of t and 5",
+      "choices": [
+        "2 + t + 5",
+        "2t + 5",
+        "5(t + 2)",
+        "2(t + 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "MISSING_PARENS",
+        "SWAPPED_NUMS",
+        null
+      ],
+      "explanation": "Find the sum t + 5 first, so keep it together in ( ), then times 2: 2(t + 5)."
+    },
+    {
+      "id": "expressions/t1/030",
+      "tier": 1,
+      "prompt": "3 times the difference of p and 7",
+      "choices": [
+        "3p − 7",
+        "7(p − 3)",
+        "3(7 − p)",
+        "3(p − 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PARENS",
+        "SWAPPED_NUMS",
+        "ORDER_SUB",
+        null
+      ],
+      "explanation": "The difference of p and 7 is p − 7. Keep it in ( ), then times 3: 3(p − 7)."
+    },
+    {
+      "id": "expressions/t1/031",
+      "tier": 1,
+      "prompt": "6 less than the product of 9 and y",
+      "choices": [
+        "9y − 6",
+        "6y − 9",
+        "9(y − 6)",
+        "6 − 9y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_NUMS",
+        "EXTRA_PARENS",
+        "ORDER_SUB"
+      ],
+      "explanation": "The product of 9 and y is 9y. Take 6 away from it: 9y − 6."
+    },
+    {
+      "id": "expressions/t1/032",
+      "tier": 1,
+      "prompt": "Subtract y from 7",
+      "choices": [
+        "7 − y",
+        "y − 7",
+        "7 + y",
+        "7y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_SUB",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with 7, then take y away from it: 7 − y."
+    },
+    {
+      "id": "expressions/t1/033",
+      "tier": 1,
+      "prompt": "p divided by 4",
+      "choices": [
+        "p ÷ 4",
+        "4 ÷ p",
+        "4p",
+        "p − 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_DIV",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "p is the number being split into 4 equal parts: p ÷ 4."
+    },
+    {
+      "id": "expressions/t1/034",
+      "tier": 1,
+      "prompt": "4 times the sum of w and 10",
+      "choices": [
+        "10(w + 4)",
+        "4(w + 10)",
+        "4w + 10",
+        "4 + w + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        null,
+        "MISSING_PARENS",
+        "WRONG_OP"
+      ],
+      "explanation": "Find the sum w + 10 first, so keep it together in ( ), then times 4: 4(w + 10)."
+    },
+    {
+      "id": "expressions/t1/035",
+      "tier": 1,
+      "prompt": "2 more than the product of 3 and p",
+      "choices": [
+        "3p + 2",
+        "3p − 2",
+        "3(p + 2)",
+        "2p + 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "EXTRA_PARENS",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The product of 3 and p is 3p. 2 more than that: 3p + 2."
+    },
+    {
+      "id": "expressions/t1/036",
+      "tier": 1,
+      "prompt": "Divide the sum of k and 8 by 4",
+      "choices": [
+        "(k + 8) ÷ 4",
+        "k + 8 ÷ 4",
+        "4 ÷ (k + 8)",
+        "(k + 4) ÷ 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_PARENS",
+        "SWAP_DIV",
+        "SWAPPED_NUMS"
+      ],
+      "explanation": "The whole sum k + 8 is divided, so it goes in ( ): (k + 8) ÷ 4."
+    },
+    {
+      "id": "expressions/t1/037",
+      "tier": 1,
+      "prompt": "7 times the sum of w and 9",
+      "choices": [
+        "7w + 9",
+        "7 + w + 9",
+        "9(w + 7)",
+        "7(w + 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PARENS",
+        "WRONG_OP",
+        "SWAPPED_NUMS",
+        null
+      ],
+      "explanation": "Find the sum w + 9 first, so keep it together in ( ), then times 7: 7(w + 9)."
+    },
+    {
+      "id": "expressions/t1/038",
+      "tier": 1,
+      "prompt": "3 times the difference of m and 4",
+      "choices": [
+        "4(m − 3)",
+        "3m − 4",
+        "3(m − 4)",
+        "3(4 − m)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        "MISSING_PARENS",
+        null,
+        "ORDER_SUB"
+      ],
+      "explanation": "The difference of m and 4 is m − 4. Keep it in ( ), then times 3: 3(m − 4)."
+    },
+    {
+      "id": "expressions/t1/039",
+      "tier": 1,
+      "prompt": "Divide the sum of n and 6 by 7",
+      "choices": [
+        "(n + 7) ÷ 6",
+        "n + 6 ÷ 7",
+        "(n + 6) ÷ 7",
+        "7 ÷ (n + 6)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_NUMS",
+        "MISSING_PARENS",
+        null,
+        "SWAP_DIV"
+      ],
+      "explanation": "The whole sum n + 6 is divided, so it goes in ( ): (n + 6) ÷ 7."
+    },
+    {
+      "id": "expressions/t1/040",
+      "tier": 1,
+      "prompt": "Subtract p from 3",
+      "choices": [
+        "3 + p",
+        "3 − p",
+        "p − 3",
+        "3p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "ORDER_SUB",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with 3, then take p away from it: 3 − p."
+    },
+    {
+      "id": "expressions/t2/001",
+      "tier": 2,
+      "prompt": "Constant term in 5k + 12?",
+      "choices": [
+        "5",
+        "12",
+        "k",
+        "5k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        null,
+        "VARIABLE_TERM",
+        "VARIABLE_TERM"
+      ],
+      "explanation": "The constant has no letter, so it never changes: 12. 5 is the coefficient of k."
+    },
+    {
+      "id": "expressions/t2/002",
+      "tier": 2,
+      "prompt": "What kind of expression is 7x − 10?",
+      "choices": [
+        "difference",
+        "sum",
+        "quotient",
+        "product"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LAST_STEP",
+        "LAST_STEP",
+        "INNER_OP"
+      ],
+      "explanation": "In 7x − 10 you multiply first and subtract last. The last step names it: a difference."
+    },
+    {
+      "id": "expressions/t2/003",
+      "tier": 2,
+      "prompt": "Constant term in 4 + 3w?",
+      "choices": [
+        "3w",
+        "3",
+        "w",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VARIABLE_TERM",
+        "COEF_CONST_MIX",
+        "VARIABLE_TERM",
+        null
+      ],
+      "explanation": "The constant has no letter, so it never changes: 4. 3 is the coefficient of w."
+    },
+    {
+      "id": "expressions/t2/004",
+      "tier": 2,
+      "prompt": "Coefficient of t in 6p + 5t + 12?",
+      "choices": [
+        "5",
+        "12",
+        "6",
+        "5t"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_CONST_MIX",
+        "OTHER_VARIABLE",
+        "TERM_FOR_COEF"
+      ],
+      "explanation": "The number in front of t is 5, so 5 is its coefficient. 6 goes with p; 12 is the constant."
+    },
+    {
+      "id": "expressions/t2/005",
+      "tier": 2,
+      "prompt": "Coefficient of y in 8x + 10y + 1?",
+      "choices": [
+        "10y",
+        "10",
+        "1",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TERM_FOR_COEF",
+        null,
+        "COEF_CONST_MIX",
+        "OTHER_VARIABLE"
+      ],
+      "explanation": "The number in front of y is 10, so 10 is its coefficient. 8 goes with x; 1 is the constant."
+    },
+    {
+      "id": "expressions/t2/006",
+      "tier": 2,
+      "prompt": "Constant term in 3k + 7?",
+      "choices": [
+        "3k",
+        "7",
+        "k",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VARIABLE_TERM",
+        null,
+        "VARIABLE_TERM",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "The constant has no letter, so it never changes: 7. 3 is the coefficient of k."
+    },
+    {
+      "id": "expressions/t2/007",
+      "tier": 2,
+      "prompt": "Coefficient of k in 6k + 14?",
+      "choices": [
+        "14",
+        "6",
+        "6k",
+        "k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        null,
+        "TERM_FOR_COEF",
+        "VARIABLE_FOR_NUMBER"
+      ],
+      "explanation": "In 6k + 14, 6 multiplies k, so 6 is the coefficient. 14 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/008",
+      "tier": 2,
+      "prompt": "Coefficient of a in 5a + 9?",
+      "choices": [
+        "a",
+        "5a",
+        "9",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VARIABLE_FOR_NUMBER",
+        "TERM_FOR_COEF",
+        "COEF_CONST_MIX",
+        null
+      ],
+      "explanation": "In 5a + 9, 5 multiplies a, so 5 is the coefficient. 9 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/009",
+      "tier": 2,
+      "prompt": "Coefficient of b in b + 20?",
+      "choices": [
+        "0",
+        "b",
+        "1",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HIDDEN_ONE",
+        "VARIABLE_FOR_NUMBER",
+        null,
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "b alone means 1 × b, so the coefficient of b is 1."
+    },
+    {
+      "id": "expressions/t2/010",
+      "tier": 2,
+      "prompt": "Coefficient of b in 2a + b + 5?",
+      "choices": [
+        "5",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        "OTHER_VARIABLE",
+        null,
+        "HIDDEN_ONE"
+      ],
+      "explanation": "b alone means 1 × b, so the coefficient of b is 1."
+    },
+    {
+      "id": "expressions/t2/011",
+      "tier": 2,
+      "prompt": "Constant term in 5y + 17?",
+      "choices": [
+        "17",
+        "5y",
+        "y",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VARIABLE_TERM",
+        "VARIABLE_TERM",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "The constant has no letter, so it never changes: 17. 5 is the coefficient of y."
+    },
+    {
+      "id": "expressions/t2/012",
+      "tier": 2,
+      "prompt": "Coefficient of n in 8m + 9n + 4?",
+      "choices": [
+        "4",
+        "9n",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        "TERM_FOR_COEF",
+        null,
+        "OTHER_VARIABLE"
+      ],
+      "explanation": "The number in front of n is 9, so 9 is its coefficient. 8 goes with m; 4 is the constant."
+    },
+    {
+      "id": "expressions/t2/013",
+      "tier": 2,
+      "prompt": "What kind of expression is (t + 1) ÷ 7?",
+      "choices": [
+        "product",
+        "quotient",
+        "difference",
+        "sum"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LAST_STEP",
+        null,
+        "LAST_STEP",
+        "INNER_OP"
+      ],
+      "explanation": "In (t + 1) ÷ 7 you add first and divide last. The last step names it: a quotient."
+    },
+    {
+      "id": "expressions/t2/014",
+      "tier": 2,
+      "prompt": "What kind of expression is (p + 9) ÷ 2?",
+      "choices": [
+        "product",
+        "sum",
+        "difference",
+        "quotient"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LAST_STEP",
+        "INNER_OP",
+        "LAST_STEP",
+        null
+      ],
+      "explanation": "In (p + 9) ÷ 2 you add first and divide last. The last step names it: a quotient."
+    },
+    {
+      "id": "expressions/t2/015",
+      "tier": 2,
+      "prompt": "How many terms in 2a + 8b + 17?",
+      "choices": [
+        "5",
+        "2",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTS_PIECES",
+        "COUNTS_VARIABLES",
+        "ARITH",
+        null
+      ],
+      "explanation": "Terms are the pieces joined by +: 2a, 8b, 17. That is 3 terms."
+    },
+    {
+      "id": "expressions/t2/016",
+      "tier": 2,
+      "prompt": "Coefficient of y in 4x + 3y + 20?",
+      "choices": [
+        "3y",
+        "3",
+        "20",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TERM_FOR_COEF",
+        null,
+        "COEF_CONST_MIX",
+        "OTHER_VARIABLE"
+      ],
+      "explanation": "The number in front of y is 3, so 3 is its coefficient. 4 goes with x; 20 is the constant."
+    },
+    {
+      "id": "expressions/t2/017",
+      "tier": 2,
+      "prompt": "Coefficient of b in 7a + 10b + 1?",
+      "choices": [
+        "10",
+        "10b",
+        "7",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TERM_FOR_COEF",
+        "OTHER_VARIABLE",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "The number in front of b is 10, so 10 is its coefficient. 7 goes with a; 1 is the constant."
+    },
+    {
+      "id": "expressions/t2/018",
+      "tier": 2,
+      "prompt": "How many terms in 9a + 9b + 7c + 8?",
+      "choices": [
+        "7",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTS_PIECES",
+        null,
+        "COUNTS_VARIABLES",
+        "ARITH"
+      ],
+      "explanation": "Terms are the pieces joined by +: 9a, 9b, 7c, 8. That is 4 terms."
+    },
+    {
+      "id": "expressions/t2/019",
+      "tier": 2,
+      "prompt": "Coefficient of t in 6p + t + 11?",
+      "choices": [
+        "1",
+        "6",
+        "0",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_VARIABLE",
+        "HIDDEN_ONE",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "t alone means 1 × t, so the coefficient of t is 1."
+    },
+    {
+      "id": "expressions/t2/020",
+      "tier": 2,
+      "prompt": "Coefficient of t in 9t + 10?",
+      "choices": [
+        "10",
+        "t",
+        "9",
+        "9t"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        "VARIABLE_FOR_NUMBER",
+        null,
+        "TERM_FOR_COEF"
+      ],
+      "explanation": "In 9t + 10, 9 multiplies t, so 9 is the coefficient. 10 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/021",
+      "tier": 2,
+      "prompt": "How many terms in a + 5b + 15?",
+      "choices": [
+        "3",
+        "2",
+        "5",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNTS_VARIABLES",
+        "ARITH",
+        "COUNTS_PIECES"
+      ],
+      "explanation": "Terms are the pieces joined by +: a, 5b, 15. That is 3 terms."
+    },
+    {
+      "id": "expressions/t2/022",
+      "tier": 2,
+      "prompt": "How many terms in 5x + 6y + 6z + 8?",
+      "choices": [
+        "3",
+        "4",
+        "7",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTS_VARIABLES",
+        null,
+        "COUNTS_PIECES",
+        "ARITH"
+      ],
+      "explanation": "Terms are the pieces joined by +: 5x, 6y, 6z, 8. That is 4 terms."
+    },
+    {
+      "id": "expressions/t2/023",
+      "tier": 2,
+      "prompt": "How many terms in 5m + 7n + 20?",
+      "choices": [
+        "2",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTS_VARIABLES",
+        "COUNTS_PIECES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Terms are the pieces joined by +: 5m, 7n, 20. That is 3 terms."
+    },
+    {
+      "id": "expressions/t2/024",
+      "tier": 2,
+      "prompt": "What kind of expression is 8(w + 7)?",
+      "choices": [
+        "quotient",
+        "sum",
+        "difference",
+        "product"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LAST_STEP",
+        "INNER_OP",
+        "LAST_STEP",
+        null
+      ],
+      "explanation": "In 8(w + 7) you add first and multiply last. The last step names it: a product."
+    },
+    {
+      "id": "expressions/t2/025",
+      "tier": 2,
+      "prompt": "Coefficient of k in 6k + 4?",
+      "choices": [
+        "k",
+        "6k",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VARIABLE_FOR_NUMBER",
+        "TERM_FOR_COEF",
+        null,
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "In 6k + 4, 6 multiplies k, so 6 is the coefficient. 4 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/026",
+      "tier": 2,
+      "prompt": "Coefficient of n in 10m + 7n + 8?",
+      "choices": [
+        "8",
+        "7",
+        "10",
+        "7n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        null,
+        "OTHER_VARIABLE",
+        "TERM_FOR_COEF"
+      ],
+      "explanation": "The number in front of n is 7, so 7 is its coefficient. 10 goes with m; 8 is the constant."
+    },
+    {
+      "id": "expressions/t2/027",
+      "tier": 2,
+      "prompt": "Coefficient of t in 9p + t + 8?",
+      "choices": [
+        "1",
+        "0",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HIDDEN_ONE",
+        "OTHER_VARIABLE",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "t alone means 1 × t, so the coefficient of t is 1."
+    },
+    {
+      "id": "expressions/t2/028",
+      "tier": 2,
+      "prompt": "Constant term in 10b + 2?",
+      "choices": [
+        "10b",
+        "b",
+        "10",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VARIABLE_TERM",
+        "VARIABLE_TERM",
+        "COEF_CONST_MIX",
+        null
+      ],
+      "explanation": "The constant has no letter, so it never changes: 2. 10 is the coefficient of b."
+    },
+    {
+      "id": "expressions/t2/029",
+      "tier": 2,
+      "prompt": "What kind of expression is 6(y + 1)?",
+      "choices": [
+        "sum",
+        "difference",
+        "product",
+        "quotient"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INNER_OP",
+        "LAST_STEP",
+        null,
+        "LAST_STEP"
+      ],
+      "explanation": "In 6(y + 1) you add first and multiply last. The last step names it: a product."
+    },
+    {
+      "id": "expressions/t2/030",
+      "tier": 2,
+      "prompt": "What kind of expression is 4(b − 4)?",
+      "choices": [
+        "sum",
+        "difference",
+        "quotient",
+        "product"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LAST_STEP",
+        "INNER_OP",
+        "LAST_STEP",
+        null
+      ],
+      "explanation": "In 4(b − 4) you subtract first and multiply last. The last step names it: a product."
+    },
+    {
+      "id": "expressions/t2/031",
+      "tier": 2,
+      "prompt": "Coefficient of a in 10 + 2a?",
+      "choices": [
+        "2",
+        "2a",
+        "10",
+        "a"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TERM_FOR_COEF",
+        "COEF_CONST_MIX",
+        "VARIABLE_FOR_NUMBER"
+      ],
+      "explanation": "In 10 + 2a, 2 multiplies a, so 2 is the coefficient. 10 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/032",
+      "tier": 2,
+      "prompt": "What kind of expression is 10(a + 4)?",
+      "choices": [
+        "sum",
+        "quotient",
+        "difference",
+        "product"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INNER_OP",
+        "LAST_STEP",
+        "LAST_STEP",
+        null
+      ],
+      "explanation": "In 10(a + 4) you add first and multiply last. The last step names it: a product."
+    },
+    {
+      "id": "expressions/t2/033",
+      "tier": 2,
+      "prompt": "How many terms in 9x + 9y + 2?",
+      "choices": [
+        "2",
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTS_VARIABLES",
+        null,
+        "COUNTS_PIECES",
+        "ARITH"
+      ],
+      "explanation": "Terms are the pieces joined by +: 9x, 9y, 2. That is 3 terms."
+    },
+    {
+      "id": "expressions/t2/034",
+      "tier": 2,
+      "prompt": "Constant term in 3x + 2?",
+      "choices": [
+        "3x",
+        "x",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VARIABLE_TERM",
+        "VARIABLE_TERM",
+        null,
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "The constant has no letter, so it never changes: 2. 3 is the coefficient of x."
+    },
+    {
+      "id": "expressions/t2/035",
+      "tier": 2,
+      "prompt": "Coefficient of y in 4y + 17?",
+      "choices": [
+        "4",
+        "y",
+        "4y",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VARIABLE_FOR_NUMBER",
+        "TERM_FOR_COEF",
+        "COEF_CONST_MIX"
+      ],
+      "explanation": "In 4y + 17, 4 multiplies y, so 4 is the coefficient. 17 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/036",
+      "tier": 2,
+      "prompt": "Coefficient of y in 9x + y + 3?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_CONST_MIX",
+        "HIDDEN_ONE",
+        "OTHER_VARIABLE"
+      ],
+      "explanation": "y alone means 1 × y, so the coefficient of y is 1."
+    },
+    {
+      "id": "expressions/t2/037",
+      "tier": 2,
+      "prompt": "How many terms in 2x + 7y + 13?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COUNTS_PIECES",
+        null,
+        "COUNTS_VARIABLES"
+      ],
+      "explanation": "Terms are the pieces joined by +: 2x, 7y, 13. That is 3 terms."
+    },
+    {
+      "id": "expressions/t2/038",
+      "tier": 2,
+      "prompt": "Coefficient of t in 2 + 9t?",
+      "choices": [
+        "2",
+        "t",
+        "9t",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEF_CONST_MIX",
+        "VARIABLE_FOR_NUMBER",
+        "TERM_FOR_COEF",
+        null
+      ],
+      "explanation": "In 2 + 9t, 9 multiplies t, so 9 is the coefficient. 2 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t2/039",
+      "tier": 2,
+      "prompt": "What kind of expression is (y + 10) ÷ 6?",
+      "choices": [
+        "product",
+        "difference",
+        "quotient",
+        "sum"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LAST_STEP",
+        "LAST_STEP",
+        null,
+        "INNER_OP"
+      ],
+      "explanation": "In (y + 10) ÷ 6 you add first and divide last. The last step names it: a quotient."
+    },
+    {
+      "id": "expressions/t2/040",
+      "tier": 2,
+      "prompt": "Coefficient of k in 15 + 2k?",
+      "choices": [
+        "k",
+        "15",
+        "2k",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VARIABLE_FOR_NUMBER",
+        "COEF_CONST_MIX",
+        "TERM_FOR_COEF",
+        null
+      ],
+      "explanation": "In 15 + 2k, 2 multiplies k, so 2 is the coefficient. 15 stands alone: it is the constant."
+    },
+    {
+      "id": "expressions/t3/001",
+      "tier": 3,
+      "prompt": "Find 2(a + 2) when a = 5",
+      "choices": [
+        "14",
+        "9",
+        "27",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_COEF",
+        "CONCAT",
+        "PARENS_SKIPPED"
+      ],
+      "explanation": "( ) first: 5 + 2 = 7. Then 2 × 7 = 14."
+    },
+    {
+      "id": "expressions/t3/002",
+      "tier": 3,
+      "prompt": "Find x^2 + 8 when x = 7",
+      "choices": [
+        "225",
+        "58",
+        "57",
+        "22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER",
+        "ARITH",
+        null,
+        "EXP_AS_TIMES"
+      ],
+      "explanation": "7^2 = 7 × 7 = 49. Then 49 + 8 = 57."
+    },
+    {
+      "id": "expressions/t3/003",
+      "tier": 3,
+      "prompt": "Find 10(b − 6) when b = 9",
+      "choices": [
+        "103",
+        "13",
+        "30",
+        "84"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONCAT",
+        "ADD_COEF",
+        null,
+        "PARENS_SKIPPED"
+      ],
+      "explanation": "( ) first: 9 − 6 = 3. Then 10 × 3 = 30."
+    },
+    {
+      "id": "expressions/t3/004",
+      "tier": 3,
+      "prompt": "Find 5x + 2 when x = 3",
+      "choices": [
+        "25",
+        "17",
+        "55",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "CONCAT",
+        "ADD_COEF"
+      ],
+      "explanation": "5x means 5 × 3 = 15. Then 15 + 2 = 17."
+    },
+    {
+      "id": "expressions/t3/005",
+      "tier": 3,
+      "prompt": "Find 7x + y when x = 7, y = 5",
+      "choices": [
+        "19",
+        "54",
+        "55",
+        "82"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_COEF",
+        null,
+        "ARITH",
+        "CONCAT"
+      ],
+      "explanation": "7x means 7 × 7 = 49. Then 49 + 5 = 54."
+    },
+    {
+      "id": "expressions/t3/006",
+      "tier": 3,
+      "prompt": "Find 10p^2 when p = 2",
+      "choices": [
+        "41",
+        "14",
+        "40",
+        "400"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_COEF",
+        null,
+        "SQUARE_PRODUCT"
+      ],
+      "explanation": "Square first: 2^2 = 4. Then 10 × 4 = 40."
+    },
+    {
+      "id": "expressions/t3/007",
+      "tier": 3,
+      "prompt": "Find 5 + 7t when t = 9",
+      "choices": [
+        "21",
+        "68",
+        "108",
+        "84"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_COEF",
+        null,
+        "ORDER",
+        "CONCAT"
+      ],
+      "explanation": "Multiply first: 7 × 9 = 63. Then 5 + 63 = 68."
+    },
+    {
+      "id": "expressions/t3/008",
+      "tier": 3,
+      "prompt": "Find 2w^2 when w = 2",
+      "choices": [
+        "6",
+        "9",
+        "16",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_COEF",
+        "ARITH",
+        "SQUARE_PRODUCT",
+        null
+      ],
+      "explanation": "Square first: 2^2 = 4. Then 2 × 4 = 8."
+    },
+    {
+      "id": "expressions/t3/009",
+      "tier": 3,
+      "prompt": "Find 10x^2 when x = 2",
+      "choices": [
+        "14",
+        "400",
+        "40",
+        "41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_COEF",
+        "SQUARE_PRODUCT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Square first: 2^2 = 4. Then 10 × 4 = 40."
+    },
+    {
+      "id": "expressions/t3/010",
+      "tier": 3,
+      "prompt": "Find 6a + b when a = 2, b = 2",
+      "choices": [
+        "15",
+        "64",
+        "10",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "CONCAT",
+        "ADD_COEF",
+        null
+      ],
+      "explanation": "6a means 6 × 2 = 12. Then 12 + 2 = 14."
+    },
+    {
+      "id": "expressions/t3/011",
+      "tier": 3,
+      "prompt": "Find 7x + 3 when x = 6",
+      "choices": [
+        "79",
+        "63",
+        "45",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONCAT",
+        "ORDER",
+        null,
+        "ADD_COEF"
+      ],
+      "explanation": "7x means 7 × 6 = 42. Then 42 + 3 = 45."
+    },
+    {
+      "id": "expressions/t3/012",
+      "tier": 3,
+      "prompt": "Find 3n + 20 when n = 9",
+      "choices": [
+        "47",
+        "32",
+        "59",
+        "87"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_COEF",
+        "CONCAT",
+        "ORDER"
+      ],
+      "explanation": "3n means 3 × 9 = 27. Then 27 + 20 = 47."
+    },
+    {
+      "id": "expressions/t3/013",
+      "tier": 3,
+      "prompt": "Find 7p + t when p = 5, t = 20",
+      "choices": [
+        "95",
+        "56",
+        "32",
+        "55"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONCAT",
+        "ARITH",
+        "ADD_COEF",
+        null
+      ],
+      "explanation": "7p means 7 × 5 = 35. Then 35 + 20 = 55."
+    },
+    {
+      "id": "expressions/t3/014",
+      "tier": 3,
+      "prompt": "Find p^3 + 18 when p = 3",
+      "choices": [
+        "27",
+        "45",
+        "46",
+        "44"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXP_AS_TIMES",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3^3 = 3 × 3 × 3 = 27. Then 27 + 18 = 45."
+    },
+    {
+      "id": "expressions/t3/015",
+      "tier": 3,
+      "prompt": "Find 3a + 19 when a = 6",
+      "choices": [
+        "75",
+        "37",
+        "55",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "CONCAT",
+        "ADD_COEF"
+      ],
+      "explanation": "3a means 3 × 6 = 18. Then 18 + 19 = 37."
+    },
+    {
+      "id": "expressions/t3/016",
+      "tier": 3,
+      "prompt": "Find 3t^2 when t = 3",
+      "choices": [
+        "27",
+        "18",
+        "12",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_TIMES",
+        "ADD_COEF",
+        "SQUARE_PRODUCT"
+      ],
+      "explanation": "Square first: 3^2 = 9. Then 3 × 9 = 27."
+    },
+    {
+      "id": "expressions/t3/017",
+      "tier": 3,
+      "prompt": "P = 2L + 2W. Find P when L = 6, W = 8",
+      "choices": [
+        "28",
+        "54",
+        "18",
+        "128"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONCAT",
+        "ADD_COEF",
+        "ORDER"
+      ],
+      "explanation": "2L = 2 × 6 = 12, 2W = 2 × 8 = 16. Then 12 + 16 = 28."
+    },
+    {
+      "id": "expressions/t3/018",
+      "tier": 3,
+      "prompt": "Find x^2 + 16 when x = 4",
+      "choices": [
+        "24",
+        "33",
+        "400",
+        "32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXP_AS_TIMES",
+        "ARITH",
+        "ORDER",
+        null
+      ],
+      "explanation": "4^2 = 4 × 4 = 16. Then 16 + 16 = 32."
+    },
+    {
+      "id": "expressions/t3/019",
+      "tier": 3,
+      "prompt": "d = rt. Find d when r = 5, t = 7",
+      "choices": [
+        "57",
+        "36",
+        "35",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONCAT",
+        "ARITH",
+        null,
+        "ADD_COEF"
+      ],
+      "explanation": "rt means r × t: 5 × 7 = 35."
+    },
+    {
+      "id": "expressions/t3/020",
+      "tier": 3,
+      "prompt": "Find 3p + t when p = 9, t = 16",
+      "choices": [
+        "55",
+        "44",
+        "28",
+        "43"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONCAT",
+        "ARITH",
+        "ADD_COEF",
+        null
+      ],
+      "explanation": "3p means 3 × 9 = 27. Then 27 + 16 = 43."
+    },
+    {
+      "id": "expressions/t3/021",
+      "tier": 3,
+      "prompt": "Find 18 + 10n when n = 5",
+      "choices": [
+        "140",
+        "68",
+        "123",
+        "33"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "CONCAT",
+        "ADD_COEF"
+      ],
+      "explanation": "Multiply first: 10 × 5 = 50. Then 18 + 50 = 68."
+    },
+    {
+      "id": "expressions/t3/022",
+      "tier": 3,
+      "prompt": "Find 7(y + 3) when y = 4",
+      "choices": [
+        "77",
+        "14",
+        "31",
+        "49"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONCAT",
+        "ADD_COEF",
+        "PARENS_SKIPPED",
+        null
+      ],
+      "explanation": "( ) first: 4 + 3 = 7. Then 7 × 7 = 49."
+    },
+    {
+      "id": "expressions/t3/023",
+      "tier": 3,
+      "prompt": "Find 5 + 4w when w = 8",
+      "choices": [
+        "53",
+        "72",
+        "17",
+        "37"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONCAT",
+        "ORDER",
+        "ADD_COEF",
+        null
+      ],
+      "explanation": "Multiply first: 4 × 8 = 32. Then 5 + 32 = 37."
+    },
+    {
+      "id": "expressions/t3/024",
+      "tier": 3,
+      "prompt": "Find 6y^2 when y = 2",
+      "choices": [
+        "10",
+        "144",
+        "24",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_COEF",
+        "SQUARE_PRODUCT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Square first: 2^2 = 4. Then 6 × 4 = 24."
+    },
+    {
+      "id": "expressions/t3/025",
+      "tier": 3,
+      "prompt": "Find 8(b − 3) when b = 7",
+      "choices": [
+        "32",
+        "53",
+        "84",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARENS_SKIPPED",
+        "CONCAT",
+        "ADD_COEF"
+      ],
+      "explanation": "( ) first: 7 − 3 = 4. Then 8 × 4 = 32."
+    },
+    {
+      "id": "expressions/t3/026",
+      "tier": 3,
+      "prompt": "Find n^3 + 9 when n = 4",
+      "choices": [
+        "72",
+        "74",
+        "73",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "EXP_AS_TIMES"
+      ],
+      "explanation": "4^3 = 4 × 4 × 4 = 64. Then 64 + 9 = 73."
+    },
+    {
+      "id": "expressions/t3/027",
+      "tier": 3,
+      "prompt": "A = s^2. Find A when s = 10",
+      "choices": [
+        "100",
+        "20",
+        "99",
+        "101"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_TIMES",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "s^2 means s × s: 10 × 10 = 100."
+    },
+    {
+      "id": "expressions/t3/028",
+      "tier": 3,
+      "prompt": "Find m^2 + 6 when m = 3",
+      "choices": [
+        "15",
+        "12",
+        "81",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_TIMES",
+        "ORDER",
+        "ARITH"
+      ],
+      "explanation": "3^2 = 3 × 3 = 9. Then 9 + 6 = 15."
+    },
+    {
+      "id": "expressions/t3/029",
+      "tier": 3,
+      "prompt": "Find 1 + 4n when n = 8",
+      "choices": [
+        "33",
+        "49",
+        "40",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONCAT",
+        "ORDER",
+        "ADD_COEF"
+      ],
+      "explanation": "Multiply first: 4 × 8 = 32. Then 1 + 32 = 33."
+    },
+    {
+      "id": "expressions/t3/030",
+      "tier": 3,
+      "prompt": "Find 7x + 2 when x = 7",
+      "choices": [
+        "79",
+        "16",
+        "51",
+        "63"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONCAT",
+        "ADD_COEF",
+        null,
+        "ORDER"
+      ],
+      "explanation": "7x means 7 × 7 = 49. Then 49 + 2 = 51."
+    },
+    {
+      "id": "expressions/t3/031",
+      "tier": 3,
+      "prompt": "Find 2(w + 5) when w = 5",
+      "choices": [
+        "30",
+        "15",
+        "12",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONCAT",
+        "PARENS_SKIPPED",
+        "ADD_COEF",
+        null
+      ],
+      "explanation": "( ) first: 5 + 5 = 10. Then 2 × 10 = 20."
+    },
+    {
+      "id": "expressions/t3/032",
+      "tier": 3,
+      "prompt": "Find 20 + 9b when b = 5",
+      "choices": [
+        "65",
+        "34",
+        "145",
+        "115"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_COEF",
+        "ORDER",
+        "CONCAT"
+      ],
+      "explanation": "Multiply first: 9 × 5 = 45. Then 20 + 45 = 65."
+    },
+    {
+      "id": "expressions/t3/033",
+      "tier": 3,
+      "prompt": "Find 4p + 18 when p = 8",
+      "choices": [
+        "30",
+        "50",
+        "104",
+        "66"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_COEF",
+        null,
+        "ORDER",
+        "CONCAT"
+      ],
+      "explanation": "4p means 4 × 8 = 32. Then 32 + 18 = 50."
+    },
+    {
+      "id": "expressions/t3/034",
+      "tier": 3,
+      "prompt": "Find 3(n + 5) when n = 4",
+      "choices": [
+        "12",
+        "27",
+        "17",
+        "39"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_COEF",
+        null,
+        "PARENS_SKIPPED",
+        "CONCAT"
+      ],
+      "explanation": "( ) first: 4 + 5 = 9. Then 3 × 9 = 27."
+    },
+    {
+      "id": "expressions/t3/035",
+      "tier": 3,
+      "prompt": "Find 7x − y when x = 5, y = 12",
+      "choices": [
+        "63",
+        "23",
+        "24",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONCAT",
+        null,
+        "ARITH",
+        "ADD_COEF"
+      ],
+      "explanation": "7x means 7 × 5 = 35. Then 35 − 12 = 23."
+    },
+    {
+      "id": "expressions/t3/036",
+      "tier": 3,
+      "prompt": "Find 6x^2 when x = 3",
+      "choices": [
+        "54",
+        "36",
+        "15",
+        "324"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXP_AS_TIMES",
+        "ADD_COEF",
+        "SQUARE_PRODUCT"
+      ],
+      "explanation": "Square first: 3^2 = 9. Then 6 × 9 = 54."
+    },
+    {
+      "id": "expressions/t3/037",
+      "tier": 3,
+      "prompt": "Find 2b + 10 when b = 9",
+      "choices": [
+        "38",
+        "28",
+        "21",
+        "39"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "ADD_COEF",
+        "CONCAT"
+      ],
+      "explanation": "2b means 2 × 9 = 18. Then 18 + 10 = 28."
+    },
+    {
+      "id": "expressions/t3/038",
+      "tier": 3,
+      "prompt": "P = 2L + 2W. Find P when L = 3, W = 6",
+      "choices": [
+        "60",
+        "13",
+        "49",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER",
+        "ADD_COEF",
+        "CONCAT",
+        null
+      ],
+      "explanation": "2L = 2 × 3 = 6, 2W = 2 × 6 = 12. Then 6 + 12 = 18."
+    },
+    {
+      "id": "expressions/t3/039",
+      "tier": 3,
+      "prompt": "Find b^2 + 12 when b = 3",
+      "choices": [
+        "22",
+        "225",
+        "18",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ORDER",
+        "EXP_AS_TIMES",
+        null
+      ],
+      "explanation": "3^2 = 3 × 3 = 9. Then 9 + 12 = 21."
+    },
+    {
+      "id": "expressions/t3/040",
+      "tier": 3,
+      "prompt": "A = s^2. Find A when s = 7",
+      "choices": [
+        "50",
+        "48",
+        "49",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "EXP_AS_TIMES"
+      ],
+      "explanation": "s^2 means s × s: 7 × 7 = 49."
+    },
+    {
+      "id": "expressions/t4/001",
+      "tier": 4,
+      "prompt": "Distribute: 2(k − 5)",
+      "choices": [
+        "2k − 5",
+        "2k + 10",
+        "2k − 10",
+        "2k − 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "SIGN_DROP",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 2: 2 × k = 2k and 2 × 5 = 10. So 2k − 10."
+    },
+    {
+      "id": "expressions/t4/002",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 56t − 8",
+      "choices": [
+        "8t(7 − 1)",
+        "9(7t − 1)",
+        "8(7t − 8)",
+        "8(7t − 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "X_FROM_BOTH",
+        "ARITH",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "GCF of 56 and 8 is 8. 56t ÷ 8 = 7t, 8 ÷ 8 = 1. So 8(7t − 1)."
+    },
+    {
+      "id": "expressions/t4/003",
+      "tier": 4,
+      "prompt": "Distribute: 4(4k + 9)",
+      "choices": [
+        "52k",
+        "16k + 9",
+        "16k + 13",
+        "16k + 36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "Multiply each term by 4: 4 × 4k = 16k and 4 × 9 = 36. So 16k + 36."
+    },
+    {
+      "id": "expressions/t4/004",
+      "tier": 4,
+      "prompt": "Distribute: 3(b + 7)",
+      "choices": [
+        "3b + 21",
+        "3b + 7",
+        "24b",
+        "3b + 10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 3: 3 × b = 3b and 3 × 7 = 21. So 3b + 21."
+    },
+    {
+      "id": "expressions/t4/005",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 20y + 2",
+      "choices": [
+        "2(10y + 2)",
+        "2y(10 + 1)",
+        "3(10y + 1)",
+        "2(10y + 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_FACTOR",
+        "X_FROM_BOTH",
+        "ARITH",
+        null
+      ],
+      "explanation": "GCF of 20 and 2 is 2. 20y ÷ 2 = 10y, 2 ÷ 2 = 1. So 2(10y + 1)."
+    },
+    {
+      "id": "expressions/t4/006",
+      "tier": 4,
+      "prompt": "Distribute: 5(2y + 5)",
+      "choices": [
+        "35y",
+        "10y + 5",
+        "10y + 25",
+        "10y + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 5: 5 × 2y = 10y and 5 × 5 = 25. So 10y + 25."
+    },
+    {
+      "id": "expressions/t4/007",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 25b + 5",
+      "choices": [
+        "6(5b + 1)",
+        "5b(5 + 1)",
+        "5(5b + 5)",
+        "5(5b + 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "X_FROM_BOTH",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "GCF of 25 and 5 is 5. 25b ÷ 5 = 5b, 5 ÷ 5 = 1. So 5(5b + 1)."
+    },
+    {
+      "id": "expressions/t4/008",
+      "tier": 4,
+      "prompt": "Distribute: 3(2b + 10)",
+      "choices": [
+        "6b + 13",
+        "6b + 10",
+        "6b + 30",
+        "36b"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "PARTIAL_DIST",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 3: 3 × 2b = 6b and 3 × 10 = 30. So 6b + 30."
+    },
+    {
+      "id": "expressions/t4/009",
+      "tier": 4,
+      "prompt": "Distribute: 3(t − 9)",
+      "choices": [
+        "3t − 27",
+        "3t − 9",
+        "3t + 27",
+        "3t − 12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "SIGN_DROP",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 3: 3 × t = 3t and 3 × 9 = 27. So 3t − 27."
+    },
+    {
+      "id": "expressions/t4/010",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 8x − 14",
+      "choices": [
+        "2(6x − 12)",
+        "2(4x − 7)",
+        "2(4x − 14)",
+        "3(4x − 7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "PARTIAL_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "GCF of 8 and 14 is 2. 8x ÷ 2 = 4x, 14 ÷ 2 = 7. So 2(4x − 7)."
+    },
+    {
+      "id": "expressions/t4/011",
+      "tier": 4,
+      "prompt": "Distribute: 4(5p + 2)",
+      "choices": [
+        "28p",
+        "20p + 8",
+        "20p + 2",
+        "20p + 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 4: 4 × 5p = 20p and 4 × 2 = 8. So 20p + 8."
+    },
+    {
+      "id": "expressions/t4/012",
+      "tier": 4,
+      "prompt": "Distribute: 5(k − 10)",
+      "choices": [
+        "5k + 50",
+        "5k − 10",
+        "5k − 15",
+        "5k − 50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROP",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "Multiply each term by 5: 5 × k = 5k and 5 × 10 = 50. So 5k − 50."
+    },
+    {
+      "id": "expressions/t4/013",
+      "tier": 4,
+      "prompt": "Distribute: 3(t − 5)",
+      "choices": [
+        "3t − 8",
+        "3t − 15",
+        "3t + 15",
+        "3t − 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "SIGN_DROP",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 3: 3 × t = 3t and 3 × 5 = 15. So 3t − 15."
+    },
+    {
+      "id": "expressions/t4/014",
+      "tier": 4,
+      "prompt": "Distribute: 6(9 + m)",
+      "choices": [
+        "54 + 6m",
+        "15 + 6m",
+        "60m",
+        "54 + m"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 6: 6 × 9 = 54 and 6 × m = 6m. So 54 + 6m."
+    },
+    {
+      "id": "expressions/t4/015",
+      "tier": 4,
+      "prompt": "Distribute: 10(y + 2)",
+      "choices": [
+        "10y + 2",
+        "10y + 12",
+        "10y + 20",
+        "30y"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 10: 10 × y = 10y and 10 × 2 = 20. So 10y + 20."
+    },
+    {
+      "id": "expressions/t4/016",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6b + 21",
+      "choices": [
+        "3(2b + 21)",
+        "3(2b + 7)",
+        "3(3b + 18)",
+        "3b(2 + 7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_FACTOR",
+        null,
+        "SUB_FOR_DIV",
+        "X_FROM_BOTH"
+      ],
+      "explanation": "GCF of 6 and 21 is 3. 6b ÷ 3 = 2b, 21 ÷ 3 = 7. So 3(2b + 7)."
+    },
+    {
+      "id": "expressions/t4/017",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 30x − 48",
+      "choices": [
+        "6(5x − 48)",
+        "7(5x − 8)",
+        "6(24x − 42)",
+        "6(5x − 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_FACTOR",
+        "ARITH",
+        "SUB_FOR_DIV",
+        null
+      ],
+      "explanation": "GCF of 30 and 48 is 6. 30x ÷ 6 = 5x, 48 ÷ 6 = 8. So 6(5x − 8)."
+    },
+    {
+      "id": "expressions/t4/018",
+      "tier": 4,
+      "prompt": "Distribute: 2(3k + 10)",
+      "choices": [
+        "26k",
+        "6k + 20",
+        "6k + 10",
+        "6k + 12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 2: 2 × 3k = 6k and 2 × 10 = 20. So 6k + 20."
+    },
+    {
+      "id": "expressions/t4/019",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 40w + 36",
+      "choices": [
+        "4(36w + 32)",
+        "4(10w + 9)",
+        "4w(10 + 9)",
+        "4(10w + 36)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "X_FROM_BOTH",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 40 and 36 is 4. 40w ÷ 4 = 10w, 36 ÷ 4 = 9. So 4(10w + 9)."
+    },
+    {
+      "id": "expressions/t4/020",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 35x − 7",
+      "choices": [
+        "7x(5 − 1)",
+        "7(5x − 1)",
+        "7(5x − 7)",
+        "8(5x − 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "X_FROM_BOTH",
+        null,
+        "PARTIAL_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "GCF of 35 and 7 is 7. 35x ÷ 7 = 5x, 7 ÷ 7 = 1. So 7(5x − 1)."
+    },
+    {
+      "id": "expressions/t4/021",
+      "tier": 4,
+      "prompt": "Distribute: 2(x + 10)",
+      "choices": [
+        "2x + 12",
+        "22x",
+        "2x + 10",
+        "2x + 20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Multiply each term by 2: 2 × x = 2x and 2 × 10 = 20. So 2x + 20."
+    },
+    {
+      "id": "expressions/t4/022",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 5k − 30",
+      "choices": [
+        "5(k − 6)",
+        "6(k − 6)",
+        "5(k − 7)",
+        "5(k − 30)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 5 and 30 is 5. 5k ÷ 5 = k, 30 ÷ 5 = 6. So 5(k − 6)."
+    },
+    {
+      "id": "expressions/t4/023",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 18b − 24",
+      "choices": [
+        "6(3b − 4)",
+        "6(12b − 18)",
+        "6(3b − 24)",
+        "7(3b − 4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_FOR_DIV",
+        "PARTIAL_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "GCF of 18 and 24 is 6. 18b ÷ 6 = 3b, 24 ÷ 6 = 4. So 6(3b − 4)."
+    },
+    {
+      "id": "expressions/t4/024",
+      "tier": 4,
+      "prompt": "Distribute: 5(w + 5)",
+      "choices": [
+        "5w + 25",
+        "5w + 5",
+        "30w",
+        "5w + 10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 5: 5 × w = 5w and 5 × 5 = 25. So 5w + 25."
+    },
+    {
+      "id": "expressions/t4/025",
+      "tier": 4,
+      "prompt": "Distribute: 6(3 + m)",
+      "choices": [
+        "18 + m",
+        "24m",
+        "18 + 6m",
+        "9 + 6m"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 6: 6 × 3 = 18 and 6 × m = 6m. So 18 + 6m."
+    },
+    {
+      "id": "expressions/t4/026",
+      "tier": 4,
+      "prompt": "Distribute: 5(9 + t)",
+      "choices": [
+        "50t",
+        "45 + t",
+        "45 + 5t",
+        "14 + 5t"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 5: 5 × 9 = 45 and 5 × t = 5t. So 45 + 5t."
+    },
+    {
+      "id": "expressions/t4/027",
+      "tier": 4,
+      "prompt": "Distribute: 4(5y + 3)",
+      "choices": [
+        "20y + 12",
+        "20y + 7",
+        "20y + 3",
+        "32y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 4: 4 × 5y = 20y and 4 × 3 = 12. So 20y + 12."
+    },
+    {
+      "id": "expressions/t4/028",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 2n + 8",
+      "choices": [
+        "2n(1 + 4)",
+        "2(n + 4)",
+        "3(n + 4)",
+        "2(n + 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "X_FROM_BOTH",
+        null,
+        "ARITH",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 2 and 8 is 2. 2n ÷ 2 = n, 8 ÷ 2 = 4. So 2(n + 4)."
+    },
+    {
+      "id": "expressions/t4/029",
+      "tier": 4,
+      "prompt": "Distribute: 9(b + 5)",
+      "choices": [
+        "9b + 14",
+        "9b + 45",
+        "9b + 5",
+        "54b"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 9: 9 × b = 9b and 9 × 5 = 45. So 9b + 45."
+    },
+    {
+      "id": "expressions/t4/030",
+      "tier": 4,
+      "prompt": "Distribute: 3(t − 3)",
+      "choices": [
+        "3t − 9",
+        "3t − 6",
+        "3t + 9",
+        "3t − 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "SIGN_DROP",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 3: 3 × t = 3t and 3 × 3 = 9. So 3t − 9."
+    },
+    {
+      "id": "expressions/t4/031",
+      "tier": 4,
+      "prompt": "Distribute: 4(x − 6)",
+      "choices": [
+        "4x + 24",
+        "4x − 6",
+        "4x − 24",
+        "4x − 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "PARTIAL_DIST",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 4: 4 × x = 4x and 4 × 6 = 24. So 4x − 24."
+    },
+    {
+      "id": "expressions/t4/032",
+      "tier": 4,
+      "prompt": "Distribute: 7(w + 3)",
+      "choices": [
+        "28w",
+        "7w + 3",
+        "7w + 21",
+        "7w + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 7: 7 × w = 7w and 7 × 3 = 21. So 7w + 21."
+    },
+    {
+      "id": "expressions/t4/033",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 42y − 49",
+      "choices": [
+        "8(6y − 7)",
+        "7(35y − 42)",
+        "7(6y − 7)",
+        "7(6y − 49)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUB_FOR_DIV",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 42 and 49 is 7. 42y ÷ 7 = 6y, 49 ÷ 7 = 7. So 7(6y − 7)."
+    },
+    {
+      "id": "expressions/t4/034",
+      "tier": 4,
+      "prompt": "Distribute: 6(p − 5)",
+      "choices": [
+        "6p + 30",
+        "6p − 5",
+        "6p − 11",
+        "6p − 30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROP",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "Multiply each term by 6: 6 × p = 6p and 6 × 5 = 30. So 6p − 30."
+    },
+    {
+      "id": "expressions/t4/035",
+      "tier": 4,
+      "prompt": "Distribute: 5(9 + b)",
+      "choices": [
+        "45 + 5b",
+        "45 + b",
+        "50b",
+        "14 + 5b"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Multiply each term by 5: 5 × 9 = 45 and 5 × b = 5b. So 45 + 5b."
+    },
+    {
+      "id": "expressions/t4/036",
+      "tier": 4,
+      "prompt": "Distribute: 4(6 + t)",
+      "choices": [
+        "28t",
+        "24 + 4t",
+        "10 + 4t",
+        "24 + t"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "ADD_FOR_MUL",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 4: 4 × 6 = 24 and 4 × t = 4t. So 24 + 4t."
+    },
+    {
+      "id": "expressions/t4/037",
+      "tier": 4,
+      "prompt": "Distribute: 5(k + 7)",
+      "choices": [
+        "5k + 12",
+        "40k",
+        "5k + 7",
+        "5k + 35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Multiply each term by 5: 5 × k = 5k and 5 × 7 = 35. So 5k + 35."
+    },
+    {
+      "id": "expressions/t4/038",
+      "tier": 4,
+      "prompt": "Distribute: 9(w + 4)",
+      "choices": [
+        "9w + 36",
+        "9w + 13",
+        "45w",
+        "9w + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 9: 9 × w = 9w and 9 × 4 = 36. So 9w + 36."
+    },
+    {
+      "id": "expressions/t4/039",
+      "tier": 4,
+      "prompt": "Distribute: 5(2y + 7)",
+      "choices": [
+        "45y",
+        "10y + 7",
+        "10y + 12",
+        "10y + 35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "Multiply each term by 5: 5 × 2y = 10y and 5 × 7 = 35. So 10y + 35."
+    },
+    {
+      "id": "expressions/t4/040",
+      "tier": 4,
+      "prompt": "Distribute: 5(2m + 1)",
+      "choices": [
+        "15m",
+        "10m + 6",
+        "10m + 5",
+        "10m + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "ADD_FOR_MUL",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 5: 5 × 2m = 10m and 5 × 1 = 5. So 10m + 5."
+    },
+    {
+      "id": "expressions/t5/001",
+      "tier": 5,
+      "prompt": "Simplify: 3(w + 1) + 2(w + 1)",
+      "choices": [
+        "5w + 7",
+        "10w",
+        "5w + 5",
+        "5w + 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "3w + 3 and 2w + 2. w terms: 5w. Numbers: 3 + 2 = 5. So 5w + 5."
+    },
+    {
+      "id": "expressions/t5/002",
+      "tier": 5,
+      "prompt": "Simplify: 3x + 4x",
+      "choices": [
+        "8x",
+        "7x",
+        "12x",
+        "7x^2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MULT_COEF",
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "Like terms: add the coefficients. 3 + 4 = 7, so 7x."
+    },
+    {
+      "id": "expressions/t5/003",
+      "tier": 5,
+      "prompt": "Simplify: 5t + 8t",
+      "choices": [
+        "13t^2",
+        "40t",
+        "14t",
+        "13t"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POWER_FOR_SUM",
+        "MULT_COEF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Like terms: add the coefficients. 5 + 8 = 13, so 13t."
+    },
+    {
+      "id": "expressions/t5/004",
+      "tier": 5,
+      "prompt": "Simplify: 6a + 15 + 8a",
+      "choices": [
+        "6a + 15",
+        "14a + 15",
+        "14a^2 + 15",
+        "29a"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_TERM",
+        null,
+        "POWER_FOR_SUM",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms 6a and 8a make 14a. 15 has no a, so it stays: 14a + 15."
+    },
+    {
+      "id": "expressions/t5/005",
+      "tier": 5,
+      "prompt": "Simplify: 5(p + 5) + 4(p + 3)",
+      "choices": [
+        "9p + 37",
+        "46p",
+        "9p + 8",
+        "9p + 17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "5p + 25 and 4p + 12. p terms: 9p. Numbers: 25 + 12 = 37. So 9p + 37."
+    },
+    {
+      "id": "expressions/t5/006",
+      "tier": 5,
+      "prompt": "Simplify: 5(b + 9) + 2b",
+      "choices": [
+        "5b + 45",
+        "52b",
+        "7b + 45",
+        "7b + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "5(b + 9) = 5b + 45. Then 5b + 2b = 7b. So 7b + 45."
+    },
+    {
+      "id": "expressions/t5/007",
+      "tier": 5,
+      "prompt": "Simplify: 4(x + 4) + 2x",
+      "choices": [
+        "4x + 16",
+        "22x",
+        "6x + 4",
+        "6x + 16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "4(x + 4) = 4x + 16. Then 4x + 2x = 6x. So 6x + 16."
+    },
+    {
+      "id": "expressions/t5/008",
+      "tier": 5,
+      "prompt": "Simplify: n + n",
+      "choices": [
+        "2n",
+        "3n",
+        "2n^2",
+        "n^2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "POWER_FOR_SUM",
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "2 groups of n added together is 2 × n = 2n."
+    },
+    {
+      "id": "expressions/t5/009",
+      "tier": 5,
+      "prompt": "Simplify: 9y + 2 + 7y",
+      "choices": [
+        "16y^2 + 2",
+        "18y",
+        "9y + 2",
+        "16y + 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POWER_FOR_SUM",
+        "UNLIKE_COMBINED",
+        "DROPPED_TERM",
+        null
+      ],
+      "explanation": "Like terms 9y and 7y make 16y. 2 has no y, so it stays: 16y + 2."
+    },
+    {
+      "id": "expressions/t5/010",
+      "tier": 5,
+      "prompt": "Simplify: 8(t + 8) − t",
+      "choices": [
+        "71t",
+        "7t + 64",
+        "7t + 8",
+        "9t + 64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST",
+        "SIGN_DROP"
+      ],
+      "explanation": "8(t + 8) = 8t + 64. Then 8t − t = 7t. So 7t + 64."
+    },
+    {
+      "id": "expressions/t5/011",
+      "tier": 5,
+      "prompt": "Simplify: 6y + 4 + 8y",
+      "choices": [
+        "14y + 4",
+        "6y + 4",
+        "18y",
+        "14y^2 + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "Like terms 6y and 8y make 14y. 4 has no y, so it stays: 14y + 4."
+    },
+    {
+      "id": "expressions/t5/012",
+      "tier": 5,
+      "prompt": "Simplify: n + n + n + n + n",
+      "choices": [
+        "n^5",
+        "6n",
+        "5n",
+        "5n^5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POWER_FOR_SUM",
+        "ARITH",
+        null,
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "5 groups of n added together is 5 × n = 5n."
+    },
+    {
+      "id": "expressions/t5/013",
+      "tier": 5,
+      "prompt": "Simplify: 5a + 10 + 6a",
+      "choices": [
+        "21a",
+        "11a^2 + 10",
+        "5a + 10",
+        "11a + 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "POWER_FOR_SUM",
+        "DROPPED_TERM",
+        null
+      ],
+      "explanation": "Like terms 5a and 6a make 11a. 10 has no a, so it stays: 11a + 10."
+    },
+    {
+      "id": "expressions/t5/014",
+      "tier": 5,
+      "prompt": "Simplify: k × k × k",
+      "choices": [
+        "k^4",
+        "3k^3",
+        "k^3",
+        "3k"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUM_FOR_POWER",
+        null,
+        "SUM_FOR_POWER"
+      ],
+      "explanation": "k multiplied by itself 3 times is k^3. (3k would be k added 3 times.)"
+    },
+    {
+      "id": "expressions/t5/015",
+      "tier": 5,
+      "prompt": "Simplify: 6(k + 4) − k",
+      "choices": [
+        "29k",
+        "5k + 4",
+        "5k + 24",
+        "7k + 24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "SIGN_DROP"
+      ],
+      "explanation": "6(k + 4) = 6k + 24. Then 6k − k = 5k. So 5k + 24."
+    },
+    {
+      "id": "expressions/t5/016",
+      "tier": 5,
+      "prompt": "Simplify: 6x + 15 + 5x",
+      "choices": [
+        "11x + 15",
+        "6x + 15",
+        "11x^2 + 15",
+        "26x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "POWER_FOR_SUM",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms 6x and 5x make 11x. 15 has no x, so it stays: 11x + 15."
+    },
+    {
+      "id": "expressions/t5/017",
+      "tier": 5,
+      "prompt": "Simplify: 5(k + 2) + 3(k + 4)",
+      "choices": [
+        "30k",
+        "8k + 6",
+        "8k + 22",
+        "8k + 14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "5k + 10 and 3k + 12. k terms: 8k. Numbers: 10 + 12 = 22. So 8k + 22."
+    },
+    {
+      "id": "expressions/t5/018",
+      "tier": 5,
+      "prompt": "Simplify: 2(p + 5) + 8p",
+      "choices": [
+        "2p + 10",
+        "10p + 5",
+        "10p + 10",
+        "20p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "PARTIAL_DIST",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "2(p + 5) = 2p + 10. Then 2p + 8p = 10p. So 10p + 10."
+    },
+    {
+      "id": "expressions/t5/019",
+      "tier": 5,
+      "prompt": "Simplify: 7x + 8x",
+      "choices": [
+        "56x",
+        "15x",
+        "16x",
+        "15x^2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_COEF",
+        null,
+        "ARITH",
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "Like terms: add the coefficients. 7 + 8 = 15, so 15x."
+    },
+    {
+      "id": "expressions/t5/020",
+      "tier": 5,
+      "prompt": "Simplify: 7x + 6x",
+      "choices": [
+        "42x",
+        "14x",
+        "13x",
+        "13x^2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_COEF",
+        "ARITH",
+        null,
+        "POWER_FOR_SUM"
+      ],
+      "explanation": "Like terms: add the coefficients. 7 + 6 = 13, so 13x."
+    },
+    {
+      "id": "expressions/t5/021",
+      "tier": 5,
+      "prompt": "Simplify: 4(a + 9) + 5a",
+      "choices": [
+        "9a + 36",
+        "4a + 36",
+        "45a",
+        "9a + 9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "4(a + 9) = 4a + 36. Then 4a + 5a = 9a. So 9a + 36."
+    },
+    {
+      "id": "expressions/t5/022",
+      "tier": 5,
+      "prompt": "Simplify: 4(m + 3) + m",
+      "choices": [
+        "5m + 3",
+        "4m + 12",
+        "17m",
+        "5m + 12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "4(m + 3) = 4m + 12. Then 4m + m = 5m. So 5m + 12."
+    },
+    {
+      "id": "expressions/t5/023",
+      "tier": 5,
+      "prompt": "Simplify: y × y",
+      "choices": [
+        "y^3",
+        "2y^2",
+        "2y",
+        "y^2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUM_FOR_POWER",
+        "SUM_FOR_POWER",
+        null
+      ],
+      "explanation": "y multiplied by itself 2 times is y^2. (2y would be y added 2 times.)"
+    },
+    {
+      "id": "expressions/t5/024",
+      "tier": 5,
+      "prompt": "Simplify: 6w + 2w",
+      "choices": [
+        "12w",
+        "9w",
+        "8w^2",
+        "8w"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_COEF",
+        "ARITH",
+        "POWER_FOR_SUM",
+        null
+      ],
+      "explanation": "Like terms: add the coefficients. 6 + 2 = 8, so 8w."
+    },
+    {
+      "id": "expressions/t5/025",
+      "tier": 5,
+      "prompt": "Simplify: 2(y + 3) + 4(y + 3)",
+      "choices": [
+        "6y + 6",
+        "6y + 12",
+        "6y + 18",
+        "24y"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "2y + 6 and 4y + 12. y terms: 6y. Numbers: 6 + 12 = 18. So 6y + 18."
+    },
+    {
+      "id": "expressions/t5/026",
+      "tier": 5,
+      "prompt": "Simplify: 4(w + 1) + 2(w + 1)",
+      "choices": [
+        "12w",
+        "6w + 2",
+        "6w + 8",
+        "6w + 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "4w + 4 and 2w + 2. w terms: 6w. Numbers: 4 + 2 = 6. So 6w + 6."
+    },
+    {
+      "id": "expressions/t5/027",
+      "tier": 5,
+      "prompt": "Simplify: 4(w + 3) + w",
+      "choices": [
+        "17w",
+        "5w + 12",
+        "5w + 3",
+        "4w + 12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST",
+        "DROPPED_TERM"
+      ],
+      "explanation": "4(w + 3) = 4w + 12. Then 4w + w = 5w. So 5w + 12."
+    },
+    {
+      "id": "expressions/t5/028",
+      "tier": 5,
+      "prompt": "Simplify: 3(w + 9) + 6w",
+      "choices": [
+        "3w + 27",
+        "36w",
+        "9w + 27",
+        "9w + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "3(w + 9) = 3w + 27. Then 3w + 6w = 9w. So 9w + 27."
+    },
+    {
+      "id": "expressions/t5/029",
+      "tier": 5,
+      "prompt": "Simplify: 10y + 9y",
+      "choices": [
+        "19y",
+        "90y",
+        "19y^2",
+        "20y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_COEF",
+        "POWER_FOR_SUM",
+        "ARITH"
+      ],
+      "explanation": "Like terms: add the coefficients. 10 + 9 = 19, so 19y."
+    },
+    {
+      "id": "expressions/t5/030",
+      "tier": 5,
+      "prompt": "Simplify: y × y × y",
+      "choices": [
+        "y^4",
+        "y^3",
+        "3y",
+        "3y^3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUM_FOR_POWER",
+        "SUM_FOR_POWER"
+      ],
+      "explanation": "y multiplied by itself 3 times is y^3. (3y would be y added 3 times.)"
+    },
+    {
+      "id": "expressions/t5/031",
+      "tier": 5,
+      "prompt": "Simplify: w + w + w + w + w",
+      "choices": [
+        "5w^5",
+        "6w",
+        "w^5",
+        "5w"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POWER_FOR_SUM",
+        "ARITH",
+        "POWER_FOR_SUM",
+        null
+      ],
+      "explanation": "5 groups of w added together is 5 × w = 5w."
+    },
+    {
+      "id": "expressions/t5/032",
+      "tier": 5,
+      "prompt": "Simplify: m × m",
+      "choices": [
+        "m^2",
+        "2m",
+        "m^3",
+        "2m^2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_FOR_POWER",
+        "ARITH",
+        "SUM_FOR_POWER"
+      ],
+      "explanation": "m multiplied by itself 2 times is m^2. (2m would be m added 2 times.)"
+    },
+    {
+      "id": "expressions/t5/033",
+      "tier": 5,
+      "prompt": "Simplify: p + p + p",
+      "choices": [
+        "3p",
+        "3p^3",
+        "p^3",
+        "4p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POWER_FOR_SUM",
+        "POWER_FOR_SUM",
+        "ARITH"
+      ],
+      "explanation": "3 groups of p added together is 3 × p = 3p."
+    },
+    {
+      "id": "expressions/t5/034",
+      "tier": 5,
+      "prompt": "Simplify: 6(m + 7) − m",
+      "choices": [
+        "7m + 42",
+        "5m + 42",
+        "5m + 7",
+        "47m"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "6(m + 7) = 6m + 42. Then 6m − m = 5m. So 5m + 42."
+    },
+    {
+      "id": "expressions/t5/035",
+      "tier": 5,
+      "prompt": "Simplify: 5(k + 5) − k",
+      "choices": [
+        "4k + 5",
+        "6k + 25",
+        "29k",
+        "4k + 25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "SIGN_DROP",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "5(k + 5) = 5k + 25. Then 5k − k = 4k. So 4k + 25."
+    },
+    {
+      "id": "expressions/t5/036",
+      "tier": 5,
+      "prompt": "Simplify: 4(b + 7) − b",
+      "choices": [
+        "5b + 28",
+        "3b + 28",
+        "31b",
+        "3b + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "4(b + 7) = 4b + 28. Then 4b − b = 3b. So 3b + 28."
+    },
+    {
+      "id": "expressions/t5/037",
+      "tier": 5,
+      "prompt": "Simplify: 5t + 9t",
+      "choices": [
+        "14t^2",
+        "14t",
+        "15t",
+        "45t"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POWER_FOR_SUM",
+        null,
+        "ARITH",
+        "MULT_COEF"
+      ],
+      "explanation": "Like terms: add the coefficients. 5 + 9 = 14, so 14t."
+    },
+    {
+      "id": "expressions/t5/038",
+      "tier": 5,
+      "prompt": "Simplify: 4(b + 8) − b",
+      "choices": [
+        "5b + 32",
+        "3b + 32",
+        "35b",
+        "3b + 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "4(b + 8) = 4b + 32. Then 4b − b = 3b. So 3b + 32."
+    },
+    {
+      "id": "expressions/t5/039",
+      "tier": 5,
+      "prompt": "Simplify: 3(m + 2) + 5(m + 1)",
+      "choices": [
+        "8m + 11",
+        "19m",
+        "8m + 3",
+        "9m + 11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        "ARITH"
+      ],
+      "explanation": "3m + 6 and 5m + 5. m terms: 8m. Numbers: 6 + 5 = 11. So 8m + 11."
+    },
+    {
+      "id": "expressions/t5/040",
+      "tier": 5,
+      "prompt": "Simplify: 6a − 2a",
+      "choices": [
+        "4a",
+        "8a",
+        "4a^2",
+        "5a"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "POWER_FOR_SUM",
+        "ARITH"
+      ],
+      "explanation": "Like terms: subtract the coefficients. 6 − 2 = 4, so 4a."
+    }
+  ]
+}

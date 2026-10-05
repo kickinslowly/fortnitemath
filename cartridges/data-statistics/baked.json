@@ -1,0 +1,3876 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "data-statistics",
+  "version": "1.0.0",
+  "title": "Data & Statistics",
+  "subtitle": "Mean, Median, Range, MAD",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.SP.A.2",
+    "CCSS.MATH.CONTENT.6.SP.A.3",
+    "CCSS.MATH.CONTENT.6.SP.B.5.C"
+  ],
+  "seed": 20261019,
+  "items_per_tier": 40,
+  "bounds": "Data (PROTOCOL 4b): 3-7 whole-number values, each 0-20, sum <= 100. Every mean, median and MAD the correct working needs (old and new means/medians on outlier items included) is an integer 2-10 when it comes from a division (sum / count, halving two middles, distance-sum / count), so every division is a times-table fact. Ranges, odd-count medians and modes need no division. Missing value: total = mean x count (both <= 10), missing value 0-20. Outlier items: base of 4 values, the new value at least 10 from every base value; the mean moves strictly more than the median. Choices are integers (or the words Mean / Median) and never equal in value.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Range & Mode",
+      "description": "Range is largest minus smallest. Mode is the value that shows up most often."
+    },
+    {
+      "tier": 2,
+      "name": "Median",
+      "description": "Put the numbers in order; the median is the middle one (or halfway between the two middles)."
+    },
+    {
+      "tier": 3,
+      "name": "Mean",
+      "description": "Add the numbers, then divide by how many there are."
+    },
+    {
+      "tier": 4,
+      "name": "Missing Value & Outliers",
+      "description": "Work back from a mean to a missing value; see which measure an outlier moves."
+    },
+    {
+      "tier": 5,
+      "name": "Mean Absolute Deviation",
+      "description": "Average distance from the mean: find the mean, each distance, then their mean."
+    }
+  ],
+  "misconceptions": {
+    "LARGEST": {
+      "student": "Range is largest minus smallest, not just the largest.",
+      "teacher": "Gives the maximum value as the range."
+    },
+    "FIRST_LAST": {
+      "student": "Find the largest and smallest first, wherever they sit in the list.",
+      "teacher": "Subtracts the first and last listed values instead of max minus min."
+    },
+    "MOST_FOR_MODE": {
+      "student": "Mode is the value that shows up most often, not the biggest one.",
+      "teacher": "Reads 'most' as 'largest' and gives the maximum as the mode."
+    },
+    "COUNT_FOR_MODE": {
+      "student": "That's how many times it shows up. The mode is the value itself.",
+      "teacher": "Gives the frequency of the mode instead of the mode."
+    },
+    "MISCOUNT": {
+      "student": "Count each value again. The mode shows up more times than any other.",
+      "teacher": "Picks a repeated value that is not the most frequent one."
+    },
+    "UNSORTED": {
+      "student": "Put the numbers in order first, then find the middle.",
+      "teacher": "Takes the middle of the list as written, without sorting."
+    },
+    "MEAN_FOR_MEDIAN": {
+      "student": "That's the mean. The median is the middle number once they're in order.",
+      "teacher": "Computes the mean when asked for the median."
+    },
+    "ONE_MIDDLE": {
+      "student": "Two middle numbers? The median is halfway between them.",
+      "teacher": "With an even count, gives one of the two middle values."
+    },
+    "NEXT_TO_MIDDLE": {
+      "student": "Cross off one number from each end until only the middle is left.",
+      "teacher": "Off by one on the middle position of the sorted list."
+    },
+    "SUM_ONLY": {
+      "student": "Add them up, then divide by how many numbers there are.",
+      "teacher": "Stops at the sum; does not divide by the count."
+    },
+    "MEDIAN_FOR_MEAN": {
+      "student": "That's the median. The mean is the sum divided by the count.",
+      "teacher": "Gives the median when asked for the mean."
+    },
+    "WRONG_COUNT": {
+      "student": "Count the numbers again, then divide the sum by that count.",
+      "teacher": "Divides the sum by one more or one less than the number of values."
+    },
+    "MEAN_AS_MISSING": {
+      "student": "The ? is not the mean. Find the total, then take away the others.",
+      "teacher": "Answers the given mean as the missing value."
+    },
+    "TOTAL_ONLY": {
+      "student": "That's the total. Now take away the numbers you already know.",
+      "teacher": "Stops at mean x count; does not subtract the known values."
+    },
+    "MISSING_NOT_COUNTED": {
+      "student": "The ? counts too: total = mean × how many numbers, ? included.",
+      "teacher": "Builds the total from mean x (count - 1), leaving out the missing value."
+    },
+    "MEDIAN_MOVES": {
+      "student": "A far-off value pulls the mean a lot. The median barely moves.",
+      "teacher": "Believes the median is more sensitive to an outlier than the mean."
+    },
+    "RANGE_FOR_MAD": {
+      "student": "MAD is the average distance from the mean, not largest − smallest.",
+      "teacher": "Gives the range as the MAD."
+    },
+    "MEAN_FOR_MAD": {
+      "student": "That's the mean. Now average each number's distance from it.",
+      "teacher": "Stops at the mean; never finds the deviations."
+    },
+    "SUM_DEVIATIONS": {
+      "student": "You added the distances. Now divide by how many numbers there are.",
+      "teacher": "Sums the absolute deviations without dividing by the count."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "data-statistics/t1/001",
+      "tier": 1,
+      "prompt": "Find the mode: 3, 3, 17, 17, 20, 17, 17",
+      "choices": [
+        "4",
+        "20",
+        "3",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_FOR_MODE",
+        "MOST_FOR_MODE",
+        "MISCOUNT",
+        null
+      ],
+      "explanation": "17 shows up 4 times, more than any other value (3 shows up 2 times). Mode = 17."
+    },
+    {
+      "id": "data-statistics/t1/002",
+      "tier": 1,
+      "prompt": "Find the range: 2, 11, 20, 19, 15, 3, 12",
+      "choices": [
+        "10",
+        "18",
+        "20",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FIRST_LAST",
+        null,
+        "LARGEST",
+        "ARITH"
+      ],
+      "explanation": "Largest 20 − smallest 2 = 18."
+    },
+    {
+      "id": "data-statistics/t1/003",
+      "tier": 1,
+      "prompt": "Find the mode: 4, 4, 1, 1, 1, 16, 14",
+      "choices": [
+        "16",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        null,
+        "COUNT_FOR_MODE",
+        "MISCOUNT"
+      ],
+      "explanation": "1 shows up 3 times, more than any other value (4 shows up 2 times). Mode = 1."
+    },
+    {
+      "id": "data-statistics/t1/004",
+      "tier": 1,
+      "prompt": "Find the mode: 6, 6, 11, 12, 6, 18, 11",
+      "choices": [
+        "3",
+        "18",
+        "6",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_FOR_MODE",
+        "MOST_FOR_MODE",
+        null,
+        "MISCOUNT"
+      ],
+      "explanation": "6 shows up 3 times, more than any other value (11 shows up 2 times). Mode = 6."
+    },
+    {
+      "id": "data-statistics/t1/005",
+      "tier": 1,
+      "prompt": "Find the mode: 10, 2, 14, 10, 14, 16, 10",
+      "choices": [
+        "14",
+        "3",
+        "10",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISCOUNT",
+        "COUNT_FOR_MODE",
+        null,
+        "MOST_FOR_MODE"
+      ],
+      "explanation": "10 shows up 3 times, more than any other value (14 shows up 2 times). Mode = 10."
+    },
+    {
+      "id": "data-statistics/t1/006",
+      "tier": 1,
+      "prompt": "Find the mode: 7, 3, 7, 2, 12, 2, 7",
+      "choices": [
+        "12",
+        "3",
+        "7",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        "COUNT_FOR_MODE",
+        null,
+        "MISCOUNT"
+      ],
+      "explanation": "7 shows up 3 times, more than any other value (2 shows up 2 times). Mode = 7."
+    },
+    {
+      "id": "data-statistics/t1/007",
+      "tier": 1,
+      "prompt": "Find the mode: 7, 4, 4, 4, 7, 17, 19",
+      "choices": [
+        "7",
+        "19",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISCOUNT",
+        "MOST_FOR_MODE",
+        null,
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "4 shows up 3 times, more than any other value (7 shows up 2 times). Mode = 4."
+    },
+    {
+      "id": "data-statistics/t1/008",
+      "tier": 1,
+      "prompt": "Find the mode: 12, 11, 9, 9, 11, 14, 11",
+      "choices": [
+        "3",
+        "14",
+        "11",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_FOR_MODE",
+        "MOST_FOR_MODE",
+        null,
+        "MISCOUNT"
+      ],
+      "explanation": "11 shows up 3 times, more than any other value (9 shows up 2 times). Mode = 11."
+    },
+    {
+      "id": "data-statistics/t1/009",
+      "tier": 1,
+      "prompt": "Find the range: 4, 1, 9, 2, 6, 20",
+      "choices": [
+        "20",
+        "19",
+        "18",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LARGEST",
+        null,
+        "ARITH",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 20 − smallest 1 = 19."
+    },
+    {
+      "id": "data-statistics/t1/010",
+      "tier": 1,
+      "prompt": "Find the mode: 10, 10, 10, 4, 4, 19",
+      "choices": [
+        "4",
+        "19",
+        "10",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISCOUNT",
+        "MOST_FOR_MODE",
+        null,
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "10 shows up 3 times, more than any other value (4 shows up 2 times). Mode = 10."
+    },
+    {
+      "id": "data-statistics/t1/011",
+      "tier": 1,
+      "prompt": "Find the range: 7, 15, 9, 8, 5, 18, 12",
+      "choices": [
+        "13",
+        "18",
+        "14",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 18 − smallest 5 = 13."
+    },
+    {
+      "id": "data-statistics/t1/012",
+      "tier": 1,
+      "prompt": "Find the range: 5, 7, 12, 2, 8, 10, 16",
+      "choices": [
+        "11",
+        "14",
+        "16",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FIRST_LAST",
+        null,
+        "LARGEST",
+        "ARITH"
+      ],
+      "explanation": "Largest 16 − smallest 2 = 14."
+    },
+    {
+      "id": "data-statistics/t1/013",
+      "tier": 1,
+      "prompt": "Find the mode: 3, 13, 7, 3, 7, 3, 3",
+      "choices": [
+        "7",
+        "3",
+        "4",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISCOUNT",
+        null,
+        "COUNT_FOR_MODE",
+        "MOST_FOR_MODE"
+      ],
+      "explanation": "3 shows up 4 times, more than any other value (7 shows up 2 times). Mode = 3."
+    },
+    {
+      "id": "data-statistics/t1/014",
+      "tier": 1,
+      "prompt": "Find the mode: 9, 16, 1, 9, 1, 17, 9",
+      "choices": [
+        "9",
+        "1",
+        "17",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISCOUNT",
+        "MOST_FOR_MODE",
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "9 shows up 3 times, more than any other value (1 shows up 2 times). Mode = 9."
+    },
+    {
+      "id": "data-statistics/t1/015",
+      "tier": 1,
+      "prompt": "Find the range: 8, 18, 1, 6, 17, 12, 3",
+      "choices": [
+        "18",
+        "5",
+        "16",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST",
+        "FIRST_LAST",
+        "ARITH",
+        null
+      ],
+      "explanation": "Largest 18 − smallest 1 = 17."
+    },
+    {
+      "id": "data-statistics/t1/016",
+      "tier": 1,
+      "prompt": "Find the mode: 5, 3, 4, 4, 4, 7, 5",
+      "choices": [
+        "7",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        "MISCOUNT",
+        "COUNT_FOR_MODE",
+        null
+      ],
+      "explanation": "4 shows up 3 times, more than any other value (5 shows up 2 times). Mode = 4."
+    },
+    {
+      "id": "data-statistics/t1/017",
+      "tier": 1,
+      "prompt": "Find the mode: 6, 14, 14, 5, 6, 6, 17",
+      "choices": [
+        "17",
+        "6",
+        "14",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        null,
+        "MISCOUNT",
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "6 shows up 3 times, more than any other value (14 shows up 2 times). Mode = 6."
+    },
+    {
+      "id": "data-statistics/t1/018",
+      "tier": 1,
+      "prompt": "Find the range: 7, 17, 13, 12, 16, 14",
+      "choices": [
+        "7",
+        "11",
+        "17",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FIRST_LAST",
+        "ARITH",
+        "LARGEST",
+        null
+      ],
+      "explanation": "Largest 17 − smallest 7 = 10."
+    },
+    {
+      "id": "data-statistics/t1/019",
+      "tier": 1,
+      "prompt": "Find the range: 20, 19, 4, 13, 15, 10",
+      "choices": [
+        "17",
+        "16",
+        "10",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FIRST_LAST",
+        "LARGEST"
+      ],
+      "explanation": "Largest 20 − smallest 4 = 16."
+    },
+    {
+      "id": "data-statistics/t1/020",
+      "tier": 1,
+      "prompt": "Find the range: 5, 8, 14, 20, 15, 13",
+      "choices": [
+        "15",
+        "8",
+        "20",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_LAST",
+        "LARGEST",
+        "ARITH"
+      ],
+      "explanation": "Largest 20 − smallest 5 = 15."
+    },
+    {
+      "id": "data-statistics/t1/021",
+      "tier": 1,
+      "prompt": "Find the range: 7, 17, 9, 19, 12, 1",
+      "choices": [
+        "17",
+        "6",
+        "18",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FIRST_LAST",
+        null,
+        "LARGEST"
+      ],
+      "explanation": "Largest 19 − smallest 1 = 18."
+    },
+    {
+      "id": "data-statistics/t1/022",
+      "tier": 1,
+      "prompt": "Find the mode: 7, 7, 6, 6, 7, 9, 5",
+      "choices": [
+        "3",
+        "9",
+        "6",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_FOR_MODE",
+        "MOST_FOR_MODE",
+        "MISCOUNT",
+        null
+      ],
+      "explanation": "7 shows up 3 times, more than any other value (6 shows up 2 times). Mode = 7."
+    },
+    {
+      "id": "data-statistics/t1/023",
+      "tier": 1,
+      "prompt": "Find the range: 7, 2, 11, 1, 16, 8, 20",
+      "choices": [
+        "20",
+        "13",
+        "19",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGEST",
+        "FIRST_LAST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Largest 20 − smallest 1 = 19."
+    },
+    {
+      "id": "data-statistics/t1/024",
+      "tier": 1,
+      "prompt": "Find the mode: 8, 15, 15, 15, 8, 6, 16",
+      "choices": [
+        "8",
+        "3",
+        "15",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISCOUNT",
+        "COUNT_FOR_MODE",
+        null,
+        "MOST_FOR_MODE"
+      ],
+      "explanation": "15 shows up 3 times, more than any other value (8 shows up 2 times). Mode = 15."
+    },
+    {
+      "id": "data-statistics/t1/025",
+      "tier": 1,
+      "prompt": "Find the range: 19, 17, 9, 5, 2, 11",
+      "choices": [
+        "19",
+        "18",
+        "8",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST",
+        null
+      ],
+      "explanation": "Largest 19 − smallest 2 = 17."
+    },
+    {
+      "id": "data-statistics/t1/026",
+      "tier": 1,
+      "prompt": "Find the range: 8, 18, 2, 20, 7, 5, 16",
+      "choices": [
+        "18",
+        "19",
+        "20",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "LARGEST",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 20 − smallest 2 = 18."
+    },
+    {
+      "id": "data-statistics/t1/027",
+      "tier": 1,
+      "prompt": "Find the mode: 1, 19, 1, 5, 1, 1, 5",
+      "choices": [
+        "1",
+        "4",
+        "5",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNT_FOR_MODE",
+        "MISCOUNT",
+        "MOST_FOR_MODE"
+      ],
+      "explanation": "1 shows up 4 times, more than any other value (5 shows up 2 times). Mode = 1."
+    },
+    {
+      "id": "data-statistics/t1/028",
+      "tier": 1,
+      "prompt": "Find the mode: 9, 12, 12, 12, 12, 20, 9",
+      "choices": [
+        "4",
+        "12",
+        "9",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_FOR_MODE",
+        null,
+        "MISCOUNT",
+        "MOST_FOR_MODE"
+      ],
+      "explanation": "12 shows up 4 times, more than any other value (9 shows up 2 times). Mode = 12."
+    },
+    {
+      "id": "data-statistics/t1/029",
+      "tier": 1,
+      "prompt": "Find the range: 9, 1, 2, 4, 8",
+      "choices": [
+        "1",
+        "7",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FIRST_LAST",
+        "ARITH",
+        "LARGEST",
+        null
+      ],
+      "explanation": "Largest 9 − smallest 1 = 8."
+    },
+    {
+      "id": "data-statistics/t1/030",
+      "tier": 1,
+      "prompt": "Find the range: 5, 7, 13, 6, 19, 4",
+      "choices": [
+        "15",
+        "19",
+        "16",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 19 − smallest 4 = 15."
+    },
+    {
+      "id": "data-statistics/t1/031",
+      "tier": 1,
+      "prompt": "Find the range: 14, 19, 20, 10, 7, 3, 2",
+      "choices": [
+        "18",
+        "20",
+        "19",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 20 − smallest 2 = 18."
+    },
+    {
+      "id": "data-statistics/t1/032",
+      "tier": 1,
+      "prompt": "Find the range: 14, 5, 3, 12, 19",
+      "choices": [
+        "17",
+        "19",
+        "5",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "LARGEST",
+        "FIRST_LAST",
+        null
+      ],
+      "explanation": "Largest 19 − smallest 3 = 16."
+    },
+    {
+      "id": "data-statistics/t1/033",
+      "tier": 1,
+      "prompt": "Find the range: 5, 12, 1, 10, 16, 20",
+      "choices": [
+        "20",
+        "18",
+        "15",
+        "19"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST",
+        null
+      ],
+      "explanation": "Largest 20 − smallest 1 = 19."
+    },
+    {
+      "id": "data-statistics/t1/034",
+      "tier": 1,
+      "prompt": "Find the range: 18, 11, 13, 2, 6, 9",
+      "choices": [
+        "18",
+        "16",
+        "9",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LARGEST",
+        null,
+        "FIRST_LAST",
+        "ARITH"
+      ],
+      "explanation": "Largest 18 − smallest 2 = 16."
+    },
+    {
+      "id": "data-statistics/t1/035",
+      "tier": 1,
+      "prompt": "Find the mode: 19, 7, 7, 7, 5, 16, 5",
+      "choices": [
+        "19",
+        "3",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        "COUNT_FOR_MODE",
+        "MISCOUNT",
+        null
+      ],
+      "explanation": "7 shows up 3 times, more than any other value (5 shows up 2 times). Mode = 7."
+    },
+    {
+      "id": "data-statistics/t1/036",
+      "tier": 1,
+      "prompt": "Find the mode: 1, 12, 16, 20, 1, 1, 16",
+      "choices": [
+        "1",
+        "16",
+        "20",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISCOUNT",
+        "MOST_FOR_MODE",
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "1 shows up 3 times, more than any other value (16 shows up 2 times). Mode = 1."
+    },
+    {
+      "id": "data-statistics/t1/037",
+      "tier": 1,
+      "prompt": "Find the range: 10, 16, 7, 18, 9",
+      "choices": [
+        "18",
+        "12",
+        "11",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGEST",
+        "ARITH",
+        null,
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 18 − smallest 7 = 11."
+    },
+    {
+      "id": "data-statistics/t1/038",
+      "tier": 1,
+      "prompt": "Find the range: 15, 3, 20, 5, 12",
+      "choices": [
+        "17",
+        "20",
+        "18",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST",
+        "ARITH",
+        "FIRST_LAST"
+      ],
+      "explanation": "Largest 20 − smallest 3 = 17."
+    },
+    {
+      "id": "data-statistics/t1/039",
+      "tier": 1,
+      "prompt": "Find the mode: 18, 10, 4, 12, 4, 12, 4",
+      "choices": [
+        "4",
+        "18",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MOST_FOR_MODE",
+        "MISCOUNT",
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "4 shows up 3 times, more than any other value (12 shows up 2 times). Mode = 4."
+    },
+    {
+      "id": "data-statistics/t1/040",
+      "tier": 1,
+      "prompt": "Find the mode: 7, 7, 1, 7, 17, 12, 12",
+      "choices": [
+        "17",
+        "7",
+        "12",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MOST_FOR_MODE",
+        null,
+        "MISCOUNT",
+        "COUNT_FOR_MODE"
+      ],
+      "explanation": "7 shows up 3 times, more than any other value (12 shows up 2 times). Mode = 7."
+    },
+    {
+      "id": "data-statistics/t2/001",
+      "tier": 2,
+      "prompt": "Find the median: 4, 14, 8, 1",
+      "choices": [
+        "11",
+        "4",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNSORTED",
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 1, 4, 8, 14. Middle two 4 and 8: (4 + 8) ÷ 2 = 6."
+    },
+    {
+      "id": "data-statistics/t2/002",
+      "tier": 2,
+      "prompt": "Find the median: 7, 1, 17, 11, 4, 5",
+      "choices": [
+        "7",
+        "6",
+        "14",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        null,
+        "UNSORTED",
+        "ONE_MIDDLE"
+      ],
+      "explanation": "In order: 1, 4, 5, 7, 11, 17. Middle two 5 and 7: (5 + 7) ÷ 2 = 6."
+    },
+    {
+      "id": "data-statistics/t2/003",
+      "tier": 2,
+      "prompt": "Find the median: 3, 7, 14, 10, 8, 18",
+      "choices": [
+        "12",
+        "8",
+        "10",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNSORTED",
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 3, 7, 8, 10, 14, 18. Middle two 8 and 10: (8 + 10) ÷ 2 = 9."
+    },
+    {
+      "id": "data-statistics/t2/004",
+      "tier": 2,
+      "prompt": "Find the median: 12, 11, 1, 3, 4",
+      "choices": [
+        "1",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNSORTED",
+        "ARITH",
+        null,
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 1, 3, 4, 11, 12. The middle one is 4."
+    },
+    {
+      "id": "data-statistics/t2/005",
+      "tier": 2,
+      "prompt": "Find the median: 16, 2, 12, 13, 15, 6, 9",
+      "choices": [
+        "12",
+        "13",
+        "11",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNSORTED",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "In order: 2, 6, 9, 12, 13, 15, 16. The middle one is 12."
+    },
+    {
+      "id": "data-statistics/t2/006",
+      "tier": 2,
+      "prompt": "Find the median: 9, 11, 3, 14",
+      "choices": [
+        "7",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNSORTED",
+        null,
+        "ONE_MIDDLE",
+        "ONE_MIDDLE"
+      ],
+      "explanation": "In order: 3, 9, 11, 14. Middle two 9 and 11: (9 + 11) ÷ 2 = 10."
+    },
+    {
+      "id": "data-statistics/t2/007",
+      "tier": 2,
+      "prompt": "Find the median: 11, 3, 9, 5, 15, 16, 12",
+      "choices": [
+        "11",
+        "10",
+        "5",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 3, 5, 9, 11, 12, 15, 16. The middle one is 11."
+    },
+    {
+      "id": "data-statistics/t2/008",
+      "tier": 2,
+      "prompt": "Find the median: 12, 19, 1, 4, 2",
+      "choices": [
+        "4",
+        "2",
+        "5",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_TO_MIDDLE",
+        "ARITH",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 2, 4, 12, 19. The middle one is 4."
+    },
+    {
+      "id": "data-statistics/t2/009",
+      "tier": 2,
+      "prompt": "Find the median: 8, 2, 1, 20, 4",
+      "choices": [
+        "1",
+        "4",
+        "7",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNSORTED",
+        null,
+        "MEAN_FOR_MEDIAN",
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 1, 2, 4, 8, 20. The middle one is 4."
+    },
+    {
+      "id": "data-statistics/t2/010",
+      "tier": 2,
+      "prompt": "Find the median: 18, 5, 13, 9, 7, 11",
+      "choices": [
+        "12",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_MIDDLE",
+        null,
+        "ONE_MIDDLE"
+      ],
+      "explanation": "In order: 5, 7, 9, 11, 13, 18. Middle two 9 and 11: (9 + 11) ÷ 2 = 10."
+    },
+    {
+      "id": "data-statistics/t2/011",
+      "tier": 2,
+      "prompt": "Find the median: 17, 5, 11, 14, 3, 1, 20",
+      "choices": [
+        "11",
+        "12",
+        "5",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NEXT_TO_MIDDLE",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 3, 5, 11, 14, 17, 20. The middle one is 11."
+    },
+    {
+      "id": "data-statistics/t2/012",
+      "tier": 2,
+      "prompt": "Find the median: 4, 13, 14, 5, 8, 11, 16",
+      "choices": [
+        "12",
+        "8",
+        "11",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NEXT_TO_MIDDLE",
+        null,
+        "UNSORTED"
+      ],
+      "explanation": "In order: 4, 5, 8, 11, 13, 14, 16. The middle one is 11."
+    },
+    {
+      "id": "data-statistics/t2/013",
+      "tier": 2,
+      "prompt": "Find the median: 13, 8, 14, 15, 10",
+      "choices": [
+        "14",
+        "12",
+        "13",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNSORTED",
+        "MEAN_FOR_MEDIAN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "In order: 8, 10, 13, 14, 15. The middle one is 13."
+    },
+    {
+      "id": "data-statistics/t2/014",
+      "tier": 2,
+      "prompt": "Find the median: 7, 8, 9, 6, 2",
+      "choices": [
+        "9",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNSORTED",
+        "ARITH",
+        null,
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 2, 6, 7, 8, 9. The middle one is 7."
+    },
+    {
+      "id": "data-statistics/t2/015",
+      "tier": 2,
+      "prompt": "Find the median: 12, 9, 20, 16, 3, 13, 1",
+      "choices": [
+        "11",
+        "16",
+        "13",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 1, 3, 9, 12, 13, 16, 20. The middle one is 12."
+    },
+    {
+      "id": "data-statistics/t2/016",
+      "tier": 2,
+      "prompt": "Find the median: 7, 3, 1, 12",
+      "choices": [
+        "2",
+        "7",
+        "5",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNSORTED",
+        "ONE_MIDDLE",
+        null,
+        "ONE_MIDDLE"
+      ],
+      "explanation": "In order: 1, 3, 7, 12. Middle two 3 and 7: (3 + 7) ÷ 2 = 5."
+    },
+    {
+      "id": "data-statistics/t2/017",
+      "tier": 2,
+      "prompt": "Find the median: 6, 18, 17, 16, 12",
+      "choices": [
+        "18",
+        "16",
+        "15",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 6, 12, 16, 17, 18. The middle one is 16."
+    },
+    {
+      "id": "data-statistics/t2/018",
+      "tier": 2,
+      "prompt": "Find the median: 19, 17, 12, 11, 13",
+      "choices": [
+        "12",
+        "14",
+        "13",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNSORTED",
+        "ARITH",
+        null,
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 11, 12, 13, 17, 19. The middle one is 13."
+    },
+    {
+      "id": "data-statistics/t2/019",
+      "tier": 2,
+      "prompt": "Find the median: 8, 12, 3, 19, 7",
+      "choices": [
+        "3",
+        "9",
+        "12",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNSORTED",
+        "ARITH",
+        "NEXT_TO_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 3, 7, 8, 12, 19. The middle one is 8."
+    },
+    {
+      "id": "data-statistics/t2/020",
+      "tier": 2,
+      "prompt": "Find the median: 2, 19, 10, 14, 7, 6, 13",
+      "choices": [
+        "14",
+        "11",
+        "13",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNSORTED",
+        "ARITH",
+        "NEXT_TO_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 2, 6, 7, 10, 13, 14, 19. The middle one is 10."
+    },
+    {
+      "id": "data-statistics/t2/021",
+      "tier": 2,
+      "prompt": "Find the median: 5, 18, 2, 13",
+      "choices": [
+        "13",
+        "5",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        null,
+        "UNSORTED"
+      ],
+      "explanation": "In order: 2, 5, 13, 18. Middle two 5 and 13: (5 + 13) ÷ 2 = 9."
+    },
+    {
+      "id": "data-statistics/t2/022",
+      "tier": 2,
+      "prompt": "Find the median: 5, 20, 15, 3, 8",
+      "choices": [
+        "8",
+        "5",
+        "9",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_TO_MIDDLE",
+        "ARITH",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 3, 5, 8, 15, 20. The middle one is 8."
+    },
+    {
+      "id": "data-statistics/t2/023",
+      "tier": 2,
+      "prompt": "Find the median: 8, 19, 12, 4, 13, 2, 1",
+      "choices": [
+        "9",
+        "8",
+        "12",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NEXT_TO_MIDDLE",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 2, 4, 8, 12, 13, 19. The middle one is 8."
+    },
+    {
+      "id": "data-statistics/t2/024",
+      "tier": 2,
+      "prompt": "Find the median: 3, 20, 9, 14, 8, 12, 2",
+      "choices": [
+        "14",
+        "9",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNSORTED",
+        null,
+        "NEXT_TO_MIDDLE",
+        "ARITH"
+      ],
+      "explanation": "In order: 2, 3, 8, 9, 12, 14, 20. The middle one is 9."
+    },
+    {
+      "id": "data-statistics/t2/025",
+      "tier": 2,
+      "prompt": "Find the median: 20, 15, 3, 8, 5, 18, 9",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 3, 5, 8, 9, 15, 18, 20. The middle one is 9."
+    },
+    {
+      "id": "data-statistics/t2/026",
+      "tier": 2,
+      "prompt": "Find the median: 6, 19, 20, 18, 14, 1, 2",
+      "choices": [
+        "14",
+        "18",
+        "15",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNSORTED",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "In order: 1, 2, 6, 14, 18, 19, 20. The middle one is 14."
+    },
+    {
+      "id": "data-statistics/t2/027",
+      "tier": 2,
+      "prompt": "Find the median: 15, 1, 12, 4, 14, 7, 20",
+      "choices": [
+        "13",
+        "4",
+        "14",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 1, 4, 7, 12, 14, 15, 20. The middle one is 12."
+    },
+    {
+      "id": "data-statistics/t2/028",
+      "tier": 2,
+      "prompt": "Find the median: 1, 2, 12, 8",
+      "choices": [
+        "8",
+        "2",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        null,
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 2, 8, 12. Middle two 2 and 8: (2 + 8) ÷ 2 = 5."
+    },
+    {
+      "id": "data-statistics/t2/029",
+      "tier": 2,
+      "prompt": "Find the median: 11, 1, 5, 9",
+      "choices": [
+        "9",
+        "7",
+        "5",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        null,
+        "ONE_MIDDLE",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 5, 9, 11. Middle two 5 and 9: (5 + 9) ÷ 2 = 7."
+    },
+    {
+      "id": "data-statistics/t2/030",
+      "tier": 2,
+      "prompt": "Find the median: 12, 14, 7, 17, 1, 11, 19",
+      "choices": [
+        "12",
+        "13",
+        "17",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE"
+      ],
+      "explanation": "In order: 1, 7, 11, 12, 14, 17, 19. The middle one is 12."
+    },
+    {
+      "id": "data-statistics/t2/031",
+      "tier": 2,
+      "prompt": "Find the median: 2, 1, 10, 15, 8, 12, 17",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_TO_MIDDLE",
+        null,
+        "ARITH",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 2, 8, 10, 12, 15, 17. The middle one is 10."
+    },
+    {
+      "id": "data-statistics/t2/032",
+      "tier": 2,
+      "prompt": "Find the median: 3, 15, 5, 16, 20, 19, 1",
+      "choices": [
+        "15",
+        "16",
+        "5",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNSORTED",
+        "NEXT_TO_MIDDLE",
+        "ARITH"
+      ],
+      "explanation": "In order: 1, 3, 5, 15, 16, 19, 20. The middle one is 15."
+    },
+    {
+      "id": "data-statistics/t2/033",
+      "tier": 2,
+      "prompt": "Find the median: 17, 4, 12, 1, 3, 14, 9",
+      "choices": [
+        "4",
+        "9",
+        "10",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_TO_MIDDLE",
+        null,
+        "ARITH",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 1, 3, 4, 9, 12, 14, 17. The middle one is 9."
+    },
+    {
+      "id": "data-statistics/t2/034",
+      "tier": 2,
+      "prompt": "Find the median: 3, 15, 17, 16, 19",
+      "choices": [
+        "14",
+        "15",
+        "17",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEAN_FOR_MEDIAN",
+        "NEXT_TO_MIDDLE",
+        "UNSORTED",
+        null
+      ],
+      "explanation": "In order: 3, 15, 16, 17, 19. The middle one is 16."
+    },
+    {
+      "id": "data-statistics/t2/035",
+      "tier": 2,
+      "prompt": "Find the median: 5, 6, 19, 15, 2, 12",
+      "choices": [
+        "9",
+        "12",
+        "6",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        "UNSORTED"
+      ],
+      "explanation": "In order: 2, 5, 6, 12, 15, 19. Middle two 6 and 12: (6 + 12) ÷ 2 = 9."
+    },
+    {
+      "id": "data-statistics/t2/036",
+      "tier": 2,
+      "prompt": "Find the median: 18, 20, 6, 3, 11, 5, 16",
+      "choices": [
+        "16",
+        "12",
+        "11",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_TO_MIDDLE",
+        "ARITH",
+        null,
+        "UNSORTED"
+      ],
+      "explanation": "In order: 3, 5, 6, 11, 16, 18, 20. The middle one is 11."
+    },
+    {
+      "id": "data-statistics/t2/037",
+      "tier": 2,
+      "prompt": "Find the median: 12, 20, 16, 5, 9, 18, 2",
+      "choices": [
+        "13",
+        "5",
+        "9",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "UNSORTED",
+        "NEXT_TO_MIDDLE",
+        null
+      ],
+      "explanation": "In order: 2, 5, 9, 12, 16, 18, 20. The middle one is 12."
+    },
+    {
+      "id": "data-statistics/t2/038",
+      "tier": 2,
+      "prompt": "Find the median: 2, 14, 1, 15, 9, 11",
+      "choices": [
+        "11",
+        "10",
+        "8",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        null,
+        "UNSORTED",
+        "ONE_MIDDLE"
+      ],
+      "explanation": "In order: 1, 2, 9, 11, 14, 15. Middle two 9 and 11: (9 + 11) ÷ 2 = 10."
+    },
+    {
+      "id": "data-statistics/t2/039",
+      "tier": 2,
+      "prompt": "Find the median: 12, 8, 7, 3, 9",
+      "choices": [
+        "6",
+        "7",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "UNSORTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "In order: 3, 7, 8, 9, 12. The middle one is 8."
+    },
+    {
+      "id": "data-statistics/t2/040",
+      "tier": 2,
+      "prompt": "Find the median: 13, 20, 9, 1, 4, 11",
+      "choices": [
+        "9",
+        "11",
+        "5",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_MIDDLE",
+        "ONE_MIDDLE",
+        "UNSORTED",
+        null
+      ],
+      "explanation": "In order: 1, 4, 9, 11, 13, 20. Middle two 9 and 11: (9 + 11) ÷ 2 = 10."
+    },
+    {
+      "id": "data-statistics/t3/001",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 0, 14, 9",
+      "choices": [
+        "24",
+        "8",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_ONLY",
+        "WRONG_COUNT",
+        "MEDIAN_FOR_MEAN",
+        null
+      ],
+      "explanation": "1 + 0 + 14 + 9 = 24, and 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t3/002",
+      "tier": 3,
+      "prompt": "Find the mean: 11, 6, 11, 8",
+      "choices": [
+        "12",
+        "9",
+        "36",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_COUNT",
+        null,
+        "SUM_ONLY",
+        "ARITH"
+      ],
+      "explanation": "11 + 6 + 11 + 8 = 36, and 36 ÷ 4 = 9."
+    },
+    {
+      "id": "data-statistics/t3/003",
+      "tier": 3,
+      "prompt": "Find the mean: 7, 8, 0",
+      "choices": [
+        "5",
+        "15",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN",
+        "ARITH"
+      ],
+      "explanation": "7 + 8 + 0 = 15, and 15 ÷ 3 = 5."
+    },
+    {
+      "id": "data-statistics/t3/004",
+      "tier": 3,
+      "prompt": "Find the mean: 2, 18, 13, 12, 5",
+      "choices": [
+        "10",
+        "50",
+        "12",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN",
+        "ARITH"
+      ],
+      "explanation": "2 + 18 + 13 + 12 + 5 = 50, and 50 ÷ 5 = 10."
+    },
+    {
+      "id": "data-statistics/t3/005",
+      "tier": 3,
+      "prompt": "Find the mean: 0, 2, 16",
+      "choices": [
+        "9",
+        "18",
+        "6",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_COUNT",
+        "SUM_ONLY",
+        null,
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "0 + 2 + 16 = 18, and 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t3/006",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 20, 0",
+      "choices": [
+        "1",
+        "21",
+        "7",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 + 20 + 0 = 21, and 21 ÷ 3 = 7."
+    },
+    {
+      "id": "data-statistics/t3/007",
+      "tier": 3,
+      "prompt": "Find the mean: 0, 14, 16",
+      "choices": [
+        "15",
+        "10",
+        "14",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_COUNT",
+        null,
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY"
+      ],
+      "explanation": "0 + 14 + 16 = 30, and 30 ÷ 3 = 10."
+    },
+    {
+      "id": "data-statistics/t3/008",
+      "tier": 3,
+      "prompt": "Find the mean: 13, 8, 9",
+      "choices": [
+        "15",
+        "9",
+        "10",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_COUNT",
+        "MEDIAN_FOR_MEAN",
+        null,
+        "SUM_ONLY"
+      ],
+      "explanation": "13 + 8 + 9 = 30, and 30 ÷ 3 = 10."
+    },
+    {
+      "id": "data-statistics/t3/009",
+      "tier": 3,
+      "prompt": "Find the mean: 0, 1, 5",
+      "choices": [
+        "2",
+        "3",
+        "1",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_COUNT",
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY"
+      ],
+      "explanation": "0 + 1 + 5 = 6, and 6 ÷ 3 = 2."
+    },
+    {
+      "id": "data-statistics/t3/010",
+      "tier": 3,
+      "prompt": "Find the mean: 16, 2, 2, 12",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_FOR_MEAN",
+        "ARITH",
+        "SUM_ONLY"
+      ],
+      "explanation": "16 + 2 + 2 + 12 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/011",
+      "tier": 3,
+      "prompt": "Find the mean: 2, 12, 12, 10",
+      "choices": [
+        "36",
+        "9",
+        "12",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "WRONG_COUNT",
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "2 + 12 + 12 + 10 = 36, and 36 ÷ 4 = 9."
+    },
+    {
+      "id": "data-statistics/t3/012",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 1, 16",
+      "choices": [
+        "1",
+        "9",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "WRONG_COUNT",
+        null,
+        "SUM_ONLY"
+      ],
+      "explanation": "1 + 1 + 16 = 18, and 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t3/013",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 16, 7, 4",
+      "choices": [
+        "28",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_ONLY",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 + 16 + 7 + 4 = 28, and 28 ÷ 4 = 7."
+    },
+    {
+      "id": "data-statistics/t3/014",
+      "tier": 3,
+      "prompt": "Find the mean: 13, 0, 7, 2, 3",
+      "choices": [
+        "25",
+        "5",
+        "6",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "ARITH",
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "13 + 0 + 7 + 2 + 3 = 25, and 25 ÷ 5 = 5."
+    },
+    {
+      "id": "data-statistics/t3/015",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 5, 6",
+      "choices": [
+        "3",
+        "4",
+        "12",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_COUNT",
+        null,
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "1 + 5 + 6 = 12, and 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t3/016",
+      "tier": 3,
+      "prompt": "Find the mean: 13, 9, 9, 1",
+      "choices": [
+        "32",
+        "8",
+        "9",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "MEDIAN_FOR_MEAN",
+        "ARITH"
+      ],
+      "explanation": "13 + 9 + 9 + 1 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/017",
+      "tier": 3,
+      "prompt": "Find the mean: 14, 5, 7, 2",
+      "choices": [
+        "6",
+        "28",
+        "7",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "14 + 5 + 7 + 2 = 28, and 28 ÷ 4 = 7."
+    },
+    {
+      "id": "data-statistics/t3/018",
+      "tier": 3,
+      "prompt": "Find the mean: 2, 6, 7, 9",
+      "choices": [
+        "7",
+        "8",
+        "6",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_COUNT",
+        null,
+        "SUM_ONLY"
+      ],
+      "explanation": "2 + 6 + 7 + 9 = 24, and 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t3/019",
+      "tier": 3,
+      "prompt": "Find the mean: 12, 1, 13, 6",
+      "choices": [
+        "7",
+        "9",
+        "32",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        null
+      ],
+      "explanation": "12 + 1 + 13 + 6 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/020",
+      "tier": 3,
+      "prompt": "Find the mean: 3, 4, 12, 20, 11",
+      "choices": [
+        "50",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "MEDIAN_FOR_MEAN",
+        "ARITH"
+      ],
+      "explanation": "3 + 4 + 12 + 20 + 11 = 50, and 50 ÷ 5 = 10."
+    },
+    {
+      "id": "data-statistics/t3/021",
+      "tier": 3,
+      "prompt": "Find the mean: 3, 11, 14, 4",
+      "choices": [
+        "32",
+        "7",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_ONLY",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "3 + 11 + 14 + 4 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/022",
+      "tier": 3,
+      "prompt": "Find the mean: 15, 8, 2, 13, 12",
+      "choices": [
+        "11",
+        "50",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN",
+        null
+      ],
+      "explanation": "15 + 8 + 2 + 13 + 12 = 50, and 50 ÷ 5 = 10."
+    },
+    {
+      "id": "data-statistics/t3/023",
+      "tier": 3,
+      "prompt": "Find the mean: 6, 3, 2, 13",
+      "choices": [
+        "24",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "ARITH",
+        "WRONG_COUNT"
+      ],
+      "explanation": "6 + 3 + 2 + 13 = 24, and 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t3/024",
+      "tier": 3,
+      "prompt": "Find the mean: 0, 1, 11",
+      "choices": [
+        "1",
+        "12",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        "WRONG_COUNT",
+        null
+      ],
+      "explanation": "0 + 1 + 11 = 12, and 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t3/025",
+      "tier": 3,
+      "prompt": "Find the mean: 14, 18, 1, 3",
+      "choices": [
+        "10",
+        "12",
+        "36",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_COUNT",
+        "SUM_ONLY",
+        null
+      ],
+      "explanation": "14 + 18 + 1 + 3 = 36, and 36 ÷ 4 = 9."
+    },
+    {
+      "id": "data-statistics/t3/026",
+      "tier": 3,
+      "prompt": "Find the mean: 4, 0, 3, 1, 17",
+      "choices": [
+        "3",
+        "25",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 + 0 + 3 + 1 + 17 = 25, and 25 ÷ 5 = 5."
+    },
+    {
+      "id": "data-statistics/t3/027",
+      "tier": 3,
+      "prompt": "Find the mean: 7, 15, 8",
+      "choices": [
+        "30",
+        "10",
+        "8",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_ONLY",
+        null,
+        "MEDIAN_FOR_MEAN",
+        "WRONG_COUNT"
+      ],
+      "explanation": "7 + 15 + 8 = 30, and 30 ÷ 3 = 10."
+    },
+    {
+      "id": "data-statistics/t3/028",
+      "tier": 3,
+      "prompt": "Find the mean: 2, 9, 2, 7",
+      "choices": [
+        "20",
+        "6",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_ONLY",
+        "ARITH",
+        null,
+        "WRONG_COUNT"
+      ],
+      "explanation": "2 + 9 + 2 + 7 = 20, and 20 ÷ 4 = 5."
+    },
+    {
+      "id": "data-statistics/t3/029",
+      "tier": 3,
+      "prompt": "Find the mean: 4, 5, 7, 16",
+      "choices": [
+        "8",
+        "9",
+        "32",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "4 + 5 + 7 + 16 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/030",
+      "tier": 3,
+      "prompt": "Find the mean: 10, 1, 1, 12",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "WRONG_COUNT",
+        "SUM_ONLY"
+      ],
+      "explanation": "10 + 1 + 1 + 12 = 24, and 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t3/031",
+      "tier": 3,
+      "prompt": "Find the mean: 13, 3, 12, 12",
+      "choices": [
+        "8",
+        "10",
+        "40",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_COUNT",
+        null,
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "13 + 3 + 12 + 12 = 40, and 40 ÷ 4 = 10."
+    },
+    {
+      "id": "data-statistics/t3/032",
+      "tier": 3,
+      "prompt": "Find the mean: 10, 5, 9, 8",
+      "choices": [
+        "8",
+        "9",
+        "7",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "SUM_ONLY"
+      ],
+      "explanation": "10 + 5 + 9 + 8 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/033",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 4, 19, 8",
+      "choices": [
+        "9",
+        "32",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN",
+        null
+      ],
+      "explanation": "1 + 4 + 19 + 8 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/034",
+      "tier": 3,
+      "prompt": "Find the mean: 1, 1, 15, 10, 18",
+      "choices": [
+        "10",
+        "8",
+        "45",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "ARITH",
+        "SUM_ONLY",
+        null
+      ],
+      "explanation": "1 + 1 + 15 + 10 + 18 = 45, and 45 ÷ 5 = 9."
+    },
+    {
+      "id": "data-statistics/t3/035",
+      "tier": 3,
+      "prompt": "Find the mean: 14, 2, 12, 4, 18",
+      "choices": [
+        "11",
+        "50",
+        "10",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUM_ONLY",
+        null,
+        "MEDIAN_FOR_MEAN"
+      ],
+      "explanation": "14 + 2 + 12 + 4 + 18 = 50, and 50 ÷ 5 = 10."
+    },
+    {
+      "id": "data-statistics/t3/036",
+      "tier": 3,
+      "prompt": "Find the mean: 20, 0, 11, 12, 7",
+      "choices": [
+        "10",
+        "11",
+        "50",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_FOR_MEAN",
+        "SUM_ONLY",
+        "ARITH"
+      ],
+      "explanation": "20 + 0 + 11 + 12 + 7 = 50, and 50 ÷ 5 = 10."
+    },
+    {
+      "id": "data-statistics/t3/037",
+      "tier": 3,
+      "prompt": "Find the mean: 8, 20, 0, 4",
+      "choices": [
+        "6",
+        "9",
+        "8",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEDIAN_FOR_MEAN",
+        "ARITH",
+        null,
+        "SUM_ONLY"
+      ],
+      "explanation": "8 + 20 + 0 + 4 = 32, and 32 ÷ 4 = 8."
+    },
+    {
+      "id": "data-statistics/t3/038",
+      "tier": 3,
+      "prompt": "Find the mean: 2, 15, 4",
+      "choices": [
+        "7",
+        "4",
+        "8",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_FOR_MEAN",
+        "ARITH",
+        "SUM_ONLY"
+      ],
+      "explanation": "2 + 15 + 4 = 21, and 21 ÷ 3 = 7."
+    },
+    {
+      "id": "data-statistics/t3/039",
+      "tier": 3,
+      "prompt": "Find the mean: 11, 14, 5",
+      "choices": [
+        "10",
+        "11",
+        "15",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_FOR_MEAN",
+        "WRONG_COUNT",
+        "SUM_ONLY"
+      ],
+      "explanation": "11 + 14 + 5 = 30, and 30 ÷ 3 = 10."
+    },
+    {
+      "id": "data-statistics/t3/040",
+      "tier": 3,
+      "prompt": "Find the mean: 4, 17, 0",
+      "choices": [
+        "8",
+        "21",
+        "4",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUM_ONLY",
+        "MEDIAN_FOR_MEAN",
+        null
+      ],
+      "explanation": "4 + 17 + 0 = 21, and 21 ÷ 3 = 7."
+    },
+    {
+      "id": "data-statistics/t4/001",
+      "tier": 4,
+      "prompt": "The mean of 0, 2, 20, 5, ? is 9. What is ?",
+      "choices": [
+        "9",
+        "18",
+        "19",
+        "45"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        null,
+        "ARITH",
+        "TOTAL_ONLY"
+      ],
+      "explanation": "Total = 9 × 5 = 45. Known: 0 + 2 + 20 + 5 = 27. 45 − 27 = 18."
+    },
+    {
+      "id": "data-statistics/t4/002",
+      "tier": 4,
+      "prompt": "New value 20 joins 0, 3, 7, 10. Which changes more?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 5 to 8, median 5 to 7. The far-off 20 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/003",
+      "tier": 4,
+      "prompt": "The mean of 2, ?, 12 is 8. What is ?",
+      "choices": [
+        "8",
+        "24",
+        "10",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        null,
+        "MISSING_NOT_COUNTED"
+      ],
+      "explanation": "Total = 8 × 3 = 24. Known: 2 + 12 = 14. 24 − 14 = 10."
+    },
+    {
+      "id": "data-statistics/t4/004",
+      "tier": 4,
+      "prompt": "The mean of 7, ?, 11 is 7. What is ?",
+      "choices": [
+        "21",
+        "3",
+        "7",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        null,
+        "MEAN_AS_MISSING",
+        "ARITH"
+      ],
+      "explanation": "Total = 7 × 3 = 21. Known: 7 + 11 = 18. 21 − 18 = 3."
+    },
+    {
+      "id": "data-statistics/t4/005",
+      "tier": 4,
+      "prompt": "The mean of 17, 6, ?, 8, 11 is 9. What is ?",
+      "choices": [
+        "9",
+        "45",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        "ARITH",
+        null
+      ],
+      "explanation": "Total = 9 × 5 = 45. Known: 17 + 6 + 8 + 11 = 42. 45 − 42 = 3."
+    },
+    {
+      "id": "data-statistics/t4/006",
+      "tier": 4,
+      "prompt": "New value 20 joins 0, 4, 6, 10. Which changes more?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 5 to 8, median 5 to 6. The far-off 20 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/007",
+      "tier": 4,
+      "prompt": "The mean of 7, ?, 14, 0, 1 is 7. What is ?",
+      "choices": [
+        "6",
+        "13",
+        "7",
+        "35"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_NOT_COUNTED",
+        null,
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY"
+      ],
+      "explanation": "Total = 7 × 5 = 35. Known: 7 + 14 + 0 + 1 = 22. 35 − 22 = 13."
+    },
+    {
+      "id": "data-statistics/t4/008",
+      "tier": 4,
+      "prompt": "The mean of ?, 0, 5, 19 is 7. What is ?",
+      "choices": [
+        "4",
+        "7",
+        "5",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_AS_MISSING",
+        "ARITH",
+        "TOTAL_ONLY"
+      ],
+      "explanation": "Total = 7 × 4 = 28. Known: 0 + 5 + 19 = 24. 28 − 24 = 4."
+    },
+    {
+      "id": "data-statistics/t4/009",
+      "tier": 4,
+      "prompt": "New value 19 joins 0, 3, 5, 8. Which changes more?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 4 to 7, median 4 to 5. The far-off 19 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/010",
+      "tier": 4,
+      "prompt": "The mean of ?, 10, 8, 12, 11 is 9. What is ?",
+      "choices": [
+        "45",
+        "4",
+        "9",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        null,
+        "MEAN_AS_MISSING",
+        "ARITH"
+      ],
+      "explanation": "Total = 9 × 5 = 45. Known: 10 + 8 + 12 + 11 = 41. 45 − 41 = 4."
+    },
+    {
+      "id": "data-statistics/t4/011",
+      "tier": 4,
+      "prompt": "New value 17 joins 0, 1, 3, 4. Which changes less?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 2 to 5, median 2 to 3. The far-off 17 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/012",
+      "tier": 4,
+      "prompt": "The mean of 7, 5, 17, ?, 9 is 8. What is ?",
+      "choices": [
+        "40",
+        "3",
+        "8",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "ARITH",
+        "MEAN_AS_MISSING",
+        null
+      ],
+      "explanation": "Total = 8 × 5 = 40. Known: 7 + 5 + 17 + 9 = 38. 40 − 38 = 2."
+    },
+    {
+      "id": "data-statistics/t4/013",
+      "tier": 4,
+      "prompt": "The mean of ?, 8, 2, 1 is 4. What is ?",
+      "choices": [
+        "4",
+        "16",
+        "5",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        null,
+        "MISSING_NOT_COUNTED"
+      ],
+      "explanation": "Total = 4 × 4 = 16. Known: 8 + 2 + 1 = 11. 16 − 11 = 5."
+    },
+    {
+      "id": "data-statistics/t4/014",
+      "tier": 4,
+      "prompt": "New value 20 joins 1, 3, 7, 9. Which changes less?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 5 to 8, median 5 to 7. The far-off 20 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/015",
+      "tier": 4,
+      "prompt": "New value 19 joins 1, 2, 4, 9. Which changes more?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 4 to 7, median 3 to 4. The far-off 19 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/016",
+      "tier": 4,
+      "prompt": "New value 18 joins 0, 2, 4, 6. Which changes more?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 3 to 6, median 3 to 4. The far-off 18 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/017",
+      "tier": 4,
+      "prompt": "The mean of 1, 14, ? is 7. What is ?",
+      "choices": [
+        "5",
+        "21",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING",
+        null
+      ],
+      "explanation": "Total = 7 × 3 = 21. Known: 1 + 14 = 15. 21 − 15 = 6."
+    },
+    {
+      "id": "data-statistics/t4/018",
+      "tier": 4,
+      "prompt": "The mean of 10, ?, 1, 2 is 6. What is ?",
+      "choices": [
+        "6",
+        "5",
+        "11",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "MISSING_NOT_COUNTED",
+        null,
+        "TOTAL_ONLY"
+      ],
+      "explanation": "Total = 6 × 4 = 24. Known: 10 + 1 + 2 = 13. 24 − 13 = 11."
+    },
+    {
+      "id": "data-statistics/t4/019",
+      "tier": 4,
+      "prompt": "The mean of 6, 6, 3, ?, 5 is 4. What is ?",
+      "choices": [
+        "4",
+        "20",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Total = 4 × 5 = 20. Known: 6 + 6 + 3 + 5 = 20. 20 − 20 = 0."
+    },
+    {
+      "id": "data-statistics/t4/020",
+      "tier": 4,
+      "prompt": "The mean of 3, ?, 4 is 9. What is ?",
+      "choices": [
+        "27",
+        "9",
+        "20",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING",
+        null,
+        "MISSING_NOT_COUNTED"
+      ],
+      "explanation": "Total = 9 × 3 = 27. Known: 3 + 4 = 7. 27 − 7 = 20."
+    },
+    {
+      "id": "data-statistics/t4/021",
+      "tier": 4,
+      "prompt": "The mean of 9, 16, 3, ?, 3 is 7. What is ?",
+      "choices": [
+        "5",
+        "4",
+        "7",
+        "35"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY"
+      ],
+      "explanation": "Total = 7 × 5 = 35. Known: 9 + 16 + 3 + 3 = 31. 35 − 31 = 4."
+    },
+    {
+      "id": "data-statistics/t4/022",
+      "tier": 4,
+      "prompt": "The mean of 13, 13, 2, ? is 7. What is ?",
+      "choices": [
+        "0",
+        "1",
+        "28",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING"
+      ],
+      "explanation": "Total = 7 × 4 = 28. Known: 13 + 13 + 2 = 28. 28 − 28 = 0."
+    },
+    {
+      "id": "data-statistics/t4/023",
+      "tier": 4,
+      "prompt": "The mean of ?, 1, 5, 5, 9 is 8. What is ?",
+      "choices": [
+        "40",
+        "12",
+        "8",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "MISSING_NOT_COUNTED",
+        "MEAN_AS_MISSING",
+        null
+      ],
+      "explanation": "Total = 8 × 5 = 40. Known: 1 + 5 + 5 + 9 = 20. 40 − 20 = 20."
+    },
+    {
+      "id": "data-statistics/t4/024",
+      "tier": 4,
+      "prompt": "The mean of 20, 5, 13, 2, ? is 8. What is ?",
+      "choices": [
+        "8",
+        "40",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Total = 8 × 5 = 40. Known: 20 + 5 + 13 + 2 = 40. 40 − 40 = 0."
+    },
+    {
+      "id": "data-statistics/t4/025",
+      "tier": 4,
+      "prompt": "The mean of ?, 10, 2, 13, 7 is 10. What is ?",
+      "choices": [
+        "50",
+        "8",
+        "18",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "MISSING_NOT_COUNTED",
+        null,
+        "MEAN_AS_MISSING"
+      ],
+      "explanation": "Total = 10 × 5 = 50. Known: 10 + 2 + 13 + 7 = 32. 50 − 32 = 18."
+    },
+    {
+      "id": "data-statistics/t4/026",
+      "tier": 4,
+      "prompt": "The mean of 18, 2, ? is 9. What is ?",
+      "choices": [
+        "27",
+        "8",
+        "9",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "ARITH",
+        "MEAN_AS_MISSING",
+        null
+      ],
+      "explanation": "Total = 9 × 3 = 27. Known: 18 + 2 = 20. 27 − 20 = 7."
+    },
+    {
+      "id": "data-statistics/t4/027",
+      "tier": 4,
+      "prompt": "New value 18 joins 0, 1, 5, 6. Which changes less?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 3 to 6, median 3 to 5. The far-off 18 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/028",
+      "tier": 4,
+      "prompt": "The mean of 2, 13, ?, 5, 5 is 8. What is ?",
+      "choices": [
+        "40",
+        "7",
+        "8",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "MISSING_NOT_COUNTED",
+        "MEAN_AS_MISSING",
+        null
+      ],
+      "explanation": "Total = 8 × 5 = 40. Known: 2 + 13 + 5 + 5 = 25. 40 − 25 = 15."
+    },
+    {
+      "id": "data-statistics/t4/029",
+      "tier": 4,
+      "prompt": "The mean of 10, ?, 0, 3 is 5. What is ?",
+      "choices": [
+        "5",
+        "7",
+        "20",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEAN_AS_MISSING",
+        null,
+        "TOTAL_ONLY",
+        "MISSING_NOT_COUNTED"
+      ],
+      "explanation": "Total = 5 × 4 = 20. Known: 10 + 0 + 3 = 13. 20 − 13 = 7."
+    },
+    {
+      "id": "data-statistics/t4/030",
+      "tier": 4,
+      "prompt": "New value 20 joins 1, 4, 6, 9. Which changes less?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 5 to 8, median 5 to 6. The far-off 20 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/031",
+      "tier": 4,
+      "prompt": "The mean of 3, ?, 9, 16 is 8. What is ?",
+      "choices": [
+        "4",
+        "5",
+        "32",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING"
+      ],
+      "explanation": "Total = 8 × 4 = 32. Known: 3 + 9 + 16 = 28. 32 − 28 = 4."
+    },
+    {
+      "id": "data-statistics/t4/032",
+      "tier": 4,
+      "prompt": "The mean of ?, 15, 7, 1, 20 is 9. What is ?",
+      "choices": [
+        "2",
+        "3",
+        "45",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING"
+      ],
+      "explanation": "Total = 9 × 5 = 45. Known: 15 + 7 + 1 + 20 = 43. 45 − 43 = 2."
+    },
+    {
+      "id": "data-statistics/t4/033",
+      "tier": 4,
+      "prompt": "New value 19 joins 0, 2, 6, 8. Which changes less?",
+      "choices": [
+        "Median",
+        "Mean"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 4 to 7, median 4 to 6. The far-off 19 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/034",
+      "tier": 4,
+      "prompt": "The mean of 0, ?, 6 is 4. What is ?",
+      "choices": [
+        "12",
+        "4",
+        "2",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING",
+        "MISSING_NOT_COUNTED",
+        null
+      ],
+      "explanation": "Total = 4 × 3 = 12. Known: 0 + 6 = 6. 12 − 6 = 6."
+    },
+    {
+      "id": "data-statistics/t4/035",
+      "tier": 4,
+      "prompt": "New value 17 joins 0, 1, 3, 4. Which changes more?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEDIAN_MOVES"
+      ],
+      "explanation": "Mean 2 to 5, median 2 to 3. The far-off 17 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t4/036",
+      "tier": 4,
+      "prompt": "The mean of 8, ?, 13, 14 is 9. What is ?",
+      "choices": [
+        "1",
+        "9",
+        "36",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_AS_MISSING",
+        "TOTAL_ONLY",
+        "ARITH"
+      ],
+      "explanation": "Total = 9 × 4 = 36. Known: 8 + 13 + 14 = 35. 36 − 35 = 1."
+    },
+    {
+      "id": "data-statistics/t4/037",
+      "tier": 4,
+      "prompt": "The mean of ?, 0, 1 is 3. What is ?",
+      "choices": [
+        "8",
+        "9",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING",
+        "MISSING_NOT_COUNTED"
+      ],
+      "explanation": "Total = 3 × 3 = 9. Known: 0 + 1 = 1. 9 − 1 = 8."
+    },
+    {
+      "id": "data-statistics/t4/038",
+      "tier": 4,
+      "prompt": "The mean of 7, 8, ? is 6. What is ?",
+      "choices": [
+        "3",
+        "18",
+        "6",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_ONLY",
+        "MEAN_AS_MISSING",
+        "ARITH"
+      ],
+      "explanation": "Total = 6 × 3 = 18. Known: 7 + 8 = 15. 18 − 15 = 3."
+    },
+    {
+      "id": "data-statistics/t4/039",
+      "tier": 4,
+      "prompt": "The mean of 12, 3, ?, 14, 1 is 7. What is ?",
+      "choices": [
+        "35",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_ONLY",
+        null,
+        "MEAN_AS_MISSING",
+        "ARITH"
+      ],
+      "explanation": "Total = 7 × 5 = 35. Known: 12 + 3 + 14 + 1 = 30. 35 − 30 = 5."
+    },
+    {
+      "id": "data-statistics/t4/040",
+      "tier": 4,
+      "prompt": "New value 18 joins 0, 2, 4, 6. Which changes less?",
+      "choices": [
+        "Mean",
+        "Median"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEDIAN_MOVES",
+        null
+      ],
+      "explanation": "Mean 3 to 6, median 3 to 4. The far-off 18 pulls the mean a lot; the median barely moves."
+    },
+    {
+      "id": "data-statistics/t5/001",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 0, 1, 14",
+      "choices": [
+        "14",
+        "5",
+        "18",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        null
+      ],
+      "explanation": "Mean 15 ÷ 3 = 5. Distances 5, 4, 9 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/002",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 8, 16, 6",
+      "choices": [
+        "4",
+        "10",
+        "12",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "ARITH"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 2, 6, 4 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/003",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 19, 8, 1, 16, 6",
+      "choices": [
+        "6",
+        "18",
+        "30",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 50 ÷ 5 = 10. Distances 9, 2, 9, 6, 4 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/004",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 3, 7, 13, 5",
+      "choices": [
+        "10",
+        "3",
+        "12",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 28 ÷ 4 = 7. Distances 4, 0, 6, 2 sum to 12. 12 ÷ 4 = 3."
+    },
+    {
+      "id": "data-statistics/t5/005",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 17, 15, 0, 3, 10",
+      "choices": [
+        "6",
+        "17",
+        "30",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 45 ÷ 5 = 9. Distances 8, 6, 9, 6, 1 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/006",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 9, 11, 1",
+      "choices": [
+        "7",
+        "4",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 21 ÷ 3 = 7. Distances 2, 4, 6 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/007",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 4, 2, 13, 18, 3",
+      "choices": [
+        "16",
+        "8",
+        "6",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "MEAN_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 40 ÷ 5 = 8. Distances 4, 6, 5, 10, 5 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/008",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 7, 8, 10, 3",
+      "choices": [
+        "7",
+        "2",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS",
+        "ARITH"
+      ],
+      "explanation": "Mean 28 ÷ 4 = 7. Distances 0, 1, 3, 4 sum to 8. 8 ÷ 4 = 2."
+    },
+    {
+      "id": "data-statistics/t5/009",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 2, 17, 3, 18, 10",
+      "choices": [
+        "30",
+        "16",
+        "10",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        "MEAN_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 50 ÷ 5 = 10. Distances 8, 7, 7, 8, 0 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/010",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 6, 11, 17, 9, 2",
+      "choices": [
+        "9",
+        "15",
+        "4",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 45 ÷ 5 = 9. Distances 3, 2, 8, 0, 7 sum to 20. 20 ÷ 5 = 4."
+    },
+    {
+      "id": "data-statistics/t5/011",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 6, 0, 16, 5, 8",
+      "choices": [
+        "4",
+        "16",
+        "20",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 35 ÷ 5 = 7. Distances 1, 7, 9, 2, 1 sum to 20. 20 ÷ 5 = 4."
+    },
+    {
+      "id": "data-statistics/t5/012",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 0, 15, 11, 2",
+      "choices": [
+        "24",
+        "7",
+        "15",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 28 ÷ 4 = 7. Distances 7, 8, 4, 5 sum to 24. 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t5/013",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 4, 0, 6, 10",
+      "choices": [
+        "10",
+        "12",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 20 ÷ 4 = 5. Distances 1, 5, 1, 5 sum to 12. 12 ÷ 4 = 3."
+    },
+    {
+      "id": "data-statistics/t5/014",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 15, 4, 8",
+      "choices": [
+        "11",
+        "12",
+        "9",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 27 ÷ 3 = 9. Distances 6, 5, 1 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/015",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 5, 1, 11, 3",
+      "choices": [
+        "10",
+        "12",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        null,
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 20 ÷ 4 = 5. Distances 0, 4, 6, 2 sum to 12. 12 ÷ 4 = 3."
+    },
+    {
+      "id": "data-statistics/t5/016",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 1, 8, 18",
+      "choices": [
+        "18",
+        "9",
+        "17",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 27 ÷ 3 = 9. Distances 8, 1, 9 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/017",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 6, 19, 5",
+      "choices": [
+        "10",
+        "18",
+        "6",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        null,
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 4, 9, 5 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/018",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 8, 2, 4, 6",
+      "choices": [
+        "6",
+        "8",
+        "2",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        null,
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 20 ÷ 4 = 5. Distances 3, 3, 1, 1 sum to 8. 8 ÷ 4 = 2."
+    },
+    {
+      "id": "data-statistics/t5/019",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 10, 4, 7",
+      "choices": [
+        "7",
+        "6",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Mean 21 ÷ 3 = 7. Distances 3, 3, 0 sum to 6. 6 ÷ 3 = 2."
+    },
+    {
+      "id": "data-statistics/t5/020",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 7, 10, 4",
+      "choices": [
+        "7",
+        "3",
+        "6",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "ARITH",
+        "RANGE_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 21 ÷ 3 = 7. Distances 0, 3, 3 sum to 6. 6 ÷ 3 = 2."
+    },
+    {
+      "id": "data-statistics/t5/021",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 10, 12, 0, 6",
+      "choices": [
+        "12",
+        "4",
+        "7",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 28 ÷ 4 = 7. Distances 3, 5, 7, 1 sum to 16. 16 ÷ 4 = 4."
+    },
+    {
+      "id": "data-statistics/t5/022",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 19, 8, 3",
+      "choices": [
+        "6",
+        "10",
+        "18",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 9, 2, 7 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/023",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 3, 7, 15, 20, 5",
+      "choices": [
+        "30",
+        "6",
+        "10",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        null,
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 50 ÷ 5 = 10. Distances 7, 3, 5, 10, 5 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/024",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 14, 1, 15",
+      "choices": [
+        "14",
+        "6",
+        "10",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 4, 9, 5 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/025",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 8, 19, 0, 13",
+      "choices": [
+        "19",
+        "6",
+        "10",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 40 ÷ 4 = 10. Distances 2, 9, 10, 3 sum to 24. 24 ÷ 4 = 6."
+    },
+    {
+      "id": "data-statistics/t5/026",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 11, 4, 15",
+      "choices": [
+        "4",
+        "10",
+        "12",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 1, 6, 5 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/027",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 1, 18, 2, 11, 3",
+      "choices": [
+        "6",
+        "30",
+        "17",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 35 ÷ 5 = 7. Distances 6, 11, 5, 4, 4 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/028",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 5, 17, 9, 1",
+      "choices": [
+        "20",
+        "16",
+        "5",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        null,
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 32 ÷ 4 = 8. Distances 3, 9, 1, 7 sum to 20. 20 ÷ 4 = 5."
+    },
+    {
+      "id": "data-statistics/t5/029",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 6, 14, 4, 16",
+      "choices": [
+        "12",
+        "20",
+        "10",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 40 ÷ 4 = 10. Distances 4, 4, 6, 6 sum to 20. 20 ÷ 4 = 5."
+    },
+    {
+      "id": "data-statistics/t5/030",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 0, 6, 14, 12",
+      "choices": [
+        "20",
+        "14",
+        "5",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        null,
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 32 ÷ 4 = 8. Distances 8, 2, 6, 4 sum to 20. 20 ÷ 4 = 5."
+    },
+    {
+      "id": "data-statistics/t5/031",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 4, 11, 15",
+      "choices": [
+        "11",
+        "4",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 6, 1, 5 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/032",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 2, 5, 17",
+      "choices": [
+        "18",
+        "6",
+        "8",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_DEVIATIONS",
+        null,
+        "MEAN_FOR_MAD",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 24 ÷ 3 = 8. Distances 6, 3, 9 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/033",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 6, 18, 0, 3, 13",
+      "choices": [
+        "6",
+        "8",
+        "30",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 40 ÷ 5 = 8. Distances 2, 10, 8, 5, 5 sum to 30. 30 ÷ 5 = 6."
+    },
+    {
+      "id": "data-statistics/t5/034",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 15, 0, 12",
+      "choices": [
+        "6",
+        "15",
+        "9",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_FOR_MAD",
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS"
+      ],
+      "explanation": "Mean 27 ÷ 3 = 9. Distances 6, 9, 3 sum to 18. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "data-statistics/t5/035",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 0, 12, 8, 16",
+      "choices": [
+        "16",
+        "5",
+        "20",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        null,
+        "SUM_DEVIATIONS",
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 36 ÷ 4 = 9. Distances 9, 3, 1, 7 sum to 20. 20 ÷ 4 = 5."
+    },
+    {
+      "id": "data-statistics/t5/036",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 3, 16, 6, 7",
+      "choices": [
+        "4",
+        "8",
+        "16",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 32 ÷ 4 = 8. Distances 5, 8, 2, 1 sum to 16. 16 ÷ 4 = 4."
+    },
+    {
+      "id": "data-statistics/t5/037",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 5, 12, 1",
+      "choices": [
+        "11",
+        "12",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RANGE_FOR_MAD",
+        "SUM_DEVIATIONS",
+        null,
+        "MEAN_FOR_MAD"
+      ],
+      "explanation": "Mean 18 ÷ 3 = 6. Distances 1, 6, 5 sum to 12. 12 ÷ 3 = 4."
+    },
+    {
+      "id": "data-statistics/t5/038",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 5, 9, 0, 2",
+      "choices": [
+        "4",
+        "12",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 16 ÷ 4 = 4. Distances 1, 5, 4, 2 sum to 12. 12 ÷ 4 = 3."
+    },
+    {
+      "id": "data-statistics/t5/039",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 7, 10, 13",
+      "choices": [
+        "3",
+        "10",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MEAN_FOR_MAD",
+        null,
+        "RANGE_FOR_MAD"
+      ],
+      "explanation": "Mean 30 ÷ 3 = 10. Distances 3, 0, 3 sum to 6. 6 ÷ 3 = 2."
+    },
+    {
+      "id": "data-statistics/t5/040",
+      "tier": 5,
+      "prompt": "Mean absolute deviation (MAD): 15, 7, 13, 1",
+      "choices": [
+        "9",
+        "20",
+        "14",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MEAN_FOR_MAD",
+        "SUM_DEVIATIONS",
+        "RANGE_FOR_MAD",
+        null
+      ],
+      "explanation": "Mean 36 ÷ 4 = 9. Distances 6, 2, 4, 8 sum to 20. 20 ÷ 4 = 5."
+    }
+  ]
+}

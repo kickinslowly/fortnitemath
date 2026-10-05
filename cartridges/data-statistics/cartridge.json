@@ -1,0 +1,97 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "data-statistics",
+  "version": "1.0.0",
+  "title": "Data & Statistics",
+  "subtitle": "Mean, Median, Range, MAD",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.SP.A.2", "CCSS.MATH.CONTENT.6.SP.A.3", "CCSS.MATH.CONTENT.6.SP.B.5.C"],
+  "seed": 20261019,
+  "items_per_tier": 40,
+  "bounds": "Data (PROTOCOL 4b): 3-7 whole-number values, each 0-20, sum <= 100. Every mean, median and MAD the correct working needs (old and new means/medians on outlier items included) is an integer 2-10 when it comes from a division (sum / count, halving two middles, distance-sum / count), so every division is a times-table fact. Ranges, odd-count medians and modes need no division. Missing value: total = mean x count (both <= 10), missing value 0-20. Outlier items: base of 4 values, the new value at least 10 from every base value; the mean moves strictly more than the median. Choices are integers (or the words Mean / Median) and never equal in value.",
+  "tiers": [
+    { "tier": 1, "name": "Range & Mode", "description": "Range is largest minus smallest. Mode is the value that shows up most often." },
+    { "tier": 2, "name": "Median", "description": "Put the numbers in order; the median is the middle one (or halfway between the two middles)." },
+    { "tier": 3, "name": "Mean", "description": "Add the numbers, then divide by how many there are." },
+    { "tier": 4, "name": "Missing Value & Outliers", "description": "Work back from a mean to a missing value; see which measure an outlier moves." },
+    { "tier": 5, "name": "Mean Absolute Deviation", "description": "Average distance from the mean: find the mean, each distance, then their mean." }
+  ],
+  "misconceptions": {
+    "LARGEST": {
+      "student": "Range is largest minus smallest, not just the largest.",
+      "teacher": "Gives the maximum value as the range."
+    },
+    "FIRST_LAST": {
+      "student": "Find the largest and smallest first, wherever they sit in the list.",
+      "teacher": "Subtracts the first and last listed values instead of max minus min."
+    },
+    "MOST_FOR_MODE": {
+      "student": "Mode is the value that shows up most often, not the biggest one.",
+      "teacher": "Reads 'most' as 'largest' and gives the maximum as the mode."
+    },
+    "COUNT_FOR_MODE": {
+      "student": "That's how many times it shows up. The mode is the value itself.",
+      "teacher": "Gives the frequency of the mode instead of the mode."
+    },
+    "MISCOUNT": {
+      "student": "Count each value again. The mode shows up more times than any other.",
+      "teacher": "Picks a repeated value that is not the most frequent one."
+    },
+    "UNSORTED": {
+      "student": "Put the numbers in order first, then find the middle.",
+      "teacher": "Takes the middle of the list as written, without sorting."
+    },
+    "MEAN_FOR_MEDIAN": {
+      "student": "That's the mean. The median is the middle number once they're in order.",
+      "teacher": "Computes the mean when asked for the median."
+    },
+    "ONE_MIDDLE": {
+      "student": "Two middle numbers? The median is halfway between them.",
+      "teacher": "With an even count, gives one of the two middle values."
+    },
+    "NEXT_TO_MIDDLE": {
+      "student": "Cross off one number from each end until only the middle is left.",
+      "teacher": "Off by one on the middle position of the sorted list."
+    },
+    "SUM_ONLY": {
+      "student": "Add them up, then divide by how many numbers there are.",
+      "teacher": "Stops at the sum; does not divide by the count."
+    },
+    "MEDIAN_FOR_MEAN": {
+      "student": "That's the median. The mean is the sum divided by the count.",
+      "teacher": "Gives the median when asked for the mean."
+    },
+    "WRONG_COUNT": {
+      "student": "Count the numbers again, then divide the sum by that count.",
+      "teacher": "Divides the sum by one more or one less than the number of values."
+    },
+    "MEAN_AS_MISSING": {
+      "student": "The ? is not the mean. Find the total, then take away the others.",
+      "teacher": "Answers the given mean as the missing value."
+    },
+    "TOTAL_ONLY": {
+      "student": "That's the total. Now take away the numbers you already know.",
+      "teacher": "Stops at mean x count; does not subtract the known values."
+    },
+    "MISSING_NOT_COUNTED": {
+      "student": "The ? counts too: total = mean × how many numbers, ? included.",
+      "teacher": "Builds the total from mean x (count - 1), leaving out the missing value."
+    },
+    "MEDIAN_MOVES": {
+      "student": "A far-off value pulls the mean a lot. The median barely moves.",
+      "teacher": "Believes the median is more sensitive to an outlier than the mean."
+    },
+    "RANGE_FOR_MAD": {
+      "student": "MAD is the average distance from the mean, not largest − smallest.",
+      "teacher": "Gives the range as the MAD."
+    },
+    "MEAN_FOR_MAD": {
+      "student": "That's the mean. Now average each number's distance from it.",
+      "teacher": "Stops at the mean; never finds the deviations."
+    },
+    "SUM_DEVIATIONS": {
+      "student": "You added the distances. Now divide by how many numbers there are.",
+      "teacher": "Sums the absolute deviations without dividing by the count."
+    }
+  }
+}

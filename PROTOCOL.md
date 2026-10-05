@@ -121,6 +121,24 @@ its manifest):
 Each procedural cartridge's tests assert its bounds against `baked.json` by walking every correct step
 (the generator's `trace`), so a generator that drifts fails before it reaches a map.
 
+### 4b. Topics whose concept is not whole numbers (Aaron, 2026-10-05: "doable in head, even topic related")
+
+Fractions, decimals, percents, measurement and data topics cannot keep every value an integer; the
+non-integer *is* the concept. They keep §4a's spirit by these rules, stated in the manifest's optional
+`"bounds"` string so the tests and a reviewer can find them:
+
+| Topic | Bound |
+|---|---|
+| Every topic | Every hidden whole-number step is a §4a step (× and ÷ inside the times tables, + − ≤ 20 per literal, results ≤ 100) |
+| Fractions | Denominators 2–12; numerators ≤ 12; a mixed number's whole part ≤ 10; every numerator/denominator product a times-table fact; answers in simplest form, written `a/b` or `w a/b` (mixed when > 1) |
+| Decimals | Operands with at most 2 decimal places and at most 2 non-zero digits; the digit work is a §4a fact (`0.6 × 0.2` → `6 × 2`); quotients exact |
+| Percents | 10, 20, 25, 50, 75 % and multiples of 10; the whole ≤ 100 and chosen so the hidden ÷ is a times-table fact (25 % and 75 % of wholes ≤ 40, tens of percent of 10 × 2..10); the answer an integer |
+| Measurement | Lengths 1–10 (a ½ edge allowed where the standard asks for fractional edges; a length of 1 may be a × factor, the one exception to §4a's 2–10); areas, volumes and surface areas ≤ 100 |
+| Data | 3–7 values, each 0–20, sum ≤ 100; means, medians and MADs integers |
+| Choices | No two choices equal in **value** (`1/2` and `2/4`, `0.5` and `1/2` never sit together): the player must never face two right doors |
+
+Like §4a, each such cartridge's tests assert its bounds against `baked.json`.
+
 ## 5. Validation rules (`fnm validate`, hard failures)
 
 1. `protocol` major matches the toolchain's (`fnm-cart/1`).

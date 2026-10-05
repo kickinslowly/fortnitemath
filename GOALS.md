@@ -6,6 +6,15 @@
 
 ## G3 — More cartridges
 - [x] Second topic `integer-ops` (grade 7) — plugged in with zero toolchain changes
+- [x] Grade-6 library (2026-10-05): 9 new cartridges, 200 items each — ratios-rates, fraction-division, decimal-ops,
+  factors-multiples, rational-numbers, expressions, equations-inequalities, area-volume, data-statistics. Plan and
+  standards that do not fit multiple choice: `cartridges/LIBRARY.md`. Non-integer bounds: PROTOCOL §4b. Slot now 11
+  cartridges (972 KB), compiles clean in UEFN. Picker shows a step with > 5 skills in two columns
+- [ ] See the 10-skill grade-6 picker step in play (two columns fit on screen?) and one run on a new skill. Blocked
+  2026-10-05: the PC client had been logged out (account signed in elsewhere). Cook/runtime memory at 11 cartridges
+  unproven (PROTOCOL O4)
+- [ ] Aaron content review of the grade-6 library (emulator: `emulator/` with the regenerated carts.js)
+- [ ] Grade 7 and 8 libraries
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.

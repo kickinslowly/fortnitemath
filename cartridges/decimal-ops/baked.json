@@ -1,0 +1,3894 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "decimal-ops",
+  "version": "1.0.0",
+  "title": "Decimal Operations",
+  "subtitle": "Add, Subtract, Multiply, Divide",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.NS.B.3"
+  ],
+  "seed": 20261013,
+  "items_per_tier": 40,
+  "bounds": "Decimals (PROTOCOL §4b): every operand is 0.01-10 with at most 2 decimal places and at most 2 non-zero digits. + and −: answer 0-20, at most one carry or borrow. × and ÷: the digit work is a times-table fact (each digit factor 2-10; ÷ exact, divisor and quotient digits 2-10); answers at most 3 decimal places. Wrong choices: whatever the misreading gives, 0-999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Add & Subtract",
+      "description": "Line up the decimal points, then add or subtract."
+    },
+    {
+      "tier": 2,
+      "name": "Decimal × Whole",
+      "description": "Multiply the digits, then keep the decimal's places."
+    },
+    {
+      "tier": 3,
+      "name": "Decimal × Decimal",
+      "description": "Multiply the digits, then add up the places of both factors."
+    },
+    {
+      "tier": 4,
+      "name": "Decimal ÷ Whole",
+      "description": "Share tenths or hundredths: 2.4 ÷ 3 is 24 tenths ÷ 3."
+    },
+    {
+      "tier": 5,
+      "name": "Divide by a Decimal",
+      "description": "Move both points the same number of places, then divide."
+    }
+  ],
+  "misconceptions": {
+    "ALIGN_RIGHT": {
+      "student": "Line up the decimal points, not the last digits. 0.4 is 0.40.",
+      "teacher": "Right-justifies the digits instead of aligning the points: 0.4 + 0.35 = 0.39."
+    },
+    "DROP_PLACE": {
+      "student": "Every digit counts. Write 0.4 as 0.40 so each place has a partner.",
+      "teacher": "Drops the digit with no partner in the shorter number: 0.4 + 0.35 = 0.7."
+    },
+    "BRING_DOWN": {
+      "student": "An empty place is a 0. Write 0.6 as 0.60, then borrow.",
+      "teacher": "Brings down the bottom digit under an empty place: 0.6 − 0.25 = 0.45."
+    },
+    "DECIMAL_AS_WHOLE": {
+      "student": "10 tenths make 1 whole. 0.8 + 0.5 is 13 tenths, which is 1.3.",
+      "teacher": "Adds the decimal parts as whole numbers and never carries: 0.8 + 0.5 = 0.13."
+    },
+    "PLACE_LOST": {
+      "student": "Don't drop the decimal point. Count the places and put it back.",
+      "teacher": "Gives the whole-number digit result with no decimal point: 0.3 × 4 = 12."
+    },
+    "EXTRA_PLACE": {
+      "student": "One place too many. 3 tenths × 4 is 12 tenths, which is 1.2.",
+      "teacher": "Puts one extra decimal place in a decimal-by-whole result: 0.3 × 4 = 0.12."
+    },
+    "MISSED_PLACE": {
+      "student": "One place too few. Hundredths in, hundredths out: 0.04 × 6 = 0.24.",
+      "teacher": "Puts one decimal place too few in the result: 0.04 × 6 = 2.4."
+    },
+    "COUNT_PLACES": {
+      "student": "When you multiply, add the places: 0.6 × 0.2 has 1 + 1 = 2 places.",
+      "teacher": "Gives the product as many places as the longer factor, as in addition: 0.6 × 0.2 = 1.2."
+    },
+    "TOO_MANY_PLACES": {
+      "student": "Count again: 0.6 × 0.2 has 1 + 1 = 2 places, so 0.12.",
+      "teacher": "Puts one decimal place too many in a decimal product: 0.6 × 0.2 = 0.012."
+    },
+    "BIG_INTO_SMALL": {
+      "student": "4 ÷ 5 means 4 shared by 5. Each share is less than 1.",
+      "teacher": "Divides the larger number by the smaller when the dividend is smaller: 4 ÷ 5 = 1.25."
+    },
+    "SHIFT_ONE_SIDE": {
+      "student": "Move both decimal points the same number of places, not just one.",
+      "teacher": "Shifts the point in only the divisor or only the dividend: 1.2 ÷ 0.3 = 0.4 or 40."
+    },
+    "MULT_FOR_DIV": {
+      "student": "Dividing by a number less than 1 makes it bigger: 2 ÷ 0.5 = 4.",
+      "teacher": "Multiplies by the decimal divisor (\"division makes smaller\"): 2 ÷ 0.5 = 1."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "decimal-ops/t1/001",
+      "tier": 1,
+      "prompt": "2 + 0.3",
+      "choices": [
+        "2.2",
+        "0.5",
+        "2.4",
+        "2.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ALIGN_RIGHT",
+        "ARITH",
+        null
+      ],
+      "explanation": "Line up the points: 2.0 + 0.3 = 2.3."
+    },
+    {
+      "id": "decimal-ops/t1/002",
+      "tier": 1,
+      "prompt": "0.9 + 0.81",
+      "choices": [
+        "1.71",
+        "1.72",
+        "1.7",
+        "0.9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DROP_PLACE",
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.90 + 0.81 = 1.71."
+    },
+    {
+      "id": "decimal-ops/t1/003",
+      "tier": 1,
+      "prompt": "0.88 − 0.7",
+      "choices": [
+        "0.18",
+        "0.17",
+        "0.1",
+        "0.81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DROP_PLACE",
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.88 − 0.70 = 0.18."
+    },
+    {
+      "id": "decimal-ops/t1/004",
+      "tier": 1,
+      "prompt": "0.77 + 6",
+      "choices": [
+        "0.83",
+        "6.77",
+        "6.78",
+        "6.76"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALIGN_RIGHT",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 0.77 + 6.00 = 6.77."
+    },
+    {
+      "id": "decimal-ops/t1/005",
+      "tier": 1,
+      "prompt": "1.4 + 0.96",
+      "choices": [
+        "2.35",
+        "2.3",
+        "1.1",
+        "2.36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DROP_PLACE",
+        "ALIGN_RIGHT",
+        null
+      ],
+      "explanation": "Line up the points: 1.40 + 0.96 = 2.36."
+    },
+    {
+      "id": "decimal-ops/t1/006",
+      "tier": 1,
+      "prompt": "2.9 + 0.8",
+      "choices": [
+        "3.7",
+        "3.6",
+        "2.17",
+        "3.8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DECIMAL_AS_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "2.9 + 0.8: tenths 9 + 8 = 17, and 10 tenths make 1. So 3.7."
+    },
+    {
+      "id": "decimal-ops/t1/007",
+      "tier": 1,
+      "prompt": "2.6 + 0.61",
+      "choices": [
+        "0.87",
+        "3.2",
+        "3.21",
+        "3.22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ALIGN_RIGHT",
+        "DROP_PLACE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 2.60 + 0.61 = 3.21."
+    },
+    {
+      "id": "decimal-ops/t1/008",
+      "tier": 1,
+      "prompt": "0.2 + 0.62",
+      "choices": [
+        "0.82",
+        "0.81",
+        "0.64",
+        "0.8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ALIGN_RIGHT",
+        "DROP_PLACE"
+      ],
+      "explanation": "Line up the points: 0.20 + 0.62 = 0.82."
+    },
+    {
+      "id": "decimal-ops/t1/009",
+      "tier": 1,
+      "prompt": "7 + 0.8",
+      "choices": [
+        "7.9",
+        "7.8",
+        "7.7",
+        "1.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 7.0 + 0.8 = 7.8."
+    },
+    {
+      "id": "decimal-ops/t1/010",
+      "tier": 1,
+      "prompt": "0.8 + 0.3",
+      "choices": [
+        "1.1",
+        "1",
+        "1.2",
+        "0.11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "DECIMAL_AS_WHOLE"
+      ],
+      "explanation": "0.8 + 0.3: tenths 8 + 3 = 11, and 10 tenths make 1. So 1.1."
+    },
+    {
+      "id": "decimal-ops/t1/011",
+      "tier": 1,
+      "prompt": "0.39 − 0.2",
+      "choices": [
+        "0.2",
+        "0.1",
+        "0.19",
+        "0.37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DROP_PLACE",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.39 − 0.20 = 0.19."
+    },
+    {
+      "id": "decimal-ops/t1/012",
+      "tier": 1,
+      "prompt": "0.98 − 0.8",
+      "choices": [
+        "0.1",
+        "0.19",
+        "0.18",
+        "0.9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_PLACE",
+        "ARITH",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.98 − 0.80 = 0.18."
+    },
+    {
+      "id": "decimal-ops/t1/013",
+      "tier": 1,
+      "prompt": "1 − 0.1",
+      "choices": [
+        "1.1",
+        "0.9",
+        "1",
+        "0.8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BRING_DOWN",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 1.0 − 0.1 = 0.9."
+    },
+    {
+      "id": "decimal-ops/t1/014",
+      "tier": 1,
+      "prompt": "0.88 + 7",
+      "choices": [
+        "7.88",
+        "7.87",
+        "7.89",
+        "0.95"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.88 + 7.00 = 7.88."
+    },
+    {
+      "id": "decimal-ops/t1/015",
+      "tier": 1,
+      "prompt": "2.4 + 0.9",
+      "choices": [
+        "3.4",
+        "3.2",
+        "3.3",
+        "2.13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "DECIMAL_AS_WHOLE"
+      ],
+      "explanation": "2.4 + 0.9: tenths 4 + 9 = 13, and 10 tenths make 1. So 3.3."
+    },
+    {
+      "id": "decimal-ops/t1/016",
+      "tier": 1,
+      "prompt": "6 + 0.6",
+      "choices": [
+        "6.7",
+        "6.6",
+        "1.2",
+        "6.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ALIGN_RIGHT",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 6.0 + 0.6 = 6.6."
+    },
+    {
+      "id": "decimal-ops/t1/017",
+      "tier": 1,
+      "prompt": "7.6 − 1",
+      "choices": [
+        "6.6",
+        "6.5",
+        "7.5",
+        "6.7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ALIGN_RIGHT",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 7.6 − 1.0 = 6.6."
+    },
+    {
+      "id": "decimal-ops/t1/018",
+      "tier": 1,
+      "prompt": "3.7 + 0.73",
+      "choices": [
+        "4.4",
+        "4.44",
+        "4.43",
+        "1.1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_PLACE",
+        "ARITH",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 3.70 + 0.73 = 4.43."
+    },
+    {
+      "id": "decimal-ops/t1/019",
+      "tier": 1,
+      "prompt": "3.8 + 0.3",
+      "choices": [
+        "4",
+        "4.1",
+        "3.11",
+        "4.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DECIMAL_AS_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "3.8 + 0.3: tenths 8 + 3 = 11, and 10 tenths make 1. So 4.1."
+    },
+    {
+      "id": "decimal-ops/t1/020",
+      "tier": 1,
+      "prompt": "3 − 0.7",
+      "choices": [
+        "2.4",
+        "2.2",
+        "3.7",
+        "2.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "BRING_DOWN",
+        null
+      ],
+      "explanation": "Line up the points: 3.0 − 0.7 = 2.3."
+    },
+    {
+      "id": "decimal-ops/t1/021",
+      "tier": 1,
+      "prompt": "0.7 + 0.3",
+      "choices": [
+        "0.9",
+        "0.1",
+        "1",
+        "1.1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DECIMAL_AS_WHOLE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0.7 + 0.3: tenths 7 + 3 = 10, and 10 tenths make 1. So 1."
+    },
+    {
+      "id": "decimal-ops/t1/022",
+      "tier": 1,
+      "prompt": "0.8 − 0.63",
+      "choices": [
+        "0.2",
+        "0.17",
+        "0.18",
+        "0.23"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_PLACE",
+        null,
+        "ARITH",
+        "BRING_DOWN"
+      ],
+      "explanation": "Line up the points: 0.80 − 0.63 = 0.17."
+    },
+    {
+      "id": "decimal-ops/t1/023",
+      "tier": 1,
+      "prompt": "2.6 − 0.12",
+      "choices": [
+        "2.52",
+        "2.5",
+        "2.48",
+        "0.14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BRING_DOWN",
+        "DROP_PLACE",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 2.60 − 0.12 = 2.48."
+    },
+    {
+      "id": "decimal-ops/t1/024",
+      "tier": 1,
+      "prompt": "0.19 + 2.8",
+      "choices": [
+        "0.47",
+        "2.98",
+        "2.9",
+        "2.99"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ALIGN_RIGHT",
+        "ARITH",
+        "DROP_PLACE",
+        null
+      ],
+      "explanation": "Line up the points: 0.19 + 2.80 = 2.99."
+    },
+    {
+      "id": "decimal-ops/t1/025",
+      "tier": 1,
+      "prompt": "3.9 + 0.68",
+      "choices": [
+        "4.59",
+        "4.58",
+        "4.5",
+        "1.07"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DROP_PLACE",
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 3.90 + 0.68 = 4.58."
+    },
+    {
+      "id": "decimal-ops/t1/026",
+      "tier": 1,
+      "prompt": "0.4 + 3.9",
+      "choices": [
+        "4.3",
+        "3.13",
+        "4.2",
+        "4.4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_AS_WHOLE",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "0.4 + 3.9: tenths 4 + 9 = 13, and 10 tenths make 1. So 4.3."
+    },
+    {
+      "id": "decimal-ops/t1/027",
+      "tier": 1,
+      "prompt": "0.35 − 0.3",
+      "choices": [
+        "0.05",
+        "0.06",
+        "0.32",
+        "0.04"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ALIGN_RIGHT",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 0.35 − 0.30 = 0.05."
+    },
+    {
+      "id": "decimal-ops/t1/028",
+      "tier": 1,
+      "prompt": "0.8 + 0.83",
+      "choices": [
+        "1.6",
+        "1.64",
+        "1.63",
+        "0.91"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_PLACE",
+        "ARITH",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.80 + 0.83 = 1.63."
+    },
+    {
+      "id": "decimal-ops/t1/029",
+      "tier": 1,
+      "prompt": "3.4 − 0.37",
+      "choices": [
+        "3.04",
+        "3.17",
+        "3.1",
+        "3.03"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "BRING_DOWN",
+        "DROP_PLACE",
+        null
+      ],
+      "explanation": "Line up the points: 3.40 − 0.37 = 3.03."
+    },
+    {
+      "id": "decimal-ops/t1/030",
+      "tier": 1,
+      "prompt": "3.7 + 0.9",
+      "choices": [
+        "3.16",
+        "4.5",
+        "4.7",
+        "4.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_AS_WHOLE",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "3.7 + 0.9: tenths 7 + 9 = 16, and 10 tenths make 1. So 4.6."
+    },
+    {
+      "id": "decimal-ops/t1/031",
+      "tier": 1,
+      "prompt": "0.97 − 0.2",
+      "choices": [
+        "0.7",
+        "0.95",
+        "0.76",
+        "0.77"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_PLACE",
+        "ALIGN_RIGHT",
+        "ARITH",
+        null
+      ],
+      "explanation": "Line up the points: 0.97 − 0.20 = 0.77."
+    },
+    {
+      "id": "decimal-ops/t1/032",
+      "tier": 1,
+      "prompt": "1.3 + 0.18",
+      "choices": [
+        "1.47",
+        "1.4",
+        "1.48",
+        "0.31"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DROP_PLACE",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 1.30 + 0.18 = 1.48."
+    },
+    {
+      "id": "decimal-ops/t1/033",
+      "tier": 1,
+      "prompt": "9 − 0.6",
+      "choices": [
+        "8.3",
+        "8.4",
+        "0.3",
+        "9.6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ALIGN_RIGHT",
+        "BRING_DOWN"
+      ],
+      "explanation": "Line up the points: 9.0 − 0.6 = 8.4."
+    },
+    {
+      "id": "decimal-ops/t1/034",
+      "tier": 1,
+      "prompt": "0.74 + 0.4",
+      "choices": [
+        "1.14",
+        "0.78",
+        "1.1",
+        "1.13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALIGN_RIGHT",
+        "DROP_PLACE",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 0.74 + 0.40 = 1.14."
+    },
+    {
+      "id": "decimal-ops/t1/035",
+      "tier": 1,
+      "prompt": "2 − 0.1",
+      "choices": [
+        "2.1",
+        "1.8",
+        "0.1",
+        "1.9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BRING_DOWN",
+        "ARITH",
+        "ALIGN_RIGHT",
+        null
+      ],
+      "explanation": "Line up the points: 2.0 − 0.1 = 1.9."
+    },
+    {
+      "id": "decimal-ops/t1/036",
+      "tier": 1,
+      "prompt": "2.7 + 0.7",
+      "choices": [
+        "3.3",
+        "3.5",
+        "2.14",
+        "3.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "DECIMAL_AS_WHOLE",
+        null
+      ],
+      "explanation": "2.7 + 0.7: tenths 7 + 7 = 14, and 10 tenths make 1. So 3.4."
+    },
+    {
+      "id": "decimal-ops/t1/037",
+      "tier": 1,
+      "prompt": "9.8 − 1",
+      "choices": [
+        "9.7",
+        "8.8",
+        "8.9",
+        "8.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALIGN_RIGHT",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 9.8 − 1.0 = 8.8."
+    },
+    {
+      "id": "decimal-ops/t1/038",
+      "tier": 1,
+      "prompt": "4 + 0.2",
+      "choices": [
+        "4.1",
+        "4.2",
+        "0.6",
+        "4.3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ALIGN_RIGHT",
+        "ARITH"
+      ],
+      "explanation": "Line up the points: 4.0 + 0.2 = 4.2."
+    },
+    {
+      "id": "decimal-ops/t1/039",
+      "tier": 1,
+      "prompt": "4 − 0.6",
+      "choices": [
+        "4.6",
+        "3.5",
+        "3.3",
+        "3.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BRING_DOWN",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "Line up the points: 4.0 − 0.6 = 3.4."
+    },
+    {
+      "id": "decimal-ops/t1/040",
+      "tier": 1,
+      "prompt": "0.68 − 0.3",
+      "choices": [
+        "0.37",
+        "0.3",
+        "0.38",
+        "0.65"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DROP_PLACE",
+        null,
+        "ALIGN_RIGHT"
+      ],
+      "explanation": "Line up the points: 0.68 − 0.30 = 0.38."
+    },
+    {
+      "id": "decimal-ops/t2/001",
+      "tier": 2,
+      "prompt": "3 × 0.09",
+      "choices": [
+        "27",
+        "0.027",
+        "0.27",
+        "2.7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE"
+      ],
+      "explanation": "3 × 0.09: 3 × 9 = 27, so 27 hundredths = 0.27."
+    },
+    {
+      "id": "decimal-ops/t2/002",
+      "tier": 2,
+      "prompt": "0.8 × 7",
+      "choices": [
+        "56",
+        "5.5",
+        "0.56",
+        "5.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.8 × 7: 8 × 7 = 56, so 56 tenths = 5.6."
+    },
+    {
+      "id": "decimal-ops/t2/003",
+      "tier": 2,
+      "prompt": "0.6 × 6",
+      "choices": [
+        "3.6",
+        "3.5",
+        "0.36",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.6 × 6: 6 × 6 = 36, so 36 tenths = 3.6."
+    },
+    {
+      "id": "decimal-ops/t2/004",
+      "tier": 2,
+      "prompt": "6 × 0.04",
+      "choices": [
+        "24",
+        "0.024",
+        "0.24",
+        "2.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE"
+      ],
+      "explanation": "6 × 0.04: 6 × 4 = 24, so 24 hundredths = 0.24."
+    },
+    {
+      "id": "decimal-ops/t2/005",
+      "tier": 2,
+      "prompt": "3 × 0.7",
+      "choices": [
+        "2",
+        "2.1",
+        "21",
+        "0.21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PLACE_LOST",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "3 × 0.7: 3 × 7 = 21, so 21 tenths = 2.1."
+    },
+    {
+      "id": "decimal-ops/t2/006",
+      "tier": 2,
+      "prompt": "0.07 × 5",
+      "choices": [
+        "0.35",
+        "35",
+        "3.5",
+        "0.035"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "MISSED_PLACE",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.07 × 5: 7 × 5 = 35, so 35 hundredths = 0.35."
+    },
+    {
+      "id": "decimal-ops/t2/007",
+      "tier": 2,
+      "prompt": "0.09 × 8",
+      "choices": [
+        "0.72",
+        "0.072",
+        "72",
+        "7.2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        "MISSED_PLACE"
+      ],
+      "explanation": "0.09 × 8: 9 × 8 = 72, so 72 hundredths = 0.72."
+    },
+    {
+      "id": "decimal-ops/t2/008",
+      "tier": 2,
+      "prompt": "3 × 0.3",
+      "choices": [
+        "0.9",
+        "0.8",
+        "0.09",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "3 × 0.3: 3 × 3 = 9, so 9 tenths = 0.9."
+    },
+    {
+      "id": "decimal-ops/t2/009",
+      "tier": 2,
+      "prompt": "0.9 × 7",
+      "choices": [
+        "6.2",
+        "63",
+        "0.63",
+        "6.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.9 × 7: 9 × 7 = 63, so 63 tenths = 6.3."
+    },
+    {
+      "id": "decimal-ops/t2/010",
+      "tier": 2,
+      "prompt": "6 × 0.7",
+      "choices": [
+        "0.42",
+        "42",
+        "4.2",
+        "4.1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "6 × 0.7: 6 × 7 = 42, so 42 tenths = 4.2."
+    },
+    {
+      "id": "decimal-ops/t2/011",
+      "tier": 2,
+      "prompt": "0.3 × 5",
+      "choices": [
+        "0.15",
+        "1.5",
+        "15",
+        "1.6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST",
+        "ARITH"
+      ],
+      "explanation": "0.3 × 5: 3 × 5 = 15, so 15 tenths = 1.5."
+    },
+    {
+      "id": "decimal-ops/t2/012",
+      "tier": 2,
+      "prompt": "0.7 × 6",
+      "choices": [
+        "4.3",
+        "42",
+        "4.2",
+        "0.42"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.7 × 6: 7 × 6 = 42, so 42 tenths = 4.2."
+    },
+    {
+      "id": "decimal-ops/t2/013",
+      "tier": 2,
+      "prompt": "0.06 × 9",
+      "choices": [
+        "54",
+        "5.4",
+        "0.054",
+        "0.54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.06 × 9: 6 × 9 = 54, so 54 hundredths = 0.54."
+    },
+    {
+      "id": "decimal-ops/t2/014",
+      "tier": 2,
+      "prompt": "5 × 0.07",
+      "choices": [
+        "35",
+        "3.5",
+        "0.035",
+        "0.35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "5 × 0.07: 5 × 7 = 35, so 35 hundredths = 0.35."
+    },
+    {
+      "id": "decimal-ops/t2/015",
+      "tier": 2,
+      "prompt": "9 × 0.8",
+      "choices": [
+        "7.3",
+        "7.2",
+        "0.72",
+        "72"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "9 × 0.8: 9 × 8 = 72, so 72 tenths = 7.2."
+    },
+    {
+      "id": "decimal-ops/t2/016",
+      "tier": 2,
+      "prompt": "0.7 × 3",
+      "choices": [
+        "0.21",
+        "2",
+        "2.1",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "ARITH",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.7 × 3: 7 × 3 = 21, so 21 tenths = 2.1."
+    },
+    {
+      "id": "decimal-ops/t2/017",
+      "tier": 2,
+      "prompt": "9 × 0.7",
+      "choices": [
+        "6.4",
+        "63",
+        "6.3",
+        "0.63"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE"
+      ],
+      "explanation": "9 × 0.7: 9 × 7 = 63, so 63 tenths = 6.3."
+    },
+    {
+      "id": "decimal-ops/t2/018",
+      "tier": 2,
+      "prompt": "6 × 0.2",
+      "choices": [
+        "12",
+        "1.2",
+        "0.12",
+        "1.1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE",
+        "ARITH"
+      ],
+      "explanation": "6 × 0.2: 6 × 2 = 12, so 12 tenths = 1.2."
+    },
+    {
+      "id": "decimal-ops/t2/019",
+      "tier": 2,
+      "prompt": "5 × 0.08",
+      "choices": [
+        "0.4",
+        "4",
+        "0.04",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "5 × 0.08: 5 × 8 = 40, so 40 hundredths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t2/020",
+      "tier": 2,
+      "prompt": "0.6 × 7",
+      "choices": [
+        "4.2",
+        "42",
+        "0.42",
+        "4.3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        "ARITH"
+      ],
+      "explanation": "0.6 × 7: 6 × 7 = 42, so 42 tenths = 4.2."
+    },
+    {
+      "id": "decimal-ops/t2/021",
+      "tier": 2,
+      "prompt": "4 × 0.09",
+      "choices": [
+        "3.6",
+        "0.036",
+        "36",
+        "0.36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "4 × 0.09: 4 × 9 = 36, so 36 hundredths = 0.36."
+    },
+    {
+      "id": "decimal-ops/t2/022",
+      "tier": 2,
+      "prompt": "3 × 0.04",
+      "choices": [
+        "12",
+        "0.12",
+        "0.012",
+        "1.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE",
+        "MISSED_PLACE"
+      ],
+      "explanation": "3 × 0.04: 3 × 4 = 12, so 12 hundredths = 0.12."
+    },
+    {
+      "id": "decimal-ops/t2/023",
+      "tier": 2,
+      "prompt": "3 × 0.8",
+      "choices": [
+        "2.4",
+        "0.24",
+        "24",
+        "2.3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        "ARITH"
+      ],
+      "explanation": "3 × 0.8: 3 × 8 = 24, so 24 tenths = 2.4."
+    },
+    {
+      "id": "decimal-ops/t2/024",
+      "tier": 2,
+      "prompt": "0.5 × 6",
+      "choices": [
+        "0.3",
+        "2",
+        "30",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "ARITH",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.5 × 6: 5 × 6 = 30, so 30 tenths = 3."
+    },
+    {
+      "id": "decimal-ops/t2/025",
+      "tier": 2,
+      "prompt": "0.8 × 3",
+      "choices": [
+        "24",
+        "2.5",
+        "0.24",
+        "2.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.8 × 3: 8 × 3 = 24, so 24 tenths = 2.4."
+    },
+    {
+      "id": "decimal-ops/t2/026",
+      "tier": 2,
+      "prompt": "0.03 × 3",
+      "choices": [
+        "0.009",
+        "0.09",
+        "0.9",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.03 × 3: 3 × 3 = 9, so 9 hundredths = 0.09."
+    },
+    {
+      "id": "decimal-ops/t2/027",
+      "tier": 2,
+      "prompt": "0.2 × 7",
+      "choices": [
+        "1.3",
+        "14",
+        "0.14",
+        "1.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.2 × 7: 2 × 7 = 14, so 14 tenths = 1.4."
+    },
+    {
+      "id": "decimal-ops/t2/028",
+      "tier": 2,
+      "prompt": "0.3 × 4",
+      "choices": [
+        "12",
+        "0.12",
+        "1.2",
+        "1.3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0.3 × 4: 3 × 4 = 12, so 12 tenths = 1.2."
+    },
+    {
+      "id": "decimal-ops/t2/029",
+      "tier": 2,
+      "prompt": "0.02 × 7",
+      "choices": [
+        "0.014",
+        "0.14",
+        "1.4",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.02 × 7: 2 × 7 = 14, so 14 hundredths = 0.14."
+    },
+    {
+      "id": "decimal-ops/t2/030",
+      "tier": 2,
+      "prompt": "7 × 0.7",
+      "choices": [
+        "4.9",
+        "49",
+        "4.8",
+        "0.49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "7 × 0.7: 7 × 7 = 49, so 49 tenths = 4.9."
+    },
+    {
+      "id": "decimal-ops/t2/031",
+      "tier": 2,
+      "prompt": "0.8 × 5",
+      "choices": [
+        "4",
+        "40",
+        "5",
+        "0.4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.8 × 5: 8 × 5 = 40, so 40 tenths = 4."
+    },
+    {
+      "id": "decimal-ops/t2/032",
+      "tier": 2,
+      "prompt": "0.8 × 6",
+      "choices": [
+        "4.9",
+        "48",
+        "4.8",
+        "0.48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.8 × 6: 8 × 6 = 48, so 48 tenths = 4.8."
+    },
+    {
+      "id": "decimal-ops/t2/033",
+      "tier": 2,
+      "prompt": "2 × 0.8",
+      "choices": [
+        "1.7",
+        "1.6",
+        "0.16",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "2 × 0.8: 2 × 8 = 16, so 16 tenths = 1.6."
+    },
+    {
+      "id": "decimal-ops/t2/034",
+      "tier": 2,
+      "prompt": "0.08 × 5",
+      "choices": [
+        "4",
+        "40",
+        "0.04",
+        "0.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "0.08 × 5: 8 × 5 = 40, so 40 hundredths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t2/035",
+      "tier": 2,
+      "prompt": "8 × 0.03",
+      "choices": [
+        "2.4",
+        "24",
+        "0.024",
+        "0.24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "8 × 0.03: 8 × 3 = 24, so 24 hundredths = 0.24."
+    },
+    {
+      "id": "decimal-ops/t2/036",
+      "tier": 2,
+      "prompt": "5 × 0.04",
+      "choices": [
+        "0.02",
+        "20",
+        "0.2",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null,
+        "MISSED_PLACE"
+      ],
+      "explanation": "5 × 0.04: 5 × 4 = 20, so 20 hundredths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t2/037",
+      "tier": 2,
+      "prompt": "0.4 × 5",
+      "choices": [
+        "0.2",
+        "1",
+        "2",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "ARITH",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.4 × 5: 4 × 5 = 20, so 20 tenths = 2."
+    },
+    {
+      "id": "decimal-ops/t2/038",
+      "tier": 2,
+      "prompt": "9 × 0.9",
+      "choices": [
+        "81",
+        "8.1",
+        "0.81",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE",
+        "ARITH"
+      ],
+      "explanation": "9 × 0.9: 9 × 9 = 81, so 81 tenths = 8.1."
+    },
+    {
+      "id": "decimal-ops/t2/039",
+      "tier": 2,
+      "prompt": "0.8 × 8",
+      "choices": [
+        "64",
+        "6.4",
+        "0.64",
+        "6.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE",
+        "ARITH"
+      ],
+      "explanation": "0.8 × 8: 8 × 8 = 64, so 64 tenths = 6.4."
+    },
+    {
+      "id": "decimal-ops/t2/040",
+      "tier": 2,
+      "prompt": "0.4 × 9",
+      "choices": [
+        "3.6",
+        "3.7",
+        "0.36",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.4 × 9: 4 × 9 = 36, so 36 tenths = 3.6."
+    },
+    {
+      "id": "decimal-ops/t3/001",
+      "tier": 3,
+      "prompt": "0.7 × 0.2",
+      "choices": [
+        "1.4",
+        "0.14",
+        "0.014",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_PLACES",
+        null,
+        "TOO_MANY_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.7 × 0.2: 7 × 2 = 14. 1 + 1 = 2 places, so 0.14."
+    },
+    {
+      "id": "decimal-ops/t3/002",
+      "tier": 3,
+      "prompt": "0.2 × 0.7",
+      "choices": [
+        "14",
+        "0.014",
+        "1.4",
+        "0.14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        null
+      ],
+      "explanation": "0.2 × 0.7: 2 × 7 = 14. 1 + 1 = 2 places, so 0.14."
+    },
+    {
+      "id": "decimal-ops/t3/003",
+      "tier": 3,
+      "prompt": "0.8 × 0.5",
+      "choices": [
+        "0.04",
+        "0.4",
+        "4",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        null,
+        "COUNT_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.8 × 0.5: 8 × 5 = 40. 1 + 1 = 2 places, so 0.40 = 0.4."
+    },
+    {
+      "id": "decimal-ops/t3/004",
+      "tier": 3,
+      "prompt": "0.05 × 0.3",
+      "choices": [
+        "0.15",
+        "15",
+        "0.0015",
+        "0.015"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        "TOO_MANY_PLACES",
+        null
+      ],
+      "explanation": "0.05 × 0.3: 5 × 3 = 15. 2 + 1 = 3 places, so 0.015."
+    },
+    {
+      "id": "decimal-ops/t3/005",
+      "tier": 3,
+      "prompt": "0.9 × 0.9",
+      "choices": [
+        "8.1",
+        "0.81",
+        "0.081",
+        "81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_PLACES",
+        null,
+        "TOO_MANY_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.9 × 0.9: 9 × 9 = 81. 1 + 1 = 2 places, so 0.81."
+    },
+    {
+      "id": "decimal-ops/t3/006",
+      "tier": 3,
+      "prompt": "0.6 × 0.6",
+      "choices": [
+        "0.036",
+        "3.6",
+        "36",
+        "0.36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.6 × 0.6: 6 × 6 = 36. 1 + 1 = 2 places, so 0.36."
+    },
+    {
+      "id": "decimal-ops/t3/007",
+      "tier": 3,
+      "prompt": "0.2 × 0.8",
+      "choices": [
+        "16",
+        "1.6",
+        "0.016",
+        "0.16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES",
+        null
+      ],
+      "explanation": "0.2 × 0.8: 2 × 8 = 16. 1 + 1 = 2 places, so 0.16."
+    },
+    {
+      "id": "decimal-ops/t3/008",
+      "tier": 3,
+      "prompt": "0.03 × 0.7",
+      "choices": [
+        "0.0021",
+        "0.21",
+        "0.021",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.03 × 0.7: 3 × 7 = 21. 2 + 1 = 3 places, so 0.021."
+    },
+    {
+      "id": "decimal-ops/t3/009",
+      "tier": 3,
+      "prompt": "0.03 × 0.4",
+      "choices": [
+        "0.0012",
+        "0.12",
+        "0.012",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.03 × 0.4: 3 × 4 = 12. 2 + 1 = 3 places, so 0.012."
+    },
+    {
+      "id": "decimal-ops/t3/010",
+      "tier": 3,
+      "prompt": "0.3 × 0.05",
+      "choices": [
+        "0.0015",
+        "0.015",
+        "15",
+        "0.15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.3 × 0.05: 3 × 5 = 15. 1 + 2 = 3 places, so 0.015."
+    },
+    {
+      "id": "decimal-ops/t3/011",
+      "tier": 3,
+      "prompt": "0.7 × 0.7",
+      "choices": [
+        "49",
+        "0.049",
+        "0.49",
+        "4.9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "TOO_MANY_PLACES",
+        null,
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.7 × 0.7: 7 × 7 = 49. 1 + 1 = 2 places, so 0.49."
+    },
+    {
+      "id": "decimal-ops/t3/012",
+      "tier": 3,
+      "prompt": "0.9 × 0.2",
+      "choices": [
+        "0.18",
+        "0.018",
+        "18",
+        "1.8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOO_MANY_PLACES",
+        "PLACE_LOST",
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.9 × 0.2: 9 × 2 = 18. 1 + 1 = 2 places, so 0.18."
+    },
+    {
+      "id": "decimal-ops/t3/013",
+      "tier": 3,
+      "prompt": "0.2 × 0.2",
+      "choices": [
+        "4",
+        "0.004",
+        "0.04",
+        "0.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "TOO_MANY_PLACES",
+        null,
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.2 × 0.2: 2 × 2 = 4. 1 + 1 = 2 places, so 0.04."
+    },
+    {
+      "id": "decimal-ops/t3/014",
+      "tier": 3,
+      "prompt": "0.9 × 0.04",
+      "choices": [
+        "0.0036",
+        "0.036",
+        "36",
+        "0.36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.9 × 0.04: 9 × 4 = 36. 1 + 2 = 3 places, so 0.036."
+    },
+    {
+      "id": "decimal-ops/t3/015",
+      "tier": 3,
+      "prompt": "0.4 × 0.9",
+      "choices": [
+        "3.6",
+        "0.36",
+        "0.036",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_PLACES",
+        null,
+        "TOO_MANY_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.4 × 0.9: 4 × 9 = 36. 1 + 1 = 2 places, so 0.36."
+    },
+    {
+      "id": "decimal-ops/t3/016",
+      "tier": 3,
+      "prompt": "0.2 × 0.4",
+      "choices": [
+        "0.08",
+        "8",
+        "0.008",
+        "0.8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.2 × 0.4: 2 × 4 = 8. 1 + 1 = 2 places, so 0.08."
+    },
+    {
+      "id": "decimal-ops/t3/017",
+      "tier": 3,
+      "prompt": "0.2 × 0.6",
+      "choices": [
+        "1.2",
+        "0.12",
+        "12",
+        "0.012"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_PLACES",
+        null,
+        "PLACE_LOST",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.2 × 0.6: 2 × 6 = 12. 1 + 1 = 2 places, so 0.12."
+    },
+    {
+      "id": "decimal-ops/t3/018",
+      "tier": 3,
+      "prompt": "0.7 × 0.9",
+      "choices": [
+        "0.63",
+        "6.3",
+        "63",
+        "0.063"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.7 × 0.9: 7 × 9 = 63. 1 + 1 = 2 places, so 0.63."
+    },
+    {
+      "id": "decimal-ops/t3/019",
+      "tier": 3,
+      "prompt": "0.07 × 0.3",
+      "choices": [
+        "0.021",
+        "0.0021",
+        "0.21",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.07 × 0.3: 7 × 3 = 21. 2 + 1 = 3 places, so 0.021."
+    },
+    {
+      "id": "decimal-ops/t3/020",
+      "tier": 3,
+      "prompt": "0.3 × 0.4",
+      "choices": [
+        "0.012",
+        "0.12",
+        "12",
+        "1.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.3 × 0.4: 3 × 4 = 12. 1 + 1 = 2 places, so 0.12."
+    },
+    {
+      "id": "decimal-ops/t3/021",
+      "tier": 3,
+      "prompt": "0.9 × 0.03",
+      "choices": [
+        "0.27",
+        "0.0027",
+        "0.027",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.9 × 0.03: 9 × 3 = 27. 1 + 2 = 3 places, so 0.027."
+    },
+    {
+      "id": "decimal-ops/t3/022",
+      "tier": 3,
+      "prompt": "0.8 × 0.2",
+      "choices": [
+        "1.6",
+        "16",
+        "0.16",
+        "0.016"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null,
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.8 × 0.2: 8 × 2 = 16. 1 + 1 = 2 places, so 0.16."
+    },
+    {
+      "id": "decimal-ops/t3/023",
+      "tier": 3,
+      "prompt": "0.4 × 0.7",
+      "choices": [
+        "2.8",
+        "0.28",
+        "28",
+        "0.028"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_PLACES",
+        null,
+        "PLACE_LOST",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.4 × 0.7: 4 × 7 = 28. 1 + 1 = 2 places, so 0.28."
+    },
+    {
+      "id": "decimal-ops/t3/024",
+      "tier": 3,
+      "prompt": "0.2 × 0.07",
+      "choices": [
+        "0.014",
+        "14",
+        "0.14",
+        "0.0014"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.2 × 0.07: 2 × 7 = 14. 1 + 2 = 3 places, so 0.014."
+    },
+    {
+      "id": "decimal-ops/t3/025",
+      "tier": 3,
+      "prompt": "0.8 × 0.8",
+      "choices": [
+        "0.64",
+        "6.4",
+        "64",
+        "0.064"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.8 × 0.8: 8 × 8 = 64. 1 + 1 = 2 places, so 0.64."
+    },
+    {
+      "id": "decimal-ops/t3/026",
+      "tier": 3,
+      "prompt": "0.4 × 0.02",
+      "choices": [
+        "0.0008",
+        "0.08",
+        "8",
+        "0.008"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.4 × 0.02: 4 × 2 = 8. 1 + 2 = 3 places, so 0.008."
+    },
+    {
+      "id": "decimal-ops/t3/027",
+      "tier": 3,
+      "prompt": "0.2 × 0.9",
+      "choices": [
+        "0.18",
+        "0.018",
+        "1.8",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.2 × 0.9: 2 × 9 = 18. 1 + 1 = 2 places, so 0.18."
+    },
+    {
+      "id": "decimal-ops/t3/028",
+      "tier": 3,
+      "prompt": "0.7 × 0.4",
+      "choices": [
+        "0.28",
+        "28",
+        "2.8",
+        "0.028"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.7 × 0.4: 7 × 4 = 28. 1 + 1 = 2 places, so 0.28."
+    },
+    {
+      "id": "decimal-ops/t3/029",
+      "tier": 3,
+      "prompt": "0.7 × 0.04",
+      "choices": [
+        "0.0028",
+        "28",
+        "0.28",
+        "0.028"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "PLACE_LOST",
+        "COUNT_PLACES",
+        null
+      ],
+      "explanation": "0.7 × 0.04: 7 × 4 = 28. 1 + 2 = 3 places, so 0.028."
+    },
+    {
+      "id": "decimal-ops/t3/030",
+      "tier": 3,
+      "prompt": "0.06 × 0.7",
+      "choices": [
+        "0.42",
+        "0.0042",
+        "0.042",
+        "42"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.06 × 0.7: 6 × 7 = 42. 2 + 1 = 3 places, so 0.042."
+    },
+    {
+      "id": "decimal-ops/t3/031",
+      "tier": 3,
+      "prompt": "0.7 × 0.3",
+      "choices": [
+        "2.1",
+        "21",
+        "0.21",
+        "0.021"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null,
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.7 × 0.3: 7 × 3 = 21. 1 + 1 = 2 places, so 0.21."
+    },
+    {
+      "id": "decimal-ops/t3/032",
+      "tier": 3,
+      "prompt": "0.6 × 0.4",
+      "choices": [
+        "0.024",
+        "24",
+        "0.24",
+        "2.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "PLACE_LOST",
+        null,
+        "COUNT_PLACES"
+      ],
+      "explanation": "0.6 × 0.4: 6 × 4 = 24. 1 + 1 = 2 places, so 0.24."
+    },
+    {
+      "id": "decimal-ops/t3/033",
+      "tier": 3,
+      "prompt": "0.4 × 0.8",
+      "choices": [
+        "0.032",
+        "3.2",
+        "32",
+        "0.32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.4 × 0.8: 4 × 8 = 32. 1 + 1 = 2 places, so 0.32."
+    },
+    {
+      "id": "decimal-ops/t3/034",
+      "tier": 3,
+      "prompt": "0.8 × 0.6",
+      "choices": [
+        "0.048",
+        "4.8",
+        "0.48",
+        "48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.8 × 0.6: 8 × 6 = 48. 1 + 1 = 2 places, so 0.48."
+    },
+    {
+      "id": "decimal-ops/t3/035",
+      "tier": 3,
+      "prompt": "0.08 × 0.7",
+      "choices": [
+        "0.056",
+        "0.0056",
+        "0.56",
+        "56"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.08 × 0.7: 8 × 7 = 56. 2 + 1 = 3 places, so 0.056."
+    },
+    {
+      "id": "decimal-ops/t3/036",
+      "tier": 3,
+      "prompt": "0.5 × 0.6",
+      "choices": [
+        "30",
+        "0.3",
+        "3",
+        "0.03"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.5 × 0.6: 5 × 6 = 30. 1 + 1 = 2 places, so 0.30 = 0.3."
+    },
+    {
+      "id": "decimal-ops/t3/037",
+      "tier": 3,
+      "prompt": "0.05 × 0.5",
+      "choices": [
+        "0.0025",
+        "0.25",
+        "25",
+        "0.025"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.05 × 0.5: 5 × 5 = 25. 2 + 1 = 3 places, so 0.025."
+    },
+    {
+      "id": "decimal-ops/t3/038",
+      "tier": 3,
+      "prompt": "0.2 × 0.3",
+      "choices": [
+        "0.006",
+        "0.6",
+        "6",
+        "0.06"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.2 × 0.3: 2 × 3 = 6. 1 + 1 = 2 places, so 0.06."
+    },
+    {
+      "id": "decimal-ops/t3/039",
+      "tier": 3,
+      "prompt": "0.9 × 0.05",
+      "choices": [
+        "0.0045",
+        "0.45",
+        "45",
+        "0.045"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOO_MANY_PLACES",
+        "COUNT_PLACES",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.9 × 0.05: 9 × 5 = 45. 1 + 2 = 3 places, so 0.045."
+    },
+    {
+      "id": "decimal-ops/t3/040",
+      "tier": 3,
+      "prompt": "0.3 × 0.5",
+      "choices": [
+        "0.15",
+        "15",
+        "1.5",
+        "0.015"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "COUNT_PLACES",
+        "TOO_MANY_PLACES"
+      ],
+      "explanation": "0.3 × 0.5: 3 × 5 = 15. 1 + 1 = 2 places, so 0.15."
+    },
+    {
+      "id": "decimal-ops/t4/001",
+      "tier": 4,
+      "prompt": "0.32 ÷ 8",
+      "choices": [
+        "0.04",
+        "4",
+        "0.4",
+        "0.004"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "MISSED_PLACE",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.32 ÷ 8: 32 hundredths ÷ 8 = 4 hundredths = 0.04."
+    },
+    {
+      "id": "decimal-ops/t4/002",
+      "tier": 4,
+      "prompt": "2 ÷ 5",
+      "choices": [
+        "2.5",
+        "0.4",
+        "0.04",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BIG_INTO_SMALL",
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "2 ÷ 5: 2 = 20 tenths. 20 tenths ÷ 5 = 4 tenths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t4/003",
+      "tier": 4,
+      "prompt": "3 ÷ 5",
+      "choices": [
+        "0.6",
+        "0.7",
+        "0.06",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "3 ÷ 5: 3 = 30 tenths. 30 tenths ÷ 5 = 6 tenths = 0.6."
+    },
+    {
+      "id": "decimal-ops/t4/004",
+      "tier": 4,
+      "prompt": "0.6 ÷ 3",
+      "choices": [
+        "0.1",
+        "0.02",
+        "0.2",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.6 ÷ 3: 6 tenths ÷ 3 = 2 tenths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t4/005",
+      "tier": 4,
+      "prompt": "3.2 ÷ 8",
+      "choices": [
+        "0.4",
+        "0.5",
+        "4",
+        "0.04"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PLACE_LOST",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "3.2 ÷ 8: 32 tenths ÷ 8 = 4 tenths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t4/006",
+      "tier": 4,
+      "prompt": "1 ÷ 2",
+      "choices": [
+        "0.05",
+        "0.5",
+        "5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST",
+        "BIG_INTO_SMALL"
+      ],
+      "explanation": "1 ÷ 2: 1 = 10 tenths. 10 tenths ÷ 2 = 5 tenths = 0.5."
+    },
+    {
+      "id": "decimal-ops/t4/007",
+      "tier": 4,
+      "prompt": "0.1 ÷ 5",
+      "choices": [
+        "0.002",
+        "0.02",
+        "0.2",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.1 ÷ 5: 0.1 = 10 hundredths. 10 hundredths ÷ 5 = 2 hundredths = 0.02."
+    },
+    {
+      "id": "decimal-ops/t4/008",
+      "tier": 4,
+      "prompt": "2.1 ÷ 3",
+      "choices": [
+        "0.8",
+        "0.07",
+        "0.7",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "2.1 ÷ 3: 21 tenths ÷ 3 = 7 tenths = 0.7."
+    },
+    {
+      "id": "decimal-ops/t4/009",
+      "tier": 4,
+      "prompt": "4 ÷ 8",
+      "choices": [
+        "5",
+        "0.5",
+        "2",
+        "0.05"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "BIG_INTO_SMALL",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "4 ÷ 8: 4 = 40 tenths. 40 tenths ÷ 8 = 5 tenths = 0.5."
+    },
+    {
+      "id": "decimal-ops/t4/010",
+      "tier": 4,
+      "prompt": "1.4 ÷ 7",
+      "choices": [
+        "0.02",
+        "0.3",
+        "2",
+        "0.2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "ARITH",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "1.4 ÷ 7: 14 tenths ÷ 7 = 2 tenths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t4/011",
+      "tier": 4,
+      "prompt": "4 ÷ 5",
+      "choices": [
+        "0.08",
+        "1.25",
+        "8",
+        "0.8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "BIG_INTO_SMALL",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "4 ÷ 5: 4 = 40 tenths. 40 tenths ÷ 5 = 8 tenths = 0.8."
+    },
+    {
+      "id": "decimal-ops/t4/012",
+      "tier": 4,
+      "prompt": "2.4 ÷ 8",
+      "choices": [
+        "0.03",
+        "3",
+        "0.3",
+        "0.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2.4 ÷ 8: 24 tenths ÷ 8 = 3 tenths = 0.3."
+    },
+    {
+      "id": "decimal-ops/t4/013",
+      "tier": 4,
+      "prompt": "2.5 ÷ 5",
+      "choices": [
+        "5",
+        "0.05",
+        "0.5",
+        "0.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2.5 ÷ 5: 25 tenths ÷ 5 = 5 tenths = 0.5."
+    },
+    {
+      "id": "decimal-ops/t4/014",
+      "tier": 4,
+      "prompt": "3.6 ÷ 4",
+      "choices": [
+        "0.9",
+        "9",
+        "1",
+        "0.09"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "3.6 ÷ 4: 36 tenths ÷ 4 = 9 tenths = 0.9."
+    },
+    {
+      "id": "decimal-ops/t4/015",
+      "tier": 4,
+      "prompt": "0.21 ÷ 7",
+      "choices": [
+        "0.03",
+        "0.003",
+        "3",
+        "0.3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        "MISSED_PLACE"
+      ],
+      "explanation": "0.21 ÷ 7: 21 hundredths ÷ 7 = 3 hundredths = 0.03."
+    },
+    {
+      "id": "decimal-ops/t4/016",
+      "tier": 4,
+      "prompt": "0.12 ÷ 6",
+      "choices": [
+        "0.02",
+        "2",
+        "0.2",
+        "0.002"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "MISSED_PLACE",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.12 ÷ 6: 12 hundredths ÷ 6 = 2 hundredths = 0.02."
+    },
+    {
+      "id": "decimal-ops/t4/017",
+      "tier": 4,
+      "prompt": "0.16 ÷ 2",
+      "choices": [
+        "8",
+        "0.008",
+        "0.8",
+        "0.08"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        "MISSED_PLACE",
+        null
+      ],
+      "explanation": "0.16 ÷ 2: 16 hundredths ÷ 2 = 8 hundredths = 0.08."
+    },
+    {
+      "id": "decimal-ops/t4/018",
+      "tier": 4,
+      "prompt": "0.04 ÷ 2",
+      "choices": [
+        "0.02",
+        "0.002",
+        "0.2",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_PLACE",
+        "MISSED_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.04 ÷ 2: 4 hundredths ÷ 2 = 2 hundredths = 0.02."
+    },
+    {
+      "id": "decimal-ops/t4/019",
+      "tier": 4,
+      "prompt": "5.6 ÷ 8",
+      "choices": [
+        "0.6",
+        "7",
+        "0.07",
+        "0.7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "5.6 ÷ 8: 56 tenths ÷ 8 = 7 tenths = 0.7."
+    },
+    {
+      "id": "decimal-ops/t4/020",
+      "tier": 4,
+      "prompt": "1.8 ÷ 3",
+      "choices": [
+        "0.06",
+        "0.6",
+        "6",
+        "0.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST",
+        "ARITH"
+      ],
+      "explanation": "1.8 ÷ 3: 18 tenths ÷ 3 = 6 tenths = 0.6."
+    },
+    {
+      "id": "decimal-ops/t4/021",
+      "tier": 4,
+      "prompt": "8.1 ÷ 9",
+      "choices": [
+        "0.09",
+        "0.9",
+        "9",
+        "0.8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST",
+        "ARITH"
+      ],
+      "explanation": "8.1 ÷ 9: 81 tenths ÷ 9 = 9 tenths = 0.9."
+    },
+    {
+      "id": "decimal-ops/t4/022",
+      "tier": 4,
+      "prompt": "2 ÷ 4",
+      "choices": [
+        "5",
+        "0.5",
+        "0.05",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE",
+        "BIG_INTO_SMALL"
+      ],
+      "explanation": "2 ÷ 4: 2 = 20 tenths. 20 tenths ÷ 4 = 5 tenths = 0.5."
+    },
+    {
+      "id": "decimal-ops/t4/023",
+      "tier": 4,
+      "prompt": "2.4 ÷ 6",
+      "choices": [
+        "0.04",
+        "4",
+        "0.4",
+        "0.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2.4 ÷ 6: 24 tenths ÷ 6 = 4 tenths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t4/024",
+      "tier": 4,
+      "prompt": "1.5 ÷ 5",
+      "choices": [
+        "3",
+        "0.4",
+        "0.03",
+        "0.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "ARITH",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "1.5 ÷ 5: 15 tenths ÷ 5 = 3 tenths = 0.3."
+    },
+    {
+      "id": "decimal-ops/t4/025",
+      "tier": 4,
+      "prompt": "3.6 ÷ 6",
+      "choices": [
+        "0.6",
+        "0.06",
+        "0.7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_PLACE",
+        "ARITH",
+        "PLACE_LOST"
+      ],
+      "explanation": "3.6 ÷ 6: 36 tenths ÷ 6 = 6 tenths = 0.6."
+    },
+    {
+      "id": "decimal-ops/t4/026",
+      "tier": 4,
+      "prompt": "0.8 ÷ 4",
+      "choices": [
+        "2",
+        "0.02",
+        "0.2",
+        "0.1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0.8 ÷ 4: 8 tenths ÷ 4 = 2 tenths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t4/027",
+      "tier": 4,
+      "prompt": "0.25 ÷ 5",
+      "choices": [
+        "0.005",
+        "0.05",
+        "0.5",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.25 ÷ 5: 25 hundredths ÷ 5 = 5 hundredths = 0.05."
+    },
+    {
+      "id": "decimal-ops/t4/028",
+      "tier": 4,
+      "prompt": "4.8 ÷ 6",
+      "choices": [
+        "0.08",
+        "8",
+        "0.8",
+        "0.7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4.8 ÷ 6: 48 tenths ÷ 6 = 8 tenths = 0.8."
+    },
+    {
+      "id": "decimal-ops/t4/029",
+      "tier": 4,
+      "prompt": "0.08 ÷ 2",
+      "choices": [
+        "4",
+        "0.004",
+        "0.4",
+        "0.04"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        "MISSED_PLACE",
+        null
+      ],
+      "explanation": "0.08 ÷ 2: 8 hundredths ÷ 2 = 4 hundredths = 0.04."
+    },
+    {
+      "id": "decimal-ops/t4/030",
+      "tier": 4,
+      "prompt": "0.24 ÷ 3",
+      "choices": [
+        "0.8",
+        "0.008",
+        "0.08",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        null,
+        "PLACE_LOST"
+      ],
+      "explanation": "0.24 ÷ 3: 24 hundredths ÷ 3 = 8 hundredths = 0.08."
+    },
+    {
+      "id": "decimal-ops/t4/031",
+      "tier": 4,
+      "prompt": "3 ÷ 6",
+      "choices": [
+        "5",
+        "0.05",
+        "2",
+        "0.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        "BIG_INTO_SMALL",
+        null
+      ],
+      "explanation": "3 ÷ 6: 3 = 30 tenths. 30 tenths ÷ 6 = 5 tenths = 0.5."
+    },
+    {
+      "id": "decimal-ops/t4/032",
+      "tier": 4,
+      "prompt": "0.56 ÷ 8",
+      "choices": [
+        "0.7",
+        "0.07",
+        "0.007",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSED_PLACE",
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.56 ÷ 8: 56 hundredths ÷ 8 = 7 hundredths = 0.07."
+    },
+    {
+      "id": "decimal-ops/t4/033",
+      "tier": 4,
+      "prompt": "0.18 ÷ 3",
+      "choices": [
+        "0.6",
+        "0.06",
+        "0.006",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSED_PLACE",
+        null,
+        "EXTRA_PLACE",
+        "PLACE_LOST"
+      ],
+      "explanation": "0.18 ÷ 3: 18 hundredths ÷ 3 = 6 hundredths = 0.06."
+    },
+    {
+      "id": "decimal-ops/t4/034",
+      "tier": 4,
+      "prompt": "0.09 ÷ 3",
+      "choices": [
+        "0.3",
+        "3",
+        "0.03",
+        "0.003"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "PLACE_LOST",
+        null,
+        "EXTRA_PLACE"
+      ],
+      "explanation": "0.09 ÷ 3: 9 hundredths ÷ 3 = 3 hundredths = 0.03."
+    },
+    {
+      "id": "decimal-ops/t4/035",
+      "tier": 4,
+      "prompt": "3.6 ÷ 9",
+      "choices": [
+        "0.4",
+        "4",
+        "0.04",
+        "0.3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        "ARITH"
+      ],
+      "explanation": "3.6 ÷ 9: 36 tenths ÷ 9 = 4 tenths = 0.4."
+    },
+    {
+      "id": "decimal-ops/t4/036",
+      "tier": 4,
+      "prompt": "1 ÷ 5",
+      "choices": [
+        "0.2",
+        "5",
+        "2",
+        "0.02"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BIG_INTO_SMALL",
+        "PLACE_LOST",
+        "EXTRA_PLACE"
+      ],
+      "explanation": "1 ÷ 5: 1 = 10 tenths. 10 tenths ÷ 5 = 2 tenths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t4/037",
+      "tier": 4,
+      "prompt": "1.2 ÷ 6",
+      "choices": [
+        "0.02",
+        "2",
+        "0.3",
+        "0.2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        "ARITH",
+        null
+      ],
+      "explanation": "1.2 ÷ 6: 12 tenths ÷ 6 = 2 tenths = 0.2."
+    },
+    {
+      "id": "decimal-ops/t4/038",
+      "tier": 4,
+      "prompt": "0.18 ÷ 6",
+      "choices": [
+        "0.3",
+        "0.003",
+        "3",
+        "0.03"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_PLACE",
+        "EXTRA_PLACE",
+        "PLACE_LOST",
+        null
+      ],
+      "explanation": "0.18 ÷ 6: 18 hundredths ÷ 6 = 3 hundredths = 0.03."
+    },
+    {
+      "id": "decimal-ops/t4/039",
+      "tier": 4,
+      "prompt": "0.24 ÷ 6",
+      "choices": [
+        "4",
+        "0.004",
+        "0.04",
+        "0.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null,
+        "MISSED_PLACE"
+      ],
+      "explanation": "0.24 ÷ 6: 24 hundredths ÷ 6 = 4 hundredths = 0.04."
+    },
+    {
+      "id": "decimal-ops/t4/040",
+      "tier": 4,
+      "prompt": "2.1 ÷ 7",
+      "choices": [
+        "0.4",
+        "3",
+        "0.03",
+        "0.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLACE_LOST",
+        "EXTRA_PLACE",
+        null
+      ],
+      "explanation": "2.1 ÷ 7: 21 tenths ÷ 7 = 3 tenths = 0.3."
+    },
+    {
+      "id": "decimal-ops/t5/001",
+      "tier": 5,
+      "prompt": "0.12 ÷ 0.03",
+      "choices": [
+        "0.04",
+        "4",
+        "400",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE",
+        "ARITH"
+      ],
+      "explanation": "0.12 ÷ 0.03: move both points 2 places: 12 ÷ 3 = 4."
+    },
+    {
+      "id": "decimal-ops/t5/002",
+      "tier": 5,
+      "prompt": "0.54 ÷ 0.9",
+      "choices": [
+        "0.6",
+        "0.06",
+        "6",
+        "0.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH"
+      ],
+      "explanation": "0.54 ÷ 0.9: move both points 1 place: 5.4 ÷ 9 = 0.6."
+    },
+    {
+      "id": "decimal-ops/t5/003",
+      "tier": 5,
+      "prompt": "Cut 0.4 m of wire into 0.2 m pieces. How many?",
+      "choices": [
+        "2",
+        "0.2",
+        "20",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH"
+      ],
+      "explanation": "0.4 ÷ 0.2: move both points 1 place: 4 ÷ 2 = 2 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/004",
+      "tier": 5,
+      "prompt": "3.6 ÷ 0.4",
+      "choices": [
+        "1.44",
+        "90",
+        "9",
+        "0.9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_FOR_DIV",
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "3.6 ÷ 0.4: move both points 1 place: 36 ÷ 4 = 9."
+    },
+    {
+      "id": "decimal-ops/t5/005",
+      "tier": 5,
+      "prompt": "1.8 ÷ 0.3",
+      "choices": [
+        "0.54",
+        "6",
+        "0.6",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_FOR_DIV",
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "1.8 ÷ 0.3: move both points 1 place: 18 ÷ 3 = 6."
+    },
+    {
+      "id": "decimal-ops/t5/006",
+      "tier": 5,
+      "prompt": "Cookies cost $0.60 each. How many for $1.20?",
+      "choices": [
+        "2",
+        "0.02",
+        "3",
+        "200"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$1.20 ÷ $0.60: in cents, 120 ÷ 60 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/007",
+      "tier": 5,
+      "prompt": "Cut 2 m of pipe into 0.4 m pieces. How many?",
+      "choices": [
+        "50",
+        "6",
+        "0.5",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null
+      ],
+      "explanation": "2 ÷ 0.4: move both points 1 place: 20 ÷ 4 = 5 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/008",
+      "tier": 5,
+      "prompt": "1.2 ÷ 0.4",
+      "choices": [
+        "0.3",
+        "30",
+        "0.48",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV",
+        null
+      ],
+      "explanation": "1.2 ÷ 0.4: move both points 1 place: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "decimal-ops/t5/009",
+      "tier": 5,
+      "prompt": "0.08 ÷ 0.2",
+      "choices": [
+        "0.3",
+        "0.4",
+        "0.04",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "0.08 ÷ 0.2: move both points 1 place: 0.8 ÷ 2 = 0.4."
+    },
+    {
+      "id": "decimal-ops/t5/010",
+      "tier": 5,
+      "prompt": "Cut 5.4 m of wire into 0.6 m pieces. How many?",
+      "choices": [
+        "90",
+        "10",
+        "0.9",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null
+      ],
+      "explanation": "5.4 ÷ 0.6: move both points 1 place: 54 ÷ 6 = 9 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/011",
+      "tier": 5,
+      "prompt": "Pencils cost $0.70 each. How many for $2.80?",
+      "choices": [
+        "3",
+        "400",
+        "4",
+        "0.04"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$2.80 ÷ $0.70: in cents, 280 ÷ 70 = 4."
+    },
+    {
+      "id": "decimal-ops/t5/012",
+      "tier": 5,
+      "prompt": "1.2 ÷ 0.6",
+      "choices": [
+        "0.2",
+        "0.72",
+        "2",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "1.2 ÷ 0.6: move both points 1 place: 12 ÷ 6 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/013",
+      "tier": 5,
+      "prompt": "Cut 0.6 m of wire into 0.3 m pieces. How many?",
+      "choices": [
+        "20",
+        "1",
+        "0.2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null
+      ],
+      "explanation": "0.6 ÷ 0.3: move both points 1 place: 6 ÷ 3 = 2 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/014",
+      "tier": 5,
+      "prompt": "0.15 ÷ 0.03",
+      "choices": [
+        "500",
+        "5",
+        "4",
+        "0.05"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        null,
+        "ARITH",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "0.15 ÷ 0.03: move both points 2 places: 15 ÷ 3 = 5."
+    },
+    {
+      "id": "decimal-ops/t5/015",
+      "tier": 5,
+      "prompt": "0.4 ÷ 0.2",
+      "choices": [
+        "2",
+        "20",
+        "0.2",
+        "0.08"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV"
+      ],
+      "explanation": "0.4 ÷ 0.2: move both points 1 place: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/016",
+      "tier": 5,
+      "prompt": "0.72 ÷ 0.9",
+      "choices": [
+        "8",
+        "0.08",
+        "0.8",
+        "0.7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0.72 ÷ 0.9: move both points 1 place: 7.2 ÷ 9 = 0.8."
+    },
+    {
+      "id": "decimal-ops/t5/017",
+      "tier": 5,
+      "prompt": "1 ÷ 0.2",
+      "choices": [
+        "0.5",
+        "0.2",
+        "50",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV",
+        "SHIFT_ONE_SIDE",
+        null
+      ],
+      "explanation": "1 ÷ 0.2: move both points 1 place: 10 ÷ 2 = 5."
+    },
+    {
+      "id": "decimal-ops/t5/018",
+      "tier": 5,
+      "prompt": "Apples cost $0.20 each. How many for $0.40?",
+      "choices": [
+        "3",
+        "2",
+        "0.02",
+        "200"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$0.40 ÷ $0.20: in cents, 40 ÷ 20 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/019",
+      "tier": 5,
+      "prompt": "Pens cost $0.60 each. How many for $3.60?",
+      "choices": [
+        "600",
+        "0.06",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null
+      ],
+      "explanation": "$3.60 ÷ $0.60: in cents, 360 ÷ 60 = 6."
+    },
+    {
+      "id": "decimal-ops/t5/020",
+      "tier": 5,
+      "prompt": "2.7 ÷ 0.3",
+      "choices": [
+        "9",
+        "0.81",
+        "90",
+        "0.9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_FOR_DIV",
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "2.7 ÷ 0.3: move both points 1 place: 27 ÷ 3 = 9."
+    },
+    {
+      "id": "decimal-ops/t5/021",
+      "tier": 5,
+      "prompt": "0.06 ÷ 0.2",
+      "choices": [
+        "3",
+        "0.3",
+        "0.03",
+        "0.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE",
+        "ARITH"
+      ],
+      "explanation": "0.06 ÷ 0.2: move both points 1 place: 0.6 ÷ 2 = 0.3."
+    },
+    {
+      "id": "decimal-ops/t5/022",
+      "tier": 5,
+      "prompt": "Cut 3 m of wire into 0.6 m pieces. How many?",
+      "choices": [
+        "4",
+        "5",
+        "50",
+        "0.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "3 ÷ 0.6: move both points 1 place: 30 ÷ 6 = 5 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/023",
+      "tier": 5,
+      "prompt": "0.45 ÷ 0.5",
+      "choices": [
+        "9",
+        "0.09",
+        "1",
+        "0.9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null
+      ],
+      "explanation": "0.45 ÷ 0.5: move both points 1 place: 4.5 ÷ 5 = 0.9."
+    },
+    {
+      "id": "decimal-ops/t5/024",
+      "tier": 5,
+      "prompt": "2.7 ÷ 0.9",
+      "choices": [
+        "0.3",
+        "2.43",
+        "3",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "2.7 ÷ 0.9: move both points 1 place: 27 ÷ 9 = 3."
+    },
+    {
+      "id": "decimal-ops/t5/025",
+      "tier": 5,
+      "prompt": "Cut 1.2 m of ribbon into 0.4 m pieces. How many?",
+      "choices": [
+        "0.3",
+        "4",
+        "3",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "1.2 ÷ 0.4: move both points 1 place: 12 ÷ 4 = 3 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/026",
+      "tier": 5,
+      "prompt": "Pencils cost $0.50 each. How many for $4.00?",
+      "choices": [
+        "800",
+        "9",
+        "8",
+        "0.08"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$4.00 ÷ $0.50: in cents, 400 ÷ 50 = 8."
+    },
+    {
+      "id": "decimal-ops/t5/027",
+      "tier": 5,
+      "prompt": "0.18 ÷ 0.9",
+      "choices": [
+        "2",
+        "0.2",
+        "0.3",
+        "0.02"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        null,
+        "ARITH",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "0.18 ÷ 0.9: move both points 1 place: 1.8 ÷ 9 = 0.2."
+    },
+    {
+      "id": "decimal-ops/t5/028",
+      "tier": 5,
+      "prompt": "0.02 ÷ 0.04",
+      "choices": [
+        "0.6",
+        "0.5",
+        "50",
+        "0.005"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "0.02 ÷ 0.04: move both points 2 places: 2 ÷ 4 = 0.5."
+    },
+    {
+      "id": "decimal-ops/t5/029",
+      "tier": 5,
+      "prompt": "Cut 3.6 m of rope into 0.6 m pieces. How many?",
+      "choices": [
+        "6",
+        "7",
+        "60",
+        "0.6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "3.6 ÷ 0.6: move both points 1 place: 36 ÷ 6 = 6 pieces."
+    },
+    {
+      "id": "decimal-ops/t5/030",
+      "tier": 5,
+      "prompt": "0.8 ÷ 0.4",
+      "choices": [
+        "20",
+        "0.2",
+        "0.32",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV",
+        null
+      ],
+      "explanation": "0.8 ÷ 0.4: move both points 1 place: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/031",
+      "tier": 5,
+      "prompt": "1 ÷ 0.5",
+      "choices": [
+        "2",
+        "0.5",
+        "20",
+        "0.2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_FOR_DIV",
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "1 ÷ 0.5: move both points 1 place: 10 ÷ 5 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/032",
+      "tier": 5,
+      "prompt": "8.1 ÷ 0.9",
+      "choices": [
+        "9",
+        "90",
+        "0.9",
+        "7.29"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "MULT_FOR_DIV"
+      ],
+      "explanation": "8.1 ÷ 0.9: move both points 1 place: 81 ÷ 9 = 9."
+    },
+    {
+      "id": "decimal-ops/t5/033",
+      "tier": 5,
+      "prompt": "0.16 ÷ 0.08",
+      "choices": [
+        "2",
+        "0.02",
+        "200",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH"
+      ],
+      "explanation": "0.16 ÷ 0.08: move both points 2 places: 16 ÷ 8 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/034",
+      "tier": 5,
+      "prompt": "3.6 ÷ 0.9",
+      "choices": [
+        "4",
+        "3.24",
+        "0.4",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_FOR_DIV",
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "3.6 ÷ 0.9: move both points 1 place: 36 ÷ 9 = 4."
+    },
+    {
+      "id": "decimal-ops/t5/035",
+      "tier": 5,
+      "prompt": "0.48 ÷ 0.8",
+      "choices": [
+        "0.5",
+        "6",
+        "0.6",
+        "0.06"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "0.48 ÷ 0.8: move both points 1 place: 4.8 ÷ 8 = 0.6."
+    },
+    {
+      "id": "decimal-ops/t5/036",
+      "tier": 5,
+      "prompt": "0.56 ÷ 0.08",
+      "choices": [
+        "700",
+        "8",
+        "0.07",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null
+      ],
+      "explanation": "0.56 ÷ 0.08: move both points 2 places: 56 ÷ 8 = 7."
+    },
+    {
+      "id": "decimal-ops/t5/037",
+      "tier": 5,
+      "prompt": "Tickets cost $0.60 each. How many for $1.20?",
+      "choices": [
+        "1",
+        "200",
+        "2",
+        "0.02"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SHIFT_ONE_SIDE",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$1.20 ÷ $0.60: in cents, 120 ÷ 60 = 2."
+    },
+    {
+      "id": "decimal-ops/t5/038",
+      "tier": 5,
+      "prompt": "Erasers cost $0.90 each. How many for $4.50?",
+      "choices": [
+        "500",
+        "0.05",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null
+      ],
+      "explanation": "$4.50 ÷ $0.90: in cents, 450 ÷ 90 = 5."
+    },
+    {
+      "id": "decimal-ops/t5/039",
+      "tier": 5,
+      "prompt": "Apples cost $0.40 each. How many for $2.00?",
+      "choices": [
+        "500",
+        "5",
+        "6",
+        "0.05"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        null,
+        "ARITH",
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$2.00 ÷ $0.40: in cents, 200 ÷ 40 = 5."
+    },
+    {
+      "id": "decimal-ops/t5/040",
+      "tier": 5,
+      "prompt": "Erasers cost $0.30 each. How many for $1.50?",
+      "choices": [
+        "500",
+        "6",
+        "5",
+        "0.05"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SHIFT_ONE_SIDE",
+        "ARITH",
+        null,
+        "SHIFT_ONE_SIDE"
+      ],
+      "explanation": "$1.50 ÷ $0.30: in cents, 150 ÷ 30 = 5."
+    }
+  ]
+}

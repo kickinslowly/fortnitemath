@@ -80,6 +80,8 @@ fnm_hud := class:
     PickerHeading : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 60.0, DefaultJustification := text_justification.Center}
     PickerStep : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
     PickerButtons : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+    # A step with more buttons than this shows them in two columns.
+    PickerColumnAfter : int = 5
     # Under the finish board, on its own root (shown with the board when the slot holds more than one skill).
     # (Its text is set in Attach: a localized call can't initialise a field.)
     ChangeSkillButton : button_regular = button_regular{}
@@ -452,11 +454,30 @@ fnm_hud := class:
         ClearPickerButtons()
         PickerStep.SetText(FnmText(Step))
         var Made : []widget = array{}
+        var Buttons : []widget = array{}
         for (K -> Label : Labels, Index := Indices[K]):
             Button := MakeButton(Kind, Label)
             Button.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := Kind, Index := Index}.OnClick)
-            PickerButtons.AddWidget(stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}})
-            set Made += array{Button}
+            set Buttons += array{Button}
+        # More than PickerColumnAfter buttons go in two columns (left column first, top to bottom): ten skills in one
+        # column ran off a 1080p screen.
+        if (Buttons.Length > PickerColumnAfter):
+            Left : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+            Right : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+            for (K -> Button : Buttons):
+                Slot := stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}}
+                if (2 * K < Buttons.Length) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
+            Columns : stack_box = stack_box:
+                Orientation := orientation.Horizontal
+                Slots := array:
+                    stack_box_slot{Widget := Left, VerticalAlignment := vertical_alignment.Top, Padding := margin{Right := 12.0}}
+                    stack_box_slot{Widget := Right, VerticalAlignment := vertical_alignment.Top, Padding := margin{Left := 12.0}}
+            PickerButtons.AddWidget(stack_box_slot{Widget := Columns, HorizontalAlignment := horizontal_alignment.Center})
+            set Made += array{Columns}
+        else:
+            for (Button : Buttons):
+                PickerButtons.AddWidget(stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}})
+                set Made += array{Button}
         if (WithBack?):
             Back := button_quiet{DefaultText := FnmText("Back")}
             Back.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Back, Index := 0}.OnClick)
@@ -467,7 +488,7 @@ fnm_hud := class:
             if (not PickerShown?):
                 PlayerUI.AddWidget(PickerRoot, player_ui_slot{ZOrder := 5, InputMode := ui_input_mode.All})
                 set PickerShown = true
-            if (First := Made[0]):
+            if (First := Buttons[0]):
                 PlayerUI.SetFocus(First)
 
     # Grade buttons are loud, skill buttons regular.

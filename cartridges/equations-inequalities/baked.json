@@ -1,0 +1,3893 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "equations-inequalities",
+  "version": "1.0.0",
+  "title": "Equations & Inequalities",
+  "subtitle": "Solve One Step",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.EE.B.5",
+    "CCSS.MATH.CONTENT.6.EE.B.6",
+    "CCSS.MATH.CONTENT.6.EE.B.7",
+    "CCSS.MATH.CONTENT.6.EE.B.8"
+  ],
+  "seed": 20261017,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a, tightened: every equation is one step with whole numbers. Literals under + and − are 1–20, so a + − solution is a whole number 1–40 (at most a sum of two such literals). × and ÷ are times-table facts: factors, divisors and quotients 2–10, so a × ÷ solution is a whole number 2–100. Inequality boundaries 1–20; a choice plugged into x + a is ≤ 20, and one plugged into ax is 1–10, so every check is a fact. No negatives anywhere.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Is It a Solution?",
+      "description": "Plug a value in: which one makes the equation true?"
+    },
+    {
+      "tier": 2,
+      "name": "Add & Subtract",
+      "description": "Solve x + a = b and x − a = b by undoing the step."
+    },
+    {
+      "tier": 3,
+      "name": "Multiply & Divide",
+      "description": "Solve ax = b and x ÷ a = b by undoing the step."
+    },
+    {
+      "tier": 4,
+      "name": "Write the Equation",
+      "description": "Turn a short story into a one-step equation."
+    },
+    {
+      "tier": 5,
+      "name": "Inequalities",
+      "description": "Write x > c or x ≤ c from words, and pick a value that makes one true."
+    }
+  ],
+  "misconceptions": {
+    "SAME_OP": {
+      "student": "Undo the step with the opposite: + undoes −, × undoes ÷.",
+      "teacher": "Applies the equation's own operation to the other side instead of its inverse (x + 7 = 15 gives 22; 4x = 28 gives 112)."
+    },
+    "VALUE_SHOWN": {
+      "student": "That number is already in the equation. Plug your pick in: is it true?",
+      "teacher": "Picks a number printed in the equation instead of the value of the variable."
+    },
+    "SUBTRACTED": {
+      "student": "4x means 4 times x. Undo times by dividing, not subtracting.",
+      "teacher": "Reads ax = b as x + a = b and subtracts: 4x = 28 gives 24."
+    },
+    "ADDED": {
+      "student": "x ÷ 5 means x split by 5. Undo divide by multiplying, not adding.",
+      "teacher": "Reads x ÷ a = b as x − a = b and adds: x ÷ 5 = 6 gives 11."
+    },
+    "WRONG_OP": {
+      "student": "Right numbers, wrong operation. What happens to x in the story?",
+      "teacher": "Writes the story's numbers with the wrong operation (got 6 more gives x − 6 = 15)."
+    },
+    "SWAPPED": {
+      "student": "Numbers in the wrong spots. Match each number to its job in the story.",
+      "teacher": "Swaps the total with the change or group size (x + 15 = 6; 20x = 4)."
+    },
+    "KEYWORD": {
+      "student": "Key words can trick you. Tell the story with x, then write it.",
+      "teacher": "Combines the two printed numbers by a key word (\"in all\" gives x = 4 × 20) instead of modelling the story."
+    },
+    "BOUNDARY": {
+      "student": "< and > leave out the number itself: 4 < 4 is false.",
+      "teacher": "Treats a strict inequality as inclusive and picks the boundary value."
+    },
+    "WRONG_SIDE": {
+      "student": "Plug it in: the statement comes out false. Pick from the other side.",
+      "teacher": "Picks a value on the wrong side of the boundary (reads < as >, or solves the inequality backwards)."
+    },
+    "FLIPPED_SIGN": {
+      "student": "Check the direction. Read from the letter: p ≥ 12 means p is 12 or more.",
+      "teacher": "Reverses the inequality's direction (at least 12 gives p ≤ 12; 9 > n read as n > 9)."
+    },
+    "STRICT_VS_INCLUSIVE": {
+      "student": "At least / at most include the number (≥ ≤). More / fewer than do not.",
+      "teacher": "Confuses strict and inclusive inequalities (at least 12 gives p > 12)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "equations-inequalities/t1/001",
+      "tier": 1,
+      "prompt": "Which makes x ÷ 2 = 5 true?",
+      "choices": [
+        "5",
+        "8",
+        "7",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ARITH",
+        "ADDED",
+        null
+      ],
+      "explanation": "Try 10: 10 ÷ 2 = 5. True, so x = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/002",
+      "tier": 1,
+      "prompt": "Which makes n + 9 = 10 true?",
+      "choices": [
+        "9",
+        "10",
+        "1",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Try 1: 1 + 9 = 10. True, so n = 1 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/003",
+      "tier": 1,
+      "prompt": "Which makes x + 10 = 11 true?",
+      "choices": [
+        "10",
+        "1",
+        "11",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Try 1: 1 + 10 = 11. True, so x = 1 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/004",
+      "tier": 1,
+      "prompt": "Which makes 2m = 4 true?",
+      "choices": [
+        "4",
+        "8",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Try 2: 2 × 2 = 4. True, so m = 2 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/005",
+      "tier": 1,
+      "prompt": "Which makes x ÷ 2 = 3 true?",
+      "choices": [
+        "5",
+        "6",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Try 6: 6 ÷ 2 = 3. True, so x = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/006",
+      "tier": 1,
+      "prompt": "Which makes m + 6 = 8 true?",
+      "choices": [
+        "14",
+        "2",
+        "8",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 2: 2 + 6 = 8. True, so m = 2 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/007",
+      "tier": 1,
+      "prompt": "Which makes m + 7 = 11 true?",
+      "choices": [
+        "7",
+        "11",
+        "18",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Try 4: 4 + 7 = 11. True, so m = 4 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/008",
+      "tier": 1,
+      "prompt": "Which makes m − 7 = 4 true?",
+      "choices": [
+        "7",
+        "11",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Try 11: 11 − 7 = 4. True, so m = 11 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/009",
+      "tier": 1,
+      "prompt": "Which makes 3n = 18 true?",
+      "choices": [
+        "15",
+        "54",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 6: 3 × 6 = 18. True, so n = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/010",
+      "tier": 1,
+      "prompt": "Which makes m + 6 = 7 true?",
+      "choices": [
+        "7",
+        "13",
+        "1",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 1: 1 + 6 = 7. True, so m = 1 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/011",
+      "tier": 1,
+      "prompt": "Which makes x ÷ 5 = 2 true?",
+      "choices": [
+        "9",
+        "2",
+        "7",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "VALUE_SHOWN",
+        "ADDED",
+        null
+      ],
+      "explanation": "Try 10: 10 ÷ 5 = 2. True, so x = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/012",
+      "tier": 1,
+      "prompt": "Which makes 4k = 20 true?",
+      "choices": [
+        "16",
+        "20",
+        "5",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Try 5: 4 × 5 = 20. True, so k = 5 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/013",
+      "tier": 1,
+      "prompt": "Which makes 2m = 8 true?",
+      "choices": [
+        "16",
+        "6",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "SUBTRACTED",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Try 4: 2 × 4 = 8. True, so m = 4 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/014",
+      "tier": 1,
+      "prompt": "Which makes 5m = 30 true?",
+      "choices": [
+        "6",
+        "150",
+        "30",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "SUBTRACTED"
+      ],
+      "explanation": "Try 6: 5 × 6 = 30. True, so m = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/015",
+      "tier": 1,
+      "prompt": "Which makes m − 9 = 3 true?",
+      "choices": [
+        "12",
+        "3",
+        "9",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Try 12: 12 − 9 = 3. True, so m = 12 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/016",
+      "tier": 1,
+      "prompt": "Which makes k − 2 = 8 true?",
+      "choices": [
+        "10",
+        "6",
+        "8",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 10: 10 − 2 = 8. True, so k = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/017",
+      "tier": 1,
+      "prompt": "Which makes x − 2 = 10 true?",
+      "choices": [
+        "12",
+        "8",
+        "10",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 12: 12 − 2 = 10. True, so x = 12 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/018",
+      "tier": 1,
+      "prompt": "Which makes y + 6 = 9 true?",
+      "choices": [
+        "15",
+        "9",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 3: 3 + 6 = 9. True, so y = 3 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/019",
+      "tier": 1,
+      "prompt": "Which makes m − 8 = 4 true?",
+      "choices": [
+        "11",
+        "4",
+        "12",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 12: 12 − 8 = 4. True, so m = 12 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/020",
+      "tier": 1,
+      "prompt": "Which makes x − 8 = 4 true?",
+      "choices": [
+        "12",
+        "4",
+        "8",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Try 12: 12 − 8 = 4. True, so x = 12 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/021",
+      "tier": 1,
+      "prompt": "Which makes m + 8 = 12 true?",
+      "choices": [
+        "4",
+        "20",
+        "12",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 4: 4 + 8 = 12. True, so m = 4 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/022",
+      "tier": 1,
+      "prompt": "Which makes y − 8 = 2 true?",
+      "choices": [
+        "12",
+        "8",
+        "2",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Try 10: 10 − 8 = 2. True, so y = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/023",
+      "tier": 1,
+      "prompt": "Which makes k ÷ 3 = 3 true?",
+      "choices": [
+        "1",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "ADDED"
+      ],
+      "explanation": "Try 9: 9 ÷ 3 = 3. True, so k = 9 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/024",
+      "tier": 1,
+      "prompt": "Which makes n ÷ 5 = 5 true?",
+      "choices": [
+        "5",
+        "25",
+        "1",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP",
+        "ADDED"
+      ],
+      "explanation": "Try 25: 25 ÷ 5 = 5. True, so n = 25 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/025",
+      "tier": 1,
+      "prompt": "Which makes 4m = 24 true?",
+      "choices": [
+        "96",
+        "24",
+        "6",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Try 6: 4 × 6 = 24. True, so m = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/026",
+      "tier": 1,
+      "prompt": "Which makes y − 3 = 8 true?",
+      "choices": [
+        "5",
+        "3",
+        "11",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 11: 11 − 3 = 8. True, so y = 11 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/027",
+      "tier": 1,
+      "prompt": "Which makes 5m = 10 true?",
+      "choices": [
+        "10",
+        "5",
+        "50",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SUBTRACTED",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Try 2: 5 × 2 = 10. True, so m = 2 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/028",
+      "tier": 1,
+      "prompt": "Which makes k ÷ 2 = 5 true?",
+      "choices": [
+        "10",
+        "7",
+        "5",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Try 10: 10 ÷ 2 = 5. True, so k = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/029",
+      "tier": 1,
+      "prompt": "Which makes k + 5 = 11 true?",
+      "choices": [
+        "6",
+        "11",
+        "5",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Try 6: 6 + 5 = 11. True, so k = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/030",
+      "tier": 1,
+      "prompt": "Which makes k + 8 = 12 true?",
+      "choices": [
+        "8",
+        "4",
+        "12",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Try 4: 4 + 8 = 12. True, so k = 4 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/031",
+      "tier": 1,
+      "prompt": "Which makes 2k = 6 true?",
+      "choices": [
+        "6",
+        "4",
+        "12",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SUBTRACTED",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Try 3: 2 × 3 = 6. True, so k = 3 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/032",
+      "tier": 1,
+      "prompt": "Which makes y ÷ 5 = 2 true?",
+      "choices": [
+        "10",
+        "11",
+        "7",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 10: 10 ÷ 5 = 2. True, so y = 10 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/033",
+      "tier": 1,
+      "prompt": "Which makes 5y = 15 true?",
+      "choices": [
+        "75",
+        "3",
+        "15",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "SUBTRACTED"
+      ],
+      "explanation": "Try 3: 5 × 3 = 15. True, so y = 3 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/034",
+      "tier": 1,
+      "prompt": "Which makes m ÷ 2 = 6 true?",
+      "choices": [
+        "6",
+        "12",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "ADDED",
+        "SAME_OP"
+      ],
+      "explanation": "Try 12: 12 ÷ 2 = 6. True, so m = 12 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/035",
+      "tier": 1,
+      "prompt": "Which makes m − 3 = 3 true?",
+      "choices": [
+        "3",
+        "7",
+        "16",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "Try 6: 6 − 3 = 3. True, so m = 6 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/036",
+      "tier": 1,
+      "prompt": "Which makes n − 6 = 1 true?",
+      "choices": [
+        "6",
+        "5",
+        "1",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ARITH",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Try 7: 7 − 6 = 1. True, so n = 7 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/037",
+      "tier": 1,
+      "prompt": "Which makes 3n = 15 true?",
+      "choices": [
+        "45",
+        "15",
+        "12",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "Try 5: 3 × 5 = 15. True, so n = 5 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/038",
+      "tier": 1,
+      "prompt": "Which makes y + 10 = 11 true?",
+      "choices": [
+        "1",
+        "21",
+        "11",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 1: 1 + 10 = 11. True, so y = 1 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/039",
+      "tier": 1,
+      "prompt": "Which makes y ÷ 5 = 3 true?",
+      "choices": [
+        "8",
+        "15",
+        "16",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ARITH",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Try 15: 15 ÷ 5 = 3. True, so y = 15 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t1/040",
+      "tier": 1,
+      "prompt": "Which makes n ÷ 3 = 5 true?",
+      "choices": [
+        "5",
+        "15",
+        "8",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "ADDED",
+        "ARITH"
+      ],
+      "explanation": "Try 15: 15 ÷ 3 = 5. True, so n = 15 is the solution."
+    },
+    {
+      "id": "equations-inequalities/t2/001",
+      "tier": 2,
+      "prompt": "Solve: 14 = m + 7",
+      "choices": [
+        "7",
+        "21",
+        "14",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Subtract 7 from both sides: m = 14 − 7 = 7. Check: 7 + 7 = 14."
+    },
+    {
+      "id": "equations-inequalities/t2/002",
+      "tier": 2,
+      "prompt": "Solve: 15 = m + 14",
+      "choices": [
+        "14",
+        "1",
+        "29",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 14 from both sides: m = 15 − 14 = 1. Check: 1 + 14 = 15."
+    },
+    {
+      "id": "equations-inequalities/t2/003",
+      "tier": 2,
+      "prompt": "Solve: 18 = y + 9",
+      "choices": [
+        "27",
+        "18",
+        "19",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Subtract 9 from both sides: y = 18 − 9 = 9. Check: 9 + 9 = 18."
+    },
+    {
+      "id": "equations-inequalities/t2/004",
+      "tier": 2,
+      "prompt": "Solve: m + 8 = 18",
+      "choices": [
+        "8",
+        "26",
+        "10",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 8 from both sides: m = 18 − 8 = 10. Check: 10 + 8 = 18."
+    },
+    {
+      "id": "equations-inequalities/t2/005",
+      "tier": 2,
+      "prompt": "Solve: 17 − k = 13",
+      "choices": [
+        "13",
+        "17",
+        "30",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "17 − k = 13: take k from 17 to leave 13, so k = 17 − 13 = 4. Check: 17 − 4 = 13."
+    },
+    {
+      "id": "equations-inequalities/t2/006",
+      "tier": 2,
+      "prompt": "Solve: x − 9 = 7",
+      "choices": [
+        "9",
+        "7",
+        "16",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Add 9 to both sides: x = 7 + 9 = 16. Check: 16 − 9 = 7."
+    },
+    {
+      "id": "equations-inequalities/t2/007",
+      "tier": 2,
+      "prompt": "Solve: 15 − n = 5",
+      "choices": [
+        "10",
+        "20",
+        "15",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "15 − n = 5: take n from 15 to leave 5, so n = 15 − 5 = 10. Check: 15 − 10 = 5."
+    },
+    {
+      "id": "equations-inequalities/t2/008",
+      "tier": 2,
+      "prompt": "Solve: 16 − x = 1",
+      "choices": [
+        "16",
+        "17",
+        "1",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "16 − x = 1: take x from 16 to leave 1, so x = 16 − 1 = 15. Check: 16 − 15 = 1."
+    },
+    {
+      "id": "equations-inequalities/t2/009",
+      "tier": 2,
+      "prompt": "Solve: y − 3 = 11",
+      "choices": [
+        "3",
+        "11",
+        "8",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Add 3 to both sides: y = 11 + 3 = 14. Check: 14 − 3 = 11."
+    },
+    {
+      "id": "equations-inequalities/t2/010",
+      "tier": 2,
+      "prompt": "Solve: 8 − k = 3",
+      "choices": [
+        "5",
+        "8",
+        "11",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "8 − k = 3: take k from 8 to leave 3, so k = 8 − 3 = 5. Check: 8 − 5 = 3."
+    },
+    {
+      "id": "equations-inequalities/t2/011",
+      "tier": 2,
+      "prompt": "Solve: y − 3 = 6",
+      "choices": [
+        "3",
+        "6",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Add 3 to both sides: y = 6 + 3 = 9. Check: 9 − 3 = 6."
+    },
+    {
+      "id": "equations-inequalities/t2/012",
+      "tier": 2,
+      "prompt": "Solve: 12 − m = 4",
+      "choices": [
+        "12",
+        "8",
+        "16",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "12 − m = 4: take m from 12 to leave 4, so m = 12 − 4 = 8. Check: 12 − 8 = 4."
+    },
+    {
+      "id": "equations-inequalities/t2/013",
+      "tier": 2,
+      "prompt": "Solve: n − 12 = 4",
+      "choices": [
+        "16",
+        "4",
+        "17",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "ARITH",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Add 12 to both sides: n = 4 + 12 = 16. Check: 16 − 12 = 4."
+    },
+    {
+      "id": "equations-inequalities/t2/014",
+      "tier": 2,
+      "prompt": "Solve: 9 − m = 6",
+      "choices": [
+        "3",
+        "6",
+        "15",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "9 − m = 6: take m from 9 to leave 6, so m = 9 − 6 = 3. Check: 9 − 3 = 6."
+    },
+    {
+      "id": "equations-inequalities/t2/015",
+      "tier": 2,
+      "prompt": "Solve: 12 − k = 6",
+      "choices": [
+        "18",
+        "6",
+        "16",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "ARITH",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "12 − k = 6: take k from 12 to leave 6, so k = 12 − 6 = 6. Check: 12 − 6 = 6."
+    },
+    {
+      "id": "equations-inequalities/t2/016",
+      "tier": 2,
+      "prompt": "Solve: 18 = y + 15",
+      "choices": [
+        "18",
+        "33",
+        "3",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 15 from both sides: y = 18 − 15 = 3. Check: 3 + 15 = 18."
+    },
+    {
+      "id": "equations-inequalities/t2/017",
+      "tier": 2,
+      "prompt": "Solve: 7 = x + 3",
+      "choices": [
+        "10",
+        "7",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Subtract 3 from both sides: x = 7 − 3 = 4. Check: 4 + 3 = 7."
+    },
+    {
+      "id": "equations-inequalities/t2/018",
+      "tier": 2,
+      "prompt": "Solve: x − 12 = 4",
+      "choices": [
+        "4",
+        "19",
+        "12",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ARITH",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Add 12 to both sides: x = 4 + 12 = 16. Check: 16 − 12 = 4."
+    },
+    {
+      "id": "equations-inequalities/t2/019",
+      "tier": 2,
+      "prompt": "Solve: k + 12 = 13",
+      "choices": [
+        "13",
+        "25",
+        "12",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Subtract 12 from both sides: k = 13 − 12 = 1. Check: 1 + 12 = 13."
+    },
+    {
+      "id": "equations-inequalities/t2/020",
+      "tier": 2,
+      "prompt": "Solve: 10 − m = 4",
+      "choices": [
+        "14",
+        "4",
+        "6",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "10 − m = 4: take m from 10 to leave 4, so m = 10 − 4 = 6. Check: 10 − 6 = 4."
+    },
+    {
+      "id": "equations-inequalities/t2/021",
+      "tier": 2,
+      "prompt": "Solve: k − 3 = 17",
+      "choices": [
+        "17",
+        "3",
+        "20",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Add 3 to both sides: k = 17 + 3 = 20. Check: 20 − 3 = 17."
+    },
+    {
+      "id": "equations-inequalities/t2/022",
+      "tier": 2,
+      "prompt": "Solve: n + 9 = 16",
+      "choices": [
+        "9",
+        "7",
+        "16",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 9 from both sides: n = 16 − 9 = 7. Check: 7 + 9 = 16."
+    },
+    {
+      "id": "equations-inequalities/t2/023",
+      "tier": 2,
+      "prompt": "Solve: k + 15 = 19",
+      "choices": [
+        "15",
+        "34",
+        "19",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Subtract 15 from both sides: k = 19 − 15 = 4. Check: 4 + 15 = 19."
+    },
+    {
+      "id": "equations-inequalities/t2/024",
+      "tier": 2,
+      "prompt": "Solve: m + 5 = 9",
+      "choices": [
+        "4",
+        "5",
+        "14",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 5 from both sides: m = 9 − 5 = 4. Check: 4 + 5 = 9."
+    },
+    {
+      "id": "equations-inequalities/t2/025",
+      "tier": 2,
+      "prompt": "Solve: n + 14 = 18",
+      "choices": [
+        "14",
+        "4",
+        "32",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 14 from both sides: n = 18 − 14 = 4. Check: 4 + 14 = 18."
+    },
+    {
+      "id": "equations-inequalities/t2/026",
+      "tier": 2,
+      "prompt": "Solve: k − 11 = 17",
+      "choices": [
+        "17",
+        "6",
+        "28",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Add 11 to both sides: k = 17 + 11 = 28. Check: 28 − 11 = 17."
+    },
+    {
+      "id": "equations-inequalities/t2/027",
+      "tier": 2,
+      "prompt": "Solve: m + 2 = 5",
+      "choices": [
+        "5",
+        "2",
+        "3",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 2 from both sides: m = 5 − 2 = 3. Check: 3 + 2 = 5."
+    },
+    {
+      "id": "equations-inequalities/t2/028",
+      "tier": 2,
+      "prompt": "Solve: 6 − k = 3",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "6 − k = 3: take k from 6 to leave 3, so k = 6 − 3 = 3. Check: 6 − 3 = 3."
+    },
+    {
+      "id": "equations-inequalities/t2/029",
+      "tier": 2,
+      "prompt": "Solve: 6 − y = 4",
+      "choices": [
+        "10",
+        "4",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "6 − y = 4: take y from 6 to leave 4, so y = 6 − 4 = 2. Check: 6 − 2 = 4."
+    },
+    {
+      "id": "equations-inequalities/t2/030",
+      "tier": 2,
+      "prompt": "Solve: 15 = y + 8",
+      "choices": [
+        "7",
+        "23",
+        "15",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 8 from both sides: y = 15 − 8 = 7. Check: 7 + 8 = 15."
+    },
+    {
+      "id": "equations-inequalities/t2/031",
+      "tier": 2,
+      "prompt": "Solve: y − 10 = 17",
+      "choices": [
+        "10",
+        "27",
+        "7",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Add 10 to both sides: y = 17 + 10 = 27. Check: 27 − 10 = 17."
+    },
+    {
+      "id": "equations-inequalities/t2/032",
+      "tier": 2,
+      "prompt": "Solve: 10 = x + 7",
+      "choices": [
+        "17",
+        "10",
+        "7",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Subtract 7 from both sides: x = 10 − 7 = 3. Check: 3 + 7 = 10."
+    },
+    {
+      "id": "equations-inequalities/t2/033",
+      "tier": 2,
+      "prompt": "Solve: 17 = x + 15",
+      "choices": [
+        "15",
+        "2",
+        "17",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 15 from both sides: x = 17 − 15 = 2. Check: 2 + 15 = 17."
+    },
+    {
+      "id": "equations-inequalities/t2/034",
+      "tier": 2,
+      "prompt": "Solve: 11 = k + 2",
+      "choices": [
+        "9",
+        "2",
+        "11",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 2 from both sides: k = 11 − 2 = 9. Check: 9 + 2 = 11."
+    },
+    {
+      "id": "equations-inequalities/t2/035",
+      "tier": 2,
+      "prompt": "Solve: x + 6 = 8",
+      "choices": [
+        "14",
+        "2",
+        "6",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 6 from both sides: x = 8 − 6 = 2. Check: 2 + 6 = 8."
+    },
+    {
+      "id": "equations-inequalities/t2/036",
+      "tier": 2,
+      "prompt": "Solve: y − 7 = 14",
+      "choices": [
+        "20",
+        "14",
+        "21",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Add 7 to both sides: y = 14 + 7 = 21. Check: 21 − 7 = 14."
+    },
+    {
+      "id": "equations-inequalities/t2/037",
+      "tier": 2,
+      "prompt": "Solve: 6 = y + 2",
+      "choices": [
+        "8",
+        "4",
+        "2",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Subtract 2 from both sides: y = 6 − 2 = 4. Check: 4 + 2 = 6."
+    },
+    {
+      "id": "equations-inequalities/t2/038",
+      "tier": 2,
+      "prompt": "Solve: k + 9 = 19",
+      "choices": [
+        "9",
+        "28",
+        "19",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Subtract 9 from both sides: k = 19 − 9 = 10. Check: 10 + 9 = 19."
+    },
+    {
+      "id": "equations-inequalities/t2/039",
+      "tier": 2,
+      "prompt": "Solve: m + 6 = 13",
+      "choices": [
+        "6",
+        "7",
+        "13",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 6 from both sides: m = 13 − 6 = 7. Check: 7 + 6 = 13."
+    },
+    {
+      "id": "equations-inequalities/t2/040",
+      "tier": 2,
+      "prompt": "Solve: k − 5 = 12",
+      "choices": [
+        "17",
+        "7",
+        "12",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Add 5 to both sides: k = 12 + 5 = 17. Check: 17 − 5 = 12."
+    },
+    {
+      "id": "equations-inequalities/t3/001",
+      "tier": 3,
+      "prompt": "Solve: 20 ÷ x = 2",
+      "choices": [
+        "40",
+        "10",
+        "2",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "20 ÷ x = 2 asks what 20 splits by to give 2: x = 20 ÷ 2 = 10. Check: 20 ÷ 10 = 2."
+    },
+    {
+      "id": "equations-inequalities/t3/002",
+      "tier": 3,
+      "prompt": "Solve: x ÷ 10 = 3",
+      "choices": [
+        "13",
+        "30",
+        "3",
+        "29"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "VALUE_SHOWN",
+        "ARITH"
+      ],
+      "explanation": "Multiply both sides by 10: x = 3 × 10 = 30. Check: 30 ÷ 10 = 3."
+    },
+    {
+      "id": "equations-inequalities/t3/003",
+      "tier": 3,
+      "prompt": "Solve: 4m = 8",
+      "choices": [
+        "8",
+        "2",
+        "4",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        null,
+        "SUBTRACTED",
+        "SAME_OP"
+      ],
+      "explanation": "Divide both sides by 4: m = 8 ÷ 4 = 2. Check: 4 × 2 = 8."
+    },
+    {
+      "id": "equations-inequalities/t3/004",
+      "tier": 3,
+      "prompt": "Solve: 25 = 5m",
+      "choices": [
+        "25",
+        "20",
+        "5",
+        "125"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SUBTRACTED",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Divide both sides by 5: m = 25 ÷ 5 = 5. Check: 5 × 5 = 25."
+    },
+    {
+      "id": "equations-inequalities/t3/005",
+      "tier": 3,
+      "prompt": "Solve: 32 ÷ k = 4",
+      "choices": [
+        "32",
+        "4",
+        "128",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "32 ÷ k = 4 asks what 32 splits by to give 4: k = 32 ÷ 4 = 8. Check: 32 ÷ 8 = 4."
+    },
+    {
+      "id": "equations-inequalities/t3/006",
+      "tier": 3,
+      "prompt": "Solve: 8x = 32",
+      "choices": [
+        "24",
+        "32",
+        "256",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "VALUE_SHOWN",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Divide both sides by 8: x = 32 ÷ 8 = 4. Check: 8 × 4 = 32."
+    },
+    {
+      "id": "equations-inequalities/t3/007",
+      "tier": 3,
+      "prompt": "Solve: 9m = 36",
+      "choices": [
+        "27",
+        "4",
+        "36",
+        "324"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Divide both sides by 9: m = 36 ÷ 9 = 4. Check: 9 × 4 = 36."
+    },
+    {
+      "id": "equations-inequalities/t3/008",
+      "tier": 3,
+      "prompt": "Solve: 6x = 48",
+      "choices": [
+        "8",
+        "288",
+        "48",
+        "42"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 6: x = 48 ÷ 6 = 8. Check: 6 × 8 = 48."
+    },
+    {
+      "id": "equations-inequalities/t3/009",
+      "tier": 3,
+      "prompt": "Solve: 14 ÷ x = 2",
+      "choices": [
+        "2",
+        "14",
+        "7",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "14 ÷ x = 2 asks what 14 splits by to give 2: x = 14 ÷ 2 = 7. Check: 14 ÷ 7 = 2."
+    },
+    {
+      "id": "equations-inequalities/t3/010",
+      "tier": 3,
+      "prompt": "Solve: 63 ÷ y = 9",
+      "choices": [
+        "7",
+        "63",
+        "9",
+        "567"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "63 ÷ y = 9 asks what 63 splits by to give 9: y = 63 ÷ 9 = 7. Check: 63 ÷ 7 = 9."
+    },
+    {
+      "id": "equations-inequalities/t3/011",
+      "tier": 3,
+      "prompt": "Solve: y ÷ 4 = 4",
+      "choices": [
+        "16",
+        "1",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "ADDED"
+      ],
+      "explanation": "Multiply both sides by 4: y = 4 × 4 = 16. Check: 16 ÷ 4 = 4."
+    },
+    {
+      "id": "equations-inequalities/t3/012",
+      "tier": 3,
+      "prompt": "Solve: 3y = 24",
+      "choices": [
+        "72",
+        "24",
+        "8",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 3: y = 24 ÷ 3 = 8. Check: 3 × 8 = 24."
+    },
+    {
+      "id": "equations-inequalities/t3/013",
+      "tier": 3,
+      "prompt": "Solve: 24 ÷ n = 6",
+      "choices": [
+        "144",
+        "24",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "24 ÷ n = 6 asks what 24 splits by to give 6: n = 24 ÷ 6 = 4. Check: 24 ÷ 4 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/014",
+      "tier": 3,
+      "prompt": "Solve: 2x = 14",
+      "choices": [
+        "28",
+        "14",
+        "7",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 2: x = 14 ÷ 2 = 7. Check: 2 × 7 = 14."
+    },
+    {
+      "id": "equations-inequalities/t3/015",
+      "tier": 3,
+      "prompt": "Solve: 36 ÷ k = 6",
+      "choices": [
+        "6",
+        "216",
+        "4",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "ARITH",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "36 ÷ k = 6 asks what 36 splits by to give 6: k = 36 ÷ 6 = 6. Check: 36 ÷ 6 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/016",
+      "tier": 3,
+      "prompt": "Solve: 8m = 16",
+      "choices": [
+        "128",
+        "8",
+        "16",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "SUBTRACTED",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Divide both sides by 8: m = 16 ÷ 8 = 2. Check: 8 × 2 = 16."
+    },
+    {
+      "id": "equations-inequalities/t3/017",
+      "tier": 3,
+      "prompt": "Solve: 60 = 10y",
+      "choices": [
+        "6",
+        "600",
+        "60",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 10: y = 60 ÷ 10 = 6. Check: 10 × 6 = 60."
+    },
+    {
+      "id": "equations-inequalities/t3/018",
+      "tier": 3,
+      "prompt": "Solve: y ÷ 2 = 6",
+      "choices": [
+        "8",
+        "12",
+        "6",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Multiply both sides by 2: y = 6 × 2 = 12. Check: 12 ÷ 2 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/019",
+      "tier": 3,
+      "prompt": "Solve: y ÷ 3 = 7",
+      "choices": [
+        "7",
+        "10",
+        "21",
+        "22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ADDED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Multiply both sides by 3: y = 7 × 3 = 21. Check: 21 ÷ 3 = 7."
+    },
+    {
+      "id": "equations-inequalities/t3/020",
+      "tier": 3,
+      "prompt": "Solve: m ÷ 2 = 4",
+      "choices": [
+        "2",
+        "8",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "ADDED"
+      ],
+      "explanation": "Multiply both sides by 2: m = 4 × 2 = 8. Check: 8 ÷ 2 = 4."
+    },
+    {
+      "id": "equations-inequalities/t3/021",
+      "tier": 3,
+      "prompt": "Solve: 40 ÷ x = 4",
+      "choices": [
+        "10",
+        "40",
+        "4",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "40 ÷ x = 4 asks what 40 splits by to give 4: x = 40 ÷ 4 = 10. Check: 40 ÷ 10 = 4."
+    },
+    {
+      "id": "equations-inequalities/t3/022",
+      "tier": 3,
+      "prompt": "Solve: 40 = 4k",
+      "choices": [
+        "36",
+        "10",
+        "160",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Divide both sides by 4: k = 40 ÷ 4 = 10. Check: 4 × 10 = 40."
+    },
+    {
+      "id": "equations-inequalities/t3/023",
+      "tier": 3,
+      "prompt": "Solve: 9 ÷ y = 3",
+      "choices": [
+        "27",
+        "13",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "ARITH",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "9 ÷ y = 3 asks what 9 splits by to give 3: y = 9 ÷ 3 = 3. Check: 9 ÷ 3 = 3."
+    },
+    {
+      "id": "equations-inequalities/t3/024",
+      "tier": 3,
+      "prompt": "Solve: 3y = 6",
+      "choices": [
+        "3",
+        "6",
+        "2",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "VALUE_SHOWN",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Divide both sides by 3: y = 6 ÷ 3 = 2. Check: 3 × 2 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/025",
+      "tier": 3,
+      "prompt": "Solve: 12 ÷ m = 6",
+      "choices": [
+        "2",
+        "72",
+        "6",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "VALUE_SHOWN",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "12 ÷ m = 6 asks what 12 splits by to give 6: m = 12 ÷ 6 = 2. Check: 12 ÷ 2 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/026",
+      "tier": 3,
+      "prompt": "Solve: k ÷ 9 = 10",
+      "choices": [
+        "19",
+        "89",
+        "90",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "ARITH",
+        null,
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Multiply both sides by 9: k = 10 × 9 = 90. Check: 90 ÷ 9 = 10."
+    },
+    {
+      "id": "equations-inequalities/t3/027",
+      "tier": 3,
+      "prompt": "Solve: 54 = 9k",
+      "choices": [
+        "6",
+        "54",
+        "486",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 9: k = 54 ÷ 9 = 6. Check: 9 × 6 = 54."
+    },
+    {
+      "id": "equations-inequalities/t3/028",
+      "tier": 3,
+      "prompt": "Solve: 20 = 2m",
+      "choices": [
+        "40",
+        "10",
+        "18",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "SUBTRACTED",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Divide both sides by 2: m = 20 ÷ 2 = 10. Check: 2 × 10 = 20."
+    },
+    {
+      "id": "equations-inequalities/t3/029",
+      "tier": 3,
+      "prompt": "Solve: 8 = 2m",
+      "choices": [
+        "6",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "VALUE_SHOWN",
+        "SAME_OP"
+      ],
+      "explanation": "Divide both sides by 2: m = 8 ÷ 2 = 4. Check: 2 × 4 = 8."
+    },
+    {
+      "id": "equations-inequalities/t3/030",
+      "tier": 3,
+      "prompt": "Solve: 7x = 63",
+      "choices": [
+        "9",
+        "56",
+        "441",
+        "63"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "SAME_OP",
+        "VALUE_SHOWN"
+      ],
+      "explanation": "Divide both sides by 7: x = 63 ÷ 7 = 9. Check: 7 × 9 = 63."
+    },
+    {
+      "id": "equations-inequalities/t3/031",
+      "tier": 3,
+      "prompt": "Solve: 5n = 45",
+      "choices": [
+        "225",
+        "45",
+        "9",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 5: n = 45 ÷ 5 = 9. Check: 5 × 9 = 45."
+    },
+    {
+      "id": "equations-inequalities/t3/032",
+      "tier": 3,
+      "prompt": "Solve: 16 = 4n",
+      "choices": [
+        "12",
+        "64",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Divide both sides by 4: n = 16 ÷ 4 = 4. Check: 4 × 4 = 16."
+    },
+    {
+      "id": "equations-inequalities/t3/033",
+      "tier": 3,
+      "prompt": "Solve: 14 ÷ m = 2",
+      "choices": [
+        "14",
+        "28",
+        "2",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "14 ÷ m = 2 asks what 14 splits by to give 2: m = 14 ÷ 2 = 7. Check: 14 ÷ 7 = 2."
+    },
+    {
+      "id": "equations-inequalities/t3/034",
+      "tier": 3,
+      "prompt": "Solve: x ÷ 9 = 10",
+      "choices": [
+        "19",
+        "10",
+        "80",
+        "90"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "VALUE_SHOWN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Multiply both sides by 9: x = 10 × 9 = 90. Check: 90 ÷ 9 = 10."
+    },
+    {
+      "id": "equations-inequalities/t3/035",
+      "tier": 3,
+      "prompt": "Solve: k ÷ 8 = 7",
+      "choices": [
+        "56",
+        "7",
+        "58",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_SHOWN",
+        "ARITH",
+        "ADDED"
+      ],
+      "explanation": "Multiply both sides by 8: k = 7 × 8 = 56. Check: 56 ÷ 8 = 7."
+    },
+    {
+      "id": "equations-inequalities/t3/036",
+      "tier": 3,
+      "prompt": "Solve: 10 = 2k",
+      "choices": [
+        "8",
+        "20",
+        "10",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "SAME_OP",
+        "VALUE_SHOWN",
+        null
+      ],
+      "explanation": "Divide both sides by 2: k = 10 ÷ 2 = 5. Check: 2 × 5 = 10."
+    },
+    {
+      "id": "equations-inequalities/t3/037",
+      "tier": 3,
+      "prompt": "Solve: y ÷ 8 = 6",
+      "choices": [
+        "6",
+        "58",
+        "48",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "ARITH",
+        null,
+        "ADDED"
+      ],
+      "explanation": "Multiply both sides by 8: y = 6 × 8 = 48. Check: 48 ÷ 8 = 6."
+    },
+    {
+      "id": "equations-inequalities/t3/038",
+      "tier": 3,
+      "prompt": "Solve: 64 = 8n",
+      "choices": [
+        "64",
+        "56",
+        "512",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VALUE_SHOWN",
+        "SUBTRACTED",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Divide both sides by 8: n = 64 ÷ 8 = 8. Check: 8 × 8 = 64."
+    },
+    {
+      "id": "equations-inequalities/t3/039",
+      "tier": 3,
+      "prompt": "Solve: m ÷ 6 = 5",
+      "choices": [
+        "11",
+        "5",
+        "30",
+        "29"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "VALUE_SHOWN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Multiply both sides by 6: m = 5 × 6 = 30. Check: 30 ÷ 6 = 5."
+    },
+    {
+      "id": "equations-inequalities/t3/040",
+      "tier": 3,
+      "prompt": "Solve: 16 = 2k",
+      "choices": [
+        "32",
+        "8",
+        "16",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "VALUE_SHOWN",
+        "SUBTRACTED"
+      ],
+      "explanation": "Divide both sides by 2: k = 16 ÷ 2 = 8. Check: 2 × 8 = 16."
+    },
+    {
+      "id": "equations-inequalities/t4/001",
+      "tier": 4,
+      "prompt": "x kids on a bus. 12 more get on. Now 14. Equation?",
+      "choices": [
+        "x + 12 = 14",
+        "x + 14 = 12",
+        "12x = 14",
+        "x − 12 = 14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, add the 12 more, get 14: x + 12 = 14. (x = 2)"
+    },
+    {
+      "id": "equations-inequalities/t4/002",
+      "tier": 4,
+      "prompt": "x pencils in 10 equal boxes. 9 per box. Equation?",
+      "choices": [
+        "x − 10 = 9",
+        "10x = 9",
+        "10 ÷ x = 9",
+        "x ÷ 10 = 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "x split into 10 equal parts gives 9 each: x ÷ 10 = 9. (x = 90)"
+    },
+    {
+      "id": "equations-inequalities/t4/003",
+      "tier": 4,
+      "prompt": "x pencils in 3 equal boxes. 9 per box. Equation?",
+      "choices": [
+        "3 ÷ x = 9",
+        "3x = 9",
+        "x ÷ 3 = 9",
+        "x − 3 = 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED",
+        "WRONG_OP",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "x split into 3 equal parts gives 9 each: x ÷ 3 = 9. (x = 27)"
+    },
+    {
+      "id": "equations-inequalities/t4/004",
+      "tier": 4,
+      "prompt": "Had $x. Earned $9. Now has $10. Equation?",
+      "choices": [
+        "9x = 10",
+        "x − 9 = 10",
+        "x + 10 = 9",
+        "x + 9 = 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "Start with x, add the 9 more, get 10: x + 9 = 10. (x = 1)"
+    },
+    {
+      "id": "equations-inequalities/t4/005",
+      "tier": 4,
+      "prompt": "x pages a day for 6 days. 54 pages in all. Equation?",
+      "choices": [
+        "x = 6 × 54",
+        "6x = 54",
+        "x + 6 = 54",
+        "54x = 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEYWORD",
+        null,
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "6 groups of x make 54: 6x = 54. (x = 9)"
+    },
+    {
+      "id": "equations-inequalities/t4/006",
+      "tier": 4,
+      "prompt": "x cookies. Ate 8. 6 are left. Equation?",
+      "choices": [
+        "x ÷ 8 = 6",
+        "x + 8 = 6",
+        "x − 8 = 6",
+        "8 − x = 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, take away 8, leave 6: x − 8 = 6. (x = 14)"
+    },
+    {
+      "id": "equations-inequalities/t4/007",
+      "tier": 4,
+      "prompt": "x kids on a bus. 9 more get on. Now 15. Equation?",
+      "choices": [
+        "x − 9 = 15",
+        "9x = 15",
+        "x + 9 = 15",
+        "x + 15 = 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, add the 9 more, get 15: x + 9 = 15. (x = 6)"
+    },
+    {
+      "id": "equations-inequalities/t4/008",
+      "tier": 4,
+      "prompt": "9 rows of x chairs. 63 chairs in all. Equation?",
+      "choices": [
+        "9x = 63",
+        "x = 9 × 63",
+        "x + 9 = 63",
+        "63x = 9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEYWORD",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "9 groups of x make 63: 9x = 63. (x = 7)"
+    },
+    {
+      "id": "equations-inequalities/t4/009",
+      "tier": 4,
+      "prompt": "x players make 3 equal teams of 10. Equation?",
+      "choices": [
+        "3x = 10",
+        "3 ÷ x = 10",
+        "x ÷ 3 = 10",
+        "x − 3 = 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "SWAPPED",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "x split into 3 equal parts gives 10 each: x ÷ 3 = 10. (x = 30)"
+    },
+    {
+      "id": "equations-inequalities/t4/010",
+      "tier": 4,
+      "prompt": "Had x cards. Got 13 more. Now has 16. Equation?",
+      "choices": [
+        "x + 13 = 16",
+        "13x = 16",
+        "x − 13 = 16",
+        "x + 16 = 13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, add the 13 more, get 16: x + 13 = 16. (x = 3)"
+    },
+    {
+      "id": "equations-inequalities/t4/011",
+      "tier": 4,
+      "prompt": "3 packs of x cards. 15 cards in all. Equation?",
+      "choices": [
+        "x = 3 × 15",
+        "15x = 3",
+        "3x = 15",
+        "x + 3 = 15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEYWORD",
+        "SWAPPED",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "3 groups of x make 15: 3x = 15. (x = 5)"
+    },
+    {
+      "id": "equations-inequalities/t4/012",
+      "tier": 4,
+      "prompt": "x birds in a tree. 5 more land. Now 8. Equation?",
+      "choices": [
+        "x + 5 = 8",
+        "x + 8 = 5",
+        "x − 5 = 8",
+        "5x = 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, add the 5 more, get 8: x + 5 = 8. (x = 3)"
+    },
+    {
+      "id": "equations-inequalities/t4/013",
+      "tier": 4,
+      "prompt": "x pages a day for 2 days. 14 pages in all. Equation?",
+      "choices": [
+        "2x = 14",
+        "14x = 2",
+        "x = 2 × 14",
+        "x + 2 = 14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED",
+        "KEYWORD",
+        "WRONG_OP"
+      ],
+      "explanation": "2 groups of x make 14: 2x = 14. (x = 7)"
+    },
+    {
+      "id": "equations-inequalities/t4/014",
+      "tier": 4,
+      "prompt": "7 bags, x apples each. 63 apples in all. Equation?",
+      "choices": [
+        "x + 7 = 63",
+        "x = 7 × 63",
+        "63x = 7",
+        "7x = 63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "KEYWORD",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "7 groups of x make 63: 7x = 63. (x = 9)"
+    },
+    {
+      "id": "equations-inequalities/t4/015",
+      "tier": 4,
+      "prompt": "x kids at the park. 8 went home. 19 stayed. Equation?",
+      "choices": [
+        "8 − x = 19",
+        "x − 8 = 19",
+        "x ÷ 8 = 19",
+        "x + 8 = 19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED",
+        null,
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, take away 8, leave 19: x − 8 = 19. (x = 27)"
+    },
+    {
+      "id": "equations-inequalities/t4/016",
+      "tier": 4,
+      "prompt": "x kids at the park. 4 went home. 7 stayed. Equation?",
+      "choices": [
+        "x − 4 = 7",
+        "x ÷ 4 = 7",
+        "x + 4 = 7",
+        "4 − x = 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, take away 4, leave 7: x − 4 = 7. (x = 11)"
+    },
+    {
+      "id": "equations-inequalities/t4/017",
+      "tier": 4,
+      "prompt": "x birds in a tree. 14 more land. Now 15. Equation?",
+      "choices": [
+        "x − 14 = 15",
+        "x + 14 = 15",
+        "x + 15 = 14",
+        "14x = 15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, add the 14 more, get 15: x + 14 = 15. (x = 1)"
+    },
+    {
+      "id": "equations-inequalities/t4/018",
+      "tier": 4,
+      "prompt": "x kids at the park. 3 went home. 14 stayed. Equation?",
+      "choices": [
+        "x + 3 = 14",
+        "x ÷ 3 = 14",
+        "3 − x = 14",
+        "x − 3 = 14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "Start with x, take away 3, leave 14: x − 3 = 14. (x = 17)"
+    },
+    {
+      "id": "equations-inequalities/t4/019",
+      "tier": 4,
+      "prompt": "x players make 7 equal teams of 4. Equation?",
+      "choices": [
+        "7x = 4",
+        "x ÷ 7 = 4",
+        "7 ÷ x = 4",
+        "x − 7 = 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "x split into 7 equal parts gives 4 each: x ÷ 7 = 4. (x = 28)"
+    },
+    {
+      "id": "equations-inequalities/t4/020",
+      "tier": 4,
+      "prompt": "Had $x. Spent $15. $10 left. Equation?",
+      "choices": [
+        "15 − x = 10",
+        "x + 15 = 10",
+        "x ÷ 15 = 10",
+        "x − 15 = 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED",
+        "WRONG_OP",
+        "WRONG_OP",
+        null
+      ],
+      "explanation": "Start with x, take away 15, leave 10: x − 15 = 10. (x = 25)"
+    },
+    {
+      "id": "equations-inequalities/t4/021",
+      "tier": 4,
+      "prompt": "x pencils in 5 equal boxes. 7 per box. Equation?",
+      "choices": [
+        "5x = 7",
+        "x ÷ 5 = 7",
+        "x − 5 = 7",
+        "5 ÷ x = 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "x split into 5 equal parts gives 7 each: x ÷ 5 = 7. (x = 35)"
+    },
+    {
+      "id": "equations-inequalities/t4/022",
+      "tier": 4,
+      "prompt": "x pencils in 10 equal boxes. 5 per box. Equation?",
+      "choices": [
+        "10x = 5",
+        "x ÷ 10 = 5",
+        "10 ÷ x = 5",
+        "x − 10 = 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "x split into 10 equal parts gives 5 each: x ÷ 10 = 5. (x = 50)"
+    },
+    {
+      "id": "equations-inequalities/t4/023",
+      "tier": 4,
+      "prompt": "x pencils in 10 equal boxes. 7 per box. Equation?",
+      "choices": [
+        "x ÷ 10 = 7",
+        "x − 10 = 7",
+        "10 ÷ x = 7",
+        "10x = 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "x split into 10 equal parts gives 7 each: x ÷ 10 = 7. (x = 70)"
+    },
+    {
+      "id": "equations-inequalities/t4/024",
+      "tier": 4,
+      "prompt": "x cookies shared by 2 kids. 4 each. Equation?",
+      "choices": [
+        "2x = 4",
+        "x − 2 = 4",
+        "2 ÷ x = 4",
+        "x ÷ 2 = 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "x split into 2 equal parts gives 4 each: x ÷ 2 = 4. (x = 8)"
+    },
+    {
+      "id": "equations-inequalities/t4/025",
+      "tier": 4,
+      "prompt": "3 bags, x apples each. 18 apples in all. Equation?",
+      "choices": [
+        "3x = 18",
+        "x + 3 = 18",
+        "18x = 3",
+        "x = 3 × 18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "SWAPPED",
+        "KEYWORD"
+      ],
+      "explanation": "3 groups of x make 18: 3x = 18. (x = 6)"
+    },
+    {
+      "id": "equations-inequalities/t4/026",
+      "tier": 4,
+      "prompt": "x kids at the park. 11 went home. 15 stayed. Equation?",
+      "choices": [
+        "x ÷ 11 = 15",
+        "x − 11 = 15",
+        "x + 11 = 15",
+        "11 − x = 15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, take away 11, leave 15: x − 11 = 15. (x = 26)"
+    },
+    {
+      "id": "equations-inequalities/t4/027",
+      "tier": 4,
+      "prompt": "x players make 10 equal teams of 2. Equation?",
+      "choices": [
+        "10x = 2",
+        "x − 10 = 2",
+        "10 ÷ x = 2",
+        "x ÷ 10 = 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "x split into 10 equal parts gives 2 each: x ÷ 10 = 2. (x = 20)"
+    },
+    {
+      "id": "equations-inequalities/t4/028",
+      "tier": 4,
+      "prompt": "Had $x. Spent $14. $11 left. Equation?",
+      "choices": [
+        "x ÷ 14 = 11",
+        "14 − x = 11",
+        "x − 14 = 11",
+        "x + 14 = 11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "SWAPPED",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, take away 14, leave 11: x − 14 = 11. (x = 25)"
+    },
+    {
+      "id": "equations-inequalities/t4/029",
+      "tier": 4,
+      "prompt": "Had $x. Spent $5. $19 left. Equation?",
+      "choices": [
+        "x + 5 = 19",
+        "5 − x = 19",
+        "x ÷ 5 = 19",
+        "x − 5 = 19"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "SWAPPED",
+        "WRONG_OP",
+        null
+      ],
+      "explanation": "Start with x, take away 5, leave 19: x − 5 = 19. (x = 24)"
+    },
+    {
+      "id": "equations-inequalities/t4/030",
+      "tier": 4,
+      "prompt": "Had x cards. Got 13 more. Now has 20. Equation?",
+      "choices": [
+        "x + 20 = 13",
+        "x + 13 = 20",
+        "13x = 20",
+        "x − 13 = 20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED",
+        null,
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, add the 13 more, get 20: x + 13 = 20. (x = 7)"
+    },
+    {
+      "id": "equations-inequalities/t4/031",
+      "tier": 4,
+      "prompt": "Had $x. Earned $15. Now has $17. Equation?",
+      "choices": [
+        "x + 17 = 15",
+        "15x = 17",
+        "x − 15 = 17",
+        "x + 15 = 17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED",
+        "WRONG_OP",
+        "WRONG_OP",
+        null
+      ],
+      "explanation": "Start with x, add the 15 more, get 17: x + 15 = 17. (x = 2)"
+    },
+    {
+      "id": "equations-inequalities/t4/032",
+      "tier": 4,
+      "prompt": "x cookies. Ate 15. 19 are left. Equation?",
+      "choices": [
+        "x − 15 = 19",
+        "15 − x = 19",
+        "x ÷ 15 = 19",
+        "x + 15 = 19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED",
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, take away 15, leave 19: x − 15 = 19. (x = 34)"
+    },
+    {
+      "id": "equations-inequalities/t4/033",
+      "tier": 4,
+      "prompt": "8 packs of x cards. 48 cards in all. Equation?",
+      "choices": [
+        "x + 8 = 48",
+        "x = 8 × 48",
+        "8x = 48",
+        "48x = 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "KEYWORD",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "8 groups of x make 48: 8x = 48. (x = 6)"
+    },
+    {
+      "id": "equations-inequalities/t4/034",
+      "tier": 4,
+      "prompt": "Had $x. Earned $14. Now has $16. Equation?",
+      "choices": [
+        "x − 14 = 16",
+        "14x = 16",
+        "x + 16 = 14",
+        "x + 14 = 16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "Start with x, add the 14 more, get 16: x + 14 = 16. (x = 2)"
+    },
+    {
+      "id": "equations-inequalities/t4/035",
+      "tier": 4,
+      "prompt": "10 rows of x chairs. 90 chairs in all. Equation?",
+      "choices": [
+        "x + 10 = 90",
+        "x = 10 × 90",
+        "10x = 90",
+        "90x = 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "KEYWORD",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "10 groups of x make 90: 10x = 90. (x = 9)"
+    },
+    {
+      "id": "equations-inequalities/t4/036",
+      "tier": 4,
+      "prompt": "7 packs of x cards. 21 cards in all. Equation?",
+      "choices": [
+        "7x = 21",
+        "x = 7 × 21",
+        "21x = 7",
+        "x + 7 = 21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEYWORD",
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "7 groups of x make 21: 7x = 21. (x = 3)"
+    },
+    {
+      "id": "equations-inequalities/t4/037",
+      "tier": 4,
+      "prompt": "Had $x. Earned $6. Now has $15. Equation?",
+      "choices": [
+        "x + 15 = 6",
+        "x + 6 = 15",
+        "x − 6 = 15",
+        "6x = 15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED",
+        null,
+        "WRONG_OP",
+        "WRONG_OP"
+      ],
+      "explanation": "Start with x, add the 6 more, get 15: x + 6 = 15. (x = 9)"
+    },
+    {
+      "id": "equations-inequalities/t4/038",
+      "tier": 4,
+      "prompt": "6 bags, x apples each. 48 apples in all. Equation?",
+      "choices": [
+        "x = 6 × 48",
+        "48x = 6",
+        "6x = 48",
+        "x + 6 = 48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEYWORD",
+        "SWAPPED",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "6 groups of x make 48: 6x = 48. (x = 8)"
+    },
+    {
+      "id": "equations-inequalities/t4/039",
+      "tier": 4,
+      "prompt": "x cookies. Ate 2. 18 are left. Equation?",
+      "choices": [
+        "x ÷ 2 = 18",
+        "x − 2 = 18",
+        "x + 2 = 18",
+        "2 − x = 18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "Start with x, take away 2, leave 18: x − 2 = 18. (x = 20)"
+    },
+    {
+      "id": "equations-inequalities/t4/040",
+      "tier": 4,
+      "prompt": "x pencils in 3 equal boxes. 4 per box. Equation?",
+      "choices": [
+        "x − 3 = 4",
+        "3x = 4",
+        "x ÷ 3 = 4",
+        "3 ÷ x = 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "WRONG_OP",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "x split into 3 equal parts gives 4 each: x ÷ 3 = 4. (x = 12)"
+    },
+    {
+      "id": "equations-inequalities/t5/001",
+      "tier": 5,
+      "prompt": "Which is a solution of m ≤ 16?",
+      "choices": [
+        "18",
+        "19",
+        "17",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        null
+      ],
+      "explanation": "Try 15: 15 ≤ 16 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/002",
+      "tier": 5,
+      "prompt": "At most 19 guests, g, can come. Which fits?",
+      "choices": [
+        "g > 19",
+        "g ≤ 19",
+        "g ≥ 19",
+        "g < 19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "19 or less: g ≤ 19. 19 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/003",
+      "tier": 5,
+      "prompt": "The trip took over 9 days, d. Which fits?",
+      "choices": [
+        "d ≤ 9",
+        "d > 9",
+        "d < 9",
+        "d ≥ 9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "More than 9: d > 9. 9 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/004",
+      "tier": 5,
+      "prompt": "Which is a solution of x ≥ 7?",
+      "choices": [
+        "4",
+        "9",
+        "6",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIDE",
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 9: 9 ≥ 7 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/005",
+      "tier": 5,
+      "prompt": "Which makes 8y < 40 true?",
+      "choices": [
+        "5",
+        "3",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOUNDARY",
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 3: 8 × 3 = 24, and 24 < 40 is true. 8 × 5 = 40, and 40 < 40 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/006",
+      "tier": 5,
+      "prompt": "Which makes 12 ≥ y true?",
+      "choices": [
+        "14",
+        "13",
+        "9",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "12 ≥ y means y ≤ 12. Try 9: 12 ≥ 9 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/007",
+      "tier": 5,
+      "prompt": "Which makes k + 5 ≥ 13 true?",
+      "choices": [
+        "10",
+        "7",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 10: 10 + 5 = 15, and 15 ≥ 13 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/008",
+      "tier": 5,
+      "prompt": "Which makes 6m > 36 true?",
+      "choices": [
+        "4",
+        "3",
+        "6",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "BOUNDARY",
+        null
+      ],
+      "explanation": "Try 7: 6 × 7 = 42, and 42 > 36 is true. 6 × 6 = 36, and 36 > 36 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/009",
+      "tier": 5,
+      "prompt": "Fewer than 13 seats, s, are left. Which fits?",
+      "choices": [
+        "s ≤ 13",
+        "s > 13",
+        "s < 13",
+        "s ≥ 13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "Less than 13: s < 13. 13 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/010",
+      "tier": 5,
+      "prompt": "The temperature t is below 4 degrees. Which fits?",
+      "choices": [
+        "t < 4",
+        "t ≤ 4",
+        "t ≥ 4",
+        "t > 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "Less than 4: t < 4. 4 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/011",
+      "tier": 5,
+      "prompt": "A team needs at least 15 players, p. Which fits?",
+      "choices": [
+        "p < 15",
+        "p > 15",
+        "p ≤ 15",
+        "p ≥ 15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null
+      ],
+      "explanation": "15 or more: p ≥ 15. 15 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/012",
+      "tier": 5,
+      "prompt": "The bag holds 9 lb or less, w. Which fits?",
+      "choices": [
+        "w < 9",
+        "w ≥ 9",
+        "w ≤ 9",
+        "w > 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "9 or less: w ≤ 9. 9 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/013",
+      "tier": 5,
+      "prompt": "A ride takes 3 or more tickets, t. Which fits?",
+      "choices": [
+        "t > 3",
+        "t < 3",
+        "t ≤ 3",
+        "t ≥ 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        null
+      ],
+      "explanation": "3 or more: t ≥ 3. 3 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/014",
+      "tier": 5,
+      "prompt": "Which makes 4k > 20 true?",
+      "choices": [
+        "5",
+        "6",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOUNDARY",
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 6: 4 × 6 = 24, and 24 > 20 is true. 4 × 5 = 20, and 20 > 20 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/015",
+      "tier": 5,
+      "prompt": "Which makes 9 > y true?",
+      "choices": [
+        "10",
+        "9",
+        "13",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        "BOUNDARY",
+        "FLIPPED_SIGN",
+        null
+      ],
+      "explanation": "9 > y means y < 9. Try 7: 9 > 7 is true. 9 < 9 is false: 9 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/016",
+      "tier": 5,
+      "prompt": "Which is a solution of y ≤ 14?",
+      "choices": [
+        "17",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        null
+      ],
+      "explanation": "Try 14: 14 ≤ 14 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/017",
+      "tier": 5,
+      "prompt": "Which makes 4 < n true?",
+      "choices": [
+        "4",
+        "7",
+        "3",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOUNDARY",
+        null,
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "4 < n means n > 4. Try 7: 4 < 7 is true. 4 > 4 is false: 4 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/018",
+      "tier": 5,
+      "prompt": "Fewer than 12 seats, s, are left. Which fits?",
+      "choices": [
+        "s < 12",
+        "s ≤ 12",
+        "s ≥ 12",
+        "s > 12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "Less than 12: s < 12. 12 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/019",
+      "tier": 5,
+      "prompt": "The trip took over 18 days, d. Which fits?",
+      "choices": [
+        "d > 18",
+        "d < 18",
+        "d ≤ 18",
+        "d ≥ 18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "More than 18: d > 18. 18 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/020",
+      "tier": 5,
+      "prompt": "Which makes y + 5 < 15 true?",
+      "choices": [
+        "10",
+        "12",
+        "9",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY",
+        "WRONG_SIDE",
+        null,
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 9: 9 + 5 = 14, and 14 < 15 is true. 10 + 5 = 15, and 15 < 15 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/021",
+      "tier": 5,
+      "prompt": "At most 14 guests, g, can come. Which fits?",
+      "choices": [
+        "g < 14",
+        "g ≥ 14",
+        "g ≤ 14",
+        "g > 14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "14 or less: g ≤ 14. 14 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/022",
+      "tier": 5,
+      "prompt": "Take no more than 8 cards, c. Which fits?",
+      "choices": [
+        "c ≤ 8",
+        "c > 8",
+        "c ≥ 8",
+        "c < 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "8 or less: c ≤ 8. 8 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/023",
+      "tier": 5,
+      "prompt": "The trip took over 19 days, d. Which fits?",
+      "choices": [
+        "d > 19",
+        "d ≥ 19",
+        "d < 19",
+        "d ≤ 19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "More than 19: d > 19. 19 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/024",
+      "tier": 5,
+      "prompt": "Less than 12 minutes, m, remain. Which fits?",
+      "choices": [
+        "m ≤ 12",
+        "m < 12",
+        "m > 12",
+        "m ≥ 12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "Less than 12: m < 12. 12 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/025",
+      "tier": 5,
+      "prompt": "Which makes 6 > n true?",
+      "choices": [
+        "6",
+        "8",
+        "4",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "6 > n means n < 6. Try 4: 6 > 4 is true. 6 < 6 is false: 6 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/026",
+      "tier": 5,
+      "prompt": "At most 10 kids, k, fit in the van. Which fits?",
+      "choices": [
+        "k < 10",
+        "k ≤ 10",
+        "k ≥ 10",
+        "k > 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "10 or less: k ≤ 10. 10 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/027",
+      "tier": 5,
+      "prompt": "Which is a solution of m ≤ 12?",
+      "choices": [
+        "11",
+        "15",
+        "16",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 11: 11 ≤ 12 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/028",
+      "tier": 5,
+      "prompt": "The speed s is greater than 12. Which fits?",
+      "choices": [
+        "s ≥ 12",
+        "s ≤ 12",
+        "s > 12",
+        "s < 12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "More than 12: s > 12. 12 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/029",
+      "tier": 5,
+      "prompt": "Rider age a must be at least 7 years. Which fits?",
+      "choices": [
+        "a ≥ 7",
+        "a ≤ 7",
+        "a > 7",
+        "a < 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SIGN",
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "7 or more: a ≥ 7. 7 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/030",
+      "tier": 5,
+      "prompt": "Which is a solution of x > 8?",
+      "choices": [
+        "5",
+        "10",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIDE",
+        null,
+        "WRONG_SIDE",
+        "BOUNDARY"
+      ],
+      "explanation": "Try 10: 10 > 8 is true. 8 > 8 is false: 8 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/031",
+      "tier": 5,
+      "prompt": "Which makes 9x ≤ 36 true?",
+      "choices": [
+        "4",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 4: 9 × 4 = 36, and 36 ≤ 36 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/032",
+      "tier": 5,
+      "prompt": "Which is a solution of k ≤ 7?",
+      "choices": [
+        "10",
+        "11",
+        "9",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        null
+      ],
+      "explanation": "Try 7: 7 ≤ 7 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/033",
+      "tier": 5,
+      "prompt": "The speed s is greater than 19. Which fits?",
+      "choices": [
+        "s ≥ 19",
+        "s ≤ 19",
+        "s > 19",
+        "s < 19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "More than 19: s > 19. 19 itself does not count, so no line under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/034",
+      "tier": 5,
+      "prompt": "Which makes 9k < 54 true?",
+      "choices": [
+        "7",
+        "8",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "BOUNDARY",
+        null
+      ],
+      "explanation": "Try 4: 9 × 4 = 36, and 36 < 54 is true. 9 × 6 = 54, and 54 < 54 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/035",
+      "tier": 5,
+      "prompt": "Which makes 9 < y true?",
+      "choices": [
+        "9",
+        "8",
+        "12",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY",
+        "FLIPPED_SIGN",
+        null,
+        "FLIPPED_SIGN"
+      ],
+      "explanation": "9 < y means y > 9. Try 12: 9 < 12 is true. 9 > 9 is false: 9 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/036",
+      "tier": 5,
+      "prompt": "Which makes y + 5 ≥ 9 true?",
+      "choices": [
+        "3",
+        "7",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIDE",
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE"
+      ],
+      "explanation": "Try 7: 7 + 5 = 12, and 12 ≥ 9 is true."
+    },
+    {
+      "id": "equations-inequalities/t5/037",
+      "tier": 5,
+      "prompt": "Which makes 9n > 54 true?",
+      "choices": [
+        "9",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        "BOUNDARY"
+      ],
+      "explanation": "Try 9: 9 × 9 = 81, and 81 > 54 is true. 9 × 6 = 54, and 54 > 54 is false."
+    },
+    {
+      "id": "equations-inequalities/t5/038",
+      "tier": 5,
+      "prompt": "Which makes 5 > m true?",
+      "choices": [
+        "9",
+        "7",
+        "5",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        "BOUNDARY",
+        null
+      ],
+      "explanation": "5 > m means m < 5. Try 2: 5 > 2 is true. 5 < 5 is false: 5 is not a solution."
+    },
+    {
+      "id": "equations-inequalities/t5/039",
+      "tier": 5,
+      "prompt": "At most 17 kids, k, fit in the van. Which fits?",
+      "choices": [
+        "k < 17",
+        "k ≥ 17",
+        "k > 17",
+        "k ≤ 17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "FLIPPED_SIGN",
+        "FLIPPED_SIGN",
+        null
+      ],
+      "explanation": "17 or less: k ≤ 17. 17 itself counts, so the line goes under the sign."
+    },
+    {
+      "id": "equations-inequalities/t5/040",
+      "tier": 5,
+      "prompt": "Which makes 8y > 48 true?",
+      "choices": [
+        "4",
+        "5",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIDE",
+        "WRONG_SIDE",
+        null,
+        "BOUNDARY"
+      ],
+      "explanation": "Try 8: 8 × 8 = 64, and 64 > 48 is true. 8 × 6 = 48, and 48 > 48 is false."
+    }
+  ]
+}

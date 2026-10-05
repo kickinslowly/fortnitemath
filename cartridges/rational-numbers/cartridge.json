@@ -1,0 +1,122 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "rational-numbers",
+  "version": "1.0.0",
+  "title": "Rational Numbers",
+  "subtitle": "Number Line & Coordinate Plane",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.NS.C.5",
+    "CCSS.MATH.CONTENT.6.NS.C.6",
+    "CCSS.MATH.CONTENT.6.NS.C.7",
+    "CCSS.MATH.CONTENT.6.NS.C.8"
+  ],
+  "seed": 20261015,
+  "items_per_tier": 40,
+  "bounds": "Every number shown is an integer or a half (one decimal place, .5) of size <= 20; coordinates are integers of size 1..10; reciprocal distractors have denominators 2..12. Every hidden step is one + or - of two sizes <= 12 (absolute values), a move of <= 10 on a number line, or a distance of two coordinate sizes; every correct answer has size <= 20. Ordering uses at most 3 numbers.",
+  "tiers": [
+    { "tier": 1, "name": "Opposites & Signs", "description": "Opposites, numbers in real-world contexts, moving on a number line." },
+    { "tier": 2, "name": "Absolute Value", "description": "Absolute value as distance from 0, and the size of a debt." },
+    { "tier": 3, "name": "Compare & Order", "description": "Which is less, order from least to greatest, coldest and lowest." },
+    { "tier": 4, "name": "Quadrants & Reflections", "description": "Quadrants from signs, and reflecting points over an axis." },
+    { "tier": 5, "name": "Distance on the Plane", "description": "Distance between points that share a coordinate, and in stories." }
+  ],
+  "misconceptions": {
+    "SAME_NUMBER": {
+      "student": "The opposite is the same distance from 0 on the other side: 7 and −7.",
+      "teacher": "Gives the number itself as its opposite."
+    },
+    "RECIPROCAL": {
+      "student": "Opposite means switch the sign. Flipping into a fraction is the reciprocal.",
+      "teacher": "Confuses the opposite with the reciprocal (or the negative reciprocal)."
+    },
+    "WRONG_SIGN_CONTEXT": {
+      "student": "Below, owe, lose, down, withdraw are negative. Above, earn, gain, up are +.",
+      "teacher": "Assigns the wrong sign to a quantity described in words."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Right means bigger numbers. Left means smaller numbers.",
+      "teacher": "Moves the wrong way on the number line."
+    },
+    "FROM_ZERO": {
+      "student": "Start at the starting number, not at 0, then count the move.",
+      "teacher": "Counts the move from 0 instead of from the given start."
+    },
+    "OFF_BY_ONE": {
+      "student": "Count the jumps between tick marks, not the tick marks themselves.",
+      "teacher": "Counts points instead of unit intervals (fencepost error)."
+    },
+    "KEEPS_SIGN": {
+      "student": "Absolute value is distance from 0, never negative: |−9| = 9.",
+      "teacher": "Keeps the negative sign inside absolute value bars."
+    },
+    "OPPOSITE_FOR_ABS": {
+      "student": "Absolute value is not the opposite: |4| = 4 and |−4| = 4.",
+      "teacher": "Takes the opposite instead of the absolute value, so |4| = −4."
+    },
+    "POSITIVE_DEBT": {
+      "student": "A positive balance is money you have. A debt is a negative balance.",
+      "teacher": "Reads the largest number as the largest debt, ignoring the sign."
+    },
+    "NEG_SIZE": {
+      "student": "For negatives, a bigger size means less: −7 is less than −2.",
+      "teacher": "Orders negatives by magnitude, e.g. thinks −2 < −7."
+    },
+    "ABS_ORDER": {
+      "student": "Signs matter: every negative is less than every positive.",
+      "teacher": "Orders numbers by absolute value, ignoring signs."
+    },
+    "ZERO_LEAST": {
+      "student": "Negatives are less than 0: −3 is left of 0 on the number line.",
+      "teacher": "Treats 0 as the least number."
+    },
+    "GREATEST_FIRST": {
+      "student": "Least to greatest starts with the number farthest left.",
+      "teacher": "Orders from greatest to least."
+    },
+    "CLOCKWISE": {
+      "student": "Quadrants go counterclockwise: I top right, II top left, III, IV.",
+      "teacher": "Numbers the quadrants clockwise (swaps II and IV)."
+    },
+    "SIGN_MISREAD": {
+      "student": "x sign: left (−) or right (+). y sign: down (−) or up (+). Check both.",
+      "teacher": "Places a point using the wrong sign on one or both coordinates."
+    },
+    "NO_MOVE": {
+      "student": "A reflection moves the point to the other side of the axis.",
+      "teacher": "Gives the original point's quadrant after a reflection."
+    },
+    "WRONG_AXIS": {
+      "student": "Over the x-axis, y changes sign. Over the y-axis, x changes sign.",
+      "teacher": "Reflects across the other axis."
+    },
+    "BOTH_FLIPPED": {
+      "student": "A reflection over one axis changes only one sign.",
+      "teacher": "Negates both coordinates (a half turn about the origin)."
+    },
+    "SWAPPED_XY": {
+      "student": "Keep the order (x, y). A reflection does not swap them.",
+      "teacher": "Swaps the coordinates."
+    },
+    "SUBTRACTED_SIZES": {
+      "student": "Opposite sides of 0: add the two distances to 0.",
+      "teacher": "Subtracts magnitudes when the points straddle 0."
+    },
+    "ADDED_SIZES": {
+      "student": "Same side of 0: subtract the sizes. −6 and −2 are 4 apart.",
+      "teacher": "Adds magnitudes when the points are on the same side of 0."
+    },
+    "NEG_DISTANCE": {
+      "student": "A distance is never negative. Take bigger minus smaller.",
+      "teacher": "Reports a signed difference as a distance."
+    },
+    "TO_AXIS": {
+      "student": "That is only to the axis. The reflection is that far again: double it.",
+      "teacher": "Gives the distance from the point to the axis, not to its image."
+    },
+    "WRONG_COORD": {
+      "student": "Use the coordinate that changes, not the one that stays the same.",
+      "teacher": "Measures with the coordinate that is unchanged by the reflection."
+    }
+  }
+}

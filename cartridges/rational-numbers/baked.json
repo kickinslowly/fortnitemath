@@ -1,0 +1,3891 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "rational-numbers",
+  "version": "1.0.0",
+  "title": "Rational Numbers",
+  "subtitle": "Number Line & Coordinate Plane",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.NS.C.5",
+    "CCSS.MATH.CONTENT.6.NS.C.6",
+    "CCSS.MATH.CONTENT.6.NS.C.7",
+    "CCSS.MATH.CONTENT.6.NS.C.8"
+  ],
+  "seed": 20261015,
+  "items_per_tier": 40,
+  "bounds": "Every number shown is an integer or a half (one decimal place, .5) of size <= 20; coordinates are integers of size 1..10; reciprocal distractors have denominators 2..12. Every hidden step is one + or - of two sizes <= 12 (absolute values), a move of <= 10 on a number line, or a distance of two coordinate sizes; every correct answer has size <= 20. Ordering uses at most 3 numbers.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Opposites & Signs",
+      "description": "Opposites, numbers in real-world contexts, moving on a number line."
+    },
+    {
+      "tier": 2,
+      "name": "Absolute Value",
+      "description": "Absolute value as distance from 0, and the size of a debt."
+    },
+    {
+      "tier": 3,
+      "name": "Compare & Order",
+      "description": "Which is less, order from least to greatest, coldest and lowest."
+    },
+    {
+      "tier": 4,
+      "name": "Quadrants & Reflections",
+      "description": "Quadrants from signs, and reflecting points over an axis."
+    },
+    {
+      "tier": 5,
+      "name": "Distance on the Plane",
+      "description": "Distance between points that share a coordinate, and in stories."
+    }
+  ],
+  "misconceptions": {
+    "SAME_NUMBER": {
+      "student": "The opposite is the same distance from 0 on the other side: 7 and −7.",
+      "teacher": "Gives the number itself as its opposite."
+    },
+    "RECIPROCAL": {
+      "student": "Opposite means switch the sign. Flipping into a fraction is the reciprocal.",
+      "teacher": "Confuses the opposite with the reciprocal (or the negative reciprocal)."
+    },
+    "WRONG_SIGN_CONTEXT": {
+      "student": "Below, owe, lose, down, withdraw are negative. Above, earn, gain, up are +.",
+      "teacher": "Assigns the wrong sign to a quantity described in words."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Right means bigger numbers. Left means smaller numbers.",
+      "teacher": "Moves the wrong way on the number line."
+    },
+    "FROM_ZERO": {
+      "student": "Start at the starting number, not at 0, then count the move.",
+      "teacher": "Counts the move from 0 instead of from the given start."
+    },
+    "OFF_BY_ONE": {
+      "student": "Count the jumps between tick marks, not the tick marks themselves.",
+      "teacher": "Counts points instead of unit intervals (fencepost error)."
+    },
+    "KEEPS_SIGN": {
+      "student": "Absolute value is distance from 0, never negative: |−9| = 9.",
+      "teacher": "Keeps the negative sign inside absolute value bars."
+    },
+    "OPPOSITE_FOR_ABS": {
+      "student": "Absolute value is not the opposite: |4| = 4 and |−4| = 4.",
+      "teacher": "Takes the opposite instead of the absolute value, so |4| = −4."
+    },
+    "POSITIVE_DEBT": {
+      "student": "A positive balance is money you have. A debt is a negative balance.",
+      "teacher": "Reads the largest number as the largest debt, ignoring the sign."
+    },
+    "NEG_SIZE": {
+      "student": "For negatives, a bigger size means less: −7 is less than −2.",
+      "teacher": "Orders negatives by magnitude, e.g. thinks −2 < −7."
+    },
+    "ABS_ORDER": {
+      "student": "Signs matter: every negative is less than every positive.",
+      "teacher": "Orders numbers by absolute value, ignoring signs."
+    },
+    "ZERO_LEAST": {
+      "student": "Negatives are less than 0: −3 is left of 0 on the number line.",
+      "teacher": "Treats 0 as the least number."
+    },
+    "GREATEST_FIRST": {
+      "student": "Least to greatest starts with the number farthest left.",
+      "teacher": "Orders from greatest to least."
+    },
+    "CLOCKWISE": {
+      "student": "Quadrants go counterclockwise: I top right, II top left, III, IV.",
+      "teacher": "Numbers the quadrants clockwise (swaps II and IV)."
+    },
+    "SIGN_MISREAD": {
+      "student": "x sign: left (−) or right (+). y sign: down (−) or up (+). Check both.",
+      "teacher": "Places a point using the wrong sign on one or both coordinates."
+    },
+    "NO_MOVE": {
+      "student": "A reflection moves the point to the other side of the axis.",
+      "teacher": "Gives the original point's quadrant after a reflection."
+    },
+    "WRONG_AXIS": {
+      "student": "Over the x-axis, y changes sign. Over the y-axis, x changes sign.",
+      "teacher": "Reflects across the other axis."
+    },
+    "BOTH_FLIPPED": {
+      "student": "A reflection over one axis changes only one sign.",
+      "teacher": "Negates both coordinates (a half turn about the origin)."
+    },
+    "SWAPPED_XY": {
+      "student": "Keep the order (x, y). A reflection does not swap them.",
+      "teacher": "Swaps the coordinates."
+    },
+    "SUBTRACTED_SIZES": {
+      "student": "Opposite sides of 0: add the two distances to 0.",
+      "teacher": "Subtracts magnitudes when the points straddle 0."
+    },
+    "ADDED_SIZES": {
+      "student": "Same side of 0: subtract the sizes. −6 and −2 are 4 apart.",
+      "teacher": "Adds magnitudes when the points are on the same side of 0."
+    },
+    "NEG_DISTANCE": {
+      "student": "A distance is never negative. Take bigger minus smaller.",
+      "teacher": "Reports a signed difference as a distance."
+    },
+    "TO_AXIS": {
+      "student": "That is only to the axis. The reflection is that far again: double it.",
+      "teacher": "Gives the distance from the point to the axis, not to its image."
+    },
+    "WRONG_COORD": {
+      "student": "Use the coordinate that changes, not the one that stays the same.",
+      "teacher": "Measures with the coordinate that is unchanged by the reflection."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "rational-numbers/t1/001",
+      "tier": 1,
+      "prompt": "Start at −1 and move 8 right. Where are you?",
+      "choices": [
+        "−9",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_DIRECTION",
+        null,
+        "FROM_ZERO",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Right means bigger: −1 + 8 = 7."
+    },
+    {
+      "id": "rational-numbers/t1/002",
+      "tier": 1,
+      "prompt": "Go down 14 floors, then go up 17 floors. As integers?",
+      "choices": [
+        "−14 and 17",
+        "−14 and −17",
+        "14 and 17",
+        "14 and −17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Down means negative: −14. Up means positive: 17. So −14 and 17."
+    },
+    {
+      "id": "rational-numbers/t1/003",
+      "tier": 1,
+      "prompt": "Deposit $8, then withdraw $5. As integers?",
+      "choices": [
+        "8 and −5",
+        "−8 and −5",
+        "8 and 5",
+        "−8 and 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Deposit means positive: 8. Withdraw means negative: −5. So 8 and −5."
+    },
+    {
+      "id": "rational-numbers/t1/004",
+      "tier": 1,
+      "prompt": "Start at 7 and move 2 right. Where are you?",
+      "choices": [
+        "9",
+        "5",
+        "2",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_DIRECTION",
+        "FROM_ZERO",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Right means bigger: 7 + 2 = 9."
+    },
+    {
+      "id": "rational-numbers/t1/005",
+      "tier": 1,
+      "prompt": "Start at 9 and move 7 right. Where are you?",
+      "choices": [
+        "15",
+        "2",
+        "16",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "WRONG_DIRECTION",
+        null,
+        "FROM_ZERO"
+      ],
+      "explanation": "Right means bigger: 9 + 7 = 16."
+    },
+    {
+      "id": "rational-numbers/t1/006",
+      "tier": 1,
+      "prompt": "What is the opposite of −5?",
+      "choices": [
+        "1/5",
+        "−5",
+        "5",
+        "−1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RECIPROCAL",
+        "SAME_NUMBER",
+        null,
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: 5."
+    },
+    {
+      "id": "rational-numbers/t1/007",
+      "tier": 1,
+      "prompt": "Opposite of 9?",
+      "choices": [
+        "9",
+        "1/9",
+        "−1/9",
+        "−9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        "RECIPROCAL",
+        null
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −9."
+    },
+    {
+      "id": "rational-numbers/t1/008",
+      "tier": 1,
+      "prompt": "Start at −6 and move 8 right. Where are you?",
+      "choices": [
+        "2",
+        "8",
+        "−14",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FROM_ZERO",
+        "WRONG_DIRECTION",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Right means bigger: −6 + 8 = 2."
+    },
+    {
+      "id": "rational-numbers/t1/009",
+      "tier": 1,
+      "prompt": "Opposite of 3.5?",
+      "choices": [
+        "−2/7",
+        "2/7",
+        "−3.5",
+        "3.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RECIPROCAL",
+        "RECIPROCAL",
+        null,
+        "SAME_NUMBER"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −3.5."
+    },
+    {
+      "id": "rational-numbers/t1/010",
+      "tier": 1,
+      "prompt": "Owe $13, then earn $3. As integers?",
+      "choices": [
+        "−13 and −3",
+        "−13 and 3",
+        "13 and −3",
+        "13 and 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Owe means negative: −13. Earn means positive: 3. So −13 and 3."
+    },
+    {
+      "id": "rational-numbers/t1/011",
+      "tier": 1,
+      "prompt": "Start at −3 and move 4 right. Where are you?",
+      "choices": [
+        "−7",
+        "4",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_DIRECTION",
+        "FROM_ZERO",
+        null,
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Right means bigger: −3 + 4 = 1."
+    },
+    {
+      "id": "rational-numbers/t1/012",
+      "tier": 1,
+      "prompt": "Start at 8 and move 4 left. Where are you?",
+      "choices": [
+        "12",
+        "5",
+        "4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_DIRECTION",
+        "OFF_BY_ONE",
+        null,
+        "FROM_ZERO"
+      ],
+      "explanation": "Left means smaller: 8 − 4 = 4."
+    },
+    {
+      "id": "rational-numbers/t1/013",
+      "tier": 1,
+      "prompt": "Win 4 points, then lose 6 points. As integers?",
+      "choices": [
+        "4 and −6",
+        "4 and 6",
+        "−4 and 6",
+        "−4 and −6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Win means positive: 4. Lose means negative: −6. So 4 and −6."
+    },
+    {
+      "id": "rational-numbers/t1/014",
+      "tier": 1,
+      "prompt": "Earn $11, then owe $8. As integers?",
+      "choices": [
+        "11 and 8",
+        "−11 and −8",
+        "−11 and 8",
+        "11 and −8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        null
+      ],
+      "explanation": "Earn means positive: 11. Owe means negative: −8. So 11 and −8."
+    },
+    {
+      "id": "rational-numbers/t1/015",
+      "tier": 1,
+      "prompt": "Start at −5 and move 2 left. Where are you?",
+      "choices": [
+        "−7",
+        "−6",
+        "−3",
+        "−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "WRONG_DIRECTION",
+        "FROM_ZERO"
+      ],
+      "explanation": "Left means smaller: −5 − 2 = −7."
+    },
+    {
+      "id": "rational-numbers/t1/016",
+      "tier": 1,
+      "prompt": "What is the opposite of −4?",
+      "choices": [
+        "−1/4",
+        "4",
+        "−4",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RECIPROCAL",
+        null,
+        "SAME_NUMBER",
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: 4."
+    },
+    {
+      "id": "rational-numbers/t1/017",
+      "tier": 1,
+      "prompt": "Gain 4 yards, then lose 2 yards. As integers?",
+      "choices": [
+        "−4 and −2",
+        "4 and −2",
+        "4 and 2",
+        "−4 and 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Gain means positive: 4. Lose means negative: −2. So 4 and −2."
+    },
+    {
+      "id": "rational-numbers/t1/018",
+      "tier": 1,
+      "prompt": "Opposite of 2?",
+      "choices": [
+        "−1/2",
+        "1/2",
+        "−2",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RECIPROCAL",
+        "RECIPROCAL",
+        null,
+        "SAME_NUMBER"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −2."
+    },
+    {
+      "id": "rational-numbers/t1/019",
+      "tier": 1,
+      "prompt": "Start at 6 and move 7 left. Where are you?",
+      "choices": [
+        "0",
+        "−1",
+        "13",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        null,
+        "WRONG_DIRECTION",
+        "FROM_ZERO"
+      ],
+      "explanation": "Left means smaller: 6 − 7 = −1."
+    },
+    {
+      "id": "rational-numbers/t1/020",
+      "tier": 1,
+      "prompt": "Opposite of 8?",
+      "choices": [
+        "−8",
+        "−1/8",
+        "8",
+        "1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RECIPROCAL",
+        "SAME_NUMBER",
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −8."
+    },
+    {
+      "id": "rational-numbers/t1/021",
+      "tier": 1,
+      "prompt": "14 degrees above 0, then 18 degrees below 0. As integers?",
+      "choices": [
+        "−14 and −18",
+        "14 and 18",
+        "−14 and 18",
+        "14 and −18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        null
+      ],
+      "explanation": "Above means positive: 14. Below means negative: −18. So 14 and −18."
+    },
+    {
+      "id": "rational-numbers/t1/022",
+      "tier": 1,
+      "prompt": "Go up 2 floors, then go down 15 floors. As integers?",
+      "choices": [
+        "−2 and 15",
+        "2 and −15",
+        "−2 and −15",
+        "2 and 15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Up means positive: 2. Down means negative: −15. So 2 and −15."
+    },
+    {
+      "id": "rational-numbers/t1/023",
+      "tier": 1,
+      "prompt": "What is the opposite of 2?",
+      "choices": [
+        "−2",
+        "−1/2",
+        "1/2",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RECIPROCAL",
+        "RECIPROCAL",
+        "SAME_NUMBER"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −2."
+    },
+    {
+      "id": "rational-numbers/t1/024",
+      "tier": 1,
+      "prompt": "Go up 20 floors, then go down 5 floors. As integers?",
+      "choices": [
+        "20 and 5",
+        "−20 and −5",
+        "20 and −5",
+        "−20 and 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        null,
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Up means positive: 20. Down means negative: −5. So 20 and −5."
+    },
+    {
+      "id": "rational-numbers/t1/025",
+      "tier": 1,
+      "prompt": "Opposite of 12?",
+      "choices": [
+        "12",
+        "1/12",
+        "−1/12",
+        "−12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        "RECIPROCAL",
+        null
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −12."
+    },
+    {
+      "id": "rational-numbers/t1/026",
+      "tier": 1,
+      "prompt": "What is the opposite of 12?",
+      "choices": [
+        "12",
+        "−1/12",
+        "1/12",
+        "−12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        "RECIPROCAL",
+        null
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −12."
+    },
+    {
+      "id": "rational-numbers/t1/027",
+      "tier": 1,
+      "prompt": "What is the opposite of 2.5?",
+      "choices": [
+        "2/5",
+        "2.5",
+        "−2/5",
+        "−2.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RECIPROCAL",
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        null
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −2.5."
+    },
+    {
+      "id": "rational-numbers/t1/028",
+      "tier": 1,
+      "prompt": "Deposit $9, then withdraw $7. As integers?",
+      "choices": [
+        "9 and −7",
+        "9 and 7",
+        "−9 and −7",
+        "−9 and 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Deposit means positive: 9. Withdraw means negative: −7. So 9 and −7."
+    },
+    {
+      "id": "rational-numbers/t1/029",
+      "tier": 1,
+      "prompt": "Lose 20 yards, then gain 11 yards. As integers?",
+      "choices": [
+        "20 and 11",
+        "20 and −11",
+        "−20 and −11",
+        "−20 and 11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        null
+      ],
+      "explanation": "Lose means negative: −20. Gain means positive: 11. So −20 and 11."
+    },
+    {
+      "id": "rational-numbers/t1/030",
+      "tier": 1,
+      "prompt": "Start at 3 and move 8 right. Where are you?",
+      "choices": [
+        "8",
+        "11",
+        "10",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FROM_ZERO",
+        null,
+        "OFF_BY_ONE",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Right means bigger: 3 + 8 = 11."
+    },
+    {
+      "id": "rational-numbers/t1/031",
+      "tier": 1,
+      "prompt": "Opposite of −5?",
+      "choices": [
+        "−1/5",
+        "5",
+        "−5",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RECIPROCAL",
+        null,
+        "SAME_NUMBER",
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: 5."
+    },
+    {
+      "id": "rational-numbers/t1/032",
+      "tier": 1,
+      "prompt": "Deposit $15, then withdraw $16. As integers?",
+      "choices": [
+        "15 and −16",
+        "15 and 16",
+        "−15 and −16",
+        "−15 and 16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT"
+      ],
+      "explanation": "Deposit means positive: 15. Withdraw means negative: −16. So 15 and −16."
+    },
+    {
+      "id": "rational-numbers/t1/033",
+      "tier": 1,
+      "prompt": "What is the opposite of 4?",
+      "choices": [
+        "−1/4",
+        "4",
+        "1/4",
+        "−4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RECIPROCAL",
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        null
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: −4."
+    },
+    {
+      "id": "rational-numbers/t1/034",
+      "tier": 1,
+      "prompt": "Start at −4 and move 5 right. Where are you?",
+      "choices": [
+        "0",
+        "1",
+        "5",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        null,
+        "FROM_ZERO",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Right means bigger: −4 + 5 = 1."
+    },
+    {
+      "id": "rational-numbers/t1/035",
+      "tier": 1,
+      "prompt": "Start at −9 and move 4 right. Where are you?",
+      "choices": [
+        "−13",
+        "−6",
+        "−5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_DIRECTION",
+        "OFF_BY_ONE",
+        null,
+        "FROM_ZERO"
+      ],
+      "explanation": "Right means bigger: −9 + 4 = −5."
+    },
+    {
+      "id": "rational-numbers/t1/036",
+      "tier": 1,
+      "prompt": "Start at 1 and move 9 left. Where are you?",
+      "choices": [
+        "−9",
+        "−8",
+        "−7",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FROM_ZERO",
+        null,
+        "OFF_BY_ONE",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Left means smaller: 1 − 9 = −8."
+    },
+    {
+      "id": "rational-numbers/t1/037",
+      "tier": 1,
+      "prompt": "Opposite of −10?",
+      "choices": [
+        "−10",
+        "1/10",
+        "10",
+        "−1/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "RECIPROCAL",
+        null,
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: 10."
+    },
+    {
+      "id": "rational-numbers/t1/038",
+      "tier": 1,
+      "prompt": "Start at −5 and move 7 right. Where are you?",
+      "choices": [
+        "7",
+        "−12",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FROM_ZERO",
+        "WRONG_DIRECTION",
+        "OFF_BY_ONE",
+        null
+      ],
+      "explanation": "Right means bigger: −5 + 7 = 2."
+    },
+    {
+      "id": "rational-numbers/t1/039",
+      "tier": 1,
+      "prompt": "What is the opposite of −5.5?",
+      "choices": [
+        "−2/11",
+        "−5.5",
+        "5.5",
+        "2/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RECIPROCAL",
+        "SAME_NUMBER",
+        null,
+        "RECIPROCAL"
+      ],
+      "explanation": "The opposite is the same distance from 0 on the other side of 0: 5.5."
+    },
+    {
+      "id": "rational-numbers/t1/040",
+      "tier": 1,
+      "prompt": "7 degrees below 0, then 11 degrees above 0. As integers?",
+      "choices": [
+        "7 and 11",
+        "−7 and −11",
+        "7 and −11",
+        "−7 and 11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        "WRONG_SIGN_CONTEXT",
+        null
+      ],
+      "explanation": "Below means negative: −7. Above means positive: 11. So −7 and 11."
+    },
+    {
+      "id": "rational-numbers/t2/001",
+      "tier": 2,
+      "prompt": "|−11| − |6| = ?",
+      "choices": [
+        "−17",
+        "4",
+        "5",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "ARITH",
+        null,
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|−11| = 11 and |6| = 6, so 11 − 6 = 5."
+    },
+    {
+      "id": "rational-numbers/t2/002",
+      "tier": 2,
+      "prompt": "Biggest debt: −$18, −$13 or $20?",
+      "choices": [
+        "−$13",
+        "$20",
+        "−$18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_SIZE",
+        "POSITIVE_DEBT",
+        null
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−18| = 18 > |−13| = 13, so −$18 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/003",
+      "tier": 2,
+      "prompt": "|−3| + |−5| = ?",
+      "choices": [
+        "−8",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "|−3| = 3 and |−5| = 5, so 3 + 5 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/004",
+      "tier": 2,
+      "prompt": "|−10| − |2| = ?",
+      "choices": [
+        "−12",
+        "12",
+        "7",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS",
+        "ARITH",
+        null
+      ],
+      "explanation": "|−10| = 10 and |2| = 2, so 10 − 2 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/005",
+      "tier": 2,
+      "prompt": "|11| − |−7| = ?",
+      "choices": [
+        "4",
+        "−18",
+        "18",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        "ARITH"
+      ],
+      "explanation": "|11| = 11 and |−7| = 7, so 11 − 7 = 4."
+    },
+    {
+      "id": "rational-numbers/t2/006",
+      "tier": 2,
+      "prompt": "|−4| − |2| = ?",
+      "choices": [
+        "2",
+        "1",
+        "−6",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|−4| = 4 and |2| = 2, so 4 − 2 = 2."
+    },
+    {
+      "id": "rational-numbers/t2/007",
+      "tier": 2,
+      "prompt": "Biggest debt: $20, −$18 or −$14?",
+      "choices": [
+        "−$14",
+        "$20",
+        "−$18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_SIZE",
+        "POSITIVE_DEBT",
+        null
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−18| = 18 > |−14| = 14, so −$18 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/008",
+      "tier": 2,
+      "prompt": "|−11| + |9| = ?",
+      "choices": [
+        "19",
+        "2",
+        "−2",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        null
+      ],
+      "explanation": "|−11| = 11 and |9| = 9, so 11 + 9 = 20."
+    },
+    {
+      "id": "rational-numbers/t2/009",
+      "tier": 2,
+      "prompt": "|12| − |−4| = ?",
+      "choices": [
+        "8",
+        "7",
+        "−16",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN"
+      ],
+      "explanation": "|12| = 12 and |−4| = 4, so 12 − 4 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/010",
+      "tier": 2,
+      "prompt": "|−2| + |−6| = ?",
+      "choices": [
+        "−8",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "|−2| = 2 and |−6| = 6, so 2 + 6 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/011",
+      "tier": 2,
+      "prompt": "|12| − |−9| = ?",
+      "choices": [
+        "3",
+        "−21",
+        "4",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OPPOSITE_FOR_ABS",
+        "ARITH",
+        "KEEPS_SIGN"
+      ],
+      "explanation": "|12| = 12 and |−9| = 9, so 12 − 9 = 3."
+    },
+    {
+      "id": "rational-numbers/t2/012",
+      "tier": 2,
+      "prompt": "|−12| − |4| = ?",
+      "choices": [
+        "16",
+        "−16",
+        "8",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "|−12| = 12 and |4| = 4, so 12 − 4 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/013",
+      "tier": 2,
+      "prompt": "Biggest debt: −$7, −$2 or $19?",
+      "choices": [
+        "$19",
+        "−$7",
+        "−$2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−7| = 7 > |−2| = 2, so −$7 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/014",
+      "tier": 2,
+      "prompt": "|−10| + |8| = ?",
+      "choices": [
+        "17",
+        "−2",
+        "2",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS",
+        null
+      ],
+      "explanation": "|−10| = 10 and |8| = 8, so 10 + 8 = 18."
+    },
+    {
+      "id": "rational-numbers/t2/015",
+      "tier": 2,
+      "prompt": "Biggest debt: $11, −$9 or −$6?",
+      "choices": [
+        "−$9",
+        "$11",
+        "−$6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POSITIVE_DEBT",
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−9| = 9 > |−6| = 6, so −$9 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/016",
+      "tier": 2,
+      "prompt": "Biggest debt: −$12, −$8 or $17?",
+      "choices": [
+        "−$12",
+        "−$8",
+        "$17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "POSITIVE_DEBT"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−12| = 12 > |−8| = 8, so −$12 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/017",
+      "tier": 2,
+      "prompt": "|7| − |−3| = ?",
+      "choices": [
+        "10",
+        "4",
+        "5",
+        "−10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        null,
+        "ARITH",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|7| = 7 and |−3| = 3, so 7 − 3 = 4."
+    },
+    {
+      "id": "rational-numbers/t2/018",
+      "tier": 2,
+      "prompt": "Biggest debt: −$16, −$2 or $20?",
+      "choices": [
+        "−$2",
+        "−$16",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_SIZE",
+        null,
+        "POSITIVE_DEBT"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−16| = 16 > |−2| = 2, so −$16 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/019",
+      "tier": 2,
+      "prompt": "|9| + |−6| = ?",
+      "choices": [
+        "15",
+        "3",
+        "14",
+        "−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEPS_SIGN",
+        "ARITH",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|9| = 9 and |−6| = 6, so 9 + 6 = 15."
+    },
+    {
+      "id": "rational-numbers/t2/020",
+      "tier": 2,
+      "prompt": "|4| + |−2| = ?",
+      "choices": [
+        "2",
+        "6",
+        "−2",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        null,
+        "OPPOSITE_FOR_ABS",
+        "ARITH"
+      ],
+      "explanation": "|4| = 4 and |−2| = 2, so 4 + 2 = 6."
+    },
+    {
+      "id": "rational-numbers/t2/021",
+      "tier": 2,
+      "prompt": "|−4| + |6| = ?",
+      "choices": [
+        "2",
+        "−2",
+        "10",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "|−4| = 4 and |6| = 6, so 4 + 6 = 10."
+    },
+    {
+      "id": "rational-numbers/t2/022",
+      "tier": 2,
+      "prompt": "|−5| + |11| = ?",
+      "choices": [
+        "6",
+        "16",
+        "−6",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        null,
+        "OPPOSITE_FOR_ABS",
+        "ARITH"
+      ],
+      "explanation": "|−5| = 5 and |11| = 11, so 5 + 11 = 16."
+    },
+    {
+      "id": "rational-numbers/t2/023",
+      "tier": 2,
+      "prompt": "|11| − |−4| = ?",
+      "choices": [
+        "7",
+        "8",
+        "15",
+        "−15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|11| = 11 and |−4| = 4, so 11 − 4 = 7."
+    },
+    {
+      "id": "rational-numbers/t2/024",
+      "tier": 2,
+      "prompt": "|−7| + |8| = ?",
+      "choices": [
+        "−1",
+        "1",
+        "15",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "|−7| = 7 and |8| = 8, so 7 + 8 = 15."
+    },
+    {
+      "id": "rational-numbers/t2/025",
+      "tier": 2,
+      "prompt": "Biggest debt: −$17, −$7 or $18?",
+      "choices": [
+        "$18",
+        "−$7",
+        "−$17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−17| = 17 > |−7| = 7, so −$17 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/026",
+      "tier": 2,
+      "prompt": "|4| + |−10| = ?",
+      "choices": [
+        "15",
+        "6",
+        "−6",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        null
+      ],
+      "explanation": "|4| = 4 and |−10| = 10, so 4 + 10 = 14."
+    },
+    {
+      "id": "rational-numbers/t2/027",
+      "tier": 2,
+      "prompt": "|−10| − |3| = ?",
+      "choices": [
+        "8",
+        "7",
+        "13",
+        "−13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN"
+      ],
+      "explanation": "|−10| = 10 and |3| = 3, so 10 − 3 = 7."
+    },
+    {
+      "id": "rational-numbers/t2/028",
+      "tier": 2,
+      "prompt": "Biggest debt: $20, −$19 or −$2?",
+      "choices": [
+        "$20",
+        "−$19",
+        "−$2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−19| = 19 > |−2| = 2, so −$19 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/029",
+      "tier": 2,
+      "prompt": "|11| − |−3| = ?",
+      "choices": [
+        "8",
+        "14",
+        "7",
+        "−14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEPS_SIGN",
+        "ARITH",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|11| = 11 and |−3| = 3, so 11 − 3 = 8."
+    },
+    {
+      "id": "rational-numbers/t2/030",
+      "tier": 2,
+      "prompt": "Biggest debt: −$18, −$11 or $20?",
+      "choices": [
+        "$20",
+        "−$18",
+        "−$11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−18| = 18 > |−11| = 11, so −$18 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/031",
+      "tier": 2,
+      "prompt": "|9| − |−5| = ?",
+      "choices": [
+        "3",
+        "4",
+        "14",
+        "−14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|9| = 9 and |−5| = 5, so 9 − 5 = 4."
+    },
+    {
+      "id": "rational-numbers/t2/032",
+      "tier": 2,
+      "prompt": "Biggest debt: −$4, $9 or −$3?",
+      "choices": [
+        "−$4",
+        "$9",
+        "−$3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POSITIVE_DEBT",
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−4| = 4 > |−3| = 3, so −$4 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/033",
+      "tier": 2,
+      "prompt": "|−11| + |−9| = ?",
+      "choices": [
+        "−20",
+        "19",
+        "21",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEPS_SIGN",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "|−11| = 11 and |−9| = 9, so 11 + 9 = 20."
+    },
+    {
+      "id": "rational-numbers/t2/034",
+      "tier": 2,
+      "prompt": "Biggest debt: $20, −$4 or −$3?",
+      "choices": [
+        "−$4",
+        "−$3",
+        "$20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "POSITIVE_DEBT"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−4| = 4 > |−3| = 3, so −$4 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/035",
+      "tier": 2,
+      "prompt": "|5| + |−2| = ?",
+      "choices": [
+        "−3",
+        "3",
+        "6",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OPPOSITE_FOR_ABS",
+        "KEEPS_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "|5| = 5 and |−2| = 2, so 5 + 2 = 7."
+    },
+    {
+      "id": "rational-numbers/t2/036",
+      "tier": 2,
+      "prompt": "|−8| + |−5| = ?",
+      "choices": [
+        "14",
+        "13",
+        "12",
+        "−13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "KEEPS_SIGN"
+      ],
+      "explanation": "|−8| = 8 and |−5| = 5, so 8 + 5 = 13."
+    },
+    {
+      "id": "rational-numbers/t2/037",
+      "tier": 2,
+      "prompt": "|2| + |−8| = ?",
+      "choices": [
+        "9",
+        "10",
+        "−6",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "KEEPS_SIGN",
+        "OPPOSITE_FOR_ABS"
+      ],
+      "explanation": "|2| = 2 and |−8| = 8, so 2 + 8 = 10."
+    },
+    {
+      "id": "rational-numbers/t2/038",
+      "tier": 2,
+      "prompt": "Biggest debt: $19, −$9 or −$16?",
+      "choices": [
+        "−$16",
+        "−$9",
+        "$19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "POSITIVE_DEBT"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−16| = 16 > |−9| = 9, so −$16 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/039",
+      "tier": 2,
+      "prompt": "Biggest debt: $20, −$13 or −$7?",
+      "choices": [
+        "$20",
+        "−$7",
+        "−$13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−13| = 13 > |−7| = 7, so −$13 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t2/040",
+      "tier": 2,
+      "prompt": "Biggest debt: $17, −$6 or −$15?",
+      "choices": [
+        "$17",
+        "−$15",
+        "−$6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITIVE_DEBT",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "A debt is a negative balance; its size is the absolute value. |−15| = 15 > |−6| = 6, so −$15 is the biggest debt."
+    },
+    {
+      "id": "rational-numbers/t3/001",
+      "tier": 3,
+      "prompt": "Coldest: −7.5, 1.5 or −9 degrees?",
+      "choices": [
+        "−7.5",
+        "−9",
+        "1.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_SIZE",
+        null,
+        "ABS_ORDER"
+      ],
+      "explanation": "Coldest is the least temperature, farthest left: −9 < −7.5 < 1.5."
+    },
+    {
+      "id": "rational-numbers/t3/002",
+      "tier": 3,
+      "prompt": "Least: 1, −2.5 or −4.5?",
+      "choices": [
+        "−4.5",
+        "−2.5",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Least is farthest left on the number line: −4.5 < −2.5 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/003",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −3, 4.5, −9.5",
+      "choices": [
+        "−3, 4.5, −9.5",
+        "−3, −9.5, 4.5",
+        "−9.5, −3, 4.5",
+        "4.5, −3, −9.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        null,
+        "GREATEST_FIRST"
+      ],
+      "explanation": "Left to right on a number line: −9.5, −3, 4.5. Negatives come first, and −9.5 < −3."
+    },
+    {
+      "id": "rational-numbers/t3/004",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −1, 2, −10",
+      "choices": [
+        "−10, −1, 2",
+        "2, −1, −10",
+        "−1, −10, 2",
+        "−1, 2, −10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GREATEST_FIRST",
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Left to right on a number line: −10, −1, 2. Negatives come first, and −10 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/005",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 3, −9, −2",
+      "choices": [
+        "−2, 3, −9",
+        "3, −2, −9",
+        "−9, −2, 3",
+        "−2, −9, 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "GREATEST_FIRST",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −9, −2, 3. Negatives come first, and −9 < −2."
+    },
+    {
+      "id": "rational-numbers/t3/006",
+      "tier": 3,
+      "prompt": "Which is to the left of −8.5?",
+      "choices": [
+        "3",
+        "−9",
+        "0",
+        "−6.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "ZERO_LEAST",
+        "NEG_SIZE"
+      ],
+      "explanation": "Less means farther left on the number line. −9 is left of −8.5; −6.5, 0 and 3 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/007",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 2, −1, −3",
+      "choices": [
+        "−1, −3, 2",
+        "−1, 2, −3",
+        "−3, −1, 2",
+        "2, −1, −3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_SIZE",
+        "ABS_ORDER",
+        null,
+        "GREATEST_FIRST"
+      ],
+      "explanation": "Left to right on a number line: −3, −1, 2. Negatives come first, and −3 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/008",
+      "tier": 3,
+      "prompt": "Lowest score: −2, −5 or 1?",
+      "choices": [
+        "1",
+        "−5",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "Lowest is the least number, farthest left: −5 < −2 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/009",
+      "tier": 3,
+      "prompt": "Coldest: 3, −11 or −5 degrees?",
+      "choices": [
+        "−11",
+        "−5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Coldest is the least temperature, farthest left: −11 < −5 < 3."
+    },
+    {
+      "id": "rational-numbers/t3/010",
+      "tier": 3,
+      "prompt": "Which number is less than −5?",
+      "choices": [
+        "1",
+        "−3",
+        "−10",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        null,
+        "ZERO_LEAST"
+      ],
+      "explanation": "Less means farther left on the number line. −10 is left of −5; −3, 0 and 1 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/011",
+      "tier": 3,
+      "prompt": "Coldest: −9.5, −12 or 7.5 degrees?",
+      "choices": [
+        "−9.5",
+        "7.5",
+        "−12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_SIZE",
+        "ABS_ORDER",
+        null
+      ],
+      "explanation": "Coldest is the least temperature, farthest left: −12 < −9.5 < 7.5."
+    },
+    {
+      "id": "rational-numbers/t3/012",
+      "tier": 3,
+      "prompt": "Which is to the left of −3?",
+      "choices": [
+        "0.5",
+        "0",
+        "−1",
+        "−5.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ABS_ORDER",
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "Less means farther left on the number line. −5.5 is left of −3; −1, 0 and 0.5 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/013",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −9, 4, −1",
+      "choices": [
+        "−9, −1, 4",
+        "−1, 4, −9",
+        "4, −1, −9",
+        "−1, −9, 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ABS_ORDER",
+        "GREATEST_FIRST",
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −9, −1, 4. Negatives come first, and −9 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/014",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 4, −1.5, −11",
+      "choices": [
+        "−1.5, −11, 4",
+        "−1.5, 4, −11",
+        "4, −1.5, −11",
+        "−11, −1.5, 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_SIZE",
+        "ABS_ORDER",
+        "GREATEST_FIRST",
+        null
+      ],
+      "explanation": "Left to right on a number line: −11, −1.5, 4. Negatives come first, and −11 < −1.5."
+    },
+    {
+      "id": "rational-numbers/t3/015",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −8, 5, −2",
+      "choices": [
+        "−2, 5, −8",
+        "−8, −2, 5",
+        "−2, −8, 5",
+        "5, −2, −8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "NEG_SIZE",
+        "GREATEST_FIRST"
+      ],
+      "explanation": "Left to right on a number line: −8, −2, 5. Negatives come first, and −8 < −2."
+    },
+    {
+      "id": "rational-numbers/t3/016",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 4.5, −2, −7",
+      "choices": [
+        "−7, −2, 4.5",
+        "−2, 4.5, −7",
+        "4.5, −2, −7",
+        "−2, −7, 4.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ABS_ORDER",
+        "GREATEST_FIRST",
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −7, −2, 4.5. Negatives come first, and −7 < −2."
+    },
+    {
+      "id": "rational-numbers/t3/017",
+      "tier": 3,
+      "prompt": "Lowest score: −4.5, −2 or 1?",
+      "choices": [
+        "−4.5",
+        "1",
+        "−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ABS_ORDER",
+        "NEG_SIZE"
+      ],
+      "explanation": "Lowest is the least number, farthest left: −4.5 < −2 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/018",
+      "tier": 3,
+      "prompt": "Least: 1, −7 or −9?",
+      "choices": [
+        "1",
+        "−9",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "Least is farthest left on the number line: −9 < −7 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/019",
+      "tier": 3,
+      "prompt": "Which number is less than −7.5?",
+      "choices": [
+        "0",
+        "−2",
+        "−12",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        null,
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −12 is left of −7.5; −2, 0 and 2 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/020",
+      "tier": 3,
+      "prompt": "Which is to the left of −1.5?",
+      "choices": [
+        "−4",
+        "0",
+        "−1",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −4 is left of −1.5; −1, 0 and 1 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/021",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 5, −7, −4",
+      "choices": [
+        "−4, 5, −7",
+        "−4, −7, 5",
+        "−7, −4, 5",
+        "5, −4, −7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        null,
+        "GREATEST_FIRST"
+      ],
+      "explanation": "Left to right on a number line: −7, −4, 5. Negatives come first, and −7 < −4."
+    },
+    {
+      "id": "rational-numbers/t3/022",
+      "tier": 3,
+      "prompt": "Lowest point: −7.5, 1 or −2 m?",
+      "choices": [
+        "−2",
+        "1",
+        "−7.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_SIZE",
+        "ABS_ORDER",
+        null
+      ],
+      "explanation": "Lowest is farthest below sea level (0): −7.5 < −2 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/023",
+      "tier": 3,
+      "prompt": "Which number is less than −4?",
+      "choices": [
+        "−8.5",
+        "0",
+        "−1",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −8.5 is left of −4; −1, 0 and 3 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/024",
+      "tier": 3,
+      "prompt": "Which number is less than −7?",
+      "choices": [
+        "−6.5",
+        "−7.5",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_SIZE",
+        null,
+        "ABS_ORDER",
+        "ZERO_LEAST"
+      ],
+      "explanation": "Less means farther left on the number line. −7.5 is left of −7; −6.5, 0 and 1 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/025",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 6, −9, −1",
+      "choices": [
+        "−1, 6, −9",
+        "−9, −1, 6",
+        "6, −1, −9",
+        "−1, −9, 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "GREATEST_FIRST",
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −9, −1, 6. Negatives come first, and −9 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/026",
+      "tier": 3,
+      "prompt": "Coldest: −4, 2 or −5 degrees?",
+      "choices": [
+        "2",
+        "−4",
+        "−5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "Coldest is the least temperature, farthest left: −5 < −4 < 2."
+    },
+    {
+      "id": "rational-numbers/t3/027",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −3, 2, −1",
+      "choices": [
+        "−1, −3, 2",
+        "2, −1, −3",
+        "−1, 2, −3",
+        "−3, −1, 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_SIZE",
+        "GREATEST_FIRST",
+        "ABS_ORDER",
+        null
+      ],
+      "explanation": "Left to right on a number line: −3, −1, 2. Negatives come first, and −3 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/028",
+      "tier": 3,
+      "prompt": "Which number is less than −6?",
+      "choices": [
+        "0",
+        "−4",
+        "3",
+        "−7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        "ABS_ORDER",
+        null
+      ],
+      "explanation": "Less means farther left on the number line. −7 is left of −6; −4, 0 and 3 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/029",
+      "tier": 3,
+      "prompt": "Order from least to greatest: −1, 5.5, −9.5",
+      "choices": [
+        "5.5, −1, −9.5",
+        "−1, 5.5, −9.5",
+        "−9.5, −1, 5.5",
+        "−1, −9.5, 5.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GREATEST_FIRST",
+        "ABS_ORDER",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −9.5, −1, 5.5. Negatives come first, and −9.5 < −1."
+    },
+    {
+      "id": "rational-numbers/t3/030",
+      "tier": 3,
+      "prompt": "Lowest point: −8, 1 or −5.5 m?",
+      "choices": [
+        "−8",
+        "1",
+        "−5.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ABS_ORDER",
+        "NEG_SIZE"
+      ],
+      "explanation": "Lowest is farthest below sea level (0): −8 < −5.5 < 1."
+    },
+    {
+      "id": "rational-numbers/t3/031",
+      "tier": 3,
+      "prompt": "Coldest: 2, −10 or −11 degrees?",
+      "choices": [
+        "2",
+        "−11",
+        "−10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ABS_ORDER",
+        null,
+        "NEG_SIZE"
+      ],
+      "explanation": "Coldest is the least temperature, farthest left: −11 < −10 < 2."
+    },
+    {
+      "id": "rational-numbers/t3/032",
+      "tier": 3,
+      "prompt": "Which is to the left of −2?",
+      "choices": [
+        "1",
+        "−1",
+        "0",
+        "−3.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        "ZERO_LEAST",
+        null
+      ],
+      "explanation": "Less means farther left on the number line. −3.5 is left of −2; −1, 0 and 1 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/033",
+      "tier": 3,
+      "prompt": "Which number is less than −2?",
+      "choices": [
+        "−1",
+        "−4.5",
+        "0",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_SIZE",
+        null,
+        "ZERO_LEAST",
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −4.5 is left of −2; −1, 0 and 1 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/034",
+      "tier": 3,
+      "prompt": "Least: −2.5, −4 or 1.5?",
+      "choices": [
+        "1.5",
+        "−2.5",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ABS_ORDER",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "Least is farthest left on the number line: −4 < −2.5 < 1.5."
+    },
+    {
+      "id": "rational-numbers/t3/035",
+      "tier": 3,
+      "prompt": "Which is to the left of −7?",
+      "choices": [
+        "−3",
+        "−7.5",
+        "0",
+        "1.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_SIZE",
+        null,
+        "ZERO_LEAST",
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −7.5 is left of −7; −3, 0 and 1.5 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/036",
+      "tier": 3,
+      "prompt": "Order from least to greatest: 3.5, −9, −2",
+      "choices": [
+        "−9, −2, 3.5",
+        "3.5, −2, −9",
+        "−2, 3.5, −9",
+        "−2, −9, 3.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GREATEST_FIRST",
+        "ABS_ORDER",
+        "NEG_SIZE"
+      ],
+      "explanation": "Left to right on a number line: −9, −2, 3.5. Negatives come first, and −9 < −2."
+    },
+    {
+      "id": "rational-numbers/t3/037",
+      "tier": 3,
+      "prompt": "Which is to the left of −9?",
+      "choices": [
+        "0.5",
+        "0",
+        "−2",
+        "−10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ABS_ORDER",
+        "ZERO_LEAST",
+        "NEG_SIZE",
+        null
+      ],
+      "explanation": "Less means farther left on the number line. −10 is left of −9; −2, 0 and 0.5 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/038",
+      "tier": 3,
+      "prompt": "Which is to the left of −10?",
+      "choices": [
+        "−12",
+        "−0.5",
+        "9.5",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_SIZE",
+        "ABS_ORDER",
+        "ZERO_LEAST"
+      ],
+      "explanation": "Less means farther left on the number line. −12 is left of −10; −0.5, 0 and 9.5 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/039",
+      "tier": 3,
+      "prompt": "Which number is less than −5.5?",
+      "choices": [
+        "0",
+        "−8.5",
+        "−2.5",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_LEAST",
+        null,
+        "NEG_SIZE",
+        "ABS_ORDER"
+      ],
+      "explanation": "Less means farther left on the number line. −8.5 is left of −5.5; −2.5, 0 and 5 are to its right."
+    },
+    {
+      "id": "rational-numbers/t3/040",
+      "tier": 3,
+      "prompt": "Least: −6, 2 or −3.5?",
+      "choices": [
+        "−6",
+        "2",
+        "−3.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ABS_ORDER",
+        "NEG_SIZE"
+      ],
+      "explanation": "Least is farthest left on the number line: −6 < −3.5 < 2."
+    },
+    {
+      "id": "rational-numbers/t4/001",
+      "tier": 4,
+      "prompt": "(−2, −9) is in which quadrant?",
+      "choices": [
+        "II",
+        "IV",
+        "I",
+        "III"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        null
+      ],
+      "explanation": "x = −2 is negative (left), y = −9 is negative (down): quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/002",
+      "tier": 4,
+      "prompt": "Reflect (−3, 5) over the y-axis. Which quadrant?",
+      "choices": [
+        "IV",
+        "III",
+        "I",
+        "II"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        null,
+        "NO_MOVE"
+      ],
+      "explanation": "Over the y-axis, x changes sign: (−3, 5) becomes (3, 5), in quadrant I."
+    },
+    {
+      "id": "rational-numbers/t4/003",
+      "tier": 4,
+      "prompt": "(−4, 5) is in which quadrant?",
+      "choices": [
+        "II",
+        "III",
+        "IV",
+        "I"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_MISREAD",
+        "CLOCKWISE",
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −4 is negative (left), y = 5 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/004",
+      "tier": 4,
+      "prompt": "(−6, 3) is in which quadrant?",
+      "choices": [
+        "I",
+        "IV",
+        "III",
+        "II"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "CLOCKWISE",
+        "SIGN_MISREAD",
+        null
+      ],
+      "explanation": "x = −6 is negative (left), y = 3 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/005",
+      "tier": 4,
+      "prompt": "Reflect (−3, −5) over the x-axis. Which quadrant?",
+      "choices": [
+        "II",
+        "I",
+        "IV",
+        "III"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        "NO_MOVE"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−3, −5) becomes (−3, 5), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/006",
+      "tier": 4,
+      "prompt": "(−9, −10) is in which quadrant?",
+      "choices": [
+        "I",
+        "IV",
+        "III",
+        "II"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        null,
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −9 is negative (left), y = −10 is negative (down): quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/007",
+      "tier": 4,
+      "prompt": "(−3, −2) is in which quadrant?",
+      "choices": [
+        "III",
+        "II",
+        "I",
+        "IV"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −3 is negative (left), y = −2 is negative (down): quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/008",
+      "tier": 4,
+      "prompt": "Reflect (−2, −1) over the x-axis. Which quadrant?",
+      "choices": [
+        "IV",
+        "II",
+        "III",
+        "I"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_AXIS",
+        null,
+        "NO_MOVE",
+        "BOTH_FLIPPED"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−2, −1) becomes (−2, 1), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/009",
+      "tier": 4,
+      "prompt": "Reflect (8, −7) over the y-axis. Which quadrant?",
+      "choices": [
+        "IV",
+        "III",
+        "II",
+        "I"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_MOVE",
+        null,
+        "BOTH_FLIPPED",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the y-axis, x changes sign: (8, −7) becomes (−8, −7), in quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/010",
+      "tier": 4,
+      "prompt": "(−8, 2) is in which quadrant?",
+      "choices": [
+        "II",
+        "III",
+        "I",
+        "IV"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        "CLOCKWISE"
+      ],
+      "explanation": "x = −8 is negative (left), y = 2 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/011",
+      "tier": 4,
+      "prompt": "(−7, 2) is in which quadrant?",
+      "choices": [
+        "III",
+        "I",
+        "II",
+        "IV"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        null,
+        "CLOCKWISE"
+      ],
+      "explanation": "x = −7 is negative (left), y = 2 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/012",
+      "tier": 4,
+      "prompt": "Reflect (−4, −3) over the x-axis. Which quadrant?",
+      "choices": [
+        "I",
+        "III",
+        "II",
+        "IV"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        "NO_MOVE",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−4, −3) becomes (−4, 3), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/013",
+      "tier": 4,
+      "prompt": "Reflect (3, 10) over the y-axis. Which quadrant?",
+      "choices": [
+        "IV",
+        "I",
+        "III",
+        "II"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "NO_MOVE",
+        "BOTH_FLIPPED",
+        null
+      ],
+      "explanation": "Over the y-axis, x changes sign: (3, 10) becomes (−3, 10), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/014",
+      "tier": 4,
+      "prompt": "Reflect (4, −1) over the x-axis. New point?",
+      "choices": [
+        "(4, 1)",
+        "(−4, 1)",
+        "(1, 4)",
+        "(−4, −1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "SWAPPED_XY",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (4, −1) becomes (4, 1)."
+    },
+    {
+      "id": "rational-numbers/t4/015",
+      "tier": 4,
+      "prompt": "Reflect (−9, 6) over the y-axis. New point?",
+      "choices": [
+        "(−9, −6)",
+        "(9, −6)",
+        "(9, 6)",
+        "(6, 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "BOTH_FLIPPED",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−9, 6) becomes (9, 6)."
+    },
+    {
+      "id": "rational-numbers/t4/016",
+      "tier": 4,
+      "prompt": "Reflect (−4, 6) over the x-axis. New point?",
+      "choices": [
+        "(−6, −4)",
+        "(−4, −6)",
+        "(4, 6)",
+        "(4, −6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "WRONG_AXIS",
+        "BOTH_FLIPPED"
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (−4, 6) becomes (−4, −6)."
+    },
+    {
+      "id": "rational-numbers/t4/017",
+      "tier": 4,
+      "prompt": "Reflect (−5, 1) over the x-axis. New point?",
+      "choices": [
+        "(−5, −1)",
+        "(5, −1)",
+        "(5, 1)",
+        "(−1, −5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (−5, 1) becomes (−5, −1)."
+    },
+    {
+      "id": "rational-numbers/t4/018",
+      "tier": 4,
+      "prompt": "Reflect (−5, 9) over the y-axis. New point?",
+      "choices": [
+        "(5, 9)",
+        "(5, −9)",
+        "(−5, −9)",
+        "(9, 5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−5, 9) becomes (5, 9)."
+    },
+    {
+      "id": "rational-numbers/t4/019",
+      "tier": 4,
+      "prompt": "(6, −9) is in which quadrant?",
+      "choices": [
+        "III",
+        "II",
+        "I",
+        "IV"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "CLOCKWISE",
+        "SIGN_MISREAD",
+        null
+      ],
+      "explanation": "x = 6 is positive (right), y = −9 is negative (down): quadrant IV."
+    },
+    {
+      "id": "rational-numbers/t4/020",
+      "tier": 4,
+      "prompt": "Reflect (−2, 10) over the x-axis. Which quadrant?",
+      "choices": [
+        "III",
+        "IV",
+        "II",
+        "I"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "NO_MOVE",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−2, 10) becomes (−2, −10), in quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/021",
+      "tier": 4,
+      "prompt": "(−3, −7) is in which quadrant?",
+      "choices": [
+        "I",
+        "IV",
+        "III",
+        "II"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        null,
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −3 is negative (left), y = −7 is negative (down): quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/022",
+      "tier": 4,
+      "prompt": "(−1, 5) is in which quadrant?",
+      "choices": [
+        "IV",
+        "III",
+        "II",
+        "I"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CLOCKWISE",
+        "SIGN_MISREAD",
+        null,
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −1 is negative (left), y = 5 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/023",
+      "tier": 4,
+      "prompt": "Reflect (−2, −8) over the y-axis. New point?",
+      "choices": [
+        "(2, −8)",
+        "(2, 8)",
+        "(−2, 8)",
+        "(−8, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−2, −8) becomes (2, −8)."
+    },
+    {
+      "id": "rational-numbers/t4/024",
+      "tier": 4,
+      "prompt": "Reflect (−9, −2) over the y-axis. Which quadrant?",
+      "choices": [
+        "III",
+        "I",
+        "II",
+        "IV"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_MOVE",
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "Over the y-axis, x changes sign: (−9, −2) becomes (9, −2), in quadrant IV."
+    },
+    {
+      "id": "rational-numbers/t4/025",
+      "tier": 4,
+      "prompt": "(−2, 5) is in which quadrant?",
+      "choices": [
+        "III",
+        "II",
+        "IV",
+        "I"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        null,
+        "CLOCKWISE",
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −2 is negative (left), y = 5 is positive (up): quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/026",
+      "tier": 4,
+      "prompt": "(8, −5) is in which quadrant?",
+      "choices": [
+        "III",
+        "II",
+        "I",
+        "IV"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "CLOCKWISE",
+        "SIGN_MISREAD",
+        null
+      ],
+      "explanation": "x = 8 is positive (right), y = −5 is negative (down): quadrant IV."
+    },
+    {
+      "id": "rational-numbers/t4/027",
+      "tier": 4,
+      "prompt": "Reflect (−6, 8) over the y-axis. New point?",
+      "choices": [
+        "(8, 6)",
+        "(6, −8)",
+        "(6, 8)",
+        "(−6, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "BOTH_FLIPPED",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−6, 8) becomes (6, 8)."
+    },
+    {
+      "id": "rational-numbers/t4/028",
+      "tier": 4,
+      "prompt": "Reflect (7, −3) over the x-axis. New point?",
+      "choices": [
+        "(−7, 3)",
+        "(7, 3)",
+        "(−7, −3)",
+        "(3, 7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        null,
+        "WRONG_AXIS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (7, −3) becomes (7, 3)."
+    },
+    {
+      "id": "rational-numbers/t4/029",
+      "tier": 4,
+      "prompt": "(−8, −3) is in which quadrant?",
+      "choices": [
+        "I",
+        "II",
+        "III",
+        "IV"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        "SIGN_MISREAD",
+        null,
+        "SIGN_MISREAD"
+      ],
+      "explanation": "x = −8 is negative (left), y = −3 is negative (down): quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/030",
+      "tier": 4,
+      "prompt": "Reflect (5, −9) over the y-axis. New point?",
+      "choices": [
+        "(−9, −5)",
+        "(−5, 9)",
+        "(5, 9)",
+        "(−5, −9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "BOTH_FLIPPED",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (5, −9) becomes (−5, −9)."
+    },
+    {
+      "id": "rational-numbers/t4/031",
+      "tier": 4,
+      "prompt": "Reflect (−7, 1) over the x-axis. Which quadrant?",
+      "choices": [
+        "II",
+        "I",
+        "IV",
+        "III"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_MOVE",
+        "WRONG_AXIS",
+        "BOTH_FLIPPED",
+        null
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−7, 1) becomes (−7, −1), in quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/032",
+      "tier": 4,
+      "prompt": "(4, −3) is in which quadrant?",
+      "choices": [
+        "I",
+        "IV",
+        "III",
+        "II"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_MISREAD",
+        null,
+        "SIGN_MISREAD",
+        "CLOCKWISE"
+      ],
+      "explanation": "x = 4 is positive (right), y = −3 is negative (down): quadrant IV."
+    },
+    {
+      "id": "rational-numbers/t4/033",
+      "tier": 4,
+      "prompt": "Reflect (−10, −9) over the x-axis. Which quadrant?",
+      "choices": [
+        "IV",
+        "II",
+        "I",
+        "III"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_AXIS",
+        null,
+        "BOTH_FLIPPED",
+        "NO_MOVE"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−10, −9) becomes (−10, 9), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/034",
+      "tier": 4,
+      "prompt": "Reflect (−6, −2) over the x-axis. Which quadrant?",
+      "choices": [
+        "I",
+        "II",
+        "IV",
+        "III"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        null,
+        "WRONG_AXIS",
+        "NO_MOVE"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−6, −2) becomes (−6, 2), in quadrant II."
+    },
+    {
+      "id": "rational-numbers/t4/035",
+      "tier": 4,
+      "prompt": "Reflect (−5, 9) over the x-axis. Which quadrant?",
+      "choices": [
+        "I",
+        "IV",
+        "III",
+        "II"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "BOTH_FLIPPED",
+        null,
+        "NO_MOVE"
+      ],
+      "explanation": "Over the x-axis, y changes sign: (−5, 9) becomes (−5, −9), in quadrant III."
+    },
+    {
+      "id": "rational-numbers/t4/036",
+      "tier": 4,
+      "prompt": "Reflect (−10, −9) over the x-axis. New point?",
+      "choices": [
+        "(10, 9)",
+        "(−10, 9)",
+        "(10, −9)",
+        "(9, −10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        null,
+        "WRONG_AXIS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (−10, −9) becomes (−10, 9)."
+    },
+    {
+      "id": "rational-numbers/t4/037",
+      "tier": 4,
+      "prompt": "Reflect (6, −8) over the x-axis. New point?",
+      "choices": [
+        "(−6, 8)",
+        "(8, 6)",
+        "(−6, −8)",
+        "(6, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_FLIPPED",
+        "SWAPPED_XY",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "Over the x-axis, x stays and y changes sign: (6, −8) becomes (6, 8)."
+    },
+    {
+      "id": "rational-numbers/t4/038",
+      "tier": 4,
+      "prompt": "Reflect (6, 1) over the y-axis. New point?",
+      "choices": [
+        "(6, −1)",
+        "(1, −6)",
+        "(−6, −1)",
+        "(−6, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "SWAPPED_XY",
+        "BOTH_FLIPPED",
+        null
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (6, 1) becomes (−6, 1)."
+    },
+    {
+      "id": "rational-numbers/t4/039",
+      "tier": 4,
+      "prompt": "Reflect (−8, 4) over the y-axis. New point?",
+      "choices": [
+        "(−8, −4)",
+        "(8, 4)",
+        "(8, −4)",
+        "(4, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_AXIS",
+        null,
+        "BOTH_FLIPPED",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−8, 4) becomes (8, 4)."
+    },
+    {
+      "id": "rational-numbers/t4/040",
+      "tier": 4,
+      "prompt": "Reflect (−4, −1) over the y-axis. New point?",
+      "choices": [
+        "(4, −1)",
+        "(4, 1)",
+        "(−1, 4)",
+        "(−4, 1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_FLIPPED",
+        "SWAPPED_XY",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Over the y-axis, y stays and x changes sign: (−4, −1) becomes (4, −1)."
+    },
+    {
+      "id": "rational-numbers/t5/001",
+      "tier": 5,
+      "prompt": "Distance from (−1, −3) to (−1, −5)?",
+      "choices": [
+        "8",
+        "3",
+        "2",
+        "−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SIZES",
+        "OFF_BY_ONE",
+        null,
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same x, so use the y-values −3 and −5: same side of 0, so subtract: 5 − 3 = 2."
+    },
+    {
+      "id": "rational-numbers/t5/002",
+      "tier": 5,
+      "prompt": "It was 5 degrees, then −8 degrees. Degrees apart?",
+      "choices": [
+        "14",
+        "−13",
+        "13",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null,
+        "SUBTRACTED_SIZES"
+      ],
+      "explanation": "0 is between them: 5 on one side, 8 on the other. 5 + 8 = 13."
+    },
+    {
+      "id": "rational-numbers/t5/003",
+      "tier": 5,
+      "prompt": "Distance from (−4, 8) to (−4, −6)?",
+      "choices": [
+        "2",
+        "14",
+        "15",
+        "−14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIZES",
+        null,
+        "OFF_BY_ONE",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same x, so use the y-values 8 and −6: opposite sides of 0, so add: 8 + 6 = 14."
+    },
+    {
+      "id": "rational-numbers/t5/004",
+      "tier": 5,
+      "prompt": "Distance from (7, −5) to (−2, −5)?",
+      "choices": [
+        "−9",
+        "5",
+        "10",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE",
+        null
+      ],
+      "explanation": "Same y, so use the x-values 7 and −2: opposite sides of 0, so add: 7 + 2 = 9."
+    },
+    {
+      "id": "rational-numbers/t5/005",
+      "tier": 5,
+      "prompt": "How far is (−1, −5) from its x-axis reflection?",
+      "choices": [
+        "−10",
+        "10",
+        "5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        null,
+        "TO_AXIS",
+        "WRONG_COORD"
+      ],
+      "explanation": "(−1, −5) is 5 from the x-axis and its image is 5 on the other side: 5 + 5 = 10."
+    },
+    {
+      "id": "rational-numbers/t5/006",
+      "tier": 5,
+      "prompt": "It was −5 degrees, then 2 degrees. Degrees apart?",
+      "choices": [
+        "8",
+        "−7",
+        "7",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null,
+        "SUBTRACTED_SIZES"
+      ],
+      "explanation": "0 is between them: 5 on one side, 2 on the other. 5 + 2 = 7."
+    },
+    {
+      "id": "rational-numbers/t5/007",
+      "tier": 5,
+      "prompt": "A kite is at 6 m and a diver at −9 m. How far apart?",
+      "choices": [
+        "−15",
+        "3",
+        "16",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE",
+        null
+      ],
+      "explanation": "0 is between them: 6 on one side, 9 on the other. 6 + 9 = 15."
+    },
+    {
+      "id": "rational-numbers/t5/008",
+      "tier": 5,
+      "prompt": "Distance from (6, 2) to (−3, 2)?",
+      "choices": [
+        "9",
+        "10",
+        "3",
+        "−9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values 6 and −3: opposite sides of 0, so add: 6 + 3 = 9."
+    },
+    {
+      "id": "rational-numbers/t5/009",
+      "tier": 5,
+      "prompt": "Distance from (2, −8) to (2, −10)?",
+      "choices": [
+        "18",
+        "3",
+        "−2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SIZES",
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null
+      ],
+      "explanation": "Same x, so use the y-values −8 and −10: same side of 0, so subtract: 10 − 8 = 2."
+    },
+    {
+      "id": "rational-numbers/t5/010",
+      "tier": 5,
+      "prompt": "Distance from (5, −5) to (5, −7)?",
+      "choices": [
+        "12",
+        "2",
+        "3",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SIZES",
+        null,
+        "OFF_BY_ONE",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same x, so use the y-values −5 and −7: same side of 0, so subtract: 7 − 5 = 2."
+    },
+    {
+      "id": "rational-numbers/t5/011",
+      "tier": 5,
+      "prompt": "How far is (7, 5) from its y-axis reflection?",
+      "choices": [
+        "7",
+        "14",
+        "10",
+        "−14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TO_AXIS",
+        null,
+        "WRONG_COORD",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "(7, 5) is 7 from the y-axis and its image is 7 on the other side: 7 + 7 = 14."
+    },
+    {
+      "id": "rational-numbers/t5/012",
+      "tier": 5,
+      "prompt": "Floors −6 and 10 (below ground is −). Floors apart?",
+      "choices": [
+        "17",
+        "4",
+        "16",
+        "−16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        null,
+        "NEG_DISTANCE"
+      ],
+      "explanation": "0 is between them: 6 on one side, 10 on the other. 6 + 10 = 16."
+    },
+    {
+      "id": "rational-numbers/t5/013",
+      "tier": 5,
+      "prompt": "Distance from (2, −2) to (−7, −2)?",
+      "choices": [
+        "9",
+        "10",
+        "−9",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES"
+      ],
+      "explanation": "Same y, so use the x-values 2 and −7: opposite sides of 0, so add: 2 + 7 = 9."
+    },
+    {
+      "id": "rational-numbers/t5/014",
+      "tier": 5,
+      "prompt": "How far is (5, −2) from its y-axis reflection?",
+      "choices": [
+        "−10",
+        "5",
+        "4",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        "TO_AXIS",
+        "WRONG_COORD",
+        null
+      ],
+      "explanation": "(5, −2) is 5 from the y-axis and its image is 5 on the other side: 5 + 5 = 10."
+    },
+    {
+      "id": "rational-numbers/t5/015",
+      "tier": 5,
+      "prompt": "It was 6 degrees, then −8 degrees. Degrees apart?",
+      "choices": [
+        "14",
+        "−14",
+        "2",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "0 is between them: 6 on one side, 8 on the other. 6 + 8 = 14."
+    },
+    {
+      "id": "rational-numbers/t5/016",
+      "tier": 5,
+      "prompt": "Distance from (2, −7) to (−6, −7)?",
+      "choices": [
+        "4",
+        "−8",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE",
+        "OFF_BY_ONE",
+        null
+      ],
+      "explanation": "Same y, so use the x-values 2 and −6: opposite sides of 0, so add: 2 + 6 = 8."
+    },
+    {
+      "id": "rational-numbers/t5/017",
+      "tier": 5,
+      "prompt": "Distance from (−8, 6) to (10, 6)?",
+      "choices": [
+        "19",
+        "18",
+        "2",
+        "−18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        null,
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values −8 and 10: opposite sides of 0, so add: 8 + 10 = 18."
+    },
+    {
+      "id": "rational-numbers/t5/018",
+      "tier": 5,
+      "prompt": "How far is (−1, 9) from its x-axis reflection?",
+      "choices": [
+        "18",
+        "2",
+        "9",
+        "−18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_COORD",
+        "TO_AXIS",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "(−1, 9) is 9 from the x-axis and its image is 9 on the other side: 9 + 9 = 18."
+    },
+    {
+      "id": "rational-numbers/t5/019",
+      "tier": 5,
+      "prompt": "Distance from (−10, −10) to (−10, −4)?",
+      "choices": [
+        "14",
+        "7",
+        "−6",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SIZES",
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null
+      ],
+      "explanation": "Same x, so use the y-values −10 and −4: same side of 0, so subtract: 10 − 4 = 6."
+    },
+    {
+      "id": "rational-numbers/t5/020",
+      "tier": 5,
+      "prompt": "Distance from (−6, −10) to (7, −10)?",
+      "choices": [
+        "14",
+        "−13",
+        "1",
+        "13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        null
+      ],
+      "explanation": "Same y, so use the x-values −6 and 7: opposite sides of 0, so add: 6 + 7 = 13."
+    },
+    {
+      "id": "rational-numbers/t5/021",
+      "tier": 5,
+      "prompt": "Distance from (1, 9) to (−7, 9)?",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        null,
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values 1 and −7: opposite sides of 0, so add: 1 + 7 = 8."
+    },
+    {
+      "id": "rational-numbers/t5/022",
+      "tier": 5,
+      "prompt": "Distance from (2, 7) to (−1, 7)?",
+      "choices": [
+        "4",
+        "−3",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        null
+      ],
+      "explanation": "Same y, so use the x-values 2 and −1: opposite sides of 0, so add: 2 + 1 = 3."
+    },
+    {
+      "id": "rational-numbers/t5/023",
+      "tier": 5,
+      "prompt": "Floors −5 and 3 (below ground is −). Floors apart?",
+      "choices": [
+        "8",
+        "9",
+        "2",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "0 is between them: 5 on one side, 3 on the other. 5 + 3 = 8."
+    },
+    {
+      "id": "rational-numbers/t5/024",
+      "tier": 5,
+      "prompt": "How far is (3, −4) from its x-axis reflection?",
+      "choices": [
+        "4",
+        "−8",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TO_AXIS",
+        "NEG_DISTANCE",
+        null,
+        "WRONG_COORD"
+      ],
+      "explanation": "(3, −4) is 4 from the x-axis and its image is 4 on the other side: 4 + 4 = 8."
+    },
+    {
+      "id": "rational-numbers/t5/025",
+      "tier": 5,
+      "prompt": "Distance from (7, 9) to (−8, 9)?",
+      "choices": [
+        "16",
+        "15",
+        "−15",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        null,
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES"
+      ],
+      "explanation": "Same y, so use the x-values 7 and −8: opposite sides of 0, so add: 7 + 8 = 15."
+    },
+    {
+      "id": "rational-numbers/t5/026",
+      "tier": 5,
+      "prompt": "Distance from (−1, 7) to (4, 7)?",
+      "choices": [
+        "5",
+        "3",
+        "6",
+        "−5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values −1 and 4: opposite sides of 0, so add: 1 + 4 = 5."
+    },
+    {
+      "id": "rational-numbers/t5/027",
+      "tier": 5,
+      "prompt": "Distance from (−8, 6) to (−7, 6)?",
+      "choices": [
+        "−1",
+        "2",
+        "1",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        "OFF_BY_ONE",
+        null,
+        "ADDED_SIZES"
+      ],
+      "explanation": "Same y, so use the x-values −8 and −7: same side of 0, so subtract: 8 − 7 = 1."
+    },
+    {
+      "id": "rational-numbers/t5/028",
+      "tier": 5,
+      "prompt": "Distance from (−4, 4) to (−4, −8)?",
+      "choices": [
+        "12",
+        "13",
+        "4",
+        "−12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same x, so use the y-values 4 and −8: opposite sides of 0, so add: 4 + 8 = 12."
+    },
+    {
+      "id": "rational-numbers/t5/029",
+      "tier": 5,
+      "prompt": "Distance from (−8, −6) to (−8, −1)?",
+      "choices": [
+        "6",
+        "−5",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null,
+        "ADDED_SIZES"
+      ],
+      "explanation": "Same x, so use the y-values −6 and −1: same side of 0, so subtract: 6 − 1 = 5."
+    },
+    {
+      "id": "rational-numbers/t5/030",
+      "tier": 5,
+      "prompt": "Distance from (−5, −3) to (−8, −3)?",
+      "choices": [
+        "13",
+        "4",
+        "−3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SIZES",
+        "OFF_BY_ONE",
+        "NEG_DISTANCE",
+        null
+      ],
+      "explanation": "Same y, so use the x-values −5 and −8: same side of 0, so subtract: 8 − 5 = 3."
+    },
+    {
+      "id": "rational-numbers/t5/031",
+      "tier": 5,
+      "prompt": "Distance from (4, 5) to (−10, 5)?",
+      "choices": [
+        "14",
+        "−14",
+        "6",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_DISTANCE",
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Same y, so use the x-values 4 and −10: opposite sides of 0, so add: 4 + 10 = 14."
+    },
+    {
+      "id": "rational-numbers/t5/032",
+      "tier": 5,
+      "prompt": "How far is (−10, −3) from its x-axis reflection?",
+      "choices": [
+        "3",
+        "−6",
+        "20",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TO_AXIS",
+        "NEG_DISTANCE",
+        "WRONG_COORD",
+        null
+      ],
+      "explanation": "(−10, −3) is 3 from the x-axis and its image is 3 on the other side: 3 + 3 = 6."
+    },
+    {
+      "id": "rational-numbers/t5/033",
+      "tier": 5,
+      "prompt": "A bird is at 7 m and a fish at −10 m. How far apart?",
+      "choices": [
+        "17",
+        "18",
+        "3",
+        "−17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OFF_BY_ONE",
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "0 is between them: 7 on one side, 10 on the other. 7 + 10 = 17."
+    },
+    {
+      "id": "rational-numbers/t5/034",
+      "tier": 5,
+      "prompt": "Distance from (−5, 1) to (6, 1)?",
+      "choices": [
+        "1",
+        "11",
+        "−11",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIZES",
+        null,
+        "NEG_DISTANCE",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "Same y, so use the x-values −5 and 6: opposite sides of 0, so add: 5 + 6 = 11."
+    },
+    {
+      "id": "rational-numbers/t5/035",
+      "tier": 5,
+      "prompt": "A bird is at 7 m and a fish at −4 m. How far apart?",
+      "choices": [
+        "11",
+        "3",
+        "−11",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIZES",
+        "NEG_DISTANCE",
+        "OFF_BY_ONE"
+      ],
+      "explanation": "0 is between them: 7 on one side, 4 on the other. 7 + 4 = 11."
+    },
+    {
+      "id": "rational-numbers/t5/036",
+      "tier": 5,
+      "prompt": "Distance from (10, −7) to (10, 2)?",
+      "choices": [
+        "5",
+        "10",
+        "9",
+        "−9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_SIZES",
+        "OFF_BY_ONE",
+        null,
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same x, so use the y-values −7 and 2: opposite sides of 0, so add: 7 + 2 = 9."
+    },
+    {
+      "id": "rational-numbers/t5/037",
+      "tier": 5,
+      "prompt": "Distance from (7, −7) to (−10, −7)?",
+      "choices": [
+        "3",
+        "17",
+        "18",
+        "−17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIZES",
+        null,
+        "OFF_BY_ONE",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values 7 and −10: opposite sides of 0, so add: 7 + 10 = 17."
+    },
+    {
+      "id": "rational-numbers/t5/038",
+      "tier": 5,
+      "prompt": "How far is (−5, −7) from its y-axis reflection?",
+      "choices": [
+        "14",
+        "10",
+        "5",
+        "−10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_COORD",
+        null,
+        "TO_AXIS",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "(−5, −7) is 5 from the y-axis and its image is 5 on the other side: 5 + 5 = 10."
+    },
+    {
+      "id": "rational-numbers/t5/039",
+      "tier": 5,
+      "prompt": "How far is (−3, −5) from its x-axis reflection?",
+      "choices": [
+        "5",
+        "−10",
+        "10",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TO_AXIS",
+        "NEG_DISTANCE",
+        null,
+        "WRONG_COORD"
+      ],
+      "explanation": "(−3, −5) is 5 from the x-axis and its image is 5 on the other side: 5 + 5 = 10."
+    },
+    {
+      "id": "rational-numbers/t5/040",
+      "tier": 5,
+      "prompt": "Distance from (−9, 7) to (−4, 7)?",
+      "choices": [
+        "6",
+        "5",
+        "13",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OFF_BY_ONE",
+        null,
+        "ADDED_SIZES",
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Same y, so use the x-values −9 and −4: same side of 0, so subtract: 9 − 4 = 5."
+    }
+  ]
+}

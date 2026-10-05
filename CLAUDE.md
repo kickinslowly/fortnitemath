@@ -7,6 +7,7 @@ holds the MCP wiring, notes, and planning docs.
 ## Architecture
 Cartridge (topic) ↔ console (map) contract: **PROTOCOL.md** is the single source of truth.
 - `cartridges/<id>/` topic source + committed `baked.json`
+- `cartridges/LIBRARY.md` the library by grade: tier plans, standards, and what does not fit multiple choice
 - `fnm/` Python toolchain — `.venv/Scripts/python -m fnm insert <id>` plugs a cartridge in
 - `console/verse/` shared map runtime (every map uses the same code)
 - `maps/<id>/map.json` map profile (doors per station, font profile, UEFN path); `maps/<id>/generated/` is that map's cartridge slot (never hand-edit)

@@ -1,0 +1,3924 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "area-volume",
+  "version": "1.0.0",
+  "title": "Area & Volume",
+  "subtitle": "Shapes, Prisms, Surface Area",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.G.A.1",
+    "CCSS.MATH.CONTENT.6.G.A.2",
+    "CCSS.MATH.CONTENT.6.G.A.4"
+  ],
+  "seed": 20261018,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b measurement. Lengths 1-10 (T4 volume: one edge may be 1/2; never 1/2 elsewhere). Every × step has both factors 1-10 (a 1 only as a given length); every ÷ is exact with divisor and quotient 2-10 (halving goes through an even edge of 4+, or a product of 20 or less); + adds values to a total of 100 or less; trapezoid base sums are even and 20 or less. Every area, volume, surface area, cube count and given area is a whole number 1-100. Wrong choices up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Rectangles",
+      "description": "Area of rectangles, squares and parallelograms: base × height."
+    },
+    {
+      "tier": 2,
+      "name": "Triangles",
+      "description": "A triangle is half a rectangle: base × height ÷ 2."
+    },
+    {
+      "tier": 3,
+      "name": "Trapezoids & Sides",
+      "description": "Average the bases of a trapezoid; work back from an area to a side."
+    },
+    {
+      "tier": 4,
+      "name": "Volume of Prisms",
+      "description": "Volume = length × width × height in cubic units, half edges and half cubes too."
+    },
+    {
+      "tier": 5,
+      "name": "Surface Area",
+      "description": "Add the areas of every face: cubes, boxes and square pyramids."
+    }
+  ],
+  "misconceptions": {
+    "PERIMETER": {
+      "student": "That's the distance around. Area counts the squares inside: multiply.",
+      "teacher": "Computes perimeter instead of area."
+    },
+    "ADD_SIDES": {
+      "student": "Area multiplies lengths. Adding them gives a length, not an area.",
+      "teacher": "Adds the given lengths instead of multiplying them."
+    },
+    "SLANT_SIDE": {
+      "student": "Use the height that meets the base at a right angle, not the slanted side.",
+      "teacher": "Multiplies the base by the slanted side instead of the perpendicular height."
+    },
+    "NO_HALF": {
+      "student": "A triangle is half a rectangle: area = base × height ÷ 2.",
+      "teacher": "Omits the 1/2 in the triangle area formula (or in working back from it)."
+    },
+    "NO_AVERAGE": {
+      "student": "Add the two bases, then halve the sum, then × height.",
+      "teacher": "Trapezoid: multiplies the sum of the bases by the height without halving."
+    },
+    "ONE_BASE": {
+      "student": "A trapezoid has two bases. Average them, then × height.",
+      "teacher": "Trapezoid: uses only the longer base × height."
+    },
+    "SUBTRACTED": {
+      "student": "Area = side × side. Divide the area by the side you know.",
+      "teacher": "Missing side: subtracts the known side from the area."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply: what times the side you know makes the area?",
+      "teacher": "Missing side: multiplies the area by the known side."
+    },
+    "ADDED_EDGES": {
+      "student": "Volume multiplies the edges: length × width × height.",
+      "teacher": "Adds the three edge lengths instead of multiplying."
+    },
+    "MISSED_EDGE": {
+      "student": "You left out an edge. Volume multiplies all three edges.",
+      "teacher": "Multiplies only two of the three edges (the base area, or ignores the 1/2 edge)."
+    },
+    "SQUARE_UNITS": {
+      "student": "Right number, wrong unit: volume is measured in cubic units.",
+      "teacher": "Correct volume reported in square units."
+    },
+    "COUNTED_UNITS": {
+      "student": "Each unit cube holds 8 half-size cubes (2 × 2 × 2).",
+      "teacher": "Counts unit cubes when the cubes have edge 1/2."
+    },
+    "DOUBLED_ONCE": {
+      "student": "Half the edge doubles the count 3 ways: 2 × 2 × 2 = 8 per unit cube.",
+      "teacher": "Doubles the unit-cube count once instead of multiplying by 8."
+    },
+    "HALVED_COUNT": {
+      "student": "Smaller cubes means MORE of them: 8 per unit cube, not half.",
+      "teacher": "Halves the count because the cube edge is 1/2."
+    },
+    "VOLUME_FOR_SA": {
+      "student": "That's the volume. Surface area adds the areas of all the faces.",
+      "teacher": "Computes volume instead of surface area."
+    },
+    "ONE_FACE": {
+      "student": "That's one face. Surface area adds the areas of ALL the faces.",
+      "teacher": "Reports the area of a single face."
+    },
+    "FOUR_FACES": {
+      "student": "A cube has 6 faces, not 4: 6 × the area of one face.",
+      "teacher": "Cube: counts 4 faces instead of 6."
+    },
+    "THREE_FACES": {
+      "student": "Each face has a twin on the other side. Count all 6 faces.",
+      "teacher": "Box: adds the three different faces once each, not twice."
+    },
+    "NO_BASE": {
+      "student": "Don't forget the square base: add it to the 4 triangles.",
+      "teacher": "Square pyramid: lateral area only, base omitted."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "area-volume/t1/001",
+      "tier": 1,
+      "prompt": "Parallelogram: base 5, height 3, side 10. Area?",
+      "choices": [
+        "30",
+        "50",
+        "8",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER",
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = base × height: 5 × 3 = 15. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/002",
+      "tier": 1,
+      "prompt": "Parallelogram: base 10, height 7, side 10. Area?",
+      "choices": [
+        "17",
+        "40",
+        "70",
+        "100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "PERIMETER",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 10 × 7 = 70. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/003",
+      "tier": 1,
+      "prompt": "Square: side 10. Area?",
+      "choices": [
+        "40",
+        "20",
+        "100",
+        "101"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERIMETER",
+        "ADD_SIDES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = side × side: 10 × 10 = 100."
+    },
+    {
+      "id": "area-volume/t1/004",
+      "tier": 1,
+      "prompt": "Parallelogram: base 9, height 7, side 8. Area?",
+      "choices": [
+        "72",
+        "63",
+        "34",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLANT_SIDE",
+        null,
+        "PERIMETER",
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = base × height: 9 × 7 = 63. The side 8 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/005",
+      "tier": 1,
+      "prompt": "Rectangle: length 4, width 6. Area?",
+      "choices": [
+        "24",
+        "20",
+        "10",
+        "26"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERIMETER",
+        "ADD_SIDES",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 4 × 6 = 24."
+    },
+    {
+      "id": "area-volume/t1/006",
+      "tier": 1,
+      "prompt": "Parallelogram: base 10, height 8, side 10. Area?",
+      "choices": [
+        "80",
+        "40",
+        "18",
+        "100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERIMETER",
+        "ADD_SIDES",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 10 × 8 = 80. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/007",
+      "tier": 1,
+      "prompt": "Parallelogram: base 4, height 3, side 7. Area?",
+      "choices": [
+        "22",
+        "12",
+        "28",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER",
+        null,
+        "SLANT_SIDE",
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = base × height: 4 × 3 = 12. The side 7 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/008",
+      "tier": 1,
+      "prompt": "Parallelogram: base 8, side 7, height 4. Area?",
+      "choices": [
+        "32",
+        "56",
+        "12",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        "PERIMETER"
+      ],
+      "explanation": "Area = base × height: 8 × 4 = 32. The side 7 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/009",
+      "tier": 1,
+      "prompt": "Rectangle: length 5, width 2. Area?",
+      "choices": [
+        "14",
+        "10",
+        "7",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER",
+        null,
+        "ADD_SIDES",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 5 × 2 = 10."
+    },
+    {
+      "id": "area-volume/t1/010",
+      "tier": 1,
+      "prompt": "Parallelogram: base 2, height 7, side 10. Area?",
+      "choices": [
+        "14",
+        "24",
+        "9",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERIMETER",
+        "ADD_SIDES",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 2 × 7 = 14. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/011",
+      "tier": 1,
+      "prompt": "Square: side 6. Area?",
+      "choices": [
+        "12",
+        "36",
+        "37",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "ARITH",
+        "PERIMETER"
+      ],
+      "explanation": "Area = side × side: 6 × 6 = 36."
+    },
+    {
+      "id": "area-volume/t1/012",
+      "tier": 1,
+      "prompt": "Rectangle: length 7, width 6. Area?",
+      "choices": [
+        "42",
+        "13",
+        "26",
+        "44"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES",
+        "PERIMETER",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 7 × 6 = 42."
+    },
+    {
+      "id": "area-volume/t1/013",
+      "tier": 1,
+      "prompt": "Parallelogram: base 5, height 4, side 10. Area?",
+      "choices": [
+        "9",
+        "30",
+        "20",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "PERIMETER",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 5 × 4 = 20. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/014",
+      "tier": 1,
+      "prompt": "Rectangle: length 3, width 8. Area?",
+      "choices": [
+        "11",
+        "22",
+        "24",
+        "26"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "PERIMETER",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 3 × 8 = 24."
+    },
+    {
+      "id": "area-volume/t1/015",
+      "tier": 1,
+      "prompt": "Parallelogram: base 5, height 8, side 9. Area?",
+      "choices": [
+        "13",
+        "45",
+        "28",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIDES",
+        "SLANT_SIDE",
+        "PERIMETER",
+        null
+      ],
+      "explanation": "Area = base × height: 5 × 8 = 40. The side 9 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/016",
+      "tier": 1,
+      "prompt": "Parallelogram: base 9, side 4, height 2. Area?",
+      "choices": [
+        "18",
+        "36",
+        "26",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLANT_SIDE",
+        "PERIMETER",
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = base × height: 9 × 2 = 18. The side 4 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/017",
+      "tier": 1,
+      "prompt": "Rectangle: length 5, width 3. Area?",
+      "choices": [
+        "13",
+        "16",
+        "8",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERIMETER",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = length × width: 5 × 3 = 15."
+    },
+    {
+      "id": "area-volume/t1/018",
+      "tier": 1,
+      "prompt": "Parallelogram: base 9, side 7, height 5. Area?",
+      "choices": [
+        "63",
+        "45",
+        "14",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLANT_SIDE",
+        null,
+        "ADD_SIDES",
+        "PERIMETER"
+      ],
+      "explanation": "Area = base × height: 9 × 5 = 45. The side 7 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/019",
+      "tier": 1,
+      "prompt": "Rectangle: length 2, width 4. Area?",
+      "choices": [
+        "8",
+        "10",
+        "12",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERIMETER",
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = length × width: 2 × 4 = 8."
+    },
+    {
+      "id": "area-volume/t1/020",
+      "tier": 1,
+      "prompt": "Parallelogram: base 3, side 6, height 4. Area?",
+      "choices": [
+        "7",
+        "12",
+        "14",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "ARITH",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 3 × 4 = 12. The side 6 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/021",
+      "tier": 1,
+      "prompt": "Parallelogram: base 2, height 6, side 10. Area?",
+      "choices": [
+        "8",
+        "24",
+        "12",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "PERIMETER",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 2 × 6 = 12. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/022",
+      "tier": 1,
+      "prompt": "Parallelogram: base 7, height 4, side 8. Area?",
+      "choices": [
+        "56",
+        "28",
+        "11",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLANT_SIDE",
+        null,
+        "ADD_SIDES",
+        "PERIMETER"
+      ],
+      "explanation": "Area = base × height: 7 × 4 = 28. The side 8 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/023",
+      "tier": 1,
+      "prompt": "Rectangle: length 8, width 2. Area?",
+      "choices": [
+        "20",
+        "18",
+        "10",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER",
+        "ARITH",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = length × width: 8 × 2 = 16."
+    },
+    {
+      "id": "area-volume/t1/024",
+      "tier": 1,
+      "prompt": "Square: side 7. Area?",
+      "choices": [
+        "28",
+        "49",
+        "14",
+        "48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER",
+        null,
+        "ADD_SIDES",
+        "ARITH"
+      ],
+      "explanation": "Area = side × side: 7 × 7 = 49."
+    },
+    {
+      "id": "area-volume/t1/025",
+      "tier": 1,
+      "prompt": "Square: side 5. Area?",
+      "choices": [
+        "23",
+        "10",
+        "20",
+        "25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_SIDES",
+        "PERIMETER",
+        null
+      ],
+      "explanation": "Area = side × side: 5 × 5 = 25."
+    },
+    {
+      "id": "area-volume/t1/026",
+      "tier": 1,
+      "prompt": "Parallelogram: base 10, height 5, side 9. Area?",
+      "choices": [
+        "90",
+        "15",
+        "38",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        "PERIMETER",
+        null
+      ],
+      "explanation": "Area = base × height: 10 × 5 = 50. The side 9 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/027",
+      "tier": 1,
+      "prompt": "Rectangle: length 5, width 9. Area?",
+      "choices": [
+        "47",
+        "28",
+        "14",
+        "45"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERIMETER",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = length × width: 5 × 9 = 45."
+    },
+    {
+      "id": "area-volume/t1/028",
+      "tier": 1,
+      "prompt": "Parallelogram: base 5, side 10, height 9. Area?",
+      "choices": [
+        "45",
+        "14",
+        "30",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES",
+        "PERIMETER",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 5 × 9 = 45. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/029",
+      "tier": 1,
+      "prompt": "Parallelogram: base 4, height 6, side 9. Area?",
+      "choices": [
+        "26",
+        "10",
+        "24",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERIMETER",
+        "ADD_SIDES",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 4 × 6 = 24. The side 9 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/030",
+      "tier": 1,
+      "prompt": "Rectangle: length 6, width 2. Area?",
+      "choices": [
+        "12",
+        "8",
+        "16",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES",
+        "PERIMETER",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 6 × 2 = 12."
+    },
+    {
+      "id": "area-volume/t1/031",
+      "tier": 1,
+      "prompt": "Parallelogram: base 4, side 9, height 7. Area?",
+      "choices": [
+        "26",
+        "11",
+        "28",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERIMETER",
+        "ADD_SIDES",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Area = base × height: 4 × 7 = 28. The side 9 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/032",
+      "tier": 1,
+      "prompt": "Rectangle: length 2, width 3. Area?",
+      "choices": [
+        "10",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER",
+        null,
+        "ARITH",
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = length × width: 2 × 3 = 6."
+    },
+    {
+      "id": "area-volume/t1/033",
+      "tier": 1,
+      "prompt": "Square: side 8. Area?",
+      "choices": [
+        "65",
+        "32",
+        "16",
+        "64"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PERIMETER",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = side × side: 8 × 8 = 64."
+    },
+    {
+      "id": "area-volume/t1/034",
+      "tier": 1,
+      "prompt": "Rectangle: length 10, width 5. Area?",
+      "choices": [
+        "30",
+        "15",
+        "50",
+        "49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERIMETER",
+        "ADD_SIDES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 10 × 5 = 50."
+    },
+    {
+      "id": "area-volume/t1/035",
+      "tier": 1,
+      "prompt": "Parallelogram: base 9, side 10, height 8. Area?",
+      "choices": [
+        "38",
+        "90",
+        "72",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERIMETER",
+        "SLANT_SIDE",
+        null,
+        "ADD_SIDES"
+      ],
+      "explanation": "Area = base × height: 9 × 8 = 72. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/036",
+      "tier": 1,
+      "prompt": "Parallelogram: base 9, height 4, side 5. Area?",
+      "choices": [
+        "28",
+        "13",
+        "45",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER",
+        "ADD_SIDES",
+        "SLANT_SIDE",
+        null
+      ],
+      "explanation": "Area = base × height: 9 × 4 = 36. The side 5 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/037",
+      "tier": 1,
+      "prompt": "Parallelogram: base 8, side 8, height 7. Area?",
+      "choices": [
+        "64",
+        "32",
+        "15",
+        "56"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLANT_SIDE",
+        "PERIMETER",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Area = base × height: 8 × 7 = 56. The side 8 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/038",
+      "tier": 1,
+      "prompt": "Rectangle: length 4, width 7. Area?",
+      "choices": [
+        "11",
+        "28",
+        "22",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "PERIMETER",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width: 4 × 7 = 28."
+    },
+    {
+      "id": "area-volume/t1/039",
+      "tier": 1,
+      "prompt": "Parallelogram: base 3, height 2, side 3. Area?",
+      "choices": [
+        "9",
+        "5",
+        "6",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        null,
+        "PERIMETER"
+      ],
+      "explanation": "Area = base × height: 3 × 2 = 6. The side 3 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t1/040",
+      "tier": 1,
+      "prompt": "Square: side 3. Area?",
+      "choices": [
+        "9",
+        "8",
+        "6",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_SIDES",
+        "PERIMETER"
+      ],
+      "explanation": "Area = side × side: 3 × 3 = 9."
+    },
+    {
+      "id": "area-volume/t2/001",
+      "tier": 2,
+      "prompt": "Triangle: base 2, height 3. Area?",
+      "choices": [
+        "1",
+        "6",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Triangle = half of base × height: 2 × 3 = 6, 6 ÷ 2 = 3."
+    },
+    {
+      "id": "area-volume/t2/002",
+      "tier": 2,
+      "prompt": "Triangle: base 2, height 8. Area?",
+      "choices": [
+        "10",
+        "9",
+        "8",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "ARITH",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Triangle = half of base × height: 8 ÷ 2 = 4, 4 × 2 = 8."
+    },
+    {
+      "id": "area-volume/t2/003",
+      "tier": 2,
+      "prompt": "Right triangle: legs 10 and 4. Area?",
+      "choices": [
+        "22",
+        "20",
+        "40",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_HALF",
+        "ADD_SIDES"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 10 ÷ 2 = 5, 5 × 4 = 20."
+    },
+    {
+      "id": "area-volume/t2/004",
+      "tier": 2,
+      "prompt": "Triangle: base 7, height 6, side 8. Area?",
+      "choices": [
+        "13",
+        "21",
+        "28",
+        "42"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "SLANT_SIDE",
+        "NO_HALF"
+      ],
+      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 7 = 21. The side 8 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/005",
+      "tier": 2,
+      "prompt": "Triangle: base 5, side 10, height 8. Area?",
+      "choices": [
+        "40",
+        "20",
+        "13",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "ADD_SIDES",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 5 = 20. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/006",
+      "tier": 2,
+      "prompt": "Cut a 3 by 8 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "13",
+        "11",
+        "12",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_SIDES",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 8 ÷ 2 = 4, 4 × 3 = 12."
+    },
+    {
+      "id": "area-volume/t2/007",
+      "tier": 2,
+      "prompt": "Triangle: base 4, height 7. Area?",
+      "choices": [
+        "11",
+        "14",
+        "28",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "NO_HALF",
+        "ARITH"
+      ],
+      "explanation": "Triangle = half of base × height: 4 ÷ 2 = 2, 2 × 7 = 14."
+    },
+    {
+      "id": "area-volume/t2/008",
+      "tier": 2,
+      "prompt": "Triangle: base 3, height 2. Area?",
+      "choices": [
+        "5",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Triangle = half of base × height: 3 × 2 = 6, 6 ÷ 2 = 3."
+    },
+    {
+      "id": "area-volume/t2/009",
+      "tier": 2,
+      "prompt": "Cut an 8 by 4 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "15",
+        "32",
+        "12",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 8 ÷ 2 = 4, 4 × 4 = 16."
+    },
+    {
+      "id": "area-volume/t2/010",
+      "tier": 2,
+      "prompt": "Triangle: base 8, height 2, side 3. Area?",
+      "choices": [
+        "8",
+        "12",
+        "10",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        "NO_HALF"
+      ],
+      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 2 = 8. The side 3 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/011",
+      "tier": 2,
+      "prompt": "Triangle: base 5, height 6. Area?",
+      "choices": [
+        "11",
+        "13",
+        "15",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "ARITH",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Triangle = half of base × height: 6 ÷ 2 = 3, 3 × 5 = 15."
+    },
+    {
+      "id": "area-volume/t2/012",
+      "tier": 2,
+      "prompt": "Triangle: base 3, side 5, height 4. Area?",
+      "choices": [
+        "12",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_HALF",
+        "ADD_SIDES",
+        "ARITH",
+        null
+      ],
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 3 = 6. The side 5 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/013",
+      "tier": 2,
+      "prompt": "Cut a 5 by 2 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "10",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_HALF",
+        "ARITH",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 5 × 2 = 10, 10 ÷ 2 = 5."
+    },
+    {
+      "id": "area-volume/t2/014",
+      "tier": 2,
+      "prompt": "Triangle: base 7, side 6, height 4. Area?",
+      "choices": [
+        "11",
+        "21",
+        "14",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "SLANT_SIDE",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 7 = 14. The side 6 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/015",
+      "tier": 2,
+      "prompt": "Triangle: base 8, height 9. Area?",
+      "choices": [
+        "72",
+        "17",
+        "35",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_HALF",
+        "ADD_SIDES",
+        "ARITH",
+        null
+      ],
+      "explanation": "Triangle = half of base × height: 8 ÷ 2 = 4, 4 × 9 = 36."
+    },
+    {
+      "id": "area-volume/t2/016",
+      "tier": 2,
+      "prompt": "Triangle: base 6, height 4. Area?",
+      "choices": [
+        "10",
+        "11",
+        "24",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIDES",
+        "ARITH",
+        "NO_HALF",
+        null
+      ],
+      "explanation": "Triangle = half of base × height: 6 ÷ 2 = 3, 3 × 4 = 12."
+    },
+    {
+      "id": "area-volume/t2/017",
+      "tier": 2,
+      "prompt": "Triangle: base 4, height 2. Area?",
+      "choices": [
+        "4",
+        "2",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_SIDES",
+        "NO_HALF"
+      ],
+      "explanation": "Triangle = half of base × height: 4 ÷ 2 = 2, 2 × 2 = 4."
+    },
+    {
+      "id": "area-volume/t2/018",
+      "tier": 2,
+      "prompt": "Triangle: base 2, height 5, side 6. Area?",
+      "choices": [
+        "7",
+        "10",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "NO_HALF",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Half of base × height: 2 × 5 = 10, 10 ÷ 2 = 5. The side 6 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/019",
+      "tier": 2,
+      "prompt": "Triangle: base 8, height 4. Area?",
+      "choices": [
+        "12",
+        "32",
+        "17",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIDES",
+        "NO_HALF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Triangle = half of base × height: 8 ÷ 2 = 4, 4 × 4 = 16."
+    },
+    {
+      "id": "area-volume/t2/020",
+      "tier": 2,
+      "prompt": "Triangle: base 10, height 6. Area?",
+      "choices": [
+        "30",
+        "28",
+        "60",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES"
+      ],
+      "explanation": "Triangle = half of base × height: 10 ÷ 2 = 5, 5 × 6 = 30."
+    },
+    {
+      "id": "area-volume/t2/021",
+      "tier": 2,
+      "prompt": "Cut a 5 by 4 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "20",
+        "9",
+        "10",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_HALF",
+        "ADD_SIDES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 4 ÷ 2 = 2, 2 × 5 = 10."
+    },
+    {
+      "id": "area-volume/t2/022",
+      "tier": 2,
+      "prompt": "Right triangle: legs 9 and 10. Area?",
+      "choices": [
+        "46",
+        "45",
+        "90",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_HALF",
+        "ADD_SIDES"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 10 ÷ 2 = 5, 5 × 9 = 45."
+    },
+    {
+      "id": "area-volume/t2/023",
+      "tier": 2,
+      "prompt": "Triangle: base 10, height 8, side 10. Area?",
+      "choices": [
+        "18",
+        "40",
+        "80",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "NO_HALF",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 8 = 40. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/024",
+      "tier": 2,
+      "prompt": "Triangle: base 7, side 8, height 4. Area?",
+      "choices": [
+        "11",
+        "15",
+        "14",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "ARITH",
+        null,
+        "SLANT_SIDE"
+      ],
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 7 = 14. The side 8 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/025",
+      "tier": 2,
+      "prompt": "Right triangle: legs 3 and 2. Area?",
+      "choices": [
+        "3",
+        "2",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_SIDES",
+        "NO_HALF"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 3 × 2 = 6, 6 ÷ 2 = 3."
+    },
+    {
+      "id": "area-volume/t2/026",
+      "tier": 2,
+      "prompt": "Right triangle: legs 8 and 10. Area?",
+      "choices": [
+        "40",
+        "39",
+        "80",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 8 ÷ 2 = 4, 4 × 10 = 40."
+    },
+    {
+      "id": "area-volume/t2/027",
+      "tier": 2,
+      "prompt": "Triangle: base 6, height 8. Area?",
+      "choices": [
+        "14",
+        "24",
+        "48",
+        "22"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "NO_HALF",
+        "ARITH"
+      ],
+      "explanation": "Triangle = half of base × height: 6 ÷ 2 = 3, 3 × 8 = 24."
+    },
+    {
+      "id": "area-volume/t2/028",
+      "tier": 2,
+      "prompt": "Triangle: base 6, side 10, height 9. Area?",
+      "choices": [
+        "27",
+        "30",
+        "15",
+        "54"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        "NO_HALF"
+      ],
+      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 9 = 27. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/029",
+      "tier": 2,
+      "prompt": "Triangle: base 8, height 3. Area?",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_SIDES",
+        "NO_HALF"
+      ],
+      "explanation": "Triangle = half of base × height: 8 ÷ 2 = 4, 4 × 3 = 12."
+    },
+    {
+      "id": "area-volume/t2/030",
+      "tier": 2,
+      "prompt": "Cut a 4 by 3 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "7",
+        "12",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIDES",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 4 ÷ 2 = 2, 2 × 3 = 6."
+    },
+    {
+      "id": "area-volume/t2/031",
+      "tier": 2,
+      "prompt": "Triangle: base 4, height 10. Area?",
+      "choices": [
+        "21",
+        "14",
+        "20",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_SIDES",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Triangle = half of base × height: 4 ÷ 2 = 2, 2 × 10 = 20."
+    },
+    {
+      "id": "area-volume/t2/032",
+      "tier": 2,
+      "prompt": "Triangle: base 4, side 6, height 2. Area?",
+      "choices": [
+        "8",
+        "12",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_HALF",
+        "SLANT_SIDE",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 2 = 4. The side 6 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/033",
+      "tier": 2,
+      "prompt": "Cut an 8 by 6 rectangle corner to corner. Area of each half?",
+      "choices": [
+        "25",
+        "48",
+        "14",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "Each half is a triangle, half the rectangle's area: 8 ÷ 2 = 4, 4 × 6 = 24."
+    },
+    {
+      "id": "area-volume/t2/034",
+      "tier": 2,
+      "prompt": "Triangle: base 7, height 2. Area?",
+      "choices": [
+        "7",
+        "8",
+        "14",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES"
+      ],
+      "explanation": "Triangle = half of base × height: 7 × 2 = 14, 14 ÷ 2 = 7."
+    },
+    {
+      "id": "area-volume/t2/035",
+      "tier": 2,
+      "prompt": "Triangle: base 2, height 7, side 10. Area?",
+      "choices": [
+        "9",
+        "7",
+        "14",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "NO_HALF",
+        "SLANT_SIDE"
+      ],
+      "explanation": "Half of base × height: 2 × 7 = 14, 14 ÷ 2 = 7. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/036",
+      "tier": 2,
+      "prompt": "Right triangle: legs 4 and 2. Area?",
+      "choices": [
+        "4",
+        "6",
+        "8",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES",
+        "NO_HALF",
+        "ARITH"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 4 ÷ 2 = 2, 2 × 2 = 4."
+    },
+    {
+      "id": "area-volume/t2/037",
+      "tier": 2,
+      "prompt": "Right triangle: legs 10 and 2. Area?",
+      "choices": [
+        "12",
+        "10",
+        "8",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "ARITH",
+        "NO_HALF"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 10 ÷ 2 = 5, 5 × 2 = 10."
+    },
+    {
+      "id": "area-volume/t2/038",
+      "tier": 2,
+      "prompt": "Triangle: base 8, side 10, height 9. Area?",
+      "choices": [
+        "36",
+        "72",
+        "40",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_HALF",
+        "SLANT_SIDE",
+        "ADD_SIDES"
+      ],
+      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 9 = 36. The side 10 is slanted, so it is not the height."
+    },
+    {
+      "id": "area-volume/t2/039",
+      "tier": 2,
+      "prompt": "Right triangle: legs 8 and 3. Area?",
+      "choices": [
+        "13",
+        "24",
+        "11",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_HALF",
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 8 ÷ 2 = 4, 4 × 3 = 12."
+    },
+    {
+      "id": "area-volume/t2/040",
+      "tier": 2,
+      "prompt": "Right triangle: legs 7 and 8. Area?",
+      "choices": [
+        "15",
+        "28",
+        "29",
+        "56"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null,
+        "ARITH",
+        "NO_HALF"
+      ],
+      "explanation": "The legs are a base and a height at a right angle. Half of base × height: 8 ÷ 2 = 4, 4 × 7 = 28."
+    },
+    {
+      "id": "area-volume/t3/001",
+      "tier": 3,
+      "prompt": "Parallelogram: area 20, base 2. Height?",
+      "choices": [
+        "18",
+        "40",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "MULTIPLIED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = base × height, so divide: 20 ÷ 2 = 10."
+    },
+    {
+      "id": "area-volume/t3/002",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 5 and 3, height 4. Area?",
+      "choices": [
+        "14",
+        "16",
+        "32",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_AVERAGE",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 5 + 3 = 8, 8 ÷ 2 = 4, 4 × 4 = 16."
+    },
+    {
+      "id": "area-volume/t3/003",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 1 and 5, height 3. Area?",
+      "choices": [
+        "9",
+        "15",
+        "18",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_BASE",
+        "NO_AVERAGE",
+        "ARITH"
+      ],
+      "explanation": "Average the bases, then × height: 1 + 5 = 6, 6 ÷ 2 = 3, 3 × 3 = 9."
+    },
+    {
+      "id": "area-volume/t3/004",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 6 and 2, height 3. Area?",
+      "choices": [
+        "12",
+        "11",
+        "24",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_AVERAGE",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 6 + 2 = 8, 8 ÷ 2 = 4, 4 × 3 = 12."
+    },
+    {
+      "id": "area-volume/t3/005",
+      "tier": 3,
+      "prompt": "Triangle: area 10, base 10. Height?",
+      "choices": [
+        "100",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = half the base × height. 10 ÷ 2 = 5, 10 ÷ 5 = 2. Check: 5 × 2 = 10."
+    },
+    {
+      "id": "area-volume/t3/006",
+      "tier": 3,
+      "prompt": "Parallelogram: area 18, base 2. Height?",
+      "choices": [
+        "7",
+        "16",
+        "36",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Area = base × height, so divide: 18 ÷ 2 = 9."
+    },
+    {
+      "id": "area-volume/t3/007",
+      "tier": 3,
+      "prompt": "Parallelogram: area 60, base 10. Height?",
+      "choices": [
+        "50",
+        "5",
+        "6",
+        "600"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "Area = base × height, so divide: 60 ÷ 10 = 6."
+    },
+    {
+      "id": "area-volume/t3/008",
+      "tier": 3,
+      "prompt": "Triangle: area 24, base 8. Height?",
+      "choices": [
+        "192",
+        "6",
+        "3",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "NO_HALF",
+        "SUBTRACTED"
+      ],
+      "explanation": "Area = half the base × height. 8 ÷ 2 = 4, 24 ÷ 4 = 6. Check: 4 × 6 = 24."
+    },
+    {
+      "id": "area-volume/t3/009",
+      "tier": 3,
+      "prompt": "Triangle: area 15, base 10. Height?",
+      "choices": [
+        "5",
+        "150",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "MULTIPLIED",
+        "ARITH",
+        null
+      ],
+      "explanation": "Area = half the base × height. 10 ÷ 2 = 5, 15 ÷ 5 = 3. Check: 5 × 3 = 15."
+    },
+    {
+      "id": "area-volume/t3/010",
+      "tier": 3,
+      "prompt": "Rectangle: area 30, width 6. Length?",
+      "choices": [
+        "180",
+        "3",
+        "24",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ARITH",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "Area = length × width, so divide: 30 ÷ 6 = 5."
+    },
+    {
+      "id": "area-volume/t3/011",
+      "tier": 3,
+      "prompt": "Triangle: area 35, base 10. Height?",
+      "choices": [
+        "7",
+        "350",
+        "25",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "Area = half the base × height. 10 ÷ 2 = 5, 35 ÷ 5 = 7. Check: 5 × 7 = 35."
+    },
+    {
+      "id": "area-volume/t3/012",
+      "tier": 3,
+      "prompt": "Triangle: area 15, base 6. Height?",
+      "choices": [
+        "90",
+        "9",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "Area = half the base × height. 6 ÷ 2 = 3, 15 ÷ 3 = 5. Check: 3 × 5 = 15."
+    },
+    {
+      "id": "area-volume/t3/013",
+      "tier": 3,
+      "prompt": "Triangle: area 27, base 6. Height?",
+      "choices": [
+        "21",
+        "10",
+        "162",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Area = half the base × height. 6 ÷ 2 = 3, 27 ÷ 3 = 9. Check: 3 × 9 = 27."
+    },
+    {
+      "id": "area-volume/t3/014",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 10 and 8, height 8. Area?",
+      "choices": [
+        "72",
+        "80",
+        "144",
+        "71"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_BASE",
+        "NO_AVERAGE",
+        "ARITH"
+      ],
+      "explanation": "Average the bases, then × height: 10 + 8 = 18, 18 ÷ 2 = 9, 9 × 8 = 72."
+    },
+    {
+      "id": "area-volume/t3/015",
+      "tier": 3,
+      "prompt": "Rectangle: area 16, width 2. Length?",
+      "choices": [
+        "8",
+        "14",
+        "32",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "MULTIPLIED",
+        "ARITH"
+      ],
+      "explanation": "Area = length × width, so divide: 16 ÷ 2 = 8."
+    },
+    {
+      "id": "area-volume/t3/016",
+      "tier": 3,
+      "prompt": "Parallelogram: area 45, base 5. Height?",
+      "choices": [
+        "225",
+        "11",
+        "9",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Area = base × height, so divide: 45 ÷ 5 = 9."
+    },
+    {
+      "id": "area-volume/t3/017",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 2 and 6, height 5. Area?",
+      "choices": [
+        "40",
+        "20",
+        "22",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_AVERAGE",
+        null,
+        "ARITH",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 2 + 6 = 8, 8 ÷ 2 = 4, 4 × 5 = 20."
+    },
+    {
+      "id": "area-volume/t3/018",
+      "tier": 3,
+      "prompt": "Parallelogram: area 50, base 10. Height?",
+      "choices": [
+        "5",
+        "500",
+        "40",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "Area = base × height, so divide: 50 ÷ 10 = 5."
+    },
+    {
+      "id": "area-volume/t3/019",
+      "tier": 3,
+      "prompt": "Rectangle: area 18, width 3. Length?",
+      "choices": [
+        "15",
+        "54",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "MULTIPLIED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = length × width, so divide: 18 ÷ 3 = 6."
+    },
+    {
+      "id": "area-volume/t3/020",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 3 and 5, height 9. Area?",
+      "choices": [
+        "36",
+        "72",
+        "45",
+        "37"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_AVERAGE",
+        "ONE_BASE",
+        "ARITH"
+      ],
+      "explanation": "Average the bases, then × height: 3 + 5 = 8, 8 ÷ 2 = 4, 4 × 9 = 36."
+    },
+    {
+      "id": "area-volume/t3/021",
+      "tier": 3,
+      "prompt": "Triangle: area 32, base 8. Height?",
+      "choices": [
+        "24",
+        "256",
+        "8",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "MULTIPLIED",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Area = half the base × height. 8 ÷ 2 = 4, 32 ÷ 4 = 8. Check: 4 × 8 = 32."
+    },
+    {
+      "id": "area-volume/t3/022",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 8 and 4, height 7. Area?",
+      "choices": [
+        "43",
+        "84",
+        "42",
+        "56"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_AVERAGE",
+        null,
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 8 + 4 = 12, 12 ÷ 2 = 6, 6 × 7 = 42."
+    },
+    {
+      "id": "area-volume/t3/023",
+      "tier": 3,
+      "prompt": "Rectangle: area 21, width 3. Length?",
+      "choices": [
+        "8",
+        "63",
+        "18",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "Area = length × width, so divide: 21 ÷ 3 = 7."
+    },
+    {
+      "id": "area-volume/t3/024",
+      "tier": 3,
+      "prompt": "Triangle: area 6, base 4. Height?",
+      "choices": [
+        "2",
+        "3",
+        "24",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "MULTIPLIED",
+        "ARITH"
+      ],
+      "explanation": "Area = half the base × height. 4 ÷ 2 = 2, 6 ÷ 2 = 3. Check: 2 × 3 = 6."
+    },
+    {
+      "id": "area-volume/t3/025",
+      "tier": 3,
+      "prompt": "Parallelogram: area 30, base 5. Height?",
+      "choices": [
+        "150",
+        "25",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "SUBTRACTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Area = base × height, so divide: 30 ÷ 5 = 6."
+    },
+    {
+      "id": "area-volume/t3/026",
+      "tier": 3,
+      "prompt": "Parallelogram: area 80, base 10. Height?",
+      "choices": [
+        "800",
+        "9",
+        "8",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Area = base × height, so divide: 80 ÷ 10 = 8."
+    },
+    {
+      "id": "area-volume/t3/027",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 5 and 1, height 2. Area?",
+      "choices": [
+        "12",
+        "10",
+        "4",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_AVERAGE",
+        "ONE_BASE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Average the bases, then × height: 5 + 1 = 6, 6 ÷ 2 = 3, 3 × 2 = 6."
+    },
+    {
+      "id": "area-volume/t3/028",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 8 and 4, height 9. Area?",
+      "choices": [
+        "52",
+        "54",
+        "72",
+        "108"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_BASE",
+        "NO_AVERAGE"
+      ],
+      "explanation": "Average the bases, then × height: 8 + 4 = 12, 12 ÷ 2 = 6, 6 × 9 = 54."
+    },
+    {
+      "id": "area-volume/t3/029",
+      "tier": 3,
+      "prompt": "Triangle: area 30, base 6. Height?",
+      "choices": [
+        "5",
+        "10",
+        "24",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "SUBTRACTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "Area = half the base × height. 6 ÷ 2 = 3, 30 ÷ 3 = 10. Check: 3 × 10 = 30."
+    },
+    {
+      "id": "area-volume/t3/030",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 1 and 9, height 7. Area?",
+      "choices": [
+        "63",
+        "70",
+        "35",
+        "37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_BASE",
+        "NO_AVERAGE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Average the bases, then × height: 1 + 9 = 10, 10 ÷ 2 = 5, 5 × 7 = 35."
+    },
+    {
+      "id": "area-volume/t3/031",
+      "tier": 3,
+      "prompt": "Triangle: area 25, base 10. Height?",
+      "choices": [
+        "5",
+        "4",
+        "15",
+        "250"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUBTRACTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "Area = half the base × height. 10 ÷ 2 = 5, 25 ÷ 5 = 5. Check: 5 × 5 = 25."
+    },
+    {
+      "id": "area-volume/t3/032",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 9 and 7, height 9. Area?",
+      "choices": [
+        "72",
+        "144",
+        "73",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_AVERAGE",
+        "ARITH",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 9 + 7 = 16, 16 ÷ 2 = 8, 8 × 9 = 72."
+    },
+    {
+      "id": "area-volume/t3/033",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 4 and 2, height 2. Area?",
+      "choices": [
+        "12",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_AVERAGE",
+        null,
+        "ARITH",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 4 + 2 = 6, 6 ÷ 2 = 3, 3 × 2 = 6."
+    },
+    {
+      "id": "area-volume/t3/034",
+      "tier": 3,
+      "prompt": "Parallelogram: area 45, base 9. Height?",
+      "choices": [
+        "36",
+        "4",
+        "405",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Area = base × height, so divide: 45 ÷ 9 = 5."
+    },
+    {
+      "id": "area-volume/t3/035",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 4 and 6, height 3. Area?",
+      "choices": [
+        "18",
+        "14",
+        "30",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_BASE",
+        "ARITH",
+        "NO_AVERAGE",
+        null
+      ],
+      "explanation": "Average the bases, then × height: 4 + 6 = 10, 10 ÷ 2 = 5, 5 × 3 = 15."
+    },
+    {
+      "id": "area-volume/t3/036",
+      "tier": 3,
+      "prompt": "Triangle: area 10, base 4. Height?",
+      "choices": [
+        "40",
+        "5",
+        "6",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "Area = half the base × height. 4 ÷ 2 = 2, 10 ÷ 2 = 5. Check: 2 × 5 = 10."
+    },
+    {
+      "id": "area-volume/t3/037",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 7 and 9, height 3. Area?",
+      "choices": [
+        "48",
+        "24",
+        "27",
+        "23"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_AVERAGE",
+        null,
+        "ONE_BASE",
+        "ARITH"
+      ],
+      "explanation": "Average the bases, then × height: 7 + 9 = 16, 16 ÷ 2 = 8, 8 × 3 = 24."
+    },
+    {
+      "id": "area-volume/t3/038",
+      "tier": 3,
+      "prompt": "Triangle: area 16, base 8. Height?",
+      "choices": [
+        "2",
+        "4",
+        "128",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "MULTIPLIED",
+        "SUBTRACTED"
+      ],
+      "explanation": "Area = half the base × height. 8 ÷ 2 = 4, 16 ÷ 4 = 4. Check: 4 × 4 = 16."
+    },
+    {
+      "id": "area-volume/t3/039",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 3 and 7, height 2. Area?",
+      "choices": [
+        "9",
+        "20",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_AVERAGE",
+        "ONE_BASE",
+        null
+      ],
+      "explanation": "Average the bases, then × height: 3 + 7 = 10, 10 ÷ 2 = 5, 5 × 2 = 10."
+    },
+    {
+      "id": "area-volume/t3/040",
+      "tier": 3,
+      "prompt": "Trapezoid: bases 2 and 10, height 5. Area?",
+      "choices": [
+        "30",
+        "32",
+        "60",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_AVERAGE",
+        "ONE_BASE"
+      ],
+      "explanation": "Average the bases, then × height: 2 + 10 = 12, 12 ÷ 2 = 6, 6 × 5 = 30."
+    },
+    {
+      "id": "area-volume/t4/001",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 2 by 3 by 1 box?",
+      "choices": [
+        "12",
+        "48",
+        "6",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_ONCE",
+        null,
+        "COUNTED_UNITS",
+        "HALVED_COUNT"
+      ],
+      "explanation": "6 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 6 × 8 = 48."
+    },
+    {
+      "id": "area-volume/t4/002",
+      "tier": 4,
+      "prompt": "Box 5 by 5 by 2. Volume?",
+      "choices": [
+        "50 sq units",
+        "12 cu units",
+        "50 cu units",
+        "25 cu units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        null,
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height: 5 × 2 = 10, 10 × 5 = 50 cubic units."
+    },
+    {
+      "id": "area-volume/t4/003",
+      "tier": 4,
+      "prompt": "Box 3 by 9 by 3. Volume?",
+      "choices": [
+        "81 sq units",
+        "81 cu units",
+        "27 cu units",
+        "15 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        null,
+        "MISSED_EDGE",
+        "ADDED_EDGES"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 9 = 81 cubic units."
+    },
+    {
+      "id": "area-volume/t4/004",
+      "tier": 4,
+      "prompt": "Box 1/2 by 6 by 7. Volume?",
+      "choices": [
+        "21 cu units",
+        "22 cu units",
+        "42 cu units",
+        "21 sq units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSED_EDGE",
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 6 ÷ 2 = 3, 3 × 7 = 21 cubic units."
+    },
+    {
+      "id": "area-volume/t4/005",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 1 by 2 box?",
+      "choices": [
+        "4",
+        "2",
+        "1",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_ONCE",
+        "COUNTED_UNITS",
+        "HALVED_COUNT",
+        null
+      ],
+      "explanation": "2 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 2 × 8 = 16."
+    },
+    {
+      "id": "area-volume/t4/006",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 3 by 3 box?",
+      "choices": [
+        "9",
+        "72",
+        "18",
+        "73"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTED_UNITS",
+        null,
+        "DOUBLED_ONCE",
+        "ARITH"
+      ],
+      "explanation": "9 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 9 × 8 = 72."
+    },
+    {
+      "id": "area-volume/t4/007",
+      "tier": 4,
+      "prompt": "Box 3 by 2 by 9. Volume?",
+      "choices": [
+        "54 cu units",
+        "14 cu units",
+        "6 cu units",
+        "54 sq units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 2 = 6, 6 × 9 = 54 cubic units."
+    },
+    {
+      "id": "area-volume/t4/008",
+      "tier": 4,
+      "prompt": "Box 3 by 3 by 6. Volume?",
+      "choices": [
+        "9 cu units",
+        "12 cu units",
+        "54 cu units",
+        "54 sq units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSED_EDGE",
+        "ADDED_EDGES",
+        null,
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 6 = 54 cubic units."
+    },
+    {
+      "id": "area-volume/t4/009",
+      "tier": 4,
+      "prompt": "Box 1/2 by 6 by 8. Volume?",
+      "choices": [
+        "24 cu units",
+        "48 cu units",
+        "24 sq units",
+        "22 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSED_EDGE",
+        "SQUARE_UNITS",
+        "ARITH"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 6 ÷ 2 = 3, 3 × 8 = 24 cubic units."
+    },
+    {
+      "id": "area-volume/t4/010",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 1 by 1 box?",
+      "choices": [
+        "2",
+        "1",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_ONCE",
+        "COUNTED_UNITS",
+        "ARITH",
+        null
+      ],
+      "explanation": "1 unit cube; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 1 × 8 = 8."
+    },
+    {
+      "id": "area-volume/t4/011",
+      "tier": 4,
+      "prompt": "Box 2 by 10 by 4. Volume?",
+      "choices": [
+        "80 sq units",
+        "16 cu units",
+        "80 cu units",
+        "20 cu units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        null,
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 4 = 8, 8 × 10 = 80 cubic units."
+    },
+    {
+      "id": "area-volume/t4/012",
+      "tier": 4,
+      "prompt": "Box 5 by 3 by 3. Volume?",
+      "choices": [
+        "45 sq units",
+        "45 cu units",
+        "11 cu units",
+        "15 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        null,
+        "ADDED_EDGES",
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 5 = 45 cubic units."
+    },
+    {
+      "id": "area-volume/t4/013",
+      "tier": 4,
+      "prompt": "Box 2 by 6 by 2. Volume?",
+      "choices": [
+        "24 cu units",
+        "24 sq units",
+        "12 cu units",
+        "10 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_UNITS",
+        "MISSED_EDGE",
+        "ADDED_EDGES"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 2 = 4, 4 × 6 = 24 cubic units."
+    },
+    {
+      "id": "area-volume/t4/014",
+      "tier": 4,
+      "prompt": "Box 4 by 4 by 1/2. Volume?",
+      "choices": [
+        "8 sq units",
+        "8 1/2 cu units",
+        "16 cu units",
+        "8 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        null
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 4 ÷ 2 = 2, 2 × 4 = 8 cubic units."
+    },
+    {
+      "id": "area-volume/t4/015",
+      "tier": 4,
+      "prompt": "Box 2 by 4 by 5. Volume?",
+      "choices": [
+        "11 cu units",
+        "40 sq units",
+        "8 cu units",
+        "40 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_EDGES",
+        "SQUARE_UNITS",
+        "MISSED_EDGE",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 2 × 4 = 8, 8 × 5 = 40 cubic units."
+    },
+    {
+      "id": "area-volume/t4/016",
+      "tier": 4,
+      "prompt": "Box 3 by 2 by 5. Volume?",
+      "choices": [
+        "10 cu units",
+        "30 sq units",
+        "30 cu units",
+        "6 cu units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_EDGES",
+        "SQUARE_UNITS",
+        null,
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 2 = 6, 6 × 5 = 30 cubic units."
+    },
+    {
+      "id": "area-volume/t4/017",
+      "tier": 4,
+      "prompt": "Box 3 by 6 by 2. Volume?",
+      "choices": [
+        "36 sq units",
+        "36 cu units",
+        "11 cu units",
+        "18 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        null,
+        "ADDED_EDGES",
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 2 = 6, 6 × 6 = 36 cubic units."
+    },
+    {
+      "id": "area-volume/t4/018",
+      "tier": 4,
+      "prompt": "Box 2 by 10 by 2. Volume?",
+      "choices": [
+        "20 cu units",
+        "40 cu units",
+        "14 cu units",
+        "40 sq units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSED_EDGE",
+        null,
+        "ADDED_EDGES",
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 2 = 4, 4 × 10 = 40 cubic units."
+    },
+    {
+      "id": "area-volume/t4/019",
+      "tier": 4,
+      "prompt": "Box 5 by 2 by 6. Volume?",
+      "choices": [
+        "13 cu units",
+        "10 cu units",
+        "60 cu units",
+        "60 sq units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        null,
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 5 × 2 = 10, 10 × 6 = 60 cubic units."
+    },
+    {
+      "id": "area-volume/t4/020",
+      "tier": 4,
+      "prompt": "Box 4 by 9 by 2. Volume?",
+      "choices": [
+        "36 cu units",
+        "72 sq units",
+        "15 cu units",
+        "72 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_EDGE",
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 4 × 2 = 8, 8 × 9 = 72 cubic units."
+    },
+    {
+      "id": "area-volume/t4/021",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 2 by 2 box?",
+      "choices": [
+        "4",
+        "8",
+        "2",
+        "32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_UNITS",
+        "DOUBLED_ONCE",
+        "HALVED_COUNT",
+        null
+      ],
+      "explanation": "4 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 4 × 8 = 32."
+    },
+    {
+      "id": "area-volume/t4/022",
+      "tier": 4,
+      "prompt": "Box 8 by 9 by 1/2. Volume?",
+      "choices": [
+        "36 cu units",
+        "36 sq units",
+        "34 cu units",
+        "72 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_UNITS",
+        "ARITH",
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 8 ÷ 2 = 4, 4 × 9 = 36 cubic units."
+    },
+    {
+      "id": "area-volume/t4/023",
+      "tier": 4,
+      "prompt": "Box 2 by 4 by 6. Volume?",
+      "choices": [
+        "48 cu units",
+        "48 sq units",
+        "8 cu units",
+        "12 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_UNITS",
+        "MISSED_EDGE",
+        "ADDED_EDGES"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 4 = 8, 8 × 6 = 48 cubic units."
+    },
+    {
+      "id": "area-volume/t4/024",
+      "tier": 4,
+      "prompt": "Box 5 by 10 by 2. Volume?",
+      "choices": [
+        "50 cu units",
+        "100 sq units",
+        "17 cu units",
+        "100 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_EDGE",
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 5 × 2 = 10, 10 × 10 = 100 cubic units."
+    },
+    {
+      "id": "area-volume/t4/025",
+      "tier": 4,
+      "prompt": "Box 6 by 1/2 by 5. Volume?",
+      "choices": [
+        "15 cu units",
+        "15 sq units",
+        "13 cu units",
+        "30 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_UNITS",
+        "ARITH",
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 6 ÷ 2 = 3, 3 × 5 = 15 cubic units."
+    },
+    {
+      "id": "area-volume/t4/026",
+      "tier": 4,
+      "prompt": "Box 8 by 2 by 4. Volume?",
+      "choices": [
+        "16 cu units",
+        "64 sq units",
+        "64 cu units",
+        "14 cu units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSED_EDGE",
+        "SQUARE_UNITS",
+        null,
+        "ADDED_EDGES"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 4 = 8, 8 × 8 = 64 cubic units."
+    },
+    {
+      "id": "area-volume/t4/027",
+      "tier": 4,
+      "prompt": "Box 4 by 1/2 by 8. Volume?",
+      "choices": [
+        "14 cu units",
+        "16 cu units",
+        "32 cu units",
+        "16 sq units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSED_EDGE",
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 4 ÷ 2 = 2, 2 × 8 = 16 cubic units."
+    },
+    {
+      "id": "area-volume/t4/028",
+      "tier": 4,
+      "prompt": "Box 2 by 5 by 7. Volume?",
+      "choices": [
+        "70 cu units",
+        "14 cu units",
+        "10 cu units",
+        "70 sq units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 5 = 10, 10 × 7 = 70 cubic units."
+    },
+    {
+      "id": "area-volume/t4/029",
+      "tier": 4,
+      "prompt": "Box 3 by 3 by 10. Volume?",
+      "choices": [
+        "90 sq units",
+        "16 cu units",
+        "9 cu units",
+        "90 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 10 = 90 cubic units."
+    },
+    {
+      "id": "area-volume/t4/030",
+      "tier": 4,
+      "prompt": "Box 8 by 2 by 5. Volume?",
+      "choices": [
+        "16 cu units",
+        "80 cu units",
+        "80 sq units",
+        "15 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSED_EDGE",
+        null,
+        "SQUARE_UNITS",
+        "ADDED_EDGES"
+      ],
+      "explanation": "Volume = length × width × height: 2 × 5 = 10, 10 × 8 = 80 cubic units."
+    },
+    {
+      "id": "area-volume/t4/031",
+      "tier": 4,
+      "prompt": "Box 4 by 3 by 3. Volume?",
+      "choices": [
+        "10 cu units",
+        "12 cu units",
+        "36 cu units",
+        "36 sq units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_EDGES",
+        "MISSED_EDGE",
+        null,
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 4 = 36 cubic units."
+    },
+    {
+      "id": "area-volume/t4/032",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 5 by 1 box?",
+      "choices": [
+        "38",
+        "10",
+        "40",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DOUBLED_ONCE",
+        null,
+        "COUNTED_UNITS"
+      ],
+      "explanation": "5 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 5 × 8 = 40."
+    },
+    {
+      "id": "area-volume/t4/033",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 1 by 1 by 3 box?",
+      "choices": [
+        "24",
+        "3",
+        "23",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNTED_UNITS",
+        "ARITH",
+        "DOUBLED_ONCE"
+      ],
+      "explanation": "3 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 3 × 8 = 24."
+    },
+    {
+      "id": "area-volume/t4/034",
+      "tier": 4,
+      "prompt": "Box 1/2 by 8 by 5. Volume?",
+      "choices": [
+        "40 cu units",
+        "20 cu units",
+        "20 sq units",
+        "19 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSED_EDGE",
+        null,
+        "SQUARE_UNITS",
+        "ARITH"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 8 ÷ 2 = 4, 4 × 5 = 20 cubic units."
+    },
+    {
+      "id": "area-volume/t4/035",
+      "tier": 4,
+      "prompt": "Box 1/2 by 3 by 10. Volume?",
+      "choices": [
+        "15 cu units",
+        "15 sq units",
+        "14 cu units",
+        "30 cu units"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_UNITS",
+        "ARITH",
+        "MISSED_EDGE"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 10 ÷ 2 = 5, 5 × 3 = 15 cubic units."
+    },
+    {
+      "id": "area-volume/t4/036",
+      "tier": 4,
+      "prompt": "Box 4 by 3 by 2. Volume?",
+      "choices": [
+        "9 cu units",
+        "24 sq units",
+        "12 cu units",
+        "24 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_EDGES",
+        "SQUARE_UNITS",
+        "MISSED_EDGE",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 4 × 2 = 8, 8 × 3 = 24 cubic units."
+    },
+    {
+      "id": "area-volume/t4/037",
+      "tier": 4,
+      "prompt": "Box 3 by 7 by 3. Volume?",
+      "choices": [
+        "21 cu units",
+        "63 sq units",
+        "13 cu units",
+        "63 cu units"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSED_EDGE",
+        "SQUARE_UNITS",
+        "ADDED_EDGES",
+        null
+      ],
+      "explanation": "Volume = length × width × height: 3 × 3 = 9, 9 × 7 = 63 cubic units."
+    },
+    {
+      "id": "area-volume/t4/038",
+      "tier": 4,
+      "prompt": "Box 8 by 10 by 1/2. Volume?",
+      "choices": [
+        "40 sq units",
+        "40 cu units",
+        "80 cu units",
+        "39 cu units"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_UNITS",
+        null,
+        "MISSED_EDGE",
+        "ARITH"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 8 ÷ 2 = 4, 4 × 10 = 40 cubic units."
+    },
+    {
+      "id": "area-volume/t4/039",
+      "tier": 4,
+      "prompt": "How many cubes of edge 1/2 fill a 2 by 5 by 1 box?",
+      "choices": [
+        "20",
+        "5",
+        "80",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED_ONCE",
+        "HALVED_COUNT",
+        null,
+        "COUNTED_UNITS"
+      ],
+      "explanation": "10 unit cubes; each holds 2 × 2 × 2 = 8 cubes of edge 1/2: 10 × 8 = 80."
+    },
+    {
+      "id": "area-volume/t4/040",
+      "tier": 4,
+      "prompt": "Box 6 by 1/2 by 6. Volume?",
+      "choices": [
+        "16 cu units",
+        "36 cu units",
+        "18 cu units",
+        "18 sq units"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSED_EDGE",
+        null,
+        "SQUARE_UNITS"
+      ],
+      "explanation": "Volume = length × width × height, and × 1/2 is half: 6 ÷ 2 = 3, 3 × 6 = 18 cubic units."
+    },
+    {
+      "id": "area-volume/t5/001",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 5, slant height 4. Surface area?",
+      "choices": [
+        "66",
+        "40",
+        "105",
+        "65"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_BASE",
+        "NO_HALF",
+        null
+      ],
+      "explanation": "Base 5 × 5 = 25. Each triangle: 4 ÷ 2 = 2, 2 × 5 = 10. 4 × 10 = 40, 25 + 40 = 65."
+    },
+    {
+      "id": "area-volume/t5/002",
+      "tier": 5,
+      "prompt": "Box 7 by 1 by 1. Surface area?",
+      "choices": [
+        "7",
+        "28",
+        "15",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        "ARITH",
+        "THREE_FACES",
+        null
+      ],
+      "explanation": "Faces 7, 7, 1, each twice: 7 + 7 + 1 = 15, 15 + 15 = 30."
+    },
+    {
+      "id": "area-volume/t5/003",
+      "tier": 5,
+      "prompt": "Box 2 by 10 by 1. Surface area?",
+      "choices": [
+        "65",
+        "20",
+        "32",
+        "64"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "VOLUME_FOR_SA",
+        "THREE_FACES",
+        null
+      ],
+      "explanation": "Faces 20, 2, 10, each twice: 20 + 2 + 10 = 32, 32 + 32 = 64."
+    },
+    {
+      "id": "area-volume/t5/004",
+      "tier": 5,
+      "prompt": "Box 7 by 4 by 2. Surface area?",
+      "choices": [
+        "28",
+        "56",
+        "50",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_FACE",
+        "VOLUME_FOR_SA",
+        "THREE_FACES",
+        null
+      ],
+      "explanation": "Faces 28, 14, 8, each twice: 28 + 14 + 8 = 50, 50 + 50 = 100."
+    },
+    {
+      "id": "area-volume/t5/005",
+      "tier": 5,
+      "prompt": "Cube, edge 1. Surface area?",
+      "choices": [
+        "4",
+        "7",
+        "1",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FOUR_FACES",
+        "ARITH",
+        "VOLUME_FOR_SA",
+        null
+      ],
+      "explanation": "6 equal square faces: 1 × 1 = 1, 6 × 1 = 6."
+    },
+    {
+      "id": "area-volume/t5/006",
+      "tier": 5,
+      "prompt": "Box 2 by 9 by 1. Surface area?",
+      "choices": [
+        "58",
+        "56",
+        "18",
+        "29"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "VOLUME_FOR_SA",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 18, 2, 9, each twice: 18 + 2 + 9 = 29, 29 + 29 = 58."
+    },
+    {
+      "id": "area-volume/t5/007",
+      "tier": 5,
+      "prompt": "Box 6 by 4 by 2. Surface area?",
+      "choices": [
+        "48",
+        "44",
+        "88",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        "THREE_FACES",
+        null,
+        "ONE_FACE"
+      ],
+      "explanation": "Faces 24, 12, 8, each twice: 24 + 12 + 8 = 44, 44 + 44 = 88."
+    },
+    {
+      "id": "area-volume/t5/008",
+      "tier": 5,
+      "prompt": "Box 1 by 8 by 1. Surface area?",
+      "choices": [
+        "8",
+        "34",
+        "33",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        null,
+        "ARITH",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 8, 1, 8, each twice: 8 + 1 + 8 = 17, 17 + 17 = 34."
+    },
+    {
+      "id": "area-volume/t5/009",
+      "tier": 5,
+      "prompt": "Box 5 by 1 by 2. Surface area?",
+      "choices": [
+        "10",
+        "34",
+        "17",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        null,
+        "THREE_FACES",
+        "ONE_FACE"
+      ],
+      "explanation": "Faces 5, 10, 2, each twice: 5 + 10 + 2 = 17, 17 + 17 = 34."
+    },
+    {
+      "id": "area-volume/t5/010",
+      "tier": 5,
+      "prompt": "Box 2 by 3 by 5. Surface area?",
+      "choices": [
+        "62",
+        "6",
+        "30",
+        "31"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_FACE",
+        "VOLUME_FOR_SA",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 6, 10, 15, each twice: 6 + 10 + 15 = 31, 31 + 31 = 62."
+    },
+    {
+      "id": "area-volume/t5/011",
+      "tier": 5,
+      "prompt": "Box 1 by 6 by 5. Surface area?",
+      "choices": [
+        "30",
+        "6",
+        "82",
+        "41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        "ONE_FACE",
+        null,
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 6, 5, 30, each twice: 6 + 5 + 30 = 41, 41 + 41 = 82."
+    },
+    {
+      "id": "area-volume/t5/012",
+      "tier": 5,
+      "prompt": "Box 9 by 4 by 1. Surface area?",
+      "choices": [
+        "98",
+        "36",
+        "97",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VOLUME_FOR_SA",
+        "ARITH",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 36, 9, 4, each twice: 36 + 9 + 4 = 49, 49 + 49 = 98."
+    },
+    {
+      "id": "area-volume/t5/013",
+      "tier": 5,
+      "prompt": "Box 1 by 2 by 7. Surface area?",
+      "choices": [
+        "46",
+        "23",
+        "2",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "THREE_FACES",
+        "ONE_FACE",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 2, 7, 14, each twice: 2 + 7 + 14 = 23, 23 + 23 = 46."
+    },
+    {
+      "id": "area-volume/t5/014",
+      "tier": 5,
+      "prompt": "Box 4 by 5 by 3. Surface area?",
+      "choices": [
+        "47",
+        "20",
+        "94",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "THREE_FACES",
+        "ONE_FACE",
+        null,
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 20, 12, 15, each twice: 20 + 12 + 15 = 47, 47 + 47 = 94."
+    },
+    {
+      "id": "area-volume/t5/015",
+      "tier": 5,
+      "prompt": "Box 2 by 7 by 2. Surface area?",
+      "choices": [
+        "28",
+        "14",
+        "32",
+        "64"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        "ONE_FACE",
+        "THREE_FACES",
+        null
+      ],
+      "explanation": "Faces 14, 4, 14, each twice: 14 + 4 + 14 = 32, 32 + 32 = 64."
+    },
+    {
+      "id": "area-volume/t5/016",
+      "tier": 5,
+      "prompt": "Box 2 by 8 by 2. Surface area?",
+      "choices": [
+        "16",
+        "32",
+        "72",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_FACE",
+        "VOLUME_FOR_SA",
+        null,
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 16, 4, 16, each twice: 16 + 4 + 16 = 36, 36 + 36 = 72."
+    },
+    {
+      "id": "area-volume/t5/017",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 2, slant height 6. Surface area?",
+      "choices": [
+        "30",
+        "24",
+        "28",
+        "52"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_BASE",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Base 2 × 2 = 4. Each triangle: 6 ÷ 2 = 3, 3 × 2 = 6. 4 × 6 = 24, 4 + 24 = 28."
+    },
+    {
+      "id": "area-volume/t5/018",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 2, slant height 8. Surface area?",
+      "choices": [
+        "32",
+        "38",
+        "68",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_BASE",
+        "ARITH",
+        "NO_HALF",
+        null
+      ],
+      "explanation": "Base 2 × 2 = 4. Each triangle: 8 ÷ 2 = 4, 4 × 2 = 8. 4 × 8 = 32, 4 + 32 = 36."
+    },
+    {
+      "id": "area-volume/t5/019",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 2, slant height 5. Surface area?",
+      "choices": [
+        "22",
+        "20",
+        "24",
+        "44"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_BASE",
+        null,
+        "NO_HALF"
+      ],
+      "explanation": "Base 2 × 2 = 4. Each triangle: 2 × 5 = 10, 10 ÷ 2 = 5. 4 × 5 = 20, 4 + 20 = 24."
+    },
+    {
+      "id": "area-volume/t5/020",
+      "tier": 5,
+      "prompt": "Box 4 by 1 by 3. Surface area?",
+      "choices": [
+        "38",
+        "19",
+        "4",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "THREE_FACES",
+        "ONE_FACE",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 4, 12, 3, each twice: 4 + 12 + 3 = 19, 19 + 19 = 38."
+    },
+    {
+      "id": "area-volume/t5/021",
+      "tier": 5,
+      "prompt": "Box 8 by 1 by 2. Surface area?",
+      "choices": [
+        "52",
+        "16",
+        "26",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VOLUME_FOR_SA",
+        "THREE_FACES",
+        "ONE_FACE"
+      ],
+      "explanation": "Faces 8, 16, 2, each twice: 8 + 16 + 2 = 26, 26 + 26 = 52."
+    },
+    {
+      "id": "area-volume/t5/022",
+      "tier": 5,
+      "prompt": "Box 3 by 3 by 2. Surface area?",
+      "choices": [
+        "9",
+        "18",
+        "42",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_FACE",
+        "VOLUME_FOR_SA",
+        null,
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 9, 6, 6, each twice: 9 + 6 + 6 = 21, 21 + 21 = 42."
+    },
+    {
+      "id": "area-volume/t5/023",
+      "tier": 5,
+      "prompt": "Box 1 by 4 by 7. Surface area?",
+      "choices": [
+        "39",
+        "78",
+        "28",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "THREE_FACES",
+        null,
+        "VOLUME_FOR_SA",
+        "ONE_FACE"
+      ],
+      "explanation": "Faces 4, 7, 28, each twice: 4 + 7 + 28 = 39, 39 + 39 = 78."
+    },
+    {
+      "id": "area-volume/t5/024",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 2, slant height 9. Surface area?",
+      "choices": [
+        "76",
+        "36",
+        "40",
+        "41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_HALF",
+        "NO_BASE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base 2 × 2 = 4. Each triangle: 2 × 9 = 18, 18 ÷ 2 = 9. 4 × 9 = 36, 4 + 36 = 40."
+    },
+    {
+      "id": "area-volume/t5/025",
+      "tier": 5,
+      "prompt": "Box 2 by 2 by 9. Surface area?",
+      "choices": [
+        "40",
+        "36",
+        "4",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "THREE_FACES",
+        "VOLUME_FOR_SA",
+        "ONE_FACE",
+        null
+      ],
+      "explanation": "Faces 4, 18, 18, each twice: 4 + 18 + 18 = 40, 40 + 40 = 80."
+    },
+    {
+      "id": "area-volume/t5/026",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 4, slant height 4. Surface area?",
+      "choices": [
+        "48",
+        "49",
+        "80",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_HALF",
+        "NO_BASE"
+      ],
+      "explanation": "Base 4 × 4 = 16. Each triangle: 4 ÷ 2 = 2, 2 × 4 = 8. 4 × 8 = 32, 16 + 32 = 48."
+    },
+    {
+      "id": "area-volume/t5/027",
+      "tier": 5,
+      "prompt": "Cube, edge 3. Surface area?",
+      "choices": [
+        "54",
+        "27",
+        "9",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VOLUME_FOR_SA",
+        "ONE_FACE",
+        "FOUR_FACES"
+      ],
+      "explanation": "6 equal square faces: 3 × 3 = 9, 6 × 9 = 54."
+    },
+    {
+      "id": "area-volume/t5/028",
+      "tier": 5,
+      "prompt": "Box 4 by 6 by 1. Surface area?",
+      "choices": [
+        "24",
+        "69",
+        "34",
+        "68"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        "ARITH",
+        "THREE_FACES",
+        null
+      ],
+      "explanation": "Faces 24, 4, 6, each twice: 24 + 4 + 6 = 34, 34 + 34 = 68."
+    },
+    {
+      "id": "area-volume/t5/029",
+      "tier": 5,
+      "prompt": "Box 1 by 1 by 3. Surface area?",
+      "choices": [
+        "3",
+        "14",
+        "1",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        null,
+        "ONE_FACE",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 1, 3, 3, each twice: 1 + 3 + 3 = 7, 7 + 7 = 14."
+    },
+    {
+      "id": "area-volume/t5/030",
+      "tier": 5,
+      "prompt": "Box 3 by 1 by 6. Surface area?",
+      "choices": [
+        "54",
+        "27",
+        "3",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "THREE_FACES",
+        "ONE_FACE",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 3, 18, 6, each twice: 3 + 18 + 6 = 27, 27 + 27 = 54."
+    },
+    {
+      "id": "area-volume/t5/031",
+      "tier": 5,
+      "prompt": "Box 1 by 2 by 6. Surface area?",
+      "choices": [
+        "2",
+        "40",
+        "20",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_FACE",
+        null,
+        "THREE_FACES",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 2, 6, 12, each twice: 2 + 6 + 12 = 20, 20 + 20 = 40."
+    },
+    {
+      "id": "area-volume/t5/032",
+      "tier": 5,
+      "prompt": "Box 8 by 3 by 2. Surface area?",
+      "choices": [
+        "24",
+        "92",
+        "48",
+        "46"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_FACE",
+        null,
+        "VOLUME_FOR_SA",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 24, 16, 6, each twice: 24 + 16 + 6 = 46, 46 + 46 = 92."
+    },
+    {
+      "id": "area-volume/t5/033",
+      "tier": 5,
+      "prompt": "Box 8 by 4 by 1. Surface area?",
+      "choices": [
+        "90",
+        "88",
+        "44",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "THREE_FACES",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 32, 8, 4, each twice: 32 + 8 + 4 = 44, 44 + 44 = 88."
+    },
+    {
+      "id": "area-volume/t5/034",
+      "tier": 5,
+      "prompt": "Box 7 by 3 by 2. Surface area?",
+      "choices": [
+        "42",
+        "82",
+        "21",
+        "41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VOLUME_FOR_SA",
+        null,
+        "ONE_FACE",
+        "THREE_FACES"
+      ],
+      "explanation": "Faces 21, 14, 6, each twice: 21 + 14 + 6 = 41, 41 + 41 = 82."
+    },
+    {
+      "id": "area-volume/t5/035",
+      "tier": 5,
+      "prompt": "Box 1 by 9 by 3. Surface area?",
+      "choices": [
+        "39",
+        "9",
+        "78",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "THREE_FACES",
+        "ONE_FACE",
+        null,
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "Faces 9, 3, 27, each twice: 9 + 3 + 27 = 39, 39 + 39 = 78."
+    },
+    {
+      "id": "area-volume/t5/036",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 3, slant height 6. Surface area?",
+      "choices": [
+        "36",
+        "81",
+        "45",
+        "47"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_BASE",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base 3 × 3 = 9. Each triangle: 6 ÷ 2 = 3, 3 × 3 = 9. 4 × 9 = 36, 9 + 36 = 45."
+    },
+    {
+      "id": "area-volume/t5/037",
+      "tier": 5,
+      "prompt": "Cube, edge 2. Surface area?",
+      "choices": [
+        "4",
+        "24",
+        "16",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_FACE",
+        null,
+        "FOUR_FACES",
+        "VOLUME_FOR_SA"
+      ],
+      "explanation": "6 equal square faces: 2 × 2 = 4, 6 × 4 = 24."
+    },
+    {
+      "id": "area-volume/t5/038",
+      "tier": 5,
+      "prompt": "Box 2 by 2 by 10. Surface area?",
+      "choices": [
+        "44",
+        "40",
+        "4",
+        "88"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "THREE_FACES",
+        "VOLUME_FOR_SA",
+        "ONE_FACE",
+        null
+      ],
+      "explanation": "Faces 4, 20, 20, each twice: 4 + 20 + 20 = 44, 44 + 44 = 88."
+    },
+    {
+      "id": "area-volume/t5/039",
+      "tier": 5,
+      "prompt": "Box 5 by 1 by 3. Surface area?",
+      "choices": [
+        "46",
+        "23",
+        "15",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "THREE_FACES",
+        "VOLUME_FOR_SA",
+        "ONE_FACE"
+      ],
+      "explanation": "Faces 5, 15, 3, each twice: 5 + 15 + 3 = 23, 23 + 23 = 46."
+    },
+    {
+      "id": "area-volume/t5/040",
+      "tier": 5,
+      "prompt": "Square pyramid: base edge 2, slant height 4. Surface area?",
+      "choices": [
+        "36",
+        "20",
+        "16",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "NO_BASE",
+        "ARITH"
+      ],
+      "explanation": "Base 2 × 2 = 4. Each triangle: 4 ÷ 2 = 2, 2 × 2 = 4. 4 × 4 = 16, 4 + 16 = 20."
+    }
+  ]
+}

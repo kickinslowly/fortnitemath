@@ -1,0 +1,153 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "expressions",
+  "version": "1.0.0",
+  "title": "Expressions",
+  "subtitle": "Write, Read, Evaluate",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.EE.A.2", "CCSS.MATH.CONTENT.6.EE.A.3", "CCSS.MATH.CONTENT.6.EE.A.4"],
+  "seed": 20261016,
+  "items_per_tier": 40,
+  "bounds": "No negatives anywhere. Prompt constants: added numbers 1-20, multipliers and divisors 2-10. T3 (evaluate): a substituted value is 2-10 where it is multiplied or squared and 1-20 where it is only added or subtracted; every x step a times-table fact (both values <= 10), powers are squares of 2-10 or cubes of 2-4, every step and the answer whole and 0-100. T4/T5: every coefficient product a times-table fact, every combined coefficient and constant 1-100, like-term sums of numbers <= 20.",
+  "tiers": [
+    { "tier": 1, "name": "Words to Expressions", "description": "Turn words into an expression: 5 less than n is n − 5." },
+    { "tier": 2, "name": "Parts of an Expression", "description": "Terms, coefficients, constants, and naming an expression by its last step." },
+    { "tier": 3, "name": "Evaluate", "description": "Put the number in for the letter, then follow the order of operations." },
+    { "tier": 4, "name": "Distributive Property", "description": "Expand a(b + c) and factor out the greatest common factor." },
+    { "tier": 5, "name": "Equivalent Expressions", "description": "Combine like terms and spot expressions that are always equal." }
+  ],
+  "misconceptions": {
+    "ORDER_SUB": {
+      "student": "Order matters for −. '5 less than n' starts at n: n − 5.",
+      "teacher": "Writes subtraction in the order the words appear: '5 less than n' as 5 − n."
+    },
+    "SWAP_DIV": {
+      "student": "Order matters for ÷. 'n divided by 3' starts with n: n ÷ 3.",
+      "teacher": "Reverses dividend and divisor when translating a quotient."
+    },
+    "WRONG_OP": {
+      "student": "Match the words: sum +, difference −, product ×, quotient ÷.",
+      "teacher": "Translates an operation word into the wrong operation."
+    },
+    "MISSING_PARENS": {
+      "student": "'Times the sum' multiplies the WHOLE sum, so use ( ): 3(n + 4).",
+      "teacher": "Omits grouping symbols: '3 times the sum of n and 4' as 3n + 4."
+    },
+    "EXTRA_PARENS": {
+      "student": "'3 more than 2n' adds 3 after multiplying: 2n + 3, no ( ).",
+      "teacher": "Adds grouping that the phrase does not have: '3 more than 2n' as 2(n + 3)."
+    },
+    "SWAPPED_NUMS": {
+      "student": "Check which number multiplies and which number is added or taken away.",
+      "teacher": "Puts each constant in the other's role (multiplier vs addend)."
+    },
+    "COEF_CONST_MIX": {
+      "student": "Coefficient: the number times a letter. Constant: a number all alone.",
+      "teacher": "Confuses the coefficient with the constant term."
+    },
+    "TERM_FOR_COEF": {
+      "student": "That's the whole term. The coefficient is just its number: 7 in 7x.",
+      "teacher": "Gives the whole term when asked for its coefficient."
+    },
+    "VARIABLE_FOR_NUMBER": {
+      "student": "That's the letter (the variable). The question asks for a number.",
+      "teacher": "Gives the variable when asked for a coefficient or constant."
+    },
+    "HIDDEN_ONE": {
+      "student": "A letter alone has coefficient 1: y means 1y.",
+      "teacher": "Says a bare variable has coefficient 0 (or none)."
+    },
+    "OTHER_VARIABLE": {
+      "student": "That number goes with a different letter. Find the one in front of it.",
+      "teacher": "Gives the coefficient of a different variable."
+    },
+    "VARIABLE_TERM": {
+      "student": "A constant has no letter. In 4a + 9 the constant is 9.",
+      "teacher": "Names a variable term (or the variable) as the constant term."
+    },
+    "COUNTS_VARIABLES": {
+      "student": "A number alone is a term too: 3a + 2b + 5 has 3 terms.",
+      "teacher": "Counts only the terms that contain a variable."
+    },
+    "COUNTS_PIECES": {
+      "student": "A term is a whole piece between + signs: 3a is one term, not two.",
+      "teacher": "Counts every number and letter separately instead of terms."
+    },
+    "INNER_OP": {
+      "student": "Name it by the LAST step: 2(x + 5) adds first, multiplies last: product.",
+      "teacher": "Names an expression by an inner operation rather than the last one done."
+    },
+    "LAST_STEP": {
+      "student": "Find the step you'd do last. That step names it: sum, product...",
+      "teacher": "Names an expression by an operation it does not use last (or at all)."
+    },
+    "CONCAT": {
+      "student": "3x means 3 times x. With x = 5 it is 3 × 5 = 15, not 35.",
+      "teacher": "Substitutes by writing digits side by side: 3x with x = 5 read as 35."
+    },
+    "ADD_COEF": {
+      "student": "A number next to a letter means multiply: 3x is 3 × x, not 3 + x.",
+      "teacher": "Adds the coefficient to the value instead of multiplying."
+    },
+    "ORDER": {
+      "student": "Multiply before you add, unless ( ) say otherwise.",
+      "teacher": "Evaluates left to right or adds before multiplying, ignoring precedence."
+    },
+    "EXP_AS_TIMES": {
+      "student": "x^2 means x × x, not x × 2. So 4^2 = 16.",
+      "teacher": "Reads an exponent as a multiplier: x^2 as 2x."
+    },
+    "SQUARE_PRODUCT": {
+      "student": "In 2a^2 only a is squared: square a first, then times 2.",
+      "teacher": "Squares the coefficient too: 2a^2 evaluated as (2a)^2."
+    },
+    "PARENS_SKIPPED": {
+      "student": "Work inside ( ) first: 5(x − 2) is 5 times the whole (x − 2).",
+      "teacher": "Ignores grouping when evaluating: 5(x − 2) as 5x − 2."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply EVERY term inside: 3(x + 4) = 3x + 12, not 3x + 4.",
+      "teacher": "Distributes to the first term only."
+    },
+    "ADD_FOR_MUL": {
+      "student": "The outside number multiplies each term: 3(x + 4) = 3x + 12.",
+      "teacher": "Adds the outside factor to a term instead of multiplying it."
+    },
+    "SIGN_DROP": {
+      "student": "Keep the minus: 3(x − 4) = 3x − 12, and 5x − x = 4x.",
+      "teacher": "Loses a subtraction sign when distributing or combining."
+    },
+    "UNLIKE_COMBINED": {
+      "student": "Only like terms combine. 3x + 12 can't become 15x.",
+      "teacher": "Combines unlike terms (a variable term with a constant)."
+    },
+    "PARTIAL_FACTOR": {
+      "student": "Divide EVERY term by the factor you take out: 6x + 9 = 3(2x + 3).",
+      "teacher": "Factors the GCF out of one term only."
+    },
+    "SUB_FOR_DIV": {
+      "student": "Factoring divides each term: 6x ÷ 3 = 2x, not 6x − 3.",
+      "teacher": "Subtracts the common factor from each term instead of dividing."
+    },
+    "X_FROM_BOTH": {
+      "student": "Only take out what EVERY term has. 9 has no x, so x can't come out.",
+      "teacher": "Factors a variable out of a term that does not contain it."
+    },
+    "POWER_FOR_SUM": {
+      "student": "Adding like terms adds the numbers: x + x + x = 3x, not x^3.",
+      "teacher": "Turns repeated addition into a power (x + x = x^2)."
+    },
+    "SUM_FOR_POWER": {
+      "student": "y × y is y^2. Adding gives 2y; multiplying gives y^2.",
+      "teacher": "Turns repeated multiplication into a coefficient (y × y = 2y)."
+    },
+    "MULT_COEF": {
+      "student": "Add like terms: 5a + 3a is 8a. Multiply only when you see ×.",
+      "teacher": "Multiplies the coefficients when combining like terms."
+    },
+    "DROPPED_TERM": {
+      "student": "Keep every term. Count all the x terms before you stop.",
+      "teacher": "Leaves a like term uncombined or drops it."
+    }
+  }
+}

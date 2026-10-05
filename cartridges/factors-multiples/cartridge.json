@@ -1,0 +1,97 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "factors-multiples",
+  "version": "1.0.0",
+  "title": "GCF & LCM",
+  "subtitle": "Factors, Multiples, Distributing",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.NS.B.4"],
+  "seed": 20261014,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4a, tightened. Every hidden × or ÷ is a times-table fact with both factors 2 to 10. T1: numbers ≤ 100 (factor-count numbers ≤ 36, primes ≤ 47). T2/T4/T5 GCF pairs: a = g × p, b = g × q with g, p, q ≤ 10 (p, q share no factor), so a, b ≤ 100. T3/T5 LCM operands 2 to 10 (6.NS.B.4 allows to 12; kept to 10 for §4a) with LCM ≤ 60. Correct answers ≤ 100; wrong choices ≤ 999. No two choices equal in value.",
+  "tiers": [
+    { "tier": 1, "name": "Factors & Primes", "description": "Factors, multiples, primes, and counting factors." },
+    { "tier": 2, "name": "Greatest Common Factor", "description": "Find the GCF of two numbers up to 100." },
+    { "tier": 3, "name": "Least Common Multiple", "description": "Find the LCM of two or three small numbers." },
+    { "tier": 4, "name": "Factor Out the GCF", "description": "Write a sum as the GCF times a sum: 18 + 24 = 6(3 + 4)." },
+    { "tier": 5, "name": "GCF or LCM?", "description": "Story problems: pick the right tool, then use it." }
+  ],
+  "misconceptions": {
+    "MULTIPLE_FOR_FACTOR": {
+      "student": "That's a multiple. A factor divides the number evenly, so it's not bigger.",
+      "teacher": "Picks a multiple of n when asked for a factor of n."
+    },
+    "FACTOR_FOR_MULTIPLE": {
+      "student": "That's a factor. A multiple is the number times 1, 2, 3, and so on.",
+      "teacher": "Picks a factor of m when asked for a multiple of m."
+    },
+    "SHARES_FACTOR": {
+      "student": "Sharing a factor isn't enough. The division must come out even.",
+      "teacher": "Accepts a number that shares a factor with n (both even) as a factor or multiple of n."
+    },
+    "SAME_LAST_DIGIT": {
+      "student": "Ending in the same digit doesn't make a multiple. Skip-count to check.",
+      "teacher": "Thinks multiples of m end in m's digit (17 for 7, 26 for 6)."
+    },
+    "ODD_IS_PRIME": {
+      "student": "Odd isn't the same as prime. Try 3, 5, 7: does one divide it?",
+      "teacher": "Treats odd composites (21, 27, 49) as prime."
+    },
+    "ONE_IS_PRIME": {
+      "student": "1 is not prime. A prime has exactly two factors: 1 and itself.",
+      "teacher": "Counts 1 as prime."
+    },
+    "FORGOT_ONE_AND_SELF": {
+      "student": "Count 1 and the number itself too. They are factors.",
+      "teacher": "Leaves 1 and n out of n's factor count."
+    },
+    "PAIRS_ONLY": {
+      "student": "Each factor pair gives two factors. Count every number, not the pairs.",
+      "teacher": "Counts factor pairs instead of factors."
+    },
+    "SQUARE_TWICE": {
+      "student": "In 6 × 6 the 6 is one factor. Don't count it twice.",
+      "teacher": "Counts the square root of a perfect square twice."
+    },
+    "LCM_FOR_GCF": {
+      "student": "That's a common multiple. The GCF divides both numbers, so it's small.",
+      "teacher": "Gives the LCM when asked for the GCF."
+    },
+    "NOT_GREATEST": {
+      "student": "That's a common factor, but not the greatest. Look for a bigger one.",
+      "teacher": "Stops at a common factor smaller than the GCF."
+    },
+    "SMALLER_NUMBER": {
+      "student": "The smaller number must divide the bigger one to be the GCF. It doesn't.",
+      "teacher": "Gives the smaller number as the GCF when it does not divide the larger."
+    },
+    "PRODUCT": {
+      "student": "a × b is a common multiple, but maybe not the least. Skip-count to check.",
+      "teacher": "Gives the product as the LCM when the numbers share a factor."
+    },
+    "GCF_FOR_LCM": {
+      "student": "That's the GCF. The LCM is a multiple of both, so it's at least as big.",
+      "teacher": "Gives the GCF when asked for the LCM."
+    },
+    "LARGER_NUMBER": {
+      "student": "The bigger number isn't a multiple of the other. Keep skip-counting.",
+      "teacher": "Gives the larger number as the LCM when the smaller does not divide it."
+    },
+    "NOT_LEAST": {
+      "student": "That's a common multiple, but not the least. A smaller one works.",
+      "teacher": "Gives a common multiple larger than the LCM."
+    },
+    "SUBTRACTED_GCF": {
+      "student": "Divide each number by the GCF. Don't subtract it.",
+      "teacher": "Subtracts the GCF from each addend instead of dividing: 18 + 24 = 6(12 + 18)."
+    },
+    "ONE_TERM": {
+      "student": "Divide BOTH numbers by the GCF, not just one.",
+      "teacher": "Divides only one addend by the GCF: 18 + 24 = 6(3 + 24)."
+    },
+    "WRONG_TOOL": {
+      "student": "Sharing into equal groups: GCF. Matching up or meeting again: LCM.",
+      "teacher": "Uses GCF for an LCM situation or LCM for a GCF situation."
+    }
+  }
+}

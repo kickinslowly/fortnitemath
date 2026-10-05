@@ -1,0 +1,97 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "area-volume",
+  "version": "1.0.0",
+  "title": "Area & Volume",
+  "subtitle": "Shapes, Prisms, Surface Area",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.G.A.1", "CCSS.MATH.CONTENT.6.G.A.2", "CCSS.MATH.CONTENT.6.G.A.4"],
+  "seed": 20261018,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b measurement. Lengths 1-10 (T4 volume: one edge may be 1/2; never 1/2 elsewhere). Every × step has both factors 1-10 (a 1 only as a given length); every ÷ is exact with divisor and quotient 2-10 (halving goes through an even edge of 4+, or a product of 20 or less); + adds values to a total of 100 or less; trapezoid base sums are even and 20 or less. Every area, volume, surface area, cube count and given area is a whole number 1-100. Wrong choices up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Rectangles", "description": "Area of rectangles, squares and parallelograms: base × height." },
+    { "tier": 2, "name": "Triangles", "description": "A triangle is half a rectangle: base × height ÷ 2." },
+    { "tier": 3, "name": "Trapezoids & Sides", "description": "Average the bases of a trapezoid; work back from an area to a side." },
+    { "tier": 4, "name": "Volume of Prisms", "description": "Volume = length × width × height in cubic units, half edges and half cubes too." },
+    { "tier": 5, "name": "Surface Area", "description": "Add the areas of every face: cubes, boxes and square pyramids." }
+  ],
+  "misconceptions": {
+    "PERIMETER": {
+      "student": "That's the distance around. Area counts the squares inside: multiply.",
+      "teacher": "Computes perimeter instead of area."
+    },
+    "ADD_SIDES": {
+      "student": "Area multiplies lengths. Adding them gives a length, not an area.",
+      "teacher": "Adds the given lengths instead of multiplying them."
+    },
+    "SLANT_SIDE": {
+      "student": "Use the height that meets the base at a right angle, not the slanted side.",
+      "teacher": "Multiplies the base by the slanted side instead of the perpendicular height."
+    },
+    "NO_HALF": {
+      "student": "A triangle is half a rectangle: area = base × height ÷ 2.",
+      "teacher": "Omits the 1/2 in the triangle area formula (or in working back from it)."
+    },
+    "NO_AVERAGE": {
+      "student": "Add the two bases, then halve the sum, then × height.",
+      "teacher": "Trapezoid: multiplies the sum of the bases by the height without halving."
+    },
+    "ONE_BASE": {
+      "student": "A trapezoid has two bases. Average them, then × height.",
+      "teacher": "Trapezoid: uses only the longer base × height."
+    },
+    "SUBTRACTED": {
+      "student": "Area = side × side. Divide the area by the side you know.",
+      "teacher": "Missing side: subtracts the known side from the area."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply: what times the side you know makes the area?",
+      "teacher": "Missing side: multiplies the area by the known side."
+    },
+    "ADDED_EDGES": {
+      "student": "Volume multiplies the edges: length × width × height.",
+      "teacher": "Adds the three edge lengths instead of multiplying."
+    },
+    "MISSED_EDGE": {
+      "student": "You left out an edge. Volume multiplies all three edges.",
+      "teacher": "Multiplies only two of the three edges (the base area, or ignores the 1/2 edge)."
+    },
+    "SQUARE_UNITS": {
+      "student": "Right number, wrong unit: volume is measured in cubic units.",
+      "teacher": "Correct volume reported in square units."
+    },
+    "COUNTED_UNITS": {
+      "student": "Each unit cube holds 8 half-size cubes (2 × 2 × 2).",
+      "teacher": "Counts unit cubes when the cubes have edge 1/2."
+    },
+    "DOUBLED_ONCE": {
+      "student": "Half the edge doubles the count 3 ways: 2 × 2 × 2 = 8 per unit cube.",
+      "teacher": "Doubles the unit-cube count once instead of multiplying by 8."
+    },
+    "HALVED_COUNT": {
+      "student": "Smaller cubes means MORE of them: 8 per unit cube, not half.",
+      "teacher": "Halves the count because the cube edge is 1/2."
+    },
+    "VOLUME_FOR_SA": {
+      "student": "That's the volume. Surface area adds the areas of all the faces.",
+      "teacher": "Computes volume instead of surface area."
+    },
+    "ONE_FACE": {
+      "student": "That's one face. Surface area adds the areas of ALL the faces.",
+      "teacher": "Reports the area of a single face."
+    },
+    "FOUR_FACES": {
+      "student": "A cube has 6 faces, not 4: 6 × the area of one face.",
+      "teacher": "Cube: counts 4 faces instead of 6."
+    },
+    "THREE_FACES": {
+      "student": "Each face has a twin on the other side. Count all 6 faces.",
+      "teacher": "Box: adds the three different faces once each, not twice."
+    },
+    "NO_BASE": {
+      "student": "Don't forget the square base: add it to the 4 triangles.",
+      "teacher": "Square pyramid: lateral area only, base omitted."
+    }
+  }
+}

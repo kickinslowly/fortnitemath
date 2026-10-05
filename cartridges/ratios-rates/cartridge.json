@@ -1,0 +1,93 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "ratios-rates",
+  "version": "1.0.0",
+  "title": "Ratios & Rates",
+  "subtitle": "Equivalent Ratios, Unit Rates, Percent",
+  "grade": "6",
+  "standards": ["CCSS.MATH.CONTENT.6.RP.A.1", "CCSS.MATH.CONTENT.6.RP.A.2", "CCSS.MATH.CONTENT.6.RP.A.3"],
+  "seed": 20261011,
+  "items_per_tier": 40,
+  "bounds": "Counts 2-10 (a total <= 20). Every scale factor, unit rate, divisor and quotient 2-10; every x and ÷ a times-table fact; correct values whole numbers <= 100. Percents: 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90; tens (50 included) on wholes 10q (q 2-9), 25%/75% on wholes 4q (q 2-10), 50% also on wholes 2q (q 2-10). Sharing by a ratio: terms 2-8 summing to <= 10. Ratio answers p:q with p, q <= 20. Distractors may be fractions or decimals (what the misreading gives).",
+  "tiers": [
+    { "tier": 1, "name": "Ratio Language", "description": "Write a ratio in the order asked: part to part, part to whole." },
+    { "tier": 2, "name": "Equivalent Ratios", "description": "Scale both terms by the same number to fill the gap." },
+    { "tier": 3, "name": "Unit Rates & Units", "description": "Find the rate for 1, and convert units with a rate." },
+    { "tier": 4, "name": "Percent of a Number", "description": "Find 10%, 25%, 50%, 75% and tens of percent of a whole." },
+    { "tier": 5, "name": "Parts, Wholes & Rates", "description": "Two steps: share a total by a ratio, find a whole from a percent, scale a price." }
+  ],
+  "misconceptions": {
+    "REVERSED": {
+      "student": "Order matters: write the first thing named first.",
+      "teacher": "Writes the ratio terms in the opposite order (3:5 for blue to red = 5:3)."
+    },
+    "PART_TO_WHOLE": {
+      "student": "It asks part to part. Compare the two groups, not a group to the total.",
+      "teacher": "Uses the total as one term of a part-to-part ratio."
+    },
+    "PART_TO_PART": {
+      "student": "\"To all\" means the total. Add the groups to get the second number.",
+      "teacher": "Gives a part-to-part ratio when a part-to-whole ratio is asked."
+    },
+    "WHOLE_FOR_PART": {
+      "student": "Take the known group away from the total first to get the other group.",
+      "teacher": "Uses the given total as the count of the remaining group."
+    },
+    "ADDITIVE": {
+      "student": "Ratios grow by multiplying, not adding. Times both numbers by the same amount.",
+      "teacher": "Adds the same amount to both terms instead of scaling (2:3 = 11:12)."
+    },
+    "WRONG_TERM": {
+      "student": "Multiply the number that matches, not the one you already have.",
+      "teacher": "Applies the scale factor to the given term instead of the missing one."
+    },
+    "FACTOR_ONLY": {
+      "student": "That is only the first step. Use that number to finish.",
+      "teacher": "Stops at the scale factor or unit rate and gives it as the answer."
+    },
+    "MULTIPLIED_RATE": {
+      "student": "Going to a bigger unit or finding per 1, divide. You multiplied.",
+      "teacher": "Multiplies the two quantities when the rate needs a division."
+    },
+    "DIVIDED_RATE": {
+      "student": "Going to a smaller unit, there are more of them: multiply.",
+      "teacher": "Divides by the conversion rate when converting to the smaller unit."
+    },
+    "INVERTED": {
+      "student": "Divided the wrong way. Per 1 means divide the total by the count.",
+      "teacher": "Divides the count by the total, giving the reciprocal rate."
+    },
+    "PERCENT_AS_PART": {
+      "student": "The percent is not the answer. Find that share of the whole.",
+      "teacher": "Gives the percent itself as the part (25% of 40 = 25)."
+    },
+    "SUBTRACTED": {
+      "student": "Percent of means a share of the whole, not whole minus the percent.",
+      "teacher": "Subtracts the percent from the whole (25% of 40 = 15)."
+    },
+    "TENTH_FOR_ALL": {
+      "student": "Dividing by 10 gives 10%. Then scale it to the percent asked.",
+      "teacher": "Divides by 10 for any percent."
+    },
+    "ONE_PART": {
+      "student": "That is one share (25% or 10%). Multiply by how many shares you need.",
+      "teacher": "Finds the unit share but does not scale to the percent or whole asked."
+    },
+    "OTHER_PART": {
+      "student": "Check what it asks for: this group, the other group, or the whole.",
+      "teacher": "Answers for the other group in the ratio."
+    },
+    "PART_AS_TOTAL": {
+      "student": "The big number is the total of both groups. Split it into parts first.",
+      "teacher": "Treats the given total as the count of one group."
+    },
+    "PERCENT_OF_PART": {
+      "student": "This number IS the percent. The whole is bigger than it.",
+      "teacher": "Takes the percent of the given part instead of finding the whole."
+    },
+    "TOTAL_AS_UNIT": {
+      "student": "Find the price of 1 first: total price ÷ how many.",
+      "teacher": "Multiplies the total price by the new count, skipping the unit rate."
+    }
+  }
+}

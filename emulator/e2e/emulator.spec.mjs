@@ -234,7 +234,9 @@ const homeSequence = (page) => page.evaluate(() =>
 test('home groups cartridges by grade: real carts.js gives Grade 6 then Grade 7', async ({ page }) => {
   test.skip(!fs.existsSync(REAL), 'emulator/carts.js not generated yet');
   await page.goto(pageUrl());
-  const carts = await page.evaluate(() => Object.entries(window.FNM_CARTRIDGES).map(([k, c]) => [k, String(c.grade)]));
+  // within a grade the home sorts cards by title (PROTOCOL 6b), not by id
+  const carts = await page.evaluate(() => Object.entries(window.FNM_CARTRIDGES)
+    .sort(([, x], [, y]) => (x.title < y.title ? -1 : x.title > y.title ? 1 : 0)).map(([k, c]) => [k, String(c.grade)]));
   const g6 = carts.filter(([, g]) => g === '6').map(([k]) => `C:${k}`);
   const g7 = carts.filter(([, g]) => g === '7').map(([k]) => `C:${k}`);
   expect(g6.length + g7.length, 'real carts.js holds only grade 6 and 7 cartridges').toBe(carts.length);

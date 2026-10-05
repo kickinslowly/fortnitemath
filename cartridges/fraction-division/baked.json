@@ -1,0 +1,3886 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "fraction-division",
+  "version": "1.0.0",
+  "title": "Dividing Fractions",
+  "subtitle": "How Many Groups?",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.NS.A.1"
+  ],
+  "seed": 20261012,
+  "items_per_tier": 40,
+  "bounds": "Prompt wholes 2-10; prompt fractions proper, numerator 1-9, denominator 2-10, so every cross product (a×d, b×c, whole×denominator) is a times-table fact <= 90. Answers in simplest form: whole answers <= 100; a fraction part's denominator <= 12; a mixed number's whole part <= 10. Story numbers follow the same rules. No two choices equal in value.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Whole ÷ Unit Fraction",
+      "description": "How many 1/3s fit in 4? Each whole holds 3 of them."
+    },
+    {
+      "tier": 2,
+      "name": "Fraction ÷ Whole",
+      "description": "Split a fraction into equal parts: the answer gets smaller."
+    },
+    {
+      "tier": 3,
+      "name": "Same Denominators",
+      "description": "Same-size pieces: divide the numerators."
+    },
+    {
+      "tier": 4,
+      "name": "Any Two Fractions",
+      "description": "Multiply by the reciprocal of the divisor."
+    },
+    {
+      "tier": 5,
+      "name": "Story Problems",
+      "description": "How many groups, how much per share, or a missing side."
+    }
+  ],
+  "misconceptions": {
+    "DIVIDED_WHOLE": {
+      "student": "Count the pieces: each whole holds as many as the denominator. Multiply.",
+      "teacher": "Divides the whole by the unit fraction's denominator (4 ÷ 1/3 -> 4/3), i.e. multiplies by the divisor."
+    },
+    "FLIPPED_ANSWER": {
+      "student": "Upside down: that is the second number ÷ the first. Keep the order.",
+      "teacher": "Gives the reciprocal of the quotient (computes divisor ÷ dividend)."
+    },
+    "MULT_WHOLE": {
+      "student": "Dividing by a whole number makes it smaller: split it into that many parts.",
+      "teacher": "Multiplies the fraction by the whole-number divisor (1/2 ÷ 4 -> 2)."
+    },
+    "ADDED_TO_DENOM": {
+      "student": "To split into n parts, multiply the denominator by n. Don't add n.",
+      "teacher": "Adds the whole-number divisor to the denominator (1/2 ÷ 4 -> 1/6)."
+    },
+    "FLIP_FIRST": {
+      "student": "Flip the second fraction, not the first: keep, change, flip.",
+      "teacher": "Inverts the dividend instead of the divisor, giving the reciprocal of the quotient."
+    },
+    "NO_FLIP": {
+      "student": "You multiplied as is. To divide, multiply by the flipped divisor.",
+      "teacher": "Multiplies straight across without inverting the divisor (2/3 ÷ 3/4 -> 1/2)."
+    },
+    "KEEP_DENOM": {
+      "student": "Same denominators: just count how many fit. No denominator in the answer.",
+      "teacher": "Divides the numerators and keeps the common denominator (3/4 ÷ 1/4 -> 3/4)."
+    },
+    "FLIP_BOTH": {
+      "student": "Flip only the second fraction. The first one stays as it is.",
+      "teacher": "Inverts both dividend and divisor before multiplying (2/3 ÷ 3/4 -> 2)."
+    },
+    "IGNORED_NUMERATOR": {
+      "student": "Flip the whole divisor: ÷ 3/4 means × 4/3, not just × 4.",
+      "teacher": "Multiplies by the divisor's denominator and ignores its numerator (6 ÷ 3/4 -> 24)."
+    },
+    "WRONG_ORDER": {
+      "student": "Backwards: start with the amount you have, then divide it.",
+      "teacher": "Swaps dividend and divisor in a story (3/4 lb shared by 3 -> 3 ÷ 3/4 = 4)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "fraction-division/t1/001",
+      "tier": 1,
+      "prompt": "How many 1/9s are in 9?",
+      "choices": [
+        "72",
+        "1/81",
+        "81",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 9 pieces of size 1/9, so 9 ÷ 1/9 = 9 × 9 = 81."
+    },
+    {
+      "id": "fraction-division/t1/002",
+      "tier": 1,
+      "prompt": "How many 1/5s are in 4?",
+      "choices": [
+        "1/20",
+        "4/5",
+        "25",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Each whole holds 5 pieces of size 1/5, so 4 ÷ 1/5 = 4 × 5 = 20."
+    },
+    {
+      "id": "fraction-division/t1/003",
+      "tier": 1,
+      "prompt": "How many 1/8s are in 5?",
+      "choices": [
+        "40",
+        "1/40",
+        "48",
+        "5/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_ANSWER",
+        "ARITH",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 5 ÷ 1/8 = 5 × 8 = 40."
+    },
+    {
+      "id": "fraction-division/t1/004",
+      "tier": 1,
+      "prompt": "How many 1/4s are in 2?",
+      "choices": [
+        "1/2",
+        "8",
+        "1/8",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        null,
+        "FLIPPED_ANSWER",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 2 ÷ 1/4 = 2 × 4 = 8."
+    },
+    {
+      "id": "fraction-division/t1/005",
+      "tier": 1,
+      "prompt": "4 ÷ 1/5",
+      "choices": [
+        "20",
+        "4/5",
+        "1/20",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 5 pieces of size 1/5, so 4 ÷ 1/5 = 4 × 5 = 20."
+    },
+    {
+      "id": "fraction-division/t1/006",
+      "tier": 1,
+      "prompt": "2 ÷ 1/3",
+      "choices": [
+        "4",
+        "1/6",
+        "6",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 3 pieces of size 1/3, so 2 ÷ 1/3 = 2 × 3 = 6."
+    },
+    {
+      "id": "fraction-division/t1/007",
+      "tier": 1,
+      "prompt": "8 ÷ 1/9",
+      "choices": [
+        "1/72",
+        "8/9",
+        "80",
+        "72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Each whole holds 9 pieces of size 1/9, so 8 ÷ 1/9 = 8 × 9 = 72."
+    },
+    {
+      "id": "fraction-division/t1/008",
+      "tier": 1,
+      "prompt": "How many 1/4s are in 8?",
+      "choices": [
+        "32",
+        "36",
+        "1/32",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 8 ÷ 1/4 = 8 × 4 = 32."
+    },
+    {
+      "id": "fraction-division/t1/009",
+      "tier": 1,
+      "prompt": "5 ÷ 1/3",
+      "choices": [
+        "1/15",
+        "1 2/3",
+        "15",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 3 pieces of size 1/3, so 5 ÷ 1/3 = 5 × 3 = 15."
+    },
+    {
+      "id": "fraction-division/t1/010",
+      "tier": 1,
+      "prompt": "How many 1/7s are in 9?",
+      "choices": [
+        "1/63",
+        "1 2/7",
+        "72",
+        "63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Each whole holds 7 pieces of size 1/7, so 9 ÷ 1/7 = 9 × 7 = 63."
+    },
+    {
+      "id": "fraction-division/t1/011",
+      "tier": 1,
+      "prompt": "7 ÷ 1/8",
+      "choices": [
+        "49",
+        "7/8",
+        "1/56",
+        "56"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER",
+        null
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 7 ÷ 1/8 = 7 × 8 = 56."
+    },
+    {
+      "id": "fraction-division/t1/012",
+      "tier": 1,
+      "prompt": "7 ÷ 1/4",
+      "choices": [
+        "21",
+        "28",
+        "1/28",
+        "1 3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 7 ÷ 1/4 = 7 × 4 = 28."
+    },
+    {
+      "id": "fraction-division/t1/013",
+      "tier": 1,
+      "prompt": "How many 1/5s are in 8?",
+      "choices": [
+        "40",
+        "32",
+        "1 3/5",
+        "1/40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 5 pieces of size 1/5, so 8 ÷ 1/5 = 8 × 5 = 40."
+    },
+    {
+      "id": "fraction-division/t1/014",
+      "tier": 1,
+      "prompt": "How many 1/6s are in 6?",
+      "choices": [
+        "1/36",
+        "36",
+        "1",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 6 pieces of size 1/6, so 6 ÷ 1/6 = 6 × 6 = 36."
+    },
+    {
+      "id": "fraction-division/t1/015",
+      "tier": 1,
+      "prompt": "How many 1/10s are in 7?",
+      "choices": [
+        "70",
+        "77",
+        "1/70",
+        "7/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 10 pieces of size 1/10, so 7 ÷ 1/10 = 7 × 10 = 70."
+    },
+    {
+      "id": "fraction-division/t1/016",
+      "tier": 1,
+      "prompt": "How many 1/9s are in 7?",
+      "choices": [
+        "63",
+        "7/9",
+        "70",
+        "1/63"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 9 pieces of size 1/9, so 7 ÷ 1/9 = 7 × 9 = 63."
+    },
+    {
+      "id": "fraction-division/t1/017",
+      "tier": 1,
+      "prompt": "How many 1/4s are in 9?",
+      "choices": [
+        "2 1/4",
+        "1/36",
+        "36",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 9 ÷ 1/4 = 9 × 4 = 36."
+    },
+    {
+      "id": "fraction-division/t1/018",
+      "tier": 1,
+      "prompt": "4 ÷ 1/10",
+      "choices": [
+        "36",
+        "2/5",
+        "40",
+        "1/40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_WHOLE",
+        null,
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 10 pieces of size 1/10, so 4 ÷ 1/10 = 4 × 10 = 40."
+    },
+    {
+      "id": "fraction-division/t1/019",
+      "tier": 1,
+      "prompt": "8 ÷ 1/3",
+      "choices": [
+        "16",
+        "24",
+        "2 2/3",
+        "1/24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 3 pieces of size 1/3, so 8 ÷ 1/3 = 8 × 3 = 24."
+    },
+    {
+      "id": "fraction-division/t1/020",
+      "tier": 1,
+      "prompt": "10 ÷ 1/4",
+      "choices": [
+        "1/40",
+        "40",
+        "2 1/2",
+        "44"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 10 ÷ 1/4 = 10 × 4 = 40."
+    },
+    {
+      "id": "fraction-division/t1/021",
+      "tier": 1,
+      "prompt": "How many 1/10s are in 6?",
+      "choices": [
+        "1/60",
+        "66",
+        "60",
+        "3/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 10 pieces of size 1/10, so 6 ÷ 1/10 = 6 × 10 = 60."
+    },
+    {
+      "id": "fraction-division/t1/022",
+      "tier": 1,
+      "prompt": "9 ÷ 1/8",
+      "choices": [
+        "72",
+        "1/72",
+        "63",
+        "1 1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_ANSWER",
+        "ARITH",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 9 ÷ 1/8 = 9 × 8 = 72."
+    },
+    {
+      "id": "fraction-division/t1/023",
+      "tier": 1,
+      "prompt": "How many 1/10s are in 10?",
+      "choices": [
+        "90",
+        "1",
+        "1/100",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER",
+        null
+      ],
+      "explanation": "Each whole holds 10 pieces of size 1/10, so 10 ÷ 1/10 = 10 × 10 = 100."
+    },
+    {
+      "id": "fraction-division/t1/024",
+      "tier": 1,
+      "prompt": "How many 1/4s are in 6?",
+      "choices": [
+        "18",
+        "1/24",
+        "1 1/2",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        null
+      ],
+      "explanation": "Each whole holds 4 pieces of size 1/4, so 6 ÷ 1/4 = 6 × 4 = 24."
+    },
+    {
+      "id": "fraction-division/t1/025",
+      "tier": 1,
+      "prompt": "3 ÷ 1/2",
+      "choices": [
+        "1/6",
+        "3",
+        "1 1/2",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ARITH",
+        "DIVIDED_WHOLE",
+        null
+      ],
+      "explanation": "Each whole holds 2 pieces of size 1/2, so 3 ÷ 1/2 = 3 × 2 = 6."
+    },
+    {
+      "id": "fraction-division/t1/026",
+      "tier": 1,
+      "prompt": "5 ÷ 1/9",
+      "choices": [
+        "45",
+        "5/9",
+        "1/45",
+        "54"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 9 pieces of size 1/9, so 5 ÷ 1/9 = 5 × 9 = 45."
+    },
+    {
+      "id": "fraction-division/t1/027",
+      "tier": 1,
+      "prompt": "How many 1/8s are in 3?",
+      "choices": [
+        "1/24",
+        "32",
+        "3/8",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ARITH",
+        "DIVIDED_WHOLE",
+        null
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 3 ÷ 1/8 = 3 × 8 = 24."
+    },
+    {
+      "id": "fraction-division/t1/028",
+      "tier": 1,
+      "prompt": "How many 1/7s are in 3?",
+      "choices": [
+        "18",
+        "21",
+        "3/7",
+        "1/21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 7 pieces of size 1/7, so 3 ÷ 1/7 = 3 × 7 = 21."
+    },
+    {
+      "id": "fraction-division/t1/029",
+      "tier": 1,
+      "prompt": "7 ÷ 1/3",
+      "choices": [
+        "24",
+        "1/21",
+        "2 1/3",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        null
+      ],
+      "explanation": "Each whole holds 3 pieces of size 1/3, so 7 ÷ 1/3 = 7 × 3 = 21."
+    },
+    {
+      "id": "fraction-division/t1/030",
+      "tier": 1,
+      "prompt": "How many 1/7s are in 6?",
+      "choices": [
+        "1/42",
+        "42",
+        "6/7",
+        "48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 7 pieces of size 1/7, so 6 ÷ 1/7 = 6 × 7 = 42."
+    },
+    {
+      "id": "fraction-division/t1/031",
+      "tier": 1,
+      "prompt": "5 ÷ 1/6",
+      "choices": [
+        "1/30",
+        "30",
+        "5/6",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "Each whole holds 6 pieces of size 1/6, so 5 ÷ 1/6 = 5 × 6 = 30."
+    },
+    {
+      "id": "fraction-division/t1/032",
+      "tier": 1,
+      "prompt": "How many 1/6s are in 2?",
+      "choices": [
+        "14",
+        "12",
+        "1/12",
+        "1/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 6 pieces of size 1/6, so 2 ÷ 1/6 = 2 × 6 = 12."
+    },
+    {
+      "id": "fraction-division/t1/033",
+      "tier": 1,
+      "prompt": "6 ÷ 1/7",
+      "choices": [
+        "1/42",
+        "49",
+        "42",
+        "6/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 7 pieces of size 1/7, so 6 ÷ 1/7 = 6 × 7 = 42."
+    },
+    {
+      "id": "fraction-division/t1/034",
+      "tier": 1,
+      "prompt": "3 ÷ 1/8",
+      "choices": [
+        "24",
+        "3/8",
+        "32",
+        "1/24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_WHOLE",
+        "ARITH",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 3 ÷ 1/8 = 3 × 8 = 24."
+    },
+    {
+      "id": "fraction-division/t1/035",
+      "tier": 1,
+      "prompt": "2 ÷ 1/10",
+      "choices": [
+        "1/5",
+        "20",
+        "18",
+        "1/20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        null,
+        "ARITH",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "Each whole holds 10 pieces of size 1/10, so 2 ÷ 1/10 = 2 × 10 = 20."
+    },
+    {
+      "id": "fraction-division/t1/036",
+      "tier": 1,
+      "prompt": "7 ÷ 1/7",
+      "choices": [
+        "1/49",
+        "42",
+        "49",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 7 pieces of size 1/7, so 7 ÷ 1/7 = 7 × 7 = 49."
+    },
+    {
+      "id": "fraction-division/t1/037",
+      "tier": 1,
+      "prompt": "4 ÷ 1/3",
+      "choices": [
+        "8",
+        "1/12",
+        "12",
+        "1 1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 3 pieces of size 1/3, so 4 ÷ 1/3 = 4 × 3 = 12."
+    },
+    {
+      "id": "fraction-division/t1/038",
+      "tier": 1,
+      "prompt": "2 ÷ 1/2",
+      "choices": [
+        "1/4",
+        "1",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Each whole holds 2 pieces of size 1/2, so 2 ÷ 1/2 = 2 × 2 = 4."
+    },
+    {
+      "id": "fraction-division/t1/039",
+      "tier": 1,
+      "prompt": "How many 1/9s are in 8?",
+      "choices": [
+        "72",
+        "64",
+        "1/72",
+        "8/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FLIPPED_ANSWER",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 9 pieces of size 1/9, so 8 ÷ 1/9 = 8 × 9 = 72."
+    },
+    {
+      "id": "fraction-division/t1/040",
+      "tier": 1,
+      "prompt": "How many 1/8s are in 2?",
+      "choices": [
+        "18",
+        "1/16",
+        "16",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_ANSWER",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Each whole holds 8 pieces of size 1/8, so 2 ÷ 1/8 = 2 × 8 = 16."
+    },
+    {
+      "id": "fraction-division/t2/001",
+      "tier": 2,
+      "prompt": "Split 1/2 into 3 equal parts. How big is each?",
+      "choices": [
+        "6",
+        "1 1/2",
+        "1/5",
+        "1/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM",
+        null
+      ],
+      "explanation": "1/2 ÷ 3 = 1/2 × 1/3 = 1/6."
+    },
+    {
+      "id": "fraction-division/t2/002",
+      "tier": 2,
+      "prompt": "Split 1/5 into 2 equal parts. How big is each?",
+      "choices": [
+        "1/10",
+        "1/7",
+        "2/5",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/5 ÷ 2 = 1/5 × 1/2 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/003",
+      "tier": 2,
+      "prompt": "Split 1/2 into 4 equal parts. How big is each?",
+      "choices": [
+        "1/6",
+        "2",
+        "1/8",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        null,
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/2 ÷ 4 = 1/2 × 1/4 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/004",
+      "tier": 2,
+      "prompt": "Split 1/2 into 2 equal parts. How big is each?",
+      "choices": [
+        "1 1/4",
+        "1",
+        "4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        null
+      ],
+      "explanation": "1/2 ÷ 2 = 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "fraction-division/t2/005",
+      "tier": 2,
+      "prompt": "9/10 ÷ 3",
+      "choices": [
+        "2 7/10",
+        "9/13",
+        "3/10",
+        "3 1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM",
+        null,
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "9/10 ÷ 3 = 9/10 × 1/3 = 9/30 = 3/10."
+    },
+    {
+      "id": "fraction-division/t2/006",
+      "tier": 2,
+      "prompt": "1/6 ÷ 2",
+      "choices": [
+        "1/8",
+        "1/12",
+        "1/3",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        null,
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/6 ÷ 2 = 1/6 × 1/2 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/007",
+      "tier": 2,
+      "prompt": "2/5 ÷ 4",
+      "choices": [
+        "1 3/5",
+        "2/9",
+        "10",
+        "1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        null
+      ],
+      "explanation": "2/5 ÷ 4 = 2/5 × 1/4 = 2/20 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/008",
+      "tier": 2,
+      "prompt": "4/9 ÷ 4",
+      "choices": [
+        "1 7/9",
+        "9",
+        "4/13",
+        "1/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        "ADDED_TO_DENOM",
+        null
+      ],
+      "explanation": "4/9 ÷ 4 = 4/9 × 1/4 = 4/36 = 1/9."
+    },
+    {
+      "id": "fraction-division/t2/009",
+      "tier": 2,
+      "prompt": "3/8 ÷ 3",
+      "choices": [
+        "3/11",
+        "1/8",
+        "8",
+        "1 1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        null,
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE"
+      ],
+      "explanation": "3/8 ÷ 3 = 3/8 × 1/3 = 3/24 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/010",
+      "tier": 2,
+      "prompt": "4/7 ÷ 4",
+      "choices": [
+        "2 2/7",
+        "7",
+        "4/11",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        "ADDED_TO_DENOM",
+        null
+      ],
+      "explanation": "4/7 ÷ 4 = 4/7 × 1/4 = 4/28 = 1/7."
+    },
+    {
+      "id": "fraction-division/t2/011",
+      "tier": 2,
+      "prompt": "2/3 ÷ 6",
+      "choices": [
+        "9",
+        "1/9",
+        "2/9",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE"
+      ],
+      "explanation": "2/3 ÷ 6 = 2/3 × 1/6 = 2/18 = 1/9."
+    },
+    {
+      "id": "fraction-division/t2/012",
+      "tier": 2,
+      "prompt": "3/5 ÷ 6",
+      "choices": [
+        "10",
+        "3/11",
+        "1/10",
+        "3 3/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ADDED_TO_DENOM",
+        null,
+        "MULT_WHOLE"
+      ],
+      "explanation": "3/5 ÷ 6 = 3/5 × 1/6 = 3/30 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/013",
+      "tier": 2,
+      "prompt": "2/3 ÷ 2",
+      "choices": [
+        "3",
+        "1/3",
+        "1 1/3",
+        "2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "2/3 ÷ 2 = 2/3 × 1/2 = 2/6 = 1/3."
+    },
+    {
+      "id": "fraction-division/t2/014",
+      "tier": 2,
+      "prompt": "Split 1/3 into 2 equal parts. How big is each?",
+      "choices": [
+        "6",
+        "2/3",
+        "1/6",
+        "1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        null,
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "1/3 ÷ 2 = 1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "fraction-division/t2/015",
+      "tier": 2,
+      "prompt": "3/10 ÷ 3",
+      "choices": [
+        "3/13",
+        "10",
+        "1/10",
+        "9/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        null,
+        "MULT_WHOLE"
+      ],
+      "explanation": "3/10 ÷ 3 = 3/10 × 1/3 = 3/30 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/016",
+      "tier": 2,
+      "prompt": "1/2 ÷ 6",
+      "choices": [
+        "1/12",
+        "1/8",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE"
+      ],
+      "explanation": "1/2 ÷ 6 = 1/2 × 1/6 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/017",
+      "tier": 2,
+      "prompt": "Split 1/4 into 3 equal parts. How big is each?",
+      "choices": [
+        "1/7",
+        "1/12",
+        "3/4",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        null,
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/4 ÷ 3 = 1/4 × 1/3 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/018",
+      "tier": 2,
+      "prompt": "1/4 ÷ 3",
+      "choices": [
+        "12",
+        "1/12",
+        "3/4",
+        "1/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "1/4 ÷ 3 = 1/4 × 1/3 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/019",
+      "tier": 2,
+      "prompt": "5/6 ÷ 2",
+      "choices": [
+        "5/12",
+        "5/8",
+        "2 2/5",
+        "1 2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE"
+      ],
+      "explanation": "5/6 ÷ 2 = 5/6 × 1/2 = 5/12."
+    },
+    {
+      "id": "fraction-division/t2/020",
+      "tier": 2,
+      "prompt": "4/5 ÷ 4",
+      "choices": [
+        "3 1/5",
+        "1/5",
+        "4/9",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_WHOLE",
+        null,
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "4/5 ÷ 4 = 4/5 × 1/4 = 4/20 = 1/5."
+    },
+    {
+      "id": "fraction-division/t2/021",
+      "tier": 2,
+      "prompt": "Split 1/4 into 2 equal parts. How big is each?",
+      "choices": [
+        "1/6",
+        "8",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        null
+      ],
+      "explanation": "1/4 ÷ 2 = 1/4 × 1/2 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/022",
+      "tier": 2,
+      "prompt": "1/3 ÷ 2",
+      "choices": [
+        "1/6",
+        "2/3",
+        "1/5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/3 ÷ 2 = 1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "fraction-division/t2/023",
+      "tier": 2,
+      "prompt": "1/2 ÷ 2",
+      "choices": [
+        "1/4",
+        "1/3",
+        "1",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/2 ÷ 2 = 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "fraction-division/t2/024",
+      "tier": 2,
+      "prompt": "6/7 ÷ 2",
+      "choices": [
+        "3/7",
+        "2/3",
+        "1 5/7",
+        "2 1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "6/7 ÷ 2 = 6/7 × 1/2 = 6/14 = 3/7."
+    },
+    {
+      "id": "fraction-division/t2/025",
+      "tier": 2,
+      "prompt": "1/3 ÷ 4",
+      "choices": [
+        "12",
+        "1 1/3",
+        "1/12",
+        "1/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        null,
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "1/3 ÷ 4 = 1/3 × 1/4 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/026",
+      "tier": 2,
+      "prompt": "Split 1/2 into 6 equal parts. How big is each?",
+      "choices": [
+        "1/8",
+        "3",
+        "1/12",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        null,
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/2 ÷ 6 = 1/2 × 1/6 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/027",
+      "tier": 2,
+      "prompt": "1/2 ÷ 5",
+      "choices": [
+        "1/7",
+        "2 1/2",
+        "10",
+        "1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        null
+      ],
+      "explanation": "1/2 ÷ 5 = 1/2 × 1/5 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/028",
+      "tier": 2,
+      "prompt": "1/4 ÷ 2",
+      "choices": [
+        "1/6",
+        "1/8",
+        "1/2",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        null,
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/4 ÷ 2 = 1/4 × 1/2 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/029",
+      "tier": 2,
+      "prompt": "5/9 ÷ 5",
+      "choices": [
+        "1/9",
+        "5/14",
+        "9",
+        "2 7/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE"
+      ],
+      "explanation": "5/9 ÷ 5 = 5/9 × 1/5 = 5/45 = 1/9."
+    },
+    {
+      "id": "fraction-division/t2/030",
+      "tier": 2,
+      "prompt": "3/7 ÷ 3",
+      "choices": [
+        "1 2/7",
+        "7",
+        "3/10",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        "ADDED_TO_DENOM",
+        null
+      ],
+      "explanation": "3/7 ÷ 3 = 3/7 × 1/3 = 3/21 = 1/7."
+    },
+    {
+      "id": "fraction-division/t2/031",
+      "tier": 2,
+      "prompt": "4/5 ÷ 8",
+      "choices": [
+        "4/13",
+        "10",
+        "6 2/5",
+        "1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        null
+      ],
+      "explanation": "4/5 ÷ 8 = 4/5 × 1/8 = 4/40 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/032",
+      "tier": 2,
+      "prompt": "5/8 ÷ 5",
+      "choices": [
+        "5/13",
+        "1/8",
+        "3 1/8",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        null,
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "5/8 ÷ 5 = 5/8 × 1/5 = 5/40 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/033",
+      "tier": 2,
+      "prompt": "Split 1/2 into 5 equal parts. How big is each?",
+      "choices": [
+        "1/10",
+        "1/7",
+        "2 1/2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/2 ÷ 5 = 1/2 × 1/5 = 1/10."
+    },
+    {
+      "id": "fraction-division/t2/034",
+      "tier": 2,
+      "prompt": "3/4 ÷ 6",
+      "choices": [
+        "1/8",
+        "8",
+        "4 1/2",
+        "3/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "3/4 ÷ 6 = 3/4 × 1/6 = 3/24 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/035",
+      "tier": 2,
+      "prompt": "1/2 ÷ 4",
+      "choices": [
+        "1/8",
+        "2",
+        "1/6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM",
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "1/2 ÷ 4 = 1/2 × 1/4 = 1/8."
+    },
+    {
+      "id": "fraction-division/t2/036",
+      "tier": 2,
+      "prompt": "1/2 ÷ 3",
+      "choices": [
+        "6",
+        "1 1/2",
+        "1/6",
+        "1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "MULT_WHOLE",
+        null,
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "1/2 ÷ 3 = 1/2 × 1/3 = 1/6."
+    },
+    {
+      "id": "fraction-division/t2/037",
+      "tier": 2,
+      "prompt": "3/4 ÷ 9",
+      "choices": [
+        "3/13",
+        "6 3/4",
+        "1/12",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        null,
+        "FLIPPED_ANSWER"
+      ],
+      "explanation": "3/4 ÷ 9 = 3/4 × 1/9 = 3/36 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/038",
+      "tier": 2,
+      "prompt": "3/4 ÷ 3",
+      "choices": [
+        "4",
+        "1/4",
+        "2 1/4",
+        "3/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        null,
+        "MULT_WHOLE",
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "3/4 ÷ 3 = 3/4 × 1/3 = 3/12 = 1/4."
+    },
+    {
+      "id": "fraction-division/t2/039",
+      "tier": 2,
+      "prompt": "Split 1/6 into 2 equal parts. How big is each?",
+      "choices": [
+        "1/3",
+        "12",
+        "1/12",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "FLIPPED_ANSWER",
+        null,
+        "ADDED_TO_DENOM"
+      ],
+      "explanation": "1/6 ÷ 2 = 1/6 × 1/2 = 1/12."
+    },
+    {
+      "id": "fraction-division/t2/040",
+      "tier": 2,
+      "prompt": "5/6 ÷ 5",
+      "choices": [
+        "6",
+        "5/11",
+        "4 1/6",
+        "1/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_ANSWER",
+        "ADDED_TO_DENOM",
+        "MULT_WHOLE",
+        null
+      ],
+      "explanation": "5/6 ÷ 5 = 5/6 × 1/5 = 5/30 = 1/6."
+    },
+    {
+      "id": "fraction-division/t3/001",
+      "tier": 3,
+      "prompt": "6/9 ÷ 3/9",
+      "choices": [
+        "3",
+        "2",
+        "1/2",
+        "2/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIP_FIRST",
+        "KEEP_DENOM"
+      ],
+      "explanation": "Same denominators, so count the 1/9 pieces: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "fraction-division/t3/002",
+      "tier": 3,
+      "prompt": "3/5 ÷ 1/5",
+      "choices": [
+        "3/5",
+        "1/3",
+        "3",
+        "3/25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEP_DENOM",
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/5 pieces: 3 ÷ 1 = 3."
+    },
+    {
+      "id": "fraction-division/t3/003",
+      "tier": 3,
+      "prompt": "1/4 ÷ 2/4",
+      "choices": [
+        "1/2",
+        "1/8",
+        "1/3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "ARITH",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/4 pieces: 1 ÷ 2 = 1/2."
+    },
+    {
+      "id": "fraction-division/t3/004",
+      "tier": 3,
+      "prompt": "2/4 ÷ 1/4",
+      "choices": [
+        "1/2",
+        "4",
+        "2",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEP_DENOM",
+        "ARITH",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/4 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/005",
+      "tier": 3,
+      "prompt": "7/9 ÷ 3/9",
+      "choices": [
+        "7/27",
+        "2 1/3",
+        "3 1/3",
+        "3/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "ARITH",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/9 pieces: 7 ÷ 3 = 7/3 = 2 1/3."
+    },
+    {
+      "id": "fraction-division/t3/006",
+      "tier": 3,
+      "prompt": "6/7 ÷ 3/7",
+      "choices": [
+        "1/2",
+        "2/7",
+        "18/49",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "fraction-division/t3/007",
+      "tier": 3,
+      "prompt": "6/10 ÷ 3/10",
+      "choices": [
+        "2",
+        "1/5",
+        "9/50",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEP_DENOM",
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "fraction-division/t3/008",
+      "tier": 3,
+      "prompt": "5/10 ÷ 8/10",
+      "choices": [
+        "2/5",
+        "1 3/5",
+        "1 5/8",
+        "5/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_FIRST",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 5 ÷ 8 = 5/8."
+    },
+    {
+      "id": "fraction-division/t3/009",
+      "tier": 3,
+      "prompt": "9/10 ÷ 3/10",
+      "choices": [
+        "27/100",
+        "3",
+        "3/10",
+        "1/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "KEEP_DENOM",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 9 ÷ 3 = 3."
+    },
+    {
+      "id": "fraction-division/t3/010",
+      "tier": 3,
+      "prompt": "2/5 ÷ 4/5",
+      "choices": [
+        "1/3",
+        "8/25",
+        "1/2",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_FLIP",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/5 pieces: 2 ÷ 4 = 2/4 = 1/2."
+    },
+    {
+      "id": "fraction-division/t3/011",
+      "tier": 3,
+      "prompt": "7/8 ÷ 1/8",
+      "choices": [
+        "1/7",
+        "7/8",
+        "7",
+        "7/64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 7 ÷ 1 = 7."
+    },
+    {
+      "id": "fraction-division/t3/012",
+      "tier": 3,
+      "prompt": "2/7 ÷ 1/7",
+      "choices": [
+        "2/7",
+        "2",
+        "2/49",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/013",
+      "tier": 3,
+      "prompt": "4/5 ÷ 3/5",
+      "choices": [
+        "1",
+        "1 1/3",
+        "3/4",
+        "12/25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/5 pieces: 4 ÷ 3 = 4/3 = 1 1/3."
+    },
+    {
+      "id": "fraction-division/t3/014",
+      "tier": 3,
+      "prompt": "2/3 ÷ 1/3",
+      "choices": [
+        "2/3",
+        "2",
+        "2/9",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/3 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/015",
+      "tier": 3,
+      "prompt": "3/4 ÷ 1/4",
+      "choices": [
+        "1/3",
+        "3/4",
+        "3",
+        "3/16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/4 pieces: 3 ÷ 1 = 3."
+    },
+    {
+      "id": "fraction-division/t3/016",
+      "tier": 3,
+      "prompt": "2/6 ÷ 5/6",
+      "choices": [
+        "2 1/2",
+        "5/18",
+        "1/5",
+        "2/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 2 ÷ 5 = 2/5."
+    },
+    {
+      "id": "fraction-division/t3/017",
+      "tier": 3,
+      "prompt": "3/6 ÷ 1/6",
+      "choices": [
+        "3",
+        "1/3",
+        "1/12",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "KEEP_DENOM"
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 3 ÷ 1 = 3."
+    },
+    {
+      "id": "fraction-division/t3/018",
+      "tier": 3,
+      "prompt": "6/8 ÷ 4/8",
+      "choices": [
+        "2/3",
+        "3/8",
+        "2 1/2",
+        "1 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 6 ÷ 4 = 6/4 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t3/019",
+      "tier": 3,
+      "prompt": "4/7 ÷ 2/7",
+      "choices": [
+        "8/49",
+        "2/7",
+        "2",
+        "1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "KEEP_DENOM",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "fraction-division/t3/020",
+      "tier": 3,
+      "prompt": "5/8 ÷ 7/8",
+      "choices": [
+        "35/64",
+        "5/7",
+        "6/7",
+        "1 2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "ARITH",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 5 ÷ 7 = 5/7."
+    },
+    {
+      "id": "fraction-division/t3/021",
+      "tier": 3,
+      "prompt": "1/6 ÷ 5/6",
+      "choices": [
+        "5",
+        "5/36",
+        "1/6",
+        "1/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 1 ÷ 5 = 1/5."
+    },
+    {
+      "id": "fraction-division/t3/022",
+      "tier": 3,
+      "prompt": "2/8 ÷ 4/8",
+      "choices": [
+        "1/2",
+        "1",
+        "1/8",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 2 ÷ 4 = 2/4 = 1/2."
+    },
+    {
+      "id": "fraction-division/t3/023",
+      "tier": 3,
+      "prompt": "5/8 ÷ 1/8",
+      "choices": [
+        "5",
+        "5/64",
+        "1/5",
+        "5/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST",
+        "KEEP_DENOM"
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 5 ÷ 1 = 5."
+    },
+    {
+      "id": "fraction-division/t3/024",
+      "tier": 3,
+      "prompt": "5/10 ÷ 1/10",
+      "choices": [
+        "5",
+        "1/2",
+        "1/5",
+        "1/20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEP_DENOM",
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 5 ÷ 1 = 5."
+    },
+    {
+      "id": "fraction-division/t3/025",
+      "tier": 3,
+      "prompt": "2/6 ÷ 1/6",
+      "choices": [
+        "1/18",
+        "2",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "FLIP_FIRST",
+        "KEEP_DENOM"
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/026",
+      "tier": 3,
+      "prompt": "1/7 ÷ 3/7",
+      "choices": [
+        "2/3",
+        "3",
+        "3/49",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIP_FIRST",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 1 ÷ 3 = 1/3."
+    },
+    {
+      "id": "fraction-division/t3/027",
+      "tier": 3,
+      "prompt": "6/9 ÷ 2/9",
+      "choices": [
+        "1/3",
+        "5",
+        "4/27",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEP_DENOM",
+        "ARITH",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/9 pieces: 6 ÷ 2 = 3."
+    },
+    {
+      "id": "fraction-division/t3/028",
+      "tier": 3,
+      "prompt": "3/6 ÷ 2/6",
+      "choices": [
+        "2/3",
+        "1/6",
+        "2 1/2",
+        "1 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 3 ÷ 2 = 3/2 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t3/029",
+      "tier": 3,
+      "prompt": "8/10 ÷ 2/10",
+      "choices": [
+        "4",
+        "2/5",
+        "4/25",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEP_DENOM",
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 8 ÷ 2 = 4."
+    },
+    {
+      "id": "fraction-division/t3/030",
+      "tier": 3,
+      "prompt": "4/5 ÷ 1/5",
+      "choices": [
+        "1/4",
+        "4/5",
+        "4",
+        "4/25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/5 pieces: 4 ÷ 1 = 4."
+    },
+    {
+      "id": "fraction-division/t3/031",
+      "tier": 3,
+      "prompt": "6/7 ÷ 2/7",
+      "choices": [
+        "1/3",
+        "3/7",
+        "3",
+        "12/49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 6 ÷ 2 = 3."
+    },
+    {
+      "id": "fraction-division/t3/032",
+      "tier": 3,
+      "prompt": "4/8 ÷ 1/8",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEP_DENOM",
+        "FLIP_FIRST",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 4 ÷ 1 = 4."
+    },
+    {
+      "id": "fraction-division/t3/033",
+      "tier": 3,
+      "prompt": "3/7 ÷ 1/7",
+      "choices": [
+        "3",
+        "3/49",
+        "3/7",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "KEEP_DENOM",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/7 pieces: 3 ÷ 1 = 3."
+    },
+    {
+      "id": "fraction-division/t3/034",
+      "tier": 3,
+      "prompt": "2/9 ÷ 1/9",
+      "choices": [
+        "2/81",
+        "2",
+        "2/9",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "KEEP_DENOM",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/9 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/035",
+      "tier": 3,
+      "prompt": "4/6 ÷ 3/6",
+      "choices": [
+        "3/4",
+        "1",
+        "1 1/3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "ARITH",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 4 ÷ 3 = 4/3 = 1 1/3."
+    },
+    {
+      "id": "fraction-division/t3/036",
+      "tier": 3,
+      "prompt": "2/5 ÷ 1/5",
+      "choices": [
+        "2",
+        "1/2",
+        "2/5",
+        "2/25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "KEEP_DENOM",
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/5 pieces: 2 ÷ 1 = 2."
+    },
+    {
+      "id": "fraction-division/t3/037",
+      "tier": 3,
+      "prompt": "4/6 ÷ 1/6",
+      "choices": [
+        "4",
+        "2/3",
+        "1/4",
+        "1/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEP_DENOM",
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/6 pieces: 4 ÷ 1 = 4."
+    },
+    {
+      "id": "fraction-division/t3/038",
+      "tier": 3,
+      "prompt": "4/8 ÷ 2/8",
+      "choices": [
+        "1/4",
+        "1/2",
+        "2",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEP_DENOM",
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Same denominators, so count the 1/8 pieces: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "fraction-division/t3/039",
+      "tier": 3,
+      "prompt": "4/10 ÷ 2/10",
+      "choices": [
+        "2/25",
+        "2",
+        "1/5",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "KEEP_DENOM",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Same denominators, so count the 1/10 pieces: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "fraction-division/t3/040",
+      "tier": 3,
+      "prompt": "4/9 ÷ 1/9",
+      "choices": [
+        "1/4",
+        "4/81",
+        "4/9",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "KEEP_DENOM",
+        null
+      ],
+      "explanation": "Same denominators, so count the 1/9 pieces: 4 ÷ 1 = 4."
+    },
+    {
+      "id": "fraction-division/t4/001",
+      "tier": 4,
+      "prompt": "1/6 ÷ 1/3",
+      "choices": [
+        "18",
+        "1/2",
+        "1/18",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/6 ÷ 1/3 = 1/6 × 3 = 3/6 = 1/2."
+    },
+    {
+      "id": "fraction-division/t4/002",
+      "tier": 4,
+      "prompt": "1/2 ÷ 1/4",
+      "choices": [
+        "1/2",
+        "1/8",
+        "2",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        null,
+        "FLIP_BOTH"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/2 ÷ 1/4 = 1/2 × 4 = 4/2 = 2."
+    },
+    {
+      "id": "fraction-division/t4/003",
+      "tier": 4,
+      "prompt": "3/7 ÷ 1/2",
+      "choices": [
+        "3/14",
+        "1 1/6",
+        "6/7",
+        "4 2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null,
+        "FLIP_BOTH"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/7 ÷ 1/2 = 3/7 × 2 = 6/7."
+    },
+    {
+      "id": "fraction-division/t4/004",
+      "tier": 4,
+      "prompt": "4 ÷ 3/5",
+      "choices": [
+        "6 2/3",
+        "3/20",
+        "20",
+        "2 2/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "IGNORED_NUMERATOR",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 4 ÷ 3/5 = 4 × 5/3 = 20/3 = 6 2/3."
+    },
+    {
+      "id": "fraction-division/t4/005",
+      "tier": 4,
+      "prompt": "1/3 ÷ 8/9",
+      "choices": [
+        "3",
+        "2 2/3",
+        "8/27",
+        "3/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 1/3 ÷ 8/9 = 1/3 × 9/8 = 9/24 = 3/8."
+    },
+    {
+      "id": "fraction-division/t4/006",
+      "tier": 4,
+      "prompt": "1/5 ÷ 1/3",
+      "choices": [
+        "3/5",
+        "15",
+        "1/15",
+        "1 2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_BOTH",
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/5 ÷ 1/3 = 1/5 × 3 = 3/5."
+    },
+    {
+      "id": "fraction-division/t4/007",
+      "tier": 4,
+      "prompt": "9/10 ÷ 1/2",
+      "choices": [
+        "2 2/9",
+        "9/20",
+        "5/9",
+        "1 4/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_BOTH",
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 9/10 ÷ 1/2 = 9/10 × 2 = 18/10 = 1 4/5."
+    },
+    {
+      "id": "fraction-division/t4/008",
+      "tier": 4,
+      "prompt": "1/2 ÷ 4/7",
+      "choices": [
+        "3 1/2",
+        "2/7",
+        "1 1/7",
+        "7/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 1/2 ÷ 4/7 = 1/2 × 7/4 = 7/8."
+    },
+    {
+      "id": "fraction-division/t4/009",
+      "tier": 4,
+      "prompt": "2 ÷ 3/5",
+      "choices": [
+        "1 1/5",
+        "10",
+        "3 1/3",
+        "3/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 2 ÷ 3/5 = 2 × 5/3 = 10/3 = 3 1/3."
+    },
+    {
+      "id": "fraction-division/t4/010",
+      "tier": 4,
+      "prompt": "3/4 ÷ 5/8",
+      "choices": [
+        "6",
+        "2 2/15",
+        "1 1/5",
+        "5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "FLIP_BOTH",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/4 ÷ 5/8 = 3/4 × 8/5 = 24/20 = 1 1/5."
+    },
+    {
+      "id": "fraction-division/t4/011",
+      "tier": 4,
+      "prompt": "1/3 ÷ 1/2",
+      "choices": [
+        "2/3",
+        "1/6",
+        "6",
+        "1 1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "FLIP_BOTH",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/3 ÷ 1/2 = 1/3 × 2 = 2/3."
+    },
+    {
+      "id": "fraction-division/t4/012",
+      "tier": 4,
+      "prompt": "2/3 ÷ 6/7",
+      "choices": [
+        "1 3/4",
+        "7/9",
+        "1 2/7",
+        "4 2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "FLIP_FIRST",
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "Multiply by the reciprocal: 2/3 ÷ 6/7 = 2/3 × 7/6 = 14/18 = 7/9."
+    },
+    {
+      "id": "fraction-division/t4/013",
+      "tier": 4,
+      "prompt": "4/7 ÷ 1/3",
+      "choices": [
+        "7/12",
+        "1 5/7",
+        "4/21",
+        "5 1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Multiply by the reciprocal: 4/7 ÷ 1/3 = 4/7 × 3 = 12/7 = 1 5/7."
+    },
+    {
+      "id": "fraction-division/t4/014",
+      "tier": 4,
+      "prompt": "1/9 ÷ 1/8",
+      "choices": [
+        "1/72",
+        "72",
+        "8/9",
+        "1 1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_BOTH",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/9 ÷ 1/8 = 1/9 × 8 = 8/9."
+    },
+    {
+      "id": "fraction-division/t4/015",
+      "tier": 4,
+      "prompt": "3 ÷ 3/10",
+      "choices": [
+        "9/10",
+        "30",
+        "1/10",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 3 ÷ 3/10 = 3 × 10/3 = 30/3 = 10."
+    },
+    {
+      "id": "fraction-division/t4/016",
+      "tier": 4,
+      "prompt": "4/7 ÷ 2/3",
+      "choices": [
+        "1 1/6",
+        "2 5/8",
+        "6/7",
+        "1 5/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "FLIP_BOTH",
+        null,
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "Multiply by the reciprocal: 4/7 ÷ 2/3 = 4/7 × 3/2 = 12/14 = 6/7."
+    },
+    {
+      "id": "fraction-division/t4/017",
+      "tier": 4,
+      "prompt": "2 ÷ 7/9",
+      "choices": [
+        "2 4/7",
+        "1 5/9",
+        "18",
+        "7/18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 2 ÷ 7/9 = 2 × 9/7 = 18/7 = 2 4/7."
+    },
+    {
+      "id": "fraction-division/t4/018",
+      "tier": 4,
+      "prompt": "7 ÷ 3/4",
+      "choices": [
+        "28",
+        "9 1/3",
+        "5 1/4",
+        "3/28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 7 ÷ 3/4 = 7 × 4/3 = 28/3 = 9 1/3."
+    },
+    {
+      "id": "fraction-division/t4/019",
+      "tier": 4,
+      "prompt": "10 ÷ 2/5",
+      "choices": [
+        "25",
+        "1/25",
+        "50",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "IGNORED_NUMERATOR",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 10 ÷ 2/5 = 10 × 5/2 = 50/2 = 25."
+    },
+    {
+      "id": "fraction-division/t4/020",
+      "tier": 4,
+      "prompt": "3/4 ÷ 2/3",
+      "choices": [
+        "2 1/4",
+        "1/2",
+        "1 1/8",
+        "8/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/4 ÷ 2/3 = 3/4 × 3/2 = 9/8 = 1 1/8."
+    },
+    {
+      "id": "fraction-division/t4/021",
+      "tier": 4,
+      "prompt": "6 ÷ 2/9",
+      "choices": [
+        "27",
+        "54",
+        "1/27",
+        "1 1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 6 ÷ 2/9 = 6 × 9/2 = 54/2 = 27."
+    },
+    {
+      "id": "fraction-division/t4/022",
+      "tier": 4,
+      "prompt": "2/5 ÷ 1/10",
+      "choices": [
+        "4",
+        "1/4",
+        "25",
+        "1/25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "FLIP_BOTH",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 2/5 ÷ 1/10 = 2/5 × 10 = 20/5 = 4."
+    },
+    {
+      "id": "fraction-division/t4/023",
+      "tier": 4,
+      "prompt": "3/10 ÷ 3/5",
+      "choices": [
+        "5 5/9",
+        "1/2",
+        "1 1/2",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/10 ÷ 3/5 = 3/10 × 5/3 = 15/30 = 1/2."
+    },
+    {
+      "id": "fraction-division/t4/024",
+      "tier": 4,
+      "prompt": "1/4 ÷ 1/2",
+      "choices": [
+        "8",
+        "1/8",
+        "1/2",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_BOTH",
+        "NO_FLIP",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/4 ÷ 1/2 = 1/4 × 2 = 2/4 = 1/2."
+    },
+    {
+      "id": "fraction-division/t4/025",
+      "tier": 4,
+      "prompt": "3/8 ÷ 3/4",
+      "choices": [
+        "1/2",
+        "1 1/2",
+        "9/32",
+        "3 5/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/8 ÷ 3/4 = 3/8 × 4/3 = 12/24 = 1/2."
+    },
+    {
+      "id": "fraction-division/t4/026",
+      "tier": 4,
+      "prompt": "1/2 ÷ 4/5",
+      "choices": [
+        "1 3/5",
+        "2/5",
+        "2 1/2",
+        "5/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 1/2 ÷ 4/5 = 1/2 × 5/4 = 5/8."
+    },
+    {
+      "id": "fraction-division/t4/027",
+      "tier": 4,
+      "prompt": "6 ÷ 7/8",
+      "choices": [
+        "6 6/7",
+        "7/48",
+        "48",
+        "5 1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "IGNORED_NUMERATOR",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 6 ÷ 7/8 = 6 × 8/7 = 48/7 = 6 6/7."
+    },
+    {
+      "id": "fraction-division/t4/028",
+      "tier": 4,
+      "prompt": "3/4 ÷ 1/2",
+      "choices": [
+        "2 2/3",
+        "1 1/2",
+        "2/3",
+        "3/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 3/4 ÷ 1/2 = 3/4 × 2 = 6/4 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t4/029",
+      "tier": 4,
+      "prompt": "1/4 ÷ 2/3",
+      "choices": [
+        "3/8",
+        "3/4",
+        "6",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_NUMERATOR",
+        "FLIP_BOTH",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 1/4 ÷ 2/3 = 1/4 × 3/2 = 3/8."
+    },
+    {
+      "id": "fraction-division/t4/030",
+      "tier": 4,
+      "prompt": "5/9 ÷ 1/8",
+      "choices": [
+        "14 2/5",
+        "4 4/9",
+        "5/72",
+        "9/40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 5/9 ÷ 1/8 = 5/9 × 8 = 40/9 = 4 4/9."
+    },
+    {
+      "id": "fraction-division/t4/031",
+      "tier": 4,
+      "prompt": "4 ÷ 2/7",
+      "choices": [
+        "28",
+        "1/14",
+        "1 1/7",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "FLIP_FIRST",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 4 ÷ 2/7 = 4 × 7/2 = 28/2 = 14."
+    },
+    {
+      "id": "fraction-division/t4/032",
+      "tier": 4,
+      "prompt": "2 ÷ 4/9",
+      "choices": [
+        "18",
+        "8/9",
+        "2/9",
+        "4 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 2 ÷ 4/9 = 2 × 9/4 = 18/4 = 4 1/2."
+    },
+    {
+      "id": "fraction-division/t4/033",
+      "tier": 4,
+      "prompt": "2/9 ÷ 2/5",
+      "choices": [
+        "4/45",
+        "1 1/9",
+        "5/9",
+        "1 4/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        null,
+        "FLIP_FIRST"
+      ],
+      "explanation": "Multiply by the reciprocal: 2/9 ÷ 2/5 = 2/9 × 5/2 = 10/18 = 5/9."
+    },
+    {
+      "id": "fraction-division/t4/034",
+      "tier": 4,
+      "prompt": "3 ÷ 4/5",
+      "choices": [
+        "15",
+        "2 2/5",
+        "4/15",
+        "3 3/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 3 ÷ 4/5 = 3 × 5/4 = 15/4 = 3 3/4."
+    },
+    {
+      "id": "fraction-division/t4/035",
+      "tier": 4,
+      "prompt": "1/2 ÷ 2/3",
+      "choices": [
+        "1/3",
+        "3",
+        "1 1/2",
+        "3/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_BOTH",
+        "IGNORED_NUMERATOR",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 1/2 ÷ 2/3 = 1/2 × 3/2 = 3/4."
+    },
+    {
+      "id": "fraction-division/t4/036",
+      "tier": 4,
+      "prompt": "4 ÷ 2/3",
+      "choices": [
+        "1/6",
+        "6",
+        "2 2/3",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP",
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "Multiply by the reciprocal: 4 ÷ 2/3 = 4 × 3/2 = 12/2 = 6."
+    },
+    {
+      "id": "fraction-division/t4/037",
+      "tier": 4,
+      "prompt": "5/8 ÷ 1/4",
+      "choices": [
+        "2/5",
+        "2 1/2",
+        "5/32",
+        "6 2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Multiply by the reciprocal: 5/8 ÷ 1/4 = 5/8 × 4 = 20/8 = 2 1/2."
+    },
+    {
+      "id": "fraction-division/t4/038",
+      "tier": 4,
+      "prompt": "3 ÷ 7/8",
+      "choices": [
+        "7/24",
+        "3 3/7",
+        "24",
+        "2 5/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_FIRST",
+        null,
+        "IGNORED_NUMERATOR",
+        "NO_FLIP"
+      ],
+      "explanation": "Multiply by the reciprocal: 3 ÷ 7/8 = 3 × 8/7 = 24/7 = 3 3/7."
+    },
+    {
+      "id": "fraction-division/t4/039",
+      "tier": 4,
+      "prompt": "5/6 ÷ 1/2",
+      "choices": [
+        "5/12",
+        "2 2/5",
+        "3/5",
+        "1 2/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_BOTH",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "Multiply by the reciprocal: 5/6 ÷ 1/2 = 5/6 × 2 = 10/6 = 1 2/3."
+    },
+    {
+      "id": "fraction-division/t4/040",
+      "tier": 4,
+      "prompt": "5 ÷ 2/3",
+      "choices": [
+        "3 1/3",
+        "2/15",
+        "7 1/2",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null,
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "Multiply by the reciprocal: 5 ÷ 2/3 = 5 × 3/2 = 15/2 = 7 1/2."
+    },
+    {
+      "id": "fraction-division/t5/001",
+      "tier": 5,
+      "prompt": "Rectangle: area 4 sq ft, width 1/2 ft. Length?",
+      "choices": [
+        "6 ft",
+        "8 ft",
+        "2 ft",
+        "1/8 ft"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER"
+      ],
+      "explanation": "Length = area ÷ width: 4 ÷ 1/2 = 4 × 2 = 8 ft."
+    },
+    {
+      "id": "fraction-division/t5/002",
+      "tier": 5,
+      "prompt": "8 hours of practice, 1/2 hour per drill. How many drills?",
+      "choices": [
+        "4",
+        "14",
+        "16",
+        "1/16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null,
+        "WRONG_ORDER"
+      ],
+      "explanation": "Groups of 1/2 in 8: 8 ÷ 1/2 = 8 × 2 = 16."
+    },
+    {
+      "id": "fraction-division/t5/003",
+      "tier": 5,
+      "prompt": "Rectangle: area 3 sq ft, width 1/3 ft. Length?",
+      "choices": [
+        "9 ft",
+        "10 ft",
+        "1 ft",
+        "1/9 ft"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER"
+      ],
+      "explanation": "Length = area ÷ width: 3 ÷ 1/3 = 3 × 3 = 9 ft."
+    },
+    {
+      "id": "fraction-division/t5/004",
+      "tier": 5,
+      "prompt": "3/4 cup of flour, 1/2 cup per batch. How many batches?",
+      "choices": [
+        "3/8",
+        "2 2/3",
+        "1 1/2",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_BOTH",
+        null,
+        "WRONG_ORDER"
+      ],
+      "explanation": "Groups of 1/2 in 3/4: 3/4 ÷ 1/2 = 3/4 × 2 = 6/4 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t5/005",
+      "tier": 5,
+      "prompt": "9 cups of rice, 1/2 cup per bowl. How many bowls?",
+      "choices": [
+        "4 1/2",
+        "20",
+        "1/18",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        "ARITH",
+        "WRONG_ORDER",
+        null
+      ],
+      "explanation": "Groups of 1/2 in 9: 9 ÷ 1/2 = 9 × 2 = 18."
+    },
+    {
+      "id": "fraction-division/t5/006",
+      "tier": 5,
+      "prompt": "5 friends split 1/2 of a pizza equally. How much each?",
+      "choices": [
+        "1/11",
+        "2 1/2",
+        "1/10",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MULT_WHOLE",
+        null,
+        "WRONG_ORDER"
+      ],
+      "explanation": "Share 1/2 into 5 parts: 1/2 ÷ 5 = 1/2 × 1/5 = 1/10."
+    },
+    {
+      "id": "fraction-division/t5/007",
+      "tier": 5,
+      "prompt": "8 lb of trail mix split into 2/3 lb bags. How many bags?",
+      "choices": [
+        "12",
+        "5 1/3",
+        "1/12",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "WRONG_ORDER",
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "Groups of 2/3 in 8: 8 ÷ 2/3 = 8 × 3/2 = 24/2 = 12."
+    },
+    {
+      "id": "fraction-division/t5/008",
+      "tier": 5,
+      "prompt": "An 8 m rope is cut into 1/3 m pieces. How many pieces?",
+      "choices": [
+        "2 2/3",
+        "1/24",
+        "48",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER",
+        "ARITH",
+        null
+      ],
+      "explanation": "Groups of 1/3 in 8: 8 ÷ 1/3 = 8 × 3 = 24."
+    },
+    {
+      "id": "fraction-division/t5/009",
+      "tier": 5,
+      "prompt": "Rectangle: area 3/8 sq ft, width 1/4 ft. Length?",
+      "choices": [
+        "2/3 ft",
+        "3/32 ft",
+        "10 2/3 ft",
+        "1 1/2 ft"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "NO_FLIP",
+        "FLIP_BOTH",
+        null
+      ],
+      "explanation": "Length = area ÷ width: 3/8 ÷ 1/4 = 3/8 × 4 = 12/8 = 1 1/2 ft."
+    },
+    {
+      "id": "fraction-division/t5/010",
+      "tier": 5,
+      "prompt": "6 friends split 1/2 of a pizza equally. How much each?",
+      "choices": [
+        "12",
+        "3",
+        "1/11",
+        "1/12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "MULT_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Share 1/2 into 6 parts: 1/2 ÷ 6 = 1/2 × 1/6 = 1/12."
+    },
+    {
+      "id": "fraction-division/t5/011",
+      "tier": 5,
+      "prompt": "1/2 gal of paint covers 4 walls equally. Gal per wall?",
+      "choices": [
+        "8 gal",
+        "1/9 gal",
+        "1/8 gal",
+        "2 gal"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "ARITH",
+        null,
+        "MULT_WHOLE"
+      ],
+      "explanation": "Share 1/2 into 4 parts: 1/2 ÷ 4 = 1/2 × 1/4 = 1/8 gal."
+    },
+    {
+      "id": "fraction-division/t5/012",
+      "tier": 5,
+      "prompt": "Rectangle: area 1/3 sq ft, width 1/8 ft. Length?",
+      "choices": [
+        "2 2/3 ft",
+        "1/24 ft",
+        "24 ft",
+        "3/8 ft"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "FLIP_BOTH",
+        "WRONG_ORDER"
+      ],
+      "explanation": "Length = area ÷ width: 1/3 ÷ 1/8 = 1/3 × 8 = 8/3 = 2 2/3 ft."
+    },
+    {
+      "id": "fraction-division/t5/013",
+      "tier": 5,
+      "prompt": "9 hours of practice, 1/2 hour per drill. How many drills?",
+      "choices": [
+        "1/18",
+        "20",
+        "18",
+        "4 1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Groups of 1/2 in 9: 9 ÷ 1/2 = 9 × 2 = 18."
+    },
+    {
+      "id": "fraction-division/t5/014",
+      "tier": 5,
+      "prompt": "How many 1/3 mi laps make a 5/6 mi run?",
+      "choices": [
+        "3 3/5",
+        "5/18",
+        "2/5",
+        "2 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_BOTH",
+        "NO_FLIP",
+        "WRONG_ORDER",
+        null
+      ],
+      "explanation": "Groups of 1/3 in 5/6: 5/6 ÷ 1/3 = 5/6 × 3 = 15/6 = 2 1/2."
+    },
+    {
+      "id": "fraction-division/t5/015",
+      "tier": 5,
+      "prompt": "6 friends split 2/3 of a pizza equally. How much each?",
+      "choices": [
+        "1/9",
+        "4",
+        "9",
+        "1 1/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_WHOLE",
+        "WRONG_ORDER",
+        "ARITH"
+      ],
+      "explanation": "Share 2/3 into 6 parts: 2/3 ÷ 6 = 2/3 × 1/6 = 2/18 = 1/9."
+    },
+    {
+      "id": "fraction-division/t5/016",
+      "tier": 5,
+      "prompt": "2/3 gal of paint covers 2 walls equally. Gal per wall?",
+      "choices": [
+        "1 1/3 gal",
+        "1/3 gal",
+        "3 gal",
+        "1/4 gal"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_WHOLE",
+        null,
+        "WRONG_ORDER",
+        "ARITH"
+      ],
+      "explanation": "Share 2/3 into 2 parts: 2/3 ÷ 2 = 2/3 × 1/2 = 2/6 = 1/3 gal."
+    },
+    {
+      "id": "fraction-division/t5/017",
+      "tier": 5,
+      "prompt": "How many 1/3 mi laps make a 1/2 mi run?",
+      "choices": [
+        "6",
+        "2/3",
+        "1/6",
+        "1 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_BOTH",
+        "WRONG_ORDER",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Groups of 1/3 in 1/2: 1/2 ÷ 1/3 = 1/2 × 3 = 3/2 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t5/018",
+      "tier": 5,
+      "prompt": "2 cups of rice, 1/8 cup per bowl. How many bowls?",
+      "choices": [
+        "18",
+        "1/16",
+        "16",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_ORDER",
+        null,
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Groups of 1/8 in 2: 2 ÷ 1/8 = 2 × 8 = 16."
+    },
+    {
+      "id": "fraction-division/t5/019",
+      "tier": 5,
+      "prompt": "10 cups of rice, 1/2 cup per bowl. How many bowls?",
+      "choices": [
+        "19",
+        "20",
+        "5",
+        "1/20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER"
+      ],
+      "explanation": "Groups of 1/2 in 10: 10 ÷ 1/2 = 10 × 2 = 20."
+    },
+    {
+      "id": "fraction-division/t5/020",
+      "tier": 5,
+      "prompt": "1/2 lb of fudge shared equally by 3 kids. Lb each?",
+      "choices": [
+        "1 1/2 lb",
+        "1 1/6 lb",
+        "1/6 lb",
+        "6 lb"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "ARITH",
+        null,
+        "WRONG_ORDER"
+      ],
+      "explanation": "Share 1/2 into 3 parts: 1/2 ÷ 3 = 1/2 × 1/3 = 1/6 lb."
+    },
+    {
+      "id": "fraction-division/t5/021",
+      "tier": 5,
+      "prompt": "2 friends split 1/4 of a pizza equally. How much each?",
+      "choices": [
+        "1/8",
+        "1 1/8",
+        "8",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "WRONG_ORDER",
+        "MULT_WHOLE"
+      ],
+      "explanation": "Share 1/4 into 2 parts: 1/4 ÷ 2 = 1/4 × 1/2 = 1/8."
+    },
+    {
+      "id": "fraction-division/t5/022",
+      "tier": 5,
+      "prompt": "1/2 lb of fudge shared equally by 6 kids. Lb each?",
+      "choices": [
+        "12 lb",
+        "1/12 lb",
+        "3 lb",
+        "1 1/12 lb"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_ORDER",
+        null,
+        "MULT_WHOLE",
+        "ARITH"
+      ],
+      "explanation": "Share 1/2 into 6 parts: 1/2 ÷ 6 = 1/2 × 1/6 = 1/12 lb."
+    },
+    {
+      "id": "fraction-division/t5/023",
+      "tier": 5,
+      "prompt": "How many 1/2 mi laps make a 3/4 mi run?",
+      "choices": [
+        "2 2/3",
+        "1 1/2",
+        "2/3",
+        "3/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_BOTH",
+        null,
+        "WRONG_ORDER",
+        "NO_FLIP"
+      ],
+      "explanation": "Groups of 1/2 in 3/4: 3/4 ÷ 1/2 = 3/4 × 2 = 6/4 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t5/024",
+      "tier": 5,
+      "prompt": "1/3 cup of flour, 1/6 cup per batch. How many batches?",
+      "choices": [
+        "1/18",
+        "18",
+        "1/2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_BOTH",
+        "WRONG_ORDER",
+        null
+      ],
+      "explanation": "Groups of 1/6 in 1/3: 1/3 ÷ 1/6 = 1/3 × 6 = 6/3 = 2."
+    },
+    {
+      "id": "fraction-division/t5/025",
+      "tier": 5,
+      "prompt": "How many 1/8 mi laps make a 3/4 mi run?",
+      "choices": [
+        "3/32",
+        "6",
+        "1/6",
+        "10 2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "WRONG_ORDER",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Groups of 1/8 in 3/4: 3/4 ÷ 1/8 = 3/4 × 8 = 24/4 = 6."
+    },
+    {
+      "id": "fraction-division/t5/026",
+      "tier": 5,
+      "prompt": "1/2 cup of flour, 1/4 cup per batch. How many batches?",
+      "choices": [
+        "2",
+        "1/8",
+        "1/2",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "WRONG_ORDER",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Groups of 1/4 in 1/2: 1/2 ÷ 1/4 = 1/2 × 4 = 4/2 = 2."
+    },
+    {
+      "id": "fraction-division/t5/027",
+      "tier": 5,
+      "prompt": "2/3 of a bag of dog food weighs 3 lb. Whole bag?",
+      "choices": [
+        "4 1/2 lb",
+        "2 lb",
+        "9 lb",
+        "2/9 lb"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "IGNORED_NUMERATOR",
+        "WRONG_ORDER"
+      ],
+      "explanation": "2/3 of the bag is 3 lb, so whole = 3 ÷ 2/3 = 3 × 3/2 = 9/2 = 4 1/2 lb."
+    },
+    {
+      "id": "fraction-division/t5/028",
+      "tier": 5,
+      "prompt": "Rectangle: area 1/4 sq ft, width 1/2 ft. Length?",
+      "choices": [
+        "1/2 ft",
+        "2 ft",
+        "8 ft",
+        "1/8 ft"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ORDER",
+        "FLIP_BOTH",
+        "NO_FLIP"
+      ],
+      "explanation": "Length = area ÷ width: 1/4 ÷ 1/2 = 1/4 × 2 = 2/4 = 1/2 ft."
+    },
+    {
+      "id": "fraction-division/t5/029",
+      "tier": 5,
+      "prompt": "Rectangle: area 7 sq ft, width 1/2 ft. Length?",
+      "choices": [
+        "1/14 ft",
+        "3 1/2 ft",
+        "13 ft",
+        "14 ft"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "DIVIDED_WHOLE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Length = area ÷ width: 7 ÷ 1/2 = 7 × 2 = 14 ft."
+    },
+    {
+      "id": "fraction-division/t5/030",
+      "tier": 5,
+      "prompt": "4 lb of trail mix split into 1/4 lb bags. How many bags?",
+      "choices": [
+        "17",
+        "16",
+        "1",
+        "1/16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER"
+      ],
+      "explanation": "Groups of 1/4 in 4: 4 ÷ 1/4 = 4 × 4 = 16."
+    },
+    {
+      "id": "fraction-division/t5/031",
+      "tier": 5,
+      "prompt": "3/8 of a bag of dog food weighs 6 lb. Whole bag?",
+      "choices": [
+        "1/16 lb",
+        "16 lb",
+        "2 1/4 lb",
+        "48 lb"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_ORDER",
+        null,
+        "NO_FLIP",
+        "IGNORED_NUMERATOR"
+      ],
+      "explanation": "3/8 of the bag is 6 lb, so whole = 6 ÷ 3/8 = 6 × 8/3 = 48/3 = 16 lb."
+    },
+    {
+      "id": "fraction-division/t5/032",
+      "tier": 5,
+      "prompt": "5/6 cup of flour, 1/3 cup per batch. How many batches?",
+      "choices": [
+        "2/5",
+        "5/18",
+        "2 1/2",
+        "3 3/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "NO_FLIP",
+        null,
+        "FLIP_BOTH"
+      ],
+      "explanation": "Groups of 1/3 in 5/6: 5/6 ÷ 1/3 = 5/6 × 3 = 15/6 = 2 1/2."
+    },
+    {
+      "id": "fraction-division/t5/033",
+      "tier": 5,
+      "prompt": "An 8 m rope is cut into 1/2 m pieces. How many pieces?",
+      "choices": [
+        "15",
+        "4",
+        "1/16",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_WHOLE",
+        "WRONG_ORDER",
+        null
+      ],
+      "explanation": "Groups of 1/2 in 8: 8 ÷ 1/2 = 8 × 2 = 16."
+    },
+    {
+      "id": "fraction-division/t5/034",
+      "tier": 5,
+      "prompt": "5/6 of a bag of dog food weighs 4 lb. Whole bag?",
+      "choices": [
+        "5/24 lb",
+        "24 lb",
+        "3 1/3 lb",
+        "4 4/5 lb"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "IGNORED_NUMERATOR",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "5/6 of the bag is 4 lb, so whole = 4 ÷ 5/6 = 4 × 6/5 = 24/5 = 4 4/5 lb."
+    },
+    {
+      "id": "fraction-division/t5/035",
+      "tier": 5,
+      "prompt": "3 friends split 1/2 of a pizza equally. How much each?",
+      "choices": [
+        "6",
+        "1/7",
+        "1/6",
+        "1 1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ORDER",
+        "ARITH",
+        null,
+        "MULT_WHOLE"
+      ],
+      "explanation": "Share 1/2 into 3 parts: 1/2 ÷ 3 = 1/2 × 1/3 = 1/6."
+    },
+    {
+      "id": "fraction-division/t5/036",
+      "tier": 5,
+      "prompt": "8 lb of trail mix split into 1/8 lb bags. How many bags?",
+      "choices": [
+        "64",
+        "1/64",
+        "66",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ORDER",
+        "ARITH",
+        "DIVIDED_WHOLE"
+      ],
+      "explanation": "Groups of 1/8 in 8: 8 ÷ 1/8 = 8 × 8 = 64."
+    },
+    {
+      "id": "fraction-division/t5/037",
+      "tier": 5,
+      "prompt": "3/4 lb of fudge shared equally by 2 kids. Lb each?",
+      "choices": [
+        "1 1/2 lb",
+        "2 2/3 lb",
+        "3/8 lb",
+        "3/7 lb"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_WHOLE",
+        "WRONG_ORDER",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Share 3/4 into 2 parts: 3/4 ÷ 2 = 3/4 × 1/2 = 3/8 lb."
+    },
+    {
+      "id": "fraction-division/t5/038",
+      "tier": 5,
+      "prompt": "1/2 cup of flour, 1/3 cup per batch. How many batches?",
+      "choices": [
+        "1/6",
+        "1 1/2",
+        "2/3",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "WRONG_ORDER",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Groups of 1/3 in 1/2: 1/2 ÷ 1/3 = 1/2 × 3 = 3/2 = 1 1/2."
+    },
+    {
+      "id": "fraction-division/t5/039",
+      "tier": 5,
+      "prompt": "Rectangle: area 4 sq ft, width 2/3 ft. Length?",
+      "choices": [
+        "6 ft",
+        "12 ft",
+        "1/6 ft",
+        "2 2/3 ft"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_NUMERATOR",
+        "WRONG_ORDER",
+        "NO_FLIP"
+      ],
+      "explanation": "Length = area ÷ width: 4 ÷ 2/3 = 4 × 3/2 = 12/2 = 6 ft."
+    },
+    {
+      "id": "fraction-division/t5/040",
+      "tier": 5,
+      "prompt": "How many 1/4 mi laps make a 3/4 mi run?",
+      "choices": [
+        "1/3",
+        "3",
+        "3/16",
+        "5 1/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_ORDER",
+        null,
+        "NO_FLIP",
+        "FLIP_BOTH"
+      ],
+      "explanation": "Groups of 1/4 in 3/4: 3/4 ÷ 1/4 = 3/4 × 4 = 12/4 = 3."
+    }
+  ]
+}

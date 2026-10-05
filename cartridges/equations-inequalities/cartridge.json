@@ -1,0 +1,70 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "equations-inequalities",
+  "version": "1.0.0",
+  "title": "Equations & Inequalities",
+  "subtitle": "Solve One Step",
+  "grade": "6",
+  "standards": [
+    "CCSS.MATH.CONTENT.6.EE.B.5",
+    "CCSS.MATH.CONTENT.6.EE.B.6",
+    "CCSS.MATH.CONTENT.6.EE.B.7",
+    "CCSS.MATH.CONTENT.6.EE.B.8"
+  ],
+  "seed": 20261017,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a, tightened: every equation is one step with whole numbers. Literals under + and − are 1–20, so a + − solution is a whole number 1–40 (at most a sum of two such literals). × and ÷ are times-table facts: factors, divisors and quotients 2–10, so a × ÷ solution is a whole number 2–100. Inequality boundaries 1–20; a choice plugged into x + a is ≤ 20, and one plugged into ax is 1–10, so every check is a fact. No negatives anywhere.",
+  "tiers": [
+    { "tier": 1, "name": "Is It a Solution?", "description": "Plug a value in: which one makes the equation true?" },
+    { "tier": 2, "name": "Add & Subtract", "description": "Solve x + a = b and x − a = b by undoing the step." },
+    { "tier": 3, "name": "Multiply & Divide", "description": "Solve ax = b and x ÷ a = b by undoing the step." },
+    { "tier": 4, "name": "Write the Equation", "description": "Turn a short story into a one-step equation." },
+    { "tier": 5, "name": "Inequalities", "description": "Write x > c or x ≤ c from words, and pick a value that makes one true." }
+  ],
+  "misconceptions": {
+    "SAME_OP": {
+      "student": "Undo the step with the opposite: + undoes −, × undoes ÷.",
+      "teacher": "Applies the equation's own operation to the other side instead of its inverse (x + 7 = 15 gives 22; 4x = 28 gives 112)."
+    },
+    "VALUE_SHOWN": {
+      "student": "That number is already in the equation. Plug your pick in: is it true?",
+      "teacher": "Picks a number printed in the equation instead of the value of the variable."
+    },
+    "SUBTRACTED": {
+      "student": "4x means 4 times x. Undo times by dividing, not subtracting.",
+      "teacher": "Reads ax = b as x + a = b and subtracts: 4x = 28 gives 24."
+    },
+    "ADDED": {
+      "student": "x ÷ 5 means x split by 5. Undo divide by multiplying, not adding.",
+      "teacher": "Reads x ÷ a = b as x − a = b and adds: x ÷ 5 = 6 gives 11."
+    },
+    "WRONG_OP": {
+      "student": "Right numbers, wrong operation. What happens to x in the story?",
+      "teacher": "Writes the story's numbers with the wrong operation (got 6 more gives x − 6 = 15)."
+    },
+    "SWAPPED": {
+      "student": "Numbers in the wrong spots. Match each number to its job in the story.",
+      "teacher": "Swaps the total with the change or group size (x + 15 = 6; 20x = 4)."
+    },
+    "KEYWORD": {
+      "student": "Key words can trick you. Tell the story with x, then write it.",
+      "teacher": "Combines the two printed numbers by a key word (\"in all\" gives x = 4 × 20) instead of modelling the story."
+    },
+    "BOUNDARY": {
+      "student": "< and > leave out the number itself: 4 < 4 is false.",
+      "teacher": "Treats a strict inequality as inclusive and picks the boundary value."
+    },
+    "WRONG_SIDE": {
+      "student": "Plug it in: the statement comes out false. Pick from the other side.",
+      "teacher": "Picks a value on the wrong side of the boundary (reads < as >, or solves the inequality backwards)."
+    },
+    "FLIPPED_SIGN": {
+      "student": "Check the direction. Read from the letter: p ≥ 12 means p is 12 or more.",
+      "teacher": "Reverses the inequality's direction (at least 12 gives p ≤ 12; 9 > n read as n > 9)."
+    },
+    "STRICT_VS_INCLUSIVE": {
+      "student": "At least / at most include the number (≥ ≤). More / fewer than do not.",
+      "teacher": "Confuses strict and inclusive inequalities (at least 12 gives p > 12)."
+    }
+  }
+}
