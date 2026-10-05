@@ -46,6 +46,8 @@ before UEFN work. Project-specific:
 - Test hooks on the director (ship values 0 / false / -1): `DebugAutoPick` (pick cartridge N on join with no menu;
   every other hook needs it or a real click), `DebugAutoWrongAnswers`, `DebugAutoRightAnswers` (runs
   the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only),
+  `DebugIgnoreTriggerEvents` (drops every door trigger event, so only the position backstop answers; with
+  `DebugAutoRightAnswers` it proves the backstop carries a run),
   `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
   (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).

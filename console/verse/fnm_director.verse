@@ -16,7 +16,9 @@
 # best); otherwise the next run keeps the skill. Guards ignore a player who is picking.
 # Test hooks (all @editable, ship values in brackets): DebugAutoPick (-1) picks Cartridges[N] on join with no menu,
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
-# (-1), DebugAutoRightAnswers (false), DebugStartStage (0).
+# (-1), DebugAutoRightAnswers (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false).
+# Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
+# backstop (WatchDoors) answers for a player who stands in a door zone when no trigger event was taken.
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
 # Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
@@ -88,10 +90,19 @@ fnm_player_state := class:
     var Decks : [][]int = array{}
     # Index into the cartridge's Items of the question on screen (-1 = none).
     var CurrentItem : int = -1
+    # Display order of the current item's choices: door/letter k shows choice Order[k] (shuffled per question, so a
+    # repeated question does not keep its right door; Aaron 2026-10-05: "after enough runs it would become memorization").
+    var Order : []int = array{}
     var MissedCurrent : logic = false
     var FirstTryCorrect : int = 0
     # True while a door result is being processed (blocks double triggers).
     var Busy : logic = false
+    # Door backstop (WatchDoors): when a door answer was last accepted, which door zone of the current station the
+    # player stands in (-1 none), since when, and whether the backstop already answered for this stay.
+    var LastAccept : float = -100.0
+    var ZoneDoor : int = -1
+    var ZoneSince : float = 0.0
+    var ZoneFired : logic = false
     var Finished : logic = false
     # Right-first-try answers in a row (a wrong door resets it).
     var Streak : int = 0
@@ -115,7 +126,8 @@ fnm_door_handler := class:
     DoorIndex : int
 
     OnTriggered(MaybeAgent:?agent):void =
-        Director.OnDoor(MaybeAgent, StationIndex, DoorIndex)
+        if (not Director.DebugIgnoreTriggerEvents?):
+            Director.OnDoor(MaybeAgent, StationIndex, DoorIndex)
 
 fnm_director := class(creative_device, fnm_picker_listener):
     # Optional difficulty position per station in percent (0 easiest .. 100 hardest); -1 or a missing
@@ -230,6 +242,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # SKILL), so tools/playtest.py and every other debug hook run headless. -1 = off, the menu shows (ship value).
     @editable
     DebugAutoPick : int = -1
+    # Test hook: drop every door trigger event, so only the position backstop (WatchDoors) answers doors. Pair with
+    # DebugAutoRightAnswers to prove the backstop carries a whole run. false = ship value.
+    @editable
+    DebugIgnoreTriggerEvents : logic = false
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -270,6 +286,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Rows on the finish board's session leaderboard (best time per player). The HUD has room for 5.
     @editable
     BoardSize : int = 5
+    # Door backstop: how often player positions are checked against the door zones, and how long a player must
+    # stand in one with no door event taken before it answers for them.
+    @editable
+    DoorWatchSeconds : float = 0.25
+    @editable
+    DoorDwellSeconds : float = 0.6
     # How often the director checks which stations have players on them, to switch their guards on or off.
     @editable
     GuardCheckSeconds : float = 1.0
@@ -381,6 +403,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Spawner.EliminatedEvent.Subscribe(OnGuardEliminated)
             Print("FNM: {CountGuardStations()} stations have guards")
             spawn{ GuardLoop() }
+            spawn{ DoorWatch() }
             Playspace := GetPlayspace()
             Playspace.PlayerAddedEvent().Subscribe(OnPlayerAdded)
             Playspace.PlayerRemovedEvent().Subscribe(OnPlayerRemoved)
@@ -741,13 +764,28 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (set State.Decks[Tier - 1] = Draw.Rest) {}
             set State.CurrentItem = Draw.ItemIndex
             set State.MissedCurrent = false
+            if (Item := State.Cartridge.Items[Draw.ItemIndex]):
+                set State.Order = Shuffle(for (Index := 0..Item.Choices.Length - 1) { Index })
 
     ShowCurrent(State:fnm_player_state):void =
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
             StageLine := "Stage {State.Stage}/{StageCount}  -  {TierName}"
-            State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Item.Choices))
+            Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
+            State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Shown))
+
+    # The baked choice behind door DoorIndex for this showing (-1 = no choice there).
+    ChoiceAt(State:fnm_player_state, DoorIndex:int)<transacts>:int =
+        if (Choice := State.Order[DoorIndex]) then Choice else -1
+
+    # The door the current item's right answer is behind for this showing.
+    AnswerDoor(State:fnm_player_state)<transacts>:int =
+        var Door : int = 0
+        if (Item := State.Cartridge.Items[State.CurrentItem]):
+            for (Index -> Choice : State.Order, Choice = Item.Answer):
+                set Door = Index
+        Door
 
     # Student-facing text for wrong choice DoorIndex (PROTOCOL 6: ARITH text if missing).
     FeedbackFor(Item:fnm_item, DoorIndex:int):string =
@@ -763,6 +801,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (not State.Finished?, not State.Busy?, not State.Picking?):
                 if (StationIndex = State.Stage - 1):
                     set State.Busy = true
+                    set State.LastAccept = GetSimulationElapsedTime()
                     spawn{ HandleDoor(State, StationIndex, DoorIndex) }
                 else if (StationIndex > State.Stage - 1):
                     spawn{ FlashNotice(State, "This is not your station. You are on stage {State.Stage}.") }
@@ -770,11 +809,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =
         if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
-            if (DoorIndex >= Item.Choices.Length):
+            Choice := ChoiceAt(State, DoorIndex)
+            if (Choice < 0):
                 set State.Busy = false
                 Letter := FnmChoiceLetter(DoorIndex)
                 FlashNotice(State, "No choice {Letter} here")
-            else if (DoorIndex = Item.Answer):
+            else if (Choice = Item.Answer):
                 var Label : string = ""
                 if (not State.MissedCurrent?):
                     set State.FirstTryCorrect += 1
@@ -795,13 +835,44 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 StopBoost(State)
                 Kind := PickPenalty()
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
-                Generation := State.Hud.ShowFeedback(FeedbackFor(Item, DoorIndex), NamedColors.Tomato)
+                Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
                 Punish(State.Player, Station, DoorIndex, Kind)
                 set State.Busy = false
                 Sleep(WrongFeedbackSeconds)
                 State.Hud.ClearFeedbackIf(Generation)
         else:
             set State.Busy = false
+
+    # Door backstop (Aaron 2026-10-05: "sometimes I run through a door and correct or incorrect doesn't activate,
+    # I run around that room a little and eventually it does"). A trigger fires only on ENTERING its zone, and an
+    # event that arrives while the player is Busy is dropped, so a player could stand in a vestibule with nothing
+    # happening until they left and came back. Every DoorWatchSeconds this checks each player against the trigger
+    # boxes of their current station; a player who has stood in one for DoorDwellSeconds, with no door answer taken
+    # since shortly before they entered, answers through it once. Logged, so a play log shows how often it saves one.
+    DoorWatch()<suspends>:void =
+        loop:
+            Sleep(DoorWatchSeconds)
+            for (Player -> State : PlayerStates):
+                WatchDoors(State)
+
+    WatchDoors(State:fnm_player_state):void =
+        Now := GetSimulationElapsedTime()
+        var Inside : int = -1
+        if (not State.Finished?, not State.Picking?, State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+            Here := Character.GetTransform().Translation
+            for (Index -> Door : Station.Doors):
+                Zone := Door.GetTransform()
+                # A trigger's zone is 600 x 600 cm at scale 1, centred on the device (tools/build_course.py).
+                if (Abs(Here.X - Zone.Translation.X) <= 300.0 * Zone.Scale.X, Abs(Here.Y - Zone.Translation.Y) <= 300.0 * Zone.Scale.Y, Abs(Here.Z - Zone.Translation.Z) <= 300.0):
+                    set Inside = Index
+        if (Inside <> State.ZoneDoor):
+            set State.ZoneDoor = Inside
+            set State.ZoneSince = Now
+            set State.ZoneFired = false
+        else if (Inside >= 0, not State.ZoneFired?, not State.Busy?, Now - State.ZoneSince >= DoorDwellSeconds, State.LastAccept < State.ZoneSince - 1.0):
+            set State.ZoneFired = true
+            Print("FNM: door {FnmChoiceLetter(Inside)} answered by position at stage {State.Stage} (no trigger event taken)")
+            OnDoor(option{State.Player}, State.Stage - 1, Inside)
 
     # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
     # that door's barrier lets this player (only) through, or they are teleported to the next entry.
@@ -828,10 +899,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     DebugAutoWrong(State:fnm_player_state)<suspends>:void =
         for (N := 1..DebugAutoWrongAnswers):
             Sleep(12.0)
-            if (Item := State.Cartridge.Items[State.CurrentItem], not State.Busy?, not State.Finished?):
+            if (State.CurrentItem >= 0, not State.Busy?, not State.Finished?):
                 set State.Busy = true
                 Print("FNM: debug auto-wrong {N}")
-                Wrong := if (Item.Answer = 0) then 1 else 0
+                Wrong := if (AnswerDoor(State) = 0) then 1 else 0
                 # Stand them in that door's vestibule, where a real wrong answer happens.
                 if (Station := Stations[State.Stage - 1], Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
                     if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
@@ -851,10 +922,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Sleep(0.5)
                     if (not State.Finished?, not State.Picking?) then break
                 Sleep(CountdownStepSeconds * 3.0 + 2.0)
-            if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[State.Stage - 1], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+            Answer := AnswerDoor(State)
+            if (State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Door := Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
                 Stage := State.Stage
-                if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
-                    Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Item.Answer)}")
+                # (The teleport answers at once, so name the door before it: afterwards the next item is up.)
+                Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Answer)}")
+                if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                 Sleep(6.0)
                 if (State.Stage = Stage):
                     Print("FNM: debug auto-right stuck at stage {Stage}")
@@ -876,15 +949,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     DebugPassage(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
-        if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[0], Door := Station.Doors[Item.Answer], Character := State.Player.GetFortCharacter[]):
+        if (State.CurrentItem >= 0, Station := Stations[0], Door := Station.Doors[AnswerDoor(State)], Character := State.Player.GetFortCharacter[]):
             Spot := Door.GetTransform().Translation
             if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
-                Print("FNM: debug passage: dropped into vestibule {FnmChoiceLetter(Item.Answer)} at {Spot}")
+                Print("FNM: debug passage: dropped into vestibule {FnmChoiceLetter(AnswerDoor(State))} at {Spot}")
             for (N := 1..12):
                 Sleep(1.0)
                 Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
             # Then behind a WRONG door's trigger at the current station, facing its (closed) barrier.
-            if (Next := State.Cartridge.Items[State.CurrentItem], Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (Next.Answer = 0) then 1 else 0]):
+            if (State.CurrentItem >= 0, Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (AnswerDoor(State) = 0) then 1 else 0]):
                 Behind := Wrong.GetTransform().Translation + vector3{X := 0.0, Y := 350.0, Z := 0.0}
                 if (Character.TeleportTo[Behind, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                     Print("FNM: debug passage: behind a wrong door at {Behind}")

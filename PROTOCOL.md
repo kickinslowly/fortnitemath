@@ -90,8 +90,10 @@ Tiers: use 5 unless there is a reason not to — the starter map paints its hall
 - `misconceptions[i]` is `null` for the correct choice, otherwise a key of the manifest catalog.
   `ARITH` ("Check your arithmetic.") is reserved and always available without declaring it — the
   generic distractor when no real misconception yields a distinct value.
-- Choice order in `baked.json` is final. Consoles display choices in baked order (keeps the emulator
-  and the map identical, and lets `validate` check answer-position balance).
+- Choice order in `baked.json` is final for the data (it lets `validate` check answer-position balance), and
+  the emulator shows it as baked. The UEFN map shuffles the display order every time it shows an item, so a
+  repeated question does not keep its right door (Aaron, 2026-10-05: "after enough runs it would just become
+  memorization"). Choice text therefore must never depend on position ("all of the above", "both A and B").
 
 `baked.json` = the manifest fields + `"baked_with": "<toolchain version>"` + `"items": [...]`.
 

@@ -60,6 +60,15 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [ ] Aaron playtest of course v3, walking it (needs a real player; the auto-run teleports past connectors): do the
   stairs climb smoothly, does a speed plate push forward (direction inferred from its arrows), is the ice slippery
   enough at friction 0.15, and does a Yeet on a raised hallway still land well
+- [x] Aaron playtest of course v3 (2026-10-05): "a lot more engaging". Two notes, both built and seen in play
+  2026-10-05: (1) sometimes a door did not answer until he ran around the vestibule. A trigger fires only on
+  entering its zone and the director drops an event while the player is Busy; a position backstop (`WatchDoors`)
+  now answers for a player standing in a door zone 0.6 s with no answer taken. Proof: with every trigger event
+  ignored (`DebugIgnoreTriggerEvents`) two auto-right runs finished on the backstop alone (20/20 doors); with events
+  on it fired 0 times. The original cause is not pinned down: logs before the fix do not record trigger events.
+  (2) Anti-memorization: the choices of every question are shuffled each time it is shown (PROTOCOL §3 note), so
+  the right door moves. Seen: baked `6 + 2 × 4` answer is choice A, shown as B, and the run used door B
+- [ ] Class demo on Xbox (Aaron, 2026-10-05): private version code via UEFN Publish Project, played on his account
 - [ ] Hurdle variation as we polish (Aaron 2026-10-04: "would recommend additional variation")
 - [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
   `persistable`, an island-wide board needs a different store)
