@@ -69,6 +69,8 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   (2) Anti-memorization: the choices of every question are shuffled each time it is shown (PROTOCOL §3 note), so
   the right door moves. Seen: baked `6 + 2 × 4` answer is choice A, shown as B, and the run used door B
 - [ ] Class demo on Xbox (Aaron, 2026-10-05): private version code via UEFN Publish Project, played on his account
+  - Private version uploaded 2026-10-05 06:36: code **7346-5901-9394** (Creator Portal > FortniteMath > Publishing >
+    Private Versions). Not yet seen running on the Xbox. Public release still needs the Fortnite Developer Terms (Enroll)
 - [ ] Hurdle variation as we polish (Aaron 2026-10-04: "would recommend additional variation")
 - [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
   `persistable`, an island-wide board needs a different store)
