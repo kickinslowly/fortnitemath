@@ -26,7 +26,8 @@
 #                an end_game_device is set) a fresh run from station 1 to beat that time.
 # Engagement: a 3-2-1-GO countdown and a race clock per run; a first-try right answer builds a streak and a
 # speed boost (longer with the streak), shown big in the top panel with the boost's seconds counting down;
-# shipping containers tagged fnm_slider sweep across the hallways.
+# shipping containers tagged fnm_slider sweep across the hallways; a player inside an fnm_ice_zone gets the
+# fnm_ice_floor movement settings (slippery) until they leave it.
 # Guards: a guard spawner tagged fnm_guards + fnm_station_NN (tools/build_guards.py, more guards per later station)
 # is switched on while any player is on that station and off (its guards despawn) once nobody is. Any player
 # eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol. An
@@ -252,9 +253,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     MaxBoostSeconds : float = 7.0
     @editable
     BoostReapplySeconds : float = 2.5
-    # Sliding containers: SliderSeconds to cross the hallway, SliderPause at each wall.
+    # Sliding containers: SliderSeconds to cross the hallway, SliderPause at each wall, SliderTravel cm along the
+    # container's own forward axis (tools/build_course.py: 2 * SLIDE_X; the course is no longer centred on X = 0).
     @editable
     SliderSeconds : float = 2.2
+    @editable
+    SliderTravel : float = 1580.0
     @editable
     SliderPause : float = 0.5
     # Countdown before each run: one beat per number.
@@ -299,6 +303,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var LoadoutTrigger : ?trigger_device = false
     var MudDevice : ?movement_modulator_device = false
     var BoostDevice : ?movement_modulator_device = false
+    # The low-friction movement settings applied while a player stands in an fnm_ice_zone (icy hallways).
+    var IceFloor : ?player_movement_settings_device = false
     # The session's best time per player, fastest first, at most BoardSize rows, PER SKILL: keyed by the cartridge's
     # index in the slot. The map is the island, so a board reads "best Order of Operations on this map" (Aaron,
     # 2026-10-04: never compare timings across skills). Row 0 of a board holds that skill's island record.
@@ -340,6 +346,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set SliderCount += 1
             spawn{ Slide(Slider) }
         Print("FNM: boost {FnmYesNo(if (BoostDevice?) then true else false)}, {SliderCount} sliders")
+        for (Object : FindCreativeObjectsWithTag(fnm_ice_floor), Device := player_movement_settings_device[Object]):
+            set IceFloor = option{Device}
+        var IceZones : int = 0
+        for (Object : FindCreativeObjectsWithTag(fnm_ice_zone), Zone := mutator_zone_device[Object]):
+            Zone.Enable()
+            Zone.AgentEntersEvent.Subscribe(OnIceEnter)
+            Zone.AgentExitsEvent.Subscribe(OnIceExit)
+            set IceZones += 1
+        Print("FNM: {IceZones} ice zones, ice floor device {FnmYesNo(if (IceFloor?) then true else false)}")
         set FrostFx = FindFx(fnm_pp_frost)
         set MudFx = FindFx(fnm_pp_mud)
         set DizzyFx = FindFx(fnm_pp_dizzy)
@@ -1262,15 +1277,27 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (not State.Finished?):
             State.Hud.SetStreak(StreakCopy(State, 0))
 
-    # Sweeps a container from its placed spot to the mirror image across the hallway (X -> -X) and back, forever.
+    # Sweeps a container SliderTravel along its own forward axis (across the hallway) and back, forever.
     Slide(Slider:creative_prop)<suspends>:void =
         Home := Slider.GetTransform()
-        Far := vector3{X := -Home.Translation.X, Y := Home.Translation.Y, Z := Home.Translation.Z}
+        Far := Home.Translation + Home.Rotation.GetLocalForward() * SliderTravel
         loop:
             Slider.MoveTo(Far, Home.Rotation, SliderSeconds)
             Sleep(SliderPause)
             Slider.MoveTo(Home.Translation, Home.Rotation, SliderSeconds)
             Sleep(SliderPause)
+
+    # Ice hallways: slippery footing while inside the zone, normal footing once out (any exit: walking on through
+    # the doors, a penalty teleport, an elimination).
+    OnIceEnter(Agent:agent):void =
+        if (Device := IceFloor?):
+            Device.AddTo(Agent)
+            Print("FNM: on ice")
+
+    OnIceExit(Agent:agent):void =
+        if (Device := IceFloor?):
+            Device.RemoveFrom(Agent)
+            Print("FNM: off ice")
 
     EndGameLater(Finisher:player)<suspends>:void =
         Sleep(EndGameDelaySeconds)

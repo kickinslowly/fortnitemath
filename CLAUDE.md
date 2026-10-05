@@ -39,8 +39,10 @@ before UEFN work. Project-specific:
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,
   `fnm_door_a..d`, `fnm_entry`, `fnm_finish`); max 20 stations.
-- The course is a straight +Y run on its own floor slabs (`maps/starter/LAYOUT.md`); the director's arrival
-  direction is fixed at +Y (`ArrivalYaw`), so a bent layout needs per-station facing first.
+- Every station hallway faces +Y; connectors between them climb, drop, wind and boost (`CONNECTORS`,
+  `maps/starter/LAYOUT.md`) and must end facing +Y again: the director's arrival direction is fixed (`ArrivalYaw`).
+  Station hallways sit at different X and levels, so never assume x = 0 or z = 0 for a course actor.
+  Ice hallways: `ICE_STATIONS` (needs the `ice` material: `python tools/import_art.py ice`).
 - Test hooks on the director (ship values 0 / false / -1): `DebugAutoPick` (pick cartridge N on join with no menu;
   every other hook needs it or a real click), `DebugAutoWrongAnswers`, `DebugAutoRightAnswers` (runs
   the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only),

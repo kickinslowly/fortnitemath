@@ -49,6 +49,17 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   deaths, boost 2.0x, a centre finish board with your time / best / island record (holder's name) / top 5 session
   times / next-run countdown. Built and seen in play 2026-10-04 (two auto-right runs: NEW BEST!, NEW RECORD!, one
   row per player). Board is per session only
+- [x] Course v3, vertical and horizontal variety (Aaron, 2026-10-04: "hallways sometimes up stairs, down stairs,
+  winding left, winding right, sometimes straight", speed plates on straights, one icy area). Connector corridors
+  between stations (`CONNECTORS` in `tools/build_course.py`, table in `maps/starter/LAYOUT.md`): stairs up 4 m twice,
+  down twice, three 45° winding jogs, three straights with speed plates; course now ~740 m, levels 0/4/8 m. Station 6
+  is ICE (`ICE_STATIONS`): pale floor, mutator zone + player movement device, friction 0.15 (braking not settable
+  from MCP). Sliders now slide along their own axis (`SliderTravel`). Seen in play 2026-10-04: two auto-right runs
+  through all 10 relocated stations to the finish, "on ice"/"off ice" fire at station 6, a container sweeps its
+  moved hallway. Seen in editor captures: stairs, winding walls, plate arrows facing down the corridor
+- [ ] Aaron playtest of course v3, walking it (needs a real player; the auto-run teleports past connectors): do the
+  stairs climb smoothly, does a speed plate push forward (direction inferred from its arrows), is the ice slippery
+  enough at friction 0.15, and does a Yeet on a raised hallway still land well
 - [ ] Hurdle variation as we polish (Aaron 2026-10-04: "would recommend additional variation")
 - [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
   `persistable`, an island-wide board needs a different store)

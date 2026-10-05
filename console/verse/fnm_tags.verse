@@ -23,9 +23,13 @@ fnm_penalty_cam := class(tag){}
 fnm_loadout := class(tag){}
 # The movement modulator that speeds up a player after a first-try right answer (tools/build_rigs.py).
 fnm_boost := class(tag){}
-# Hallway obstacles (tools/build_course.py): shipping containers the director slides across the hallway, from
-# their placed X to the mirrored X and back.
+# Hallway obstacles (tools/build_course.py): shipping containers the director slides across the hallway, along
+# their own forward axis and back.
 fnm_slider := class(tag){}
+# Ice hallways (tools/build_course.py ICE_STATIONS): a mutator zone over each icy floor, and the one player movement
+# settings device (low friction) the director applies to a player while they are inside such a zone.
+fnm_ice_zone := class(tag){}
+fnm_ice_floor := class(tag){}
 # A station's guard spawner (tools/build_guards.py), also tagged with its fnm_station_NN.
 fnm_guards := class(tag){}
 fnm_door_a := class(tag){}

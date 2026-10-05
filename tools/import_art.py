@@ -25,7 +25,8 @@ OBJ = "editor_toolset.toolsets.object.ObjectTools"
 UI_SETTINGS = {"CompressionSettings": "TC_EditorIcon", "LODGroup": "TEXTUREGROUP_UI", "MipGenSettings": "TMGS_NoMipmaps"}
 # Hallway wall colour per difficulty tier (the course builder picks by tier) and the finish hallway.
 WALL_COLOURS = {"tier1": (0.30, 0.75, 0.40), "tier2": (0.25, 0.50, 0.90), "tier3": (0.55, 0.35, 0.85),
-                "tier4": (0.95, 0.50, 0.15), "tier5": (0.85, 0.18, 0.18), "finish": (1.0, 0.75, 0.10)}
+                "tier4": (0.95, 0.50, 0.15), "tier5": (0.85, 0.18, 0.18), "finish": (1.0, 0.75, 0.10),
+                "ice": (0.70, 0.90, 1.0)}   # icy hallway floors (build_course.py ICE_STATIONS)
 
 
 def mount():
@@ -77,8 +78,10 @@ def textures(folder, tmp):
         print("texture", tex)
 
 
-def materials(folder, tmp):
+def materials(folder, tmp, only=None):
     for key, (r, g, b) in WALL_COLOURS.items():
+        if only and key not in only:
+            continue
         name, final = f"fnm_wall_{key}", f"{folder}/M_fnm_wall_{key}"
         replace(final)
         for path in import_quad(folder, name, quad_obj(tmp, name, f"Kd {r} {g} {b}\n"), False):
@@ -89,13 +92,15 @@ def materials(folder, tmp):
         print("material", final)
 
 
-def main():
+def main(only=None):
+    """only: material keys to (re)import alone, e.g. ["ice"]; default imports every texture and material."""
     folder = mount() + "/FNM_Art"
     with tempfile.TemporaryDirectory() as tmp:
-        textures(folder, Path(tmp))
-        materials(folder, Path(tmp))
+        if not only:
+            textures(folder, Path(tmp))
+        materials(folder, Path(tmp), only)
     print(u.call(ASSETS, "find_assets", {"folder_path": folder, "recursive": True})["returnValue"])
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:] or None)   # python tools/import_art.py [key ...]

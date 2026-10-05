@@ -69,11 +69,18 @@ def build():
     found = u.call(SCENE, "find_actors", {"tag": COURSE_TAG, "collision_channels": []})["returnValue"]
     entries = sorted((a for a in found if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Entry", a.get("label", ""))),
                      key=lambda a: a["label"])
+    floors = {a["label"][:7]: a for a in found if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Floor", a.get("label", ""))}
     for a in entries:
         k = int(a["label"][5:7])
         n = GUARDS[min(k, len(GUARDS)) - 1]
-        y = (a["bounds"]["min"]["y"] + a["bounds"]["max"]["y"]) / 2 + SPAWN_AHEAD
-        r = u.call(DEV, "PlaceDevice", {"assetPath": ref(SPAWNER), "transform": xform(0, y, 0, yaw=-90)})
+        b = a["bounds"]
+        # Stations sit at different X and levels (connectors). A device's bounds carry an editor margin, so the
+        # height comes from the station's floor slab (an engine cube, exact bounds): its top face.
+        floor = floors[a["label"][:7]]["bounds"]
+        x = (floor["min"]["x"] + floor["max"]["x"]) / 2
+        y = (b["min"]["y"] + b["max"]["y"]) / 2 + SPAWN_AHEAD
+        z = floor["max"]["z"]
+        r = u.call(DEV, "PlaceDevice", {"assetPath": ref(SPAWNER), "transform": xform(x, y, z, yaw=-90)})
         actor = r["returnValue"]["refPath"]
         u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
         u.call(ACTOR, "set_label", {"actor": ref(actor), "label": f"FNM_S{k:02d}_Guards"})
@@ -86,7 +93,7 @@ def build():
         if not back or (back[0].get("itemDefinition") or {}).get("refPath") != weapon:
             sys.exit(f"station {k}: the guard spawner refused {weapon}")
         verse_tags(actor, project, ["fnm_guards", f"fnm_station_{k:02d}"])
-        print(f"station {k}: {n} guards at y={y:.0f}, {weapon.rsplit('.', 1)[1]}")
+        print(f"station {k}: {n} guards at x={x:.0f} y={y:.0f} z={z:.0f}, {weapon.rsplit('.', 1)[1]}")
 
 
 if __name__ == "__main__":
