@@ -394,7 +394,8 @@ fnm_hud := class:
 
     # The finish board. Medal "" leaves its row blank. Rows: the session's top times, best first; OwnRow is the
     # viewing player's row (-1 = not on the board), drawn orange. The countdown row starts empty (SetCountdown).
-    ShowResults(Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, AccuracyLine:string, Rows:[]message, OwnRow:int):void =
+    # BoardHead names the board ("TOP TIMES THIS SESSION  -  <skill>": boards and bests are per skill).
+    ShowResults(Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, AccuracyLine:string, BoardHead:string, Rows:[]message, OwnRow:int):void =
         ResultsTitle.SetTextColor(MedalColor)
         ResultsTitle.SetText(FnmText("FINISH!"))
         ResultsMedal.SetTextColor(MedalColor)
@@ -403,7 +404,7 @@ fnm_hud := class:
         ResultsBest.SetText(FnmText(BestLine))
         ResultsRecord.SetText(RecordLine)
         ResultsAccuracy.SetText(FnmText(AccuracyLine))
-        ResultsBoardHead.SetText(FnmText("TOP TIMES THIS SESSION"))
+        ResultsBoardHead.SetText(FnmText(BoardHead))
         for (K -> Block : ResultsRows):
             if (Row := Rows[K]):
                 Block.SetText(Row)

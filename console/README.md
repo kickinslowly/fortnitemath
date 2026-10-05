@@ -79,8 +79,9 @@ Automatic difficulty (PROTOCOL §6, T = 5 tiers): 10 stations → tiers 1,1,2,2,
 On joining, the player is held still at station 1 under a centre-screen menu, CHOOSE YOUR SKILL: a button per
 grade, then a button per skill of that grade (`Title  -  Subtitle`, with Back). One grade skips the grade step; one
 cartridge skips the menu. Picking starts the countdown. The finish board has a CHANGE SKILL button (shown when the
-slot holds more than one skill): it cancels the auto-restart, clears the personal best and opens the menu again.
-The island record board keeps every skill's times together. Test hook: `DebugAutoPick` (−1 = menu; N = pick
+slot holds more than one skill): it cancels the auto-restart and opens the menu again. Personal bests, the
+session board and the island record are kept per skill (the board is headed with the skill's title); timings of
+different skills are never compared. Test hook: `DebugAutoPick` (−1 = menu; N = pick
 `Cartridges[N]` on join, also after CHANGE SKILL) so automated runs skip the menu; the other debug hooks start
 when the first skill is picked.
 

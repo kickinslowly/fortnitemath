@@ -173,8 +173,10 @@ islands have no custom pre-game lobby, so the picker is in-game UI. A console MU
   (§7). Skip the grade step when only one grade exists; skip the picker when only one cartridge exists.
 - Hold the player still while they pick; the race clock is not running.
 - Apply every per-player rule of §6 to the chosen cartridge: tier count, pools, decks, title.
-- Offer "change skill" on the finish board. A new run with the same skill needs no re-pick. A skill change
-  starts a fresh personal best (times across skills are not comparable).
+- Offer "change skill" on the finish board. A new run with the same skill needs no re-pick.
+- Keep race times **per skill and per map**: personal bests, the session board and the island record are each
+  keyed by the cartridge (the map is the island), and the board names the skill. Timings of different skills are
+  never compared (Aaron, 2026-10-04: "best Order of Operations on the default map").
 - Provide a test hook that pre-selects a cartridge so automated runs skip the picker.
 
 ## 6a. Map profiles

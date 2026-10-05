@@ -100,8 +100,11 @@ fnm_player_state := class:
     # Bumped per run and per boost, so an older clock or boost loop stops itself.
     var RunGeneration : int = 0
     var BoostGeneration : int = 0
-    # Best finishing time this session (-1 = none yet) and runs finished.
+    # Best finishing time this session for the current skill (-1 = none yet), and the same per skill, keyed by the
+    # cartridge's index in the slot (switching back to a skill brings that skill's best back; PROTOCOL 6b: times
+    # across skills are never compared). Runs = runs finished, any skill.
     var BestTime : float = -1.0
+    var BestTimes : [int]float = map{}
     var Runs : int = 0
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
@@ -296,10 +299,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var LoadoutTrigger : ?trigger_device = false
     var MudDevice : ?movement_modulator_device = false
     var BoostDevice : ?movement_modulator_device = false
-    # Fastest run by anyone this session (-1 = none yet); always Board[0].Time once anyone has finished.
-    var IslandBest : float = -1.0
-    # The session's best time per player, fastest first, at most BoardSize rows; Board[0].Who holds the record.
-    var Board : []fnm_result = array{}
+    # The session's best time per player, fastest first, at most BoardSize rows, PER SKILL: keyed by the cartridge's
+    # index in the slot. The map is the island, so a board reads "best Order of Operations on this map" (Aaron,
+    # 2026-10-04: never compare timings across skills). Row 0 of a board holds that skill's island record.
+    var Boards : [int][]fnm_result = map{}
     var FrostFx : ?post_process_device = false
     var MudFx : ?post_process_device = false
     var DizzyFx : ?post_process_device = false
@@ -650,6 +653,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.TierPools = Pools
             set State.Decks = FnmShuffleAll(Pools)
             set State.Stage = 1
+            set State.BestTime = if (Best := State.BestTimes[Index]) then Best else -1.0
             State.Hud.HidePicker()
             State.Hud.SetTitle(Chosen.Title, Chosen.Subtitle)
             DrawItem(State)
@@ -677,8 +681,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (DebugAutoRightAnswers?):
                     spawn{ DebugAutoRight(State) }
 
-    # CHANGE SKILL on the finish board: cancels the pending next run, resets the run, and starts a fresh personal
-    # best (times across skills are not comparable, 6b); then the picker again, from station 1.
+    # CHANGE SKILL on the finish board: cancels the pending next run and resets the run; then the picker again, from
+    # station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
     ChangeSkill(State:fnm_player_state):void =
         set State.RunGeneration += 1
         State.Hud.HideChangeSkill()
@@ -689,7 +693,6 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.FirstTryCorrect = 0
         set State.Streak = 0
         set State.BestStreak = 0
-        set State.BestTime = -1.0
         set State.Finished = false
         set State.Busy = false
         set State.CurrentItem = -1
@@ -1092,11 +1095,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Time := if (State.StartTime >= 0.0) then GetSimulationElapsedTime() - State.StartTime else 0.0
         set State.StartTime = -1.0
         StopBoost(State)
+        # Personal best and the board are per skill (the cartridge's index in the slot).
+        Skill := State.CartridgeIndex
         NewBest := if (State.BestTime < 0.0 or Time < State.BestTime) then true else false
-        if (NewBest?) then set State.BestTime = Time
-        IslandRecord := if (IslandBest < 0.0 or Time < IslandBest) then true else false
-        RecordResult(State.Player, Time)
-        set IslandBest = if (Top := Board[0]) then Top.Time else Time
+        if (NewBest?):
+            set State.BestTime = Time
+            if (set State.BestTimes[Skill] = Time) {}
+        var IslandRecord : logic = true
+        if (Top := BoardFor(Skill)[0], Time >= Top.Time):
+            set IslandRecord = false
+        RecordResult(Skill, State.Player, Time)
+        Board := BoardFor(Skill)
         Medal := FnmMedal(State.FirstTryCorrect, Total)
         MedalColor := if (Medal = "GOLD") then NamedColors.Gold else if (Medal = "SILVER") then NamedColors.Silver else NamedColors.Peru
         # The board is the only thing on screen besides the clock, which keeps the final time.
@@ -1113,8 +1122,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (K -> Row : Board, Row.Who = State.Player):
             set OwnRow = K
         State.Hud.ShowResults(Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
-            RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}", Rows, OwnRow)
-        Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize})")
+            RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}",
+            "TOP TIMES THIS SESSION  -  {State.Cartridge.Title}", Rows, OwnRow)
+        Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize}) for {State.Cartridge.Id}")
         if (UseEndGameDevice?):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
@@ -1123,12 +1133,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 State.Hud.ShowChangeSkill()
             spawn{ NextRun(State) }
 
-    # Puts Who's Time on the board: replaces their row only when faster, else adds one; fastest first, capped
-    # at BoardSize.
-    RecordResult(Who:player, Time:float):void =
+    # The session board for skill Index (empty until someone finishes that skill).
+    BoardFor(Index:int)<transacts>:[]fnm_result =
+        if (Rows := Boards[Index]) then Rows else array{}
+
+    # Puts Who's Time on skill Index's board: replaces their row only when faster, else adds one; fastest first,
+    # capped at BoardSize.
+    RecordResult(Index:int, Who:player, Time:float):void =
         var Rows : []fnm_result = array{}
         var Had : logic = false
-        for (Row : Board):
+        for (Row : BoardFor(Index)):
             if (Row.Who = Who):
                 set Had = true
                 set Rows += array{if (Time < Row.Time) then fnm_result{Who := Who, Time := Time} else Row}
@@ -1148,7 +1162,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (not Placed?):
                 set Next += array{Row}
             set Sorted = Next
-        set Board = for (K -> Row : Sorted, K < BoardSize) { Row }
+        Capped := for (K -> Row : Sorted, K < BoardSize) { Row }
+        if (set Boards[Index] = Capped) {}
 
     # Results for RestartSeconds (with a countdown), then a fresh run from station 1: barriers closed again for
     # this player, new questions, streak and clock reset; same skill. CHANGE SKILL (ChangeSkill) bumps RunGeneration,

@@ -91,16 +91,22 @@ content rule from the same conversation: simple numbers, concept over arithmetic
   doors ignore a player who is picking; a skill change starts a fresh personal best. Compiles clean (3506 proof);
   headless flow seen in the editor log: `2 cartridges`, `picked integer-ops (grade 7)`, full auto-right run to
   the finish board, `picker shown: 2 grades, 2 skills` at ship values
-- [ ] **Unverified in play** (Aaron was in Dota, client minimized, no input sent): the picker's look, whether
-  `ui_input_mode.All` shows a cursor and a real click reaches `OnClick`, the CHANGE SKILL button's spacing under
-  a 5-row board. Recipe: one session at ship values with `DebugAutoRightAnswers` on: click grade → skill →
-  auto-run finishes → click CHANGE SKILL → pick the other skill; expect `FNM: grade 7 chosen`, `picked …`,
-  `change skill` in the editor log. Takes the foreground: only when Aaron is free
+- [x] Seen in play by Fable (2026-10-04, after Aaron's Dota match; `tools/click_hud.py`): the menu draws centre
+  screen with the first button focused; real mouse clicks reach `OnClick` (`grade 7 chosen`, `picked integer-ops`,
+  run 1 GO with the Integer Operations title and `−12 + (−11)`); the finish board reads "TOP TIMES THIS SESSION -
+  Integer Operations" with CHANGE SKILL clear below it; clicking it logged `change skill`, reopened the menu, and
+  grade 6 → Order of Operations started run 3 with `20 − 4 + 4` and no "Beat" target (fresh best for that skill)
+- [x] Race times per skill and per map (Aaron, 2026-10-04: "best order of operations on the default map, never
+  compare different skills"): personal bests, the session board and the island record are keyed by the cartridge
+  (`BestTimes`, `Boards` in the director); the board is headed with the skill title; CHANGE SKILL no longer
+  wipes a best, `Pick` restores the chosen skill's. PROTOCOL §6b
+- [ ] A 1-row board was seen; the 5-row board + CHANGE SKILL spacing is not (five finishers needed)
+- [ ] "Performance Warning: See editor" sat on the HUD for the whole session (background-throttled client); the
+  G4 watch item, still nothing in the editor log
 - [x] Simple-numbers rebake of both cartridges to 1.2.0 (seeds kept): new per-item bounds tests went red on 130/200
   old order-of-ops items and 105/200 old integer items, green on the rebake; Fable's independent ast re-check of
   all 400 answers and bounds found nothing; no tier near its attempt budget
 - [x] Emulator: home screen grouped by grade in §6b order (e2e 13 → 17); "Play again" already existed
 - [ ] Aaron playtest: pick a skill on the menu with a real click, finish, change skill; judge the new number
   sizes in play (samples per tier in the 2026-10-04 build report; e.g. T5 `24 ÷ (24 ÷ (6^2 ÷ 9) − 3)`)
-- [ ] Decision for Aaron: the finish board's island record mixes skills now that players can pick different ones;
-  per-skill boards or one mixed board?
+- [x] Decision (Aaron, 2026-10-04): boards and bests are per skill and per map, never mixed. Built the same night
