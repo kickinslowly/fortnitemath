@@ -26,18 +26,31 @@ SPAWNER = "/CRD_HenchmanSpawner/SetupAssets/PID_Device_GuardSpawner_V2.PID_Devic
 GUARDS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
 # The weapon each station's guards carry, station 1 first; a longer course repeats the last entry. Aaron
 # (2026-10-04): weapons climb with the stations, and guards drop them (dropInventoryOnElimination), so a player
-# who beats them climbs too. Pistol (the loadout's, build_rigs.PISTOL) -> SMG -> tactical (semi-auto) shotgun ->
-# assault rifle -> heavy AR. Rarity letters: C common, UC uncommon, R rare, VR epic, SR legendary. Set through
-# the spawner's ItemList sub-object (PickupItemListComponent, itemListData), the same shape as the item granter.
-# The spawner silently drops some weapons (set_properties still answers True; WID_Pistol_AutoHeavy_* came back
-# empty), so build() reads each list back and stops on an empty one.
+# who beats them climbs too. Aaron (2026-10-06): the old pistol -> SMG -> shotgun -> AR ladder was "boring"; ramp
+# it dramatically, blue (rare) at the start to gold (legendary) at the end, pistol -> SMG -> shotguns -> snipers ->
+# launchers by the last stations. Rarity letters: C common, UC uncommon, R rare (blue), VR epic (purple), SR
+# legendary (gold). Set through the spawner's ItemList sub-object (PickupItemListComponent, itemListData), the same
+# shape as the item granter. The spawner silently drops some weapons (set_properties still answers True and the list
+# reads back empty), so build() reads each list back and stops on an empty one. Probed 2026-10-06 (--probe): accepted
+# Pistol_SemiAuto R/VR/SR, AutoHeavyPDW (SMG) UC/R/VR/SR, AutoHeavySuppressed UC/R, Shotgun_SemiAuto R/VR,
+# Shotgun_Standard (pump) UC/VR/SR, Shotgun_HighSemiAuto (heavy) VR/SR, Shotgun_Combat R/VR/SR, Shotgun_Charge R/VR/SR,
+# Assault_AutoHigh VR/SR, Assault_Heavy R/VR/SR, Assault_Surgical R/VR/SR, Assault_Auto R, Sniper_BoltAction_Scope
+# R/VR/SR, Sniper_Standard_Scope VR/SR, Sniper_Heavy VR/SR, Sniper_NoScope UC/R, Sniper_Suppressed_Scope VR/SR,
+# Launcher_Rocket R/VR/SR, Launcher_Grenade R/VR/SR. Refused: Hand_Cannon, Six_Shooter, AutoHeavy (tactical SMG),
+# Compact, Shotgun_SemiAuto SR, Shotgun_Standard R, Break, Automatic, Sniper_Standard_Scope R, Launcher_Quad /
+# _Pumpkin / _Rocket_Guided.
 _W = "/Game/Athena/Items/Weapons/{0}.{0}"
 WEAPONS = [_W.format(n) for n in (
-    "WID_Pistol_SemiAuto_Athena_R_Ore_T03", "WID_Pistol_SemiAuto_Athena_R_Ore_T03",
-    "WID_Pistol_AutoHeavySuppressed_Athena_C_Ore_T02", "WID_Pistol_AutoHeavySuppressed_Athena_UC_Ore_T03",
-    "WID_Shotgun_SemiAuto_Athena_UC_Ore_T03", "WID_Shotgun_SemiAuto_Athena_UC_Ore_T03",
-    "WID_Assault_Auto_Athena_UC_Ore_T03", "WID_Assault_Auto_Athena_R_Ore_T03",
-    "WID_Assault_Auto_Athena_VR_Ore_T03", "WID_Assault_Heavy_Athena_VR_Ore_T03")]
+    "WID_Pistol_SemiAuto_Athena_R_Ore_T03",            # 1  pistol, blue (the loadout's)
+    "WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03",        # 2  SMG, blue
+    "WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03",       # 3  SMG, purple
+    "WID_Shotgun_Standard_Athena_VR_Ore_T03",          # 4  pump shotgun, purple
+    "WID_Shotgun_Combat_Athena_VR_Ore_T03",            # 5  combat shotgun, purple
+    "WID_Shotgun_HighSemiAuto_Athena_VR_Ore_T03",      # 6  heavy shotgun, purple (the ice station)
+    "WID_Sniper_BoltAction_Scope_Athena_VR_Ore_T03",   # 7  bolt-action sniper, purple
+    "WID_Sniper_Heavy_Athena_SR_Ore_T03",              # 8  heavy sniper, gold
+    "WID_Launcher_Grenade_Athena_SR_Ore_T03",          # 9  grenade launcher, gold
+    "WID_Launcher_Rocket_Athena_SR_Ore_T03")]          # 10 rocket launcher, gold
 # The spawner stands this far (cm) past the station's entry pad, i.e. in the back half of the 30 m hallway
 # before the doors (players land ~3 m past the pad, the door wall is ~28.5 m past it).
 SPAWN_AHEAD = 2000
@@ -96,5 +109,25 @@ def build():
         print(f"station {k}: {n} guards at x={x:.0f} y={y:.0f} z={z:.0f}, {weapon.rsplit('.', 1)[1]}")
 
 
+def probe(names):
+    """Which of these WID_* names the station-1 spawner keeps (set, read back); the list is restored to WEAPONS[0]."""
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    first = sorted((a for a in found if isinstance(a, dict) and a.get("label", "").endswith("_Guards")), key=lambda a: a["label"])
+    if not first:
+        sys.exit("no guard spawner placed yet")
+    items = json.loads(u.call(OBJ, "get_properties", {"instance": ref(first[0]["actorPath"]), "properties": ["itemList"]})["returnValue"])
+    lst = items["itemList"]["refPath"]
+    for name in names + [WEAPONS[0].rsplit(".", 1)[1]]:
+        weapon = _W.format(name)
+        props(lst, {"itemListData": [{"itemDefinition": ref(weapon), "itemQuantity": 1}]})
+        back = json.loads(u.call(OBJ, "get_properties", {"instance": ref(lst), "properties": ["itemListData"]})["returnValue"])["itemListData"]
+        kept = bool(back) and (back[0].get("itemDefinition") or {}).get("refPath") == weapon
+        if name in names:
+            print("accepted" if kept else "REFUSED ", name)
+
+
 if __name__ == "__main__":
-    build()
+    if len(sys.argv) > 2 and sys.argv[1] == "--probe":
+        probe(sys.argv[2].split(","))
+    else:
+        build()

@@ -109,8 +109,18 @@ PLATE = {"visibleDuringGame": "Yes", "affect Movement Speed": True, "speed": 1.8
 # who is on the ice; it applies the player movement device (fnm_ice_floor) to them with low ground friction and
 # braking. Defaults (Current BR) are friction 6, braking 800.
 ICE_STATIONS = {6}
-# Braking (800) and its curve are refused by MCP, so friction alone carries the effect.
-ICE_FEEL = {"groundFriction_Override": True, "groundFriction": 0.15}
+# The device's Walking settings clamp braking to 800..1000 and refuse the braking curves (list_properties 2026-10-06), so
+# friction carries the slide (default 6; 0.15 felt subtle, Aaron 2026-10-06) and the Common settings cap acceleration
+# so a player is slow to get going and to turn. ICE_DEVICE: the device adds itself to EVERY player at game start unless
+# bAddToPlayersOnStart is off, which put stations 1-5 on faint ice until station 6's exit took it away (Aaron 2026-10-06:
+# "non icy levels have icy properties"); the director also RemoveFromAll()s at OnBegin. Re-apply: --ice-only.
+# Each settings value is written ALONE (a write that carried the value and its <name>_Override flag together answered
+# True but left the old value), then the assets are SAVED: saving is what refreshes the device's userOptionData (the
+# propertyData strings the Creative options UI shows and, as far as we know, what a cook ships), which otherwise keeps
+# the old number. ice_feel verifies both after the save.
+ICE_FEEL = {"groundFriction": 0.05}
+ICE_COMMON = {"maximumAcceleration": 500.0}
+ICE_DEVICE = {"bAddToPlayersOnStart": False}
 ZONE_BASE = (512, 512, 384)   # mutator zone at actor scale 1, bottom at the actor (like the barrier)
 BAFFLE_GAP = 900        # open width a baffle leaves
 CONTAINER = ("/CR_Legacy/Playsets/PlaysetProps/PPID_CR_Legacy_Apollo_Industrial_ShippingContainer_01_2bfba750."
@@ -495,11 +505,44 @@ def build(stations, doors, hall):
         # Tag first: adding the tag component rebuilds the device's settings sub-objects (the old ones turn into
         # TRASH_* and lose what was set on them).
         verse_tags(feel, project, ["fnm_ice_floor"])
-        walking = json.loads(u.call(OBJ, "get_properties", {"instance": ref(feel),
-                                                           "properties": ["movementSettings_Walking"]})["returnValue"])
-        props(walking["movementSettings_Walking"]["refPath"], ICE_FEEL)
+        ice_feel(feel)
     print(f"finish at x={ox:.0f} y={oy:.0f} level {oz:.0f}; director placed")
     paint()
+
+
+def ice_feel(feel):
+    """Apply ICE_DEVICE, ICE_FEEL (Walking) and ICE_COMMON (Common) to the ice movement device and read them back."""
+    props(feel, ICE_DEVICE)
+    subs = json.loads(u.call(OBJ, "get_properties", {"instance": ref(feel),
+                                                    "properties": ["movementSettings_Walking", "movementSettings_Common"]})["returnValue"])
+    walking, common = subs["movementSettings_Walking"]["refPath"], subs["movementSettings_Common"]["refPath"]
+    back = json.loads(u.call(OBJ, "get_properties", {"instance": ref(feel), "properties": list(ICE_DEVICE)})["returnValue"])
+    for target, values in ((walking, ICE_FEEL), (common, ICE_COMMON)):
+        for k, v in values.items():
+            props(target, {f"{k}_Override": True})
+            props(target, {k: v})
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    for target, values in ((walking, ICE_FEEL), (common, ICE_COMMON)):
+        got = json.loads(u.call(OBJ, "get_properties", {"instance": ref(target),
+                                                       "properties": list(values) + ["userOptionData"]})["returnValue"])
+        shown = {o["propertyName"]: o["propertyData"] for o in got.pop("userOptionData", {}).get("propertyOverrides", [])}
+        for k, v in values.items():
+            ui = shown.get(k[0].upper() + k[1:], "?")
+            back[k] = got.get(k)
+            if abs(float(got.get(k, 1e9)) - v) > 1e-6 or abs(float(ui or 1e9) - v) > 1e-6:
+                sys.exit(f"ice: {k} read back {got.get(k)!r} (options UI {ui!r}), wanted {v!r}")
+    print("ice device:", back)
+    if back.get("bAddToPlayersOnStart") is not False:
+        sys.exit("ice: bAddToPlayersOnStart did not clear")
+
+
+def ice_only():
+    """Re-apply the ice device's settings in place (after a tuning change; no course rebuild)."""
+    found = u.call(SCENE, "find_actors", {"name": "FNM_IceFeel", "collision_channels": []})["returnValue"]
+    feel = [a for a in found if isinstance(a, dict) and a.get("label") == "FNM_IceFeel"]
+    if not feel:
+        sys.exit("no FNM_IceFeel device: run the full build")
+    ice_feel(feel[0]["actorPath"])
 
 
 if __name__ == "__main__":
@@ -509,10 +552,13 @@ if __name__ == "__main__":
     ap.add_argument("--hall", type=int, default=3000, help="hallway length (cm) from entry to the door wall")
     ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
     ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
+    ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     a = ap.parse_args()
     if a.paint_only:
         paint()
     elif a.doors_only:
         doors_only()
+    elif a.ice_only:
+        ice_only()
     else:
         build(a.stations, a.doors, a.hall)

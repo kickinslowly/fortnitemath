@@ -48,7 +48,9 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
 - **Speed plates:** visible movement modulators (speed 1.8 for 3 s plus a forward push along the corridor).
 - **Ice:** station 6 (`ICE_STATIONS`), pale blue floor, sign "STATION 6 - ICE!", a baffle slalom. A mutator zone
   over the hallway (`fnm_ice_zone`) tells the director who is on it; it applies a player movement device
-  (`fnm_ice_floor`, ground friction 0.4 and braking 60 instead of 6 and 800) and removes it on exit.
+  (`fnm_ice_floor`: ground friction 0.05 instead of 6, acceleration capped at 500 cm/s²; braking stays 800, the
+  device clamps it) and removes it on exit, with a 0.25 s position poll as the backstop. The device's "add to
+  players on start" is off (it was on until 2026-10-06, which put every station on faint ice).
 - **Rules a connector must keep:** its turns sum to 0 (it ends facing +Y: the director's arrival facing is fixed),
   a staircase joins straight segments only, and the level never goes below 0. The builder exits on a violation.
 - Connector walls and stair steps take the tier colour of the station they lead into; floors stay white.

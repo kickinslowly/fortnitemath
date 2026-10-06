@@ -1,7 +1,8 @@
 # FNM console runtime -- per-player HUD (Verse UI: canvas + stack_box + text_blocks).
 # One fnm_hud instance per player; only that player sees it. The skill picker and the finish board's CHANGE SKILL
 # and CLOSE buttons are real Verse buttons on their own roots (InputMode All only while shown); clicks go to the director
-# through fnm_picker_listener (PROTOCOL 6b).
+# through fnm_picker_listener (PROTOCOL 6b). With a podium on the map the finish board shows WITHOUT those buttons, so
+# it never takes the player's movement (Aaron 2026-10-06).
 
 using { /Fortnite.com/UI }
 using { /UnrealEngine.com/Temporary/SpatialMath }
@@ -180,7 +181,7 @@ fnm_hud := class:
             Results : overlay = overlay:
                 Slots := array:
                     overlay_slot:
-                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.78}
+                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.62}
                         HorizontalAlignment := horizontal_alignment.Fill
                         VerticalAlignment := vertical_alignment.Fill
                     overlay_slot:
@@ -199,11 +200,14 @@ fnm_hud := class:
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 40.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
-                    # The finish board, centre screen; before the verdict slot so GO! / a check draw on top.
+                    # The finish board, hung from the top under the title panel (ClearQuestion shrinks that to one line) so
+                    # a finisher walking on into the victory area still sees where they are going (Aaron 2026-10-06: a
+                    # centred board hid it). Before the verdict slot so GO! / a check draw on top.
                     canvas_slot:
                         Widget := Results
-                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.45}, Maximum := vector2{X := 0.5, Y := 0.45}}
-                        Alignment := vector2{X := 0.5, Y := 0.5}
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
+                        Alignment := vector2{X := 0.5, Y := 0.0}
+                        Offsets := margin{Left := 0.0, Top := 130.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
                     canvas_slot:
                         Widget := stack_box:

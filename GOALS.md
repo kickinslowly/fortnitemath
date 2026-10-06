@@ -107,6 +107,39 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   through the spawner's `itemList`; seen in play 2026-10-04 (station 7: four guards with rifles, feed "eliminated
   … with a rifle"). Four AR guards killed a standing player in ~6 s from first hit: balance is Aaron's call.
   Stations 1–2 keep the loadout's rare pistol
+- [x] Aaron playtest 2026-10-06: the finish board popped up at once and locked him out of the victory area (he saw
+  the fireworks from behind it); "subtle" ice on non-ice stations; guard weapons "boring". Built 2026-10-06:
+  (1) with a podium the finish board captures no input, hangs from the top of the screen and hides itself after
+  `ResultsSeconds` (10 s); NEW RACE / CHANGE SKILL are the podium buttons only (the board keeps its buttons only on a
+  map with no podium). Seen headless: board up at the finish, "results closed" 10 s later, run 2 from NEW RACE.
+  (2) Ice root cause: the player movement device's `bAddToPlayersOnStart` was on, so EVERY player ran on friction
+  0.15 from game start until station 6's exit event took it off — the faint ice on stations 1-5. Off on the device
+  (`build_course.py --ice-only`, `ICE_DEVICE`) and in the director (`RemoveFromAll()` at OnBegin, a per-join check
+  that logs if it was on, `WatchIce` polling `IsInVolume` every 0.25 s as the backstop for a missed exit event).
+  Dialled up: friction 0.05 and a 500 cm/s² acceleration cap while on the ice (`ICE_FEEL`, `ICE_COMMON`); the device
+  clamps braking to 800+ and refuses its curves, so the stop stays ~2.5 m from a sprint. (3) Weapons: blue →
+  purple → gold, pistol → SMG → pump / combat / heavy shotgun → bolt + heavy sniper → grenade + rocket launcher
+  (`WEAPONS`; the 48 ids the spawner accepts are listed in `build_guards.py`, `--probe` tests more). Five guards
+  with legendary rocket launchers at station 10: balance is Aaron's call (guard count `GUARDS`, accuracy LOW)
+- [ ] Aaron playtest of the 2026-10-06 build: walk into the victory area while the board shows, then the podium;
+  is station 6 slippery enough now (and ONLY station 6); do the launcher stations play; the finish board's new
+  position (top, 62% black) legible?
+- [ ] Ice position poll (`WatchIce` through `mutator_zone_device.IsInVolume`) is UNVERIFIED in play: the headless
+  auto-right run never enters the station 6 hallway (it teleports into the door vestibules), and the station-6 start
+  session (`DebugStartStage 6`) was killed by the harness for low system memory before it logged anything. Risk if
+  `IsInVolume` never succeeds: the poll would take the ice off 0.25 s after the zone's enter event, i.e. no ice at
+  all. Check: one `DebugAutoPick 0` + `DebugStartStage 6` session should log one "on ice" and no "off ice"
+- [x] Multiplayer pass (`tools/build_island.py`, 2026-10-06; `--check` reports): the director was per player
+  already, the island was not. Set: teams Cooperative (was Free For All: classmates could shoot each other with the
+  dropped guns; friendly fire already off), Down But Not Out Off (Cooperative's default would make guard kills a
+  crawl, not the elimination the director waits for), join in progress Spawn Immediately (was "next round", which
+  never comes: late joiners would have spectated forever), environment damage Off and building None (no shooting the
+  doors apart, no ramps over the walls; the island hands out infinite materials), five more spawn pads (7; the
+  spot at x -750, y 0 has no floor), and `bCanBeDamaged` off on all 295 gallery props. Max players 16, respawn 1 s,
+  spawn limit unlimited (override off). Unverified in play: two or more real players; that `bCanBeDamaged` false on
+  a gallery prop stops guard rockets (the island setting covers players only)
+- [ ] Round time limit reads 5 (minutes, override OFF so the default "none" should apply); nobody has hit a round
+  end in sessions longer than 5 minutes, but confirm once on the published version
 
 ## Backlog (from 2026-10-02 build audit)
 - [x] Order-of-ops 1.1.0: M_BEFORE_D 13, A_BEFORE_S 13 (were 0 / 3)

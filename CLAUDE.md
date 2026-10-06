@@ -39,7 +39,11 @@ before UEFN work. Project-specific:
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
-  props in place). Guard weapons per station: `WEAPONS` in `tools/build_guards.py`.
+  props in place), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
+  one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
+  options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
+  gallery props; `--check` reports). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the
+  spawner accepts are listed there; `--probe WID,WID` tests more).
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,
   `fnm_door_a..d`, `fnm_entry`, `fnm_finish`); max 20 stations.
@@ -52,8 +56,8 @@ before UEFN work. Project-specific:
   the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only),
   `DebugIgnoreTriggerEvents` (drops every door trigger event, so only the position backstop answers; with
   `DebugAutoRightAnswers` it proves the backstop carries a run),
-  `DebugVictoryTest` (on CLOSE of the finish board, stands the player before NEW RACE; with `DebugAutoRightAnswers` it
-  waits for a real E press instead of simulating one), `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
+  `DebugVictoryTest` (when the finish board hides itself, `ResultsSeconds` after a finish, stands the player before NEW
+  RACE; with `DebugAutoRightAnswers` it waits for a real E press instead of simulating one), `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
   (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →

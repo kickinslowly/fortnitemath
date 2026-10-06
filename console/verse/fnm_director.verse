@@ -23,16 +23,21 @@
 # Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
 #                HUD for CorrectFeedbackSeconds while the player moves on.
-# After the last station -> a finish board mid-screen: time, medal, personal best, island record (with the
-#                holder's name), first-try accuracy and the session's top times (best per player). It stays until
-#                the player closes it (CLOSE); they roam the victory area, where the podium's NEW RACE button
-#                (fnm_new_race) starts a fresh run from station 1 and CHANGE SKILL (fnm_change_skill) reopens the
-#                picker. A giant screen there (fnm_hall_*) ranks everyone present by their all-time best
-#                (fnm_save.verse). No podium button on the map: the old automatic restart after RestartSeconds.
+# After the last station -> a finish board hung from the top of the screen: time, medal, personal best, island
+#                record (with the holder's name), first-try accuracy and the session's top times (best per player).
+#                It captures no input: the player walks straight on into the victory area while it shows, and it
+#                hides itself after ResultsSeconds (Aaron 2026-10-06: the old board popped up and locked him out of
+#                the victory area). There the podium's NEW RACE button (fnm_new_race) starts a fresh run from
+#                station 1 and CHANGE SKILL (fnm_change_skill) reopens the picker. A giant screen there (fnm_hall_*)
+#                ranks everyone present by their all-time best (fnm_save.verse). No podium button on the map: the
+#                board keeps its CLOSE / CHANGE SKILL buttons (which hold the player) and the automatic restart
+#                after RestartSeconds.
 # Engagement: a 3-2-1-GO countdown and a race clock per run; a first-try right answer builds a streak and a
 # speed boost (longer with the streak), shown big in the top panel with the boost's seconds counting down;
 # shipping containers tagged fnm_slider sweep across the hallways; a player inside an fnm_ice_zone gets the
-# fnm_ice_floor movement settings (slippery) until they leave it.
+# fnm_ice_floor movement settings (slippery) until they leave it: zone enter/exit events plus a position poll
+# (WatchIce, IsInVolume), so a teleport out always ends the ice; the device's own add-to-everyone-at-start is
+# undone at OnBegin (RemoveFromAll), since it put the whole course on faint ice (Aaron 2026-10-06).
 # Guards: a guard spawner tagged fnm_guards + fnm_station_NN (tools/build_guards.py, more guards per later station)
 # is switched on while any player is on that station and off (its guards despawn) once nobody is. Any player
 # eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol. An
@@ -107,6 +112,8 @@ fnm_player_state := class:
     var ZoneSince : float = 0.0
     var ZoneFired : logic = false
     var Finished : logic = false
+    # True while the fnm_ice_floor settings are on this player (SetIce).
+    var OnIce : logic = false
     # Right-first-try answers in a row (a wrong door resets it).
     var Streak : int = 0
     var BestStreak : int = 0
@@ -237,9 +244,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # (and a second finish against a best time) can be checked without walking. false = off (ship value).
     @editable
     DebugAutoRightAnswers : logic = false
-    # Test hook for the victory area: when a player CLOSEs the finish board, stand them 1.5 m in front of the NEW RACE
-    # button facing it (press E to try it), and DebugAutoRightAnswers waits for that real press instead of
-    # simulating one. false = off (ship value).
+    # Test hook for the victory area: when a player's finish board hides (ResultsSeconds after the finish, or CLOSE
+    # without a podium), stand them 1.5 m in front of the NEW RACE button facing it (press E to try it), and
+    # DebugAutoRightAnswers waits for that real press instead of simulating one. false = off (ship value).
     @editable
     DebugVictoryTest : logic = false
     # Test hook: each joining player starts at this stage's entry (to try a later hallway's obstacles). 0 or 1 =
@@ -291,6 +298,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Seconds before the automatic restart, used only without a podium NEW RACE button or under DebugAutoRightAnswers.
     @editable
     RestartSeconds : int = 12
+    # With a podium: seconds the finish board stays up (capturing no input) before it hides itself.
+    @editable
+    ResultsSeconds : float = 10.0
     # Rows on the finish board's session leaderboard (best time per player). The HUD has room for 5.
     @editable
     BoardSize : int = 5
@@ -338,6 +348,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var BoostDevice : ?movement_modulator_device = false
     # The low-friction movement settings applied while a player stands in an fnm_ice_zone (icy hallways).
     var IceFloor : ?player_movement_settings_device = false
+    var IceZones : []mutator_zone_device = array{}
     # The session's best time per player, fastest first, at most BoardSize rows, PER SKILL: keyed by the cartridge's
     # index in the slot. The map is the island, so a board reads "best Order of Operations on this map" (Aaron,
     # 2026-10-04: never compare timings across skills). Row 0 of a board holds that skill's island record.
@@ -388,13 +399,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Print("FNM: boost {FnmYesNo(if (BoostDevice?) then true else false)}, {SliderCount} sliders")
         for (Object : FindCreativeObjectsWithTag(fnm_ice_floor), Device := player_movement_settings_device[Object]):
             set IceFloor = option{Device}
-        var IceZones : int = 0
+            # The device adds itself to every player at game start unless its bAddToPlayersOnStart is off, which put
+            # stations 1-5 on faint ice (Aaron 2026-10-06). Undo it here whatever the placed device says.
+            Device.RemoveFromAll()
         for (Object : FindCreativeObjectsWithTag(fnm_ice_zone), Zone := mutator_zone_device[Object]):
             Zone.Enable()
             Zone.AgentEntersEvent.Subscribe(OnIceEnter)
             Zone.AgentExitsEvent.Subscribe(OnIceExit)
-            set IceZones += 1
-        Print("FNM: {IceZones} ice zones, ice floor device {FnmYesNo(if (IceFloor?) then true else false)}")
+            set IceZones += array{Zone}
+        Print("FNM: {IceZones.Length} ice zones, ice floor device {FnmYesNo(if (IceFloor?) then true else false)}")
         set FrostFx = FindFx(fnm_pp_frost)
         set MudFx = FindFx(fnm_pp_mud)
         set DizzyFx = FindFx(fnm_pp_dizzy)
@@ -611,6 +624,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.Finished = true
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(Departed)
+        if (Device := IceFloor?):
+            Device.RemoveFrom(Departed)
         var Remaining : [player]fnm_player_state = map{}
         for (Key -> Value : PlayerStates, Key <> Departed):
             if (set Remaining[Key] = Value) {}
@@ -632,6 +647,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendTo(Joined, First.RetryTeleporter)
             HoldStill(State)
             spawn{ WatchLife(State) }
+            # The ice device may have added itself to this player at game start (its bAddToPlayersOnStart): log it,
+            # since that was the "faint ice everywhere" of 2026-10-06, and take it off.
+            if (Device := IceFloor?):
+                var WasOn : logic = false
+                for (Agent : Device.GetRegisteredAgents(), Registered := player[Agent], Registered = Joined):
+                    set WasOn = true
+                if (WasOn?):
+                    Device.RemoveFrom(Joined)
+                    Print("FNM: ice floor was already on the joining player (device add-on-start); removed")
             BeginPicking(State)
 
     # Held still while choosing (they may look around); the countdown releases them.
@@ -878,6 +902,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Sleep(DoorWatchSeconds)
             for (Player -> State : PlayerStates):
                 WatchDoors(State)
+                WatchIce(State)
 
     WatchDoors(State:fnm_player_state):void =
         Now := GetSimulationElapsedTime()
@@ -941,10 +966,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (State.Finished?):
                 set Finishes += 1
                 if (Finishes >= 2) then break
-                # With a podium, press NEW RACE for them after a look at the board (DebugVictoryTest: wait for a real
-                # CLOSE and press). (After CHANGE SKILL, also until the new skill is picked.)
+                # With a podium, press NEW RACE for them once the board has hidden itself (DebugVictoryTest: wait for a
+                # real press instead). (After CHANGE SKILL, also until the new skill is picked.)
                 if (not DebugVictoryTest?, NewRaceButtons.Length > 0):
-                    Sleep(6.0)
+                    Sleep(ResultsSeconds + 3.0)
                     if (State.Finished?, not State.Picking?):
                         Print("FNM: debug pressing new race")
                         CloseResults(State)
@@ -1251,13 +1276,24 @@ fnm_director := class(creative_device, fnm_picker_listener):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
         else:
-            State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false)
             set HallHoldUntil = GetSimulationElapsedTime() + HallCycleSeconds * 2.0
             ShowHall(Skill)
             if (NewRaceButtons.Length = 0):
+                # No podium: the board's own buttons (they hold the player still) and the automatic restart.
+                State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false)
                 spawn{ NextRun(State) }
             else:
-                State.Hud.SetCountdown("CLOSE this, then press NEW RACE at the podium to race again")
+                # A podium: the board captures no input, so the player walks on into the victory area at once (Aaron
+                # 2026-10-06: the old board popped up and locked him out of it); it hides itself after ResultsSeconds.
+                State.Hud.SetCountdown("Walk on!   NEW RACE  /  CHANGE SKILL  at the podium ahead")
+                spawn{ HideResultsLater(State) }
+
+    # Hides the finish board ResultsSeconds after a finish, unless a new run or a skill change already did.
+    HideResultsLater(State:fnm_player_state)<suspends>:void =
+        Generation := State.RunGeneration
+        Sleep(ResultsSeconds)
+        if (PlayerStates[State.Player], State.Finished?, State.RunGeneration = Generation):
+            CloseResults(State)
 
     # ---------------------------------------------------------------- victory area
 
@@ -1309,7 +1345,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: change skill pressed at the podium")
             ChangeSkill(State)
 
-    # CLOSE on the finish board: the board and its buttons go, the player can move about the victory area.
+    # The finish board goes (its timer, or CLOSE without a podium) and so do its buttons, if any.
     CloseResults(State:fnm_player_state):void =
         State.Hud.HideResults()
         State.Hud.HideFinishButtons()
@@ -1515,17 +1551,32 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Slider.MoveTo(Home.Translation, Home.Rotation, SliderSeconds)
             Sleep(SliderPause)
 
-    # Ice hallways: slippery footing while inside the zone, normal footing once out (any exit: walking on through
-    # the doors, a penalty teleport, an elimination).
+    # Ice hallways: slippery footing while inside a zone, normal footing once out. The zone's enter/exit events answer
+    # at once; WatchIce polls the zones (IsInVolume) every DoorWatchSeconds as the backstop, so a teleport out of the
+    # zone (a penalty, an elimination, a new run) ends the ice even when no exit event comes.
     OnIceEnter(Agent:agent):void =
-        if (Device := IceFloor?):
-            Device.AddTo(Agent)
-            Print("FNM: on ice")
+        if (Player := player[Agent], State := PlayerStates[Player]):
+            SetIce(State, true)
 
     OnIceExit(Agent:agent):void =
-        if (Device := IceFloor?):
-            Device.RemoveFrom(Agent)
-            Print("FNM: off ice")
+        if (Player := player[Agent], State := PlayerStates[Player]):
+            SetIce(State, false)
+
+    WatchIce(State:fnm_player_state):void =
+        var Inside : logic = false
+        for (Zone : IceZones, Zone.IsInVolume[State.Player]):
+            set Inside = true
+        SetIce(State, Inside)
+
+    SetIce(State:fnm_player_state, On:logic):void =
+        if (On <> State.OnIce, Device := IceFloor?):
+            set State.OnIce = On
+            if (On?):
+                Device.AddTo(State.Player)
+                Print("FNM: on ice")
+            else:
+                Device.RemoveFrom(State.Player)
+                Print("FNM: off ice")
 
     EndGameLater(Finisher:player)<suspends>:void =
         Sleep(EndGameDelaySeconds)
