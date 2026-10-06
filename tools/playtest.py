@@ -16,6 +16,7 @@ Aaron may be in another game on this PC. Only --keys brings the client forward (
 before using it while he is at the keyboard. A background client renders at ~10 fps.
 """
 import argparse
+import datetime
 import os
 import subprocess
 import sys
@@ -27,8 +28,34 @@ import uefn_mcp as u  # noqa: E402
 
 SESSION = "ValkyrieToolset.SessionToolset"
 GUI = Path.home() / ".claude/skills/uefn-mcp/scripts/gui_act.ps1"
-# Physical-pixel position of the Fortnite taskbar icon; clicking it brings the game window forward.
-FOCUS_CLICK = "c:1677,1416"
+# Brings the game client forward without the taskbar: clicking its taskbar icon while it is ALREADY in front
+# minimizes it (2026-10-05). Restores a minimized client; if it is not the foreground window, minimizes and restores
+# it (a click inside the game would fire the weapon). Prints the client's state.
+PS_FOCUS = r'''
+Add-Type @"
+using System; using System.Runtime.InteropServices;
+public class WF {
+  [StructLayout(LayoutKind.Sequential)] public struct R { public int L, T, Ri, B; }
+  [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int n);
+  [DllImport("user32.dll")] public static extern bool IsIconic(IntPtr h);
+  [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+  [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr h, out R r);
+  [DllImport("user32.dll")] public static extern bool SetProcessDPIAware();
+  [DllImport("user32.dll")] public static extern bool SetCursorPos(int x, int y);
+  [DllImport("user32.dll")] public static extern void mouse_event(int f, int x, int y, int d, int e);
+}
+"@
+[WF]::SetProcessDPIAware() | Out-Null
+$p = Get-Process FortniteClient-Win64-Shipping -ErrorAction SilentlyContinue | ?{ $_.MainWindowHandle -ne 0 } | select -first 1
+if (-not $p) { "no-client"; exit }
+$h = $p.MainWindowHandle
+if ([WF]::IsIconic($h)) { [WF]::ShowWindow($h, 9) | Out-Null; Start-Sleep -Milliseconds 800 }
+if ([WF]::GetForegroundWindow() -eq $h) { "already-front"; exit }
+# Minimize then restore: a restored window comes to the front (a click on its title bar hit whatever covered it).
+[WF]::ShowWindow($h, 6) | Out-Null; Start-Sleep -Milliseconds 300
+[WF]::ShowWindow($h, 9) | Out-Null; Start-Sleep -Milliseconds 800
+if ([WF]::GetForegroundWindow() -eq $h) { "focused" } else { "not-focused" }
+'''
 HOLDKEY = Path(__file__).parent / "holdkey.ps1"
 WINCAP = Path(__file__).parent / "wincap.ps1"
 # Keyboard scan codes for --keys.
@@ -53,9 +80,20 @@ def shot(name, steps=None):
 
 
 def focus_client():
-    """Bring the game forward (taskbar click): needed for simulated keys only. Steals the foreground."""
-    subprocess.run(["powershell", "-NoProfile", "-File", str(GUI), "-steps", FOCUS_CLICK + ";w:0.3", "-name", "pt_focus"],
-                   capture_output=True)
+    """Bring the game forward (restore if minimized, else minimize + restore): needed for simulated keys and HUD
+    clicks only. Steals the foreground. Returns the state PS_FOCUS printed."""
+    r = subprocess.run(["powershell", "-NoProfile", "-Command", PS_FOCUS], capture_output=True, text=True)
+    state = r.stdout.strip()
+    print("  focus:", state)
+    return state
+
+
+def log_time(line):
+    """UTC timestamp of an editor log line ("[2026.10.06-03.40.11:776]..."), or None."""
+    try:
+        return datetime.datetime.strptime(line[1:20], "%Y.%m.%d-%H.%M.%S")
+    except ValueError:
+        return None
 
 
 def fnm_lines(pattern="FNM:"):
@@ -104,9 +142,12 @@ def watch(count, timeout=150):
 def wait_for(pattern, baseline, timeout=120):
     """Block until an editor log line matching pattern that is not in baseline appears; return it (or
     None on timeout). Take the baseline BEFORE relaunching: a director hook can log within seconds."""
+    # Also newer than this call: after a relaunch the log listing can return older lines that were missing from the
+    # baseline, and a "new" line from a previous session once ended a wait at once (2026-10-05).
+    since = datetime.datetime.utcnow() - datetime.timedelta(seconds=5)
     start = time.time()
     while time.time() - start < timeout:
-        new = [line for line in fnm_lines(pattern) if line not in baseline]
+        new = [line for line in fnm_lines(pattern) if line not in baseline and (log_time(line) or since) >= since]
         if new:
             return new[-1]
         time.sleep(0.25)

@@ -9,7 +9,7 @@
     python tools/click_hud.py log <pattern>     # new FNM lines since the last call with that pattern
     python tools/click_hud.py origin            # the client area's screen origin (physical px) and minimized flag
 
-Clicks take the foreground (gui_act.ps1 taskbar click + mouse click): ask first if Aaron may be in another app.
+Clicks take the foreground (playtest.focus_client + mouse click): ask first if Aaron may be in another app.
 Screen position = client origin (ClientToScreen, DPI-aware) + pixel in the PNG; a left monitor gives negative x.
 Verified 2026-10-04: grade -> skill -> CHANGE SKILL all reached the buttons' OnClick.
 """
@@ -120,7 +120,8 @@ def cmd_click(x, y, name, wait_pattern=None):
     sx, sy = ox + int(x), oy + int(y)
     if wait_pattern:
         new_lines(wait_pattern)  # baseline
-    steps = f"{pt.FOCUS_CLICK};w:1;c:{sx},{sy};w:1"
+    pt.focus_client()
+    steps = f"c:{sx},{sy};w:1"
     print("click at screen", sx, sy)
     subprocess.run(["powershell", "-NoProfile", "-File", str(GUI), "-steps", steps, "-name", "click_hud"],
                    capture_output=True)
