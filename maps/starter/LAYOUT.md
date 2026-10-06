@@ -68,5 +68,12 @@ Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_
 clear; then a 70 cm gold hurdle, baffles (a full-height wall from one side, 9 m gap on the other), and from
 station 5 shipping containers that slide across the hallway (Verse, `fnm_slider`). Later stations mix all three.
 
+## Decor (2026-10-05, `tools/build_decor.py`)
+A giant 3D station number on each door wall's lintel; wall torches above head height; a chalkboard with a chalk
+math line on the right wall facing the station sign; potted plants in the entry corners; six giant digits floating
+outside each station, 25-50 m off the centre line (no collision: a Yeet skydive may pass them); at the finish a
+"100" above the FINISH! sign, a podium, flowers, fireworks props. Nothing stands in the run line, the doors or the
+vestibules.
+
 ## Still to do (GOALS G4)
-- Themed prop kit beyond the tier colours, if wanted.
+- Decor seen only in editor captures: torch flames, fireworks and the chalk text are play-time and unverified.

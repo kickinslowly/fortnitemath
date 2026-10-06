@@ -32,7 +32,9 @@ before UEFN work. Project-specific:
   `tools/playtest.py` (relaunch session → screenshot of the game via PrintWindow (`tools/wincap.ps1`, never takes the
   foreground) + the director's `FNM:` log lines; `--watch N`; `--keys` clicks the game forward — ask first if Aaron may
   be in another app),
-  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_guards.py`
+  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
+  (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
+  geometry from the course actors, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
