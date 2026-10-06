@@ -34,7 +34,8 @@ before UEFN work. Project-specific:
   be in another app),
   `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
   (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
-  geometry from the course actors, rerun after a course rebuild), `tools/build_guards.py`
+  geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen
+  billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
@@ -51,7 +52,8 @@ before UEFN work. Project-specific:
   the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only),
   `DebugIgnoreTriggerEvents` (drops every door trigger event, so only the position backstop answers; with
   `DebugAutoRightAnswers` it proves the backstop carries a run),
-  `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
+  `DebugVictoryTest` (on CLOSE of the finish board, stands the player before NEW RACE; with `DebugAutoRightAnswers` it
+  waits for a real E press instead of simulating one), `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
   (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →

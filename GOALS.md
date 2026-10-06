@@ -83,6 +83,13 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Decor pass (Aaron 2026-10-05, editor only, no play session): station numbers, torches, chalkboards, plants,
   floating sky digits, finish "100" (`tools/build_decor.py`, LAYOUT.md). Seen in editor captures. Not seen in play:
   torch flames, fireworks, chalk text (billboard text does not render in the editor viewport)
+- [x] Aaron playtest notes (2026-10-05), built and seen in play the same evening: torches now burn
+  (`BP_TRV_ALight_Torch_02_CP`); the ice station has icicles, giant snowflakes, ice blocks, snow piles, a snowman
+  and ice statues; the finish board stays until CLOSE; podium NEW RACE / CHANGE SKILL buttons (real E press
+  started run 2); an ALL-TIME BEST screen on the end wall (`tools/build_finish.py`)
+- [ ] All-time bests across sessions: saved with Verse persistence and read back within a session (the screen shows
+  them), but each new UEFN play session started with no saved best. Unverified whether a published/private
+  version keeps them between sessions (expected: yes; UEFN test sessions may not)
 - [ ] Hurdle variation as we polish (Aaron 2026-10-04: "would recommend additional variation")
 - [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
   `persistable`, an island-wide board needs a different store)

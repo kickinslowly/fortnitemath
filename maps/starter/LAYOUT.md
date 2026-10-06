@@ -75,5 +75,12 @@ outside each station, 25-50 m off the centre line (no collision: a Yeet skydive 
 "100" above the FINISH! sign, a podium, flowers, fireworks props. Nothing stands in the run line, the doors or the
 vestibules.
 
+## Victory area (2026-10-05, `tools/build_finish.py`)
+The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");
+there is no automatic restart. The end wall's board is a giant ALL-TIME BEST screen: the director cycles it through
+the skills, ranking every player on the island by their saved best (Verse persistence, `fnm_save.verse`; nobody's
+names can be stored, so only players present are listed). Two lecterns in front: NEW RACE and CHANGE SKILL buttons
+(E). Fireworks burst in the sky behind the end wall. Seen in play 2026-10-05.
+
 ## Still to do (GOALS G4)
 - Decor seen only in editor captures: torch flames, fireworks and the chalk text are play-time and unverified.

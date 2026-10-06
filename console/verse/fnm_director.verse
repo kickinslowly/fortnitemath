@@ -16,7 +16,7 @@
 # best); otherwise the next run keeps the skill. Guards ignore a player who is picking.
 # Test hooks (all @editable, ship values in brackets): DebugAutoPick (-1) picks Cartridges[N] on join with no menu,
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
-# (-1), DebugAutoRightAnswers (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false).
+# (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
 # backstop (WatchDoors) answers for a player who stands in a door zone when no trigger event was taken.
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
@@ -24,8 +24,11 @@
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
 #                HUD for CorrectFeedbackSeconds while the player moves on.
 # After the last station -> a finish board mid-screen: time, medal, personal best, island record (with the
-#                holder's name), first-try accuracy and the session's top times (best per player), then (unless
-#                an end_game_device is set) a fresh run from station 1 to beat that time.
+#                holder's name), first-try accuracy and the session's top times (best per player). It stays until
+#                the player closes it (CLOSE); they roam the victory area, where the podium's NEW RACE button
+#                (fnm_new_race) starts a fresh run from station 1 and CHANGE SKILL (fnm_change_skill) reopens the
+#                picker. A giant screen there (fnm_hall_*) ranks everyone present by their all-time best
+#                (fnm_save.verse). No podium button on the map: the old automatic restart after RestartSeconds.
 # Engagement: a 3-2-1-GO countdown and a race clock per run; a first-try right answer builds a streak and a
 # speed boost (longer with the streak), shown big in the top panel with the boost's seconds counting down;
 # shipping containers tagged fnm_slider sweep across the hallways; a player inside an fnm_ice_zone gets the
@@ -234,6 +237,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # (and a second finish against a best time) can be checked without walking. false = off (ship value).
     @editable
     DebugAutoRightAnswers : logic = false
+    # Test hook for the victory area: when a player CLOSEs the finish board, stand them 1.5 m in front of the NEW RACE
+    # button facing it (press E to try it), and DebugAutoRightAnswers waits for that real press instead of
+    # simulating one. false = off (ship value).
+    @editable
+    DebugVictoryTest : logic = false
     # Test hook: each joining player starts at this stage's entry (to try a later hallway's obstacles). 0 or 1 =
     # station 1 (ship value 0).
     @editable
@@ -280,12 +288,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Countdown before each run: one beat per number.
     @editable
     CountdownStepSeconds : float = 0.8
-    # Seconds the results show before the player is put back at station 1 for another run (no End Game device).
+    # Seconds before the automatic restart, used only without a podium NEW RACE button or under DebugAutoRightAnswers.
     @editable
     RestartSeconds : int = 12
     # Rows on the finish board's session leaderboard (best time per player). The HUD has room for 5.
     @editable
     BoardSize : int = 5
+    # Seconds the all-time screen shows each skill before the next (it cycles through skills with times).
+    @editable
+    HallCycleSeconds : float = 8.0
     # Door backstop: how often player positions are checked against the door zones, and how long a player must
     # stand in one with no door event taken before it answers for them.
     @editable
@@ -338,6 +349,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var GuardSpawners : []?guard_spawner_device = array{}
     var GuardsUp : []logic = array{}
     var GuardsSpawned : int = 0
+    # Victory area (tools/build_finish.py): podium buttons and the all-time screen's billboards (rows top to bottom).
+    var NewRaceButtons : []button_device = array{}
+    var ChangeSkillButtons : []button_device = array{}
+    var HallHeads : []billboard_device = array{}
+    var HallRows : []billboard_device = array{}
+    # The screen holds a just-finished skill until this simulation time before cycling on.
+    var HallHoldUntil : float = 0.0
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -404,6 +422,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: {CountGuardStations()} stations have guards")
             spawn{ GuardLoop() }
             spawn{ DoorWatch() }
+            SetUpVictoryArea()
             Playspace := GetPlayspace()
             Playspace.PlayerAddedEvent().Subscribe(OnPlayerAdded)
             Playspace.PlayerRemovedEvent().Subscribe(OnPlayerRemoved)
@@ -667,6 +686,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Kind = fnm_pick.ChangeSkill):
                 if (State.Finished?, not State.Picking?):
                     ChangeSkill(State)
+            else if (Kind = fnm_pick.Close):
+                if (State.Finished?, not State.Picking?):
+                    CloseResults(State)
             else if (State.Picking?):
                 if (Kind = fnm_pick.Grade):
                     Grades := GradeList()
@@ -691,7 +713,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.TierPools = Pools
             set State.Decks = FnmShuffleAll(Pools)
             set State.Stage = 1
-            set State.BestTime = if (Best := State.BestTimes[Index]) then Best else -1.0
+            # Personal best = the faster of this session's and the all-time one the island saved for them.
+            SessionBest := if (Best := State.BestTimes[Index]) then Best else -1.0
+            set State.BestTime = if (Saved := FnmSavedBest[State.Player, Chosen.Id], (SessionBest < 0.0 or Saved < SessionBest)) then Saved else SessionBest
             State.Hud.HidePicker()
             State.Hud.SetTitle(Chosen.Title, Chosen.Subtitle)
             DrawItem(State)
@@ -719,11 +743,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (DebugAutoRightAnswers?):
                     spawn{ DebugAutoRight(State) }
 
-    # CHANGE SKILL on the finish board: cancels the pending next run and resets the run; then the picker again, from
-    # station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
+    # CHANGE SKILL (finish board or podium): cancels any pending restart and resets the run; then the picker again,
+    # from station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
     ChangeSkill(State:fnm_player_state):void =
         set State.RunGeneration += 1
-        State.Hud.HideChangeSkill()
+        State.Hud.HideFinishButtons()
         State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)
@@ -917,7 +941,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (State.Finished?):
                 set Finishes += 1
                 if (Finishes >= 2) then break
-                # (After CHANGE SKILL, also until the new skill is picked.)
+                # With a podium, press NEW RACE for them after a look at the board (DebugVictoryTest: wait for a real
+                # CLOSE and press). (After CHANGE SKILL, also until the new skill is picked.)
+                if (not DebugVictoryTest?, NewRaceButtons.Length > 0):
+                    Sleep(6.0)
+                    if (State.Finished?, not State.Picking?):
+                        Print("FNM: debug pressing new race")
+                        CloseResults(State)
+                        set State.RunGeneration += 1
+                        spawn{ StartNewRun(State) }
                 loop:
                     Sleep(0.5)
                     if (not State.Finished?, not State.Picking?) then break
@@ -1185,10 +1217,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
         StopBoost(State)
         # Personal best and the board are per skill (the cartridge's index in the slot).
         Skill := State.CartridgeIndex
+        HadBest := if (State.BestTime >= 0.0) then true else false
         NewBest := if (State.BestTime < 0.0 or Time < State.BestTime) then true else false
         if (NewBest?):
             set State.BestTime = Time
             if (set State.BestTimes[Skill] = Time) {}
+            FnmSaveBest(State.Player, State.Cartridge.Id, Time)
         var IslandRecord : logic = true
         if (Top := BoardFor(Skill)[0], Time >= Top.Time):
             set IslandRecord = false
@@ -1202,7 +1236,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.SetStreak("")
         State.Hud.ClearQuestion()
         State.Hud.ClearVerdictNow()
-        BestTail := if (NewBest?, State.Runs > 1) then "   NEW BEST!" else ""
+        BestTail := if (NewBest?, HadBest?) then "   NEW BEST!" else ""
         RecordTail := if (IslandRecord?) then "   NEW RECORD!" else ""
         RecordLine := if (Top := Board[0]) then FnmHolder(FnmClock(Top.Time), Top.Who, RecordTail) else FnmText("Island record   -")
         Rows := for (K -> Row : Board) { FnmRow(K + 1, Row.Who, FnmClock(Row.Time)) }
@@ -1217,9 +1251,121 @@ fnm_director := class(creative_device, fnm_picker_listener):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
         else:
-            if (Cartridges.Length > 1):
-                State.Hud.ShowChangeSkill()
-            spawn{ NextRun(State) }
+            State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false)
+            set HallHoldUntil = GetSimulationElapsedTime() + HallCycleSeconds * 2.0
+            ShowHall(Skill)
+            if (NewRaceButtons.Length = 0):
+                spawn{ NextRun(State) }
+            else:
+                State.Hud.SetCountdown("CLOSE this, then press NEW RACE at the podium to race again")
+
+    # ---------------------------------------------------------------- victory area
+
+    # Finds the podium buttons and the all-time screen (tools/build_finish.py) and starts the screen.
+    SetUpVictoryArea():void =
+        for (Object : FindCreativeObjectsWithTag(fnm_new_race), Button := button_device[Object]):
+            Button.SetInteractionText(FnmText("Race again"))
+            Button.InteractedWithEvent.Subscribe(OnNewRaceButton)
+            set NewRaceButtons += array{Button}
+        for (Object : FindCreativeObjectsWithTag(fnm_change_skill), Button := button_device[Object]):
+            Button.SetInteractionText(FnmText("Change skill"))
+            Button.InteractedWithEvent.Subscribe(OnChangeSkillButton)
+            set ChangeSkillButtons += array{Button}
+        for (Object : FindCreativeObjectsWithTag(fnm_hall_head), Board := billboard_device[Object]):
+            set HallHeads += array{Board}
+        var Rows : []billboard_device = array{}
+        for (Object : FindCreativeObjectsWithTag(fnm_hall_row), Board := billboard_device[Object]):
+            set Rows += array{Board}
+        # Top row first: insertion by height, highest first.
+        for (Row : Rows):
+            var Next : []billboard_device = array{}
+            var Placed : logic = false
+            for (Other : HallRows):
+                if (not Placed?, Row.GetTransform().Translation.Z > Other.GetTransform().Translation.Z):
+                    set Next += array{Row}
+                    set Placed = true
+                set Next += array{Other}
+            if (not Placed?):
+                set Next += array{Row}
+            set HallRows = Next
+        Print("FNM: victory area: {NewRaceButtons.Length} new-race, {ChangeSkillButtons.Length} change-skill buttons, screen {HallHeads.Length} heading + {HallRows.Length} rows")
+        if (HallHeads.Length + HallRows.Length > 0):
+            spawn{ HallLoop() }
+
+    # NEW RACE on the podium: a finished player starts a fresh run of the same skill at once.
+    OnNewRaceButton(Agent:agent):void =
+        if (Player := player[Agent], State := PlayerStates[Player]):
+            if (State.Finished?, not State.Picking?):
+                Print("FNM: new race pressed")
+                # Cancels an automatic restart that may still be counting down.
+                set State.RunGeneration += 1
+                spawn{ StartNewRun(State) }
+            else:
+                spawn{ FlashNotice(State, "Finish the race first!") }
+
+    # CHANGE SKILL on the podium: same as the finish board's button.
+    OnChangeSkillButton(Agent:agent):void =
+        if (Player := player[Agent], State := PlayerStates[Player], State.Finished?, not State.Picking?):
+            Print("FNM: change skill pressed at the podium")
+            ChangeSkill(State)
+
+    # CLOSE on the finish board: the board and its buttons go, the player can move about the victory area.
+    CloseResults(State:fnm_player_state):void =
+        State.Hud.HideResults()
+        State.Hud.HideFinishButtons()
+        State.Hud.SetTarget(if (NewRaceButtons.Length > 0) then "Race again: NEW RACE at the podium" else "")
+        Print("FNM: results closed")
+        if (DebugVictoryTest?):
+            spawn{ DebugToPodium(State) }
+
+    DebugToPodium(State:fnm_player_state)<suspends>:void =
+        Sleep(1.0)
+        if (Button := NewRaceButtons[0], Character := State.Player.GetFortCharacter[]):
+            Spot := Button.GetTransform().Translation - vector3{X := 0.0, Y := 200.0, Z := 100.0}
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: debug at podium {Spot}")
+
+    # The all-time screen (a fixed ALL-TIME BEST line, then the skill name and its rows): one skill at a time, every player on the island ranked by their saved all-time best for it
+    # (fnm_save.verse). Cycles every HallCycleSeconds through the skills anyone present has a time for; a finish shows
+    # its skill at once and holds it (FinishPlayer sets HallHoldUntil).
+    HallLoop()<suspends>:void =
+        var Cursor : int = 0
+        loop:
+            if (GetSimulationElapsedTime() >= HallHoldUntil):
+                Skills := HallSkills()
+                if (Skills.Length = 0):
+                    SetHall("", array{FnmText("Finish a race to get on the board!")})
+                else if (Slot := Mod[Cursor, Skills.Length], Skill := Skills[Slot]):
+                    ShowHall(Skill)
+                set Cursor += 1
+            Sleep(HallCycleSeconds)
+
+    # Indices of the skills at least one present player has an all-time best for.
+    HallSkills():[]int =
+        Players := GetPlayspace().GetPlayers()
+        for (K -> Each : Cartridges, HallHasTime[Players, Each.Id]) { K }
+
+    HallHasTime(Players:[]player, Id:string)<transacts><decides>:void =
+        var Found : logic = false
+        for (Each : Players, FnmSavedBest[Each, Id]):
+            set Found = true
+        Found?
+
+    ShowHall(Skill:int):void =
+        if (Cartridge := Cartridges[Skill]):
+            var Rows : []fnm_result = array{}
+            for (Each : GetPlayspace().GetPlayers(), Time := FnmSavedBest[Each, Cartridge.Id]):
+                set Rows += array{fnm_result{Who := Each, Time := Time}}
+            Lines := for (K -> Row : SortResults(Rows)) { FnmRow(K + 1, Row.Who, FnmClock(Row.Time)) }
+            SetHall(Cartridge.Title, Lines)
+
+    SetHall(Head:string, Lines:[]message):void =
+        for (Board : HallHeads):
+            Board.SetText(FnmText(Head))
+            Board.UpdateDisplay()
+        for (K -> Board : HallRows):
+            Board.SetText(if (Line := Lines[K]) then Line else FnmText(""))
+            Board.UpdateDisplay()
 
     # The session board for skill Index (empty until someone finishes that skill).
     BoardFor(Index:int)<transacts>:[]fnm_result =
@@ -1238,6 +1384,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Rows += array{Row}
         if (not Had?):
             set Rows += array{fnm_result{Who := Who, Time := Time}}
+        Sorted := SortResults(Rows)
+        Capped := for (K -> Row : Sorted, K < BoardSize) { Row }
+        if (set Boards[Index] = Capped) {}
+
+    # Fastest first (insertion sort; boards are a handful of rows).
+    SortResults(Rows:[]fnm_result)<transacts>:[]fnm_result =
         var Sorted : []fnm_result = array{}
         for (Row : Rows):
             var Next : []fnm_result = array{}
@@ -1250,12 +1402,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (not Placed?):
                 set Next += array{Row}
             set Sorted = Next
-        Capped := for (K -> Row : Sorted, K < BoardSize) { Row }
-        if (set Boards[Index] = Capped) {}
+        Sorted
 
-    # Results for RestartSeconds (with a countdown), then a fresh run from station 1: barriers closed again for
-    # this player, new questions, streak and clock reset; same skill. CHANGE SKILL (ChangeSkill) bumps RunGeneration,
-    # which cancels this.
+    # The automatic restart (no podium button, or DebugAutoRightAnswers): results for RestartSeconds with a countdown,
+    # then StartNewRun. CHANGE SKILL (ChangeSkill) or NEW RACE bumps RunGeneration, which cancels this.
     NextRun(State:fnm_player_state)<suspends>:void =
         Generation := State.RunGeneration
         var Left : int = Max(1, RestartSeconds)
@@ -1266,7 +1416,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set Left -= 1
         if (not PlayerStates[State.Player] or State.RunGeneration <> Generation):
             return
-        State.Hud.HideChangeSkill()
+        StartNewRun(State)
+
+    # A fresh run from station 1: barriers closed again for this player, new questions, streak and clock reset;
+    # same skill.
+    StartNewRun(State:fnm_player_state)<suspends>:void =
+        State.Hud.HideFinishButtons()
         State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)

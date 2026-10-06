@@ -1,6 +1,6 @@
 # FNM console runtime -- per-player HUD (Verse UI: canvas + stack_box + text_blocks).
 # One fnm_hud instance per player; only that player sees it. The skill picker and the finish board's CHANGE SKILL
-# button are real Verse buttons on their own roots (InputMode All only while shown); clicks go to the director
+# and CLOSE buttons are real Verse buttons on their own roots (InputMode All only while shown); clicks go to the director
 # through fnm_picker_listener (PROTOCOL 6b).
 
 using { /Fortnite.com/UI }
@@ -16,12 +16,14 @@ FnmRow<localizes>(Rank:int, Who:agent, Time:string):message = "{Rank}.  {Who}   
 FnmHolder<localizes>(Time:string, Who:agent, Tail:string):message = "Island record   {Time}  by {Who}{Tail}"
 
 # What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
-# list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL on the finish board.
+# list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL / CLOSE on the finish
+# board.
 fnm_pick := enum:
     Grade
     Skill
     Back
     ChangeSkill
+    Close
 
 # Who hears the HUD's button clicks (the director). The HUD only reports; the listener decides what shows next.
 fnm_picker_listener := interface:
@@ -82,8 +84,10 @@ fnm_hud := class:
     PickerButtons : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
     # A step with more buttons than this shows them in two columns.
     PickerColumnAfter : int = 5
-    # Under the finish board, on its own root (shown with the board when the slot holds more than one skill).
-    # (Its text is set in Attach: a localized call can't initialise a field.)
+    # Under the finish board, on their own root, shown with the board: CLOSE (the board stays until the player closes
+    # it; Aaron 2026-10-05: "x it and enjoy themself in the victory area") and CHANGE SKILL (more than one skill only).
+    # (Their text is set in Attach: a localized call can't initialise a field.)
+    CloseButton : button_loud = button_loud{}
     ChangeSkillButton : button_regular = button_regular{}
 
     var MaybePlayerUI : ?player_ui = false
@@ -281,14 +285,20 @@ fnm_hud := class:
                             Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.45}, Maximum := vector2{X := 0.5, Y := 0.45}}
                             Alignment := vector2{X := 0.5, Y := 0.5}
                             SizeToContent := true
-            # CHANGE SKILL, just under the finish board (anchored by its top edge).
+            # CLOSE and CHANGE SKILL, just under the finish board (anchored by their top edge).
+            CloseButton.SetText(FnmText("CLOSE"))
+            CloseButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Close, Index := 0}.OnClick)
             ChangeSkillButton.SetText(FnmText("CHANGE SKILL"))
             ChangeSkillButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.ChangeSkill, Index := 0}.OnClick)
             set MaybeChangeRoot = option:
                 canvas:
                     Slots := array:
                         canvas_slot:
-                            Widget := ChangeSkillButton
+                            Widget := stack_box:
+                                Orientation := orientation.Horizontal
+                                Slots := array:
+                                    stack_box_slot{Widget := CloseButton, Padding := margin{Right := 16.0}}
+                                    stack_box_slot{Widget := ChangeSkillButton, Padding := margin{Left := 16.0}}
                             Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.81}, Maximum := vector2{X := 0.5, Y := 0.81}}
                             Alignment := vector2{X := 0.5, Y := 0.0}
                             SizeToContent := true
@@ -296,7 +306,7 @@ fnm_hud := class:
     # Removes the HUD (used when the player leaves; harmless if already gone).
     Detach():void =
         HidePicker()
-        HideChangeSkill()
+        HideFinishButtons()
         if (PlayerUI := MaybePlayerUI?, Root := MaybeRoot?):
             PlayerUI.RemoveWidget(Root)
         set MaybePlayerUI = false
@@ -508,14 +518,16 @@ fnm_hud := class:
         set PickerShown = false
         ClearPickerButtons()
 
-    # CHANGE SKILL under the finish board (while it is up the player can't move; they are finished anyway).
-    ShowChangeSkill():void =
+    # CLOSE (and CHANGE SKILL when WithChange) under the finish board. While they are up the mouse drives the buttons
+    # and the player can't move; CLOSE hands control back.
+    ShowFinishButtons(WithChange:logic):void =
+        ChangeSkillButton.SetVisibility(if (WithChange?) then widget_visibility.Visible else widget_visibility.Collapsed)
         if (not ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):
             PlayerUI.AddWidget(ChangeRoot, player_ui_slot{ZOrder := 4, InputMode := ui_input_mode.All})
             set ChangeShown = true
-            PlayerUI.SetFocus(ChangeSkillButton)
+            PlayerUI.SetFocus(CloseButton)
 
-    HideChangeSkill():void =
+    HideFinishButtons():void =
         if (ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):
             PlayerUI.RemoveWidget(ChangeRoot)
         set ChangeShown = false

@@ -32,6 +32,12 @@ fnm_ice_zone := class(tag){}
 fnm_ice_floor := class(tag){}
 # A station's guard spawner (tools/build_guards.py), also tagged with its fnm_station_NN.
 fnm_guards := class(tag){}
+# The victory area (tools/build_finish.py): the podium's two button devices, and the giant all-time screen's
+# heading billboard and row billboards (rows are ordered by height, top row = rank 1).
+fnm_new_race := class(tag){}
+fnm_change_skill := class(tag){}
+fnm_hall_head := class(tag){}
+fnm_hall_row := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

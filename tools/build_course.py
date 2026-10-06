@@ -391,8 +391,7 @@ def finish(ox, oy, oz, doors, project):
     tp = device(TELEPORTER, "FNM_Finish_Entry", ox, oy + 150, oz, yaw=90)
     props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
     verse_tags(tp, project, ["fnm_finish"])
-    sign = device(BILLBOARD, "FNM_Finish_Sign", ox, end - 5, oz + 250, yaw=180, sx=4, sy=4, sz=4)
-    board(sign, "FINISH!", SIGN_COLOUR)
+    # The end wall's board is the all-time screen (tools/build_finish.py, Aaron 2026-10-05), not a FINISH! sign.
 
 
 def tier_count():
