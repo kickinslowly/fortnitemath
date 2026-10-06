@@ -66,9 +66,9 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   from MCP). Sliders now slide along their own axis (`SliderTravel`). Seen in play 2026-10-04: two auto-right runs
   through all 10 relocated stations to the finish, "on ice"/"off ice" fire at station 6, a container sweeps its
   moved hallway. Seen in editor captures: stairs, winding walls, plate arrows facing down the corridor
-- [ ] Aaron playtest of course v3, walking it (needs a real player; the auto-run teleports past connectors): do the
-  stairs climb smoothly, does a speed plate push forward (direction inferred from its arrows), is the ice slippery
-  enough at friction 0.15, and does a Yeet on a raised hallway still land well
+- [ ] Aaron playtest of course v3, walking it (needs a real player; the auto-run teleports past connectors): stairs,
+  plates and ice were walked 2026-10-05 ("a lot more engaging"; ice at 0.15 felt subtle, rebuilt at 0.05 on
+  2026-10-06, see below). Still open: does a Yeet on a raised hallway land well
 - [x] Aaron playtest of course v3 (2026-10-05): "a lot more engaging". Two notes, both built and seen in play
   2026-10-05: (1) sometimes a door did not answer until he ran around the vestibule. A trigger fires only on
   entering its zone and the director drops an event while the player is Busy; a position backstop (`WatchDoors`)

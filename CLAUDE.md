@@ -65,7 +65,8 @@ before UEFN work. Project-specific:
   foreground, so ask first if Aaron may be in another app).
 - After any Verse edit: `python -m fnm sync starter` then VerseToolset `BuildAll`.
 - Verse files are `eol=lf`; Python `write_text` on Windows rewrites them CRLF, and git then lists them modified with
-  no content change. Patch them with the Edit tool or `open(..., newline='')`.
+  no content change. Patch them with the Edit tool or `tools/patch.py` (exact-string edits, needle must match once,
+  line endings kept; importable `patch(path, pairs)` or a one-shot CLI for flipping a debug default).
 - The penalty pool lives in `maps/<id>/map.json` `penalties` (PROTOCOL §6a), not on the director.
 - Content rule (Aaron, 2026-10-04): simple numbers, concept over arithmetic. The bounds are PROTOCOL §4a; every
   procedural cartridge's tests assert them against its `baked.json`. Read §4a before writing or reviewing a generator.
