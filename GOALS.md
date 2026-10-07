@@ -214,3 +214,44 @@ content rule from the same conversation: simple numbers, concept over arithmetic
 - [ ] Aaron playtest: pick a skill on the menu with a real click, finish, change skill; judge the new number
   sizes in play (samples per tier in the 2026-10-04 build report; e.g. T5 `24 ÷ (24 ÷ (6^2 ÷ 9) − 3)`)
 - [x] Decision (Aaron, 2026-10-04): boards and bests are per skill and per map, never mixed. Built the same night
+
+## G6 — Fun layer (Aaron, 2026-10-07: "absolutely love these ideas")
+Lens: the loop has strong pressure (guards, obstacles, surprise penalties, the clock) and thin reward, spectacle, social
+play, agency and sound (the island was silent). Numbered order is the build order. Fable plans and audits; Opus builders
+implement from written briefs (`~/.claude/skills/multi-model-delegation`).
+- [x] 1a. Sound effects (built 2026-10-07, Opus builder A): 37 cues (`fnm_audio.verse`, `console/AUDIO.md`,
+  `tools/build_audio.py`): countdown ticks + GO, correct / retry chimes, wrong, door open, boost, streak milestones
+  2..7, finish + new best / record + medal + PERFECT fanfare (spaced 1.2 s), a stinger per penalty, NO SKIPPING, guards
+  up, welcome, picker, a music bed per tier. Heard by the instigating player only, 2D. Proven: a headless auto-right
+  run logged `audio: 37 of 37 cues wired`, 59 cue lines, and the speaker loopback (`tools/hear.py`) matched 44 of them
+  within 0.5 s once the client was unmuted (`tools/audio_meter.py`: the Windows mixer re-mutes the client on a
+  session relaunch; Aaron's own Fortnite Music slider is 0, so the beds are silent for his account). Found: only
+  `/Game/Sounds/Creative` and `/CRD_SkilledInteractionDevice` sounds pass island validation (Rocket Racing VO, BR
+  cues all fail), so the sounds are Creative-library stock. Not yet judged by ear: whether each sound suits its moment
+- [x] 1b. Announcer pack (2026-10-07, Opus builder B): 31 lines x 3 voices from local Kokoro TTS (`tools/make_announcer.py`,
+  `tools/audio/announcer/<voice>/*.wav`, 48 kHz mono, -13 LUFS, deterministic; QA in `tools/audio/announcer/QA.md`).
+  Streak lines DOUBLE / TRIPLE / MEGA / ULTRA / MONSTER / UNSTOPPABLE, penalties, medals, boss + lifeline for later
+- [ ] 1c. Announcer into UEFN: Aaron picks the voice (samplers sent; builder's pick am_michael), then the wavs are
+  imported through the UEFN Import dialog (no headless path: no auto-import, no `unreal` module in the MCP script
+  toolset) and swapped onto the matching cue devices (`CUES` paths) + a pass to decide which moments get the voice
+  instead of the stock stinger
+- [ ] 2. Live race layer: a HUD strip with every rival's station, a pacer orb that moves down the course at the island
+  record's station split times, a public penalty feed ("Nova got YEETED at station 4")
+- [ ] 3. Boss finale, "math as damage": the finish becomes an arena with a boss guard and a huge health bar; five
+  rapid questions, each right door fires a cannon or hands a legendary launcher for 8 s, each wrong one summons adds;
+  the run ends on the kill
+- [ ] 4. Agency: a gold fifth door at some stations (tier+2 question: skip the next station or eat a nasty penalty); two
+  lifelines per run (50/50, a 3 s peek at the explanation for a time cost); coins on the walls and a podium shop
+  (shield that eats one penalty, a shockwave, a head start)
+- [ ] 5. Modes: team relay (four players, a station each, hand off at the vestibule), survival (endless stations, three
+  lives), storm elimination (a storm closes behind the pack), co-op gate (the class needs 100 right answers to open the
+  final door, total on the projector)
+- [ ] 6. Traversal variety in the connectors: grind rails, ziplines, launch pads, one go-kart straight, a water slide
+  instead of stairs
+- [ ] 7. Theme: a heist (vault doors, security guards, alarm-system penalties) or tower escape; decor and signage, no
+  layout rebuild
+- [ ] 8. Progression: persistent XP and ranks with titles ("Bronze Fraction Slayer"), a trophy room, a champion mannequin
+  dancing the session winner's emote, a hall-of-fame wall (Verse persistence already carries bests)
+- [ ] 9. Comedy escalation from the PENALTIES catalog: trapdoor, boulder, chicken swarm, pinball bumpers, flood; one
+  rare jackpot door (1 in 20) that hits the whole class
+- [ ] 10. Secrets: hidden rooms behind breakable walls, a collectible coin set with its own board, a developer room
