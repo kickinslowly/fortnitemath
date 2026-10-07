@@ -106,6 +106,15 @@ panel as "STREAK x3  -  SPEED BOOST 4s"; a wrong door ends both, an elimination 
 (placed X to mirrored X and back); hurdles and baffles are static. Obstacle plan: `OBSTACLES` in
 `tools/build_course.py`.
 
+Live race (G6): under the clock, a RACE strip lists everyone on the island by progress (finished fastest first as
+`FIN 1:23.4`, then racers by station, then `picking` / `lobby`), the viewer's own row `YOU` in gold; top 7 + the viewer
+past 8 players; refreshed every 0.5 s (`RaceLoop`), hidden while picking. Pace: each run records a split per right
+answer; at GO! it is measured against the session island record's splits for that skill (`Record 1:23.4`) or else the
+player's own saved best run (`Beat 1:23.4`), and each right answer shows the delta under the target (`−1.8 s` green
+ahead, `+3.2 s` red behind). Public feed, top right under the minimap, to every player, 3 lines newest on top, 7 s
+each: penalties (`Nova got yeeted at station 4`), finishes with the medal, island records, streaks of 3/5/7/10 and
+skip-guard catches; each logs `FNM: feed ...`.
+
 Output log (`Print`) messages starting with `FNM:` trace the run; these mean misconfiguration: no stations, a slot
 with no cartridges, a cartridge with no tiers, or a station with fewer doors than any cartridge's items have choices.
 

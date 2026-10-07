@@ -8,6 +8,9 @@ using { /Verse.org/Simulation }
 # cartridges are inserted). Persistable: never remove or retype a field; only add ones with defaults.
 fnm_saved := class<final><persistable>:
     BestTimes : [string]float = map{}
+    # The race-clock time at each right answer of that best run (index stage - 1), same key: the pace a later run is
+    # measured against when the island has no record for the skill yet (fnm_director ChoosePace). Added 2026-10-07.
+    BestSplits : [string][]float = map{}
 
 var FnmSaved : weak_map(player, fnm_saved) = map{}
 
@@ -15,10 +18,18 @@ var FnmSaved : weak_map(player, fnm_saved) = map{}
 FnmSavedBest(Player:player, Id:string)<transacts><decides>:float =
     FnmSaved[Player].BestTimes[Id]
 
-# Records Time as Player's all-time best for cartridge Id (the caller decides it is a new best).
-FnmSaveBest(Player:player, Id:string, Time:float)<transacts>:void =
+# Splits of Player's all-time best run for cartridge Id; fails when none were saved (a best from before splits).
+FnmSavedSplits(Player:player, Id:string)<transacts><decides>:[]float =
+    FnmSaved[Player].BestSplits[Id]
+
+# Records Time, with that run's Splits, as Player's all-time best for cartridge Id (the caller decides it is a new
+# best).
+FnmSaveBest(Player:player, Id:string, Time:float, Splits:[]float)<transacts>:void =
     var Bests : [string]float = map{}
+    var SplitSets : [string][]float = map{}
     if (Saved := FnmSaved[Player]):
         set Bests = Saved.BestTimes
+        set SplitSets = Saved.BestSplits
     if (set Bests[Id] = Time) {}
-    if (set FnmSaved[Player] = fnm_saved{BestTimes := Bests}) {}
+    if (set SplitSets[Id] = Splits) {}
+    if (set FnmSaved[Player] = fnm_saved{BestTimes := Bests, BestSplits := SplitSets}) {}

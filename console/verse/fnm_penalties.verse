@@ -24,3 +24,12 @@ FnmPenaltyLabel(Kind:fnm_penalty):string =
     else if (Kind = fnm_penalty.Mud) then "STUCK IN MUD!"
     else if (Kind = fnm_penalty.Dizzy) then "DIZZY!"
     else "LIGHTS OUT!"
+
+# Past tense for the public feed: "<name> got <past> at station 4" (fnm_director Broadcast).
+FnmPenaltyPast(Kind:fnm_penalty):string =
+    if (Kind = fnm_penalty.Freeze) then "frozen"
+    else if (Kind = fnm_penalty.Yeet) then "yeeted"
+    else if (Kind = fnm_penalty.Spike) then "spiked"
+    else if (Kind = fnm_penalty.Mud) then "stuck in the mud"
+    else if (Kind = fnm_penalty.Dizzy) then "dizzy"
+    else "blacked out"

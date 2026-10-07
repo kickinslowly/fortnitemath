@@ -52,10 +52,19 @@ using { /Verse.org/Random }
 using { /Verse.org/Simulation }
 using { /Verse.org/Simulation/Tags }
 
-# One finisher's best time this session, for the finish board.
+# One finisher's best time this session, for the finish board, with that run's splits (the race-clock time at each
+# right answer, index stage - 1; empty when the run did not cover every station): the next runs' pace target.
 fnm_result := class:
     Who : player
     Time : float
+    Splits : []float = array{}
+
+# One player's place in the live rivals strip (RaceLoop): the strip is sorted by Score, lowest first; Tail is the row
+# after the name ("station 7", "FIN 1:23.4", "picking", "lobby").
+fnm_race_entry := class:
+    Who : player
+    Score : float
+    Tail : string
 
 # One question station, assembled at OnBegin from the director's flat config.
 fnm_station := class:
@@ -136,6 +145,11 @@ fnm_player_state := class:
     var BestTime : float = -1.0
     var BestTimes : [int]float = map{}
     var Runs : int = 0
+    # Pace (G6): this run's race-clock time at each right answer (index stage - 1), reset per run; the splits it is
+    # measured against (ChoosePace at GO!; empty = no target); the last finished run's time (the rivals strip's FIN).
+    var Splits : []float = array{}
+    var PaceTarget : []float = array{}
+    var LastTime : float = -1.0
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
 fnm_door_handler := class:
@@ -398,6 +412,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Seconds between the stacked finish cues (finish, best/record, medal, perfect), so they do not pile up.
     @editable
     FinishCueGapSeconds : float = 1.2
+    # Live race layer (G6): the rivals strip is refreshed every RaceSeconds and holds RaceRows rows (fnm_hud RivalRows);
+    # the last strip logged, so the log gets a RACE line only when the order or a station changes.
+    RaceSeconds : float = 0.5
+    RaceRows : int = 8
+    var LastRaceLog : string = ""
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -471,6 +490,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: {CountGuardStations()} stations have guards")
             spawn{ GuardLoop() }
             spawn{ DoorWatch() }
+            spawn{ RaceLoop() }
             SetUpVictoryArea()
             Playspace := GetPlayspace()
             Playspace.PlayerAddedEvent().Subscribe(OnPlayerAdded)
@@ -864,6 +884,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.CurrentItem = -1
         State.Hud.SetCountdown("")
         State.Hud.SetTarget("")
+        State.Hud.ClearDelta()
         State.Hud.SetStreak("")
         State.Hud.ClearVerdictNow()
         State.Hud.SetTitle("Fortnite Math", "Choose your skill")
@@ -952,8 +973,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     if (StreakCue := FnmStreakCue(State.Streak)?):
                         spawn{ SoundLater(State.Player, StreakCue, 0.9) }
                     spawn{ Boost(State, Min(MaxBoostSeconds, BoostSeconds + StreakBonusSeconds * (State.Streak - 1) * 1.0)) }
+                    for (Milestone : array{3, 5, 7, 10}, Milestone = State.Streak):
+                        Broadcast(FnmFeedStreak(State.Player, Milestone), "is on a {Milestone} streak!")
                 Sound(State.Player, if (State.MissedCurrent?) then fnm_cue.CorrectRetry else fnm_cue.Correct)
                 State.Hud.FlashVerdict(true, Label)
+                RecordSplit(State)
                 AdvancePlayer(State, Station, DoorIndex)
                 set State.Busy = false
                 if (not State.Finished?):
@@ -965,6 +989,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.Streak = 0
                 StopBoost(State)
                 Kind := PickPenalty()
+                Past := FnmPenaltyPast(Kind)
+                Broadcast(FnmFeedPenalty(State.Player, Past, StationIndex + 1), "got {Past} at station {StationIndex + 1}")
                 Sound(State.Player, fnm_cue.Wrong)
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
@@ -1027,6 +1053,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendTo(State.Player, Station.RetryTeleporter)
                 Sound(State.Player, fnm_cue.NoSkip)
                 State.Hud.FlashBig("NO SKIPPING!", NamedColors.Red, 2.0)
+                Broadcast(FnmFeedSkip(State.Player), "tried to skip and was sent back")
 
     # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
     # that door's barrier lets this player (only) through, or they are teleported to the next entry.
@@ -1363,7 +1390,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Total := Stations.Length
         Time := if (State.StartTime >= 0.0) then GetSimulationElapsedTime() - State.StartTime else 0.0
         set State.StartTime = -1.0
+        set State.LastTime = Time
         StopBoost(State)
+        # This run's splits travel with its time (a pace target only when they cover every station).
+        Splits : []float = if (State.Splits.Length = Total) then State.Splits else array{}
         # Personal best and the board are per skill (the cartridge's index in the slot).
         Skill := State.CartridgeIndex
         HadBest := if (State.BestTime >= 0.0) then true else false
@@ -1371,11 +1401,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (NewBest?):
             set State.BestTime = Time
             if (set State.BestTimes[Skill] = Time) {}
-            FnmSaveBest(State.Player, State.Cartridge.Id, Time)
+            FnmSaveBest(State.Player, State.Cartridge.Id, Time, Splits)
         var IslandRecord : logic = true
         if (Top := BoardFor(Skill)[0], Time >= Top.Time):
             set IslandRecord = false
-        RecordResult(Skill, State.Player, Time)
+        RecordResult(Skill, State.Player, Time, Splits)
         Board := BoardFor(Skill)
         Medal := FnmMedal(State.FirstTryCorrect, Total)
         SetMusic(State.Player, 0)
@@ -1384,6 +1414,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # The board is the only thing on screen besides the clock, which keeps the final time.
         State.Hud.SetClock(FnmClock(Time))
         State.Hud.SetTarget("")
+        State.Hud.ClearDelta()
         State.Hud.SetStreak("")
         State.Hud.ClearQuestion()
         State.Hud.ClearVerdictNow()
@@ -1398,6 +1429,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}",
             "TOP TIMES THIS SESSION  -  {State.Cartridge.Title}", Rows, OwnRow)
         Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize}) for {State.Cartridge.Id}")
+        # The public feed: the finish, then (on top) an island record.
+        Broadcast(FnmFeedFinish(State.Player, FnmClock(Time), Medal), "finished in {FnmClock(Time)}  ({Medal})")
+        if (IslandRecord?):
+            Broadcast(FnmFeedRecord(State.Player, FnmClock(Time)), "set the island record  {FnmClock(Time)}")
         if (UseEndGameDevice?):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
@@ -1533,19 +1568,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
     BoardFor(Index:int)<transacts>:[]fnm_result =
         if (Rows := Boards[Index]) then Rows else array{}
 
-    # Puts Who's Time on skill Index's board: replaces their row only when faster, else adds one; fastest first,
-    # capped at BoardSize.
-    RecordResult(Index:int, Who:player, Time:float):void =
+    # Puts Who's Time (with that run's Splits) on skill Index's board: replaces their row only when faster, else adds
+    # one; fastest first, capped at BoardSize.
+    RecordResult(Index:int, Who:player, Time:float, Splits:[]float):void =
         var Rows : []fnm_result = array{}
         var Had : logic = false
         for (Row : BoardFor(Index)):
             if (Row.Who = Who):
                 set Had = true
-                set Rows += array{if (Time < Row.Time) then fnm_result{Who := Who, Time := Time} else Row}
+                set Rows += array{if (Time < Row.Time) then fnm_result{Who := Who, Time := Time, Splits := Splits} else Row}
             else:
                 set Rows += array{Row}
         if (not Had?):
-            set Rows += array{fnm_result{Who := Who, Time := Time}}
+            set Rows += array{fnm_result{Who := Who, Time := Time, Splits := Splits}}
         Sorted := SortResults(Rows)
         Capped := for (K -> Row : Sorted, K < BoardSize) { Row }
         if (set Boards[Index] = Capped) {}
@@ -1606,7 +1641,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.RunGeneration += 1
         Generation := State.RunGeneration
         set State.StartTime = -1.0
-        State.Hud.SetTarget(if (State.BestTime >= 0.0) then "Beat {FnmClock(State.BestTime)}" else "")
+        set State.Splits = array{}
+        State.Hud.ClearDelta()
+        ChoosePace(State)
         State.Hud.SetStreak(StreakCopy(State, 0))
         MaybeCharacter := option{State.Player.GetFortCharacter[]}
         if (Character := MaybeCharacter?):
@@ -1620,8 +1657,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.FlashBig("GO!", NamedColors.Lime, 1.0)
         Sound(State.Player, fnm_cue.Go)
         Music(State)
+        # The pace target is fixed at GO! (a record set during the countdown counts).
+        ChoosePace(State)
         set State.StartTime = GetSimulationElapsedTime()
-        Print("FNM: run {State.Runs + 1} GO")
+        Print("FNM: run {State.Runs + 1} GO, pace target {State.PaceTarget.Length} splits")
         loop:
             if (State.RunGeneration <> Generation or State.StartTime < 0.0 or State.Finished?) then break
             State.Hud.SetClock(FnmClock(GetSimulationElapsedTime() - State.StartTime))
@@ -1713,6 +1752,121 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Sleep(EndGameDelaySeconds)
         if (Finisher.IsActive[]):
             EndGameDevice.Activate(Finisher)
+
+    # ---------------------------------------------------------------- live race layer (G6)
+
+    # The run's pace target (per skill, like times; PROTOCOL 6b): the session island record's splits when they cover
+    # the course, else the player's own saved best run's, else none. The target line under the clock says which:
+    # "Record 1:23.4" or "Beat 1:23.4" (the personal best).
+    ChoosePace(State:fnm_player_state):void =
+        set State.PaceTarget = array{}
+        var Line : string = if (State.BestTime >= 0.0) then "Beat {FnmClock(State.BestTime)}" else ""
+        if (Top := BoardFor(State.CartridgeIndex)[0], Top.Splits.Length = Stations.Length):
+            set State.PaceTarget = Top.Splits
+            set Line = "Record {FnmClock(Top.Time)}"
+        else if (Saved := FnmSavedSplits[State.Player, State.Cartridge.Id], Saved.Length = Stations.Length):
+            set State.PaceTarget = Saved
+        State.Hud.SetTarget(Line)
+
+    # A right answer at the player's current stage: its race-clock split, and against the pace target the delta under
+    # the target line (green ahead, red behind).
+    RecordSplit(State:fnm_player_state):void =
+        if (State.StartTime >= 0.0):
+            Stage := State.Stage
+            Elapsed := GetSimulationElapsedTime() - State.StartTime
+            set State.Splits += array{Elapsed}
+            if (Target := State.PaceTarget[Stage - 1]):
+                Delta := Elapsed - Target
+                Copy := DeltaCopy(Delta)
+                State.Hud.SetDelta(Copy, if (Delta < 0.0) then NamedColors.LightGreen else NamedColors.Tomato)
+                Print("FNM: split stage {Stage} at {FnmClock(Elapsed)} delta {Copy}")
+            else:
+                Print("FNM: split stage {Stage} at {FnmClock(Elapsed)} delta none")
+
+    # "−1.8 s" (ahead: a real minus sign, as in the cartridges' charset) or "+3.2 s" (behind), one decimal.
+    DeltaCopy(Seconds:float)<transacts>:string =
+        Tenths := if (T := Round[Abs(Seconds) * 10.0]) then T else 0
+        Whole := FnmDiv(Tenths, 10)
+        Sign := if (Seconds < 0.0) then "−" else "+"
+        "{Sign}{Whole}.{Tenths - Whole * 10} s"
+
+    # A public feed line to EVERY player's HUD (fnm_hud PushFeed), logged without the name (a log cannot show one).
+    Broadcast(Line:message, LogLine:string):void =
+        Print("FNM: feed {LogLine}")
+        for (State : PlayerStates):
+            State.Hud.PushFeed(Line)
+
+    # One loop for the rivals strip: every RaceSeconds the order is computed once and written to every player's HUD.
+    RaceLoop()<suspends>:void =
+        loop:
+            UpdateRace()
+            Sleep(RaceSeconds)
+
+    UpdateRace():void =
+        Now := GetSimulationElapsedTime()
+        Entries := SortRace(for (Each : GetPlayspace().GetPlayers()) { RaceEntry(Each, Now) })
+        var Summary : string = ""
+        for (K -> Entry : Entries):
+            Separator := if (K > 0) then ", " else ""
+            set Summary += "{Separator}{K + 1}) {Entry.Tail}"
+        if (Summary <> LastRaceLog):
+            set LastRaceLog = Summary
+            Print("FNM: RACE {Summary}")
+        for (State : PlayerStates):
+            if (State.Picking?):
+                State.Hud.SetRivals(array{}, -1)
+            else:
+                Shown := RaceRowsFor(Entries, State.Player)
+                State.Hud.SetRivals(Shown(0), Shown(1))
+
+    # Finished players first (fastest first), then racers by station, furthest first (ties: less time on the clock
+    # first), then players picking a skill, then players with no state yet (lobby).
+    RaceEntry(Who:player, Now:float):fnm_race_entry =
+        if (State := PlayerStates[Who]):
+            if (State.Picking?):
+                return fnm_race_entry{Who := Who, Score := 4000000.0, Tail := "picking"}
+            if (State.Finished?, State.LastTime >= 0.0):
+                return fnm_race_entry{Who := Who, Score := State.LastTime, Tail := "FIN {FnmClock(State.LastTime)}"}
+            Elapsed := if (State.StartTime >= 0.0) then Now - State.StartTime else 0.0
+            Stage := Max(1, Min(State.Stage, Stations.Length))
+            return fnm_race_entry{Who := Who, Score := 1000000.0 + (Stations.Length + 1 - Stage) * 100000.0 + Min(Elapsed, 99999.0), Tail := "station {Stage}"}
+        fnm_race_entry{Who := Who, Score := 5000000.0, Tail := "lobby"}
+
+    # Lowest Score first (insertion sort; a handful of players).
+    SortRace(Entries:[]fnm_race_entry):[]fnm_race_entry =
+        var Sorted : []fnm_race_entry = array{}
+        for (Entry : Entries):
+            var Next : []fnm_race_entry = array{}
+            var Placed : logic = false
+            for (Other : Sorted):
+                if (not Placed?, Entry.Score < Other.Score):
+                    set Next += array{Entry}
+                    set Placed = true
+                set Next += array{Other}
+            if (not Placed?):
+                set Next += array{Entry}
+            set Sorted = Next
+        Sorted
+
+    # Viewer's strip: the first RaceRows entries, or with more players than that and the viewer further down, the top
+    # RaceRows - 1 and then the viewer. The viewer's row reads YOU; returns the rows and the viewer's row index.
+    RaceRowsFor(Entries:[]fnm_race_entry, Viewer:player):tuple([]message, int) =
+        var ViewerAt : int = -1
+        for (K -> Entry : Entries, Entry.Who = Viewer):
+            set ViewerAt = K
+        var Picked : []fnm_race_entry = for (K -> Entry : Entries, K < RaceRows) { Entry }
+        if (ViewerAt >= RaceRows, Me := Entries[ViewerAt]):
+            Top := for (K -> Entry : Entries, K < RaceRows - 1) { Entry }
+            set Picked = Top + array{Me}
+        var OwnRow : int = -1
+        var Rows : []message = array{}
+        for (K -> Entry : Picked):
+            if (Entry.Who = Viewer):
+                set OwnRow = K
+                set Rows += array{FnmText("YOU  {Entry.Tail}")}
+            else:
+                set Rows += array{FnmRivalRow(Entry.Who, Entry.Tail)}
+        (Rows, OwnRow)
 
     # ---------------------------------------------------------------- sound (fnm_audio.verse)
 

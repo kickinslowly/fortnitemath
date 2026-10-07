@@ -15,6 +15,14 @@ FnmText<localizes>(Value:string):message = "{Value}"
 # Finish-board lines with a player's name: a localized message shows an interpolated agent as its display name.
 FnmRow<localizes>(Rank:int, Who:agent, Time:string):message = "{Rank}.  {Who}   {Time}"
 FnmHolder<localizes>(Time:string, Who:agent, Tail:string):message = "Island record   {Time}  by {Who}{Tail}"
+# Rivals strip row (the viewer's own row is plain text, "YOU  station 4").
+FnmRivalRow<localizes>(Who:agent, Tail:string):message = "{Who}  {Tail}"
+# Public feed lines (fnm_director Broadcast), shown to every player.
+FnmFeedPenalty<localizes>(Who:agent, Past:string, Station:int):message = "{Who} got {Past} at station {Station}"
+FnmFeedFinish<localizes>(Who:agent, Time:string, Medal:string):message = "{Who} finished in {Time}  ({Medal})"
+FnmFeedRecord<localizes>(Who:agent, Time:string):message = "{Who} set the island record  {Time}"
+FnmFeedStreak<localizes>(Who:agent, Streak:int):message = "{Who} is on a {Streak} streak!"
+FnmFeedSkip<localizes>(Who:agent):message = "{Who} tried to skip and was sent back"
 
 # What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
 # list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL / CLOSE on the finish
@@ -58,6 +66,27 @@ fnm_hud := class:
     # Race clock and the run's target time ("Beat 1:20.1"), left side.
     ClockText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 52.0, DefaultJustification := text_justification.Left}
     TargetText : text_block = text_block{DefaultTextColor := NamedColors.Orange, DefaultTextSize := 30.0, DefaultJustification := text_justification.Left}
+    # Pace delta under the target at each right answer ("-1.8 s" ahead, "+3.2 s" behind, a real minus sign;
+    # collapsed with no pace target).
+    DeltaText : text_block = text_block{DefaultTextColor := NamedColors.LightGreen, DefaultTextSize := 30.0, DefaultJustification := text_justification.Left}
+    # Rivals strip, under the delta in the same left panel: a RACE heading and one row per player (fnm_director
+    # RaceLoop, sorted by progress), the viewer's own row gold. Unused rows are collapsed; all of it while picking.
+    RivalsHead : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+    RivalRows : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+    # Public feed, top right under the minimap: up to 3 lines, newest on top, each gone after FeedSeconds.
+    FeedRows : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
+    FeedSeconds : float = 7.0
     # Finish board (centre screen, hidden until a finish): headline, medal, this run, personal best, island record,
     # accuracy, the session's top times (one row per player) and the next-run countdown.
     ResultsTitle : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 72.0, DefaultJustification := text_justification.Center}
@@ -107,6 +136,11 @@ fnm_hud := class:
     # Bumped on every feedback message so an older timer never clears a newer message.
     var FeedbackGeneration : int = 0
     var VerdictGeneration : int = 0
+    # The feed's lines, newest first, and the id of the push behind each (a fader removes only its own line).
+    var MaybeFeed : ?widget = false
+    var FeedLines : []message = array{}
+    var FeedIds : []int = array{}
+    var FeedSerial : int = 0
 
     # Builds the widget tree and adds it to Player's screen. Safe to call once per player.
     Attach(Player:player):void =
@@ -188,6 +222,39 @@ fnm_hud := class:
                         Widget := ResultsLines
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Left := 40.0, Top := 28.0, Right := 40.0, Bottom := 28.0}
+            # Left panel: clock, target, pace delta, then the rivals strip.
+            RivalsHead.SetText(FnmText("RACE"))
+            LeftLines : stack_box = stack_box:
+                Orientation := orientation.Vertical
+                Slots := array:
+                    stack_box_slot:
+                        Widget := ClockText
+                        HorizontalAlignment := horizontal_alignment.Left
+                    stack_box_slot:
+                        Widget := TargetText
+                        HorizontalAlignment := horizontal_alignment.Left
+                    stack_box_slot:
+                        Widget := DeltaText
+                        HorizontalAlignment := horizontal_alignment.Left
+                    stack_box_slot:
+                        Widget := RivalsHead
+                        HorizontalAlignment := horizontal_alignment.Left
+                        Padding := margin{Top := 8.0}
+            for (Row : RivalRows):
+                LeftLines.AddWidget(stack_box_slot{Widget := Row, HorizontalAlignment := horizontal_alignment.Left})
+            FeedLinesBox : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+            for (Row : FeedRows):
+                FeedLinesBox.AddWidget(stack_box_slot{Widget := Row, HorizontalAlignment := horizontal_alignment.Right})
+            Feed : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.55}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := FeedLinesBox
+                        HorizontalAlignment := horizontal_alignment.Right
+                        Padding := margin{Left := 20.0, Top := 8.0, Right := 20.0, Bottom := 10.0}
             Root : canvas = canvas:
                 Slots := array:
                     canvas_slot:
@@ -232,26 +299,30 @@ fnm_hud := class:
                                     HorizontalAlignment := horizontal_alignment.Fill
                                     VerticalAlignment := vertical_alignment.Fill
                                 overlay_slot:
-                                    Widget := stack_box:
-                                        Orientation := orientation.Vertical
-                                        Slots := array:
-                                            stack_box_slot:
-                                                Widget := ClockText
-                                                HorizontalAlignment := horizontal_alignment.Left
-                                            stack_box_slot:
-                                                Widget := TargetText
-                                                HorizontalAlignment := horizontal_alignment.Left
+                                    Widget := LeftLines
                                     Padding := margin{Left := 24.0, Top := 8.0, Right := 24.0, Bottom := 10.0}
                         # Left, under Fortnite's GAME MODE box: top right is the minimap's (it hid the clock).
                         Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 0.0, Y := 0.0}}
                         Alignment := vector2{X := 0.0, Y := 0.0}
                         Offsets := margin{Left := 20.0, Top := 230.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
+                    # The public feed, top right under Fortnite's minimap (a point anchor: Left -20 = 20 px in from the
+                    # right edge). Not part of the finish board.
+                    canvas_slot:
+                        Widget := Feed
+                        Anchors := anchors{Minimum := vector2{X := 1.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 0.0}}
+                        Alignment := vector2{X := 1.0, Y := 0.0}
+                        Offsets := margin{Left := -20.0, Top := 300.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             Results.SetVisibility(widget_visibility.Collapsed)
             StreakBig.SetVisibility(widget_visibility.Collapsed)
             TargetText.SetVisibility(widget_visibility.Collapsed)
+            DeltaText.SetVisibility(widget_visibility.Collapsed)
             set MaybeResults = option{Results}
+            set MaybeFeed = option{Feed}
+            SetRivals(array{}, -1)
+            DrawFeed()
             PlayerUI.AddWidget(Root, player_ui_slot{InputMode := ui_input_mode.None})
             set MaybePlayerUI = option{PlayerUI}
             set MaybeRoot = option{Root}
@@ -389,6 +460,62 @@ fnm_hud := class:
     # The run's target under the clock ("Beat 1:20.1"; "" collapses it).
     SetTarget(Text:string):void =
         SetOrCollapse(TargetText, Text)
+
+    # The pace delta under the target, in TextColor (green ahead, red behind); ClearDelta collapses it.
+    SetDelta(Text:string, TextColor:color):void =
+        DeltaText.SetTextColor(TextColor)
+        SetOrCollapse(DeltaText, Text)
+
+    ClearDelta():void =
+        SetOrCollapse(DeltaText, "")
+
+    # The rivals strip: Rows top to bottom (at most RivalRows.Length; the rest collapse), OwnRow = the viewer's row
+    # (-1 none), drawn gold. No rows hides the strip, heading included.
+    SetRivals(Rows:[]message, OwnRow:int):void =
+        for (K -> Block : RivalRows):
+            if (Row := Rows[K]):
+                Block.SetText(Row)
+                Block.SetTextColor(if (K = OwnRow) then NamedColors.Gold else NamedColors.White)
+                Block.SetVisibility(widget_visibility.Visible)
+            else:
+                Block.SetText(FnmText(""))
+                Block.SetVisibility(widget_visibility.Collapsed)
+        RivalsHead.SetVisibility(if (Rows.Length > 0) then widget_visibility.Visible else widget_visibility.Collapsed)
+
+    # A public feed line on top of the feed (the oldest drops past FeedRows.Length); it goes after FeedSeconds. Each
+    # push has its own id, so a fader only ever removes its own line, never a newer one.
+    PushFeed(Line:message):void =
+        set FeedSerial += 1
+        Id := FeedSerial
+        Lines := array{Line} + FeedLines
+        Ids := array{Id} + FeedIds
+        set FeedLines = for (K -> Each : Lines, K < FeedRows.Length) { Each }
+        set FeedIds = for (K -> Each : Ids, K < FeedRows.Length) { Each }
+        DrawFeed()
+        spawn{ FadeFeed(Id) }
+
+    FadeFeed(Id:int)<suspends>:void =
+        Sleep(FeedSeconds)
+        var Lines : []message = array{}
+        var Ids : []int = array{}
+        for (K -> Each : FeedIds, Each <> Id, Line := FeedLines[K]):
+            set Lines += array{Line}
+            set Ids += array{Each}
+        set FeedLines = Lines
+        set FeedIds = Ids
+        DrawFeed()
+
+    # Feed lines into their blocks; the panel collapses when the feed is empty.
+    DrawFeed():void =
+        for (K -> Block : FeedRows):
+            if (Line := FeedLines[K]):
+                Block.SetText(Line)
+                Block.SetVisibility(widget_visibility.Visible)
+            else:
+                Block.SetText(FnmText(""))
+                Block.SetVisibility(widget_visibility.Collapsed)
+        if (Feed := MaybeFeed?):
+            Feed.SetVisibility(if (FeedLines.Length > 0) then widget_visibility.Visible else widget_visibility.Collapsed)
 
     SetOrCollapse(Block:text_block, Text:string):void =
         Block.SetText(FnmText(Text))

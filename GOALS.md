@@ -235,8 +235,16 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   imported through the UEFN Import dialog (no headless path: no auto-import, no `unreal` module in the MCP script
   toolset) and swapped onto the matching cue devices (`CUES` paths) + a pass to decide which moments get the voice
   instead of the stock stinger
-- [ ] 2. Live race layer: a HUD strip with every rival's station, a pacer orb that moves down the course at the island
-  record's station split times, a public penalty feed ("Nova got YEETED at station 4")
+- [ ] 2. Live race layer (built 2026-10-07, Opus builder C, commit after aa424c6; NOT yet seen on screen): RACE strip
+  under the clock (every player by progress, FIN time / station N / picking / lobby, own row gold), pace deltas per
+  right answer vs the island record's splits or your own saved best splits (`Record 1:23` / `Beat 1:23`, green ahead,
+  red behind; splits saved per skill in `fnm_save`), public feed top right (penalty past tense, finish, record,
+  streak 3/5/7/10, skip). Headless log proves splits, deltas (-3.1 s run 2), feeds and the strip; BuildAll clean,
+  8689 tests. The physical pacer orb was dropped: a prop is visible to all, a pace is per player. OPEN: every
+  screenshot caught the Fortnite client on LOGIN EXPIRED OR LOGGED IN ELSEWHERE (Aaron's account in use elsewhere,
+  likely the Xbox), so unverified: feed position vs the minimap (Top 300), the strip's look, red/behind delta, the
+  penalty feed copy, the skip feed, the DeltaCopy sign sabotage. `tools/playtest.py` prints log lines in cp1252 and
+  will crash on the delta's real minus sign: run it with PYTHONIOENCODING=utf-8 (fix pending)
 - [ ] 3. Boss finale, "math as damage": the finish becomes an arena with a boss guard and a huge health bar; five
   rapid questions, each right door fires a cannon or hands a legendary launcher for 8 s, each wrong one summons adds;
   the run ends on the kill

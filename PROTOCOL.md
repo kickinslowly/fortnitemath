@@ -197,6 +197,8 @@ islands have no custom pre-game lobby, so the picker is in-game UI. A console MU
 - Keep race times **per skill and per map**: personal bests, the session board and the island record are each
   keyed by the cartridge (the map is the island), and the board names the skill. Timings of different skills are
   never compared (Aaron, 2026-10-04: "best Order of Operations on the default map").
+- Keep split times (the race clock at each right answer, used as the next runs' pace target) **per skill and per
+  map** like times: a run is only ever paced against splits of the same skill on the same map.
 - Provide a test hook that pre-selects a cartridge so automated runs skip the picker.
 
 ## 6a. Map profiles
