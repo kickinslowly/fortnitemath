@@ -87,11 +87,22 @@ other's Shockwave Grenades (punt a rival, or launch yourself over a hurdle), and
 so no lane is always the good one (station 2: bombs left, shockwaves right). A pad is picked up by running over it,
 holds one grenade, and respawns it 8 s later, so a chaser finds them stocked. Device: the Item Spawner pad
 (`PID_CP_Devices_ItemSpawnerProp`; the item definitions are `Athena_DanceGrenade` and `Athena_ShockGrenade`).
-- **Skip guard** (director `WatchSkip`, every 0.25 s): a Shockwave Grenade clears a 6 m door wall, so a player found
-  in a hallway past their stage (the finish hallway included) is sent back to their own station's entry with a
-  NO SKIPPING! flash. Walking back into an earlier hallway stays harmless. `DebugSkipTest` proves it: it drops the
-  player at station 3 on stage 1 (sent back within 0.12 s on 2026-10-06).
+- **Skip guard** (director `WatchSkip`, every 0.25 s): a player found in a hallway past their stage (the finish
+  hallway included) is sent back to their own station's entry with a NO SKIPPING! flash. Walking back into an earlier
+  hallway stays harmless. `DebugSkipTest` proves it: it drops the player at station 3 on stage 1 (sent back within
+  0.12 s on 2026-10-06). With the glass lids below it is the backstop, not the fence.
 - A shockwaved player who lands in a vestibule answers through that door like anyone walking in: part of the fun.
+
+## Glass lids (2026-10-06, `tools/build_lids.py`)
+Aaron: "add a ceiling with collision so players can't launch out and over ... maybe transparent". Every floor piece of
+the course (station hallways with their vestibules, the finish hallway, each connector's funnel, flare and corridor
+segments, each staircase as one sloped sheet) carries a 40 cm glass slab (Creative glass-gallery glass,
+`MI_CP_GlassGallery`) whose underside sits 20 cm down into the wall tops at WALL_H, so the course is a closed
+glass-topped tube: nothing can be jumped out of or into, the sky and the floating digits stay visible, and from inside
+the glass is almost invisible (a faint band where it meets the door wall; from above it reads as a tinted roof). 61
+slabs for 10 stations. The Yeet still lands at the entry under it (seen 2026-10-06: 18.4 m back, 0.9 s flight; the
+vent throws flat). Not yet seen: a real Shockwave jump against the glass, and whether Aaron wants the glass more
+visible (a tinted gallery variant such as `MI_CP_GlassGallery_Cerulean` is a one-line swap).
 
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");

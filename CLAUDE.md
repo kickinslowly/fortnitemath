@@ -39,7 +39,9 @@ before UEFN work. Project-specific:
   billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild),
   `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station; idempotent via
-  `fnm_pickups`; rerun after a course rebuild; the device and item-definition paths are in its docstring), `tools/import_art.py`
+  `fnm_pickups`; rerun after a course rebuild; the device and item-definition paths are in its docstring),
+  `tools/build_lids.py` (glass ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
+  `fnm_lids`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
   props in place), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing

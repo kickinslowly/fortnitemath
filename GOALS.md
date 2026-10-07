@@ -117,6 +117,10 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   one grenade per pad suit a class, and whether the overlapping pad bases (100 cm pitch, ~2 m bases) look cluttered.
   The grenade hovers over the pad's centre 150 cm off the wall: a player hugging the wall can run past without
   touching it.
+- [x] Glass lids (Aaron 2026-10-06 "ceiling with collision ... maybe transparent", `tools/build_lids.py`): a glass slab
+  over every floor piece, staircases sloped, flush with the wall tops; the course is a closed tube and the skip guard
+  becomes the backstop. Yeet unchanged under it (18.4 m back, lands at the entry). Open: a real Shockwave jump against
+  the glass, Aaron's call on how visible the glass should be (clear gallery glass now; tinted variants exist).
 - [ ] Aaron playtest of the 2026-10-04 evening build: Dizzy spin smoothness, the 2.0x boost, the finish board, guard
   weapons at stations 3/5/7/9, identical doors. Claude's own composed play pass is also pending (held while Aaron
   was in Dota: play sessions take the foreground)
