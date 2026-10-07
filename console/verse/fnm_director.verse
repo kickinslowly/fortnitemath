@@ -16,9 +16,9 @@
 # best); otherwise the next run keeps the skill. Guards ignore a player who is picking.
 # Test hooks (all @editable, ship values in brackets): DebugAutoPick (-1) picks Cartridges[N] on join with no menu,
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
-# (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false).
+# (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
-# backstop (WatchDoors) answers for a player who stands in a door zone when no trigger event was taken.
+# backstop (WatchDoors) answers for a player who stands anywhere in a door's vestibule when no trigger event was taken.
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
 # Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
 #                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
@@ -244,6 +244,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # (and a second finish against a best time) can be checked without walking. false = off (ship value).
     @editable
     DebugAutoRightAnswers : logic = false
+    # Test hook: with DebugAutoRightAnswers, drop the player this far (cm) PAST the door trigger's centre, deeper into
+    # the vestibule, where a player who ran or jumped through the door ends up (2026-10-06: the back of a vestibule
+    # was outside the trigger box and the backstop zone, so a right door did nothing until they moved). 0 = ship value.
+    @editable
+    DebugAutoRightOffsetY : float = 0.0
     # Test hook for the victory area: when a player's finish board hides (ResultsSeconds after the finish, or CLOSE
     # without a podium), stand them 1.5 m in front of the NEW RACE button facing it (press E to try it), and
     # DebugAutoRightAnswers waits for that real press instead of simulating one. false = off (ship value).
@@ -312,7 +317,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     @editable
     DoorWatchSeconds : float = 0.25
     @editable
-    DoorDwellSeconds : float = 0.6
+    DoorDwellSeconds : float = 0.4
     # How often the director checks which stations have players on them, to switch their guards on or off.
     @editable
     GuardCheckSeconds : float = 1.0
@@ -914,8 +919,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Here := Character.GetTransform().Translation
             for (Index -> Door : Station.Doors):
                 Zone := Door.GetTransform()
-                # A trigger's zone is 600 x 600 cm at scale 1, centred on the device (tools/build_course.py).
-                if (Abs(Here.X - Zone.Translation.X) <= 300.0 * Zone.Scale.X, Abs(Here.Y - Zone.Translation.Y) <= 300.0 * Zone.Scale.Y, Abs(Here.Z - Zone.Translation.Z) <= 300.0):
+                # A trigger's box is 600 x 600 cm at scale 1, centred on the device, its front face at the door wall's
+                # back face (tools/build_course.py). The zone watched here is the WHOLE vestibule, on to the barrier:
+                # a player who runs or jumps through the door can stop against the barrier, past the trigger box
+                # (2026-10-06, Aaron: a right door did nothing until he moved around the room; the triggers were
+                # 60% of the vestibule then and this check mirrored them).
+                Front := Zone.Translation.Y - 300.0 * Zone.Scale.Y
+                var Back : float = Zone.Translation.Y + 300.0 * Zone.Scale.Y
+                if (MaybePassage := Station.Passages[Index], Passage := MaybePassage?):
+                    set Back = Max(Back, Passage.GetTransform().Translation.Y)
+                if (Abs(Here.X - Zone.Translation.X) <= 300.0 * Zone.Scale.X, Here.Y >= Front, Here.Y <= Back, Abs(Here.Z - Zone.Translation.Z) <= 300.0):
                     set Inside = Index
         if (Inside <> State.ZoneDoor):
             set State.ZoneDoor = Inside
@@ -987,7 +1000,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Stage := State.Stage
                 # (The teleport answers at once, so name the door before it: afterwards the next item is up.)
                 Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Answer)}")
-                if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                Spot := Door.GetTransform().Translation + vector3{X := 0.0, Y := DebugAutoRightOffsetY, Z := 0.0}
+                if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                 Sleep(6.0)
                 if (State.Stage = Stage):
                     Print("FNM: debug auto-right stuck at stage {Stage}")

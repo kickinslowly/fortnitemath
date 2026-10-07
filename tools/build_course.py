@@ -14,6 +14,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
     python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
+    python tools/build_course.py --triggers-only  # resize the vestibule triggers in place (TRIGGER_DEPTH)
 """
 import argparse
 import math
@@ -48,6 +49,10 @@ DOOR_H = 384
 WALL_H = 600            # hallway walls; a lintel fills the door wall above the doors
 WALL_T = 40
 VEST = 700              # vestibule depth behind the door wall
+# The vestibule trigger fills the vestibule to just short of the barrier. It was 60% of VEST until 2026-10-06, when
+# the back 280 cm (where a player who ran or jumped through the door stops, against the barrier) turned out to be
+# outside both the trigger and the director's backstop zone: the right door then did nothing until they moved.
+TRIGGER_DEPTH = VEST - 20
 BARRIER_T = 40
 SLAB_T = 40             # floor slab thickness (top at z=2, just above the template ground)
 FINISH_LEN = 1500
@@ -283,7 +288,7 @@ def station(k, ox, oy, oz, hall, doors, project, door_assets):
         label = device(BILLBOARD, f"{prefix}_Label{letter}", cx, door_y - 40, oz + DOOR_H + 20, yaw=180, sx=2, sy=2, sz=2)
         board(label, letter, LETTER_COLOURS[i])
         inner = DOOR_W - t                  # vestibule width between dividers
-        trig_depth = VEST * 0.6
+        trig_depth = TRIGGER_DEPTH
         trig = device(TRIGGER, f"{prefix}_Trigger{letter}", cx, vest0 + trig_depth / 2, oz + 128,
                       sx=inner / 600, sy=trig_depth / 600, sz=1.0)
         # Device_Trigger_V2 names (differ from the legacy trigger's).
@@ -484,6 +489,34 @@ def doors_only():
     print(f"{placed} doors placed")
 
 
+def triggers_only():
+    """Resize every vestibule trigger in place to TRIGGER_DEPTH, keeping its front face at the door wall's back face
+    (a trigger's box is 600 deep at scale 1, centred on the device). Reads every trigger's bounds back. Idempotent."""
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    is_trigger = lambda a: isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Trigger[A-D]", a.get("label", ""))
+    trigs = sorted((a for a in found if is_trigger(a)), key=lambda a: a["label"])
+    if not trigs:
+        sys.exit("no FNM_Sxx_Trigger actors: run the full build")
+    for a in trigs:
+        t = u.call(ACTOR, "get_actor_transform", {"actor": ref(a["actorPath"])})["returnValue"]
+        loc, rot, sc = t["location"], t["rotation"], t["scale"]
+        front = loc["y"] - 300 * sc["y"]
+        u.call(ACTOR, "set_actor_transform", {"actor": ref(a["actorPath"]), "xform": xform(
+            loc["x"], front + TRIGGER_DEPTH / 2, loc["z"], sc["x"], TRIGGER_DEPTH / 600, sc["z"], yaw=rot["yaw"])})
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    bad = []
+    for a in found:
+        if is_trigger(a):
+            b = a["bounds"]
+            depth = b["max"]["y"] - b["min"]["y"]
+            if abs(depth - TRIGGER_DEPTH) > 1:
+                bad.append(f"{a['label']} depth {depth:.0f}")
+    if bad:
+        sys.exit("triggers not resized: " + ", ".join(bad))
+    print(f"{len(trigs)} triggers resized to {TRIGGER_DEPTH} cm deep (bounds read back)")
+
+
 def build(stations, doors, hall):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
@@ -553,6 +586,7 @@ if __name__ == "__main__":
     ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
     ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
+    ap.add_argument("--triggers-only", action="store_true", help="only resize the vestibule triggers in place (TRIGGER_DEPTH)")
     a = ap.parse_args()
     if a.paint_only:
         paint()
@@ -560,5 +594,7 @@ if __name__ == "__main__":
         doors_only()
     elif a.ice_only:
         ice_only()
+    elif a.triggers_only:
+        triggers_only()
     else:
         build(a.stations, a.doors, a.hall)

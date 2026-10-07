@@ -78,6 +78,17 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   on it fired 0 times. The original cause is not pinned down: logs before the fix do not record trigger events.
   (2) Anti-memorization: the choices of every question are shuffled each time it is shown (PROTOCOL §3 note), so
   the right door moves. Seen: baked `6 + 2 × 4` answer is choice A, shown as B, and the run used door B
+- [x] 2026-10-06 (Aaron: a right door still did nothing until he ran around the room, 1-2 doors per run). Cause pinned
+  from the live editor: the vestibule triggers were 60% of the vestibule (420 of 700 cm), so a player who ran or
+  jumped through the door and stopped against the barrier stood in a 280 cm dead spot past the trigger box, and
+  `WatchDoors` mirrored that box, so nothing answered until they walked back into it (his 2026-10-06 run log has
+  no "answered by position" line at all). Reproduced headless: `DebugAutoRightOffsetY` 350 (drop 350 cm past the
+  trigger centre) stuck at stage 1. Fixed: `WatchDoors` watches the whole vestibule (trigger front face to the
+  barrier) and dwell 0.4 s; triggers now `TRIGGER_DEPTH` = 680 cm (`build_course.py --triggers-only`, applied
+  in place, bounds read back). Proof: same drop with the fix, 10/10 answered by position, run finished; drop 250
+  cm past the resized trigger's centre, the trigger itself fired at 8/10 stations within 60 ms and the backstop
+  took the other 2 within 1 s (a teleport-in can miss the overlap; a walk-in is the normal path). Not yet walked
+  by Aaron; private version 9216-2361-9000 does not contain it
 - [ ] Class demo on Xbox (Aaron, 2026-10-05): private version code via UEFN Publish Project, played on his account
   - Private version uploaded 2026-10-05 06:36: code **7346-5901-9394** (Creator Portal > FortniteMath > Publishing >
     Private Versions). Not yet seen running on the Xbox. Public release still needs the Fortnite Developer Terms (Enroll)

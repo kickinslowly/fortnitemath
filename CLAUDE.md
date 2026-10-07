@@ -39,7 +39,8 @@ before UEFN work. Project-specific:
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
-  props in place), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
+  props in place), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
+  it), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
   gallery props; `--check` reports). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the

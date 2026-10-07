@@ -58,8 +58,10 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
 ## Why these choices
 - **Barriers, not teleports, for right answers:** the race never stops; Aaron's "success must never stall".
 - **Vestibule triggers, not door-open events:** a door is a prop, so opening it fires nothing. The trigger
-  sits just past the door; the barrier at the vestibule's far end is past the trigger, so a wrong door's
-  penalty always fires before the player could reach a barrier.
+  fills the vestibule from the door wall's back face to 20 cm short of the barrier (`TRIGGER_DEPTH`): until
+  2026-10-06 it was 60% deep, and a player who stopped against the barrier stood past it (and past the
+  director's backstop zone), so a right door did nothing until they moved. The director's `WatchDoors` now
+  watches the whole vestibule, trigger front face to barrier, as the backstop for a missed trigger event.
 - **Generic A–D doors:** each player's question is on their own HUD, so a whole class can play at once.
 - **Every hallway faces +Y; the variety lives in the connectors:** the director's arrival direction, Yeet aim,
   penalty return spot and debug hooks all assume a +Y hallway, so none of them had to change. Only the sliding
