@@ -2,6 +2,9 @@
 
     python tools/playtest.py                 # relaunch, wait for the match, one screenshot, FNM lines
     python tools/playtest.py --no-relaunch   # just screenshot + FNM lines from the running session
+    python tools/playtest.py --until "finished run 1,stuck at stage"
+                                             # relaunch, wait (--timeout s) for a director line holding any of
+                                             # the comma-separated texts, no keys; then the FNM lines
     python tools/playtest.py --watch 3       # also catch N "FNM: debug auto-wrong" events, 4 frames each
     python tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5
                                              # wait for a director log line, then hold keys in turn
@@ -65,14 +68,19 @@ SCANCODES = {"W": 0x11, "A": 0x1E, "S": 0x1F, "D": 0x20, "E": 0x12, "SPACE": 0x3
 def shot(name, steps=None):
     """PNG of the Fortnite client window without focusing it. steps (gui_act.ps1 syntax) forces the old
     full-screen capture after clicks/keys; the full-screen path is also the fallback when the client has no
-    window yet or is minimized."""
+    window yet. A MINIMIZED client gets no screenshot (returns None): a full-screen capture then shows the
+    desktop, not the game (2026-10-06: it caught Aaron's Zoom meeting)."""
     out = Path(os.environ["TEMP"]) / f"{name}.png"
     if steps is None:
         r = subprocess.run(["powershell", "-NoProfile", "-File", str(WINCAP), "-out", str(out)],
                            capture_output=True, text=True)
         if r.returncode == 0 and "ok=True" in r.stdout:
             return out
-        print("  wincap:", (r.stdout or r.stderr).strip()[:80], "- full-screen fallback")
+        state = (r.stdout or r.stderr).strip()[:80]
+        if "MINIMIZED" in state:
+            print("  wincap:", state, "- no screenshot")
+            return None
+        print("  wincap:", state, "- full-screen fallback")
         steps = "w:0.05"
     subprocess.run(["powershell", "-NoProfile", "-File", str(GUI), "-steps", steps, "-name", name],
                    capture_output=True)
@@ -172,8 +180,12 @@ def main():
     ap.add_argument("--watch", type=int, default=0)
     ap.add_argument("--after", help="director log pattern to wait for before --keys")
     ap.add_argument("--keys", help='key holds after --after, e.g. "W:0.8,E:0.3,W:2.5"')
+    ap.add_argument("--until", help='comma-separated texts; wait for a director line holding any of them (no keys)')
+    ap.add_argument("--timeout", type=float, default=200, help="seconds to wait for --until")
     args = ap.parse_args()
     started = time.time()
+    until_baseline = set(fnm_lines()) if args.until else set()
+    since_dt = datetime.datetime.utcnow() - datetime.timedelta(seconds=5)
     after_baseline = set(fnm_lines(args.after)) if args.after else set()
     if not args.no_relaunch:
         relaunch()
@@ -189,6 +201,15 @@ def main():
         focus_client()
         play_keys(args.keys)
         time.sleep(6)
+    if args.until:
+        texts = args.until.split(",")
+        hit = None
+        while hit is None and time.time() - started < args.timeout:
+            new = [l for l in fnm_lines() if l not in until_baseline and (log_time(l) or since_dt) >= since_dt]
+            hit = next((l for l in new if any(t in l for t in texts)), None)
+            if hit is None:
+                time.sleep(2)
+        print("until:", hit.split("FNM:", 1)[1][:120] if hit else "TIMED OUT")
     since = time.strftime("%Y.%m.%d-%H.%M.%S", time.gmtime(started - 5))
     for line in fnm_lines():
         if line[1:20] >= since[:19]:

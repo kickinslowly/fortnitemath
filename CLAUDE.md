@@ -30,7 +30,8 @@ before UEFN work. Project-specific:
 - Tools: `tools/uefn_mcp.py` (MCP client), `tools/build_course.py` (rebuilds the whole course, idempotent via
   actor tag `fnm_course`), `tools/capture.py` (viewport PNG — look at it), `tools/uefn_status.py`,
   `tools/playtest.py` (relaunch session → screenshot of the game via PrintWindow (`tools/wincap.ps1`, never takes the
-  foreground) + the director's `FNM:` log lines; `--watch N`; `--keys` clicks the game forward — ask first if Aaron may
+  foreground) + the director's `FNM:` log lines; `--watch N`; `--until "text,text"` waits for a director line with no keys;
+  `--keys` clicks the game forward — ask first if Aaron may
   be in another app),
   `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
   (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
