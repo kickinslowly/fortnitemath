@@ -65,3 +65,45 @@ fnm_station_20 := class(tag){}
 
 # Station tag types in course order (the director walks these until the first station with no entry).
 FnmStationTags()<transacts>:[]castable_subtype(tag) = array{fnm_station_01, fnm_station_02, fnm_station_03, fnm_station_04, fnm_station_05, fnm_station_06, fnm_station_07, fnm_station_08, fnm_station_09, fnm_station_10, fnm_station_11, fnm_station_12, fnm_station_13, fnm_station_14, fnm_station_15, fnm_station_16, fnm_station_17, fnm_station_18, fnm_station_19, fnm_station_20}
+
+# Sound layer (tools/build_audio.py, fnm_audio.verse): one audio player per cue, tagged fnm_cue_<id>, in fnm_cue
+# enum order.
+fnm_cue_countdown3 := class(tag){}
+fnm_cue_countdown2 := class(tag){}
+fnm_cue_countdown1 := class(tag){}
+fnm_cue_go := class(tag){}
+fnm_cue_correct := class(tag){}
+fnm_cue_correct_retry := class(tag){}
+fnm_cue_wrong := class(tag){}
+fnm_cue_door_open := class(tag){}
+fnm_cue_boost := class(tag){}
+fnm_cue_streak2 := class(tag){}
+fnm_cue_streak3 := class(tag){}
+fnm_cue_streak4 := class(tag){}
+fnm_cue_streak5 := class(tag){}
+fnm_cue_streak6 := class(tag){}
+fnm_cue_streak7 := class(tag){}
+fnm_cue_perfect := class(tag){}
+fnm_cue_finish := class(tag){}
+fnm_cue_new_best := class(tag){}
+fnm_cue_new_record := class(tag){}
+fnm_cue_medal_gold := class(tag){}
+fnm_cue_medal_silver := class(tag){}
+fnm_cue_medal_bronze := class(tag){}
+fnm_cue_penalty_freeze := class(tag){}
+fnm_cue_penalty_spike := class(tag){}
+fnm_cue_penalty_mud := class(tag){}
+fnm_cue_penalty_dizzy := class(tag){}
+fnm_cue_penalty_blackout := class(tag){}
+fnm_cue_penalty_yeet := class(tag){}
+fnm_cue_no_skip := class(tag){}
+fnm_cue_guards_up := class(tag){}
+fnm_cue_welcome := class(tag){}
+fnm_cue_choose := class(tag){}
+fnm_cue_music_t1 := class(tag){}
+fnm_cue_music_t2 := class(tag){}
+fnm_cue_music_t3 := class(tag){}
+fnm_cue_music_t4 := class(tag){}
+fnm_cue_music_t5 := class(tag){}
+# Cue tag types in fnm_cue enum order (FnmCues()).
+FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5}

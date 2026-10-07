@@ -41,7 +41,8 @@ before UEFN work. Project-specific:
   `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station; idempotent via
   `fnm_pickups`; rerun after a course rebuild; the device and item-definition paths are in its docstring),
   `tools/build_lids.py` (glass ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
-  `fnm_lids`; rerun after a course rebuild), `tools/import_art.py`
+  `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
+  via `fnm_audio`; only `/Game/Sounds/Creative` passes validation; `console/AUDIO.md`), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
   props in place), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing

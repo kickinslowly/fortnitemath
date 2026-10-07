@@ -15,6 +15,7 @@ bottom is kept for history).
 | `verse/fnm_tags.verse` | Verse tags the director finds the course, rigs and effect devices by. |
 | `verse/fnm_rig.verse` | Penalty rigs: parked props/devices moved onto a punished player. |
 | `verse/fnm_penalties.verse` | The penalty enum and labels (catalog: `PENALTIES.md`). |
+| `verse/fnm_audio.verse` | Sound layer: the `fnm_cue` enum, `FnmCueTag`, and `fnm_audio` (finds one audio player per cue by tag, `Play`/`Stop` per player, music bed per tier). Cue table: `AUDIO.md`. |
 | `maps/<map-id>/generated/fnm_active_cartridge.verse` | The cartridge slot: one `FnmCartridge_<id>()` per inserted cartridge plus `FnmCartridges():[]fnm_cartridge` in picker order (PROTOCOL §7). Written by `fnm insert`. |
 
 ## 1. Put the Verse files in the UEFN project
@@ -40,7 +41,8 @@ The fast path is `python tools/build_course.py [--stations 10] [--doors 4] [--ha
 builds every hallway, door, vestibule, barrier, sign and teleporter, tags them, and places the director
 (idempotent: it first removes every actor tagged `fnm_course`). Once per UEFN project, before the first build:
 `python tools/import_art.py` (the verdict check/cross textures the HUD needs to compile, and the wall colours).
-Penalty props and effect devices: `python tools/build_rigs.py`.
+Penalty props and effect devices: `python tools/build_rigs.py`. Sound: `python tools/build_audio.py` (one tagged audio
+player per cue; `AUDIO.md`).
 Layout: `maps/starter/LAYOUT.md`. To build by hand instead, per station:
 
 | Device | Count | Settings |
@@ -63,6 +65,7 @@ panel add a **Verse Tag Markup** component and set its tags:
 | Station N door trigger | `fnm_station_NN` + `fnm_door_a` / `_b` / `_c` / `_d` |
 | Station N door barrier | the same two tags as that door's trigger |
 | Finish teleporter | `fnm_finish` |
+| Audio player per cue (`tools/build_audio.py`, `AUDIO.md`) | `fnm_cue_<id>`: `fnm_cue_countdown3` .. `fnm_cue_music_t5`, one per `fnm_cue` member |
 
 Stations are read 01, 02, ... until the first number with no entry teleporter (max 20). Then place one
 `fnm_director` anywhere. Optional settings: `DifficultyOverrides` (percent per station, -1 = automatic,

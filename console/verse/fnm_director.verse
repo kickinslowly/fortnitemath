@@ -393,6 +393,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var HallRows : []billboard_device = array{}
     # The screen holds a just-finished skill until this simulation time before cycling on.
     var HallHoldUntil : float = 0.0
+    # The sound layer (fnm_audio.verse, tools/build_audio.py): one audio player per cue, found by tag at OnBegin.
+    var Audio : ?fnm_audio = false
+    # Seconds between the stacked finish cues (finish, best/record, medal, perfect), so they do not pile up.
+    @editable
+    FinishCueGapSeconds : float = 1.2
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -439,6 +444,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set FrostFx = FindFx(fnm_pp_frost)
         set MudFx = FindFx(fnm_pp_mud)
         set DizzyFx = FindFx(fnm_pp_dizzy)
+        NewAudio := fnm_audio{Owner := Self}
+        NewAudio.Build()
+        set Audio = option{NewAudio}
         Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}, mud {FnmYesNo(if (MudDevice?) then true else false)}")
         Print("FNM: screen fx frost {FnmYesNo(if (FrostFx?) then true else false)}, mud {FnmYesNo(if (MudFx?) then true else false)}, dizzy {FnmYesNo(if (DizzyFx?) then true else false)}; {Penalties.Length} penalties in the pool")
         if (Stations.Length = 0):
@@ -612,6 +620,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Spawner.Enable()
                     if (set GuardsUp[Index] = true) {}
                     Print("FNM: guards up at station {Index + 1}")
+                    for (State : PlayerStates, not State.Finished?, not State.Picking?, State.Stage = Index + 1):
+                        Sound(State.Player, fnm_cue.GuardsUp)
                 else if (not Occupied?, Up?):
                     Spawner.Disable()
                     if (set GuardsUp[Index] = false) {}
@@ -685,6 +695,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Passage.RemoveFromIgnoreList(Departed)
         if (Device := IceFloor?):
             Device.RemoveFrom(Departed)
+        if (A := Audio?):
+            A.Forget(Departed)
         var Remaining : [player]fnm_player_state = map{}
         for (Key -> Value : PlayerStates, Key <> Departed):
             if (set Remaining[Key] = Value) {}
@@ -705,6 +717,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (First := Stations[0]):
                 SendTo(Joined, First.RetryTeleporter)
             HoldStill(State)
+            Sound(Joined, fnm_cue.Welcome)
             spawn{ WatchLife(State) }
             # The ice device may have added itself to this player at game start (its bAddToPlayersOnStart): log it,
             # since that was the "faint ice everywhere" of 2026-10-06, and take it off.
@@ -739,6 +752,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # step, or straight to the skill step when there is only one grade.
     BeginPicking(State:fnm_player_state):void =
         set State.Picking = true
+        SetMusic(State.Player, 0)
         if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
             Pick(State, DebugAutoPick)
         else if (Cartridges.Length = 1):
@@ -752,6 +766,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else:
                 State.Hud.ShowGradeStep(Grades)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
+            if (State.Picks = 0):
+                Sound(State.Player, fnm_cue.Choose)
 
     # The skill step for Grade: every cartridge of that grade, registry order, its title on the button and its
     # subtitle under it.
@@ -933,7 +949,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     set State.Streak += 1
                     set State.BestStreak = Max(State.BestStreak, State.Streak)
                     if (State.Streak >= 2) then set Label = "{State.Streak} IN A ROW!"
+                    if (StreakCue := FnmStreakCue(State.Streak)?):
+                        spawn{ SoundLater(State.Player, StreakCue, 0.9) }
                     spawn{ Boost(State, Min(MaxBoostSeconds, BoostSeconds + StreakBonusSeconds * (State.Streak - 1) * 1.0)) }
+                Sound(State.Player, if (State.MissedCurrent?) then fnm_cue.CorrectRetry else fnm_cue.Correct)
                 State.Hud.FlashVerdict(true, Label)
                 AdvancePlayer(State, Station, DoorIndex)
                 set State.Busy = false
@@ -946,6 +965,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.Streak = 0
                 StopBoost(State)
                 Kind := PickPenalty()
+                Sound(State.Player, fnm_cue.Wrong)
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
                 Punish(State.Player, Station, DoorIndex, Kind)
@@ -1005,6 +1025,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Hallway + 1 > State.Stage, Station := Stations[State.Stage - 1]):
                 Print("FNM: skip guard: stage {State.Stage} player found in hallway {Hallway + 1}, sent back")
                 SendTo(State.Player, Station.RetryTeleporter)
+                Sound(State.Player, fnm_cue.NoSkip)
                 State.Hud.FlashBig("NO SKIPPING!", NamedColors.Red, 2.0)
 
     # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
@@ -1017,8 +1038,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
         else:
             DrawItem(State)
             ShowCurrent(State)
+            Music(State)
         if (MaybePassage := Station.Passages[DoorIndex], Passage := MaybePassage?):
             Passage.AddToIgnoreList(State.Player)
+            Sound(State.Player, fnm_cue.DoorOpen)
             Print("FNM: passage {FnmChoiceLetter(DoorIndex)} open for the player")
         else:
             SendTo(State.Player, Station.NextTeleporter)
@@ -1127,6 +1150,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 FxOn(Player, FrostFx)
+                Sound(Player, fnm_cue.PenaltyFreeze)
                 Ice := IceRig.NextIndex()
                 Placed := IceRig.Place(Ice, Feet, 0.0)
                 Print("FNM: ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
@@ -1149,6 +1173,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(0.1)
                 Hop := Character.GetTransform()
                 if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
+                Sound(Player, fnm_cue.PenaltyYeet)
                 Print("FNM: vent {Pad} placed={FnmYesNo(Placed)} at {Feet}")
                 Sleep(YeetSeconds)
                 YeetRig.Park(Pad)
@@ -1169,16 +1194,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendTo(Player, Station.RetryTeleporter)
         else if (Kind = fnm_penalty.Mud):
             SendTo(Player, Station.RetryTeleporter)
+            Sound(Player, fnm_cue.PenaltyMud)
             spawn{ Muddy(Player) }
             spawn{ ScreenFx(Player, MudFx, MudSeconds) }
         else if (Kind = fnm_penalty.Dizzy):
             SendTo(Player, Station.RetryTeleporter)
+            Sound(Player, fnm_cue.PenaltyDizzy)
             Spin(Player)
             spawn{ DizzyPulses(Player) }
         else if (Kind = fnm_penalty.Blackout):
             if (Character := Player.GetFortCharacter[]):
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 if (State := PlayerStates[Player]) then State.Hud.SetBlack(true)
+                Sound(Player, fnm_cue.PenaltyBlackout)
                 Sleep(BlackoutSeconds)
                 SendTo(Player, Station.RetryTeleporter)
                 Character.ReleaseFromStasis()
@@ -1200,6 +1228,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: spears placed {Placed}/{Spears.Length} at {Feet}")
                 for (Index : Spears):
                     spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
+                Sound(Player, fnm_cue.PenaltySpike)
                 Sleep(SpearSeconds)
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 Sleep(SpikeWatchSeconds)
@@ -1349,6 +1378,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         RecordResult(Skill, State.Player, Time)
         Board := BoardFor(Skill)
         Medal := FnmMedal(State.FirstTryCorrect, Total)
+        SetMusic(State.Player, 0)
+        spawn{ FinishSounds(State.Player, if (NewBest?, HadBest?) then true else false, IslandRecord, Medal, if (State.FirstTryCorrect >= Total) then true else false) }
         MedalColor := if (Medal = "GOLD") then NamedColors.Gold else if (Medal = "SILVER") then NamedColors.Silver else NamedColors.Peru
         # The board is the only thing on screen besides the clock, which keeps the final time.
         State.Hud.SetClock(FnmClock(Time))
@@ -1582,10 +1613,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := false, AllowEmotes := false})
         for (Count : array{3, 2, 1}):
             State.Hud.FlashBig("{Count}", NamedColors.White, 0.0)
+            Sound(State.Player, if (Count = 3) then fnm_cue.Countdown3 else if (Count = 2) then fnm_cue.Countdown2 else fnm_cue.Countdown1)
             Sleep(CountdownStepSeconds)
         if (Character := MaybeCharacter?):
             Character.ReleaseFromStasis()
         State.Hud.FlashBig("GO!", NamedColors.Lime, 1.0)
+        Sound(State.Player, fnm_cue.Go)
+        Music(State)
         set State.StartTime = GetSimulationElapsedTime()
         Print("FNM: run {State.Runs + 1} GO")
         loop:
@@ -1608,6 +1642,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.BoostGeneration += 1
         Generation := State.BoostGeneration
         if (Device := BoostDevice?):
+            # Just after the right-door chime, so the two do not land on the same instant.
+            spawn{ SoundLater(State.Player, fnm_cue.Boost, 0.4) }
             var Elapsed : float = 0.0
             var SinceApply : float = BoostReapplySeconds
             loop:
@@ -1677,6 +1713,46 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Sleep(EndGameDelaySeconds)
         if (Finisher.IsActive[]):
             EndGameDevice.Activate(Finisher)
+
+    # ---------------------------------------------------------------- sound (fnm_audio.verse)
+
+    # Plays Cue for Player only (logged; a no-op for a cue with no audio player).
+    Sound(Player:player, Cue:fnm_cue):void =
+        if (A := Audio?):
+            A.Play(Player, Cue)
+
+    # Cue a moment after an answer (boost, streak); dropped once the player has finished, so the last door's boost and
+    # streak cues do not land on the finish fanfare.
+    SoundLater(Player:player, Cue:fnm_cue, Seconds:float)<suspends>:void =
+        Sleep(Seconds)
+        if (State := PlayerStates[Player], not State.Finished?):
+            Sound(Player, Cue)
+
+    # The music bed for Player: tier Tier's loop (0 = silence; also while the picker is up and after the finish).
+    SetMusic(Player:player, Tier:int):void =
+        if (A := Audio?):
+            A.SetMusic(Player, Tier)
+
+    # The bed for the tier of the player's current station.
+    Music(State:fnm_player_state):void =
+        if (not State.Finished?, not State.Picking?):
+            SetMusic(State.Player, StationTier(State, State.Stage))
+
+    # The finish fanfare, spaced FinishCueGapSeconds apart: the finish, then a new island record or else a new personal
+    # best, then the medal, then PERFECT when every answer was right first try.
+    FinishSounds(Player:player, NewBest:logic, Record:logic, Medal:string, Perfect:logic)<suspends>:void =
+        Sound(Player, fnm_cue.Finish)
+        Sleep(FinishCueGapSeconds)
+        if (Record?):
+            Sound(Player, fnm_cue.NewRecord)
+            Sleep(FinishCueGapSeconds)
+        else if (NewBest?):
+            Sound(Player, fnm_cue.NewBest)
+            Sleep(FinishCueGapSeconds)
+        Sound(Player, if (Medal = "GOLD") then fnm_cue.MedalGold else if (Medal = "SILVER") then fnm_cue.MedalSilver else fnm_cue.MedalBronze)
+        if (Perfect?):
+            Sleep(FinishCueGapSeconds)
+            Sound(Player, fnm_cue.Perfect)
 
     # Shows a short orange notice that clears itself after NoticeSeconds.
     FlashNotice(State:fnm_player_state, Message:string)<suspends>:void =
