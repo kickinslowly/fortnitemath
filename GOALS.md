@@ -92,6 +92,9 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [ ] Class demo on Xbox (Aaron, 2026-10-05): private version code via UEFN Publish Project, played on his account
   - Private version uploaded 2026-10-05 06:36: code **7346-5901-9394** (Creator Portal > FortniteMath > Publishing >
     Private Versions). Not yet seen running on the Xbox. Public release still needs the Fortnite Developer Terms (Enroll)
+  - Private version **8564-2561-9374** uploaded 2026-10-07 by Aaron (Project > Launch Memory Calculation is the upload; no
+    separate Publish step). Should carry adf8bde (lids, pickups + skip guard, door fix, picker captions, finish board, ice
+    fix, weapons, island settings); nothing in it seen in play yet. 9216-2361-9000 is now the previous version
 - [x] Decor pass (Aaron 2026-10-05, editor only, no play session): station numbers, torches, chalkboards, plants,
   floating sky digits, finish "100" (`tools/build_decor.py`, LAYOUT.md). Seen in editor captures. Not seen in play:
   torch flames, fireworks, chalk text (billboard text does not render in the editor viewport)
