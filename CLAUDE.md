@@ -37,7 +37,9 @@ before UEFN work. Project-specific:
   (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
   geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen
   billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
-  (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild), `tools/import_art.py`
+  (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild),
+  `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station; idempotent via
+  `fnm_pickups`; rerun after a course rebuild; the device and item-definition paths are in its docstring), `tools/import_art.py`
   (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
   props in place), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
@@ -60,7 +62,8 @@ before UEFN work. Project-specific:
   `DebugAutoRightAnswers` it proves the backstop carries a run),
   `DebugVictoryTest` (when the finish board hides itself, `ResultsSeconds` after a finish, stands the player before NEW
   RACE; with `DebugAutoRightAnswers` it waits for a real E press instead of simulating one), `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
-  (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles). Drive them with
+  (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles), `DebugSkipTest` (drops
+  the player at station 3 on stage 1: the skip guard must send them back). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the

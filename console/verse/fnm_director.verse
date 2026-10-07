@@ -70,6 +70,14 @@ fnm_station := class:
     # Difficulty position in percent, 0 (easiest tier) .. 100 (hardest tier); -1 = automatic.
     DifficultyOverride : int
 
+# One hallway's footprint for the skip guard (WatchSkip): world cm, Z at the entry pad.
+fnm_hallway := class:
+    MinX : float
+    MaxX : float
+    MinY : float
+    MaxY : float
+    Z : float
+
 # Everything the director knows about one player's run.
 fnm_player_state := class:
     Player : player
@@ -266,6 +274,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # DebugAutoRightAnswers to prove the backstop carries a whole run. false = ship value.
     @editable
     DebugIgnoreTriggerEvents : logic = false
+    # Test hook: 8 s after the first pick, drop the player at station 3's entry while they are still on stage 1, to
+    # prove the skip guard (WatchSkip) sends them back to station 1. false = off (ship value).
+    @editable
+    DebugSkipTest : logic = false
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -316,6 +328,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # stand in one with no door event taken before it answers for them.
     @editable
     DoorWatchSeconds : float = 0.25
+    # Skip guard (WatchSkip): a player found in a hallway past their stage (a Shockwave Grenade from a pickup pad
+    # clears a 6 m door wall) goes back to their own station's entry. A position more than HallwayHeight above a
+    # hallway's entry pad (a Yeet skydive passing over) does not count. FinishHallwayLength = FINISH_LEN in
+    # tools/build_course.py.
+    HallwayHeight : float = 400.0
+    FinishHallwayLength : float = 1500.0
     @editable
     DoorDwellSeconds : float = 0.4
     # How often the director checks which stations have players on them, to switch their guards on or off.
@@ -364,6 +382,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Per station (index = stage - 1): its guard spawner, if any, and whether its guards are up.
     var GuardSpawners : []?guard_spawner_device = array{}
     var GuardsUp : []logic = array{}
+    # Each station's hallway (vestibules included) and, last, the finish hallway, as boxes for the skip guard.
+    var Hallways : []fnm_hallway = array{}
+    var FinishPad : ?teleporter_device = false
     var GuardsSpawned : int = 0
     # Victory area (tools/build_finish.py): podium buttons and the all-time screen's billboards (rows top to bottom).
     var NewRaceButtons : []button_device = array{}
@@ -384,6 +405,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (Each : Cartridges, Each.Tiers.Length = 0):
             Print("FNM: cartridge {Each.Id} has no tiers")
         set Stations = BuildStations()
+        set Hallways = BuildHallways()
+        Print("FNM: {Hallways.Length} hallways for the skip guard")
         set Penalties = FnmMapPenalties()
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
@@ -480,6 +503,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var Finish : ?teleporter_device = false
         for (Object : FindCreativeObjectsWithTag(fnm_finish), Teleporter := teleporter_device[Object]):
             set Finish = option{Teleporter}
+        set FinishPad = Finish
         var Entries : []teleporter_device = array{}
         var DoorSets : [][]trigger_device = array{}
         var PassageSets : [][]?barrier_device = array{}
@@ -537,6 +561,36 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (MaybeSpawner : GuardSpawners, MaybeSpawner?):
             set Count += 1
         Count
+
+    # Hallway boxes for the skip guard: each station from 2 m before its entry pad to the back of its vestibules,
+    # as wide as its doors reach, then the finish hallway (FinishHallwayLength past its pad, as wide as the last
+    # station).
+    BuildHallways():[]fnm_hallway =
+        var Boxes : []fnm_hallway = array{}
+        var LastHalf : float = 1200.0
+        for (Station : Stations):
+            Entry := Station.RetryTeleporter.GetTransform().Translation
+            var Half : float = 300.0
+            var Back : float = Entry.Y + 2850.0
+            for (Door : Station.Doors):
+                Zone := Door.GetTransform()
+                set Half = Max(Half, Abs(Zone.Translation.X - Entry.X) + 300.0)
+                set Back = Max(Back, Zone.Translation.Y + 300.0 * Zone.Scale.Y + 100.0)
+            for (MaybePassage : Station.Passages, Passage := MaybePassage?):
+                set Back = Max(Back, Passage.GetTransform().Translation.Y + 100.0)
+            set LastHalf = Half
+            set Boxes += array{fnm_hallway{MinX := Entry.X - Half, MaxX := Entry.X + Half, MinY := Entry.Y - 200.0, MaxY := Back, Z := Entry.Z}}
+        if (Pad := FinishPad?):
+            At := Pad.GetTransform().Translation
+            set Boxes += array{fnm_hallway{MinX := At.X - LastHalf, MaxX := At.X + LastHalf, MinY := At.Y - 200.0, MaxY := At.Y + FinishHallwayLength, Z := At.Z}}
+        Boxes
+
+    # Index of the hallway Here is in (0-based; Stations.Length = the finish hallway), or -1.
+    HallwayAt(Here:vector3):int =
+        var Found : int = -1
+        for (Index -> Box : Hallways, Here.X >= Box.MinX, Here.X <= Box.MaxX, Here.Y >= Box.MinY, Here.Y <= Box.MaxY, Abs(Here.Z - Box.Z) <= HallwayHeight):
+            set Found = Index
+        Found
 
     # True while any player still racing is on stage Index + 1 (in that station's hallway).
     StationOccupied(Index:int):logic =
@@ -774,6 +828,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     spawn{ DebugDoor(State) }
                 if (DebugAutoRightAnswers?):
                     spawn{ DebugAutoRight(State) }
+                if (DebugSkipTest?):
+                    spawn{ DebugSkip(State) }
 
     # CHANGE SKILL (finish board or podium): cancels any pending restart and resets the run; then the picker again,
     # from station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
@@ -911,6 +967,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             for (Player -> State : PlayerStates):
                 WatchDoors(State)
                 WatchIce(State)
+                WatchSkip(State)
 
     WatchDoors(State:fnm_player_state):void =
         Now := GetSimulationElapsedTime()
@@ -938,6 +995,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.ZoneFired = true
             Print("FNM: door {FnmChoiceLetter(Inside)} answered by position at stage {State.Stage} (no trigger event taken)")
             OnDoor(option{State.Player}, State.Stage - 1, Inside)
+
+    # Skip guard: a player standing in a hallway beyond their stage (over a door wall with a Shockwave Grenade, or
+    # any other way round the doors) is sent back to their own station's entry with a NO SKIPPING! flash. Not while
+    # a penalty moves them about (Busy), and never for a hallway at or behind their stage: walking back is harmless.
+    WatchSkip(State:fnm_player_state):void =
+        if (not State.Finished?, not State.Picking?, not State.Busy?, State.CurrentItem >= 0, Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+            Hallway := HallwayAt(Character.GetTransform().Translation)
+            if (Hallway + 1 > State.Stage, Station := Stations[State.Stage - 1]):
+                Print("FNM: skip guard: stage {State.Stage} player found in hallway {Hallway + 1}, sent back")
+                SendTo(State.Player, Station.RetryTeleporter)
+                State.Hud.FlashBig("NO SKIPPING!", NamedColors.Red, 2.0)
 
     # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
     # that door's barrier lets this player (only) through, or they are teleported to the next entry.
@@ -1038,6 +1106,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 for (N := 1..8):
                     Sleep(1.0)
                     Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
+
+    DebugSkip(State:fnm_player_state)<suspends>:void =
+        Sleep(8.0)
+        if (State.CurrentItem >= 0, Ahead := Stations[2], Character := State.Player.GetFortCharacter[]):
+            Spot := ArrivalSpot(Ahead.RetryTeleporter)
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: debug skip: dropped at station 3's entry at stage {State.Stage}")
+            for (N := 1..6):
+                Sleep(1.0)
+                Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
 
     # Applies Kind to Player, who answered wrong through door DoorIndex at Station. Returns once the player
     # can play again.

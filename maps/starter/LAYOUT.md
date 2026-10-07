@@ -79,6 +79,20 @@ outside each station, 25-50 m off the centre line (no collision: a Yeet skydive 
 "100" above the FINISH! sign, a podium, flowers, fireworks props. Nothing stands in the run line, the doors or the
 vestibules.
 
+## Pickups (2026-10-06, `tools/build_pickups.py`)
+Aaron: players pick up Boogie Bombs and Shockwave Grenades to use on each other. Every EVEN station (2, 4, 6, 8, 10)
+has a trail of four holo pads along each side wall between where players land (450 cm in) and the first obstacle
+(900 cm): one wall's pads hold Boogie Bombs (5 s forced dance: no weapons, no building; any damage ends it), the
+other's Shockwave Grenades (punt a rival, or launch yourself over a hurdle), and the sides swap at each armed station
+so no lane is always the good one (station 2: bombs left, shockwaves right). A pad is picked up by running over it,
+holds one grenade, and respawns it 8 s later, so a chaser finds them stocked. Device: the Item Spawner pad
+(`PID_CP_Devices_ItemSpawnerProp`; the item definitions are `Athena_DanceGrenade` and `Athena_ShockGrenade`).
+- **Skip guard** (director `WatchSkip`, every 0.25 s): a Shockwave Grenade clears a 6 m door wall, so a player found
+  in a hallway past their stage (the finish hallway included) is sent back to their own station's entry with a
+  NO SKIPPING! flash. Walking back into an earlier hallway stays harmless. `DebugSkipTest` proves it: it drops the
+  player at station 3 on stage 1 (sent back within 0.12 s on 2026-10-06).
+- A shockwaved player who lands in a vestibule answers through that door like anyone walking in: part of the fun.
+
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");
 there is no automatic restart. The end wall's board is a giant ALL-TIME BEST screen: the director cycles it through

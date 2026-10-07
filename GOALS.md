@@ -106,6 +106,17 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [ ] Leaderboard that persists across sessions (today's board is per session; per-player best could use
   `persistable`, an island-wide board needs a different store)
 - [ ] Weapons / traps in the hallways (G4 "later"; guard drops now supply weapons, traps still open)
+- [x] Pickup pads (Aaron 2026-10-06, `tools/build_pickups.py`): Boogie Bombs along one wall and Shockwave Grenades along
+  the other of every even station (sides swap per station), four pads a side, run-over pickup, 8 s respawn. A director
+  skip guard (`WatchSkip`, `DebugSkipTest`) sends a player found in a hallway past their stage back to their own entry,
+  since a shockwave clears the 6 m door walls. Seen in play 2026-10-06: pads stocked (the bombs hover in the pad's
+  beam), walking across a pad put "Boogie Bomb x1" in the inventory, the guard bounced a stage-1 player dropped at
+  station 3 in 0.12 s.
+- [ ] Pickups still unverified in play: a thrown Boogie Bomb or Shockwave on another player (needs two players), a
+  real shockwave jump over a door wall tripping the skip guard (only the teleport test ran), whether 8 s respawn and
+  one grenade per pad suit a class, and whether the overlapping pad bases (100 cm pitch, ~2 m bases) look cluttered.
+  The grenade hovers over the pad's centre 150 cm off the wall: a player hugging the wall can run past without
+  touching it.
 - [ ] Aaron playtest of the 2026-10-04 evening build: Dizzy spin smoothness, the 2.0x boost, the finish board, guard
   weapons at stations 3/5/7/9, identical doors. Claude's own composed play pass is also pending (held while Aaron
   was in Dota: play sessions take the foreground)
