@@ -189,8 +189,8 @@ The slot holds every inserted cartridge (§7) and each **player** chooses one at
 choice, so two players in the same hallway may be racing different skills through the same doors. Fortnite
 islands have no custom pre-game lobby, so the picker is in-game UI. A console MUST:
 - Before the first countdown, show a two-step picker: the grades present (`grade`, ascending, numeric when
-  every grade parses as a number), then that grade's cartridges labelled `Title - Subtitle` in registry order
-  (§7). Skip the grade step when only one grade exists; skip the picker when only one cartridge exists.
+  every grade parses as a number), then that grade's cartridges, each showing its `title` and `subtitle`, in
+  registry order (§7). Skip the grade step when only one grade exists; skip the picker when only one cartridge exists.
 - Hold the player still while they pick; the race clock is not running.
 - Apply every per-player rule of §6 to the chosen cartridge: tier count, pools, decks, title.
 - Offer "change skill" on the finish board. A new run with the same skill needs no re-pick.

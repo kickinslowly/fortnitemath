@@ -694,14 +694,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 State.Hud.ShowGradeStep(Grades)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
 
-    # The skill step for Grade: every cartridge of that grade, registry order, labelled "Title  -  Subtitle".
+    # The skill step for Grade: every cartridge of that grade, registry order, its title on the button and its
+    # subtitle under it.
     ShowSkills(State:fnm_player_state, Grade:string, WithBack:logic):void =
-        var Labels : []string = array{}
+        var Titles : []string = array{}
+        var Subtitles : []string = array{}
         var Indices : []int = array{}
         for (K -> Each : Cartridges, Each.Grade = Grade):
-            set Labels += array{if (Each.Subtitle = "") then Each.Title else "{Each.Title}  -  {Each.Subtitle}"}
+            set Titles += array{Each.Title}
+            set Subtitles += array{Each.Subtitle}
             set Indices += array{K}
-        State.Hud.ShowSkillStep(Grade, Labels, Indices, WithBack)
+        State.Hud.ShowSkillStep(Grade, Titles, Subtitles, Indices, WithBack)
 
     # A click on one of the player's HUD buttons (fnm_hud only reports clicks by its own player).
     OnPickerChoice<override>(Player:player, Kind:fnm_pick, Index:int):void =

@@ -10,9 +10,10 @@
   factors-multiples, rational-numbers, expressions, equations-inequalities, area-volume, data-statistics. Plan and
   standards that do not fit multiple choice: `cartridges/LIBRARY.md`. Non-integer bounds: PROTOCOL §4b. Slot now 11
   cartridges (972 KB), compiles clean in UEFN. Picker shows a step with > 5 skills in two columns
-- [ ] See the 10-skill grade-6 picker step in play (two columns fit on screen?) and one run on a new skill. Blocked
-  2026-10-05: the PC client had been logged out (account signed in elsewhere). Cook/runtime memory at 11 cartridges
-  unproven (PROTOCOL O4)
+- [x] 2026-10-06: the 10-skill grade-6 step ran off the screen (Aaron: "words are cut off"). Stock buttons grow to
+  their label at a fixed font, so a skill button now carries the title only, with the subtitle as a 22px caption
+  under it (`MakeCell` in fnm_ui.verse). Aaron: "looks much better"
+- [ ] One run on a new grade-6 skill in play. Cook/runtime memory at 11 cartridges unproven (PROTOCOL O4)
 - [ ] Aaron content review of the grade-6 library (emulator: `emulator/` with the regenerated carts.js)
 - [ ] Grade 7 and 8 libraries
 

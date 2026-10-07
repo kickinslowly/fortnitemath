@@ -456,31 +456,36 @@ fnm_hud := class:
     ShowGradeStep(Grades:[]string):void =
         Labels := for (Grade : Grades) { "Grade {Grade}" }
         Indices := for (K -> Grade : Grades) { K }
-        ShowPickerStep("Pick a grade", Labels, fnm_pick.Grade, Indices, false)
+        ShowPickerStep("Pick a grade", Labels, array{}, fnm_pick.Grade, Indices, false)
 
-    # Skill step for Grade: one button per skill (Labels[K] picks cartridge Indices[K]), plus Back when WithBack.
-    ShowSkillStep(Grade:string, Labels:[]string, Indices:[]int, WithBack:logic):void =
-        ShowPickerStep("Grade {Grade}  -  pick a skill", Labels, fnm_pick.Skill, Indices, WithBack)
+    # Skill step for Grade: one button per skill, its title on the button and its subtitle in small text under it
+    # (button K picks cartridge Indices[K]), plus Back when WithBack. A stock button sets its own text size and grows
+    # to fit its label, so "Title  -  Subtitle" labels in two columns ran past the edges of a 1080p screen (Aaron,
+    # 2026-10-06: "words are cut off"); a text_block caption has a size we choose.
+    ShowSkillStep(Grade:string, Titles:[]string, Subtitles:[]string, Indices:[]int, WithBack:logic):void =
+        ShowPickerStep("Grade {Grade}  -  pick a skill", Titles, Subtitles, fnm_pick.Skill, Indices, WithBack)
 
-    # Replaces the picker's buttons with this step's, puts the picker on screen if it isn't, and focuses the first
-    # button (so a gamepad or keyboard can press it too).
-    ShowPickerStep(Step:string, Labels:[]string, Kind:fnm_pick, Indices:[]int, WithBack:logic):void =
+    # Replaces the picker's buttons with this step's (Captions[K], when present and not empty, goes under button K),
+    # puts the picker on screen if it isn't, and focuses the first button (so a gamepad or keyboard can press it too).
+    ShowPickerStep(Step:string, Labels:[]string, Captions:[]string, Kind:fnm_pick, Indices:[]int, WithBack:logic):void =
         ClearPickerButtons()
         PickerStep.SetText(FnmText(Step))
         var Made : []widget = array{}
         var Buttons : []widget = array{}
+        var Cells : []widget = array{}
         for (K -> Label : Labels, Index := Indices[K]):
             Button := MakeButton(Kind, Label)
             Button.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := Kind, Index := Index}.OnClick)
             set Buttons += array{Button}
+            set Cells += array{MakeCell(Button, if (Caption := Captions[K]) then Caption else "")}
         # More than PickerColumnAfter buttons go in two columns (left column first, top to bottom): ten skills in one
         # column ran off a 1080p screen.
-        if (Buttons.Length > PickerColumnAfter):
+        if (Cells.Length > PickerColumnAfter):
             Left : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
             Right : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
-            for (K -> Button : Buttons):
-                Slot := stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}}
-                if (2 * K < Buttons.Length) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
+            for (K -> Cell : Cells):
+                Slot := stack_box_slot{Widget := Cell, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}}
+                if (2 * K < Cells.Length) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
             Columns : stack_box = stack_box:
                 Orientation := orientation.Horizontal
                 Slots := array:
@@ -489,9 +494,9 @@ fnm_hud := class:
             PickerButtons.AddWidget(stack_box_slot{Widget := Columns, HorizontalAlignment := horizontal_alignment.Center})
             set Made += array{Columns}
         else:
-            for (Button : Buttons):
-                PickerButtons.AddWidget(stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}})
-                set Made += array{Button}
+            for (Cell : Cells):
+                PickerButtons.AddWidget(stack_box_slot{Widget := Cell, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}})
+                set Made += array{Cell}
         if (WithBack?):
             Back := button_quiet{DefaultText := FnmText("Back")}
             Back.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Back, Index := 0}.OnClick)
@@ -509,6 +514,19 @@ fnm_hud := class:
     MakeButton(Kind:fnm_pick, Label:string):text_button_base =
         if (Kind = fnm_pick.Grade) then button_loud{DefaultText := FnmText(Label)}
         else button_regular{DefaultText := FnmText(Label)}
+
+    # The button with Caption (a skill's subtitle) in small text under it; the button alone when Caption is empty.
+    # The button fills the cell's width, so every button in a column is as wide as the widest.
+    MakeCell(Button:widget, Caption:string):widget =
+        if (Caption = ""):
+            return Button
+        Text := text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 22.0, DefaultJustification := text_justification.Center}
+        Text.SetText(FnmText(Caption))
+        stack_box:
+            Orientation := orientation.Vertical
+            Slots := array:
+                stack_box_slot{Widget := Button, HorizontalAlignment := horizontal_alignment.Fill}
+                stack_box_slot{Widget := Text, HorizontalAlignment := horizontal_alignment.Center, Padding := margin{Top := 2.0}}
 
     ClearPickerButtons():void =
         for (Old : PickerButtonList):
