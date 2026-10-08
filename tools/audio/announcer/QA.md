@@ -6,9 +6,9 @@ Limiter dB = how far the line's peak sat above -1 dBFS before the limiter (highe
 
 | voice | lines | median dur s | total s | LUFS spread | median limiter dB | flags |
 |---|---|---|---|---|---|---|
-| am_michael | 31 | 1.10 | 35.8 | -13.2 to -12.9 | 2.6 | 0 |
-| am_onyx | 31 | 1.15 | 38.0 | -13.2 to -12.9 | 2.5 | 0 |
-| bm_george | 31 | 1.26 | 41.1 | -13.2 to -11.9 | 0.0 | 0 |
+| am_michael | 37 | 1.14 | 46.4 | -13.2 to -12.9 | 2.9 | 0 |
+| am_onyx | 37 | 1.23 | 48.6 | -13.2 to -12.9 | 2.6 | 0 |
+| bm_george | 37 | 1.35 | 53.8 | -13.2 to -11.9 | 0.1 | 0 |
 
 ## Recommendation: am_michael
 
@@ -64,10 +64,16 @@ Median -13.2 LUFS; spread -13.2 to -12.9.
 | choose | Choose your grade and your skill. | 1.75 | 4 | -1.00 | -13.2 | 1.9 |  |
 | boss_fight | Boss fight! | 1.10 | 2 | -1.00 | -13.2 | 2.5 |  |
 | lifeline | Lifeline! | 1.09 | 2 | -1.00 | -13.2 | 5.4 |  |
+| direct_hit | Direct hit! | 1.24 | 2 | -1.00 | -13.2 | 2.3 |  |
+| hits_left4 | Direct hit! Four to go! | 2.02 | 3 | -1.00 | -13.2 | 4.7 |  |
+| hits_left3 | Direct hit! Three to go! | 1.94 | 3 | -1.00 | -13.1 | 5.7 |  |
+| hits_left2 | Direct hit! Two to go! | 1.88 | 3 | -1.00 | -13.2 | 4.0 |  |
+| hits_left1 | Direct hit! One more hit! | 2.12 | 3 | -1.00 | -13.2 | 4.6 |  |
+| boss_down | BOSS DOWN! | 1.41 | 2 | -1.00 | -13.2 | 2.9 |  |
 
 ## am_onyx
 
-Median -13.2 LUFS; spread -13.2 to -12.9.
+Median -13.1 LUFS; spread -13.2 to -12.9.
 
 | cue | text | dur s | cap | peak dBFS | LUFS | limiter dB | flag |
 |---|---|---|---|---|---|---|---|
@@ -102,6 +108,12 @@ Median -13.2 LUFS; spread -13.2 to -12.9.
 | choose | Choose your grade and your skill. | 2.21 | 4 | -1.00 | -13.2 | 2.5 |  |
 | boss_fight | Boss fight! | 1.12 | 2 | -1.00 | -13.2 | 4.1 |  |
 | lifeline | Lifeline! | 1.22 | 2 | -1.00 | -13.1 | 3.6 |  |
+| direct_hit | Direct hit! | 1.16 | 2 | -1.00 | -13.1 | 2.6 |  |
+| hits_left4 | Direct hit! Four to go! | 1.98 | 3 | -1.00 | -13.1 | 4.1 |  |
+| hits_left3 | Direct hit! Three to go! | 2.01 | 3 | -1.00 | -13.2 | 3.9 |  |
+| hits_left2 | Direct hit! Two to go! | 1.96 | 3 | -1.00 | -13.1 | 4.8 |  |
+| hits_left1 | Direct hit! One more hit! | 2.04 | 3 | -1.00 | -13.1 | 3.3 |  |
+| boss_down | BOSS DOWN! | 1.49 | 2 | -1.00 | -13.1 | 3.7 |  |
 
 ## bm_george
 
@@ -140,4 +152,10 @@ Median -13.0 LUFS; spread -13.2 to -11.9.
 | choose | Choose your grade and your skill. | 2.44 | 4 | -1.00 | -13.2 | 2.0 |  |
 | boss_fight | Boss fight! | 1.26 | 2 | -1.00 | -13.2 | 0.1 |  |
 | lifeline | Lifeline! | 1.22 | 2 | -1.00 | -13.2 | 0.0 |  |
+| direct_hit | Direct hit! | 1.55 | 2 | -1.00 | -13.2 | 0.8 |  |
+| hits_left4 | Direct hit! Four to go! | 2.42 | 3 | -1.00 | -13.1 | 1.3 |  |
+| hits_left3 | Direct hit! Three to go! | 2.40 | 3 | -1.00 | -13.0 | 1.9 |  |
+| hits_left2 | Direct hit! Two to go! | 2.33 | 3 | -1.00 | -13.2 | 1.4 |  |
+| hits_left1 | Direct hit! One more hit! | 2.50 | 3 | -1.00 | -12.9 | 1.2 |  |
+| boss_down | BOSS DOWN! | 1.48 | 2 | -1.00 | -13.2 | 0.4 |  |
 

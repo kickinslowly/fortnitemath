@@ -84,9 +84,16 @@ accepts the project's own SoundWaves: the session started with all 23 swapped (2
 
 **Which cues carry the voice:** `ANNOUNCER_CUES` at the top of `tools/build_audio.py`: `go`, `streak2`..`streak7`,
 `perfect`, `new_best`, `new_record`, `medal_gold/silver/bronze`, the six `penalty_*`, `no_skip`, `guards_up`, `welcome`,
-`choose`. Stock (the table above): the countdown ticks, `correct` / `correct_retry`, `wrong`, `door_open`, `boost`,
+`choose`, and the boss-hit lines `direct_hit`, `hits_left4..1` ("Direct hit! Three to go!") and `boss_down` (2026-10-08;
+these six have NO stock stand-in: an announcer-only cue is placed only once its wave is imported, else it logs
+"(not wired)"). Stock (the table above): the countdown ticks, `correct` / `correct_retry`, `wrong`, `door_open`, `boost`,
 `finish`, the music beds and the three boss cues. The pack's `countdown1..3`, `correct`, `wrong`, `finish`, `boss_fight`
 and `lifeline` lines are imported but unused.
+
+**Boss hit timing (director):** `boss_hit` (the stock barrel explosion) at the pad, the counted line
+`HitVoiceDelaySeconds` (0.9 s) later (`FnmHitCue`: 4..1 hits to go get their own line, any other count "Direct hit!",
+nothing on the killing hit), then on the kill `boss_dead` and `boss_down` 1.0 s after it (`SoundAfter`, which plays even
+though the player has just finished).
 
 **Commands:**
 

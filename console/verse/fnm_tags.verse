@@ -116,5 +116,26 @@ fnm_cue_music_t5 := class(tag){}
 fnm_cue_boss_fight := class(tag){}
 fnm_cue_boss_hit := class(tag){}
 fnm_cue_boss_dead := class(tag){}
+fnm_cue_direct_hit := class(tag){}
+fnm_cue_hits_left4 := class(tag){}
+fnm_cue_hits_left3 := class(tag){}
+fnm_cue_hits_left2 := class(tag){}
+fnm_cue_hits_left1 := class(tag){}
+fnm_cue_boss_down := class(tag){}
 # Cue tag types in fnm_cue enum order (FnmCues()).
-FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5, fnm_cue_boss_fight, fnm_cue_boss_hit, fnm_cue_boss_dead}
+FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5, fnm_cue_boss_fight, fnm_cue_boss_hit, fnm_cue_boss_dead, fnm_cue_direct_hit, fnm_cue_hits_left4, fnm_cue_hits_left3, fnm_cue_hits_left2, fnm_cue_hits_left1, fnm_cue_boss_down}
+
+# The boss arena's laser cannons (tools/build_cannon.py; Aaron 2026-10-08 "epic laser cannon blast"): the muzzle VFX
+# spawner at each cannon, the explosive devices parked under the boss platform (the blast, moved to the boss's feet per
+# hit) and the one VFX spawner moved onto the boss for the strike.
+fnm_cannon_blast := class(tag){}
+fnm_cannon_fx := class(tag){}
+fnm_cannon_strike := class(tag){}
+# Pickup pads (tools/build_pickups.py): every pad carries fnm_pickup + its item tag; the three hidden triggers bound to
+# the item granters that hand the item over carry fnm_grant + the item tag (the director fires one when a player runs
+# over a pad of that item).
+fnm_pickup := class(tag){}
+fnm_grant := class(tag){}
+fnm_item_boogie := class(tag){}
+fnm_item_shockwave := class(tag){}
+fnm_item_splash := class(tag){}

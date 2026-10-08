@@ -38,8 +38,13 @@ before UEFN work. Project-specific:
   geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen
   billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild),
-  `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station; idempotent via
-  `fnm_pickups`; rerun after a course rebuild; the device and item-definition paths are in its docstring),
+  `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station, Slap Splash pads at
+  odd stations from 3; each pad = an Item Spawner (E pickup) + a hidden run-over trigger the director answers by firing the
+  item's granter, which drops the item at the feet when the inventory is full; idempotent via `fnm_pickups`; rerun after a
+  course rebuild; the device and item-definition paths are in its docstring), `tools/build_cannon.py` (the arena's laser
+  cannons: muzzle VFX spawners, the strike spawner and explosive blasts the director fires on every right pad; idempotent
+  via `fnm_cannon_rig`; rerun after a course rebuild; needs the `steel` and `glow` materials: `python tools/import_art.py
+  steel glow`),
   `tools/build_lids.py` (glass ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
   `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the

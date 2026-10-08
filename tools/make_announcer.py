@@ -66,6 +66,14 @@ LINES: dict[str, tuple[str, str, float, str, float]] = {
     "choose":           ("Choose your grade and your skill.", "Choose your grade and your skill.", 1.00, "dry", 4.0),
     "boss_fight":       ("Boss fight!",                       "Boss fight!",                       0.90, "std", 2.0),
     "lifeline":         ("Lifeline!",                         "Lifeline!",                         0.90, "std", 2.0),
+    # Boss arena hits (Aaron 2026-10-08: "make the hit more clear verbally ... like 'direct hit!' and how many hits
+    # remaining"): one line per hits-remaining count the director can name, a generic one for any other count, and the kill.
+    "direct_hit":       ("Direct hit!",                       "Direct hit!",                       0.90, "big", 2.0),
+    "hits_left4":       ("Direct hit! Four to go!",           "Direct hit! Four to go!",           0.95, "big", 3.0),
+    "hits_left3":       ("Direct hit! Three to go!",          "Direct hit! Three to go!",          0.95, "big", 3.0),
+    "hits_left2":       ("Direct hit! Two to go!",            "Direct hit! Two to go!",            0.95, "big", 3.0),
+    "hits_left1":       ("Direct hit! One more hit!",         "Direct hit! One more hit!",         0.95, "big", 3.0),
+    "boss_down":        ("BOSS DOWN!",                        "Boss down!",                        0.85, "big", 2.0),
 }
 # door_open has no line (sound effect only), so it is not in the table.
 

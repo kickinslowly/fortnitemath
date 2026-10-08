@@ -29,7 +29,9 @@ WALL_COLOURS = {"tier1": (0.30, 0.75, 0.40), "tier2": (0.25, 0.50, 0.90), "tier3
                 "tier4": (0.95, 0.50, 0.15), "tier5": (0.85, 0.18, 0.18), "finish": (1.0, 0.75, 0.10),
                 "ice": (0.70, 0.90, 1.0),   # icy hallway floors (build_course.py ICE_STATIONS)
                 # the boss arena's answer pad tiles, A..D in build_course.LETTER_COLOURS
-                "pad_a": (1.0, 1.0, 1.0), "pad_b": (0.3, 0.55, 1.0), "pad_c": (0.2, 0.9, 0.3), "pad_d": (1.0, 0.55, 0.1)}
+                "pad_a": (1.0, 1.0, 1.0), "pad_b": (0.3, 0.55, 1.0), "pad_c": (0.2, 0.9, 0.3), "pad_d": (1.0, 0.55, 0.1),
+                # the arena's laser cannons (tools/build_cannon.py): gunmetal bodies, a glowing muzzle ring
+                "steel": (0.16, 0.18, 0.22), "glow": (0.25, 0.95, 1.0)}
 
 
 def mount():

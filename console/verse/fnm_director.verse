@@ -171,6 +171,8 @@ fnm_player_state := class:
     # Boss arena: this run's hits on the boss, and whether the boss line is on their HUD.
     var Hits : int = 0
     var BossShown : logic = false
+    # Pickup pads: when each pad (by index) last granted this player its item (OnPad).
+    var PadGrants : [int]float = map{}
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
 fnm_door_handler := class:
@@ -181,6 +183,15 @@ fnm_door_handler := class:
     OnTriggered(MaybeAgent:?agent):void =
         if (not Director.DebugIgnoreTriggerEvents?):
             Director.OnDoor(MaybeAgent, StationIndex, DoorIndex)
+
+# Binds one pickup pad's trigger (tools/build_pickups.py) to its index and item kind, so one callback serves every pad.
+fnm_pad_handler := class:
+    Director : fnm_director
+    Index : int
+    Kind : string
+
+    OnTriggered(MaybeAgent:?agent):void =
+        Director.OnPad(MaybeAgent, Index, Kind)
 
 fnm_director := class(creative_device, fnm_picker_listener):
     # Optional difficulty position per station in percent (0 easiest .. 100 hardest); -1 or a missing
@@ -463,6 +474,28 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var BossHitsTaken : int = 0
     var LastHitter : ?player = false
     var AddsUp : logic = false
+    # The laser cannons (tools/build_cannon.py; Aaron 2026-10-08: "epic laser cannon blast the boss and the boss flail
+    # or get knocked back"): the muzzle VFX spawners, the strike VFX spawner moved onto the boss, the explosive devices
+    # parked under the platform (one per hit, round robin). How long the flash and strike stay on; the announcer's delay
+    # after the bang for the hit count and for BOSS DOWN.
+    var CannonFx : []vfx_spawner_device = array{}
+    var StrikeFx : ?vfx_spawner_device = false
+    var StrikeHome : ?transform = false
+    var BlastRig : fnm_rig = fnm_rig{Name := "blast", Parts := array{}, Homes := array{}}
+    CannonFlashSeconds : float = 1.2
+    HitVoiceDelaySeconds : float = 0.9
+    BossDownVoiceDelaySeconds : float = 1.0
+    # The knock the boss takes on a hit: an impulse back (+Y, away from the entry) and up; if that moves it under 30 cm
+    # (an NPC may ignore impulses the way players do), a BossStaggerCm teleport back instead; then BossStunSeconds frozen.
+    @editable
+    BossKnockImpulse : float = 80000.0
+    BossStaggerCm : float = 150.0
+    BossStunSeconds : float = 0.8
+    # Pickup pads (tools/build_pickups.py): the hidden trigger per item kind, bound to the item granter that hands one
+    # over; how many pad triggers were wired; how long one player waits before the same pad grants them again.
+    var GrantTriggers : [string]trigger_device = map{}
+    var PadCount : int = 0
+    PickupRepeatSeconds : float = 3.0
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -482,6 +515,23 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
         set YeetRig = BuildRig("yeet", fnm_yeet)
+        for (Object : FindCreativeObjectsWithTag(fnm_cannon_fx), Device := vfx_spawner_device[Object]):
+            Device.Disable()
+            set CannonFx += array{Device}
+        for (Object : FindCreativeObjectsWithTag(fnm_cannon_strike), Device := vfx_spawner_device[Object]):
+            Device.Disable()
+            set StrikeFx = option{Device}
+            set StrikeHome = option{Device.GetTransform()}
+        set BlastRig = BuildRig("blast", fnm_cannon_blast)
+        Print("FNM: cannons: {CannonFx.Length} muzzles, strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts")
+        for (Object : FindCreativeObjectsWithTag(fnm_pickup), Trigger := trigger_device[Object]):
+            Handler := fnm_pad_handler{Director := Self, Index := PadCount, Kind := ItemKind(Object)}
+            Trigger.TriggeredEvent.Subscribe(Handler.OnTriggered)
+            set PadCount += 1
+        for (Object : FindCreativeObjectsWithTag(fnm_grant), Trigger := trigger_device[Object]):
+            Kind := ItemKind(Object)
+            if (set GrantTriggers[Kind] = Trigger) {}
+        Print("FNM: {PadCount} pickup pads, {GrantTriggers.Length} item granters")
         for (Object : FindCreativeObjectsWithTag(fnm_penalty_cam), Camera := gameplay_camera_orbit_device[Object]):
             set PenaltyCam = option{Camera}
         for (Object : FindCreativeObjectsWithTag(fnm_loadout), Trigger := trigger_device[Object]):
@@ -1175,6 +1225,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # The barrier stays open for them; walking back through it later is harmless.
     AdvancePlayer(State:fnm_player_state, Station:fnm_station, DoorIndex:int):void =
         set State.Stage += 1
+        # Every stage cleared refills health and shield (Aaron 2026-10-08: the station-10 guards wore him down; "every
+        # time a player makes it through a stage they should have health and shield refreshed to full").
+        RefreshVitals(State.Player, State.Stage)
         if (AtArena(State)?):
             EnterArena(State)
         else if (State.Stage > Stations.Length):
@@ -1507,6 +1560,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Character.SetHealth(Character.GetMaxHealth())
             Character.SetShield(Character.GetMaxShield())
             Print("FNM: loadout: health {Character.GetHealth()}, shield {Character.GetShield()}")
+
+    # Full health and full shield for Player, logged with the stage it was earned at.
+    RefreshVitals(Player:player, Stage:int):void =
+        if (Character := Player.GetFortCharacter[]):
+            Character.SetHealth(Character.GetMaxHealth())
+            Character.SetShield(Character.GetMaxShield())
+            Print("FNM: vitals refreshed at stage {Stage}: health {Character.GetHealth()}, shield {Character.GetShield()}")
 
     # Moves a punished player out of the vestibule behind door DoorIndex into open hallway PenaltyStandOff in
     # front of the door wall (centred like the entry), facing the doors, and lets them land.
@@ -1966,21 +2026,33 @@ fnm_director := class(creative_device, fnm_picker_listener):
         else:
             set State.Busy = false
 
-    # A right pad: one hit on the shared boss (BossDamage), HIT!, the player back to the arena entry and the next
+    # A right pad: one hit on the shared boss (BossDamage), DIRECT HIT! with the team's hits still to go on the HUD and
+    # from the announcer (FnmHitCue), the cannons' show (FireCannons), the player back to the arena entry and the next
     # question. The kill itself comes through the boss spawner's EliminatedEvent (BossDown).
     BossHit(State:fnm_player_state, A:fnm_arena):void =
         set State.Hits += 1
         set LastHitter = option{State.Player}
+        var Left : int = BossHitsToKill
+        var Target : ?fort_character = false
+        var Stood : vector3 = vector3{X := 0.0, Y := 0.0, Z := 0.0}
         if (BossAlive?, Agent := BossAgent?, Character := Agent.GetFortCharacter[]):
             set BossHitsTaken += 1
+            set Left = Max(BossHitsToKill - BossHitsTaken, 0)
+            set Stood = Character.GetTransform().Translation
+            set Target = option{Character}
             Amount := BossDamage(Character)
             Character.Damage(Amount)
             Print("FNM: boss hit {State.Hits} by the player (team {BossHitsTaken}/{BossHitsToKill}), damage {Amount}, health {BossPercent()}%")
         else:
             Print("FNM: boss hit {State.Hits} by the player, but no boss is up")
         Sound(State.Player, fnm_cue.BossHit)
-        State.Hud.FlashVerdict(true, "HIT!")
+        State.Hud.FlashVerdict(true, if (Left = 1) then "DIRECT HIT!  1 TO GO" else if (Left > 1) then "DIRECT HIT!  {Left} TO GO" else "DIRECT HIT!")
+        if (Left > 0):
+            spawn{ SoundLater(State.Player, FnmHitCue(Left), HitVoiceDelaySeconds) }
+        # Back to the entry first, facing the boss: the show plays out ahead of them, and the blast cannot catch them.
         SendTo(State.Player, A.Station.RetryTeleporter)
+        if (Character := Target?):
+            spawn{ FireCannons(State.Player, Character, Stood, Left) }
         if (not State.Finished?):
             DrawItem(State)
             ShowCurrent(State)
@@ -2080,6 +2152,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Print("FNM: gate open for the player")
                 FinishPlayer(State)
                 Sound(State.Player, fnm_cue.BossDead)
+                spawn{ SoundAfter(State.Player, fnm_cue.BossDown, BossDownVoiceDelaySeconds) }
 
     # Every BossRefreshSeconds: a boss for whoever is at the arena stage (BossRespawnSeconds after the last kill; a
     # spawn that has not come after 5 s is asked for again with Spawn()), the adds off once the arena is empty, a backstop
@@ -2114,6 +2187,84 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     else if (State.BossShown?):
                         State.Hud.ClearBoss()
                         set State.BossShown = false
+
+    # ---------------------------------------------------------------- laser cannons (Aaron 2026-10-08)
+
+    # The cannons' show for one hit: every muzzle fires its beams (a VFX burst with the beam sound), the strike effect
+    # and a blast go off at the boss's feet (At: where it stood as the hit landed; a fort_character's position is its
+    # capsule centre, ~77 cm up), and the boss is knocked back and stunned (KnockBoss). CannonFlashSeconds later the
+    # effects are off again, the strike is back at its parked spot and the blast parks under the platform.
+    FireCannons(Shooter:player, Character:fort_character, At:vector3, Left:int)<suspends>:void =
+        Feet := At + vector3{X := 0.0, Y := 0.0, Z := -77.0}
+        Level := MakeRotationFromYawPitchRollDegrees(0.0, 0.0, 0.0)
+        for (Fx : CannonFx):
+            Fx.Enable()
+            Fx.Restart()
+        if (Fx := StrikeFx?, Fx.TeleportTo[Feet, Level]):
+            Fx.Enable()
+            Fx.Restart()
+        Blast := BlastRig.NextIndex()
+        if (Part := BlastRig.PartAt[Blast], Bomb := explosive_device[Part]):
+            Bomb.Reset()
+            if (Part.TeleportTo[Feet, Level]) {}
+            Bomb.Explode(Shooter)
+        Print("FNM: cannons fired ({CannonFx.Length} muzzles, blast {Blast}) at {Feet}, {Left} hits to go")
+        spawn{ KnockBoss(Character) }
+        Sleep(CannonFlashSeconds)
+        for (Fx : CannonFx):
+            Fx.Disable()
+        if (Fx := StrikeFx?):
+            Fx.Disable()
+            if (Home := StrikeHome?, Fx.TeleportTo[Home]) {}
+        BlastRig.Park(Blast)
+
+    # Knocks the boss back along +Y (away from the entry) and up, then freezes it for a beat. An NPC may ignore the
+    # impulse the way players do (uefn-mcp skill: "physics disabled"); if it moved under 30 cm it is staggered back
+    # BossStaggerCm by teleport instead, so the hit always reads. Logged with how far it went.
+    KnockBoss(Character:fort_character)<suspends>:void =
+        if (not Character.IsActive[]):
+            return
+        Before := Character.GetTransform().Translation
+        Character.ApplyLinearImpulse(FnmImpulse(0.0, BossKnockImpulse, BossKnockImpulse * 0.5))
+        Sleep(0.3)
+        if (not Character.IsActive[]):
+            return
+        After := Character.GetTransform().Translation
+        Moved := Distance(Before, After)
+        if (Moved < 30.0):
+            Facing := Character.GetTransform().Rotation
+            Spot := After + vector3{X := 0.0, Y := BossStaggerCm, Z := 20.0}
+            if (Character.TeleportTo[Spot, Facing]):
+                Print("FNM: boss staggered back {BossStaggerCm} cm by teleport (the impulse moved it {Moved} cm)")
+            else:
+                Print("FNM: boss stagger teleport failed (the impulse moved it {Moved} cm)")
+        else:
+            Print("FNM: boss knocked {Moved} cm by the impulse")
+        Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := true, AllowEmotes := false})
+        Sleep(BossStunSeconds)
+        Character.ReleaseFromStasis()
+
+    # ---------------------------------------------------------------- pickup pads (Aaron 2026-10-08)
+
+    # A player ran over pickup pad Index (its trigger, tools/build_pickups.py): the item granter for Kind hands them one
+    # through its hidden trigger, at most once per PickupRepeatSeconds per pad and player. The granter drops the item
+    # at their feet when the inventory is full (its "drop if full" option); the pad's own touch pickup used to swallow
+    # it (Aaron: "the grenades disappear").
+    OnPad(MaybeAgent:?agent, Index:int, Kind:string):void =
+        if (Agent := MaybeAgent?, Player := player[Agent], State := PlayerStates[Player], not State.Picking?):
+            Now := GetSimulationElapsedTime()
+            Last := if (T := State.PadGrants[Index]) then T else -100.0
+            if (Now - Last >= PickupRepeatSeconds, Trigger := GrantTriggers[Kind]):
+                if (set State.PadGrants[Index] = Now) {}
+                Trigger.Trigger(Player)
+                Print("FNM: pickup {Kind} granted at pad {Index} (stage {State.Stage})")
+
+    # The item kind a tagged pad trigger or grant trigger carries (fnm_item_* tags).
+    ItemKind(Object:creative_object_interface)<transacts>:string =
+        if (Object.GetTags().Has[fnm_item_boogie{}]) then "boogie"
+        else if (Object.GetTags().Has[fnm_item_shockwave{}]) then "shockwave"
+        else if (Object.GetTags().Has[fnm_item_splash{}]) then "splash"
+        else "unknown"
 
     # ---------------------------------------------------------------- live race layer (G6)
 
@@ -2242,6 +2393,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     SoundLater(Player:player, Cue:fnm_cue, Seconds:float)<suspends>:void =
         Sleep(Seconds)
         if (State := PlayerStates[Player], not State.Finished?):
+            Sound(Player, Cue)
+
+    # Cue a moment later whether or not the player has finished (BOSS DOWN lands after FinishPlayer).
+    SoundAfter(Player:player, Cue:fnm_cue, Seconds:float)<suspends>:void =
+        Sleep(Seconds)
+        if (Player.IsActive[]):
             Sound(Player, Cue)
 
     # The music bed for Player: tier Tier's loop (0 = silence; also while the picker is up and after the finish).

@@ -71,12 +71,27 @@ fnm_cue := enum:
     BossFight
     BossHit
     BossDead
+    # the announcer on a boss hit: "Direct hit!" alone, or with the team's hits still to go (4..1), and the kill
+    DirectHit
+    HitsLeft4
+    HitsLeft3
+    HitsLeft2
+    HitsLeft1
+    BossDown
 
 # Every cue, in enum order (FnmCueIds and FnmCueTags follow the same order).
-FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead}
+FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead, fnm_cue.DirectHit, fnm_cue.HitsLeft4, fnm_cue.HitsLeft3, fnm_cue.HitsLeft2, fnm_cue.HitsLeft1, fnm_cue.BossDown}
 
 # Snake-case id per cue, enum order: the Verse tag is fnm_cue_<id> (tools/build_audio.py CUES keys).
-FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead"}
+FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead", "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down"}
+
+# The announcer's line for a boss hit that leaves Left team hits to go: a counted line for 1..4, "Direct hit!" otherwise.
+FnmHitCue(Left:int)<transacts>:fnm_cue =
+    if (Left = 4) then fnm_cue.HitsLeft4
+    else if (Left = 3) then fnm_cue.HitsLeft3
+    else if (Left = 2) then fnm_cue.HitsLeft2
+    else if (Left = 1) then fnm_cue.HitsLeft1
+    else fnm_cue.DirectHit
 
 FnmCueIndex(Cue:fnm_cue)<transacts>:int =
     var Found : int = -1

@@ -100,6 +100,16 @@ like door A, so the pads read A B / C D as the HUD lists the choices.
   1 and 10000", but a write of 100000 read back 100000 and the spawned boss reported 100000 of 100000 in play
   (2026-10-07). A station-10 rocket launcher cannot kill it without the math, so it is not Invincible: the director's
   `Damage` takes 20000 a hit.
+- **Laser cannons** (2026-10-08, `tools/build_cannon.py`; Aaron: "epic laser cannon blast the boss and the boss flail or
+  get knocked back"): one on each wall `CANNON_Y` (11 m) into the hall, 3.3 m up, aimed at the platform: a gunmetal
+  bracket, turret ball and barrel with a glowing muzzle ring (engine shapes painted `M_fnm_wall_steel` / `_glow`), and
+  at each muzzle a VFX Spawner (LaserBeams burst, Beam_Attack sound; tag `fnm_cannon_fx`). Parked under the platform:
+  a VFX Spawner (LightningBolt_01, Electric_Blast; `fnm_cannon_strike`) and two explosive devices (no damage, medium
+  knockback, audio + VFX; `fnm_cannon_blast`). On every right pad the director (`FireCannons`) enables the muzzle bursts,
+  moves the strike and a blast to the boss's feet and sets them off, knocks the boss back (`ApplyLinearImpulse`, or a
+  1.5 m teleport stagger if the impulse does not move it) and freezes it 0.8 s; the HUD reads DIRECT HIT! N TO GO and the
+  announcer counts the team's hits down. The engine shapes are scenery: Verse cannot find or move them, so the muzzle
+  VFX spawner is the muzzle the director knows about. Rerun after a course rebuild.
 
 ## Hallway obstacles (2026-10-04)
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is

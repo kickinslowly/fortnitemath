@@ -265,6 +265,18 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   run had set a 0:29.6 island record). Aaron's calls: the boss's AR plus two adds took a test player to 14 HP;
   with another fighter present the boss respawns 4 s after a kill while the finisher walks out past it; the rivals
   strip shows a boss fighter as `station 10`
+- [ ] 3a. Aaron playtest notes 2026-10-08 ("couldn't barely make it past stage 10 until the guards had killed themselves
+  from the blasts"), built the same day: (1) every stage cleared refills health and shield (`RefreshVitals` in
+  `AdvancePlayer`, logged); (2) laser cannons in the arena (`tools/build_cannon.py`, LAYOUT.md "Laser cannons"): on a
+  right pad two wall-mounted cannons fire LaserBeams bursts, a lightning strike and an explosion land at the boss's feet,
+  the boss is knocked back (impulse, else a teleport stagger) and frozen 0.8 s, HUD DIRECT HIT! N TO GO; (3) announcer
+  counts the team's hits ("Direct hit! Three to go!", "BOSS DOWN!"): six new cues (`direct_hit`, `hits_left4..1`,
+  `boss_down`, `tools/make_announcer.py`, all three voices rendered), announcer-only (no stock stand-in), wired once
+  the waves are imported (AUDIO.md "Announcer"); (4) pickup pads with a full inventory swallowed the grenade: each pad now
+  has a hidden run-over trigger and the director fires an Item Granter (Keep All, grant Always, drop at the feet when
+  full); the hovering grenade is an E pickup (swap). UNVERIFIED until the next play session: the look of the LaserBeams
+  burst from a pitched spawner, whether an NPC takes `ApplyLinearImpulse` (the log says "knocked N cm" or "staggered"),
+  the drop-at-feet grant on a full bag (needs a real full inventory), the six voice lines by ear
 - [ ] 4. Agency: a gold fifth door at some stations (tier+2 question: skip the next station or eat a nasty penalty); two
   lifelines per run (50/50, a 3 s peek at the explanation for a time cost); coins on the walls and a podium shop
   (shield that eats one penalty, a shockwave, a head start)

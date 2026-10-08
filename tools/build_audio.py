@@ -36,6 +36,7 @@ ANNOUNCER_CUES = [
     "go", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "new_best", "new_record",
     "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy",
     "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose",
+    "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down",
 ]
 # The voice pack's SoundWaves, imported through the UEFN GUI (tools/audio/announcer/<voice>/<cue>.wav).
 VO_FOLDER = "FNM_Audio"
@@ -130,6 +131,14 @@ CUES = {
     "boss_fight": (f"{STING}/Stinger_Threat_01_Cue.Stinger_Threat_01_Cue", {}),
     "boss_hit": (f"{CR}/Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01_Cue.ExplodingBarrel_Explode_01_Cue", {}),
     "boss_dead": (f"{STING}/BlackMonday/Stinger_BlackMonday_Win_01_Cue.Stinger_BlackMonday_Win_01_Cue", {}),
+    # Announcer-only (Aaron 2026-10-08: "make the hit more clear verbally ... 'direct hit!' and how many hits remaining"):
+    # no stock stand-in, so each plays only once its voice line is imported (--announcer), else it is a logged no-op.
+    "direct_hit": (None, {}),
+    "hits_left4": (None, {}),
+    "hits_left3": (None, {}),
+    "hits_left2": (None, {}),
+    "hits_left1": (None, {}),
+    "boss_down": (None, {}),
 }
 
 READ_BACK = list(BASE) + ["audio"]
@@ -230,7 +239,8 @@ def build(voice=None):
     project = project_id()
     chosen = sources(project, voice)
     print("removed", clear(), "old audio players")
-    wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in CUES.items() if asset]
+    # A cue is placed when it has a sound to carry: its stock asset, or an imported voice line on an announcer-only cue.
+    wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in CUES.items() if cue in chosen]
     problems = 0
     for n, (cue, asset, opts) in enumerate(wired):
         r = u.call(DEV, "PlaceDevice", {"assetPath": ref(PLAYER), "transform": xform(PARK[0] + PITCH * n, PARK[1], PARK[2])})
@@ -246,7 +256,7 @@ def build(voice=None):
         source = "announcer" if is_vo(asset) else "stock"
         print(f"{label(cue):24} {source:9} {asset.rsplit('/', 1)[-1].split('.')[0]:44} {'OK' if not bad else 'MISMATCH ' + '; '.join(bad)}")
     u.call(ASSETS, "save_assets", {"asset_paths": []})
-    missing = [cue for cue, (asset, _) in CUES.items() if not asset]
+    missing = [cue for cue in CUES if cue not in chosen]
     voiced = sum(1 for _, asset, _ in wired if is_vo(asset))
     print(f"{len(wired)} of {len(CUES)} cues wired ({voiced} announcer, {len(wired) - voiced} stock), {problems} read-back "
           f"mismatches; no library sound: {', '.join(missing) or 'none'}")

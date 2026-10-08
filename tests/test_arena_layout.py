@@ -51,5 +51,18 @@ def test_one_boss_and_two_adds():
 
 def test_arena_tags_declared():
     tags = (ROOT / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
-    for name in ("fnm_boss", "fnm_boss_spawner", "fnm_boss_adds", "fnm_boss_gate"):
+    for name in ("fnm_boss", "fnm_boss_spawner", "fnm_boss_adds", "fnm_boss_gate",
+                 "fnm_cannon_fx", "fnm_cannon_strike", "fnm_cannon_blast"):
         assert f"{name} := class(tag){{}}" in tags
+
+
+def test_cannons_on_the_walls_short_of_the_platform():
+    """The laser cannons (tools/build_cannon.py) hang on the walls between the entry and the boss platform, under the
+    wall tops and the glass lid, and their blast does no damage (the math is the only weapon)."""
+    import build_cannon as cn
+    assert 450 < cn.CANNON_Y < c.PLATFORM_Y - c.PLATFORM_D / 2
+    assert cn.CANNON_Z + cn.BALL_D + cn.RING_D < c.WALL_H
+    assert cn.CANNON_IN + cn.BALL_D / 2 < c.PAD_SPOTS[0][0] - c.PAD_SIZE / 2 + 1500   # off the wall, over the pad row
+    assert cn.BLAST["player Damage"] == 0 and cn.BLAST["structure Damage"] == 0 and cn.BLAST["visible During Game"] is False
+    assert cn.MUZZLE_FX["enabled On Phase"] == "None" and cn.STRIKE_FX["enabled On Phase"] == "None"
+    assert cn.BLASTS >= 1
