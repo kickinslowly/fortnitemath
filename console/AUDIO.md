@@ -140,3 +140,14 @@ so run `python tools/audio_meter.py 230 %TEMP%/meter.csv unmute` in the backgrou
 at 0.25 and logs its own peak meter (2026-10-07: 44 of 59 cue lines matched a loopback onset within 0.5 s, session peak 0.34).
 Re-mute afterwards if Aaron had it muted. Also:
 the player's own Fortnite Music slider is 0 on this PC, so the music beds are inaudible to that account even unmuted.
+
+## Did the voice play? (2026-10-07)
+Aaron heard the stock sounds and no announcer. `tools/hear_voice.py` (a matched filter of each voice wav against a
+`hear.py` recording at its cue time) showed why: GO 0.96 and WELCOME 0.77 in the clear, the penalty lines 0.17-0.32
+(noise floor 0.08-0.11) because they fired on the same instant as the 2.3 s wrong buzzer and the effect's own sound.
+Now: announcer devices at `VO_VOLUME` 2.5 (the volume property takes values past 1), the penalty line
+`PenaltyVoiceDelaySeconds` (0.9) after the buzzer, `wrong` = the 0.77 s Target_Error, no boost whoosh on a streak,
+finish gap 1.6 s. Measured after: penalty_freeze 0.94, penalty_yeet 0.90. Rig rules: record with the client FOCUSED
+(Fortnite mutes itself in the background: every background recording was digital silence), and after a BuildAll or a
+device rebuild with a live session wait for the push to finish cooking (`playtest.wait_for_push`) before a relaunch or a
+StopSession: a relaunch inside that window started from a stale snapshot (16 of 40 cue devices, ship Verse).

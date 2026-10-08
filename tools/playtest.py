@@ -118,6 +118,11 @@ def wait_for_push(timeout=150):
     StopSession/StartSession in that window leaves the session "Disconnected" ("The session left the content update
     without becoming connected", 2026-10-07, twice) or starts from a stale snapshot (16 of 40 cue devices, ship-value
     Verse). Wait until the editor log's last LoadingNewContent activity has completed."""
+    try:
+        if u.call(SESSION, "GetSessionStatus", {}).get("returnValue") != "Connected":
+            return True   # nothing live to push into (a push into a Disconnected session never completes)
+    except RuntimeError:
+        return True
     start = time.time()
     while time.time() - start < timeout:
         lines = fnm_lines("LoadingNewContent")
