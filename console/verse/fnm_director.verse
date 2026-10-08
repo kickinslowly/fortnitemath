@@ -432,7 +432,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var Audio : ?fnm_audio = false
     # Seconds between the stacked finish cues (finish, best/record, medal, perfect), so they do not pile up.
     @editable
-    FinishCueGapSeconds : float = 1.2
+    FinishCueGapSeconds : float = 1.6
+    # The penalty voice line comes this long after the wrong buzzer and the effect's own sound, so it is not buried under
+    # them (2026-10-07: matched filter found the lines at 0.2-0.3 correlation when played on the same instant, GO at 0.88).
+    @editable
+    PenaltyVoiceDelaySeconds : float = 0.9
     # Live race layer (G6): the rivals strip is refreshed every RaceSeconds and holds RaceRows rows (fnm_hud RivalRows);
     # the last strip logged, so the log gets a RACE line only when the order or a station changes.
     RaceSeconds : float = 0.5
@@ -1324,7 +1328,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 FxOn(Player, FrostFx)
-                Sound(Player, fnm_cue.PenaltyFreeze)
+                spawn{ SoundLater(Player, fnm_cue.PenaltyFreeze, PenaltyVoiceDelaySeconds) }
                 Ice := IceRig.NextIndex()
                 Placed := IceRig.Place(Ice, Feet, 0.0)
                 Print("FNM: ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
@@ -1347,7 +1351,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(0.1)
                 Hop := Character.GetTransform()
                 if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
-                Sound(Player, fnm_cue.PenaltyYeet)
+                spawn{ SoundLater(Player, fnm_cue.PenaltyYeet, PenaltyVoiceDelaySeconds) }
                 Print("FNM: vent {Pad} placed={FnmYesNo(Placed)} at {Feet}")
                 Sleep(YeetSeconds)
                 YeetRig.Park(Pad)
@@ -1368,19 +1372,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendTo(Player, Station.RetryTeleporter)
         else if (Kind = fnm_penalty.Mud):
             SendTo(Player, Station.RetryTeleporter)
-            Sound(Player, fnm_cue.PenaltyMud)
+            spawn{ SoundLater(Player, fnm_cue.PenaltyMud, PenaltyVoiceDelaySeconds) }
             spawn{ Muddy(Player) }
             spawn{ ScreenFx(Player, MudFx, MudSeconds) }
         else if (Kind = fnm_penalty.Dizzy):
             SendTo(Player, Station.RetryTeleporter)
-            Sound(Player, fnm_cue.PenaltyDizzy)
+            spawn{ SoundLater(Player, fnm_cue.PenaltyDizzy, PenaltyVoiceDelaySeconds) }
             Spin(Player)
             spawn{ DizzyPulses(Player) }
         else if (Kind = fnm_penalty.Blackout):
             if (Character := Player.GetFortCharacter[]):
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 if (State := PlayerStates[Player]) then State.Hud.SetBlack(true)
-                Sound(Player, fnm_cue.PenaltyBlackout)
+                spawn{ SoundLater(Player, fnm_cue.PenaltyBlackout, PenaltyVoiceDelaySeconds) }
                 Sleep(BlackoutSeconds)
                 SendTo(Player, Station.RetryTeleporter)
                 Character.ReleaseFromStasis()
@@ -1402,7 +1406,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: spears placed {Placed}/{Spears.Length} at {Feet}")
                 for (Index : Spears):
                     spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
-                Sound(Player, fnm_cue.PenaltySpike)
+                spawn{ SoundLater(Player, fnm_cue.PenaltySpike, PenaltyVoiceDelaySeconds) }
                 Sleep(SpearSeconds)
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 Sleep(SpikeWatchSeconds)
@@ -1835,7 +1839,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Generation := State.BoostGeneration
         if (Device := BoostDevice?):
             # Just after the right-door chime, so the two do not land on the same instant.
-            spawn{ SoundLater(State.Player, fnm_cue.Boost, 0.4) }
+            # With a streak the voice line is the celebration; the 3.5 s boost whoosh would bury it.
+            if (State.Streak < 2):
+                spawn{ SoundLater(State.Player, fnm_cue.Boost, 0.4) }
             var Elapsed : float = 0.0
             var SinceApply : float = BoostReapplySeconds
             loop:

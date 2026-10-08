@@ -113,7 +113,25 @@ def fnm_lines(pattern="FNM:"):
     return log.get("returnValue", []) if isinstance(log, dict) else []
 
 
+def wait_for_push(timeout=150):
+    """A BuildAll (or a device rebuild) with a live session pushes the project into it and cooks for 20-60 s; a
+    StopSession/StartSession in that window leaves the session "Disconnected" ("The session left the content update
+    without becoming connected", 2026-10-07, twice) or starts from a stale snapshot (16 of 40 cue devices, ship-value
+    Verse). Wait until the editor log's last LoadingNewContent activity has completed."""
+    start = time.time()
+    while time.time() - start < timeout:
+        lines = fnm_lines("LoadingNewContent")
+        starts = [l for l in lines if "Start Activity: LoadingNewContent" in l]
+        done = [l for l in lines if "Complete Activity: LoadingNewContent" in l]
+        if not starts or (done and (log_time(done[-1]) or datetime.datetime.min) >= (log_time(starts[-1]) or datetime.datetime.min)):
+            return True
+        time.sleep(2)
+    print("  push still cooking after", timeout, "s; relaunching anyway")
+    return False
+
+
 def relaunch():
+    wait_for_push()
     try:
         u.call(SESSION, "StopSession", {})
         time.sleep(8)
@@ -159,7 +177,9 @@ def wait_for(pattern, baseline, timeout=120):
     since = datetime.datetime.utcnow() - datetime.timedelta(seconds=5)
     start = time.time()
     while time.time() - start < timeout:
-        new = [line for line in fnm_lines(pattern) if line not in baseline and (log_time(line) or since) >= since]
+        # Substring match in Python: handing the pattern to the editor's log filter returned nothing for
+        # "FNM: run 1 GO" / "FNM: entered the arena" (two --after waits timed out on 2026-10-07).
+        new = [line for line in fnm_lines() if pattern in line and line not in baseline and (log_time(line) or since) >= since]
         if new:
             return new[-1]
         time.sleep(0.25)

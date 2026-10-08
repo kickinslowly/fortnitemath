@@ -39,6 +39,9 @@ ANNOUNCER_CUES = [
 ]
 # The voice pack's SoundWaves, imported through the UEFN GUI (tools/audio/announcer/<voice>/<cue>.wav).
 VO_FOLDER = "FNM_Audio"
+# Device volume for a voice line (the property takes values past 1; 2.5 is about +8 dB). 2026-10-07: at volume 1 the
+# penalty lines were buried under the wrong buzzer and the effect sounds (matched filter 0.2-0.3 vs 0.88 for a clear GO).
+VO_VOLUME = 2.5
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 PLAYER = "/CRD_AudioPlayer/SetupAssets/PID_CP_Devices_CRD_AudioPlayer.PID_CP_Devices_CRD_AudioPlayer"
 # Underground, on a row of its own: tools/build_rigs.py parks its rigs at y = -8000 - 800 * row for rows 0..9
@@ -85,7 +88,9 @@ CUES = {
     # The skilled-interaction device's success / good chimes.
     "correct": (f"{SKILL}/SkilledInteract_Success_Cue.SkilledInteract_Success_Cue", {}),
     "correct_retry": (f"{SKILL}/SkilledInteract_Good_Cue.SkilledInteract_Good_Cue", {}),
-    "wrong": (f"{CR}/Gadgets/Scoring/Scoring_Point_Subtracted_Cue.Scoring_Point_Subtracted_Cue", {}),
+    # Short (0.77 s): the penalty voice line follows it PenaltyVoiceDelaySeconds later and must not sit under a long buzzer
+    # (the 2.28 s Scoring_Point_Subtracted it was until 2026-10-07).
+    "wrong": (f"{TOYS}/ShootingTargets/Target_Error_Cue.Target_Error_Cue", {}),
     "door_open": (f"{CR}/Gadgets/SlidingDoor/SlidingDoor_Open_Cue.SlidingDoor_Open_Cue", {}),
     "boost": (f"{CR}/Gadgets/SpeedBoost/Trap_Speed_Alt_Increase_Cue.Trap_Speed_Alt_Increase_Cue", {}),
     # A ladder, small to big: target hit, bullseye, power-up collect, capture, two success stingers.
@@ -234,7 +239,7 @@ def build(voice=None):
         u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label(cue)})
         # Tag first: adding the tag component rebuilds a device's instanced sub-objects (uefn-mcp skill).
         verse_tags(actor, project, [f"fnm_cue_{cue}"])
-        want = {**BASE, **opts, "audio": asset}
+        want = {**BASE, **opts, **({"volume": VO_VOLUME} if is_vo(asset) else {}), "audio": asset}
         props_set(actor, {k: (ref(v) if k == "audio" else v) for k, v in want.items()})
         _, bad = check(actor, want)
         problems += len(bad)
@@ -286,7 +291,7 @@ def list_placed():
             voiced.append(cue)
         elif is_vo(live):
             source = "announcer?"   # a voice wave on a cue that should stay stock: check() flags it
-        want = {**BASE, **opts, "audio": asset}
+        want = {**BASE, **opts, **({"volume": VO_VOLUME} if is_vo(asset) else {}), "audio": asset}
         got, bad = check(a, want) if cue else (props_get(a, READ_BACK), ["not in CUES"])
         cache = cached(a)
         cache_bad = [k for k, v in want.items() if not same(v, cache.get(k.lower(), "<missing>"))]

@@ -293,3 +293,14 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   (`build_pickups.py healing()`); pads seen on the station-3 minimap, not yet picked up in play. (4) "weapons can't
   fire on the ice level": the Mutator Zone's `bAllowWeaponFire` defaults to false; set true in place (read back) and in
   `build_course.py`. Not yet walked by Aaron
+- Announcer root cause (2026-10-07 late, after Aaron: "I did hear most game sounds ... shots, slamming door"): the voice
+  lines played but were BURIED: a matched filter on a focused speaker recording found GO at 0.96 and WELCOME at 0.77,
+  the penalty lines only 0.17-0.32 (noise floor 0.08-0.11) because each fired on the same instant as the 2.3 s wrong
+  buzzer and the effect's own sound; streak lines sat under the 3.5 s boost whoosh. Fixed: announcer devices at volume
+  2.5 (`VO_VOLUME`, the property takes values past 1), the penalty voice `PenaltyVoiceDelaySeconds` 0.9 after the
+  buzzer, `wrong` swapped to the 0.77 s Target_Error, no boost whoosh on a streak, finish gap 1.6 s. Measured after:
+  penalty_freeze 0.94, penalty_yeet 0.90, GO 0.96 (`scratchpad/xcorr_cues.py` recipe now in AUDIO.md). Two test-rig
+  facts: Fortnite mutes itself when its window is not in the foreground (every background recording was digital
+  silence; Aaron's own play was focused), and a BuildAll or device rebuild with a live session pushes + cooks for 20-60 s:
+  a relaunch inside that window started from a stale snapshot (16 of 40 cue devices, ship Verse) and a StopSession
+  inside it left the session Disconnected (`playtest.wait_for_push`)
