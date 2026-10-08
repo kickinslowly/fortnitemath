@@ -442,6 +442,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # a kill before the boss returns; how often the boss line and the boss's state are checked.
     @editable
     BossHitsToKill : int = 5
+    # Seconds between "bullets can't hurt it" hints for one player shooting the boss.
+    @editable
+    GunHintSeconds : float = 6.0
+    var LastGunHint : [player]float = map{}
     @editable
     BossRespawnSeconds : float = 4.0
     BossRefreshSeconds : float = 0.25
@@ -525,6 +529,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (Boss := A.Boss?):
                     Boss.Disable()
                     Boss.SpawnedEvent.Subscribe(OnBossSpawned)
+                    Boss.DamagedEvent.Subscribe(OnBossDamaged)
                     Boss.EliminatedEvent.Subscribe(OnBossEliminated)
                 if (Adds := A.Adds?):
                     Adds.Disable()
@@ -1023,7 +1028,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
-            StageLine := if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
+            StageLine := if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}  -  step on the right answer pad" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
             State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Shown))
 
@@ -1912,6 +1917,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Music(State)
         Sound(State.Player, fnm_cue.BossFight)
         Broadcast(FnmFeedBoss(State.Player), "reached the boss!")
+        State.Hud.FlashBig("STEP ON THE RIGHT ANSWER PAD!", NamedColors.Gold, 4.0)
+        Hint := State.Hud.ShowFeedback("Bullets can't hurt it. Step on the floor pad (A-D) with the right answer: that is a hit!", NamedColors.Orange)
         Print("FNM: entered the arena ({BossHitsToKill} hits to win)")
 
     # A new run or skill: the gate closes again for this player and their hits reset.
@@ -2026,6 +2033,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: boss spawned, health {Character.GetHealth()} of {Character.GetMaxHealth()}, shield {Character.GetShield()}, at {Character.GetTransform().Translation}")
         else:
             Print("FNM: boss spawned")
+
+    # Gunfire on the boss (Aaron 2026-10-07 stood in the arena for a minute without touching a pad): tell the shooter once
+    # every GunHintSeconds that bullets do nothing and the pads are the weapon.
+    OnBossDamaged(Result:device_ai_interaction_result):void =
+        if (Agent := Result.Source?, Shooter := player[Agent], State := PlayerStates[Shooter], AtArena(State)?, not State.Finished?):
+            Now := GetSimulationElapsedTime()
+            Last := if (T := LastGunHint[Shooter]) then T else -100.0
+            if (Now - Last >= GunHintSeconds):
+                if (set LastGunHint[Shooter] = Now) {}
+                Print("FNM: boss shot by a player; pad hint")
+                spawn{ FlashNotice(State, "Bullets can't hurt it! Step on the pad with the RIGHT ANSWER") }
 
     OnBossEliminated(Result:device_ai_interaction_result):void =
         Print("FNM: boss elimination event")

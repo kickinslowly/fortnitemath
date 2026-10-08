@@ -280,3 +280,16 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
 - [ ] 9. Comedy escalation from the PENALTIES catalog: trapdoor, boulder, chicken swarm, pinball bumpers, flood; one
   rare jackpot door (1 in 20) that hits the whole class
 - [ ] 10. Secrets: hidden rooms behind breakable walls, a collectible coin set with its own board, a developer room
+- Aaron playtest 2026-10-07 evening (PC, the UEFN session; log 02:36-02:43 UTC): (1) "couldn't hear an announcer":
+  the cue log shows the voice devices fired for him (go, penalties); the Fortnite client's Windows-mixer mute is the
+  prime suspect (it was muted all day for tests, read unmuted afterwards); OPEN until he says whether he heard the
+  stock sounds and not the voice, or nothing at all. (2) "couldn't beat the final boss": his arena log has one death
+  and ZERO pad events in 2 minutes, so he never stepped on a pad (a walked-in pad does register: keys test logged a
+  hit). Fixed: arena entry flashes STEP ON THE RIGHT ANSWER PAD! + an orange hint line, the stage line says it, shooting
+  the boss flashes "Bullets can't hurt it!" (every GunHintSeconds), pads 1.5x bigger in place (PAD_SIZE 450), the
+  boss's legendary AR swapped in place for a purple SMG (BOSS_WEAPON). Seen: the hint frame at arena entry. (3) Chug
+  splashes: no Chug Splash item exists in this content (only SpyTech STID / the Chili exotic, refused by the pad); the
+  Slap Splash (`WID_Chrono_SlapSplash`, heal 30 + slap) is on 4 pads per wall at every odd station from 3
+  (`build_pickups.py healing()`); pads seen on the station-3 minimap, not yet picked up in play. (4) "weapons can't
+  fire on the ice level": the Mutator Zone's `bAllowWeaponFire` defaults to false; set true in place (read back) and in
+  `build_course.py`. Not yet walked by Aaron

@@ -154,7 +154,7 @@ BARRIER_BASE = (511, 511, 384, 0)
 # connector INTO the arena carries that prefix too, like every connector carries the prefix of what it leads into).
 ARENA = True
 ARENA_LEN = 3000
-PAD_SIZE = 300
+PAD_SIZE = 450          # was 300; Aaron 2026-10-07 never found a pad
 PAD_H = 150
 PAD_TILE_T = 10
 # Pad centres, A..D, as (x from the arena's centre line, y from its start). +X is the player's LEFT (like door A), so
@@ -167,7 +167,7 @@ ADDS_Y = 1800
 GATE_Y = ARENA_LEN       # the gate barrier's front face; the arena's floor ends BARRIER_T past it
 ARENA_CONNECTOR = [seg(1000)]
 _WID = "/Game/Athena/Items/Weapons/{0}.{0}"
-BOSS_WEAPON = _WID.format("WID_Assault_AutoHigh_Athena_SR_Ore_T03")    # legendary AR (accepted per build_guards' probe)
+BOSS_WEAPON = _WID.format("WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03")   # purple SMG (was a legendary AR: Aaron 2026-10-07 could not beat it)
 ADDS_WEAPON = _WID.format("WID_Pistol_SemiAuto_Athena_R_Ore_T03")      # the loadout's pistol
 # Overrides on build_guards.SETTINGS (merged at build time: build_guards imports this module). The health ask is
 # deliberately above the device's range: build() writes it, reads back what the device kept and prints that cap.
@@ -309,7 +309,10 @@ def station(k, ox, oy, oz, hall, doors, project, door_assets):
         zw, zd, zh = ZONE_BASE
         zone = device(MUTATOR, f"{prefix}_IceZone", ox, (oy + door_y - 25) / 2, oz,
                       sx=2 * half / zw, sy=(door_y - 25 - oy) / zd, sz=WALL_H / zh)
-        props(zone, {"bAffectsGuards": False, "bAffectsCreatures": False, "zoneVisibleDuringGame": False})
+        # bAllowWeaponFire: the Mutator Zone defaults to NO weapon fire inside it (Aaron 2026-10-07: "weapons cannot fire on
+        # the ice level"); the ice only changes movement, so guns stay live.
+        props(zone, {"bAffectsGuards": False, "bAffectsCreatures": False, "zoneVisibleDuringGame": False,
+                     "bAllowWeaponFire": True})
         verse_tags(zone, project, ["fnm_ice_zone"])
 
     bw, bd, bh, bz = BARRIER_BASE

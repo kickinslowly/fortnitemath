@@ -34,12 +34,21 @@ TAG = "fnm_pickups"
 SPAWNER = "/CR_Legacy/Playsets/PID_CP_Devices_ItemSpawnerProp.PID_CP_Devices_ItemSpawnerProp"
 BOOGIE = "/Game/Athena/Items/Consumables/DanceGrenade/Athena_DanceGrenade.Athena_DanceGrenade"
 SHOCKWAVE = "/Game/Athena/Items/Consumables/ShockwaveGrenade/Athena_ShockGrenade.Athena_ShockGrenade"
-ITEMS = {"boogie": BOOGIE, "shockwave": SHOCKWAVE}
+# Aaron (2026-10-07): "players should be able to pick up chug splashes". This content has no Chug Splash item definition
+# (only the SpyTech STID and the Chili exotic, which the pad refuses); the Slap Splash is its successor: a throwable splash
+# that heals 30 and grants slap energy. Every HEALING station (odd from 3) holds it along both walls.
+SPLASH = "/ChronoConsumables/Gameplay/SlapSplash/WID_Chrono_SlapSplash.WID_Chrono_SlapSplash"
+ITEMS = {"boogie": BOOGIE, "shockwave": SHOCKWAVE, "splash": SPLASH}
 
 
 def armed(k):
     """Stations that get pads: every other one, from station 2 (station 1 is the clear warm-up hallway)."""
     return k % 2 == 0
+
+
+def healing(k):
+    """Odd stations from 3 hold Slap Splashes (heal) on both walls."""
+    return k % 2 == 1 and k >= 3
 
 
 # Pads along each wall, as distances (cm) from the hallway start. Players land 450 cm in; the first obstacle of any
@@ -67,15 +76,18 @@ def build():
     stations = sorted({int(label[5:7]) for label in parts if label.endswith("_Floor")})
     flip = False
     for k in stations:
-        if not armed(k):
+        if not armed(k) and not healing(k):
             continue
         floor, left, right = (parts[f"FNM_S{k:02d}_{p}"] for p in ("Floor", "WallL", "WallR"))
         # Engine cubes have exact bounds: the floor's top face and start, the walls' inner faces (+X is the player's left).
         oy, z = floor["min"]["y"], floor["max"]["z"]
         sides = [("L", left["min"]["x"] - PAD_IN, "boogie"), ("R", right["max"]["x"] + PAD_IN, "shockwave")]
-        if flip:
+        if healing(k):
+            sides = [("L", sides[0][1], "splash"), ("R", sides[1][1], "splash")]
+        elif flip:
             sides = [(sides[0][0], sides[0][1], sides[1][2]), (sides[1][0], sides[1][1], sides[0][2])]
-        flip = not flip
+        if armed(k):
+            flip = not flip
         for side, x, item in sides:
             for n, dy in enumerate(PADS, 1):
                 pad(f"FNM_S{k:02d}_Pad{side}{n}", x, oy + dy, z, item)
