@@ -304,3 +304,22 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   silence; Aaron's own play was focused), and a BuildAll or device rebuild with a live session pushes + cooks for 20-60 s:
   a relaunch inside that window started from a stale snapshot (16 of 40 cue devices, ship Verse) and a StopSession
   inside it left the session Disconnected (`playtest.wait_for_push`)
+
+## G7 — Presentation polish (Aaron, 2026-10-08: the floating question and answers "feels like alpha version... clunky")
+Asked how else: baked on a wall, floating in the air, written on the ground, spray paint. Finding (Verse digests): UEFN has
+no per-player world text (billboard, prop material, debug 3D text are all global) and every player draws their own item
+and letter shuffle, so a world sign needs a shared-skill race and lets kids copy the leader's door. Decision: keep the
+question per player on the HUD and make it read as a sign.
+- [x] 1. The slate (ec64d90, Opus builder from a brief, Fable audit; compiled clean, seen in play at station 1): framed
+  chalk texture top centre above the door lintel, stage caption, 46 px prompt, four answer tiles left to right like the
+  doors in the door colours (A white, B blue, C green, D orange = `LETTER_COLOURS`, pinned by `tests/test_hud_layout.py`),
+  title + subtitle on a tag top left under GAME MODE; the slate collapses with no question. Art: `tools/make_hud_art.py`
+  (no PIL, deterministic), imported by `tools/import_art.py`. Not yet in a private version (Aaron's upload step)
+- [ ] 1a. Unverified in play: a two-line prompt or the explanation line after a wrong door grows the slate ~60 px over the
+  lintel letters for a moment; the streak and boss lines now sit inside the slate and were not seen; the stage caption
+  sits at the content's left edge (~80 px in from the slate's rim), not the rim
+- [ ] 2. If the slate still feels flat: a hand-drawn chalk/spray glyph font on the HUD (one texture_block per character;
+  charset is ASCII + × ÷ − ≤ ≥ ≠ √ π, prompt ≤ 60 chars, ~120 widgets per HUD; 2-3 days)
+- [ ] 3. Teacher-led shared-skill race mode (host picks the skill, seeded item per station, fixed letter order, retry
+  re-asks the same item): the only design under which the question can go on a wall billboard. Costs the anti-copying
+  shuffle; billboard text caps at size 24 and wrapped a 20-char row on the finish screen
