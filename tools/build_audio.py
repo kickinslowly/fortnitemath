@@ -13,7 +13,10 @@ The device's options are plain properties on the ACTOR (not on its `creativeAudi
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
     python tools/build_audio.py                # (re)place every wired cue, save
-    python tools/build_audio.py --list         # placed devices with their sound and the read-back options
+    python tools/build_audio.py --announcer am_michael
+                                               # the same, but ANNOUNCER_CUES carry that voice's imported SoundWave
+    python tools/build_audio.py --list         # placed devices with their sound, its source (stock / announcer)
+                                               # and the read-back options
     python tools/build_audio.py --probe Mud,Countdown_Go
                                                # find_assets matches per name (SoundCue + SoundWave), class, duration
 """
@@ -27,6 +30,15 @@ import uefn_mcp as u  # noqa: E402
 from build_course import ACTOR, DEV, OBJ, SCENE, ref, verse_tags, xform  # noqa: E402
 
 TAG = "fnm_audio"
+# Cues the announcer voice pack replaces with --announcer <voice> (console/AUDIO.md "Announcer"). The countdown ticks,
+# correct / retry chimes, wrong buzzer, door, boost, finish, music beds and the boss cues stay stock.
+ANNOUNCER_CUES = [
+    "go", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "new_best", "new_record",
+    "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy",
+    "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose",
+]
+# The voice pack's SoundWaves, imported through the UEFN GUI (tools/audio/announcer/<voice>/<cue>.wav).
+VO_FOLDER = "FNM_Audio"
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 PLAYER = "/CRD_AudioPlayer/SetupAssets/PID_CP_Devices_CRD_AudioPlayer.PID_CP_Devices_CRD_AudioPlayer"
 # Underground, on a row of its own: tools/build_rigs.py parks its rigs at y = -8000 - 800 * row for rows 0..9
@@ -173,11 +185,47 @@ def check(actor, want):
     return got, bad
 
 
-def build():
+def project_id():
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
-    project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
+    return next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
+
+
+def vo_path(project, voice, cue):
+    """The imported announcer SoundWave for a cue: /<mount>/FNM_Audio/<voice>/<cue>.<cue>."""
+    return f"/{project}/{VO_FOLDER}/{voice}/{cue}.{cue}"
+
+
+def is_vo(path, cue=None):
+    """True when an audio path is an imported announcer wave (for that cue, when given)."""
+    parts = (path or "").split("/")
+    if len(parts) != 5 or parts[2] != VO_FOLDER:
+        return False
+    return cue is None or parts[4] == f"{cue}.{cue}"
+
+
+def sources(project, voice):
+    """cue -> asset path to place: the stock CUES path, or for ANNOUNCER_CUES the voice's imported SoundWave when it
+    exists (a missing one keeps the stock sound, and is reported)."""
+    out = {cue: asset for cue, (asset, _) in CUES.items() if asset}
+    if not voice:
+        return out
+    missing = []
+    for cue in ANNOUNCER_CUES:
+        path = vo_path(project, voice, cue)
+        if u.call(ASSETS, "exists", {"path": path.split(".")[0]})["returnValue"]:
+            out[cue] = path
+        else:
+            missing.append(cue)
+    print(f"announcer {voice}: {len(ANNOUNCER_CUES) - len(missing)} of {len(ANNOUNCER_CUES)} lines found under "
+          f"/{project}/{VO_FOLDER}/{voice}" + (f"; NOT IMPORTED, stock kept: {', '.join(missing)}" if missing else ""))
+    return out
+
+
+def build(voice=None):
+    project = project_id()
+    chosen = sources(project, voice)
     print("removed", clear(), "old audio players")
-    wired = [(cue, asset, opts) for cue, (asset, opts) in CUES.items() if asset]
+    wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in CUES.items() if asset]
     problems = 0
     for n, (cue, asset, opts) in enumerate(wired):
         r = u.call(DEV, "PlaceDevice", {"assetPath": ref(PLAYER), "transform": xform(PARK[0] + PITCH * n, PARK[1], PARK[2])})
@@ -190,10 +238,13 @@ def build():
         props_set(actor, {k: (ref(v) if k == "audio" else v) for k, v in want.items()})
         _, bad = check(actor, want)
         problems += len(bad)
-        print(f"{label(cue):24} {asset.rsplit('/', 1)[-1].split('.')[0]:44} {'OK' if not bad else 'MISMATCH ' + '; '.join(bad)}")
+        source = "announcer" if is_vo(asset) else "stock"
+        print(f"{label(cue):24} {source:9} {asset.rsplit('/', 1)[-1].split('.')[0]:44} {'OK' if not bad else 'MISMATCH ' + '; '.join(bad)}")
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     missing = [cue for cue, (asset, _) in CUES.items() if not asset]
-    print(f"{len(wired)} of {len(CUES)} cues wired, {problems} read-back mismatches; no library sound: {', '.join(missing) or 'none'}")
+    voiced = sum(1 for _, asset, _ in wired if is_vo(asset))
+    print(f"{len(wired)} of {len(CUES)} cues wired ({voiced} announcer, {len(wired) - voiced} stock), {problems} read-back "
+          f"mismatches; no library sound: {', '.join(missing) or 'none'}")
     return problems
 
 
@@ -217,16 +268,24 @@ def same(value, text):
 
 
 def list_placed():
-    """Every placed player: its sound, duration, the read-back options, and two checks against CUES: the live
+    """Every placed player: its sound, the sound's source (stock = the CUES path, announcer = an imported voice wave,
+    accepted only on ANNOUNCER_CUES), duration, the read-back options, and two checks against CUES: the live
     properties (props) and the saved options cache (cache)."""
     actors = found(TAG)
     by_label = {label(cue): (cue, asset, opts) for cue, (asset, opts) in CUES.items() if asset}
-    rows, problems = [], 0
+    rows, problems, voiced = [], 0, []
     for a in actors:
         name = u.call(ACTOR, "get_label", {"actor": ref(a)})
         rows.append((name.get("returnValue", name) if isinstance(name, dict) else name, a))
     for name, a in sorted(rows, key=lambda r: str(r[0])):
         cue, asset, opts = by_label.get(name, (None, None, {}))
+        live = got_audio(props_get(a, ["audio"])) if cue else ""
+        source = "stock"
+        if cue in ANNOUNCER_CUES and is_vo(live, cue):
+            asset, source = live, "announcer"
+            voiced.append(cue)
+        elif is_vo(live):
+            source = "announcer?"   # a voice wave on a cue that should stay stock: check() flags it
         want = {**BASE, **opts, "audio": asset}
         got, bad = check(a, want) if cue else (props_get(a, READ_BACK), ["not in CUES"])
         cache = cached(a)
@@ -237,9 +296,10 @@ def list_placed():
         opts_text = ", ".join(f"{k}={got.get(k)!r}" for k in BASE)
         verdict = "props OK" if not bad else "props MISMATCH " + "; ".join(bad)
         verdict += ", cache OK" if not cache_bad else ", cache MISMATCH " + ", ".join(cache_bad)
-        print(f"{name:24} {have.rsplit('/', 1)[-1].split('.')[0] if have else '-':42} {dur if dur is None else round(dur, 2):>7} s"
-              f" | {verdict} | {opts_text}")
-    print(f"{len(actors)} audio players tagged {TAG}, {problems} mismatches")
+        print(f"{name:24} {source:10} {have.rsplit('/', 1)[-1].split('.')[0] if have else '-':42} "
+              f"{dur if dur is None else round(dur, 2):>7} s | {verdict} | {opts_text}")
+    print(f"{len(actors)} audio players tagged {TAG}, {problems} mismatches; announcer on {len(voiced)} "
+          f"({', '.join(voiced) or 'none'}), stock on {len(actors) - len(voiced)}")
     return problems
 
 
@@ -260,10 +320,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--probe", help="comma-separated asset name substrings")
+    ap.add_argument("--announcer", metavar="VOICE", help="put that voice's imported lines on ANNOUNCER_CUES (e.g. am_michael)")
     a = ap.parse_args()
     if a.probe:
         probe([n for n in a.probe.split(",") if n])
     elif a.list:
         list_placed()
     else:
-        sys.exit(1 if build() else 0)
+        sys.exit(1 if build(a.announcer) else 0)

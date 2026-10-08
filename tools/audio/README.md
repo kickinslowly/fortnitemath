@@ -80,11 +80,18 @@ The filter strings are constants at the top of the script.
 
 Durations include the 40 ms pads and the echo tail. manifest.json is the live source; this table is a snapshot.
 
-## Importing into UEFN (later, a GUI step)
+## Importing into UEFN (a GUI step)
 
-The wavs are 48 kHz, mono, 16-bit PCM: UEFN imports them as Sound Waves as they are. Copy the chosen voice's folder into
-the UEFN project's Content (drag into the Content Browser, or Import), make a Sound Cue or point an
-`audio_player_device` at each wave, and play it per player (`Play(Agent)`). Importing is not done by the generator.
+Procedure and device wiring: `console/AUDIO.md` "Announcer" (Content Drawer > Import, all 31 in one go, then
+`tools/build_audio.py --announcer <voice>`). Importing is not done by the generator.
+
+UEFN's verdict on the 48 kHz mono 16-bit PCM wavs (am_michael, UEFN 42.30, 2026-10-07): one Sound Wave per file, named
+after it, no options dialog. Read back from the assets: `importedSampleRate` 48000 and `sampleRate` 48000 (kept, not
+resampled), `numChannels` 1, `sampleRateQuality` Max, `soundAssetCompressionType` PlatformSpecific with
+`compressionQuality` 40 (UEFN's default lossy compression at cook), `loadingBehavior` Inherited, no sound class, not
+looping. Durations match the manifest (streak2 0.837 s, welcome 1.860 s); UEFN's own analysis reads -13.26 LUFS and a
+-1.0 dB sample peak, matching the mastering. A Sound Cue is not needed: the Creative audio player takes the SoundWave
+directly.
 
 ## Licence
 

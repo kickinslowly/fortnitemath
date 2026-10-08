@@ -231,10 +231,14 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
 - [x] 1b. Announcer pack (2026-10-07, Opus builder B): 31 lines x 3 voices from local Kokoro TTS (`tools/make_announcer.py`,
   `tools/audio/announcer/<voice>/*.wav`, 48 kHz mono, -13 LUFS, deterministic; QA in `tools/audio/announcer/QA.md`).
   Streak lines DOUBLE / TRIPLE / MEGA / ULTRA / MONSTER / UNSTOPPABLE, penalties, medals, boss + lifeline for later
-- [ ] 1c. Announcer into UEFN: Aaron picks the voice (samplers sent; builder's pick am_michael), then the wavs are
-  imported through the UEFN Import dialog (no headless path: no auto-import, no `unreal` module in the MCP script
-  toolset) and swapped onto the matching cue devices (`CUES` paths) + a pass to decide which moments get the voice
-  instead of the stock stinger
+- [x] 1c. Announcer in UEFN (2026-10-07, Opus builder E, voice am_michael by default; Aaron has the samplers to
+  change it): 31 SoundWaves imported through the UEFN Import dialog with GUI automation (clicks in `console/AUDIO.md`
+  "Announcer"; 48 kHz mono kept, lossy PlatformSpecific quality 40 at cook), `build_audio.py --announcer am_michael`
+  puts the voice on 23 cues (go, streaks, perfect, best/record, medals, penalties, no skip, guards up, welcome, choose)
+  and leaves 17 stock (ticks, chimes, buzzer, door, boost, finish, boss, music). A session starts with them (project
+  SoundWaves pass validation); cross-correlation against the recording found the voice (go 0.96, welcome 0.74, streak
+  lines 0.26-0.57, controls ≤ 0.23). Not heard by ear; streak7 under the arena music, the finish/medal lines and the
+  penalty lines were not captured. Switching voice = `--announcer <voice>` after importing that voice's folder
 - [x] 2. Live race layer (built 2026-10-07, Opus builder C, fdc84e0; SEEN on screen the same evening, frames
   `race_0..3.png`: gold `YOU station N` under the clock, `Record 0:59.6` + green `−3.1 s` on run 2, feed lines with
   the finish board; the feed clipped the minimap's player-count icons at Top 300, moved to Top 348 / size 26 and

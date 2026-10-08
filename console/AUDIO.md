@@ -61,7 +61,8 @@ it was offered (below).
 | `boss_dead` | the boss goes down, for every player in the arena (`BossDown`) | Gadgets/Radio/Stingers/BlackMonday/Stinger_BlackMonday_Win_01 | 6.14 |
 | `music_t1` .. `music_t5` | music bed per station tier: on at GO, swapped when the tier changes, off at the finish and while the picker is up | Gadgets/Radio/Music_Loops: Music_StW_Ambient_Morning01, _Medium_Exploration01, _Low_Combat01, _High_Action01, _High_Combat01 | loop |
 
-Nothing wired yet for the announcer lines: the streak / perfect / countdown ids above are where the VO pack goes.
+The Sound column is the stock sound. With `--announcer <voice>` the 23 `ANNOUNCER_CUES` carry a voice line instead
+(next section).
 
 Refused by island validation on 2026-10-07 (`UEFNValidation: Error: ... illegally references`, the session never
 starts; `find_assets` lists them all the same): Rocket Racing (`/DelMarUI`, `/DelMarCosmetics`), `/FNGameplayCues`,
@@ -70,6 +71,45 @@ starts; `find_assets` lists them all the same): Rocket Racing (`/DelMarUI`, `/De
 start leaves an "Unable to Play" dialog that hangs every MCP call: close it with `WM_CLOSE` (PostMessage to its
 window, found with the uefn-mcp skill's `gui_windows.ps1`), no focus needed. The errors are in
 `%LOCALAPPDATA%/UnrealEditorFortnite/Saved/Logs/UnrealEditorFortnite.log`.
+
+## Announcer
+
+The voice pack (`tools/audio/announcer/<voice>/<cue>.wav`, 31 lines, `tools/audio/README.md`) is imported once per UEFN
+project through the GUI, then `tools/build_audio.py --announcer <voice>` puts it on the devices. Live since 2026-10-07
+with `am_michael`.
+
+**Asset path:** `/<mount>/FNM_Audio/<voice>/<cue>.<cue>` (SoundWave; mount = the project's plugin id from VerseToolset
+`ListFiles("")`, e.g. `/c498eed2-96c5-4757-91a1-edb374b16d67/FNM_Audio/am_michael/streak2.streak2`). Island validation
+accepts the project's own SoundWaves: the session started with all 23 swapped (2026-10-07).
+
+**Which cues carry the voice:** `ANNOUNCER_CUES` at the top of `tools/build_audio.py`: `go`, `streak2`..`streak7`,
+`perfect`, `new_best`, `new_record`, `medal_gold/silver/bronze`, the six `penalty_*`, `no_skip`, `guards_up`, `welcome`,
+`choose`. Stock (the table above): the countdown ticks, `correct` / `correct_retry`, `wrong`, `door_open`, `boost`,
+`finish`, the music beds and the three boss cues. The pack's `countdown1..3`, `correct`, `wrong`, `finish`, `boss_fight`
+and `lifeline` lines are imported but unused.
+
+**Commands:**
+
+    python tools/build_audio.py --announcer am_michael   # rebuild every player; ANNOUNCER_CUES get the voice
+    python tools/build_audio.py                          # rebuild all stock again
+    python tools/build_audio.py --list                   # source column: stock / announcer per device
+
+A line that was not imported keeps its stock sound and the run says `NOT IMPORTED, stock kept: <cues>`. `--list` accepts
+a voice wave only on an `ANNOUNCER_CUES` device for the same cue id (anything else is a mismatch).
+
+**Import procedure (UEFN 42.30, worked first try 2026-10-07):** no headless route exists (a wav dropped into
+`Content/` is never picked up; `AssetTools` has no import). Screenshots `imp_*.png` in `%TEMP%`.
+1. Copy the voice's wavs to a short path (`%TEMP%\fnm_vo`).
+2. MCP: `AssetTools.create_folder /<mount>/FNM_Audio/<voice>`, then `EditorAppToolset.SetContentBrowserPath` to it.
+3. GUI (`~/.claude/skills/uefn-mcp/scripts/gui_act.ps1`; on this PC UEFN is maximized on the LEFT monitor, x -1920..0,
+   so capture that monitor, not the primary): click **Content Drawer** in the status bar (bottom left). The first
+   click(s) only focus UEFN; repeat until the drawer shows the folder. The drawer closes when UEFN loses focus.
+4. Click **Import** in the drawer's toolbar: a Windows "Import" file dialog opens.
+5. Click the File name box, type the folder path, Enter (the dialog navigates there).
+6. Click the first file, `Ctrl+A` (the File name box fills with the quoted list), click **Open**.
+7. A progress box ("Importing ...") runs ~10 s; no import-options dialog for wav. The drawer shows 31 Sound Wave items.
+8. MCP: `AssetTools.find_assets` (folder `/<mount>/FNM_Audio`, class `/Script/Engine.SoundWave`) = 31, names = cue ids;
+   `save_assets` on them.
 
 ## Rewire a cue
 1. `python tools/build_audio.py --probe Name1,Name2` lists matching SoundCues / SoundWaves with class and duration.
