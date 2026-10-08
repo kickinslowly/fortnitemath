@@ -83,9 +83,9 @@ fnm_hud := class:
         text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
     # Public feed, top right under the minimap: up to 3 lines, newest on top, each gone after FeedSeconds.
     FeedRows : []text_block = array:
-        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
-        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
-        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Right}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 26.0, DefaultJustification := text_justification.Right}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 26.0, DefaultJustification := text_justification.Right}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 26.0, DefaultJustification := text_justification.Right}
     FeedSeconds : float = 7.0
     # Finish board (centre screen, hidden until a finish): headline, medal, this run, personal best, island record,
     # accuracy, the session's top times (one row per player) and the next-run countdown.
@@ -306,13 +306,13 @@ fnm_hud := class:
                         Alignment := vector2{X := 0.0, Y := 0.0}
                         Offsets := margin{Left := 20.0, Top := 230.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
-                    # The public feed, top right under Fortnite's minimap (a point anchor: Left -20 = 20 px in from the
-                    # right edge). Not part of the finish board.
+                    # The public feed, top right under Fortnite's minimap and its player-count icons (seen clipping them at
+                    # Top 300 on 2026-10-07; a point anchor: Left -20 = 20 px in from the right edge). Not part of the finish board.
                     canvas_slot:
                         Widget := Feed
                         Anchors := anchors{Minimum := vector2{X := 1.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 0.0}}
                         Alignment := vector2{X := 1.0, Y := 0.0}
-                        Offsets := margin{Left := -20.0, Top := 300.0, Right := 0.0, Bottom := 0.0}
+                        Offsets := margin{Left := -20.0, Top := 348.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             Results.SetVisibility(widget_visibility.Collapsed)

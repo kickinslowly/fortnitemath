@@ -235,7 +235,11 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   imported through the UEFN Import dialog (no headless path: no auto-import, no `unreal` module in the MCP script
   toolset) and swapped onto the matching cue devices (`CUES` paths) + a pass to decide which moments get the voice
   instead of the stock stinger
-- [ ] 2. Live race layer (built 2026-10-07, Opus builder C, commit after aa424c6; NOT yet seen on screen): RACE strip
+- [x] 2. Live race layer (built 2026-10-07, Opus builder C, fdc84e0; SEEN on screen the same evening, frames
+  `race_0..3.png`: gold `YOU station N` under the clock, `Record 0:59.6` + green `−3.1 s` on run 2, feed lines with
+  the finish board; the feed clipped the minimap's player-count icons at Top 300, moved to Top 348 / size 26 and
+  seen clear with `got frozen / yeeted at station 1`; sign sabotage in `DeltaCopy` logged `+3.1 s` on an ahead run,
+  restored). Still unverified: red/behind delta in play, the skip feed, ordering with 2+ players. Original note: RACE strip
   under the clock (every player by progress, FIN time / station N / picking / lobby, own row gold), pace deltas per
   right answer vs the island record's splits or your own saved best splits (`Record 1:23` / `Beat 1:23`, green ahead,
   red behind; splits saved per skill in `fnm_save`), public feed top right (penalty past tense, finish, record,
@@ -243,8 +247,8 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   8689 tests. The physical pacer orb was dropped: a prop is visible to all, a pace is per player. OPEN: every
   screenshot caught the Fortnite client on LOGIN EXPIRED OR LOGGED IN ELSEWHERE (Aaron's account in use elsewhere,
   likely the Xbox), so unverified: feed position vs the minimap (Top 300), the strip's look, red/behind delta, the
-  penalty feed copy, the skip feed, the DeltaCopy sign sabotage. `tools/playtest.py` prints log lines in cp1252 and
-  will crash on the delta's real minus sign: run it with PYTHONIOENCODING=utf-8 (fix pending)
+  penalty feed copy, the skip feed, the DeltaCopy sign sabotage (all closed above). `tools/playtest.py` now prints
+  UTF-8 and takes `--frames "text:delay,..."` for mid-run HUD screenshots
 - [ ] 3. Boss finale, "math as damage": the finish becomes an arena with a boss guard and a huge health bar; five
   rapid questions, each right door fires a cannon or hands a legendary launcher for 8 s, each wrong one summons adds;
   the run ends on the kill

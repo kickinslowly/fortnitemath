@@ -29,6 +29,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
 
+# The editor log carries real minus signs (pace deltas) and the cartridges' × ÷; a cp1252 console would crash on them.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 SESSION = "ValkyrieToolset.SessionToolset"
 GUI = Path.home() / ".claude/skills/uefn-mcp/scripts/gui_act.ps1"
 # Brings the game client forward without the taskbar: clicking its taskbar icon while it is ALREADY in front
@@ -182,6 +186,8 @@ def main():
     ap.add_argument("--keys", help='key holds after --after, e.g. "W:0.8,E:0.3,W:2.5"')
     ap.add_argument("--until", help='comma-separated texts; wait for a director line holding any of them (no keys)')
     ap.add_argument("--timeout", type=float, default=200, help="seconds to wait for --until")
+    ap.add_argument("--frames", help='with --until: "text:delay,text:delay"; on the first director line holding each text, wait '
+                    'delay s and screenshot pt_frame<k> (mid-run HUD checks)')
     args = ap.parse_args()
     started = time.time()
     until_baseline = set(fnm_lines()) if args.until else set()
@@ -203,12 +209,23 @@ def main():
         time.sleep(6)
     if args.until:
         texts = args.until.split(",")
+        frames = [[p.rpartition(":")[0], float(p.rpartition(":")[2]), False] for p in args.frames.split(",")] if args.frames else []
+        seen = set()
         hit = None
         while hit is None and time.time() - started < args.timeout:
             new = [l for l in fnm_lines() if l not in until_baseline and (log_time(l) or since_dt) >= since_dt]
+            for l in new:
+                if l in seen:
+                    continue
+                seen.add(l)
+                for k, frame in enumerate(frames):
+                    if not frame[2] and frame[0] in l:
+                        frame[2] = True
+                        time.sleep(frame[1])
+                        print(f"  frame {k} after '{frame[0]}' +{frame[1]}s ->", shot(f"pt_frame{k}"), flush=True)
             hit = next((l for l in new if any(t in l for t in texts)), None)
             if hit is None:
-                time.sleep(2)
+                time.sleep(0.5 if frames else 2)
         print("until:", hit.split("FNM:", 1)[1][:120] if hit else "TIMED OUT")
     since = time.strftime("%Y.%m.%d-%H.%M.%S", time.gmtime(started - 5))
     for line in fnm_lines():
