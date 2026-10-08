@@ -107,6 +107,12 @@ CUES = {
     "music_t3": (f"{MX}/Music_StW_Low_Combat01_Cue.Music_StW_Low_Combat01_Cue", LOOP),
     "music_t4": (f"{MX}/Music_StW_High_Action01_Cue.Music_StW_High_Action01_Cue", LOOP),
     "music_t5": (f"{MX}/Music_StW_High_Combat01_Cue.Music_StW_High_Combat01_Cue", LOOP),
+    # The boss arena (G6 item 3). The brief's picks (/PoppySoap announcer "Fight", /Freaky boss-elim stinger) sit outside
+    # the paths island validation accepts (PoppySoap is on the refused list above), so these are Creative-library stand-ins:
+    # a threat stinger as the fight starts, an exploding barrel as the "cannon" of a right pad, the Black Monday win.
+    "boss_fight": (f"{STING}/Stinger_Threat_01_Cue.Stinger_Threat_01_Cue", {}),
+    "boss_hit": (f"{CR}/Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01_Cue.ExplodingBarrel_Explode_01_Cue", {}),
+    "boss_dead": (f"{STING}/BlackMonday/Stinger_BlackMonday_Win_01_Cue.Stinger_BlackMonday_Win_01_Cue", {}),
 }
 
 READ_BACK = list(BASE) + ["audio"]

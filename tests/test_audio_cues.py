@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 MEMBERS = ("Countdown3 Countdown2 Countdown1 Go Correct CorrectRetry Wrong DoorOpen Boost Streak2 Streak3 Streak4 "
            "Streak5 Streak6 Streak7 Perfect Finish NewBest NewRecord MedalGold MedalSilver MedalBronze PenaltyFreeze "
            "PenaltySpike PenaltyMud PenaltyDizzy PenaltyBlackout PenaltyYeet NoSkip GuardsUp Welcome Choose MusicT1 "
-           "MusicT2 MusicT3 MusicT4 MusicT5").split()
+           "MusicT2 MusicT3 MusicT4 MusicT5 BossFight BossHit BossDead").split()
 
 
 def snake(member):

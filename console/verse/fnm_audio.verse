@@ -67,12 +67,16 @@ fnm_cue := enum:
     MusicT3
     MusicT4
     MusicT5
+    # the boss arena: entering it, a right pad (a hit), the kill
+    BossFight
+    BossHit
+    BossDead
 
 # Every cue, in enum order (FnmCueIds and FnmCueTags follow the same order).
-FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5}
+FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead}
 
 # Snake-case id per cue, enum order: the Verse tag is fnm_cue_<id> (tools/build_audio.py CUES keys).
-FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5"}
+FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead"}
 
 FnmCueIndex(Cue:fnm_cue)<transacts>:int =
     var Found : int = -1

@@ -43,7 +43,8 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
 | 7 | stairs down 4 m | 400 |
 | 8 | winding left | 400 |
 | 9 | stairs down 4 m | 0 |
-| 10 | long straight, 2 speed plates, to the finish | 0 |
+| 10 | long straight, 2 speed plates, into the boss arena | 0 |
+| arena | short straight (10 m), out of the arena to the finish | 0 |
 
 - **Speed plates:** visible movement modulators (speed 1.8 for 3 s plus a forward push along the corridor).
 - **Ice:** station 6 (`ICE_STATIONS`), pale blue floor, sign "STATION 6 - ICE!", a baffle slalom. A mutator zone
@@ -66,6 +67,39 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
 - **Every hallway faces +Y; the variety lives in the connectors:** the director's arrival direction, Yeet aim,
   penalty return spot and debug hooks all assume a +Y hallway, so none of them had to change. Only the sliding
   containers moved from "mirror across X = 0" to "slide along their own forward axis" (`SliderTravel`).
+
+## Boss arena (2026-10-07, G6 item 3)
+Between connector 10 and the finish hallway (`arena()` in `tools/build_course.py`; constants `ARENA_LEN`, `PAD_SIZE`,
+`PAD_SPOTS`, `BOSS_SETTINGS`, `ADDS_SETTINGS`). A station-wide hall 30 m long, walls in the tier-5 colour, every actor
+labelled `FNM_Arena_*` (the connector into it too, so it is painted tier 5 and lidded like a station).
+
+```
+   ═════════════════════   y+3000  gate barrier (fnm_boss_gate): opens per player at the kill, then a 10 m connector
+   │       ┌─────┐       │          to the unchanged finish hallway
+   │       │  B  │       │   y+2600  boss platform, 6 x 4 m, 1 m high; the boss's guard spawner on it (fnm_boss_spawner)
+   │ [C]   └─────┘   [D] │   y+2200  answer pads C (left) and D (right)
+   │         a           │   y+1800  adds spawner (fnm_boss_adds): 2 guards with pistols on a wrong pad
+   │ [A]             [B] │   y+800   answer pads A (left) and B (right)
+   │ S                   │   S = "BOSS ARENA" sign on the left wall
+   │        E ↑          │   y+150   entry teleporter (fnm_boss + fnm_entry): arrival and retry point
+   └──  ←connector 10──  ┘
+```
+
+Each answer pad is a 3 x 3 m tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`) with a 3 x 3 m,
+1.5 m tall hidden trigger on it (fnm_boss + fnm_door_a..d) and its letter on a board above. A is on the player's left,
+like door A, so the pads read A B / C D as the HUD lists the choices.
+
+- **Why the arena is not a station:** the tier formula (PROTOCOL §6) spreads tiers over `Stations.Length`; a station 11
+  would shift every station's tier. The director finds the arena by its own tag (`fnm_boss`), plays it as stage
+  `Stations.Length + 1` with the hardest tier, and keeps medal and accuracy course-only.
+- **Play:** right pad = a hit (1/5 of the shared boss's health), back to the entry, next question; wrong pad = a normal
+  penalty (back to the arena entry) plus the adds. Five team hits kill the boss: every player in the arena finishes
+  (the clock stops at the kill), the gate opens for each of them, and they walk on through the finish hallway to the
+  victory area. The boss returns 4 s later for the next player.
+- The boss's max health is 100000: the device's option schema says 1..10000 and the Verse digest says "clamped between
+  1 and 10000", but a write of 100000 read back 100000 and the spawned boss reported 100000 of 100000 in play
+  (2026-10-07). A station-10 rocket launcher cannot kill it without the math, so it is not Invincible: the director's
+  `Damage` takes 20000 a hit.
 
 ## Hallway obstacles (2026-10-04)
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is

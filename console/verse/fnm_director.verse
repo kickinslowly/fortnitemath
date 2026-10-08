@@ -43,6 +43,13 @@
 # eliminated (a guard, a Spike) respawns at the entry of the station they were on, with the pistol. An
 # elimination ends a speed boost but keeps the streak: dying to a guard is not a math mistake (a Spike is a
 # wrong answer, which already reset it).
+# Boss arena (G6 item 3, tools/build_course.py arena): found by its own tag fnm_boss, NOT a numbered station (the tier
+# formula keeps Stations.Length). Its stage is Stations.Length + 1, always the hardest tier. The last station's right
+# door sends a player on into it (EnterArena); its four pads answer like doors (on entering, no position backstop). A
+# right pad is a hit on the shared boss (BossHit: 1/BossHitsToKill of its health, the player back to the arena entry,
+# next question); a wrong pad is the normal penalty plus two adds. The kill (BossDown) finishes every player in the
+# arena (the clock stops there), opens the exit gate for each of them, and the boss returns BossRespawnSeconds later
+# for the next player. Medal and accuracy stay course-only.
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
@@ -87,6 +94,14 @@ fnm_hallway := class:
     MaxY : float
     Z : float
 
+# The boss arena, found by tag at OnBegin. Station: the arena seen as a station (its pads as doors, its entry as the
+# retry point and penalty return spot), so the door and penalty code serve it unchanged.
+fnm_arena := class:
+    Station : fnm_station
+    Gate : ?barrier_device
+    Boss : ?guard_spawner_device
+    Adds : ?guard_spawner_device
+
 # Everything the director knows about one player's run.
 fnm_player_state := class:
     Player : player
@@ -129,6 +144,9 @@ fnm_player_state := class:
     var ZoneSince : float = 0.0
     var ZoneFired : logic = false
     var Finished : logic = false
+    # True for a run that started past stage 1 (DebugStartStage): its time is shown but never saved as a best, put on
+    # the board or called a record (2026-10-07: arena-only test runs set a 0:29.6 island record).
+    var Partial : logic = false
     # True while the fnm_ice_floor settings are on this player (SetIce).
     var OnIce : logic = false
     # Right-first-try answers in a row (a wrong door resets it).
@@ -150,6 +168,9 @@ fnm_player_state := class:
     var Splits : []float = array{}
     var PaceTarget : []float = array{}
     var LastTime : float = -1.0
+    # Boss arena: this run's hits on the boss, and whether the boss line is on their HUD.
+    var Hits : int = 0
+    var BossShown : logic = false
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
 fnm_door_handler := class:
@@ -417,6 +438,23 @@ fnm_director := class(creative_device, fnm_picker_listener):
     RaceSeconds : float = 0.5
     RaceRows : int = 8
     var LastRaceLog : string = ""
+    # Boss arena (G6 item 3): right pads it takes, shared by everyone in the arena, to bring the boss down; seconds after
+    # a kill before the boss returns; how often the boss line and the boss's state are checked.
+    @editable
+    BossHitsToKill : int = 5
+    @editable
+    BossRespawnSeconds : float = 4.0
+    BossRefreshSeconds : float = 0.25
+    var Arena : ?fnm_arena = false
+    # The boss now up (its agent), whether it is alive, when a spawn was asked for (-1 = none pending), when it last went
+    # down, team hits since it spawned, the player whose hit was the last, whether the adds are switched on.
+    var BossAgent : ?agent = false
+    var BossAlive : logic = false
+    var BossRequestedAt : float = -1.0
+    var BossDownAt : float = -100.0
+    var BossHitsTaken : int = 0
+    var LastHitter : ?player = false
+    var AddsUp : logic = false
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -428,6 +466,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Print("FNM: {Cartridges.Length} cartridges: {Listing}")
         for (Each : Cartridges, Each.Tiers.Length = 0):
             Print("FNM: cartridge {Each.Id} has no tiers")
+        set Arena = BuildArena()
         set Stations = BuildStations()
         set Hallways = BuildHallways()
         Print("FNM: {Hallways.Length} hallways for the skip guard")
@@ -478,6 +517,20 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 for (DoorIndex -> Door : Station.Doors):
                     Handler := fnm_door_handler{Director := Self, StationIndex := StationIndex, DoorIndex := DoorIndex}
                     Door.TriggeredEvent.Subscribe(Handler.OnTriggered)
+            # The arena's pads answer like a station's doors, as station index Stations.Length (its stage - 1).
+            if (A := Arena?):
+                for (DoorIndex -> Pad : A.Station.Doors):
+                    Handler := fnm_door_handler{Director := Self, StationIndex := Stations.Length, DoorIndex := DoorIndex}
+                    Pad.TriggeredEvent.Subscribe(Handler.OnTriggered)
+                if (Boss := A.Boss?):
+                    Boss.Disable()
+                    Boss.SpawnedEvent.Subscribe(OnBossSpawned)
+                    Boss.EliminatedEvent.Subscribe(OnBossEliminated)
+                if (Adds := A.Adds?):
+                    Adds.Disable()
+                    Adds.SpawnedEvent.Subscribe(OnGuardSpawned)
+                    Adds.EliminatedEvent.Subscribe(OnGuardEliminated)
+                spawn{ BossLoop() }
             set Ready = true
             StationTags := FnmStationTags()
             set GuardSpawners = for (K -> Station : Stations):
@@ -548,6 +601,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             var Next : teleporter_device = Entry
             if (Following := Entries[K + 1]):
                 set Next = Following
+            else if (A := Arena?):
+                set Next = A.Station.RetryTeleporter
             else if (FinishPoint := Finish?):
                 set Next = FinishPoint
             var OverridePercent : int = -1
@@ -555,6 +610,37 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set OverridePercent = Value
             Print("FNM: station {K + 1}: {StationDoors.Length} doors, {CountPassages(StationPassages)} passages")
             fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
+
+    # The boss arena from its tags: the entry and the four pads (fnm_boss, read like a station), the exit gate, the boss's
+    # and the adds' guard spawners. No fnm_boss entry teleporter = no arena (another map): nothing changes.
+    BuildArena():?fnm_arena =
+        Parts := FindStationParts(fnm_boss)
+        var Gate : ?barrier_device = false
+        for (Object : FindCreativeObjectsWithTag(fnm_boss_gate), Barrier := barrier_device[Object]):
+            set Gate = option{Barrier}
+        var Boss : ?guard_spawner_device = false
+        for (Object : FindCreativeObjectsWithTag(fnm_boss_spawner), Spawner := guard_spawner_device[Object]):
+            set Boss = option{Spawner}
+        var Adds : ?guard_spawner_device = false
+        for (Object : FindCreativeObjectsWithTag(fnm_boss_adds), Spawner := guard_spawner_device[Object]):
+            set Adds = option{Spawner}
+        if (Entry := Parts(0)?):
+            Print("FNM: arena: {Parts(1).Length} pads, gate {FnmYesNo(if (Gate?) then true else false)}, boss {FnmYesNo(if (Boss?) then true else false)}, adds {FnmYesNo(if (Adds?) then true else false)}")
+            ArenaStation := fnm_station{Doors := Parts(1), Passages := array{}, RetryTeleporter := Entry, NextTeleporter := Entry, DifficultyOverride := 100}
+            option{fnm_arena{Station := ArenaStation, Gate := Gate, Boss := Boss, Adds := Adds}}
+        else:
+            Print("FNM: arena: none (no fnm_boss entry teleporter)")
+            false
+
+    # The station played at stage Stage: Stations[Stage - 1], or the arena's at stage Stations.Length + 1.
+    StationFor(Stage:int)<transacts>:?fnm_station =
+        if (Station := Stations[Stage - 1]) then option{Station}
+        else if (Stage = Stations.Length + 1, A := Arena?) then option{A.Station}
+        else false
+
+    # True while the player is at the arena stage.
+    AtArena(State:fnm_player_state)<transacts>:logic =
+        if (State.Stage = Stations.Length + 1, Arena?) then true else false
 
     CountPassages(Passages:[]?barrier_device):int =
         var Count : int = 0
@@ -608,12 +694,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Back = Max(Back, Passage.GetTransform().Translation.Y + 100.0)
             set LastHalf = Half
             set Boxes += array{fnm_hallway{MinX := Entry.X - Half, MaxX := Entry.X + Half, MinY := Entry.Y - 200.0, MaxY := Back, Z := Entry.Z}}
+        # The boss arena (stage Stations.Length + 1) from 2 m before its entry pad to its exit gate.
+        if (A := Arena?):
+            At := A.Station.RetryTeleporter.GetTransform().Translation
+            var Back : float = At.Y + 2900.0
+            if (Gate := A.Gate?):
+                set Back = Gate.GetTransform().Translation.Y + 100.0
+            set Boxes += array{fnm_hallway{MinX := At.X - LastHalf, MaxX := At.X + LastHalf, MinY := At.Y - 200.0, MaxY := Back, Z := At.Z}}
         if (Pad := FinishPad?):
             At := Pad.GetTransform().Translation
             set Boxes += array{fnm_hallway{MinX := At.X - LastHalf, MaxX := At.X + LastHalf, MinY := At.Y - 200.0, MaxY := At.Y + FinishHallwayLength, Z := At.Z}}
         Boxes
 
-    # Index of the hallway Here is in (0-based; Stations.Length = the finish hallway), or -1.
+    # Index of the hallway Here is in (0-based; Stations.Length = the arena if there is one, then the finish hallway), or -1.
     HallwayAt(Here:vector3):int =
         var Found : int = -1
         for (Index -> Box : Hallways, Here.X >= Box.MinX, Here.X <= Box.MaxX, Here.Y >= Box.MinY, Here.Y <= Box.MaxY, Abs(Here.Z - Box.Z) <= HallwayHeight):
@@ -677,15 +770,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     Respawned(State:fnm_player_state):void =
         WideCamera(State.Player, false)
-        Stage := Min(State.Stage, Stations.Length)
-        if (Station := Stations[Stage - 1]):
+        # An arena-stage player (the boss's AR, an add) comes back at the arena's entry.
+        Stage := Min(State.Stage, Stations.Length + (if (Arena?) then 1 else 0))
+        if (Station := StationFor(Stage)?):
             SendTo(State.Player, Station.RetryTeleporter)
         GiveLoadout(State.Player)
         Print("FNM: respawned at stage {Stage}")
         if (State.Picking?):
             HoldStill(State)
         if (not State.Busy?, not State.Finished?):
-            spawn{ FlashNotice(State, "Eliminated! Back to the start of station {Stage}.") }
+            spawn{ FlashNotice(State, if (Stage > Stations.Length) then "Eliminated! Back to the arena entry." else "Eliminated! Back to the start of station {Stage}.") }
 
     FindFx(FxTag:castable_subtype(tag)):?post_process_device =
         var Found : ?post_process_device = false
@@ -713,6 +807,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.Finished = true
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(Departed)
+        if (A := Arena?, Gate := A.Gate?):
+            Gate.RemoveFromIgnoreList(Departed)
         if (Device := IceFloor?):
             Device.RemoveFrom(Departed)
         if (A := Audio?):
@@ -844,12 +940,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
             ShowCurrent(State)
             State.Hud.SetClock(FnmClock(0.0))
             Print("FNM: picked {Chosen.Id} (grade {Chosen.Grade}) for the player")
-            if (State.Picks = 1, DebugStartStage > 1, Start := Stations[DebugStartStage - 1]):
+            if (State.Picks = 1, DebugStartStage > 1, Start := StationFor(DebugStartStage)?):
                 set State.Stage = DebugStartStage
+                set State.Partial = true
                 DrawItem(State)
                 ShowCurrent(State)
                 SendTo(State.Player, Start.RetryTeleporter)
                 Print("FNM: debug start at stage {DebugStartStage}")
+                if (AtArena(State)?):
+                    EnterArena(State)
             GiveLoadout(State.Player)
             # The countdown holds them again; release the picker's hold first so the two never stack.
             if (Character := State.Player.GetFortCharacter[]):
@@ -875,6 +974,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)
+        ResetArena(State)
         set State.Stage = 1
         set State.FirstTryCorrect = 0
         set State.Streak = 0
@@ -900,6 +1000,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # Tier for stage Stage of the player's cartridge, honouring that station's DifficultyOverride.
     StationTier(State:fnm_player_state, Stage:int):int =
+        # The boss arena always plays the hardest tier.
+        if (Stage > Stations.Length):
+            return Max(1, State.TierCount)
         var OverridePercent : int = -1
         if (Station := Stations[Stage - 1]):
             set OverridePercent = Station.DifficultyOverride
@@ -920,7 +1023,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
-            StageLine := "Stage {State.Stage}/{StageCount}  -  {TierName}"
+            StageLine := if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
             State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Shown))
 
@@ -957,6 +1060,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 # An earlier station: they are walking back through a door they already passed. Ignore.
 
     HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =
+        if (StationIndex = Stations.Length, A := Arena?):
+            HandlePad(State, A, DoorIndex)
+            return
         if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
             Choice := ChoiceAt(State, DoorIndex)
             if (Choice < 0):
@@ -1048,7 +1154,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     WatchSkip(State:fnm_player_state):void =
         if (not State.Finished?, not State.Picking?, not State.Busy?, State.CurrentItem >= 0, Character := State.Player.GetFortCharacter[], Character.IsActive[]):
             Hallway := HallwayAt(Character.GetTransform().Translation)
-            if (Hallway + 1 > State.Stage, Station := Stations[State.Stage - 1]):
+            if (Hallway + 1 > State.Stage, Station := StationFor(State.Stage)?):
                 Print("FNM: skip guard: stage {State.Stage} player found in hallway {Hallway + 1}, sent back")
                 SendTo(State.Player, Station.RetryTeleporter)
                 Sound(State.Player, fnm_cue.NoSkip)
@@ -1060,7 +1166,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # The barrier stays open for them; walking back through it later is harmless.
     AdvancePlayer(State:fnm_player_state, Station:fnm_station, DoorIndex:int):void =
         set State.Stage += 1
-        if (State.Stage > Stations.Length):
+        if (AtArena(State)?):
+            EnterArena(State)
+        else if (State.Stage > Stations.Length):
             FinishPlayer(State)
         else:
             DrawItem(State)
@@ -1087,7 +1195,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: debug auto-wrong {N}")
                 Wrong := if (AnswerDoor(State) = 0) then 1 else 0
                 # Stand them in that door's vestibule, where a real wrong answer happens.
-                if (Station := Stations[State.Stage - 1], Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
+                if (Station := StationFor(State.Stage)?, Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
                     if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                     Sleep(1.0)
                 HandleDoor(State, State.Stage - 1, Wrong)
@@ -1114,7 +1222,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     if (not State.Finished?, not State.Picking?) then break
                 Sleep(CountdownStepSeconds * 3.0 + 2.0)
             Answer := AnswerDoor(State)
-            if (State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Door := Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
+            if (AtArena(State)?):
+                # The boss arena: onto the right pad until the boss goes down.
+                Done := DebugBossRun(State)
+                if (not Done?):
+                    break
+            else if (State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Door := Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
                 Stage := State.Stage
                 # (The teleport answers at once, so name the door before it: afterwards the next item is up.)
                 Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Answer)}")
@@ -1127,6 +1240,35 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else:
                 break
         Print("FNM: debug auto-right done: finished={FnmYesNo(State.Finished)} stage={State.Stage}")
+
+    # DebugAutoRight in the boss arena: waits for a boss, then drops the player onto the right pad (each hit sends them back
+    # to the entry), at most 12 tries. True once the kill has finished their run.
+    DebugBossRun(State:fnm_player_state)<suspends>:logic =
+        var Tries : int = 0
+        loop:
+            if (State.Finished? or not AtArena(State)?) then break
+            if (Tries >= 12):
+                Print("FNM: debug auto-right boss not down after {Tries} tries (cap reached)")
+                break
+            var Waited : float = 0.0
+            loop:
+                if (BossAlive? or Waited >= 10.0) then break
+                Sleep(0.5)
+                set Waited += 0.5
+            Answer := AnswerDoor(State)
+            if (A := Arena?, State.CurrentItem >= 0, Pad := A.Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
+                set Tries += 1
+                Before := State.Hits
+                Print("FNM: debug auto-right boss try {Tries} pad {FnmChoiceLetter(Answer)} (boss up {FnmYesNo(BossAlive)})")
+                if (Character.TeleportTo[Pad.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                Sleep(6.0)
+                if (State.Hits > Before):
+                    Print("FNM: debug auto-right boss hit {State.Hits}")
+                else:
+                    Print("FNM: debug auto-right boss pad did not answer")
+            else:
+                break
+        State.Finished
 
     DebugDoor(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
@@ -1397,7 +1539,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # Personal best and the board are per skill (the cartridge's index in the slot).
         Skill := State.CartridgeIndex
         HadBest := if (State.BestTime >= 0.0) then true else false
-        NewBest := if (State.BestTime < 0.0 or Time < State.BestTime) then true else false
+        NewBest := if (not State.Partial?, State.BestTime < 0.0 or Time < State.BestTime) then true else false
         if (NewBest?):
             set State.BestTime = Time
             if (set State.BestTimes[Skill] = Time) {}
@@ -1405,7 +1547,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var IslandRecord : logic = true
         if (Top := BoardFor(Skill)[0], Time >= Top.Time):
             set IslandRecord = false
-        RecordResult(Skill, State.Player, Time, Splits)
+        if (State.Partial?):
+            set IslandRecord = false
+            Print("FNM: partial run (debug start), not recorded")
+        else:
+            RecordResult(Skill, State.Player, Time, Splits)
         Board := BoardFor(Skill)
         Medal := FnmMedal(State.FirstTryCorrect, Total)
         SetMusic(State.Player, 0)
@@ -1618,10 +1764,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # A fresh run from station 1: barriers closed again for this player, new questions, streak and clock reset;
     # same skill.
     StartNewRun(State:fnm_player_state)<suspends>:void =
+        set State.Partial = false
         State.Hud.HideFinishButtons()
         State.Hud.HideResults()
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(State.Player)
+        ResetArena(State)
         set State.Stage = 1
         set State.FirstTryCorrect = 0
         set State.Streak = 0
@@ -1752,6 +1900,196 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Sleep(EndGameDelaySeconds)
         if (Finisher.IsActive[]):
             EndGameDevice.Activate(Finisher)
+
+    # ---------------------------------------------------------------- boss arena (G6 item 3)
+
+    # A player arrives at the arena stage (the last station's right door, or DebugStartStage): a hardest-tier question with
+    # the BOSS stage line, the fight cue, the public feed. BossLoop brings a boss up for them.
+    EnterArena(State:fnm_player_state):void =
+        set State.Hits = 0
+        DrawItem(State)
+        ShowCurrent(State)
+        Music(State)
+        Sound(State.Player, fnm_cue.BossFight)
+        Broadcast(FnmFeedBoss(State.Player), "reached the boss!")
+        Print("FNM: entered the arena ({BossHitsToKill} hits to win)")
+
+    # A new run or skill: the gate closes again for this player and their hits reset.
+    ResetArena(State:fnm_player_state):void =
+        set State.Hits = 0
+        if (A := Arena?, Gate := A.Gate?):
+            Gate.RemoveFromIgnoreList(State.Player)
+
+    # A pad answered at the arena stage: a right one is a hit on the boss, a wrong one the normal penalty (back to the
+    # arena entry) plus the adds.
+    HandlePad(State:fnm_player_state, A:fnm_arena, DoorIndex:int)<suspends>:void =
+        if (Item := State.Cartridge.Items[State.CurrentItem]):
+            Choice := ChoiceAt(State, DoorIndex)
+            if (Choice < 0):
+                set State.Busy = false
+                FlashNotice(State, "No choice {FnmChoiceLetter(DoorIndex)} here")
+            else if (Choice = Item.Answer):
+                BossHit(State, A)
+                set State.Busy = false
+                if (not State.Finished?):
+                    Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    Sleep(CorrectFeedbackSeconds)
+                    State.Hud.ClearFeedbackIf(Generation)
+            else:
+                set State.MissedCurrent = true
+                set State.Streak = 0
+                StopBoost(State)
+                Kind := PickPenalty()
+                Past := FnmPenaltyPast(Kind)
+                Broadcast(FnmFeedBossPenalty(State.Player, Past), "got {Past} by the boss")
+                Sound(State.Player, fnm_cue.Wrong)
+                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
+                Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
+                SummonAdds(A)
+                Punish(State.Player, A.Station, DoorIndex, Kind)
+                set State.Busy = false
+                Sleep(WrongFeedbackSeconds)
+                State.Hud.ClearFeedbackIf(Generation)
+        else:
+            set State.Busy = false
+
+    # A right pad: one hit on the shared boss (BossDamage), HIT!, the player back to the arena entry and the next
+    # question. The kill itself comes through the boss spawner's EliminatedEvent (BossDown).
+    BossHit(State:fnm_player_state, A:fnm_arena):void =
+        set State.Hits += 1
+        set LastHitter = option{State.Player}
+        if (BossAlive?, Agent := BossAgent?, Character := Agent.GetFortCharacter[]):
+            set BossHitsTaken += 1
+            Amount := BossDamage(Character)
+            Character.Damage(Amount)
+            Print("FNM: boss hit {State.Hits} by the player (team {BossHitsTaken}/{BossHitsToKill}), damage {Amount}, health {BossPercent()}%")
+        else:
+            Print("FNM: boss hit {State.Hits} by the player, but no boss is up")
+        Sound(State.Player, fnm_cue.BossHit)
+        State.Hud.FlashVerdict(true, "HIT!")
+        SendTo(State.Player, A.Station.RetryTeleporter)
+        if (not State.Finished?):
+            DrawItem(State)
+            ShowCurrent(State)
+
+    # The damage of one hit: 1/BossHitsToKill of the boss's max health; the team's last hit whatever is left (gunfire may
+    # have chipped it, a shield may have soaked some).
+    BossDamage(Character:fort_character):float =
+        if (BossHitsTaken >= BossHitsToKill) then Character.GetHealth() + Character.GetShield() + 100.0
+        else Character.GetMaxHealth() / (Max(BossHitsToKill, 1) * 1.0)
+
+    # The boss's health in percent (rounded up, so it reads 1% until it is down); 0 with no boss up.
+    BossPercent():int =
+        if (BossAlive?, Agent := BossAgent?, Character := Agent.GetFortCharacter[], Full := Character.GetMaxHealth(), Full > 0.0, P := Ceil[100.0 * Character.GetHealth() / Full]):
+            Clamp(P, 0, 100)
+        else:
+            0
+
+    # "BOSS  ████████--  80%   -   your hits 1/5" (or "BOSS  is coming ..." while none is up). The HUD font draws a full
+    # block but not the light shade (░ came out as the "?" diamond in play, 2026-10-07), so the empty cells are dashes.
+    BossLine(State:fnm_player_state):string =
+        Tail := "your hits {State.Hits}/{BossHitsToKill}"
+        if (not BossAlive?):
+            return "BOSS  is coming ...   -   {Tail}"
+        Pct := BossPercent()
+        Filled := FnmDiv(Pct + 9, 10)
+        var Bar : string = ""
+        for (K := 1..10):
+            set Bar += if (K <= Filled) then "█" else "-"
+        "BOSS  {Bar}  {Pct}%   -   {Tail}"
+
+    # A wrong pad: the adds spawner (two guards with pistols) comes on.
+    SummonAdds(A:fnm_arena):void =
+        if (Adds := A.Adds?):
+            Adds.Reset()
+            Adds.Enable()
+            Adds.Spawn()
+            set AddsUp = true
+            Print("FNM: adds summoned")
+
+    # Asks the boss spawner for a boss (fresh spawn limit, enabled: it spawns on its timer); SpawnedEvent confirms.
+    SpawnBoss(A:fnm_arena):void =
+        if (Boss := A.Boss?):
+            set BossRequestedAt = GetSimulationElapsedTime()
+            set BossHitsTaken = 0
+            Boss.Reset()
+            Boss.Enable()
+            Print("FNM: boss requested")
+
+    OnBossSpawned(Agent:agent):void =
+        set BossAgent = option{Agent}
+        set BossAlive = true
+        set BossRequestedAt = -1.0
+        set BossHitsTaken = 0
+        set LastHitter = false
+        if (Character := Agent.GetFortCharacter[]):
+            Print("FNM: boss spawned, health {Character.GetHealth()} of {Character.GetMaxHealth()}, shield {Character.GetShield()}, at {Character.GetTransform().Translation}")
+        else:
+            Print("FNM: boss spawned")
+
+    OnBossEliminated(Result:device_ai_interaction_result):void =
+        Print("FNM: boss elimination event")
+        BossDown()
+
+    # The kill: the gate opens and the run finishes (the clock stops) for every player at the arena stage; the last
+    # hitter gets the feed; the adds go; the boss comes back BossRespawnSeconds later if anyone is (or arrives) there.
+    BossDown():void =
+        if (not BossAlive?):
+            return
+        set BossAlive = false
+        set BossAgent = false
+        set BossDownAt = GetSimulationElapsedTime()
+        set BossHitsTaken = 0
+        Print("FNM: boss eliminated")
+        if (Hitter := LastHitter?):
+            Broadcast(FnmFeedFinalHit(Hitter), "landed the final hit!")
+        set LastHitter = false
+        if (A := Arena?):
+            if (Adds := A.Adds?):
+                Adds.Disable()
+                set AddsUp = false
+            if (Boss := A.Boss?):
+                Boss.Disable()
+            for (State : PlayerStates, AtArena(State)?, not State.Finished?, not State.Picking?):
+                if (Gate := A.Gate?):
+                    Gate.AddToIgnoreList(State.Player)
+                    Print("FNM: gate open for the player")
+                FinishPlayer(State)
+                Sound(State.Player, fnm_cue.BossDead)
+
+    # Every BossRefreshSeconds: a boss for whoever is at the arena stage (BossRespawnSeconds after the last kill; a
+    # spawn that has not come after 5 s is asked for again with Spawn()), the adds off once the arena is empty, a backstop
+    # for a missed elimination event, and every player's boss line.
+    BossLoop()<suspends>:void =
+        loop:
+            Sleep(BossRefreshSeconds)
+            if (A := Arena?):
+                Now := GetSimulationElapsedTime()
+                var Fighters : int = 0
+                for (State : PlayerStates, AtArena(State)?, not State.Finished?, not State.Picking?):
+                    set Fighters += 1
+                if (BossAlive?, BossHitsTaken >= BossHitsToKill):
+                    Down := if (Agent := BossAgent?, Character := Agent.GetFortCharacter[], Character.IsActive[], Character.GetHealth() > 0.0) then false else true
+                    if (Down?):
+                        Print("FNM: boss down without an elimination event")
+                        BossDown()
+                if (Fighters > 0, not BossAlive?):
+                    if (BossRequestedAt < 0.0, Now >= BossDownAt + BossRespawnSeconds):
+                        SpawnBoss(A)
+                    else if (BossRequestedAt >= 0.0, Now - BossRequestedAt > 5.0, Boss := A.Boss?):
+                        Print("FNM: boss not spawned after 5 s; Spawn()")
+                        set BossRequestedAt = Now
+                        Boss.Spawn()
+                if (Fighters = 0, AddsUp?, Adds := A.Adds?):
+                    Adds.Disable()
+                    set AddsUp = false
+                for (State : PlayerStates):
+                    if (AtArena(State)?, not State.Finished?, not State.Picking?):
+                        State.Hud.SetBoss(BossLine(State))
+                        set State.BossShown = true
+                    else if (State.BossShown?):
+                        State.Hud.ClearBoss()
+                        set State.BossShown = false
 
     # ---------------------------------------------------------------- live race layer (G6)
 

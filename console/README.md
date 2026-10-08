@@ -54,6 +54,10 @@ Layout: `maps/starter/LAYOUT.md`. To build by hand instead, per station:
 
 Plus one **finish** teleporter, and **Player Spawn Pads** in station 1.
 
+Optional **boss arena** between the last station and the finish (`tools/build_course.py` builds it; LAYOUT.md "Boss
+arena"): an entry teleporter, four answer-pad triggers, a guard spawner for the boss (one guard, health bar, max health)
+and one for the adds (two guards, disabled at start), and a barrier across the exit as the gate. Not a numbered station.
+
 ## 3. Tag the devices (no wiring)
 
 The director finds the course at runtime by Verse tags (`verse/fnm_tags.verse`). In each device's Details
@@ -65,6 +69,9 @@ panel add a **Verse Tag Markup** component and set its tags:
 | Station N door trigger | `fnm_station_NN` + `fnm_door_a` / `_b` / `_c` / `_d` |
 | Station N door barrier | the same two tags as that door's trigger |
 | Finish teleporter | `fnm_finish` |
+| Boss arena entry teleporter | `fnm_boss` + `fnm_entry` |
+| Boss arena answer-pad trigger | `fnm_boss` + `fnm_door_a` / `_b` / `_c` / `_d` |
+| Boss guard spawner / adds guard spawner / exit gate barrier | `fnm_boss_spawner` / `fnm_boss_adds` / `fnm_boss_gate` |
 | Audio player per cue (`tools/build_audio.py`, `AUDIO.md`) | `fnm_cue_<id>`: `fnm_cue_countdown3` .. `fnm_cue_music_t5`, one per `fnm_cue` member |
 
 Stations are read 01, 02, ... until the first number with no entry teleporter (max 20). Then place one

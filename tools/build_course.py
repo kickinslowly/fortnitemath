@@ -15,6 +15,10 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
     python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
     python tools/build_course.py --triggers-only  # resize the vestibule triggers in place (TRIGGER_DEPTH)
+
+After the last station's connector comes the BOSS ARENA (GOALS G6 item 3, maps/starter/LAYOUT.md "Boss arena"): four
+answer pads, a boss guard on a platform, an adds spawner, a gate barrier at the exit, then a short connector into the
+unchanged finish hallway. The arena is not a numbered station (fnm_boss tag), so the tier formula is untouched.
 """
 import argparse
 import math
@@ -142,6 +146,35 @@ SIGN_COLOUR = (1.0, 0.8, 0.1)
 # Barrier zone at actor scale 1 ("volume Transform" Box): 511 x 511 x 384, bottom at the actor. Its
 # get_actor_bounds add a 128/96 cm editor margin all round, so don't size it from those.
 BARRIER_BASE = (511, 511, 384, 0)
+
+# Boss arena (GOALS G6 item 3): between the last station's connector and the finish hallway. A station-wide hall
+# ARENA_LEN long; four answer pads (trigger zones PAD_SIZE square and PAD_H tall, each on a floor tile in its letter's
+# colour with the letter on a board above); a boss guard on a platform near the far end; an adds spawner mid-arena; a
+# gate barrier across the exit that opens per player at the kill. Every arena actor is labelled FNM_Arena_* (the
+# connector INTO the arena carries that prefix too, like every connector carries the prefix of what it leads into).
+ARENA = True
+ARENA_LEN = 3000
+PAD_SIZE = 300
+PAD_H = 150
+PAD_TILE_T = 10
+# Pad centres, A..D, as (x from the arena's centre line, y from its start). +X is the player's LEFT (like door A), so
+# A and C sit on the left and the pads read A B / C D left to right, as the HUD lists the choices.
+PAD_SPOTS = [(700, 800), (-700, 800), (700, 2200), (-700, 2200)]
+PAD_BOARD_Z = 300       # the letter board's actor height above the floor (scale PAD_BOARD_SCALE: it clears the glass lid)
+PAD_BOARD_SCALE = 1.5
+PLATFORM_W, PLATFORM_D, PLATFORM_H, PLATFORM_Y = 600, 400, 100, 2600
+ADDS_Y = 1800
+GATE_Y = ARENA_LEN       # the gate barrier's front face; the arena's floor ends BARRIER_T past it
+ARENA_CONNECTOR = [seg(1000)]
+_WID = "/Game/Athena/Items/Weapons/{0}.{0}"
+BOSS_WEAPON = _WID.format("WID_Assault_AutoHigh_Athena_SR_Ore_T03")    # legendary AR (accepted per build_guards' probe)
+ADDS_WEAPON = _WID.format("WID_Pistol_SemiAuto_Athena_R_Ore_T03")      # the loadout's pistol
+# Overrides on build_guards.SETTINGS (merged at build time: build_guards imports this module). The health ask is
+# deliberately above the device's range: build() writes it, reads back what the device kept and prints that cap.
+BOSS_HEALTH_ASK = 100000.0
+BOSS_SETTINGS = {"spawnCount": 1, "totalSpawnLimit": 1, "showHealthBar": True, "enablePatrol": False,
+                 "spawnRadius_InMeter": 1.0, "dropInventoryOnElimination": False, "maxShield": 0.0, "startingShield": 0.0}
+ADDS_SETTINGS = {"spawnCount": 2, "totalSpawnLimit": 2, "spawnRadius_InMeter": 4.0, "maxPatrolDistance_InMeter": 6.0}
 
 SCENE = "editor_toolset.toolsets.scene.SceneTools"
 ACTOR = "editor_toolset.toolsets.actor.ActorTools"
@@ -395,6 +428,78 @@ def connector(name, segments, ox, y0, oz, half, prefix):
     return x, y + FUNNEL, z
 
 
+def spawner(label, x, y, z, project, tags, overrides, weapon, health=None):
+    """A guard spawner (build_guards.SPAWNER) facing -Y with build_guards.SETTINGS + overrides, its weapon read back.
+    health: ask the device for this max/starting health and return what it kept (the device's cap)."""
+    import build_guards as g                  # it imports this module: import late
+    actor = device(g.SPAWNER, label, x, y, z, yaw=-90)
+    # Tag first: adding the tag component rebuilds the device's settings sub-objects (uefn-mcp skill).
+    verse_tags(actor, project, tags)
+    for key, value in {**g.SETTINGS, **overrides}.items():   # one key per call (a combined write can keep an old value)
+        props(actor, {key: value})
+    kept = None
+    if health is not None:
+        props(actor, {"max Health": health})
+        props(actor, {"startingHealth": health})
+        back = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": ["max Health", "startingHealth"]})["returnValue"])
+        kept = back.get("max Health")
+        print(f"{label}: asked max/starting health {health:.0f}, the device kept {back}")
+    items = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": ["itemList"]})["returnValue"])
+    props(items["itemList"]["refPath"], {"itemListData": [{"itemDefinition": ref(weapon), "itemQuantity": 1}]})
+    back = json.loads(u.call(OBJ, "get_properties", {"instance": items["itemList"], "properties": ["itemListData"]})["returnValue"])["itemListData"]
+    if not back or (back[0].get("itemDefinition") or {}).get("refPath") != weapon:
+        sys.exit(f"{label}: the guard spawner refused {weapon}")
+    opts = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": list(overrides)})["returnValue"])
+    wrong = {k: opts.get(k) for k, v in overrides.items() if opts.get(k) != v}
+    if wrong:
+        print(f"{label}: settings read back differently: {wrong}")
+    return actor, kept
+
+
+def arena(ox, oy, oz, doors, project):
+    """The boss arena whose floor starts at (ox, oy) on level oz (LAYOUT.md "Boss arena"). Returns the y where it ends
+    (the gate's back face), where the connector to the finish starts."""
+    half = doors * DOOR_W / 2
+    t = WALL_T
+    end = oy + GATE_Y + BARRIER_T
+    box("FNM_Arena_Floor", ox - half - t, ox + half + t, oy, end, oz + 2 - SLAB_T, oz + 2)
+    box("FNM_Arena_WallL", ox + half, ox + half + t, oy, end, oz, oz + WALL_H)
+    box("FNM_Arena_WallR", ox - half - t, ox - half, oy, end, oz, oz + WALL_H)
+    tp = device(TELEPORTER, "FNM_Arena_Entry", ox, oy + 150, oz, yaw=90)
+    props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
+    verse_tags(tp, project, ["fnm_boss", "fnm_entry"])
+    sign = device(BILLBOARD, "FNM_Arena_Sign", ox + half - 5, oy + 600, oz + 250, yaw=-90, sx=2, sy=2, sz=2)
+    board(sign, "BOSS ARENA", SIGN_COLOUR)
+    for i, (dx, dy) in enumerate(PAD_SPOTS):
+        letter = LETTERS[i]
+        x, y = ox + dx, oy + dy
+        p = PAD_SIZE / 2
+        box(f"FNM_Arena_Pad{letter}", x - p, x + p, y - p, y + p, oz + 2, oz + 2 + PAD_TILE_T)
+        trig = device(TRIGGER, f"FNM_Arena_Trigger{letter}", x, y, oz + 2 + PAD_H / 2,
+                      sx=PAD_SIZE / 600, sy=PAD_SIZE / 600, sz=PAD_H / 600)
+        props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
+                     "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
+                     "triggeredByPhysicsProps": False})
+        verse_tags(trig, project, ["fnm_boss", f"fnm_door_{letter.lower()}"])
+        label = device(BILLBOARD, f"FNM_Arena_Label{letter}", x, y, oz + PAD_BOARD_Z, yaw=180,
+                       sx=PAD_BOARD_SCALE, sy=PAD_BOARD_SCALE, sz=PAD_BOARD_SCALE)
+        board(label, letter, LETTER_COLOURS[i])
+    py = oy + PLATFORM_Y
+    box("FNM_Arena_Platform", ox - PLATFORM_W / 2, ox + PLATFORM_W / 2, py - PLATFORM_D / 2, py + PLATFORM_D / 2,
+        oz + 2, oz + 2 + PLATFORM_H)
+    _, cap = spawner("FNM_Arena_Boss", ox, py, oz + 2 + PLATFORM_H, project, ["fnm_boss_spawner"], BOSS_SETTINGS,
+                     BOSS_WEAPON, health=BOSS_HEALTH_ASK)
+    spawner("FNM_Arena_Adds", ox, oy + ADDS_Y, oz + 2, project, ["fnm_boss_adds"], ADDS_SETTINGS, ADDS_WEAPON)
+    bw, bd, bh, bz = BARRIER_BASE
+    sz = WALL_H / bh
+    gate = device(BARRIER, "FNM_Arena_Gate", ox, oy + GATE_Y + BARRIER_T / 2, oz - bz * sz,
+                  sx=2 * half / bw, sy=BARRIER_T / bd, sz=sz)
+    props(gate, {"invisibleToIgnoredPlayers": True, "collide with Camera": False})
+    verse_tags(gate, project, ["fnm_boss_gate"])
+    print(f"arena built at x={ox:.0f} y={oy:.0f}..{end:.0f} level {oz:.0f}; boss max health cap {cap}")
+    return end
+
+
 def finish(ox, oy, oz, doors, project):
     half = doors * DOOR_W / 2
     t = WALL_T
@@ -436,7 +541,7 @@ def paint():
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     mount = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).rstrip("/")
     found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
-    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish)_(Wall|Lintel|Divider|Baffle|Hurdle|Step)", a.get("label", ""))]
+    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish|Arena)_(Wall|Lintel|Divider|Baffle|Hurdle|Step|Pad[A-D]$|Platform$)", a.get("label", ""))]
     stations = len({a["label"][5:7] for a in walls if a["label"][4] == "S"})
     ice = [a for a in found if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Floor", a.get("label", ""))
            and int(a["label"][5:7]) in ICE_STATIONS]
@@ -444,9 +549,12 @@ def paint():
     for a in walls + ice:
         # Hurdles are gold (the finish colour) so they stand out against the tier colour; stair steps take the
         # tier colour so each step reads against the white floors; ice floors are pale blue.
-        gold = a["label"].startswith("FNM_Finish") or "_Hurdle" in a["label"]
-        key = ("ice" if a in ice else "finish" if gold
-               else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}")
+        gold = a["label"].startswith("FNM_Finish") or "_Hurdle" in a["label"] or a["label"] == "FNM_Arena_Platform"
+        # The arena plays the hardest tier: its walls (and the connector's into it) take the tier-5 colour; each answer
+        # pad's tile its letter's colour (materials M_fnm_wall_pad_a..d, tools/import_art.py).
+        pad = re.fullmatch(r"FNM_Arena_Pad([A-D])", a["label"])
+        key = ("ice" if a in ice else "finish" if gold else f"pad_{pad.group(1).lower()}" if pad
+               else "tier5" if a["label"].startswith("FNM_Arena") else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}")
         mat = f"{mount}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
         comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(a["actorPath"]),
                                                         "properties": ["staticMeshComponent"]})["returnValue"])
@@ -517,7 +625,7 @@ def triggers_only():
     print(f"{len(trigs)} triggers resized to {TRIGGER_DEPTH} cm deep (bounds read back)")
 
 
-def build(stations, doors, hall):
+def build(stations, doors, hall, arena_on=ARENA):
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
     project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
     print("removed", clear(), "old course actors;", clear("fnm_test"), "test actors")
@@ -527,9 +635,12 @@ def build(stations, doors, hall):
     for k in range(1, stations + 1):
         end = station(k, ox, oy, oz, hall, doors, project, door_assets)
         name, segments = CONNECTORS[(k - 1) % len(CONNECTORS)]
-        nxt = f"FNM_S{k + 1:02d}" if k < stations else "FNM_Finish"
+        nxt = f"FNM_S{k + 1:02d}" if k < stations else "FNM_Arena" if arena_on else "FNM_Finish"
         ox, oy, oz = connector(name, segments, ox, end, oz, half, nxt)
         print(f"station {k} built; then {name} to x={ox:.0f} y={oy:.0f} level {oz:.0f}")
+    if arena_on:
+        end = arena(ox, oy, oz, doors, project)
+        ox, oy, oz = connector("arena", ARENA_CONNECTOR, ox, end, oz, half, "FNM_Finish")
     finish(ox, oy, oz, doors, project)
     # The director finds stations by tag (fnm_tags.verse): nothing to wire.
     device(DIRECTOR.format(root=project), "FNM_Director", -3000, START_Y, 0)
@@ -587,6 +698,7 @@ if __name__ == "__main__":
     ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     ap.add_argument("--triggers-only", action="store_true", help="only resize the vestibule triggers in place (TRIGGER_DEPTH)")
+    ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
     a = ap.parse_args()
     if a.paint_only:
         paint()
@@ -597,4 +709,4 @@ if __name__ == "__main__":
     elif a.triggers_only:
         triggers_only()
     else:
-        build(a.stations, a.doors, a.hall)
+        build(a.stations, a.doors, a.hall, not a.no_arena)

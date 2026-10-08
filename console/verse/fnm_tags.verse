@@ -38,6 +38,14 @@ fnm_new_race := class(tag){}
 fnm_change_skill := class(tag){}
 fnm_hall_head := class(tag){}
 fnm_hall_row := class(tag){}
+# The boss arena (tools/build_course.py arena, maps/starter/LAYOUT.md "Boss arena"): NOT a numbered station. Its entry
+# teleporter carries fnm_boss + fnm_entry and its four answer-pad triggers fnm_boss + fnm_door_a..d (so
+# FindStationParts(fnm_boss) reads it like a station); the boss's guard spawner, the adds spawner and the exit gate
+# barrier have a tag each.
+fnm_boss := class(tag){}
+fnm_boss_spawner := class(tag){}
+fnm_boss_adds := class(tag){}
+fnm_boss_gate := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}
@@ -105,5 +113,8 @@ fnm_cue_music_t2 := class(tag){}
 fnm_cue_music_t3 := class(tag){}
 fnm_cue_music_t4 := class(tag){}
 fnm_cue_music_t5 := class(tag){}
+fnm_cue_boss_fight := class(tag){}
+fnm_cue_boss_hit := class(tag){}
+fnm_cue_boss_dead := class(tag){}
 # Cue tag types in fnm_cue enum order (FnmCues()).
-FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5}
+FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5, fnm_cue_boss_fight, fnm_cue_boss_hit, fnm_cue_boss_dead}

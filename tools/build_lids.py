@@ -27,8 +27,9 @@ TAG = "fnm_lids"
 GLASS = "/Game/Creative/Environments/Meshes/Glass/Materials/Glass_version_02/MI_CP_GlassGallery.MI_CP_GlassGallery"
 LID_T = 40              # lid thickness (cm)
 SINK = 20               # the lid's underside sits this far down into the wall tops, so there is no seam to slip through
-# Course floor pieces: a connector's pieces carry the prefix of the station it leads INTO (build_course.connector).
-PIECE = re.compile(r"^(FNM_(?:S\d\d|Finish))_(Floor|FloorFunnel|FloorFlare|FloorC\d+|Step(\d+)_(\d+))$")
+# Course floor pieces: a connector's pieces carry the prefix of the station it leads INTO (build_course.connector);
+# the boss arena (FNM_Arena_Floor) and the connector into it (FNM_Arena_FloorC1 ...) are lidded like a station.
+PIECE = re.compile(r"^(FNM_(?:S\d\d|Finish|Arena))_(Floor|FloorFunnel|FloorFlare|FloorC\d+|Step(\d+)_(\d+))$")
 
 
 def build():

@@ -56,6 +56,9 @@ it was offered (below).
 | `guards_up` | a station's guards switch on, for the players on it (`GuardLoop`) | Toys/ActionTrigger/ActionTrigger_PlayerSpotted_Cue | 1.22 |
 | `welcome` | a player joins (`StartPlayer`) | Modes/Match/Match_Start_01_Cue | 3.83 |
 | `choose` | the skill picker first opens for a player (`BeginPicking`; not with `DebugAutoPick`) | SkilledInteract_Open_Cue | 1.00 |
+| `boss_fight` | a player enters the boss arena (`EnterArena`) | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
+| `boss_hit` | a right pad hits the boss (`BossHit`) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01 | 3.97 |
+| `boss_dead` | the boss goes down, for every player in the arena (`BossDown`) | Gadgets/Radio/Stingers/BlackMonday/Stinger_BlackMonday_Win_01 | 6.14 |
 | `music_t1` .. `music_t5` | music bed per station tier: on at GO, swapped when the tier changes, off at the finish and while the picker is up | Gadgets/Radio/Music_Loops: Music_StW_Ambient_Morning01, _Medium_Exploration01, _Low_Combat01, _High_Action01, _High_Combat01 | loop |
 
 Nothing wired yet for the announcer lines: the streak / perfect / countdown ids above are where the VO pack goes.

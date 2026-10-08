@@ -76,6 +76,9 @@ before UEFN work. Project-specific:
   no content change. Patch them with the Edit tool or `tools/patch.py` (exact-string edits, needle must match once,
   line endings kept; importable `patch(path, pairs)` or a one-shot CLI for flipping a debug default).
 - The penalty pool lives in `maps/<id>/map.json` `penalties` (PROTOCOL §6a), not on the director.
+- Boss arena (G6 item 3, LAYOUT.md "Boss arena"): stage `Stations.Length + 1`, found by tag `fnm_boss` (+ `fnm_boss_spawner`,
+  `fnm_boss_adds`, `fnm_boss_gate`), NOT a station (a station 11 would shift every tier); `DebugStartStage 11` starts in it,
+  `DebugAutoRightAnswers` carries a run through it. Built by `build_course.py` (pad colours: `import_art.py pad_a pad_b pad_c pad_d`).
 - Content rule (Aaron, 2026-10-04): simple numbers, concept over arithmetic. The bounds are PROTOCOL §4a; every
   procedural cartridge's tests assert them against its `baked.json`. Read §4a before writing or reviewing a generator.
 - The slot holds EVERY baked cartridge (`FnmCartridge_<id>()` each + `FnmCartridges()` registry, PROTOCOL §7); the

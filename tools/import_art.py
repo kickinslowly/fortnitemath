@@ -26,7 +26,9 @@ UI_SETTINGS = {"CompressionSettings": "TC_EditorIcon", "LODGroup": "TEXTUREGROUP
 # Hallway wall colour per difficulty tier (the course builder picks by tier) and the finish hallway.
 WALL_COLOURS = {"tier1": (0.30, 0.75, 0.40), "tier2": (0.25, 0.50, 0.90), "tier3": (0.55, 0.35, 0.85),
                 "tier4": (0.95, 0.50, 0.15), "tier5": (0.85, 0.18, 0.18), "finish": (1.0, 0.75, 0.10),
-                "ice": (0.70, 0.90, 1.0)}   # icy hallway floors (build_course.py ICE_STATIONS)
+                "ice": (0.70, 0.90, 1.0),   # icy hallway floors (build_course.py ICE_STATIONS)
+                # the boss arena's answer pad tiles, A..D in build_course.LETTER_COLOURS
+                "pad_a": (1.0, 1.0, 1.0), "pad_b": (0.3, 0.55, 1.0), "pad_c": (0.2, 0.9, 0.3), "pad_d": (1.0, 0.55, 0.1)}
 
 
 def mount():

@@ -249,9 +249,18 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   likely the Xbox), so unverified: feed position vs the minimap (Top 300), the strip's look, red/behind delta, the
   penalty feed copy, the skip feed, the DeltaCopy sign sabotage (all closed above). `tools/playtest.py` now prints
   UTF-8 and takes `--frames "text:delay,..."` for mid-run HUD screenshots
-- [ ] 3. Boss finale, "math as damage": the finish becomes an arena with a boss guard and a huge health bar; five
-  rapid questions, each right door fires a cannon or hands a legendary launcher for 8 s, each wrong one summons adds;
-  the run ends on the kill
+- [x] 3. Boss arena (built 2026-10-07, Opus builder D; seen in play): a 30 m arena between connector 10 and the finish
+  hallway (`build_course.arena`, tag `fnm_boss`, stage Stations.Length+1, NOT a numbered station so tiers stay put),
+  four lettered answer pads (tier-5 questions, back to the arena entry after every answer), a shared boss on a gold
+  platform (guard spawner, MaxHealth 100000 accepted despite the documented 10000 cap, so gunfire cannot kill it;
+  each right answer deals 1/5, the team's 5th hit finishes it), adds on a wrong answer, HUD `BOSS █████---- 60%`,
+  cues boss_fight / boss_hit / boss_dead, feed lines, a gate barrier that opens per player on the kill. Seen: 5 hits
+  80→0 %, elimination, gate open, a full 10-station + arena run (1:26.6), a finished player WALKED through the gate
+  into the victory hallway (keys test), sabotage (0 damage) left the boss alive. Fable added: a run started past
+  stage 1 (`DebugStartStage`) is `Partial` and never recorded as a best / board row / record (an arena-only test
+  run had set a 0:29.6 island record). Aaron's calls: the boss's AR plus two adds took a test player to 14 HP;
+  with another fighter present the boss respawns 4 s after a kill while the finisher walks out past it; the rivals
+  strip shows a boss fighter as `station 10`
 - [ ] 4. Agency: a gold fifth door at some stations (tier+2 question: skip the next station or eat a nasty penalty); two
   lifelines per run (50/50, a 3 s peek at the explanation for a time cost); coins on the walls and a podium shop
   (shield that eats one penalty, a shockwave, a head start)

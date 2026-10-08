@@ -23,6 +23,9 @@ FnmFeedFinish<localizes>(Who:agent, Time:string, Medal:string):message = "{Who} 
 FnmFeedRecord<localizes>(Who:agent, Time:string):message = "{Who} set the island record  {Time}"
 FnmFeedStreak<localizes>(Who:agent, Streak:int):message = "{Who} is on a {Streak} streak!"
 FnmFeedSkip<localizes>(Who:agent):message = "{Who} tried to skip and was sent back"
+FnmFeedBoss<localizes>(Who:agent):message = "{Who} reached the boss!"
+FnmFeedBossPenalty<localizes>(Who:agent, Past:string):message = "{Who} got {Past} by the boss"
+FnmFeedFinalHit<localizes>(Who:agent):message = "{Who} landed the final hit!"
 
 # What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
 # list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL / CLOSE on the finish
@@ -58,6 +61,9 @@ fnm_hud := class:
     FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
     # Streak and speed boost, big, at the bottom of the top panel (Aaron 2026-10-04: the small left line went unnoticed).
     StreakBig : text_block = text_block{DefaultTextColor := NamedColors.Orange, DefaultTextSize := 40.0, DefaultJustification := text_justification.Center}
+    # Boss arena: the shared boss health bar and the viewer's own hits, the last line of the top panel, shown only to a
+    # player at the arena stage (fnm_director BossLoop refreshes it; collapsed otherwise, so nothing else moves).
+    BossText : text_block = text_block{DefaultTextColor := NamedColors.Red, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
     # Verdict: a big check mark or cross (textures; the HUD font has no such glyphs) over CORRECT! or the
     # penalty's name. FNM_Art.T_fnm_check / T_fnm_cross are imported into each map's project by
     # tools/import_art.py.
@@ -173,6 +179,10 @@ fnm_hud := class:
                         Widget := StreakBig
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Top := 10.0}
+                    stack_box_slot:
+                        Widget := BossText
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 8.0}
             # A dark translucent panel behind the text: the pale walls and sky washed out coloured text.
             Panel : overlay = overlay:
                 Slots := array:
@@ -317,6 +327,7 @@ fnm_hud := class:
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             Results.SetVisibility(widget_visibility.Collapsed)
             StreakBig.SetVisibility(widget_visibility.Collapsed)
+            BossText.SetVisibility(widget_visibility.Collapsed)
             TargetText.SetVisibility(widget_visibility.Collapsed)
             DeltaText.SetVisibility(widget_visibility.Collapsed)
             set MaybeResults = option{Results}
@@ -456,6 +467,13 @@ fnm_hud := class:
     # The big streak / speed-boost line in the top panel ("" collapses it, so the panel doesn't grow).
     SetStreak(Text:string):void =
         SetOrCollapse(StreakBig, Text)
+
+    # The boss line ("BOSS  ...  80%   -   your hits 1/5"); ClearBoss collapses it.
+    SetBoss(Text:string):void =
+        SetOrCollapse(BossText, Text)
+
+    ClearBoss():void =
+        SetOrCollapse(BossText, "")
 
     # The run's target under the clock ("Beat 1:20.1"; "" collapses it).
     SetTarget(Text:string):void =
