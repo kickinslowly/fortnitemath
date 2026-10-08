@@ -95,8 +95,12 @@ different skills are never compared. Test hook: `DebugAutoPick` (−1 = menu; N 
 `Cartridges[N]` on join, also after CHANGE SKILL) so automated runs skip the menu; the other debug hooks start
 when the first skill is picked.
 
-Top-centre HUD, per player: `Title - Subtitle`, `Stage s/S - <tier name>`, the prompt, the lettered
-choices (`A: 11     B: 14     C: 10`), and a feedback line, on a dark panel. A wrong door shows a big red cross, the
+Per-player HUD: the skill's title and subtitle on a small tag top left, under the GAME MODE box. Top centre, hung
+above the door wall, the slate: a framed dark chalk slate (`fnm_slate.png` in a pale rim) with the stage caption
+(`Stage s/S - <tier name>`), the prompt, the answers as four tiles left to right like the doors, each in its door's
+colour (A white, B blue, C green, D orange: `FnmDoorColors` = `LETTER_COLOURS`; `fnm_tile.png` tinted per door; a
+tile with no choice collapses), and a feedback line. The slate collapses while there is no question (picker,
+finish board). A wrong door shows a big red cross, the
 penalty's name and that choice's feedback, fires the penalty, and puts the player back at the retry point
 with the same question still up. A right door shows a big green check over CORRECT!, the explanation, and the next
 question, and that door's barrier opens for that player (no barrier: a teleport to the next station). A door letter the
@@ -108,8 +112,8 @@ run from station 1 (unless an End Game device is set).
 
 Race layer: the clock and the run's target ("Beat 1:20.1") sit left, under the GAME MODE box; a 3-2-1-GO countdown
 (player held in stasis) starts each run's clock. A first-try right answer builds a streak ("3 IN A ROW!") and a
-speed boost (the `fnm_boost` movement modulator at 2.0x, 3 s + 1 s per streak step, max 7 s), shown big in the top
-panel as "STREAK x3  -  SPEED BOOST 4s"; a wrong door ends both, an elimination ends only the boost. Shipping containers tagged `fnm_slider` sweep across the hallways
+speed boost (the `fnm_boost` movement modulator at 2.0x, 3 s + 1 s per streak step, max 7 s), shown big on the
+slate as "STREAK x3  -  SPEED BOOST 4s"; a wrong door ends both, an elimination ends only the boost. Shipping containers tagged `fnm_slider` sweep across the hallways
 (placed X to mirrored X and back); hurdles and baffles are static. Obstacle plan: `OBSTACLES` in
 `tools/build_course.py`.
 

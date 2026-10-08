@@ -1034,7 +1034,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
             StageLine := if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}  -  step on the right answer pad" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
-            State.Hud.ShowQuestion(StageLine, Item.Prompt, FnmChoicesLine(Shown))
+            State.Hud.ShowQuestion(StageLine, Item.Prompt, Shown)
 
     # The baked choice behind door DoorIndex for this showing (-1 = no choice there).
     ChoiceAt(State:fnm_player_state, DoorIndex:int)<transacts>:int =

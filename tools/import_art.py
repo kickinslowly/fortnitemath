@@ -1,14 +1,15 @@
 """Import the console's HUD textures (tools/art/*.png) and the course's flat wall colours into the open UEFN
 project through UEFN MCP.
 
-The runtime (fnm_ui.verse) references FNM_Art.T_fnm_check / T_fnm_cross, so every map's UEFN project needs
-them once. MCP has no texture importer, but StaticMeshTools.import_file creates a Texture2D for each texture
+The runtime (fnm_ui.verse) references FNM_Art.T_fnm_check / T_fnm_cross (the verdict) and T_fnm_slate / T_fnm_tile
+(the question slate and its answer tiles), so every map's UEFN project needs them once. MCP has no texture importer, but StaticMeshTools.import_file creates a Texture2D for each texture
 an imported mesh's material references: so each PNG rides in on a one-quad OBJ whose material maps it, and
 the helper mesh and material are deleted afterwards. A PNG dropped into Content/ is NOT auto-imported.
 Wall colours come in the same way: an OBJ material's Kd colour becomes a Material (M_fnm_wall_<key>), which
 tools/build_course.py paints on each hallway by its tier.
 
-    python tools/make_verdict_art.py   # (re)draw the PNGs
+    python tools/make_verdict_art.py   # (re)draw the PNGs: check, cross
+    python tools/make_hud_art.py       #                     slate, tile
     python tools/import_art.py         # idempotent: replaces existing T_fnm_* / M_fnm_* assets
 """
 import json

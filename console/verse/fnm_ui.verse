@@ -1,5 +1,11 @@
-# FNM console runtime -- per-player HUD (Verse UI: canvas + stack_box + text_blocks).
-# One fnm_hud instance per player; only that player sees it. The skill picker and the finish board's CHANGE SKILL
+# FNM console runtime -- per-player HUD (Verse UI: canvas + stack_box + text_blocks + texture_blocks).
+# One fnm_hud instance per player; only that player sees it. The question sits on "the slate", top centre: a framed
+# dark chalk slate (texture FNM_Art.T_fnm_slate inside a pale color_block rim) hung like a sign above the door wall,
+# with the stage caption, the prompt, and the answers as four tiles laid out left to right like the doors, each in its
+# door's colour (FnmDoorColors; texture FNM_Art.T_fnm_tile tinted per door). The skill's title and subtitle are a small
+# tag top left under Fortnite's GAME MODE box. Every player draws their own item and letter shuffle, and UEFN has no
+# per-player world text, so the slate is HUD, not a world sign (Aaron 2026-10-08: the flat black panel "feels like
+# alpha version"). The skill picker and the finish board's CHANGE SKILL
 # and CLOSE buttons are real Verse buttons on their own roots (InputMode All only while shown); clicks go to the director
 # through fnm_picker_listener (PROTOCOL 6b). With a podium on the map the finish board shows WITHOUT those buttons, so
 # it never takes the player's movement (Aaron 2026-10-06).
@@ -27,6 +33,14 @@ FnmFeedBoss<localizes>(Who:agent):message = "{Who} reached the boss!"
 FnmFeedBossPenalty<localizes>(Who:agent, Past:string):message = "{Who} got {Past} by the boss"
 FnmFeedFinalHit<localizes>(Who:agent):message = "{Who} landed the final hit!"
 
+# The four door colours, A..D: the letter boards over the doors and the arena pads use the same ones. Must equal
+# tools/build_course.py LETTER_COLOURS (tests/test_hud_layout.py pins it).
+FnmDoorColors : []color = array:
+    color{R := 1.0, G := 1.0, B := 1.0}
+    color{R := 0.3, G := 0.55, B := 1.0}
+    color{R := 0.2, G := 0.9, B := 0.3}
+    color{R := 1.0, G := 0.55, B := 0.1}
+
 # What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
 # list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL / CLOSE on the finish
 # board.
@@ -51,17 +65,43 @@ fnm_pick_handler := class:
         Hud.Clicked(Message.Player, Kind, Index)
 
 fnm_hud := class:
-    # Width (px at 1080p) at which long lines wrap. Explanations are up to 160 chars (PROTOCOL 5 rule 6).
-    WrapAt : float = 1500.0
+    # Width (px at 1080p) at which the slate's long lines wrap: the slate's 1192 less its side padding. Explanations
+    # are up to 160 chars (PROTOCOL 5 rule 6), two lines at this width.
+    WrapAt : float = 1120.0
 
-    TitleText : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
-    StageText : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
-    PromptText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 44.0, DefaultJustification := text_justification.Center}
-    ChoicesText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
-    FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
-    # Streak and speed boost, big, at the bottom of the top panel (Aaron 2026-10-04: the small left line went unnoticed).
+    # The tag, top left: the skill's title and subtitle, one line each (title <= 32 chars, subtitle <= 40; PROTOCOL 5
+    # rule 6). Out of the slate so the question is the first thing on it.
+    TitleText : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 24.0, DefaultJustification := text_justification.Left}
+    SubtitleText : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 20.0, DefaultJustification := text_justification.Left}
+    # The slate's caption row ("Stage 1/10  -  Rectangles"), top left of the slate, then the prompt.
+    StageText : text_block = text_block{DefaultTextColor := NamedColors.Aqua, DefaultTextSize := 22.0, DefaultJustification := text_justification.Left}
+    PromptText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 46.0, DefaultJustification := text_justification.Center}
+    # The slate's chalk texture (stretched; the 6 px rim round it is a color_block, so the frame stays crisp). 1180
+    # wide (1192 with the rim, x 364-1556 at 1080p) clears Fortnite's GAME MODE box (ends x 356) and the minimap (from
+    # x 1603); the slate's height is kept so its bottom stays above the door lintel (y ~330) and the letter boards on it.
+    SlateArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_slate, DefaultDesiredSize := vector2{X := 1180.0, Y := 210.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    # The answer tiles, A..D left to right like the doors. The four doors are the same prop: only the letter boards'
+    # colours tell them apart, so each tile's ring, letter and value take its door's colour (FnmDoorColors, set in
+    # Attach). Tiles past the item's choice count are collapsed.
+    TileArt : []texture_block = array:
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 240.0, Y := 100.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 240.0, Y := 100.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 240.0, Y := 100.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 240.0, Y := 100.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    TileLetter : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+    TileValue : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
+    FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 28.0, DefaultJustification := text_justification.Center}
+    # Streak and speed boost, big, at the bottom of the slate (Aaron 2026-10-04: the small left line went unnoticed).
     StreakBig : text_block = text_block{DefaultTextColor := NamedColors.Orange, DefaultTextSize := 40.0, DefaultJustification := text_justification.Center}
-    # Boss arena: the shared boss health bar and the viewer's own hits, the last line of the top panel, shown only to a
+    # Boss arena: the shared boss health bar and the viewer's own hits, the last line of the slate, shown only to a
     # player at the arena stage (fnm_director BossLoop refreshes it; collapsed otherwise, so nothing else moves).
     BossText : text_block = text_block{DefaultTextColor := NamedColors.Red, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
     # Verdict: a big check mark or cross (textures; the HUD font has no such glyphs) over CORRECT! or the
@@ -129,6 +169,9 @@ fnm_hud := class:
     var MaybePlayerUI : ?player_ui = false
     var MaybeRoot : ?canvas = false
     var MaybeResults : ?widget = false
+    # The whole slate (collapsed by ClearQuestion, reopened by ShowQuestion) and the four tile overlays, A..D.
+    var MaybeSlate : ?widget = false
+    var TileBoxes : []overlay = array{}
     var MaybeOwner : ?player = false
     var MaybeListener : ?fnm_picker_listener = false
     # The picker's and the CHANGE SKILL button's roots. Each is added (InputMode All: the mouse cursor and clicks go
@@ -152,29 +195,54 @@ fnm_hud := class:
     Attach(Player:player):void =
         if (PlayerUI := GetPlayerUI[Player]):
             set PromptText.WrapWidth = WrapAt
-            set ChoicesText.WrapWidth = WrapAt
             set FeedbackText.WrapWidth = WrapAt
+            # The answer tiles: the tile texture tinted with the door's colour (its white ring takes the colour, the
+            # dark interior stays near-black) under the door letter and the choice, both in the door's colour.
+            Tiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
+            for (K -> Art : TileArt, DoorColor := FnmDoorColors[K], Letter := TileLetter[K], Value := TileValue[K]):
+                Art.SetTint(DoorColor)
+                Letter.SetTextColor(DoorColor)
+                Value.SetTextColor(DoorColor)
+                Letter.SetText(FnmText(FnmChoiceLetter(K)))
+                Box : overlay = overlay:
+                    Slots := array:
+                        overlay_slot:
+                            Widget := Art
+                            HorizontalAlignment := horizontal_alignment.Fill
+                            VerticalAlignment := vertical_alignment.Fill
+                        overlay_slot:
+                            Widget := stack_box:
+                                Orientation := orientation.Vertical
+                                Slots := array:
+                                    stack_box_slot:
+                                        Widget := Letter
+                                        HorizontalAlignment := horizontal_alignment.Center
+                                    stack_box_slot:
+                                        Widget := Value
+                                        HorizontalAlignment := horizontal_alignment.Center
+                                        Padding := margin{Top := 2.0}
+                            HorizontalAlignment := horizontal_alignment.Center
+                            VerticalAlignment := vertical_alignment.Center
+                Tiles.AddWidget(stack_box_slot{Widget := Box, Padding := margin{Left := 8.0, Right := 8.0}})
+                set TileBoxes += array{Box}
             Lines : stack_box = stack_box:
                 Orientation := orientation.Vertical
                 Slots := array:
                     stack_box_slot:
-                        Widget := TitleText
-                        HorizontalAlignment := horizontal_alignment.Center
-                    stack_box_slot:
                         Widget := StageText
-                        HorizontalAlignment := horizontal_alignment.Center
+                        HorizontalAlignment := horizontal_alignment.Left
                     stack_box_slot:
                         Widget := PromptText
                         HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Top := 12.0}
+                        Padding := margin{Top := 4.0}
                     stack_box_slot:
-                        Widget := ChoicesText
+                        Widget := Tiles
                         HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Top := 8.0}
+                        Padding := margin{Top := 12.0}
                     stack_box_slot:
                         Widget := FeedbackText
                         HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Top := 16.0}
+                        Padding := margin{Top := 12.0}
                     stack_box_slot:
                         Widget := StreakBig
                         HorizontalAlignment := horizontal_alignment.Center
@@ -183,17 +251,42 @@ fnm_hud := class:
                         Widget := BossText
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Top := 8.0}
-            # A dark translucent panel behind the text: the pale walls and sky washed out coloured text.
-            Panel : overlay = overlay:
+            # The slate: a pale rim (the frame), the dark chalk texture inset 6 px inside it, the lines on top. Dark and
+            # neutral because the hallway walls are tier-coloured (green, blue, purple, orange, red), and the pale walls
+            # and sky washed out coloured text on no backing at all.
+            Slate : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := color{R := 0.86, G := 0.82, B := 0.74}, DefaultOpacity := 0.95}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := SlateArt
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                        Padding := margin{Left := 6.0, Top := 6.0, Right := 6.0, Bottom := 6.0}
+                    overlay_slot:
+                        Widget := Lines
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Left := 30.0, Top := 14.0, Right := 30.0, Bottom := 16.0}
+            # The tag: the skill's title and subtitle on a small dark backing.
+            Tag : overlay = overlay:
                 Slots := array:
                     overlay_slot:
                         Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.55}
                         HorizontalAlignment := horizontal_alignment.Fill
                         VerticalAlignment := vertical_alignment.Fill
                     overlay_slot:
-                        Widget := Lines
-                        HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Left := 32.0, Top := 12.0, Right := 32.0, Bottom := 14.0}
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := TitleText
+                                    HorizontalAlignment := horizontal_alignment.Left
+                                stack_box_slot:
+                                    Widget := SubtitleText
+                                    HorizontalAlignment := horizontal_alignment.Left
+                        Padding := margin{Left := 16.0, Top := 6.0, Right := 16.0, Bottom := 8.0}
             ResultsLines : stack_box = stack_box:
                 Orientation := orientation.Vertical
                 Slots := array:
@@ -271,14 +364,22 @@ fnm_hud := class:
                         Widget := BlackScreen
                         Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 1.0}}
                         Offsets := margin{Left := 0.0, Top := 0.0, Right := 0.0, Bottom := 0.0}
+                    # The slate, top centre, hung above the door wall (Top 40: lower and it covered the letter boards).
                     canvas_slot:
-                        Widget := Panel
+                        Widget := Slate
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 40.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
-                    # The finish board, hung from the top under the title panel (ClearQuestion shrinks that to one line) so
-                    # a finisher walking on into the victory area still sees where they are going (Aaron 2026-10-06: a
+                    # The tag, under Fortnite's GAME MODE box (ends near y 125) and above the clock panel (Top 230).
+                    canvas_slot:
+                        Widget := Tag
+                        Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 0.0, Y := 0.0}}
+                        Alignment := vector2{X := 0.0, Y := 0.0}
+                        Offsets := margin{Left := 20.0, Top := 138.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
+                    # The finish board, hung from the top (ClearQuestion collapses the slate, so nothing sits behind it)
+                    # so a finisher walking on into the victory area still sees where they are going (Aaron 2026-10-06: a
                     # centred board hid it). Before the verdict slot so GO! / a check draw on top.
                     canvas_slot:
                         Widget := Results
@@ -330,6 +431,10 @@ fnm_hud := class:
             BossText.SetVisibility(widget_visibility.Collapsed)
             TargetText.SetVisibility(widget_visibility.Collapsed)
             DeltaText.SetVisibility(widget_visibility.Collapsed)
+            SubtitleText.SetVisibility(widget_visibility.Collapsed)
+            # No question yet: the slate opens with the first ShowQuestion.
+            Slate.SetVisibility(widget_visibility.Collapsed)
+            set MaybeSlate = option{Slate}
             set MaybeResults = option{Results}
             set MaybeFeed = option{Feed}
             SetRivals(array{}, -1)
@@ -398,19 +503,24 @@ fnm_hud := class:
         set MaybePlayerUI = false
         set MaybeRoot = false
 
+    # The tag: Title on its line, Subtitle under it ("" collapses the subtitle line).
     SetTitle(Title:string, Subtitle:string):void =
-        if (Subtitle = ""):
-            TitleText.SetText(FnmText(Title))
-        else:
-            TitleText.SetText(FnmText(Title + "  -  " + Subtitle))
+        TitleText.SetText(FnmText(Title))
+        SetOrCollapse(SubtitleText, Subtitle)
 
-    # Shows one question: "Stage s/S - <tier name>", the prompt, the lettered choices; clears feedback.
-    ShowQuestion(StageLine:string, Prompt:string, ChoicesLine:string):void =
-        for (Block : array{StageText, PromptText, ChoicesText, FeedbackText}):
-            Block.SetVisibility(widget_visibility.Visible)
+    # Opens the slate on one question: the caption ("Stage s/S - <tier name>"), the prompt, and Choices[K] on tile K
+    # (in the order shown, so tile K is door K); tiles with no choice collapse. Clears feedback.
+    ShowQuestion(StageLine:string, Prompt:string, Choices:[]string):void =
+        if (Slate := MaybeSlate?):
+            Slate.SetVisibility(widget_visibility.Visible)
         StageText.SetText(FnmText(StageLine))
         PromptText.SetText(FnmText(Prompt))
-        ChoicesText.SetText(FnmText(ChoicesLine))
+        for (K -> Box : TileBoxes):
+            if (Value := TileValue[K], Choice := Choices[K]):
+                Value.SetText(FnmText(Choice))
+                Box.SetVisibility(widget_visibility.Visible)
+            else:
+                Box.SetVisibility(widget_visibility.Collapsed)
         ClearFeedbackNow()
 
     # Shows Message in TextColor; returns the generation number to pass to ClearFeedbackIf.
@@ -426,9 +536,10 @@ fnm_hud := class:
         if (Generation = FeedbackGeneration):
             ClearFeedbackNow()
 
+    # Empties the feedback line and collapses it, so an idle slate is a line shorter (ShowFeedback reopens it).
     ClearFeedbackNow():void =
         set FeedbackGeneration += 1
-        FeedbackText.SetText(FnmText(""))
+        SetOrCollapse(FeedbackText, "")
 
     # Takes the verdict (check / cross / big text) off the screen now.
     ClearVerdictNow():void =
@@ -464,7 +575,7 @@ fnm_hud := class:
     SetClock(Text:string):void =
         ClockText.SetText(FnmText(Text))
 
-    # The big streak / speed-boost line in the top panel ("" collapses it, so the panel doesn't grow).
+    # The big streak / speed-boost line on the slate ("" collapses it, so the slate doesn't grow).
     SetStreak(Text:string):void =
         SetOrCollapse(StreakBig, Text)
 
@@ -543,15 +654,16 @@ fnm_hud := class:
     SetBlack(On:logic):void =
         if (On?) then BlackScreen.SetOpacity(1.0) else BlackScreen.SetOpacity(0.0)
 
-    # Empties the question panel (stage, prompt, choices, feedback) and collapses those blocks, so the panel
-    # shrinks to the title instead of leaving a tall dark box behind the finish board. ShowQuestion reopens them.
+    # Empties the slate (caption, prompt, tiles, feedback) and collapses the whole slate, so nothing sits behind the
+    # finish board or the picker. The tag stays. ShowQuestion reopens it.
     ClearQuestion():void =
         StageText.SetText(FnmText(""))
         PromptText.SetText(FnmText(""))
-        ChoicesText.SetText(FnmText(""))
+        for (Value : TileValue):
+            Value.SetText(FnmText(""))
         ClearFeedbackNow()
-        for (Block : array{StageText, PromptText, ChoicesText, FeedbackText}):
-            Block.SetVisibility(widget_visibility.Collapsed)
+        if (Slate := MaybeSlate?):
+            Slate.SetVisibility(widget_visibility.Collapsed)
 
     # The finish board. Medal "" leaves its row blank. Rows: the session's top times, best first; OwnRow is the
     # viewing player's row (-1 = not on the board), drawn orange. The countdown row starts empty (SetCountdown).

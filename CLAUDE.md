@@ -44,7 +44,8 @@ before UEFN work. Project-specific:
   `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the
   imported voice lines on its `ANNOUNCER_CUES`, plain rerun = all stock), `tools/import_art.py`
-  (once per UEFN project: verdict textures + wall-colour materials, needed before Verse compiles),
+  (once per UEFN project: the HUD textures check, cross, slate, tile (drawn by `tools/make_verdict_art.py` +
+  `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
   props in place), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
   it), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
