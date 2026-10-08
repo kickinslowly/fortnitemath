@@ -43,7 +43,10 @@ def test_one_boss_and_two_adds():
     assert c.BOSS_SETTINGS["spawnCount"] == 1 and c.BOSS_SETTINGS["totalSpawnLimit"] == 1
     assert c.BOSS_SETTINGS["showHealthBar"] is True and c.BOSS_SETTINGS["enablePatrol"] is False
     assert c.ADDS_SETTINGS["spawnCount"] == 2
-    assert "_SR_" in c.BOSS_WEAPON and "Assault" in c.BOSS_WEAPON
+    # Aaron 2026-10-07 could not beat the legendary-AR boss: it now carries a weapon the spawner accepts (build_guards.WEAPONS)
+    # that is neither a sniper nor a launcher (no one-shot kills); the purple SMG today.
+    import build_guards as g
+    assert c.BOSS_WEAPON in g.WEAPONS and "Sniper" not in c.BOSS_WEAPON and "Launcher" not in c.BOSS_WEAPON
 
 
 def test_arena_tags_declared():
