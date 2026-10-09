@@ -33,7 +33,7 @@ GOLDEN = [
     ("Square: side 7. Area?", 49, {"PERIMETER": 28, "ADD_SIDES": 14}),
     ("Parallelogram: base 8, height 5. Area?", 40, {"HALVED": 20, "PERIMETER": 26, "ADD_SIDES": 13}),
     ("Triangle: base 10, height 6. Area?", 30, {"NO_HALF": 60, "ADD_SIDES": 16}),
-    ("Triangle: base 8, side 7, height 6. Area?", 24, {"SLANT_SIDE": 28, "NO_HALF": 48}),
+    ("Triangle: base 8, slanted side 7, height 6. Area?", 24, {"SLANT_SIDE": 28, "NO_HALF": 48}),
     ("Right triangle: legs 6 and 8. Area?", 24, {"NO_HALF": 48, "ADD_SIDES": 14}),
     ("Cut a 6 by 4 rectangle corner to corner. Area of each half?", 12, {"NO_HALF": 24}),
     ("Trapezoid: bases 4 and 6, height 5. Area?", 25, {"NO_AVERAGE": 50, "ONE_BASE": 30}),
@@ -113,12 +113,12 @@ def independent(prompt):
         b, h = int(m[1]), int(m[2])
         mul_ok(b, h, bad)
         v = F(b * h)
-    elif m := re.fullmatch(r"(?:Triangle: base (\d+),(?: side \d+,)? height (\d+)(?:, side \d+)?"
+    elif m := re.fullmatch(r"(?:Triangle: base (\d+),(?: slanted side \d+,)? height (\d+)(?:, slanted side \d+)?"
                            r"|Right triangle: legs (\d+) and (\d+)"
                            r"|Cut an? (\d+) by (\d+) rectangle corner to corner)\. Area(?: of each half)?\?",
                            prompt):
         a, b = [int(x) for x in m.groups() if x]
-        if sm := re.search(r"side (\d+)", prompt):
+        if sm := re.search(r"slanted side (\d+)", prompt):
             if int(sm[1]) <= b:
                 bad.append("slanted side must be longer than the height")
         halving_ok(a, b, bad, "triangle")
@@ -234,8 +234,8 @@ def test_bounds(item):
     ("Triangle: base 9, height 2. Area?", False),              # 9 × 2 = 18, 18 ÷ 2 = 9
     ("Triangle: base 9, height 3. Area?", True),               # 27 is odd
     ("Triangle: base 5, height 6. Area?", False),              # 6 ÷ 2 = 3, 3 × 5
-    ("Triangle: base 7, height 2, side 9. Area?", False),
-    ("Triangle: base 7, height 4, side 3. Area?", True),       # side shorter than the height
+    ("Triangle: base 7, height 2, slanted side 9. Area?", False),
+    ("Triangle: base 7, height 4, slanted side 3. Area?", True),       # side shorter than the height
     ("Trapezoid: bases 9 and 10, height 4. Area?", True),      # odd base sum
     ("Trapezoid: bases 9 and 7, height 9. Area?", False),
     ("Box 4 by 5 by 3. Volume?", True),                        # 12 × 5: no pair within the tables

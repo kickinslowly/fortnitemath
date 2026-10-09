@@ -909,7 +909,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/002",
       "tier": 2,
-      "prompt": "Triangle: base 6, height 5, side 9. Area?",
+      "prompt": "Triangle: base 6, height 5, slanted side 9. Area?",
       "choices": [
         "11",
         "30",
@@ -923,7 +923,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         null,
         "SLANT_SIDE"
       ],
-      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 5 = 15. The side 9 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 5 = 15. The slanted side 9 is not the height."
     },
     {
       "id": "area-volume/t2/003",
@@ -1080,7 +1080,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/011",
       "tier": 2,
-      "prompt": "Triangle: base 3, height 4, side 7. Area?",
+      "prompt": "Triangle: base 3, height 4, slanted side 7. Area?",
       "choices": [
         "7",
         "6",
@@ -1094,7 +1094,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "NO_HALF",
         "ARITH"
       ],
-      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 3 = 6. The side 7 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 3 = 6. The slanted side 7 is not the height."
     },
     {
       "id": "area-volume/t2/012",
@@ -1137,7 +1137,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/014",
       "tier": 2,
-      "prompt": "Triangle: base 8, height 2, side 3. Area?",
+      "prompt": "Triangle: base 8, height 2, slanted side 3. Area?",
       "choices": [
         "12",
         "10",
@@ -1151,7 +1151,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         null,
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 2 = 8. The side 3 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 2 = 8. The slanted side 3 is not the height."
     },
     {
       "id": "area-volume/t2/015",
@@ -1175,7 +1175,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/016",
       "tier": 2,
-      "prompt": "Triangle: base 3, side 5, height 4. Area?",
+      "prompt": "Triangle: base 3, slanted side 5, height 4. Area?",
       "choices": [
         "12",
         "7",
@@ -1189,7 +1189,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         null,
         "ARITH"
       ],
-      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 3 = 6. The side 5 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 3 = 6. The slanted side 5 is not the height."
     },
     {
       "id": "area-volume/t2/017",
@@ -1251,7 +1251,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/020",
       "tier": 2,
-      "prompt": "Triangle: base 10, side 9, height 4. Area?",
+      "prompt": "Triangle: base 10, slanted side 9, height 4. Area?",
       "choices": [
         "14",
         "20",
@@ -1265,7 +1265,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "SLANT_SIDE",
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 4 = 20. The side 9 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 4 = 20. The slanted side 9 is not the height."
     },
     {
       "id": "area-volume/t2/021",
@@ -1327,7 +1327,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/024",
       "tier": 2,
-      "prompt": "Triangle: base 10, height 6, side 9. Area?",
+      "prompt": "Triangle: base 10, height 6, slanted side 9. Area?",
       "choices": [
         "60",
         "30",
@@ -1341,7 +1341,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "ADD_SIDES",
         "SLANT_SIDE"
       ],
-      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 6 = 30. The side 9 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 6 = 30. The slanted side 9 is not the height."
     },
     {
       "id": "area-volume/t2/025",
@@ -1365,7 +1365,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/026",
       "tier": 2,
-      "prompt": "Triangle: base 10, side 10, height 5. Area?",
+      "prompt": "Triangle: base 10, slanted side 10, height 5. Area?",
       "choices": [
         "23",
         "50",
@@ -1379,7 +1379,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "ADD_SIDES",
         null
       ],
-      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 5 = 25. The side 10 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 10 ÷ 2 = 5, 5 × 5 = 25. The slanted side 10 is not the height."
     },
     {
       "id": "area-volume/t2/027",
@@ -1441,7 +1441,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/030",
       "tier": 2,
-      "prompt": "Triangle: base 6, side 9, height 8. Area?",
+      "prompt": "Triangle: base 6, slanted side 9, height 8. Area?",
       "choices": [
         "27",
         "14",
@@ -1455,12 +1455,12 @@ window.FNM_CARTRIDGES["area-volume"] = {
         null,
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 8 = 24. The side 9 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 8 = 24. The slanted side 9 is not the height."
     },
     {
       "id": "area-volume/t2/031",
       "tier": 2,
-      "prompt": "Triangle: base 8, side 10, height 9. Area?",
+      "prompt": "Triangle: base 8, slanted side 10, height 9. Area?",
       "choices": [
         "36",
         "17",
@@ -1474,7 +1474,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "SLANT_SIDE",
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 9 = 36. The side 10 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 8 ÷ 2 = 4, 4 × 9 = 36. The slanted side 10 is not the height."
     },
     {
       "id": "area-volume/t2/032",
@@ -1517,7 +1517,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/034",
       "tier": 2,
-      "prompt": "Triangle: base 9, side 10, height 4. Area?",
+      "prompt": "Triangle: base 9, slanted side 10, height 4. Area?",
       "choices": [
         "18",
         "45",
@@ -1531,7 +1531,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "ADD_SIDES",
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 9 = 18. The side 10 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 4 ÷ 2 = 2, 2 × 9 = 18. The slanted side 10 is not the height."
     },
     {
       "id": "area-volume/t2/035",
@@ -1555,7 +1555,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/036",
       "tier": 2,
-      "prompt": "Triangle: base 6, height 2, side 8. Area?",
+      "prompt": "Triangle: base 6, height 2, slanted side 8. Area?",
       "choices": [
         "8",
         "6",
@@ -1569,7 +1569,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         "SLANT_SIDE",
         "NO_HALF"
       ],
-      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 2 = 6. The side 8 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 6 ÷ 2 = 3, 3 × 2 = 6. The slanted side 8 is not the height."
     },
     {
       "id": "area-volume/t2/037",
@@ -1612,7 +1612,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
     {
       "id": "area-volume/t2/039",
       "tier": 2,
-      "prompt": "Triangle: base 2, height 9, side 10. Area?",
+      "prompt": "Triangle: base 2, height 9, slanted side 10. Area?",
       "choices": [
         "18",
         "11",
@@ -1626,7 +1626,7 @@ window.FNM_CARTRIDGES["area-volume"] = {
         null,
         "SLANT_SIDE"
       ],
-      "explanation": "Half of base × height: 2 × 9 = 18, 18 ÷ 2 = 9. The side 10 is slanted, so it is not the height."
+      "explanation": "Half of base × height: 2 × 9 = 18, 18 ÷ 2 = 9. The slanted side 10 is not the height."
     },
     {
       "id": "area-volume/t2/040",

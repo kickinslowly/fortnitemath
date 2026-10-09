@@ -151,10 +151,10 @@ def _tri(m):
 
 def _tri_side(m):
     vals = {m[2]: int(m[3]), m[4]: int(m[5])}
-    b, sl, h = int(m[1]), vals.get("side"), vals.get("height")
+    b, sl, h = int(m[1]), vals.get("slanted side"), vals.get("height")
     s = half_product(b, h)
     return dict(correct=Fraction(b * h, 2), steps=s,
-                expl=f"Half of base × height: {say(s or [])}. The side {sl} is slanted, so it is not the height.",
+                expl=f"Half of base × height: {say(s or [])}. The slanted side {sl} is not the height.",
                 wrong=[("SLANT_SIDE", Fraction(b * sl, 2)), ("NO_HALF", b * h), ("ADD_SIDES", b + h)])
 
 
@@ -262,7 +262,7 @@ SOLVERS = [
     (re.compile(r"^Square: side (\d+)\. Area\?$"), _square),
     (re.compile(r"^Parallelogram: base (\d+), height (\d+)\. Area\?$"), _para),
     (re.compile(r"^Triangle: base (\d+), height (\d+)\. Area\?$"), _tri),
-    (re.compile(r"^Triangle: base (\d+), (side|height) (\d+), (side|height) (\d+)\. Area\?$"), _tri_side),
+    (re.compile(r"^Triangle: base (\d+), (slanted side|height) (\d+), (slanted side|height) (\d+)\. Area\?$"), _tri_side),
     (re.compile(r"^Right triangle: legs (\d+) and (\d+)\. Area\?$"), _right_tri),
     (re.compile(r"^Cut an? (\d+) by (\d+) rectangle corner to corner\. Area of each half\?$"), _cut_rect),
     (re.compile(r"^Trapezoid: bases (\d+) and (\d+), height (\d+)\. Area\?$"), _trap),
@@ -365,7 +365,9 @@ def _side_height(rng, b, label):
     sl = _r(rng, h + 1, MAX_LEN) if h < MAX_LEN else None
     if sl is None:
         return None
-    parts = [f"side {sl}", f"height {h}"]
+    # "slanted side", not "side" (Aaron 2026-10-09: which edge is "side"?) and not "hypotenuse": these triangles mostly
+    # have no right angle, and few whole-number hypotenuses exist with lengths 10 or less.
+    parts = [f"slanted side {sl}", f"height {h}"]
     rng.shuffle(parts)
     return f"{label}: base {b}, {parts[0]}, {parts[1]}. Area?", (label, b, sl, h)
 
