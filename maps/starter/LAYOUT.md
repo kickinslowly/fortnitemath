@@ -147,8 +147,9 @@ thick (`M_fnm_wall_bm_wall`), floor `M_fnm_wall_bm_floor`, one hidden collision 
 | Item granters (one per level, parked z -598) bound to a parked trigger each | `FNM_BM_Grant1..5_Granter` / `_Trigger` | trigger `fnm_bm_grant` + slot |
 | Cannons (build_cannon.cannon, prefix `FNM_BM_Cannon`), strike, nuke, 2 blasts (parked z -598) | `FNM_BM_CannonL/R_*`, `FNM_BM_Strike`, `_Nuke`, `_Blast1/2` | `fnm_bm_cannon_fx`, `fnm_bm_strike`, `fnm_bm_nuke_fx`, `fnm_bm_blast` |
 | Anger ring, 5 VFX at radius 650 round the platform | `FNM_BM_Anger1..5` | `fnm_bm_anger_fx` + slot |
+| Creature spawners (B5), one per kind, invisible, just inside a gate alcove's mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 | `FNM_BM_Creature1..5` | `fnm_bm_creature` + slot = kind |
 
-113 actors. The perch stones are 120 cm square, 60 cm rises, 150 cm edge gaps, laid from the perch toward the centre line
+118 actors. The perch stones are 120 cm square, 60 cm rises, 150 cm edge gaps, laid from the perch toward the centre line
 (P1/P2: tops 60, 120 then the perch at 180; P3/P4: 60, 120, 180 then 240). Each gate alcove has its own floor (the brief
 listed back, sides and roof only; without a floor the spawner would stand over the void).
 
@@ -165,15 +166,27 @@ listed back, sides and roof only; without a floor the spawner would stand over t
   Fireworks, Fog, Leaves, Sparkles, FireworksLarge, RainConcert, SparkRain, Ash (+ 15 `_Deprecated`). No explosion or smoke;
   the nuke takes the first fire entry, **Small_Fire** (scale 6, sound `Explosion`). `effectType`: Continuous, Burst.
   `sound_Effect` includes Explosion, Explosion_02/03, Lightning_Strike*, Electric_Blast.
-- Explosive `knockback`: None, Low, Medium, High, Very High, Super High. No "Large", so the blasts use the fallback **Medium**
-  (High / Very High exist if a harder knock is wanted).
+- Explosive `knockback`: None, Low, Medium, High, Very High, Super High. No "Large"; the blasts now ask **High** (B5,
+  Aaron's harder knock; read back High on both).
+- **Creature spawner in play (B5, headless, 2026-10-09):** `SpawnAt` is refused unless the device stands on the ground
+  (40 m down or 5 m under the slab: refused), a player is inside its `activation Range` (1: refused; 100: works from 45 m),
+  and it has been on for a moment (refused in the tick of its `Enable()`); when it takes, the creature appears at once but
+  the call did not return within 30 s and a second creature followed. With `limit Spawned Creatures` off, `GetSpawnLimit()`
+  reads 0. Its `wave Timer` (and the timing override) are not settable from MCP. What the director does instead: a pulse,
+  `Enable()` → the device's own first wave (one creature, 0.5-2.6 s later, out of the alcove) on its `SpawnedEvent` →
+  `Disable()`; the creature stays (Disable does not remove it) until `EliminateCreatures()` at the level clear. At the back
+  of the alcove (60 cm off its wall) a Brute never came; at the mouth it came in 0.5 s. Creatures and the gate guards are
+  on different sides: creatures were seen eliminated "by something else" 6-16 s after coming out.
+- **Guard spawner in play (B5):** `Enable()` on a gate spawner sends one guard by itself; `SpawnAt` on an enabled one
+  returns at once with the guard (refused while disabled, `GetSpawnLimit()` 1); `Spawn()` on a disabled one does nothing.
+  The director switches a gate on at its first guard and counts guards by `GetAgents()`.
 - Item granter accepted all five weapons (read back): AutoHeavyPDW R, Shotgun_Standard VR, Assault_AutoHigh VR, Sniper_Heavy
   SR, Launcher_Rocket SR. The guard spawners kept every boss and gate weapon, and max/starting health 100000 on all five
   bosses.
-- Still open (play only): `Spawn()` with `spawnOnTimer False`; whether a kid chains the 60 / 150 stones (B4 keys test).
+- Still open (play only): whether a kid chains the 60 / 150 stones (B4 keys test).
 
 Rerun after: nothing. It reads no course geometry, so a course rebuild does not move it; rerun `build_bossmode.py` only
-after changing its own constants (idempotent: two runs leave the same 113 actors).
+after changing its own constants (idempotent: two runs leave the same 118 actors).
 
 ## Hallway obstacles (2026-10-04)
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is

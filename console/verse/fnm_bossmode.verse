@@ -18,7 +18,8 @@ using { /Verse.org/Simulation/Tags }
 # ---------------------------------------------------------------- the level table (BOSS_MODE.md section 4)
 
 # One level: team hits to clear it, seconds between monster spawns, gates active, monsters alive at most (all gates),
-# the boss's anger label, the banner's sub line, the perches (1..4) where its weapon drops, the weapon's name.
+# the boss's anger label, the banner's sub line, the perches (1..4) where its weapon drops, the weapon's name, and the
+# creature kinds (FnmBmCreatureName, 1..5) its gates send out between the guards (empty = guards only).
 fnm_bm_level := struct:
     Hits : int
     SpawnSeconds : float
@@ -28,13 +29,14 @@ fnm_bm_level := struct:
     Banner : string
     Perches : []int
     WeaponName : string
+    Creatures : []int
 
 FnmBmLevels()<transacts>:[]fnm_bm_level = array:
-    fnm_bm_level{Hits := 2, SpawnSeconds := 20.0, Gates := 1, MaxAlive := 2, Anger := "GRUMPY", Banner := "HERE HE COMES!", Perches := array{1}, WeaponName := "SMG"}
-    fnm_bm_level{Hits := 3, SpawnSeconds := 15.0, Gates := 2, MaxAlive := 3, Anger := "ANGRY", Banner := "HE'S ANGRY!", Perches := array{2}, WeaponName := "Pump Shotgun"}
-    fnm_bm_level{Hits := 3, SpawnSeconds := 12.0, Gates := 3, MaxAlive := 4, Anger := "FURIOUS", Banner := "HE'S FURIOUS!", Perches := array{3}, WeaponName := "Assault Rifle"}
-    fnm_bm_level{Hits := 4, SpawnSeconds := 9.0, Gates := 4, MaxAlive := 5, Anger := "RAGING", Banner := "HE'S RAGING!", Perches := array{4}, WeaponName := "Heavy Sniper"}
-    fnm_bm_level{Hits := 4, SpawnSeconds := 7.0, Gates := 4, MaxAlive := 6, Anger := "UNHINGED", Banner := "FINAL LEVEL. UNHINGED!", Perches := array{3, 4}, WeaponName := "Rocket Launcher"}
+    fnm_bm_level{Hits := 2, SpawnSeconds := 20.0, Gates := 1, MaxAlive := 2, Anger := "GRUMPY", Banner := "HERE HE COMES!", Perches := array{1}, WeaponName := "SMG", Creatures := array{}}
+    fnm_bm_level{Hits := 3, SpawnSeconds := 15.0, Gates := 2, MaxAlive := 3, Anger := "ANGRY", Banner := "HE'S ANGRY!", Perches := array{2}, WeaponName := "Pump Shotgun", Creatures := array{1}}
+    fnm_bm_level{Hits := 3, SpawnSeconds := 12.0, Gates := 3, MaxAlive := 4, Anger := "FURIOUS", Banner := "HE'S FURIOUS!", Perches := array{3}, WeaponName := "Assault Rifle", Creatures := array{1, 2}}
+    fnm_bm_level{Hits := 4, SpawnSeconds := 9.0, Gates := 4, MaxAlive := 5, Anger := "RAGING", Banner := "HE'S RAGING!", Perches := array{4}, WeaponName := "Heavy Sniper", Creatures := array{3, 2}}
+    fnm_bm_level{Hits := 4, SpawnSeconds := 7.0, Gates := 4, MaxAlive := 6, Anger := "UNHINGED", Banner := "FINAL LEVEL. UNHINGED!", Perches := array{3, 4}, WeaponName := "Rocket Launcher", Creatures := array{4, 5}}
 
 FnmBmLevelCount()<transacts>:int = 5
 
@@ -42,11 +44,29 @@ FnmBmLevelCount()<transacts>:int = 5
 FnmBmLevel(L:int)<transacts>:fnm_bm_level =
     Levels := FnmBmLevels()
     if (Row := Levels[Clamp(L, 1, Levels.Length) - 1]) then Row
-    else fnm_bm_level{Hits := 1, SpawnSeconds := 20.0, Gates := 1, MaxAlive := 2, Anger := "", Banner := "", Perches := array{}, WeaponName := ""}
+    else fnm_bm_level{Hits := 1, SpawnSeconds := 20.0, Gates := 1, MaxAlive := 2, Anger := "", Banner := "", Perches := array{}, WeaponName := "", Creatures := array{}}
 
 FnmBmPerchesFor(L:int)<transacts>:[]int = FnmBmLevel(L).Perches
 FnmBmWeaponName(L:int)<transacts>:string = FnmBmLevel(L).WeaponName
 FnmBmBannerSub(L:int)<transacts>:string = FnmBmLevel(L).Banner
+
+# Creature kind K (1..5): the creature spawner tagged fnm_bm_creature + fnm_bm_slot_K spawns this type
+# (tools/build_bossmode.py CREATURES, same order).
+FnmBmCreatureName(K:int)<transacts>:string =
+    if (K = 1) then "Fiend"
+    else if (K = 2) then "Brute"
+    else if (K = 3) then "Ranged"
+    else if (K = 4) then "Red Fiend"
+    else if (K = 5) then "Exploding Brute"
+    else "creature"
+
+# The gate (1..4) whose alcove holds creature kind K's spawner (tools/build_bossmode.py CREATURE_GATES): its creatures
+# come out of that gate. Every level's kinds use only gates it opens (FnmBmLevels Gates).
+FnmBmCreatureGate(K:int)<transacts>:int =
+    if (K = 1) then 1
+    else if (K = 2) then 2
+    else if (K = 3) then 3
+    else 4
 
 # Perch P (1..4) as the HUD names it. The player enters facing +Y, so +X is their LEFT (BOSS_MODE.md section 3).
 FnmBmPerchName(P:int)<transacts>:string =
@@ -117,7 +137,8 @@ fnm_bm_perch_handler := class:
 # The boss-mode arena, found by tag at OnBegin. Station: the arena seen as a station (pads as doors, the entry as the
 # retry point), so the director's answer and penalty code serve it unchanged. Numbered pieces sit at index slot - 1:
 # a boss spawner per level (5), a monster gate's spawner and lightning per gate (4), a perch's trigger and beacon per
-# perch (4), a weapon granter's hidden trigger per level (5), an anger-ring VFX per level (5).
+# perch (4), a weapon granter's hidden trigger per level (5), an anger-ring VFX per level (5), a creature spawner per
+# creature kind (5, parked under the arena; its creatures are placed at a gate with SpawnAt).
 fnm_bm_arena := class:
     Station : fnm_station
     var BossSpawners : []?guard_spawner_device = array{false, false, false, false, false}
@@ -127,6 +148,7 @@ fnm_bm_arena := class:
     var PerchFx : []?vfx_spawner_device = array{false, false, false, false}
     var GrantTriggers : []?trigger_device = array{false, false, false, false, false}
     var AngerFx : []?vfx_spawner_device = array{false, false, false, false, false}
+    var Creatures : []?creature_spawner_device = array{false, false, false, false, false}
     var Rig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "bm_blast", Parts := array{}, Homes := array{}}, Nuke := false}
 
     # Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter).
@@ -160,6 +182,9 @@ fnm_bm_arena := class:
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_anger_fx), Fx := vfx_spawner_device[Object]):
             Fx.Disable()
             if (set AngerFx[SlotOf(Object) - 1] = option{Fx}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_creature), Spawner := creature_spawner_device[Object]):
+            Spawner.Disable()
+            if (set Creatures[SlotOf(Object) - 1] = option{Spawner}) {}
         var CannonFx : []vfx_spawner_device = array{}
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_cannon_fx), Fx := vfx_spawner_device[Object]):
             Fx.Disable()
@@ -194,6 +219,12 @@ fnm_bm_arena := class:
             set Count += 1
         Count
 
+    CountCreatures(Items:[]?creature_spawner_device):int =
+        var Count : int = 0
+        for (Item : Items, Item?):
+            set Count += 1
+        Count
+
 # ---------------------------------------------------------------- the mode
 
 # The shared fight: one Level (0 = idle), one boss, one set of monsters for every player whose Mode is Boss. Built by the
@@ -207,11 +238,20 @@ fnm_boss_mode := class:
     var BossAgent : ?agent = false
     # When a boss was asked for (-1 = none pending): a spawn that has not come after BossNudgeSeconds gets a Spawn().
     var BossRequestedAt : float = -1.0
-    # Monsters up (the gate spawners' SpawnedEvent minus EliminatedEvent; zeroed when the gates close).
-    var AliveMonsters : int = 0
+    # Monsters up = Alive(): the gate guard spawners' living agents (GetAgents; an enabled gate also sends a guard of its
+    # own, so the devices are counted, not our requests) + guards and creatures asked for and still loading (pending) +
+    # the creatures SpawnAt returned that are still up (CreatureAgents; a creature spawner's agents cannot be listed).
+    # All zeroed when the gates close.
+    var GuardsPending : int = 0
+    var CreaturesPending : int = 0
+    var CreatureAgents : []agent = array{}
     var NextSpawnAt : float = 0.0
     var GateCursor : int = 0
     var GatesOpen : int = 0
+    # Which gate guard spawners are switched on this level (a gate's first guard is its Enable: the device sends one by
+    # itself when switched on, seen 2026-10-09; later ones are SpawnAt).
+    var GateOn : []logic = array{false, false, false, false}
+    GuardSettleSeconds : float = 1.5
     var Summoning : logic = false
     var LevelDownAt : float = -100.0
     # Bumped by ResetShared, so a summon or a level change in flight from an older fight stops itself.
@@ -221,6 +261,16 @@ fnm_boss_mode := class:
     var LitPerches : []int = array{}
     var BeaconAt : float = 0.0
     var LastGunHint : [player]float = map{}
+    # Monster kinds alternate guard / creature on a level with creatures (CreatureNext), the level's creature kinds in
+    # turn (CreatureCursor); the alive cap is logged once each time it is reached (CapLogged).
+    var CreatureNext : logic = false
+    var CreatureCursor : int = 0
+    var CapLogged : logic = false
+    # The level's boss is down and the next summon has not begun (the boss line reads 0% / CLEARED).
+    var Downed : logic = false
+    # A creature appears this far above its gate's spawner (the alcove floor).
+    CreatureLift : float = 100.0
+    CreatureWaitSeconds : float = 6.0
     RefreshSeconds : float = 0.25
     SpawnCheckSeconds : float = 0.5
     BossNudgeSeconds : float = 5.0
@@ -250,8 +300,12 @@ fnm_boss_mode := class:
         for (MaybeSpawner : Arena.Gates, Spawner := MaybeSpawner?):
             Spawner.SpawnedEvent.Subscribe(OnMonsterSpawned)
             Spawner.EliminatedEvent.Subscribe(OnMonsterEliminated)
+        for (MaybeSpawner : Arena.Creatures, Spawner := MaybeSpawner?):
+            Spawner.SpawnedEvent.Subscribe(OnCreatureSpawned)
+            Spawner.EliminatedEvent.Subscribe(OnCreatureEliminated)
         Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
+        Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners")
 
     # Every player fighting in the mode (not picking, not finished).
     Fighting()<transacts>:[]fnm_player_state =
@@ -446,6 +500,7 @@ fnm_boss_mode := class:
             # Back to the entry first, facing the boss: the show plays out ahead of them.
             Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
             spawn{ Director.FireCannons(Arena.Rig, State.Player, Character, Stood, Left, true) }
+            RefreshBossLines()
         else:
             # Between levels (or before the first boss is up) a right answer counts for the player, not as a hit.
             Print("FNM: boss mode right answer by the player, but no boss is up (level {L})")
@@ -474,15 +529,101 @@ fnm_boss_mode := class:
         Sleep(Director.WrongFeedbackSeconds)
         State.Hud.ClearFeedbackIf(Shown)
 
-    # The wrong-answer wave: one Spawn() on every open gate while the alive count stays within the cap + WaveExtra.
+    # The wrong-answer wave: one monster out of every open gate while the alive count stays within the cap + WaveExtra.
     Wave():void =
         Cap := FnmBmLevel(Level).MaxAlive + WaveExtra
+        Base := Alive()
         var Spawned : int = 0
-        for (K -> MaybeSpawner : Arena.Gates, K < GatesOpen, Spawner := MaybeSpawner?):
-            if (AliveMonsters + Spawned < Cap):
-                Spawner.Spawn()
+        for (K := 0..GatesOpen - 1):
+            if (Base + Spawned < Cap):
+                SpawnMonster(K, Base + Spawned + 1)
                 set Spawned += 1
         Print("FNM: boss mode wave: {Spawned} monsters spawned")
+
+    # One monster out of gate G (0-based); Count is the alive count once it is up (for the log). On a level with creature
+    # kinds every other monster is a creature (the level's kinds in turn) from that kind's creature spawner, out of the
+    # gate its spawner stands in (FnmBmCreatureGate); otherwise gate G's guard spawner places one guard in its alcove
+    # (SpawnAt). Both count as alive at once (pending); a creature that does not come becomes a guard, a refused guard a
+    # plain Spawn().
+    SpawnMonster(G:int, Count:int):void =
+        Row := FnmBmLevel(Level)
+        Cap := Row.MaxAlive
+        var Kind : int = 0
+        if (CreatureNext?, Index := Mod[CreatureCursor, Row.Creatures.Length], K := Row.Creatures[Index], MaybeCreature := Arena.Creatures[K - 1], MaybeCreature?):
+            set Kind = K
+            set CreatureCursor += 1
+        set CreatureNext = if (Row.Creatures.Length > 0, not CreatureNext?) then true else false
+        # A creature comes out of its own kind's gate (where its spawner stands), a guard out of gate G.
+        Out := if (Kind > 0) then FnmBmCreatureGate(Kind) - 1 else G
+        if (MaybeGate := Arena.Gates[Out], Gate := MaybeGate?):
+            At := Gate.GetTransform().Translation + vector3{X := 0.0, Y := 0.0, Z := CreatureLift}
+            if (Kind > 0, MaybeCreature := Arena.Creatures[Kind - 1], Creature := MaybeCreature?):
+                set CreaturesPending += 1
+                Print("FNM: boss mode monster at gate {Out + 1} (kind creature, {Count}/{Cap} alive): {FnmBmCreatureName(Kind)}")
+                spawn{ SpawnCreature(Creature, Gate, At, Out, Kind, Epoch) }
+            else:
+                set GuardsPending += 1
+                Print("FNM: boss mode monster at gate {G + 1} (kind guard, {Count}/{Cap} alive)")
+                spawn{ SpawnGuard(Gate, At, G, Epoch) }
+
+    # One guard out of gate G: a gate still off is switched on (its own first guard is the one; counted pending until
+    # GetAgents has it), else its spawner is asked for one at At (its alcove); a refusal falls back to a plain Spawn().
+    SpawnGuard(Gate:guard_spawner_device, At:vector3, G:int, MyEpoch:int)<suspends>:void =
+        if (On := GateOn[G], not On?):
+            if (set GateOn[G] = true) {}
+            Gate.Reset()
+            Gate.Enable()
+            Sleep(GuardSettleSeconds)
+            if (MyEpoch = Epoch):
+                set GuardsPending = Max(GuardsPending - 1, 0)
+            Print("FNM: boss mode guard up at gate {G + 1} on opening it ({Alive()} alive)")
+            return
+        Result := Gate.SpawnAt(FromVector3(At))
+        if (MyEpoch = Epoch):
+            set GuardsPending = Max(GuardsPending - 1, 0)
+        if (Result?):
+            Print("FNM: boss mode guard up at gate {G + 1} ({Alive()} alive)")
+        else:
+            Print("FNM: boss mode guard refused at gate {G + 1} (spawn limit {Gate.GetSpawnLimit()}); Spawn()")
+            if (MyEpoch = Epoch, GatesOpen > 0):
+                Gate.Spawn()
+
+    # One creature from kind's creature spawner, as a pulse: Enable, wait for its SpawnedEvent, Disable at once. The device
+    # stands in its gate's alcove (tools/build_bossmode.py CREATURE_GATES), so its own first wave (one creature, a few
+    # seconds after it is switched on with a player in range) walks out of that gate; switched off at once, it never sends
+    # a second. Nothing within CreatureWaitSeconds = a guard from that gate instead. (SpawnAt was tried first, 2026-10-09:
+    # refused in the tick of the Enable, and when it took, the call did not return within 30 s and a second creature
+    # followed the first.)
+    SpawnCreature(Spawner:creature_spawner_device, Gate:guard_spawner_device, At:vector3, G:int, Kind:int, MyEpoch:int)<suspends>:void =
+        Spawner.Enable()
+        Asked := GetSimulationElapsedTime()
+        Result:?agent = race:
+            block:
+                Up := Spawner.SpawnedEvent.Await()
+                option{Up}
+            block:
+                Sleep(CreatureWaitSeconds)
+                false
+        Spawner.Disable()
+        Took := GetSimulationElapsedTime() - Asked
+        if (MyEpoch = Epoch):
+            set CreaturesPending = Max(CreaturesPending - 1, 0)
+        if (Agent := Result?):
+            if (MyEpoch = Epoch, GatesOpen > 0):
+                set CreatureAgents += array{Agent}
+            Print("FNM: boss mode creature up: {FnmBmCreatureName(Kind)} at gate {G + 1} ({Alive()} alive) after {Took} s")
+        else:
+            Print("FNM: boss mode creature refused: {FnmBmCreatureName(Kind)} for {Took} s (spawn limit {Spawner.GetSpawnLimit()}); a guard instead")
+            if (MyEpoch = Epoch, GatesOpen > 0):
+                set GuardsPending += 1
+                SpawnGuard(Gate, At, G, MyEpoch)
+
+    # Monsters alive now (see GuardsPending): living guards of the gate spawners, guards on their way, creatures up.
+    Alive()<transacts>:int =
+        var N : int = GuardsPending + CreaturesPending + CreatureAgents.Length
+        for (MaybeSpawner : Arena.Gates, Spawner := MaybeSpawner?, Agent : Spawner.GetAgents(), Character := Agent.GetFortCharacter[], Character.IsActive[]):
+            set N += 1
+        N
 
     # A player on perch P: when P is lit for the level and they have not taken this level's weapon, the level's granter
     # hands it over (its hidden trigger, fired for them).
@@ -513,6 +654,7 @@ fnm_boss_mode := class:
         Row := FnmBmLevel(L)
         Scale := Max(Director.BmSummonSeconds, 0.5) / 5.0
         set Summoning = true
+        set Downed = false
         set Level = L
         set TeamHits = 0
         set BossRequestedAt = -1.0
@@ -585,17 +727,27 @@ fnm_boss_mode := class:
             Fx.Disable()
             if (Home := Arena.Rig.StrikeHome?, Fx.TeleportTo[Home]) {}
 
-    # Gates 1..Count: lightning at the mouth, the spawner fresh and on, the first monster out.
+    # Gates 1..Count open: lightning at every mouth, and the boss's first minions: a guard out of gate 1 and, on a level
+    # with creatures, its first creature kind out of that kind's gate. The rest come one at a time every SpawnSeconds
+    # (SpawnLoop: creature, guard, creature, ... round the gates) up to the level's alive cap, so a level starts light and
+    # fills up faster level by level. A gate's guard spawner is switched on at its first guard (SpawnGuard).
     OpenGates(Count:int):void =
         set GatesOpen = Min(Count, Arena.Gates.Length)
-        for (K -> MaybeSpawner : Arena.Gates, K < GatesOpen):
-            if (MaybeFx := Arena.GateFx[K], Fx := MaybeFx?):
-                Fx.Enable()
-                Fx.Restart()
-            if (Spawner := MaybeSpawner?):
-                Spawner.Reset()
-                Spawner.Enable()
-                Spawner.Spawn()
+        Row := FnmBmLevel(Level)
+        set CreatureCursor = 0
+        set CapLogged = false
+        set GuardsPending = 0
+        set CreaturesPending = 0
+        set CreatureAgents = array{}
+        set GateOn = array{false, false, false, false}
+        set GateCursor = 1
+        for (K -> MaybeFx : Arena.GateFx, K < GatesOpen, Fx := MaybeFx?):
+            Fx.Enable()
+            Fx.Restart()
+        set CreatureNext = false
+        SpawnMonster(0, Alive() + 1)
+        if (Row.Creatures.Length > 0):
+            SpawnMonster(1, Alive() + 1)
         Print("FNM: boss mode gates open: {GatesOpen}")
 
     GateFxOff()<suspends>:void =
@@ -603,14 +755,22 @@ fnm_boss_mode := class:
         for (MaybeFx : Arena.GateFx, Fx := MaybeFx?):
             Fx.Disable()
 
-    # Every gate shut: spawners off (their monsters despawn), lightning off, nobody counted alive.
+    # Every gate shut: guard spawners off (their guards despawn), every creature eliminated and its spawner off, lightning
+    # off, nobody counted alive (GatesOpen 0 first, so the eliminations this causes are not counted).
     CloseGates():void =
+        set GatesOpen = 0
+        set GateOn = array{false, false, false, false}
         for (MaybeSpawner : Arena.Gates, Spawner := MaybeSpawner?):
             Spawner.Disable()
+        for (MaybeCreature : Arena.Creatures, Creature := MaybeCreature?):
+            Creature.Enable()
+            Creature.EliminateCreatures()
+            Creature.Disable()
         for (MaybeFx : Arena.GateFx, Fx := MaybeFx?):
             Fx.Disable()
-        set GatesOpen = 0
-        set AliveMonsters = 0
+        set GuardsPending = 0
+        set CreaturesPending = 0
+        set CreatureAgents = array{}
 
     # The beacons on Perches on (BossLoop restarts them every BeaconSeconds), every other perch's off.
     LightPerches(Perches:[]int):void =
@@ -635,11 +795,13 @@ fnm_boss_mode := class:
         set BossAlive = false
         set BossAgent = false
         set BossRequestedAt = -1.0
+        set Downed = true
         set LevelDownAt = GetSimulationElapsedTime()
         if (Spawner := BossSpawnerFor(L)?):
             Spawner.Disable()
         CloseGates()
         Print("FNM: boss level {L} cleared")
+        RefreshBossLines()
         LastLevel := if (L >= FnmBmLevelCount()) then true else false
         for (State : Fighting()):
             Director.RefreshVitals(State.Player, L)
@@ -735,6 +897,7 @@ fnm_boss_mode := class:
         set BossAgent = false
         set BossRequestedAt = -1.0
         set Summoning = false
+        set Downed = false
         set LastHitter = false
         set LitPerches = array{}
         set GateCursor = 0
@@ -755,10 +918,17 @@ fnm_boss_mode := class:
             if (Level >= 1, BossAlive?, not Summoning?, GatesOpen > 0, Now >= NextSpawnAt, Fighters() > 0, Slot := Mod[GateCursor, GatesOpen]):
                 set GateCursor += 1
                 Row := FnmBmLevel(Level)
-                if (AliveMonsters < Row.MaxAlive, MaybeSpawner := Arena.Gates[Slot], Spawner := MaybeSpawner?):
-                    Spawner.Spawn()
+                Up := Alive()
+                if (Up < Row.MaxAlive):
+                    set CapLogged = false
                     set NextSpawnAt = Now + Row.SpawnSeconds
-                    Print("FNM: boss mode monster at gate {Slot + 1} ({AliveMonsters + 1}/{Row.MaxAlive} alive)")
+                    SpawnMonster(Slot, Up + 1)
+                else:
+                    # Capped: the gate's turn is not used up; the next check retries once a monster is down.
+                    set GateCursor -= 1
+                    if (not CapLogged?):
+                        set CapLogged = true
+                        Print("FNM: boss mode monster cap reached at level {Level} ({Up}/{Row.MaxAlive} alive)")
 
     # Every RefreshSeconds: reset once nobody fights, the kill backstop (health gone, no elimination event), the boss
     # spawn nudge, the perch beacons, and every boss-mode player's boss line.
@@ -792,10 +962,18 @@ fnm_boss_mode := class:
                     State.Hud.ClearBoss()
                     set State.BossShown = false
 
+    # Every fighter's boss line now (a hit and a kill do not wait for BossLoop's next refresh).
+    RefreshBossLines():void =
+        for (State : Fighting()):
+            State.Hud.SetBoss(BossLine(State))
+            set State.BossShown = true
+
     # "BOSS  ████------  40%   -   LEVEL 3: FURIOUS   -   hits 1/3", or "BOSS  is getting up ...   -   LEVEL 3: FURIOUS".
     BossLine(State:fnm_player_state):string =
         Row := FnmBmLevel(Level)
         Tail := "LEVEL {Level}: {Row.Anger}"
+        if (Downed?):
+            return "BOSS  ----------  0%   -   LEVEL {Level} CLEARED!"
         if (not BossAlive?):
             return "BOSS  is getting up ...   -   {Tail}"
         Pct := BossPercent()
@@ -835,10 +1013,24 @@ fnm_boss_mode := class:
                 Print("FNM: boss mode boss shot by a player; pad hint")
                 spawn{ Director.FlashNotice(State, "Bullets can't hurt the boss! Step on the pad with the RIGHT ANSWER") }
 
+    # A gate guard spawner's SpawnedEvent: logged only (Alive counts the spawners' agents). More of these than "guard up"
+    # lines would mean the device spawns guards of its own (on Enable, or a batch per Spawn).
     OnMonsterSpawned(Agent:agent):void =
-        set AliveMonsters += 1
+        Print("FNM: boss mode guard spawned event ({Alive()} alive)")
+
+    # A creature spawner's SpawnedEvent: logged only (SpawnMonster counts a creature when it asks for it). More of these
+    # than "creature up" lines would mean the parked device spawns waves of its own.
+    OnCreatureSpawned(Agent:agent):void =
+        Print("FNM: boss mode creature spawned event ({Alive()} alive)")
 
     OnMonsterEliminated(Result:device_ai_interaction_result):void =
-        set AliveMonsters = Max(AliveMonsters - 1, 0)
         if (Source := Result.Source?, Player := player[Source]):
-            Print("FNM: boss mode: a player eliminated a monster ({AliveMonsters} alive)")
+            Print("FNM: boss mode: a player eliminated a monster ({Alive()} alive)")
+
+    # A creature down: off the count if it was one of ours (CloseGates' own EliminateCreatures, or a creature the device
+    # spawned by itself, never counted).
+    OnCreatureEliminated(Result:device_ai_interaction_result):void =
+        if (Target := Result.Target?):
+            set CreatureAgents = for (Agent : CreatureAgents, Agent <> Target) { Agent }
+        By := if (Source := Result.Source?, player[Source]) then "a player" else "something else"
+        Print("FNM: boss mode creature eliminated by {By} ({Alive()} alive)")

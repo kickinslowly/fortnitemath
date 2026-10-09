@@ -24,8 +24,8 @@ Everything marked **UNVERIFIED** is a belief, not a checked fact; the brief that
 | 8 | **Weapons**: one per level, granted by the proven hidden-trigger + Item Granter path when the player stands on that level's lit **perch** (a 1.8-2.4 m platform reached by jumping up stepping stones). A VFX beacon marks the live perch; the HUD says which. | The pad device cannot be toggled from Verse (unverified), the granter path is proven and handles a full inventory. |
 | 9 | Verse: new `console/verse/fnm_bossmode.verse` (level table, copy, arena class, the mode's loops) owned by a `fnm_boss_mode` object the director builds at OnBegin when an `fnm_bm` entry exists; the director gets a `Mode` per player and routes picks, pads, respawns and finish to it. Race code paths unchanged (sabotage check in B1). | Keeps the 2455-line director from growing a second game inside it; the race path stays byte-stable. |
 
-Defaults picked without asking (Aaron wants autonomy): 5 levels / 16 hits; no lose state; shared team boss; guards as
-the only monster type until a creature spawner is confirmed; the arena east of the course; am_onyx as the boss voice.
+Defaults picked without asking (Aaron wants autonomy): 5 levels / 16 hits; no lose state; shared team boss; guards plus
+Fortnite creatures from level 2 (B5, §5; no Megabrute); the arena east of the course; am_onyx as the boss voice.
 
 ## 1. Where the mode starts (picker)
 
@@ -85,7 +85,8 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Perches P1..P4 | P1 FR (-1600, 500) top 180; P2 FL (1600, 500) top 180; P3 BR (-1600, 3500) top 240; P4 BL (1600, 3500) top 240. Top 300 sq (`M_fnm_wall_bm_perch`, gold); stepping stones 120 sq, tops at 60, 120 (and 180 for the 240 perches), 150 edge gap, laid toward the arena centre; hidden trigger 300 x 300 x 200 on the top; beacon VFX on the top, LightningBolt_01, scale 2, enabled On Phase None | trigger, VFX | trigger `fnm_bm_perch` + `fnm_bm_slot_P`; fx `fnm_bm_perch_fx` + `fnm_bm_slot_P` | 4 + 4 |
 | Weapon granters, one per level | parked under the floor (z -600), x = -1200 + 300 L; each bound (`grantItem` ← its trigger's OnTriggered with `TRIGGER_CLASS` memberParent) to a hidden trigger parked beside it; `GRANT_SETTINGS` from build_pickups (Keep All, Only if Not Owned, drop at feet when full) + `equipItemOnGrant` 1; item = the level's weapon | `PID_CP_Devices_ItemGranter`, `PID_Device_Trigger` | trigger `fnm_bm_grant` + `fnm_bm_slot_L` | 5 + 5 |
 | Cannons | one per side wall at y 2200, 3.3 m up, aimed at (0, 3200, platform top + 90): `build_cannon.cannon()` with a label prefix and the bm fx tag | shapes + VFX | `fnm_bm_cannon_fx` | 2 (8 shapes + 2 fx) |
-| Strike, blasts, nuke | parked under the platform (z -600): strike VFX (LightningBolt_03, Electric_Blast, scale 5); 2 explosive devices (`build_cannon.BLAST`, knockback "Large" if the enum takes it, else Medium); nuke VFX (scale 6; effect: a smoke / explosion / fire entry of the `visual_Effect` enum if one exists, else LightningBolt_01) | VFX, `PID_Device_ExplosiveBarrel` | `fnm_bm_strike`, `fnm_bm_blast`, `fnm_bm_nuke_fx` | 1 + 2 + 1 |
+| Strike, blasts, nuke | parked under the platform (z -600): strike VFX (LightningBolt_03, Electric_Blast, scale 5); 2 explosive devices (`build_cannon.BLAST`, knockback "High" (B5; the enum has no "Large"), else Medium); nuke VFX (scale 6; effect: a smoke / explosion / fire entry of the `visual_Effect` enum if one exists, else LightningBolt_01) | VFX, `PID_Device_ExplosiveBarrel` | `fnm_bm_strike`, `fnm_bm_blast`, `fnm_bm_nuke_fx` | 1 + 2 + 1 |
+| Creature spawners (B5) | one per creature kind, just inside a gate's alcove mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 (y -100 / +100); invisible, invincible, off at start, activation range 100, Do Not Despawn, spawn limit on (100), 1 per wave | `PID_Device_CreatureSpawner_V2` | `fnm_bm_creature` + `fnm_bm_slot_K` (K = kind) | 5 |
 | Anger ring | 5 VFX spawners round the platform at radius 650 (angles 198°, 234°, 270°, 306°, 342° from +X, i.e. the near half), floor level, scale 1.5, LightningBolt_01, enabled On Phase None | VFX | `fnm_bm_anger_fx` + `fnm_bm_slot_L` | 5 |
 | Sign | left wall (x +1995, y 600, z 250), yaw -90, scale 2: "BOSS BATTLE" | billboard | — | 1 |
 
@@ -105,13 +106,13 @@ built with it this round); the item granter accepts the five weapon WIDs (proven
 
 ## 4. Levels
 
-| L | Hits to clear | Spawn every | Gates active | Alive cap (all gates) | Boss weapon | Monster gates' weapons | Weapon perch | Anger | Banner sub | Boss line (cue) |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | 2 | 20 s | 1 | 2 | `WID_Pistol_SemiAuto_Athena_R_Ore_T03` | G1 pistol | P1 FR: **SMG** (`WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03`) | GRUMPY | HERE HE COMES! | "You dare challenge ME?!" (`bm_boss_l1`) |
-| 2 | 3 | 15 s | 2 | 3 | `WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03` | + G2 SMG | P2 FL: **Pump Shotgun** (`WID_Shotgun_Standard_Athena_VR_Ore_T03`) | ANGRY | HE'S ANGRY! | "Minions! GET THEM!" (`bm_boss_l2`) |
-| 3 | 3 | 12 s | 3 | 4 | `WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03` | + G3 pump shotgun | P3 BR: **Assault Rifle** (`WID_Assault_AutoHigh_Athena_VR_Ore_T03`) | FURIOUS | HE'S FURIOUS! | "Is that all you've got?!" (`bm_boss_l3`) |
-| 4 | 4 | 9 s | 4 | 5 | `WID_Shotgun_Combat_Athena_VR_Ore_T03` | + G4 heavy AR | P4 BL: **Heavy Sniper** (`WID_Sniper_Heavy_Athena_SR_Ore_T03`) | RAGING | HE'S RAGING! | "Now I'm ANGRY!" (`bm_boss_l4`) |
-| 5 | 4 | 7 s | 4 | 6 | `WID_Assault_Heavy_Athena_VR_Ore_T03` | all four | P3 + P4 (either): **Rocket Launcher** (`WID_Launcher_Rocket_Athena_SR_Ore_T03`) | UNHINGED | FINAL LEVEL. UNHINGED! | "NO MORE GAMES! EVERYONE, ATTACK!" (`bm_boss_l5`) |
+| L | Hits to clear | Spawn every | Gates active | Alive cap (all gates) | Boss weapon | Monster gates' weapons | Creatures (every other monster) | Weapon perch | Anger | Banner sub | Boss line (cue) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | 2 | 20 s | 1 | 2 | `WID_Pistol_SemiAuto_Athena_R_Ore_T03` | G1 pistol | none (guards only) | P1 FR: **SMG** (`WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03`) | GRUMPY | HERE HE COMES! | "You dare challenge ME?!" (`bm_boss_l1`) |
+| 2 | 3 | 15 s | 2 | 3 | `WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03` | + G2 SMG | Fiend | P2 FL: **Pump Shotgun** (`WID_Shotgun_Standard_Athena_VR_Ore_T03`) | ANGRY | HE'S ANGRY! | "Minions! GET THEM!" (`bm_boss_l2`) |
+| 3 | 3 | 12 s | 3 | 4 | `WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03` | + G3 pump shotgun | Fiend, Brute | P3 BR: **Assault Rifle** (`WID_Assault_AutoHigh_Athena_VR_Ore_T03`) | FURIOUS | HE'S FURIOUS! | "Is that all you've got?!" (`bm_boss_l3`) |
+| 4 | 4 | 9 s | 4 | 5 | `WID_Shotgun_Combat_Athena_VR_Ore_T03` | + G4 heavy AR | Ranged, Brute | P4 BL: **Heavy Sniper** (`WID_Sniper_Heavy_Athena_SR_Ore_T03`) | RAGING | HE'S RAGING! | "Now I'm ANGRY!" (`bm_boss_l4`) |
+| 5 | 4 | 7 s | 4 | 6 | `WID_Assault_Heavy_Athena_VR_Ore_T03` | all four | Red Fiend, Exploding Brute | P3 + P4 (either): **Rocket Launcher** (`WID_Launcher_Rocket_Athena_SR_Ore_T03`) | UNHINGED | FINAL LEVEL. UNHINGED! | "NO MORE GAMES! EVERYONE, ATTACK!" (`bm_boss_l5`) |
 
 - Boss health per level: the level's spawner spawns with the asked 100000 (the race arena proved the device keeps it);
   each hit deals `MaxHealth / Hits(L)` (the last hit health + shield + 100, as `BossDamage` does). The HUD bar therefore
@@ -141,12 +142,28 @@ built with it this round); the item granter accepts the five weapon WIDs (proven
 
 ## 5. Escalation and caps
 
-`SpawnLoop` (one for the mode, every 0.5 s): while any boss-mode player is fighting and the boss is up and
-`Now >= NextSpawnAt`: the next active gate round-robin; if `AliveMonsters < MaxAlive(L)` → `Spawner.Spawn()`,
-`NextSpawnAt = Now + SpawnSeconds(L)`; log `FNM: boss mode monster at gate {G} ({Alive}/{Max} alive)`. `AliveMonsters`
-counts the gate spawners' `SpawnedEvent` minus `EliminatedEvent`, zeroed when the gates are disabled. Island cap: 30 guards
-alive; boss mode uses at most 1 + 6 + the wrong-answer wave (+2). Creature/wildlife spawners: not this round (UNVERIFIED
-device); the plan's hook is the gate slot, so a confirmed spawner can replace a gate's guard spawner later.
+A level opens light: at the summon a guard comes out of gate 1 and, on a level with creature kinds (§4), the level's
+first creature out of its own gate. The rest come one at a time: `SpawnLoop` (every 0.5 s), while anyone fights, the boss
+is up and `Now >= NextSpawnAt`, takes the next open gate round-robin; if `Alive() < MaxAlive(L)` → `SpawnMonster(gate)`
+and `NextSpawnAt = Now + SpawnSeconds(L)`; else the gate keeps its turn and `FNM: boss mode monster cap reached at level
+{L} ({Alive}/{Max} alive)` is logged once. So the arena fills one monster per 20 s at L1 and per 7 s at L5.
+`SpawnMonster` is the only way a monster comes out (the summon and the wrong-answer wave use it too): on a level with
+creature kinds the monsters alternate guard, creature, guard, ... and the creatures take the level's kinds in turn; log
+`FNM: boss mode monster at gate {G} (kind guard|creature, {Alive}/{Max} alive)` (+ `: {Creature}`), then
+`guard up at gate G` / `creature up: {Creature} at gate G`.
+- **Guards:** a gate's guard spawner is OFF until its first guard: `Reset()` + `Enable()` (an enabled guard spawner sends
+  one guard by itself, seen in play), later guards `SpawnAt(alcove)` (returns at once), a refused `SpawnAt` falls back to
+  `Spawn()`.
+- **Creatures** (`creature_spawner_device`, which has no `Spawn()` and no Verse type setter, so one device per kind, tag
+  `fnm_bm_creature` + slot = kind, standing just inside a gate's alcove mouth: Fiend G1, Brute G2, Ranged G3, Red Fiend
+  and Exploding Brute G4 = `FnmBmCreatureGate`, so a kind always comes out of its own gate, which every level that uses it
+  opens): a **pulse**: `Enable()`, the device's own first wave (one creature, 0.5-2.6 s later) is awaited on its
+  `SpawnedEvent`, `Disable()` at once so no second wave follows; nothing in 6 s → a guard instead. `SpawnAt` was tried and
+  dropped (§14).
+- `Alive()` = the gate guard spawners' living agents (`GetAgents()` + `IsActive`) + guards and creatures on their way +
+  the creature agents the pulses returned that have not been eliminated. Level clear: guard spawners `Disable()`
+  (despawn), creature spawners `Enable()` + `EliminateCreatures()` + `Disable()`, counts zeroed. Island cap: 30 guards
+  alive; boss mode uses at most 1 + 6 + the wrong-answer wave (+2).
 
 ## 6. Level-start summon (`Summon(L)`, about 5 s, every boss-mode player sees and hears it)
 
@@ -156,7 +173,7 @@ device); the plan's hook is the gate slot, so a confirmed spawner can replace a 
 | 0.0 | Announcer: L1 `bm_start` "Boss battle!", else `bm_level{L}` ("Level two!", "Level three!", "Level four!", "Final level!") | audio |
 | 0.8 | Boss spawner for L: `Reset()`, `Enable()` (+ `Spawn()` nudge after 5 s as `BossLoop` does); the strike VFX moved to the platform and `Restart()` | `fnm_bm_boss` + slot L, `fnm_bm_strike` |
 | 1.5 | Boss line: cue `bm_boss_l{L}`; subtitle (feedback line, orange, 6 s) **"BOSS: {line}"** | audio, HUD |
-| 2.5 | Gates 1..Gates(L): gate VFX `Enable()` + `Restart()`; cue `bm_gates`; spawner `Reset()` + `Enable()` + `Spawn()` (the first monster walks out); feed **"The boss summons his minions!"**; gate VFX `Disable()` 1.5 s later | `fnm_bm_gate_fx`, `fnm_bm_gate` |
+| 2.5 | Gates 1..Gates(L): gate VFX `Enable()` + `Restart()`; cue `bm_gates`; the first guard out of gate 1 and (L ≥ 2) the first creature out of its gate (§5); feed **"The boss summons his minions!"**; gate VFX `Disable()` 1.5 s later | `fnm_bm_gate_fx`, `fnm_bm_gate`, `fnm_bm_creature` |
 | 4.0 | Weapon drop: beacons on the level's perches `Enable()` + `Restart()` (re-`Restart()` every 2 s while lit; others `Disable()`); hint (feedback, gold, 6 s) **"WEAPON DROP: {perch} - jump up and grab it!"** with perch names **FRONT-RIGHT PERCH / FRONT-LEFT PERCH / BACK-RIGHT PERCH / BACK-LEFT PERCH / BACK PERCHES** | `fnm_bm_perch_fx` |
 | 5.0 | Banner hides; log `FNM: boss level {L} summoned: {Gates} gates, every {Seconds} s, max {Alive} alive, {Weapon} at {perch}` | |
 
@@ -200,7 +217,8 @@ Wrong pad: §4.
   and boss mode share it; `ChangeSkill` leaves the mode; `DebugAutoRight` → `DebugBossModeRun` when `Mode = Boss`.
 - `fnm_ui.verse` edits: `fnm_pick.Boss`, `fnm_pick.Again`; `ShowGradeStep(Grades, WithBoss)`; banner widgets
   (`BannerArt` = `FNM_Art.T_fnm_banner` 1024x256 stretched to 900x200, `BannerText`, `BannerSub`; canvas slot anchored
-  (0.5, 0.33), collapsed) with `ShowBanner(Big, Sub)` / `HideBanner()`; `FlashNuke(Label)` (verdict slot, image
+  (0.5, 0.52) since B5, collapsed) with `ShowBanner(Big, Sub)` / `HideBanner()` (while it is up the verdict image is
+  collapsed: `BannerUp`); `FlashNuke(Label)` (verdict slot, image
   `FNM_Art.T_fnm_nuke`, lime, `NukeSeconds`); `WhiteFlash : color_block` + `Flash(Seconds)` (opacity 0.85 → 0 in 0.05 s
   steps); `ShowResults` gains a `Title` parameter ("FINISH!" at the race call site, "VICTORY!" in boss mode);
   `AgainButton : button_loud` "PLAY AGAIN" on the finish-buttons root, `ShowFinishButtons(WithChange, Again)`.
@@ -217,7 +235,7 @@ Wrong pad: §4.
 | Tag | top left | **BOSS BATTLE** / **Every skill, every grade** |
 | Slate caption | slate | **BOSS BATTLE  -  Level {L}/5  -  {Title}** |
 | Boss line | slate last line | **BOSS  ████------  40%   -   LEVEL 3: FURIOUS   -   hits 1/3**; no boss: **BOSS  is getting up ...   -   LEVEL 3: FURIOUS** |
-| Banner | centre, y 0.33, ~900 x 200 burst texture | **LEVEL {L}** / sub from §4 |
+| Banner | centre, y 0.52 (between the slate and the verdict label), ~900 x 200 burst texture; the verdict image hides while it is up | **LEVEL {L}** / sub from §4 |
 | Nuke verdict | verdict slot | mushroom-cloud icon + **MEGA NUKE!  {Left} TO GO** |
 | Start flash | verdict slot 4 s | **STEP ON THE RIGHT ANSWER!** + feedback **Bullets can't hurt the boss. Step on the pad with the RIGHT ANSWER to nuke it!** |
 | Weapon hint | feedback line, gold, 6 s | **WEAPON DROP: FRONT-RIGHT PERCH - jump up and grab it!** |
@@ -348,3 +366,37 @@ B4, 2026-10-09 (UEFN 42.30, headless; frames are `%TEMP%\pt_frame*.png`, logs `%
 - B2's probe answers (LAYOUT.md "Boss battle arena"): the nuke VFX is Small_Fire at scale 6 (the enum has no explosion);
   the blast knockback is Medium (there is no "Large"); the granters accepted all five WIDs; creature spawners exist but
   are not used.
+
+B5, 2026-10-09 (UEFN 42.30, headless; logs in the session scratchpad `run2_keep.txt` / `race.txt`, frames `%TEMP%\pt_frame*.png`):
+- **Creatures from the gates (Aaron's "monsters and npcs").** Level kinds (§4): L1 guards only, L2 Fiend, L3 Fiend +
+  Brute, L4 Ranged + Brute, L5 Red Fiend + Exploding Brute; no Megabrute. Five `creature_spawner_device`s, one per kind
+  (the Verse API has no `Spawn()` and no type setter), just inside a gate alcove's mouth (Fiend G1, Brute G2, Ranged G3,
+  Red Fiend + Exploding Brute G4), tag `fnm_bm_creature` + slot = kind. **Differs from the brief:** not one creature spawner
+  per gate, and no `SpawnAt`: in play `SpawnAt` was refused unless the device stood on the ground (40 m down and 5 m under
+  the slab: refused), a player was inside its activation range (1: refused; 100: fine) and it had been on for a moment;
+  when it took, the call never returned (30 s) and a second creature followed. What works: a **pulse**, `Enable()` → the
+  device's own first wave (one creature; 18 of 18 in the full run, 0.27-1.47 s after the Enable, 2.6 s in an earlier test) → `Disable()`; the creature stays
+  until `EliminateCreatures()` at the level clear (logged eliminated at every clear). A creature that does not come in 6 s
+  becomes a guard (happened 0 times in the full run after the devices moved from the alcove back to the mouth; at the back
+  the Brute failed twice).
+- **Guards:** `Enable()` on a gate's guard spawner sends one guard by itself (so the old "Reset + Enable + Spawn" put 2 out
+  of each gate and every level opened at its cap: L3 read 5/4 alive in the first run). Now a level opens with one guard
+  (gate 1) and, from L2, one creature; the rest come one per `SpawnSeconds`, round the gates, alternating guard and
+  creature, up to the cap. A gate's spawner is switched on at its first guard; later guards are `SpawnAt` (returns at once).
+  `Alive()` counts the gate spawners' living agents (`GetAgents`), pending spawns and the creature agents. One guard
+  `SpawnAt` was refused in the full run (`spawn limit 1`, L5) and fell back to `Spawn()`.
+- **Timed spawns proven** (full run, hold 20 s): L1 `monster at gate 1 (kind guard, 2/2 alive)` 20.0 s after the summon
+  line, then `cap reached at level 1 (2/2)`; L4 a monster every 9 s (`19.4`, `28.4`, `37.4`, `46.5`, `55.4`, `04.5`) to
+  `cap reached at level 4 (5/5 alive)`; L5 every 7 s to `6/6`. Victory 9:13.4, GOLD 16/16, `debug boss mode done:
+  victory=yes level=5`.
+- **New hook** `DebugBossHold` (float, ship 0.0): the boss auto-run waits that long with the boss up before each pad.
+- **Banner** moved from y 0.33 to 0.52 (between the slate and the verdict label); while it is up the verdict image (check,
+  cross, mushroom) stays collapsed (`BannerUp`). SEEN: LEVEL 2 / HE'S ANGRY! and LEVEL 3 / HE'S FURIOUS! burst at about
+  y 470-655 at 1080p, the slate's bottom row at about 350-380 above it, nothing overlapping.
+- **Boss bar** refreshes on every hit and on the kill (`RefreshBossLines`); after a kill it reads `BOSS ---------- 0% -
+  LEVEL 4 CLEARED!` (SEEN in the frame after the L4 kill), until the next summon.
+- **Blasts** knockback High (read back on both). Arena now 118 actors.
+- **Seen but not changed:** creatures were logged `eliminated by something else` 6-16 s after coming out, most likely by
+  the gate guards (Wildlife & Creatures team) or the boss: so creatures often die before reaching the player. Kid-friendly,
+  but a creature-heavy level reads lighter than its cap. In the hold run the auto-player was knocked out 10 times (it never
+  fights back).

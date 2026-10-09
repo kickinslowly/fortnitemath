@@ -179,6 +179,9 @@ fnm_hud := class:
     var MaybePlayerUI : ?player_ui = false
     # The boss-mode level banner (collapsed until ShowBanner) and the white flash's generation (a newer flash wins).
     var MaybeBanner : ?widget = false
+    # While the banner is up the verdict shows its label only: the check / cross / mushroom image would sit behind the
+    # banner (they share the screen's middle band).
+    var BannerUp : logic = false
     var FlashGeneration : int = 0
     var MaybeRoot : ?canvas = false
     var MaybeResults : ?widget = false
@@ -424,10 +427,12 @@ fnm_hud := class:
                         Widget := WhiteFlash
                         Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 1.0}}
                         Offsets := margin{Left := 0.0, Top := 0.0, Right := 0.0, Bottom := 0.0}
-                    # Boss mode's level banner, centred a third of the way down (collapsed until ShowBanner).
+                    # Boss mode's level banner (collapsed until ShowBanner), in the open band between the slate (bottom near
+                    # y 430 at 1080p) and the verdict label (near y 680..790): centred at y 0.52 (562), it spans 462..662.
+                    # At 0.33 it drew over the slate's STREAK and BOSS rows (frame, 2026-10-09).
                     canvas_slot:
                         Widget := Banner
-                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.33}, Maximum := vector2{X := 0.5, Y := 0.33}}
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.52}, Maximum := vector2{X := 0.5, Y := 0.52}}
                         Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
                     canvas_slot:
@@ -602,7 +607,7 @@ fnm_hud := class:
         Color := if (Correct?) then NamedColors.Lime else NamedColors.Red
         VerdictLabel.SetTextColor(Color)
         if (Correct?) then VerdictImage.SetImage(FNM_Art.T_fnm_check) else VerdictImage.SetImage(FNM_Art.T_fnm_cross)
-        VerdictImage.SetVisibility(widget_visibility.Visible)
+        if (not BannerUp?) then VerdictImage.SetVisibility(widget_visibility.Visible) else VerdictImage.SetVisibility(widget_visibility.Collapsed)
         VerdictLabel.SetText(FnmText(if (Correct?, Label = "") then "CORRECT!" else Label))
         spawn{ ClearVerdictLater(VerdictGeneration, VerdictSeconds) }
 
@@ -626,7 +631,7 @@ fnm_hud := class:
         set VerdictGeneration += 1
         VerdictLabel.SetTextColor(NamedColors.Lime)
         VerdictImage.SetImage(FNM_Art.T_fnm_nuke)
-        VerdictImage.SetVisibility(widget_visibility.Visible)
+        if (not BannerUp?) then VerdictImage.SetVisibility(widget_visibility.Visible) else VerdictImage.SetVisibility(widget_visibility.Collapsed)
         VerdictLabel.SetText(FnmText(Label))
         spawn{ ClearVerdictLater(VerdictGeneration, Seconds) }
 
@@ -643,14 +648,18 @@ fnm_hud := class:
         if (Generation = FlashGeneration):
             WhiteFlash.SetOpacity(0.0)
 
-    # The boss-mode level banner: Big ("LEVEL 3") over Sub ("HE'S FURIOUS!"); HideBanner collapses it.
+    # The boss-mode level banner: Big ("LEVEL 3") over Sub ("HE'S FURIOUS!"); HideBanner collapses it. While it is up
+    # the verdict's image stays collapsed (BannerUp), so a MEGA NUKE mushroom never stacks behind it.
     ShowBanner(Big:string, Sub:string):void =
+        set BannerUp = true
+        VerdictImage.SetVisibility(widget_visibility.Collapsed)
         BannerText.SetText(FnmText(Big))
         BannerSub.SetText(FnmText(Sub))
         if (Banner := MaybeBanner?):
             Banner.SetVisibility(widget_visibility.Visible)
 
     HideBanner():void =
+        set BannerUp = false
         if (Banner := MaybeBanner?):
             Banner.SetVisibility(widget_visibility.Collapsed)
 

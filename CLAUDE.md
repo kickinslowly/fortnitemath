@@ -76,6 +76,12 @@ before UEFN work. Project-specific:
   (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles), `DebugSkipTest` (drops
   the player at station 3 on stage 1: the skip guard must send them back). Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
+- BOSS BATTLE mode (spec `BOSS_MODE.md`, runtime `console/verse/fnm_bossmode.verse`): its own arena east of the course,
+  built by `tools/build_bossmode.py` (idempotent via `fnm_bossmode`; Verse tags `fnm_bm_*`; does not depend on the course,
+  so no rerun after a course rebuild). Hooks (ship values false / 0 / 0.0): `DebugAutoBoss` (start boss mode on join, wins
+  over `DebugAutoPick`; with `DebugAutoRightAnswers` plays to VICTORY), `DebugBossLevel` (start at level N, Partial run),
+  `DebugBossHold` (seconds the auto-run waits before each pad, to let timed monster spawns happen).
+  Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the
   foreground, so ask first if Aaron may be in another app).

@@ -141,8 +141,8 @@ def test_every_tag_the_tool_writes_is_declared():
 def test_fallbacks():
     assert b.nuke_effect(["Fireworks_Deprecated", "LaserBeams", "Small_Fire", "FireworksLarge"]) == "Small_Fire"
     assert b.nuke_effect(["LaserBeams", "LightningBolt_01"]) == "LightningBolt_01"
-    assert b.knockback(["None", "Medium", "High"]) == "Medium"
-    assert b.knockback(["Medium", "Large"]) == "Large"
+    assert b.knockback(["None", "Medium", "High", "Very High"]) == "High"
+    assert b.knockback(["None", "Medium"]) == "Medium"
 
 
 def test_race_cannon_defaults_unchanged(monkeypatch):
@@ -166,3 +166,25 @@ def test_race_cannon_defaults_unchanged(monkeypatch):
     assert {a["tag"] for t, a in calls if t == "add_tag"} == {"fnm_cannon_rig"}
     tag_writes = [a["values"] for t, a in calls if t == "set_properties" and "internalTags" in a["values"]]
     assert tag_writes and all("_Verse.fnm_cannon_fx" in v for v in tag_writes)
+
+
+def test_creature_spawners_in_the_alcoves_off_and_lasting():
+    """One creature spawner per kind, on the floor of a gate alcove (SpawnAt was refused for a device under the floor),
+    invisible, off at game start, a wide activation range (1 refused every SpawnAt), creatures never despawn on distance."""
+    s = b.CREATURE_SETTINGS
+    assert len(b.CREATURES) == 5 and len(set(b.CREATURES)) == 5 and "Megabrute" not in b.CREATURES
+    assert s["enabled at Game Start"] is False and s["spawner Visibility"] is False and s["invincible Spawner"] is True
+    assert s["despawn Type"] == "Do Not Despawn"
+    # Limit off made GetSpawnLimit() 0 and SpawnAt refused every creature (2026-10-09 run): on, at the most.
+    assert s["limit Spawned Creatures"] is True and s["enum Total Spawn Limit"] == "100"
+    assert s["total Spawn Limit"] == 100
+    assert s["damage Spawner After Spawn"] is False and s["number of Creatures"] == 1
+    assert s["activation Range"] >= 100
+    hw = b.ARENA_W / 2
+    for (x, y, gate), dy in zip(b.creature_spots(), b.CREATURE_DY):
+        side, gy = b.GATES[gate - 1]
+        assert side * x > hw + b.WALL_T and side * x < hw + b.WALL_T + b.ALCOVE_D       # inside that gate's alcove
+        assert abs(y - gy) < b.GATE_W / 2 - 50
+    assert len({(x, y) for x, y, _ in b.creature_spots()}) == 5
+    assert "creature Type" not in s                      # set per kind
+    assert b.KNOCKBACK_WANT == "High"

@@ -10,8 +10,9 @@ dark alcove holding a monster spawner (fnm_bm_gate + slot) and a lightning VFX a
 four gold perches reached by stepping stones with a hidden trigger and a beacon VFX on each top (fnm_bm_perch /
 fnm_bm_perch_fx + slot), one Item Granter per level parked under the floor and bound to its own hidden trigger
 (fnm_bm_grant + slot), the cannon rig of the race arena (build_cannon.cannon with the FNM_BM_Cannon prefix and the
-fnm_bm_cannon_fx tag) plus a parked strike, two blasts and a nuke VFX, and an anger ring of five VFX round the platform
-(fnm_bm_anger_fx + slot). The director (console/verse/fnm_bossmode.verse) finds every piece by those Verse tags.
+fnm_bm_cannon_fx tag) plus a parked strike, two blasts and a nuke VFX, an anger ring of five VFX round the platform
+(fnm_bm_anger_fx + slot), and one creature spawner per creature kind in the gate alcoves (fnm_bm_creature + slot = kind;
+B5, BOSS_MODE.md 5). The director (console/verse/fnm_bossmode.verse) finds every piece by those Verse tags.
 
 Coordinates are relative to ORIGIN, the south (entry) wall's inner face on the arena's centre line; the player enters
 facing +Y, so +X is their LEFT (pad A, like door A). Every actor is labelled FNM_BM_* and tagged TAG.
@@ -86,6 +87,24 @@ GATE_SETTINGS = {**g.SETTINGS, "spawnCount": 2, "allowInfiniteSpawn": True, "spa
                  "spawnRadius_InMeter": 2.0, "spawnThroughWalls": False, "enablePatrol": True,
                  "maxPatrolDistance_InMeter": 30.0, "visibilityRange_InMeter": 45.0, "accuracy": "LOW",
                  "despawnGuardsWhenDisabled": True, "dropInventoryOnElimination": True}
+# Creature spawners (Creature Spawner V2), one per creature KIND, slot K = CREATURES[K - 1] (the Verse names them the same,
+# FnmBmCreatureName), invisible and off, standing on the floor just inside a gate alcove's mouth (CREATURE_GATES; two
+# share gate 4). At the alcove's back, 60 cm from its wall, the Brute never came (6 s, twice) while the Ranged did. The director pulses one per creature: Enable, SpawnAt(a gate's alcove), its SpawnedEvent, Disable: so the
+# device's own waves (every few seconds while on, wave Timer not settable from MCP) never start. Probed headless
+# 2026-10-09: SpawnAt is refused at once unless the device stands on the ground (5 m under the slab or 40 m down: refused)
+# AND a player is inside its activation range (1 refused, 100 worked from 45 m); when it works the creature appears at once
+# but the call does not return within 30 s, so the director counts the SpawnedEvent. Do Not Despawn (the creatures roam
+# far from the device). Megabrute left out: too tough for grades 6-8.
+CREATURE = "/CRD_Creatures/SetupAssets/PID_Device_CreatureSpawner_V2.PID_Device_CreatureSpawner_V2"
+CREATURES = ["Fiend", "Brute", "Ranged", "Red Fiend", "Exploding Brute"]
+CREATURE_GATES = [1, 2, 3, 4, 4]          # the gate whose alcove holds kind K's device
+CREATURE_DY = [0, 0, 0, -100, 100]        # beside each other where two share an alcove
+CREATURE_IN = 50                          # just inside the alcove mouth (a Brute did not come from the back)
+CREATURE_SETTINGS = {"enabled at Game Start": False, "number of Creatures": 1, "spawner Visibility": False,
+                     "invincible Spawner": True, "damage Spawner After Spawn": False,
+                     "damage Structures at Spawn Location": False, "despawn Type": "Do Not Despawn",
+                     "limit Spawned Creatures": True, "enum Total Spawn Limit": "100", "total Spawn Limit": 100,
+                     "activation Range": 100.0, "spawn Effects Visibility": True}
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
 # square gold block; stepping stones STONE square, each STONE_RISE lower than the next, STONE_GAP apart edge to edge, laid
 # from the perch toward the arena's centre line (the lowest farthest out).
@@ -123,7 +142,7 @@ NUKE_FX = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_01", "eff
 # Fallbacks decided from the device's own enums at build time (nuke_effect, knockback).
 NUKE_WORDS = ("Explosion", "Smoke", "Fire", "Blast")
 NUKE_FALLBACK = "LightningBolt_01"
-KNOCKBACK_WANT, KNOCKBACK_FALLBACK = "Large", "Medium"
+KNOCKBACK_WANT, KNOCKBACK_FALLBACK = "High", "Medium"
 GLASS = "/Game/Creative/Environments/Meshes/Glass/Materials/Glass_version_02/MI_CP_GlassGallery.MI_CP_GlassGallery"
 LID_T, LID_SINK = 40, 20
 VFX = cn.VFX
@@ -142,6 +161,15 @@ def stones_for(perch):
         out.append((cx, py, h))
         h -= STONE_RISE
         i += 1
+    return out
+
+
+def creature_spots():
+    """Each creature kind's spawner (x, y, gate) relative to ORIGIN: on the alcove floor of its gate, at the mouth."""
+    out = []
+    for gate, dy in zip(CREATURE_GATES, CREATURE_DY):
+        side, gy = GATES[gate - 1]
+        out.append((side * (ARENA_W / 2 + WALL_T + CREATURE_IN), gy + dy, gate))
     return out
 
 
@@ -356,6 +384,15 @@ def build():
             ["fnm_bm_gate_fx", f"fnm_bm_slot_{k}"], GATE_FX)
     print("4 gate spawners + 4 gate VFX placed")
 
+    for k, (sx, sy, _) in enumerate(creature_spots(), 1):
+        kind = CREATURES[k - 1]
+        cs = device(CREATURE, f"FNM_BM_Creature{k}", sx, sy, z0, yaw=180 if sx > 0 else 0)
+        verse_tags(cs, project, ["fnm_bm_creature", f"fnm_bm_slot_{k}"])
+        wrong = options(cs, {**CREATURE_SETTINGS, "creature Type": kind}, f"Creature{k}")
+        if "creature Type" in wrong:
+            sys.exit(f"creature spawner {k}: type {kind} not taken: {wrong}")
+    print(f"{len(CREATURES)} creature spawners in the gate alcoves: {', '.join(CREATURES)}")
+
     for k, perch in enumerate(PERCHES, 1):
         px, py, top = perch
         h = PERCH_TOP / 2
@@ -435,6 +472,8 @@ def check():
             want = (GATE_FX if "_Gate" in label else PERCH_FX if "_Perch" in label else STRIKE_FX if "Strike" in label
                     else NUKE_FX if "Nuke" in label else ANGER_FX if "Anger" in label else cn.MUZZLE_FX)
             print(f"  {label:28} {get(path, want)}")
+        elif re.fullmatch(r"FNM_BM_Creature\d", label):
+            print(f"  {label:28} {get(path, ['creature Type', *CREATURE_SETTINGS])}")
         elif re.fullmatch(r"FNM_BM_Blast\d", label):
             print(f"  {label:28} {get(path, cn.BLAST)}")
         elif "Granter" in label:

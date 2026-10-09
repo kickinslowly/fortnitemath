@@ -172,6 +172,9 @@ fnm_bm_strike := class(tag){}
 fnm_bm_blast := class(tag){}
 fnm_bm_nuke_fx := class(tag){}
 fnm_bm_anger_fx := class(tag){}
+# A creature spawner (one per creature kind, parked under the arena; its slot tag = the kind, FnmBmCreatureName). The
+# director spawns its creatures at a gate's alcove with SpawnAt.
+fnm_bm_creature := class(tag){}
 fnm_bm_slot_1 := class(tag){}
 fnm_bm_slot_2 := class(tag){}
 fnm_bm_slot_3 := class(tag){}

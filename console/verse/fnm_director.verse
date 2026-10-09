@@ -18,7 +18,7 @@
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
 # (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0),
 # DebugAutoBoss (false: a joining player starts BOSS BATTLE with no menu, wins over DebugAutoPick), DebugBossLevel (0: boss
-# mode starts at that level, a Partial run).
+# mode starts at that level, a Partial run), DebugBossHold (0.0: the boss auto-run waits that long before each pad).
 # BOSS BATTLE mode (BOSS_MODE.md, fnm_bossmode.verse): a player whose Mode is Boss plays in the fnm_bm arena; their pads,
 # perches, respawns and finish go to BossMode. Race code paths ignore them (StationOccupied, WatchDoors/Skip/Ice).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
@@ -349,6 +349,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # level 1 (ship value).
     @editable
     DebugBossLevel : int = 0
+    # Test hook: with DebugAutoBoss + DebugAutoRightAnswers, seconds the auto-run waits with the boss up before each pad,
+    # so the level's SpawnSeconds elapse and the monster cap is reached. 0.0 = no wait (ship value).
+    @editable
+    DebugBossHold : float = 0.0
     # Boss mode: seconds from a level's clear to the next level's summon; the summon's length (its timeline scales to it);
     # how long the MEGA NUKE verdict stays up.
     @editable
@@ -1465,6 +1469,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     if (BM.BossAlive? or Waited >= 12.0) then break
                     Sleep(0.5)
                     set Waited += 0.5
+                if (DebugBossHold > 0.0, BM.BossAlive?):
+                    Print("FNM: debug boss hold {FnmBmWholeSeconds(DebugBossHold)} s at level {BM.Level} ({BM.Alive()} monsters alive)")
+                    Sleep(DebugBossHold)
                 Answer := AnswerDoor(State)
                 if (State.CurrentItem >= 0, Pad := BM.Arena.Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
                     set Pads += 1
