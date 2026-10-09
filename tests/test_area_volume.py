@@ -31,9 +31,7 @@ def by_tier(t):
 GOLDEN = [
     ("Rectangle: length 6, width 4. Area?", 24, {"PERIMETER": 20, "ADD_SIDES": 10}),
     ("Square: side 7. Area?", 49, {"PERIMETER": 28, "ADD_SIDES": 14}),
-    ("Parallelogram: base 8, side 6, height 5. Area?", 40,
-     {"SLANT_SIDE": 48, "PERIMETER": 28, "ADD_SIDES": 13}),
-    ("Parallelogram: base 8, height 5, side 6. Area?", 40, {"SLANT_SIDE": 48}),
+    ("Parallelogram: base 8, height 5. Area?", 40, {"HALVED": 20, "PERIMETER": 26, "ADD_SIDES": 13}),
     ("Triangle: base 10, height 6. Area?", 30, {"NO_HALF": 60, "ADD_SIDES": 16}),
     ("Triangle: base 8, side 7, height 6. Area?", 24, {"SLANT_SIDE": 28, "NO_HALF": 48}),
     ("Right triangle: legs 6 and 8. Area?", 24, {"NO_HALF": 48, "ADD_SIDES": 14}),
@@ -111,12 +109,8 @@ def independent(prompt):
         a = int(m[1])
         mul_ok(a, a, bad)
         v = F(a * a)
-    elif m := re.fullmatch(r"Parallelogram: base (\d+), (?:side (\d+), height (\d+)|height (\d+), side (\d+))\. Area\?",
-                           prompt):
-        b = int(m[1])
-        side, h = (int(m[2]), int(m[3])) if m[2] else (int(m[5]), int(m[4]))
-        if side <= h:
-            bad.append("slanted side must be longer than the height")
+    elif m := re.fullmatch(r"Parallelogram: base (\d+), height (\d+)\. Area\?", prompt):
+        b, h = int(m[1]), int(m[2])
         mul_ok(b, h, bad)
         v = F(b * h)
     elif m := re.fullmatch(r"(?:Triangle: base (\d+),(?: side \d+,)? height (\d+)(?:, side \d+)?"

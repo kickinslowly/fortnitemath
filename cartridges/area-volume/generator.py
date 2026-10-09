@@ -133,12 +133,12 @@ def _square(m):
 
 
 def _para(m):
-    vals = {m[2]: int(m[3]), m[4]: int(m[5])}
-    b, sl, h = int(m["b"]), vals.get("side"), vals.get("height")
+    # Base and height only (Aaron 2026-10-09: the slanted side was "useless information" and confused which edge
+    # "side" meant). The halved value is the triangle formula misapplied; an odd product drops it (not whole).
+    b, h = int(m[1]), int(m[2])
     s = [_mul(b, h)]
-    return dict(correct=b * h, steps=s,
-                expl=f"Area = base × height: {say(s)}. The side {sl} is slanted, so it is not the height.",
-                wrong=[("SLANT_SIDE", b * sl), ("PERIMETER", 2 * (b + sl)), ("ADD_SIDES", b + h)])
+    return dict(correct=b * h, steps=s, expl=f"Area = base × height: {say(s)}.",
+                wrong=[("HALVED", Fraction(b * h, 2)), ("PERIMETER", 2 * (b + h)), ("ADD_SIDES", b + h)])
 
 
 def _tri(m):
@@ -260,7 +260,7 @@ def _pyramid_sa(m):
 SOLVERS = [
     (re.compile(r"^Rectangle: length (\d+), width (\d+)\. Area\?$"), _rect),
     (re.compile(r"^Square: side (\d+)\. Area\?$"), _square),
-    (re.compile(r"^Parallelogram: base (?P<b>\d+), (side|height) (\d+), (side|height) (\d+)\. Area\?$"), _para),
+    (re.compile(r"^Parallelogram: base (\d+), height (\d+)\. Area\?$"), _para),
     (re.compile(r"^Triangle: base (\d+), height (\d+)\. Area\?$"), _tri),
     (re.compile(r"^Triangle: base (\d+), (side|height) (\d+), (side|height) (\d+)\. Area\?$"), _tri_side),
     (re.compile(r"^Right triangle: legs (\d+) and (\d+)\. Area\?$"), _right_tri),
@@ -383,7 +383,8 @@ def k_square(rng):
 
 
 def k_para(rng):
-    return _side_height(rng, _r(rng), "Parallelogram")
+    b, h = _r(rng), _r(rng)
+    return f"Parallelogram: base {b}, height {h}. Area?", ("P", b, h)
 
 
 def k_tri(rng):

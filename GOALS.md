@@ -339,10 +339,11 @@ question per player on the HUD and make it read as a sign.
 - [ ] 3. Teacher-led shared-skill race mode (host picks the skill, seeded item per station, fixed letter order, retry
   re-asks the same item): the only design under which the question can go on a wall billboard. Costs the anti-copying
   shuffle; billboard text caps at size 24 and wrapped a 20-char row on the finish screen
-- [x] 4. Doors match the HUD tiles (Aaron 2026-10-08): each door panel in its letter's colour with a HUD-tile sign
-  (dark, ringed and lettered in that colour) on it, replacing the boards above the lintel; seen in play at station 1
-  (LAYOUT.md "Door colours and signs"). Open: an opened door leaves its sign hanging in the doorway (the sign can't
-  ride the panel, see build_course.py); door D's panel renders yellower than the HUD's orange; the wall frame round
-  each door stays white
+- [x] 4. Doors match the HUD tiles (Aaron 2026-10-08): each door panel in its letter's colour with the letter on a dark
+  tile, painted into the panel's own texture (2026-10-09, after Aaron found the first version's sign actors stayed in
+  the doorway with collision) (LAYOUT.md "Door colours and signs"). Seen in the editor on all four doors; the painted
+  version is not yet seen in play or opened in play. The wall frame round each door stays white
+- [x] 6. Parallelograms give base and height only (Aaron 2026-10-09: the slanted side was useless information);
+  wrong answers HALVED / PERIMETER / ADD_SIDES. Triangles in tier 2 still list a slanted side
 - [x] 5. Ceilings invisible (Aaron 2026-10-08 "glass top ... obscuring things"): lids hidden in editor and play, collision
   kept. Open: no Shockwave jump against the hidden lid seen in play yet

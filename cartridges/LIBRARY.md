@@ -75,7 +75,7 @@ a builder may add one when a real wrong rule appears, never a generic "wrong" ke
 5. Inequalities — "At least 12 players" → `p ≥ 12`; "A solution of x < 4?" → 3. BOUNDARY (4), FLIPPED_SIGN, STRICT_VS_INCLUSIVE.
 
 **area-volume** (seed 20261018)
-1. Rectangles & Parallelograms — "Parallelogram: base 8, height 5. Area?" → `40 sq units`. PERIMETER, SLANT_SIDE.
+1. Rectangles & Parallelograms — "Parallelogram: base 8, height 5. Area?" → `40 sq units`. PERIMETER, HALVED, ADD_SIDES (base and height only, Aaron 2026-10-09).
 2. Triangles — "Triangle: base 10, height 6. Area?" → 30. NO_HALF (60), PERIMETER.
 3. Trapezoids & Missing Sides — "Trapezoid: bases 4 and 6, height 5" → 25; "Area 48, width 6. Length?" → 8. ONE_BASE, NO_HALF.
 4. Volume of Prisms — "Box 2 by 3 by 4. Volume?" → 24; "4 by 3 by 1/2" → 6. ADDED_EDGES, SQUARE_UNITS (right number, wrong unit).

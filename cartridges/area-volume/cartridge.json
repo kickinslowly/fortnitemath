@@ -29,6 +29,10 @@
       "student": "Use the height that meets the base at a right angle, not the slanted side.",
       "teacher": "Multiplies the base by the slanted side instead of the perpendicular height."
     },
+    "HALVED": {
+      "student": "A parallelogram is base × height. Only a triangle gets halved.",
+      "teacher": "Halves base × height for a parallelogram (applies the triangle formula)."
+    },
     "NO_HALF": {
       "student": "A triangle is half a rectangle: area = base × height ÷ 2.",
       "teacher": "Omits the 1/2 in the triangle area formula (or in working back from it)."

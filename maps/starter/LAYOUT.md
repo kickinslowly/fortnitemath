@@ -153,12 +153,14 @@ as every wall); the glass material stays on them, so flipping `VISIBLE` restores
 
 ## Door colours and signs (2026-10-08, `tools/build_course.py` door_dress)
 Aaron: "make the doors the same colors as the letters and styling for each answer, and place the letters on the
-doors". Each door panel takes its letter's colour (A white, B blue, C green, D orange, `M_fnm_wall_pad_a..d`, the
-HUD tile colours) and carries a 110 cm sign drawn like the HUD answer tile: dark, ringed and lettered in that colour
-(`tools/make_door_signs.py`, imported as quads by `tools/import_art.py signs`), centred 165 cm up. The wall frame round
-each door stays stock: it is a runtime material instance that ignores overrides. The sign is its own actor
-(`FNM_Sxx_DoorSign<L>`, no collision) and does not swing with the panel: an open door leaves its sign hanging in the
-doorway, and players run through it. `--doors-only` rebuilds doors and signs in place.
+doors". Each door panel is painted with its own texture (`M_door_face_a..d`: `tools/make_door_signs.py`, imported by
+`tools/import_art.py signs`): the letter's colour all over (A white, B blue, C green, D orange, the HUD tile colours)
+with a dark 96 cm tile and the letter in that colour, centred 165 cm up. The letter is part of the door, so it swings
+away when the door opens and has no collision of its own. The texture is drawn mirrored and offset to fit how the door
+mesh maps its front face (measured with calibration textures, constants in `make_door_signs.py`). The wall frame round
+each door stays stock: it is a runtime material instance that ignores overrides. `--doors-only` repaints in place.
+2026-10-09: the first version, a separate sign actor on each door, stayed in the doorway when the door opened and blocked
+players (Aaron's test): the editor's NoCollision on a placed mesh does not hold in play.
 
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");
