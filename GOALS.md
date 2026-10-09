@@ -271,12 +271,16 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   right pad two wall-mounted cannons fire LaserBeams bursts, a lightning strike and an explosion land at the boss's feet,
   the boss is knocked back (impulse, else a teleport stagger) and frozen 0.8 s, HUD DIRECT HIT! N TO GO; (3) announcer
   counts the team's hits ("Direct hit! Three to go!", "BOSS DOWN!"): six new cues (`direct_hit`, `hits_left4..1`,
-  `boss_down`, `tools/make_announcer.py`, all three voices rendered), announcer-only (no stock stand-in), wired once
-  the waves are imported (AUDIO.md "Announcer"); (4) pickup pads with a full inventory swallowed the grenade: each pad now
-  has a hidden run-over trigger and the director fires an Item Granter (Keep All, grant Always, drop at the feet when
-  full); the hovering grenade is an E pickup (swap). UNVERIFIED until the next play session: the look of the LaserBeams
-  burst from a pitched spawner, whether an NPC takes `ApplyLinearImpulse` (the log says "knocked N cm" or "staggered"),
-  the drop-at-feet grant on a full bag (needs a real full inventory), the six voice lines by ear
+  `boss_down`, `tools/make_announcer.py`, all three voices rendered), announcer-only (no stock stand-in); am_michael's
+  six imported through the GUI the same evening and `build_audio.py --announcer am_michael` wired 46 of 46 cues (29
+  voiced); (4) pickup pads with a full inventory swallowed the grenade: a hidden
+  trigger over each row of pads makes the director fire an Item Granter (Keep All, Only if Not Owned, drop at the feet
+  when full); the pad's grenade is auto-picked by a touch whatever Pickup On Touch says (seen with it off), so a player
+  with room gets one grenade and a full bag gets it at the feet. Seen in play 2026-10-08 (headless): five cannon shots,
+  the boss knocked ~3 m by the impulse each time, DIRECT HIT! 3 TO GO on the HUD, the hit-count cues in the log, a
+  player dropped on a row trigger granted a shockwave. UNVERIFIED: the drop-at-feet grant on a REAL full bag, the
+  cannons' look after moving them to 18 m with 3x effects (first frames: out of view at 11 m, sparks at natural size),
+  the six voice lines by ear
 - [ ] 4. Agency: a gold fifth door at some stations (tier+2 question: skip the next station or eat a nasty penalty); two
   lifelines per run (50/50, a 3 s peek at the explanation for a time cost); coins on the walls and a podium shop
   (shield that eats one penalty, a shockwave, a head start)

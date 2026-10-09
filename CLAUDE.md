@@ -39,8 +39,9 @@ before UEFN work. Project-specific:
   billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild),
   `tools/build_pickups.py` (Boogie Bomb / Shockwave Grenade pads along the walls of every even station, Slap Splash pads at
-  odd stations from 3; each pad = an Item Spawner (E pickup) + a hidden run-over trigger the director answers by firing the
-  item's granter, which drops the item at the feet when the inventory is full; idempotent via `fnm_pickups`; rerun after a
+  odd stations from 3; the pad's grenade is auto-picked by a touch whatever its Pickup On Touch says, and a hidden trigger
+  over each ROW of pads makes the director fire the item's granter ("Only if Not Owned", drops the item at the feet when the
+  inventory is full, where the pad's own pickup swallowed it); idempotent via `fnm_pickups`; rerun after a
   course rebuild; the device and item-definition paths are in its docstring), `tools/build_cannon.py` (the arena's laser
   cannons: muzzle VFX spawners, the strike spawner and explosive blasts the director fires on every right pad; idempotent
   via `fnm_cannon_rig`; rerun after a course rebuild; needs the `steel` and `glow` materials: `python tools/import_art.py

@@ -492,10 +492,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
     BossStaggerCm : float = 150.0
     BossStunSeconds : float = 0.8
     # Pickup pads (tools/build_pickups.py): the hidden trigger per item kind, bound to the item granter that hands one
-    # over; how many pad triggers were wired; how long one player waits before the same pad grants them again.
+    # over; the run-over trigger over each row of pads; how long one player waits before the same row grants again.
     var GrantTriggers : [string]trigger_device = map{}
+    var PadTriggers : []trigger_device = array{}
     var PadCount : int = 0
     PickupRepeatSeconds : float = 3.0
+    # Test hook (ship value false): 5 s after the first pick, drops the player onto two of their own station's pad
+    # triggers in turn, so the log shows whether a pad trigger fires and grants ("pickup <kind> granted at pad N").
+    @editable
+    DebugPickupTest : logic = false
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -527,11 +532,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (Object : FindCreativeObjectsWithTag(fnm_pickup), Trigger := trigger_device[Object]):
             Handler := fnm_pad_handler{Director := Self, Index := PadCount, Kind := ItemKind(Object)}
             Trigger.TriggeredEvent.Subscribe(Handler.OnTriggered)
+            set PadTriggers += array{Trigger}
             set PadCount += 1
         for (Object : FindCreativeObjectsWithTag(fnm_grant), Trigger := trigger_device[Object]):
             Kind := ItemKind(Object)
             if (set GrantTriggers[Kind] = Trigger) {}
-        Print("FNM: {PadCount} pickup pads, {GrantTriggers.Length} item granters")
+        Print("FNM: {PadCount} pickup rows, {GrantTriggers.Length} item granters")
         for (Object : FindCreativeObjectsWithTag(fnm_penalty_cam), Camera := gameplay_camera_orbit_device[Object]):
             set PenaltyCam = option{Camera}
         for (Object : FindCreativeObjectsWithTag(fnm_loadout), Trigger := trigger_device[Object]):
@@ -1024,6 +1030,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     spawn{ DebugAutoRight(State) }
                 if (DebugSkipTest?):
                     spawn{ DebugSkip(State) }
+                if (DebugPickupTest?):
+                    spawn{ DebugPickup(State) }
 
     # CHANGE SKILL (finish board or podium): cancels any pending restart and resets the run; then the picker again,
     # from station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
@@ -2246,10 +2254,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # ---------------------------------------------------------------- pickup pads (Aaron 2026-10-08)
 
-    # A player ran over pickup pad Index (its trigger, tools/build_pickups.py): the item granter for Kind hands them one
-    # through its hidden trigger, at most once per PickupRepeatSeconds per pad and player. The granter drops the item
-    # at their feet when the inventory is full (its "drop if full" option); the pad's own touch pickup used to swallow
-    # it (Aaron: "the grenades disappear").
+    # A player ran over pickup row Index (one hidden trigger per row of pads, tools/build_pickups.py): the item granter
+    # for Kind hands them one through its hidden trigger, at most once per PickupRepeatSeconds per row and player. The
+    # granter skips a player who already owns the item (the pad's own auto-pickup got there first) and drops it at
+    # their feet when the inventory is full, where the pad's pickup swallowed it (Aaron: "the grenades disappear").
     OnPad(MaybeAgent:?agent, Index:int, Kind:string):void =
         if (Agent := MaybeAgent?, Player := player[Agent], State := PlayerStates[Player], not State.Picking?):
             Now := GetSimulationElapsedTime()
@@ -2258,6 +2266,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (set State.PadGrants[Index] = Now) {}
                 Trigger.Trigger(Player)
                 Print("FNM: pickup {Kind} granted at pad {Index} (stage {State.Stage})")
+
+    # DebugPickupTest: after the countdown, stand the player on two pad triggers of their own station, 2 s apart.
+    DebugPickup(State:fnm_player_state)<suspends>:void =
+        Sleep(5.0)
+        var Dropped : int = 0
+        for (Index -> Trigger : PadTriggers, Dropped < 2):
+            Spot := Trigger.GetTransform().Translation + vector3{X := 0.0, Y := 0.0, Z := 60.0}
+            Hall := HallwayAt(Spot)
+            if (Hall = State.Stage - 1, Character := State.Player.GetFortCharacter[], Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                set Dropped += 1
+                Print("FNM: debug pickup test: dropped on pad trigger {Index} at {Spot}")
+                Sleep(2.0)
+        Print("FNM: debug pickup test done ({Dropped} drops)")
 
     # The item kind a tagged pad trigger or grant trigger carries (fnm_item_* tags).
     ItemKind(Object:creative_object_interface)<transacts>:string =

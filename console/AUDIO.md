@@ -86,7 +86,7 @@ accepts the project's own SoundWaves: the session started with all 23 swapped (2
 `perfect`, `new_best`, `new_record`, `medal_gold/silver/bronze`, the six `penalty_*`, `no_skip`, `guards_up`, `welcome`,
 `choose`, and the boss-hit lines `direct_hit`, `hits_left4..1` ("Direct hit! Three to go!") and `boss_down` (2026-10-08;
 these six have NO stock stand-in: an announcer-only cue is placed only once its wave is imported, else it logs
-"(not wired)"). Stock (the table above): the countdown ticks, `correct` / `correct_retry`, `wrong`, `door_open`, `boost`,
+"(not wired)"; am_michael's six were imported and wired the same evening, 46 of 46 cues). Stock (the table above): the countdown ticks, `correct` / `correct_retry`, `wrong`, `door_open`, `boost`,
 `finish`, the music beds and the three boss cues. The pack's `countdown1..3`, `correct`, `wrong`, `finish`, `boss_fight`
 and `lifeline` lines are imported but unused.
 
@@ -104,16 +104,22 @@ though the player has just finished).
 A line that was not imported keeps its stock sound and the run says `NOT IMPORTED, stock kept: <cues>`. `--list` accepts
 a voice wave only on an `ANNOUNCER_CUES` device for the same cue id (anything else is a mismatch).
 
-**Import procedure (UEFN 42.30, worked first try 2026-10-07):** no headless route exists (a wav dropped into
-`Content/` is never picked up; `AssetTools` has no import). Screenshots `imp_*.png` in `%TEMP%`.
+**Import procedure (UEFN 42.30, worked first try 2026-10-07; again 2026-10-08 for the six boss-hit lines):** no
+headless route exists (a wav dropped into `Content/` is never picked up; `AssetTools` has no import). Screenshots
+`imp_*.png` in `%TEMP%`.
+0. If a play session is running, MINIMIZE the Fortnite client first (`ShowWindow(h, 6)`): a foreground client clips the
+   cursor to its own window, so `SetCursorPos` to the left monitor lands at x 320 inside the game and every "UEFN click"
+   fires the pistol instead (2026-10-08: three clicks did nothing until the client was minimized). Verify with
+   `GetCursorPos` after a `SetCursorPos(-1845, 1016)`.
 1. Copy the voice's wavs to a short path (`%TEMP%\fnm_vo`).
 2. MCP: `AssetTools.create_folder /<mount>/FNM_Audio/<voice>`, then `EditorAppToolset.SetContentBrowserPath` to it.
 3. GUI (`~/.claude/skills/uefn-mcp/scripts/gui_act.ps1`; on this PC UEFN is maximized on the LEFT monitor, x -1920..0,
-   so capture that monitor, not the primary): click **Content Drawer** in the status bar (bottom left). The first
-   click(s) only focus UEFN; repeat until the drawer shows the folder. The drawer closes when UEFN loses focus.
-4. Click **Import** in the drawer's toolbar: a Windows "Import" file dialog opens.
-5. Click the File name box, type the folder path, Enter (the dialog navigates there).
-6. Click the first file, `Ctrl+A` (the File name box fills with the quoted list), click **Open**.
+   so capture that monitor, not the primary): click **Content Drawer** in the status bar (bottom left, screen
+   (-1845, 1016)). The first click only focuses UEFN; the second opens the drawer. The drawer closes when UEFN loses focus.
+4. Click **Import** in the drawer's toolbar (screen (-1539, 679)): a Windows "Import" file dialog opens top-left.
+5. Click the File name box ((-1455, 472)), type the folder path, Enter (the dialog navigates there).
+6. Click the first file ((-1595, 160)), `Ctrl+A` (the File name box fills with the quoted list), click **Open**
+   ((-1129, 502)).
 7. A progress box ("Importing ...") runs ~10 s; no import-options dialog for wav. The drawer shows 31 Sound Wave items.
 8. MCP: `AssetTools.find_assets` (folder `/<mount>/FNM_Audio`, class `/Script/Engine.SoundWave`) = 31, names = cue ids;
    `save_assets` on them.

@@ -101,7 +101,7 @@ like door A, so the pads read A B / C D as the HUD lists the choices.
   (2026-10-07). A station-10 rocket launcher cannot kill it without the math, so it is not Invincible: the director's
   `Damage` takes 20000 a hit.
 - **Laser cannons** (2026-10-08, `tools/build_cannon.py`; Aaron: "epic laser cannon blast the boss and the boss flail or
-  get knocked back"): one on each wall `CANNON_Y` (11 m) into the hall, 3.3 m up, aimed at the platform: a gunmetal
+  get knocked back"): one on each wall `CANNON_Y` (18 m) into the hall, 3.3 m up, aimed at the platform: a gunmetal
   bracket, turret ball and barrel with a glowing muzzle ring (engine shapes painted `M_fnm_wall_steel` / `_glow`), and
   at each muzzle a VFX Spawner (LaserBeams burst, Beam_Attack sound; tag `fnm_cannon_fx`). Parked under the platform:
   a VFX Spawner (LightningBolt_01, Electric_Blast; `fnm_cannon_strike`) and two explosive devices (no damage, medium

@@ -33,7 +33,10 @@ SPHERE = "/Engine/BasicShapes/Sphere.Sphere"           # 100 cm across
 VFX = "/CRD_VFX_Spawner/SetupAssets/PID_Device_VFX_Spawner_V2.PID_Device_VFX_Spawner_V2"
 EXPLOSIVE = "/CreativeCoreDevices/SetupAssets/PID_Device_ExplosiveBarrel.PID_Device_ExplosiveBarrel"
 
-CANNON_Y = 1100         # cannons this far into the arena: ahead of a player at the entry, so the flashes are in view
+# Cannons this far into the arena. A player sent back to the entry stands 4.5 m in, with the camera 3.5 m behind: at
+# 11 m the cannons sat 45 degrees off the view's centre, out of frame in play (2026-10-08 frames); at 18 m they are
+# 30 degrees off, inside the third-person view, with 8 m of flight left to the boss.
+CANNON_Y = 1800
 CANNON_IN = 110         # the turret ball's centre this far off the wall's inner face
 CANNON_Z = 330          # the bracket's top this high above the floor (the walls are 600)
 BRACKET = (170, 140, 30)   # bracket depth off the wall, width along the hall, thickness
@@ -42,6 +45,8 @@ BARREL_LEN, BARREL_D = 260, 36
 RING_LEN, RING_D = 16, 50
 BOSS_EYE = 90           # aim this high above the platform top (a standing guard's chest)
 BLASTS = 2
+# Actor scale of the VFX spawners: a burst at its natural size read as a few sparks 24 m away (2026-10-08 frames).
+FX_SCALE = 3.0
 # Devices: the muzzle effect at each cannon, the strike moved onto the boss, the blast moved under its feet. "enabled On
 # Phase" None keeps a VFX spawner off until Verse enables it; a burst effect also needs Restart() (its Verse digest).
 MUZZLE_FX = {"enabled On Phase": "None", "visual_Effect": "LaserBeams", "effectType": "Burst",
@@ -90,10 +95,10 @@ def shape(asset, label, x, y, z, sx, sy, sz, pitch=0.0, yaw=0.0, material=None):
     return actor
 
 
-def device(asset, label, x, y, z, pitch=0.0, yaw=0.0):
+def device(asset, label, x, y, z, pitch=0.0, yaw=0.0, scale=1.0):
     r = u.call(DEV, "PlaceDevice", {"assetPath": ref(asset), "transform": {
         "location": {"x": x, "y": y, "z": z}, "rotation": {"pitch": pitch, "yaw": yaw, "roll": 0},
-        "scale": {"x": 1, "y": 1, "z": 1}}})
+        "scale": {"x": scale, "y": scale, "z": scale}}})
     return tagged(r["returnValue"]["refPath"], label)
 
 
@@ -147,7 +152,7 @@ def cannon(side, face, oy, ztop, boss, project, steel, glow):
     shape(CYLINDER, f"FNM_Cannon{side}_Ring", *along(BARREL_LEN + 10 - RING_LEN / 2), RING_D / 100, RING_D / 100, RING_LEN / 100,
           pitch, yaw, material=glow)
     muzzle = along(BARREL_LEN + 30)
-    fx = device(VFX, f"FNM_Cannon{side}_Fx", *muzzle, pitch, yaw)
+    fx = device(VFX, f"FNM_Cannon{side}_Fx", *muzzle, pitch, yaw, FX_SCALE)
     verse_tags(fx, project, ["fnm_cannon_fx"])     # tag first: the tag component rebuilds a device's sub-objects
     settings(fx, MUZZLE_FX, f"Cannon{side}_Fx")
     print(f"cannon {side}: ball at ({ball[0]:.0f}, {ball[1]:.0f}, {ball[2]:.0f}), muzzle at ({muzzle[0]:.0f}, {muzzle[1]:.0f}, "
@@ -163,7 +168,7 @@ def build():
     cannon("L", left_face, oy, ztop, boss, project, steel, glow)
     cannon("R", right_face, oy, ztop, boss, project, steel, glow)
     park_z = ztop - PARK_DROP
-    strike = device(VFX, "FNM_Cannon_Strike", ox, boss[1], park_z)
+    strike = device(VFX, "FNM_Cannon_Strike", ox, boss[1], park_z, scale=FX_SCALE)
     verse_tags(strike, project, ["fnm_cannon_strike"])
     settings(strike, STRIKE_FX, "Cannon_Strike")
     for n in range(BLASTS):

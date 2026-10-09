@@ -10,12 +10,15 @@ skip guard (fnm_director.verse WatchSkip) sends a player who shockwaves over a d
 to their own station's entry.
 
 How a run-over hands the item over (Aaron 2026-10-08: with a full inventory "the grenades disappear" and never
-arrive): the pad's own touch pickup is OFF (the hovering grenade is an E pickup, which swaps with the held item when
-the inventory is full, as anywhere in Fortnite), and a hidden trigger over each pad (Verse tags fnm_pickup +
-fnm_item_<kind>) tells the director a player ran over it. The director fires the kind's GRANT trigger (fnm_grant +
-fnm_item_<kind>), to which an Item Granter holding that item is bound (the loadout pattern in build_rigs.py): Keep All,
-grant Always, and "drop at the player's location if the inventory is full", so a full bag gets the grenade at its feet
-instead of nothing. One grant per pad per player every PickupRepeatSeconds (director).
+arrive): a consumable on the pad is auto-picked by a touch whatever the pad's Pickup On Touch says (seen 2026-10-08
+with it off: the grenade still went into the bag), so the fix is a second, reliable path. A hidden trigger over each
+ROW of pads (Verse tags fnm_pickup + fnm_item_<kind>; ROW_ZONE covers the discs and the grenade's own pickup reach, a
+150 cm zone per pad was missed by a player standing on the disc's edge) tells the director a player ran over the row.
+The director fires the kind's GRANT trigger (fnm_grant + fnm_item_<kind>), to which an Item Granter holding that item
+is bound (the loadout pattern in build_rigs.py): Keep All, grant "Only if Not Owned" (a player who just auto-picked one
+gets no second), and "drop at the player's location if the inventory is full", so a full bag gets the grenade at its
+feet instead of nothing. One grant per row per player every PickupRepeatSeconds (director). Proven 2026-10-08: a
+player dropped onto a row trigger logged "pickup shockwave granted".
 
 Device: PID_CP_Devices_ItemSpawnerProp (Device_item_SpawnerV2, the holo pad with a spawn timer). Do not confuse it
 with PID_CP_Devices_ItemSpawner, which is the Capture Item Spawner (flag stand). Its item list is the
@@ -70,24 +73,23 @@ SETTINGS = {
     "enabledOnStart": True,
     "initialSpawnDelay": 1.0,            # the device's minimum
     "timeBetweenSpawnsSeconds": RESPAWN_SECONDS,
-    # The hovering grenade needs E (a swap when the inventory is full); the run-over is the pad trigger + granter above.
-    # Touch pickup swallowed the item into a full inventory (Aaron 2026-10-08).
-    "isPickupOnTouch": False,
+    "isPickupOnTouch": True,             # run over it, no E (a consumable is auto-picked even with this off)
     # Gravity drops the grenade onto the pad, where a walking player touches it. "None" left it hovering 2 m up, out
     # of reach (seen in play 2026-10-06: the pads looked stocked but a run along them picked up nothing).
     "itemInitialMovement": "Gravity",
     "isMeshVisibleDuringMinigame": True,
 }
-# The run-over trigger over each pad: a 150 cm cube (the default zone is 600 cm per unit scale) centred on the pad,
-# hidden, firing on every entry after a short reset (the director rate-limits per player and pad).
-PAD_TRIGGER = 150
+# The run-over trigger over each row of pads: one zone (x across the hall, y along it, z up; the default zone is 600 cm
+# per unit scale) centred on the row, hidden, firing on every entry after a short reset (the director rate-limits per
+# player and row). 260 across covers a pad's 256 cm disc; 300 + 260 along covers the four pads at PADS' pitch.
+ROW_ZONE = (260, PADS[-1] - PADS[0] + 260, 150)
 TRIGGER_SETTINGS = {"visible in Game": False, "reset Delay": 0.5, "timesCanTrigger_Override": False, "triggerDelay": 0.0,
                     "triggeredByVehicles": False, "triggeredByWater": False, "triggeredByPhysicsProps": False}
 # The granter per item kind, parked underground on its own row (tools/build_audio.py's row is at y -17000).
 PARK = (-4000, -17800, -1500)
 PITCH = 800
-GRANT_SETTINGS = {"grantBehavior": "Keep All", "grantCondition": "Always", "bDropItemsAtPlayerLocationIfInventoryIsFull": True,
-                  "giveExtraAmmo": 0, "equipItemOnGrant": 0}
+GRANT_SETTINGS = {"grantBehavior": "Keep All", "grantCondition": "Only if Not Owned",
+                  "bDropItemsAtPlayerLocationIfInventoryIsFull": True, "giveExtraAmmo": 0, "equipItemOnGrant": 0}
 
 
 def project_id():
@@ -118,8 +120,22 @@ def build():
             flip = not flip
         for side, x, item in sides:
             for n, dy in enumerate(PADS, 1):
-                pad(f"FNM_S{k:02d}_Pad{side}{n}", x, oy + dy, z, item, project)
+                pad(f"FNM_S{k:02d}_Pad{side}{n}", x, oy + dy, z, item)
+            row_trigger(f"FNM_S{k:02d}_Row{side}_Trigger", x, oy + (PADS[0] + PADS[-1]) / 2, z, item, project)
             print(f"station {k}: {len(PADS)} {item} pads on the {'left' if side == 'L' else 'right'} at x={x:.0f} z={z:.0f}")
+
+
+def row_trigger(label, x, y, z, item, project):
+    """The hidden run-over trigger over one row of pads, tagged first (the tag component rebuilds a device's instanced
+    sub-objects), then its options one key per call."""
+    sx, sy, sz = (v / 600 for v in ROW_ZONE)
+    trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, z + ROW_ZONE[2] / 2, sx, sy, sz)})["returnValue"]["refPath"]
+    u.call(ACTOR, "add_tag", {"actor": ref(trig), "tag": TAG})
+    u.call(ACTOR, "set_label", {"actor": ref(trig), "label": label})
+    verse_tags(trig, project, ["fnm_pickup", f"fnm_item_{item}"])
+    for key, value in TRIGGER_SETTINGS.items():
+        props(trig, {key: value})
+    return trig
 
 
 def granters(project):
@@ -151,20 +167,12 @@ def granters(project):
         print(f"granter {kind}: placed and bound to its trigger")
 
 
-def pad(label, x, y, z, item, project):
+def pad(label, x, y, z, item):
     actor = u.call(DEV, "PlaceDevice", {"assetPath": ref(SPAWNER), "transform": xform(x, y, z)})["returnValue"]["refPath"]
     u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
     u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label})
     for key, value in SETTINGS.items():      # one key per call (a combined write can silently keep an old value)
         props(actor, {key: value})
-    # The run-over trigger, tagged first (the tag component rebuilds a device's instanced sub-objects).
-    s = PAD_TRIGGER / 600
-    trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, z + PAD_TRIGGER / 2, s, s, s)})["returnValue"]["refPath"]
-    u.call(ACTOR, "add_tag", {"actor": ref(trig), "tag": TAG})
-    u.call(ACTOR, "set_label", {"actor": ref(trig), "label": label + "_Trigger"})
-    verse_tags(trig, project, ["fnm_pickup", f"fnm_item_{item}"])
-    for key, value in TRIGGER_SETTINGS.items():
-        props(trig, {key: value})
     spawner = next(c["refPath"] for c in u.call(ACTOR, "get_components", {"actor": ref(actor)})["returnValue"]
                    if c["refPath"].endswith(".Minigame_Spawner_Component"))
     wanted = ITEMS[item]
