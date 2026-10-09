@@ -53,7 +53,7 @@ before UEFN work. Project-specific:
   (once per UEFN project: the HUD textures check, cross, slate, tile (drawn by `tools/make_verdict_art.py` +
   `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
-  props in place, recolour them and re-hang their letter signs; needs `python tools/import_art.py signs` once), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
+  props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
   it), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
