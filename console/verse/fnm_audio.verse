@@ -78,12 +78,51 @@ fnm_cue := enum:
     HitsLeft2
     HitsLeft1
     BossDown
+    # boss battle mode (BOSS_MODE.md section 10)
+    # mode start and the level-1 summon: "Boss battle!"
+    BmStart
+    # level-2 summon: "Level two!"
+    BmLevel2
+    # level-3 summon: "Level three!"
+    BmLevel3
+    # level-4 summon: "Level four!"
+    BmLevel4
+    # level-5 summon: "Final level!"
+    BmLevel5
+    # boss line, level 1 (voice only)
+    BmBossL1
+    # boss line, level 2 (voice only)
+    BmBossL2
+    # boss line, level 3 (voice only)
+    BmBossL3
+    # boss line, level 4 (voice only)
+    BmBossL4
+    # boss line, level 5 (voice only)
+    BmBossL5
+    # boss taunt after a wrong pad: "HA! WRONG!"
+    BmBossWrong
+    # boss grunt after a right pad: "ARGH!"
+    BmBossHit
+    # boss on the final kill: "NOOOOO!"
+    BmBossDead
+    # right pad: the nuke explosion
+    BmNuke
+    # right pad that wipes the field: "MEGA NUKE!"
+    BmMegaNuke
+    # level cleared
+    BmLevelClear
+    # boss mode won: "VICTORY! Boss defeated!"
+    BmVictory
+    # the monster gates open at a summon
+    BmGates
+    # a perch grants the level's weapon
+    BmWeapon
 
 # Every cue, in enum order (FnmCueIds and FnmCueTags follow the same order).
-FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead, fnm_cue.DirectHit, fnm_cue.HitsLeft4, fnm_cue.HitsLeft3, fnm_cue.HitsLeft2, fnm_cue.HitsLeft1, fnm_cue.BossDown}
+FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead, fnm_cue.DirectHit, fnm_cue.HitsLeft4, fnm_cue.HitsLeft3, fnm_cue.HitsLeft2, fnm_cue.HitsLeft1, fnm_cue.BossDown, fnm_cue.BmStart, fnm_cue.BmLevel2, fnm_cue.BmLevel3, fnm_cue.BmLevel4, fnm_cue.BmLevel5, fnm_cue.BmBossL1, fnm_cue.BmBossL2, fnm_cue.BmBossL3, fnm_cue.BmBossL4, fnm_cue.BmBossL5, fnm_cue.BmBossWrong, fnm_cue.BmBossHit, fnm_cue.BmBossDead, fnm_cue.BmNuke, fnm_cue.BmMegaNuke, fnm_cue.BmLevelClear, fnm_cue.BmVictory, fnm_cue.BmGates, fnm_cue.BmWeapon}
 
 # Snake-case id per cue, enum order: the Verse tag is fnm_cue_<id> (tools/build_audio.py CUES keys).
-FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead", "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down"}
+FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead", "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down", "bm_start", "bm_level2", "bm_level3", "bm_level4", "bm_level5", "bm_boss_l1", "bm_boss_l2", "bm_boss_l3", "bm_boss_l4", "bm_boss_l5", "bm_boss_wrong", "bm_boss_hit", "bm_boss_dead", "bm_nuke", "bm_mega_nuke", "bm_level_clear", "bm_victory", "bm_gates", "bm_weapon"}
 
 # The announcer's line for a boss hit that leaves Left team hits to go: a counted line for 1..4, "Direct hit!" otherwise.
 FnmHitCue(Left:int)<transacts>:fnm_cue =
@@ -92,6 +131,27 @@ FnmHitCue(Left:int)<transacts>:fnm_cue =
     else if (Left = 2) then fnm_cue.HitsLeft2
     else if (Left = 1) then fnm_cue.HitsLeft1
     else fnm_cue.DirectHit
+
+# Boss mode's one voice line per right pad (BOSS_MODE.md section 7): the counted line when Left is 1..4 team hits to go,
+# else "MEGA NUKE!" (the level's last hit, or more than four to go).
+FnmBmHitVoice(Left:int)<transacts>:fnm_cue =
+    if (Left >= 1, Left <= 4) then FnmHitCue(Left) else fnm_cue.BmMegaNuke
+
+# Boss mode's announcer line at a level-start summon: "Boss battle!" for level 1, then "Level two!" .. "Final level!".
+FnmBmLevelCue(Level:int)<transacts>:fnm_cue =
+    if (Level = 2) then fnm_cue.BmLevel2
+    else if (Level = 3) then fnm_cue.BmLevel3
+    else if (Level = 4) then fnm_cue.BmLevel4
+    else if (Level >= 5) then fnm_cue.BmLevel5
+    else fnm_cue.BmStart
+
+# The boss's own line at a summon (voice only): bm_boss_l1 .. bm_boss_l5.
+FnmBmBossCue(Level:int)<transacts>:fnm_cue =
+    if (Level = 2) then fnm_cue.BmBossL2
+    else if (Level = 3) then fnm_cue.BmBossL3
+    else if (Level = 4) then fnm_cue.BmBossL4
+    else if (Level >= 5) then fnm_cue.BmBossL5
+    else fnm_cue.BmBossL1
 
 FnmCueIndex(Cue:fnm_cue)<transacts>:int =
     var Found : int = -1

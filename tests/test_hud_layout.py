@@ -47,7 +47,8 @@ def ihdr(path):
 
 def test_png_sizes_and_format():
     expected = {"fnm_slate.png": (1024, 256), "fnm_tile.png": (560, 240),
-                "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256)}
+                "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256),
+                "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256)}
     for name, size in expected.items():
         width, height, depth, colour = ihdr(ART / name)
         assert (width, height) == size, name
@@ -68,6 +69,12 @@ def test_hud_art_is_deterministic(tmp_path):
     for name in ("fnm_slate.png", "fnm_tile.png"):
         assert (tmp_path / "a" / name).read_bytes() == (tmp_path / "b" / name).read_bytes(), name
         assert (tmp_path / "a" / name).read_bytes() == (ART / name).read_bytes(), name   # committed art is current
+    for out in ("a", "b"):
+        subprocess.run([sys.executable, str(ROOT / "tools" / "make_boss_art.py"), str(tmp_path / out)], check=True,
+                       capture_output=True)
+    for name in ("fnm_banner.png", "fnm_nuke.png"):
+        assert (tmp_path / "a" / name).read_bytes() == (tmp_path / "b" / name).read_bytes(), name
+        assert (tmp_path / "a" / name).read_bytes() == (ART / name).read_bytes(), name
 
 
 def test_verse_files_are_lf():

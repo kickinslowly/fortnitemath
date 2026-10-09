@@ -74,12 +74,31 @@ LINES: dict[str, tuple[str, str, float, str, float]] = {
     "hits_left2":       ("Direct hit! Two to go!",            "Direct hit! Two to go!",            0.95, "big", 3.0),
     "hits_left1":       ("Direct hit! One more hit!",         "Direct hit! One more hit!",         0.95, "big", 3.0),
     "boss_down":        ("BOSS DOWN!",                        "Boss down!",                        0.85, "big", 2.0),
+    # Boss battle mode (BOSS_MODE.md section 10). Announcer lines: am_michael style, std / big profiles.
+    "bm_start":         ("Boss battle!",                      "Boss battle!",                      0.90, "big", 2.0),
+    "bm_level2":        ("Level two!",                        "Level two!",                        0.90, "std", 2.0),
+    "bm_level3":        ("Level three!",                      "Level three!",                      0.90, "std", 2.0),
+    "bm_level4":        ("Level four!",                       "Level four!",                       0.90, "std", 2.0),
+    "bm_level5":        ("Final level!",                      "Final level!",                      0.90, "big", 2.0),
+    "bm_mega_nuke":     ("MEGA NUKE!",                        "Mega nuke!",                        0.85, "big", 2.0),
+    "bm_level_clear":   ("Level cleared!",                    "Level cleared!",                    0.90, "big", 2.0),
+    "bm_victory":       ("VICTORY! Boss defeated!",           "Victory! Boss defeated!",           0.90, "big", 3.0),
+    # The boss's own voice: the deep "boss" profile (BOSS_CUES in tools/build_audio.py; recommended voice am_onyx).
+    "bm_boss_l1":       ("You dare challenge ME?!",           "You dare challenge me?!",           0.88, "boss", 3.0),
+    "bm_boss_l2":       ("Minions! GET THEM!",                "Minions! Get them!",                0.88, "boss", 3.0),
+    "bm_boss_l3":       ("Is that all you've got?!",          "Is that all you've got?!",          0.88, "boss", 3.0),
+    "bm_boss_l4":       ("Now I'm ANGRY!",                    "Now I'm angry!",                    0.88, "boss", 2.0),
+    "bm_boss_l5":       ("NO MORE GAMES! EVERYONE, ATTACK!",  "No more games! Everyone, attack!",  0.88, "boss", 4.0),
+    "bm_boss_wrong":    ("HA! WRONG!",                        "Ha! Wrong!",                        0.88, "boss", 2.0),
+    "bm_boss_hit":      ("ARGH!",                             "Argh!",                             0.88, "boss", 2.0),
+    "bm_boss_dead":     ("NOOOOO!",                           "Noooo!",                            0.85, "boss", 3.0),
 }
 # door_open has no line (sound effect only), so it is not in the table.
 
 SR_TTS = 24000
 SR_OUT = 48000
 PITCH = 0.96          # 4 % pitch drop (asetrate; also 4 % slower, which suits an announcer)
+BOSS_PITCH = 0.82     # "boss" profile: a further 18 % drop on top of PITCH (one combined asetrate, 0.96 * 0.82 = 0.7872)
 PAD_S = 0.040         # silence at both ends of the final file
 PEAK_DB = -1.0        # final peak
 TARGET_LUFS = -13.0   # loudness of every final file (gain into a -1 dBFS limiter, iterated)
@@ -91,8 +110,11 @@ ECHO = {
     "dry": "aecho=0.9:0.9:60:0.12",
     "std": "aecho=0.9:0.9:70|120:0.20|0.12",
     "big": "aecho=0.9:0.9:90|160|240:0.30|0.20|0.12",
+    "boss": "aecho=0.9:0.9:90|160|240:0.30|0.20|0.12",   # the big echo
 }
-TAIL_PAD = {"dry": 0.25, "std": 0.35, "big": 0.6}
+TAIL_PAD = {"dry": 0.25, "std": 0.35, "big": 0.6, "boss": 0.6}
+# "boss" grit, after the normal compressor: tanh soft clip on a +6 dB push (saturation), then a second, harder compressor.
+BOSS_GRIT = "volume=6dB,asoftclip=type=tanh,acompressor=threshold=-18dB:ratio=4:attack=3:release=60:knee=3"
 
 TRIM_IN = ("silenceremove=start_periods=1:start_threshold=-60dB,areverse,"
            "silenceremove=start_periods=1:start_threshold=-60dB,areverse")
@@ -102,12 +124,15 @@ LIMIT = "alimiter=limit=0.891:attack=5:release=50:level=0:latency=1"
 
 def stage1_chain(profile: str) -> str:
     """Raw TTS (24 kHz float) -> trimmed, pitched-down, compressed, echoed 48 kHz float."""
+    boss = profile == "boss"
+    pitch = PITCH * BOSS_PITCH if boss else PITCH
     return ",".join([
         TRIM_IN,
         "highpass=f=70",
-        f"asetrate={int(SR_TTS * PITCH)}",
+        f"asetrate={int(SR_TTS * pitch)}",
         f"aresample={SR_OUT}",
         COMPRESS,
+        *([BOSS_GRIT] if boss else []),
         f"apad=pad_dur={TAIL_PAD[profile]}",
         ECHO[profile],
     ])

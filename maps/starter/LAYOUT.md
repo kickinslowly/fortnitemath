@@ -111,6 +111,70 @@ like door A, so the pads read A B / C D as the HUD lists the choices.
   announcer counts the team's hits down. The engine shapes are scenery: Verse cannot find or move them, so the muzzle
   VFX spawner is the muzzle the director knows about. Rerun after a course rebuild.
 
+## Boss battle arena (2026-10-09, BOSS_MODE.md)
+The BOSS BATTLE mode's own arena (`tools/build_bossmode.py`, actor tag `fnm_bossmode`, every actor labelled `FNM_BM_*`;
+spec BOSS_MODE.md §3). It sits 140 m east of the course start, x 12000..16000, y -14000..-10000, floor top z 2, on its own
+slab past the template ground; the race arena is untouched. Coordinates below are relative to O = (14000, -14000, 0), the
+south wall's inner face on the centre line. The player enters facing +Y, so **+X is their LEFT**. Walls 800 high, 40
+thick (`M_fnm_wall_bm_wall`), floor `M_fnm_wall_bm_floor`, one hidden collision lid (underside z 780).
+
+```
+          x = +2000 (player's LEFT)                                   x = -2000 (RIGHT)
+ y+4000  ┌─────────────────────────────────────────────────────────────────┐  north wall
+         │ [P4 BL 240]                                       [P3 BR 240]   │  perches: 3 x 3 m tops, stepping stones below
+         │                      ┌───────────────┐                          │
+   G4 ▓▓ │                      │  BOSS  (5 sp) │                          │ ▓▓ G3   gates in the side walls at y+3000
+ y+3000  │   ○                  └───────────────┘                  ○       │  platform 8 x 5 m, top +100, centre (0, 3200)
+         │        ○                                            ○           │  ○ = anger VFX ring (5, lit L of 5)
+         │                                                                 │
+         │  ⊕ cannon L (wall, y+2200, 3.3 m up)         cannon R ⊕         │  wall lasers aimed at the platform
+ y+2000  │      [ C ]                                     [ D ]            │  pads C (x+900) D (x-900) at y+2100
+         │                                                                 │
+   G2 ▓▓ │                                                                 │ ▓▓ G1   gates at y+1200
+ y+1000  │      [ A ]                                     [ B ]            │  pads A (x+900) B (x-900) at y+1100
+         │ [P2 FL 180]                  E ↑               [P1 FR 180]      │  E entry teleporter (0, +250)
+ y+0     └─────────────────────────────────────────────────────────────────┘  south wall, "BOSS BATTLE" sign on the left wall
+```
+
+| Piece | Labels | Verse tags |
+|---|---|---|
+| Floor, walls (side walls in three segments + a lintel over each gate), lid | `FNM_BM_Floor`, `_WallS/N`, `_WallL1..3`, `_WallR1..3`, `_LintelL1/2`, `_LintelR1/2`, `_Lid` | — |
+| Entry teleporter (yaw 90, both group knobs Group_None), sign | `FNM_BM_Entry`, `FNM_BM_Sign` | `fnm_bm` + `fnm_entry` |
+| Answer pads: tile (`M_fnm_wall_pad_x`), 450 x 450 x 150 hidden trigger, letter board | `FNM_BM_PadA..D`, `_TriggerA..D`, `_LabelA..D` | trigger: `fnm_bm` + `fnm_door_a..d` |
+| Boss platform (steel) + one guard spawner per level (BOSS_SETTINGS, health 100000, weapon by level) | `FNM_BM_Platform`, `FNM_BM_Boss1..5` | `fnm_bm_boss` + `fnm_bm_slot_L` |
+| Gates: 400 x 350 opening, 300-deep steel alcove (floor, back, sides, roof), spawner at its centre facing in, VFX at the mouth | `FNM_BM_Gate1..4_Floor/Back/SideA/SideB/Roof`, `_Spawner`, `_Fx` | spawner `fnm_bm_gate` + slot; fx `fnm_bm_gate_fx` + slot |
+| Perches: gold block, stepping stones, hidden 300 x 300 x 200 trigger on top, beacon VFX | `FNM_BM_Perch1..4`, `_StoneN`, `_Trigger`, `_Fx` | trigger `fnm_bm_perch` + slot; fx `fnm_bm_perch_fx` + slot |
+| Item granters (one per level, parked z -598) bound to a parked trigger each | `FNM_BM_Grant1..5_Granter` / `_Trigger` | trigger `fnm_bm_grant` + slot |
+| Cannons (build_cannon.cannon, prefix `FNM_BM_Cannon`), strike, nuke, 2 blasts (parked z -598) | `FNM_BM_CannonL/R_*`, `FNM_BM_Strike`, `_Nuke`, `_Blast1/2` | `fnm_bm_cannon_fx`, `fnm_bm_strike`, `fnm_bm_nuke_fx`, `fnm_bm_blast` |
+| Anger ring, 5 VFX at radius 650 round the platform | `FNM_BM_Anger1..5` | `fnm_bm_anger_fx` + slot |
+
+113 actors. The perch stones are 120 cm square, 60 cm rises, 150 cm edge gaps, laid from the perch toward the centre line
+(P1/P2: tops 60, 120 then the perch at 180; P3/P4: 60, 120, 180 then 240). Each gate alcove has its own floor (the brief
+listed back, sides and roof only; without a floor the spawner would stand over the void).
+
+**Probe answers** (`python tools/build_bossmode.py --probe`, 2026-10-09, UEFN 42.30):
+- Creature / wildlife devices exist: `/CRD_Creatures/SetupAssets/PID_Device_CreatureSpawner_V2` (creature Type: Cube Random,
+  Fiend, Red Fiend, Brute, Red Brute, Ranged, Megabrute, Ice Fiend, Major Ice Fiend, Ice Brute, Major Ice Brute, Ice Ranged,
+  Poison Fiend, Exploding Brute, Ice Random, Rush Random, All Random; Total Spawn Limit 1..100), `PID_Device_CreatureManager_V2`,
+  `PID_Device_CreaturePlacer_V2`, `/CRD_WildlifeSpawner/SetupAssets/PID_Device_WildlifeSpawnerV2` (+ V1), Sentry
+  `/CRD_SentryDevice/SetupAssets/Creative_Device_SentryProp_V2`. The creature spawner placed from MCP and listed its
+  options (the others were only listed); nothing built with them this round.
+- VFX `visual_Effect` (current entries): DiscoBalls, LaserBeams, AreaOfFog, SpookyGhosts, Balloons, Snow, FloatingSpaceRocks,
+  Bubbles, FallingSparkles, Confetti, FlyingSpaceRocks, DustClouds, Rain, SmallTornado, LightFog, SkyLanterns, RainLight,
+  WaterfallCrash/Splash/Mist, MusicalNotes_*, Small_Fire, Insect_Flies, Ambient_Dust, Eyes, LightningBolt_01..03, Bats, Embers,
+  Fireworks, Fog, Leaves, Sparkles, FireworksLarge, RainConcert, SparkRain, Ash (+ 15 `_Deprecated`). No explosion or smoke;
+  the nuke takes the first fire entry, **Small_Fire** (scale 6, sound `Explosion`). `effectType`: Continuous, Burst.
+  `sound_Effect` includes Explosion, Explosion_02/03, Lightning_Strike*, Electric_Blast.
+- Explosive `knockback`: None, Low, Medium, High, Very High, Super High. No "Large", so the blasts use the fallback **Medium**
+  (High / Very High exist if a harder knock is wanted).
+- Item granter accepted all five weapons (read back): AutoHeavyPDW R, Shotgun_Standard VR, Assault_AutoHigh VR, Sniper_Heavy
+  SR, Launcher_Rocket SR. The guard spawners kept every boss and gate weapon, and max/starting health 100000 on all five
+  bosses.
+- Still open (play only): `Spawn()` with `spawnOnTimer False`; whether a kid chains the 60 / 150 stones (B4 keys test).
+
+Rerun after: nothing. It reads no course geometry, so a course rebuild does not move it; rerun `build_bossmode.py` only
+after changing its own constants (idempotent: two runs leave the same 113 actors).
+
 ## Hallway obstacles (2026-10-04)
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is
 clear; then a 70 cm gold hurdle, baffles (a full-height wall from one side, 9 m gap on the other), and from
@@ -171,3 +235,10 @@ names can be stored, so only players present are listed). Two lecterns in front:
 
 ## Still to do (GOALS G4)
 - Decor seen only in editor captures: torch flames, fireworks and the chalk text are play-time and unverified.
+- Boss battle (2026-10-09, B4), still unverified:
+  - The perch climb (60 cm rises over 150 cm gaps) has never been tried by a real jump: acceptance 5 was not run.
+  - The picker's BOSS BATTLE button has never been clicked (acceptance 3 was not run).
+  - The 16 new voice lines (am_michael `bm_*`, am_onyx `bm_boss_*`) are not imported, so 9 cues are silent. Nothing has
+    been judged by ear.
+  - The timed gate spawns (`monster at gate`) have not been seen.
+  - Two players have never shared a fight (team hits, late joiners).

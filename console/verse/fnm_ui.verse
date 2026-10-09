@@ -43,13 +43,15 @@ FnmDoorColors : []color = array:
 
 # What a picker / finish-board button reports (PROTOCOL 6b): a grade (Index = position in the director's grade
 # list), a skill (Index = cartridge index in the slot), Back to the grade step, or CHANGE SKILL / CLOSE on the finish
-# board.
+# board; BOSS BATTLE on the grade step and PLAY AGAIN on the boss-mode win board (BOSS_MODE.md section 1).
 fnm_pick := enum:
     Grade
     Skill
     Back
     ChangeSkill
     Close
+    Boss
+    Again
 
 # Who hears the HUD's button clicks (the director). The HUD only reports; the listener decides what shows next.
 fnm_picker_listener := interface:
@@ -152,6 +154,12 @@ fnm_hud := class:
     ResultsCountdown : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
     # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.0}
+    # Boss mode (BOSS_MODE.md section 9): a full-screen white flash on a MEGA NUKE (above the slate, below the verdict),
+    # and the level banner, a comic burst (FNM_Art.T_fnm_banner) with "LEVEL 3" over the anger line, centre at y 0.33.
+    WhiteFlash : color_block = color_block{DefaultColor := NamedColors.White, DefaultOpacity := 0.0}
+    BannerArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_banner, DefaultDesiredSize := vector2{X := 900.0, Y := 200.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    BannerText : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 84.0, DefaultJustification := text_justification.Center}
+    BannerSub : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 40.0, DefaultJustification := text_justification.Center}
     # Seconds the verdict stays up.
     VerdictSeconds : float = 1.5
     # Skill picker (PROTOCOL 6b), centre screen on its own root: heading, step line, one button per grade or skill.
@@ -165,8 +173,13 @@ fnm_hud := class:
     # (Their text is set in Attach: a localized call can't initialise a field.)
     CloseButton : button_loud = button_loud{}
     ChangeSkillButton : button_regular = button_regular{}
+    # Boss mode's win board: PLAY AGAIN (fnm_pick.Again) in CLOSE's place, beside CHANGE SKILL.
+    AgainButton : button_loud = button_loud{}
 
     var MaybePlayerUI : ?player_ui = false
+    # The boss-mode level banner (collapsed until ShowBanner) and the white flash's generation (a newer flash wins).
+    var MaybeBanner : ?widget = false
+    var FlashGeneration : int = 0
     var MaybeRoot : ?canvas = false
     var MaybeResults : ?widget = false
     # The whole slate (collapsed by ClearQuestion, reopened by ShowQuestion) and the four tile overlays, A..D.
@@ -358,6 +371,25 @@ fnm_hud := class:
                         Widget := FeedLinesBox
                         HorizontalAlignment := horizontal_alignment.Right
                         Padding := margin{Left := 20.0, Top := 8.0, Right := 20.0, Bottom := 10.0}
+            # The boss-mode banner: the burst texture stretched to 900 x 200, the two lines centred on it.
+            Banner : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := BannerArt
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := BannerText
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                stack_box_slot:
+                                    Widget := BannerSub
+                                    HorizontalAlignment := horizontal_alignment.Center
+                        HorizontalAlignment := horizontal_alignment.Center
+                        VerticalAlignment := vertical_alignment.Center
             Root : canvas = canvas:
                 Slots := array:
                     canvas_slot:
@@ -386,6 +418,17 @@ fnm_hud := class:
                         Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 130.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
+                    # Boss mode's MEGA NUKE flash: full screen, over the slate and the board, under the verdict.
+                    canvas_slot:
+                        Widget := WhiteFlash
+                        Anchors := anchors{Minimum := vector2{X := 0.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 1.0}}
+                        Offsets := margin{Left := 0.0, Top := 0.0, Right := 0.0, Bottom := 0.0}
+                    # Boss mode's level banner, centred a third of the way down (collapsed until ShowBanner).
+                    canvas_slot:
+                        Widget := Banner
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.33}, Maximum := vector2{X := 0.5, Y := 0.33}}
+                        Alignment := vector2{X := 0.5, Y := 0.5}
                         SizeToContent := true
                     canvas_slot:
                         Widget := stack_box:
@@ -434,6 +477,8 @@ fnm_hud := class:
             SubtitleText.SetVisibility(widget_visibility.Collapsed)
             # No question yet: the slate opens with the first ShowQuestion.
             Slate.SetVisibility(widget_visibility.Collapsed)
+            Banner.SetVisibility(widget_visibility.Collapsed)
+            set MaybeBanner = option{Banner}
             set MaybeSlate = option{Slate}
             set MaybeResults = option{Results}
             set MaybeFeed = option{Feed}
@@ -481,6 +526,9 @@ fnm_hud := class:
             CloseButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Close, Index := 0}.OnClick)
             ChangeSkillButton.SetText(FnmText("CHANGE SKILL"))
             ChangeSkillButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.ChangeSkill, Index := 0}.OnClick)
+            AgainButton.SetText(FnmText("PLAY AGAIN"))
+            AgainButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Again, Index := 0}.OnClick)
+            AgainButton.SetVisibility(widget_visibility.Collapsed)
             set MaybeChangeRoot = option:
                 canvas:
                     Slots := array:
@@ -489,6 +537,7 @@ fnm_hud := class:
                                 Orientation := orientation.Horizontal
                                 Slots := array:
                                     stack_box_slot{Widget := CloseButton, Padding := margin{Right := 16.0}}
+                                    stack_box_slot{Widget := AgainButton, Padding := margin{Right := 16.0}}
                                     stack_box_slot{Widget := ChangeSkillButton, Padding := margin{Left := 16.0}}
                             Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.81}, Maximum := vector2{X := 0.5, Y := 0.81}}
                             Alignment := vector2{X := 0.5, Y := 0.0}
@@ -571,6 +620,39 @@ fnm_hud := class:
         VerdictLabel.SetText(FnmText(Text))
         if (Seconds > 0.0):
             spawn{ ClearVerdictLater(VerdictGeneration, Seconds) }
+
+    # Boss mode's right answer: the mushroom cloud (FNM_Art.T_fnm_nuke) over Label in lime, for Seconds.
+    FlashNuke(Label:string, Seconds:float):void =
+        set VerdictGeneration += 1
+        VerdictLabel.SetTextColor(NamedColors.Lime)
+        VerdictImage.SetImage(FNM_Art.T_fnm_nuke)
+        VerdictImage.SetVisibility(widget_visibility.Visible)
+        VerdictLabel.SetText(FnmText(Label))
+        spawn{ ClearVerdictLater(VerdictGeneration, Seconds) }
+
+    # A white flash over the whole screen: opacity 0.85 fading to 0 in 0.05 s steps over Seconds. A newer flash takes
+    # over from an older one.
+    Flash(Seconds:float)<suspends>:void =
+        set FlashGeneration += 1
+        Generation := FlashGeneration
+        Steps := Max(1, if (N := Ceil[Seconds / 0.05]) then N else 1)
+        for (K := 0..Steps):
+            if (Generation = FlashGeneration):
+                if (Op := type{_X:float where 0.0 <= _X, _X <= 1.0}[0.85 * (Steps - K) / (Steps * 1.0)]) then WhiteFlash.SetOpacity(Op)
+                Sleep(0.05)
+        if (Generation = FlashGeneration):
+            WhiteFlash.SetOpacity(0.0)
+
+    # The boss-mode level banner: Big ("LEVEL 3") over Sub ("HE'S FURIOUS!"); HideBanner collapses it.
+    ShowBanner(Big:string, Sub:string):void =
+        BannerText.SetText(FnmText(Big))
+        BannerSub.SetText(FnmText(Sub))
+        if (Banner := MaybeBanner?):
+            Banner.SetVisibility(widget_visibility.Visible)
+
+    HideBanner():void =
+        if (Banner := MaybeBanner?):
+            Banner.SetVisibility(widget_visibility.Collapsed)
 
     SetClock(Text:string):void =
         ClockText.SetText(FnmText(Text))
@@ -667,10 +749,11 @@ fnm_hud := class:
 
     # The finish board. Medal "" leaves its row blank. Rows: the session's top times, best first; OwnRow is the
     # viewing player's row (-1 = not on the board), drawn orange. The countdown row starts empty (SetCountdown).
-    # BoardHead names the board ("TOP TIMES THIS SESSION  -  <skill>": boards and bests are per skill).
-    ShowResults(Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, AccuracyLine:string, BoardHead:string, Rows:[]message, OwnRow:int):void =
+    # BoardHead names the board ("TOP TIMES THIS SESSION  -  <skill>": boards and bests are per skill). Title is the
+    # headline: "FINISH!" for a race, "VICTORY!" in boss mode.
+    ShowResults(Title:string, Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, AccuracyLine:string, BoardHead:string, Rows:[]message, OwnRow:int):void =
         ResultsTitle.SetTextColor(MedalColor)
-        ResultsTitle.SetText(FnmText("FINISH!"))
+        ResultsTitle.SetText(FnmText(Title))
         ResultsMedal.SetTextColor(MedalColor)
         ResultsMedal.SetText(FnmText(if (Medal = "") then "" else "{Medal} MEDAL"))
         ResultsTime.SetText(FnmText(TimeLine))
@@ -709,25 +792,36 @@ fnm_hud := class:
         if (Owner := MaybeOwner?, Player = Owner, Listener := MaybeListener?):
             Listener.OnPickerChoice(Player, Kind, Index)
 
-    # Grade step: one loud button per grade, labelled "Grade G", in the order given (the director's grade order).
-    ShowGradeStep(Grades:[]string):void =
+    # Grade step: one loud button per grade, labelled "Grade G", in the order given (the director's grade order). With
+    # WithBoss, the BOSS BATTLE button and its caption come first (BOSS_MODE.md section 1); focus stays on the first
+    # grade button.
+    ShowGradeStep(Grades:[]string, WithBoss:logic):void =
         Labels := for (Grade : Grades) { "Grade {Grade}" }
         Indices := for (K -> Grade : Grades) { K }
-        ShowPickerStep("Pick a grade", Labels, array{}, fnm_pick.Grade, Indices, false)
+        var Lead : []widget = array{}
+        if (WithBoss?):
+            BossButton := button_loud{DefaultText := FnmText("BOSS BATTLE")}
+            BossButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Boss, Index := 0}.OnClick)
+            set Lead = array{MakeCell(BossButton, "Every grade, every skill. Right answers NUKE the boss!")}
+        ShowPickerStep("Pick a grade", Labels, array{}, fnm_pick.Grade, Indices, false, Lead)
 
     # Skill step for Grade: one button per skill, its title on the button and its subtitle in small text under it
     # (button K picks cartridge Indices[K]), plus Back when WithBack. A stock button sets its own text size and grows
     # to fit its label, so "Title  -  Subtitle" labels in two columns ran past the edges of a 1080p screen (Aaron,
     # 2026-10-06: "words are cut off"); a text_block caption has a size we choose.
     ShowSkillStep(Grade:string, Titles:[]string, Subtitles:[]string, Indices:[]int, WithBack:logic):void =
-        ShowPickerStep("Grade {Grade}  -  pick a skill", Titles, Subtitles, fnm_pick.Skill, Indices, WithBack)
+        ShowPickerStep("Grade {Grade}  -  pick a skill", Titles, Subtitles, fnm_pick.Skill, Indices, WithBack, array{})
 
     # Replaces the picker's buttons with this step's (Captions[K], when present and not empty, goes under button K),
     # puts the picker on screen if it isn't, and focuses the first button (so a gamepad or keyboard can press it too).
-    ShowPickerStep(Step:string, Labels:[]string, Captions:[]string, Kind:fnm_pick, Indices:[]int, WithBack:logic):void =
+    # Lead: widgets shown above the buttons (the BOSS BATTLE cell), full width.
+    ShowPickerStep(Step:string, Labels:[]string, Captions:[]string, Kind:fnm_pick, Indices:[]int, WithBack:logic, Lead:[]widget):void =
         ClearPickerButtons()
         PickerStep.SetText(FnmText(Step))
         var Made : []widget = array{}
+        for (Cell : Lead):
+            PickerButtons.AddWidget(stack_box_slot{Widget := Cell, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0, Bottom := 10.0}})
+            set Made += array{Cell}
         var Buttons : []widget = array{}
         var Cells : []widget = array{}
         for (K -> Label : Labels, Index := Indices[K]):
@@ -798,13 +892,15 @@ fnm_hud := class:
         ClearPickerButtons()
 
     # CLOSE (and CHANGE SKILL when WithChange) under the finish board. While they are up the mouse drives the buttons
-    # and the player can't move; CLOSE hands control back.
-    ShowFinishButtons(WithChange:logic):void =
+    # and the player can't move; CLOSE hands control back. Again (boss mode's win board): PLAY AGAIN in CLOSE's place.
+    ShowFinishButtons(WithChange:logic, Again:logic):void =
         ChangeSkillButton.SetVisibility(if (WithChange?) then widget_visibility.Visible else widget_visibility.Collapsed)
+        CloseButton.SetVisibility(if (Again?) then widget_visibility.Collapsed else widget_visibility.Visible)
+        AgainButton.SetVisibility(if (Again?) then widget_visibility.Visible else widget_visibility.Collapsed)
         if (not ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):
             PlayerUI.AddWidget(ChangeRoot, player_ui_slot{ZOrder := 4, InputMode := ui_input_mode.All})
             set ChangeShown = true
-            PlayerUI.SetFocus(CloseButton)
+            if (Again?) then PlayerUI.SetFocus(AgainButton) else PlayerUI.SetFocus(CloseButton)
 
     HideFinishButtons():void =
         if (ChangeShown?, PlayerUI := MaybePlayerUI?, ChangeRoot := MaybeChangeRoot?):

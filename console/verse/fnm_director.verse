@@ -16,7 +16,11 @@
 # best); otherwise the next run keeps the skill. Guards ignore a player who is picking.
 # Test hooks (all @editable, ship values in brackets): DebugAutoPick (-1) picks Cartridges[N] on join with no menu,
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
-# (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0).
+# (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0),
+# DebugAutoBoss (false: a joining player starts BOSS BATTLE with no menu, wins over DebugAutoPick), DebugBossLevel (0: boss
+# mode starts at that level, a Partial run).
+# BOSS BATTLE mode (BOSS_MODE.md, fnm_bossmode.verse): a player whose Mode is Boss plays in the fnm_bm arena; their pads,
+# perches, respawns and finish go to BossMode. Race code paths ignore them (StationOccupied, WatchDoors/Skip/Ice).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
 # backstop (WatchDoors) answers for a player who stands anywhere in a door's vestibule when no trigger event was taken.
 # Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
@@ -102,6 +106,9 @@ fnm_arena := class:
     Boss : ?guard_spawner_device
     Adds : ?guard_spawner_device
 
+# Which game a player is playing: the race course, or BOSS BATTLE mode (fnm_bossmode.verse).
+fnm_mode := enum{Race, Boss}
+
 # Everything the director knows about one player's run.
 fnm_player_state := class:
     Player : player
@@ -173,6 +180,16 @@ fnm_player_state := class:
     var BossShown : logic = false
     # Pickup pads: when each pad (by index) last granted this player its item (OnPad).
     var PadGrants : [int]float = map{}
+    # Boss battle mode (fnm_bossmode.verse): the mode, the fight's level as this player last saw it, eliminations this
+    # run, right answers this run, one shuffled deck per cartridge per tier, the levels whose weapon they took, and their
+    # best boss-mode time (-1 = none).
+    var Mode : fnm_mode = fnm_mode.Race
+    var Level : int = 0
+    var Deaths : int = 0
+    var Answered : int = 0
+    var BmDecks : [][][]int = array{}
+    var TakenLevels : [int]logic = map{}
+    var BossBest : float = -1.0
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
 fnm_door_handler := class:
@@ -324,6 +341,24 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # prove the skip guard (WatchSkip) sends them back to station 1. false = off (ship value).
     @editable
     DebugSkipTest : logic = false
+    # Test hook: each joining player starts BOSS BATTLE mode at once, with no menu (wins over DebugAutoPick; also after
+    # CHANGE SKILL). With DebugAutoRightAnswers the run is played to the victory (DebugBossModeRun). false = ship value.
+    @editable
+    DebugAutoBoss : logic = false
+    # Test hook: boss mode's first start begins at this level (2..5; the run is Partial: never saved or boarded). 0 =
+    # level 1 (ship value).
+    @editable
+    DebugBossLevel : int = 0
+    # Boss mode: seconds from a level's clear to the next level's summon; the summon's length (its timeline scales to it);
+    # how long the MEGA NUKE verdict stays up.
+    @editable
+    BmRespawnSeconds : float = 4.0
+    @editable
+    BmSummonSeconds : float = 5.0
+    @editable
+    NukeSeconds : float = 2.5
+    # The session board key for boss-mode times (Boards is keyed by cartridge index; no slot holds 9999 cartridges).
+    BossBoardKey : int = 9999
 
     # Where a moved player lands, relative to the target teleporter pad (cm, world axes; the course runs
     # toward +Y, doors ahead). Landing ON the pad left a player sunk into its collision (2026-10-03
@@ -478,10 +513,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # or get knocked back"): the muzzle VFX spawners, the strike VFX spawner moved onto the boss, the explosive devices
     # parked under the platform (one per hit, round robin). How long the flash and strike stay on; the announcer's delay
     # after the bang for the hit count and for BOSS DOWN.
-    var CannonFx : []vfx_spawner_device = array{}
-    var StrikeFx : ?vfx_spawner_device = false
-    var StrikeHome : ?transform = false
-    var BlastRig : fnm_rig = fnm_rig{Name := "blast", Parts := array{}, Homes := array{}}
+    var RaceRig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "blast", Parts := array{}, Homes := array{}}, Nuke := false}
+    # BOSS BATTLE mode (fnm_bossmode.verse), when the map has its arena (an fnm_bm entry teleporter).
+    var BossMode : ?fnm_boss_mode = false
     CannonFlashSeconds : float = 1.2
     HitVoiceDelaySeconds : float = 0.9
     BossDownVoiceDelaySeconds : float = 1.0
@@ -513,6 +547,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (Each : Cartridges, Each.Tiers.Length = 0):
             Print("FNM: cartridge {Each.Id} has no tiers")
         set Arena = BuildArena()
+        BuildBossMode()
         set Stations = BuildStations()
         set Hallways = BuildHallways()
         Print("FNM: {Hallways.Length} hallways for the skip guard")
@@ -520,6 +555,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set IceRig = BuildRig("ice", fnm_ice)
         set SpikeRig = BuildRig("spike", fnm_spike)
         set YeetRig = BuildRig("yeet", fnm_yeet)
+        var CannonFx : []vfx_spawner_device = array{}
+        var StrikeFx : ?vfx_spawner_device = false
+        var StrikeHome : ?transform = false
         for (Object : FindCreativeObjectsWithTag(fnm_cannon_fx), Device := vfx_spawner_device[Object]):
             Device.Disable()
             set CannonFx += array{Device}
@@ -527,7 +565,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Device.Disable()
             set StrikeFx = option{Device}
             set StrikeHome = option{Device.GetTransform()}
-        set BlastRig = BuildRig("blast", fnm_cannon_blast)
+        BlastRig := BuildRig("blast", fnm_cannon_blast)
+        set RaceRig = fnm_cannon_rig{Fx := CannonFx, Strike := StrikeFx, StrikeHome := StrikeHome, Blasts := BlastRig, Nuke := false}
         Print("FNM: cannons: {CannonFx.Length} muzzles, strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts")
         for (Object : FindCreativeObjectsWithTag(fnm_pickup), Trigger := trigger_device[Object]):
             Handler := fnm_pad_handler{Director := Self, Index := PadCount, Kind := ItemKind(Object)}
@@ -697,6 +736,41 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: arena: none (no fnm_boss entry teleporter)")
             false
 
+    # BOSS BATTLE mode from its tags (fnm_bossmode.verse): the fnm_bm entry and pads read like a station; the boss mode
+    # finds the rest itself. Its pads and perches answer through their handlers; its two loops run for the whole game.
+    BuildBossMode():void =
+        Parts := FindStationParts(fnm_bm)
+        if (Entry := Parts(0)?):
+            Station := fnm_station{Doors := Parts(1), Passages := array{}, RetryTeleporter := Entry, NextTeleporter := Entry, DifficultyOverride := -1}
+            BM := fnm_boss_mode{Director := Self, Arena := fnm_bm_arena{Station := Station}}
+            BM.Build()
+            for (DoorIndex -> Pad : Station.Doors):
+                Pad.TriggeredEvent.Subscribe(fnm_bm_pad_handler{Director := Self, DoorIndex := DoorIndex}.OnTriggered)
+            for (K -> MaybeTrigger : BM.Arena.PerchTriggers, Trigger := MaybeTrigger?):
+                Trigger.TriggeredEvent.Subscribe(fnm_bm_perch_handler{Director := Self, Perch := K + 1}.OnTriggered)
+            set BossMode = option{BM}
+            spawn{ BM.SpawnLoop() }
+            spawn{ BM.BossLoop() }
+        else:
+            Print("FNM: boss mode: none (no fnm_bm entry teleporter)")
+
+    # A boss-mode pad: answered like OnDoor (one at a time per player, on the trigger event only: no position backstop).
+    OnBmPad(MaybeAgent:?agent, DoorIndex:int):void =
+        if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor], BM := BossMode?):
+            if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Busy?, not State.Picking?, State.CurrentItem >= 0):
+                set State.Busy = true
+                set State.LastAccept = GetSimulationElapsedTime()
+                spawn{ BM.OnPad(State, DoorIndex) }
+
+    # A boss-mode perch's hidden trigger (1..4).
+    OnBmPerch(MaybeAgent:?agent, Perch:int):void =
+        if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor], BM := BossMode?):
+            BM.OnPerch(State, Perch)
+
+    # The station a player answers at: the boss-mode arena in boss mode, else StationFor their stage.
+    StationOf(State:fnm_player_state)<transacts>:?fnm_station =
+        if (State.Mode = fnm_mode.Boss, BM := BossMode?) then option{BM.Arena.Station} else StationFor(State.Stage)
+
     # The station played at stage Stage: Stations[Stage - 1], or the arena's at stage Stations.Length + 1.
     StationFor(Stage:int)<transacts>:?fnm_station =
         if (Station := Stations[Stage - 1]) then option{Station}
@@ -781,8 +855,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # True while any player still racing is on stage Index + 1 (in that station's hallway).
     StationOccupied(Index:int):logic =
         var Found : logic = false
-        # A player choosing a skill is held still at station 1: no guards for them.
-        for (State : PlayerStates, not State.Finished?, not State.Picking?, State.Stage = Index + 1):
+        # A player choosing a skill is held still at station 1: no guards for them. Boss-mode players are in their own arena.
+        for (State : PlayerStates, State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, State.Stage = Index + 1):
             set Found = true
         Found
 
@@ -835,6 +909,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     Respawned(State:fnm_player_state):void =
         WideCamera(State.Player, false)
+        # A boss-mode player comes back at that arena's entry (counted there).
+        if (State.Mode = fnm_mode.Boss, BM := BossMode?):
+            BM.Respawned(State)
+            return
         # An arena-stage player (the boss's AR, an add) comes back at the arena's entry.
         Stage := Min(State.Stage, Stations.Length + (if (Arena?) then 1 else 0))
         if (Station := StationFor(Stage)?):
@@ -869,6 +947,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     OnPlayerRemoved(Departed:player):void =
         if (State := PlayerStates[Departed]):
+            if (BM := BossMode?) then BM.Leave(State)
             set State.Finished = true
         for (Station : Stations, MaybePassage : Station.Passages, Passage := MaybePassage?):
             Passage.RemoveFromIgnoreList(Departed)
@@ -929,23 +1008,27 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Grades += array{Each.Grade}
         Grades
 
-    # Picks for the player at once (DebugAutoPick, or a slot with one cartridge), else shows the picker: the grade
-    # step, or straight to the skill step when there is only one grade.
+    # Picks for the player at once (DebugAutoBoss starts boss mode; DebugAutoPick, or a slot with one cartridge), else
+    # shows the picker: the grade step (with BOSS BATTLE when the map has its arena), or straight to the skill step when
+    # there is only one grade and no boss mode.
     BeginPicking(State:fnm_player_state):void =
         set State.Picking = true
         SetMusic(State.Player, 0)
-        if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
+        if (DebugAutoBoss?, BM := BossMode?):
+            BM.Start(State)
+        else if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
             Pick(State, DebugAutoPick)
-        else if (Cartridges.Length = 1):
+        else if (Cartridges.Length = 1, not BossMode?):
             Pick(State, 0)
         else:
             if (DebugAutoPick >= 0):
                 Print("FNM: DebugAutoPick {DebugAutoPick} is out of range ({Cartridges.Length} cartridges); showing the picker")
             Grades := GradeList()
-            if (Grades.Length = 1, Only := Grades[0]):
+            WithBoss := if (BossMode?) then true else false
+            if (Grades.Length = 1, not WithBoss?, Only := Grades[0]):
                 ShowSkills(State, Only, false)
             else:
-                State.Hud.ShowGradeStep(Grades)
+                State.Hud.ShowGradeStep(Grades, WithBoss)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
             if (State.Picks = 0):
                 Sound(State.Player, fnm_cue.Choose)
@@ -972,8 +1055,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else if (Kind = fnm_pick.Close):
                 if (State.Finished?, not State.Picking?):
                     CloseResults(State)
+            else if (Kind = fnm_pick.Again):
+                # PLAY AGAIN on the boss-mode win board.
+                if (State.Finished?, not State.Picking?, State.Mode = fnm_mode.Boss, BM := BossMode?):
+                    State.Hud.HideResults()
+                    State.Hud.HideFinishButtons()
+                    Print("FNM: boss mode play again")
+                    BM.Start(State)
             else if (State.Picking?):
-                if (Kind = fnm_pick.Grade):
+                if (Kind = fnm_pick.Boss):
+                    if (BM := BossMode?):
+                        Print("FNM: boss battle chosen")
+                        BM.Start(State)
+                else if (Kind = fnm_pick.Grade):
                     Grades := GradeList()
                     if (Grade := Grades[Index]):
                         Print("FNM: grade {Grade} chosen")
@@ -982,7 +1076,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Pick(State, Index)
                 else:
                     Print("FNM: picker back")
-                    State.Hud.ShowGradeStep(GradeList())
+                    State.Hud.ShowGradeStep(GradeList(), if (BossMode?) then true else false)
 
     # Gives the player cartridge Index: its tiers, pools, fresh decks and title; then the first question, the
     # loadout and the countdown. The debug hooks start on the first pick (they read the player's cartridge live).
@@ -1036,6 +1130,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # CHANGE SKILL (finish board or podium): cancels any pending restart and resets the run; then the picker again,
     # from station 1. Best times stay with their skill (BestTimes; Pick restores the chosen skill's).
     ChangeSkill(State:fnm_player_state):void =
+        # Out of boss mode first (Mode back to Race, its boss line and banner off).
+        if (State.Mode = fnm_mode.Boss, BM := BossMode?):
+            BM.Leave(State)
+            State.Hud.ClearFeedbackNow()
         set State.RunGeneration += 1
         State.Hud.HideFinishButtons()
         State.Hud.HideResults()
@@ -1090,7 +1188,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
-            StageLine := if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}  -  step on the right answer pad" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
+            StageLine := if (State.Mode = fnm_mode.Boss) then "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}" else if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}  -  step on the right answer pad" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
             State.Hud.ShowQuestion(StageLine, Item.Prompt, Shown)
 
@@ -1117,7 +1215,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     OnDoor(MaybeAgent:?agent, StationIndex:int, DoorIndex:int):void =
         if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor]):
-            if (not State.Finished?, not State.Busy?, not State.Picking?):
+            if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Busy?, not State.Picking?):
                 if (StationIndex = State.Stage - 1):
                     set State.Busy = true
                     set State.LastAccept = GetSimulationElapsedTime()
@@ -1191,7 +1289,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     WatchDoors(State:fnm_player_state):void =
         Now := GetSimulationElapsedTime()
         var Inside : int = -1
-        if (not State.Finished?, not State.Picking?, State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+        if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Character := State.Player.GetFortCharacter[], Character.IsActive[]):
             Here := Character.GetTransform().Translation
             for (Index -> Door : Station.Doors):
                 Zone := Door.GetTransform()
@@ -1219,7 +1317,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # any other way round the doors) is sent back to their own station's entry with a NO SKIPPING! flash. Not while
     # a penalty moves them about (Busy), and never for a hallway at or behind their stage: walking back is harmless.
     WatchSkip(State:fnm_player_state):void =
-        if (not State.Finished?, not State.Picking?, not State.Busy?, State.CurrentItem >= 0, Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+        if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, not State.Busy?, State.CurrentItem >= 0, Character := State.Player.GetFortCharacter[], Character.IsActive[]):
             Hallway := HallwayAt(Character.GetTransform().Translation)
             if (Hallway + 1 > State.Stage, Station := StationFor(State.Stage)?):
                 Print("FNM: skip guard: stage {State.Stage} player found in hallway {Hallway + 1}, sent back")
@@ -1265,13 +1363,20 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: debug auto-wrong {N}")
                 Wrong := if (AnswerDoor(State) = 0) then 1 else 0
                 # Stand them in that door's vestibule, where a real wrong answer happens.
-                if (Station := StationFor(State.Stage)?, Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
+                if (Station := StationOf(State)?, Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
                     if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                     Sleep(1.0)
-                HandleDoor(State, State.Stage - 1, Wrong)
+                if (State.Mode = fnm_mode.Boss, BM := BossMode?):
+                    BM.OnPad(State, Wrong)
+                else:
+                    HandleDoor(State, State.Stage - 1, Wrong)
 
     DebugAutoRight(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
+        # Boss battle mode has its own run (BOSS_MODE.md section 8).
+        if (State.Mode = fnm_mode.Boss):
+            DebugBossModeRun(State)
+            return
         var Finishes : int = 0
         loop:
             # Two runs: after the first finish, wait out the board and the next countdown, then play run 2.
@@ -1339,6 +1444,41 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else:
                 break
         State.Finished
+
+    # DebugAutoRightAnswers in boss mode: 8 s after the start, drops the player onto the right pad every 5 s (waiting up to
+    # 12 s for a boss), until the victory, three pads in a row that moved no hit, or 40 pads.
+    DebugBossModeRun(State:fnm_player_state)<suspends>:void =
+        Sleep(8.0)
+        var Pads : int = 0
+        var Misses : int = 0
+        if (BM := BossMode?):
+            loop:
+                if (State.Finished? or State.Mode <> fnm_mode.Boss) then break
+                if (Pads >= 40):
+                    Print("FNM: debug boss mode cap reached ({Pads} pads) at level {BM.Level}")
+                    break
+                if (Misses >= 3):
+                    Print("FNM: debug boss mode stuck at level {BM.Level}")
+                    break
+                var Waited : float = 0.0
+                loop:
+                    if (BM.BossAlive? or Waited >= 12.0) then break
+                    Sleep(0.5)
+                    set Waited += 0.5
+                Answer := AnswerDoor(State)
+                if (State.CurrentItem >= 0, Pad := BM.Arena.Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
+                    set Pads += 1
+                    Before := State.Hits
+                    Print("FNM: debug boss mode pad {Pads} {FnmChoiceLetter(Answer)} (level {BM.Level}, boss up {FnmYesNo(BM.BossAlive)})")
+                    if (Character.TeleportTo[Pad.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                    Sleep(5.0)
+                    if (State.Hits > Before):
+                        set Misses = 0
+                    else:
+                        set Misses += 1
+                else:
+                    break
+        Print("FNM: debug boss mode done: victory={FnmYesNo(State.Finished)} level={State.Level}")
 
     DebugDoor(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
@@ -1648,7 +1788,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var OwnRow : int = -1
         for (K -> Row : Board, Row.Who = State.Player):
             set OwnRow = K
-        State.Hud.ShowResults(Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
+        State.Hud.ShowResults("FINISH!", Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
             RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}",
             "TOP TIMES THIS SESSION  -  {State.Cartridge.Title}", Rows, OwnRow)
         Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize}) for {State.Cartridge.Id}")
@@ -1664,7 +1804,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             ShowHall(Skill)
             if (NewRaceButtons.Length = 0):
                 # No podium: the board's own buttons (they hold the player still) and the automatic restart.
-                State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false)
+                State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false, false)
                 spawn{ NextRun(State) }
             else:
                 # A podium: the board captures no input, so the player walks on into the victory area at once (Aaron
@@ -1961,7 +2101,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     WatchIce(State:fnm_player_state):void =
         var Inside : logic = false
-        for (Zone : IceZones, Zone.IsInVolume[State.Player]):
+        # (A boss-mode player is never on ice: no ice zone in that arena.)
+        for (Zone : IceZones, State.Mode = fnm_mode.Race, Zone.IsInVolume[State.Player]):
             set Inside = true
         SetIce(State, Inside)
 
@@ -2060,7 +2201,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # Back to the entry first, facing the boss: the show plays out ahead of them, and the blast cannot catch them.
         SendTo(State.Player, A.Station.RetryTeleporter)
         if (Character := Target?):
-            spawn{ FireCannons(State.Player, Character, Stood, Left) }
+            spawn{ FireCannons(RaceRig, State.Player, Character, Stood, Left, false) }
         if (not State.Finished?):
             DrawItem(State)
             ShowCurrent(State)
@@ -2188,7 +2329,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (Fighters = 0, AddsUp?, Adds := A.Adds?):
                     Adds.Disable()
                     set AddsUp = false
-                for (State : PlayerStates):
+                # (Boss-mode players' boss line is fnm_boss_mode BossLoop's.)
+                for (State : PlayerStates, State.Mode = fnm_mode.Race):
                     if (AtArena(State)?, not State.Finished?, not State.Picking?):
                         State.Hud.SetBoss(BossLine(State))
                         set State.BossShown = true
@@ -2202,7 +2344,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # and a blast go off at the boss's feet (At: where it stood as the hit landed; a fort_character's position is its
     # capsule centre, ~77 cm up), and the boss is knocked back and stunned (KnockBoss). CannonFlashSeconds later the
     # effects are off again, the strike is back at its parked spot and the blast parks under the platform.
-    FireCannons(Shooter:player, Character:fort_character, At:vector3, Left:int)<suspends>:void =
+    # Rig: the race arena's (RaceRig) or boss mode's. Nuke (boss mode's MEGA NUKE): also the nuke VFX at the feet, a
+    # second blast, and a white flash on the screen of every boss-mode player.
+    FireCannons(Rig:fnm_cannon_rig, Shooter:player, Character:fort_character, At:vector3, Left:int, Nuke:logic)<suspends>:void =
+        CannonFx := Rig.Fx
+        StrikeFx := Rig.Strike
+        StrikeHome := Rig.StrikeHome
+        BlastRig := Rig.Blasts
         Feet := At + vector3{X := 0.0, Y := 0.0, Z := -77.0}
         Level := MakeRotationFromYawPitchRollDegrees(0.0, 0.0, 0.0)
         for (Fx : CannonFx):
@@ -2217,6 +2365,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Part.TeleportTo[Feet, Level]) {}
             Bomb.Explode(Shooter)
         Print("FNM: cannons fired ({CannonFx.Length} muzzles, blast {Blast}) at {Feet}, {Left} hits to go")
+        var Second : int = -1
+        if (Nuke?):
+            if (Fx := Rig.Nuke?, Fx.TeleportTo[Feet, Level]):
+                Fx.Enable()
+                Fx.Restart()
+            set Second = BlastRig.NextIndex()
+            if (Second <> Blast, Part := BlastRig.PartAt[Second], Bomb := explosive_device[Part]):
+                Bomb.Reset()
+                if (Part.TeleportTo[Feet, Level]) {}
+                Bomb.Explode(Shooter)
+            for (State : PlayerStates, State.Mode = fnm_mode.Boss, not State.Picking?):
+                spawn{ State.Hud.Flash(0.5) }
+            Print("FNM: mega nuke at {Feet} (nuke fx {FnmYesNo(if (Rig.Nuke?) then true else false)}, second blast {Second})")
         spawn{ KnockBoss(Character) }
         Sleep(CannonFlashSeconds)
         for (Fx : CannonFx):
@@ -2225,6 +2386,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Fx.Disable()
             if (Home := StrikeHome?, Fx.TeleportTo[Home]) {}
         BlastRig.Park(Blast)
+        if (Nuke?):
+            if (Fx := Rig.Nuke?):
+                Fx.Disable()
+            if (Second <> Blast) then BlastRig.Park(Second)
 
     # Knocks the boss back along +Y (away from the entry) and up, then freezes it for a beat. An NPC may ignore the
     # impulse the way players do (uefn-mcp skill: "physics disabled"); if it moved under 30 cm it is staggered back
@@ -2361,7 +2526,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 return fnm_race_entry{Who := Who, Score := 4000000.0, Tail := "picking"}
             if (State.Finished?, State.LastTime >= 0.0):
                 return fnm_race_entry{Who := Who, Score := State.LastTime, Tail := "FIN {FnmClock(State.LastTime)}"}
-            Elapsed := if (State.StartTime >= 0.0) then Now - State.StartTime else 0.0
+            # Boss battle mode: after the finishers, before the racers, higher levels first.
+            if (State.Mode = fnm_mode.Boss):
+                return fnm_race_entry{Who := Who, Score := 900000.0 + (10 - State.Level) * 1000.0, Tail := "BOSS L{State.Level}"}
+            Elapsed :=if (State.StartTime >= 0.0) then Now - State.StartTime else 0.0
             Stage := Max(1, Min(State.Stage, Stations.Length))
             return fnm_race_entry{Who := Who, Score := 1000000.0 + (Stations.Length + 1 - Stage) * 100000.0 + Min(Elapsed, 99999.0), Tail := "station {Stage}"}
         fnm_race_entry{Who := Who, Score := 5000000.0, Tail := "lobby"}
@@ -2427,10 +2595,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (A := Audio?):
             A.SetMusic(Player, Tier)
 
-    # The bed for the tier of the player's current station.
+    # The bed for the tier of the player's current station (boss mode: the bed of the fight's level).
     Music(State:fnm_player_state):void =
         if (not State.Finished?, not State.Picking?):
-            SetMusic(State.Player, StationTier(State, State.Stage))
+            if (State.Mode = fnm_mode.Boss) then SetMusic(State.Player, Clamp(State.Level, 1, 5)) else SetMusic(State.Player, StationTier(State, State.Stage))
 
     # The finish fanfare, spaced FinishCueGapSeconds apart: the finish, then a new island record or else a new personal
     # best, then the medal, then PERFECT when every answer was right first try.

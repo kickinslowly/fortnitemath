@@ -35,7 +35,9 @@ WALL_COLOURS = {"tier1": (0.30, 0.75, 0.40), "tier2": (0.25, 0.50, 0.90), "tier3
                 # the boss arena's answer pad tiles, A..D in build_course.LETTER_COLOURS
                 "pad_a": (1.0, 1.0, 1.0), "pad_b": (0.3, 0.55, 1.0), "pad_c": (0.2, 0.9, 0.3), "pad_d": (1.0, 0.55, 0.1),
                 # the arena's laser cannons (tools/build_cannon.py): gunmetal bodies, a glowing muzzle ring
-                "steel": (0.16, 0.18, 0.22), "glow": (0.25, 0.95, 1.0)}
+                "steel": (0.16, 0.18, 0.22), "glow": (0.25, 0.95, 1.0),
+                # the boss battle arena (tools/build_bossmode.py): dark walls, a lighter floor, gold perches
+                "bm_wall": (0.12, 0.10, 0.14), "bm_floor": (0.22, 0.20, 0.24), "bm_perch": (1.0, 0.8, 0.1)}
 
 
 def mount():

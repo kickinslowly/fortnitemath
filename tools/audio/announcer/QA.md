@@ -6,9 +6,9 @@ Limiter dB = how far the line's peak sat above -1 dBFS before the limiter (highe
 
 | voice | lines | median dur s | total s | LUFS spread | median limiter dB | flags |
 |---|---|---|---|---|---|---|
-| am_michael | 37 | 1.14 | 46.4 | -13.2 to -12.9 | 2.9 | 0 |
-| am_onyx | 37 | 1.23 | 48.6 | -13.2 to -12.9 | 2.6 | 0 |
-| bm_george | 37 | 1.35 | 53.8 | -13.2 to -11.9 | 0.1 | 0 |
+| am_michael | 53 | 1.24 | 72.6 | -13.2 to -12.9 | 2.9 | 0 |
+| am_onyx | 53 | 1.31 | 76.9 | -13.2 to -12.9 | 2.5 | 0 |
+| bm_george | 53 | 1.43 | 83.8 | -13.2 to -11.9 | 0.1 | 0 |
 
 ## Recommendation: am_michael
 
@@ -70,6 +70,22 @@ Median -13.2 LUFS; spread -13.2 to -12.9.
 | hits_left2 | Direct hit! Two to go! | 1.88 | 3 | -1.00 | -13.2 | 4.0 |  |
 | hits_left1 | Direct hit! One more hit! | 2.12 | 3 | -1.00 | -13.2 | 4.6 |  |
 | boss_down | BOSS DOWN! | 1.41 | 2 | -1.00 | -13.2 | 2.9 |  |
+| bm_start | Boss battle! | 1.22 | 2 | -1.00 | -13.2 | 1.8 |  |
+| bm_level2 | Level two! | 1.20 | 2 | -1.00 | -13.0 | 4.1 |  |
+| bm_level3 | Level three! | 1.22 | 2 | -1.00 | -13.2 | 4.6 |  |
+| bm_level4 | Level four! | 1.21 | 2 | -1.00 | -13.2 | 4.0 |  |
+| bm_level5 | Final level! | 1.28 | 2 | -1.00 | -13.2 | 3.9 |  |
+| bm_mega_nuke | MEGA NUKE! | 1.32 | 2 | -1.00 | -13.2 | 3.1 |  |
+| bm_level_clear | Level cleared! | 1.32 | 2 | -1.00 | -13.2 | 4.7 |  |
+| bm_victory | VICTORY! Boss defeated! | 2.11 | 3 | -1.00 | -13.2 | 4.2 |  |
+| bm_boss_l1 | You dare challenge ME?! | 2.12 | 3 | -1.00 | -13.2 | 1.3 |  |
+| bm_boss_l2 | Minions! GET THEM! | 1.95 | 3 | -1.00 | -13.0 | 2.7 |  |
+| bm_boss_l3 | Is that all you've got?! | 2.27 | 3 | -1.00 | -13.0 | 2.5 |  |
+| bm_boss_l4 | Now I'm ANGRY! | 1.79 | 2 | -1.00 | -13.1 | 2.5 |  |
+| bm_boss_l5 | NO MORE GAMES! EVERYONE, ATTACK! | 3.31 | 4 | -1.00 | -13.0 | 3.4 |  |
+| bm_boss_wrong | HA! WRONG! | 1.45 | 2 | -1.00 | -12.9 | 1.4 |  |
+| bm_boss_hit | ARGH! | 1.16 | 2 | -1.00 | -13.2 | 3.1 |  |
+| bm_boss_dead | NOOOOO! | 1.25 | 3 | -1.00 | -12.9 | 0.4 |  |
 
 ## am_onyx
 
@@ -114,10 +130,26 @@ Median -13.1 LUFS; spread -13.2 to -12.9.
 | hits_left2 | Direct hit! Two to go! | 1.96 | 3 | -1.00 | -13.1 | 4.8 |  |
 | hits_left1 | Direct hit! One more hit! | 2.04 | 3 | -1.00 | -13.1 | 3.3 |  |
 | boss_down | BOSS DOWN! | 1.49 | 2 | -1.00 | -13.1 | 3.7 |  |
+| bm_start | Boss battle! | 1.38 | 2 | -1.00 | -13.2 | 4.9 |  |
+| bm_level2 | Level two! | 1.12 | 2 | -1.00 | -13.1 | 2.9 |  |
+| bm_level3 | Level three! | 1.27 | 2 | -1.00 | -13.2 | 3.3 |  |
+| bm_level4 | Level four! | 1.20 | 2 | -1.00 | -13.1 | 3.4 |  |
+| bm_level5 | Final level! | 1.41 | 2 | -1.00 | -13.1 | 1.9 |  |
+| bm_mega_nuke | MEGA NUKE! | 1.35 | 2 | -1.00 | -13.2 | 3.1 |  |
+| bm_level_clear | Level cleared! | 1.33 | 2 | -1.00 | -13.1 | 2.5 |  |
+| bm_victory | VICTORY! Boss defeated! | 2.36 | 3 | -1.00 | -13.2 | 4.0 |  |
+| bm_boss_l1 | You dare challenge ME?! | 2.73 | 3 | -1.00 | -13.1 | 0.4 |  |
+| bm_boss_l2 | Minions! GET THEM! | 2.44 | 3 | -1.00 | -13.2 | 0.2 |  |
+| bm_boss_l3 | Is that all you've got?! | 2.10 | 3 | -1.00 | -13.0 | 1.1 |  |
+| bm_boss_l4 | Now I'm ANGRY! | 1.96 | 2 | -1.00 | -12.9 | 0.6 |  |
+| bm_boss_l5 | NO MORE GAMES! EVERYONE, ATTACK! | 3.56 | 4 | -1.00 | -13.1 | 0.5 |  |
+| bm_boss_wrong | HA! WRONG! | 1.64 | 2 | -1.00 | -13.2 | 0.0 |  |
+| bm_boss_hit | ARGH! | 1.17 | 2 | -1.00 | -13.2 | 1.3 |  |
+| bm_boss_dead | NOOOOO! | 1.22 | 3 | -1.00 | -13.0 | 0.7 |  |
 
 ## bm_george
 
-Median -13.0 LUFS; spread -13.2 to -11.9.
+Median -13.1 LUFS; spread -13.2 to -11.9.
 
 | cue | text | dur s | cap | peak dBFS | LUFS | limiter dB | flag |
 |---|---|---|---|---|---|---|---|
@@ -158,4 +190,20 @@ Median -13.0 LUFS; spread -13.2 to -11.9.
 | hits_left2 | Direct hit! Two to go! | 2.33 | 3 | -1.00 | -13.2 | 1.4 |  |
 | hits_left1 | Direct hit! One more hit! | 2.50 | 3 | -1.00 | -12.9 | 1.2 |  |
 | boss_down | BOSS DOWN! | 1.48 | 2 | -1.00 | -13.2 | 0.4 |  |
+| bm_start | Boss battle! | 1.48 | 2 | -1.00 | -13.2 | 0.2 |  |
+| bm_level2 | Level two! | 1.33 | 2 | -1.00 | -13.1 | 0.0 |  |
+| bm_level3 | Level three! | 1.33 | 2 | -1.00 | -13.1 | 0.2 |  |
+| bm_level4 | Level four! | 1.37 | 2 | -1.00 | -13.1 | 0.1 |  |
+| bm_level5 | Final level! | 1.40 | 2 | -1.00 | -12.9 | 1.4 |  |
+| bm_mega_nuke | MEGA NUKE! | 1.57 | 2 | -1.00 | -13.2 | 1.7 |  |
+| bm_level_clear | Level cleared! | 1.52 | 2 | -1.00 | -13.2 | 0.8 |  |
+| bm_victory | VICTORY! Boss defeated! | 2.37 | 3 | -1.00 | -13.2 | 1.2 |  |
+| bm_boss_l1 | You dare challenge ME?! | 2.44 | 3 | -1.00 | -11.9 | 0.0 |  |
+| bm_boss_l2 | Minions! GET THEM! | 2.35 | 3 | -1.00 | -13.1 | 0.1 |  |
+| bm_boss_l3 | Is that all you've got?! | 2.55 | 3 | -1.00 | -12.7 | 0.0 |  |
+| bm_boss_l4 | Now I'm ANGRY! | 1.94 | 2 | -1.00 | -13.1 | 0.6 |  |
+| bm_boss_l5 | NO MORE GAMES! EVERYONE, ATTACK! | 3.81 | 4 | -1.00 | -13.0 | 1.2 |  |
+| bm_boss_wrong | HA! WRONG! | 1.77 | 2 | -1.00 | -12.6 | 0.0 |  |
+| bm_boss_hit | ARGH! | 1.34 | 2 | -1.00 | -12.7 | 0.0 |  |
+| bm_boss_dead | NOOOOO! | 1.47 | 3 | -1.00 | -12.3 | 0.0 |  |
 

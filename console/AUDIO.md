@@ -59,10 +59,25 @@ it was offered (below).
 | `boss_fight` | a player enters the boss arena (`EnterArena`) | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
 | `boss_hit` | a right pad hits the boss (`BossHit`) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01 | 3.97 |
 | `boss_dead` | the boss goes down, for every player in the arena (`BossDown`) | Gadgets/Radio/Stingers/BlackMonday/Stinger_BlackMonday_Win_01 | 6.14 |
+| `bm_start` | Boss Battle starts, level-1 summon (`Summon(1)`), as `boss_fight` | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
+| `bm_level2` .. `bm_level5` | level 2..5 summon (`Summon(L)`) | Modes/Match/Match_Round_Change_01 | 2.31 |
+| `bm_boss_l1` .. `bm_boss_l5` | the boss's line at +1.5 s of the level's summon (`Summon(L)`) | none: voice only (`BOSS_CUES`) | - |
+| `bm_boss_wrong` | wrong pad, +0.9 s (`OnBmPad`, wrong) | none: voice only | - |
+| `bm_boss_hit` | right pad, +0.4 s, not on the killing hit (`OnBmPad`, correct) | none: voice only | - |
+| `bm_boss_dead` | final kill, +0.5 s (`OnBmPad`, boss dead) | none: voice only | - |
+| `bm_nuke` | right pad, at once (`OnBmPad`) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01 | 3.97 |
+| `bm_mega_nuke` | right pad, +0.9 s when Left is above 4 or 0 (`OnBmPad`; else the `hits_left` line) | none: voice only (announcer) | - |
+| `bm_level_clear` | level clear | Gadgets/Radio/Stingers/Stinger_Success_03 | 3.09 |
+| `bm_victory` | victory (`Victory`) | Modes/Match/Match_Win_01_Cue | 3.93 |
+| `bm_gates` | the gates open at a summon (`Summon(L)`, +2.5 s) | Gadgets/SlidingDoor/SlidingDoor_Open_Cue | 1.57 |
+| `bm_weapon` | a weapon is granted on a perch (`OnBmPerch`) | Toys/PowerUp/Creative_PowerUp_Collect_Cue | as `streak4` |
 | `music_t1` .. `music_t5` | music bed per station tier: on at GO, swapped when the tier changes, off at the finish and while the picker is up | Gadgets/Radio/Music_Loops: Music_StW_Ambient_Morning01, _Medium_Exploration01, _Low_Combat01, _High_Action01, _High_Combat01 | loop |
 
-The Sound column is the stock sound. With `--announcer <voice>` the 23 `ANNOUNCER_CUES` carry a voice line instead
-(next section).
+The Sound column is the stock sound. With `--announcer <voice>` the 31 `ANNOUNCER_CUES` carry a voice line instead,
+and with `--boss-voice <voice>` the 8 `BOSS_CUES` (`bm_boss_*`) carry the boss's (next section). The 19 `bm_*` rows
+are Boss Battle mode (BOSS_MODE.md section 10); their stock paths reuse sounds that already passed validation under other
+cue ids, except `bm_gates` / `bm_weapon` / `bm_nuke` / `bm_level2..5`, which reuse the paths of `door_open` / `streak4` /
+`boss_hit` / `medal_bronze` (not yet re-probed as new cues).
 
 Refused by island validation on 2026-10-07 (`UEFNValidation: Error: ... illegally references`, the session never
 starts; `find_assets` lists them all the same): Rocket Racing (`/DelMarUI`, `/DelMarCosmetics`), `/FNGameplayCues`,
@@ -74,7 +89,7 @@ window, found with the uefn-mcp skill's `gui_windows.ps1`), no focus needed. The
 
 ## Announcer
 
-The voice pack (`tools/audio/announcer/<voice>/<cue>.wav`, 31 lines, `tools/audio/README.md`) is imported once per UEFN
+The voice pack (`tools/audio/announcer/<voice>/<cue>.wav`, 53 lines, `tools/audio/README.md`) is imported once per UEFN
 project through the GUI, then `tools/build_audio.py --announcer <voice>` puts it on the devices. Live since 2026-10-07
 with `am_michael`.
 
@@ -90,6 +105,21 @@ these six have NO stock stand-in: an announcer-only cue is placed only once its 
 `finish`, the music beds and the three boss cues. The pack's `countdown1..3`, `correct`, `wrong`, `finish`, `boss_fight`
 and `lifeline` lines are imported but unused.
 
+**Boss voice (Boss Battle mode, 2026-10-09):** the eight `bm_boss_*` lines ("You dare challenge ME?!" ... "NOOOOO!") are
+a different character: they use the `boss` mastering profile in `tools/make_announcer.py` (the normal chain with a further
+18 % pitch drop, a tanh soft clip, a second compressor and the `big` echo; `tools/audio/README.md` "Mastering") and are
+wired by their own flag, `--boss-voice`, onto `BOSS_CUES`. The recommended boss voice is **am_onyx** (deepest of the three;
+all three are rendered). The eight announcer-style mode lines (`bm_start`, `bm_level2..5`, `bm_mega_nuke`,
+`bm_level_clear`, `bm_victory`) ride `ANNOUNCER_CUES` as usual (am_michael). Import both voices' folders the same way
+(`/<mount>/FNM_Audio/am_michael/` and `/<mount>/FNM_Audio/am_onyx/`; the import steps below are per folder, 16 new waves
+in each, or all 53 again), then:
+
+    python tools/build_audio.py --announcer am_michael --boss-voice am_onyx
+
+A boss line whose wave is not imported has no stock sound: the run says `NOT IMPORTED, not wired: ...` and the cue logs
+`(not wired)` in play. `--list` accepts a boss wave only on a `BOSS_CUES` device for the same cue id (source column `boss`).
+To pick another boss voice, pass it instead of `am_onyx` (`--boss-voice bm_george`) after importing that folder.
+
 **Boss hit timing (director):** `boss_hit` (the stock barrel explosion) at the pad, the counted line
 `HitVoiceDelaySeconds` (0.9 s) later (`FnmHitCue`: 4..1 hits to go get their own line, any other count "Direct hit!",
 nothing on the killing hit), then on the kill `boss_dead` and `boss_down` 1.0 s after it (`SoundAfter`, which plays even
@@ -98,6 +128,7 @@ though the player has just finished).
 **Commands:**
 
     python tools/build_audio.py --announcer am_michael   # rebuild every player; ANNOUNCER_CUES get the voice
+    python tools/build_audio.py --announcer am_michael --boss-voice am_onyx   # ... and BOSS_CUES get the boss voice
     python tools/build_audio.py                          # rebuild all stock again
     python tools/build_audio.py --list                   # source column: stock / announcer per device
 
@@ -120,8 +151,8 @@ headless route exists (a wav dropped into `Content/` is never picked up; `AssetT
 5. Click the File name box ((-1455, 472)), type the folder path, Enter (the dialog navigates there).
 6. Click the first file ((-1595, 160)), `Ctrl+A` (the File name box fills with the quoted list), click **Open**
    ((-1129, 502)).
-7. A progress box ("Importing ...") runs ~10 s; no import-options dialog for wav. The drawer shows 31 Sound Wave items.
-8. MCP: `AssetTools.find_assets` (folder `/<mount>/FNM_Audio`, class `/Script/Engine.SoundWave`) = 31, names = cue ids;
+7. A progress box ("Importing ...") runs ~10 s; no import-options dialog for wav. The drawer shows one Sound Wave item per wav in the folder (37 per voice before Boss Battle mode, 53 after).
+8. MCP: `AssetTools.find_assets` (folder `/<mount>/FNM_Audio`, class `/Script/Engine.SoundWave`) = the file count, names = cue ids;
    `save_assets` on them.
 
 ## Rewire a cue

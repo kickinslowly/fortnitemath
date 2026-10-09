@@ -77,29 +77,29 @@ def clear():
     return len(actors)
 
 
-def tagged(actor, label):
-    u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
+def tagged(actor, label, tag=TAG):
+    u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": tag})
     u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label})
     return actor
 
 
-def shape(asset, label, x, y, z, sx, sy, sz, pitch=0.0, yaw=0.0, material=None):
+def shape(asset, label, x, y, z, sx, sy, sz, pitch=0.0, yaw=0.0, material=None, tag=TAG):
     r = u.call(SCENE, "add_to_scene_from_asset", {
         "asset_path": asset, "name": label,
         "xform": {"location": {"x": x, "y": y, "z": z}, "rotation": {"pitch": pitch, "yaw": yaw, "roll": 0},
                   "scale": {"x": sx, "y": sy, "z": sz}}})
-    actor = tagged(r["returnValue"]["refPath"], label)
+    actor = tagged(r["returnValue"]["refPath"], label, tag)
     if material:
         comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": ["staticMeshComponent"]})["returnValue"])
         props(comp["staticMeshComponent"]["refPath"], {"overrideMaterials": [ref(material)]})
     return actor
 
 
-def device(asset, label, x, y, z, pitch=0.0, yaw=0.0, scale=1.0):
+def device(asset, label, x, y, z, pitch=0.0, yaw=0.0, scale=1.0, tag=TAG):
     r = u.call(DEV, "PlaceDevice", {"assetPath": ref(asset), "transform": {
         "location": {"x": x, "y": y, "z": z}, "rotation": {"pitch": pitch, "yaw": yaw, "roll": 0},
         "scale": {"x": scale, "y": scale, "z": scale}}})
-    return tagged(r["returnValue"]["refPath"], label)
+    return tagged(r["returnValue"]["refPath"], label, tag)
 
 
 def settings(actor, values, label):
@@ -133,28 +133,32 @@ def arena():
     return ox, oy, ztop, left["min"]["x"], right["max"]["x"], boss
 
 
-def cannon(side, face, oy, ztop, boss, project, steel, glow):
-    """One cannon on the wall whose inner face is at x = face (side L: +X wall, the player's left)."""
+def cannon(side, face, oy, ztop, boss, project, steel, glow, prefix="FNM_Cannon", fx_tag="fnm_cannon_fx",
+           cannon_y=CANNON_Y, tag=TAG):
+    """One cannon on the wall whose inner face is at x = face (side L: +X wall, the player's left), cannon_y past oy.
+    prefix / fx_tag / tag: labels, the muzzle's Verse tag and the actor tag (the boss battle arena's rig,
+    tools/build_bossmode.py, passes its own; the defaults are the race arena's)."""
     out = 1 if side == "L" else -1          # from the wall into the hall is -X on the left wall, +X on the right
     bd, bw, bt = BRACKET
-    cy = oy + CANNON_Y
+    cy = oy + cannon_y
     z = ztop + CANNON_Z
-    shape(CUBE, f"FNM_Cannon{side}_Bracket", face - out * bd / 2, cy, z - bt / 2, bd / 100, bw / 100, bt / 100, material=steel)
+    shape(CUBE, f"{prefix}{side}_Bracket", face - out * bd / 2, cy, z - bt / 2, bd / 100, bw / 100, bt / 100, material=steel,
+          tag=tag)
     ball = (face - out * CANNON_IN, cy, z + BALL_D / 2)
-    shape(SPHERE, f"FNM_Cannon{side}_Ball", *ball, BALL_D / 100, BALL_D / 100, BALL_D / 100, material=steel)
+    shape(SPHERE, f"{prefix}{side}_Ball", *ball, BALL_D / 100, BALL_D / 100, BALL_D / 100, material=steel, tag=tag)
     dx, dy, dz = boss[0] - ball[0], boss[1] - ball[1], boss[2] - ball[2]
     length = math.hypot(dx, dy, dz)
     d = (dx / length, dy / length, dz / length)
     pitch, yaw = aim(*d)
     along = lambda k: tuple(b + k * c for b, c in zip(ball, d))   # noqa: E731
-    shape(CYLINDER, f"FNM_Cannon{side}_Barrel", *along(BARREL_LEN / 2 + 10), BARREL_D / 100, BARREL_D / 100, BARREL_LEN / 100,
-          pitch, yaw, material=steel)
-    shape(CYLINDER, f"FNM_Cannon{side}_Ring", *along(BARREL_LEN + 10 - RING_LEN / 2), RING_D / 100, RING_D / 100, RING_LEN / 100,
-          pitch, yaw, material=glow)
+    shape(CYLINDER, f"{prefix}{side}_Barrel", *along(BARREL_LEN / 2 + 10), BARREL_D / 100, BARREL_D / 100, BARREL_LEN / 100,
+          pitch, yaw, material=steel, tag=tag)
+    shape(CYLINDER, f"{prefix}{side}_Ring", *along(BARREL_LEN + 10 - RING_LEN / 2), RING_D / 100, RING_D / 100, RING_LEN / 100,
+          pitch, yaw, material=glow, tag=tag)
     muzzle = along(BARREL_LEN + 30)
-    fx = device(VFX, f"FNM_Cannon{side}_Fx", *muzzle, pitch, yaw, FX_SCALE)
-    verse_tags(fx, project, ["fnm_cannon_fx"])     # tag first: the tag component rebuilds a device's sub-objects
-    settings(fx, MUZZLE_FX, f"Cannon{side}_Fx")
+    fx = device(VFX, f"{prefix}{side}_Fx", *muzzle, pitch, yaw, FX_SCALE, tag=tag)
+    verse_tags(fx, project, [fx_tag])     # tag first: the tag component rebuilds a device's sub-objects
+    settings(fx, MUZZLE_FX, f"{prefix[4:]}{side}_Fx")
     print(f"cannon {side}: ball at ({ball[0]:.0f}, {ball[1]:.0f}, {ball[2]:.0f}), muzzle at ({muzzle[0]:.0f}, {muzzle[1]:.0f}, "
           f"{muzzle[2]:.0f}), aimed pitch {pitch:.1f} yaw {yaw:.1f} over {length / 100:.1f} m")
 

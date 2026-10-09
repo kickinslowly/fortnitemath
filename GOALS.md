@@ -347,3 +347,14 @@ question per player on the HUD and make it read as a sign.
   wrong answers HALVED / PERIMETER / ADD_SIDES. Triangles in tier 2 still list a slanted side
 - [x] 5. Ceilings invisible (Aaron 2026-10-08 "glass top ... obscuring things"): lids hidden in editor and play, collision
   kept. Open: no Shockwave jump against the hidden lid seen in play yet
+
+## G8 — BOSS BATTLE mode (Aaron, 2026-10-09: "create new boss battle mode, as an option in beginning")
+Spec: `BOSS_MODE.md` (decisions, arena, levels, devices, Verse architecture, cues, acceptance). Briefs: `briefs/bossmode/`
+(B0 tags+cues serial, then B1 Verse / B2 arena tool / B3 assets in parallel, then B4 integration + headless playtest). Fable
+plans and audits; Opus builds; Sonnet does B3.
+- [ ] 1. B0 tags + cue enum compiled in the project
+- [ ] 2. B1 `fnm_bossmode.verse` + director/HUD routing, `tests/test_bossmode.py`
+- [ ] 3. B2 `tools/build_bossmode.py` arena placed and captured; probe answers in LAYOUT.md
+- [ ] 4. B3 16 voice lines x 3 voices, `fnm_banner.png` / `fnm_nuke.png`, 19 CUES rows, AUDIO.md
+- [ ] 5. B4 headless run to VICTORY seen in frames; race regression; wavs imported; ship defaults restored
+- [ ] 6. Aaron playtest; then the open list in BOSS_MODE.md section 13 (jump chain, creature spawner, by ear)

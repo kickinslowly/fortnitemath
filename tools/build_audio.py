@@ -15,6 +15,8 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
     python tools/build_audio.py                # (re)place every wired cue, save
     python tools/build_audio.py --announcer am_michael
                                                # the same, but ANNOUNCER_CUES carry that voice's imported SoundWave
+    python tools/build_audio.py --announcer am_michael --boss-voice am_onyx
+                                               # ... and BOSS_CUES (the boss's own lines) carry am_onyx's imported waves
     python tools/build_audio.py --list         # placed devices with their sound, its source (stock / announcer)
                                                # and the read-back options
     python tools/build_audio.py --probe Mud,Countdown_Go
@@ -37,6 +39,13 @@ ANNOUNCER_CUES = [
     "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy",
     "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose",
     "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down",
+    # Boss battle mode (BOSS_MODE.md section 10): the announcer lines (am_michael style).
+    "bm_start", "bm_level2", "bm_level3", "bm_level4", "bm_level5", "bm_mega_nuke", "bm_level_clear", "bm_victory",
+]
+# The boss's own lines (the deep "boss" mastering profile), put on their devices with --boss-voice <voice>; the
+# recommended voice is am_onyx. A separate list because it is a separate voice, wired separately.
+BOSS_CUES = [
+    "bm_boss_l1", "bm_boss_l2", "bm_boss_l3", "bm_boss_l4", "bm_boss_l5", "bm_boss_wrong", "bm_boss_hit", "bm_boss_dead",
 ]
 # The voice pack's SoundWaves, imported through the UEFN GUI (tools/audio/announcer/<voice>/<cue>.wav).
 VO_FOLDER = "FNM_Audio"
@@ -139,6 +148,27 @@ CUES = {
     "hits_left2": (None, {}),
     "hits_left1": (None, {}),
     "boss_down": (None, {}),
+    # Boss battle mode (BOSS_MODE.md section 10, same order as the fnm_cue enum). A voice-only cue (None) plays only once
+    # its wave is imported and wired (--announcer for the announcer lines, --boss-voice for bm_boss_*), else a logged no-op.
+    "bm_start": (f"{STING}/Stinger_Threat_01_Cue.Stinger_Threat_01_Cue", {}),        # as boss_fight
+    "bm_level2": (f"{CR}/Modes/Match/Match_Round_Change_01_Cue.Match_Round_Change_01_Cue", {}),
+    "bm_level3": (f"{CR}/Modes/Match/Match_Round_Change_01_Cue.Match_Round_Change_01_Cue", {}),
+    "bm_level4": (f"{CR}/Modes/Match/Match_Round_Change_01_Cue.Match_Round_Change_01_Cue", {}),
+    "bm_level5": (f"{CR}/Modes/Match/Match_Round_Change_01_Cue.Match_Round_Change_01_Cue", {}),
+    "bm_boss_l1": (None, {}),
+    "bm_boss_l2": (None, {}),
+    "bm_boss_l3": (None, {}),
+    "bm_boss_l4": (None, {}),
+    "bm_boss_l5": (None, {}),
+    "bm_boss_wrong": (None, {}),
+    "bm_boss_hit": (None, {}),
+    "bm_boss_dead": (None, {}),
+    "bm_nuke": (f"{CR}/Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01_Cue.ExplodingBarrel_Explode_01_Cue", {}),
+    "bm_mega_nuke": (None, {}),
+    "bm_level_clear": (f"{STING}/Stinger_Success_03_Cue.Stinger_Success_03_Cue", {}),
+    "bm_victory": (f"{CR}/Modes/Match/Match_Win_01_Cue.Match_Win_01_Cue", {}),
+    "bm_gates": (f"{CR}/Gadgets/SlidingDoor/SlidingDoor_Open_Cue.SlidingDoor_Open_Cue", {}),
+    "bm_weapon": (f"{TOYS}/PowerUp/Creative_PowerUp_Collect_Cue.Creative_PowerUp_Collect_Cue", {}),
 }
 
 READ_BACK = list(BASE) + ["audio"]
@@ -217,27 +247,31 @@ def is_vo(path, cue=None):
     return cue is None or parts[4] == f"{cue}.{cue}"
 
 
-def sources(project, voice):
-    """cue -> asset path to place: the stock CUES path, or for ANNOUNCER_CUES the voice's imported SoundWave when it
-    exists (a missing one keeps the stock sound, and is reported)."""
+def sources(project, voice, boss_voice=None):
+    """cue -> asset path to place: the stock CUES path, or for ANNOUNCER_CUES the voice's imported SoundWave (and for
+    BOSS_CUES the boss voice's) when it exists. A missing wave keeps the stock sound (or, with none, leaves the cue
+    unwired) and is reported."""
     out = {cue: asset for cue, (asset, _) in CUES.items() if asset}
-    if not voice:
-        return out
-    missing = []
-    for cue in ANNOUNCER_CUES:
-        path = vo_path(project, voice, cue)
-        if u.call(ASSETS, "exists", {"path": path.split(".")[0]})["returnValue"]:
-            out[cue] = path
-        else:
-            missing.append(cue)
-    print(f"announcer {voice}: {len(ANNOUNCER_CUES) - len(missing)} of {len(ANNOUNCER_CUES)} lines found under "
-          f"/{project}/{VO_FOLDER}/{voice}" + (f"; NOT IMPORTED, stock kept: {', '.join(missing)}" if missing else ""))
+    for who, cues, name in ((voice, ANNOUNCER_CUES, "announcer"), (boss_voice, BOSS_CUES, "boss voice")):
+        if not who:
+            continue
+        missing = []
+        for cue in cues:
+            path = vo_path(project, who, cue)
+            if u.call(ASSETS, "exists", {"path": path.split(".")[0]})["returnValue"]:
+                out[cue] = path
+            else:
+                missing.append(cue)
+        print(f"{name} {who}: {len(cues) - len(missing)} of {len(cues)} lines found under "
+              f"/{project}/{VO_FOLDER}/{who}"
+              + (f"; NOT IMPORTED, {'stock kept' if name == 'announcer' else 'not wired'}: {', '.join(missing)}"
+                 if missing else ""))
     return out
 
 
-def build(voice=None):
+def build(voice=None, boss_voice=None):
     project = project_id()
-    chosen = sources(project, voice)
+    chosen = sources(project, voice, boss_voice)
     print("removed", clear(), "old audio players")
     # A cue is placed when it has a sound to carry: its stock asset, or an imported voice line on an announcer-only cue.
     wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in CUES.items() if cue in chosen]
@@ -253,7 +287,7 @@ def build(voice=None):
         props_set(actor, {k: (ref(v) if k == "audio" else v) for k, v in want.items()})
         _, bad = check(actor, want)
         problems += len(bad)
-        source = "announcer" if is_vo(asset) else "stock"
+        source = ("boss" if cue in BOSS_CUES else "announcer") if is_vo(asset) else "stock"
         print(f"{label(cue):24} {source:9} {asset.rsplit('/', 1)[-1].split('.')[0]:44} {'OK' if not bad else 'MISMATCH ' + '; '.join(bad)}")
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     missing = [cue for cue in CUES if cue not in chosen]
@@ -287,7 +321,7 @@ def list_placed():
     accepted only on ANNOUNCER_CUES), duration, the read-back options, and two checks against CUES: the live
     properties (props) and the saved options cache (cache)."""
     actors = found(TAG)
-    by_label = {label(cue): (cue, asset, opts) for cue, (asset, opts) in CUES.items() if asset}
+    by_label = {label(cue): (cue, asset, opts) for cue, (asset, opts) in CUES.items()}
     rows, problems, voiced = [], 0, []
     for a in actors:
         name = u.call(ACTOR, "get_label", {"actor": ref(a)})
@@ -296,8 +330,8 @@ def list_placed():
         cue, asset, opts = by_label.get(name, (None, None, {}))
         live = got_audio(props_get(a, ["audio"])) if cue else ""
         source = "stock"
-        if cue in ANNOUNCER_CUES and is_vo(live, cue):
-            asset, source = live, "announcer"
+        if cue in ANNOUNCER_CUES + BOSS_CUES and is_vo(live, cue):
+            asset, source = live, "boss" if cue in BOSS_CUES else "announcer"
             voiced.append(cue)
         elif is_vo(live):
             source = "announcer?"   # a voice wave on a cue that should stay stock: check() flags it
@@ -336,10 +370,12 @@ if __name__ == "__main__":
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--probe", help="comma-separated asset name substrings")
     ap.add_argument("--announcer", metavar="VOICE", help="put that voice's imported lines on ANNOUNCER_CUES (e.g. am_michael)")
+    ap.add_argument("--boss-voice", metavar="VOICE", help="put that voice's imported lines on BOSS_CUES, the boss's own "
+                    "lines (e.g. am_onyx)")
     a = ap.parse_args()
     if a.probe:
         probe([n for n in a.probe.split(",") if n])
     elif a.list:
         list_placed()
     else:
-        sys.exit(1 if build(a.announcer) else 0)
+        sys.exit(1 if build(a.announcer, a.boss_voice) else 0)
