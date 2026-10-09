@@ -400,3 +400,46 @@ B5, 2026-10-09 (UEFN 42.30, headless; logs in the session scratchpad `run2_keep.
   the gate guards (Wildlife & Creatures team) or the boss: so creatures often die before reaching the player. Kid-friendly,
   but a creature-heavy level reads lighter than its cap. In the hold run the auto-player was knocked out 10 times (it never
   fights back).
+
+B6, 2026-10-09 (UEFN 42.30; logs and frames in the session scratchpad `b6_*.txt`, `%TEMP%\b6_a10\`, `%TEMP%\pick1.png`):
+- **Teams: already allied; the deaths were friendly fire.** Gate guards and bosses were already on `Team Wildlife &
+  Creatures` (read back), and the creature spawner has no team option. New log lines (`boss mode team: ...`, from
+  `fort_team_collection`) show the boss, the guards and every creature on the same team (2), `friendly` to each other and
+  `hostile` to the player. A new killer classifier (`creature eliminated by a gate guard / the boss / a creature / itself /
+  no source / a player`) then showed what B5 logged as "something else": in a level-5 hold run, 3 Red Fiends were killed
+  by a gate guard. The guards' LOW-accuracy shots at the player hit the melee creatures chasing the player. The
+  island's `bAllowFriendlyFire` is already false and does not cover AI. **Fix:** `OnAllyDamaged` heals a gate guard or a
+  creature straight back after damage from any agent that is not a player (their `fort_character.DamagedEvent`). The
+  level-clear line now reads `boss level L cleared (friendly fire healed N hits)`. Same hold run after the fix: 0 kills
+  by a gate guard (393 hits healed). The kills left are Exploding Brutes blowing themselves up (`no source`), one Red
+  Fiend caught in that blast (`a creature`; a single lethal hit cannot be healed), and the clear's own
+  `EliminateCreatures` (`itself`). The race guards (`build_guards.py`) are unchanged.
+- **Dropped guns:** Verse cannot remove a dropped pickup (Fortnite digest 42.30 has no call for one), so the gate guards
+  now drop nothing (`GATE_SETTINGS dropInventoryOnElimination False`; §3 said True). The boss already dropped nothing.
+  The player's weapons come from the perches. The race guards still drop theirs.
+- **Perch climb (acceptance 5) passed after two fixes.** (1) The hidden triggers sensed only their StepBox component
+  (64 x 64 x 15 cm half-extents at +32 cm, scaled with the actor), not a 600 cm zone per unit scale. On the 3 m perch,
+  the trigger therefore covered a 64 cm square, 10 cm thick. A player traced standing on P1 89 cm from its centre for
+  7 s never triggered it. `trigger_fit` now sizes every pad and perch trigger to the box asked for. The boss auto-run
+  teleported the player to the pad trigger's origin, which is now under the floor, so `DebugAutoBoss` now teleports to
+  the pad's x/y at the entry's floor + 1 m. (2) Stones: 50 cm rises, 100 cm gaps, and stones 300 cm wide (as wide as the
+  perch). The old setup was 60 / 150 with 120 cm stones. On the old chain the keyed player reached the top stone and then
+  stood against the perch's face, most likely after falling into the 150 cm gap. That cause is not proven: it is read
+  from the frames, not traced. Keys `D:1.6,D+SPACE:1.0,D+SPACE:1.0,D+SPACE:1.0` from the entry produced
+  `boss mode perch 1 reached (level 1)` and then `boss mode weapon SMG granted at perch 1 (level 1)`. SEEN: "SMG GET!",
+  the SUBMACHINE GUN equipped in hotbar slot 3, and the feed line "grabbed the SMG!". New log line on every perch touch:
+  `boss mode perch P reached (level L)`. Arena now 122 actors.
+- **Picker click (acceptance 3) passed:** all hooks at ship values. SEEN: the BOSS BATTLE button above GRADE 6 / GRADE 7
+  with its caption. After the click: `boss battle chosen`, then `boss mode start for the player (level 1)`. The next frame
+  shows the LEVEL 1 / HERE HE COMES! burst, the STEP ON THE RIGHT ANSWER! flash (seen for the first time), the slate
+  caption, and the boss subtitle "BOSS: You dare challenge ME?!".
+- **Voice:** the 16 waves were imported through the GUI (am_michael now holds 45, am_onyx 8, all saved).
+  `build_audio.py --announcer am_michael --boss-voice am_onyx` wired 65 of 65 cues with 0 mismatches, and `--list` reads
+  back the same. Heard on the loopback (matched filter `hear_voice.py` with a 4.8 s window; noise / control 0.00-0.13):
+  bm_mega_nuke 0.67-0.78; bm_boss_l1 0.64 and bm_start 0.50 after a real picker click; bm_boss_l2 0.57, l3 0.47,
+  l4 0.41, l5 0.49; bm_boss_hit 0.37-0.48; bm_level_clear 0.37-0.45; bm_level2-4 0.36-0.43. With `DebugAutoBoss`,
+  bm_start and bm_boss_l1 score 0.06: they fire in the same second as the join (welcome, music_t1 and the client's audio
+  start-up). That is a debug-hook artefact, because the picker flow plays both. The repo's `hear_voice.py` window
+  (t + 2.5 s) is shorter than the 2.4-3.6 s boss lines and scores them near 0; the B6 copy widens it to t + 4.5 s.
+- Full run with the new arena: victory in 1:23.3, GOLD, 16/16. Race regression: two finished runs (1:29.8, 1:26.7, GOLD
+  10/10), only the three OnBegin boss-mode lines, and 10 `cannons fired` lines.

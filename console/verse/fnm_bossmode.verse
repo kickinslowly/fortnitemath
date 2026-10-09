@@ -9,6 +9,8 @@
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
+using { /Fortnite.com/Game }
+using { /Fortnite.com/Teams }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/Colors }
 using { /Verse.org/Random }
@@ -245,6 +247,10 @@ fnm_boss_mode := class:
     var GuardsPending : int = 0
     var CreaturesPending : int = 0
     var CreatureAgents : []agent = array{}
+    # The gate guards' team (first guard spawned), which every creature is put on (OnCreatureSpawned).
+    var AllyTeam : ?team = false
+    # Hits between monsters healed back this level (OnAllyDamaged), logged at the level clear.
+    var FriendlyFireHealed : int = 0
     var NextSpawnAt : float = 0.0
     var GateCursor : int = 0
     var GatesOpen : int = 0
@@ -628,6 +634,7 @@ fnm_boss_mode := class:
     # A player on perch P: when P is lit for the level and they have not taken this level's weapon, the level's granter
     # hands it over (its hidden trigger, fired for them).
     OnPerch(State:fnm_player_state, P:int):void =
+        Print("FNM: boss mode perch {P} reached (level {Level})")
         if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Picking?, Level >= 1):
             var Lit : logic = false
             for (Each : LitPerches, Each = P):
@@ -800,7 +807,8 @@ fnm_boss_mode := class:
         if (Spawner := BossSpawnerFor(L)?):
             Spawner.Disable()
         CloseGates()
-        Print("FNM: boss level {L} cleared")
+        Print("FNM: boss level {L} cleared (friendly fire healed {FriendlyFireHealed} hits)")
+        set FriendlyFireHealed = 0
         RefreshBossLines()
         LastLevel := if (L >= FnmBmLevelCount()) then true else false
         for (State : Fighting()):
@@ -994,6 +1002,9 @@ fnm_boss_mode := class:
         set BossAgent = option{Agent}
         set BossAlive = true
         set BossRequestedAt = -1.0
+        Teams := Director.GetPlayspace().GetTeamCollection()
+        ToGuards := if (Team := AllyTeam?, Mine := Teams.GetTeam[Agent], A := Teams.GetTeamAttitude[Mine, Team]) then AttitudeName(A) else "no guard yet"
+        Print("FNM: boss mode team: boss on team {TeamNo(Agent)}, to the guards {ToGuards}, vs the player {AttitudeToPlayer(Agent)}")
         if (Character := Agent.GetFortCharacter[]):
             Print("FNM: boss spawned (boss mode, level {Level}), health {Character.GetHealth()} of {Character.GetMaxHealth()}, shield {Character.GetShield()}, at {Character.GetTransform().Translation}")
         else:
@@ -1017,20 +1028,91 @@ fnm_boss_mode := class:
     # lines would mean the device spawns guards of its own (on Enable, or a batch per Spawn).
     OnMonsterSpawned(Agent:agent):void =
         Print("FNM: boss mode guard spawned event ({Alive()} alive)")
+        if (Character := Agent.GetFortCharacter[]):
+            Character.DamagedEvent().Subscribe(OnAllyDamaged)
+        if (not AllyTeam?, Team := Director.GetPlayspace().GetTeamCollection().GetTeam[Agent]):
+            set AllyTeam = option{Team}
+            Print("FNM: boss mode team: guards on team {TeamNo(Agent)}, vs the player {AttitudeToPlayer(Agent)}")
 
-    # A creature spawner's SpawnedEvent: logged only (SpawnMonster counts a creature when it asks for it). More of these
-    # than "creature up" lines would mean the parked device spawns waves of its own.
+    # A creature spawner's SpawnedEvent. The creature spawner has no team option and a gate guard shot creatures dead
+    # (B6, 2026-10-09: "creature eliminated by a gate guard"), so a creature not friendly with the guards' team is put on
+    # it (Aaron: monsters and guards all hunt the player, never each other). Logged with the attitudes before and after.
     OnCreatureSpawned(Agent:agent):void =
         Print("FNM: boss mode creature spawned event ({Alive()} alive)")
+        if (Character := Agent.GetFortCharacter[]):
+            Character.DamagedEvent().Subscribe(OnAllyDamaged)
+        Teams := Director.GetPlayspace().GetTeamCollection()
+        if (Team := AllyTeam?):
+            Before := if (Mine := Teams.GetTeam[Agent], A := Teams.GetTeamAttitude[Mine, Team]) then AttitudeName(A) else "no team"
+            if (Before <> "friendly"):
+                Moved := if (Teams.AddToTeam[Agent, Team]) then "moved onto the guards' team" else "AddToTeam refused"
+                Print("FNM: boss mode team: creature on team {TeamNo(Agent)} was {Before} to the guards: {Moved}, now vs the player {AttitudeToPlayer(Agent)}")
+            else:
+                Print("FNM: boss mode team: creature on team {TeamNo(Agent)}, friendly to the guards, vs the player {AttitudeToPlayer(Agent)}")
+        else:
+            Print("FNM: boss mode team: creature on team {TeamNo(Agent)} before any guard, vs the player {AttitudeToPlayer(Agent)}")
+
+    # Friendly fire (B6, 2026-10-09): guards, bosses and creatures are one team (logged "friendly"), yet a gate guard's stray
+    # bullets aimed at the player killed the Red Fiends chasing it ("creature eliminated by a gate guard", 3 in a level-5
+    # hold run). Damage to a gate guard or a creature from any agent that is not a player is healed straight back, so only
+    # players (and the level clear) take them down. A single lethal hit still kills (the heal comes after the damage).
+    OnAllyDamaged(Result:damage_result):void =
+        if (Instigator := Result.Instigator?, Agent := Instigator.GetInstigatorAgent[], not player[Agent], Character := fort_character[Result.Target], Character.IsActive[]):
+            Character.Heal(Result.Amount)
+            set FriendlyFireHealed += 1
+
+    # Team helpers for the log: an agent's team as its 1-based place in GetTeams() (0 = none), and its attitude to the
+    # first player in the playspace.
+    TeamNo(Agent:agent)<transacts>:int =
+        Teams := Director.GetPlayspace().GetTeamCollection()
+        if (Team := Teams.GetTeam[Agent]):
+            Found := for (I -> Each : Teams.GetTeams(), Each = Team) { I + 1 }
+            if (N := Found[0]) then N else -1
+        else:
+            0
+
+    AttitudeToPlayer(Agent:agent)<transacts>:string =
+        Teams := Director.GetPlayspace().GetTeamCollection()
+        if (Player := Director.GetPlayspace().GetPlayers()[0], A := Teams.GetTeamAttitude[Agent, Player]) then AttitudeName(A) else "unknown"
+
+    AttitudeName(A:team_attitude)<computes>:string =
+        case(A):
+            team_attitude.Friendly => "friendly"
+            team_attitude.Neutral => "neutral"
+            team_attitude.Hostile => "hostile"
 
     OnMonsterEliminated(Result:device_ai_interaction_result):void =
         if (Source := Result.Source?, Player := player[Source]):
             Print("FNM: boss mode: a player eliminated a monster ({Alive()} alive)")
+        else if (GatesOpen > 0):
+            Print("FNM: boss mode guard eliminated by {Killer(Result)} ({Alive()} alive)")
+
+    # Who eliminated Result.Target, for the log: a player, the boss, a gate guard, a creature of ours, itself, or no source
+    # (Aaron 2026-10-09: monsters and guards must all hunt the player, never each other; this line is the proof).
+    Killer(Result:device_ai_interaction_result)<transacts>:string =
+        if (Source := Result.Source?):
+            if (player[Source]):
+                return "a player"
+            if (Target := Result.Target?, Target = Source):
+                return "itself"
+            if (Boss := BossAgent?, Boss = Source):
+                return "the boss"
+            Guards := for (MaybeSpawner : Arena.Gates, Spawner := MaybeSpawner?, Agent : Spawner.GetAgents(), Agent = Source) { Agent }
+            if (Guards.Length > 0):
+                return "a gate guard"
+            Bosses := for (MaybeSpawner : Arena.BossSpawners, Spawner := MaybeSpawner?, Agent : Spawner.GetAgents(), Agent = Source) { Agent }
+            if (Bosses.Length > 0):
+                return "a boss spawner's guard"
+            Creatures := for (Agent : CreatureAgents, Agent = Source) { Agent }
+            if (Creatures.Length > 0):
+                return "a creature"
+            return "another agent"
+        "no source"
 
     # A creature down: off the count if it was one of ours (CloseGates' own EliminateCreatures, or a creature the device
     # spawned by itself, never counted).
     OnCreatureEliminated(Result:device_ai_interaction_result):void =
+        By := Killer(Result)
         if (Target := Result.Target?):
             set CreatureAgents = for (Agent : CreatureAgents, Agent <> Target) { Agent }
-        By := if (Source := Result.Source?, player[Source]) then "a player" else "something else"
         Print("FNM: boss mode creature eliminated by {By} ({Alive()} alive)")

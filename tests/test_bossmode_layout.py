@@ -30,7 +30,7 @@ def _inside(r):
 PADS = [_rect(x, y, c.PAD_SIZE, c.PAD_SIZE) for x, y in b.PAD_SPOTS]
 PLATFORM = _rect(b.PLATFORM_X, b.PLATFORM_Y, b.PLATFORM_W, b.PLATFORM_D)
 PERCHES = [_rect(x, y, b.PERCH_TOP, b.PERCH_TOP) for x, y, _ in b.PERCHES]
-STONES = [_rect(x, y, b.STONE, b.STONE) for p in b.PERCHES for x, y, _ in b.stones_for(p)]
+STONES = [_rect(x, y, b.STONE, b.STONE_D) for p in b.PERCHES for x, y, _ in b.stones_for(p)]
 
 
 def test_pads_inside_apart_and_clear_of_everything():
@@ -68,6 +68,8 @@ def test_stone_chain_is_jumpable():
     """Each hop up the chain (floor -> stones -> perch top) rises at most 70 cm (a 70 cm hurdle is cleared with a running
     jump, LAYOUT "Hallway obstacles") over an edge gap of at most 200 cm."""
     assert b.STONE_RISE <= 70 and b.STONE_GAP <= 200
+    # B6 keys test: 60 / 150 with 120 cm wide stones was not climbable by a run-and-jump; 50 / 100, stones perch-wide
+    assert b.STONE_RISE <= 50 and b.STONE_GAP <= 100 and b.STONE_D >= b.PERCH_TOP
     for perch in b.PERCHES:
         px, py, top = perch
         stones = b.stones_for(perch)
@@ -115,6 +117,26 @@ def test_gate_settings():
     assert s["spawnOnTimer"] is False and s["despawnGuardsWhenDisabled"] is True and s["spawnCount"] == 2
     assert s["guardTeamOption"] == g.SETTINGS["guardTeamOption"]
     assert b.BOSS_SETTINGS is c.BOSS_SETTINGS and b.BOSS_HEALTH_ASK == 100000.0
+
+
+def test_guards_bosses_and_creatures_are_one_team():
+    """Aaron 2026-10-09: monsters and guards all hunt the player, never each other. The creature spawner has no team
+    option, its creatures are on Wildlife & Creatures; gate guards and every boss must be on that team too."""
+    assert b.TEAM == "Team Wildlife & Creatures"
+    assert b.GATE_SETTINGS["guardTeamOption"] == b.TEAM
+    src = Path(b.__file__).read_text(encoding="utf-8")
+    # the boss spawners are written with the team named explicitly (not left to the device default "Team Index")
+    assert '{**BOSS_SETTINGS, "guardTeamOption": TEAM}' in src
+    assert "guardTeamOption" not in c.BOSS_SETTINGS or c.BOSS_SETTINGS["guardTeamOption"] == b.TEAM
+
+
+def test_gate_guards_drop_nothing_race_guards_still_do():
+    """Dropped gate-guard guns littered the arena and Verse cannot remove a dropped pickup: gate guards drop nothing.
+    The boss keeps BOSS_SETTINGS (drops nothing, as before) and the race course's guards are unchanged."""
+    assert b.GATE_SETTINGS["dropInventoryOnElimination"] is False
+    assert c.BOSS_SETTINGS["dropInventoryOnElimination"] is False
+    assert g.SETTINGS["dropInventoryOnElimination"] is True
+    assert g.SETTINGS["guardTeamOption"] == "Team Wildlife & Creatures"
 
 
 def test_grant_weapons_follow_the_level_table():
@@ -188,3 +210,18 @@ def test_creature_spawners_in_the_alcoves_off_and_lasting():
     assert len({(x, y) for x, y, _ in b.creature_spots()}) == 5
     assert "creature Type" not in s                      # set per kind
     assert b.KNOCKBACK_WANT == "High"
+
+
+def test_trigger_detection_box_covers_the_pad_and_the_perch_top():
+    """The trigger's detection box is its StepBox (extent 64 x 64 x 15 at z +32, scaled with the actor). B2's 600 cm per
+    unit scale sensed only a 64 cm square on a 3 m perch (a player standing on it never triggered it, B6 2026-10-09)."""
+    def box(z, w, d, h):
+        dz, sx, sy, sz = b.trigger_fit(z, w, d, h)
+        cz = dz + b.STEP_Z * sz
+        return 2 * b.STEP_BOX[0] * sx, 2 * b.STEP_BOX[1] * sy, cz - b.STEP_BOX[2] * sz, cz + b.STEP_BOX[2] * sz
+    w, d, lo, hi = box(b.FLOOR_Z + 180, b.PERCH_TOP, b.PERCH_TOP, b.PERCH_TRIGGER_H)
+    assert (round(w), round(d), round(lo), round(hi)) == (300, 300, 182, 382)
+    w, d, lo, hi = box(b.FLOOR_Z, c.PAD_SIZE, c.PAD_SIZE, c.PAD_H)
+    assert (round(w), round(d), round(lo), round(hi)) == (c.PAD_SIZE, c.PAD_SIZE, 2, 2 + c.PAD_H)
+    # disproof of the old recipe: scale w / 600 gives a box a fraction of the perch
+    assert 2 * b.STEP_BOX[0] * (b.PERCH_TOP / 600) < b.PERCH_TOP / 2

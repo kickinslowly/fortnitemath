@@ -83,10 +83,17 @@ GATE_WEAPONS = [_W.format(n) for n in (
     "WID_Shotgun_Standard_Athena_VR_Ore_T03",
     "WID_Assault_Heavy_Athena_R_Ore_T03")]
 # The director calls Spawn() (spawnOnTimer False) and caps the alive count itself; Disable() despawns at a level clear.
+# Team: every gate guard and every boss is on build_guards' "Team Wildlife & Creatures", the team the creature spawners'
+# creatures belong to (the creature spawner has no team option of its own; probed 2026-10-09), so guards, bosses and
+# creatures are allies and all hunt the player (Aaron, 2026-10-09: "monsters and guards should all go after the player,
+# never fight each other"). Gate guards drop nothing (B6, 2026-10-09): dropped guns littered the arena floor and Verse has
+# no call that removes a dropped pickup (Fortnite digest 42.30 checked); the player's weapons come from the perches. The race
+# course's guards (build_guards.SETTINGS) still drop theirs.
 GATE_SETTINGS = {**g.SETTINGS, "spawnCount": 2, "allowInfiniteSpawn": True, "spawnOnTimer": False,
                  "spawnRadius_InMeter": 2.0, "spawnThroughWalls": False, "enablePatrol": True,
                  "maxPatrolDistance_InMeter": 30.0, "visibilityRange_InMeter": 45.0, "accuracy": "LOW",
-                 "despawnGuardsWhenDisabled": True, "dropInventoryOnElimination": True}
+                 "despawnGuardsWhenDisabled": True, "dropInventoryOnElimination": False}
+TEAM = g.SETTINGS["guardTeamOption"]
 # Creature spawners (Creature Spawner V2), one per creature KIND, slot K = CREATURES[K - 1] (the Verse names them the same,
 # FnmBmCreatureName), invisible and off, standing on the floor just inside a gate alcove's mouth (CREATURE_GATES; two
 # share gate 4). At the alcove's back, 60 cm from its wall, the Brute never came (6 s, twice) while the Ranged did. The director pulses one per creature: Enable, SpawnAt(a gate's alcove), its SpawnedEvent, Disable: so the
@@ -106,14 +113,22 @@ CREATURE_SETTINGS = {"enabled at Game Start": False, "number of Creatures": 1, "
                      "limit Spawned Creatures": True, "enum Total Spawn Limit": "100", "total Spawn Limit": 100,
                      "activation Range": 100.0, "spawn Effects Visibility": True}
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
-# square gold block; stepping stones STONE square, each STONE_RISE lower than the next, STONE_GAP apart edge to edge, laid
-# from the perch toward the arena's centre line (the lowest farthest out).
+# square gold block; stepping stones STONE long (along the climb) and STONE_D wide (as wide as the perch), each STONE_RISE
+# lower than the next, STONE_GAP apart edge to edge, laid from the perch toward the arena's centre line (the lowest
+# farthest out). B6 keys test 2026-10-09: with 120 x 120 stones, 60 cm rises and 150 cm gaps the player reached the top
+# stone but fell into the 150 cm gap before the perch and stood against its 180 cm face (a restart); the stones were
+# also as narrow as a player's sideways drift. Now 50 / 100 (the spec's fallback) and stones as wide as the perch.
 PERCHES = [(-1600, 500, 180), (1600, 500, 180), (-1600, 3500, 240), (1600, 3500, 240)]
 PERCH_TOP = 300
 STONE = 120
-STONE_RISE = 60
-STONE_GAP = 150
+STONE_D = PERCH_TOP
+STONE_RISE = 50
+STONE_GAP = 100
 PERCH_TRIGGER_H = 200
+# A trigger device's detection box (its StepBox component, read back 2026-10-09): half-extent and height of its centre
+# above the device origin, in cm at actor scale 1.
+STEP_BOX = (64, 64, 15)
+STEP_Z = 32
 # Item granter per level, parked under the floor; its item is the level's weapon (BOSS_MODE.md 4, weapon perch column).
 GRANT_WEAPONS = [_W.format(n) for n in (
     "WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03",        # L1 SMG at P1
@@ -286,9 +301,19 @@ def vfx(label, dx, dy, z, scale, project, tags, settings):
     return fx
 
 
+def trigger_fit(z, w, d, h):
+    """(device z, sx, sy, sz) for a trigger whose detection box is w x d x h with its bottom at z. The detection box is
+    the device's StepBox component, read back 2026-10-09: extent STEP_BOX (64, 64, 15) at STEP_Z (32) above the device's
+    origin, both scaled with the actor. (B2 assumed a 600 cm zone per unit scale: the perch trigger then sensed only a
+    64 cm square, 10 cm thick, and a player standing on the perch 89 cm from its centre for 7 s never triggered it.)"""
+    sx, sy, sz = w / (2 * STEP_BOX[0]), d / (2 * STEP_BOX[1]), h / (2 * STEP_BOX[2])
+    return z + h / 2 - STEP_Z * sz, sx, sy, sz
+
+
 def hidden_trigger(label, dx, dy, z, w, d, h, project, tags, settings=PAD_TRIGGER):
-    """A trigger zone w x d x h (the default zone is 600 per unit scale, centred) with its bottom at z."""
-    trig = device(TRIGGER, label, dx, dy, z + h / 2, sx=w / 600, sy=d / 600, sz=h / 600)
+    """A trigger whose detection box is w x d x h with its bottom at z (trigger_fit)."""
+    dz, sx, sy, sz = trigger_fit(z, w, d, h)
+    trig = device(TRIGGER, label, dx, dy, dz, sx=sx, sy=sy, sz=sz)
     verse_tags(trig, project, tags)
     options(trig, settings, label)
     return trig
@@ -372,7 +397,8 @@ def build():
     kept = []
     for lv, (bx, weapon) in enumerate(zip(BOSS_XS, BOSS_WEAPONS), 1):
         _, health = guard(f"FNM_BM_Boss{lv}", PLATFORM_X + bx, PLATFORM_Y, z0 + PLATFORM_H, -90, project,
-                          ["fnm_bm_boss", f"fnm_bm_slot_{lv}"], BOSS_SETTINGS, weapon, BOSS_HEALTH_ASK)
+                          ["fnm_bm_boss", f"fnm_bm_slot_{lv}"], {**BOSS_SETTINGS, "guardTeamOption": TEAM}, weapon,
+                          BOSS_HEALTH_ASK)
         kept.append(health)
     print(f"platform + 5 boss spawners; health kept: {kept}")
 
@@ -398,7 +424,7 @@ def build():
         h = PERCH_TOP / 2
         box(f"FNM_BM_Perch{k}", px - h, px + h, py - h, py + h, z0, z0 + top, mat["bm_perch"])
         for n, (sx, sy, st) in enumerate(stones_for(perch), 1):
-            box(f"FNM_BM_Perch{k}_Stone{n}", sx - STONE / 2, sx + STONE / 2, sy - STONE / 2, sy + STONE / 2, z0, z0 + st,
+            box(f"FNM_BM_Perch{k}_Stone{n}", sx - STONE / 2, sx + STONE / 2, sy - STONE_D / 2, sy + STONE_D / 2, z0, z0 + st,
                 mat["bm_perch"])
         hidden_trigger(f"FNM_BM_Perch{k}_Trigger", px, py, z0 + top, PERCH_TOP, PERCH_TOP, PERCH_TRIGGER_H, project,
                        ["fnm_bm_perch", f"fnm_bm_slot_{k}"])
@@ -462,7 +488,7 @@ def check():
     for a in actors:
         label, path = a.get("label", ""), a["actorPath"]
         if re.fullmatch(r"FNM_BM_(Boss\d|Gate\d_Spawner)", label):
-            want = BOSS_SETTINGS if "_Boss" in label else GATE_SETTINGS
+            want = {**BOSS_SETTINGS, "guardTeamOption": TEAM} if "_Boss" in label else GATE_SETTINGS
             back = get(path, list(want) + ["max Health"])
             lst = get(path, ["itemList"])["itemList"]["refPath"]
             items = [(i.get("itemDefinition") or {}).get("refPath", "").rsplit(".", 1)[-1] for i in get(lst, ["itemListData"])["itemListData"]]

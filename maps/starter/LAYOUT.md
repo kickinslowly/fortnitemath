@@ -149,8 +149,12 @@ thick (`M_fnm_wall_bm_wall`), floor `M_fnm_wall_bm_floor`, one hidden collision 
 | Anger ring, 5 VFX at radius 650 round the platform | `FNM_BM_Anger1..5` | `fnm_bm_anger_fx` + slot |
 | Creature spawners (B5), one per kind, invisible, just inside a gate alcove's mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 | `FNM_BM_Creature1..5` | `fnm_bm_creature` + slot = kind |
 
-118 actors. The perch stones are 120 cm square, 60 cm rises, 150 cm edge gaps, laid from the perch toward the centre line
-(P1/P2: tops 60, 120 then the perch at 180; P3/P4: 60, 120, 180 then 240). Each gate alcove has its own floor (the brief
+122 actors. The perch stones are 120 cm long (along the climb) and 300 cm wide (as wide as the perch), 50 cm rises,
+100 cm edge gaps, laid from the perch toward the centre line (P1/P2: tops 30, 80, 130 then the perch at 180; P3/P4: 40,
+90, 140, 190 then 240). B6 (2026-10-09) changed them from 120 x 120 / 60 / 150: a keyed run-and-jump climbs the new chain
+(acceptance 5, below). Every hidden trigger (pads, perches) is sized by `trigger_fit`: a trigger senses only its StepBox
+component (64 x 64 x 15 cm half-extents at +32 cm, scaled with the actor), not a 600 cm zone per unit scale, so the
+device's origin now sits under the floor or inside the perch block. Each gate alcove has its own floor (the brief
 listed back, sides and roof only; without a floor the spawner would stand over the void).
 
 **Probe answers** (`python tools/build_bossmode.py --probe`, 2026-10-09, UEFN 42.30):
@@ -183,10 +187,11 @@ listed back, sides and roof only; without a floor the spawner would stand over t
 - Item granter accepted all five weapons (read back): AutoHeavyPDW R, Shotgun_Standard VR, Assault_AutoHigh VR, Sniper_Heavy
   SR, Launcher_Rocket SR. The guard spawners kept every boss and gate weapon, and max/starting health 100000 on all five
   bosses.
-- Still open (play only): whether a kid chains the 60 / 150 stones (B4 keys test).
+- Climb (B6 keys test, 2026-10-09): from the entry, `D:1.6,D+SPACE:1.0,D+SPACE:1.0,D+SPACE:1.0` (strafe right, then
+  run-jump) stands the player on P1 (traced at x -1576, y 590, feet z 182) and grants the SMG.
 
 Rerun after: nothing. It reads no course geometry, so a course rebuild does not move it; rerun `build_bossmode.py` only
-after changing its own constants (idempotent: two runs leave the same 118 actors).
+after changing its own constants (idempotent: two runs leave the same 122 actors).
 
 ## Hallway obstacles (2026-10-04)
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is
@@ -249,9 +254,10 @@ names can be stored, so only players present are listed). Two lecterns in front:
 ## Still to do (GOALS G4)
 - Decor seen only in editor captures: torch flames, fireworks and the chalk text are play-time and unverified.
 - Boss battle (2026-10-09, B4), still unverified:
-  - The perch climb (60 cm rises over 150 cm gaps) has never been tried by a real jump: acceptance 5 was not run.
-  - The picker's BOSS BATTLE button has never been clicked (acceptance 3 was not run).
-  - The 16 new voice lines (am_michael `bm_*`, am_onyx `bm_boss_*`) are not imported, so 9 cues are silent. Nothing has
-    been judged by ear.
-  - The timed gate spawns (`monster at gate`) have not been seen.
+  - Done by B6 (2026-10-09): perch climb + SMG grant by keys (acceptance 5, after the stone and trigger fix), picker
+    click (acceptance 3), the 16 voice lines imported and heard (65 of 65 wired), timed gate spawns seen (B5).
+  - Only P1 was climbed by keys; P2..P4 share the recipe but were not climbed.
+  - The race arena's pad triggers (`build_course.arena`) and the station vestibule triggers still use the 600 cm per
+    unit scale assumption, so they sense a much smaller box than the pad (the race has a position backstop for doors;
+    the race arena pads were not checked). Not changed.
   - Two players have never shared a fight (team hits, late joiners).

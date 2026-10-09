@@ -1477,7 +1477,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     set Pads += 1
                     Before := State.Hits
                     Print("FNM: debug boss mode pad {Pads} {FnmChoiceLetter(Answer)} (level {BM.Level}, boss up {FnmYesNo(BM.BossAlive)})")
-                    if (Character.TeleportTo[Pad.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                    # On the pad, 1 m above the arena entry's floor: the pad trigger's origin sits under the floor since
+                    # its detection box was fitted to the whole pad (B6, build_bossmode.trigger_fit).
+                    PadAt := Pad.GetTransform().Translation
+                    Spot := vector3{X := PadAt.X, Y := PadAt.Y, Z := BM.Arena.Station.RetryTeleporter.GetTransform().Translation.Z + 100.0}
+                    if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                     Sleep(5.0)
                     if (State.Hits > Before):
                         set Misses = 0

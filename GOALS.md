@@ -321,6 +321,11 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   a relaunch inside that window started from a stale snapshot (16 of 40 cue devices, ship Verse) and a StopSession
   inside it left the session Disconnected (`playtest.wait_for_push`)
 
+- [ ] (2026-10-09, found in boss mode B6) A trigger senses only its StepBox (64x64x15 cm half-extents, scaled); the race
+  arena pads and station vestibule triggers in `build_course.py` size by a 600 cm-per-unit assumption, like the boss-mode
+  triggers did before `trigger_fit`. Doors have the `WatchDoors` backstop; check whether the race arena pads need
+  `trigger_fit` (Aaron's 2026-10-07 "zero pad events" may be related)
+
 ## G7 — Presentation polish (Aaron, 2026-10-08: the floating question and answers "feels like alpha version... clunky")
 Asked how else: baked on a wall, floating in the air, written on the ground, spray paint. Finding (Verse digests): UEFN has
 no per-player world text (billboard, prop material, debug 3D text are all global) and every player draws their own item
