@@ -5,12 +5,16 @@ The runtime (fnm_ui.verse) references FNM_Art.T_fnm_check / T_fnm_cross (the ver
 (the question slate and its answer tiles), so every map's UEFN project needs them once. MCP has no texture importer, but StaticMeshTools.import_file creates a Texture2D for each texture
 an imported mesh's material references: so each PNG rides in on a one-quad OBJ whose material maps it, and
 the helper mesh and material are deleted afterwards. A PNG dropped into Content/ is NOT auto-imported.
+Door signs (tools/make_door_signs.py: door_sign_a..d.png) come in the same way but KEEP their quad: SM_door_sign_<x>
+with M_door_sign_<x> on it (texture T_door_sign_<x>); build_course.door_dress hangs one on each door panel.
 Wall colours come in the same way: an OBJ material's Kd colour becomes a Material (M_fnm_wall_<key>), which
 tools/build_course.py paints on each hallway by its tier.
 
     python tools/make_verdict_art.py   # (re)draw the PNGs: check, cross
     python tools/make_hud_art.py       #                     slate, tile
-    python tools/import_art.py         # idempotent: replaces existing T_fnm_* / M_fnm_* assets
+    python tools/make_door_signs.py    #                     door_sign_a..d
+    python tools/import_art.py         # idempotent: replaces existing T_fnm_* / M_fnm_* assets (and the door signs)
+    python tools/import_art.py signs   # the door signs alone
 """
 import json
 import sys
@@ -83,6 +87,31 @@ def textures(folder, tmp):
         print("texture", tex)
 
 
+def sign_obj(t, name):
+    """A 100 x 100 quad centred on its pivot, for a door sign (map_Kd its PNG)."""
+    (t / f"{name}.mtl").write_text(f"newmtl {name}\nKd 1 1 1\nmap_Kd {name}.png\n")
+    (t / f"{name}.obj").write_text(f"mtllib {name}.mtl\nv -50 -50 0\nv 50 -50 0\nv 50 50 0\nv -50 50 0\n"
+                                   "vt 0 0\nvt 1 0\nvt 1 1\nvt 0 1\nvn 0 0 1\n"
+                                   f"usemtl {name}\nf 1/1/1 2/2/1 3/3/1 4/4/1\n")
+    return t / f"{name}.obj"
+
+
+def signs(folder, tmp):
+    for png in sorted(ART.glob("door_sign_*.png")):
+        name = png.stem                      # door_sign_a
+        finals = {"Texture2D": f"{folder}/T_{name}", "Material": f"{folder}/M_{name}", "StaticMesh": f"{folder}/SM_{name}"}
+        for path in [*finals.values(), f"{folder}/{name}", f"{folder}/{name}_ncl1_1"]:
+            replace(path)
+        (tmp / f"{name}.png").write_bytes(png.read_bytes())
+        import_quad(folder, name, sign_obj(tmp, name), True)
+        for path in (a.split(".")[0] for a in u.call(ASSETS, "find_assets", {"folder_path": folder, "recursive": True})["returnValue"]):
+            if path in (f"{folder}/{name}", f"{folder}/{name}_ncl1_1"):
+                cls = u.call(ASSETS, "get_asset_class", {"asset_path": path})["returnValue"]
+                u.call(ASSETS, "move", {"path": path, "new_path": finals[cls]})
+        u.call(ASSETS, "save_assets", {"asset_paths": list(finals.values())})
+        print("door sign", finals["StaticMesh"])
+
+
 def materials(folder, tmp, only=None):
     for key, (r, g, b) in WALL_COLOURS.items():
         if only and key not in only:
@@ -103,7 +132,10 @@ def main(only=None):
     with tempfile.TemporaryDirectory() as tmp:
         if not only:
             textures(folder, Path(tmp))
-        materials(folder, Path(tmp), only)
+        if not only or "signs" in only:
+            signs(folder, Path(tmp))
+        if only != ["signs"]:
+            materials(folder, Path(tmp), only)
     print(u.call(ASSETS, "find_assets", {"folder_path": folder, "recursive": True})["returnValue"])
 
 

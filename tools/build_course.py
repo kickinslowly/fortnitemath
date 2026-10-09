@@ -21,6 +21,7 @@ answer pads, a boss guard on a platform, an adds spawner, a gate barrier at the 
 unchanged finish hallway. The arena is not a numbered station (fnm_boss tag), so the tier formula is untouched.
 """
 import argparse
+import functools
 import math
 import re
 import json
@@ -42,9 +43,10 @@ MOVEMENT = "/CRD_PlayerMovement/SetupAssets/PID_CP_Devices_PlayerMovement.PID_CP
 DIRECTOR = "/{root}/_Verse.fnm_director"
 TAG_MARKUP = "/Script/VerseTags.VerseTagMarkupComponent"
 PROPS = "/CR_Legacy/Playsets/PlaysetProps"
-# Walls with a real (openable) door, 384 tall, pivot centred, stretched to DOOR_W. One look for every door
-# (Aaron 2026-10-04: a door that looks different stands out as a hint); the coloured letter boards above
-# the doors (LETTER_COLOURS) are what tell A..D apart. Rewrite the doors alone with --doors-only.
+# Walls with a real (openable) door, 384 tall, pivot centred, stretched to DOOR_W. One prop for every door
+# (Aaron 2026-10-04: a door that looks different stands out as a hint); A..D are told apart by colour, the same
+# scheme as the HUD answer tiles (Aaron 2026-10-08): each door panel in its letter's colour and, on the panel, a
+# sign drawn like the HUD tile: dark, ringed and lettered in that colour (door_dress). Rewrite the doors alone with --doors-only.
 DOOR_PROPS = [("OilRig_Platform_Wall_01_Door_01", 553)] * 4
 
 START_Y = -12000        # hallway 1 starts here; the course runs toward +Y
@@ -142,6 +144,19 @@ LETTERS = "ABCD"
 BOARD = {"showBorder": True, "backgroundColor": {"r": 0.02, "g": 0.02, "b": 0.06, "a": 1.0},
          "textSize": 24, "textJustification": "Center"}
 LETTER_COLOURS = [(1.0, 1.0, 1.0), (0.3, 0.55, 1.0), (0.2, 0.9, 0.3), (1.0, 0.55, 0.1)]
+# Door dressing (door_dress). The panel's colour: the prop's doorAnimatingMaterial (the panel's material at runtime)
+# and its DoorComponent's override; the wall frame round it is a runtime MID that ignores an override, so it stays
+# stock. The letter: a sign actor FNM_Sxx_DoorSign<L> flush on the panel, a project quad SM_door_sign_<x>
+# (tools/make_door_signs.py + tools/import_art.py signs), the HUD answer tile drawn as a texture, no collision. It does
+# not swing with the panel: once the door is open it hangs in the doorway and a player runs through it. Tried and
+# dropped (2026-10-08): a component parented to the DoorComponent (swings with it in the editor, but Creative props are
+# respawned at runtime without editor-added components: nothing showed in play); the Spooky alphabet meshes ("Disallowed
+# reference" at session validation: only their PPID props may be placed); a billboard (borderless text does not render
+# in play, and the chalkboard frame is wider than the door).
+# The quad is 100 x 100 in its XY plane; yaw 180 + roll 90 stands it up facing -Y, reading the right way round.
+SIGN_SIZE = 110         # cm square
+SIGN_Z = 165            # its centre above the floor: ~110-220 on the 228 panel, the letter above a third-person character's head
+SIGN_Y = -26            # in front of the door wall's centre line (the panel's face is ~-22)
 SIGN_COLOUR = (1.0, 0.8, 0.1)
 # Barrier zone at actor scale 1 ("volume Transform" Box): 511 x 511 x 384, bottom at the actor. Its
 # get_actor_bounds add a 128/96 cm editor margin all round, so don't size it from those.
@@ -271,6 +286,41 @@ def door_asset(name):
     return exact[0]
 
 
+@functools.lru_cache(maxsize=None)
+def project_mount():
+    """The project's content mount (its plugin id), e.g. /c498eed2-...; FNM_Art lives under it."""
+    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
+    return next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).rstrip("/")
+
+
+def wall_material(key):
+    return f"{project_mount()}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
+
+
+def door_dress(door, label, i, x, y, z):
+    """Colour door prop `door` as answer i (A = 0) and put its sign on the panel: an actor `label`, the door prop at
+    (x, y, z) (its centre on the door-wall line, on the floor). Remove old signs first (clear_door_signs)."""
+    key = LETTERS[i].lower()
+    colour = ref(wall_material(f"pad_{key}"))
+    props(door, {"doorAnimatingMaterial": colour})
+    props(f"{door}.DoorComponent", {"overrideMaterials": [colour]})
+    k = SIGN_SIZE / 100
+    r = u.call(SCENE, "add_to_scene_from_asset", {
+        "asset_path": f"{project_mount()}/FNM_Art/SM_door_sign_{key}.SM_door_sign_{key}", "name": label,
+        "xform": {"location": {"x": x, "y": y + SIGN_Y, "z": z + SIGN_Z}, "rotation": {"pitch": 0, "yaw": 180, "roll": 90},
+                  "scale": {"x": k, "y": k, "z": k}}})
+    sign = r["returnValue"]["refPath"]
+    tag(sign, label)
+    comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(sign), "properties": ["staticMeshComponent"]})["returnValue"])
+    props(comp["staticMeshComponent"]["refPath"], {"bodyInstance": {"collisionEnabled": "NoCollision"}})
+
+
+def clear_door_signs(found):
+    for a in found:
+        if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_(Label|DoorSign)[A-D]", a.get("label", "")):
+            u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+
+
 def door_centres(doors):
     """Door A first. A player facing the doors (+Y) has +X on their LEFT, so A is at +X."""
     half = doors * DOOR_W / 2
@@ -320,9 +370,8 @@ def station(k, ox, oy, oz, hall, doors, project, door_assets):
         cx = ox + dx
         letter = LETTERS[i]
         asset, width = door_assets[i]
-        prop(asset, f"{prefix}_Door{letter}", cx, door_y, oz, sx=DOOR_W / width)
-        label = device(BILLBOARD, f"{prefix}_Label{letter}", cx, door_y - 40, oz + DOOR_H + 20, yaw=180, sx=2, sy=2, sz=2)
-        board(label, letter, LETTER_COLOURS[i])
+        door_dress(prop(asset, f"{prefix}_Door{letter}", cx, door_y, oz, sx=DOOR_W / width), f"{prefix}_DoorSign{letter}",
+                   i, cx, door_y, oz)
         inner = DOOR_W - t                  # vestibule width between dividers
         trig_depth = TRIGGER_DEPTH
         trig = device(TRIGGER, f"{prefix}_Trigger{letter}", cx, vest0 + trig_depth / 2, oz + 128,
@@ -566,12 +615,13 @@ def paint():
 
 
 def doors_only():
-    """Swap every station's door props for DOOR_PROPS in place, keeping their labels; nothing else moves.
-    The door-wall line comes from the station's lintel (a cube centred on the wall), not from the old door
+    """Swap every station's door props for DOOR_PROPS in place and dress them (door_dress); nothing else moves.
+    Replaces their signs too (and the letter billboards that hung above the doors before 2026-10-08). The door-wall line comes from the station's lintel (a cube centred on the wall), not from the old door
     prop, whose bounds need not be symmetric in Y. Idempotent."""
     found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
     found = [a for a in found if isinstance(a, dict)]
     lintels = {a["label"][5:7]: a for a in found if re.fullmatch(r"FNM_S\d\d_Lintel", a.get("label", ""))}
+    clear_door_signs(found)
     by_station = {}
     for a in found:
         if re.fullmatch(r"FNM_S\d\d_Door[A-D]", a.get("label", "")):
@@ -594,7 +644,9 @@ def doors_only():
             name, width = DOOR_PROPS[i]
             if name not in assets:
                 assets[name] = door_asset(name)
-            prop(assets[name], f"FNM_S{st}_Door{letter}", door_x + centres[i], door_y, door_z, sx=DOOR_W / width)
+            x = door_x + centres[i]
+            door_dress(prop(assets[name], f"FNM_S{st}_Door{letter}", x, door_y, door_z, sx=DOOR_W / width),
+                       f"FNM_S{st}_DoorSign{letter}", i, x, door_y, door_z)
             placed += 1
         print(f"station {int(st)}: removed {len(old)}, placed {len(letters)} doors at y={door_y:.0f}")
     print(f"{placed} doors placed")

@@ -7,6 +7,11 @@ sheet) gets a matching lid of Creative glass-gallery glass whose underside sits 
 the course becomes a closed glass-topped tube, the sky and the floating digits stay visible, and nothing can be
 jumped out of or into. The director's skip guard (WatchSkip) stays as the backstop.
 
+Aaron (2026-10-08): "make the glass top completely transparent, it's obscuring some things I'd like to see". The lids
+are now invisible (component bVisible off, bHiddenInGame on) in the editor and in play; collision is untouched (same
+QueryOnly / FortStaticMesh body as every course wall). The glass material stays on them, so flipping VISIBLE back
+restores the look.
+
 Reads geometry from the course actors (tools/build_course.py: every cube is placed centred, scale X along its
 heading), so rerun after a course rebuild. Idempotent: every actor this script creates is tagged TAG; a run first
 deletes everything with TAG.
@@ -26,6 +31,7 @@ from build_course import ACTOR, CUBE, OBJ, SCENE, TAG as COURSE_TAG, WALL_H, cle
 TAG = "fnm_lids"
 GLASS = "/Game/Creative/Environments/Meshes/Glass/Materials/Glass_version_02/MI_CP_GlassGallery.MI_CP_GlassGallery"
 LID_T = 40              # lid thickness (cm)
+VISIBLE = False         # Aaron 2026-10-08: invisible ceilings (see the docstring)
 SINK = 20               # the lid's underside sits this far down into the wall tops, so there is no seam to slip through
 # Course floor pieces: a connector's pieces carry the prefix of the station it leads INTO (build_course.connector);
 # the boss arena (FNM_Arena_Floor) and the connector into it (FNM_Arena_FloorC1 ...) are lidded like a station.
@@ -81,7 +87,8 @@ def lid(label, cx, cy, floor_top, sx, sy, yaw, pitch):
     u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
     u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label})
     comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(actor), "properties": ["staticMeshComponent"]})["returnValue"])
-    u.call(OBJ, "set_properties", {"instance": comp["staticMeshComponent"], "values": json.dumps({"overrideMaterials": [ref(GLASS)]})})
+    u.call(OBJ, "set_properties", {"instance": comp["staticMeshComponent"], "values": json.dumps(
+        {"overrideMaterials": [ref(GLASS)], "bVisible": VISIBLE, "bHiddenInGame": not VISIBLE})})
     return actor
 
 

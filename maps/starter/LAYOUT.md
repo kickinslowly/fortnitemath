@@ -15,7 +15,7 @@ next hallway, which may sit higher, lower or off to one side.
             next hallway
    ═══╪═══╪═══╪═══╪═══     ═ = barrier (red stripes): blocks everyone but the player whose right answer opened it
    │ ▓ │ ▓ │ ▓ │ ▓ │       ▓ = hidden trigger: walking in answers with that door
-   ┤ A ├ B ├ C ├ D ├       real doors, E to open (grey, blue, dark stone + wood, orange); letters on a board above
+   ┤ A ├ B ├ C ├ D ├       real doors, E to open; each panel in its letter's colour with a HUD-tile sign on it
    │                 │
    │ S               │     S = "STATION N" board on the left wall
    │        E ↑      │     E = entry teleporter (arrival / retry point; the player lands 3 m past it)
@@ -147,6 +147,18 @@ the glass is almost invisible (a faint band where it meets the door wall; from a
 slabs for 10 stations. The Yeet still lands at the entry under it (seen 2026-10-06: 18.4 m back, 0.9 s flight; the
 vent throws flat). Not yet seen: a real Shockwave jump against the glass, and whether Aaron wants the glass more
 visible (a tinted gallery variant such as `MI_CP_GlassGallery_Cerulean` is a one-line swap).
+2026-10-08, Aaron: "make the glass top completely transparent, it's obscuring some things I'd like to see". The lids
+are now invisible in the editor and in play (`VISIBLE = False`: component hidden, collision untouched, the same body
+as every wall); the glass material stays on them, so flipping `VISIBLE` restores the look.
+
+## Door colours and signs (2026-10-08, `tools/build_course.py` door_dress)
+Aaron: "make the doors the same colors as the letters and styling for each answer, and place the letters on the
+doors". Each door panel takes its letter's colour (A white, B blue, C green, D orange, `M_fnm_wall_pad_a..d`, the
+HUD tile colours) and carries a 110 cm sign drawn like the HUD answer tile: dark, ringed and lettered in that colour
+(`tools/make_door_signs.py`, imported as quads by `tools/import_art.py signs`), centred 165 cm up. The wall frame round
+each door stays stock: it is a runtime material instance that ignores overrides. The sign is its own actor
+(`FNM_Sxx_DoorSign<L>`, no collision) and does not swing with the panel: an open door leaves its sign hanging in the
+doorway, and players run through it. `--doors-only` rebuilds doors and signs in place.
 
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");
