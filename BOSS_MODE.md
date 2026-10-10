@@ -521,7 +521,7 @@ creating awesome boss monster for us to fight. make it epic. and get it idle and
 A chest is a placed actor, and a placed actor keeps its scale. A character is spawned by the game at a fixed size and
 does not (§15a). So the titan uses the chest's trick: it is placed devices, scaled.
 
-- **The art.** Meshy, 62 credits:
+- **The art.** Meshy, 59 credits:
   - a concept image (nano-banana-pro, 9);
   - image to 3D, textured, 40k triangles (30);
   - a rig (5);
