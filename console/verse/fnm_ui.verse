@@ -106,6 +106,16 @@ fnm_hud := class:
     # Boss arena: the shared boss health bar and the viewer's own hits, the last line of the slate, shown only to a
     # player at the arena stage (fnm_director BossLoop refreshes it; collapsed otherwise, so nothing else moves).
     BossText : text_block = text_block{DefaultTextColor := NamedColors.Red, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
+    # Boss mode's boss bar, at the bottom like a classic boss fight (Aaron 2026-10-10: "make healthbar more noticeable"):
+    # the boss's name and mood over a 680 x 44 red bar on a gold frame, its health and the team's hits on the bar.
+    # Collapsed until SetBossBar; ClearBoss collapses it again.
+    BossBarName : text_block = text_block{DefaultTextColor := NamedColors.Gold, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
+    BossBarFill : color_block = color_block{DefaultColor := color{R := 0.85, G := 0.06, B := 0.04}, DefaultOpacity := 1.0, DefaultDesiredSize := vector2{X := 680.0, Y := 44.0}}
+    BossBarValue : text_block = text_block{DefaultTextColor := NamedColors.White, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    BossBarWidth : float = 680.0
+    BossBarHeight : float = 44.0
+    var MaybeBossBar : ?widget = false
+    var BossBarGeneration : int = 0
     # Verdict: a big check mark or cross (textures; the HUD font has no such glyphs) over CORRECT! or the
     # penalty's name. FNM_Art.T_fnm_check / T_fnm_cross are imported into each map's project by
     # tools/import_art.py.
@@ -393,6 +403,41 @@ fnm_hud := class:
                                     HorizontalAlignment := horizontal_alignment.Center
                         HorizontalAlignment := horizontal_alignment.Center
                         VerticalAlignment := vertical_alignment.Center
+            BossBar : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := NamedColors.Black, DefaultOpacity := 0.55}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := BossBarName
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                stack_box_slot:
+                                    Widget := overlay:
+                                        Slots := array:
+                                            # Gold frame, a dark trough 4 px inside it, the fill from the left, the text.
+                                            overlay_slot:
+                                                Widget := color_block{DefaultColor := color{R := 1.0, G := 0.78, B := 0.1}, DefaultOpacity := 1.0, DefaultDesiredSize := vector2{X := 688.0, Y := 52.0}}
+                                            overlay_slot:
+                                                Widget := color_block{DefaultColor := color{R := 0.1, G := 0.02, B := 0.02}, DefaultOpacity := 1.0, DefaultDesiredSize := vector2{X := 680.0, Y := 44.0}}
+                                                HorizontalAlignment := horizontal_alignment.Center
+                                                VerticalAlignment := vertical_alignment.Center
+                                            overlay_slot:
+                                                Widget := BossBarFill
+                                                HorizontalAlignment := horizontal_alignment.Left
+                                                VerticalAlignment := vertical_alignment.Center
+                                                Padding := margin{Left := 4.0}
+                                            overlay_slot:
+                                                Widget := BossBarValue
+                                                HorizontalAlignment := horizontal_alignment.Center
+                                                VerticalAlignment := vertical_alignment.Center
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    Padding := margin{Top := 4.0}
+                        Padding := margin{Left := 16.0, Top := 4.0, Right := 16.0, Bottom := 10.0}
             Root : canvas = canvas:
                 Slots := array:
                     canvas_slot:
@@ -473,6 +518,16 @@ fnm_hud := class:
                         Alignment := vector2{X := 1.0, Y := 0.0}
                         Offsets := margin{Left := -20.0, Top := 348.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
+                    # The boss bar along the bottom edge (at 1080p y ~950..1060), under the MEGA NUKE label (which ends
+                    # near y 900: 160 px higher the bar covered it, 2026-10-10 frame), centred at x 900 so its ~720 px
+                    # run (x ~540..1260) clears the health bars (end x ~445) and the hotbar's ammo line (from x ~1230,
+                    # y 930..995, mostly above the bar's top).
+                    canvas_slot:
+                        Widget := BossBar
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 1.0}, Maximum := vector2{X := 0.5, Y := 1.0}}
+                        Alignment := vector2{X := 0.5, Y := 1.0}
+                        Offsets := margin{Left := -60.0, Top := -16.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             Results.SetVisibility(widget_visibility.Collapsed)
             StreakBig.SetVisibility(widget_visibility.Collapsed)
@@ -484,6 +539,8 @@ fnm_hud := class:
             Slate.SetVisibility(widget_visibility.Collapsed)
             Banner.SetVisibility(widget_visibility.Collapsed)
             set MaybeBanner = option{Banner}
+            BossBar.SetVisibility(widget_visibility.Collapsed)
+            set MaybeBossBar = option{BossBar}
             set MaybeSlate = option{Slate}
             set MaybeResults = option{Results}
             set MaybeFeed = option{Feed}
@@ -676,6 +733,28 @@ fnm_hud := class:
 
     ClearBoss():void =
         SetOrCollapse(BossText, "")
+        if (Bar := MaybeBossBar?):
+            Bar.SetVisibility(widget_visibility.Collapsed)
+
+    # The boss bar: Name over the bar filled to Percent (0..100), Detail on it.
+    SetBossBar(Name:string, Percent:int, Detail:string):void =
+        BossBarName.SetText(FnmText(Name))
+        BossBarValue.SetText(FnmText(Detail))
+        BossBarFill.SetDesiredSize(vector2{X := BossBarWidth * (Clamp(Percent, 0, 100) * 1.0) / 100.0, Y := BossBarHeight})
+        if (Bar := MaybeBossBar?):
+            Bar.SetVisibility(widget_visibility.Visible)
+
+    # A hit: the fill flashes white, then back to red.
+    HitBossBar()<suspends>:void =
+        set BossBarGeneration += 1
+        Generation := BossBarGeneration
+        for (K := 1..3):
+            BossBarFill.SetColor(NamedColors.White)
+            Sleep(0.08)
+            BossBarFill.SetColor(color{R := 1.0, G := 0.85, B := 0.1})
+            Sleep(0.08)
+        if (Generation = BossBarGeneration):
+            BossBarFill.SetColor(color{R := 0.85, G := 0.06, B := 0.04})
 
     # The run's target under the clock ("Beat 1:20.1"; "" collapses it).
     SetTarget(Text:string):void =

@@ -178,6 +178,9 @@ fnm_bm_creature := class(tag){}
 # A perch's weapon chest (its hidden button_device, slot = perch) and a pad's floating letter (creative_prop, slot 1..4 = A..D).
 fnm_bm_chest := class(tag){}
 fnm_bm_letter := class(tag){}
+# The boss (a Megabrute creature spawner on the platform, 2026-10-10) and a cannon's laser beam (creative_prop, slot 1 = L, 2 = R).
+fnm_bm_megaboss := class(tag){}
+fnm_bm_beam := class(tag){}
 fnm_bm_slot_1 := class(tag){}
 fnm_bm_slot_2 := class(tag){}
 fnm_bm_slot_3 := class(tag){}

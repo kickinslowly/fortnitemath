@@ -84,8 +84,9 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Floor slab, walls, lid | 4000 x 4000; walls to z 800 | engine cubes (`M_fnm_wall_bm_wall` / `_bm_floor`, new colours in `import_art.WALL_COLOURS`) | — | ~14 cubes |
 | Entry teleporter | (0, 250, 0), yaw 90, both group knobs Group_None | `PID_Device_Teleporter` | `fnm_bm` + `fnm_entry` | 1 |
 | Answer pads A..D | (900, 1100) (-900, 1100) (900, 2100) (-900, 2100); tile 450 sq, 10 thick, `M_fnm_wall_pad_a..d`; trigger 450 x 450 x 150 on it; a giant 3D letter (CRG_Props Alphabet, scale 1.8, bottom 250 up, pad colour, no collision) that turns to face the nearest boss-mode player and bobs (`FaceLetter`; Aaron 2026-10-09: the boards were hard to see from some angles) | `PID_Device_Trigger`, Alphabet prop | `fnm_bm` + `fnm_door_a..d`; letter `fnm_bm_letter` + slot | 4 + 4 |
-| Boss platform | centre (0, 3200), 800 x 500, top +100 | engine cube, `M_fnm_wall_steel` | — | 1 |
-| Boss spawners, one per level | on the platform at x = -120, -60, 0, 60, 120, yaw -90; `BOSS_SETTINGS` + max/starting health 100000 (asked, read back); weapon per level (table §5) | `PID_Device_GuardSpawner_V2` | `fnm_bm_boss` + `fnm_bm_slot_L` | 5 |
+| Boss platform | a 3.5 m pedestal, 800 x 500 (§15) | engine cube, `M_fnm_wall_bm_marble` | — | 1 |
+| Boss (since 2026-10-10, §15) | a Megabrute creature spawner on the platform centre (`build_bossmode.boss_rig`) | `PID_Device_CreatureSpawner_V2` | `fnm_bm_megaboss` | 1 |
+| Cannon beams (§15) | an Alphabet "I" per cannon laid from its muzzle to the boss's chest, Neon Green, no collision | Alphabet prop | `fnm_bm_beam` + slot | 2 |
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
 | Perches P1..P4 | P1 FR (-1600, 500) top 180; P2 FL (1600, 500) top 180; P3 BR (-1600, 3500) top 240; P4 BL (1600, 3500) top 240. Top 300 sq (`M_fnm_wall_bm_perch`, gold); stepping stones 120 sq, tops at 60, 120 (and 180 for the 240 perches), 150 edge gap, laid toward the arena centre; hidden trigger 300 x 300 x 200 on the top; beacon VFX on the top, LightningBolt_01, scale 2, enabled On Phase None | trigger, VFX | trigger `fnm_bm_perch` + `fnm_bm_slot_P`; fx `fnm_bm_perch_fx` + `fnm_bm_slot_P` | 4 + 4 |
 | Weapon granters, one per level | parked under the floor (z -600), x = -1200 + 300 L; each bound (`grantItem` ← its trigger's OnTriggered with `TRIGGER_CLASS` memberParent) to a hidden trigger parked beside it; `GRANT_SETTINGS` from build_pickups (Keep All, Only if Not Owned, drop at feet when full) + `equipItemOnGrant` 1; item = the level's weapon | `PID_CP_Devices_ItemGranter`, `PID_Device_Trigger` | trigger `fnm_bm_grant` + `fnm_bm_slot_L` | 5 + 5 |
@@ -450,3 +451,43 @@ B6, 2026-10-09 (UEFN 42.30; logs and frames in the session scratchpad `b6_*.txt`
   (t + 2.5 s) is shorter than the 2.4-3.6 s boss lines and scores them near 0; the B6 copy widens it to t + 4.5 s.
 - Full run with the new arena: victory in 1:23.3, GOLD, 16/16. Race regression: two finished runs (1:29.8, 1:26.7, GOLD
   10/10), only the three OnBegin boss-mode lines, and 10 `cannons fired` lines.
+
+## 15. Bigger boss, boss bar, visible lasers (2026-10-10)
+
+Aaron: "make boss bigger and more epic model if possible. hard to even tell he is the boss. and make healthbar more
+noticeable. and attacks on him more obviously coming from the side laser cannons".
+
+- **The boss is a Megabrute.** A guard cannot be made bigger: Guard Spawner V2 has no size option, and the 42.30 Verse
+  digest has no character scale. The five per-level guard boss spawners are gone. In their place is one creature spawner
+  (`Megabrute`, tag `fnm_bm_megaboss`) on a platform raised from 1 m to 3.5 m. `SpawnBoss` pulses it (Enable, then
+  Disable on its SpawnedEvent). `OnBossSpawned` sets its max and current health to 100000 and pins it in place
+  (`PinBoss`: teleport home, `PutInStasis` with turning allowed). Any damage that does not come from a pad is healed
+  straight back (`OnMegabossDamaged`; `PadHitting` lets the pad's own `Damage` through), so bullets do nothing and a
+  player who shoots it gets the pad hint. `KnockBoss` releases the pin for the knock and pins it again after the stun.
+  `BossLoop` puts it back on its spot when it ends up more than 1.5 m away, 1.5 s or more after a hit. The boss weapon
+  per level (table §4) no longer applies: the Megabrute has no gun and its melee cannot reach a pad.
+- **Boss bar** (`fnm_hud.SetBossBar` / `HitBossBar`): along the bottom edge, centred at x 900. It reads
+  "MEGABRUTE BOSS - LEVEL L: <ANGER>" over a 680 x 44 red bar on a gold frame, with "40% - hits 1/3" on the bar. The fill
+  flashes white and gold on every hit. The slate's old BOSS text line is no longer used in boss mode; the race arena
+  still uses it.
+- **Beams** (`fnm_director.FireBeam`): each cannon fires 3 shots per hit. A shot grows out of the muzzle to the boss in
+  0.15 s, holds for 0.35 s, then goes dark. The strike and the blasts land as the first shot arrives. The beam is a
+  gallery prop because Verse can move only creative props. The Glow Rings beam materials render as a checker on a
+  gallery prop, and the Tech primitives refuse a colour (both probed), so the beam uses the Alphabet "I" in its own
+  Neon Green, scale 2.
+- `python tools/build_bossmode.py --boss` re-places the platform, the boss and the beams on their own (idempotent via
+  `fnm_bm_bossrig`).
+- **Seen in play** (headless, `DebugAutoBoss` + `DebugAutoRightAnswers` + `DebugBossHold 4`):
+  - The Megabrute spawns on the pedestal with health 100000.
+  - Hit 1 takes it to 50% and the bar shows it. The first run healed the pad's own hit back, so the bar stayed at 100%;
+    `PadHitting` fixed that.
+  - Hit 2 clears level 1 and the level-2 boss spawns.
+  - The thick green beams from both sides meet at the boss during the nuke.
+  - The knock moves it 64 cm and it stays on the pedestal.
+- **Not seen yet:**
+  - Hits 3 to 16 since the pedestal.
+  - A whole run to VICTORY.
+  - A player shooting the boss (heal plus hint).
+  - Whether `MoveTo` animates the beam's scale or the beam pops to full length.
+  - A full `build_bossmode.py` (only `--boss` ran).
+  - How big the boss reads to Aaron: about 3 m tall on the pedestal, 45 m from the entry.

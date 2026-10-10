@@ -120,6 +120,14 @@ fnm_cannon_rig := class:
     StrikeHome : ?transform
     Blasts : fnm_rig
     Nuke : ?vfx_spawner_device
+    # Boss mode: a laser beam prop per cannon and its placed (full-length) transform, hidden between shots; the boss is
+    # pinned on its platform, so a knock pins it again (KnockBoss).
+    Beams : []creative_prop = array{}
+    BeamFull : []transform = array{}
+    PinnedBoss : logic = false
+
+# How boss mode's Megabrute is held on its platform: it may turn to face the players, never walk off.
+FnmBossPin()<transacts>:stasis_args = stasis_args{AllowTurning := true, AllowFalling := true, AllowEmotes := true}
 
 # Binds one answer pad of the boss-mode arena to its letter (0 = A), so one callback serves all four.
 fnm_bm_pad_handler := class:
@@ -163,6 +171,10 @@ fnm_bm_arena := class:
     # A weapon chest's hidden button per perch (off until its level's drop) and a floating letter per pad (A..D).
     var Chests : []?button_device = array{false, false, false, false}
     var Letters : []?creative_prop = array{false, false, false, false}
+    # The boss since 2026-10-10: a Megabrute creature spawner on the platform (its transform is where the boss is held);
+    # without one the per-level guard boss spawners above serve.
+    var Megaboss : ?creature_spawner_device = false
+    var BossHome : ?transform = false
     var Rig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "bm_blast", Parts := array{}, Homes := array{}}, Nuke := false}
 
     # Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter).
@@ -205,6 +217,17 @@ fnm_bm_arena := class:
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_letter), Letter := creative_prop[Object]):
             set Letter.CanBeDamaged = false
             if (set Letters[SlotOf(Object) - 1] = option{Letter}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_megaboss), Spawner := creature_spawner_device[Object]):
+            Spawner.Disable()
+            set Megaboss = option{Spawner}
+            set BossHome = option{Spawner.GetTransform()}
+        var Beams : []creative_prop = array{}
+        var BeamFull : []transform = array{}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_beam), Beam := creative_prop[Object]):
+            set Beam.CanBeDamaged = false
+            set BeamFull += array{Beam.GetTransform()}
+            set Beams += array{Beam}
+            Beam.Hide()
         var CannonFx : []vfx_spawner_device = array{}
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_cannon_fx), Fx := vfx_spawner_device[Object]):
             Fx.Disable()
@@ -219,7 +242,7 @@ fnm_bm_arena := class:
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_nuke_fx), Fx := vfx_spawner_device[Object]):
             Fx.Disable()
             set Nuke = option{Fx}
-        set Rig = fnm_cannon_rig{Fx := CannonFx, Strike := Strike, StrikeHome := StrikeHome, Blasts := Director.BuildRig("bm_blast", fnm_bm_blast), Nuke := Nuke}
+        set Rig = fnm_cannon_rig{Fx := CannonFx, Strike := Strike, StrikeHome := StrikeHome, Blasts := Director.BuildRig("bm_blast", fnm_bm_blast), Nuke := Nuke, Beams := Beams, BeamFull := BeamFull, PinnedBoss := if (Megaboss?) then true else false}
 
     CountSpawners(Items:[]?guard_spawner_device):int =
         var Count : int = 0
@@ -330,6 +353,16 @@ fnm_boss_mode := class:
     TauntDelaySeconds : float = 2.5
     StreakCueDelaySeconds : float = 2.3
     BossDeadSeconds : float = 0.5
+    # The Megabrute's health (it ignores every hit but the pads': OnMegabossDamaged), and how far it may be pushed off
+    # its spot (a knock's stagger) before BossLoop puts it back.
+    MegabossHealth : float = 100000.0
+    # A hit's knock throws the Megabrute ~3.3 m (seen 2026-10-10), off its 5 m deep pedestal: BossLoop puts it back
+    # once it is BossLeashCm off its spot and LeashAfterHitSeconds have passed since the hit (so the knock plays out).
+    LeashAfterHitSeconds : float = 1.5
+    var LastHitAt : float = -100.0
+    # True while a pad's own Damage lands, so OnMegabossDamaged lets it through.
+    var PadHitting : logic = false
+    BossLeashCm : float = 150.0
 
     # Finds the arena's devices, subscribes the spawners' events and logs what was found.
     Build():void =
@@ -344,6 +377,10 @@ fnm_boss_mode := class:
         for (MaybeSpawner : Arena.Creatures, Spawner := MaybeSpawner?):
             Spawner.SpawnedEvent.Subscribe(OnCreatureSpawned)
             Spawner.EliminatedEvent.Subscribe(OnCreatureEliminated)
+        if (Mega := Arena.Megaboss?):
+            Mega.SpawnedEvent.Subscribe(OnBossSpawned)
+            Mega.EliminatedEvent.Subscribe(OnBossEliminated)
+        Print("FNM: boss mode: megaboss {FnmYesNo(if (Arena.Megaboss?) then true else false)}, {Arena.Rig.Beams.Length} beams")
         Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
         Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests, {Arena.CountLetters(Arena.Letters)} letters")
@@ -551,7 +588,10 @@ fnm_boss_mode := class:
             Left := Max(Need - TeamHits, 0)
             Stood := Character.GetTransform().Translation
             Amount := if (TeamHits >= Need) then Character.GetHealth() + Character.GetShield() + 100.0 else Character.GetMaxHealth() / (Max(Need, 1) * 1.0)
+            set LastHitAt = GetSimulationElapsedTime()
+            set PadHitting = true
             Character.Damage(Amount)
+            set PadHitting = false
             Print("FNM: boss mode hit {State.Hits} by the player (level {L}, team {TeamHits}/{Need}), damage {Amount}, health {BossPercent()}%")
             Label := if (Left > 0) then "MEGA NUKE!  {Left} TO GO" else if (L >= FnmBmLevelCount()) then "MEGA NUKE!  BOSS DEFEATED!" else "MEGA NUKE!  LEVEL {L} CLEARED!"
             State.Hud.FlashNuke(Label, Director.NukeSeconds)
@@ -564,6 +604,8 @@ fnm_boss_mode := class:
             Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
             spawn{ Director.FireCannons(Arena.Rig, State.Player, Character, Stood, Left, true) }
             RefreshBossLines()
+            for (Fighter : Fighting()):
+                spawn{ Fighter.Hud.HitBossBar() }
         else:
             # Between levels (or before the first boss is up) a right answer counts for the player, not as a hit.
             Print("FNM: boss mode right answer by the player, but no boss is up (level {L})")
@@ -794,7 +836,12 @@ fnm_boss_mode := class:
 
     # Asks level L's boss spawner for its boss (fresh spawn limit, enabled; SpawnedEvent confirms) with a strike at it.
     SpawnBoss(L:int):void =
-        if (Spawner := BossSpawnerFor(L)?):
+        if (Mega := Arena.Megaboss?):
+            set BossRequestedAt = GetSimulationElapsedTime()
+            Mega.Enable()
+            Print("FNM: boss mode megaboss requested (level {L})")
+            spawn{ StrikeAt(Mega.GetTransform().Translation) }
+        else if (Spawner := BossSpawnerFor(L)?):
             set BossRequestedAt = GetSimulationElapsedTime()
             Spawner.Reset()
             Spawner.Enable()
@@ -886,7 +933,9 @@ fnm_boss_mode := class:
         set BossRequestedAt = -1.0
         set Downed = true
         set LevelDownAt = GetSimulationElapsedTime()
-        if (Spawner := BossSpawnerFor(L)?):
+        if (Mega := Arena.Megaboss?):
+            Mega.Disable()
+        else if (Spawner := BossSpawnerFor(L)?):
             Spawner.Disable()
         CloseGates()
         Print("FNM: boss level {L} cleared (friendly fire healed {FriendlyFireHealed} hits)")
@@ -994,6 +1043,9 @@ fnm_boss_mode := class:
         CloseGates()
         for (MaybeSpawner : Arena.BossSpawners, Spawner := MaybeSpawner?):
             Spawner.Disable()
+        if (Mega := Arena.Megaboss?):
+            Mega.Disable()
+            Mega.EliminateCreatures()
         for (MaybeFx : Arena.AngerFx + Arena.PerchFx, Fx := MaybeFx?):
             Fx.Disable()
         for (MaybeChest : Arena.Chests, Chest := MaybeChest?):
@@ -1038,17 +1090,27 @@ fnm_boss_mode := class:
                     if (Down?):
                         Print("FNM: boss mode boss down without an elimination event")
                         LevelCleared()
-                else if (not BossAlive?, BossRequestedAt >= 0.0, Now - BossRequestedAt > BossNudgeSeconds, Spawner := BossSpawnerFor(Level)?):
-                    Print("FNM: boss mode boss not spawned after 5 s; Spawn()")
+                else if (not BossAlive?, BossRequestedAt >= 0.0, Now - BossRequestedAt > BossNudgeSeconds):
                     set BossRequestedAt = Now
-                    Spawner.Spawn()
+                    if (Mega := Arena.Megaboss?):
+                        Print("FNM: boss mode megaboss not spawned after 5 s; Disable, Enable")
+                        Mega.Disable()
+                        Mega.Enable()
+                    else if (Spawner := BossSpawnerFor(Level)?):
+                        Print("FNM: boss mode boss not spawned after 5 s; Spawn()")
+                        Spawner.Spawn()
+                if (BossAlive?, Now - LastHitAt > LeashAfterHitSeconds, Home := Arena.BossHome?, Agent := BossAgent?, Character := Agent.GetFortCharacter[], Character.IsActive[]):
+                    At := Character.GetTransform().Translation
+                    if (Distance(vector3{X := At.X, Y := At.Y, Z := 0.0}, vector3{X := Home.Translation.X, Y := Home.Translation.Y, Z := 0.0}) > BossLeashCm):
+                        Print("FNM: boss mode megaboss wandered to {At}; back on the platform")
+                        PinBoss(Character)
                 if (Now >= BeaconAt, LitPerches.Length > 0):
                     set BeaconAt = Now + BeaconSeconds
                     for (P : LitPerches, MaybeFx := Arena.PerchFx[P - 1], Fx := MaybeFx?):
                         Fx.Restart()
             for (State : Director.PlayerStates, State.Mode = fnm_mode.Boss):
                 if (not State.Finished?, not State.Picking?):
-                    State.Hud.SetBoss(BossLine(State))
+                    ShowBossBar(State)
                     set State.BossShown = true
                 else if (State.BossShown?):
                     State.Hud.ClearBoss()
@@ -1057,23 +1119,22 @@ fnm_boss_mode := class:
     # Every fighter's boss line now (a hit and a kill do not wait for BossLoop's next refresh).
     RefreshBossLines():void =
         for (State : Fighting()):
-            State.Hud.SetBoss(BossLine(State))
+            ShowBossBar(State)
             set State.BossShown = true
 
-    # "BOSS  ████------  40%   -   LEVEL 3: FURIOUS   -   hits 1/3", or "BOSS  is getting up ...   -   LEVEL 3: FURIOUS".
-    BossLine(State:fnm_player_state):string =
+    # The boss bar at the bottom of the screen (Aaron 2026-10-10: "make healthbar more noticeable"): "MEGABRUTE  -  LEVEL 3:
+    # FURIOUS" over a bar filled to the boss's health, "40%   -   hits 1/3" on it.
+    ShowBossBar(State:fnm_player_state):void =
         Row := FnmBmLevel(Level)
-        Tail := "LEVEL {Level}: {Row.Anger}"
+        Who := if (Arena.Megaboss?) then "MEGABRUTE BOSS" else "BOSS"
+        Name := "{Who}   -   LEVEL {Level}: {Row.Anger}"
         if (Downed?):
-            return "BOSS  ----------  0%   -   LEVEL {Level} CLEARED!"
-        if (not BossAlive?):
-            return "BOSS  is getting up ...   -   {Tail}"
-        Pct := BossPercent()
-        Filled := FnmDiv(Pct + 9, 10)
-        var Bar : string = ""
-        for (K := 1..10):
-            set Bar += if (K <= Filled) then "█" else "-"
-        "BOSS  {Bar}  {Pct}%   -   {Tail}   -   hits {TeamHits}/{Row.Hits}"
+            State.Hud.SetBossBar(Name, 0, "DEFEATED!   LEVEL {Level} CLEARED")
+        else if (not BossAlive?):
+            State.Hud.SetBossBar(Name, 100, "THE BOSS IS COMING ...")
+        else:
+            Pct := BossPercent()
+            State.Hud.SetBossBar(Name, Pct, "{Pct}%   -   hits {TeamHits}/{Row.Hits}")
 
     # The boss's health in percent (rounded up); 0 with no boss up.
     BossPercent():int =
@@ -1083,6 +1144,16 @@ fnm_boss_mode := class:
             0
 
     OnBossSpawned(Agent:agent):void =
+        if (Mega := Arena.Megaboss?):
+            Mega.Disable()
+            if (BossAlive?):
+                Print("FNM: boss mode: a second megaboss spawned while one is up (ignored)")
+                return
+            if (Character := Agent.GetFortCharacter[]):
+                Character.SetMaxHealth(MegabossHealth)
+                Character.SetHealth(MegabossHealth)
+                Character.DamagedEvent().Subscribe(OnMegabossDamaged)
+                PinBoss(Character)
         set BossAgent = option{Agent}
         set BossAlive = true
         set BossRequestedAt = -1.0
@@ -1098,9 +1169,32 @@ fnm_boss_mode := class:
         Print("FNM: boss mode boss elimination event")
         LevelCleared()
 
+    # The Megabrute on its platform: back at home (a little above it, so it lands on the marble), facing the entry,
+    # held there (FnmBossPin).
+    PinBoss(Character:fort_character):void =
+        if (Home := Arena.BossHome?):
+            Spot := Home.Translation + vector3{X := 0.0, Y := 0.0, Z := 150.0}
+            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(-90.0, 0.0, 0.0)]) {}
+        Character.ReleaseFromStasis()
+        Character.PutInStasis(FnmBossPin())
+
+    # Any hit on the Megabrute from an agent (a player's gun, a monster's stray shot) is healed straight back: only the
+    # pads' Damage (no instigator) brings it down. A player's shot also gets the pad hint.
+    OnMegabossDamaged(Result:damage_result):void =
+        if (PadHitting?):
+            return
+        if (Character := fort_character[Result.Target], Character.IsActive[]):
+            Character.Heal(Result.Amount)
+            if (Instigator := Result.Instigator?, Agent := Instigator.GetInstigatorAgent[], Shooter := player[Agent]):
+                GunHint(Shooter)
+
     # Gunfire on the boss: tell the shooter, once every GunHintSeconds, that the pads are the weapon.
     OnBossDamaged(Result:device_ai_interaction_result):void =
-        if (Agent := Result.Source?, Shooter := player[Agent], State := Director.PlayerStates[Shooter], State.Mode = fnm_mode.Boss, not State.Finished?):
+        if (Agent := Result.Source?, Shooter := player[Agent]):
+            GunHint(Shooter)
+
+    GunHint(Shooter:player):void =
+        if (State := Director.PlayerStates[Shooter], State.Mode = fnm_mode.Boss, not State.Finished?):
             Now := GetSimulationElapsedTime()
             Last := if (T := LastGunHint[Shooter]) then T else -100.0
             if (Now - Last >= Director.GunHintSeconds):

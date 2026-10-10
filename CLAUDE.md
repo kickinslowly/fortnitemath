@@ -79,7 +79,7 @@ before UEFN work. Project-specific:
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - BOSS BATTLE mode (spec `BOSS_MODE.md`, runtime `console/verse/fnm_bossmode.verse`): its own arena east of the course,
   built by `tools/build_bossmode.py` (idempotent via `fnm_bossmode`; Verse tags `fnm_bm_*`; does not depend on the course,
-  so no rerun after a course rebuild). It is a round colosseum: `tools/build_colosseum.py` (tag `fnm_bm_colosseum`) adds the
+  so no rerun after a course rebuild; `--boss` re-places only the pedestal, the Megabrute boss and the cannon beams, BOSS_MODE.md §15). It is a round colosseum: `tools/build_colosseum.py` (tag `fnm_bm_colosseum`) adds the
   stands, colonnade, tribune and statues from the Coliseum playset kit, reads its geometry from build_bossmode's constants
   and reruns on its own (~11 min); rerun it after changing the arena's radius, podium or gate angles. Hooks (ship values false / 0 / 0.0): `DebugAutoBoss` (start boss mode on join, wins
   over `DebugAutoPick`; with `DebugAutoRightAnswers` plays to VICTORY), `DebugBossLevel` (start at level N, Partial run),

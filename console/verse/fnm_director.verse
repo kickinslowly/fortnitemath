@@ -546,6 +546,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
     BossKnockImpulse : float = 80000.0
     BossStaggerCm : float = 150.0
     BossStunSeconds : float = 0.8
+    # Boss mode's laser beams (FireBeam; Aaron 2026-10-10: "attacks on him more obviously coming from the side laser
+    # cannons"): BeamShots shots per hit, each growing out of the muzzle to the boss in BeamTravelSeconds, held
+    # BeamHoldSeconds, then BeamGapSeconds dark.
+    BeamShots : int = 3
+    BeamTravelSeconds : float = 0.15
+    BeamHoldSeconds : float = 0.35
+    BeamGapSeconds : float = 0.08
     # Pickup pads (tools/build_pickups.py): the hidden trigger per item kind, bound to the item granter that hands one
     # over; the run-over trigger over each row of pads; how long one player waits before the same row grants again.
     var GrantTriggers : [string]trigger_device = map{}
@@ -2406,6 +2413,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (Fx : CannonFx):
             Fx.Enable()
             Fx.Restart()
+        # Beams first: the strike and the blast land as the first shot reaches the boss.
+        for (K -> Beam : Rig.Beams, Full := Rig.BeamFull[K]):
+            spawn{ FireBeam(Beam, Full) }
+        if (Rig.Beams.Length > 0):
+            Sleep(BeamTravelSeconds)
         if (Fx := StrikeFx?, Fx.TeleportTo[Feet, Level]):
             Fx.Enable()
             Fx.Restart()
@@ -2428,7 +2440,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             for (State : PlayerStates, State.Mode = fnm_mode.Boss, not State.Picking?):
                 spawn{ State.Hud.Flash(0.5) }
             Print("FNM: mega nuke at {Feet} (nuke fx {FnmYesNo(if (Rig.Nuke?) then true else false)}, second blast {Second})")
-        spawn{ KnockBoss(Character) }
+        spawn{ KnockBoss(Character, Rig.PinnedBoss) }
         Sleep(CannonFlashSeconds)
         for (Fx : CannonFx):
             Fx.Disable()
@@ -2444,9 +2456,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Knocks the boss back along +Y (away from the entry) and up, then freezes it for a beat. An NPC may ignore the
     # impulse the way players do (uefn-mcp skill: "physics disabled"); if it moved under 30 cm it is staggered back
     # BossStaggerCm by teleport instead, so the hit always reads. Logged with how far it went.
-    KnockBoss(Character:fort_character)<suspends>:void =
+    # Pinned (boss mode's Megabrute, held on its platform in stasis): let go for the knock, pinned again after the stun.
+    KnockBoss(Character:fort_character, Pinned:logic)<suspends>:void =
         if (not Character.IsActive[]):
             return
+        if (Pinned?):
+            Character.ReleaseFromStasis()
         Before := Character.GetTransform().Translation
         Character.ApplyLinearImpulse(FnmImpulse(0.0, BossKnockImpulse, BossKnockImpulse * 0.5))
         Sleep(0.3)
@@ -2466,6 +2481,22 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := true, AllowEmotes := false})
         Sleep(BossStunSeconds)
         Character.ReleaseFromStasis()
+        if (Pinned?, Character.IsActive[]):
+            Character.PutInStasis(FnmBossPin())
+
+    # One cannon's laser for a hit: BeamShots times the beam prop grows out of the muzzle to the boss (its placed, full
+    # transform; tools/build_bossmode.py boss_rig), holds and goes dark. TeleportTo after the move in case MoveTo does not
+    # carry the scale.
+    FireBeam(Beam:creative_prop, Full:transform)<suspends>:void =
+        Short := transform{Translation := Full.Translation, Rotation := Full.Rotation, Scale := vector3{X := Full.Scale.X, Y := Full.Scale.Y, Z := 0.02}}
+        for (Shot := 1..BeamShots):
+            if (Beam.TeleportTo[Short]) {}
+            Beam.Show()
+            Beam.MoveTo(Full, BeamTravelSeconds)
+            if (Beam.TeleportTo[Full]) {}
+            Sleep(BeamHoldSeconds)
+            Beam.Hide()
+            Sleep(BeamGapSeconds)
 
     # ---------------------------------------------------------------- pickup pads (Aaron 2026-10-08)
 

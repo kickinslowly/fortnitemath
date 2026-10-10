@@ -101,20 +101,12 @@ LETTER_SCALE = 1.8
 LETTER_PROP_COLOURS = ("White", "Sky Blue", "Apple Green", "Orange")
 PAD_TRIGGER = {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0, "visible in Game": False,
                "triggeredByVehicles": False, "triggeredByWater": False, "triggeredByPhysicsProps": False}
-# The boss platform (steel), its centre, size and height; one boss spawner per level stands on it at BOSS_XS.
+# The boss platform (marble), its centre, size and height; the boss's creature spawner stands on it (boss_rig). A 3.5 m
+# pedestal (2026-10-10; it was 1 m): from the entry, 45 m off, the boss on a 1 m block stood among the letters and the
+# stones and read small; up here he stands over all of it and the cannons' beams climb to him.
 PLATFORM_X, PLATFORM_Y = 0, 4500
-PLATFORM_W, PLATFORM_D, PLATFORM_H = 800, 500, 100
-BOSS_XS = (-120, -60, 0, 60, 120)
-BOSS_HEALTH_ASK = 100000.0
-# Boss weapon per level (BOSS_MODE.md 4); all accepted by the guard spawner (build_guards docstring), none a sniper or
-# launcher (no one-shot kills).
+PLATFORM_W, PLATFORM_D, PLATFORM_H = 800, 500, 350
 _W = "/Game/Athena/Items/Weapons/{0}.{0}"
-BOSS_WEAPONS = [_W.format(n) for n in (
-    "WID_Pistol_SemiAuto_Athena_R_Ore_T03",
-    "WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03",
-    "WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03",
-    "WID_Shotgun_Combat_Athena_VR_Ore_T03",
-    "WID_Assault_Heavy_Athena_VR_Ore_T03")]
 # Gates G1..G4 as angles round CENTRE: G1 right-front, G2 left-front, G3 right-back, G4 left-back (right = -X, front = the
 # entry half), each on a podium slot (an arch bay). Behind the arch an ALCOVE_D deep alcove GATE_W wide and GATE_H tall
 # (back, sides, roof and its own floor) in stone, the monster spawner at the alcove centre facing into the arena, a
@@ -157,6 +149,28 @@ CREATURE_SETTINGS = {"enabled at Game Start": False, "number of Creatures": 1, "
                      "damage Structures at Spawn Location": False, "despawn Type": "Do Not Despawn",
                      "limit Spawned Creatures": True, "enum Total Spawn Limit": "100", "total Spawn Limit": 100,
                      "activation Range": 100.0, "spawn Effects Visibility": True}
+# The boss is a Megabrute (Aaron 2026-10-10: "make boss bigger and more epic model ... hard to even tell he is the boss"):
+# a guard cannot be scaled (Guard Spawner V2 has no size option, Verse no character scale; 42.30 checked) and the
+# Megabrute is the game's own giant. One creature spawner on the platform centre (Verse tag fnm_bm_megaboss) replaces the
+# five per-level guard boss spawners; the director pulses it once per level, pins the creature on the platform (stasis,
+# turning allowed) and gives it 100000 health that only the pads take away (fnm_bossmode.verse OnBossSpawned). Its
+# melee never reaches a pad from the platform. Left out of the monster gates (too tough to fight for grades 6-8).
+MEGABOSS = "Megabrute"
+MEGABOSS_SETTINGS = {**CREATURE_SETTINGS, "creature Type": MEGABOSS}
+# A laser beam from each cannon's muzzle to the boss (Aaron 2026-10-10: "attacks on him more obviously coming from the side
+# laser cannons"): the Alphabet "I" (57 x 50 x BEAM_H at scale 1, pivot at the bottom centre) laid along the shot, its
+# +Z from the muzzle (the cannon's muzzle VFX spawner) to BEAM_AIM above the platform top (the Megabrute's chest),
+# BEAM_W scale thick (~1 m: at 0.8 it read as a thin line on the horizon from the entry, 2026-10-10 frames), in
+# BEAM_COLOUR, no collision. Placed at full length with Verse tag fnm_bm_beam; the director hides it
+# at start and shoots it out of the muzzle on every hit (fnm_director FireBeam). A gallery prop because Verse moves only
+# creative props, in its own colour option: the Glow Rings beam materials render as a checker on a gallery prop and the
+# Tech primitives refuse a colour (probed 2026-10-10).
+BEAM_LETTER = "I"
+BEAM_H = 201.3
+BEAM_W = 2.0
+BEAM_AIM = 250
+BEAM_COLOUR = "Neon Green"
+BOSS_RIG_TAG = "fnm_bm_bossrig"
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
 # square gold block; stepping stones STONE long (along the climb) and STONE_D wide (as wide as the perch), each STONE_RISE
 # lower than the next, STONE_GAP apart edge to edge, laid from the perch toward the arena's centre line (the lowest
@@ -520,15 +534,7 @@ def build():
                        ["fnm_bm", f"fnm_door_{letter.lower()}"])
     print("4 answer pads placed (A B near, C D far; A on the player's left)")
 
-    box("FNM_BM_Platform", PLATFORM_X - PLATFORM_W / 2, PLATFORM_X + PLATFORM_W / 2, PLATFORM_Y - PLATFORM_D / 2,
-        PLATFORM_Y + PLATFORM_D / 2, z0, z0 + PLATFORM_H, mat["bm_marble"])
-    kept = []
-    for lv, (bx, weapon) in enumerate(zip(BOSS_XS, BOSS_WEAPONS), 1):
-        _, health = guard(f"FNM_BM_Boss{lv}", PLATFORM_X + bx, PLATFORM_Y, z0 + PLATFORM_H, -90, project,
-                          ["fnm_bm_boss", f"fnm_bm_slot_{lv}"], {**BOSS_SETTINGS, "guardTeamOption": TEAM}, weapon,
-                          BOSS_HEALTH_ASK)
-        kept.append(health)
-    print(f"platform + 5 boss spawners; health kept: {kept}")
+    # The platform, the boss and the beams: boss_rig, after the cannons.
 
     for k, (deg, weapon) in enumerate(zip(GATES, GATE_WEAPONS), 1):
         guard(f"FNM_BM_Gate{k}_Spawner", *polar(ARENA_R + PODIUM_T + ALCOVE_D / 2, deg), z0, deg + 180, project,
@@ -600,12 +606,56 @@ def build():
         vfx(f"FNM_BM_Anger{lv}", fx, fy, z0, ANGER_FX_SCALE, project, ["fnm_bm_anger_fx", f"fnm_bm_slot_{lv}"], ANGER_FX)
     print("5 anger VFX placed")
 
+    boss_rig(project)
     dress(project)
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     n = len(placed())
     cx, cy, _ = at(*CENTRE)
-    print(f"boss battle arena built round ({cx:.0f}, {cy:.0f}), radius {ARENA_R}: {n} actors tagged {TAG}; boss health "
-          f"kept {kept[0]}; nuke effect {effect}; blast knockback {knock}")
+    print(f"boss battle arena built round ({cx:.0f}, {cy:.0f}), radius {ARENA_R}: {n} actors tagged {TAG}; "
+          f"nuke effect {effect}; blast knockback {knock}")
+
+
+def boss_rig(project=None):
+    """The boss platform, the Megabrute boss spawner on it and a laser beam per cannon (idempotent via BOSS_RIG_TAG;
+    removes the platform and the per-level guard boss spawners FNM_BM_Boss1..5 an older build left). Needs the cannons
+    (their muzzle VFX spawners)."""
+    project = project or c.project_mount().strip("/")
+    old = [a for a in placed() if re.fullmatch(r"FNM_BM_Boss\d|FNM_BM_Platform", a.get("label", ""))]
+    for a in old:
+        u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+    print("removed", clear(BOSS_RIG_TAG), "old boss rig actors and", len(old), "guard boss spawners")
+    top = FLOOR_Z + PLATFORM_H
+    marble = materials(["bm_marble"])["bm_marble"]
+    platform = box("FNM_BM_Platform", PLATFORM_X - PLATFORM_W / 2, PLATFORM_X + PLATFORM_W / 2, PLATFORM_Y - PLATFORM_D / 2,
+                   PLATFORM_Y + PLATFORM_D / 2, FLOOR_Z, top, marble)
+    tagged(platform, "FNM_BM_Platform", BOSS_RIG_TAG)
+    boss = device(CREATURE, "FNM_BM_Megaboss", PLATFORM_X, PLATFORM_Y, top, yaw=-90)
+    tagged(boss, "FNM_BM_Megaboss", BOSS_RIG_TAG)
+    verse_tags(boss, project, ["fnm_bm_megaboss"])      # tag first: the tag component rebuilds a device's sub-objects
+    options(boss, MEGABOSS_SETTINGS, "Megaboss")
+
+    tx, ty, _ = at(PLATFORM_X, PLATFORM_Y)
+    tz = top + BEAM_AIM
+    muzzles = {a["label"]: a["actorPath"] for a in placed() if re.fullmatch(r"FNM_BM_Cannon[LR]_Fx", a.get("label", ""))}
+    for k, side in enumerate("LR", 1):
+        if f"FNM_BM_Cannon{side}_Fx" not in muzzles:
+            sys.exit(f"no FNM_BM_Cannon{side}_Fx: run the full build first")
+        loc = u.call(ACTOR, "get_actor_transform", {"actor": ref(muzzles[f"FNM_BM_Cannon{side}_Fx"])})["returnValue"]["location"]
+        dx, dy, dz = tx - loc["x"], ty - loc["y"], tz - loc["z"]
+        length = math.sqrt(dx * dx + dy * dy + dz * dz)
+        # Local +Z along the shot: yaw = its heading, pitch = its elevation - 90 (a rotator's up axis).
+        rot = {"pitch": math.degrees(math.atan2(dz, math.hypot(dx, dy))) - 90, "yaw": math.degrees(math.atan2(dy, dx)), "roll": 0}
+        r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": letter_asset(BEAM_LETTER), "name": f"FNM_BM_Beam{side}",
+                                                      "xform": {"location": loc, "rotation": rot,
+                                                                "scale": {"x": BEAM_W, "y": BEAM_W, "z": length / BEAM_H}}})
+        beam = tagged(r["returnValue"]["refPath"], f"FNM_BM_Beam{side}", BOSS_RIG_TAG)
+        u.call(ACTOR, "add_tag", {"actor": ref(beam), "tag": TAG})
+        props(beam, {"bCanBeDamaged": False})
+        options(beam, {"color": BEAM_COLOUR, "bNoCollision": True}, f"Beam{side}")
+        verse_tags(beam, project, ["fnm_bm_beam", f"fnm_bm_slot_{k}"])
+        print(f"beam {side}: {length / 100:.1f} m from ({loc['x']:.0f}, {loc['y']:.0f}, {loc['z']:.0f}), "
+              f"pitch {rot['pitch']:.1f} yaw {rot['yaw']:.1f}")
+    print(f"boss rig: a {MEGABOSS} spawner on the platform, 2 beams")
 
 
 def letter_asset(letter):
@@ -743,9 +793,10 @@ if __name__ == "__main__":
     ap.add_argument("--check", action="store_true", help="list the placed actors and the devices' read-back options")
     ap.add_argument("--dress", action="store_true", help="(re)place only the chests and floating letters, granter ammo")
     ap.add_argument("--probe", action="store_true", help="answer BOSS_MODE.md 3's UNVERIFIED items (no build)")
+    ap.add_argument("--boss", action="store_true", help="(re)place only the Megabrute boss spawner and the cannon beams")
     a = ap.parse_args()
-    if a.dress:
-        dress()
+    if a.dress or a.boss:
+        dress() if a.dress else boss_rig()
         u.call(ASSETS, "save_assets", {"asset_paths": []})
     else:
         check() if a.check else probe() if a.probe else build()
