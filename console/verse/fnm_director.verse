@@ -148,6 +148,15 @@ fnm_player_state := class:
     # Door backstop (WatchDoors): when a door answer was last accepted, which door zone of the current station the
     # player stands in (-1 none), since when, and whether the backstop already answered for this stay.
     var LastAccept : float = -100.0
+    # When their last right answer was taken: a door or pad event within RightCooldownSeconds of it is dropped (a late
+    # event from the pad they were just teleported off would be checked against the NEXT question and come out wrong).
+    var LastRight : float = -100.0
+    # Bumped by every right answer (Cleanse): a mud or dizzy penalty still running stops, so a right answer is never
+    # followed by a slow-down or blur (Aaron 2026-10-10: "sometimes i think im getting an incorrect answer debuff even
+    # though its right and counted right": the 8 s mud re-applied itself every 2.5 s after a quick right answer).
+    var PenaltyEpoch : int = 0
+    # True from a mud or dizzy penalty until a right answer cleanses it.
+    var Afflicted : logic = false
     var ZoneDoor : int = -1
     var ZoneSince : float = 0.0
     var ZoneFired : logic = false
@@ -224,6 +233,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Seconds the explanation of a right answer stays on the HUD (the player moves on immediately).
     @editable
     CorrectFeedbackSeconds : float = 4.0
+    # See LastRight on the player state.
+    RightCooldownSeconds : float = 1.5
 
     # Wrong-door penalties come from the map profile (map.json "penalties" -> FnmMapPenalties), one at random
     # per wrong answer. Each penalty's visual is a rig (fnm_rig.verse) or effect device placed by
@@ -788,6 +799,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     OnBmPad(MaybeAgent:?agent, DoorIndex:int):void =
         if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor], BM := BossMode?):
             if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Busy?, not State.Picking?, State.CurrentItem >= 0):
+                if (TooSoon(State, "pad {FnmChoiceLetter(DoorIndex)}")?) then return
                 set State.Busy = true
                 set State.LastAccept = GetSimulationElapsedTime()
                 spawn{ BM.OnPad(State, DoorIndex) }
@@ -1252,12 +1264,42 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor]):
             if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Busy?, not State.Picking?):
                 if (StationIndex = State.Stage - 1):
+                    if (TooSoon(State, "door {FnmChoiceLetter(DoorIndex)}")?) then return
                     set State.Busy = true
                     set State.LastAccept = GetSimulationElapsedTime()
                     spawn{ HandleDoor(State, StationIndex, DoorIndex) }
                 else if (StationIndex > State.Stage - 1):
                     spawn{ FlashNotice(State, "This is not your station. You are on stage {State.Stage}.") }
                 # An earlier station: they are walking back through a door they already passed. Ignore.
+
+    # A door or pad event within RightCooldownSeconds of a right answer: dropped, and logged.
+    TooSoon(State:fnm_player_state, What:string)<transacts>:logic =
+        Since := GetSimulationElapsedTime() - State.LastRight
+        if (Since < RightCooldownSeconds):
+            Print("FNM: {What} event dropped {Since} s after a right answer")
+            true
+        else:
+            false
+
+    # A right answer: remembered for TooSoon, and any mud or dizzy penalty still running stops at once.
+    Cleanse(State:fnm_player_state):void =
+        set State.LastRight = GetSimulationElapsedTime()
+        set State.PenaltyEpoch += 1
+        if (State.Afflicted?):
+            set State.Afflicted = false
+            if (Mud := MudDevice?):
+                Mud.Deactivate(State.Player)
+            FxOff(State.Player, MudFx)
+            FxOff(State.Player, DizzyFx)
+            Print("FNM: penalty effects cleared by a right answer")
+
+    # The player's current PenaltyEpoch (-1 when they have no state), for an effect to notice a Cleanse.
+    EpochOf(Player:player)<transacts>:int =
+        if (State := PlayerStates[Player]) then State.PenaltyEpoch else -1
+
+    Afflict(Player:player):void =
+        if (State := PlayerStates[Player]):
+            set State.Afflicted = true
 
     HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =
         if (StationIndex = Stations.Length, A := Arena?):
@@ -1270,6 +1312,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Letter := FnmChoiceLetter(DoorIndex)
                 FlashNotice(State, "No choice {Letter} here")
             else if (Choice = Item.Answer):
+                Cleanse(State)
                 var Label : string = ""
                 if (not State.MissedCurrent?):
                     set State.FirstTryCorrect += 1
@@ -1621,13 +1664,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
         else if (Kind = fnm_penalty.Mud):
             SendTo(Player, Station.RetryTeleporter)
             spawn{ SoundLater(Player, fnm_cue.PenaltyMud, PenaltyVoiceDelaySeconds) }
-            spawn{ Muddy(Player) }
-            spawn{ ScreenFx(Player, MudFx, MudSeconds) }
+            Afflict(Player)
+            Epoch := EpochOf(Player)
+            spawn{ Muddy(Player, Epoch) }
+            spawn{ ScreenFx(Player, MudFx, MudSeconds, Epoch) }
         else if (Kind = fnm_penalty.Dizzy):
             SendTo(Player, Station.RetryTeleporter)
             spawn{ SoundLater(Player, fnm_cue.PenaltyDizzy, PenaltyVoiceDelaySeconds) }
+            Afflict(Player)
+            Epoch := EpochOf(Player)
             Spin(Player)
-            spawn{ DizzyPulses(Player) }
+            spawn{ DizzyPulses(Player, Epoch) }
         else if (Kind = fnm_penalty.Blackout):
             if (Character := Player.GetFortCharacter[]):
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
@@ -1685,10 +1732,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Device := Fx?):
             Device.BlendOut(Player)
 
-    Muddy(Player:player)<suspends>:void =
+    # The mud and dizzy effects stop early, without switching anything off themselves, once a right answer bumps the
+    # player's PenaltyEpoch past Epoch (Cleanse switches them off).
+    Muddy(Player:player, Epoch:int)<suspends>:void =
         if (Mud := MudDevice?):
             var Elapsed : float = 0.0
             loop:
+                if (EpochOf(Player) <> Epoch) then return
                 if (Elapsed >= MudSeconds) then break
                 Mud.Activate(Player)
                 Wait := Min(MudReapplySeconds, MudSeconds - Elapsed)
@@ -1696,9 +1746,14 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Elapsed += Wait
             Mud.Deactivate(Player)
 
-    ScreenFx(Player:player, Fx:?post_process_device, Seconds:float)<suspends>:void =
+    ScreenFx(Player:player, Fx:?post_process_device, Seconds:float, Epoch:int)<suspends>:void =
         FxOn(Player, Fx)
-        Sleep(Seconds)
+        var Elapsed : float = 0.0
+        loop:
+            if (EpochOf(Player) <> Epoch) then return
+            if (Elapsed >= Seconds) then break
+            Sleep(0.25)
+            set Elapsed += 0.25
         FxOff(Player, Fx)
 
     # Dizzy spin: held in stasis, the character is teleported in place with its yaw advanced every
@@ -1724,12 +1779,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: dizzy spin {Turned} steps, ended at yaw {Yaw}")
 
     # Dizzy blur: in for DizzyPulseSeconds, out for DizzyPulseSeconds, repeated for DizzySeconds; ends out.
-    DizzyPulses(Player:player)<suspends>:void =
+    DizzyPulses(Player:player, Epoch:int)<suspends>:void =
         if (Device := DizzyFx?):
             Pulse := Max(DizzyPulseSeconds, 0.1)
             var Elapsed : float = 0.0
             var Pulses : int = 0
             loop:
+                if (EpochOf(Player) <> Epoch) then return
                 if (Elapsed >= DizzySeconds) then break
                 Device.BlendIn(Player)
                 Sleep(Pulse)
@@ -2226,6 +2282,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # from the announcer (FnmHitCue), the cannons' show (FireCannons), the player back to the arena entry and the next
     # question. The kill itself comes through the boss spawner's EliminatedEvent (BossDown).
     BossHit(State:fnm_player_state, A:fnm_arena):void =
+        Cleanse(State)
         set State.Hits += 1
         set LastHitter = option{State.Player}
         var Left : int = BossHitsToKill

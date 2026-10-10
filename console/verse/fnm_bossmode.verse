@@ -355,6 +355,8 @@ fnm_boss_mode := class:
     # comes PenaltyVoiceDelaySeconds after the buzzer); a streak line after the hit count; the death cry after the kill.
     BossGruntSeconds : float = 0.4
     TauntDelaySeconds : float = 2.5
+    # How long after a right pad its explanation appears (OnPad): the nuke banner and the beams' hit come first.
+    ExplainDelaySeconds : float = 2.5
     StreakCueDelaySeconds : float = 2.3
     BossDeadSeconds : float = 0.5
     # The Megabrute's health (it ignores every hit but the pads': OnMegabossDamaged), and how far it may be pushed off
@@ -561,8 +563,13 @@ fnm_boss_mode := class:
             else if (Choice = Item.Answer):
                 Hit(State)
                 set State.Busy = false
-                if (not State.Finished?):
+                # The explanation waits until the hit has played out: shown at once, the panel covered the titan's
+                # flail (Aaron 2026-10-10). Not if they answered again (or finished) meanwhile.
+                Answered := State.Answered
+                Sleep(ExplainDelaySeconds)
+                if (not State.Finished?, State.Answered = Answered, not State.MissedCurrent?, State.Mode = fnm_mode.Boss):
                     Shown := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    Print("FNM: boss mode explanation up")
                     Sleep(Director.CorrectFeedbackSeconds)
                     State.Hud.ClearFeedbackIf(Shown)
             else:
@@ -574,6 +581,7 @@ fnm_boss_mode := class:
     # boss with the whole show, the player back to the entry, the next question. The kill itself comes through the
     # boss spawner's EliminatedEvent (LevelCleared).
     Hit(State:fnm_player_state):void =
+        Director.Cleanse(State)
         set State.Answered += 1
         if (not State.MissedCurrent?):
             set State.FirstTryCorrect += 1
@@ -608,7 +616,9 @@ fnm_boss_mode := class:
             # Back to the entry first, facing the boss: the show plays out ahead of them.
             Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
             spawn{ Director.FireCannons(Arena.Rig, State.Player, Character, Stood, Left, true) }
-            spawn{ Arena.Titan.Hurt() }
+            # The killing hit's flail and fall come from LevelCleared (Titan.Fall).
+            if (Left > 0):
+                spawn{ Arena.Titan.Hurt() }
             RefreshBossLines()
             for (Fighter : Fighting()):
                 spawn{ Fighter.Hud.HitBossBar() }
@@ -948,6 +958,7 @@ fnm_boss_mode := class:
             Spawner.Disable()
         CloseGates()
         Print("FNM: boss level {L} cleared (friendly fire healed {FriendlyFireHealed} hits)")
+        spawn{ Arena.Titan.Fall() }
         set FriendlyFireHealed = 0
         RefreshBossLines()
         LastLevel := if (L >= FnmBmLevelCount()) then true else false

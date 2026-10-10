@@ -7,7 +7,7 @@ The folder is FNM_BossArt, not a Verse-style name: a content folder becomes a Ve
 tag class (uefn-mcp skill). Each animation FBX carries the skin too, and each clip is imported WITH its own mesh and
 skeleton into FNM_BossArt/Clip_<clip> (SK_fnm_titan_<clip> + A_fnm_titan_<clip>): bound to the skeleton of Meshy's separate
 rig file instead, a clip whose hips turn or tip played on the wrong axis (the knockdown spun standing, the chest pound
-tipped flat; play frames 2026-10-10), so the rig file is not used.
+tipped flat; play frames 2026-10-10), so the rig file is not used. dead_8 is the fall (plays once, BOSS_MODE 15b).
 """
 import sys
 from pathlib import Path
@@ -20,7 +20,8 @@ SKEL = "editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools"
 RAW = Path(__file__).resolve().parent.parent / "art" / "boss" / "raw"
 # The clips the titan uses (build_bossmode TITAN_CLIPS). chestpound_88 and knockdown_187 were bought too and sit in
 # art/boss/unused (not committed; Meshy task ids in art/boss/meshy_tasks.json): they misplay on the device (BOSS_MODE 15b).
-ANIMS = ["idle_0", "flail_172", "stomp_255"]
+# dead_8 (Meshy "Dead") is the fall at a level clear.
+ANIMS = ["idle_0", "flail_172", "stomp_255", "dead_8"]
 
 
 def mount():

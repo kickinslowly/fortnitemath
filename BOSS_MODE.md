@@ -85,7 +85,7 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Entry teleporter | (0, 250, 0), yaw 90, both group knobs Group_None | `PID_Device_Teleporter` | `fnm_bm` + `fnm_entry` | 1 |
 | Answer pads A..D | (900, 1100) (-900, 1100) (900, 2100) (-900, 2100); tile 450 sq, 10 thick, `M_fnm_wall_pad_a..d`; trigger 450 x 450 x 150 on it; a giant 3D letter (CRG_Props Alphabet, scale 1.8, bottom 250 up, pad colour, no collision) that turns to face the nearest boss-mode player and bobs (`FaceLetter`; Aaron 2026-10-09: the boards were hard to see from some angles) | `PID_Device_Trigger`, Alphabet prop | `fnm_bm` + `fnm_door_a..d`; letter `fnm_bm_letter` + slot | 4 + 4 |
 | Boss platform | 1 m high, 800 x 500 (§15b; 3.5 m in §15) | engine cube, `M_fnm_wall_bm_marble` | — | 1 |
-| Titan (§15b) | the boss players see: one Animated Mesh device per clip (idle, flail, stomp) on the platform, scale 4 (12 m), facing the entry; Meshy art in `FNM_BossArt/Clip_<clip>` (`tools/import_boss.py`) | `Device_AnimatedMesh` | `fnm_bm_titan` + slot | 3 |
+| Titan (§15b) | the boss players see: one Animated Mesh device per clip (idle, flail, stomp, dead) on the platform, scale 4 (12 m), facing the entry; Meshy art in `FNM_BossArt/Clip_<clip>` (`tools/import_boss.py`) | `Device_AnimatedMesh` | `fnm_bm_titan` + slot | 4 |
 | Boss (since 2026-10-10, §15) | a Megabrute creature spawner on the platform centre (`build_bossmode.boss_rig`) | `PID_Device_CreatureSpawner_V2` | `fnm_bm_megaboss` | 1 |
 | Cannon beams (§15) | an Alphabet "I" per cannon laid from its muzzle to the boss's chest, Neon Green, no collision | Alphabet prop | `fnm_bm_beam` + slot | 2 |
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
@@ -521,36 +521,45 @@ creating awesome boss monster for us to fight. make it epic. and get it idle and
 A chest is a placed actor, and a placed actor keeps its scale. A character is spawned by the game at a fixed size and
 does not (§15a). So the titan uses the chest's trick: it is placed devices, scaled.
 
-- **The art.** Meshy, 59 credits:
+- **The art.** Meshy, 62 credits:
   - a concept image (nano-banana-pro, 9);
   - image to 3D, textured, 40k triangles (30);
   - a rig (5);
-  - five animations at 3 each (15): idle 0, Electrocution Reaction 172 (the flail), Angry Ground Stomp 255,
-    Chest Pound Taunt 88, Knock Down 187.
+  - six animations at 3 each (18): idle 0, Electrocution Reaction 172 (the flail), Angry Ground Stomp 255,
+    Chest Pound Taunt 88, Knock Down 187, and (later the same night) Dead 8 (the fall).
 
   Task ids are in `art/boss/meshy_tasks.json`, the concept in `art/boss/concept.png`, the clips used in
   `art/boss/raw`. A horned obsidian-and-lava demon, 3 m tall as imported.
 - **Import.** `python tools/import_boss.py` brings each clip FBX in with its own mesh and skeleton
   (`FNM_BossArt/Clip_<clip>`: `SK_fnm_titan_<clip>`, `A_fnm_titan_<clip>`). Then `build_bossmode.py --boss` places
-  `FNM_BM_Titan1..3` on the platform, scale 4, facing the entry. The platform is back down to 1 m: on the 3.5 m
+  `FNM_BM_Titan1..4` on the platform, scale 4, facing the entry. The platform is back down to 1 m: on the 3.5 m
   pedestal the 12 m titan's head and chest sat behind the question panel at the player's eye line.
 - **Runtime** (`console/verse/fnm_titan.verse`). The Megabrute still spawns, pinned and hidden (`Hide()`), and keeps the
   health, the bar and the level clears. The titan shows one clip at a time:
   - stomp when a level's boss arrives;
   - flail for 4 s from each right pad, then stomp;
   - stomp on a wrong pad;
+  - at a level clear, the killing hit's flail for 1.5 s, then the fall (3 s); it lies at least 1.5 s more, and the next
+    level's Arrive waits for that before its stomp (the next boss is summoned 4 s after a clear). The victory's reset
+    leaves it lying;
   - idle otherwise.
+
+  A right pad's explanation shows 2.5 s after the hit (`ExplainDelaySeconds`), so the nuke and the flail are not
+  behind the grown answer panel (Aaron: "yes delay the explanation"); it is skipped if they answered again meanwhile.
 
   The boss bar reads THE MAGMA TITAN. The beams aim at its waist (`BEAM_AIM` 450): higher up, they met behind the answer
   panel, which grows for the first seconds after a right pad.
 - **Device findings** (titan self-test frames; the general ones are in the `uefn-mcp` skill):
   - Verse `Play()` never started a device placed Stopped.
-  - `PlayReverse` threw the mesh flat and upside down.
+  - `PlayReverse` threw a looping clip flat and upside down.
   - A clip parked 30 m under the floor came back in a broken pose.
 
   So every clip starts Playing and loops. Verse only swaps them with `TeleportTo`, and a resting clip is shrunk to
-  0.001 at home.
-- **Not used:** Chest Pound and Knock Down. On the device the chest pound tipped the titan flat for about 2 s of every
+  0.001 at home. The fall is the exception: placed Playing with loop off, it plays itself down at the session start and
+  holds. `Play()` does not restart a finished clip (four frames after `Play()`, all lying), but `PlayReverse()` runs it
+  back to standing and `Play()` then falls again (self-test frames). So the titan rewinds it, shrunk, at the build and
+  after each fall, and `Play()`s it at the next clear.
+- **Not used:** Chest Pound and Knock Down (Dead 8 replaced it as the defeat and plays correctly). On the device the chest pound tipped the titan flat for about 2 s of every
   loop. The knockdown turned on the spot and never fell. Both happened imported against the rig file's skeleton and
   against their own, and after a Blender round trip (which also turned the mesh around). The cause is not found; the
   FBX files are sound in Blender. Their files are in `art/boss/unused` (git-ignored).
@@ -560,7 +569,26 @@ does not (§15a). So the titan uses the chest's trick: it is placed devices, sca
   - Idle, flail and stomp each sampled over 12 s, upright throughout.
   - The flail on a hit, with the blast.
   - A beam reaching the waist, thin from the entry's angle.
+- **Seen in play, second pass** (same night): a VICTORY run with the titan lying after level 1 and caught mid-fall at
+  level 4 (so the rewind works across levels); the wrong-pad stomp under a FROZEN penalty; every explanation up 2.4 to
+  3.0 s after its hit (log `boss mode explanation up`).
 - **Not seen yet:**
-  - The wrong-pad stomp.
   - Two players.
   - How the titan reads to Aaron in a real session (the camera there is not fixed level).
+
+### 15c. Wrong-answer effects after a right answer (2026-10-10)
+
+Aaron: "sometimes i think im getting an incorrect answer debuff even though its right and counted right".
+
+Mud (8 s, re-applied every 2.5 s) and Dizzy (6 s of blur pulses) ran on after their penalty returned, so a player who
+answered the retry right inside that time stayed slowed or blurred, in the race and in boss mode alike; the mud's
+re-apply also landed on top of the right answer's speed boost. Freeze, Yeet, Spike and Blackout end before the player
+can answer again (Busy), so they never did this.
+
+- Every right answer now calls `Cleanse` (fnm_director): it switches the mud and both screen effects off and bumps the
+  player's `PenaltyEpoch`, which the mud and dizzy loops check and stop on. Log `penalty effects cleared by a right
+  answer`; seen twice in a `DebugAutoWrongAnswers 5` + `DebugAutoRightAnswers` boss run (after Mud, after Dizzy).
+- A second guard against a late trigger event: a door or pad event within 1.5 s (`RightCooldownSeconds`) of a right
+  answer is dropped, logged `<pad X> event dropped ... after a right answer`. A late event from the pad a player was
+  just teleported off would be checked against the next question and come out wrong. Not seen to happen; if that log
+  line ever shows up in a play log, it was this.

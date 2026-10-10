@@ -175,13 +175,15 @@ BOSS_RIG_TAG = "fnm_bm_bossrig"
 # Megabrute stays hidden inside it and keeps the health), so the boss is a Meshy monster (art/boss, tools/import_boss.py)
 # on Animated Mesh devices: one device per clip (the device plays one animation), Verse swaps them in by TeleportTo.
 # Slot N = TITAN_CLIPS[N - 1]; the idle stands home, the rest wait TITAN_PARK under the floor until Verse shrinks them
-# to nothing at home. Every clip starts Playing and loops (fnm_titan.verse says why).
+# to nothing at home. Every clip starts Playing and loops (fnm_titan.verse says why), except the fall (TITAN_ONCE):
+# it plays once and holds lying down, and Verse restarts it with Play() at each level clear.
 ANIMATED_MESH = "/CRD_AnimatedMesh/Device_AnimatedMesh.Device_AnimatedMesh_C"
 TITAN_ART = "FNM_BossArt"
 TITAN_MESH = "SK_fnm_titan"
 # The chest pound (taunt) and knockdown (defeat) clips are imported but unused: on the device one tipped the titan flat
 # partway through its loop and the other turned on the spot instead of falling (BOSS_MODE.md section 15b).
-TITAN_CLIPS = ["idle", "flail", "stomp"]
+TITAN_CLIPS = ["idle", "flail", "stomp", "dead"]
+TITAN_ONCE = {"dead"}
 TITAN_SCALE = 4.0        # the mesh is 3 m tall: 12 m, head just under the question panel at the player's eye line
 TITAN_PARK = 3000
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
@@ -673,7 +675,7 @@ def boss_rig(project=None):
 
 
 def titan(project, top):
-    """The titan's Animated Mesh devices FNM_BM_Titan1..5 (tag fnm_bm_titan + slot), facing the entry. Needs
+    """The titan's Animated Mesh devices FNM_BM_Titan1..4 (tag fnm_bm_titan + slot), facing the entry. Needs
     tools/import_boss.py once per UEFN project."""
     art = f"/{project}/{TITAN_ART}"
     x, y, _ = at(PLATFORM_X, PLATFORM_Y)
@@ -688,7 +690,7 @@ def titan(project, top):
         verse_tags(dev, project, ["fnm_bm_titan", f"fnm_bm_slot_{k}"])
         props(dev, {"skeletalMesh": {"refPath": f"{art}/Clip_{clip}/{TITAN_MESH}_{clip}.{TITAN_MESH}_{clip}"},
                     "animation": {"refPath": f"{art}/Clip_{clip}/A_fnm_titan_{clip}.A_fnm_titan_{clip}"},
-                    "loop": True, "initialState": "Playing"})
+                    "loop": clip not in TITAN_ONCE, "initialState": "Playing"})
         got = get(dev, ["skeletalMesh", "animation"])
         if not got.get("animation", {}).get("refPath", "").endswith(f"A_fnm_titan_{clip}"):
             sys.exit(f"FNM_BM_Titan{k}: animation did not take ({got}); run tools/import_boss.py")
