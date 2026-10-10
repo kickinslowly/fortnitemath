@@ -320,6 +320,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # was outside the trigger box and the backstop zone, so a right door did nothing until they moved). 0 = ship value.
     @editable
     DebugAutoRightOffsetY : float = 0.0
+    # The arena auto-run drops the player this far off the pad's centre in x and y (a 450 cm pad senses to 225): every run
+    # proves the trigger senses its whole tile, not just its middle (until 2026-10-09 it sensed a 96 cm square).
+    DebugPadOffset : float = 180.0
     # Test hook for the victory area: when a player's finish board hides (ResultsSeconds after the finish, or CLOSE
     # without a podium), stand them 1.5 m in front of the NEW RACE button facing it (press E to try it), and
     # DebugAutoRightAnswers waits for that real press instead of simulating one. false = off (ship value).
@@ -413,6 +416,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # stand in one with no door event taken before it answers for them.
     @editable
     DoorWatchSeconds : float = 0.25
+    # A trigger senses only its StepBox: half-extent TriggerHalf (x and y) and centre TriggerLift above the device's origin,
+    # in cm at scale 1, both scaled with the actor (tools/build_course.py trigger_fit; the origin sits under the floor).
+    TriggerHalf : float = 64.0
+    TriggerLift : float = 32.0
     # Skip guard (WatchSkip): a player found in a hallway past their stage (a Shockwave Grenade from a pickup pad
     # clears a 6 m door wall) goes back to their own station's entry. A position more than HallwayHeight above a
     # hallway's entry pad (a Yeet skydive passing over) does not count. FinishHallwayLength = FINISH_LEN in
@@ -513,6 +520,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var BossHitsTaken : int = 0
     var LastHitter : ?player = false
     var AddsUp : logic = false
+    # The adds spawner's Spawn Count (tools/build_course.py ADDS_SETTINGS).
+    AddsCount : int = 2
     # The laser cannons (tools/build_cannon.py; Aaron 2026-10-08: "epic laser cannon blast the boss and the boss flail
     # or get knocked back"): the muzzle VFX spawners, the strike VFX spawner moved onto the boss, the explosive devices
     # parked under the platform (one per hit, round robin). How long the flash and strike stay on; the announcer's delay
@@ -832,7 +841,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             for (Door : Station.Doors):
                 Zone := Door.GetTransform()
                 set Half = Max(Half, Abs(Zone.Translation.X - Entry.X) + 300.0)
-                set Back = Max(Back, Zone.Translation.Y + 300.0 * Zone.Scale.Y + 100.0)
+                set Back = Max(Back, Zone.Translation.Y + TriggerHalf * Zone.Scale.Y + 100.0)
             for (MaybePassage : Station.Passages, Passage := MaybePassage?):
                 set Back = Max(Back, Passage.GetTransform().Translation.Y + 100.0)
             set LastHalf = Half
@@ -1297,16 +1306,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Here := Character.GetTransform().Translation
             for (Index -> Door : Station.Doors):
                 Zone := Door.GetTransform()
-                # A trigger's box is 600 x 600 cm at scale 1, centred on the device, its front face at the door wall's
-                # back face (tools/build_course.py). The zone watched here is the WHOLE vestibule, on to the barrier:
-                # a player who runs or jumps through the door can stop against the barrier, past the trigger box
-                # (2026-10-06, Aaron: a right door did nothing until he moved around the room; the triggers were
-                # 60% of the vestibule then and this check mirrored them).
-                Front := Zone.Translation.Y - 300.0 * Zone.Scale.Y
-                var Back : float = Zone.Translation.Y + 300.0 * Zone.Scale.Y
+                # The trigger's box (TriggerHalf), its front face at the door wall's back face (tools/build_course.py).
+                # The zone watched here is the WHOLE vestibule, on to the barrier: a player who runs or jumps through
+                # the door can stop against the barrier, past the trigger box (2026-10-06, Aaron: a right door did
+                # nothing until he moved around the room; the triggers were 60% of the vestibule then and this check
+                # mirrored them).
+                Front := Zone.Translation.Y - TriggerHalf * Zone.Scale.Y
+                var Back : float = Zone.Translation.Y + TriggerHalf * Zone.Scale.Y
                 if (MaybePassage := Station.Passages[Index], Passage := MaybePassage?):
                     set Back = Max(Back, Passage.GetTransform().Translation.Y)
-                if (Abs(Here.X - Zone.Translation.X) <= 300.0 * Zone.Scale.X, Here.Y >= Front, Here.Y <= Back, Abs(Here.Z - Zone.Translation.Z) <= 300.0):
+                if (Abs(Here.X - Zone.Translation.X) <= TriggerHalf * Zone.Scale.X, Here.Y >= Front, Here.Y <= Back, Abs(Here.Z - ZoneCentre(Door).Z) <= 300.0):
                     set Inside = Index
         if (Inside <> State.ZoneDoor):
             set State.ZoneDoor = Inside
@@ -1316,6 +1325,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.ZoneFired = true
             Print("FNM: door {FnmChoiceLetter(Inside)} answered by position at stage {State.Stage} (no trigger event taken)")
             OnDoor(option{State.Player}, State.Stage - 1, Inside)
+
+    # The centre of a trigger's detection box (TriggerLift): where a debug drop stands a player (its origin is under the floor).
+    ZoneCentre(Door:trigger_device)<transacts>:vector3 =
+        Zone := Door.GetTransform()
+        Zone.Translation + vector3{X := 0.0, Y := 0.0, Z := TriggerLift * Zone.Scale.Z}
 
     # Skip guard: a player standing in a hallway beyond their stage (over a door wall with a Shockwave Grenade, or
     # any other way round the doors) is sent back to their own station's entry with a NO SKIPPING! flash. Not while
@@ -1368,7 +1382,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Wrong := if (AnswerDoor(State) = 0) then 1 else 0
                 # Stand them in that door's vestibule, where a real wrong answer happens.
                 if (Station := StationOf(State)?, Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
-                    if (Character.TeleportTo[Door.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                    if (Character.TeleportTo[ZoneCentre(Door), MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                     Sleep(1.0)
                 if (State.Mode = fnm_mode.Boss, BM := BossMode?):
                     BM.OnPad(State, Wrong)
@@ -1410,7 +1424,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Stage := State.Stage
                 # (The teleport answers at once, so name the door before it: afterwards the next item is up.)
                 Print("FNM: debug auto-right stage {Stage} door {FnmChoiceLetter(Answer)}")
-                Spot := Door.GetTransform().Translation + vector3{X := 0.0, Y := DebugAutoRightOffsetY, Z := 0.0}
+                Spot := ZoneCentre(Door) + vector3{X := 0.0, Y := DebugAutoRightOffsetY, Z := 0.0}
                 if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                 Sleep(6.0)
                 if (State.Stage = Stage):
@@ -1439,7 +1453,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Tries += 1
                 Before := State.Hits
                 Print("FNM: debug auto-right boss try {Tries} pad {FnmChoiceLetter(Answer)} (boss up {FnmYesNo(BossAlive)})")
-                if (Character.TeleportTo[Pad.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+                if (Character.TeleportTo[ZoneCentre(Pad) + vector3{X := DebugPadOffset, Y := DebugPadOffset, Z := 0.0}, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
                 Sleep(6.0)
                 if (State.Hits > Before):
                     Print("FNM: debug auto-right boss hit {State.Hits}")
@@ -1495,7 +1509,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Sleep(8.0)
         if (Station := Stations[0], Door := Station.Doors[DebugDoorTest], Character := State.Player.GetFortCharacter[]):
             # The trigger sits 2.3 m past the door wall; stand 2.5 m in front of the wall.
-            Spot := Door.GetTransform().Translation - vector3{X := 0.0, Y := 480.0, Z := 0.0}
+            Spot := ZoneCentre(Door) - vector3{X := 0.0, Y := 480.0, Z := 0.0}
             if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                 Print("FNM: debug door: in front of {FnmChoiceLetter(DebugDoorTest)} at {Spot}")
             for (N := 1..12):
@@ -1505,7 +1519,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     DebugPassage(State:fnm_player_state)<suspends>:void =
         Sleep(8.0)
         if (State.CurrentItem >= 0, Station := Stations[0], Door := Station.Doors[AnswerDoor(State)], Character := State.Player.GetFortCharacter[]):
-            Spot := Door.GetTransform().Translation
+            Spot := ZoneCentre(Door)
             if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                 Print("FNM: debug passage: dropped into vestibule {FnmChoiceLetter(AnswerDoor(State))} at {Spot}")
             for (N := 1..12):
@@ -1513,7 +1527,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
             # Then behind a WRONG door's trigger at the current station, facing its (closed) barrier.
             if (State.CurrentItem >= 0, Here := Stations[State.Stage - 1], Wrong := Here.Doors[if (AnswerDoor(State) = 0) then 1 else 0]):
-                Behind := Wrong.GetTransform().Translation + vector3{X := 0.0, Y := 350.0, Z := 0.0}
+                Behind := ZoneCentre(Wrong) + vector3{X := 0.0, Y := 350.0, Z := 0.0}
                 if (Character.TeleportTo[Behind, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                     Print("FNM: debug passage: behind a wrong door at {Behind}")
                 for (N := 1..8):
@@ -2243,14 +2257,24 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set Bar += if (K <= Filled) then "█" else "-"
         "BOSS  {Bar}  {Pct}%   -   {Tail}"
 
-    # A wrong pad: the adds spawner (two guards with pistols) comes on.
+    # A wrong pad: the adds spawner (two guards with pistols) comes on, or tops back up to two. A Reset() refills its spawn
+    # limit, and its timer then replaces every add a player kills (Aaron, 2026-10-09: "spawned new guards and soldiers on
+    # every death"; the 2026-10-08 log: twice an add went down and a new one came 1 s later, between wrong pads), so it
+    # is reset only when fewer than two are up: every wrong pad brings the adds back to two, and a kill stays a kill.
     SummonAdds(A:fnm_arena):void =
         if (Adds := A.Adds?):
+            var Up : int = 0
+            for (Agent : Adds.GetAgents(), Character := Agent.GetFortCharacter[], Character.IsActive[]):
+                set Up += 1
+            if (AddsUp?, Up >= AddsCount):
+                Print("FNM: adds already up ({Up})")
+                return
             Adds.Reset()
             Adds.Enable()
-            Adds.Spawn()
+            if (Up = 0):
+                Adds.Spawn()
             set AddsUp = true
-            Print("FNM: adds summoned")
+            Print("FNM: adds summoned ({Up} were up)")
 
     # Asks the boss spawner for a boss (fresh spawn limit, enabled: it spawns on its timer); SpawnedEvent confirms.
     SpawnBoss(A:fnm_arena):void =

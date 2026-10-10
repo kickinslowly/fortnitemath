@@ -14,7 +14,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
     python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
-    python tools/build_course.py --triggers-only  # resize the vestibule triggers in place (TRIGGER_DEPTH)
+    python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
 
 After the last station's connector comes the BOSS ARENA (GOALS G6 item 3, maps/starter/LAYOUT.md "Boss arena"): four
 answer pads, a boss guard on a platform, an adds spawner, a gate barrier at the exit, then a short connector into the
@@ -59,6 +59,13 @@ VEST = 700              # vestibule depth behind the door wall
 # the back 280 cm (where a player who ran or jumped through the door stops, against the barrier) turned out to be
 # outside both the trigger and the director's backstop zone: the right door then did nothing until they moved.
 TRIGGER_DEPTH = VEST - 20
+VEST_TRIGGER_H = 300    # the vestibule trigger's detection box, from the floor up
+# A trigger device senses only its StepBox component (read back 2026-10-09, boss mode B6): half-extent STEP_BOX and centre
+# STEP_Z above the device origin, in cm at actor scale 1, both scaled with the actor. Every trigger here is placed with
+# trigger_fit. (Until 2026-10-09 the course assumed a 600 cm box per unit scale: an arena pad sensed a 96 cm square 7 cm
+# thick, 80 cm off the floor, inside its 450 cm tile; a vestibule trigger a fifth of the vestibule.)
+STEP_BOX = (64, 64, 15)
+STEP_Z = 32
 BARRIER_T = 40
 SLAB_T = 40             # floor slab thickness (top at z=2, just above the template ground)
 FINISH_LEN = 1500
@@ -250,6 +257,12 @@ def device(asset, label, x, y, z, yaw=0.0, sx=1.0, sy=1.0, sz=1.0):
     return actor
 
 
+def trigger_fit(z, w, d, h):
+    """(device z, sx, sy, sz) for a trigger whose detection box (StepBox) is w x d x h with its bottom at z."""
+    sx, sy, sz = w / (2 * STEP_BOX[0]), d / (2 * STEP_BOX[1]), h / (2 * STEP_BOX[2])
+    return z + h / 2 - STEP_Z * sz, sx, sy, sz
+
+
 def verse_tags(actor, project, names):
     """Mark a device with Verse tags (console/verse/fnm_tags.verse) via a VerseTagMarkup component."""
     c = u.call(ACTOR, "add_component", {"owner": ref(actor), "component_type": ref(TAG_MARKUP), "name": "FnmTags"})
@@ -359,8 +372,8 @@ def station(k, ox, oy, oz, hall, doors, project, door_assets):
         door_dress(prop(asset, f"{prefix}_Door{letter}", cx, door_y, oz, sx=DOOR_W / width), i)
         inner = DOOR_W - t                  # vestibule width between dividers
         trig_depth = TRIGGER_DEPTH
-        trig = device(TRIGGER, f"{prefix}_Trigger{letter}", cx, vest0 + trig_depth / 2, oz + 128,
-                      sx=inner / 600, sy=trig_depth / 600, sz=1.0)
+        tz, tsx, tsy, tsz = trigger_fit(oz, inner, trig_depth, VEST_TRIGGER_H)
+        trig = device(TRIGGER, f"{prefix}_Trigger{letter}", cx, vest0 + trig_depth / 2, tz, sx=tsx, sy=tsy, sz=tsz)
         # Device_Trigger_V2 names (differ from the legacy trigger's).
         props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
                      "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
@@ -512,8 +525,8 @@ def arena(ox, oy, oz, doors, project):
         x, y = ox + dx, oy + dy
         p = PAD_SIZE / 2
         box(f"FNM_Arena_Pad{letter}", x - p, x + p, y - p, y + p, oz + 2, oz + 2 + PAD_TILE_T)
-        trig = device(TRIGGER, f"FNM_Arena_Trigger{letter}", x, y, oz + 2 + PAD_H / 2,
-                      sx=PAD_SIZE / 600, sy=PAD_SIZE / 600, sz=PAD_H / 600)
+        tz, tsx, tsy, tsz = trigger_fit(oz + 2, PAD_SIZE, PAD_SIZE, PAD_H)
+        trig = device(TRIGGER, f"FNM_Arena_Trigger{letter}", x, y, tz, sx=tsx, sy=tsy, sz=tsz)
         props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
                      "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
                      "triggeredByPhysicsProps": False})
@@ -638,31 +651,36 @@ def doors_only():
 
 
 def triggers_only():
-    """Resize every vestibule trigger in place to TRIGGER_DEPTH, keeping its front face at the door wall's back face
-    (a trigger's box is 600 deep at scale 1, centred on the device). Reads every trigger's bounds back. Idempotent."""
+    """Refit every vestibule trigger and arena pad trigger in place with trigger_fit, x and y kept. The floor comes from
+    the door prop of the same station and letter (placed at the station's level) or from the pad tile's bottom. Reads
+    every transform back. Idempotent."""
     found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
-    is_trigger = lambda a: isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Trigger[A-D]", a.get("label", ""))
-    trigs = sorted((a for a in found if is_trigger(a)), key=lambda a: a["label"])
-    if not trigs:
-        sys.exit("no FNM_Sxx_Trigger actors: run the full build")
-    for a in trigs:
-        t = u.call(ACTOR, "get_actor_transform", {"actor": ref(a["actorPath"])})["returnValue"]
-        loc, rot, sc = t["location"], t["rotation"], t["scale"]
-        front = loc["y"] - 300 * sc["y"]
+    by = {a["label"]: a for a in found if isinstance(a, dict) and "label" in a}
+    xf = lambda a: u.call(ACTOR, "get_actor_transform", {"actor": ref(a["actorPath"])})["returnValue"]
+    fits = []
+    for label, a in sorted(by.items()):
+        if m := re.fullmatch(r"FNM_S(\d\d)_Trigger([A-D])", label):
+            door = by.get(f"FNM_S{m[1]}_Door{m[2]}") or sys.exit(f"{label}: no FNM_S{m[1]}_Door{m[2]}")
+            fits.append((a, trigger_fit(xf(door)["location"]["z"], DOOR_W - WALL_T, TRIGGER_DEPTH, VEST_TRIGGER_H)))
+        elif m := re.fullmatch(r"FNM_Arena_Trigger([A-D])", label):
+            tile = by.get(f"FNM_Arena_Pad{m[1]}") or sys.exit(f"{label}: no FNM_Arena_Pad{m[1]}")
+            fits.append((a, trigger_fit(tile["bounds"]["min"]["z"], PAD_SIZE, PAD_SIZE, PAD_H)))
+    if not fits:
+        sys.exit("no FNM_Sxx_Trigger / FNM_Arena_Trigger actors: run the full build")
+    for a, (z, sx, sy, sz) in fits:
+        t = xf(a)
         u.call(ACTOR, "set_actor_transform", {"actor": ref(a["actorPath"]), "xform": xform(
-            loc["x"], front + TRIGGER_DEPTH / 2, loc["z"], sc["x"], TRIGGER_DEPTH / 600, sc["z"], yaw=rot["yaw"])})
+            t["location"]["x"], t["location"]["y"], z, sx, sy, sz, yaw=t["rotation"]["yaw"])})
     u.call(ASSETS, "save_assets", {"asset_paths": []})
-    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
     bad = []
-    for a in found:
-        if is_trigger(a):
-            b = a["bounds"]
-            depth = b["max"]["y"] - b["min"]["y"]
-            if abs(depth - TRIGGER_DEPTH) > 1:
-                bad.append(f"{a['label']} depth {depth:.0f}")
+    for a, want in fits:
+        t = xf(a)
+        got = (t["location"]["z"], t["scale"]["x"], t["scale"]["y"], t["scale"]["z"])
+        if any(abs(g - w) > 0.01 * max(1.0, abs(w)) for g, w in zip(got, want)):
+            bad.append(f"{a['label']} {got} != {want}")
     if bad:
-        sys.exit("triggers not resized: " + ", ".join(bad))
-    print(f"{len(trigs)} triggers resized to {TRIGGER_DEPTH} cm deep (bounds read back)")
+        sys.exit("triggers not refit: " + "; ".join(bad))
+    print(f"{len(fits)} triggers refit (transforms read back), e.g. {fits[0][0]['label']} z/scale {tuple(round(v, 3) for v in fits[0][1])}")
 
 
 def build(stations, doors, hall, arena_on=ARENA):
@@ -737,7 +755,7 @@ if __name__ == "__main__":
     ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
     ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
-    ap.add_argument("--triggers-only", action="store_true", help="only resize the vestibule triggers in place (TRIGGER_DEPTH)")
+    ap.add_argument("--triggers-only", action="store_true", help="only refit the vestibule and arena pad triggers in place (trigger_fit)")
     ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
     a = ap.parse_args()
     if a.paint_only:

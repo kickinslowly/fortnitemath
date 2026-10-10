@@ -39,7 +39,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
-from build_course import ACTOR, DEV, OBJ, SCENE, TAG as COURSE_TAG, TRIGGER, clear, props, ref, verse_tags, xform  # noqa: E402
+from build_course import (ACTOR, DEV, OBJ, SCENE, TAG as COURSE_TAG, TRIGGER, clear, props, ref, trigger_fit,  # noqa: E402
+                          verse_tags, xform)
 from build_rigs import GRANTER, TRIGGER_CLASS  # noqa: E402
 
 TAG = "fnm_pickups"
@@ -128,8 +129,8 @@ def build():
 def row_trigger(label, x, y, z, item, project):
     """The hidden run-over trigger over one row of pads, tagged first (the tag component rebuilds a device's instanced
     sub-objects), then its options one key per call."""
-    sx, sy, sz = (v / 600 for v in ROW_ZONE)
-    trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, z + ROW_ZONE[2] / 2, sx, sy, sz)})["returnValue"]["refPath"]
+    tz, sx, sy, sz = trigger_fit(z, *ROW_ZONE)
+    trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, tz, sx, sy, sz)})["returnValue"]["refPath"]
     u.call(ACTOR, "add_tag", {"actor": ref(trig), "tag": TAG})
     u.call(ACTOR, "set_label", {"actor": ref(trig), "label": label})
     verse_tags(trig, project, ["fnm_pickup", f"fnm_item_{item}"])

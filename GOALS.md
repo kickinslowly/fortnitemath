@@ -321,10 +321,20 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
   a relaunch inside that window started from a stale snapshot (16 of 40 cue devices, ship Verse) and a StopSession
   inside it left the session Disconnected (`playtest.wait_for_push`)
 
-- [ ] (2026-10-09, found in boss mode B6) A trigger senses only its StepBox (64x64x15 cm half-extents, scaled); the race
+- [x] (2026-10-09, found in boss mode B6) A trigger senses only its StepBox (64x64x15 cm half-extents, scaled); the race
   arena pads and station vestibule triggers in `build_course.py` size by a 600 cm-per-unit assumption, like the boss-mode
   triggers did before `trigger_fit`. Doors have the `WatchDoors` backstop; check whether the race arena pads need
   `trigger_fit` (Aaron's 2026-10-07 "zero pad events" may be related)
+  - ✅ 2026-10-09 (Aaron: "fix the race arena pads too"): each arena pad sensed a 96 cm square, 7 cm thick, 80 cm up.
+    Vestibule, arena pad and pickup row triggers now use `trigger_fit` (one home: `build_course.py`); `WatchDoors`,
+    `BuildHallways` and the debug drops read the StepBox (`TriggerHalf`, `ZoneCentre`). Refit in place
+    (`--triggers-only`, 44 read back), pickups rebuilt. Seen headless: 5/5 boss hits from drops 180 cm off each pad's
+    centre, 10/10 doors by trigger events (no backstop answers). Pickup row triggers not re-seen in play.
+- [x] (2026-10-09, Aaron: "spawned new guards and soldiers on every death") Race arena adds: each wrong pad called
+  `Reset()` on the adds spawner, refilling its limit, so its timer replaced every add a player killed (2026-10-08 log).
+  Deaths themselves spawn nothing (boss mode too: its cap held through deaths). `SummonAdds` now resets only when fewer
+  than two are up. Seen headless: wrong pad 1 = 2 adds, pads 2 and 3 = "already up (2)", a death = no spawn. A killed
+  add staying down is reasoned from the code, not seen (no headless way to kill an add).
 
 ## G7 — Presentation polish (Aaron, 2026-10-08: the floating question and answers "feels like alpha version... clunky")
 Asked how else: baked on a wall, floating in the air, written on the ground, spray paint. Finding (Verse digests): UEFN has

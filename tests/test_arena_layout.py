@@ -1,5 +1,6 @@
 """The boss arena's layout constants (tools/build_course.py, maps/starter/LAYOUT.md "Boss arena") keep its pieces apart and
 inside the hall, and the tag/cue names the director looks for are declared."""
+import re
 import sys
 from pathlib import Path
 
@@ -66,3 +67,18 @@ def test_cannons_on_the_walls_short_of_the_platform():
     assert cn.BLAST["player Damage"] == 0 and cn.BLAST["structure Damage"] == 0 and cn.BLAST["visible During Game"] is False
     assert cn.MUZZLE_FX["enabled On Phase"] == "None" and cn.STRIKE_FX["enabled On Phase"] == "None"
     assert cn.BLASTS >= 1
+
+
+def test_every_trigger_is_sized_by_its_stepbox():
+    """A trigger senses only its StepBox (build_course.trigger_fit). Until 2026-10-09 the course sized triggers at 600 cm per
+    unit scale: an arena pad sensed a 96 cm square inside its 450 cm tile. No builder or director line may assume it."""
+    root = ROOT
+    for name in ("build_course.py", "build_pickups.py", "build_bossmode.py"):
+        src = (root / "tools" / name).read_text(encoding="utf-8")
+        assert not re.search(r"(sx|sy|sz)=[^,)]*/ ?600\b", src), name
+        assert "v / 600" not in src, name
+    verse = (root / "console" / "verse" / "fnm_director.verse").read_text(encoding="utf-8")
+    assert "300.0 * Zone.Scale" not in verse
+    dz, sx, sy, sz = c.trigger_fit(2, c.PAD_SIZE, c.PAD_SIZE, c.PAD_H)
+    centre = dz + c.STEP_Z * sz
+    assert round(2 * c.STEP_BOX[0] * sx) == c.PAD_SIZE and round(centre - c.STEP_BOX[2] * sz) == 2

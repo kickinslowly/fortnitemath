@@ -53,8 +53,9 @@ before UEFN work. Project-specific:
   (once per UEFN project: the HUD textures check, cross, slate, tile (drawn by `tools/make_verdict_art.py` +
   `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles),
   `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
-  props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (resize the vestibule triggers in place to `TRIGGER_DEPTH`; rerun after changing
-  it), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
+  props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (refit the vestibule and arena pad triggers in place with `trigger_fit`: a
+  trigger senses only its StepBox, so never size one at 600 cm per unit scale; rerun after changing `TRIGGER_DEPTH`,
+  `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
   gallery props; `--check` reports). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the

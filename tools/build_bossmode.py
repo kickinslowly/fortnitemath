@@ -38,8 +38,8 @@ import build_course as c  # noqa: E402
 import build_guards as g  # noqa: E402
 import build_pickups as p  # noqa: E402
 from build_course import (ACTOR, ASSETS, BILLBOARD, BOSS_SETTINGS, CUBE, DEV, LETTER_COLOURS, LETTERS, OBJ, PAD_H,  # noqa: E402
-                          PAD_SIZE, PAD_TILE_T, SCENE, SIGN_COLOUR, SLAB_T, TELEPORTER, TRIGGER, WALL_T, props, ref,
-                          verse_tags, xform)
+                          PAD_SIZE, PAD_TILE_T, SCENE, SIGN_COLOUR, SLAB_T, STEP_BOX, STEP_Z, TELEPORTER, TRIGGER,
+                          WALL_T, props, ref, trigger_fit, verse_tags, xform)
 from build_rigs import GRANTER, TRIGGER_CLASS  # noqa: E402
 
 TAG = "fnm_bossmode"
@@ -125,10 +125,6 @@ STONE_D = PERCH_TOP
 STONE_RISE = 50
 STONE_GAP = 100
 PERCH_TRIGGER_H = 200
-# A trigger device's detection box (its StepBox component, read back 2026-10-09): half-extent and height of its centre
-# above the device origin, in cm at actor scale 1.
-STEP_BOX = (64, 64, 15)
-STEP_Z = 32
 # Item granter per level, parked under the floor; its item is the level's weapon (BOSS_MODE.md 4, weapon perch column).
 GRANT_WEAPONS = [_W.format(n) for n in (
     "WID_Pistol_AutoHeavyPDW_Athena_R_Ore_T03",        # L1 SMG at P1
@@ -299,15 +295,6 @@ def vfx(label, dx, dy, z, scale, project, tags, settings):
     verse_tags(fx, project, tags)
     options(fx, settings, label)
     return fx
-
-
-def trigger_fit(z, w, d, h):
-    """(device z, sx, sy, sz) for a trigger whose detection box is w x d x h with its bottom at z. The detection box is
-    the device's StepBox component, read back 2026-10-09: extent STEP_BOX (64, 64, 15) at STEP_Z (32) above the device's
-    origin, both scaled with the actor. (B2 assumed a 600 cm zone per unit scale: the perch trigger then sensed only a
-    64 cm square, 10 cm thick, and a player standing on the perch 89 cm from its centre for 7 s never triggered it.)"""
-    sx, sy, sz = w / (2 * STEP_BOX[0]), d / (2 * STEP_BOX[1]), h / (2 * STEP_BOX[2])
-    return z + h / 2 - STEP_Z * sz, sx, sy, sz
 
 
 def hidden_trigger(label, dx, dy, z, w, d, h, project, tags, settings=PAD_TRIGGER):

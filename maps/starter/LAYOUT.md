@@ -63,6 +63,8 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
   2026-10-06 it was 60% deep, and a player who stopped against the barrier stood past it (and past the
   director's backstop zone), so a right door did nothing until they moved. The director's `WatchDoors` now
   watches the whole vestibule, trigger front face to barrier, as the backstop for a missed trigger event.
+  Every trigger's detection box is its StepBox, sized by `trigger_fit` (see "Boss battle" below); the vestibule's is
+  `VEST_TRIGGER_H` (300 cm) tall from the floor. `--triggers-only` refits them in place.
 - **Generic A–D doors:** each player's question is on their own HUD, so a whole class can play at once.
 - **Every hallway faces +Y; the variety lives in the connectors:** the director's arrival direction, Yeet aim,
   penalty return spot and debug hooks all assume a +Y hallway, so none of them had to change. Only the sliding
@@ -85,9 +87,13 @@ labelled `FNM_Arena_*` (the connector into it too, so it is painted tier 5 and l
    └──  ←connector 10──  ┘
 ```
 
-Each answer pad is a 3 x 3 m tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`) with a 3 x 3 m,
-1.5 m tall hidden trigger on it (fnm_boss + fnm_door_a..d) and its letter on a board above. A is on the player's left,
-like door A, so the pads read A B / C D as the HUD lists the choices.
+Each answer pad is a `PAD_SIZE` (4.5 m) square tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`)
+with a hidden trigger sensing the whole tile, 1.5 m tall (`trigger_fit`; fnm_boss + fnm_door_a..d), and its letter on a
+board above. A is on the player's left, like door A, so the pads read A B / C D as the HUD lists the choices. Until
+2026-10-09 each pad sensed a 96 cm square 7 cm thick, 80 cm off the floor, in the middle of its tile (the 600 cm per unit
+scale assumption); `DebugAutoRightAnswers` now drops the player `DebugPadOffset` (180 cm) off the centre in x and y.
+A wrong pad brings the adds up to two (`SummonAdds`): it resets the adds spawner only when fewer than two are up, since a
+reset refills its spawn limit and its timer then replaced every add a player killed.
 
 - **Why the arena is not a station:** the tier formula (PROTOCOL §6) spreads tiers over `Stations.Length`; a station 11
   would shift every station's tier. The director finds the arena by its own tag (`fnm_boss`), plays it as stage
@@ -257,7 +263,6 @@ names can be stored, so only players present are listed). Two lecterns in front:
   - Done by B6 (2026-10-09): perch climb + SMG grant by keys (acceptance 5, after the stone and trigger fix), picker
     click (acceptance 3), the 16 voice lines imported and heard (65 of 65 wired), timed gate spawns seen (B5).
   - Only P1 was climbed by keys; P2..P4 share the recipe but were not climbed.
-  - The race arena's pad triggers (`build_course.arena`) and the station vestibule triggers still use the 600 cm per
-    unit scale assumption, so they sense a much smaller box than the pad (the race has a position backstop for doors;
-    the race arena pads were not checked). Not changed.
+  - The race arena's pad triggers and the station vestibule triggers used the 600 cm per unit scale assumption; fixed
+    2026-10-09 (`trigger_fit`, see the arena above).
   - Two players have never shared a fight (team hits, late joiners).
