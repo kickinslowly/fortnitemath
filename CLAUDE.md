@@ -83,7 +83,10 @@ before UEFN work. Project-specific:
   stands, colonnade, tribune and statues from the Coliseum playset kit, reads its geometry from build_bossmode's constants
   and reruns on its own (~11 min); rerun it after changing the arena's radius, podium or gate angles. Hooks (ship values false / 0 / 0.0): `DebugAutoBoss` (start boss mode on join, wins
   over `DebugAutoPick`; with `DebugAutoRightAnswers` plays to VICTORY), `DebugBossLevel` (start at level N, Partial run),
-  `DebugBossHold` (seconds the auto-run waits before each pad, to let timed monster spawns happen).
+  `DebugBossHold` (seconds the auto-run waits before each pad, to let timed monster spawns happen), `DebugBossChest`
+  (stand fighters `DebugChestDistance` cm in front of perch N's weapon chest after each summon; press E with
+  `tools/playtest.py --no-relaunch --keys E:2.5` right after `--until "debug boss chest"`: `--after` timed out on it).
+  `build_bossmode.py --dress` re-places only the perch chests and the pads' floating letters.
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the

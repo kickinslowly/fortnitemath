@@ -378,3 +378,9 @@ plans and audits; Opus builds; Sonnet does B3.
   (`build_colosseum.py`, own tag). Built and seen in editor captures; gate arches traced open (~320 x 380); headless
   auto-run to VICTORY 1:23.3, 16/16, guards and creatures up at all 4 gates. Unverified: a walked run (perch climbs at the
   new spots), frame rate with ~670 arena actors and 16 torch/brazier lights, island memory (GUI-only panel)
+- [ ] 8. Weapon chests + floating letters (Aaron, 2026-10-09: weapons not obvious, "maybe a chest with the weapon and
+  ammo inside"; pad boards "hard to see from certain angles"): `build_bossmode.py --dress` puts a gold chest with a hidden
+  hold-E button on every perch (on only while lit; grants the level's weapon + ammo) and a giant 3D letter over each pad
+  that turns to the nearest player. Seen in play 2026-10-10: OPEN WEAPON CHEST prompt, SMG + ammo granted, letters
+  readable and turned from the entry and from a perch. Unverified: two players at one chest, letters from the far side
+  of the platform, the letters' no-collision holding in play (bNoCollision read back true).

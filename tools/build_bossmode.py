@@ -12,10 +12,16 @@ with one guard spawner per level (fnm_bm_boss + fnm_bm_slot_L), four gates in th
 dark alcove holding a monster spawner (fnm_bm_gate + slot) and a lightning VFX at its mouth (fnm_bm_gate_fx + slot),
 four gold perches reached by stepping stones with a hidden trigger and a beacon VFX on each top (fnm_bm_perch /
 fnm_bm_perch_fx + slot), one Item Granter per level parked under the floor and bound to its own hidden trigger
-(fnm_bm_grant + slot), the cannon rig of the race arena (build_cannon.cannon with the FNM_BM_Cannon prefix and the
+(fnm_bm_grant + slot; the weapon comes with extra ammo), the cannon rig of the race arena (build_cannon.cannon with the FNM_BM_Cannon prefix and the
 fnm_bm_cannon_fx tag) plus a parked strike, two blasts and a nuke VFX, an anger ring of five VFX round the platform
 (fnm_bm_anger_fx + slot), and one creature spawner per creature kind in the gate alcoves (fnm_bm_creature + slot = kind;
 B5, BOSS_MODE.md 5). The director (console/verse/fnm_bossmode.verse) finds every piece by those Verse tags.
+
+Dressing (dress(), tag DRESS_TAG, rerun alone with --dress): a gold chest on every perch with a hidden button in it
+(fnm_bm_chest + slot), off until its level's weapon drop, held E for the weapon and its ammo (Aaron, 2026-10-09: "I dont know that weapons
+were spawning ... maybe a chest with the weapon and ammo inside?"), and a giant 3D letter floating over each answer pad
+(fnm_bm_letter + slot 1..4) that the director turns to face the nearest player ("the boards with letters above the
+platform were okay, but hard to see from certain angles").
 
 Coordinates are relative to ORIGIN, the podium's inner face due south (behind the entry) on the arena's centre line; the
 arena's centre is CENTRE = (0, ARENA_R). The player enters facing +Y, so +X is their LEFT (pad A, like door A). Angles
@@ -26,6 +32,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
 Materials first (once): python tools/import_art.py bm_sand bm_stone bm_marble bm_perch  (plus steel, glow, pad_a..d).
 
     python tools/build_bossmode.py            # (re)build the arena
+    python tools/build_bossmode.py --dress    # (re)place only the chests and the floating letters (+ granter ammo)
     python tools/build_bossmode.py --check    # list what is placed, with the devices' read-back options
     python tools/build_bossmode.py --probe    # answer BOSS_MODE.md 3's UNVERIFIED items from the editor (no build)
 """
@@ -42,7 +49,7 @@ import build_cannon as cn  # noqa: E402
 import build_course as c  # noqa: E402
 import build_guards as g  # noqa: E402
 import build_pickups as p  # noqa: E402
-from build_course import (ACTOR, ASSETS, BILLBOARD, BOSS_SETTINGS, CUBE, DEV, LETTER_COLOURS, LETTERS, OBJ, PAD_H,  # noqa: E402
+from build_course import (ACTOR, ASSETS, BILLBOARD, BOSS_SETTINGS, CUBE, DEV, LETTERS, OBJ, PAD_H,  # noqa: E402
                           PAD_SIZE, PAD_TILE_T, SCENE, SIGN_COLOUR, SLAB_T, STEP_BOX, STEP_Z, TELEPORTER, TRIGGER,
                           props, ref, trigger_fit, verse_tags, xform)
 from build_rigs import GRANTER, TRIGGER_CLASS  # noqa: E402
@@ -78,11 +85,20 @@ ENTRY_BACK = 450        # a stone wall this far behind the main gate's face: its
 ENTRY = (0, 250)        # the entry teleporter (yaw 90): arrival and respawn point
 SIGN = (0, 2 * ARENA_R - 5, 430)                # on the podium due north, under the tribune, facing the entry
 SIGN_SCALE = 2.5
-# Answer pads A..D (x, y): +X is the player's left, so they read A B / C D like the HUD. Tile, trigger and letter board as
+# Answer pads A..D (x, y): +X is the player's left, so they read A B / C D like the HUD. Tile, trigger and (dress) letter as
 # the race arena's (build_course.arena). Clear of the floor medallion round CENTRE (build_colosseum.MEDALLION).
 PAD_SPOTS = [(900, 1900), (-900, 1900), (900, 2900), (-900, 2900)]
-PAD_BOARD_Z = 300
-PAD_BOARD_SCALE = 1.5
+# A giant 3D letter over each pad (the CRG_Props Alphabet set, ~206 wide x 201 tall x 50 deep at scale 1, its pivot at
+# the bottom centre, the readable face toward +Y at yaw 0, so it is placed at yaw 180 to read from the entry; the
+# director turns it to face the nearest player). Its own
+# colour option, the nearest stock colour to the pad's LETTER_COLOURS.
+LETTER_ASSET = "/CRG_Props/SetupAssets/Maps/PPIDs/"
+# Low enough to sit under the HUD's question slate at a level camera (at 450 the slate hid them, seen in play); no
+# collision (bNoCollision reads back true; bNoPawnCollision and bNoCameraCollision are refused), so a jump on the pad
+# never bumps a head on one.
+LETTER_Z = 250
+LETTER_SCALE = 1.8
+LETTER_PROP_COLOURS = ("White", "Sky Blue", "Apple Green", "Orange")
 PAD_TRIGGER = {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0, "visible in Game": False,
                "triggeredByVehicles": False, "triggeredByWater": False, "triggeredByPhysicsProps": False}
 # The boss platform (steel), its centre, size and height; one boss spawner per level stands on it at BOSS_XS.
@@ -163,7 +179,22 @@ GRANT_WEAPONS = [_W.format(n) for n in (
     "WID_Assault_AutoHigh_Athena_VR_Ore_T03",          # L3 assault rifle at P3
     "WID_Sniper_Heavy_Athena_SR_Ore_T03",              # L4 heavy sniper at P4
     "WID_Launcher_Rocket_Athena_SR_Ore_T03")]          # L5 rocket launcher at P3 / P4
-GRANT_SETTINGS = {**p.GRANT_SETTINGS, "equipItemOnGrant": 1}
+# giveExtraAmmo: the granter's own ammo table rides along (stock 42.30: light 50, medium 30, shells 30, heavy 10,
+# rockets 10, read back from a placed granter), so the chest's weapon comes with its ammo.
+GRANT_SETTINGS = {**p.GRANT_SETTINGS, "equipItemOnGrant": 1, "giveExtraAmmo": 1}
+# A weapon chest on each perch: the classic gold chest mesh (84 x 69 x 69 at scale 1, pivot at the bottom centre, its
+# lock toward -X at yaw 0) on the half away from the stones, lock toward them, and a hidden button in it that the
+# director enables at the level's weapon drop: held E grants the level's weapon to whoever presses it. Tried first and
+# dropped (2026-10-09): the Chest & Ammo gallery's Hero Chest device (hero_chest_device, OpenEvent) renders in play as
+# a white and orange pod nobody would read as a chest, and set_properties refuses its rankLootTierNames, so it also
+# spills random rank loot.
+CHEST_MESH = "/Game/Environments/Props/Boxes/Meshes/TreasureChestLootTier1.TreasureChestLootTier1"
+CHEST_SCALE = 2.5
+BUTTON = "/CreativeCoreDevices/SetupAssets/PID_Device_Button.PID_Device_Button"
+CHEST_BACK = 50
+CHEST_BUTTON = {"visibleDuringGame": False, "interactTime": 1.0, "interaction Text": "Open Weapon Chest",
+                "interactionRadius": 1.5, "enabledAtGameStart": False}
+DRESS_TAG = "fnm_bm_dress"
 GRANT_X0, GRANT_DX, GRANT_Y, GRANT_TRIGGER_Y = -1200, 300, 600, 300
 # The cannon rig: one cannon on the podium due left and due right (slots 9 and 27, where the ring's face runs along Y),
 # CANNON_Y in from ORIGIN, aimed at the platform top + build_cannon.BOSS_EYE.
@@ -487,8 +518,6 @@ def build():
         box(f"FNM_BM_Pad{letter}", dx - h, dx + h, dy - h, dy + h, z0, z0 + PAD_TILE_T, mat[f"pad_{letter.lower()}"])
         hidden_trigger(f"FNM_BM_Trigger{letter}", dx, dy, z0, PAD_SIZE, PAD_SIZE, PAD_H, project,
                        ["fnm_bm", f"fnm_door_{letter.lower()}"])
-        board = device(BILLBOARD, f"FNM_BM_Label{letter}", dx, dy, PAD_BOARD_Z, yaw=180, sx=PAD_BOARD_SCALE)
-        c.board(board, letter, LETTER_COLOURS[i])
     print("4 answer pads placed (A B near, C D far; A on the player's left)")
 
     box("FNM_BM_Platform", PLATFORM_X - PLATFORM_W / 2, PLATFORM_X + PLATFORM_W / 2, PLATFORM_Y - PLATFORM_D / 2,
@@ -571,11 +600,66 @@ def build():
         vfx(f"FNM_BM_Anger{lv}", fx, fy, z0, ANGER_FX_SCALE, project, ["fnm_bm_anger_fx", f"fnm_bm_slot_{lv}"], ANGER_FX)
     print("5 anger VFX placed")
 
+    dress(project)
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     n = len(placed())
     cx, cy, _ = at(*CENTRE)
     print(f"boss battle arena built round ({cx:.0f}, {cy:.0f}), radius {ARENA_R}: {n} actors tagged {TAG}; boss health "
           f"kept {kept[0]}; nuke effect {effect}; blast knockback {knock}")
+
+
+def letter_asset(letter):
+    """The Alphabet set's PPID for letter (the plain one, not the x2 or TA variants)."""
+    found = u.call(ASSETS, "find_assets", {"folder_path": LETTER_ASSET.rstrip("/"), "name": f"CP_Alphabet_{letter}_",
+                                           "recursive": False})["returnValue"]
+    plain = sorted(p for p in found if re.search(rf"PPID_CRG_Props_CP_Alphabet_{letter}_[0-9a-f]+\.", p))
+    if not plain:
+        sys.exit(f"Alphabet letter {letter} not found under {LETTER_ASSET}")
+    return plain[0]
+
+
+def dress(project=None):
+    """The chests on the perches, the floating letters over the pads, and ammo on the weapon granters (idempotent via
+    DRESS_TAG; the old letter billboards FNM_BM_Label* are removed if a build before this one left them)."""
+    project = project or c.project_mount().strip("/")
+    old = [a for a in placed() if re.fullmatch(r"FNM_BM_Label[A-D]", a.get("label", ""))]
+    for a in old:
+        u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+    print("removed", clear(DRESS_TAG), "old dressing actors and", len(old), "letter billboards")
+    z0 = FLOOR_Z
+
+    for i, (dx, dy) in enumerate(PAD_SPOTS):
+        letter = LETTERS[i]
+        x, y, _ = at(dx, dy)
+        r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": letter_asset(letter), "name": f"FNM_BM_Letter{letter}",
+                                                      "xform": xform(x, y, LETTER_Z, LETTER_SCALE, LETTER_SCALE,
+                                                                     LETTER_SCALE, yaw=180)})
+        actor = tagged(r["returnValue"]["refPath"], f"FNM_BM_Letter{letter}", DRESS_TAG)
+        props(actor, {"bCanBeDamaged": False})
+        options(actor, {"color": LETTER_PROP_COLOURS[i], "bNoCollision": True}, f"Letter{letter}")
+        verse_tags(actor, project, ["fnm_bm_letter", f"fnm_bm_slot_{i + 1}"])
+    print(f"4 floating letters at z {LETTER_Z}, scale {LETTER_SCALE}")
+
+    for k, (px, py, top) in enumerate(PERCHES, 1):
+        toward = -1 if px > 0 else 1                     # the stones' side (stones_for)
+        x, y, _ = at(px - toward * CHEST_BACK, py)
+        r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": CHEST_MESH, "name": f"FNM_BM_Chest{k}",
+                                                      "xform": xform(x, y, z0 + top, CHEST_SCALE, CHEST_SCALE,
+                                                                     CHEST_SCALE, yaw=180 if toward > 0 else 0)})
+        tagged(r["returnValue"]["refPath"], f"FNM_BM_Chest{k}", DRESS_TAG)
+        button = u.call(DEV, "PlaceDevice", {"assetPath": ref(BUTTON), "transform": xform(
+            x, y, z0 + top + 30 * CHEST_SCALE, yaw=180 if toward > 0 else 0)})["returnValue"]["refPath"]
+        tagged(button, f"FNM_BM_Chest{k}_Button", DRESS_TAG)
+        verse_tags(button, project, ["fnm_bm_chest", f"fnm_bm_slot_{k}"])
+        options(button, CHEST_BUTTON, f"Chest{k}_Button")
+    print("4 weapon chests on the perches (buttons off)")
+
+    granters = [a for a in placed() if re.fullmatch(r"FNM_BM_Grant\d_Granter", a.get("label", ""))]
+    for a in granters:
+        wrong = options(a["actorPath"], {"giveExtraAmmo": 1}, a["label"])
+        if wrong:
+            sys.exit(f"{a['label']}: extra ammo not taken: {wrong}")
+    print(f"{len(granters)} granters give extra ammo")
 
 
 # ---------------------------------------------------------------- check / probe
@@ -657,6 +741,11 @@ def probe():
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="list the placed actors and the devices' read-back options")
+    ap.add_argument("--dress", action="store_true", help="(re)place only the chests and floating letters, granter ammo")
     ap.add_argument("--probe", action="store_true", help="answer BOSS_MODE.md 3's UNVERIFIED items (no build)")
     a = ap.parse_args()
-    check() if a.check else probe() if a.probe else build()
+    if a.dress:
+        dress()
+        u.call(ASSETS, "save_assets", {"asset_paths": []})
+    else:
+        check() if a.check else probe() if a.probe else build()

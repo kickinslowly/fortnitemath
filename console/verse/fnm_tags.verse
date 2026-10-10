@@ -175,6 +175,9 @@ fnm_bm_anger_fx := class(tag){}
 # A creature spawner (one per creature kind, parked under the arena; its slot tag = the kind, FnmBmCreatureName). The
 # director spawns its creatures at a gate's alcove with SpawnAt.
 fnm_bm_creature := class(tag){}
+# A perch's weapon chest (its hidden button_device, slot = perch) and a pad's floating letter (creative_prop, slot 1..4 = A..D).
+fnm_bm_chest := class(tag){}
+fnm_bm_letter := class(tag){}
 fnm_bm_slot_1 := class(tag){}
 fnm_bm_slot_2 := class(tag){}
 fnm_bm_slot_3 := class(tag){}

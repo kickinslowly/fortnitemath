@@ -21,7 +21,7 @@ Everything marked **UNVERIFIED** is a belief, not a checked fact; the brief that
 | 5 | Escalation per level: more gates active (1→4), faster spawns (20 s→7 s), alive cap 2→6, stronger monster weapons by gate, boss weapon by level (pistol→heavy AR); the level clear despawns every monster. | Monotonic and capped so the arena never fills; the cap is enforced by the director, not trusted to the device. |
 | 6 | Level-start **summon**: HUD banner ("LEVEL 3" / "HE'S FURIOUS!"), announcer level line, boss voice line as a subtitle, anger VFX ring round the platform (L of 5 lit), lightning at each active gate as its spawner comes on, weapon-drop hint and a beacon on the live perch. | Everything here is a device the repo already drives (VFX spawner, guard spawner, audio player, HUD) plus two textures; nothing new to validate. |
 | 7 | Right answer = **MEGA NUKE**: the arena's own cannon rig (wall lasers + strike, the proven FireCannons) plus a nuke (big VFX + two no-damage blasts at the boss's feet), a white screen flash, a mushroom-cloud verdict icon "MEGA NUKE!  N TO GO", the boss knocked back and stunned, announcer "Mega nuke!" + the existing hit countdown, boss grunt. Wrong = red X + penalty name + boss taunt in the feed. | "Correct is obvious and celebrated": image, text, sound, screen flash and world VFX all fire at once. |
-| 8 | **Weapons**: one per level, granted by the proven hidden-trigger + Item Granter path when the player stands on that level's lit **perch** (a 1.8-2.4 m platform reached by jumping up stepping stones). A VFX beacon marks the live perch; the HUD says which. | The pad device cannot be toggled from Verse (unverified), the granter path is proven and handles a full inventory. |
+| 8 | **Weapons**: one per level, in a gold **weapon chest** on that level's lit **perch** (a 1.8-2.4 m platform reached by jumping up stepping stones): holding E on it (a hidden button in the chest, on only while the perch is lit) grants the weapon with its ammo through the proven hidden-trigger + Item Granter path (`giveExtraAmmo`). A VFX beacon marks the live perch; the HUD says which. (Aaron, 2026-10-09: he could not tell weapons were spawning; chest asked for.) | The pad device cannot be toggled from Verse (unverified), the granter path is proven and handles a full inventory. |
 | 9 | Verse: new `console/verse/fnm_bossmode.verse` (level table, copy, arena class, the mode's loops) owned by a `fnm_boss_mode` object the director builds at OnBegin when an `fnm_bm` entry exists; the director gets a `Mode` per player and routes picks, pads, respawns and finish to it. Race code paths unchanged (sabotage check in B1). | Keeps the 2455-line director from growing a second game inside it; the race path stays byte-stable. |
 
 Defaults picked without asking (Aaron wants autonomy): 5 levels / 16 hits; no lose state; shared team boss; guards plus
@@ -83,7 +83,7 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 |---|---|---|---|---|
 | Floor slab, walls, lid | 4000 x 4000; walls to z 800 | engine cubes (`M_fnm_wall_bm_wall` / `_bm_floor`, new colours in `import_art.WALL_COLOURS`) | — | ~14 cubes |
 | Entry teleporter | (0, 250, 0), yaw 90, both group knobs Group_None | `PID_Device_Teleporter` | `fnm_bm` + `fnm_entry` | 1 |
-| Answer pads A..D | (900, 1100) (-900, 1100) (900, 2100) (-900, 2100); tile 450 sq, 10 thick, `M_fnm_wall_pad_a..d`; trigger 450 x 450 x 150 on it; letter billboard 300 up, scale 1.5 | `PID_Device_Trigger`, `PID_Device_Billboard` | `fnm_bm` + `fnm_door_a..d` | 4 + 4 |
+| Answer pads A..D | (900, 1100) (-900, 1100) (900, 2100) (-900, 2100); tile 450 sq, 10 thick, `M_fnm_wall_pad_a..d`; trigger 450 x 450 x 150 on it; a giant 3D letter (CRG_Props Alphabet, scale 1.8, bottom 250 up, pad colour, no collision) that turns to face the nearest boss-mode player and bobs (`FaceLetter`; Aaron 2026-10-09: the boards were hard to see from some angles) | `PID_Device_Trigger`, Alphabet prop | `fnm_bm` + `fnm_door_a..d`; letter `fnm_bm_letter` + slot | 4 + 4 |
 | Boss platform | centre (0, 3200), 800 x 500, top +100 | engine cube, `M_fnm_wall_steel` | — | 1 |
 | Boss spawners, one per level | on the platform at x = -120, -60, 0, 60, 120, yaw -90; `BOSS_SETTINGS` + max/starting health 100000 (asked, read back); weapon per level (table §5) | `PID_Device_GuardSpawner_V2` | `fnm_bm_boss` + `fnm_bm_slot_L` | 5 |
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
@@ -179,7 +179,7 @@ creature kinds the monsters alternate guard, creature, guard, ... and the creatu
 | 0.8 | Boss spawner for L: `Reset()`, `Enable()` (+ `Spawn()` nudge after 5 s as `BossLoop` does); the strike VFX moved to the platform and `Restart()` | `fnm_bm_boss` + slot L, `fnm_bm_strike` |
 | 1.5 | Boss line: cue `bm_boss_l{L}`; subtitle (feedback line, orange, 6 s) **"BOSS: {line}"** | audio, HUD |
 | 2.5 | Gates 1..Gates(L): gate VFX `Enable()` + `Restart()`; cue `bm_gates`; the first guard out of gate 1 and (L ≥ 2) the first creature out of its gate (§5); feed **"The boss summons his minions!"**; gate VFX `Disable()` 1.5 s later | `fnm_bm_gate_fx`, `fnm_bm_gate`, `fnm_bm_creature` |
-| 4.0 | Weapon drop: beacons on the level's perches `Enable()` + `Restart()` (re-`Restart()` every 2 s while lit; others `Disable()`); hint (feedback, gold, 6 s) **"WEAPON DROP: {perch} - jump up and grab it!"** with perch names **FRONT-RIGHT PERCH / FRONT-LEFT PERCH / BACK-RIGHT PERCH / BACK-LEFT PERCH / BACK PERCHES** | `fnm_bm_perch_fx` |
+| 4.0 | Weapon drop: beacons on the level's perches `Enable()` + `Restart()` (re-`Restart()` every 2 s while lit; others `Disable()`); chest buttons on the lit perches `Enable()`, others `Disable()`; hint (feedback, gold, 6 s) **"WEAPON CHEST: {perch} - jump up and open it!"** with perch names **FRONT-RIGHT PERCH / FRONT-LEFT PERCH / BACK-RIGHT PERCH / BACK-LEFT PERCH / BACK PERCHES** | `fnm_bm_perch_fx` |
 | 5.0 | Banner hides; log `FNM: boss level {L} summoned: {Gates} gates, every {Seconds} s, max {Alive} alive, {Weapon} at {perch}` | |
 
 Boss anger that is visible: the weapon climbs, the anger ring grows, the boss line label (**GRUMPY / ANGRY / FURIOUS /
@@ -196,10 +196,12 @@ the entry; `FireCannons(BmRig, ...)` + nuke VFX at the boss's feet + both blasts
 **"{Who} nuked the boss!  Level {L}: {Team}/{Need}"**; next question; log
 `FNM: boss mode hit {N} by the player (level {L}, team {T}/{Need}), damage {D}, health {P}%`.
 
-Weapon grab (`OnBmPerch`): a boss-mode player on perch P when P is lit for the level and they have not taken this level's
-weapon: fire grant trigger L for them, `TakenLevels[L] = true`, cue `bm_weapon`, FlashVerdict-style notice
-**"{Weapon} GET!"** (gold, via FlashBig 1.5 s), feed **"{Who} grabbed the {Weapon}!"**, log
-`FNM: boss mode weapon {Weapon} granted at perch {P} (level {L})`.
+Weapon grab (`OnChest`, the chest button's `InteractedWithEvent`, 1 s hold): a boss-mode player opens perch P's chest
+when P is lit for the level and they have not taken this level's weapon: fire grant trigger L for them,
+`TakenLevels[L] = true`, cue `bm_weapon`, FlashVerdict-style notice **"{Weapon} GET!"** (gold, via FlashBig 1.5 s), feed
+**"{Who} grabbed the {Weapon}!"**, log `FNM: boss mode weapon {Weapon} granted from chest {P} (level {L})`; taken
+already: **"You already have the {Weapon}!"**. Standing on a lit perch without it (`OnPerch`): **"OPEN THE CHEST! (hold E)"**.
+Seen in play 2026-10-10: the prompt OPEN WEAPON CHEST, the SMG equipped in slot 3 with its ammo, the feed line.
 
 Wrong pad: §4.
 
@@ -243,7 +245,7 @@ Wrong pad: §4.
 | Banner | centre, y 0.52 (between the slate and the verdict label), ~900 x 200 burst texture; the verdict image hides while it is up | **LEVEL {L}** / sub from §4 |
 | Nuke verdict | verdict slot | mushroom-cloud icon + **MEGA NUKE!  {Left} TO GO** |
 | Start flash | verdict slot 4 s | **STEP ON THE RIGHT ANSWER!** + feedback **Bullets can't hurt the boss. Step on the pad with the RIGHT ANSWER to nuke it!** |
-| Weapon hint | feedback line, gold, 6 s | **WEAPON DROP: FRONT-RIGHT PERCH - jump up and grab it!** |
+| Weapon hint | feedback line, gold, 6 s | **WEAPON CHEST: FRONT-RIGHT PERCH - jump up and open it!** |
 | Win board | finish board | title **VICTORY!** + lines in §4; buttons **PLAY AGAIN**, **CHANGE SKILL** |
 
 Textures (B3, `tools/make_boss_art.py`, no PIL, deterministic, imported by the existing `python tools/import_art.py`

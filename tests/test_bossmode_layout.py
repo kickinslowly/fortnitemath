@@ -182,7 +182,7 @@ def test_grant_weapons_follow_the_level_table():
 def test_every_tag_the_tool_writes_is_declared():
     tags = (ROOT / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
     src = (ROOT / "tools" / "build_bossmode.py").read_text(encoding="utf-8")
-    names = set(re.findall(r'"(fnm_[a-z0-9_]+)"', src)) - {b.TAG, "fnm_test"}   # actor tags, not Verse tags
+    names = set(re.findall(r'"(fnm_[a-z0-9_]+)"', src)) - {b.TAG, b.DRESS_TAG, "fnm_test"}   # actor tags, not Verse tags
     names |= {f"fnm_bm_slot_{k}" for k in range(1, 6)} | {f"fnm_door_{x}" for x in "abcd"}
     assert "fnm_bm_gate" in names and "fnm_bm_cannon_fx" in names
     for name in sorted(names):

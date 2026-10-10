@@ -2,7 +2,8 @@
 # (tools/build_bossmode.py, Verse tags fnm_bm_*): a player who picks BOSS BATTLE on the picker's grade step answers
 # questions from EVERY baked cartridge by stepping on one of four answer pads. A right pad is a MEGA NUKE on a shared
 # boss (wall lasers, a strike, a nuke, a white flash); five levels of 2/3/3/4/4 team hits; at each level start the boss
-# summons monsters through more and more gates in the walls and a weapon drops on a perch the player must jump up to.
+# summons monsters through more and more gates in the walls and a weapon chest unlocks on a perch the player must jump
+# up to (opened with E: the level's weapon and its ammo). A giant letter floats over each pad, turned to the player.
 # No lose state: an eliminated player comes back at the arena entry (counted). The director (fnm_director.verse) owns
 # the players and routes picks, pads, perches, respawns and the finish here when a player's Mode is Boss; this file
 # owns the level table, the arena's devices and the shared fight (one boss and one level for everyone in the mode).
@@ -136,6 +137,14 @@ fnm_bm_perch_handler := class:
     OnTriggered(MaybeAgent:?agent):void =
         Director.OnBmPerch(MaybeAgent, Perch)
 
+# Binds one perch's weapon chest to its perch number (1..4).
+fnm_bm_chest_handler := class:
+    Director : fnm_director
+    Perch : int
+
+    OnOpened(Agent:agent):void =
+        Director.OnBmChest(Agent, Perch)
+
 # The boss-mode arena, found by tag at OnBegin. Station: the arena seen as a station (pads as doors, the entry as the
 # retry point), so the director's answer and penalty code serve it unchanged. Numbered pieces sit at index slot - 1:
 # a boss spawner per level (5), a monster gate's spawner and lightning per gate (4), a perch's trigger and beacon per
@@ -151,6 +160,9 @@ fnm_bm_arena := class:
     var GrantTriggers : []?trigger_device = array{false, false, false, false, false}
     var AngerFx : []?vfx_spawner_device = array{false, false, false, false, false}
     var Creatures : []?creature_spawner_device = array{false, false, false, false, false}
+    # A weapon chest's hidden button per perch (off until its level's drop) and a floating letter per pad (A..D).
+    var Chests : []?button_device = array{false, false, false, false}
+    var Letters : []?creative_prop = array{false, false, false, false}
     var Rig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "bm_blast", Parts := array{}, Homes := array{}}, Nuke := false}
 
     # Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter).
@@ -187,6 +199,12 @@ fnm_bm_arena := class:
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_creature), Spawner := creature_spawner_device[Object]):
             Spawner.Disable()
             if (set Creatures[SlotOf(Object) - 1] = option{Spawner}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_chest), Chest := button_device[Object]):
+            Chest.Disable()
+            if (set Chests[SlotOf(Object) - 1] = option{Chest}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_letter), Letter := creative_prop[Object]):
+            set Letter.CanBeDamaged = false
+            if (set Letters[SlotOf(Object) - 1] = option{Letter}) {}
         var CannonFx : []vfx_spawner_device = array{}
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_cannon_fx), Fx := vfx_spawner_device[Object]):
             Fx.Disable()
@@ -220,6 +238,18 @@ fnm_bm_arena := class:
         for (Item : Items, Item?):
             set Count += 1
         Count
+
+    CountChests(Items:[]?button_device):int =
+        var N : int = 0
+        for (Item : Items, Item?):
+            set N += 1
+        N
+
+    CountLetters(Items:[]?creative_prop):int =
+        var N : int = 0
+        for (Item : Items, Item?):
+            set N += 1
+        N
 
     CountCreatures(Items:[]?creature_spawner_device):int =
         var Count : int = 0
@@ -287,6 +317,11 @@ fnm_boss_mode := class:
     StartFlashSeconds : float = 4.0
     LevelClearSeconds : float = 2.5
     WeaponGetSeconds : float = 1.5
+    # The floating letters: each turns to face the nearest boss-mode player over LetterTurnSeconds, again and again, and
+    # bobs LetterBobCm up and down once every LetterBobSeconds.
+    LetterTurnSeconds : float = 0.15
+    LetterBobCm : float = 40.0
+    LetterBobSeconds : float = 4.0
     # A wrong-answer wave may go this many over the level's alive cap.
     WaveExtra : int = 2
     # Voice timings after a pad: the boss's grunt, and (wrong pad) its taunt after the penalty's own voice line (which
@@ -311,7 +346,29 @@ fnm_boss_mode := class:
             Spawner.EliminatedEvent.Subscribe(OnCreatureEliminated)
         Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
-        Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners")
+        Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests, {Arena.CountLetters(Arena.Letters)} letters")
+        for (K -> MaybeLetter : Arena.Letters, Letter := MaybeLetter?):
+            spawn{ FaceLetter(Letter, Letter.GetTransform().Translation, K) }
+
+    # A pad's floating letter, forever: turned toward the nearest boss-mode player (its readable face is +Y at yaw 0,
+    # build_bossmode LETTER_ASSET), bobbing round its home; still while nobody is in the mode.
+    FaceLetter(Letter:creative_prop, Home:vector3, K:int)<suspends>:void =
+        var Yaw : float = 0.0
+        var Phase : float = 0.25 * K
+        loop:
+            var Best : float = -1.0
+            for (State : Director.PlayerStates, State.Mode = fnm_mode.Boss, Character := State.Player.GetFortCharacter[]):
+                At := Character.GetTransform().Translation
+                D := (At.X - Home.X) * (At.X - Home.X) + (At.Y - Home.Y) * (At.Y - Home.Y)
+                if (Best < 0.0 or D < Best):
+                    set Best = D
+                    set Yaw = ArcTan(At.Y - Home.Y, At.X - Home.X) * 180.0 / PiFloat - 90.0
+            if (Best < 0.0):
+                Sleep(0.5)
+            else:
+                set Phase += LetterTurnSeconds / Max(LetterBobSeconds, 0.5)
+                Bob := LetterBobCm * Sin(2.0 * PiFloat * Phase)
+                Letter.MoveTo(Home + vector3{X := 0.0, Y := 0.0, Z := Bob}, MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0), LetterTurnSeconds)
 
     # Every player fighting in the mode (not picking, not finished).
     Fighting()<transacts>:[]fnm_player_state =
@@ -631,26 +688,39 @@ fnm_boss_mode := class:
             set N += 1
         N
 
-    # A player on perch P: when P is lit for the level and they have not taken this level's weapon, the level's granter
-    # hands it over (its hidden trigger, fired for them).
+    IsLit(P:int)<transacts>:logic =
+        var Lit : logic = false
+        for (Each : LitPerches, Each = P):
+            set Lit = true
+        Lit
+
+    # A player on perch P: when its chest is unlocked for the level and they have not taken this level's weapon, a
+    # reminder to open it.
     OnPerch(State:fnm_player_state, P:int):void =
         Print("FNM: boss mode perch {P} reached (level {Level})")
-        if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Picking?, Level >= 1):
-            var Lit : logic = false
-            for (Each : LitPerches, Each = P):
-                set Lit = true
+        if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Picking?, Level >= 1, IsLit(P)?):
             Taken := if (Got := State.TakenLevels[Level], Got?) then true else false
-            if (Lit?, not Taken?):
-                Weapon := FnmBmWeaponName(Level)
-                if (MaybeTrigger := Arena.GrantTriggers[Level - 1], Trigger := MaybeTrigger?):
-                    Trigger.Trigger(State.Player)
-                    if (set State.TakenLevels[Level] = true) {}
-                    Director.Sound(State.Player, fnm_cue.BmWeapon)
-                    State.Hud.FlashBig("{Weapon} GET!", NamedColors.Gold, WeaponGetSeconds)
-                    Director.Broadcast(FnmFeedBmWeapon(State.Player, Weapon), "grabbed the {Weapon}!")
-                    Print("FNM: boss mode weapon {Weapon} granted at perch {P} (level {Level})")
-                else:
-                    Print("FNM: boss mode perch {P}: no granter for level {Level}")
+            if (not Taken?):
+                spawn{ ShowLine(State, "OPEN THE CHEST! (hold E)", NamedColors.Gold, 3.0) }
+
+    # Perch P's chest was opened (its button held) by State's player: when P is lit and they have not taken this level's
+    # weapon, the level's granter hands it over with its ammo (its hidden trigger, fired for them).
+    OnChest(State:fnm_player_state, P:int):void =
+        Print("FNM: boss mode chest {P} opened (level {Level})")
+        if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Picking?, Level >= 1, IsLit(P)?):
+            Taken := if (Got := State.TakenLevels[Level], Got?) then true else false
+            Weapon := FnmBmWeaponName(Level)
+            if (Taken?):
+                spawn{ ShowLine(State, "You already have the {Weapon}!", NamedColors.Gold, 3.0) }
+            else if (MaybeTrigger := Arena.GrantTriggers[Level - 1], Trigger := MaybeTrigger?):
+                Trigger.Trigger(State.Player)
+                if (set State.TakenLevels[Level] = true) {}
+                Director.Sound(State.Player, fnm_cue.BmWeapon)
+                State.Hud.FlashBig("{Weapon} GET!", NamedColors.Gold, WeaponGetSeconds)
+                Director.Broadcast(FnmFeedBmWeapon(State.Player, Weapon), "grabbed the {Weapon}!")
+                Print("FNM: boss mode weapon {Weapon} granted from chest {P} (level {Level})")
+            else:
+                Print("FNM: boss mode chest {P}: no granter for level {Level}")
 
     # ------------------------------------------------ levels (BOSS_MODE.md sections 4 and 6)
 
@@ -703,7 +773,7 @@ fnm_boss_mode := class:
         LightPerches(Row.Perches)
         Hint := FnmBmPerchHint(L)
         for (State : Fighting()):
-            spawn{ ShowLine(State, "WEAPON DROP: {Hint} - jump up and grab it!", NamedColors.Gold, LineSeconds) }
+            spawn{ ShowLine(State, "WEAPON CHEST: {Hint} - jump up and open it!", NamedColors.Gold, LineSeconds) }
         Sleep(1.0 * Scale)
         if (MyEpoch <> Epoch):
             return
@@ -712,6 +782,15 @@ fnm_boss_mode := class:
         set NextSpawnAt = GetSimulationElapsedTime() + Row.SpawnSeconds
         set Summoning = false
         Print("FNM: boss level {L} summoned: {Row.Gates} gates, every {FnmBmWholeSeconds(Row.SpawnSeconds)} s, max {Row.MaxAlive} alive, {Row.WeaponName} at {Hint}")
+        if (Director.DebugBossChest > 0, MaybeChest := Arena.Chests[Director.DebugBossChest - 1], Chest := MaybeChest?):
+            # Toward the arena's centre line (the entry's X), where the perch's stepping stones are.
+            At := Chest.GetTransform().Translation
+            Toward := if (At.X > Arena.Station.RetryTeleporter.GetTransform().Translation.X) then -1.0 else 1.0
+            Spot := At + vector3{X := Toward * Director.DebugChestDistance, Y := 0.0, Z := 100.0}
+            Yaw := if (Toward > 0.0) then 180.0 else 0.0
+            for (State : Fighting(), Character := State.Player.GetFortCharacter[]):
+                if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0)]) {}
+            Print("FNM: debug boss chest: stood at chest {Director.DebugBossChest}")
 
     # Asks level L's boss spawner for its boss (fresh spawn limit, enabled; SpawnedEvent confirms) with a strike at it.
     SpawnBoss(L:int):void =
@@ -779,19 +858,22 @@ fnm_boss_mode := class:
         set CreaturesPending = 0
         set CreatureAgents = array{}
 
-    # The beacons on Perches on (BossLoop restarts them every BeaconSeconds), every other perch's off.
+    # The beacons on Perches on (BossLoop restarts them every BeaconSeconds) and their chests' buttons on; every other
+    # perch's beacon and chest button off.
     LightPerches(Perches:[]int):void =
         set LitPerches = Perches
         set BeaconAt = GetSimulationElapsedTime() + BeaconSeconds
         for (K -> MaybeFx : Arena.PerchFx, Fx := MaybeFx?):
-            var On : logic = false
-            for (P : Perches, P = K + 1):
-                set On = true
-            if (On?):
+            if (IsLit(K + 1)?):
                 Fx.Enable()
                 Fx.Restart()
             else:
                 Fx.Disable()
+        for (K -> MaybeChest : Arena.Chests, Chest := MaybeChest?):
+            if (IsLit(K + 1)?):
+                Chest.Enable()
+            else:
+                Chest.Disable()
 
     # The boss went down (its EliminatedEvent, or BossLoop's backstop): the level is cleared for everyone; the next one
     # is summoned BmRespawnSeconds later, or after level 5 it is the victory.
@@ -914,6 +996,8 @@ fnm_boss_mode := class:
             Spawner.Disable()
         for (MaybeFx : Arena.AngerFx + Arena.PerchFx, Fx := MaybeFx?):
             Fx.Disable()
+        for (MaybeChest : Arena.Chests, Chest := MaybeChest?):
+            Chest.Disable()
 
     # ------------------------------------------------ loops and events
 

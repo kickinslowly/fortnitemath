@@ -18,7 +18,8 @@
 # which every other hook needs to run headless; DebugAutoWrongAnswers (0), DebugPassageTest (false), DebugDoorTest
 # (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0),
 # DebugAutoBoss (false: a joining player starts BOSS BATTLE with no menu, wins over DebugAutoPick), DebugBossLevel (0: boss
-# mode starts at that level, a Partial run), DebugBossHold (0.0: the boss auto-run waits that long before each pad).
+# mode starts at that level, a Partial run), DebugBossHold (0.0: the boss auto-run waits that long before each pad),
+# DebugBossChest (0: after each summon, stand every fighter on that perch facing its weapon chest).
 # BOSS BATTLE mode (BOSS_MODE.md, fnm_bossmode.verse): a player whose Mode is Boss plays in the fnm_bm arena; their pads,
 # perches, respawns and finish go to BossMode. Race code paths ignore them (StationOccupied, WatchDoors/Skip/Ice).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
@@ -356,6 +357,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # so the level's SpawnSeconds elapse and the monster cap is reached. 0.0 = no wait (ship value).
     @editable
     DebugBossHold : float = 0.0
+    # Test hook: once a boss-mode level is summoned, stand every fighter on perch N (1..4) facing its weapon chest, to see
+    # the chest and press E on it. 0 = off (ship value).
+    @editable
+    DebugBossChest : int = 0
+    # How far in front of the chest DebugBossChest stands the player (cm, toward the stepping stones).
+    @editable
+    DebugChestDistance : float = 150.0
     # Boss mode: seconds from a level's clear to the next level's summon; the summon's length (its timeline scales to it);
     # how long the MEGA NUKE verdict stays up.
     @editable
@@ -761,6 +769,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Pad.TriggeredEvent.Subscribe(fnm_bm_pad_handler{Director := Self, DoorIndex := DoorIndex}.OnTriggered)
             for (K -> MaybeTrigger : BM.Arena.PerchTriggers, Trigger := MaybeTrigger?):
                 Trigger.TriggeredEvent.Subscribe(fnm_bm_perch_handler{Director := Self, Perch := K + 1}.OnTriggered)
+            for (K -> MaybeChest : BM.Arena.Chests, Chest := MaybeChest?):
+                Chest.InteractedWithEvent.Subscribe(fnm_bm_chest_handler{Director := Self, Perch := K + 1}.OnOpened)
             set BossMode = option{BM}
             spawn{ BM.SpawnLoop() }
             spawn{ BM.BossLoop() }
@@ -779,6 +789,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     OnBmPerch(MaybeAgent:?agent, Perch:int):void =
         if (Ready?, Agent := MaybeAgent?, Visitor := player[Agent], State := PlayerStates[Visitor], BM := BossMode?):
             BM.OnPerch(State, Perch)
+
+    # A boss-mode perch's weapon chest (1..4) was opened (its hidden button held).
+    OnBmChest(Agent:agent, Perch:int):void =
+        if (Ready?, Visitor := player[Agent], State := PlayerStates[Visitor], BM := BossMode?):
+            BM.OnChest(State, Perch)
 
     # The station a player answers at: the boss-mode arena in boss mode, else StationFor their stage.
     StationOf(State:fnm_player_state)<transacts>:?fnm_station =

@@ -85,7 +85,7 @@ def test_every_bm_tag_the_runtime_names_is_declared():
     used |= set(re.findall(r"Has\[(fnm_bm\w*)\{\}\]", runtime))
     expected = {"fnm_bm", "fnm_bm_boss", "fnm_bm_gate", "fnm_bm_gate_fx", "fnm_bm_perch", "fnm_bm_perch_fx",
                 "fnm_bm_grant", "fnm_bm_cannon_fx", "fnm_bm_strike", "fnm_bm_blast", "fnm_bm_nuke_fx",
-                "fnm_bm_anger_fx", "fnm_bm_creature"} | {f"fnm_bm_slot_{n}" for n in range(1, 6)}
+                "fnm_bm_anger_fx", "fnm_bm_creature", "fnm_bm_chest", "fnm_bm_letter"} | {f"fnm_bm_slot_{n}" for n in range(1, 6)}
     assert used == expected
     assert used <= declared, used - declared
 
@@ -144,7 +144,7 @@ def test_race_cannon_line_unchanged():
 HUD_COPY = ("BOSS BATTLE", "Every grade, every skill. Right answers NUKE the boss!", "Every skill, every grade",
             "MEGA NUKE!", "STEP ON THE RIGHT ANSWER!", "VICTORY!", "PLAY AGAIN", "TOP BOSS TIMES THIS SESSION",
             "Bullets can't hurt the boss. Step on the pad with the RIGHT ANSWER to nuke it!",
-            "Knocked out! Back to the arena entry.", "WEAPON DROP: {Hint} - jump up and grab it!",
+            "Knocked out! Back to the arena entry.", "WEAPON CHEST: {Hint} - jump up and open it!", "OPEN THE CHEST! (hold E)",
             "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}",
             "MEGA NUKE!  {Left} TO GO", "MEGA NUKE!  LEVEL {L} CLEARED!", "MEGA NUKE!  BOSS DEFEATED!",
             "LEVEL {L} CLEARED!", "Boss defeated in {FnmClock(Time)}", "The boss summons his minions!")
@@ -175,7 +175,7 @@ LOG_LINES = ("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {A
              "FNM: debug boss hold {FnmBmWholeSeconds(DebugBossHold)} s at level {BM.Level}",
              "FNM: boss mode wave: {Spawned} monsters spawned",
              "FNM: boss level {L} cleared",
-             "FNM: boss mode weapon {Weapon} granted at perch {P} (level {Level})",
+             "FNM: boss mode weapon {Weapon} granted from chest {P} (level {Level})",
              "FNM: boss mode victory in {FnmClock(Time)}, {MedalName}, right first try",
              "FNM: debug boss mode done: victory={FnmYesNo(State.Finished)} level={State.Level}",
              "FNM: debug boss mode stuck at level {BM.Level}",
