@@ -84,7 +84,8 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Floor slab, walls, lid | 4000 x 4000; walls to z 800 | engine cubes (`M_fnm_wall_bm_wall` / `_bm_floor`, new colours in `import_art.WALL_COLOURS`) | — | ~14 cubes |
 | Entry teleporter | (0, 250, 0), yaw 90, both group knobs Group_None | `PID_Device_Teleporter` | `fnm_bm` + `fnm_entry` | 1 |
 | Answer pads A..D | (900, 1100) (-900, 1100) (900, 2100) (-900, 2100); tile 450 sq, 10 thick, `M_fnm_wall_pad_a..d`; trigger 450 x 450 x 150 on it; a giant 3D letter (CRG_Props Alphabet, scale 1.8, bottom 250 up, pad colour, no collision) that turns to face the nearest boss-mode player and bobs (`FaceLetter`; Aaron 2026-10-09: the boards were hard to see from some angles) | `PID_Device_Trigger`, Alphabet prop | `fnm_bm` + `fnm_door_a..d`; letter `fnm_bm_letter` + slot | 4 + 4 |
-| Boss platform | a 3.5 m pedestal, 800 x 500 (§15) | engine cube, `M_fnm_wall_bm_marble` | — | 1 |
+| Boss platform | 1 m high, 800 x 500 (§15b; 3.5 m in §15) | engine cube, `M_fnm_wall_bm_marble` | — | 1 |
+| Titan (§15b) | the boss players see: one Animated Mesh device per clip (idle, flail, stomp) on the platform, scale 4 (12 m), facing the entry; Meshy art in `FNM_BossArt/Clip_<clip>` (`tools/import_boss.py`) | `Device_AnimatedMesh` | `fnm_bm_titan` + slot | 3 |
 | Boss (since 2026-10-10, §15) | a Megabrute creature spawner on the platform centre (`build_bossmode.boss_rig`) | `PID_Device_CreatureSpawner_V2` | `fnm_bm_megaboss` | 1 |
 | Cannon beams (§15) | an Alphabet "I" per cannon laid from its muzzle to the boss's chest, Neon Green, no collision | Alphabet prop | `fnm_bm_beam` + slot | 2 |
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
@@ -511,3 +512,55 @@ the health, the bar and the clear logic.
 - The knock moves the device with `MoveTo`.
 - The model comes from Meshy. That needs Aaron's go-ahead on credits.
 - Import the art into a folder that is not a Verse identifier: `FNM_BossArt`, not `fnm_boss`, which collided with the tag.
+
+### 15b. The Magma Titan (2026-10-10)
+
+Aaron: "the chests are really big so i dont understand why we cant scale if the chests appeared to be scaled. proceed with
+creating awesome boss monster for us to fight. make it epic. and get it idle and flailing and angry animations."
+
+A chest is a placed actor, and a placed actor keeps its scale. A character is spawned by the game at a fixed size and
+does not (§15a). So the titan uses the chest's trick: it is placed devices, scaled.
+
+- **The art.** Meshy, 62 credits:
+  - a concept image (nano-banana-pro, 9);
+  - image to 3D, textured, 40k triangles (30);
+  - a rig (5);
+  - five animations at 3 each (15): idle 0, Electrocution Reaction 172 (the flail), Angry Ground Stomp 255,
+    Chest Pound Taunt 88, Knock Down 187.
+
+  Task ids are in `art/boss/meshy_tasks.json`, the concept in `art/boss/concept.png`, the clips used in
+  `art/boss/raw`. A horned obsidian-and-lava demon, 3 m tall as imported.
+- **Import.** `python tools/import_boss.py` brings each clip FBX in with its own mesh and skeleton
+  (`FNM_BossArt/Clip_<clip>`: `SK_fnm_titan_<clip>`, `A_fnm_titan_<clip>`). Then `build_bossmode.py --boss` places
+  `FNM_BM_Titan1..3` on the platform, scale 4, facing the entry. The platform is back down to 1 m: on the 3.5 m
+  pedestal the 12 m titan's head and chest sat behind the question panel at the player's eye line.
+- **Runtime** (`console/verse/fnm_titan.verse`). The Megabrute still spawns, pinned and hidden (`Hide()`), and keeps the
+  health, the bar and the level clears. The titan shows one clip at a time:
+  - stomp when a level's boss arrives;
+  - flail for 4 s from each right pad, then stomp;
+  - stomp on a wrong pad;
+  - idle otherwise.
+
+  The boss bar reads THE MAGMA TITAN. The beams aim at its waist (`BEAM_AIM` 450): higher up, they met behind the answer
+  panel, which grows for the first seconds after a right pad.
+- **Device findings** (titan self-test frames; the general ones are in the `uefn-mcp` skill):
+  - Verse `Play()` never started a device placed Stopped.
+  - `PlayReverse` threw the mesh flat and upside down.
+  - A clip parked 30 m under the floor came back in a broken pose.
+
+  So every clip starts Playing and loops. Verse only swaps them with `TeleportTo`, and a resting clip is shrunk to
+  0.001 at home.
+- **Not used:** Chest Pound and Knock Down. On the device the chest pound tipped the titan flat for about 2 s of every
+  loop. The knockdown turned on the spot and never fell. Both happened imported against the rig file's skeleton and
+  against their own, and after a Blender round trip (which also turned the mesh around). The cause is not found; the
+  FBX files are sound in Blender. Their files are in `art/boss/unused` (git-ignored).
+- **Seen in play** (headless, `DebugAutoBoss` + `DebugAutoRightAnswers`):
+  - A full run to VICTORY, 16/16 hits.
+  - The titan standing over the pads, under the panel, when no answer feedback is up.
+  - Idle, flail and stomp each sampled over 12 s, upright throughout.
+  - The flail on a hit, with the blast.
+  - A beam reaching the waist, thin from the entry's angle.
+- **Not seen yet:**
+  - The wrong-pad stomp.
+  - Two players.
+  - How the titan reads to Aaron in a real session (the camera there is not fixed level).

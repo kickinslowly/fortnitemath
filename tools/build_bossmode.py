@@ -101,11 +101,11 @@ LETTER_SCALE = 1.8
 LETTER_PROP_COLOURS = ("White", "Sky Blue", "Apple Green", "Orange")
 PAD_TRIGGER = {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0, "visible in Game": False,
                "triggeredByVehicles": False, "triggeredByWater": False, "triggeredByPhysicsProps": False}
-# The boss platform (marble), its centre, size and height; the boss's creature spawner stands on it (boss_rig). A 3.5 m
-# pedestal (2026-10-10; it was 1 m): from the entry, 45 m off, the boss on a 1 m block stood among the letters and the
-# stones and read small; up here he stands over all of it and the cannons' beams climb to him.
+# The boss platform (marble), its centre, size and height; the boss's creature spawner and the titan stand on it
+# (boss_rig). 1 m: it was raised to 3.5 m for the 3 m Megabrute, but the 12 m titan on it put its head and chest behind
+# the question panel at the player's eye line (play frames 2026-10-10).
 PLATFORM_X, PLATFORM_Y = 0, 4500
-PLATFORM_W, PLATFORM_D, PLATFORM_H = 800, 500, 350
+PLATFORM_W, PLATFORM_D, PLATFORM_H = 800, 500, 100
 _W = "/Game/Athena/Items/Weapons/{0}.{0}"
 # Gates G1..G4 as angles round CENTRE: G1 right-front, G2 left-front, G3 right-back, G4 left-back (right = -X, front = the
 # entry half), each on a podium slot (an arch bay). Behind the arch an ALCOVE_D deep alcove GATE_W wide and GATE_H tall
@@ -159,7 +159,7 @@ MEGABOSS = "Megabrute"
 MEGABOSS_SETTINGS = {**CREATURE_SETTINGS, "creature Type": MEGABOSS}
 # A laser beam from each cannon's muzzle to the boss (Aaron 2026-10-10: "attacks on him more obviously coming from the side
 # laser cannons"): the Alphabet "I" (57 x 50 x BEAM_H at scale 1, pivot at the bottom centre) laid along the shot, its
-# +Z from the muzzle (the cannon's muzzle VFX spawner) to BEAM_AIM above the platform top (the Megabrute's chest),
+# +Z from the muzzle (the cannon's muzzle VFX spawner) to BEAM_AIM above the platform top (the titan's waist: higher, the hit lands behind the answer panel, which grows for the first seconds after a right pad; 2026-10-10 frames),
 # BEAM_W scale thick (~1 m: at 0.8 it read as a thin line on the horizon from the entry, 2026-10-10 frames), in
 # BEAM_COLOUR, no collision. Placed at full length with Verse tag fnm_bm_beam; the director hides it
 # at start and shoots it out of the muzzle on every hit (fnm_director FireBeam). A gallery prop because Verse moves only
@@ -168,9 +168,22 @@ MEGABOSS_SETTINGS = {**CREATURE_SETTINGS, "creature Type": MEGABOSS}
 BEAM_LETTER = "I"
 BEAM_H = 201.3
 BEAM_W = 2.0
-BEAM_AIM = 250
+BEAM_AIM = 450
 BEAM_COLOUR = "Neon Green"
 BOSS_RIG_TAG = "fnm_bm_bossrig"
+# The titan (2026-10-10, BOSS_MODE.md section 15b): what players see of the boss. A character cannot be scaled (the
+# Megabrute stays hidden inside it and keeps the health), so the boss is a Meshy monster (art/boss, tools/import_boss.py)
+# on Animated Mesh devices: one device per clip (the device plays one animation), Verse swaps them in by TeleportTo.
+# Slot N = TITAN_CLIPS[N - 1]; the idle stands home, the rest wait TITAN_PARK under the floor until Verse shrinks them
+# to nothing at home. Every clip starts Playing and loops (fnm_titan.verse says why).
+ANIMATED_MESH = "/CRD_AnimatedMesh/Device_AnimatedMesh.Device_AnimatedMesh_C"
+TITAN_ART = "FNM_BossArt"
+TITAN_MESH = "SK_fnm_titan"
+# The chest pound (taunt) and knockdown (defeat) clips are imported but unused: on the device one tipped the titan flat
+# partway through its loop and the other turned on the spot instead of falling (BOSS_MODE.md section 15b).
+TITAN_CLIPS = ["idle", "flail", "stomp"]
+TITAN_SCALE = 4.0        # the mesh is 3 m tall: 12 m, head just under the question panel at the player's eye line
+TITAN_PARK = 3000
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
 # square gold block; stepping stones STONE long (along the climb) and STONE_D wide (as wide as the perch), each STONE_RISE
 # lower than the next, STONE_GAP apart edge to edge, laid from the perch toward the arena's centre line (the lowest
@@ -655,7 +668,31 @@ def boss_rig(project=None):
         verse_tags(beam, project, ["fnm_bm_beam", f"fnm_bm_slot_{k}"])
         print(f"beam {side}: {length / 100:.1f} m from ({loc['x']:.0f}, {loc['y']:.0f}, {loc['z']:.0f}), "
               f"pitch {rot['pitch']:.1f} yaw {rot['yaw']:.1f}")
-    print(f"boss rig: a {MEGABOSS} spawner on the platform, 2 beams")
+    titan(project, top)
+    print(f"boss rig: a {MEGABOSS} spawner on the platform, 2 beams, {len(TITAN_CLIPS)} titan clips")
+
+
+def titan(project, top):
+    """The titan's Animated Mesh devices FNM_BM_Titan1..5 (tag fnm_bm_titan + slot), facing the entry. Needs
+    tools/import_boss.py once per UEFN project."""
+    art = f"/{project}/{TITAN_ART}"
+    x, y, _ = at(PLATFORM_X, PLATFORM_Y)
+    ex, ey, _ = at(*ENTRY)
+    yaw = math.degrees(math.atan2(ey - y, ex - x))       # the mesh faces +X
+    for k, clip in enumerate(TITAN_CLIPS, 1):
+        z = top if k == 1 else top - TITAN_PARK
+        r = u.call(DEV, "PlaceDevice", {"assetPath": ref(ANIMATED_MESH),
+                                        "transform": xform(x, y, z, TITAN_SCALE, TITAN_SCALE, TITAN_SCALE, yaw)})
+        dev = tagged(r["returnValue"]["refPath"], f"FNM_BM_Titan{k}", BOSS_RIG_TAG)
+        u.call(ACTOR, "add_tag", {"actor": ref(dev), "tag": TAG})
+        verse_tags(dev, project, ["fnm_bm_titan", f"fnm_bm_slot_{k}"])
+        props(dev, {"skeletalMesh": {"refPath": f"{art}/Clip_{clip}/{TITAN_MESH}_{clip}.{TITAN_MESH}_{clip}"},
+                    "animation": {"refPath": f"{art}/Clip_{clip}/A_fnm_titan_{clip}.A_fnm_titan_{clip}"},
+                    "loop": True, "initialState": "Playing"})
+        got = get(dev, ["skeletalMesh", "animation"])
+        if not got.get("animation", {}).get("refPath", "").endswith(f"A_fnm_titan_{clip}"):
+            sys.exit(f"FNM_BM_Titan{k}: animation did not take ({got}); run tools/import_boss.py")
+    print(f"titan: {len(TITAN_CLIPS)} clips at scale {TITAN_SCALE}, yaw {yaw:.1f}")
 
 
 def letter_asset(letter):

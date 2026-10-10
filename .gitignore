@@ -8,3 +8,6 @@ emulator/e2e/screens/
 emulator/playwright-report/
 __pycache__/
 .pytest_cache/
+
+# Bought Meshy boss files the titan does not use (task ids in art/boss/meshy_tasks.json)
+art/boss/unused/

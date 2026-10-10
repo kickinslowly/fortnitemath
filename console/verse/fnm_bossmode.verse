@@ -175,6 +175,8 @@ fnm_bm_arena := class:
     # without one the per-level guard boss spawners above serve.
     var Megaboss : ?creature_spawner_device = false
     var BossHome : ?transform = false
+    # What players see of the boss since 2026-10-10 (fnm_titan.verse); the Megabrute is hidden inside it.
+    Titan : fnm_titan = fnm_titan{}
     var Rig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "bm_blast", Parts := array{}, Homes := array{}}, Nuke := false}
 
     # Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter).
@@ -221,6 +223,8 @@ fnm_bm_arena := class:
             Spawner.Disable()
             set Megaboss = option{Spawner}
             set BossHome = option{Spawner.GetTransform()}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_titan), Device := animated_mesh_device[Object]):
+            Titan.Add(Device, SlotOf(Object))
         var Beams : []creative_prop = array{}
         var BeamFull : []transform = array{}
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_beam), Beam := creative_prop[Object]):
@@ -380,7 +384,8 @@ fnm_boss_mode := class:
         if (Mega := Arena.Megaboss?):
             Mega.SpawnedEvent.Subscribe(OnBossSpawned)
             Mega.EliminatedEvent.Subscribe(OnBossEliminated)
-        Print("FNM: boss mode: megaboss {FnmYesNo(if (Arena.Megaboss?) then true else false)}, {Arena.Rig.Beams.Length} beams")
+        Print("FNM: boss mode: megaboss {FnmYesNo(if (Arena.Megaboss?) then true else false)}, {Arena.Rig.Beams.Length} beams, {Arena.Titan.Found()} titan clips")
+        Arena.Titan.Reset()
         Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
         Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests, {Arena.CountLetters(Arena.Letters)} letters")
@@ -603,6 +608,7 @@ fnm_boss_mode := class:
             # Back to the entry first, facing the boss: the show plays out ahead of them.
             Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
             spawn{ Director.FireCannons(Arena.Rig, State.Player, Character, Stood, Left, true) }
+            spawn{ Arena.Titan.Hurt() }
             RefreshBossLines()
             for (Fighter : Fighting()):
                 spawn{ Fighter.Hud.HitBossBar() }
@@ -629,6 +635,8 @@ fnm_boss_mode := class:
         State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
         Shown := State.Hud.ShowFeedback(Director.FeedbackFor(Item, Choice), NamedColors.Tomato)
         Wave()
+        if (BossAlive?):
+            spawn{ Arena.Titan.Taunt() }
         Director.Punish(State.Player, Arena.Station, DoorIndex, Kind)
         set State.Busy = false
         Sleep(Director.WrongFeedbackSeconds)
@@ -839,6 +847,7 @@ fnm_boss_mode := class:
         if (Mega := Arena.Megaboss?):
             set BossRequestedAt = GetSimulationElapsedTime()
             Mega.Enable()
+            spawn{ Arena.Titan.Arrive() }
             Print("FNM: boss mode megaboss requested (level {L})")
             spawn{ StrikeAt(Mega.GetTransform().Translation) }
         else if (Spawner := BossSpawnerFor(L)?):
@@ -1046,6 +1055,7 @@ fnm_boss_mode := class:
         if (Mega := Arena.Megaboss?):
             Mega.Disable()
             Mega.EliminateCreatures()
+        Arena.Titan.Reset()
         for (MaybeFx : Arena.AngerFx + Arena.PerchFx, Fx := MaybeFx?):
             Fx.Disable()
         for (MaybeChest : Arena.Chests, Chest := MaybeChest?):
@@ -1126,7 +1136,7 @@ fnm_boss_mode := class:
     # FURIOUS" over a bar filled to the boss's health, "40%   -   hits 1/3" on it.
     ShowBossBar(State:fnm_player_state):void =
         Row := FnmBmLevel(Level)
-        Who := if (Arena.Megaboss?) then "MEGABRUTE BOSS" else "BOSS"
+        Who := if (Arena.Titan.Found() > 0) then "THE MAGMA TITAN" else if (Arena.Megaboss?) then "MEGABRUTE BOSS" else "BOSS"
         Name := "{Who}   -   LEVEL {Level}: {Row.Anger}"
         if (Downed?):
             State.Hud.SetBossBar(Name, 0, "DEFEATED!   LEVEL {Level} CLEARED")
@@ -1154,6 +1164,9 @@ fnm_boss_mode := class:
                 Character.SetHealth(MegabossHealth)
                 Character.DamagedEvent().Subscribe(OnMegabossDamaged)
                 PinBoss(Character)
+                # The titan is the boss players see (fnm_titan.verse); the Megabrute only holds the health, inside it.
+                if (Arena.Titan.Found() > 0):
+                    Character.Hide()
         set BossAgent = option{Agent}
         set BossAlive = true
         set BossRequestedAt = -1.0
