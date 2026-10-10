@@ -12,7 +12,7 @@ import build_bossmode as b  # noqa: E402
 import build_course as c  # noqa: E402
 import build_guards as g  # noqa: E402
 
-HW = b.ARENA_W / 2
+CX, CY = b.CENTRE
 
 
 def _rect(cx, cy, w, d):
@@ -23,8 +23,13 @@ def _overlap(a, q):
     return a[0] < q[1] and q[0] < a[1] and a[2] < q[3] and q[2] < a[3]
 
 
-def _inside(r):
-    return -HW < r[0] and r[1] < HW and 0 < r[2] and r[3] < b.ARENA_L
+def _inside(r, margin=0):
+    """Every corner of the rect on the sand, margin short of the podium's inner face."""
+    return all(((x - CX) ** 2 + (y - CY) ** 2) ** 0.5 < b.ARENA_R - margin for x in r[:2] for y in r[2:])
+
+
+def _off(deg, d):
+    return abs((deg - d + 180) % 360 - 180)
 
 
 PADS = [_rect(x, y, c.PAD_SIZE, c.PAD_SIZE) for x, y in b.PAD_SPOTS]
@@ -55,11 +60,11 @@ def test_pad_letters_read_like_the_doors():
 def test_perches_inside_the_walls_and_off_the_gates():
     assert len(b.PERCHES) == 4
     for (px, py, top), r in zip(b.PERCHES, PERCHES):
-        assert _inside(r)
+        assert _inside(r, 100), r            # a player fits round the perch's outer corner
         assert not _overlap(r, PLATFORM)
-        for side, gy in b.GATES:
-            mouth = (min(side * HW, side * (HW - 400)), max(side * HW, side * (HW - 400)), gy - b.GATE_W / 2, gy + b.GATE_W / 2)
-            assert not _overlap(r, mouth), (px, py, gy)
+        for deg in b.GATES:                  # a gate's mouth stays 10 m clear: creatures pour out of it
+            gx, gy = b.polar(b.ARENA_R, deg)
+            assert ((px - gx) ** 2 + (py - gy) ** 2) ** 0.5 > 1000, (px, py, deg)
     for s in STONES:
         assert _inside(s) and not _overlap(s, PLATFORM)
 
@@ -85,20 +90,44 @@ def test_stone_chain_is_jumpable():
         assert abs(stones[-1][0]) < abs(stones[0][0]) < abs(px)
 
 
-def test_gates_on_the_side_walls():
+def test_gates_on_the_sides_each_on_an_arch_bay():
+    """G1 right-front, G2 left-front, G3 right-back, G4 left-back (right = -X, front = the entry half), each centred on a
+    podium slot, clear of the main gate (slot 0), the tribune (90) and the cannon bays."""
     assert len(b.GATES) == 4
-    assert {s for s, _ in b.GATES} == {1, -1}
-    for side, gy in b.GATES:
-        assert 0 < gy - b.GATE_W / 2 and gy + b.GATE_W / 2 < b.ARENA_L
-        assert b.GATE_H < b.WALL_H
+    xs = [b.polar(b.ARENA_R, d)[0] for d in b.GATES]
+    ys = [b.polar(b.ARENA_R, d)[1] for d in b.GATES]
+    assert xs[0] < 0 < xs[1] and xs[2] < 0 < xs[3]
+    assert ys[0] < b.CENTRE[1] < ys[2] and ys[1] < b.CENTRE[1] < ys[3]
+    slots = [b.slot_of(d) for d in b.GATES]
+    assert len(set(slots)) == 4
+    for k in slots:
+        assert min(k, b.SLOTS - k) > 2
+        assert abs(k - b.slot_of(90)) > 2
+        assert abs(k - b.slot_of(0)) > 1 and abs(k - b.slot_of(180)) > 1
+    assert b.GATE_H < b.WALL_H
+    # the stretched arch's opening (~75 % of its height) is the way out; the alcove behind is taller and wider
+    assert 0.7 * b.ROW_H * b.ARCH_SZ < b.GATE_H
+    assert 0.7 * b.BAY < b.GATE_W < b.BAY
+
+
+def test_podium_ring_closes():
+    """SLOTS bays BAY wide at the inner face close the ring; each kit piece is scaled to it."""
+    import math
+    assert abs(b.SLOTS * 2 * b.ARENA_R * math.tan(math.pi / b.SLOTS) - b.SLOTS * b.BAY) < 1e-6
+    assert all(0.95 < b.BAY_W / w < 1.1 for w in b.KIT_W.values())
+    # a bay at its depth spans at least its slot's chord at the podium's back face
+    assert b.BAY_W > 2 * (b.ARENA_R + b.PODIUM_T) * math.tan(math.pi / b.SLOTS)
+    assert b.WALL_H == 2 * b.ROW_H
+    assert [b.slot_angle(b.slot_of(d)) for d in b.GATES] == b.GATES
 
 
 def test_cannons_on_the_walls_short_of_the_platform():
     import build_cannon as cn
     assert 0 < b.CANNON_Y < b.PLATFORM_Y - b.PLATFORM_D / 2
+    assert b.CANNON_Y == b.CENTRE[1]          # due left and right, where the ring's face runs along Y
     assert cn.CANNON_Z + cn.BALL_D + cn.RING_D < b.WALL_H
-    for side, gy in b.GATES:      # not over a gate opening
-        assert abs(b.CANNON_Y - gy) > b.GATE_W / 2 + cn.BRACKET[1] / 2
+    for deg in b.GATES:                       # not over a gate opening
+        assert _off(deg, 0) > 10 and _off(deg, 180) > 10
 
 
 def test_boss_weapons_accepted_and_not_one_shot():
@@ -202,11 +231,13 @@ def test_creature_spawners_in_the_alcoves_off_and_lasting():
     assert s["total Spawn Limit"] == 100
     assert s["damage Spawner After Spawn"] is False and s["number of Creatures"] == 1
     assert s["activation Range"] >= 100
-    hw = b.ARENA_W / 2
-    for (x, y, gate), dy in zip(b.creature_spots(), b.CREATURE_DY):
-        side, gy = b.GATES[gate - 1]
-        assert side * x > hw + b.WALL_T and side * x < hw + b.WALL_T + b.ALCOVE_D       # inside that gate's alcove
-        assert abs(y - gy) < b.GATE_W / 2 - 50
+    import math
+    for x, y, gate in b.creature_spots():
+        a = math.radians(b.GATES[gate - 1])
+        dx, dy = x - b.CENTRE[0], y - b.CENTRE[1]
+        u, v = dx * math.cos(a) + dy * math.sin(a), -dx * math.sin(a) + dy * math.cos(a)
+        assert b.ARENA_R + b.PODIUM_T < u < b.ARENA_R + b.PODIUM_T + b.ALCOVE_D       # inside that gate's alcove
+        assert abs(v) < b.GATE_W / 2 - 50
     assert len({(x, y) for x, y, _ in b.creature_spots()}) == 5
     assert "creature Type" not in s                      # set per kind
     assert b.KNOCKBACK_WANT == "High"

@@ -52,6 +52,11 @@ Per player, on Start: `BmDecks : [][][]int` = one shuffled deck per cartridge pe
 
 ## 3. Arena (new, `tools/build_bossmode.py`, LAYOUT.md "Boss battle arena")
 
+**Superseded geometry (colosseum pass, 2026-10-09):** the arena is now round (radius 32 m, a Coliseum-kit podium, stands,
+colonnade and tribune by `tools/build_colosseum.py`); gates, perches, pads, platform and cannons moved. The current layout
+and every position live in LAYOUT.md "Boss battle arena". The devices, settings and tags below are unchanged; read the
+positions in this section as the B2 history.
+
 Units cm. Arena centre line x = 14000, south (entry) wall inner face y = -14000, floor top z = 2 (slab under it like the
 course). Player enters at the south end facing +Y (`ArrivalYaw` 90), so **+X is the player's LEFT**. Coordinates below
 are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden collision lid (build_lids recipe).

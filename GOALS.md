@@ -373,3 +373,8 @@ plans and audits; Opus builds; Sonnet does B3.
 - [ ] 4. B3 16 voice lines x 3 voices, `fnm_banner.png` / `fnm_nuke.png`, 19 CUES rows, AUDIO.md
 - [ ] 5. B4 headless run to VICTORY seen in frames; race regression; wavs imported; ship defaults restored
 - [ ] 6. Aaron playtest; then the open list in BOSS_MODE.md section 13 (jump chain, creature spawner, by ear)
+- [ ] 7. Colosseum pass (Aaron, 2026-10-09: "large, circular colloseum like, with pillars"): round 64 m arena, Coliseum-kit
+  podium with arch gates and the main gate (`build_bossmode.py`), stands / colonnade / pylons / tribune / statues
+  (`build_colosseum.py`, own tag). Built and seen in editor captures; gate arches traced open (~320 x 380); headless
+  auto-run to VICTORY 1:23.3, 16/16, guards and creatures up at all 4 gates. Unverified: a walked run (perch climbs at the
+  new spots), frame rate with ~670 arena actors and 16 torch/brazier lights, island memory (GUI-only panel)

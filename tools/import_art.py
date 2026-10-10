@@ -37,7 +37,9 @@ WALL_COLOURS = {"tier1": (0.30, 0.75, 0.40), "tier2": (0.25, 0.50, 0.90), "tier3
                 # the arena's laser cannons (tools/build_cannon.py): gunmetal bodies, a glowing muzzle ring
                 "steel": (0.16, 0.18, 0.22), "glow": (0.25, 0.95, 1.0),
                 # the boss battle arena (tools/build_bossmode.py): dark walls, a lighter floor, gold perches
-                "bm_wall": (0.12, 0.10, 0.14), "bm_floor": (0.22, 0.20, 0.24), "bm_perch": (1.0, 0.8, 0.1)}
+                "bm_wall": (0.12, 0.10, 0.14), "bm_floor": (0.22, 0.20, 0.24), "bm_perch": (1.0, 0.8, 0.1),
+                # the colosseum pass (2026-10-09): arena sand, a blue-grey stone matching the Coliseum kit's brick, marble
+                "bm_sand": (0.80, 0.65, 0.42), "bm_stone": (0.09, 0.09, 0.11), "bm_marble": (0.90, 0.88, 0.82)}
 
 
 def mount():

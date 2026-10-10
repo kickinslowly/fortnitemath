@@ -117,45 +117,60 @@ reset refills its spawn limit and its timer then replaced every add a player kil
   announcer counts the team's hits down. The engine shapes are scenery: Verse cannot find or move them, so the muzzle
   VFX spawner is the muzzle the director knows about. Rerun after a course rebuild.
 
-## Boss battle arena (2026-10-09, BOSS_MODE.md)
-The BOSS BATTLE mode's own arena (`tools/build_bossmode.py`, actor tag `fnm_bossmode`, every actor labelled `FNM_BM_*`;
-spec BOSS_MODE.md §3). It sits 140 m east of the course start, x 12000..16000, y -14000..-10000, floor top z 2, on its own
-slab past the template ground; the race arena is untouched. Coordinates below are relative to O = (14000, -14000, 0), the
-south wall's inner face on the centre line. The player enters facing +Y, so **+X is their LEFT**. Walls 800 high, 40
-thick (`M_fnm_wall_bm_wall`), floor `M_fnm_wall_bm_floor`, one hidden collision lid (underside z 780).
+## Boss battle arena (2026-10-09, BOSS_MODE.md; colosseum pass the same day)
+The BOSS BATTLE mode's own arena: a round colosseum 140 m east of the course start, on its own slab past the template
+ground; the race arena is untouched. Two tools, two actor tags: `tools/build_bossmode.py` (tag `fnm_bossmode`, labels
+`FNM_BM_*`) builds everything play touches (floor, podium ring, gates, lid, every device); `tools/build_colosseum.py` (tag
+`fnm_bm_colosseum`, labels `FNM_BMC_*`) dresses it (stands, colonnade, pylons, tribune, statues, torches) and reruns on
+its own. Both are built from Fortnite's Coliseum playset kit plus engine cubes. Coordinates are relative to
+O = (14000, -14000, 0), the podium's inner face due south; the centre is C = (0, 3200) (world (14000, -10800)), floor top
+z 2. The player enters facing +Y, so **+X is their LEFT**. Angles are degrees from +X round C: 270 is the entry, 90 the
+boss end.
 
 ```
-          x = +2000 (player's LEFT)                                   x = -2000 (RIGHT)
- y+4000  ┌─────────────────────────────────────────────────────────────────┐  north wall
-         │ [P4 BL 240]                                       [P3 BR 240]   │  perches: 3 x 3 m tops, stepping stones below
-         │                      ┌───────────────┐                          │
-   G4 ▓▓ │                      │  BOSS  (5 sp) │                          │ ▓▓ G3   gates in the side walls at y+3000
- y+3000  │   ○                  └───────────────┘                  ○       │  platform 8 x 5 m, top +100, centre (0, 3200)
-         │        ○                                            ○           │  ○ = anger VFX ring (5, lit L of 5)
-         │                                                                 │
-         │  ⊕ cannon L (wall, y+2200, 3.3 m up)         cannon R ⊕         │  wall lasers aimed at the platform
- y+2000  │      [ C ]                                     [ D ]            │  pads C (x+900) D (x-900) at y+2100
-         │                                                                 │
-   G2 ▓▓ │                                                                 │ ▓▓ G1   gates at y+1200
- y+1000  │      [ A ]                                     [ B ]            │  pads A (x+900) B (x-900) at y+1100
-         │ [P2 FL 180]                  E ↑               [P1 FR 180]      │  E entry teleporter (0, +250)
- y+0     └─────────────────────────────────────────────────────────────────┘  south wall, "BOSS BATTLE" sign on the left wall
+                                90 (boss end): tribune over the "BOSS BATTLE" sign
+                       .-----------------[ TRIBUNE ]-----------------.
+                 G4 20 /         [P4 240]   ┌────────┐   [P3 240]     \ 160 G3      gates: arch bays in the podium
+                      /            ○        │ BOSS   │        ○                  cannon L 0 |                ○     └────────┘     ○            | 180 cannon R   (y 3200, on the podium face)
+                     |                         (C)                      |
+                     |      [ C ]                            [ D ]      |   pads C D at y 2900
+                 G2 340\    [ A ]                            [ B ]     /200 G1           A B at y 1900
+                        \  [P2 180]             E ↑           [P1 180]/
+                         '------------------[ MAIN GATE ]-------------'
+                                270 (entry): the kit's main gate under a stone tower
 ```
+
+Sand floor radius 3200 (a 120 cm stone band at the podium's foot, a marble medallion r 520-600 round C). Podium: 36 bays
+of 10° (slot 0 due south), each a kit stone bay (`Coliseum_Wall_01`) under a marble one (`Coliseum_Wall_02`), 768 tall,
+80 deep, a plain stone skin behind; a gate bay is a marble arch (`Coliseum_Arch_02`, stretched 1.4 tall, opening ~380 x
+400) under a marble strip; slot 0 is `CP_Coliseum_ExtWall_MainGate_01` with a stone wall 4.5 m behind its open leaf. One
+hidden collision lid (underside z 750) over the whole floor. Kit props are set indestructible (`bCanBeDamaged` off).
+
+Dressing (`build_colosseum.py`): four rings of the kit's stone seating block (`Coliseum_Seats_02`, 48 / 54 / 62 / 68
+blocks, 384 rise, 537 deep, alternate blocks 1 cm higher so overlapping treads never z-fight) rising to z 2306 at r 5428;
+over the main gate (270 ± 11°) and at the boss end (90 ± 16°) the first two rings are flat stone terraces faced with the
+podium's bays (the entry tower; the tribune deck at z 1538). Crown: a stone walkway, 40 fluted marble columns
+(`Coliseum_Column_02` x 1.3) under a marble entablature at r 5690, eight pylons (`CP_Coliseum_ExtWall_Column_01` x 0.75,
+45° apart, off the entry axis) each flying a pennant to ~52 m. Tribune: balcony and railings, four columns, canopy, back
+wall, curtains, the kit's giant gladiator statue and two small ones. Podium: a pilaster (`Coliseum_Column_04`) each side
+of every arch with a wall torch beside it, a llama statue over each gate, curtains on six marble bays, eight braziers on
+the podium top.
 
 | Piece | Labels | Verse tags |
 |---|---|---|
-| Floor, walls (side walls in three segments + a lintel over each gate), lid | `FNM_BM_Floor`, `_WallS/N`, `_WallL1..3`, `_WallR1..3`, `_LintelL1/2`, `_LintelR1/2`, `_Lid` | — |
-| Entry teleporter (yaw 90, both group knobs Group_None), sign | `FNM_BM_Entry`, `FNM_BM_Sign` | `fnm_bm` + `fnm_entry` |
-| Answer pads: tile (`M_fnm_wall_pad_x`), 450 x 450 x 150 hidden trigger, letter board | `FNM_BM_PadA..D`, `_TriggerA..D`, `_LabelA..D` | trigger: `fnm_bm` + `fnm_door_a..d` |
-| Boss platform (steel) + one guard spawner per level (BOSS_SETTINGS, health 100000, weapon by level) | `FNM_BM_Platform`, `FNM_BM_Boss1..5` | `fnm_bm_boss` + `fnm_bm_slot_L` |
-| Gates: 400 x 350 opening, 300-deep steel alcove (floor, back, sides, roof), spawner at its centre facing in, VFX at the mouth | `FNM_BM_Gate1..4_Floor/Back/SideA/SideB/Roof`, `_Spawner`, `_Fx` | spawner `fnm_bm_gate` + slot; fx `fnm_bm_gate_fx` + slot |
-| Perches: gold block, stepping stones, hidden 300 x 300 x 200 trigger on top, beacon VFX | `FNM_BM_Perch1..4`, `_StoneN`, `_Trigger`, `_Fx` | trigger `fnm_bm_perch` + slot; fx `fnm_bm_perch_fx` + slot |
+| Slab, sand, podium bays (+ skins), main gate and the wall behind it, gate arches, lid | `FNM_BM_Floor`, `_Sand`, `_BayNN_Low/High/Backing`, `_BayNN_Arch/Fill`, `_MainGate`, `_EntryBack`, `_Lid` | — |
+| Entry teleporter (0, 250), yaw 90, both group knobs Group_None | `FNM_BM_Entry` | `fnm_bm` + `fnm_entry` |
+| Sign on the podium due north (0, 6395, 430), yaw 180, scale 2.5 | `FNM_BM_Sign` | — |
+| Answer pads (±900, 1900) and (±900, 2900): tile (`M_fnm_wall_pad_x`), 450 x 450 x 150 hidden trigger, letter board | `FNM_BM_PadA..D`, `_TriggerA..D`, `_LabelA..D` | trigger: `fnm_bm` + `fnm_door_a..d` |
+| Boss platform (marble) at (0, 4500) + one guard spawner per level (BOSS_SETTINGS, health 100000, weapon by level) | `FNM_BM_Platform`, `FNM_BM_Boss1..5` | `fnm_bm_boss` + `fnm_bm_slot_L` |
+| Gates G1 200°, G2 340°, G3 160°, G4 20°: the arch, a 300-deep stone alcove (back, sides, roof; 400 wide, 420 tall) on the slab, spawner at its centre facing C, VFX at the mouth | `FNM_BM_Gate1..4_Back/SideA/SideB/Roof`, `_Spawner`, `_Fx` | spawner `fnm_bm_gate` + slot; fx `fnm_bm_gate_fx` + slot |
+| Perches at r 2850: P1 235° (-1635, 865) and P2 305° (1635, 865) top 180, P3 125° and P4 55° (±1635, 5535) top 240; gold block, stepping stones toward x 0, hidden 300 x 300 x 200 trigger on top, beacon VFX | `FNM_BM_Perch1..4`, `_StoneN`, `_Trigger`, `_Fx` | trigger `fnm_bm_perch` + slot; fx `fnm_bm_perch_fx` + slot |
 | Item granters (one per level, parked z -598) bound to a parked trigger each | `FNM_BM_Grant1..5_Granter` / `_Trigger` | trigger `fnm_bm_grant` + slot |
-| Cannons (build_cannon.cannon, prefix `FNM_BM_Cannon`), strike, nuke, 2 blasts (parked z -598) | `FNM_BM_CannonL/R_*`, `FNM_BM_Strike`, `_Nuke`, `_Blast1/2` | `fnm_bm_cannon_fx`, `fnm_bm_strike`, `fnm_bm_nuke_fx`, `fnm_bm_blast` |
+| Cannons on the podium face due left / right (y 3200), strike, nuke, 2 blasts (parked z -598) | `FNM_BM_CannonL/R_*`, `FNM_BM_Strike`, `_Nuke`, `_Blast1/2` | `fnm_bm_cannon_fx`, `fnm_bm_strike`, `fnm_bm_nuke_fx`, `fnm_bm_blast` |
 | Anger ring, 5 VFX at radius 650 round the platform | `FNM_BM_Anger1..5` | `fnm_bm_anger_fx` + slot |
-| Creature spawners (B5), one per kind, invisible, just inside a gate alcove's mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 | `FNM_BM_Creature1..5` | `fnm_bm_creature` + slot = kind |
+| Creature spawners, one per kind, just inside a gate alcove's mouth: Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 | `FNM_BM_Creature1..5` | `fnm_bm_creature` + slot = kind |
 
-122 actors. The perch stones are 120 cm long (along the climb) and 300 cm wide (as wide as the perch), 50 cm rises,
+210 gameplay actors and ~470 dressing actors. The perch stones are 120 cm long (along the climb) and 300 cm wide (as wide as the perch), 50 cm rises,
 100 cm edge gaps, laid from the perch toward the centre line (P1/P2: tops 30, 80, 130 then the perch at 180; P3/P4: 40,
 90, 140, 190 then 240). B6 (2026-10-09) changed them from 120 x 120 / 60 / 150: a keyed run-and-jump climbs the new chain
 (acceptance 5, below). Every hidden trigger (pads, perches) is sized by `trigger_fit`: a trigger senses only its StepBox
