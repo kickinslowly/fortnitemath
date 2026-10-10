@@ -491,3 +491,23 @@ noticeable. and attacks on him more obviously coming from the side laser cannons
   - Whether `MoveTo` animates the beam's scale or the beam pops to full length.
   - A full `build_bossmode.py` (only `--boss` ran).
   - How big the boss reads to Aaron: about 3 m tall on the pedestal, 45 m from the entry.
+
+### 15a. Making the boss bigger: what works (2026-10-10, Aaron: "investigate ways to scale the model, there must be some way")
+
+All probes ran in play. The general findings are in the `uefn-mcp` skill, "Scaling characters and custom skeletal meshes".
+
+| Route | Result |
+| --- | --- |
+| Scale the Megabrute through its entity (`fort_character.GetEntity` + `SetGlobalTransform`, scale 3 and 6) | Reads back 6, looks unchanged, back to 1 within 3 s |
+| Scale the creature spawner actor 3x | The spawned creature is still scale 1 and looks unchanged |
+| Animated Mesh device with Fortnite's Swarm Boss mesh (`TidalCrane_Boss_Creature`) at 2.5x | Looks right in the editor (a ~10 m alien over the letters), but play is refused: "Validation failed", illegal asset |
+| Animated Mesh device with a **mesh imported into the project** (Blender test column, 2.5x) | **Passes validation and renders in play, 7.5 m tall** over the Megabrute |
+
+**The plan.** A giant stand-in shows on the pedestal and the real Megabrute stays inside it, hidden. The Megabrute keeps
+the health, the bar and the clear logic.
+- The stand-in is an imported, rigged monster on an Animated Mesh device, scaled to ~8-10 m.
+- Animations: idle, a roar on each hit, death on the clear. These are separate devices swapped by Verse with
+  `TeleportTo`; the device's Verse API is only Play, Pause and PlayReverse.
+- The knock moves the device with `MoveTo`.
+- The model comes from Meshy. That needs Aaron's go-ahead on credits.
+- Import the art into a folder that is not a Verse identifier: `FNM_BossArt`, not `fnm_boss`, which collided with the tag.
