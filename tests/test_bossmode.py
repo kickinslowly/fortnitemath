@@ -137,7 +137,8 @@ def test_boss_textures_referenced():
 
 def test_race_cannon_line_unchanged():
     director = src("fnm_director.verse")
-    line = 'Print("FNM: cannons fired ({CannonFx.Length} muzzles, blast {Blast}) at {Feet}, {Left} hits to go")'
+    line = ('Print("FNM: cannons fired ({CannonFx.Length} muzzle vfx, {Rig.Beams.Length} lasers, blast {Blast}) at {Feet}, '
+            '{Left} hits to go")')
     assert director.count(line) == 1
     assert "spawn{ FireCannons(RaceRig, State.Player, Character, Stood, Left, false) }" in director
     assert "Director.FireCannons(Arena.Rig, State.Player, Character, Stood, Left, true)" in src("fnm_bossmode.verse")
@@ -161,7 +162,8 @@ def test_hud_copy_present():
 # The log lines B4's acceptance waits on (BOSS_MODE.md section 12), as the Verse spells them.
 LOG_LINES = ("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, "
              "{Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, "
-             "{Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons",
+             "{Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Beams.Length} cannons "
+             "({Arena.Rig.Fx.Length} muzzle vfx, {Arena.Coils.Length} coil crackles)",
              "FNM: boss mode: none (no fnm_bm entry teleporter)",
              "FNM: boss mode start for the player (level {Level})",
              "FNM: boss level {L} summon\"",

@@ -40,33 +40,35 @@ def test_pad_letters_read_like_the_doors():
     assert ay == by < cy == dy
 
 
-def test_one_boss_and_two_adds():
-    assert c.BOSS_SETTINGS["spawnCount"] == 1 and c.BOSS_SETTINGS["totalSpawnLimit"] == 1
-    assert c.BOSS_SETTINGS["showHealthBar"] is True and c.BOSS_SETTINGS["enablePatrol"] is False
-    assert c.ADDS_SETTINGS["spawnCount"] == 2
-    # Aaron 2026-10-07 could not beat the legendary-AR boss: it now carries a weapon the spawner accepts (build_guards.WEAPONS)
-    # that is neither a sniper nor a launcher (no one-shot kills); the purple SMG today.
+def test_two_adds_and_no_guard_boss_from_the_course():
+    """The adds stay two pistol guards; since 2026-10-11 the boss is tools/build_race_boss.py's Megabrute under the titan,
+    so a course rebuild places neither the old guard boss spawner nor the letter billboards (BOSS_MODE.md 16)."""
+    import inspect
     import build_guards as g
-    assert c.BOSS_WEAPON in g.WEAPONS and "Sniper" not in c.BOSS_WEAPON and "Launcher" not in c.BOSS_WEAPON
+    assert c.ADDS_SETTINGS["spawnCount"] == 2 and c.ADDS_WEAPON in g.WEAPONS
+    src = inspect.getsource(c.arena)
+    assert "FNM_Arena_Boss" not in src and "FNM_Arena_Label" not in src and "fnm_boss_spawner" not in src
+    assert "FNM_Arena_Adds" in src and "FNM_Arena_Platform" in src
+    assert not hasattr(c, "BOSS_WEAPON") and not hasattr(c, "PAD_BOARD_Z")
 
 
 def test_arena_tags_declared():
     tags = (ROOT / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
-    for name in ("fnm_boss", "fnm_boss_spawner", "fnm_boss_adds", "fnm_boss_gate",
-                 "fnm_cannon_fx", "fnm_cannon_strike", "fnm_cannon_blast"):
+    for name in ("fnm_boss", "fnm_boss_adds", "fnm_boss_gate", "fnm_cannon_strike", "fnm_cannon_blast",
+                 "fnm_race_megaboss", "fnm_race_titan", "fnm_race_beam", "fnm_race_letter",
+                 # retired, still declared so a level holding the old devices loads until build_race_boss removes them
+                 "fnm_boss_spawner", "fnm_cannon_fx"):
         assert f"{name} := class(tag){{}}" in tags
 
 
-def test_cannons_on_the_walls_short_of_the_platform():
-    """The laser cannons (tools/build_cannon.py) hang on the walls between the entry and the boss platform, under the
-    wall tops and the glass lid, and their blast does no damage (the math is the only weapon)."""
-    import build_cannon as cn
-    assert 450 < cn.CANNON_Y < c.PLATFORM_Y - c.PLATFORM_D / 2
-    assert cn.CANNON_Z + cn.BALL_D + cn.RING_D < c.WALL_H
-    assert cn.CANNON_IN + cn.BALL_D / 2 < c.PAD_SPOTS[0][0] - c.PAD_SIZE / 2 + 1500   # off the wall, over the pad row
-    assert cn.BLAST["player Damage"] == 0 and cn.BLAST["structure Damage"] == 0 and cn.BLAST["visible During Game"] is False
-    assert cn.MUZZLE_FX["enabled On Phase"] == "None" and cn.STRIKE_FX["enabled On Phase"] == "None"
-    assert cn.BLASTS >= 1
+def test_the_blasts_do_no_damage():
+    """The strike and blasts the race arena keeps (tools/build_race_boss.py takes them from build_bossmode): no damage,
+    the math is the only weapon; the strike waits off until Verse fires it. The engine-shape cannons are gone."""
+    import build_bossmode as b
+    assert b.BLAST["player Damage"] == 0 and b.BLAST["structure Damage"] == 0 and b.BLAST["visible During Game"] is False
+    assert b.BLAST["knockback"] == "Medium"      # the race's; boss mode raises it to High at build time
+    assert b.STRIKE_FX["enabled On Phase"] == "None" and b.BLASTS >= 1
+    assert not (ROOT / "tools" / "build_cannon.py").exists()
 
 
 def test_every_trigger_is_sized_by_its_stepbox():

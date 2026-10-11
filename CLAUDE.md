@@ -42,10 +42,11 @@ before UEFN work. Project-specific:
   odd stations from 3; the pad's grenade is auto-picked by a touch whatever its Pickup On Touch says, and a hidden trigger
   over each ROW of pads makes the director fire the item's granter ("Only if Not Owned", drops the item at the feet when the
   inventory is full, where the pad's own pickup swallowed it); idempotent via `fnm_pickups`; rerun after a
-  course rebuild; the device and item-definition paths are in its docstring), `tools/build_cannon.py` (the arena's laser
-  cannons: muzzle VFX spawners, the strike spawner and explosive blasts the director fires on every right pad; idempotent
-  via `fnm_cannon_rig`; rerun after a course rebuild; needs the `steel` and `glow` materials: `python tools/import_art.py
-  steel glow`),
+  course rebuild; the device and item-definition paths are in its docstring), `tools/build_race_boss.py` (the race
+  arena's boss rig, BOSS_MODE.md §16: hidden Megabrute, Magma Titan clips, mega cannons + lights, laser beam markers,
+  strike and blasts, floating pad letters; idempotent via `fnm_race_boss`; removes the old guard boss, letter boards and
+  `fnm_cannon_rig` actors; rerun after a course rebuild; needs `import_boss.py` and `import_cannon.py` once and
+  `build_fx.py NS_fnm_laser_race`),
   `tools/build_lids.py` (invisible ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
   `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the
@@ -89,8 +90,10 @@ before UEFN work. Project-specific:
   `build_bossmode.py --dress` re-places only the perch chests and the pads' floating letters.
   `build_bossmode.py --cannons` re-places the mega laser cannons (Meshy mesh, needs `python tools/import_cannon.py` once per UEFN
   project), then the boss rig (BOSS_MODE.md §15d).
-  `tools/build_fx.py` builds the Niagara lasers and impact (`FNM_FX`, spawned by `console/verse/fnm_fx.verse`; rerun after
-  moving a cannon: the beam length is baked, BOSS_MODE.md §15f).
+  `tools/build_fx.py` builds the Niagara lasers and impact (§15f) and the cannons' muzzle discharge and looping coil crackle
+  (§15g) (`FNM_FX`, spawned by `console/verse/fnm_fx.verse`; `build_fx.py NS_fnm_coil` rebuilds one; rerun after moving a
+  cannon: the beam length is baked; `NS_fnm_laser_race` is the race finale's, §16). A new system must be built before the
+  Verse that names it (`FNM_FX.<name>_asset`) compiles.
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the
@@ -100,9 +103,13 @@ before UEFN work. Project-specific:
   no content change. Patch them with the Edit tool or `tools/patch.py` (exact-string edits, needle must match once,
   line endings kept; importable `patch(path, pairs)` or a one-shot CLI for flipping a debug default).
 - The penalty pool lives in `maps/<id>/map.json` `penalties` (PROTOCOL §6a), not on the director.
-- Boss arena (G6 item 3, LAYOUT.md "Boss arena"): stage `Stations.Length + 1`, found by tag `fnm_boss` (+ `fnm_boss_spawner`,
-  `fnm_boss_adds`, `fnm_boss_gate`), NOT a station (a station 11 would shift every tier); `DebugStartStage 11` starts in it,
-  `DebugAutoRightAnswers` carries a run through it. Built by `build_course.py` (pad colours: `import_art.py pad_a pad_b pad_c pad_d`).
+- Boss arena (G6 item 3, LAYOUT.md "Boss arena"): stage `Stations.Length + 1`, found by tag `fnm_boss` (+ `fnm_boss_adds`,
+  `fnm_boss_gate`), NOT a station (a station 11 would shift every tier); `DebugStartStage 11` starts in it,
+  `DebugAutoRightAnswers` carries a run through it. Hall, pads and platform by `build_course.py` (pad colours:
+  `import_art.py pad_a pad_b pad_c pad_d`); the boss is boss mode's titan over a hidden Megabrute, with mega cannons,
+  boss bar and floating letters (`build_race_boss.py`, tags `fnm_race_*`, BOSS_MODE.md §16). `NS_fnm_laser_race` is baked
+  to those cannons (`build_fx.RACE_LENGTH`): rebuild it after moving them or rescaling that titan. Shared with boss mode in
+  the director: `FaceLetter`, `ExplainDelaySeconds`, `MegabossHealth`, the leash constants.
 - Content rule (Aaron, 2026-10-04): simple numbers, concept over arithmetic. The bounds are PROTOCOL §4a; every
   procedural cartridge's tests assert them against its `baked.json`. Read §4a before writing or reviewing a generator.
 - The slot holds EVERY baked cartridge (`FnmCartridge_<id>()` each + `FnmCartridges()` registry, PROTOCOL §7); the

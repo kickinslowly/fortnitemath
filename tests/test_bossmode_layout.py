@@ -188,7 +188,7 @@ def test_every_tag_the_tool_writes_is_declared():
     src = (ROOT / "tools" / "build_bossmode.py").read_text(encoding="utf-8")
     names = set(re.findall(r'"(fnm_[a-z0-9_]+)"', src)) - {b.TAG, b.DRESS_TAG, b.BOSS_RIG_TAG, "fnm_test"}   # actor tags, not Verse tags
     names |= {f"fnm_bm_slot_{k}" for k in range(1, 6)} | {f"fnm_door_{x}" for x in "abcd"}
-    assert "fnm_bm_gate" in names and "fnm_bm_cannon_fx" in names
+    assert "fnm_bm_gate" in names and "fnm_bm_beam" in names
     for name in sorted(names):
         assert f"{name} := class(tag){{}}" in tags, name
 
@@ -200,27 +200,12 @@ def test_fallbacks():
     assert b.knockback(["None", "Medium"]) == "Medium"
 
 
-def test_race_cannon_defaults_unchanged(monkeypatch):
-    """build_cannon.cannon() with its defaults still labels FNM_Cannon*, tags fnm_cannon_rig and the muzzle fnm_cannon_fx."""
-    import build_cannon as cn
-    calls = []
-
-    def fake(toolset, tool, args=None, **kw):
-        calls.append((tool, args))
-        if tool in ("add_to_scene_from_asset", "PlaceDevice", "add_component"):
-            return {"returnValue": {"refPath": f"/x/A{len(calls)}"}}
-        if tool == "get_properties":
-            return {"returnValue": '{"staticMeshComponent": {"refPath": "/x/C"}}'}
-        return {"returnValue": True}
-
-    monkeypatch.setattr(cn.u, "call", fake)
-    monkeypatch.setattr(cn, "settings", lambda *a, **k: {})
-    cn.cannon("L", 1000, 0, 2, (0, 2600, 192), "proj", "/m/steel", "/m/glow")
-    labels = [a["label"] for t, a in calls if t == "set_label"]
-    assert labels == ["FNM_CannonL_Bracket", "FNM_CannonL_Ball", "FNM_CannonL_Barrel", "FNM_CannonL_Ring", "FNM_CannonL_Fx"]
-    assert {a["tag"] for t, a in calls if t == "add_tag"} == {"fnm_cannon_rig"}
-    tag_writes = [a["values"] for t, a in calls if t == "set_properties" and "internalTags" in a["values"]]
-    assert tag_writes and all("_Verse.fnm_cannon_fx" in v for v in tag_writes)
+def test_no_tool_imports_the_retired_cannon_builder():
+    """tools/build_cannon.py is gone (the race finale has the mega cannons too since 2026-10-11, tools/build_race_boss.py);
+    its constants live in build_bossmode now."""
+    for path in (ROOT / "tools").glob("*.py"):
+        assert "import build_cannon" not in path.read_text(encoding="utf-8"), path.name
+    assert b.STRIKE_FX["visual_Effect"] == "LightningBolt_03" and b.BOSS_EYE == 90
 
 
 def test_creature_spawners_in_the_alcoves_off_and_lasting():
@@ -271,7 +256,38 @@ def test_niagara_laser_length_matches_the_cannons():
     tz = b.FLOOR_Z + b.PLATFORM_H + b.BEAM_AIM
     bx, by = b.polar(b.CANNON_R, b.CANNON_DEG)
     heading = math.atan2(ay - by, ax - bx)
-    f = b.CANNON_MUZZLE[1] * b.CANNON_SCALE + 40
+    f = b.CANNON_MUZZLE[1] * b.CANNON_SCALE + b.MUZZLE_AHEAD
     mx, my = bx + f * math.cos(heading), by + f * math.sin(heading)
     mz = b.FLOOR_Z + b.CANNON_HALF_H * b.CANNON_SCALE + b.CANNON_MUZZLE[2] * b.CANNON_SCALE
     assert abs(math.hypot(ax - mx, ay - my, tz - mz) - build_fx.LENGTH) < 30
+    assert all(abs(p - q) < 1e-6 for p, q in zip(b.muzzle_point(b.CANNON_DEG), (mx, my, mz)))
+
+
+def test_coil_crackle_sits_on_the_coils():
+    """BOSS_MODE 15g: Verse puts NS_fnm_coil FnmCannonCoilBack behind the beam's muzzle point on the shot's level heading
+    (fnm_fx FnmBehindOnBarrel). That must land on CANNON_COIL for both cannons: the barrel is level, its heading is the
+    shot's (aim and platform share x, y), and coil and muzzle share a height."""
+    import math
+    import re
+    verse = (ROOT / "console" / "verse" / "fnm_fx.verse").read_text(encoding="utf-8")
+    back = float(re.search(r"^FnmCannonCoilBack : float = ([0-9.]+)$", verse, re.M).group(1))
+    assert back == (b.CANNON_MUZZLE[1] - b.CANNON_COIL[1]) * b.CANNON_SCALE + b.MUZZLE_AHEAD
+    assert b.boss_aim()[:2] == (b.PLATFORM_X, b.PLATFORM_Y)
+    for _, deg in b.CANNON_SIDES:
+        _, _, _, point = b.cannon_frame(deg)
+        mx, my, mz = b.muzzle_point(deg)
+        ax, ay = b.PLATFORM_X, b.PLATFORM_Y              # the beam's aim, as boss_rig lays it
+        flat = math.hypot(ax - mx, ay - my)
+        coil = (mx - (ax - mx) / flat * back, my - (ay - my) / flat * back, mz)
+        assert math.dist(coil, point(b.CANNON_COIL)) < 1.0, (deg, coil, point(b.CANNON_COIL))
+    # disproof: the coil is not the muzzle (a zero offset would pass a sloppier check)
+    assert math.dist(b.muzzle_point(b.CANNON_DEG), b.cannon_frame(b.CANNON_DEG)[3](b.CANNON_COIL)) > 200
+
+
+def test_cannons_place_no_vfx_spawners():
+    """BOSS_MODE 15g: the cannons' muzzle burst, zap and coil crackle are Niagara now; cannons() places only the mesh
+    and the two lights."""
+    import inspect
+    src = inspect.getsource(b.cannons)
+    assert "device(VFX" not in src and "vfx(" not in src and "fnm_bm_cannon_fx" not in src and "Crackle" not in src and "_Zap" not in src
+    assert "POINT_LIGHT" in src and "CANNON_ART" in src

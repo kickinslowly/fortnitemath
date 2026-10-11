@@ -3,6 +3,8 @@
 NS_fnm_laser is one mega laser shot: Verse SpawnParticleSystem(Asset, Position, Rotation) fires it at a cannon muzzle,
 rotated so the system's local +X points at the target. Verse cannot set user parameters, so the shot is baked: every
 emitter simulates in local space and the beam runs from local (0, 0, 0) to (LENGTH, 0, 0), the muzzle-to-boss distance.
+NS_fnm_laser_race is the same shot RACE_LENGTH long, for the race finale's cannons (tools/build_race_boss.py, BOSS_MODE
+16): its hall is far shorter than the boss battle's colosseum.
 A wide soft cyan glow, a thick white-hot core, two jagged lightning strands crackling around it, a flash and sparks at
 the muzzle and at the hit point. It appears at once, holds 0.5 s, is gone by 0.8 s, and the system runs Once, so the
 spawned instance dies on its own. NS_fnm_impact is the electrical explosion at the target: flash, lingering glow, a
@@ -14,6 +16,12 @@ gradient; on a ribbon its middle column (UV0 U fixed at 0.5) gives a soft tube c
 UEFN refuses custom HLSL expressions on module inputs (bSupportsExpressions false), so shapes over time are curve data
 interfaces and the crackle is the JitterPosition module on a beam of few points with ribbon tessellation off.
 
+NS_fnm_muzzle (BOSS_MODE 15g) fires at a cannon's muzzle with each shot, +X along the beam: 0.15 s of cyan specks pulled
+into the mouth, then a white-cyan flash and glow, a shock ring round the barrel axis, a cone of sparks along +X and four
+jagged arcs, 1 s, Once. NS_fnm_coil is the always-on crackle round the barrel coils, +X along the barrel: six short arcs
+flickering on loops of different lengths, small sparks and a slowly pulsing glow; it loops forever, so Verse keeps the
+cancelable SpawnParticleSystem returns and spawns it once per cannon.
+
 FNM_FX is also the Verse module the runtime reads the assets from (FNM_FX.NS_fnm_laser), so the folder name stays.
 
 The editor world does not tick particles while UEFN sits in the background, so a placed system shows nothing in a
@@ -22,13 +30,15 @@ renders at that age without ticking; place one, capture, and delete it with --cl
 
 Idempotent: each run deletes and recreates the systems from scratch.
 
-    python tools/build_fx.py                    # build NS_fnm_laser and NS_fnm_impact, save, report
+    python tools/build_fx.py                    # build all five systems (both lasers, impact, muzzle, coil), save, report
+    python tools/build_fx.py NS_fnm_coil        # build only the named systems
     python tools/build_fx.py --check            # compile state, stack issues and dependencies only
     python tools/build_fx.py --preview 0.3      # looping copies warmed up 0.3 s, for viewport captures
     python tools/build_fx.py --clean-preview    # delete the preview copies
 """
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -247,31 +257,35 @@ def sparks(s, name, loop, at, count, speed, life, size, color, away_from=(0, 0, 
 
 # --- the two systems ------------------------------------------------------------------------------------------------
 LENGTH = 1830.0                       # cm: muzzle to target along the system's local +X (Verse cannot pass it)
-END = (LENGTH, 0, 0)
+# The race finale's laser (build_race_boss.laser_length(): its cannons' muzzle point to the titan's waist; a test ties
+# them within 30 cm). Rebuild NS_fnm_laser_race after moving those cannons or rescaling that titan.
+RACE_LENGTH = 498.0
 IMPACT_TIME = 1.6                     # s: the impact's emitters and system all run once for this long
 HOLD_FADE = [(0, 1), (0.62, 1), (1, 0)]          # over a 0.8 s life: full for 0.5 s, gone at 0.8 s
 FLICKER = [(0, 1), (0.1, 0.4), (0.2, 1), (0.3, 0.5), (0.42, 1), (0.55, 0.3), (0.62, 0.9), (0.8, 0.3), (1, 0)]
 
 
-def build_laser(name, loop=False):
+def build_laser(name, loop=False, length=LENGTH):
+    """A laser shot `length` cm along local +X (NS_fnm_laser: LENGTH; NS_fnm_laser_race: RACE_LENGTH)."""
     s = recreate(name)
     system_state(s, loop, 1.0)
+    end = (length, 0, 0)
     # Widest first: translucent ribbons sort by emitter order, so the core draws over the glow.
-    beam(s, "Glow", loop, (0, 0, 0), END, 300, (0.05, 0.6, 1.6, 0.45), HOLD_FADE, count=40,
+    beam(s, "Glow", loop, (0, 0, 0), end, 300, (0.05, 0.6, 1.6, 0.45), HOLD_FADE, count=40,
          width_scale=[(0, 1.5), (0.12, 1.0), (0.62, 1.0), (1, 0.6)])
-    beam(s, "Core", loop, (0, 0, 0), END, 90, (2.0, 6.0, 8.0, 1.0), HOLD_FADE, count=40,
+    beam(s, "Core", loop, (0, 0, 0), end, 90, (2.0, 6.0, 8.0, 1.0), HOLD_FADE, count=40,
          width_scale=[(0, 1.6), (0.1, 1.0), (0.62, 1.0), (1, 0.3)])
     # Few points per strand, so the ribbon runs in straight segments between jittered points: jagged, not curly.
-    beam(s, "Arc1", loop, (0, 0, 0), END, 14, (1.2, 4.0, 10.0, 1.0), FLICKER, count=16, jitter=(65, 0.04))
-    beam(s, "Arc2", loop, (0, 0, 0), END, 9, (3.0, 6.0, 10.0, 1.0), FLICKER, count=12, jitter=(80, 0.03))
+    beam(s, "Arc1", loop, (0, 0, 0), end, 14, (1.2, 4.0, 10.0, 1.0), FLICKER, count=16, jitter=(65, 0.04))
+    beam(s, "Arc2", loop, (0, 0, 0), end, 9, (3.0, 6.0, 10.0, 1.0), FLICKER, count=12, jitter=(80, 0.03))
     flare(s, "MuzzleFlash", loop, (0, 0, 0), 260, (0.6, 3.0, 6.0, 0.8), [(0, 1), (0.15, 0.7), (0.7, 0.5), (1, 0)],
           0.65, grow=[(0, 0.6), (0.15, 1.0), (1, 0.6)])
-    flare(s, "HitFlash", loop, END, 340, (0.8, 3.5, 7.0, 0.8), [(0, 1), (0.15, 0.7), (0.7, 0.5), (1, 0)], 0.75,
+    flare(s, "HitFlash", loop, end, 340, (0.8, 3.5, 7.0, 0.8), [(0, 1), (0.15, 0.7), (0.7, 0.5), (1, 0)], 0.75,
           grow=[(0, 0.5), (0.15, 1.0), (1, 0.7)])
     sparks(s, "MuzzleSparks", loop, (0, 0, 0), 50, (600, 1500), (0.15, 0.45), (4, 8, 30, 70), (2.0, 6.0, 10.0, 1.0),
            away_from=(-60, 0, 0), radius=25)
-    sparks(s, "HitSparks", loop, END, 110, (800, 2200), (0.25, 0.7), (5, 10, 40, 110), (2.0, 6.0, 10.0, 1.0),
-           away_from=(LENGTH + 80, 0, 0), radius=40)
+    sparks(s, "HitSparks", loop, end, 110, (800, 2200), (0.25, 0.7), (5, 10, 40, 110), (2.0, 6.0, 10.0, 1.0),
+           away_from=(length + 80, 0, 0), radius=40)
     return s
 
 
@@ -305,7 +319,89 @@ def build_impact(name, loop=False):
     return s
 
 
-SYSTEMS = {"NS_fnm_laser": build_laser, "NS_fnm_impact": build_impact}
+def ring_shape_x(radius):
+    """A ring of spawn points round local +X (the barrel), not round Z: the ShapeLocation ring turned 90 degrees about Y."""
+    def apply(s, name):
+        ring_shape(radius)(s, name)
+        s.set(name, PS, "ShapeLocation", "Rotation Mode", SHAPE_ROT_AXIS)
+        s.set(name, PS, "ShapeLocation", "Rotation Axis", V3(0, 1, 0))
+        s.set(name, PS, "ShapeLocation", "Rotation Angle", F(0.25))    # normalized (1.0 = 360 degrees): Z normal -> X
+    return apply
+
+
+# ShapeLocation's rotation (UEnum_Info, 42.30): Axis Angle spins round "Rotation Axis" by "Rotation Angle", whose
+# "Rotation Angle Type" defaults to Normalized Angle (0-1).
+SHAPE_ROT_AXIS = E("/Niagara/Enums/Transforms/ENiagara_RotationMode.ENiagara_RotationMode",
+                   "ENiagara_RotationMode::NewEnumerator1", "Axis Angle")
+
+# --- the cannon's own effects (BOSS_MODE 15g) -----------------------------------------------------------------------
+# The mega cannon at actor scale 4: the muzzle's mouth is ~2 m across, the coil block ~1.8 m long round a barrel ~1.6 m
+# thick (art/cannon/concept.png at 0.8 cm per pixel). Both systems point local +X along the barrel: Verse spawns them
+# rotated onto the beam (muzzle) and its level heading (coil). From the player's spot ~38 m away 1 px is ~4 cm, so arcs
+# are 16-22 cm wide and HDR-bright, and the glows are metres across.
+MUZZLE_TIME = 1.0                     # s: the muzzle effect's emitters and system run once for this long
+CHARGE = 0.15                         # s: sparks pulled into the muzzle before the flash (fnm_fx.verse FnmMuzzleCharge)
+CYAN = (1.2, 4.0, 10.0, 1.0)
+HOT = (3.0, 7.0, 10.0, 1.0)
+
+
+def build_muzzle(name, loop=False):
+    s = recreate(name)
+    system_state(s, loop, MUZZLE_TIME)
+    t = MUZZLE_TIME
+    # Charge: a soft glow swelling at the mouth while cyan specks rush in from a 1.4 m sphere (a negative speed away from
+    # the centre is a speed toward it), arriving as the flash goes off.
+    flare(s, "ChargeGlow", loop, (0, 0, 0), 220, (0.3, 2.0, 6.0, 0.7), [(0, 0.2), (0.85, 1), (1, 0)], CHARGE + 0.03,
+          grow=[(0, 0.3), (1, 1.0)], duration=t)
+    sparks(s, "Charge", loop, (0, 0, 0), 40, (-950, -750), (CHARGE - 0.02, CHARGE), (4, 7, 25, 55), CYAN, radius=140,
+           gravity=0, drag=0, duration=t)
+    # The shot: a big white-cyan flash and a lingering glow, a shock ring flung out round the barrel axis, a cone of sparks
+    # along +X (velocity away from a point 90 cm behind a 40 cm sphere: ~24 degrees either side), and jagged arcs.
+    flare(s, "Glow", loop, (0, 0, 0), 340, (0.3, 2.0, 5.0, 0.7), [(0, 1), (0.3, 0.6), (1, 0)], 0.75,
+          grow=[(0, 0.6), (0.2, 1.0), (1, 1.2)], delay=CHARGE, duration=t)
+    flare(s, "Flash", loop, (0, 0, 0), 480, HOT, [(0, 1), (0.35, 0.6), (1, 0)], 0.28,
+          grow=[(0, 0.4), (0.25, 1.0), (1, 1.25)], delay=CHARGE, duration=t)
+    sparks(s, "Ring", loop, (0, 0, 0), 90, (900, 1100), (0.35, 0.45), (55, 75, 55, 75), (0.6, 3.5, 8.0, 0.6),
+           gravity=0, drag=3.0, shape=ring_shape_x(50), delay=CHARGE, duration=t)
+    sparks(s, "Cone", loop, (0, 0, 0), 70, (1200, 2600), (0.25, 0.6), (4, 9, 35, 90), HOT, away_from=(-90, 0, 0),
+           radius=40, gravity=-400, drag=1.5, delay=CHARGE, duration=t)
+    for i, (start, end, delay) in enumerate([((-30, 80, 60), (110, 150, 120), 0.0), ((-30, -90, 40), (90, -170, -60), 0.08),
+                                             ((-30, 20, -100), (120, 60, -190), 0.17), ((-30, -40, 95), (80, -110, 200), 0.27)]):
+        beam(s, f"Arc{i + 1}", loop, start, end, 16, CYAN, FLICKER, count=8, life=0.35, jitter=(28, 0.03),
+             delay=CHARGE + delay, duration=t)
+    return s
+
+
+def coil_arcs():
+    """The coil crackle's arcs: (start, end, loop seconds, spawn time in the loop). Three run 1.6-1.8 m along the coil block
+    just outside the rings (radius ~1 m), three wrap ~75 degrees round it; prime-ish loop lengths so they never sync."""
+    def at(x, deg, r=100):
+        a = math.radians(deg)
+        return (x, round(r * math.cos(a)), round(r * math.sin(a)))
+    return [(at(-90, 20), at(85, 70), 0.53, 0.0), (at(-85, 140), at(90, 100), 0.79, 0.21),
+            (at(-80, 250), at(80, 300), 1.07, 0.48), (at(-50, 10, 105), at(-35, 85, 105), 0.67, 0.12),
+            (at(5, 160, 105), at(20, 235, 105), 0.91, 0.37), (at(55, 290, 105), at(70, 365, 105), 1.19, 0.66)]
+
+
+def build_coil(name, loop=True):
+    """Loops forever whatever loop says (it is the always-on crackle); loop is there for the SYSTEMS signature."""
+    s = recreate(name)
+    system_state(s, True, 1.2)
+    flare(s, "Glow", True, (0, 0, 0), 420, (0.1, 1.2, 3.0, 0.5), [(0, 0.35), (0.5, 1.0), (1, 0.35)], 1.2, duration=1.2)
+    sparks(s, "Sparks", True, (0, 0, 0), 10, (250, 700), (0.2, 0.45), (3, 6, 20, 45), CYAN, radius=110, gravity=-500,
+           drag=1.0, duration=0.35)
+    for i, (start, end, dur, delay) in enumerate(coil_arcs()):
+        beam(s, f"Arc{i + 1}", True, start, end, 18 if i < 3 else 14, CYAN, FLICKER, count=8, life=0.22,
+             jitter=(25, 0.03), delay=delay, duration=dur)
+    return s
+
+
+def build_race_laser(name, loop=False):
+    return build_laser(name, loop, RACE_LENGTH)
+
+
+SYSTEMS = {"NS_fnm_laser": build_laser, "NS_fnm_laser_race": build_race_laser, "NS_fnm_impact": build_impact,
+           "NS_fnm_muzzle": build_muzzle, "NS_fnm_coil": build_coil}
 ALLOWED = ("/Niagara/", "/Engine/", "/Script/", MOUNT + "/")
 # Every UEFN-created Niagara system carries this effect type (scalability defaults); UEFN sets it, validation knows it.
 EFFECT_TYPE = "/Game/Valkyrie/Niagara/EffectTypes/UEFN_DefaultEffectType"
@@ -339,14 +435,16 @@ def main():
     ap.add_argument("--check", action="store_true")
     ap.add_argument("--preview", type=float, metavar="SECONDS")
     ap.add_argument("--clean-preview", action="store_true")
+    ap.add_argument("names", nargs="*", choices=[[], *SYSTEMS], metavar="NAME", help="only these systems (default: all)")
     a = ap.parse_args()
+    chosen = {k: v for k, v in SYSTEMS.items() if not a.names or k in a.names}
     if a.clean_preview:
-        for name in SYSTEMS:
+        for name in chosen:
             if u.call(ASSETS, "exists", {"path": f"{FOLDER}/{name}_preview"})["returnValue"]:
                 print("deleted", name + "_preview", u.call(ASSETS, "delete", {"path": f"{FOLDER}/{name}_preview"}))
         return
     if a.preview is not None:
-        for name, build in SYSTEMS.items():
+        for name, build in chosen.items():
             s = build(name + "_preview", loop=True)
             n("SetSystemData", {"system": ref(s.path), "systemData": {"propertyValues": json.dumps({
                 "WarmupTime": a.preview, "WarmupTickCount": max(1, round(a.preview / 0.05)), "WarmupTickDelta": 0.05})}})
@@ -354,11 +452,11 @@ def main():
             print("built", s.path)
         return
     if not a.check:
-        for name, build in SYSTEMS.items():
+        for name, build in chosen.items():
             s = build(name)
             u.call(ASSETS, "save_assets", {"asset_paths": [s.path]})
             print("built", s.path)
-    ok = all([check(name) for name in SYSTEMS])
+    ok = all([check(name) for name in chosen])
     sys.exit(0 if ok else 1)
 
 

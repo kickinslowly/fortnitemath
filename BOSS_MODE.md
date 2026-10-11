@@ -91,8 +91,8 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
 | Perches P1..P4 | P1 FR (-1600, 500) top 180; P2 FL (1600, 500) top 180; P3 BR (-1600, 3500) top 240; P4 BL (1600, 3500) top 240. Top 300 sq (`M_fnm_wall_bm_perch`, gold); stepping stones 120 sq, tops at 60, 120 (and 180 for the 240 perches), 150 edge gap, laid toward the arena centre; hidden trigger 300 x 300 x 200 on the top; beacon VFX on the top, LightningBolt_01, scale 2, enabled On Phase None | trigger, VFX | trigger `fnm_bm_perch` + `fnm_bm_slot_P`; fx `fnm_bm_perch_fx` + `fnm_bm_slot_P` | 4 + 4 |
 | Weapon granters, one per level | parked under the floor (z -600), x = -1200 + 300 L; each bound (`grantItem` ← its trigger's OnTriggered with `TRIGGER_CLASS` memberParent) to a hidden trigger parked beside it; `GRANT_SETTINGS` from build_pickups (Keep All, Only if Not Owned, drop at feet when full) + `equipItemOnGrant` 1; item = the level's weapon | `PID_CP_Devices_ItemGranter`, `PID_Device_Trigger` | trigger `fnm_bm_grant` + `fnm_bm_slot_L` | 5 + 5 |
-| Mega cannons (§15d) | the Meshy mesh `SM_fnm_megacannon` at scale 4 (7.6 m) on the sand, 27.2 m from CENTRE at 36° and 144°, barrel on the titan's waist; per cannon a muzzle laser (`_Fx`, where the beam starts) and a lightning zap (`_Zap`) fired with the shot, a coil crackle (LightningBolt_02, Continuous, always on) and two cyan point lights (coils, muzzle) | static mesh, VFX, `PID_Device_PointLight` | `fnm_bm_cannon_fx` (laser + zap) | 2 x (1 mesh + 3 fx + 2 lights) |
-| Strike, blasts, nuke | parked under the platform (z -600): strike VFX (LightningBolt_03, Electric_Blast, scale 5); 2 explosive devices (`build_cannon.BLAST`, knockback "High" (B5; the enum has no "Large"), else Medium); nuke VFX (scale 6; effect: a smoke / explosion / fire entry of the `visual_Effect` enum if one exists, else LightningBolt_01) | VFX, `PID_Device_ExplosiveBarrel` | `fnm_bm_strike`, `fnm_bm_blast`, `fnm_bm_nuke_fx` | 1 + 2 + 1 |
+| Mega cannons (§15d) | the Meshy mesh `SM_fnm_megacannon` at scale 4 (7.6 m) on the sand, 27.2 m from CENTRE at 36° and 144°, barrel on the titan's waist; per cannon two cyan point lights (coils, muzzle); the muzzle discharge and the coil crackle are Niagara systems Verse spawns (§15g) | static mesh, `PID_Device_PointLight` | none (Verse reads the beams) | 2 x (1 mesh + 2 lights) |
+| Strike, blasts, nuke | parked under the platform (z -600): strike VFX (LightningBolt_03, Electric_Blast, scale 5); 2 explosive devices (`build_bossmode.BLAST`, until 2026-10-11 `build_cannon.BLAST`, knockback "High" (B5; the enum has no "Large"), else Medium); nuke VFX (scale 6; effect: a smoke / explosion / fire entry of the `visual_Effect` enum if one exists, else LightningBolt_01) | VFX, `PID_Device_ExplosiveBarrel` | `fnm_bm_strike`, `fnm_bm_blast`, `fnm_bm_nuke_fx` | 1 + 2 + 1 |
 | Creature spawners (B5) | one per creature kind, just inside a gate's alcove mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 (y -100 / +100); invisible, invincible, off at start, activation range 100, Do Not Despawn, spawn limit on (100), 1 per wave | `PID_Device_CreatureSpawner_V2` | `fnm_bm_creature` + `fnm_bm_slot_K` (K = kind) | 5 |
 | Anger ring | 5 VFX spawners round the platform at radius 650 (angles 198°, 234°, 270°, 306°, 342° from +X, i.e. the near half), floor level, scale 1.5, LightningBolt_01, enabled On Phase None | VFX | `fnm_bm_anger_fx` + `fnm_bm_slot_L` | 5 |
 | Sign | left wall (x +1995, y 600, z 250), yaw -90, scale 2: "BOSS BATTLE" | billboard | — | 1 |
@@ -618,13 +618,13 @@ lightning fx etc".
   - 36° keeps clear of gate 4's mouth (20°) and the back perch (55°).
   - The muzzle is 18.3 m from the titan's waist.
 - **FX.**
-  - Fired with each shot (tag `fnm_bm_cannon_fx`, so `FireCannons` needs no change): the LaserBeams burst at the muzzle and
-    a LightningBolt_03 zap with a lightning-strike sound. The boss-mode log now says `4 muzzles` (2 lasers, 2 zaps).
-  - Always on: a LightningBolt_02 Continuous crackle at the coils, and cyan point lights at the coils and the muzzle (size
-    50%, intensity 60%).
+  - Since 2026-10-11 the muzzle burst, the zap and the coil crackle are our own Niagara systems (§15g). The VFX Spawner
+    devices that made them (`_Fx` LaserBeams, `_Zap` LightningBolt_03, `_Crackle` LightningBolt_02) are gone.
+  - Always on: cyan point lights at the coils and the muzzle (size 50%, intensity 60%).
   - The light's `lightSize` enum refuses writes, but `lightSizePercentage` takes them. At 100 it flooded the bay white.
   - The beams are Aqua, to match the coils.
-  - The old shapes (bracket, ball, barrel, ring) are gone from the boss arena. The race arena keeps `build_cannon.py`.
+  - The old shapes (bracket, ball, barrel, ring) are gone from the boss arena. The race arena has mega cannons too since
+    2026-10-11 (§16), and `build_cannon.py` is gone.
 - **Seen in play** (headless, `DebugAutoBoss` + `DebugAutoRightAnswers` + `DebugBossHold 3`): a VICTORY run, 16/16, with
   `cannons fired (4 muzzles ...)` on every hit. Both cannons are in frame beside the titan, the coils glow cyan, the two
   Aqua beams meet at the waist, and there are bursts at the muzzles under the nuke flash. Ship defaults restored and
@@ -682,3 +682,109 @@ make that tasty?"
 - **The titan's texture.** The blotchy titan in editor captures is an editor streaming artifact, not the texture (see the
   `uefn-mcp` skill). `import_boss.py` and `import_cannon.py` now set LOD bias 0, so the top mip is kept in play.
 
+### 15g. Cannon muzzle and coil effects (2026-10-11)
+
+Aaron: "replace the cannons' old muzzle burst and the coil crackle with our own particle effects."
+
+- **`tools/build_fx.py`** makes two more systems (engine `/Niagara` content only, same recipes as §15f):
+  - `FNM_FX/NS_fnm_muzzle`, one shot, 1 s, Once, +X along the shot:
+    - Charge, 0.15 s: a 2.2 m glow swelling at the mouth and 40 cyan specks pulled in from a 1.4 m sphere (a negative
+      speed away from the centre).
+    - Then a 4.8 m white-cyan flash (0.28 s) and a 3.4 m glow (0.75 s).
+    - A shock ring of 90 soft blobs flung out round the barrel axis.
+    - A cone of 70 sparks along +X, about 24 degrees either side.
+    - Four jagged arcs, 1.5-2 m, one after another.
+  - `FNM_FX/NS_fnm_coil`, looping forever, +X along the barrel:
+    - Six jagged arcs just outside the coil rings. Three run 1.8-1.9 m along the coil block, and three wrap about 75
+      degrees round it (1.3 m).
+    - Each arc lives 0.22 s on its own loop (0.53 to 1.19 s), so the arcs flicker out of step.
+    - 10 sparks every 0.35 s and a 4.2 m glow pulsing over 1.2 s.
+    - About 60 particles alive per cannon.
+- **Runtime** (`console/verse/fnm_fx.verse`, no arena assumptions):
+  - `FnmSpawnMuzzle(At, Dir)`.
+  - `FnmSpawnCoil(At, Dir):cancelable` keeps the barrel level.
+  - `FnmBehindOnBarrel(Muzzle, Dir, Back)` finds the coils from the muzzle.
+  - `FnmMuzzleCharge` 0.15 and `FnmCannonCoilBack` 252 cm.
+- **Wiring.**
+  - `FireBeam` fires the muzzle discharge on every shot, waits the charge, then fires the laser. The shots keep their
+    cadence, and `FireCannons` waits the charge too before the strike and the blast.
+  - Boss mode's `Build` calls `Arena.StartCoils()` once. It spawns one coil crackle per beam at `FnmCannonCoilBack`
+    behind the beam's start, and keeps the cancelables in `Arena.Coils`. A second call adds nothing.
+  - `test_coil_crackle_sits_on_the_coils` ties 252 to `CANNON_MUZZLE`, `CANNON_COIL`, `CANNON_SCALE` and `MUZZLE_AHEAD`.
+- **Level.** `build_bossmode.cannons()` places only the mesh and the two lights.
+  - `boss_rig` lays the beams from `muzzle_point()` (geometry, no longer the `_Fx` actor).
+  - `FireCannons` runs with zero `fnm_bm_cannon_fx` devices.
+  - The log lines are now `cannons fired (0 muzzle vfx, 2 lasers, ...)` and `2 cannons (0 muzzle vfx, 2 coil crackles)`.
+- **The shock ring's rotation.** The first guess (`ENiagara_ShapeRotationMode` / `Euler Angles`) does not exist. ShapeLocation's
+  `Rotation Mode` is `/Niagara/Enums/Transforms/ENiagara_RotationMode` (Default, Axis Angle, Yaw / Pitch / Roll,
+  Quaternion; `UEnum_Info`); the ring uses Axis Angle, axis Y, 0.25 (Normalized Angle).
+- **Seen in play** (2026-10-11, all five systems compile with no stack errors, the session validates):
+  - Boss mode run to VICTORY (`DebugAutoBoss` + `DebugAutoRightAnswers` + `DebugBossHold 8`), 16/16, `2 cannons (0 muzzle
+    vfx, 2 coil crackles)` and `cannons fired (0 muzzle vfx, 2 lasers, ...)` on every hit. Mid-volley, both lasers with
+    their lightning meet at the titan under the nuke. Between volleys, a cyan glow with arcs round both cannons' coils:
+    the crackle reads from the entry, which the old VFX Spawner crackle never did.
+  - The race finale (§16): the discharge is a big cyan flash at each muzzle as the shot leaves, then the laser.
+- **Not seen:** the muzzle discharge's charge-up on its own (frames catch the flash), and the effects up close.
+
+
+## 16. The race finale gets the titan (2026-10-11)
+
+Aaron: "match up the boss fight in the end of race with our best learnings and improvements from arena".
+
+The race's boss arena (maps/starter/LAYOUT.md "Boss arena") had a normal-size guard boss with an SMG, engine-shape wall
+cannons with VFX Spawner bursts, a slate text line for the boss, letter billboards over the pads, and the explanation up
+the moment a pad was hit. It now has boss mode's pieces. The race rules are unchanged: 5 shared team hits
+(`BossHitsToKill`), each 1/5 of the health; the kill stops the clock and opens the gate for everyone in the arena; the
+boss returns `BossRespawnSeconds` later; a wrong pad brings the adds.
+
+- **Builder.** `tools/build_race_boss.py` (actor tag `fnm_race_boss`, labels `FNM_RaceBoss_*`) reads the arena from the
+  course actors and places the rig; it removes the old guard boss spawner and letter boards (`FNM_Arena_Boss`,
+  `FNM_Arena_Label*`) and every `fnm_cannon_rig` actor. `build_course.py` no longer places either, and
+  `tools/build_cannon.py` is gone (its strike and blast settings live in `build_bossmode`). Rerun after a course rebuild.
+  Placement numbers and why: LAYOUT.md "Boss arena".
+- **The boss** is a hidden Megabrute (`fnm_race_megaboss`) pulsed up by `SpawnBoss` (Enable; `OnBossSpawned` disables it
+  again; a boss not up after 5 s gets Disable, Enable), pinned on the platform (`FnmPinBoss`, shared with boss mode), and
+  given `MegabossHealth`. `fnm_race_boss_damage` heals every hit but a pad's (`RacePadHitting`), and a player's shot gets
+  the gun hint. The leash puts it back on the platform 1.5 s after a knock. It carries no gun now; the adds still shoot.
+- **The titan** is a second `fnm_titan` (`RaceTitan`; `fnm_race_titan` + slot tags), the same four clips at scale 2.1
+  (6.3 m) facing the entry. It plays Arrive on each spawn, Hurt on a right pad, Taunt on a wrong pad and Fall at the kill,
+  with Reset once at OnBegin (rewinding the fall). The build's first scale, 2.4 (boss mode's head angle; the entry is
+  24.5 m from the platform, 45 m in boss mode), put the head against the question panel's bottom edge in play; at 2.1 the
+  horns are clear of it.
+- **Cannons.** Two mega cannons at scale 3, beside the platform, with the cyan lights. They fire through the same
+  `FireCannons` / `FireBeam` path as boss mode: `RaceRig` has `Beams`, `BeamFull`, `PinnedBoss` and `RaceLaser`. Each shot
+  is the muzzle discharge, then `NS_fnm_laser_race`: the same recipe as NS_fnm_laser, but 5.0 m long
+  (`build_fx.RACE_LENGTH`, tied to `build_race_boss.laser_length()` by a test). The coil crackle starts once
+  (`FnmSpawnCoils`, shared with boss mode's `StartCoils`) at `FnmRaceCannonCoilBack` 189.
+  - Why scale 3: NS_fnm_coil and NS_fnm_muzzle are authored round the scale-4 coils, and Verse cannot scale a spawned
+    system. At 3 their arcs sit about 40 cm off the coils; at 2 they would sit about 60 cm off a block half their length.
+  - The strike and the blasts stay. They are the boom and the flash at the titan's feet, as in boss mode. The blast
+    knockback stays Medium: players stand on pads C and D about 5 m from the boss's feet.
+- **Boss bar.** `RaceBossBar` reads "THE MAGMA TITAN - FINAL BOSS" over the bar, with "60% - team hits 2/5" on it.
+  - While no boss is up: THE BOSS IS COMING ...
+  - For `DefeatedSeconds` (3) after the kill: DEFEATED!
+  - It flashes on every hit, and clears when the player picks, finishes or leaves the arena stage.
+  - `BossLine` and the slate's BOSS row are gone from the race.
+- **Explanation.** It shows `ExplainDelaySeconds` (2.5, now a director constant boss mode reads too) after a right pad.
+  It is skipped if the player answered again, missed, finished or left meanwhile (log `arena explanation up`).
+- **Letters.** The floating 3D letters (`fnm_race_letter`) use boss mode's props and colours, at scale 1.5 and 2.3 m up
+  rather than 1.8. Boss mode's size would fit under the 5.8 m lid only with its base at 1.75 m, inside a player standing on
+  the pad. `FaceLetter` moved from boss mode to the director with a `Race` flag. Race letters turn to race players at the
+  arena stage; boss mode's turn to boss-mode players, as before.
+- **Shared code, boss mode unchanged.** `FaceLetter`, the letter constants, `ExplainDelaySeconds`, `MegabossHealth`, the
+  leash constants, `FnmPinBoss`, `FnmBmSlotOf` and `FnmSpawnCoils` each have one home now. Boss mode calls them with its
+  old values.
+- **Order on a fresh project:** `build_fx.py` first (the Verse names `FNM_FX.NS_fnm_laser_race_asset`), then sync +
+  BuildAll (the new tags), then `build_race_boss.py`.
+- **Seen in play** (2026-10-11, `DebugAutoPick 0` + `DebugStartStage 11` + `DebugAutoRightAnswers`, two runs; the session
+  validates):
+  - The Megabrute spawns with 100000, five hits take it 80/60/40/20/0%, the kill finishes the run (FINISH board) and the
+    titan falls.
+  - From the entry: the titan on the platform between the two cannons, its horns under the panel (scale 2.1); mid-volley,
+    two cyan lasers with lightning from the cannons into its body; the coil crackle on both barrels.
+  - The boss bar: THE MAGMA TITAN - FINAL BOSS, "60% - team hits 2/5".
+  - Every explanation up 2.4-2.5 s after its hit (`arena explanation up`). When it grows the panel it covers the titan's
+    head; that is expected.
+  - The floating C and D stand in front of the cannons from the entry and hide part of them.
+- **Not seen yet:** a wrong pad (Taunt, the adds) under the titan; a player shooting it (heal + hint); two players;
+  whether the hidden Megabrute's melee reaches a player on pad C or D (the nearest pad corner is about 5 m from it).

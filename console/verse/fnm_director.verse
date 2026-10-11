@@ -54,7 +54,11 @@
 # right pad is a hit on the shared boss (BossHit: 1/BossHitsToKill of its health, the player back to the arena entry,
 # next question); a wrong pad is the normal penalty plus two adds. The kill (BossDown) finishes every player in the
 # arena (the clock stops there), opens the exit gate for each of them, and the boss returns BossRespawnSeconds later
-# for the next player. Medal and accuracy stay course-only.
+# for the next player. Medal and accuracy stay course-only. Since 2026-10-11 (BOSS_MODE.md 16, tools/build_race_boss.py)
+# the race boss is boss mode's: a hidden Megabrute (fnm_race_megaboss, pulsed up, pinned, healed of every hit but a pad's)
+# under the Magma Titan (RaceTitan, fnm_race_titan), mega cannons firing Niagara lasers along fnm_race_beam markers, the
+# bottom boss bar (RaceBossBar), floating letters over the pads (fnm_race_letter, FaceLetter) and the explanation of a
+# right pad held back ExplainDelaySeconds.
 
 using { /Fortnite.com/Characters }
 using { /Fortnite.com/Devices }
@@ -104,7 +108,10 @@ fnm_hallway := class:
 fnm_arena := class:
     Station : fnm_station
     Gate : ?barrier_device
-    Boss : ?guard_spawner_device
+    # The boss since 2026-10-11: a Megabrute creature spawner on the platform (hidden inside the titan) and its placed
+    # transform, where the boss is held (FnmPinBoss).
+    Boss : ?creature_spawner_device
+    BossHome : ?transform
     Adds : ?guard_spawner_device
 
 # Which game a player is playing: the race course, or BOSS BATTLE mode (fnm_bossmode.verse).
@@ -541,10 +548,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var AddsUp : logic = false
     # The adds spawner's Spawn Count (tools/build_course.py ADDS_SETTINGS).
     AddsCount : int = 2
-    # The laser cannons (tools/build_cannon.py; Aaron 2026-10-08: "epic laser cannon blast the boss and the boss flail
-    # or get knocked back"): the muzzle VFX spawners, the strike VFX spawner moved onto the boss, the explosive devices
-    # parked under the platform (one per hit, round robin). How long the flash and strike stay on; the announcer's delay
-    # after the bang for the hit count and for BOSS DOWN.
+    # The laser cannons (Aaron 2026-10-08: "epic laser cannon blast the boss and the boss flail or get knocked back"; the
+    # Meshy mega cannons of tools/build_race_boss.py since 2026-10-11): the beam markers the Niagara lasers fire along,
+    # the strike VFX spawner moved onto the boss, the explosive devices parked under the platform (one per hit, round
+    # robin). How long the flash and strike stay on; the announcer's delay after the bang for the hit count and for BOSS
+    # DOWN.
     var RaceRig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "blast", Parts := array{}, Homes := array{}}, Nuke := false}
     # BOSS BATTLE mode (fnm_bossmode.verse), when the map has its arena (an fnm_bm entry teleporter).
     var BossMode : ?fnm_boss_mode = false
@@ -567,6 +575,29 @@ fnm_director := class(creative_device, fnm_picker_listener):
     BeamTravelSeconds : float = 0.15
     BeamHoldSeconds : float = 0.35
     BeamGapSeconds : float = 0.08
+    # The race finale's titan (fnm_titan.verse; tools/build_race_boss.py, tag fnm_race_titan): what players see of the race
+    # boss, the Megabrute hidden inside it. The race cannons' coil crackle, spawned once at OnBegin.
+    RaceTitan : fnm_titan = fnm_titan{}
+    var RaceCoils : []cancelable = array{}
+    # When the race boss last took a pad's hit (its leash waits for the knock to play out), and true while a pad's own
+    # Damage lands (fnm_race_boss_damage lets only that through).
+    var RaceBossHitAt : float = -100.0
+    var RacePadHitting : logic = false
+    # Shared by boss mode and the race finale: a Megabrute boss's health (only the pads' Damage takes it down); a boss
+    # knocked more than BossLeashCm off its spot is pinned back once LeashAfterHitSeconds have passed since the hit; a
+    # right pad's explanation shows ExplainDelaySeconds after the hit, so the lasers, the flail and the blast are not
+    # behind the grown answer panel (Aaron 2026-10-10: "yes delay the explanation").
+    MegabossHealth : float = 100000.0
+    LeashAfterHitSeconds : float = 1.5
+    BossLeashCm : float = 150.0
+    ExplainDelaySeconds : float = 2.5
+    # The floating pad letters (boss mode's and the race finale's, FaceLetter): each turns to the nearest player of its
+    # arena over LetterTurnSeconds, again and again, and bobs LetterBobCm up and down once every LetterBobSeconds.
+    LetterTurnSeconds : float = 0.15
+    LetterBobCm : float = 40.0
+    LetterBobSeconds : float = 4.0
+    # The race boss bar reads DEFEATED! this long after the kill (the run is finished by then), then goes.
+    DefeatedSeconds : float = 3.0
     # Pickup pads (tools/build_pickups.py): the hidden trigger per item kind, bound to the item granter that hands one
     # over; the run-over trigger over each row of pads; how long one player waits before the same row grants again.
     var GrantTriggers : [string]trigger_device = map{}
@@ -608,8 +639,28 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set StrikeFx = option{Device}
             set StrikeHome = option{Device.GetTransform()}
         BlastRig := BuildRig("blast", fnm_cannon_blast)
-        set RaceRig = fnm_cannon_rig{Fx := CannonFx, Strike := StrikeFx, StrikeHome := StrikeHome, Blasts := BlastRig, Nuke := false}
-        Print("FNM: cannons: {CannonFx.Length} muzzles, strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts")
+        var Beams : []creative_prop = array{}
+        var BeamFull : []transform = array{}
+        for (Object : FindCreativeObjectsWithTag(fnm_race_beam), Beam := creative_prop[Object]):
+            set Beam.CanBeDamaged = false
+            set BeamFull += array{Beam.GetTransform()}
+            set Beams += array{Beam}
+            Beam.Hide()
+        Pinned := if (A := Arena?, A.Boss?) then true else false
+        set RaceRig = fnm_cannon_rig{Fx := CannonFx, Strike := StrikeFx, StrikeHome := StrikeHome, Blasts := BlastRig, Nuke := false, Beams := Beams, BeamFull := BeamFull, PinnedBoss := Pinned, RaceLaser := true}
+        # The coil crackle loops forever: spawned once, never stacked.
+        if (RaceCoils.Length = 0):
+            set RaceCoils = FnmSpawnCoils(RaceRig.BeamFull, FnmRaceCannonCoilBack)
+        for (Object : FindCreativeObjectsWithTag(fnm_race_titan), Device := animated_mesh_device[Object]):
+            RaceTitan.Add(Device, FnmBmSlotOf(Object))
+        # The fall clip has played itself down at the session start: Reset rewinds it (fnm_titan.verse).
+        RaceTitan.Reset()
+        var RaceLetters : int = 0
+        for (Object : FindCreativeObjectsWithTag(fnm_race_letter), Letter := creative_prop[Object]):
+            set Letter.CanBeDamaged = false
+            spawn{ FaceLetter(Letter, Letter.GetTransform().Translation, FnmBmSlotOf(Object) - 1, true) }
+            set RaceLetters += 1
+        Print("FNM: cannons: {CannonFx.Length} muzzles, strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts, {Beams.Length} lasers, {RaceCoils.Length} coil crackles; race titan {RaceTitan.Found()} clips, {RaceLetters} letters")
         for (Object : FindCreativeObjectsWithTag(fnm_pickup), Trigger := trigger_device[Object]):
             Handler := fnm_pad_handler{Director := Self, Index := PadCount, Kind := ItemKind(Object)}
             Trigger.TriggeredEvent.Subscribe(Handler.OnTriggered)
@@ -670,7 +721,6 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (Boss := A.Boss?):
                     Boss.Disable()
                     Boss.SpawnedEvent.Subscribe(OnBossSpawned)
-                    Boss.DamagedEvent.Subscribe(OnBossDamaged)
                     Boss.EliminatedEvent.Subscribe(OnBossEliminated)
                 if (Adds := A.Adds?):
                     Adds.Disable()
@@ -758,22 +808,25 @@ fnm_director := class(creative_device, fnm_picker_listener):
             fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
 
     # The boss arena from its tags: the entry and the four pads (fnm_boss, read like a station), the exit gate, the boss's
-    # and the adds' guard spawners. No fnm_boss entry teleporter = no arena (another map): nothing changes.
+    # Megabrute creature spawner and the adds' guard spawner. No fnm_boss entry teleporter = no arena (another map):
+    # nothing changes.
     BuildArena():?fnm_arena =
         Parts := FindStationParts(fnm_boss)
         var Gate : ?barrier_device = false
         for (Object : FindCreativeObjectsWithTag(fnm_boss_gate), Barrier := barrier_device[Object]):
             set Gate = option{Barrier}
-        var Boss : ?guard_spawner_device = false
-        for (Object : FindCreativeObjectsWithTag(fnm_boss_spawner), Spawner := guard_spawner_device[Object]):
+        var Boss : ?creature_spawner_device = false
+        var BossHome : ?transform = false
+        for (Object : FindCreativeObjectsWithTag(fnm_race_megaboss), Spawner := creature_spawner_device[Object]):
             set Boss = option{Spawner}
+            set BossHome = option{Spawner.GetTransform()}
         var Adds : ?guard_spawner_device = false
         for (Object : FindCreativeObjectsWithTag(fnm_boss_adds), Spawner := guard_spawner_device[Object]):
             set Adds = option{Spawner}
         if (Entry := Parts(0)?):
             Print("FNM: arena: {Parts(1).Length} pads, gate {FnmYesNo(if (Gate?) then true else false)}, boss {FnmYesNo(if (Boss?) then true else false)}, adds {FnmYesNo(if (Adds?) then true else false)}")
             ArenaStation := fnm_station{Doors := Parts(1), Passages := array{}, RetryTeleporter := Entry, NextTeleporter := Entry, DifficultyOverride := 100}
-            option{fnm_arena{Station := ArenaStation, Gate := Gate, Boss := Boss, Adds := Adds}}
+            option{fnm_arena{Station := ArenaStation, Gate := Gate, Boss := Boss, BossHome := BossHome, Adds := Adds}}
         else:
             Print("FNM: arena: none (no fnm_boss entry teleporter)")
             false
@@ -2259,8 +2312,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else if (Choice = Item.Answer):
                 BossHit(State, A)
                 set State.Busy = false
-                if (not State.Finished?):
+                # The explanation waits until the hit has played out, as in boss mode (OnPad): shown at once, the grown
+                # answer panel covered the lasers and the titan's flail. Not if they answered again (or finished) meanwhile.
+                Hits := State.Hits
+                Sleep(ExplainDelaySeconds)
+                if (not State.Finished?, State.Hits = Hits, not State.MissedCurrent?, State.Mode = fnm_mode.Race, AtArena(State)?):
                     Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    Print("FNM: arena explanation up")
                     Sleep(CorrectFeedbackSeconds)
                     State.Hud.ClearFeedbackIf(Generation)
             else:
@@ -2274,6 +2332,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
                 Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
                 SummonAdds(A)
+                if (BossAlive?):
+                    spawn{ RaceTitan.Taunt() }
                 Punish(State.Player, A.Station, DoorIndex, Kind)
                 set State.Busy = false
                 Sleep(WrongFeedbackSeconds)
@@ -2297,7 +2357,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set Stood = Character.GetTransform().Translation
             set Target = option{Character}
             Amount := BossDamage(Character)
+            set RaceBossHitAt = GetSimulationElapsedTime()
+            set RacePadHitting = true
             Character.Damage(Amount)
+            set RacePadHitting = false
             Print("FNM: boss hit {State.Hits} by the player (team {BossHitsTaken}/{BossHitsToKill}), damage {Amount}, health {BossPercent()}%")
         else:
             Print("FNM: boss hit {State.Hits} by the player, but no boss is up")
@@ -2309,6 +2372,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
         SendTo(State.Player, A.Station.RetryTeleporter)
         if (Character := Target?):
             spawn{ FireCannons(RaceRig, State.Player, Character, Stood, Left, false) }
+            # The killing hit's flail and fall come from BossDown (RaceTitan.Fall).
+            if (Left > 0):
+                spawn{ RaceTitan.Hurt() }
+            Now := GetSimulationElapsedTime()
+            RefreshRaceBossBars(Now)
+            for (Fighter : PlayerStates, ShowsRaceBossBar(Fighter, Now)?):
+                spawn{ Fighter.Hud.HitBossBar() }
         if (not State.Finished?):
             DrawItem(State)
             ShowCurrent(State)
@@ -2326,18 +2396,30 @@ fnm_director := class(creative_device, fnm_picker_listener):
         else:
             0
 
-    # "BOSS  ████████--  80%   -   your hits 1/5" (or "BOSS  is coming ..." while none is up). The HUD font draws a full
-    # block but not the light shade (░ came out as the "?" diamond in play, 2026-10-07), so the empty cells are dashes.
-    BossLine(State:fnm_player_state):string =
-        Tail := "your hits {State.Hits}/{BossHitsToKill}"
-        if (not BossAlive?):
-            return "BOSS  is coming ...   -   {Tail}"
-        Pct := BossPercent()
-        Filled := FnmDiv(Pct + 9, 10)
-        var Bar : string = ""
-        for (K := 1..10):
-            set Bar += if (K <= Filled) then "█" else "-"
-        "BOSS  {Bar}  {Pct}%   -   {Tail}"
+    # The race boss bar at the bottom of the screen (boss mode's, BOSS_MODE 15; it replaced the slate's BOSS text line on
+    # 2026-10-11): "THE MAGMA TITAN   -   FINAL BOSS" over a bar filled to the boss's health with "60%   -   team hits 2/5"
+    # on it, THE BOSS IS COMING ... while none is up, and DEFEATED! once the kill has finished the player's run.
+    RaceBossBar(State:fnm_player_state):void =
+        Who := if (RaceTitan.Found() > 0) then "THE MAGMA TITAN" else if (A := Arena?, A.Boss?) then "MEGABRUTE BOSS" else "BOSS"
+        BarName := "{Who}   -   FINAL BOSS"
+        if (State.Finished?):
+            State.Hud.SetBossBar(BarName, 0, "DEFEATED!")
+        else if (not BossAlive?):
+            State.Hud.SetBossBar(BarName, 100, "THE BOSS IS COMING ...")
+        else:
+            Pct := BossPercent()
+            State.Hud.SetBossBar(BarName, Pct, "{Pct}%   -   team hits {BossHitsTaken}/{BossHitsToKill}")
+
+    # Who sees the race boss bar at Now: a race player at the arena stage, not picking, still fighting or finished by a
+    # kill less than DefeatedSeconds ago.
+    ShowsRaceBossBar(State:fnm_player_state, Now:float)<transacts>:logic =
+        if (State.Mode = fnm_mode.Race, AtArena(State)?, not State.Picking?, (not State.Finished? or Now < BossDownAt + DefeatedSeconds)) then true else false
+
+    # Every race boss bar now (a hit and the kill do not wait for BossLoop's next refresh).
+    RefreshRaceBossBars(Now:float):void =
+        for (State : PlayerStates, ShowsRaceBossBar(State, Now)?):
+            RaceBossBar(State)
+            set State.BossShown = true
 
     # A wrong pad: the adds spawner (two guards with pistols) comes on, or tops back up to two. A Reset() refills its spawn
     # limit, and its timer then replaces every add a player kills (Aaron, 2026-10-09: "spawned new guards and soldiers on
@@ -2358,16 +2440,32 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set AddsUp = true
             Print("FNM: adds summoned ({Up} were up)")
 
-    # Asks the boss spawner for a boss (fresh spawn limit, enabled: it spawns on its timer); SpawnedEvent confirms.
+    # Asks the Megabrute spawner for the boss with a pulse (BOSS_MODE 14: creature spawners refuse SpawnAt): Enable, and
+    # OnBossSpawned switches it off again at once, so it never sends a second. The titan stomps in.
     SpawnBoss(A:fnm_arena):void =
         if (Boss := A.Boss?):
             set BossRequestedAt = GetSimulationElapsedTime()
             set BossHitsTaken = 0
-            Boss.Reset()
             Boss.Enable()
+            spawn{ RaceTitan.Arrive() }
             Print("FNM: boss requested")
 
+    # The Megabrute is up (boss mode's OnBossSpawned): the pulse ends, it gets MegabossHealth that only the pads take away
+    # (fnm_race_boss_damage heals every other hit), it is pinned on the platform and hidden inside the titan.
     OnBossSpawned(Agent:agent):void =
+        if (A := Arena?, Boss := A.Boss?):
+            Boss.Disable()
+        if (BossAlive?):
+            Print("FNM: a second race boss spawned while one is up (ignored)")
+            return
+        if (Character := Agent.GetFortCharacter[]):
+            Character.SetMaxHealth(MegabossHealth)
+            Character.SetHealth(MegabossHealth)
+            Character.DamagedEvent().Subscribe(fnm_race_boss_damage{Director := Self}.OnDamaged)
+            if (A := Arena?):
+                FnmPinBoss(Character, A.BossHome)
+            if (RaceTitan.Found() > 0):
+                Character.Hide()
         set BossAgent = option{Agent}
         set BossAlive = true
         set BossRequestedAt = -1.0
@@ -2379,9 +2477,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: boss spawned")
 
     # Gunfire on the boss (Aaron 2026-10-07 stood in the arena for a minute without touching a pad): tell the shooter once
-    # every GunHintSeconds that bullets do nothing and the pads are the weapon.
-    OnBossDamaged(Result:device_ai_interaction_result):void =
-        if (Agent := Result.Source?, Shooter := player[Agent], State := PlayerStates[Shooter], AtArena(State)?, not State.Finished?):
+    # every GunHintSeconds that bullets do nothing and the pads are the weapon (fnm_race_boss_damage calls it).
+    RaceGunHint(Shooter:player):void =
+        if (State := PlayerStates[Shooter], AtArena(State)?, not State.Finished?):
             Now := GetSimulationElapsedTime()
             Last := if (T := LastGunHint[Shooter]) then T else -100.0
             if (Now - Last >= GunHintSeconds):
@@ -2403,6 +2501,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set BossDownAt = GetSimulationElapsedTime()
         set BossHitsTaken = 0
         Print("FNM: boss eliminated")
+        spawn{ RaceTitan.Fall() }
         if (Hitter := LastHitter?):
             Broadcast(FnmFeedFinalHit(Hitter), "landed the final hit!")
         set LastHitter = false
@@ -2419,10 +2518,12 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 FinishPlayer(State)
                 Sound(State.Player, fnm_cue.BossDead)
                 spawn{ SoundAfter(State.Player, fnm_cue.BossDown, BossDownVoiceDelaySeconds) }
+            RefreshRaceBossBars(BossDownAt)
 
     # Every BossRefreshSeconds: a boss for whoever is at the arena stage (BossRespawnSeconds after the last kill; a
-    # spawn that has not come after 5 s is asked for again with Spawn()), the adds off once the arena is empty, a backstop
-    # for a missed elimination event, and every player's boss line.
+    # spawn that has not come after 5 s is pulsed again, Disable then Enable, as boss mode does), the adds off once the
+    # arena is empty, a backstop for a missed elimination event, the boss back on its platform after a knock, and every
+    # race player's boss bar.
     BossLoop()<suspends>:void =
         loop:
             Sleep(BossRefreshSeconds)
@@ -2440,20 +2541,53 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     if (BossRequestedAt < 0.0, Now >= BossDownAt + BossRespawnSeconds):
                         SpawnBoss(A)
                     else if (BossRequestedAt >= 0.0, Now - BossRequestedAt > 5.0, Boss := A.Boss?):
-                        Print("FNM: boss not spawned after 5 s; Spawn()")
+                        Print("FNM: boss not spawned after 5 s; Disable, Enable")
                         set BossRequestedAt = Now
-                        Boss.Spawn()
+                        Boss.Disable()
+                        Boss.Enable()
+                if (BossAlive?, Now - RaceBossHitAt > LeashAfterHitSeconds, Home := A.BossHome?, Agent := BossAgent?, Character := Agent.GetFortCharacter[], Character.IsActive[]):
+                    At := Character.GetTransform().Translation
+                    if (Distance(vector3{X := At.X, Y := At.Y, Z := 0.0}, vector3{X := Home.Translation.X, Y := Home.Translation.Y, Z := 0.0}) > BossLeashCm):
+                        Print("FNM: race boss wandered to {At}; back on the platform")
+                        FnmPinBoss(Character, A.BossHome)
                 if (Fighters = 0, AddsUp?, Adds := A.Adds?):
                     Adds.Disable()
                     set AddsUp = false
-                # (Boss-mode players' boss line is fnm_boss_mode BossLoop's.)
+                # (Boss-mode players' boss bar is fnm_boss_mode BossLoop's.)
                 for (State : PlayerStates, State.Mode = fnm_mode.Race):
-                    if (AtArena(State)?, not State.Finished?, not State.Picking?):
-                        State.Hud.SetBoss(BossLine(State))
+                    if (ShowsRaceBossBar(State, Now)?):
+                        RaceBossBar(State)
                         set State.BossShown = true
                     else if (State.BossShown?):
                         State.Hud.ClearBoss()
                         set State.BossShown = false
+
+    # A pad's floating letter, forever (boss mode's, and the race finale's since 2026-10-11): turned toward the nearest
+    # player of its arena (Race: race players at the arena stage; else boss-mode players), its readable face +Y at yaw 0
+    # (build_bossmode LETTER_ASSET), bobbing round its home; still while nobody is there.
+    FaceLetter(Letter:creative_prop, Home:vector3, K:int, Race:logic)<suspends>:void =
+        var Yaw : float = 0.0
+        var Phase : float = 0.25 * K
+        loop:
+            var Best : float = -1.0
+            for (State : PlayerStates, LetterWatcher(State, Race)?, Character := State.Player.GetFortCharacter[]):
+                At := Character.GetTransform().Translation
+                D := (At.X - Home.X) * (At.X - Home.X) + (At.Y - Home.Y) * (At.Y - Home.Y)
+                if (Best < 0.0 or D < Best):
+                    set Best = D
+                    set Yaw = ArcTan(At.Y - Home.Y, At.X - Home.X) * 180.0 / PiFloat - 90.0
+            if (Best < 0.0):
+                Sleep(0.5)
+            else:
+                set Phase += LetterTurnSeconds / Max(LetterBobSeconds, 0.5)
+                Bob := LetterBobCm * Sin(2.0 * PiFloat * Phase)
+                Letter.MoveTo(Home + vector3{X := 0.0, Y := 0.0, Z := Bob}, MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0), LetterTurnSeconds)
+
+    # Whose position a floating letter follows: race players at the arena stage (Race), else boss-mode players.
+    LetterWatcher(State:fnm_player_state, Race:logic)<transacts>:logic =
+        if (Race?, State.Mode = fnm_mode.Race, AtArena(State)?) then true
+        else if (not Race?, State.Mode = fnm_mode.Boss) then true
+        else false
 
     # ---------------------------------------------------------------- laser cannons (Aaron 2026-10-08)
 
@@ -2475,9 +2609,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Fx.Restart()
         # Beams first: the strike and the blast land as the first shot reaches the boss.
         for (K -> Beam : Rig.Beams, Full := Rig.BeamFull[K]):
-            spawn{ FireBeam(Beam, Full, if (K = 0) then true else false) }
+            spawn{ FireBeam(Beam, Full, if (K = 0) then true else false, Rig.RaceLaser) }
         if (Rig.Beams.Length > 0):
-            Sleep(BeamTravelSeconds)
+            Sleep(BeamTravelSeconds + (if (NiagaraLaser?) then FnmMuzzleCharge else 0.0))
         if (Fx := StrikeFx?, Fx.TeleportTo[Feet, Level]):
             Fx.Enable()
             Fx.Restart()
@@ -2486,7 +2620,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Bomb.Reset()
             if (Part.TeleportTo[Feet, Level]) {}
             Bomb.Explode(Shooter)
-        Print("FNM: cannons fired ({CannonFx.Length} muzzles, blast {Blast}) at {Feet}, {Left} hits to go")
+        Print("FNM: cannons fired ({CannonFx.Length} muzzle vfx, {Rig.Beams.Length} lasers, blast {Blast}) at {Feet}, {Left} hits to go")
         var Second : int = -1
         if (Nuke?):
             if (Fx := Rig.Nuke?, Fx.TeleportTo[Feet, Level]):
@@ -2549,14 +2683,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # carry the scale.
     # NiagaraLaser (BOSS_MODE 15f): each shot is the Niagara laser (fnm_fx.verse) along the beam prop's axis, and the
     # prop stays hidden; the first shot also sets off the impact at the far end (Impact: one beam of the pair does it).
-    FireBeam(Beam:creative_prop, Full:transform, Impact:logic)<suspends>:void =
+    # Each shot starts with the muzzle discharge (BOSS_MODE 15g): it charges FnmMuzzleCharge s, then the laser leaves
+    # with its flash; the shots keep their cadence. RaceLaser: the race finale's rig, whose shots are the shorter
+    # NS_fnm_laser_race (its cannons are 5.1 m from the titan's waist, boss mode's 18.3 m; BOSS_MODE 16).
+    FireBeam(Beam:creative_prop, Full:transform, Impact:logic, RaceLaser:logic)<suspends>:void =
         if (NiagaraLaser?):
             Dir := Full.Rotation.GetLocalUp()
             for (Shot := 1..BeamShots):
-                FnmSpawnLaser(Full.Translation, Dir)
+                FnmSpawnMuzzle(Full.Translation, Dir)
+                Sleep(FnmMuzzleCharge)
+                if (RaceLaser?) then FnmSpawnRaceLaser(Full.Translation, Dir) else FnmSpawnLaser(Full.Translation, Dir)
                 if (Shot = 1, Impact?):
                     spawn{ LaserImpact(Full.Translation + Dir * (Full.Scale.Z * BeamPropHeight)) }
-                Sleep(BeamTravelSeconds + BeamHoldSeconds + BeamGapSeconds)
+                Sleep(BeamTravelSeconds + BeamHoldSeconds + BeamGapSeconds - FnmMuzzleCharge)
             return
         Short := transform{Translation := Full.Translation, Rotation := Full.Rotation, Scale := vector3{X := Full.Scale.X, Y := Full.Scale.Y, Z := 0.02}}
         for (Shot := 1..BeamShots):

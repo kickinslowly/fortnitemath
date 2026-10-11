@@ -12,8 +12,8 @@ with one guard spawner per level (fnm_bm_boss + fnm_bm_slot_L), four gates in th
 dark alcove holding a monster spawner (fnm_bm_gate + slot) and a lightning VFX at its mouth (fnm_bm_gate_fx + slot),
 four gold perches reached by stepping stones with a hidden trigger and a beacon VFX on each top (fnm_bm_perch /
 fnm_bm_perch_fx + slot), one Item Granter per level parked under the floor and bound to its own hidden trigger
-(fnm_bm_grant + slot; the weapon comes with extra ammo), the cannon rig of the race arena (build_cannon.cannon with the FNM_BM_Cannon prefix and the
-fnm_bm_cannon_fx tag) plus a parked strike, two blasts and a nuke VFX, an anger ring of five VFX round the platform
+(fnm_bm_grant + slot; the weapon comes with extra ammo), two Meshy mega laser cannons (cannons(); their muzzle discharge and
+coil crackle are Niagara systems Verse spawns, BOSS_MODE 15g) plus a parked strike, two blasts and a nuke VFX, an anger ring of five VFX round the platform
 (fnm_bm_anger_fx + slot), and one creature spawner per creature kind in the gate alcoves (fnm_bm_creature + slot = kind;
 B5, BOSS_MODE.md 5). The director (console/verse/fnm_bossmode.verse) finds every piece by those Verse tags.
 
@@ -45,7 +45,6 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
-import build_cannon as cn  # noqa: E402
 import build_course as c  # noqa: E402
 import build_guards as g  # noqa: E402
 import build_pickups as p  # noqa: E402
@@ -159,7 +158,7 @@ MEGABOSS = "Megabrute"
 MEGABOSS_SETTINGS = {**CREATURE_SETTINGS, "creature Type": MEGABOSS}
 # A laser beam from each cannon's muzzle to the boss (Aaron 2026-10-10: "attacks on him more obviously coming from the side
 # laser cannons"): the Alphabet "I" (57 x 50 x BEAM_H at scale 1, pivot at the bottom centre) laid along the shot, its
-# +Z from the muzzle (the cannon's muzzle VFX spawner) to BEAM_AIM above the platform top (the titan's waist: higher, the hit lands behind the answer panel, which grows for the first seconds after a right pad; 2026-10-10 frames),
+# +Z from the muzzle (muzzle_point) to BEAM_AIM above the platform top (the titan's waist: higher, the hit lands behind the answer panel, which grows for the first seconds after a right pad; 2026-10-10 frames),
 # BEAM_W scale thick (~1 m: at 0.8 it read as a thin line on the horizon from the entry, 2026-10-10 frames), in
 # BEAM_COLOUR, no collision. Placed at full length with Verse tag fnm_bm_beam; the director hides it
 # at start and shoots it out of the muzzle on every hit (fnm_director FireBeam). A gallery prop because Verse moves only
@@ -245,8 +244,9 @@ CHEST_LIGHT = {"lightColor": GOLD, "lightSizePercentage": 50, "lightIntensityPer
 CHEST_LIGHT_Z = 220
 GRANT_X0, GRANT_DX, GRANT_Y, GRANT_TRIGGER_Y = -1200, 300, 600, 300
 # The cannon rig: one cannon on the podium due left and due right (slots 9 and 27, where the ring's face runs along Y),
-# CANNON_Y in from ORIGIN, aimed at the platform top + build_cannon.BOSS_EYE.
+# CANNON_Y in from ORIGIN, aimed at the platform top + BOSS_EYE.
 CANNON_Y = ARENA_R
+BOSS_EYE = 90           # the aim point this high above the platform top (a standing guard's chest; only its x, y aim now)
 # The mega laser cannons (Aaron 2026-10-10: "make them mega cannon lasers ... glowing areas, lightning fx"; BOSS_MODE 15d):
 # the Meshy mesh SM_fnm_megacannon (tools/import_cannon.py) standing on the sand CANNON_R from CENTRE at CANNON_DEG (left,
 # +X) and 180 - CANNON_DEG (right), barrel turned onto the titan's waist. Due left and right they sat 46 degrees off the
@@ -262,17 +262,14 @@ CANNON_DEG = 36
 CANNON_HALF_H = 48           # pivot height above the floor at scale 1
 CANNON_MUZZLE = (0, 95, 10)
 CANNON_COIL = (0, 42, 10)
-CANNON_FX_SCALE = 4.0
-# Fired with the shot (tag fnm_bm_cannon_fx: FireCannons enables and restarts every one): the laser burst at the muzzle
-# (label _Fx, where the beam starts) and a lightning discharge round the prongs (_Zap).
-CANNON_ZAP = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_03", "effectType": "Burst",
-              "sound_Effect": "Lightning_Strike", "clearParticlesOnDisable": True}
-# Always on, no Verse: lightning crackling round the coils, and cyan point lights in the coils and the muzzle (the
-# light's `lightSize` enum refuses writes; `lightSizePercentage` takes them: 100 flooded the whole bay white, editor frames
-# 2026-10-10).
-CANNON_CRACKLE = {"enabled On Phase": "Always", "visual_Effect": "LightningBolt_02", "effectType": "Continuous",
-                  "sound_Effect": "None"}
-CANNON_CRACKLE_SCALE = 2.0
+# The beam (and Verse's muzzle discharge, fnm_fx FnmSpawnMuzzle) starts MUZZLE_AHEAD cm in front of the mouth. The cannon's
+# effects are our own Niagara systems since 2026-10-11 (BOSS_MODE 15g, tools/build_fx.py NS_fnm_muzzle / NS_fnm_coil),
+# spawned by Verse from the beam's placed transform; the coils sit fnm_fx FnmCannonCoilBack behind that point (a test ties
+# it to CANNON_MUZZLE, CANNON_COIL, CANNON_SCALE and MUZZLE_AHEAD). The VFX Spawner muzzle burst, zap and coil crackle are
+# gone (the crackle never showed from the player's spot ~38 m away).
+MUZZLE_AHEAD = 40
+# Always on, no Verse: cyan point lights in the coils and the muzzle (the light's `lightSize` enum refuses writes;
+# `lightSizePercentage` takes them: 100 flooded the whole bay white, editor frames 2026-10-10).
 POINT_LIGHT = "/CRD_PointLight/SetupAssets/PID_Device_PointLight.PID_Device_PointLight"
 CANNON_LIGHT = {"lightColor": {"r": 0.2, "g": 0.9, "b": 1.0, "a": 1.0}, "lightSizePercentage": 50,
                 "lightIntensityPercentage": 60, "enabledDuringPhase": "Always"}
@@ -287,7 +284,14 @@ PERCH_FX = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_01", "ef
             "sound_Effect": "None", "clearParticlesOnDisable": True}
 ANGER_FX = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_01", "effectType": "Burst",
             "sound_Effect": "Electric_Blast", "clearParticlesOnDisable": True}
-STRIKE_FX = {**cn.STRIKE_FX, "visual_Effect": "LightningBolt_03"}
+# The strike moved onto the boss and the explosive blasts at its feet on every hit (fnm_director FireCannons), here and
+# in the race arena (tools/build_race_boss.py, which also takes these): no damage, the math is the only weapon.
+STRIKE_FX = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_03", "effectType": "Burst",
+             "sound_Effect": "Electric_Blast", "clearParticlesOnDisable": True}
+BLAST = {"visible During Game": False, "can be Damaged": False, "player Damage": 0, "structure Damage": 0,
+         "knockback": "Medium", "play Audio / VFX": True, "explode on Proximity": False,
+         "has Timed Detonation From Game Start": False, "time Until Reset Allowed": 0.5}
+BLASTS = 2
 NUKE_FX = {"enabled On Phase": "None", "visual_Effect": "LightningBolt_01", "effectType": "Burst",
            "sound_Effect": "Explosion", "clearParticlesOnDisable": True}
 # Fallbacks decided from the device's own enums at build time (nuke_effect, knockback).
@@ -296,8 +300,9 @@ NUKE_FALLBACK = "LightningBolt_01"
 KNOCKBACK_WANT, KNOCKBACK_FALLBACK = "High", "Medium"
 GLASS = "/Game/Creative/Environments/Meshes/Glass/Materials/Glass_version_02/MI_CP_GlassGallery.MI_CP_GlassGallery"
 LID_T, LID_SINK = 40, 20
-VFX = cn.VFX
-EXPLOSIVE = cn.EXPLOSIVE
+VFX = "/CRD_VFX_Spawner/SetupAssets/PID_Device_VFX_Spawner_V2.PID_Device_VFX_Spawner_V2"
+EXPLOSIVE = "/CreativeCoreDevices/SetupAssets/PID_Device_ExplosiveBarrel.PID_Device_ExplosiveBarrel"
+CYLINDER = "/Engine/BasicShapes/Cylinder.Cylinder"     # 100 cm tall along its Z, 100 cm across
 
 
 # ---------------------------------------------------------------- pure layout (tests read these)
@@ -357,7 +362,7 @@ def anger_spots():
 
 def boss_aim():
     """The cannons' aim point, relative to ORIGIN."""
-    return PLATFORM_X, PLATFORM_Y, FLOOR_Z + PLATFORM_H + cn.BOSS_EYE
+    return PLATFORM_X, PLATFORM_Y, FLOOR_Z + PLATFORM_H + BOSS_EYE
 
 
 def nuke_effect(choices):
@@ -416,7 +421,7 @@ def rbox(label, deg, u0, u1, v0, v1, z0, z1, material=None, tag=TAG, **extra):
 def disc(label, radius, z0, z1, material, tag=TAG):
     """A flat engine cylinder round CENTRE."""
     cx, cy, _ = at(*CENTRE)
-    r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": cn.CYLINDER, "name": label, "xform": xform(
+    r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": CYLINDER, "name": label, "xform": xform(
         cx, cy, (z0 + z1) / 2, 2 * radius / 100, 2 * radius / 100, (z1 - z0) / 100)})
     actor = tagged(r["returnValue"]["refPath"], label, tag)
     paint(actor, material)
@@ -650,14 +655,14 @@ def build():
     effect = nuke_effect(enum_values(nuke, "visual_Effect"))
     options(nuke, {**NUKE_FX, "visual_Effect": effect}, "Nuke")
     knock = None
-    for n in range(cn.BLASTS):
+    for n in range(BLASTS):
         blast = device(EXPLOSIVE, f"FNM_BM_Blast{n + 1}", PLATFORM_X + 300 * (n + 1), PLATFORM_Y, park)
         verse_tags(blast, project, ["fnm_bm_blast"])
         if knock is None:
             choices = enum_values(blast, "knockback")
             knock = knockback(choices)
-        options(blast, {**cn.BLAST, "knockback": knock}, f"Blast{n + 1}")
-    print(f"2 cannons, strike, nuke ({effect}), {cn.BLASTS} blasts (knockback {knock}) placed")
+        options(blast, {**BLAST, "knockback": knock}, f"Blast{n + 1}")
+    print(f"2 cannons, strike, nuke ({effect}), {BLASTS} blasts (knockback {knock}) placed")
 
     for lv, (fx, fy) in enumerate(anger_spots(), 1):
         vfx(f"FNM_BM_Anger{lv}", fx, fy, z0, ANGER_FX_SCALE, project, ["fnm_bm_anger_fx", f"fnm_bm_slot_{lv}"], ANGER_FX)
@@ -672,10 +677,36 @@ def build():
           f"nuke effect {effect}; blast knockback {knock}")
 
 
+def cannon_frame(deg):
+    """The cannon at deg round CENTRE: its body (x, y), heading (radians, the barrel turned onto boss_aim), pivot height,
+    and point(local, ahead) -> (x, y, z) relative to ORIGIN for a point on the mesh (scale-1 local coordinates, as
+    CANNON_MUZZLE) pushed `ahead` cm further along the barrel."""
+    ax, ay, _ = boss_aim()
+    bx, by = polar(CANNON_R, deg)
+    heading = math.atan2(ay - by, ax - bx)
+    k = CANNON_SCALE
+    pz = FLOOR_Z + CANNON_HALF_H * k
+
+    def point(local, ahead=0.0):
+        a, f, up = local
+        f = f * k + ahead
+        return (bx + f * math.cos(heading) + a * k * math.sin(heading),
+                by + f * math.sin(heading) - a * k * math.cos(heading), pz + up * k)
+    return (bx, by), heading, pz, point
+
+
+def muzzle_point(deg):
+    """Where the cannon at deg's beam starts, relative to ORIGIN."""
+    return cannon_frame(deg)[3](CANNON_MUZZLE, MUZZLE_AHEAD)
+
+
+CANNON_SIDES = (("L", CANNON_DEG), ("R", 180 - CANNON_DEG))
+
+
 def cannons(project=None):
-    """The two mega laser cannons (CANNON_*): mesh, muzzle laser + zap (fired by Verse), coil crackle and glow lights
-    (always on). Removes the cannon actors an older build left (the engine-shape cannon too). Rerun boss_rig after: the
-    beams start at the _Fx muzzles."""
+    """The two mega laser cannons (CANNON_*): the mesh and two glow lights (always on). Their muzzle discharge and coil
+    crackle are Niagara systems Verse spawns (BOSS_MODE 15g). Removes the cannon actors an older build left (the
+    engine-shape cannon and the old VFX spawners too). Rerun boss_rig after: the beams start at muzzle_point."""
     project = project or c.project_mount().strip("/")
     old = [a for a in placed() if a.get("label", "").startswith("FNM_BM_Cannon")]
     for a in old:
@@ -683,36 +714,17 @@ def cannons(project=None):
     print("removed", len(old), "old cannon actors")
     ax, ay, az = boss_aim()
     tz = FLOOR_Z + PLATFORM_H + BEAM_AIM
-    for side, deg in (("L", CANNON_DEG), ("R", 180 - CANNON_DEG)):
-        bx, by = polar(CANNON_R, deg)
-        heading = math.atan2(ay - by, ax - bx)
+    k = CANNON_SCALE
+    for side, deg in CANNON_SIDES:
+        (bx, by), heading, pz, point = cannon_frame(deg)
         yaw = math.degrees(heading) - 90           # the mesh's barrel runs along its +Y
-        k = CANNON_SCALE
-        pz = FLOOR_Z + CANNON_HALF_H * k
-
-        def point(local, ahead=0.0):
-            a, f, up = local
-            f = f * k + ahead
-            return (bx + f * math.cos(heading) + a * k * math.sin(heading),
-                    by + f * math.sin(heading) - a * k * math.cos(heading), pz + up * k)
         x, y, _ = at(bx, by)
         r = u.call(SCENE, "add_to_scene_from_asset", {"asset_path": f"/{project}/{CANNON_ART}", "name": f"FNM_BM_Cannon{side}_Body",
                                                       "xform": xform(x, y, pz, k, k, k, yaw)})
         body = tagged(r["returnValue"]["refPath"], f"FNM_BM_Cannon{side}_Body")
         props(body, {"bCanBeDamaged": False})
-        mx, my, mz = point(CANNON_MUZZLE, 40)
-        dx, dy, dz = ax - mx, ay - my, tz - mz
-        n = math.sqrt(dx * dx + dy * dy + dz * dz)
-        pitch, fyaw = cn.aim(dx / n, dy / n, dz / n)   # the burst runs along the spawner's +Z, as on the race arena's cannons
-        fx = cn.device(VFX, f"FNM_BM_Cannon{side}_Fx", *at(mx, my, mz), pitch, fyaw, CANNON_FX_SCALE, tag=TAG)
-        verse_tags(fx, project, ["fnm_bm_cannon_fx"])  # tag first: the tag component rebuilds a device's sub-objects
-        options(fx, cn.MUZZLE_FX, f"Cannon{side}_Fx")
-        zx, zy, zz = point(CANNON_MUZZLE, -20)
-        vfx(f"FNM_BM_Cannon{side}_Zap", zx, zy, zz, CANNON_FX_SCALE, project, ["fnm_bm_cannon_fx"], CANNON_ZAP)
-        cx, cy, cz = point(CANNON_COIL)
-        crackle = device(VFX, f"FNM_BM_Cannon{side}_Crackle", cx, cy, cz, sx=CANNON_CRACKLE_SCALE)
-        options(crackle, CANNON_CRACKLE, f"Cannon{side}_Crackle")
-        for name, (lx, ly, lz) in (("Glow", (cx, cy, cz)), ("MuzzleGlow", point(CANNON_MUZZLE, 60))):
+        mx, my, mz = muzzle_point(deg)
+        for name, (lx, ly, lz) in (("Glow", point(CANNON_COIL)), ("MuzzleGlow", point(CANNON_MUZZLE, 60))):
             options(device(POINT_LIGHT, f"FNM_BM_Cannon{side}_{name}", lx, ly, lz), CANNON_LIGHT, f"Cannon{side}_{name}")
         rng = math.hypot(ax - mx, ay - my, tz - mz) / 100
         print(f"cannon {side}: body at ({bx:.0f}, {by:.0f}) yaw {yaw:.1f}, muzzle ({mx:.0f}, {my:.0f}, {mz:.0f}), {rng:.1f} m to the titan's waist")
@@ -720,8 +732,8 @@ def cannons(project=None):
 
 def boss_rig(project=None):
     """The boss platform, the Megabrute boss spawner on it and a laser beam per cannon (idempotent via BOSS_RIG_TAG;
-    removes the platform and the per-level guard boss spawners FNM_BM_Boss1..5 an older build left). Needs the cannons
-    (their muzzle VFX spawners)."""
+    removes the platform and the per-level guard boss spawners FNM_BM_Boss1..5 an older build left). Each beam starts at
+    its cannon's muzzle_point (the cannons themselves need not be placed first)."""
     project = project or c.project_mount().strip("/")
     old = [a for a in placed() if re.fullmatch(r"FNM_BM_Boss\d|FNM_BM_Platform", a.get("label", ""))]
     for a in old:
@@ -739,11 +751,10 @@ def boss_rig(project=None):
 
     tx, ty, _ = at(PLATFORM_X, PLATFORM_Y)
     tz = top + BEAM_AIM
-    muzzles = {a["label"]: a["actorPath"] for a in placed() if re.fullmatch(r"FNM_BM_Cannon[LR]_Fx", a.get("label", ""))}
-    for k, side in enumerate("LR", 1):
-        if f"FNM_BM_Cannon{side}_Fx" not in muzzles:
-            sys.exit(f"no FNM_BM_Cannon{side}_Fx: run the full build first")
-        loc = u.call(ACTOR, "get_actor_transform", {"actor": ref(muzzles[f"FNM_BM_Cannon{side}_Fx"])})["returnValue"]["location"]
+    for k, (side, deg) in enumerate(CANNON_SIDES, 1):
+        mx, my, mz = muzzle_point(deg)
+        lx, ly, lz = at(mx, my, mz)
+        loc = {"x": lx, "y": ly, "z": lz}
         dx, dy, dz = tx - loc["x"], ty - loc["y"], tz - loc["z"]
         length = math.sqrt(dx * dx + dy * dy + dz * dz)
         # Local +Z along the shot: yaw = its heading, pitch = its elevation - 90 (a rotator's up axis).
@@ -765,7 +776,6 @@ def boss_rig(project=None):
 def titan(project, top):
     """The titan's Animated Mesh devices FNM_BM_Titan1..4 (tag fnm_bm_titan + slot), facing the entry. Needs
     tools/import_boss.py once per UEFN project."""
-    art = f"/{project}/{TITAN_ART}"
     x, y, _ = at(PLATFORM_X, PLATFORM_Y)
     ex, ey, _ = at(*ENTRY)
     yaw = math.degrees(math.atan2(ey - y, ex - x))       # the mesh faces +X
@@ -776,13 +786,21 @@ def titan(project, top):
         dev = tagged(r["returnValue"]["refPath"], f"FNM_BM_Titan{k}", BOSS_RIG_TAG)
         u.call(ACTOR, "add_tag", {"actor": ref(dev), "tag": TAG})
         verse_tags(dev, project, ["fnm_bm_titan", f"fnm_bm_slot_{k}"])
-        props(dev, {"skeletalMesh": {"refPath": f"{art}/Clip_{clip}/{TITAN_MESH}_{clip}.{TITAN_MESH}_{clip}"},
-                    "animation": {"refPath": f"{art}/Clip_{clip}/A_fnm_titan_{clip}.A_fnm_titan_{clip}"},
-                    "loop": clip not in TITAN_ONCE, "initialState": "Playing"})
+        props(dev, titan_clip_props(project, clip))
         got = get(dev, ["skeletalMesh", "animation"])
         if not got.get("animation", {}).get("refPath", "").endswith(f"A_fnm_titan_{clip}"):
             sys.exit(f"FNM_BM_Titan{k}: animation did not take ({got}); run tools/import_boss.py")
     print(f"titan: {len(TITAN_CLIPS)} clips at scale {TITAN_SCALE}, yaw {yaw:.1f}")
+
+
+def titan_clip_props(project, clip):
+    """An Animated Mesh device's settings for one titan clip: its own mesh and animation, Playing from the start, looping
+    unless it is the fall (TITAN_ONCE: it plays once and holds; fnm_titan.verse). The race finale's titan uses them too
+    (tools/build_race_boss.py)."""
+    art = f"/{project}/{TITAN_ART}"
+    return {"skeletalMesh": {"refPath": f"{art}/Clip_{clip}/{TITAN_MESH}_{clip}.{TITAN_MESH}_{clip}"},
+            "animation": {"refPath": f"{art}/Clip_{clip}/A_fnm_titan_{clip}.A_fnm_titan_{clip}"},
+            "loop": clip not in TITAN_ONCE, "initialState": "Playing"}
 
 
 def letter_asset(letter):
@@ -864,12 +882,12 @@ def check():
             print(f"  {label:28} items {items} health {back.get('max Health')} off-spec {off}")
         elif re.search(r"(_Fx|Strike|Nuke|Anger\d)$", label):
             want = (GATE_FX if "_Gate" in label else PERCH_FX if "_Perch" in label else STRIKE_FX if "Strike" in label
-                    else NUKE_FX if "Nuke" in label else ANGER_FX if "Anger" in label else cn.MUZZLE_FX)
+                    else NUKE_FX if "Nuke" in label else ANGER_FX)
             print(f"  {label:28} {get(path, want)}")
         elif re.fullmatch(r"FNM_BM_Creature\d", label):
             print(f"  {label:28} {get(path, ['creature Type', *CREATURE_SETTINGS])}")
         elif re.fullmatch(r"FNM_BM_Blast\d", label):
-            print(f"  {label:28} {get(path, cn.BLAST)}")
+            print(f"  {label:28} {get(path, BLAST)}")
         elif "Granter" in label:
             lst = get(path, ["pickupItemList"])["pickupItemList"]["refPath"]
             items = [(i.get("itemDefinition") or {}).get("refPath", "").rsplit(".", 1)[-1] for i in get(lst, ["itemListData"])["itemListData"]]

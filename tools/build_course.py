@@ -17,8 +17,10 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
     python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
 
 After the last station's connector comes the BOSS ARENA (GOALS G6 item 3, maps/starter/LAYOUT.md "Boss arena"): four
-answer pads, a boss guard on a platform, an adds spawner, a gate barrier at the exit, then a short connector into the
-unchanged finish hallway. The arena is not a numbered station (fnm_boss tag), so the tier formula is untouched.
+answer pads, the boss platform, an adds spawner, a gate barrier at the exit, then a short connector into the
+unchanged finish hallway. The arena is not a numbered station (fnm_boss tag), so the tier formula is untouched. The boss
+itself (a hidden Megabrute under the Magma Titan), the mega cannons and the floating pad letters are
+tools/build_race_boss.py's: rerun it after a course rebuild.
 """
 import argparse
 import functools
@@ -166,8 +168,9 @@ BARRIER_BASE = (511, 511, 384, 0)
 
 # Boss arena (GOALS G6 item 3): between the last station's connector and the finish hallway. A station-wide hall
 # ARENA_LEN long; four answer pads (trigger zones PAD_SIZE square and PAD_H tall, each on a floor tile in its letter's
-# colour with the letter on a board above); a boss guard on a platform near the far end; an adds spawner mid-arena; a
-# gate barrier across the exit that opens per player at the kill. Every arena actor is labelled FNM_Arena_* (the
+# colour); the boss platform near the far end (the boss, the titan, the cannons and the floating letters over the pads:
+# tools/build_race_boss.py, since 2026-10-11); an adds spawner mid-arena; a gate barrier across the exit that opens per
+# player at the kill. Every arena actor is labelled FNM_Arena_* (the
 # connector INTO the arena carries that prefix too, like every connector carries the prefix of what it leads into).
 ARENA = True
 ARENA_LEN = 3000
@@ -177,18 +180,16 @@ PAD_TILE_T = 10
 # Pad centres, A..D, as (x from the arena's centre line, y from its start). +X is the player's LEFT (like door A), so
 # A and C sit on the left and the pads read A B / C D left to right, as the HUD lists the choices.
 PAD_SPOTS = [(700, 800), (-700, 800), (700, 2200), (-700, 2200)]
-PAD_BOARD_Z = 300       # the letter board's actor height above the floor (scale PAD_BOARD_SCALE: it clears the glass lid)
-PAD_BOARD_SCALE = 1.5
 PLATFORM_W, PLATFORM_D, PLATFORM_H, PLATFORM_Y = 600, 400, 100, 2600
+ENTRY_Y = 150           # the entry teleporter (arrival and retry point), this far into the hall on its centre line
 ADDS_Y = 1800
 GATE_Y = ARENA_LEN       # the gate barrier's front face; the arena's floor ends BARRIER_T past it
 ARENA_CONNECTOR = [seg(1000)]
 _WID = "/Game/Athena/Items/Weapons/{0}.{0}"
-BOSS_WEAPON = _WID.format("WID_Pistol_AutoHeavyPDW_Athena_VR_Ore_T03")   # purple SMG (was a legendary AR: Aaron 2026-10-07 could not beat it)
 ADDS_WEAPON = _WID.format("WID_Pistol_SemiAuto_Athena_R_Ore_T03")      # the loadout's pistol
-# Overrides on build_guards.SETTINGS (merged at build time: build_guards imports this module). The health ask is
-# deliberately above the device's range: build() writes it, reads back what the device kept and prints that cap.
-BOSS_HEALTH_ASK = 100000.0
+# Overrides on build_guards.SETTINGS (merged at build time: build_guards imports this module). BOSS_SETTINGS were the
+# race's guard boss's until 2026-10-11 (now a Megabrute, tools/build_race_boss.py); build_bossmode's --check still
+# reads its own old guard boss spawners against them.
 BOSS_SETTINGS = {"spawnCount": 1, "totalSpawnLimit": 1, "showHealthBar": True, "enablePatrol": False,
                  "spawnRadius_InMeter": 1.0, "dropInventoryOnElimination": False, "maxShield": 0.0, "startingShield": 0.0}
 ADDS_SETTINGS = {"spawnCount": 2, "totalSpawnLimit": 2, "spawnRadius_InMeter": 4.0, "maxPatrolDistance_InMeter": 6.0}
@@ -515,7 +516,7 @@ def arena(ox, oy, oz, doors, project):
     box("FNM_Arena_Floor", ox - half - t, ox + half + t, oy, end, oz + 2 - SLAB_T, oz + 2)
     box("FNM_Arena_WallL", ox + half, ox + half + t, oy, end, oz, oz + WALL_H)
     box("FNM_Arena_WallR", ox - half - t, ox - half, oy, end, oz, oz + WALL_H)
-    tp = device(TELEPORTER, "FNM_Arena_Entry", ox, oy + 150, oz, yaw=90)
+    tp = device(TELEPORTER, "FNM_Arena_Entry", ox, oy + ENTRY_Y, oz, yaw=90)
     props(tp, {"knob_TeleporterGroup": "Group_None", "knob_TargetTeleporterGroup": "Group_None"})
     verse_tags(tp, project, ["fnm_boss", "fnm_entry"])
     sign = device(BILLBOARD, "FNM_Arena_Sign", ox + half - 5, oy + 600, oz + 250, yaw=-90, sx=2, sy=2, sz=2)
@@ -531,14 +532,9 @@ def arena(ox, oy, oz, doors, project):
                      "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
                      "triggeredByPhysicsProps": False})
         verse_tags(trig, project, ["fnm_boss", f"fnm_door_{letter.lower()}"])
-        label = device(BILLBOARD, f"FNM_Arena_Label{letter}", x, y, oz + PAD_BOARD_Z, yaw=180,
-                       sx=PAD_BOARD_SCALE, sy=PAD_BOARD_SCALE, sz=PAD_BOARD_SCALE)
-        board(label, letter, LETTER_COLOURS[i])
     py = oy + PLATFORM_Y
     box("FNM_Arena_Platform", ox - PLATFORM_W / 2, ox + PLATFORM_W / 2, py - PLATFORM_D / 2, py + PLATFORM_D / 2,
         oz + 2, oz + 2 + PLATFORM_H)
-    _, cap = spawner("FNM_Arena_Boss", ox, py, oz + 2 + PLATFORM_H, project, ["fnm_boss_spawner"], BOSS_SETTINGS,
-                     BOSS_WEAPON, health=BOSS_HEALTH_ASK)
     spawner("FNM_Arena_Adds", ox, oy + ADDS_Y, oz + 2, project, ["fnm_boss_adds"], ADDS_SETTINGS, ADDS_WEAPON)
     bw, bd, bh, bz = BARRIER_BASE
     sz = WALL_H / bh
@@ -546,7 +542,7 @@ def arena(ox, oy, oz, doors, project):
                   sx=2 * half / bw, sy=BARRIER_T / bd, sz=sz)
     props(gate, {"invisibleToIgnoredPlayers": True, "collide with Camera": False})
     verse_tags(gate, project, ["fnm_boss_gate"])
-    print(f"arena built at x={ox:.0f} y={oy:.0f}..{end:.0f} level {oz:.0f}; boss max health cap {cap}")
+    print(f"arena built at x={ox:.0f} y={oy:.0f}..{end:.0f} level {oz:.0f}; the boss rig is tools/build_race_boss.py's")
     return end
 
 

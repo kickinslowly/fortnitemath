@@ -111,9 +111,10 @@ FnmFeedBmClear<localizes>(Level:int):message = "LEVEL {Level} CLEARED!"
 
 # ---------------------------------------------------------------- devices
 
-# A set of laser cannons and what they fire (tools/build_cannon.py): the muzzle VFX spawners, the strike VFX moved onto
-# the target and its parked transform, the explosive devices parked under the platform, and (boss mode only) the nuke
-# VFX. The race arena's rig has no nuke; fnm_director FireCannons fires either.
+# A set of laser cannons and what they fire (tools/build_bossmode.py, tools/build_race_boss.py): the muzzle VFX spawners
+# (none since the Niagara muzzle discharge, BOSS_MODE 15g), the strike VFX moved onto the target and its parked transform,
+# the explosive devices parked under the platform, and (boss mode only) the nuke VFX. The race arena's rig has no nuke;
+# fnm_director FireCannons fires either.
 fnm_cannon_rig := class:
     Fx : []vfx_spawner_device
     Strike : ?vfx_spawner_device
@@ -125,9 +126,31 @@ fnm_cannon_rig := class:
     Beams : []creative_prop = array{}
     BeamFull : []transform = array{}
     PinnedBoss : logic = false
+    # The race finale's rig: its shots are the shorter NS_fnm_laser_race (fnm_fx FnmSpawnRaceLaser; BOSS_MODE 16).
+    RaceLaser : logic = false
 
 # How boss mode's Megabrute is held on its platform: it may turn to face the players, never walk off.
 FnmBossPin()<transacts>:stasis_args = stasis_args{AllowTurning := true, AllowFalling := true, AllowEmotes := true}
+
+# A Megabrute boss on its platform (boss mode's, and the race finale's since 2026-10-11): back at Home (a little above it,
+# so it lands on the platform), facing the entry, held there (FnmBossPin).
+FnmPinBoss(Character:fort_character, Home:?transform):void =
+    if (H := Home?):
+        Spot := H.Translation + vector3{X := 0.0, Y := 0.0, Z := 150.0}
+        if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(-90.0, 0.0, 0.0)]) {}
+    Character.ReleaseFromStasis()
+    Character.PutInStasis(FnmBossPin())
+
+# Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter). Boss mode's numbered pieces
+# and the race finale's titan clips, beam markers and letters.
+FnmBmSlotOf(Object:creative_object_interface)<transacts>:int =
+    ObjectTags := Object.GetTags()
+    if (ObjectTags.Has[fnm_bm_slot_1{}]) then 1
+    else if (ObjectTags.Has[fnm_bm_slot_2{}]) then 2
+    else if (ObjectTags.Has[fnm_bm_slot_3{}]) then 3
+    else if (ObjectTags.Has[fnm_bm_slot_4{}]) then 4
+    else if (ObjectTags.Has[fnm_bm_slot_5{}]) then 5
+    else -1
 
 # Binds one answer pad of the boss-mode arena to its letter (0 = A), so one callback serves all four.
 fnm_bm_pad_handler := class:
@@ -152,6 +175,21 @@ fnm_bm_chest_handler := class:
 
     OnOpened(Agent:agent):void =
         Director.OnBmChest(Agent, Perch)
+
+# The race finale's Megabrute (fnm_director OnBossSpawned subscribes it to the creature's DamagedEvent; boss mode's
+# OnMegabossDamaged, for the race): any hit from an agent (a player's gun, an add's stray shot) is healed straight back,
+# so only a pad's own Damage (Director.RacePadHitting) brings it down; a player's shot also gets the race's pad hint.
+# Here, not in the director, because damage_result comes with /Fortnite.com/Game, which this file already uses.
+fnm_race_boss_damage := class:
+    Director : fnm_director
+
+    OnDamaged(Result:damage_result):void =
+        if (Director.RacePadHitting?):
+            return
+        if (Character := fort_character[Result.Target], Character.IsActive[]):
+            Character.Heal(Result.Amount)
+            if (Instigator := Result.Instigator?, Agent := Instigator.GetInstigatorAgent[], Shooter := player[Agent]):
+                Director.RaceGunHint(Shooter)
 
 # The boss-mode arena, found by tag at OnBegin. Station: the arena seen as a station (pads as doors, the entry as the
 # retry point), so the director's answer and penalty code serve it unchanged. Numbered pieces sit at index slot - 1:
@@ -181,17 +219,12 @@ fnm_bm_arena := class:
     var BossHome : ?transform = false
     # What players see of the boss since 2026-10-10 (fnm_titan.verse); the Megabrute is hidden inside it.
     Titan : fnm_titan = fnm_titan{}
+    # The coil crackle running at each cannon (fnm_fx FnmSpawnCoil, BOSS_MODE 15g): spawned once by StartCoils.
+    var Coils : []cancelable = array{}
     var Rig : fnm_cannon_rig = fnm_cannon_rig{Fx := array{}, Strike := false, StrikeHome := false, Blasts := fnm_rig{Name := "bm_blast", Parts := array{}, Homes := array{}}, Nuke := false}
 
-    # Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter).
-    SlotOf(Object:creative_object_interface)<transacts>:int =
-        ObjectTags := Object.GetTags()
-        if (ObjectTags.Has[fnm_bm_slot_1{}]) then 1
-        else if (ObjectTags.Has[fnm_bm_slot_2{}]) then 2
-        else if (ObjectTags.Has[fnm_bm_slot_3{}]) then 3
-        else if (ObjectTags.Has[fnm_bm_slot_4{}]) then 4
-        else if (ObjectTags.Has[fnm_bm_slot_5{}]) then 5
-        else -1
+    # Which fnm_bm_slot_N an object carries (1..5), -1 for none.
+    SlotOf(Object:creative_object_interface)<transacts>:int = FnmBmSlotOf(Object)
 
     # Finds every tagged piece; spawners and VFX are switched off until the fight needs them.
     Find(Director:fnm_director):void =
@@ -257,6 +290,13 @@ fnm_bm_arena := class:
             Fx.Disable()
             set Nuke = option{Fx}
         set Rig = fnm_cannon_rig{Fx := CannonFx, Strike := Strike, StrikeHome := StrikeHome, Blasts := Director.BuildRig("bm_blast", fnm_bm_blast), Nuke := Nuke, Beams := Beams, BeamFull := BeamFull, PinnedBoss := if (Megaboss?) then true else false}
+
+    # The always-on crackle round each cannon's coils, FnmCannonCoilBack behind the beam's muzzle point on the barrel.
+    # Once only: a second call (a rebuild of the arena) adds nothing, so the looping systems never stack.
+    StartCoils():void =
+        if (Coils.Length > 0):
+            return
+        set Coils = FnmSpawnCoils(Rig.BeamFull, FnmCannonCoilBack)
 
     CountSpawners(Items:[]?guard_spawner_device):int =
         var Count : int = 0
@@ -369,35 +409,28 @@ fnm_boss_mode := class:
     StartFlashSeconds : float = 4.0
     LevelClearSeconds : float = 2.5
     WeaponGetSeconds : float = 1.5
-    # The floating letters: each turns to face the nearest boss-mode player over LetterTurnSeconds, again and again, and
-    # bobs LetterBobCm up and down once every LetterBobSeconds.
-    LetterTurnSeconds : float = 0.15
-    LetterBobCm : float = 40.0
-    LetterBobSeconds : float = 4.0
+    # The floating letters turn to the nearest boss-mode player and bob (fnm_director FaceLetter, shared with the race).
     # A wrong-answer wave may go this many over the level's alive cap.
     WaveExtra : int = 2
     # Voice timings after a pad: the boss's grunt, and (wrong pad) its taunt after the penalty's own voice line (which
     # comes PenaltyVoiceDelaySeconds after the buzzer); a streak line after the hit count; the death cry after the kill.
     BossGruntSeconds : float = 0.4
     TauntDelaySeconds : float = 2.5
-    # How long after a right pad its explanation appears (OnPad): the nuke banner and the beams' hit come first.
-    ExplainDelaySeconds : float = 2.5
+    # How long after a right pad its explanation appears (OnPad): fnm_director ExplainDelaySeconds (shared with the race).
     StreakCueDelaySeconds : float = 2.3
     BossDeadSeconds : float = 0.5
-    # The Megabrute's health (it ignores every hit but the pads': OnMegabossDamaged), and how far it may be pushed off
-    # its spot (a knock's stagger) before BossLoop puts it back.
-    MegabossHealth : float = 100000.0
-    # A hit's knock throws the Megabrute ~3.3 m (seen 2026-10-10), off its 5 m deep pedestal: BossLoop puts it back
-    # once it is BossLeashCm off its spot and LeashAfterHitSeconds have passed since the hit (so the knock plays out).
-    LeashAfterHitSeconds : float = 1.5
+    # The Megabrute's health (it ignores every hit but the pads': OnMegabossDamaged) is fnm_director MegabossHealth. A
+    # hit's knock throws the Megabrute ~3.3 m (seen 2026-10-10), off its 5 m deep pedestal: BossLoop puts it back once it
+    # is Director.BossLeashCm off its spot and Director.LeashAfterHitSeconds have passed since the hit (LastHitAt), so the
+    # knock plays out. (Both constants are shared with the race finale's Megabrute.)
     var LastHitAt : float = -100.0
     # True while a pad's own Damage lands, so OnMegabossDamaged lets it through.
     var PadHitting : logic = false
-    BossLeashCm : float = 150.0
 
     # Finds the arena's devices, subscribes the spawners' events and logs what was found.
     Build():void =
         Arena.Find(Director)
+        Arena.StartCoils()
         for (MaybeSpawner : Arena.BossSpawners, Spawner := MaybeSpawner?):
             Spawner.SpawnedEvent.Subscribe(OnBossSpawned)
             Spawner.EliminatedEvent.Subscribe(OnBossEliminated)
@@ -413,31 +446,11 @@ fnm_boss_mode := class:
             Mega.EliminatedEvent.Subscribe(OnBossEliminated)
         Print("FNM: boss mode: megaboss {FnmYesNo(if (Arena.Megaboss?) then true else false)}, {Arena.Rig.Beams.Length} beams, {Arena.Titan.Found()} titan clips")
         Arena.Titan.Reset()
-        Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
+        Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Beams.Length} cannons ({Arena.Rig.Fx.Length} muzzle vfx, {Arena.Coils.Length} coil crackles)")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
         Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests ({Arena.CountMarks()} chest beacons + lights), {Arena.CountLetters(Arena.Letters)} letters")
         for (K -> MaybeLetter : Arena.Letters, Letter := MaybeLetter?):
-            spawn{ FaceLetter(Letter, Letter.GetTransform().Translation, K) }
-
-    # A pad's floating letter, forever: turned toward the nearest boss-mode player (its readable face is +Y at yaw 0,
-    # build_bossmode LETTER_ASSET), bobbing round its home; still while nobody is in the mode.
-    FaceLetter(Letter:creative_prop, Home:vector3, K:int)<suspends>:void =
-        var Yaw : float = 0.0
-        var Phase : float = 0.25 * K
-        loop:
-            var Best : float = -1.0
-            for (State : Director.PlayerStates, State.Mode = fnm_mode.Boss, Character := State.Player.GetFortCharacter[]):
-                At := Character.GetTransform().Translation
-                D := (At.X - Home.X) * (At.X - Home.X) + (At.Y - Home.Y) * (At.Y - Home.Y)
-                if (Best < 0.0 or D < Best):
-                    set Best = D
-                    set Yaw = ArcTan(At.Y - Home.Y, At.X - Home.X) * 180.0 / PiFloat - 90.0
-            if (Best < 0.0):
-                Sleep(0.5)
-            else:
-                set Phase += LetterTurnSeconds / Max(LetterBobSeconds, 0.5)
-                Bob := LetterBobCm * Sin(2.0 * PiFloat * Phase)
-                Letter.MoveTo(Home + vector3{X := 0.0, Y := 0.0, Z := Bob}, MakeRotationFromYawPitchRollDegrees(Yaw, 0.0, 0.0), LetterTurnSeconds)
+            spawn{ Director.FaceLetter(Letter, Letter.GetTransform().Translation, K, false) }
 
     # Every player fighting in the mode (not picking, not finished).
     Fighting()<transacts>:[]fnm_player_state =
@@ -591,7 +604,7 @@ fnm_boss_mode := class:
                 # The explanation waits until the hit has played out: shown at once, the panel covered the titan's
                 # flail (Aaron 2026-10-10). Not if they answered again (or finished) meanwhile.
                 Answered := State.Answered
-                Sleep(ExplainDelaySeconds)
+                Sleep(Director.ExplainDelaySeconds)
                 if (not State.Finished?, State.Answered = Answered, not State.MissedCurrent?, State.Mode = fnm_mode.Boss):
                     Shown := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
                     Print("FNM: boss mode explanation up")
@@ -1149,9 +1162,9 @@ fnm_boss_mode := class:
                     else if (Spawner := BossSpawnerFor(Level)?):
                         Print("FNM: boss mode boss not spawned after 5 s; Spawn()")
                         Spawner.Spawn()
-                if (BossAlive?, Now - LastHitAt > LeashAfterHitSeconds, Home := Arena.BossHome?, Agent := BossAgent?, Character := Agent.GetFortCharacter[], Character.IsActive[]):
+                if (BossAlive?, Now - LastHitAt > Director.LeashAfterHitSeconds, Home := Arena.BossHome?, Agent := BossAgent?, Character := Agent.GetFortCharacter[], Character.IsActive[]):
                     At := Character.GetTransform().Translation
-                    if (Distance(vector3{X := At.X, Y := At.Y, Z := 0.0}, vector3{X := Home.Translation.X, Y := Home.Translation.Y, Z := 0.0}) > BossLeashCm):
+                    if (Distance(vector3{X := At.X, Y := At.Y, Z := 0.0}, vector3{X := Home.Translation.X, Y := Home.Translation.Y, Z := 0.0}) > Director.BossLeashCm):
                         Print("FNM: boss mode megaboss wandered to {At}; back on the platform")
                         PinBoss(Character)
                 if (Now >= BeaconAt, LitPerches.Length > 0):
@@ -1200,8 +1213,8 @@ fnm_boss_mode := class:
                 Print("FNM: boss mode: a second megaboss spawned while one is up (ignored)")
                 return
             if (Character := Agent.GetFortCharacter[]):
-                Character.SetMaxHealth(MegabossHealth)
-                Character.SetHealth(MegabossHealth)
+                Character.SetMaxHealth(Director.MegabossHealth)
+                Character.SetHealth(Director.MegabossHealth)
                 Character.DamagedEvent().Subscribe(OnMegabossDamaged)
                 PinBoss(Character)
                 # The titan is the boss players see (fnm_titan.verse); the Megabrute only holds the health, inside it.
@@ -1225,11 +1238,7 @@ fnm_boss_mode := class:
     # The Megabrute on its platform: back at home (a little above it, so it lands on the marble), facing the entry,
     # held there (FnmBossPin).
     PinBoss(Character:fort_character):void =
-        if (Home := Arena.BossHome?):
-            Spot := Home.Translation + vector3{X := 0.0, Y := 0.0, Z := 150.0}
-            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(-90.0, 0.0, 0.0)]) {}
-        Character.ReleaseFromStasis()
-        Character.PutInStasis(FnmBossPin())
+        FnmPinBoss(Character, Arena.BossHome)
 
     # Any hit on the Megabrute from an agent (a player's gun, a monster's stray shot) is healed straight back: only the
     # pads' Damage (no instigator) brings it down. A player's shot also gets the pad hint.

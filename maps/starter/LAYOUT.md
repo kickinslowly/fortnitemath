@@ -72,24 +72,27 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
 
 ## Boss arena (2026-10-07, G6 item 3)
 Between connector 10 and the finish hallway (`arena()` in `tools/build_course.py`; constants `ARENA_LEN`, `PAD_SIZE`,
-`PAD_SPOTS`, `BOSS_SETTINGS`, `ADDS_SETTINGS`). A station-wide hall 30 m long, walls in the tier-5 colour, every actor
-labelled `FNM_Arena_*` (the connector into it too, so it is painted tier 5 and lidded like a station).
+`PAD_SPOTS`, `ENTRY_Y`, `ADDS_SETTINGS`). A station-wide hall 30 m long (2212 cm wide inside), walls in the tier-5 colour,
+every actor labelled `FNM_Arena_*` (the connector into it too, so it is painted tier 5 and lidded like a station). The
+boss rig on it is `tools/build_race_boss.py`'s (actor tag `fnm_race_boss`, labels `FNM_RaceBoss_*`, BOSS_MODE.md §16):
+rerun it after a course rebuild.
 
 ```
    ═════════════════════   y+3000  gate barrier (fnm_boss_gate): opens per player at the kill, then a 10 m connector
-   │       ┌─────┐       │          to the unchanged finish hallway
-   │       │  B  │       │   y+2600  boss platform, 6 x 4 m, 1 m high; the boss's guard spawner on it (fnm_boss_spawner)
-   │ [C]   └─────┘   [D] │   y+2200  answer pads C (left) and D (right)
+   │                     │          to the unchanged finish hallway
+   │ ==L>  ┌─────┐  <R== │   y+2700  mega cannons L and R (scale 3), barrels on the titan's waist (lasers 5.0 m)
+   │       │  T  │       │   y+2600  boss platform, 6 x 4 m, 1 m high: the Magma Titan (T, 6.3 m) over the hidden Megabrute
+   │ [C]   └─────┘   [D] │   y+2200  answer pads C (left) and D (right), a floating letter over each
    │         a           │   y+1800  adds spawner (fnm_boss_adds): 2 guards with pistols on a wrong pad
-   │ [A]             [B] │   y+800   answer pads A (left) and B (right)
+   │ [A]             [B] │   y+800   answer pads A (left) and B (right), a floating letter over each
    │ S                   │   S = "BOSS ARENA" sign on the left wall
    │        E ↑          │   y+150   entry teleporter (fnm_boss + fnm_entry): arrival and retry point
    └──  ←connector 10──  ┘
 ```
 
 Each answer pad is a `PAD_SIZE` (4.5 m) square tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`)
-with a hidden trigger sensing the whole tile, 1.5 m tall (`trigger_fit`; fnm_boss + fnm_door_a..d), and its letter on a
-board above. A is on the player's left, like door A, so the pads read A B / C D as the HUD lists the choices. Until
+with a hidden trigger sensing the whole tile, 1.5 m tall (`trigger_fit`; fnm_boss + fnm_door_a..d), and a floating 3D
+letter over it (build_race_boss; until 2026-10-11 a letter billboard). A is on the player's left, like door A, so the pads read A B / C D as the HUD lists the choices. Until
 2026-10-09 each pad sensed a 96 cm square 7 cm thick, 80 cm off the floor, in the middle of its tile (the 600 cm per unit
 scale assumption); `DebugAutoRightAnswers` now drops the player `DebugPadOffset` (180 cm) off the centre in x and y.
 A wrong pad brings the adds up to two (`SummonAdds`): it resets the adds spawner only when fewer than two are up, since a
@@ -102,20 +105,29 @@ reset refills its spawn limit and its timer then replaced every add a player kil
   penalty (back to the arena entry) plus the adds. Five team hits kill the boss: every player in the arena finishes
   (the clock stops at the kill), the gate opens for each of them, and they walk on through the finish hallway to the
   victory area. The boss returns 4 s later for the next player.
-- The boss's max health is 100000: the device's option schema says 1..10000 and the Verse digest says "clamped between
-  1 and 10000", but a write of 100000 read back 100000 and the spawned boss reported 100000 of 100000 in play
-  (2026-10-07). A station-10 rocket launcher cannot kill it without the math, so it is not Invincible: the director's
-  `Damage` takes 20000 a hit.
-- **Laser cannons** (2026-10-08, `tools/build_cannon.py`; Aaron: "epic laser cannon blast the boss and the boss flail or
-  get knocked back"): one on each wall `CANNON_Y` (18 m) into the hall, 3.3 m up, aimed at the platform: a gunmetal
-  bracket, turret ball and barrel with a glowing muzzle ring (engine shapes painted `M_fnm_wall_steel` / `_glow`), and
-  at each muzzle a VFX Spawner (LaserBeams burst, Beam_Attack sound; tag `fnm_cannon_fx`). Parked under the platform:
-  a VFX Spawner (LightningBolt_01, Electric_Blast; `fnm_cannon_strike`) and two explosive devices (no damage, medium
-  knockback, audio + VFX; `fnm_cannon_blast`). On every right pad the director (`FireCannons`) enables the muzzle bursts,
-  moves the strike and a blast to the boss's feet and sets them off, knocks the boss back (`ApplyLinearImpulse`, or a
-  1.5 m teleport stagger if the impulse does not move it) and freezes it 0.8 s; the HUD reads DIRECT HIT! N TO GO and the
-  announcer counts the team's hits down. The engine shapes are scenery: Verse cannot find or move them, so the muzzle
-  VFX spawner is the muzzle the director knows about. Rerun after a course rebuild.
+- The boss's max health is 100000 (the director's `MegabossHealth`, set in Verse on the Megabrute since 2026-10-11; the
+  old guard spawner took the same value against its 1..10000 schema). Only a pad's `Damage` takes it down (20000 a hit);
+  every other hit is healed straight back.
+- **The boss rig** (2026-10-11, `tools/build_race_boss.py`; what changed and why: BOSS_MODE.md §16). Positions are from
+  the arena's centre line (+X left) and the start of its floor:
+  - Megabrute creature spawner (`fnm_race_megaboss`) on the platform top at (0, 2600), hidden; four titan clips
+    (`fnm_race_titan` + `fnm_bm_slot_1..4`) with it at `TITAN_SCALE` 2.1 (2.4 put the head against the question panel in play), facing the entry. The beams aim at the waist,
+    `BEAM_AIM` 236 cm over the platform top.
+  - Mega cannons (`FNM_CannonArt/SM_fnm_megacannon`) at (±780, 2700), `CANNON_SCALE` 3, barrels on the waist: footprint
+    x 480..1080, y 2525..2875, so 1.8 m of lane beside the platform, 1 m behind the far pads, 26 cm off the wall, 17°
+    off the view's centre from the entry. Cyan point lights at the coils and the muzzle. A beam marker per cannon
+    (`fnm_race_beam` + slot, the Alphabet "I", hidden in play) from the muzzle point to the waist: 5.0 m
+    (`build_fx.RACE_LENGTH`, NS_fnm_laser_race).
+  - Strike VFX (LightningBolt_03, scale 4; `fnm_cannon_strike`) and two explosive devices (no damage, medium knockback;
+    `fnm_cannon_blast`) parked 6 m under the platform, moved to the boss's feet per hit.
+  - Floating letters (`fnm_race_letter` + slot 1..4) over the pads at 2.3 m, scale 1.5 (3 m tall): with the 40 cm bob
+    the top stays under the lid (5.8 m) and the bottom over a player's head.
+  - On every right pad the director (`FireCannons`) fires three muzzle discharges and Niagara lasers per cannon, the
+    impact at the waist, the strike and a blast at the feet, and knocks the Megabrute (pinned back on the platform after
+    1.5 s); the titan flails; the HUD reads DIRECT HIT! N TO GO and the announcer counts the team's hits down.
+- **Laser cannons, 2026-10-08 to 2026-10-11** (`tools/build_cannon.py`, retired): engine-shape cannons on the walls 18 m
+  in, 3.3 m up, with a VFX Spawner burst at each muzzle (`fnm_cannon_fx`). `build_race_boss.py` removes what is left of
+  them (actor tag `fnm_cannon_rig`).
 
 ## Boss battle arena (2026-10-09, BOSS_MODE.md; colosseum pass the same day)
 The BOSS BATTLE mode's own arena: a round colosseum 140 m east of the course start, on its own slab past the template

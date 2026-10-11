@@ -71,7 +71,9 @@ panel add a **Verse Tag Markup** component and set its tags:
 | Finish teleporter | `fnm_finish` |
 | Boss arena entry teleporter | `fnm_boss` + `fnm_entry` |
 | Boss arena answer-pad trigger | `fnm_boss` + `fnm_door_a` / `_b` / `_c` / `_d` |
-| Boss guard spawner / adds guard spawner / exit gate barrier | `fnm_boss_spawner` / `fnm_boss_adds` / `fnm_boss_gate` |
+| Adds guard spawner / exit gate barrier | `fnm_boss_adds` / `fnm_boss_gate` |
+| Boss arena rig (`tools/build_race_boss.py`): Megabrute creature spawner / titan clip / laser beam marker / pad letter | `fnm_race_megaboss` / `fnm_race_titan` + `fnm_bm_slot_N` / `fnm_race_beam` + slot / `fnm_race_letter` + slot |
+| Boss arena strike VFX / blast explosive devices | `fnm_cannon_strike` / `fnm_cannon_blast` |
 | Audio player per cue (`tools/build_audio.py`, `AUDIO.md`) | `fnm_cue_<id>`: `fnm_cue_countdown3` .. `fnm_cue_music_t5`, one per `fnm_cue` member |
 
 Stations are read 01, 02, ... until the first number with no entry teleporter (max 20). Then place one
