@@ -2317,7 +2317,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Hits := State.Hits
                 Sleep(ExplainDelaySeconds)
                 if (not State.Finished?, State.Hits = Hits, not State.MissedCurrent?, State.Mode = fnm_mode.Race, AtArena(State)?):
-                    Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    # Prefixed "Last one:": it lands under the NEXT question, so it must not read as that question's answer (Aaron 2026-10-11).
+                    Generation := State.Hud.ShowFeedback(FnmLastOne(Item), NamedColors.LightGreen)
                     Print("FNM: arena explanation up")
                     Sleep(CorrectFeedbackSeconds)
                     State.Hud.ClearFeedbackIf(Generation)

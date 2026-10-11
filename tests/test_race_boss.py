@@ -371,7 +371,7 @@ def test_race_explanation_waits_like_boss_modes():
     pad = body_of(d, "HandlePad(State:fnm_player_state, A:fnm_arena, DoorIndex:int)<suspends>:void =")
     right = pad.split("else if (Choice = Item.Answer):", 1)[1].split("\n            else:", 1)[0]
     assert right.index("BossHit(State, A)") < right.index("Hits := State.Hits") < right.index("Sleep(ExplainDelaySeconds)") \
-        < right.index('ShowFeedback("Correct!  " + Item.Explanation')
+        < right.index("ShowFeedback(FnmLastOne(Item)")
     assert "if (not State.Finished?, State.Hits = Hits, not State.MissedCurrent?, State.Mode = fnm_mode.Race, AtArena(State)?):" in right
     assert all_verse().count("ExplainDelaySeconds : float = 2.5") == 1
     assert "Sleep(Director.ExplainDelaySeconds)" in src("fnm_bossmode.verse")
@@ -403,3 +403,10 @@ def test_floating_letters_turn_to_their_own_arenas_players():
     assert "else if (not Race?, State.Mode = fnm_mode.Boss) then true" in watch
     for name, value in (("LetterTurnSeconds", "0.15"), ("LetterBobCm", "40.0"), ("LetterBobSeconds", "4.0")):
         assert verse.count(f"{name} : float = {value}") == 1, name
+
+
+def test_delayed_explanation_says_last_one():
+    """The delayed explanation lands under the next question, so both arenas prefix it "Last one:" (Aaron 2026-10-11)."""
+    assert 'FnmLastOne(Item:fnm_item)<transacts>:string = "Last one:  " + Item.Explanation' in src("fnm_bossmode.verse")
+    assert "ShowFeedback(FnmLastOne(Item)" in src("fnm_bossmode.verse")
+    assert "ShowFeedback(FnmLastOne(Item)" in src("fnm_director.verse")

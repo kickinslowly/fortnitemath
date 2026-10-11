@@ -786,5 +786,13 @@ boss returns `BossRespawnSeconds` later; a wrong pad brings the adds.
   - Every explanation up 2.4-2.5 s after its hit (`arena explanation up`). When it grows the panel it covers the titan's
     head; that is expected.
   - The floating C and D stand in front of the cannons from the entry and hide part of them.
-- **Not seen yet:** a wrong pad (Taunt, the adds) under the titan; a player shooting it (heal + hint); two players;
-  whether the hidden Megabrute's melee reaches a player on pad C or D (the nearest pad corner is about 5 m from it).
+- **Seen in play 2026-10-11 (wrong pads, `DebugStartStage 11` + `DebugAutoWrongAnswers 3`, plus a throwaway probe):**
+  - Three wrong pads: FROZEN, YEET, SPIKED, each with its feed line and feedback; the first brought both pistol guards
+    (`adds summoned`), the next two found them up. Their fire took the shield to 22 by the second; the third
+    (spikes on top) eliminated the player, who came back at the arena entry as designed.
+  - Megabrute reach: a player stood 20 s just off pad C on the platform side (7.7 m from the Megabrute) took no damage,
+    and the Megabrute never moved. It does not attack the pads.
+- **Not seen yet:** the titan's stomp on a wrong pad (`Taunt` is called with the boss up; no frame catches the pose);
+  a player shooting it (heal + hint); two players.
+- **Explanation prefix (Aaron 2026-10-11):** the delayed explanation lands under the NEXT question in both arenas, so it
+  reads "Last one:  <explanation>" (`FnmLastOne`, fnm_bossmode.verse) instead of "Correct!  ...".

@@ -53,6 +53,9 @@ FnmBmPerchesFor(L:int)<transacts>:[]int = FnmBmLevel(L).Perches
 FnmBmWeaponName(L:int)<transacts>:string = FnmBmLevel(L).WeaponName
 FnmBmBannerSub(L:int)<transacts>:string = FnmBmLevel(L).Banner
 
+# A right pad's explanation in both arenas: it shows ExplainDelaySeconds after the hit, under the next question by then.
+FnmLastOne(Item:fnm_item)<transacts>:string = "Last one:  " + Item.Explanation
+
 # Creature kind K (1..5): the creature spawner tagged fnm_bm_creature + fnm_bm_slot_K spawns this type
 # (tools/build_bossmode.py CREATURES, same order).
 FnmBmCreatureName(K:int)<transacts>:string =
@@ -606,7 +609,8 @@ fnm_boss_mode := class:
                 Answered := State.Answered
                 Sleep(Director.ExplainDelaySeconds)
                 if (not State.Finished?, State.Answered = Answered, not State.MissedCurrent?, State.Mode = fnm_mode.Boss):
-                    Shown := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
+                    # Prefixed "Last one:": it lands under the NEXT question, so it must not read as that question's answer (Aaron 2026-10-11).
+                    Shown := State.Hud.ShowFeedback(FnmLastOne(Item), NamedColors.LightGreen)
                     Print("FNM: boss mode explanation up")
                     Sleep(Director.CorrectFeedbackSeconds)
                     State.Hud.ClearFeedbackIf(Shown)
