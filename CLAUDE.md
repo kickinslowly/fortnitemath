@@ -87,6 +87,8 @@ before UEFN work. Project-specific:
   (stand fighters `DebugChestDistance` cm in front of perch N's weapon chest after each summon; press E with
   `tools/playtest.py --no-relaunch --keys E:2.5` right after `--until "debug boss chest"`: `--after` timed out on it).
   `build_bossmode.py --dress` re-places only the perch chests and the pads' floating letters.
+  `build_bossmode.py --cannons` re-places the mega laser cannons (Meshy mesh, needs `python tools/import_cannon.py` once per UEFN
+  project), then the boss rig (BOSS_MODE.md §15d).
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the

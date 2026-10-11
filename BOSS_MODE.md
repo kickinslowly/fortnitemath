@@ -87,11 +87,11 @@ are relative to O = (14000, -14000, 0). Walls 800 high, 40 thick; one hidden col
 | Boss platform | 1 m high, 800 x 500 (§15b; 3.5 m in §15) | engine cube, `M_fnm_wall_bm_marble` | — | 1 |
 | Titan (§15b) | the boss players see: one Animated Mesh device per clip (idle, flail, stomp, dead) on the platform, scale 4 (12 m), facing the entry; Meshy art in `FNM_BossArt/Clip_<clip>` (`tools/import_boss.py`) | `Device_AnimatedMesh` | `fnm_bm_titan` + slot | 4 |
 | Boss (since 2026-10-10, §15) | a Megabrute creature spawner on the platform centre (`build_bossmode.boss_rig`) | `PID_Device_CreatureSpawner_V2` | `fnm_bm_megaboss` | 1 |
-| Cannon beams (§15) | an Alphabet "I" per cannon laid from its muzzle to the boss's chest, Neon Green, no collision | Alphabet prop | `fnm_bm_beam` + slot | 2 |
+| Cannon beams (§15) | an Alphabet "I" per cannon laid from its muzzle to the titan's waist, Aqua (§15d; was Neon Green), no collision | Alphabet prop | `fnm_bm_beam` + slot | 2 |
 | Gates G1..G4 | side walls at y 1200 (G1 right x-2000, G2 left x+2000) and y 3000 (G3 right, G4 left): a 400-wide, 350-tall opening, a 300-deep alcove (back, two sides, roof) in `M_fnm_wall_steel`; monster spawner at the alcove centre facing into the arena; VFX spawner at the mouth, scale 2, LightningBolt_02 + Electric_Blast, Burst, enabled On Phase None | spawner `PID_Device_GuardSpawner_V2`, fx `PID_Device_VFX_Spawner_V2` | spawner `fnm_bm_gate` + `fnm_bm_slot_G`; fx `fnm_bm_gate_fx` + `fnm_bm_slot_G` | 4 + 4 |
 | Perches P1..P4 | P1 FR (-1600, 500) top 180; P2 FL (1600, 500) top 180; P3 BR (-1600, 3500) top 240; P4 BL (1600, 3500) top 240. Top 300 sq (`M_fnm_wall_bm_perch`, gold); stepping stones 120 sq, tops at 60, 120 (and 180 for the 240 perches), 150 edge gap, laid toward the arena centre; hidden trigger 300 x 300 x 200 on the top; beacon VFX on the top, LightningBolt_01, scale 2, enabled On Phase None | trigger, VFX | trigger `fnm_bm_perch` + `fnm_bm_slot_P`; fx `fnm_bm_perch_fx` + `fnm_bm_slot_P` | 4 + 4 |
 | Weapon granters, one per level | parked under the floor (z -600), x = -1200 + 300 L; each bound (`grantItem` ← its trigger's OnTriggered with `TRIGGER_CLASS` memberParent) to a hidden trigger parked beside it; `GRANT_SETTINGS` from build_pickups (Keep All, Only if Not Owned, drop at feet when full) + `equipItemOnGrant` 1; item = the level's weapon | `PID_CP_Devices_ItemGranter`, `PID_Device_Trigger` | trigger `fnm_bm_grant` + `fnm_bm_slot_L` | 5 + 5 |
-| Cannons | one per side wall at y 2200, 3.3 m up, aimed at (0, 3200, platform top + 90): `build_cannon.cannon()` with a label prefix and the bm fx tag | shapes + VFX | `fnm_bm_cannon_fx` | 2 (8 shapes + 2 fx) |
+| Mega cannons (§15d) | the Meshy mesh `SM_fnm_megacannon` at scale 4 (7.6 m) on the sand, 27.2 m from CENTRE at 36° and 144°, barrel on the titan's waist; per cannon a muzzle laser (`_Fx`, where the beam starts) and a lightning zap (`_Zap`) fired with the shot, a coil crackle (LightningBolt_02, Continuous, always on) and two cyan point lights (coils, muzzle) | static mesh, VFX, `PID_Device_PointLight` | `fnm_bm_cannon_fx` (laser + zap) | 2 x (1 mesh + 3 fx + 2 lights) |
 | Strike, blasts, nuke | parked under the platform (z -600): strike VFX (LightningBolt_03, Electric_Blast, scale 5); 2 explosive devices (`build_cannon.BLAST`, knockback "High" (B5; the enum has no "Large"), else Medium); nuke VFX (scale 6; effect: a smoke / explosion / fire entry of the `visual_Effect` enum if one exists, else LightningBolt_01) | VFX, `PID_Device_ExplosiveBarrel` | `fnm_bm_strike`, `fnm_bm_blast`, `fnm_bm_nuke_fx` | 1 + 2 + 1 |
 | Creature spawners (B5) | one per creature kind, just inside a gate's alcove mouth (x = side 2090): Fiend G1, Brute G2, Ranged G3, Red Fiend + Exploding Brute G4 (y -100 / +100); invisible, invincible, off at start, activation range 100, Do Not Despawn, spawn limit on (100), 1 per wave | `PID_Device_CreatureSpawner_V2` | `fnm_bm_creature` + `fnm_bm_slot_K` (K = kind) | 5 |
 | Anger ring | 5 VFX spawners round the platform at radius 650 (angles 198°, 234°, 270°, 306°, 342° from +X, i.e. the near half), floor level, scale 1.5, LightningBolt_01, enabled On Phase None | VFX | `fnm_bm_anger_fx` + `fnm_bm_slot_L` | 5 |
@@ -592,3 +592,44 @@ can answer again (Busy), so they never did this.
   answer is dropped, logged `<pad X> event dropped ... after a right answer`. A late event from the pad a player was
   just teleported off would be checked against the next question and come out wrong. Not seen to happen; if that log
   line ever shows up in a play log, it was this.
+
+### 15d. Mega laser cannons (2026-10-10)
+
+Aaron: "use same meshy process or mint to create the weapons systems that attack the boss, the ones you have right now are
+not styled or cool at all. make them mega cannon lasers. and consider if you can add any fx to them like glowing areas,
+lightning fx etc".
+
+- **The art.** Meshy, 39 credits (1507 -> 1468): a concept image (nano-banana-pro, 9) and image to 3D, meshy-7.1,
+  textured 2K, 40k triangles (30). A gunmetal turret with hazard stripes, gold trim, a plasma-window power core, glowing
+  cyan coils round the barrel and a three-prong muzzle. Task ids in `art/cannon/meshy_tasks.json`, the concept in
+  `art/cannon/concept.png`.
+- **Import** (`python tools/import_cannon.py`, once per UEFN project): `FNM_CannonArt/SM_fnm_megacannon`, a static mesh.
+  - The FBX is the GLB re-exported by Blender (`tools/glb_to_fbx.py`); the importer takes FBX and OBJ only, not GLB.
+  - The texture needs LOD bias 0. Meshy packs it as thousands of small UV islands, and at the import's bias 1 they blurred
+    into brown and teal blotches. Never Stream or NoMipmaps fixes that too, but fails session validation ("Texture needs to
+    support streaming").
+  - Validation warns that LOD0's vertex count is high. It is a warning, not an error.
+  - A deleted static mesh can stay registered under its name ("already exists" on re-import, `exists` true after
+    `delete`), so the mesh is `SM_fnm_megacannon`, not the first try's `SM_fnm_cannon`.
+- **Placement** (`python tools/build_bossmode.py --cannons`, then the boss rig, which re-lays the beams from the new
+  muzzles): one cannon at 36° and one at 144° round CENTRE, 27.2 m out, on the sand, turned onto the titan.
+  - At 0° and 180° (due left and right, where the old wall cannons were) they sat 46° off the view's centre for a player at
+    the entry, out of frame. At 36° they are 27° off and in frame, and the beams cross the view sideways.
+  - 36° keeps clear of gate 4's mouth (20°) and the back perch (55°).
+  - The muzzle is 18.3 m from the titan's waist.
+- **FX.**
+  - Fired with each shot (tag `fnm_bm_cannon_fx`, so `FireCannons` needs no change): the LaserBeams burst at the muzzle and
+    a LightningBolt_03 zap with a lightning-strike sound. The boss-mode log now says `4 muzzles` (2 lasers, 2 zaps).
+  - Always on: a LightningBolt_02 Continuous crackle at the coils, and cyan point lights at the coils and the muzzle (size
+    50%, intensity 60%).
+  - The light's `lightSize` enum refuses writes, but `lightSizePercentage` takes them. At 100 it flooded the bay white.
+  - The beams are Aqua, to match the coils.
+  - The old shapes (bracket, ball, barrel, ring) are gone from the boss arena. The race arena keeps `build_cannon.py`.
+- **Seen in play** (headless, `DebugAutoBoss` + `DebugAutoRightAnswers` + `DebugBossHold 3`): a VICTORY run, 16/16, with
+  `cannons fired (4 muzzles ...)` on every hit. Both cannons are in frame beside the titan, the coils glow cyan, the two
+  Aqua beams meet at the waist, and there are bursts at the muzzles under the nuke flash. Ship defaults restored and
+  compiled.
+- **Not seen yet:**
+  - The coil crackle. It is not visible in any play frame (the cannons are about 38 m from the player there).
+  - The zap on its own, as distinct from the laser burst.
+  - How the cannons read to Aaron up close.

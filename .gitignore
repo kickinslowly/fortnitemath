@@ -11,3 +11,7 @@ __pycache__/
 
 # Bought Meshy boss files the titan does not use (task ids in art/boss/meshy_tasks.json)
 art/boss/unused/
+
+# Meshy cannon sources besides the imported FBX (task ids in art/cannon/meshy_tasks.json)
+art/cannon/raw/*
+!art/cannon/raw/cannon.fbx
