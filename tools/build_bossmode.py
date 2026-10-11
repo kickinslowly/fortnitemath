@@ -227,13 +227,20 @@ DRESS_TAG = "fnm_bm_dress"
 # A chest open for the level is marked (Aaron 2026-10-10: "i can't tell when a chest is active. can we make it glow or have
 # an arrow over it"; BOSS_MODE 15e): a Beacon device in its Arrow style, gold, CHEST_BEACON_Z over the perch top, whose HUD
 # marker reads WEAPON with the distance and shows through walls; and a gold point light CHEST_LIGHT_Z over the chest.
+# The HUD marker needs "beacon to Show" Both: its default, Particle, shows the arrow only, and every Icon Text / distance
+# option is Badge-only. "hide HUD Icon at" is a MAXIMUM range in metres (the marker shows only to players closer than
+# it), so it covers the whole arena. CHEST_BEACON_SCALE is the actor scale; the arrow ignores it unless
+# particlePropAbsoluteScale is off. The badge renders as a gold marker pin with no text in play (42.30): Icon Text and
+# the distance never drew, and an icon from the picker's textures, set by path, fails session validation.
 # Verse switches both with the chest's button (fnm_bm_chest_beacon / fnm_bm_chest_light + slot).
 BEACON = "/CreativeCoreDevices/SetupAssets/PID_Device_Beacon.PID_Device_Beacon"
 GOLD = {"r": 1.0, "g": 0.75, "b": 0.1, "a": 1.0}
-CHEST_BEACON = {"beacon Particle Style": "Arrow", "beacon Color": "Direct Color", "custom Beacon Color": GOLD,
+CHEST_BEACON = {"beacon to Show": "Both", "showOffscreenArrow": True, "badge uses Beacon Color": True, "particlePropAbsoluteScale": False,
+                "beacon Particle Style": "Arrow", "beacon Color": "Direct Color", "custom Beacon Color": GOLD,
                 "neutral Icon Text": "WEAPON", "friendly Icon Text": "WEAPON", "hostile Icon Text": "WEAPON",
-                "requires Line of Sight": False, "displayDistanceText": True, "hide HUD Icon at": 3}
-CHEST_BEACON_Z = 260
+                "requires Line of Sight": False, "displayDistanceText": True, "hide HUD Icon at": 100}
+CHEST_BEACON_SCALE = 2.0
+CHEST_BEACON_Z = 120
 CHEST_LIGHT = {"lightColor": GOLD, "lightSizePercentage": 50, "lightIntensityPercentage": 100, "enabledDuringPhase": "Always"}
 CHEST_LIGHT_Z = 220
 GRANT_X0, GRANT_DX, GRANT_Y, GRANT_TRIGGER_Y = -1200, 300, 600, 300
@@ -822,7 +829,8 @@ def dress(project=None):
         tagged(button, f"FNM_BM_Chest{k}_Button", DRESS_TAG)
         verse_tags(button, project, ["fnm_bm_chest", f"fnm_bm_slot_{k}"])
         options(button, CHEST_BUTTON, f"Chest{k}_Button")
-        beacon = device(BEACON, f"FNM_BM_Chest{k}_Beacon", px - toward * CHEST_BACK, py, z0 + top + CHEST_BEACON_Z)
+        beacon = device(BEACON, f"FNM_BM_Chest{k}_Beacon", px - toward * CHEST_BACK, py, z0 + top + CHEST_BEACON_Z,
+                        sx=CHEST_BEACON_SCALE)
         tagged(beacon, f"FNM_BM_Chest{k}_Beacon", DRESS_TAG)
         verse_tags(beacon, project, ["fnm_bm_chest_beacon", f"fnm_bm_slot_{k}"])
         options(beacon, CHEST_BEACON, f"Chest{k}_Beacon")

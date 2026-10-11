@@ -647,6 +647,13 @@ Aaron: "i can't tell when a chest is active. can we make it glow or have an arro
   - From 20 m, a gold chevron arrow over the chest with a gold halo round it, and the perch washed gold.
   - At level 2 chest 1 is dark again.
 - **Not seen:** the beacon's HUD marker "WEAPON" (with distance, through walls). It did not appear in any frame.
+  Cause (2026-10-10 follow-up): `beacon to Show` defaulted to Particle (the badge was off; every Icon Text / distance
+  option is Badge-only), and `hide HUD Icon at` is a MAXIMUM range, set to 3 m. Now Both, 100 m, `showOffscreenArrow`.
+  In play the badge draws as a gold marker pin over the arrow, seen from 30 m; at 20 m it sits behind the question
+  panel. Its text (WEAPON, the distance) never drew, and a picker icon set by path fails session validation.
+- **Bigger arrow:** actor scale 2 (`CHEST_BEACON_SCALE`) with `particlePropAbsoluteScale` off (on, the arrow ignores the
+  actor's scale), 1.2 m over the perch top. Seen in play from 20 m and 30 m: a gold double chevron over the chest, clear
+  of the panel.
 
 ### 15f. Niagara lasers (2026-10-10)
 
