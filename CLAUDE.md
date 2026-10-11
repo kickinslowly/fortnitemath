@@ -89,6 +89,8 @@ before UEFN work. Project-specific:
   `build_bossmode.py --dress` re-places only the perch chests and the pads' floating letters.
   `build_bossmode.py --cannons` re-places the mega laser cannons (Meshy mesh, needs `python tools/import_cannon.py` once per UEFN
   project), then the boss rig (BOSS_MODE.md §15d).
+  `tools/build_fx.py` builds the Niagara lasers and impact (`FNM_FX`, spawned by `console/verse/fnm_fx.verse`; rerun after
+  moving a cannon: the beam length is baked, BOSS_MODE.md §15f).
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the

@@ -224,6 +224,18 @@ CHEST_BACK = 50
 CHEST_BUTTON = {"visibleDuringGame": False, "interactTime": 1.0, "interaction Text": "Open Weapon Chest",
                 "interactionRadius": 1.5, "enabledAtGameStart": False}
 DRESS_TAG = "fnm_bm_dress"
+# A chest open for the level is marked (Aaron 2026-10-10: "i can't tell when a chest is active. can we make it glow or have
+# an arrow over it"; BOSS_MODE 15e): a Beacon device in its Arrow style, gold, CHEST_BEACON_Z over the perch top, whose HUD
+# marker reads WEAPON with the distance and shows through walls; and a gold point light CHEST_LIGHT_Z over the chest.
+# Verse switches both with the chest's button (fnm_bm_chest_beacon / fnm_bm_chest_light + slot).
+BEACON = "/CreativeCoreDevices/SetupAssets/PID_Device_Beacon.PID_Device_Beacon"
+GOLD = {"r": 1.0, "g": 0.75, "b": 0.1, "a": 1.0}
+CHEST_BEACON = {"beacon Particle Style": "Arrow", "beacon Color": "Direct Color", "custom Beacon Color": GOLD,
+                "neutral Icon Text": "WEAPON", "friendly Icon Text": "WEAPON", "hostile Icon Text": "WEAPON",
+                "requires Line of Sight": False, "displayDistanceText": True, "hide HUD Icon at": 3}
+CHEST_BEACON_Z = 260
+CHEST_LIGHT = {"lightColor": GOLD, "lightSizePercentage": 50, "lightIntensityPercentage": 100, "enabledDuringPhase": "Always"}
+CHEST_LIGHT_Z = 220
 GRANT_X0, GRANT_DX, GRANT_Y, GRANT_TRIGGER_Y = -1200, 300, 600, 300
 # The cannon rig: one cannon on the podium due left and due right (slots 9 and 27, where the ring's face runs along Y),
 # CANNON_Y in from ORIGIN, aimed at the platform top + build_cannon.BOSS_EYE.
@@ -810,7 +822,15 @@ def dress(project=None):
         tagged(button, f"FNM_BM_Chest{k}_Button", DRESS_TAG)
         verse_tags(button, project, ["fnm_bm_chest", f"fnm_bm_slot_{k}"])
         options(button, CHEST_BUTTON, f"Chest{k}_Button")
-    print("4 weapon chests on the perches (buttons off)")
+        beacon = device(BEACON, f"FNM_BM_Chest{k}_Beacon", px - toward * CHEST_BACK, py, z0 + top + CHEST_BEACON_Z)
+        tagged(beacon, f"FNM_BM_Chest{k}_Beacon", DRESS_TAG)
+        verse_tags(beacon, project, ["fnm_bm_chest_beacon", f"fnm_bm_slot_{k}"])
+        options(beacon, CHEST_BEACON, f"Chest{k}_Beacon")
+        light = device(POINT_LIGHT, f"FNM_BM_Chest{k}_Light", px - toward * CHEST_BACK, py, z0 + top + CHEST_LIGHT_Z)
+        tagged(light, f"FNM_BM_Chest{k}_Light", DRESS_TAG)
+        verse_tags(light, project, ["fnm_bm_chest_light", f"fnm_bm_slot_{k}"])
+        options(light, CHEST_LIGHT, f"Chest{k}_Light")
+    print("4 weapon chests on the perches (buttons off), each with an arrow beacon and a gold light")
 
     granters = [a for a in placed() if re.fullmatch(r"FNM_BM_Grant\d_Granter", a.get("label", ""))]
     for a in granters:

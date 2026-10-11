@@ -561,6 +561,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # cannons"): BeamShots shots per hit, each growing out of the muzzle to the boss in BeamTravelSeconds, held
     # BeamHoldSeconds, then BeamGapSeconds dark.
     BeamShots : int = 3
+    # The boss arena's shots are Niagara lasers (FNM_FX, tools/build_fx.py) instead of the stretched Alphabet "I" prop.
+    NiagaraLaser : logic = true
+    BeamPropHeight : float = 201.3      # the Alphabet "I" at scale 1 (build_bossmode BEAM_H): the beam's length is Scale.Z times this
     BeamTravelSeconds : float = 0.15
     BeamHoldSeconds : float = 0.35
     BeamGapSeconds : float = 0.08
@@ -2472,7 +2475,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Fx.Restart()
         # Beams first: the strike and the blast land as the first shot reaches the boss.
         for (K -> Beam : Rig.Beams, Full := Rig.BeamFull[K]):
-            spawn{ FireBeam(Beam, Full) }
+            spawn{ FireBeam(Beam, Full, if (K = 0) then true else false) }
         if (Rig.Beams.Length > 0):
             Sleep(BeamTravelSeconds)
         if (Fx := StrikeFx?, Fx.TeleportTo[Feet, Level]):
@@ -2544,7 +2547,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # One cannon's laser for a hit: BeamShots times the beam prop grows out of the muzzle to the boss (its placed, full
     # transform; tools/build_bossmode.py boss_rig), holds and goes dark. TeleportTo after the move in case MoveTo does not
     # carry the scale.
-    FireBeam(Beam:creative_prop, Full:transform)<suspends>:void =
+    # NiagaraLaser (BOSS_MODE 15f): each shot is the Niagara laser (fnm_fx.verse) along the beam prop's axis, and the
+    # prop stays hidden; the first shot also sets off the impact at the far end (Impact: one beam of the pair does it).
+    FireBeam(Beam:creative_prop, Full:transform, Impact:logic)<suspends>:void =
+        if (NiagaraLaser?):
+            Dir := Full.Rotation.GetLocalUp()
+            for (Shot := 1..BeamShots):
+                FnmSpawnLaser(Full.Translation, Dir)
+                if (Shot = 1, Impact?):
+                    spawn{ LaserImpact(Full.Translation + Dir * (Full.Scale.Z * BeamPropHeight)) }
+                Sleep(BeamTravelSeconds + BeamHoldSeconds + BeamGapSeconds)
+            return
         Short := transform{Translation := Full.Translation, Rotation := Full.Rotation, Scale := vector3{X := Full.Scale.X, Y := Full.Scale.Y, Z := 0.02}}
         for (Shot := 1..BeamShots):
             if (Beam.TeleportTo[Short]) {}
@@ -2554,6 +2567,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Sleep(BeamHoldSeconds)
             Beam.Hide()
             Sleep(BeamGapSeconds)
+
+    LaserImpact(At:vector3)<suspends>:void =
+        Sleep(BeamTravelSeconds)
+        FnmSpawnImpact(At)
 
     # ---------------------------------------------------------------- pickup pads (Aaron 2026-10-08)
 

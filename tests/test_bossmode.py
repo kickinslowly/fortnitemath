@@ -85,7 +85,9 @@ def test_every_bm_tag_the_runtime_names_is_declared():
     used |= set(re.findall(r"Has\[(fnm_bm\w*)\{\}\]", runtime))
     expected = {"fnm_bm", "fnm_bm_boss", "fnm_bm_gate", "fnm_bm_gate_fx", "fnm_bm_perch", "fnm_bm_perch_fx",
                 "fnm_bm_grant", "fnm_bm_cannon_fx", "fnm_bm_strike", "fnm_bm_blast", "fnm_bm_nuke_fx",
-                "fnm_bm_anger_fx", "fnm_bm_creature", "fnm_bm_chest", "fnm_bm_letter"} | {f"fnm_bm_slot_{n}" for n in range(1, 6)}
+                "fnm_bm_anger_fx", "fnm_bm_creature", "fnm_bm_chest", "fnm_bm_letter",
+                "fnm_bm_megaboss", "fnm_bm_beam", "fnm_bm_titan",
+                "fnm_bm_chest_beacon", "fnm_bm_chest_light"} | {f"fnm_bm_slot_{n}" for n in range(1, 6)}
     assert used == expected
     assert used <= declared, used - declared
 
@@ -324,7 +326,9 @@ def test_boss_line_refreshes_on_hit_and_kill():
     cleared = body_of(text, "LevelCleared():void =")
     assert "set Downed = true" in cleared and "RefreshBossLines()" in cleared
     assert cleared.index("set BossAlive = false") < cleared.index("RefreshBossLines()")
-    assert 'return "BOSS  ----------  0%   -   LEVEL {Level} CLEARED!"' in body_of(text, "BossLine(State:fnm_player_state):string =")
+    # the bottom boss bar (BOSS_MODE 15) reads 0% / CLEARED while Downed
+    bar = body_of(text, "ShowBossBar(State:fnm_player_state):void =")
+    assert 'State.Hud.SetBossBar(Name, 0, "DEFEATED!   LEVEL {Level} CLEARED")' in bar and bar.index("Downed?") < bar.index("CLEARED")
 
 
 def test_banner_sits_between_slate_and_verdict():

@@ -18,9 +18,10 @@ import uefn_mcp as u  # noqa: E402
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 STATIC = "editor_toolset.toolsets.static_mesh.StaticMeshTools"
 OBJ = "editor_toolset.toolsets.object.ObjectTools"
-# Meshy packs the texture as thousands of small UV islands: at the import's LOD bias 1 they blurred into brown and teal
-# blotches (editor frames 2026-10-10). LOD bias 0 reads clean. Never Stream / NoMipmaps fail session validation
-# ("Texture needs to support streaming"), so the mips stay.
+# Full-size texture in play: the import's LOD bias 1 drops the top mip. (Brown and teal blotches in editor captures are not
+# this: the editor streams mips for its main viewport camera, not the capture's, so a freshly built texture shows its low
+# mips in tools/capture.py frames; play streams by the player's camera. Never Stream / NoMipmaps would hide it in the
+# editor but fail session validation, "Texture needs to support streaming".)
 TEXTURE = {"lODBias": 0}
 RAW = Path(__file__).resolve().parent.parent / "art" / "cannon" / "raw"
 MESH = "SM_fnm_megacannon"

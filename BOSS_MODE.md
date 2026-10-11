@@ -633,3 +633,45 @@ lightning fx etc".
   - The coil crackle. It is not visible in any play frame (the cannons are about 38 m from the player there).
   - The zap on its own, as distinct from the laser burst.
   - How the cannons read to Aaron up close.
+
+### 15e. Active chest marks (2026-10-10)
+
+Aaron: "i can't tell when a chest is active. can we make it glow or have an arrow over it or something?"
+
+- Each perch's chest has a Beacon device in its Arrow style, gold, 2.6 m over the perch top, plus a gold Customizable
+  Light 2.2 m over it (`build_bossmode.py --dress`; tags `fnm_bm_chest_beacon` / `fnm_bm_chest_light` + slot).
+- `LightPerches` switches them with the chest's button through `MarkChest(P, On)`; the reset turns them all off. The setup
+  log line now reads `4 chests (8 chest beacons + lights)`.
+- At 4 m the arrow sat behind the question panel from the ground.
+- **Seen in play** (`DebugBossChest 1`, `DebugChestDistance` 150, 1200 and 2000):
+  - From 20 m, a gold chevron arrow over the chest with a gold halo round it, and the perch washed gold.
+  - At level 2 chest 1 is dark again.
+- **Not seen:** the beacon's HUD marker "WEAPON" (with distance, through walls). It did not appear in any frame.
+
+### 15f. Niagara lasers (2026-10-10)
+
+Aaron: "the fx we use as laser rays ... are just simple 3d shapes. do we have a particle fx library to pull from to really
+make that tasty?"
+
+- **The library.** The VFX Spawner's own Niagara systems (53, in `/CRD_VFX_Spawner/Assets/Niagara`) cannot be copied
+  into the project, and Fortnite's `/Game/Effects` fails validation. UEFN's MCP can author Niagara systems, though, and
+  Verse can spawn any system in the project (`SpawnParticleSystem`). So we build our own.
+- **`tools/build_fx.py`** (Opus-built from a brief; engine `/Niagara` content only) makes two systems:
+  - `FNM_FX/NS_fnm_laser`: a 3 m soft cyan glow tube, a 90 cm white-hot core, two jagged lightning strands, and flashes
+    and sparks at the muzzle and at the hit. It runs 18.3 m along local +X, on for 0.5 s and gone by 0.8 s.
+  - `FNM_FX/NS_fnm_impact`: a flash, a shock ring about 5 m across, sparks and four arcs, lasting 1.6 s.
+- **Runtime.** `console/verse/fnm_fx.verse` holds `FnmSpawnLaser(At, Dir)` and `FnmSpawnImpact(At)`.
+  - When `NiagaraLaser` is set (the default), `FireBeam` fires one laser per shot (3 per hit) along each beam prop's axis,
+    and the prop stays hidden.
+  - The first beam's first shot also fires the impact at the beam's far end.
+  - The Alphabet-"I" path stays as a fallback (`NiagaraLaser` false).
+- The laser's length is baked, because Verse cannot set user parameters.
+  `test_niagara_laser_length_matches_the_cannons` ties `build_fx.LENGTH` to the cannons' geometry. Rebuild the systems
+  after moving a cannon.
+- **Seen in play** (`DebugAutoBoss` + `DebugAutoRightAnswers` + `DebugBossHold 8`):
+  - Both lasers glow cyan with lightning strands and sparks, and meet at the titan's waist with the impact flash there.
+  - The session validates.
+  - The titan's lava cracks are crisp.
+- **The titan's texture.** The blotchy titan in editor captures is an editor streaming artifact, not the texture (see the
+  `uefn-mcp` skill). `import_boss.py` and `import_cannon.py` now set LOD bias 0, so the top mip is kept in play.
+

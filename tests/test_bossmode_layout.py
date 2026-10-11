@@ -121,31 +121,37 @@ def test_podium_ring_closes():
     assert [b.slot_angle(b.slot_of(d)) for d in b.GATES] == b.GATES
 
 
-def test_cannons_on_the_walls_short_of_the_platform():
-    import build_cannon as cn
-    assert 0 < b.CANNON_Y < b.PLATFORM_Y - b.PLATFORM_D / 2
-    assert b.CANNON_Y == b.CENTRE[1]          # due left and right, where the ring's face runs along Y
-    assert cn.CANNON_Z + cn.BALL_D + cn.RING_D < b.WALL_H
-    for deg in b.GATES:                       # not over a gate opening
-        assert _off(deg, 0) > 10 and _off(deg, 180) > 10
+def test_mega_cannons_in_view_and_clear_of_gates_and_perches():
+    """BOSS_MODE 15d: the mega cannons stand on the sand at CANNON_DEG / 180 - CANNON_DEG, inside the podium, in frame for a
+    player at the entry (under ~40 degrees off the view's centre), clear of every gate mouth and perch."""
+    import math
+    for deg in (b.CANNON_DEG, 180 - b.CANNON_DEG):
+        x, y = b.polar(b.CANNON_R, deg)
+        tail = b.CANNON_R + b.CANNON_SCALE * 95          # its tail at worst points straight at the wall
+        assert tail < b.ARENA_R, tail
+        assert math.degrees(math.atan2(abs(x), y - b.ENTRY[1])) < 40
+        for g_deg in b.GATES:
+            assert _off(deg, g_deg) >= 15, (deg, g_deg)
+        for px, py, _ in b.PERCHES:
+            assert math.hypot(px - x, py - y) > b.PERCH_TOP / 2 + b.CANNON_SCALE * 48, (deg, px, py)
 
 
-def test_boss_weapons_accepted_and_not_one_shot():
+def test_gate_weapons_accepted():
+    """The per-level guard bosses and their weapons are gone (BOSS_MODE 15: one Megabrute, under the titan); the gate
+    guards' weapons must still be ones the guard spawner takes."""
     accepted = set(g.WEAPONS) | {b._W.format(n) for n in ("WID_Assault_Heavy_Athena_VR_Ore_T03", "WID_Assault_Heavy_Athena_R_Ore_T03")}
-    # Assault_Heavy R/VR are in build_guards' probed accepted list (its docstring), not in its station table.
-    assert "Assault_Heavy R/VR/SR" in g.__doc__ or "Assault_Heavy R/VR/SR" in Path(g.__file__).read_text(encoding="utf-8")
-    assert len(b.BOSS_WEAPONS) == 5
-    for w in b.BOSS_WEAPONS + b.GATE_WEAPONS:
+    for w in b.GATE_WEAPONS:
         assert w in accepted, w
-    for w in b.BOSS_WEAPONS:
-        assert "Sniper" not in w and "Launcher" not in w
+    assert not hasattr(b, "BOSS_WEAPONS")
 
 
 def test_gate_settings():
     s = b.GATE_SETTINGS
     assert s["spawnOnTimer"] is False and s["despawnGuardsWhenDisabled"] is True and s["spawnCount"] == 2
     assert s["guardTeamOption"] == g.SETTINGS["guardTeamOption"]
-    assert b.BOSS_SETTINGS is c.BOSS_SETTINGS and b.BOSS_HEALTH_ASK == 100000.0
+    # the boss is the pinned Megabrute (BOSS_MODE 15), off until SpawnBoss pulses it
+    assert b.MEGABOSS_SETTINGS["creature Type"] == b.MEGABOSS
+    assert b.CREATURE_SETTINGS["enabled at Game Start"] is False
 
 
 def test_guards_bosses_and_creatures_are_one_team():
@@ -174,15 +180,13 @@ def test_grant_weapons_follow_the_level_table():
     assert len(rows) == 5
     perch_wids = [re.findall(r"WID_\w+", row)[-1] for row in rows]   # the weapon-perch column is the last WID in a row
     assert [w.rsplit(".", 1)[1] for w in b.GRANT_WEAPONS] == perch_wids
-    boss_wids = [re.findall(r"WID_\w+", row)[0] for row in rows]
-    assert [w.rsplit(".", 1)[1] for w in b.BOSS_WEAPONS] == boss_wids
     assert b.GRANT_SETTINGS["equipItemOnGrant"] == 1
 
 
 def test_every_tag_the_tool_writes_is_declared():
     tags = (ROOT / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
     src = (ROOT / "tools" / "build_bossmode.py").read_text(encoding="utf-8")
-    names = set(re.findall(r'"(fnm_[a-z0-9_]+)"', src)) - {b.TAG, b.DRESS_TAG, "fnm_test"}   # actor tags, not Verse tags
+    names = set(re.findall(r'"(fnm_[a-z0-9_]+)"', src)) - {b.TAG, b.DRESS_TAG, b.BOSS_RIG_TAG, "fnm_test"}   # actor tags, not Verse tags
     names |= {f"fnm_bm_slot_{k}" for k in range(1, 6)} | {f"fnm_door_{x}" for x in "abcd"}
     assert "fnm_bm_gate" in names and "fnm_bm_cannon_fx" in names
     for name in sorted(names):
@@ -256,3 +260,18 @@ def test_trigger_detection_box_covers_the_pad_and_the_perch_top():
     assert (round(w), round(d), round(lo), round(hi)) == (c.PAD_SIZE, c.PAD_SIZE, 2, 2 + c.PAD_H)
     # disproof of the old recipe: scale w / 600 gives a box a fraction of the perch
     assert 2 * b.STEP_BOX[0] * (b.PERCH_TOP / 600) < b.PERCH_TOP / 2
+
+
+def test_niagara_laser_length_matches_the_cannons():
+    """NS_fnm_laser's beam is baked (Verse cannot set its user parameters): its length must be the mega cannons'
+    muzzle-to-waist distance (BOSS_MODE 15f), within 30 cm. Rebuild with tools/build_fx.py after moving a cannon."""
+    import math
+    import build_fx
+    ax, ay, _ = b.boss_aim()
+    tz = b.FLOOR_Z + b.PLATFORM_H + b.BEAM_AIM
+    bx, by = b.polar(b.CANNON_R, b.CANNON_DEG)
+    heading = math.atan2(ay - by, ax - bx)
+    f = b.CANNON_MUZZLE[1] * b.CANNON_SCALE + 40
+    mx, my = bx + f * math.cos(heading), by + f * math.sin(heading)
+    mz = b.FLOOR_Z + b.CANNON_HALF_H * b.CANNON_SCALE + b.CANNON_MUZZLE[2] * b.CANNON_SCALE
+    assert abs(math.hypot(ax - mx, ay - my, tz - mz) - build_fx.LENGTH) < 30

@@ -9,6 +9,7 @@ skeleton into FNM_BossArt/Clip_<clip> (SK_fnm_titan_<clip> + A_fnm_titan_<clip>)
 rig file instead, a clip whose hips turn or tip played on the wrong axis (the knockdown spun standing, the chest pound
 tipped flat; play frames 2026-10-10), so the rig file is not used. dead_8 is the fall (plays once, BOSS_MODE 15b).
 """
+import json
 import sys
 from pathlib import Path
 
@@ -17,6 +18,7 @@ import uefn_mcp as u  # noqa: E402
 
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 SKEL = "editor_toolset.toolsets.skeletal_mesh.SkeletalMeshTools"
+OBJ = "editor_toolset.toolsets.object.ObjectTools"
 RAW = Path(__file__).resolve().parent.parent / "art" / "boss" / "raw"
 # The clips the titan uses (build_bossmode TITAN_CLIPS). chestpound_88 and knockdown_187 were bought too and sit in
 # art/boss/unused (not committed; Meshy task ids in art/boss/meshy_tasks.json): they misplay on the device (BOSS_MODE 15b).
@@ -42,6 +44,9 @@ def main():
                                      "import_materials": True, "import_textures": True, "import_animations": True})
         for a in u.call(ASSETS, "find_assets", {"folder_path": sub, "name": f"{mesh}_Anim", "recursive": False})["returnValue"]:
             u.call(ASSETS, "move", {"path": a.split(".")[0], "new_path": f"{sub}/A_fnm_titan_{clip}"})
+    # Full-size textures in play: the import's LOD bias 1 drops the top mip (2048 -> 1024) on a 12 m monster.
+    for t in u.call(ASSETS, "find_assets", {"folder_path": folder, "name": "baseColor", "recursive": True})["returnValue"]:
+        u.call(OBJ, "set_properties", {"instance": {"refPath": t}, "values": json.dumps({"lODBias": 0})})
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     for a in u.call(ASSETS, "find_assets", {"folder_path": folder, "name": "", "recursive": True})["returnValue"]:
         print(" ", a)

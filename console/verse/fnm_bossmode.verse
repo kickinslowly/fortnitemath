@@ -170,6 +170,10 @@ fnm_bm_arena := class:
     var Creatures : []?creature_spawner_device = array{false, false, false, false, false}
     # A weapon chest's hidden button per perch (off until its level's drop) and a floating letter per pad (A..D).
     var Chests : []?button_device = array{false, false, false, false}
+    # What marks a chest that is open for the level (Aaron 2026-10-10: "i can't tell when a chest is active"; BOSS_MODE
+    # 15e): a gold arrow beacon over it, with a WEAPON marker on the HUD, and a gold light on it.
+    var ChestBeacons : []?beacon_device = array{false, false, false, false}
+    var ChestLights : []?customizable_light_device = array{false, false, false, false}
     var Letters : []?creative_prop = array{false, false, false, false}
     # The boss since 2026-10-10: a Megabrute creature spawner on the platform (its transform is where the boss is held);
     # without one the per-level guard boss spawners above serve.
@@ -216,6 +220,12 @@ fnm_bm_arena := class:
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_chest), Chest := button_device[Object]):
             Chest.Disable()
             if (set Chests[SlotOf(Object) - 1] = option{Chest}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_chest_beacon), Beacon := beacon_device[Object]):
+            Beacon.Disable()
+            if (set ChestBeacons[SlotOf(Object) - 1] = option{Beacon}) {}
+        for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_chest_light), Light := customizable_light_device[Object]):
+            Light.TurnOff()
+            if (set ChestLights[SlotOf(Object) - 1] = option{Light}) {}
         for (Object : Director.FindCreativeObjectsWithTag(fnm_bm_letter), Letter := creative_prop[Object]):
             set Letter.CanBeDamaged = false
             if (set Letters[SlotOf(Object) - 1] = option{Letter}) {}
@@ -269,6 +279,21 @@ fnm_bm_arena := class:
     CountChests(Items:[]?button_device):int =
         var N : int = 0
         for (Item : Items, Item?):
+            set N += 1
+        N
+
+    # Chest P's marks (beacon and light) on or off.
+    MarkChest(P:int, On:logic):void =
+        if (MaybeBeacon := ChestBeacons[P - 1], Beacon := MaybeBeacon?):
+            if (On?) then Beacon.Enable() else Beacon.Disable()
+        if (MaybeLight := ChestLights[P - 1], Light := MaybeLight?):
+            if (On?) then Light.TurnOn() else Light.TurnOff()
+
+    CountMarks():int =
+        var N : int = 0
+        for (Item : ChestBeacons, Item?):
+            set N += 1
+        for (Item : ChestLights, Item?):
             set N += 1
         N
 
@@ -390,7 +415,7 @@ fnm_boss_mode := class:
         Arena.Titan.Reset()
         Print("FNM: boss mode: arena found: {Arena.Station.Doors.Length} pads, {Arena.CountSpawners(Arena.Gates)} gates, {Arena.CountTriggers(Arena.PerchTriggers)} perches, {Arena.CountSpawners(Arena.BossSpawners)} boss spawners, {Arena.CountTriggers(Arena.GrantTriggers)} granters, {Arena.Rig.Fx.Length} cannons")
         Print("FNM: boss mode: fx {Arena.CountFx(Arena.GateFx)} gate, {Arena.CountFx(Arena.PerchFx)} perch, {Arena.CountFx(Arena.AngerFx)} anger, strike {FnmYesNo(if (Arena.Rig.Strike?) then true else false)}, nuke {FnmYesNo(if (Arena.Rig.Nuke?) then true else false)}, {Arena.Rig.Blasts.Parts.Length} blasts")
-        Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests, {Arena.CountLetters(Arena.Letters)} letters")
+        Print("FNM: boss mode: {Arena.CountCreatures(Arena.Creatures)} creature spawners, {Arena.CountChests(Arena.Chests)} chests ({Arena.CountMarks()} chest beacons + lights), {Arena.CountLetters(Arena.Letters)} letters")
         for (K -> MaybeLetter : Arena.Letters, Letter := MaybeLetter?):
             spawn{ FaceLetter(Letter, Letter.GetTransform().Translation, K) }
 
@@ -940,6 +965,8 @@ fnm_boss_mode := class:
                 Chest.Enable()
             else:
                 Chest.Disable()
+        for (P := 1..4):
+            Arena.MarkChest(P, IsLit(P))
 
     # The boss went down (its EliminatedEvent, or BossLoop's backstop): the level is cleared for everyone; the next one
     # is summoned BmRespawnSeconds later, or after level 5 it is the victory.
@@ -1071,6 +1098,8 @@ fnm_boss_mode := class:
             Fx.Disable()
         for (MaybeChest : Arena.Chests, Chest := MaybeChest?):
             Chest.Disable()
+        for (P := 1..4):
+            Arena.MarkChest(P, false)
 
     # ------------------------------------------------ loops and events
 
