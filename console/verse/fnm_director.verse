@@ -19,15 +19,23 @@
 # (-1), DebugAutoRightAnswers (false), DebugVictoryTest (false), DebugStartStage (0), DebugIgnoreTriggerEvents (false), DebugAutoRightOffsetY (0.0),
 # DebugAutoBoss (false: a joining player starts BOSS BATTLE with no menu, wins over DebugAutoPick), DebugBossLevel (0: boss
 # mode starts at that level, a Partial run), DebugBossHold (0.0: the boss auto-run waits that long before each pad),
-# DebugBossChest (0: after each summon, stand every fighter on that perch facing its weapon chest).
+# DebugBossChest (0: after each summon, stand every fighter on that perch facing its weapon chest). DebugAutoWrongAnswers N
+# with DebugAutoRightAnswers: the auto-right run takes up to two wrong doors at each station of run 1 first, N in all.
 # BOSS BATTLE mode (BOSS_MODE.md, fnm_bossmode.verse): a player whose Mode is Boss plays in the fnm_bm arena; their pads,
 # perches, respawns and finish go to BossMode. Race code paths ignore them (StationOccupied, WatchDoors/Skip/Ice).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
 # backstop (WatchDoors) answers for a player who stands anywhere in a door's vestibule when no trigger event was taken.
-# Wrong door  -> big red X, that choice's Feedback, a random penalty from Penalties, same question.
-# Right door  -> big green check, next question, and the way on opens at once (no stall): that door's
-#                barrier lets them through, or a teleport to NextTeleporter. The Explanation stays on the
-#                HUD for CorrectFeedbackSeconds while the player moves on.
+# Wrong door  -> big red X and +3 s on the race clock, that choice's Feedback, a random penalty from Penalties (a hold of
+#                about 2.5 s where they stand), then the station's retry spot 6 m in front of its doors (G9: not back past
+#                every obstacle and guard) and the same question with its letters shuffled again.
+# Right door  -> big green check, and the way on opens at once (no stall): that door's barrier lets them
+#                through, or a teleport to NextTeleporter. The slate shows the solved item as a recap card (right
+#                tile lit, the Explanation, "CORRECT!  -1.8 s") for RecapSeconds while they run on, then the next
+#                question (G9; it used to put "Correct! <explanation>" under the NEXT question).
+# The race finale: when the titan falls, every finisher is stood at the podium (RACE AGAIN / NEW SKILL) PodiumSeconds
+#                later (G9). Station 1 shows tutorial captions on a player's first run of the session; the rivals
+#                strip shows the top 3, the rival just ahead and you; a wrong door's feed line goes to the victim alone
+#                (the leader's stays public).
 # After the last station -> a finish board hung from the top of the screen: time, medal, personal best, island
 #                record (with the holder's name), first-try accuracy and the session's top times (best per player).
 #                It captures no input: the player walks straight on into the victory area while it shows, and it
@@ -82,6 +90,24 @@ fnm_race_entry := class:
     Score : float
     Tail : string
 
+# A solved item for the recap card (fnm_director Recap, fnm_hud ShowRecap): its prompt, its choices in the order they
+# were shown (tile K = door K), the door that was right, the worked steps and the verdict line ("CORRECT!  -1.8 s").
+fnm_recap := struct:
+    Prompt : string
+    Choices : []string
+    Right : int
+    Steps : string
+    Verdict : string
+
+# The finish board's record line: the record is the session's (fnm_director Boards lives in memory), so it says so (G9).
+FnmTodayRecord<localizes>(Time:string, Who:agent, Tail:string):message = "Today's record   {Time}  by {Who}{Tail}"
+
+# Flat (x, y) distance from A to B in metres with one decimal, for log lines.
+FnmMetres(A:vector3, B:vector3)<transacts>:string =
+    D := Distance(vector3{X := A.X, Y := A.Y, Z := 0.0}, vector3{X := B.X, Y := B.Y, Z := 0.0})
+    Tenths := if (T := Round[D / 10.0]) then T else 0
+    "{FnmDiv(Tenths, 10)}.{Tenths - FnmDiv(Tenths, 10) * 10}"
+
 # One question station, assembled at OnBegin from the director's flat config.
 fnm_station := class:
     # trigger_devices for the doors, in order A, B, C, D.
@@ -94,6 +120,9 @@ fnm_station := class:
     NextTeleporter : teleporter_device
     # Difficulty position in percent, 0 (easiest tier) .. 100 (hardest tier); -1 = automatic.
     DifficultyOverride : int
+    # Where a punished player comes back (G9, RetrySpotFor): in front of the door wall, facing the doors. False = the
+    # arrival spot of RetryTeleporter (the two arenas, whose pads stand in the open).
+    RetrySpot : ?vector3 = false
 
 # One hallway's footprint for the skip guard (WatchSkip): world cm, Z at the entry pad.
 fnm_hallway := class:
@@ -176,8 +205,14 @@ fnm_player_state := class:
     # Right-first-try answers in a row (a wrong door resets it).
     var Streak : int = 0
     var BestStreak : int = 0
-    # Race clock: simulation time the run's GO! showed; -1 = not running yet.
+    # Race clock: simulation time the run's GO! showed; -1 = not running yet (the "no clock" sentinel: never moved, see
+    # RunClock). ClockPenalty: seconds the run's wrong doors added (WrongDoorSeconds each, ChargeWrongDoor), WrongDoors
+    # how many; both reset with StartTime.
     var StartTime : float = -1.0
+    var ClockPenalty : float = 0.0
+    var WrongDoors : int = 0
+    # Bumped by every WideLook / WideCamera call, so an older wide-camera beat never takes off a newer one's camera.
+    var CameraGeneration : int = 0
     # Bumped per run and per boost, so an older clock or boost loop stops itself.
     var RunGeneration : int = 0
     var BoostGeneration : int = 0
@@ -192,9 +227,15 @@ fnm_player_state := class:
     var Splits : []float = array{}
     var PaceTarget : []float = array{}
     var LastTime : float = -1.0
-    # Boss arena: this run's hits on the boss, and whether the boss line is on their HUD.
+    # Boss arena: this run's hits on the boss, and whether the boss line is on their HUD; whether they have walked into
+    # the arena hall this run (its one instruction fires then, WatchArena).
     var Hits : int = 0
     var BossShown : logic = false
+    var ArenaArrived : logic = false
+    # Bumped by every ShowCurrent and recap: a recap flips to the next question only if nothing newer took the slate.
+    var SlateSerial : int = 0
+    # True once the station-1 tutorial captions have run for this player (first run of the session).
+    var TutorialDone : logic = false
     # Pickup pads: when each pad (by index) last granted this player its item (OnPad).
     var PadGrants : [int]float = map{}
     # Boss battle mode (fnm_bossmode.verse): the mode, the fight's level as this player last saw it, eliminations this
@@ -237,45 +278,75 @@ fnm_director := class(creative_device, fnm_picker_listener):
     @editable
     WrongFeedbackSeconds : float = 4.0
 
-    # Seconds the explanation of a right answer stays on the HUD (the player moves on immediately).
+    # Seconds the explanation of a right answer stays on the HUD (the player moves on immediately). Boss mode's; the race
+    # shows the recap card instead (RecapSeconds).
     @editable
     CorrectFeedbackSeconds : float = 4.0
     # See LastRight on the player state.
     RightCooldownSeconds : float = 1.5
+    # G9 (reviews/race-2026-10-13): a right door's recap card stays RecapSeconds (Recap); a finisher is stood at the podium
+    # PodiumSeconds after the titan falls, PodiumStandOff in front of RACE AGAIN (PodiumLater); the station-1 tutorial
+    # captions change every TutorialStepSeconds (Tutorial); the announcer's "Choose your grade" comes ChooseDelaySeconds
+    # after the welcome (they overlapped); the rivals strip shows the top StripTop, the rival just ahead and the viewer.
+    # Round 2 (Fable audit + QA, 2026-10-13): in the race arena the recap lasts at most RightCooldownSeconds (its pads are
+    # live meanwhile: a pad stepped on after the cooldown must answer a question already on the slate); the wide camera
+    # stays RetryWideSeconds on the retry spot and PodiumWideSeconds at the podium (3 s past the finish board, which hides
+    # ResultsSeconds after the finish, PodiumSeconds before the podium teleport), or until the player has moved
+    # WideMoveCm (WideLook); the podium spot is centred between the lecterns, PodiumStandOff in front of their buttons.
+    RecapSeconds : float = 3.0
+    PodiumSeconds : float = 3.0
+    PodiumStandOff : float = 350.0
+    RetryWideSeconds : float = 4.0
+    PodiumWideSeconds : float = 10.0
+    WideMoveCm : float = 150.0
+    TutorialStepSeconds : float = 3.0
+    ChooseDelaySeconds : float = 2.0
+    StripTop : int = 3
 
     # Wrong-door penalties come from the map profile (map.json "penalties" -> FnmMapPenalties), one at random
     # per wrong answer. Each penalty's visual is a rig (fnm_rig.verse) or effect device placed by
     # tools/build_rigs.py.
+    # The five-second wrong door (G9, reviews/race-2026-10-13 ux_critique #8): every penalty holds the player about 2.5 s
+    # where they stand (FreezeSeconds; the Yeet throw; SpearSeconds + SpikeHoldSeconds; MudStuckSeconds; the Dizzy spin;
+    # BlackoutSeconds + 0.5), then puts them on their station's retry spot (RetrySpotFor: RetryStandOff in front of the door
+    # wall, facing the doors), the race clock takes WrongDoorSeconds and the letters are shuffled again (Reshuffle). Until
+    # 2026-10-13 a wrong door cost 5.8 s (Yeet) to 9.3 s (Freeze) plus a 25.5 m re-run past the obstacles and the guards.
     var Penalties : []fnm_penalty = array{}
     @editable
-    FreezeSeconds : float = 5.0
-    # Mud: slowed (the fnm_mud movement modulator) with a brown screen for MudSeconds. The modulator's own
-    # Duration is 3 s and can't be set from MCP, so it is re-applied every MudReapplySeconds.
+    FreezeSeconds : float = 2.5
+    # Mud: stuck where they stand (turning allowed) with a brown screen for MudStuckSeconds, then on the retry spot slowed
+    # (the fnm_mud movement modulator) for MudSeconds. The modulator's own Duration is 3 s and can't be set from MCP, so it
+    # is re-applied every MudReapplySeconds.
     @editable
-    MudSeconds : float = 8.0
+    MudStuckSeconds : float = 2.0
+    @editable
+    MudSeconds : float = 3.0
     @editable
     MudReapplySeconds : float = 2.5
-    # Dizzy: back at the entry, the view spins about DizzySpinDegreesPerSecond for DizzySpinSeconds, rounded to whole
-    # turns so it ends facing the doors (the character is re-teleported in place, yaw advanced, every
-    # DizzySpinStepSeconds, under stasis), then a radial blur
-    # pulses in and out (DizzyPulseSeconds each way) for DizzySeconds. Aaron 2026-10-04: the old colour swirl
-    # (PP_Crazy) was confusing, not dizzying.
+    # Dizzy: where they stand, the view spins about DizzySpinDegreesPerSecond for DizzySpinSeconds, rounded to whole turns
+    # (one since 2026-10-13: two in 1.5 s was a motion-comfort risk, ux_critique 3.9) so it ends facing the doors (the
+    # character is re-teleported in place, yaw advanced, every DizzySpinStepSeconds, under stasis); then, on the retry spot,
+    # a radial blur pulses in and out (DizzyPulseSeconds each way) for DizzySeconds (two pulses). Aaron 2026-10-04: the old
+    # colour swirl (PP_Crazy) was confusing, not dizzying.
     @editable
-    DizzySeconds : float = 6.0
+    DizzySeconds : float = 2.8
     @editable
     DizzyPulseSeconds : float = 0.7
     @editable
     DizzySpinSeconds : float = 1.5
     @editable
-    DizzySpinDegreesPerSecond : float = 360.0
+    DizzySpinDegreesPerSecond : float = 240.0
     @editable
     DizzySpinStepSeconds : float = 0.05
-    # Blackout: the screen goes dark and the player is held this long, then wakes up at the station entry.
+    # Blackout: the screen goes dark and the player is held this long, then wakes up on the retry spot (the black lifts
+    # 0.5 s later).
     @editable
-    BlackoutSeconds : float = 3.0
-    # Yeet: an air vent (fnm_yeet rig) appears under the player at world yaw YeetYaw, tilted YeetPitch so its
-    # gust throws them back down their hallway. It stays YeetSeconds; they get YeetAirSeconds to land.
-    # (Player physics is off in UEFN, so SetLinearVelocity does nothing; per-tick TeleportTo was choppy.)
+    BlackoutSeconds : float = 2.0
+    # Yeet: pulled onto the retry spot (out of the narrow vestibule, so the throw back does not hit the door wall), an air
+    # vent (fnm_yeet rig) appears under them at world yaw YeetYaw, tilted YeetPitch so its gust throws them back down their
+    # hallway. It stays YeetSeconds; at most YeetAirSeconds after it appeared they are put back on the retry spot (the throw
+    # plays; the walk back does not). (Player physics is off in UEFN, so SetLinearVelocity does nothing; per-tick
+    # TeleportTo was choppy.)
     @editable
     YeetYaw : float = 90.0
     @editable
@@ -283,17 +354,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     @editable
     YeetSeconds : float = 0.4
     @editable
-    YeetAirSeconds : float = 6.0
-    # Yeet first pulls the player out of the narrow vestibule to this far (cm) in front of the door wall,
-    # mid-hallway, so the throw back doesn't hit the door wall. Freeze and Spike happen where the player
-    # stands (Aaron: no position change) and use the wide camera instead.
-    @editable
-    PenaltyStandOff : float = 500.0
-    # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around
-    # the player, burst up SpearRise in SpearSeconds and pin them (stasis) for SpikeWatchSeconds under the
-    # wide camera; then SpikeDamage eliminates them (more than full health + shield). The ring stays up
-    # SpikeHoldSeconds after that. (The orbit camera as elimination camera jumped to a random wall, so the death
-    # view is Fortnite's own.) Aaron 2026-10-04: the death lagged the spears (1.2 s watch), so it is near-instant.
+    YeetAirSeconds : float = 1.6
+    # Spike: SpearCount spears wait SpearDepth (cm) under the floor in a ring of radius SpearRing around the player, burst up
+    # SpearRise in SpearSeconds and pin them (stasis) for SpikeHoldSeconds under the wide camera; then the retry spot. No
+    # elimination since 2026-10-13: the kill showed Fortnite's "bailed early" line and the respawn took every gun the
+    # guards had dropped (ux_critique B3). Freeze and Spike happen where the player stands (Aaron: no position change).
     @editable
     SpearCount : int = 6
     @editable
@@ -305,11 +370,20 @@ fnm_director := class(creative_device, fnm_picker_listener):
     @editable
     SpearSeconds : float = 0.12
     @editable
-    SpikeWatchSeconds : float = 0.05
+    SpikeHoldSeconds : float = 2.3
+    # The retry spot (RetrySpotFor): RetryStandOff cm in front of the door wall's front face, DoorWallThickness in front of
+    # its back face (tools/build_course.py: the door wall runs door_y +/- 25). WrongDoorSeconds go on the race clock per
+    # wrong door. 600 (6 m) since the round-2 review: at 3 m only doors B and C were on screen (the wide camera covers the
+    # rest, WideLook). RetryFallback: a retry spot found inside a door's zone is not used (the entry's arrival spot is),
+    # since a player put there would answer that door by position again and again (false only to prove that in a test).
+    # For any RetryStandOff >= 0 the spot lies in front of every zone by construction, so the OnBegin check can only fail
+    # for a negative stand-off or a course whose triggers no longer start at the door wall (a rebuilt or other map).
     @editable
-    SpikeHoldSeconds : float = 1.0
+    RetryStandOff : float = 600.0
+    DoorWallThickness : float = 50.0
+    RetryFallback : logic = true
     @editable
-    SpikeDamage : float = 1000.0
+    WrongDoorSeconds : float = 3.0
     # A character's reported position is its capsule centre; feet are this far below it (cm, measured
     # standing on the course floor 2026-10-03).
     @editable
@@ -444,8 +518,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     DoorWatchSeconds : float = 0.25
     # A trigger senses only its StepBox: half-extent TriggerHalf (x and y) and centre TriggerLift above the device's origin,
     # in cm at scale 1, both scaled with the actor (tools/build_course.py trigger_fit; the origin sits under the floor).
+    # TriggerHalfZ: its half height (STEP_BOX z), so the box's bottom, the floor, is ZoneCentre less TriggerHalfZ * scale.
     TriggerHalf : float = 64.0
     TriggerLift : float = 32.0
+    TriggerHalfZ : float = 15.0
     # Skip guard (WatchSkip): a player found in a hallway past their stage (a Shockwave Grenade from a pickup pad
     # clears a 6 m door wall) goes back to their own station's entry. A position more than HallwayHeight above a
     # hallway's entry pad (a Yeet skydive passing over) does not count. FinishHallwayLength = FINISH_LEN in
@@ -525,6 +601,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     RaceSeconds : float = 0.5
     RaceRows : int = 8
     var LastRaceLog : string = ""
+    # The race leader as of the last strip (a race player still racing in first place), whose misses stay public (MissFeed).
+    var RaceLeaderNow : ?player = false
     # Boss arena (G6 item 3): right pads it takes, shared by everyone in the arena, to bring the boss down; seconds after
     # a kill before the boss returns; how often the boss line and the boss's state are checked.
     @editable
@@ -736,7 +814,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Spawner.Disable()
                 Spawner.SpawnedEvent.Subscribe(OnGuardSpawned)
                 Spawner.EliminatedEvent.Subscribe(OnGuardEliminated)
-            Print("FNM: {CountGuardStations()} stations have guards")
+            # A station with no spawner simply has no guards (station 1, the warm-up, since G9: tools/build_guards.py).
+            var NoGuards : string = ""
+            for (K -> MaybeSpawner : GuardSpawners, not MaybeSpawner?):
+                Separator := if (NoGuards = "") then "" else ", "
+                set NoGuards += "{Separator}{K + 1}"
+            Listed := if (NoGuards = "") then "-" else NoGuards
+            Print("FNM: {CountGuardStations()} stations have guards (none at: {Listed})")
             spawn{ GuardLoop() }
             spawn{ DoorWatch() }
             spawn{ RaceLoop() }
@@ -804,8 +888,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
             var OverridePercent : int = -1
             if (Value := DifficultyOverrides[K]):
                 set OverridePercent = Value
+            var RetryAt : ?vector3 = RetrySpotFor(StationDoors)
+            if (Spot := RetryAt?):
+                Zone := DoorZoneAt(StationDoors, StationPassages, Spot)
+                if (Zone >= 0):
+                    Print("FNM: WARNING station {K + 1}: retry spot {Spot} is inside door {FnmChoiceLetter(Zone)}'s zone (clear no); fallback {FnmYesNo(RetryFallback)}")
+                    if (RetryFallback?) then set RetryAt = false
+                else:
+                    Print("FNM: station {K + 1}: retry spot {Spot}, clear yes")
             Print("FNM: station {K + 1}: {StationDoors.Length} doors, {CountPassages(StationPassages)} passages")
-            fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent}
+            fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent, RetrySpot := RetryAt}
 
     # The boss arena from its tags: the entry and the four pads (fnm_boss, read like a station), the exit gate, the boss's
     # Megabrute creature spawner and the adds' guard spawner. No fnm_boss entry teleporter = no arena (another map):
@@ -1134,7 +1226,14 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 State.Hud.ShowGradeStep(Grades, WithBoss)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
             if (State.Picks = 0):
-                Sound(State.Player, fnm_cue.Choose)
+                spawn{ ChooseLater(State) }
+
+    # "Choose your grade and your skill." ChooseDelaySeconds after the welcome line (StartPlayer plays both in the same tick
+    # otherwise, and the two announcer lines overlapped: ux_critique B1), if the player is still picking.
+    ChooseLater(State:fnm_player_state)<suspends>:void =
+        Sleep(ChooseDelaySeconds)
+        if (PlayerStates[State.Player], State.Picking?, State.Picks = 0):
+            Sound(State.Player, fnm_cue.Choose)
 
     # The skill step for Grade: every cartridge of that grade, registry order, its title on the button and its
     # subtitle under it.
@@ -1210,14 +1309,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendTo(State.Player, Start.RetryTeleporter)
                 Print("FNM: debug start at stage {DebugStartStage}")
                 if (AtArena(State)?):
-                    EnterArena(State)
+                    EnterArena(State, true)
             GiveLoadout(State.Player)
             # The countdown holds them again; release the picker's hold first so the two never stack.
             if (Character := State.Player.GetFortCharacter[]):
                 Character.ReleaseFromStasis()
             spawn{ Countdown(State) }
             if (State.Picks = 1):
-                if (DebugAutoWrongAnswers > 0):
+                # With DebugAutoRightAnswers as well, the auto-right run takes the wrong doors itself (DebugAutoRight).
+                if (DebugAutoWrongAnswers > 0, not DebugAutoRightAnswers?):
                     spawn{ DebugAutoWrong(State) }
                 if (DebugPassageTest?):
                     spawn{ DebugPassage(State) }
@@ -1287,13 +1387,31 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Item := State.Cartridge.Items[Draw.ItemIndex]):
                 set State.Order = Shuffle(for (Index := 0..Item.Choices.Length - 1) { Index })
 
+    # The player's current item on the slate: its caption ("STATION 3/10  -  <tier>"; "FINAL BOSS" in the arena, whose
+    # hits are counted on the boss bar alone; plus "Only A, B, C this time" when the item has fewer choices than the doors),
+    # the prompt and the choices in this showing's order.
     ShowCurrent(State:fnm_player_state):void =
+        set State.SlateSerial += 1
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
-            StageLine := if (State.Mode = fnm_mode.Boss) then "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}" else if (State.Stage > StageCount) then "BOSS  -  hits {State.Hits}/{BossHitsToKill}  -  step on the right answer pad" else "Stage {State.Stage}/{StageCount}  -  {TierName}"
+            Caption := if (State.Mode = fnm_mode.Boss) then "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}" else if (State.Stage > StageCount) then "FINAL BOSS" else "STATION {State.Stage}/{StageCount}  -  {TierName}"
+            StageLine := Caption + OnlyLetters(State, Item)
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
             State.Hud.ShowQuestion(StageLine, Item.Prompt, Shown)
+
+    # "  -  Only A, B, C this time" when Item has fewer choices than the player's station has doors (or pads), else "":
+    # said up front, not after a kid walks into the empty door ("No choice D here", ux_critique 3.1).
+    OnlyLetters(State:fnm_player_state, Item:fnm_item)<transacts>:string =
+        Doors := if (Station := StationOf(State)?) then Station.Doors.Length else 4
+        if (Item.Choices.Length > 0, Item.Choices.Length < Doors):
+            var Letters : string = ""
+            for (K -> Choice : Item.Choices):
+                Separator := if (K > 0) then ", " else ""
+                set Letters += "{Separator}{FnmChoiceLetter(K)}"
+            "  -  Only {Letters} this time"
+        else:
+            ""
 
     # The baked choice behind door DoorIndex for this showing (-1 = no choice there).
     ChoiceAt(State:fnm_player_state, DoorIndex:int)<transacts>:int =
@@ -1325,7 +1443,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     set State.LastAccept = GetSimulationElapsedTime()
                     spawn{ HandleDoor(State, StationIndex, DoorIndex) }
                 else if (StationIndex > State.Stage - 1):
-                    spawn{ FlashNotice(State, "This is not your station. You are on stage {State.Stage}.") }
+                    spawn{ FlashNotice(State, "This is not your station. You are on station {State.Stage}.") }
                 # An earlier station: they are walking back through a door they already passed. Ignore.
 
     # A door or pad event within RightCooldownSeconds of a right answer: dropped, and logged.
@@ -1382,29 +1500,63 @@ fnm_director := class(creative_device, fnm_picker_listener):
                         Broadcast(FnmFeedStreak(State.Player, Milestone), "is on a {Milestone} streak!")
                 Sound(State.Player, if (State.MissedCurrent?) then fnm_cue.CorrectRetry else fnm_cue.Correct)
                 State.Hud.FlashVerdict(true, Label)
-                RecordSplit(State)
-                AdvancePlayer(State, Station, DoorIndex)
+                Pace := RecordSplit(State)
+                Solved := RecapOf(State, Item, DoorIndex, if (Pace = "") then "CORRECT!" else "CORRECT!  {Pace}")
+                AdvancePlayer(State, Station, DoorIndex, false)
                 set State.Busy = false
                 if (not State.Finished?):
-                    Generation := State.Hud.ShowFeedback("Correct!  " + Item.Explanation, NamedColors.LightGreen)
-                    Sleep(CorrectFeedbackSeconds)
-                    State.Hud.ClearFeedbackIf(Generation)
+                    Recap(State, Solved, RecapSeconds)
             else:
                 set State.MissedCurrent = true
                 set State.Streak = 0
                 StopBoost(State)
                 Kind := PickPenalty()
                 Past := FnmPenaltyPast(Kind)
-                Broadcast(FnmFeedPenalty(State.Player, Past, StationIndex + 1), "got {Past} at station {StationIndex + 1}")
+                MissFeed(State, FnmFeedPenalty(State.Player, Past, StationIndex + 1), "You got {Past} at station {StationIndex + 1}", "got {Past} at station {StationIndex + 1}")
                 Sound(State.Player, fnm_cue.Wrong)
-                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
-                Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
+                Tail := ChargeWrongDoor(State)
+                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind) + Tail)
+                Lesson := FeedbackFor(Item, Choice)
+                Shown := State.Hud.ShowFeedback(Lesson, NamedColors.Tomato)
                 Punish(State.Player, Station, DoorIndex, Kind)
-                set State.Busy = false
-                Sleep(WrongFeedbackSeconds)
-                State.Hud.ClearFeedbackIf(Generation)
+                Retry(State, Lesson)
         else:
             set State.Busy = false
+
+    # The item the player just solved, as shown (before the next one is drawn), for the recap card.
+    RecapOf(State:fnm_player_state, Item:fnm_item, DoorIndex:int, Verdict:string)<transacts>:fnm_recap =
+        Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
+        fnm_recap{Prompt := Item.Prompt, Choices := Shown, Right := DoorIndex, Steps := Item.Explanation, Verdict := Verdict}
+
+    # The recap card (G9, ux_critique #5): the solved item stays on the slate for RecapSeconds (its right tile lit, the
+    # worked steps, the verdict with the pace delta: fnm_hud ShowRecap), then the question already drawn for the player's
+    # new stage. It replaces "Correct!  <explanation>" under the NEXT question, which shared that question's numbers and
+    # read as its working (frame 02b). The flip happens only if nothing newer took the slate meanwhile (SlateSerial: a
+    # door answered, a new run, the arena); fnm_hud's own generation makes a stale EndRecapIf a no-op too.
+    # Seconds: RecapSeconds at a station; in the race arena at most RightCooldownSeconds (HandlePad).
+    Recap(State:fnm_player_state, Solved:fnm_recap, Seconds:float)<suspends>:void =
+        Generation := State.Hud.ShowRecap(Solved.Prompt, Solved.Choices, Solved.Right, Solved.Steps, Solved.Verdict)
+        set State.SlateSerial += 1
+        Serial := State.SlateSerial
+        Print("FNM: recap up ({Solved.Verdict}), next question in {Seconds} s")
+        Sleep(Seconds)
+        if (PlayerStates[State.Player], State.SlateSerial = Serial, not State.Finished?, not State.Picking?, State.CurrentItem >= 0):
+            State.Hud.EndRecapIf(Generation)
+            ShowCurrent(State)
+            Print("FNM: recap down, next question up at stage {State.Stage}")
+        else:
+            Print("FNM: recap superseded (no flip)")
+
+    # Back on the retry spot after a wrong door (or pad): the same question with its letters shuffled again on the slate,
+    # the wrong choice's lesson under it for WrongFeedbackSeconds (ShowQuestion cleared it), and doors answer again.
+    Retry(State:fnm_player_state, Lesson:string)<suspends>:void =
+        if (not State.Finished?, State.CurrentItem >= 0):
+            Reshuffle(State)
+            ShowCurrent(State)
+        Generation := State.Hud.ShowFeedback(Lesson, NamedColors.Tomato)
+        set State.Busy = false
+        Sleep(WrongFeedbackSeconds)
+        State.Hud.ClearFeedbackIf(Generation)
 
     # Door backstop (Aaron 2026-10-05: "sometimes I run through a door and correct or incorrect doesn't activate,
     # I run around that room a little and eventually it does"). A trigger fires only on ENTERING its zone, and an
@@ -1419,25 +1571,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 WatchDoors(State)
                 WatchIce(State)
                 WatchSkip(State)
+                WatchArena(State)
 
     WatchDoors(State:fnm_player_state):void =
         Now := GetSimulationElapsedTime()
         var Inside : int = -1
         if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Character := State.Player.GetFortCharacter[], Character.IsActive[]):
-            Here := Character.GetTransform().Translation
-            for (Index -> Door : Station.Doors):
-                Zone := Door.GetTransform()
-                # The trigger's box (TriggerHalf), its front face at the door wall's back face (tools/build_course.py).
-                # The zone watched here is the WHOLE vestibule, on to the barrier: a player who runs or jumps through
-                # the door can stop against the barrier, past the trigger box (2026-10-06, Aaron: a right door did
-                # nothing until he moved around the room; the triggers were 60% of the vestibule then and this check
-                # mirrored them).
-                Front := Zone.Translation.Y - TriggerHalf * Zone.Scale.Y
-                var Back : float = Zone.Translation.Y + TriggerHalf * Zone.Scale.Y
-                if (MaybePassage := Station.Passages[Index], Passage := MaybePassage?):
-                    set Back = Max(Back, Passage.GetTransform().Translation.Y)
-                if (Abs(Here.X - Zone.Translation.X) <= TriggerHalf * Zone.Scale.X, Here.Y >= Front, Here.Y <= Back, Abs(Here.Z - ZoneCentre(Door).Z) <= 300.0):
-                    set Inside = Index
+            set Inside = DoorZoneAt(Station.Doors, Station.Passages, Character.GetTransform().Translation)
         if (Inside <> State.ZoneDoor):
             set State.ZoneDoor = Inside
             set State.ZoneSince = Now
@@ -1446,6 +1586,105 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set State.ZoneFired = true
             Print("FNM: door {FnmChoiceLetter(Inside)} answered by position at stage {State.Stage} (no trigger event taken)")
             OnDoor(option{State.Player}, State.Stage - 1, Inside)
+
+    # The door (index into Doors) whose zone Here is in, or -1. A zone is the trigger's box (TriggerHalf), its front face
+    # at the door wall's back face (tools/build_course.py), on to the barrier: the WHOLE vestibule, since a player who
+    # runs or jumps through the door can stop against the barrier, past the trigger box (2026-10-06, Aaron: a right door
+    # did nothing until he moved around the room; the triggers were 60% of the vestibule then and this check mirrored
+    # them). The backstop (WatchDoors) answers by these zones, and a retry spot must lie outside all of them.
+    DoorZoneAt(Doors:[]trigger_device, Passages:[]?barrier_device, Here:vector3)<transacts>:int =
+        var Inside : int = -1
+        for (Index -> Door : Doors):
+            Zone := Door.GetTransform()
+            Front := Zone.Translation.Y - TriggerHalf * Zone.Scale.Y
+            var Back : float = Zone.Translation.Y + TriggerHalf * Zone.Scale.Y
+            if (MaybePassage := Passages[Index], Passage := MaybePassage?):
+                set Back = Max(Back, Passage.GetTransform().Translation.Y)
+            if (Abs(Here.X - Zone.Translation.X) <= TriggerHalf * Zone.Scale.X, Here.Y >= Front, Here.Y <= Back, Abs(Here.Z - ZoneCentre(Door).Z) <= 300.0):
+                set Inside = Index
+        Inside
+
+    # A station's retry spot (G9, ux_critique #8): RetryStandOff in front of its door wall's front face, centred on its
+    # doors, ArrivalLift above its floor, all read from its own door triggers (a trigger's box starts at the door wall's
+    # back face, DoorWallThickness behind the front face; its bottom is the floor), since hallways sit at different X and
+    # levels. 6 m in front of the doors (RetryStandOff) is still past every obstacle (the last ones stand 10 to 10.5 m before
+    # the door wall; a slider is 246 cm deep), so a math slip costs the penalty and +3 s, not a re-run of the hallway and
+    # its guards. False with no doors.
+    RetrySpotFor(Doors:[]trigger_device)<transacts>:?vector3 =
+        var SumX : float = 0.0
+        var WallY : float = 0.0
+        var FloorZ : float = 0.0
+        for (K -> Door : Doors):
+            Zone := Door.GetTransform()
+            set SumX += Zone.Translation.X
+            Front := Zone.Translation.Y - TriggerHalf * Zone.Scale.Y
+            Bottom := ZoneCentre(Door).Z - TriggerHalfZ * Zone.Scale.Z
+            if (K = 0 or Front < WallY):
+                set WallY = Front
+            if (K = 0 or Bottom < FloorZ):
+                set FloorZ = Bottom
+        if (Doors.Length > 0):
+            option{vector3{X := SumX / (Doors.Length * 1.0), Y := WallY - DoorWallThickness - RetryStandOff, Z := FloorZ + ArrivalLift}}
+        else:
+            false
+
+    # Where a punished player comes back at Station: its retry spot, or (the arenas) the arrival spot of its entry pad.
+    RetryPoint(Station:fnm_station)<transacts>:vector3 =
+        if (Spot := Station.RetrySpot?) then Spot else ArrivalSpot(Station.RetryTeleporter)
+
+    # Puts a punished player on Station's retry point, facing the doors (+Y); the entry pad's own teleport if the character
+    # can't be moved.
+    SendToRetry(Player:player, Station:fnm_station):void =
+        Spot := RetryPoint(Station)
+        if (Character := Player.GetFortCharacter[], Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+            Print("FNM: on the retry spot {Spot}")
+        else:
+            SendTo(Player, Station.RetryTeleporter)
+
+    # A retry (G9): the same question with a new letter order, so walking the next door along is not a free guess. Tries
+    # a few shuffles for one that differs from the order just shown; logs the old and new letters.
+    Reshuffle(State:fnm_player_state):void =
+        Old := State.Order
+        var Next : []int = Shuffle(Old)
+        var Tries : int = 1
+        loop:
+            if (Tries >= 8 or not SameOrder(Next, Old)?) then break
+            set Next = Shuffle(Old)
+            set Tries += 1
+        set State.Order = Next
+        Print("FNM: letters reshuffled for the retry: {OrderCopy(State, Old)} -> {OrderCopy(State, Next)}")
+
+    SameOrder(A:[]int, B:[]int)<transacts>:logic =
+        var Same : logic = if (A.Length = B.Length) then true else false
+        for (K -> X : A, Y := B[K], X <> Y):
+            set Same = false
+        Same
+
+    # "A=33 B=60 C=37 D=38": the current item's choices behind each letter in Order (for the log).
+    OrderCopy(State:fnm_player_state, Order:[]int)<transacts>:string =
+        var Line : string = ""
+        if (Item := State.Cartridge.Items[State.CurrentItem]):
+            for (K -> Choice : Order, Text := Item.Choices[Choice]):
+                Separator := if (K > 0) then " " else ""
+                set Line += "{Separator}{FnmChoiceLetter(K)}={Text}"
+        Line
+
+    # The race clock takes WrongDoorSeconds for a wrong door: added to ClockPenalty, which every read of the clock adds
+    # (RunClock); a clock not running is left alone. Returns the HUD tail for the verdict ("  +3 s"). (Until the 2026-10-13
+    # audit this moved StartTime back instead: once 3 s x the wrong doors passed the session's GO time, StartTime crossed
+    # its "no clock" sentinel, the clock froze and the finish saved 0:00.0 as a best. The log shows where it would be.)
+    ChargeWrongDoor(State:fnm_player_state)<transacts>:string =
+        Whole := if (W := Round[WrongDoorSeconds]) then W else 3
+        if (State.StartTime >= 0.0):
+            set State.ClockPenalty += WrongDoorSeconds
+            set State.WrongDoors += 1
+            Print("FNM: +{Whole} s on the race clock (wrong door {State.WrongDoors}, {State.ClockPenalty} s in all; GO at sim {State.StartTime} s, a moved start would now read {State.StartTime - State.ClockPenalty})")
+        "  +{Whole} s"
+
+    # The race clock of the player's run at simulation time Now: time since GO plus the wrong doors' charges. Every read of
+    # the race clock goes through here (the clock loop, RecordSplit, FinishPlayer, RaceEntry); StartTime < 0 = no clock.
+    RunClock(State:fnm_player_state, Now:float)<transacts>:float =
+        Now - State.StartTime + State.ClockPenalty
 
     # The centre of a trigger's detection box (TriggerLift): where a debug drop stands a player (its origin is under the floor).
     ZoneCentre(Door:trigger_device)<transacts>:vector3 =
@@ -1468,18 +1707,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Correct answer through door DoorIndex at Station: next stage (or finish), then the way on opens:
     # that door's barrier lets this player (only) through, or they are teleported to the next entry.
     # The barrier stays open for them; walking back through it later is harmless.
-    AdvancePlayer(State:fnm_player_state, Station:fnm_station, DoorIndex:int):void =
+    # ShowNow: put the new question on the slate now (false: the caller shows the recap card first, which flips to it).
+    AdvancePlayer(State:fnm_player_state, Station:fnm_station, DoorIndex:int, ShowNow:logic):void =
         set State.Stage += 1
         # Every stage cleared refills health and shield (Aaron 2026-10-08: the station-10 guards wore him down; "every
         # time a player makes it through a stage they should have health and shield refreshed to full").
         RefreshVitals(State.Player, State.Stage)
         if (AtArena(State)?):
-            EnterArena(State)
+            EnterArena(State, ShowNow)
         else if (State.Stage > Stations.Length):
             FinishPlayer(State)
         else:
             DrawItem(State)
-            ShowCurrent(State)
+            if (ShowNow?) then ShowCurrent(State)
             Music(State)
         if (MaybePassage := Station.Passages[DoorIndex], Passage := MaybePassage?):
             Passage.AddToIgnoreList(State.Player)
@@ -1517,6 +1757,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             DebugBossModeRun(State)
             return
         var Finishes : int = 0
+        var WrongsLeft : int = DebugAutoWrongAnswers
+        var WrongStage : int = 0
+        var WrongsHere : int = 0
         loop:
             # Two runs: after the first finish, wait out the board and the next countdown, then play run 2.
             if (State.Finished?):
@@ -1535,6 +1778,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Sleep(0.5)
                     if (not State.Finished?, not State.Picking?) then break
                 Sleep(CountdownStepSeconds * 3.0 + 2.0)
+            # With DebugAutoWrongAnswers as well (round 2): up to two wrong doors at each station of run 1 until that many are
+            # spent (the +3 s clock charges over a whole run), each followed by a beat on the retry spot (the wide camera).
+            if (State.Stage <> WrongStage):
+                set WrongStage = State.Stage
+                set WrongsHere = 0
+            loop:
+                if (WrongsLeft <= 0 or WrongsHere >= 2 or Finishes > 0 or AtArena(State)? or State.Finished? or State.CurrentItem < 0) then break
+                set WrongsLeft -= 1
+                set WrongsHere += 1
+                DebugWrongDoor(State)
+                Sleep(RetryWideSeconds + 1.0)
             Answer := AnswerDoor(State)
             if (AtArena(State)?):
                 # The boss arena: onto the right pad until the boss goes down.
@@ -1554,6 +1808,22 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else:
                 break
         Print("FNM: debug auto-right done: finished={FnmYesNo(State.Finished)} stage={State.Stage}")
+
+    # One wrong door for the auto-run, as a player takes it: stood in a wrong door's vestibule (Busy first, so its trigger
+    # event is not a second answer), the door answered, back once the retry has cleared Busy.
+    DebugWrongDoor(State:fnm_player_state)<suspends>:void =
+        Wrong := if (AnswerDoor(State) = 0) then 1 else 0
+        if (Station := StationOf(State)?, Door := Station.Doors[Wrong], Character := State.Player.GetFortCharacter[]):
+            set State.Busy = true
+            Print("FNM: debug wrong door {FnmChoiceLetter(Wrong)} at stage {State.Stage}")
+            if (Character.TeleportTo[ZoneCentre(Door), MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]) {}
+            Sleep(1.0)
+            spawn{ HandleDoor(State, State.Stage - 1, Wrong) }
+            var Waited : float = 0.0
+            loop:
+                Sleep(0.25)
+                set Waited += 0.25
+                if (not State.Busy? or Waited >= 12.0) then break
 
     # DebugAutoRight in the boss arena: waits for a boss, then drops the player onto the right pad (each hit sends them back
     # to the entry), at most 12 tries. True once the kill has finished their run.
@@ -1665,10 +1935,21 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(1.0)
                 Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
 
-    # Applies Kind to Player, who answered wrong through door DoorIndex at Station. Returns once the player
-    # can play again.
+    # Applies Kind to Player, who answered wrong through door DoorIndex at Station: the gag where they stand (about 2.5 s,
+    # see the penalty constants), then Station's retry point (RetryPoint: in front of the doors, facing them). Returns
+    # once the player can play again, and logs how long that took from the verdict (HandleDoor flashes it in the same
+    # tick, just before this).
+    # In boss mode the player is moved to the arena entry FIRST, then held (round-2 audit: Wave() has just released
+    # monsters by the pads and stasis does not block damage; until G9 Mud and Dizzy moved first there too). On a race
+    # station the wide camera stays on from the hold onto the retry spot (WideLook), so all four doors are on screen.
     Punish(Player:player, Station:fnm_station, DoorIndex:int, Kind:fnm_penalty)<suspends>:void =
+        Began := GetSimulationElapsedTime()
         Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
+        InBossMode := if (Mover := PlayerStates[Player], Mover.Mode = fnm_mode.Boss) then true else false
+        Wide := if (Station.RetrySpot?, not InBossMode?) then true else false
+        if (InBossMode?):
+            SendToRetry(Player, Station)
+            Print("FNM: boss mode: at the arena entry before the hold")
         if (Kind = fnm_penalty.Freeze):
             if (Character := Player.GetFortCharacter[]):
                 WideCamera(Player, true)
@@ -1682,12 +1963,14 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(FreezeSeconds)
                 IceRig.Park(Ice)
                 FxOff(Player, FrostFx)
+                SendToRetry(Player, Station)
                 Character.ReleaseFromStasis()
-                WideCamera(Player, false)
-            SendTo(Player, Station.RetryTeleporter)
+                if (not Wide?) then WideCamera(Player, false)
+            else:
+                SendToRetry(Player, Station)
         else if (Kind = fnm_penalty.Yeet):
             if (Character := Player.GetFortCharacter[]):
-                PullOut(Character, Station, DoorIndex)
+                PullOut(Character, Station)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Pad := YeetRig.NextIndex()
                 Placed := YeetRig.PlaceTilted(Pad, Feet, YeetYaw, YeetPitch)
@@ -1709,27 +1992,33 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     Sleep(0.25)
                     set Airborne += 0.25
                 Landed := Character.GetTransform().Translation
-                Print("FNM: yeet landed at {Landed} after {Airborne} s, {Feet.Y - Landed.Y} cm back")
-                # Where they land in their own hallway is where they carry on; anywhere else, the entry.
-                EntryY := Station.RetryTeleporter.GetTransform().Translation.Y
-                InHallway := if (Landed.Y >= EntryY, Landed.Y <= Feet.Y + 100.0, Landed.Z <= Feet.Z + 300.0) then true else false
-                if (not InHallway?):
-                    SendTo(Player, Station.RetryTeleporter)
-            else:
-                SendTo(Player, Station.RetryTeleporter)
+                Print("FNM: yeet thrown {Feet.Y - Landed.Y} cm back in {Airborne} s (on the ground {FnmYesNo(if (Character.IsOnGround[]) then true else false)})")
+            SendToRetry(Player, Station)
         else if (Kind = fnm_penalty.Mud):
-            SendTo(Player, Station.RetryTeleporter)
             spawn{ SoundLater(Player, fnm_cue.PenaltyMud, PenaltyVoiceDelaySeconds) }
             Afflict(Player)
             Epoch := EpochOf(Player)
+            # Boss mode: no stuck beat, only the slow, as before G9 (a held player at the entry was shot by the wave's
+            # guards in the round-2 test; stasis does not block damage).
+            StuckFor := if (InBossMode?) then 0.0 else MudStuckSeconds
+            spawn{ ScreenFx(Player, MudFx, StuckFor + MudSeconds, Epoch) }
+            if (StuckFor > 0.0):
+                MaybeCharacter := option{Player.GetFortCharacter[]}
+                if (Character := MaybeCharacter?):
+                    Character.PutInStasis(stasis_args{AllowTurning := true, AllowFalling := false, AllowEmotes := false})
+                Sleep(StuckFor)
+                SendToRetry(Player, Station)
+                if (Character := MaybeCharacter?):
+                    Character.ReleaseFromStasis()
+            else:
+                SendToRetry(Player, Station)
             spawn{ Muddy(Player, Epoch) }
-            spawn{ ScreenFx(Player, MudFx, MudSeconds, Epoch) }
         else if (Kind = fnm_penalty.Dizzy):
-            SendTo(Player, Station.RetryTeleporter)
             spawn{ SoundLater(Player, fnm_cue.PenaltyDizzy, PenaltyVoiceDelaySeconds) }
             Afflict(Player)
             Epoch := EpochOf(Player)
             Spin(Player)
+            SendToRetry(Player, Station)
             spawn{ DizzyPulses(Player, Epoch) }
         else if (Kind = fnm_penalty.Blackout):
             if (Character := Player.GetFortCharacter[]):
@@ -1737,13 +2026,14 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (State := PlayerStates[Player]) then State.Hud.SetBlack(true)
                 spawn{ SoundLater(Player, fnm_cue.PenaltyBlackout, PenaltyVoiceDelaySeconds) }
                 Sleep(BlackoutSeconds)
-                SendTo(Player, Station.RetryTeleporter)
+                SendToRetry(Player, Station)
                 Character.ReleaseFromStasis()
                 Sleep(0.5)
                 if (State := PlayerStates[Player]) then State.Hud.SetBlack(false)
             else:
-                SendTo(Player, Station.RetryTeleporter)
+                SendToRetry(Player, Station)
         else:
+            # Spike: the ring bursts up round them and pins them under the wide camera; no elimination (G9).
             if (Character := Player.GetFortCharacter[]):
                 WideCamera(Player, true)
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
@@ -1760,24 +2050,19 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 spawn{ SoundLater(Player, fnm_cue.PenaltySpike, PenaltyVoiceDelaySeconds) }
                 Sleep(SpearSeconds)
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
-                Sleep(SpikeWatchSeconds)
-                Character.ReleaseFromStasis()
-                WideCamera(Player, false)
-                Character.Damage(SpikeDamage)
                 Sleep(SpikeHoldSeconds)
+                SendToRetry(Player, Station)
                 for (Index : Spears):
                     SpikeRig.Park(Index)
-            # Wait for the respawned character (gives up after ~20 s); WatchLife puts them back at the entry.
-            var Waited : int = 0
-            loop:
-                Sleep(0.25)
-                if (Character := Player.GetFortCharacter[], Character.IsActive[]):
-                    break
-                if (Waited >= 80):
-                    break
-                set Waited += 1
-            Print("FNM: spike respawn after {Waited} polls")
-            Sleep(0.3)
+                Character.ReleaseFromStasis()
+                if (not Wide?) then WideCamera(Player, false)
+                Print("FNM: spike: still standing {FnmYesNo(if (Character.IsActive[]) then true else false)}, health {Character.GetHealth()}")
+            else:
+                SendToRetry(Player, Station)
+        Took := GetSimulationElapsedTime() - Began
+        Print("FNM: wrong door {FnmPenaltyLabel(Kind)}: ready on the retry spot {RetryPoint(Station)} {Took} s after the verdict")
+        if (Wide?, Viewer := PlayerStates[Player]):
+            spawn{ WideLook(Viewer, RetryWideSeconds, WideMoveCm, "retry spot") }
 
     # Blends a screen effect in (FxOn) or out (FxOff) for Player only.
     FxOn(Player:player, Fx:?post_process_device):void =
@@ -1855,8 +2140,35 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Pushes (On) or pops the wide orbit camera for Player: further out than the default camera, walls turn
     # see-through instead of pulling it in.
     WideCamera(Player:player, On:logic):void =
+        if (State := PlayerStates[Player]):
+            set State.CameraGeneration += 1
         if (Camera := PenaltyCam?):
             if (On?) then Camera.AddTo(Player) else Camera.RemoveFrom(Player)
+
+    # The wide camera for a beat (round 2, items 6 and 7): from the retry spot, 6 m from the door wall, the player's own
+    # camera frames only doors B and C (it sees about 2.6 door pitches there), and at the podium the lecterns fill the
+    # screen and the all-time board is cut off; the orbit camera (fnm_penalty_cam: 900 cm out, walls see-through) shows the
+    # whole door wall with its lintel letters, or both lecterns and the board. It goes once the player has moved MoveCm
+    # (flat) or after Seconds, unless a newer WideLook / WideCamera call has taken over (CameraGeneration).
+    WideLook(State:fnm_player_state, Seconds:float, MoveCm:float, Why:string)<suspends>:void =
+        set State.CameraGeneration += 1
+        Generation := State.CameraGeneration
+        if (Camera := PenaltyCam?, Character := State.Player.GetFortCharacter[]):
+            Camera.AddTo(State.Player)
+            From := Character.GetTransform().Translation
+            Print("FNM: wide camera on ({Why})")
+            var Waited : float = 0.0
+            var Moved : float = 0.0
+            loop:
+                Sleep(0.1)
+                set Waited += 0.1
+                if (State.CameraGeneration <> Generation) then return
+                if (Character.IsActive[]):
+                    At := Character.GetTransform().Translation
+                    set Moved = Distance(vector3{X := At.X, Y := At.Y, Z := 0.0}, vector3{X := From.X, Y := From.Y, Z := 0.0})
+                if (Moved >= MoveCm or Waited >= Seconds) then break
+            Camera.RemoveFrom(State.Player)
+            Print("FNM: wide camera off ({Why}) after {Waited} s, moved {Moved} cm")
 
     # Starting loadout: the pistol and spare ammo (fires the fnm_loadout trigger, which the item granter
     # listens to), full health and full shield.
@@ -1875,17 +2187,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Character.SetShield(Character.GetMaxShield())
             Print("FNM: vitals refreshed at stage {Stage}: health {Character.GetHealth()}, shield {Character.GetShield()}")
 
-    # Moves a punished player out of the vestibule behind door DoorIndex into open hallway PenaltyStandOff in
-    # front of the door wall (centred like the entry), facing the doors, and lets them land.
-    PullOut(Character:fort_character, Station:fnm_station, DoorIndex:int)<suspends>:void =
-        if (Door := Station.Doors[DoorIndex]):
-            DoorAt := Door.GetTransform().Translation
-            Entry := ArrivalSpot(Station.RetryTeleporter)
-            # The trigger sits 2.3 m past the door wall.
-            Spot := vector3{X := Entry.X, Y := DoorAt.Y - 230.0 - PenaltyStandOff, Z := Entry.Z}
-            if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
-                Print("FNM: pulled out to {Spot}")
-            Sleep(0.4)
+    # Moves a player about to be yeeted out of the narrow vestibule onto Station's retry point (open hallway in front of
+    # the door wall, facing the doors), so the throw back does not hit the wall, and lets them land.
+    PullOut(Character:fort_character, Station:fnm_station)<suspends>:void =
+        Spot := RetryPoint(Station)
+        if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+            Print("FNM: pulled out to {Spot}")
+        Sleep(0.4)
 
     # Where SendTo puts a player: open floor just past Pad, a little above the ground.
     ArrivalSpot(Pad:teleporter_device)<transacts>:vector3 =
@@ -1906,8 +2214,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.Finished = true
         set State.Runs += 1
         Total := Stations.Length
-        Time := if (State.StartTime >= 0.0) then GetSimulationElapsedTime() - State.StartTime else 0.0
+        Now := GetSimulationElapsedTime()
+        Time := if (State.StartTime >= 0.0) then RunClock(State, Now) else 0.0
+        RealSeconds := if (State.StartTime >= 0.0) then Now - State.StartTime else 0.0
+        Print("FNM: run clock {FnmClock(Time)} = real {RealSeconds} s + {State.ClockPenalty} s for {State.WrongDoors} wrong doors")
         set State.StartTime = -1.0
+        set State.ClockPenalty = 0.0
+        set State.WrongDoors = 0
         set State.LastTime = Time
         StopBoost(State)
         # This run's splits travel with its time (a pace target only when they cover every station).
@@ -1941,20 +2254,23 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.ClearQuestion()
         State.Hud.ClearVerdictNow()
         BestTail := if (NewBest?, HadBest?) then "   NEW BEST!" else ""
-        RecordTail := if (IslandRecord?) then "   NEW RECORD!" else ""
-        RecordLine := if (Top := Board[0]) then FnmHolder(FnmClock(Top.Time), Top.Who, RecordTail) else FnmText("Island record   -")
+        # The record is the session's (Boards lives in memory): "Today's record", so the first finisher of every session
+        # is not told it is an island record (ux_critique B7).
+        RecordTail := if (IslandRecord?) then "   NEW!" else ""
+        RecordLine := if (Top := Board[0]) then FnmTodayRecord(FnmClock(Top.Time), Top.Who, RecordTail) else FnmText("Today's record   -")
         Rows := for (K -> Row : Board) { FnmRow(K + 1, Row.Who, FnmClock(Row.Time)) }
         var OwnRow : int = -1
         for (K -> Row : Board, Row.Who = State.Player):
             set OwnRow = K
         State.Hud.ShowResults("FINISH!", Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
-            RecordLine, "{FnmAccuracyLine(State.FirstTryCorrect, Total)}   -   Best streak {State.BestStreak}",
-            "TOP TIMES THIS SESSION  -  {State.Cartridge.Title}", Rows, OwnRow)
+            RecordLine, "{FnmMedalRule(State.FirstTryCorrect, Total)}  -  streak {State.BestStreak}",
+            "TODAY'S TOP TIMES  -  {State.Cartridge.Title}", Rows, OwnRow)
         Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize}) for {State.Cartridge.Id}")
         # The public feed: the finish, then (on top) an island record.
-        Broadcast(FnmFeedFinish(State.Player, FnmClock(Time), Medal), "finished in {FnmClock(Time)}  ({Medal})")
+        # (The public finish line names no medal: fnm_hud FnmFeedFinish, G9.)
+        Broadcast(FnmFeedFinish(State.Player, FnmClock(Time), Medal), "finished in {FnmClock(Time)}")
         if (IslandRecord?):
-            Broadcast(FnmFeedRecord(State.Player, FnmClock(Time)), "set the island record  {FnmClock(Time)}")
+            Broadcast(FnmFeedRecord(State.Player, FnmClock(Time)), "set today's record  {FnmClock(Time)}")
         if (UseEndGameDevice?):
             State.Hud.SetCountdown("")
             spawn{ EndGameLater(State.Player) }
@@ -1966,9 +2282,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 State.Hud.ShowFinishButtons(if (Cartridges.Length > 1) then true else false, false)
                 spawn{ NextRun(State) }
             else:
-                # A podium: the board captures no input, so the player walks on into the victory area at once (Aaron
-                # 2026-10-06: the old board popped up and locked him out of it); it hides itself after ResultsSeconds.
-                State.Hud.SetCountdown("Walk on!   NEW RACE  /  CHANGE SKILL  at the podium ahead")
+                # A podium: the board captures no input (Aaron 2026-10-06: the old board popped up and locked him out of
+                # the victory area) and hides itself after ResultsSeconds. After the arena's kill the player is stood at
+                # the podium a moment later (PodiumLater).
+                State.Hud.SetCountdown("RACE AGAIN  or  NEW SKILL:  press E at the podium")
                 spawn{ HideResultsLater(State) }
 
     # Hides the finish board ResultsSeconds after a finish, unless a new run or a skill change already did.
@@ -1982,12 +2299,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # Finds the podium buttons and the all-time screen (tools/build_finish.py) and starts the screen.
     SetUpVictoryArea():void =
+        # One name per action everywhere (G9, ux_critique B8: four names for one action): RACE AGAIN and NEW SKILL.
         for (Object : FindCreativeObjectsWithTag(fnm_new_race), Button := button_device[Object]):
-            Button.SetInteractionText(FnmText("Race again"))
+            Button.SetInteractionText(FnmText("RACE AGAIN"))
             Button.InteractedWithEvent.Subscribe(OnNewRaceButton)
             set NewRaceButtons += array{Button}
         for (Object : FindCreativeObjectsWithTag(fnm_change_skill), Button := button_device[Object]):
-            Button.SetInteractionText(FnmText("Change skill"))
+            Button.SetInteractionText(FnmText("NEW SKILL"))
             Button.InteractedWithEvent.Subscribe(OnChangeSkillButton)
             set ChangeSkillButtons += array{Button}
         for (Object : FindCreativeObjectsWithTag(fnm_hall_head), Board := billboard_device[Object]):
@@ -2032,10 +2350,47 @@ fnm_director := class(creative_device, fnm_picker_listener):
     CloseResults(State:fnm_player_state):void =
         State.Hud.HideResults()
         State.Hud.HideFinishButtons()
-        State.Hud.SetTarget(if (NewRaceButtons.Length > 0) then "Race again: NEW RACE at the podium" else "")
+        State.Hud.SetTarget(if (NewRaceButtons.Length > 0) then "RACE AGAIN: press E at the podium" else "")
         Print("FNM: results closed")
         if (DebugVictoryTest?):
             spawn{ DebugToPodium(State) }
+
+    # The titan has fallen for a player who just finished (BossDown): PodiumSeconds later, with the fall under way, they
+    # are stood in the victory area before the podium, RACE AGAIN within reach, facing it (G9, ux_critique #10: the
+    # podium was a 55-60 m walk away with nothing on screen to lead there, and no auto-restart). Not if a new run or a
+    # skill change came first.
+    PodiumLater(State:fnm_player_state)<suspends>:void =
+        Generation := State.RunGeneration
+        Sleep(PodiumSeconds)
+        if (PlayerStates[State.Player], State.Finished?, not State.Picking?, State.RunGeneration = Generation, State.Mode = fnm_mode.Race):
+            if (Spot := PodiumSpot[], Character := State.Player.GetFortCharacter[], Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
+                Print("FNM: to the podium at {Spot}, {PodiumDistance(Spot)}")
+                spawn{ WideLook(State, PodiumWideSeconds, WideMoveCm, "podium") }
+            else:
+                Print("FNM: podium teleport failed (no RACE AGAIN button, or the character could not be moved)")
+
+    # Where a finisher is stood at the podium: centred between the RACE AGAIN (fnm_new_race) and NEW SKILL buttons, which
+    # face -Y, the way players arrive, PodiumStandOff in front of them (a few steps), on the victory area's floor (the
+    # fnm_finish pad's level), ArrivalLift up; never closer than ArrivalForward past that pad (landing on a pad sank a
+    # player into it, 2026-10-03). The wide camera frames both lecterns and the all-time board (PodiumLater, WideLook):
+    # standing far enough back for the player's own camera to see the board would put them on the pad (round-2 QA).
+    PodiumSpot()<transacts><decides>:vector3 =
+        Race := NewRaceButtons[0].GetTransform().Translation
+        Other := if (Skill := ChangeSkillButtons[0]) then Skill.GetTransform().Translation else Race
+        FloorZ := if (Pad := FinishPad?) then Pad.GetTransform().Translation.Z else Race.Z - 177.0
+        var Y : float = Race.Y - PodiumStandOff
+        if (Pad := FinishPad?):
+            set Y = Max(Y, Pad.GetTransform().Translation.Y + ArrivalForward)
+        vector3{X := (Race.X + Other.X) / 2.0, Y := Y, Z := FloorZ + ArrivalLift}
+
+    # "RACE AGAIN 2.4 m, NEW SKILL 4.9 m" from Spot, for the log (flat distances).
+    PodiumDistance(Spot:vector3)<transacts>:string =
+        var Line : string = ""
+        for (Button : NewRaceButtons):
+            set Line += "RACE AGAIN {FnmMetres(Spot, Button.GetTransform().Translation)} m"
+        for (Button : ChangeSkillButtons):
+            set Line += ", NEW SKILL {FnmMetres(Spot, Button.GetTransform().Translation)} m"
+        Line
 
     DebugToPodium(State:fnm_player_state)<suspends>:void =
         Sleep(1.0)
@@ -2164,7 +2519,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
     Countdown(State:fnm_player_state)<suspends>:void =
         set State.RunGeneration += 1
         Generation := State.RunGeneration
+        # Station 1 as the tutorial (G9): on the player's first run of the session.
+        if (not State.TutorialDone?, State.Stage = 1, State.Mode = fnm_mode.Race):
+            set State.TutorialDone = true
+            spawn{ Tutorial(State, Generation) }
         set State.StartTime = -1.0
+        set State.ClockPenalty = 0.0
+        set State.WrongDoors = 0
         set State.Splits = array{}
         State.Hud.ClearDelta()
         ChoosePace(State)
@@ -2184,11 +2545,39 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # The pace target is fixed at GO! (a record set during the countdown counts).
         ChoosePace(State)
         set State.StartTime = GetSimulationElapsedTime()
-        Print("FNM: run {State.Runs + 1} GO, pace target {State.PaceTarget.Length} splits")
+        Print("FNM: run {State.Runs + 1} GO at sim {State.StartTime} s, pace target {State.PaceTarget.Length} splits")
         loop:
             if (State.RunGeneration <> Generation or State.StartTime < 0.0 or State.Finished?) then break
-            State.Hud.SetClock(FnmClock(GetSimulationElapsedTime() - State.StartTime))
+            State.Hud.SetClock(FnmClock(RunClock(State, GetSimulationElapsedTime())))
             Sleep(0.1)
+
+    # Station 1 teaches the rule on a player's first run of the session (G9, ux_critique #2: no copy said door = answer,
+    # how a door opens, that walking in commits, or that A is on the left): three captions under 50 characters on the
+    # slate's line under the tiles, from the countdown on, each up long enough to read while walking the 30 m hall. They
+    # stop at the first door answered (a wrong door's lesson takes the line) or once the player leaves station 1.
+    Tutorial(State:fnm_player_state, Generation:int)<suspends>:void =
+        Whole := if (W := Round[WrongDoorSeconds]) then W else 3
+        TipA : tuple(string, float) = ("Each door is an answer. A is on the left.", CountdownStepSeconds * 3.0 + 0.5)
+        TipB : tuple(string, float) = ("Run through your answer's door. E opens it.", TutorialStepSeconds)
+        TipC : tuple(string, float) = ("Wrong door: a penalty, +{Whole} s, then try again.", TutorialStepSeconds + 1.0)
+        Steps : []tuple(string, float) = array{TipA, TipB, TipC}
+        Print("FNM: tutorial captions (first run of the session)")
+        var K : int = 0
+        var Shown : int = -1
+        loop:
+            if (Step := Steps[K], TutorialOn(State, Generation)?):
+                set Shown = State.Hud.ShowFeedback(Step(0), NamedColors.Gold)
+                Print("FNM: tutorial {K + 1}/{Steps.Length}: {Step(0)}")
+                Sleep(Step(1))
+                set K += 1
+            else:
+                break
+        if (Shown >= 0) then State.Hud.ClearFeedbackIf(Shown)
+        Print("FNM: tutorial done ({K} of {Steps.Length} captions shown)")
+
+    # The tutorial goes on while the player is still on this run's station 1 and has not answered a door yet.
+    TutorialOn(State:fnm_player_state, Generation:int)<transacts>:logic =
+        if (PlayerStates[State.Player], State.RunGeneration = Generation, State.Stage = 1, State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, not State.Busy?, not State.MissedCurrent?) then true else false
 
     # Streak line for the top panel: "" (no streak), "STREAK x3", "STREAK x3  -  SPEED BOOST 4s" or (streak 1)
     # "SPEED BOOST 3s". BoostLeft = whole seconds of boost left (0 = none running).
@@ -2282,22 +2671,41 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # ---------------------------------------------------------------- boss arena (G6 item 3)
 
-    # A player arrives at the arena stage (the last station's right door, or DebugStartStage): a hardest-tier question with
-    # the BOSS stage line, the fight cue, the public feed. BossLoop brings a boss up for them.
-    EnterArena(State:fnm_player_state):void =
+    # A player reaches the arena stage (the last station's right door, or DebugStartStage): a hardest-tier question (on the
+    # slate now, or after the recap card when ShowNow is false) and the boss music. BossLoop brings a boss up for them. The
+    # fight's cue, its feed line and the arena's one instruction wait until they walk into the arena hall (WatchArena,
+    # ArenaArrival): fired here, 44 m early, the instruction flashed while the kid was still in the vestibule and its hint
+    # line was overwritten in the same tick (ux_critique B6).
+    EnterArena(State:fnm_player_state, ShowNow:logic):void =
         set State.Hits = 0
+        set State.ArenaArrived = false
         DrawItem(State)
-        ShowCurrent(State)
+        if (ShowNow?) then ShowCurrent(State)
         Music(State)
+        Print("FNM: arena stage reached ({BossHitsToKill} hits to win)")
+
+    # The player has walked into the arena hall (WatchArena, once per run): the fight cue, the public feed line and the
+    # arena's one instruction, big. The hits are counted on the boss bar alone; a player who shoots the boss is told
+    # bullets do nothing (RaceGunHint).
+    ArenaArrival(State:fnm_player_state):void =
+        set State.ArenaArrived = true
         Sound(State.Player, fnm_cue.BossFight)
         Broadcast(FnmFeedBoss(State.Player), "reached the boss!")
         State.Hud.FlashBig("STEP ON THE RIGHT ANSWER PAD!", NamedColors.Gold, 4.0)
-        Hint := State.Hud.ShowFeedback("Bullets can't hurt it. Step on the floor pad (A-D) with the right answer: that is a hit!", NamedColors.Orange)
-        Print("FNM: entered the arena ({BossHitsToKill} hits to win)")
+        Print("FNM: entered the arena: instruction up")
+
+    # Arena entry (G9): a race player at the arena stage found inside the arena hall (its hallway box) for the first time
+    # this run.
+    WatchArena(State:fnm_player_state):void =
+        if (State.Mode = fnm_mode.Race, not State.ArenaArrived?, not State.Finished?, not State.Picking?, AtArena(State)?, Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+            Hall := HallwayAt(Character.GetTransform().Translation)
+            if (Hall = Stations.Length):
+                ArenaArrival(State)
 
     # A new run or skill: the gate closes again for this player and their hits reset.
     ResetArena(State:fnm_player_state):void =
         set State.Hits = 0
+        set State.ArenaArrived = false
         if (A := Arena?, Gate := A.Gate?):
             Gate.RemoveFromIgnoreList(State.Player)
 
@@ -2310,35 +2718,32 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.Busy = false
                 FlashNotice(State, "No choice {FnmChoiceLetter(DoorIndex)} here")
             else if (Choice = Item.Answer):
+                # The recap card, as at the stations (G9): the solved item, then the next question. It replaced the delayed
+                # "Last one:  <explanation>" line under the NEXT question (boss mode keeps that, FnmLastOne).
+                Solved := RecapOf(State, Item, DoorIndex, "CORRECT!")
                 BossHit(State, A)
                 set State.Busy = false
-                # The explanation waits until the hit has played out, as in boss mode (OnPad): shown at once, the grown
-                # answer panel covered the lasers and the titan's flail. Not if they answered again (or finished) meanwhile.
-                Hits := State.Hits
-                Sleep(ExplainDelaySeconds)
-                if (not State.Finished?, State.Hits = Hits, not State.MissedCurrent?, State.Mode = fnm_mode.Race, AtArena(State)?):
-                    # Prefixed "Last one:": it lands under the NEXT question, so it must not read as that question's answer (Aaron 2026-10-11).
-                    Generation := State.Hud.ShowFeedback(FnmLastOne(Item), NamedColors.LightGreen)
-                    Print("FNM: arena explanation up")
-                    Sleep(CorrectFeedbackSeconds)
-                    State.Hud.ClearFeedbackIf(Generation)
+                # The pads are live during the recap and the entry is ~2 s from them: the card stays no longer than the
+                # answer cooldown (TooSoon), so a pad answers only a question that is on the slate (round-2 audit).
+                if (not State.Finished?):
+                    Recap(State, Solved, Min(RecapSeconds, RightCooldownSeconds))
             else:
                 set State.MissedCurrent = true
                 set State.Streak = 0
                 StopBoost(State)
                 Kind := PickPenalty()
                 Past := FnmPenaltyPast(Kind)
-                Broadcast(FnmFeedBossPenalty(State.Player, Past), "got {Past} by the boss")
+                MissFeed(State, FnmFeedBossPenalty(State.Player, Past), "You got {Past} by the boss", "got {Past} by the boss")
                 Sound(State.Player, fnm_cue.Wrong)
-                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
-                Generation := State.Hud.ShowFeedback(FeedbackFor(Item, Choice), NamedColors.Tomato)
+                Tail := ChargeWrongDoor(State)
+                State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind) + Tail)
+                Lesson := FeedbackFor(Item, Choice)
+                Shown := State.Hud.ShowFeedback(Lesson, NamedColors.Tomato)
                 SummonAdds(A)
                 if (BossAlive?):
                     spawn{ RaceTitan.Taunt() }
                 Punish(State.Player, A.Station, DoorIndex, Kind)
-                set State.Busy = false
-                Sleep(WrongFeedbackSeconds)
-                State.Hud.ClearFeedbackIf(Generation)
+                Retry(State, Lesson)
         else:
             set State.Busy = false
 
@@ -2380,9 +2785,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             RefreshRaceBossBars(Now)
             for (Fighter : PlayerStates, ShowsRaceBossBar(Fighter, Now)?):
                 spawn{ Fighter.Hud.HitBossBar() }
+        # The next question is drawn here and shown by the caller after the recap card (HandlePad, Recap).
         if (not State.Finished?):
             DrawItem(State)
-            ShowCurrent(State)
 
     # The damage of one hit: 1/BossHitsToKill of the boss's max health; the team's last hit whatever is left (gunfire may
     # have chipped it, a shield may have soaked some).
@@ -2519,6 +2924,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 FinishPlayer(State)
                 Sound(State.Player, fnm_cue.BossDead)
                 spawn{ SoundAfter(State.Player, fnm_cue.BossDown, BossDownVoiceDelaySeconds) }
+                spawn{ PodiumLater(State) }
             RefreshRaceBossBars(BossDownAt)
 
     # Every BossRefreshSeconds: a boss for whoever is at the arena stage (BossRespawnSeconds after the last kill; a
@@ -2757,25 +3163,27 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var Line : string = if (State.BestTime >= 0.0) then "Beat {FnmClock(State.BestTime)}" else ""
         if (Top := BoardFor(State.CartridgeIndex)[0], Top.Splits.Length = Stations.Length):
             set State.PaceTarget = Top.Splits
-            set Line = "Record {FnmClock(Top.Time)}"
+            set Line = "Today's record {FnmClock(Top.Time)}"
         else if (Saved := FnmSavedSplits[State.Player, State.Cartridge.Id], Saved.Length = Stations.Length):
             set State.PaceTarget = Saved
         State.Hud.SetTarget(Line)
 
     # A right answer at the player's current stage: its race-clock split, and against the pace target the delta under
-    # the target line (green ahead, red behind).
-    RecordSplit(State:fnm_player_state):void =
+    # the target line (green ahead, red behind). Returns the delta ("−1.8 s"; "" with no pace target) for the recap card.
+    RecordSplit(State:fnm_player_state):string =
+        var Copy : string = ""
         if (State.StartTime >= 0.0):
             Stage := State.Stage
-            Elapsed := GetSimulationElapsedTime() - State.StartTime
+            Elapsed := RunClock(State, GetSimulationElapsedTime())
             set State.Splits += array{Elapsed}
             if (Target := State.PaceTarget[Stage - 1]):
                 Delta := Elapsed - Target
-                Copy := DeltaCopy(Delta)
+                set Copy = DeltaCopy(Delta)
                 State.Hud.SetDelta(Copy, if (Delta < 0.0) then NamedColors.LightGreen else NamedColors.Tomato)
                 Print("FNM: split stage {Stage} at {FnmClock(Elapsed)} delta {Copy}")
             else:
                 Print("FNM: split stage {Stage} at {FnmClock(Elapsed)} delta none")
+        Copy
 
     # "−1.8 s" (ahead: a real minus sign, as in the cartridges' charset) or "+3.2 s" (behind), one decimal.
     DeltaCopy(Seconds:float)<transacts>:string =
@@ -2789,6 +3197,20 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Print("FNM: feed {LogLine}")
         for (State : PlayerStates):
             State.Hud.PushFeed(Line)
+
+    # A wrong door's (or pad's) feed line (G9, ux_critique #6): on the victim's own HUD only, since a feed that named every
+    # miss to the whole class was a public failure log; except the race leader's misses, which stay public (drama about
+    # the one in front, naming nobody who is behind). The leader is the strip's first row when that is a racer
+    # (RaceLeaderNow, UpdateRace).
+    # Named: the line for every HUD ("<name> got frozen at station 3"); Own: the victim's own line ("You got frozen at
+    # station 3": their own HUD used to show their own name, round-2 audit).
+    MissFeed(State:fnm_player_state, Named:message, Own:string, LogLine:string):void =
+        if (Leader := RaceLeaderNow?, Leader = State.Player):
+            Print("FNM: feed (public: the leader's miss)")
+            Broadcast(Named, LogLine)
+        else:
+            Print("FNM: feed (own HUD only) {Own}")
+            State.Hud.PushFeed(FnmText(Own))
 
     # One loop for the rivals strip: every RaceSeconds the order is computed once and written to every player's HUD.
     RaceLoop()<suspends>:void =
@@ -2806,6 +3228,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Summary <> LastRaceLog):
             set LastRaceLog = Summary
             Print("FNM: RACE {Summary}")
+        # The leader (MissFeed): the first row, if that player is racing and someone else is too (a lone racer leads nobody).
+        var Racers : int = 0
+        for (Entry : Entries, Racing(Entry.Who)?):
+            set Racers += 1
+        set RaceLeaderNow = if (Racers >= 2, First := Entries[0], Racing(First.Who)?) then option{First.Who} else false
         for (State : PlayerStates):
             if (State.Picking?):
                 State.Hud.SetRivals(array{}, -1)
@@ -2824,10 +3251,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
             # Boss battle mode: after the finishers, before the racers, higher levels first.
             if (State.Mode = fnm_mode.Boss):
                 return fnm_race_entry{Who := Who, Score := 900000.0 + (10 - State.Level) * 1000.0, Tail := "BOSS L{State.Level}"}
-            Elapsed :=if (State.StartTime >= 0.0) then Now - State.StartTime else 0.0
-            Stage := Max(1, Min(State.Stage, Stations.Length))
-            return fnm_race_entry{Who := Who, Score := 1000000.0 + (Stations.Length + 1 - Stage) * 100000.0 + Min(Elapsed, 99999.0), Tail := "station {Stage}"}
+            Elapsed := if (State.StartTime >= 0.0) then RunClock(State, Now) else 0.0
+            # The arena (stage Stations.Length + 1) ranks ahead of station 10 and reads BOSS (it said "station 10").
+            Stage := Max(1, Min(State.Stage, Stations.Length + 1))
+            Tail := if (AtArena(State)?) then "BOSS" else "station {Min(Stage, Stations.Length)}"
+            return fnm_race_entry{Who := Who, Score := 1000000.0 + (Stations.Length + 1 - Stage) * 100000.0 + Min(Elapsed, 99999.0), Tail := Tail}
         fnm_race_entry{Who := Who, Score := 5000000.0, Tail := "lobby"}
+
+    # True for a player racing right now: a race-mode run past its pick, not finished.
+    Racing(Who:player)<transacts>:logic =
+        if (State := PlayerStates[Who], State.Mode = fnm_mode.Race, not State.Picking?, not State.Finished?, State.StartTime >= 0.0) then true else false
 
     # Lowest Score first (insertion sort; a handful of players).
     SortRace(Entries:[]fnm_race_entry):[]fnm_race_entry =
@@ -2845,16 +3278,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set Sorted = Next
         Sorted
 
-    # Viewer's strip: the first RaceRows entries, or with more players than that and the viewer further down, the top
-    # RaceRows - 1 and then the viewer. The viewer's row reads YOU; returns the rows and the viewer's row index.
+    # Viewer's strip (G9, ux_critique #6): the top StripTop, the one rival just ahead of the viewer, and the viewer, in
+    # race order; never the full ranking, so nobody sees who is last (unless it is themselves, or a top-3 row with three
+    # players). The closest rival is the number that drives a racer. The viewer's row reads YOU; returns the rows and the
+    # viewer's row index.
     RaceRowsFor(Entries:[]fnm_race_entry, Viewer:player):tuple([]message, int) =
         var ViewerAt : int = -1
         for (K -> Entry : Entries, Entry.Who = Viewer):
             set ViewerAt = K
-        var Picked : []fnm_race_entry = for (K -> Entry : Entries, K < RaceRows) { Entry }
-        if (ViewerAt >= RaceRows, Me := Entries[ViewerAt]):
-            Top := for (K -> Entry : Entries, K < RaceRows - 1) { Entry }
-            set Picked = Top + array{Me}
+        Picked := for (K -> Entry : Entries, (K < StripTop or K = ViewerAt or K = ViewerAt - 1)) { Entry }
         var OwnRow : int = -1
         var Rows : []message = array{}
         for (K -> Entry : Picked):

@@ -1,4 +1,4 @@
-"""Click the director's HUD buttons (skill menu, CHANGE SKILL) in a play session: launch, screenshot, click.
+"""Click the director's HUD buttons (skill menu, NEW SKILL, was CHANGE SKILL) in a play session: launch, screenshot, click.
 
     python tools/click_hud.py launch            # relaunch, wait for 'FNM: picker shown', restore a minimized client,
                                                 # screenshot %TEMP%\\pick0.png (read it to find the buttons)

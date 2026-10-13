@@ -12,7 +12,9 @@ its own floor slabs, so it may run past the template's ground.
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
-    python tools/build_course.py --paint-only   # recolour walls by tier (materials: tools/import_art.py)
+    python tools/build_course.py --paint-only   # recolour walls AND floors by tier (materials: tools/import_art.py), saves, reads back
+    python tools/build_course.py --door-paint   # re-apply each door's letter material in place (no replacing), saves, reads back
+    python tools/build_course.py --check-paint  # read-only: every door and painted wall / floor against what the build wants (exit 1 if off)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
     python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
 
@@ -157,6 +159,10 @@ LETTER_COLOURS = [(1.0, 1.0, 1.0), (0.3, 0.55, 1.0), (0.2, 0.9, 0.3), (1.0, 0.55
 # for the editor): M_door_face_<x>, a texture in the door's colour with the HUD answer tile and letter drawn where the
 # panel's front face shows it (tools/make_door_signs.py, imported by tools/import_art.py signs). The letter swings away
 # with the door and has no collision. The wall frame round the door is a runtime MID that ignores an override: stock.
+# THE PAINT IS ONLY AS DURABLE AS THE MATERIAL ASSET: deleting M_door_face_x (or M_fnm_wall_x) and importing it again empties
+# every reference to it, and the actors do not repaint themselves (all 40 doors and every wall read back null on 2026-10-13
+# after a full import_art run). import_art now keeps existing materials; repair with --door-paint / --paint-only, verify
+# with --check-paint (door_dress itself reads each door back and stops the build on a miss).
 # Tried and dropped (2026-10-08/09): a sign actor on the panel (stayed in the doorway when the door opened and blocked
 # players: a FortStaticMeshActor's NoCollision set in the editor does not hold in play); a component parented to the
 # DoorComponent (Creative props are respawned at runtime without editor-added components); the Spooky alphabet meshes
@@ -306,12 +312,50 @@ def wall_material(key):
     return f"{project_mount()}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
 
 
-def door_dress(door, i):
-    """Paint door prop `door` as answer i (A = 0): its colour with the letter tile on the panel."""
+def exists(path):
+    return u.call(ASSETS, "exists", {"path": path})["returnValue"]
+
+
+def read(path, key):
+    r = u.call(OBJ, "get_properties", {"instance": ref(path), "properties": [key]})["returnValue"]
+    return (json.loads(r) if isinstance(r, str) else r)[key]
+
+
+def first_ref(value):
+    """The refPath of a property read back as a ref or a one-item list of refs (None when empty / null)."""
+    if isinstance(value, list):
+        value = value[0] if value else None
+    return (value or {}).get("refPath")
+
+
+def door_face(i):
     key = LETTERS[i].lower()
-    face = ref(f"{project_mount()}/FNM_Art/M_door_face_{key}.M_door_face_{key}")
+    return f"{project_mount()}/FNM_Art/M_door_face_{key}.M_door_face_{key}"
+
+
+def door_problem(door, i):
+    """What is wrong with door prop `door` answering i (A = 0), read back: its panel material and the DoorComponent
+    override must both be M_door_face_<letter>. None when right. A null reads back when the asset was deleted and
+    re-imported under the door (tools/import_art.py: --force)."""
+    want = door_face(i)
+    anim, over = first_ref(read(door, "doorAnimatingMaterial")), first_ref(read(f"{door}.DoorComponent", "overrideMaterials"))
+    if anim != want or over != want:
+        return f"doorAnimatingMaterial {anim}, DoorComponent override {over}, wanted {want}"
+    if read(door, "bCanBeDamaged") is not False:
+        return "bCanBeDamaged is not false (a door re-placed after tools/build_island.py hardening is damageable again)"
+    return None
+
+
+def door_dress(door, i):
+    """Paint door prop `door` as answer i (A = 0): its colour with the letter tile on the panel, and make it indestructible
+    (a door placed after build_island.py ran was damageable: 40 of 40 read back true on 2026-10-13). Read back at once: a
+    write that did not take (a missing material answers True and reads back null) stops the build."""
+    face = ref(door_face(i))
+    props(door, {"bCanBeDamaged": False})       # every placed gallery prop is damageable (build_island.harden); a re-placed door was again
     props(door, {"doorAnimatingMaterial": face})
     props(f"{door}.DoorComponent", {"overrideMaterials": [face]})
+    if bad := door_problem(door, i):
+        sys.exit(f"{door} not painted: {bad}")
 
 
 def clear_door_signs(found):
@@ -581,31 +625,126 @@ def auto_tier(stage, stages, tiers):
     return 1
 
 
-def paint():
-    """Colour each hallway's walls by the tier played there (materials from tools/import_art.py), the finish
-    gold. Floors stay white. Idempotent; safe to rerun alone after a cartridge change (--paint-only)."""
-    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
-    mount = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).rstrip("/")
-    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
-    walls = [a for a in found if isinstance(a, dict) and re.match(r"FNM_(S\d\d|Finish|Arena)_(Wall|Lintel|Divider|Baffle|Hurdle|Step|Pad[A-D]$|Platform$)", a.get("label", ""))]
-    stations = len({a["label"][5:7] for a in walls if a["label"][4] == "S"})
-    ice = [a for a in found if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Floor", a.get("label", ""))
-           and int(a["label"][5:7]) in ICE_STATIONS]
+# What paint() colours (labels). Walls, lintels, dividers, baffles, hurdles, the arena's pads and platform take a wall colour;
+# floors (a hallway's, a connector's funnel / straight / flare / stair treads, the arena's, the finish's) a darker floor one.
+WALL_LABEL = re.compile(r"FNM_(S\d\d|Finish|Arena)_(Wall|Lintel|Divider|Baffle|Hurdle|Pad[A-D]$|Platform$)")
+FLOOR_LABEL = re.compile(r"FNM_(S\d\d|Finish|Arena)_Floor(C\d+|Funnel|Flare)?")
+
+
+def paint_key(label, stations, tiers):
+    """The material key (M_fnm_wall_<key>, tools/import_art.py) the actor `label` is painted with, None if it stays as
+    built (stations: how many the course has, tiers: the cartridges' tier count). A station hallway's floor takes that
+    tier's floor colour; a connector's floor and walls (labelled with the hallway they lead into) the next hallway's;
+    the arena the hardest tier's; the finish gold walls over a dark gold-brown floor; the ice station's floor stays ice;
+    every station's Lintel (the band over its doors, where build_door_marks stands the letters) dark."""
+    floor = FLOOR_LABEL.fullmatch(label) or re.fullmatch(r"FNM_(S\d\d|Finish|Arena)_Step\d+_\d+", label)   # a tread is floor
+    if not floor and not WALL_LABEL.match(label):
+        return None
+    if m := re.fullmatch(r"FNM_S(\d\d)_Floor", label):
+        if int(m[1]) in ICE_STATIONS:
+            return "ice"
+    kind = "floor_" if floor else ""
+    if label.endswith("_Lintel"):
+        return "lintel"
+    # Hurdles are gold (the finish colour) so they stand out against the tier colour; stair treads are floor and take the
+    # dark floor colour (they took the wall colour until 2026-10-13, when pale blue steps glared). The arena plays the hardest tier: its walls (and the connector's into it)
+    # take the tier-5 colour, each answer pad's tile its letter's colour (M_fnm_wall_pad_a..d).
+    if label.startswith("FNM_Finish"):
+        return "floor_finish" if floor else "finish"
+    if "_Hurdle" in label or label == "FNM_Arena_Platform":
+        return "finish"
+    if pad := re.fullmatch(r"FNM_Arena_Pad([A-D])", label):
+        return f"pad_{pad.group(1).lower()}"
+    if label.startswith("FNM_Arena"):
+        return f"{kind}tier5"
+    return f"{kind}tier{auto_tier(int(label[5:7]), stations, tiers)}"
+
+
+def paint_jobs():
+    """[(actor, material key)] for every course actor paint() colours, plus (stations, tiers)."""
+    found = [a for a in u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"] if isinstance(a, dict)]
+    stations = len({a["label"][5:7] for a in found if re.match(r"FNM_S\d\d_(Wall|Lintel)", a.get("label", ""))})
     tiers = tier_count()
-    for a in walls + ice:
-        # Hurdles are gold (the finish colour) so they stand out against the tier colour; stair steps take the
-        # tier colour so each step reads against the white floors; ice floors are pale blue.
-        gold = a["label"].startswith("FNM_Finish") or "_Hurdle" in a["label"] or a["label"] == "FNM_Arena_Platform"
-        # The arena plays the hardest tier: its walls (and the connector's into it) take the tier-5 colour; each answer
-        # pad's tile its letter's colour (materials M_fnm_wall_pad_a..d, tools/import_art.py).
-        pad = re.fullmatch(r"FNM_Arena_Pad([A-D])", a["label"])
-        key = ("ice" if a in ice else "finish" if gold else f"pad_{pad.group(1).lower()}" if pad
-               else "tier5" if a["label"].startswith("FNM_Arena") else f"tier{auto_tier(int(a['label'][5:7]), stations, tiers)}")
-        mat = f"{mount}/FNM_Art/M_fnm_wall_{key}.M_fnm_wall_{key}"
-        comp = json.loads(u.call(OBJ, "get_properties", {"instance": ref(a["actorPath"]),
-                                                        "properties": ["staticMeshComponent"]})["returnValue"])
-        props(comp["staticMeshComponent"]["refPath"], {"overrideMaterials": [ref(mat)]})
-    print(f"painted {len(walls)} walls and steps, {len(ice)} ice floors, over {stations} stations ({tiers} tiers)")
+    jobs = [(a, k) for a in found if (k := paint_key(a.get("label", ""), stations, tiers))]
+    return jobs, stations, tiers
+
+
+_COMPS = {}
+
+
+def wall_override(actor_path):
+    """(static mesh component path, its first overrideMaterials ref path or None)."""
+    if actor_path not in _COMPS:
+        _COMPS[actor_path] = read(actor_path, "staticMeshComponent")["refPath"]
+    comp = _COMPS[actor_path]
+    return comp, first_ref(read(comp, "overrideMaterials"))
+
+
+def paint():
+    """Colour each hallway's walls AND floor by the tier played there, the finish gold (materials from
+    tools/import_art.py), then save and read every actor's override back. Idempotent (an actor already right is not
+    written); safe to rerun alone after a cartridge change (--paint-only). A missing material stops it before anything
+    is written."""
+    jobs, stations, tiers = paint_jobs()
+    missing = sorted(k for k in {k for _, k in jobs} if not exists(wall_material(k).split(".")[0]))
+    if missing:
+        sys.exit(f"materials missing: {missing}: python tools/import_art.py {' '.join(missing)}")
+    wrote = 0
+    for a, key in jobs:
+        comp, now = wall_override(a["actorPath"])
+        if now != wall_material(key):
+            props(comp, {"overrideMaterials": [ref(wall_material(key))]})
+            wrote += 1
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    bad = check_paint(jobs)
+    if bad:
+        sys.exit(f"{len(bad)} actors did not keep their paint after the save, e.g. " + "; ".join(bad[:4]))
+    print(f"painted {len(jobs)} actors ({wrote} written, the rest already right) over {stations} stations ({tiers} tiers); "
+          f"read back after save: all {len(jobs)} hold their material")
+
+
+def check_paint(jobs=None):
+    """Read every painted actor's override back; the list of those that do not hold the wanted material."""
+    if jobs is None:
+        jobs = paint_jobs()[0]
+    bad = []
+    for a, key in jobs:
+        _, now = wall_override(a["actorPath"])
+        if now != wall_material(key):
+            bad.append(f"{a['label']} {now} != {key}")
+    return bad
+
+
+def find_doors():
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    return sorted((a for a in found if isinstance(a, dict) and re.fullmatch(r"FNM_S\d\d_Door[A-D]", a.get("label", ""))),
+                  key=lambda a: a["label"])
+
+
+def door_paint():
+    """Re-apply door_dress to every door prop already in the level (nothing is removed or placed), save, and read all of
+    them back: the repair after a door face was replaced, and the check that the paint survives a save. Idempotent."""
+    doors = find_doors()
+    if not doors:
+        sys.exit("no FNM_Sxx_DoorX actors: run the full build")
+    for a in doors:
+        door_dress(a["actorPath"], LETTERS.index(a["label"][-1]))
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    bad = [f"{a['label']}: {p}" for a in doors if (p := door_problem(a["actorPath"], LETTERS.index(a["label"][-1])))]
+    if bad:
+        sys.exit("doors not painted after the save: " + "; ".join(bad[:4]))
+    print(f"{len(doors)} doors painted; after the save every doorAnimatingMaterial and DoorComponent override reads back "
+          f"as its own letter's M_door_face_x")
+
+
+def check_all_paint():
+    """Read-only: every door and every painted wall / floor against what the build wants. Exit 1 when any is off."""
+    doors = find_doors()
+    bad = [f"{a['label']}: {p}" for a in doors if (p := door_problem(a["actorPath"], LETTERS.index(a["label"][-1])))]
+    bad += check_paint()
+    print(f"{len(doors)} doors checked; {len(bad)} paint problems" + ("" if not bad else ": " + "; ".join(bad[:6])))
+    if bad:
+        sys.exit(1)
 
 
 def doors_only():
@@ -750,12 +889,18 @@ if __name__ == "__main__":
     ap.add_argument("--hall", type=int, default=3000, help="hallway length (cm) from entry to the door wall")
     ap.add_argument("--paint-only", action="store_true", help="only recolour the walls by tier")
     ap.add_argument("--doors-only", action="store_true", help="only replace the door props in place")
+    ap.add_argument("--door-paint", action="store_true", help="only re-apply the doors' letter materials in place and read them back")
+    ap.add_argument("--check-paint", action="store_true", help="read-only report of every door's and wall's / floor's paint")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     ap.add_argument("--triggers-only", action="store_true", help="only refit the vestibule and arena pad triggers in place (trigger_fit)")
     ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
     a = ap.parse_args()
     if a.paint_only:
         paint()
+    elif a.door_paint:
+        door_paint()
+    elif a.check_paint:
+        check_all_paint()
     elif a.doors_only:
         doors_only()
     elif a.ice_only:

@@ -512,7 +512,9 @@ fnm_boss_mode := class:
         Director.SetMusic(State.Player, Level)
         State.Hud.FlashBig("STEP ON THE RIGHT ANSWER!", NamedColors.Gold, StartFlashSeconds)
         spawn{ ShowLine(State, "Bullets can't hurt the boss. Step on the pad with the RIGHT ANSWER to nuke it!", NamedColors.Orange, LineSeconds) }
+        # (Boss mode never charges wrong doors to its clock; ClockPenalty is the race's, cleared with StartTime.)
         set State.StartTime = GetSimulationElapsedTime()
+        set State.ClockPenalty = 0.0
         spawn{ BmClock(State) }
         Director.Broadcast(FnmFeedBmJoin(State.Player), "joined the BOSS BATTLE")
         Print("FNM: boss mode start for the player (level {Level})")
@@ -532,17 +534,19 @@ fnm_boss_mode := class:
             set State.Level = 0
             set State.RunGeneration += 1
             set State.StartTime = -1.0
+            set State.ClockPenalty = 0.0
             State.Hud.ClearBoss()
             set State.BossShown = false
             State.Hud.HideBanner()
             Print("FNM: boss mode: the player left ({Fighters()} still fighting)")
 
-    # An eliminated boss-mode player is back: the arena entry, the loadout, counted (not for a Spike penalty's own death,
-    # which happens while the answer is still being processed).
+    # An eliminated boss-mode player is back: the arena entry, the loadout, counted. (Until G9 a Spike penalty's own death,
+    # taken while the answer was still being processed, was not counted: `not State.Busy?`. Spike no longer kills, so the
+    # only deaths while Busy are real knockouts during a penalty's hold, and those count now.)
     Respawned(State:fnm_player_state):void =
         Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
         Director.GiveLoadout(State.Player)
-        if (not State.Busy?, not State.Finished?):
+        if (not State.Finished?):
             set State.Deaths += 1
             spawn{ Director.FlashNotice(State, "Knocked out! Back to the arena entry.") }
         Print("FNM: boss mode respawn at the arena entry (knocked out {State.Deaths}x)")
@@ -1038,6 +1042,7 @@ fnm_boss_mode := class:
         set State.Runs += 1
         Time := if (State.StartTime >= 0.0) then GetSimulationElapsedTime() - State.StartTime else 0.0
         set State.StartTime = -1.0
+        set State.ClockPenalty = 0.0
         set State.LastTime = Time
         Director.StopBoost(State)
         HadBest := if (State.BossBest >= 0.0) then true else false

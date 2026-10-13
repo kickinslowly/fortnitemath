@@ -13,9 +13,15 @@
 - [x] 2026-10-06: the 10-skill grade-6 step ran off the screen (Aaron: "words are cut off"). Stock buttons grow to
   their label at a fixed font, so a skill button now carries the title only, with the subtitle as a 22px caption
   under it (`MakeCell` in fnm_ui.verse). Aaron: "looks much better"
-- [ ] One run on a new grade-6 skill in play. Cook/runtime memory at 11 cartridges unproven (PROTOCOL O4)
+- [x] One run on a new grade-6 skill in play: area-volume (index 0) auto-run to GOLD 1:29.8, questions incl. `1/2` and
+  "cu units" render (2026-10-13, Q). Cook/runtime at 19 cartridges (1.7 MB slot): compiles in ~2 s, first session cook
+  ~100 s, runs. Island MEMORY at 19 still unmeasured (GUI-only Launch Memory Calculation, Aaron)
 - [ ] Aaron content review of the grade-6 library (emulator: `emulator/` with the regenerated carts.js)
-- [ ] Grade 7 and 8 libraries
+- [x] Grade-7 library (2026-10-13; Opus lead + 8 Sonnet builders, one fix round): proportional-relationships,
+  percent-problems, rational-ops, linear-expressions, two-step-equations, angle-relationships, circles, probability (200
+  items each; plan + "does not fit" table in LIBRARY.md; PROTOCOL §4b gained Angles + percent change). Inserted: slot 19
+  cartridges. Seen in play: circles to the finish, π draws in the HUD font. Parent worked 80 samples, all right
+- [ ] Grade-8 library (after island memory at 19 is read; slot would reach ~2.4 MB)
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.
@@ -154,7 +160,8 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [ ] Aaron playtest of the 2026-10-06 build: walk into the victory area while the board shows, then the podium;
   is station 6 slippery enough now (and ONLY station 6); do the launcher stations play; the finish board's new
   position (top, 62% black) legible?
-- [ ] Ice position poll (`WatchIce` through `mutator_zone_device.IsInVolume`) is UNVERIFIED in play: the headless
+- [x] Ice position poll PASSED 2026-10-13 (Q): `DebugStartStage 6`, 80 s standing: one "on ice", no "off ice"; disproof: an
+  auto-right run logged "off ice" on the teleport out. Original note: (`WatchIce` through `mutator_zone_device.IsInVolume`) was UNVERIFIED in play: the headless
   auto-right run never enters the station 6 hallway (it teleports into the door vestibules), and the station-6 start
   session (`DebugStartStage 6`) was killed by the harness for low system memory before it logged anything. Risk if
   `IsInVolume` never succeeds: the poll would take the ice off 0.25 s after the zone's enter event, i.e. no ice at
@@ -363,7 +370,8 @@ question per player on the HUD and make it read as a sign.
   tile, painted into the panel's own texture (2026-10-09, after Aaron found the first version's sign actors stayed in
   the doorway with collision) (LAYOUT.md "Door colours and signs"). Seen in the editor on all four doors; the painted
   version is not yet seen in play or opened in play. The wall frame round each door stays white
-  - [ ] **REGRESSED (found 2026-10-13, race review):** in play AND in the editor the four doors are identical (no letter, no
+  - [x] Fixed 2026-10-13 (G9 Now 1): cause = `tools/import_art.py` deleted + re-imported materials, nulling every reference
+    (all 340 painted course actors, not just doors); import_art now keeps existing assets. **Was REGRESSED (found 2026-10-13, race review):** in play AND in the editor the four doors are identical (no letter, no
     colour); `FNM_S01_DoorB` reads `doorAnimatingMaterial: null`, `DoorComponent.overrideMaterials: [null]` while
     `M_door_face_a..d` exist. Lost in a later rebuild (not diagnosed). Re-apply `door_dress`, then see it in play (G9 Now 1)
 - [x] 6. Parallelograms give base and height only (Aaron 2026-10-09: the slanted side was useless information);
@@ -396,7 +404,10 @@ plans and audits; Opus builds; Sonnet does B3.
 ## G9 — Blockbuster race (Aaron, 2026-10-13: "full review of ux for our race mode ... aiming for a blockbuster")
 Review: `reviews/race-2026-10-13/REVIEW.md` (verdict, ranked findings, gamification system, FX plan, vision, roadmap; agent
 reports in `sources/`). Verdict: not a blockbuster yet (checklist 22/75); the gap is format and identity, not polish.
-State 2026-10-13: review written, nothing built yet; review folder + this G9 + tools/burst.py UNCOMMITTED at session end.
+State 2026-10-13 afternoon: Now 1-9 built by an agent team (`briefs/g9/`), audited (Fable), fixed (round 2), seen in
+headless play, committed. Open: Now 10-12 (need Aaron / real players) and the decisions below. Polish found on the way:
+the slate covers the top half of the lintel letters at the retry spot; the HUD finish board sits over the world ALL-TIME
+board for its 10 s; boss mode's own feed still names the player on a miss.
 Decisions pending with Aaron (recommendation after the arrow):
 - Name -> DOORS OF DOOM (check fortnite.gg for title collisions; drop "Fortnite" from title, HUD tag, welcome voice line)
 - World -> Titan Peak volcano ascent; the robot host and mascot "Volt" are one character
@@ -412,18 +423,24 @@ day Hour10/14/17/19 + `cameraFilter` frames; volcano-scale mesh at +2 km draw di
 follows a player; `PlayerReference` hologram; `CrowdVolume`; `CameraFocus`/`FixedPoint`; `PP_ActionLines` + partial post-process
 strength; spatial audio player; Niagara 40 m beam cull; door sprint-bash; barrier visibility; `hud_controller_device` hiding
 the GAME MODE box/minimap; `GetLocalParty` in a published version; accolades `TestAwardEvent`.
-- [ ] Now 1. Doors re-painted (G7 4 regression) + 3D lintel letters + letter-colour arch lights, seen in play
-- [ ] Now 2. HUD tile colours: B and C render the same cyan, D renders yellow (sampled 2026-10-13); fix + sample a capture;
-  tile letters 20 -> 40 px
-- [ ] Now 3. Lock lighting (Island Settings `timeOfDayOverride` is NoOverride: night = blue course); compare Hour10/14/17/19
-  frames; dark tier floors via `--paint-only`; rim light
-- [ ] Now 4. Copy pass (picker heading/step, "station" everywhere, one arena instruction, one hit counter, "Today's record",
+- [x] Now 1. Doors re-painted (G7 4 regression; cause above) + 3D lintel letters + letter-colour arch lights
+  (`tools/build_door_marks.py`, lights at 25% size / 40% intensity so they do not bleach by day). Seen in play
+- [x] Now 2. HUD tile colours. Cause: Verse UI draws a raw `color` ~3.86x too bright, so EVERY HUD colour was off (STREAK
+  orange drew yellow). All widget colours go through `FnmUi` (gain 0.259, pinned by test); tiles sampled white / (66,140,255)
+  / (59,217,63) / (255,147,20); letters 40 px; slate now draws dark. UNVERIFIED on the Xbox (calibrated on this PC)
+- [x] Now 3. Lighting locked at **Hour19** (four-hour comparison, `scratchpad/team/Q/frames/sheet_*`: only Hour19 draws doors
+  C/D green/orange like the HUD; 10/14/17 wash the course white); dark tier floors + dark lintel band painted. Rim light
+  not done (no device found); Aaron's eye on Hour19 in a real session still wanted
+- [x] Now 4. Copy pass (picker heading/step, "station" everywhere, one arena instruction, one hit counter, "Today's record",
   medal rule shown, "RACE AGAIN", "Only A, B, C this time"); `choose` voice 2 s after `welcome`
-- [ ] Now 5. Feed: wrong-door lines to the victim only (leader's misses may stay public); strip = top 3 + rival + you
-- [ ] Now 6. Recap card replaces "Correct! <previous explanation>" under the next question
-- [ ] Now 7. Retry spot 3 m before the door wall, holds ~2.5 s, +3 s clock, non-lethal Spike, letters reshuffle on retry
-- [ ] Now 8. Teleport to the podium when the titan falls; RACE AGAIN within reach
-- [ ] Now 9. Station 1 as the tutorial (first-run captions, no guard)
+- [x] Now 5 (single-player seen; 2+ player branches reasoned only). Feed: wrong-door lines to the victim only (leader's misses may stay public); strip = top 3 + rival + you
+- [x] Now 6. Recap card (seen: solved item, right tile lit, steps, CORRECT! −3.1 s, flips at +3 s) replaces "Correct! <previous explanation>" under the next question
+- [x] Now 7 (seen: 1.7-2.5 s per wrong door, Spike leaves you standing, letters reshuffle, "You got frozen" on your own HUD;
+  the wide orbit camera shows all four doors at the retry spot for up to 4 s; the +3 s is a separate ClockPenalty since the Fable
+  audit found the first version could cross the clock's no-clock sentinel; guards at stations 2-3 can shoot you there,
+  accepted). Retry spot 6 m (3 m showed 2 doors) before the door wall, holds ~2.5 s, +3 s clock, non-lethal Spike, letters reshuffle on retry
+- [x] Now 8 (seen; round 2 reframes the arrival). Teleport to the podium when the titan falls; RACE AGAIN within reach
+- [x] Now 9 (seen: three captions; station 1 has no guard spawner). Station 1 as the tutorial (first-run captions, no guard)
 - [ ] Now 10. Gates: 2 real players in one session; one human run timed; island memory read; persistence seen surviving a
   rejoin (Epic: published keeps it, 256 KB/player)
 - [ ] Now 11. Rename: no "Fortnite" in title, HUD tag, welcome voice line

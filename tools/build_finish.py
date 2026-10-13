@@ -1,5 +1,5 @@
 """The victory area at the finish: a giant all-time screen above the end wall and a podium with two buttons
-(NEW RACE, CHANGE SKILL). Idempotent via actor tag `fnm_finish_rig`; reads the finish geometry from the course actors,
+(RACE AGAIN, NEW SKILL; were NEW RACE, CHANGE SKILL). Idempotent via actor tag `fnm_finish_rig`; reads the finish geometry from the course actors,
 so rerun after a course rebuild. The director finds everything by Verse tag (console/verse/fnm_tags.verse):
 fnm_hall_head / fnm_hall_row billboards (rows ordered by height) and fnm_new_race / fnm_change_skill buttons.
 
@@ -89,7 +89,7 @@ def build():
         prop(PODIUM, f"FNM_Podium_{name}", x, y, oz, yaw=-90, s=PODIUM_SCALE)
         button = device(BUTTON, f"FNM_Button_{name}", x, y - 20, oz + 118 * PODIUM_SCALE, yaw=BUTTON_YAW, tags=[tag])
         c.props(button, {"interactionRadius": BUTTON_REACH})
-        board(f"FNM_Label_{name}", x, y - 45, oz + 118 * PODIUM_SCALE - 45, 0.6, "NEW RACE" if side > 0 else "CHANGE SKILL", GOLD)
+        board(f"FNM_Label_{name}", x, y - 45, oz + 118 * PODIUM_SCALE - 45, 0.6, "RACE AGAIN" if side > 0 else "NEW SKILL", GOLD)
     print(f"finish rig built at x={cx:.0f} y={ey:.0f} level {oz:.0f}")
 
 

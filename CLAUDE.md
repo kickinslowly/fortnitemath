@@ -53,14 +53,19 @@ before UEFN work. Project-specific:
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the
   imported voice lines on its `ANNOUNCER_CUES`, plain rerun = all stock), `tools/import_art.py`
   (once per UEFN project: the HUD textures check, cross, slate, tile (drawn by `tools/make_verdict_art.py` +
-  `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles),
-  `tools/build_course.py --paint-only` (recolour walls by tier after a cartridge swap), `--doors-only` (swap the door
+  `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles; keeps an existing material by default,
+  because deleting one nulls it on every actor that uses it (the whole course lost its paint that way, found 2026-10-13);
+  `--force` replaces them and repaints the course and doors itself),
+  `tools/build_course.py --paint-only` (paint walls and floors by tier after a cartridge swap, reads back), `--check-paint`
+  (read-only: every painted actor and door holds its material), `--door-paint` (re-apply the 40 door panels in place),
+  `tools/build_door_marks.py` (3D Alphabet letter over each door's lintel + a letter-colour light; idempotent via
+  `fnm_door_marks`; rerun after a course rebuild), `--doors-only` (swap the door
   props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (refit the vestibule and arena pad triggers in place with `trigger_fit`: a
   trigger senses only its StepBox, so never size one at 600 cm per unit scale; rerun after changing `TRIGGER_DEPTH`,
   `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
-  gallery props; `--check` reports). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the
+  gallery props; `--check` reports; `--time HourNN` sets the locked time of day). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the
   spawner accepts are listed there; `--probe WID,WID` tests more).
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,
@@ -96,7 +101,10 @@ before UEFN work. Project-specific:
   cannon: the beam length is baked; `NS_fnm_laser_race` is the race finale's, §16). A new system must be built before the
   Verse that names it (`FNM_FX.<name>_asset`) compiles.
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
-- HUD buttons (the skill menu, CHANGE SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
+- HUD colours: Verse UI draws a raw `color` ~3.86x too bright (measured 2026-10-13; B and C tiles both cyan), so every
+  colour reaching a widget in `fnm_ui.verse` goes through `FnmUi` (`FnmUiGain` 0.259), textures get `SetTint(FnmUi(White))`;
+  `tests/test_hud_layout.py` enforces it. Calibrated on this PC only: unverified on the Xbox.
+- HUD buttons (the skill menu, NEW SKILL) are clicked with `tools/click_hud.py` (`launch` → read the PNG →
   `click <x> <y> <name> "FNM: grade"` at client-area pixels; it restores a minimized client and takes the
   foreground, so ask first if Aaron may be in another app).
 - After any Verse edit: `python -m fnm sync starter` then VerseToolset `BuildAll`.

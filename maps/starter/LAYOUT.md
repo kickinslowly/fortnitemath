@@ -15,7 +15,8 @@ next hallway, which may sit higher, lower or off to one side.
             next hallway
    ═══╪═══╪═══╪═══╪═══     ═ = barrier (red stripes): blocks everyone but the player whose right answer opened it
    │ ▓ │ ▓ │ ▓ │ ▓ │       ▓ = hidden trigger: walking in answers with that door
-   ┤ A ├ B ├ C ├ D ├       real doors, E to open; each panel in its letter's colour with a HUD-tile sign on it
+   ┤ A ├ B ├ C ├ D ├       real doors, E to open; each panel in its letter's colour with a HUD-tile sign on it,
+                            and over each a 3D letter on the lintel with a letter-colour arch light (2026-10-13)
    │                 │
    │ S               │     S = "STATION N" board on the left wall
    │        E ↑      │     E = entry teleporter (arrival / retry point; the player lands 3 m past it)
@@ -54,7 +55,8 @@ finish). Each funnels from the 22 m vestibule exits down to a 10 m corridor, run
   players on start" is off (it was on until 2026-10-06, which put every station on faint ice).
 - **Rules a connector must keep:** its turns sum to 0 (it ends facing +Y: the director's arrival facing is fixed),
   a staircase joins straight segments only, and the level never goes below 0. The builder exits on a violation.
-- Connector walls and stair steps take the tier colour of the station they lead into; floors stay white.
+- Connector walls and stair steps take the tier colour of the station they lead into; so do the connector's floor pieces
+  (funnel, straights, flare), in the dark floor tone of that tier (see Floors).
 
 ## Why these choices
 - **Barriers, not teleports, for right answers:** the race never stops; Aaron's "success must never stall".
@@ -230,6 +232,9 @@ after changing its own constants (idempotent: two runs leave the same 122 actors
 Per station, between 9 m and 20 m into the hallway (`OBSTACLES` in `tools/build_course.py`): station 1 is
 clear; then a 70 cm gold hurdle, baffles (a full-height wall from one side, 9 m gap on the other), and from
 station 5 shipping containers that slide across the hallway (Verse, `fnm_slider`). Later stations mix all three.
+Guards (`tools/build_guards.py`, `GUARDS`): station 1 has none since 2026-10-13 (G9: it is the tutorial; no spawner is
+placed for a count of 0, so the director finds no `fnm_guards` + `fnm_station_01` object and must tolerate that); stations
+2 to 10 keep 1, 2, 2, 3, 3, 4, 4, 5, 5 guards.
 
 ## Decor (2026-10-05, `tools/build_decor.py`)
 A giant 3D station number on each door wall's lintel; wall torches above head height; a chalkboard with a chalk
@@ -277,6 +282,45 @@ mesh maps its front face (measured with calibration textures, constants in `make
 each door stays stock: it is a runtime material instance that ignores overrides. `--doors-only` repaints in place.
 2026-10-09: the first version, a separate sign actor on each door, stayed in the doorway when the door opened and blocked
 players (Aaron's test): the editor's NoCollision on a placed mesh does not hold in play.
+
+### The paint was lost (found 2026-10-13, G9) and what keeps it now
+Read back on 2026-10-13: every one of the 40 doors had `doorAnimatingMaterial` null and an empty `DoorComponent` override
+(identical doors in the editor and in play), and so did every painted wall: the whole course was unpainted. Cause: a
+full `python tools/import_art.py` run deleted and re-imported every `M_door_face_*` and `M_fnm_wall_*` asset at its own
+path, and **deleting an asset empties every reference to it**; the actors do not repaint themselves. It was most likely
+the run that brought `T_fnm_nuke` / `T_fnm_banner` in on 2026-10-09 (their PNGs date 08:11, the doors were painted at 06:51).
+Evidence: `get_referencers` of the repainted materials was empty while `M_fnm_wall_bm_stone`, never replaced since, had
+over 100 users; reproduced on a throwaway material and cube (override set before, null after the old `materials()`).
+No `build_course.py` path was at fault: `station()` and `doors_only()` both call `door_dress`.
+The fix is in `tools/import_art.py`: an existing material or door face is KEPT (the default run only imports what is
+missing); `--force` replaces one and then repaints the course itself (`paint()` + `door_paint()`). `door_dress` now reads
+the door back and stops the build on a miss; `build_course.py --door-paint` re-applies all 40 in place, saves and reads them
+back; `--check-paint` is the read-only guard (every door, wall and floor against what the build wants, exit 1 if off).
+The boss arenas' materials (`bm_*`, `pad_*`) are not covered by that repaint: rerun their builders after forcing them.
+
+### Lintel letters and arch lights (2026-10-13, `tools/build_door_marks.py`)
+Nothing told a runner which door was which until they were at the panel. Over every door, on the lintel's runner-side face
+(door top 384 to wall top 600, so below the station number that `build_decor.py` stands on the wall top), stands the Alphabet
+prop of its letter (CRG_Props, 206 x 201 x 50 cm, yaw 180 so it reads from -Y) in the nearest stock colour (White, Sky Blue,
+Apple Green, Orange; the boss arena's pad letters use the same), no collision, indestructible. The lintel itself is
+painted a near-black band (`M_fnm_wall_lintel`) so the letters read against it: on the pale tier wall a white A and a green
+C were weak (editor frames 2026-10-13). A Customizable Light in the letter's own colour hangs 1 m in front of the lintel at
+3.5 m: `lightSizePercentage` 25, intensity 40. The brief's 50 / 60-100 bleached the white doors and the pale walls in
+daylight; the lights earn their keep at dusk, which the parent judges in play. Geometry is read from each station's Lintel
+bounds and Door transforms. Tag `fnm_door_marks`, labels `FNM_Sxx_MarkA..D` / `FNM_Sxx_MarkALight..`; 80 actors; rerun
+after a course rebuild (the lintels are re-placed).
+Doors are also made indestructible (`door_dress` sets `bCanBeDamaged` false and reads it back): all 40 read damageable on
+2026-10-13 because the 2026-10-09 door re-placement came after `build_island.py` hardened the props.
+
+### Floors (2026-10-13)
+The engine-cube floors were white and glared by day. `paint()` now paints every hallway's floor, each connector's floor
+pieces (funnel, straights, flare AND stair treads, which took the pale wall colour before) and the arena's by tier in a dark
+mid-tone of the tier's wall colour (`floor_tier1..5`; a connector takes the hallway it leads into, the arena tier 5, the
+finish a dark gold-brown `floor_finish`); the ice station's floor stays ice. A flat Kd renders much lighter than its numbers:
+the first values (0.05 0.14 0.07 for tier 1, wall x 0.2) still read mid-bright in the editor, so they were halved to the
+`WALL_COLOURS` values now (tier 1 `0.03 0.085 0.04`). `paint()` saves and reads every actor back.
+The final look is judged in play under a locked time of day (`build_island.py --time list` shows the choices; the island
+still reads `NoOverride`).
 
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");

@@ -103,6 +103,14 @@ FnmAccuracyLine(FirstTryCorrect:int, Total:int)<transacts>:string =
     Percent := FnmDiv(FirstTryCorrect * 100, Total)
     "First-try accuracy: {FirstTryCorrect} / {Total} ({Percent}%)"
 
+# The finish board's accuracy line with the medal rule FnmMedal really applies (G9: the rule was never shown; time and
+# the boss arena never count): "8/10 first try  -  GOLD 10/10, SILVER 7+". SILVER's floor is FnmMedal's, ceil(70% of
+# Total). Kept short: the board wraps at 920 px, and with the director's "  -  streak 10" tail the longer wording put
+# "10" alone on a second line (round-2 QA).
+FnmMedalRule(FirstTryCorrect:int, Total:int)<transacts>:string =
+    SilverAt := FnmDiv(Total * 7 + 9, 10)
+    "{FirstTryCorrect}/{Total} first try  -  GOLD {Total}/{Total}, SILVER {SilverAt}+"
+
 # Race clock text: 83.46 s -> "1:23.4" (tenths, truncated).
 FnmClock(Seconds:float)<transacts>:string =
     var Tenths : int = 0

@@ -10,7 +10,7 @@ bottom is kept for history).
 |---|---|
 | `verse/fnm_cartridge.verse` | Protocol types (§8). Fixed. |
 | `verse/fnm_logic.verse` | Pure logic: station tier, per-tier pools, draw without replacement, choice letters, accuracy line, race clock text, medal. |
-| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): question panel (with the big streak / boost line), verdict / countdown text, clock + target panel, the finish board, blackout screen; the skill picker (its own root, real Verse buttons, `InputMode All` only while shown) and the CHANGE SKILL button under the finish board. Clicks go to the director through `fnm_picker_listener`. |
+| `verse/fnm_ui.verse` | Per-player HUD (`fnm_hud`): question panel (with the big streak / boost line), verdict / countdown text, clock + target panel, the finish board, blackout screen; the skill picker (its own root, real Verse buttons, `InputMode All` only while shown) and the NEW SKILL button (was CHANGE SKILL) under the finish board. Clicks go to the director through `fnm_picker_listener`. |
 | `verse/fnm_director.verse` | The device: `fnm_director`, `fnm_station`, per-player state (including the player's own cartridge, tier pools and decks), the picker flow (`BeginPicking` → grade → skill → `Pick` → countdown; `ChangeSkill` from the finish board), doors, penalties, race layer, sliders. |
 | `verse/fnm_tags.verse` | Verse tags the director finds the course, rigs and effect devices by. |
 | `verse/fnm_rig.verse` | Penalty rigs: parked props/devices moved onto a punished player. |

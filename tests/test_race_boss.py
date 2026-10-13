@@ -364,17 +364,65 @@ def test_race_boss_bar_replaces_the_slate_line():
     assert "Now < BossDownAt + DefeatedSeconds" in shows
 
 
-def test_race_explanation_waits_like_boss_modes():
-    """A right pad's explanation shows ExplainDelaySeconds after the hit in both arenas (one constant, in the director),
-    and is skipped if the player answered again, missed, finished or left the arena meanwhile."""
+def test_race_pad_shows_the_recap_card():
+    """G9 Now 6: a right pad in the race arena shows the recap card (the solved item, captured before BossHit draws the
+    next one), like a right door; boss mode keeps its delayed explanation (ExplainDelaySeconds, one constant, in the
+    director)."""
     d = src("fnm_director.verse")
     pad = body_of(d, "HandlePad(State:fnm_player_state, A:fnm_arena, DoorIndex:int)<suspends>:void =")
     right = pad.split("else if (Choice = Item.Answer):", 1)[1].split("\n            else:", 1)[0]
-    assert right.index("BossHit(State, A)") < right.index("Hits := State.Hits") < right.index("Sleep(ExplainDelaySeconds)") \
-        < right.index("ShowFeedback(FnmLastOne(Item)")
-    assert "if (not State.Finished?, State.Hits = Hits, not State.MissedCurrent?, State.Mode = fnm_mode.Race, AtArena(State)?):" in right
+    # Round 2 (audit item 3): the arena's pads are live during the recap, so there it lasts no longer than the cooldown.
+    assert right.index('Solved := RecapOf(State, Item, DoorIndex, "CORRECT!")') < right.index("BossHit(State, A)") \
+        < right.index("Recap(State, Solved, Min(RecapSeconds, RightCooldownSeconds))")
+    assert "Recap(State, Solved, RecapSeconds)" in body_of(d, "HandleDoor(State:fnm_player_state, StationIndex:int, DoorIndex:int)<suspends>:void =")
+    assert "ShowCurrent(State)" not in body_of(d, "BossHit(State:fnm_player_state, A:fnm_arena):void =")
+    recap = body_of(d, "Recap(State:fnm_player_state, Solved:fnm_recap, Seconds:float)<suspends>:void =")
+    assert recap.index("State.Hud.ShowRecap(") < recap.index("Sleep(Seconds)") < recap.index("State.Hud.EndRecapIf(Generation)") \
+        < recap.index("ShowCurrent(State)")
+    assert "State.SlateSerial = Serial" in recap
     assert all_verse().count("ExplainDelaySeconds : float = 2.5") == 1
     assert "Sleep(Director.ExplainDelaySeconds)" in src("fnm_bossmode.verse")
+
+
+def test_wrong_door_charge_never_moves_the_clock_start():
+    """Round-2 audit item 1 (MAJOR): StartTime < 0 is the "no clock" sentinel; the +3 s per wrong door moved it back and
+    crossed it on a fresh session's first run (clock frozen, 0:00.0 saved as a best). The charge is ClockPenalty, and every
+    read of the race clock goes through RunClock."""
+    d = src("fnm_director.verse")
+    assert "StartTime -=" not in d and "StartTime +=" not in d
+    assert "set State.ClockPenalty += WrongDoorSeconds" in body_of(d, "ChargeWrongDoor(State:fnm_player_state)<transacts>:string =")
+    assert "Now - State.StartTime + State.ClockPenalty" in body_of(d, "RunClock(State:fnm_player_state, Now:float)<transacts>:float =")
+    assert d.count("GetSimulationElapsedTime() - State.StartTime") == 0          # no read bypasses RunClock
+    for head in ("Countdown(State:fnm_player_state)<suspends>:void =", "FinishPlayer(State:fnm_player_state):void ="):
+        body = body_of(d, head)
+        assert "set State.StartTime = -1.0" in body and "set State.ClockPenalty = 0.0" in body, head
+
+
+def test_misses_read_you_on_the_victims_own_hud():
+    """Round-2 audit item 4: a private miss line says "You got ...", not the victim's own name."""
+    d = src("fnm_director.verse")
+    feed = body_of(d, "MissFeed(State:fnm_player_state, Named:message, Own:string, LogLine:string):void =")
+    assert "State.Hud.PushFeed(FnmText(Own))" in feed and "Broadcast(Named, LogLine)" in feed
+    assert '"You got {Past} at station {StationIndex + 1}"' in d and '"You got {Past} by the boss"' in d
+
+
+def test_boss_mode_penalties_move_to_the_entry_first():
+    """Round-2 audit item 2: in boss mode Punish moves the player to the arena entry before any hold (monsters spawn by the
+    pads on a wrong answer); the race holds where the player stands, then the retry spot under the wide camera."""
+    punish = body_of(src("fnm_director.verse"), "Punish(Player:player, Station:fnm_station, DoorIndex:int, Kind:fnm_penalty)<suspends>:void =")
+    move = punish.index("if (InBossMode?):\n            SendToRetry(Player, Station)")
+    assert move < punish.index("if (Kind = fnm_penalty.Freeze):")
+    assert "spawn{ WideLook(Viewer, RetryWideSeconds, WideMoveCm, \"retry spot\") }" in punish
+
+
+def test_medal_rule_line_fits_the_board():
+    """Round-2 QA item 8: the finish board wraps at 920 px (about 14.6 px a character at 30 px); the medal line with its
+    streak tail must stay on one line, and say what FnmMedal really does."""
+    logic, d = src("fnm_logic.verse"), src("fnm_director.verse")
+    assert '"{FirstTryCorrect}/{Total} first try  -  GOLD {Total}/{Total}, SILVER {SilverAt}+"' in logic
+    assert '"{FnmMedalRule(State.FirstTryCorrect, Total)}  -  streak {State.BestStreak}"' in d
+    widest = "10/10 first try  -  GOLD 10/10, SILVER 7+  -  streak 10"
+    assert len(widest) * 14.6 < 920
 
 
 def test_race_cannons_fire_the_race_laser_and_crackle_once():
@@ -406,7 +454,9 @@ def test_floating_letters_turn_to_their_own_arenas_players():
 
 
 def test_delayed_explanation_says_last_one():
-    """The delayed explanation lands under the next question, so both arenas prefix it "Last one:" (Aaron 2026-10-11)."""
+    """Boss mode's delayed explanation lands under the next question, so it is prefixed "Last one:" (Aaron 2026-10-11).
+    The race shows the recap card instead (G9), and never puts "Correct! <explanation>" under the next question."""
     assert 'FnmLastOne(Item:fnm_item)<transacts>:string = "Last one:  " + Item.Explanation' in src("fnm_bossmode.verse")
     assert "ShowFeedback(FnmLastOne(Item)" in src("fnm_bossmode.verse")
-    assert "ShowFeedback(FnmLastOne(Item)" in src("fnm_director.verse")
+    assert "ShowFeedback(FnmLastOne(Item)" not in src("fnm_director.verse")
+    assert '"Correct!  " + Item.Explanation' not in src("fnm_director.verse")

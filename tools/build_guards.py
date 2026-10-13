@@ -22,8 +22,10 @@ from build_course import ACTOR, DEV, OBJ, SCENE, TAG as COURSE_TAG, clear, props
 
 TAG = "fnm_guards"
 SPAWNER = "/CRD_HenchmanSpawner/SetupAssets/PID_Device_GuardSpawner_V2.PID_Device_GuardSpawner_V2"
-# Guards alive at once per station, station 1 first; a longer course repeats the last entry.
-GUARDS = [1, 1, 2, 2, 3, 3, 4, 4, 5, 5]
+# Guards alive at once per station, station 1 first; a longer course repeats the last entry. Station 1 has NONE (G9,
+# 2026-10-13: it is the tutorial; a pistol guard shot at a player who was still reading the doors): no spawner is placed
+# for a station whose count is 0, and the director finds no fnm_guards + fnm_station_01 object and must tolerate that.
+GUARDS = [0, 1, 2, 2, 3, 3, 4, 4, 5, 5]
 # The weapon each station's guards carry, station 1 first; a longer course repeats the last entry. Aaron
 # (2026-10-04): weapons climb with the stations, and guards drop them (dropInventoryOnElimination), so a player
 # who beats them climbs too. Aaron (2026-10-06): the old pistol -> SMG -> shotgun -> AR ladder was "boring"; ramp
@@ -86,6 +88,9 @@ def build():
     for a in entries:
         k = int(a["label"][5:7])
         n = GUARDS[min(k, len(GUARDS)) - 1]
+        if n == 0:
+            print(f"station {k}: no guards")
+            continue
         b = a["bounds"]
         # Stations sit at different X and levels (connectors). A device's bounds carry an editor margin, so the
         # height comes from the station's floor slab (an engine cube, exact bounds): its top face.
@@ -110,14 +115,15 @@ def build():
 
 
 def probe(names):
-    """Which of these WID_* names the station-1 spawner keeps (set, read back); the list is restored to WEAPONS[0]."""
+    """Which of these WID_* names the first placed spawner keeps (set, read back); its list is restored to its own station's weapon."""
     found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
     first = sorted((a for a in found if isinstance(a, dict) and a.get("label", "").endswith("_Guards")), key=lambda a: a["label"])
     if not first:
         sys.exit("no guard spawner placed yet")
     items = json.loads(u.call(OBJ, "get_properties", {"instance": ref(first[0]["actorPath"]), "properties": ["itemList"]})["returnValue"])
     lst = items["itemList"]["refPath"]
-    for name in names + [WEAPONS[0].rsplit(".", 1)[1]]:
+    own = WEAPONS[min(int(first[0]["label"][5:7]), len(WEAPONS)) - 1]   # the probed spawner's own station weapon (not always station 1's)
+    for name in names + [own.rsplit(".", 1)[1]]:
         weapon = _W.format(name)
         props(lst, {"itemListData": [{"itemDefinition": ref(weapon), "itemQuantity": 1}]})
         back = json.loads(u.call(OBJ, "get_properties", {"instance": ref(lst), "properties": ["itemListData"]})["returnValue"])["itemListData"]

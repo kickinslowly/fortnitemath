@@ -43,20 +43,20 @@ it was offered (below).
 | `boost` | a speed boost starts, 0.4 s after the chime (`Boost`) | Gadgets/SpeedBoost/Trap_Speed_Alt_Increase_Cue | 3.50 |
 | `streak2` .. `streak7` | first-try streak 2..7, 0.9 s after the chime; `streak7` again above 7 | Target_Impact_Success_2D, Target_Impact_Bullseye, Creative_PowerUp_Collect, CaptureDevice_Capture_Finish, Stinger_Success_02, Stinger_Success_03 | 0.54 .. 3.09 |
 | `finish` | the finish (`FinishSounds`, then +1.2 s steps) | Modes/Match/Match_Win_01_Cue | 3.93 |
-| `new_record` / else `new_best` | island record / new personal best (only when there was an earlier best, like the HUD's NEW BEST!) | Music_Fantasy_Lrg_Victory_Stinger_02 / Music_Fantasy_Sml_Victory_Stinger_01 | 3.18 / 2.81 |
+| `new_record` / else `new_best` | today's record (the session's best for the skill; the HUD says "Today's record" since G9, but the stock voice line still says "NEW ISLAND RECORD!") / new personal best (only when there was an earlier best, like the HUD's NEW BEST!) | Music_Fantasy_Lrg_Victory_Stinger_02 / Music_Fantasy_Sml_Victory_Stinger_01 | 3.18 / 2.81 |
 | `medal_gold/silver/bronze` | the medal | Music_Fantasy_Acceptance_Stinger_03 / Scoring_Point_Added / Match_Round_Change_01 | 3.00 / 2.46 / 2.31 |
 | `perfect` | every answer first try | Music_Fantasy_Sml_Victory_Stinger_03 | 3.91 |
 | `penalty_freeze` | ice cube appears (`Punish`) | Gadgets/Traps/Trap_IceBlock_Placed_cue | 1.89 |
 | `penalty_spike` | spears burst up | Toys/Generic/DestructionObject_Impact_Cue | 2.84 |
-| `penalty_mud` | sent back, slowed | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_Stink_Cue | 2.82 |
-| `penalty_dizzy` | sent back, before the spin | Gadgets/GhostMode/GhostMode_Enter_Cue | 2.04 |
+| `penalty_mud` | stuck in the mud (then the retry spot, slowed) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_Stink_Cue | 2.82 |
+| `penalty_dizzy` | before the spin (then the retry spot) | Gadgets/GhostMode/GhostMode_Enter_Cue | 2.04 |
 | `penalty_blackout` | the screen goes black | Toys/ActionTrigger/ActionTrigger_PowerOff_Cue | 1.45 |
 | `penalty_yeet` | the vent throws them | Toys/Cube/Cube_LaunchPlayer_Creative_Cue | 2.67 |
 | `no_skip` | the skip guard sends a player back (`WatchSkip`) | Toys/ShootingTargets/Target_Error_Cue | 0.77 |
 | `guards_up` | a station's guards switch on, for the players on it (`GuardLoop`) | Toys/ActionTrigger/ActionTrigger_PlayerSpotted_Cue | 1.22 |
 | `welcome` | a player joins (`StartPlayer`) | Modes/Match/Match_Start_01_Cue | 3.83 |
-| `choose` | the skill picker first opens for a player (`BeginPicking`; not with `DebugAutoPick`) | SkilledInteract_Open_Cue | 1.00 |
-| `boss_fight` | a player enters the boss arena (`EnterArena`) | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
+| `choose` | the skill picker first opens for a player, 2.0 s after `welcome` (`ChooseLater`, G9: the two voice lines overlapped; not with `DebugAutoPick`) | SkilledInteract_Open_Cue | 1.00 |
+| `boss_fight` | a player walks into the boss arena's hall (`ArenaArrival`, G9; it fired at the station-10 door, 44 m early) | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
 | `boss_hit` | a right pad hits the boss (`BossHit`) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01 | 3.97 |
 | `boss_dead` | the boss goes down, for every player in the arena (`BossDown`) | Gadgets/Radio/Stingers/BlackMonday/Stinger_BlackMonday_Win_01 | 6.14 |
 | `bm_start` | Boss Battle starts, level-1 summon (`Summon(1)`), as `boss_fight` | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |

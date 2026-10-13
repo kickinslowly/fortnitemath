@@ -5,9 +5,9 @@
 
 fnm_slate.png  1024x256  dark chalk slate: noise, chalk-dust smudges, vignette, rounded corners, alpha 236 (the
                frame is a color_block rim in Verse, so it stays crisp when the slate stretches).
-fnm_tile.png   560x240   a 12 px white ring round a near-black interior, drawn large and stretched down to the 240x100
-               on-screen tile (ring ~5 px). Verse tints it per door, so the ring takes the door colour and the
-               interior stays dark.
+fnm_tile.png   560x240   a 12 px white ring round a near-black interior, drawn large and stretched down to the 256x112
+               on-screen tile (ring ~6 px). Verse tints it per tile (FnmTileSrgb through FnmSrgb: a raw color{} draws
+               ~3.86x too bright), so the ring takes the tile colour and the interior stays dark.
 """
 import math
 import random

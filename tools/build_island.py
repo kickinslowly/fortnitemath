@@ -23,6 +23,12 @@ the prop pass is a no-op where the flag is already false.
 
     python tools/build_island.py            # everything, then prints the settings read back
     python tools/build_island.py --check    # read-only report
+    python tools/build_island.py --time list      # the timeOfDayOverride values (read-only)
+    python tools/build_island.py --time Hour17    # set the island's time of day alone, read it back, save
+
+Time of day (G9 2026-10-13: night washed the course blue, day made the white floors glare): Island Settings
+`timeOfDayOverride` (EAthenaTimeOfDayOverride) takes NoOverride, ForceDay, ForceNight, Custom, Hour0..Hour23 or Random;
+the normal build leaves it alone (it reads NoOverride) and every run reports it. There is no separate custom-hour property.
 """
 import argparse
 import json
@@ -45,7 +51,7 @@ SETTINGS = {
     "allowBuilding": "None",
 }
 # Read back for the report, beyond SETTINGS.
-REPORT = ["maxPlayers", "bAllowFriendlyFire", "spawnLocation", "respawnTime", "spawnLimit", "spawnLimit_Override",
+REPORT = ["timeOfDayOverride", "maxPlayers", "bAllowFriendlyFire", "spawnLocation", "respawnTime", "spawnLimit", "spawnLimit_Override",
           "roundTimeLimit", "roundTimeLimit_Override", "bForceStartAtMaxPlayers", "matchmaking_MaxPlayersPerSession"]
 # Prop hardening: skip devices, engine cubes (not damageable anyway), the Verse device and the item granter.
 SKIP_CLASSES = ("Device_", "FortStaticMeshActor", "VerseDevice", "BP_Creative_", "PersistentLevel.IslandSettings")
@@ -83,6 +89,25 @@ def settings(check):
         print(f"  {k} = {json.dumps(after.get(k))}")
     if not check and any(after.get(k) != want for k, want in SETTINGS.items()):
         sys.exit("an island setting did not take")
+
+
+def time_of_day(value):
+    """--time: list the timeOfDayOverride values ("list"), or set it alone, save, and read it back."""
+    isl = island()
+    schema = json.loads(u.call(OBJ, "list_properties", {"instance": ref(isl)}, timeout=180)["returnValue"])
+    values = schema["timeOfDayOverride"]["enum"]
+    now = get(isl, ["timeOfDayOverride"])["timeOfDayOverride"]
+    if value == "list":
+        print(f"timeOfDayOverride reads {now!r}; values: {', '.join(values)}")
+        return
+    if value not in values:
+        sys.exit(f"timeOfDayOverride has no value {value!r}: {', '.join(values)}")
+    props(isl, {"timeOfDayOverride": value})
+    u.call("editor_toolset.toolsets.asset.AssetTools", "save_assets", {"asset_paths": []})
+    after = get(isl, ["timeOfDayOverride"])["timeOfDayOverride"]
+    print(f"timeOfDayOverride {now!r} -> {after!r}")
+    if after != value:
+        sys.exit("timeOfDayOverride did not take")
 
 
 def pads(check):
@@ -134,7 +159,11 @@ def harden(check):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="report only, change nothing")
+    ap.add_argument("--time", metavar="VALUE", help="only set Island Settings timeOfDayOverride (e.g. Hour17), or 'list' its values")
     a = ap.parse_args()
+    if a.time:
+        time_of_day(a.time)
+        sys.exit(0)
     settings(a.check)
     pads(a.check)
     harden(a.check)

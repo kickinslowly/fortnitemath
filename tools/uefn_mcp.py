@@ -58,5 +58,6 @@ def call(toolset, tool, args=None, timeout=600, raw=False):
 
 
 if __name__ == "__main__":
+    sys.stdout.reconfigure(encoding="utf-8")  # log lines carry "−" (pace deltas); cp1252 consoles choke
     out = call(sys.argv[1], sys.argv[2], json.loads(sys.argv[3]) if len(sys.argv) > 3 else {})
     print(json.dumps(out, indent=2, ensure_ascii=False) if not isinstance(out, str) else out)
