@@ -414,8 +414,11 @@ Decisions pending with Aaron (recommendation after the arrow):
 - Grade buttons -> ROOKIE / PRO / LEGEND leagues (Epic Rule 1.15: no content primarily targeting under-13s; a publish is needed)
 - Guards -> keep; remove station 1's; rocket/grenade launchers come from a reward chest, not guards
 - G6 flips (see G6 note) -> accept
-- Meshy -> up to 147 credits (volcano 44, host 67, medal HUD art 36); 156 monthly credits reset 2026-10-14 02:37Z (missed if
-  not decided by then; balance was 1,468)
+- [x] Meshy: Aaron approved 103 (host + medal HUD art) on 2026-10-13; 101 spent from the monthly pool before its reset
+  (1,468 -> 1,367; volcano 44 still waits on the World decision). Bought: gold/silver/bronze medal HUD art (3 x 9), Volt
+  concept (9), Volt textured 20k-tri model (30), rig (5), 7 clips (21: idle, Big Wave Hello, YMCA, Funny Dancing,
+  Victory Cheer, Cheer Both Hands Up, Finger Wag No), Volt cheering HUD portrait (9). Task ids: `art/medals/`,
+  `art/mascot/meshy_tasks.json`
 - Mint -> Aaron authorises one tiny audio job in his session to learn the price (7,580 credits, period ends 2026-10-21,
   write tools gated)
 Probe session before probe-dependent builds (~2 h; list in `sources/spectacle.md` §7 and `sources/gamification.md` §16): time of
@@ -441,6 +444,13 @@ the GAME MODE box/minimap; `GetLocalParty` in a published version; accolades `Te
   accepted). Retry spot 6 m (3 m showed 2 doors) before the door wall, holds ~2.5 s, +3 s clock, non-lethal Spike, letters reshuffle on retry
 - [x] Now 8 (seen; round 2 reframes the arrival). Teleport to the podium when the titan falls; RACE AGAIN within reach
 - [x] Now 9 (seen: three captions; station 1 has no guard spawner). Station 1 as the tutorial (first-run captions, no guard)
+- [x] Meshy art in the game (2026-10-13, seen in headless play): the finish board shows the run's medal (gold / silver /
+  bronze art beside "<MEDAL> MEDAL") and Volt cheering; its backing went 0.62 -> 0.88 because the podium's ALL-TIME
+  billboard read through it. Volt in the world: waving at station 1's start (seen beside the grade menu) and dancing at
+  the podium (in the wide arrival shot; out of frame on the player's own camera after it). One mesh, 7 clips on its
+  skeleton (5 spare for a later host layer: wag on a wrong door, cheer on a streak, victory at the finish). Unverified:
+  Volt's collision in play (flag reads back off), aspect ratios other than 16:9, the 5-row board's clearance above the
+  no-podium buttons (estimate 861 vs 875 px)
 - [ ] Now 10. Gates: 2 real players in one session; one human run timed; island memory read; persistence seen surviving a
   rejoin (Epic: published keeps it, 256 KB/player)
 - [ ] Now 11. Rename: no "Fortnite" in title, HUD tag, welcome voice line

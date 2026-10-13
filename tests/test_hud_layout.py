@@ -5,10 +5,13 @@ the slate the choices themselves, the HUD copy is the agreed wording, and the ar
 import ast
 import colorsys
 import re
+import statistics
 import struct
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSE = ROOT / "console" / "verse"
@@ -35,7 +38,7 @@ def test_every_texture_has_a_png_and_every_png_is_used():
     for path in VERSE.glob("*.verse"):
         referenced |= set(re.findall(r"FNM_Art\.T_fnm_(\w+)", path.read_text(encoding="utf-8")))
     pngs = {p.stem[len("fnm_"):] for p in ART.glob("fnm_*.png")}
-    assert {"check", "cross", "slate", "tile"} <= referenced
+    assert {"check", "cross", "slate", "tile", "medal_gold", "medal_silver", "medal_bronze", "volt"} <= referenced
     assert referenced == pngs
 
 
@@ -50,7 +53,9 @@ def ihdr(path):
 def test_png_sizes_and_format():
     expected = {"fnm_slate.png": (1024, 256), "fnm_tile.png": (560, 240),
                 "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256),
-                "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256)}
+                "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256),
+                "fnm_medal_gold.png": (256, 256), "fnm_medal_silver.png": (256, 256),
+                "fnm_medal_bronze.png": (256, 256), "fnm_volt.png": (256, 256)}
     for name, size in expected.items():
         width, height, depth, colour = ihdr(ART / name)
         assert (width, height) == size, name
@@ -232,11 +237,15 @@ def test_every_widget_colour_goes_through_fnmui():
 
 
 def test_textures_are_tinted_back_down():
-    """A texture draws lifted by the same gain (the slate PNG (34, 38, 40) came out near (94, 98, 101)): the three plain
-    texture_blocks get the corrected white as their tint; the tiles take their own tint."""
+    """A texture draws lifted by the same gain (the slate PNG (34, 38, 40) came out near (94, 98, 101)): the five plain
+    texture_blocks (slate, banner, verdict, and the finish board's Volt and medal) get the corrected white as their tint;
+    the tiles take their own tint. Every texture_block in the file is one of these or a tile."""
     src = ui_src()
-    for art in ("SlateArt", "BannerArt", "VerdictImage"):
+    for art in ("SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt"):
         assert f"{art}.SetTint(FnmUi(NamedColors.White))" in src
+    # no texture_block escapes the rule: a new one must be added here (and tinted) or it draws 3.86x too bright
+    assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt"}
+    assert "    TileArt : []texture_block = array:" in src and "Art.SetTint(FnmUi(TileColor))" in src
     # white stays white: 1.0 x 0.259 x 3.86 ~ 1.0
     assert abs(1.0 * 0.259 * 3.86 - 1.0) < 0.01
 
@@ -263,8 +272,10 @@ def test_feed_and_finish_board_never_overlap():
     assert "Padding := margin{Left := 20.0, Top := 8.0, Right := 20.0, Bottom := 10.0}" in src
     assert "Offsets := margin{Left := -20.0, Top := 358.0, Right := 0.0, Bottom := 0.0}" in src
     # every board line and every feed row actually wraps at those widths
-    assert src.count("WrapWidth = ResultsWrap") == 9 and "set Row.WrapWidth = FeedWrap" in src
+    # (the headline and the medal word sit in the header row beside Volt and the medal: they wrap at HeaderWrap, below)
+    assert src.count("WrapWidth = ResultsWrap") == 7 and "set Row.WrapWidth = FeedWrap" in src
     assert "set Row.WrapWidth = ResultsWrap" in src
+    assert "set ResultsTitle.WrapWidth = HeaderWrap" in src and "set ResultsMedal.WrapWidth = HeaderWrap" in src
     # the board still fits its widest agreed line (the accuracy line is ~917 px at 30 px)
     assert verse_float("ResultsWrap") >= 917
 
@@ -415,3 +426,150 @@ def test_verdict_signatures_are_unchanged():
                 "FlashNuke(Label:string, Seconds:float):void =", "ClearVerdictNow():void =",
                 "ClearVerdictLater(Generation:int, Seconds:float)<suspends>:void ="):
         assert "    " + sig in src, sig
+
+
+# ---------------------------------------------------------------- finish board art: medals and Volt (G9 H2, 2026-10-13)
+
+def desired_size(name):
+    line = re.search(r"^    " + name + r" : texture_block = texture_block\{(.*)\}$", ui_src(), re.M).group(1)
+    x, y = re.search(r"DefaultDesiredSize := vector2\{X := ([\d.]+), Y := ([\d.]+)\}", line).groups()
+    return float(x), float(y)
+
+
+def text_size(field):
+    return float(re.search(field + r" : text_block = .*?DefaultTextSize := ([\d.]+)", ui_src()).group(1))
+
+
+def test_finish_board_header_holds_volt_and_the_medal_without_overlapping_text():
+    """Volt (left) and the medal (right) are IN the header row with the headline over the medal word between them, so they
+    cannot sit on a text line by construction; the row's width is VoltArt + gap + HeaderWrap + gap + MedalArt and must stay
+    inside ResultsWrap, the content width every other board line already fits (so the board is no wider than before and the
+    feed / minimap clearances in test_feed_and_finish_board_never_overlap still hold)."""
+    src = ui_src()
+    volt, medal = desired_size("VoltArt"), desired_size("MedalArt")
+    assert volt[0] == volt[1] and medal[0] == medal[1]            # square PNGs drawn square, never stretched
+    assert 180 <= volt[0] <= 220 and 150 <= medal[0] <= 180       # brief H2
+    wrap, gap = verse_float("HeaderWrap"), verse_float("HeaderGap")
+    assert volt[0] + gap + wrap + gap + medal[0] <= verse_float("ResultsWrap")
+    # the words in the middle column fit their wrap (a loose 0.65 em per glyph: the widest are VICTORY! and SILVER MEDAL)
+    for field, word in (("ResultsTitle", "VICTORY!"), ("ResultsMedal", "SILVER MEDAL")):
+        assert len(word) * 0.65 * text_size(field) <= wrap, (field, word)
+    # layout: header = Volt | (headline over medal word) | medal; ResultsLines holds the row, never the art or those words itself
+    header = src.split("ResultsHeader : stack_box = stack_box:", 1)[1].split("            ResultsLines : stack_box", 1)[0]
+    order = [header.index(f"Widget := {w}") for w in ("VoltArt", "ResultsTitle", "ResultsMedal", "MedalArt")]
+    assert order == sorted(order)
+    lines = src.split("ResultsLines : stack_box = stack_box:", 1)[1].split("for (Row : ResultsRows):", 1)[0]
+    assert "Widget := ResultsHeader" in lines
+    for widget in ("VoltArt", "MedalArt", "ResultsTitle", "ResultsMedal"):
+        assert f"Widget := {widget}" not in lines, widget
+
+
+def test_finish_board_stays_above_the_finish_buttons():
+    """CLOSE / NEW SKILL (a map without a podium) hang from 0.81 of the screen height; the taller header (Volt) must not push
+    a board with all five time rows into them. Line height 1.24 x font size, calibrated on the 2026-10-13 play frame: a
+    one-row board with a 200 px Volt measured 592 px tall (y 130-722); the estimate for that board is 593. A 200 px Volt
+    with five rows came out at ~881, over the buttons' 875, hence 180."""
+    src = ui_src()
+    k = 1.24
+    header = max(desired_size("VoltArt")[1], k * (text_size("ResultsTitle") + text_size("ResultsMedal")), desired_size("MedalArt")[1])
+    body = k * sum(text_size(f) for f in ("ResultsTime", "ResultsBest", "ResultsRecord", "ResultsAccuracy", "ResultsBoardHead"))
+    body += 18 + 5 * k * 32 + k * text_size("ResultsCountdown") + 18          # board head's and countdown's top paddings, 5 rows
+    slot = src.split("                        Widget := Results\n", 1)[1].split("SizeToContent", 1)[0]
+    top = float(re.search(r"Offsets := margin\{Left := 0\.0, Top := ([\d.]+)", slot).group(1))
+    bottom = top + 28 + header + body + 28
+    buttons_slot = src.split("                            Widget := stack_box:\n                                Orientation := orientation.Horizontal\n"
+                             "                                Slots := array:\n                                    stack_box_slot{Widget := CloseButton", 1)[1]
+    buttons = float(re.search(r"Anchors := anchors\{Minimum := vector2\{X := 0\.5, Y := ([\d.]+)\}", buttons_slot).group(1)) * 1080
+    assert bottom <= buttons - 8, (bottom, buttons)
+
+
+def test_show_results_picks_the_medal_texture_for_the_medal_word():
+    src = ui_src()
+    logic = (VERSE / "fnm_logic.verse").read_text(encoding="utf-8")
+    medal_fn = logic.split("FnmMedal(", 1)[1].split("\n\n", 1)[0]
+    for word in ("GOLD", "SILVER", "BRONZE"):
+        assert f'"{word}"' in medal_fn                                  # the words FnmMedal hands to ShowResults
+    body = src.split("    ShowMedalArt(Medal:string):void =\n", 1)[1].split("\n\n", 1)[0]
+    pairs = re.findall(r'(?:if|else if) \(Medal = "(\w+)"\):\n\s+MedalArt\.SetImage\(FNM_Art\.T_fnm_medal_(\w+)\)\n'
+                       r'\s+MedalArt\.SetVisibility\(widget_visibility\.Visible\)', body)
+    assert pairs == [("GOLD", "gold"), ("SILVER", "silver"), ("BRONZE", "bronze")]
+    # anything else, "" included (boss mode may pass it), collapses the picture
+    assert body.rstrip().endswith("else:\n            MedalArt.SetVisibility(widget_visibility.Collapsed)")
+    show = src.split("    ShowResults(", 1)[1].split("\n\n", 1)[0]
+    assert "        ShowMedalArt(Medal)" in show
+    assert 'SetOrCollapse(ResultsMedal, if (Medal = "") then "" else "{Medal} MEDAL")' in show   # the word stays, collapses on ""
+    assert "ResultsMedal.SetTextColor(FnmUi(MedalColor))" in show
+    # ShowResults keeps its signature (the director and boss mode call it)
+    assert ("    ShowResults(Title:string, Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, "
+            "AccuracyLine:string, BoardHead:string, Rows:[]message, OwnRow:int):void =") in src
+
+
+def medal_stats(name):
+    """(median hue, mean saturation) of the medal disc's lit pixels in a committed PNG (the ribbon at the top and the black
+    outline are left out)."""
+    Image = pytest.importorskip("PIL.Image")
+    im = Image.open(ART / name).convert("RGBA")
+    hs, ss = [], []
+    for y in range(110, 250):
+        for x in range(40, 216):
+            r, g, b, a = im.getpixel((x, y))
+            h, s, v = colorsys.rgb_to_hsv(r / 255, g / 255, b / 255)
+            if a >= 200 and v >= 0.35:
+                hs.append(h * 360)
+                ss.append(s)
+    assert len(hs) > 5000, name
+    return statistics.median(hs), statistics.mean(ss)
+
+
+def test_the_three_medal_pngs_are_the_three_metals():
+    """What a kid sees: gold is yellow-orange and saturated, bronze a redder orange, silver nearly grey. If a PNG were
+    swapped or regenerated from the wrong raw, one of these fails."""
+    gold, silver, bronze = (medal_stats(f"fnm_medal_{m}.png") for m in ("gold", "silver", "bronze"))
+    assert 30 <= gold[0] <= 50 and gold[1] > 0.7, gold
+    assert 8 <= bronze[0] <= 28 and 0.4 < bronze[1] < 0.8, bronze
+    assert silver[1] < 0.35, silver
+    assert bronze[0] < gold[0] - 10
+
+
+def test_art_pngs_are_square_with_a_transparent_surround():
+    Image = pytest.importorskip("PIL.Image")
+    for name in ("fnm_medal_gold.png", "fnm_medal_silver.png", "fnm_medal_bronze.png", "fnm_volt.png"):
+        im = Image.open(ART / name).convert("RGBA")
+        assert im.size == (256, 256), name
+        assert all(im.getpixel(c)[3] == 0 for c in ((0, 0), (255, 0), (0, 255), (255, 255))), name   # transparent corners
+        alpha = im.getchannel("A")
+        box = alpha.getbbox()
+        assert box[1] == 0 and (box[3] == 256 or name == "fnm_volt.png"), (name, box)               # subject fills the height
+        assert abs(box[0] + box[2] - 256) <= 40, (name, box)                                        # and sits near the middle
+
+
+def test_make_medal_art_crops_to_the_subject_and_ignores_a_stray_pixel():
+    """The raw silver and bronze carry a stray near-transparent pixel at the image edge: the alpha bbox started at 0,0 and the
+    medal came out small and off-centre. A synthetic raw with the same flaw must still come out centred and filling the height."""
+    Image = pytest.importorskip("PIL.Image")
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_medal_art as mm
+    raw = Image.new("RGBA", (1024, 1024), (0, 0, 0, 0))
+    raw.paste(Image.new("RGBA", (400, 800), (200, 120, 30, 254)), (300, 100))      # subject: 400 x 800, off-centre
+    raw.putpixel((0, 0), (255, 255, 255, 3))                                       # stray pixel below the cut
+    raw.putpixel((1023, 1023), (255, 255, 255, 15))                                # and one at the cut's edge
+    out = mm.prepare(raw)
+    assert out.size == (256, 256)
+    left, top, right, bottom = out.getchannel("A").getbbox()                       # 800 square -> 256: 400 wide = 128, centred
+    assert (top, bottom) == (0, 256) and abs(left + right - 256) <= 2 and 120 <= right - left <= 140, (left, top, right, bottom)
+    assert out.getpixel((0, 0))[3] == 0 and out.getpixel((255, 255))[3] == 0
+    assert all(abs(a - b) <= 2 for a, b in zip(out.getpixel((128, 128))[:3], (200, 120, 30)))   # premultiplied rounding
+
+
+def test_committed_art_is_what_make_medal_art_makes_from_the_raws():
+    """The four PNGs are reproducible from the raw Meshy renders (kept under art/, outside tools/art/): skipped when the raws
+    are not in this checkout."""
+    Image = pytest.importorskip("PIL.Image")
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_medal_art as mm
+    raws = [(ROOT / src, name) for src, name in mm.JOBS]
+    if not all(path.exists() for path, _ in raws):
+        pytest.skip("raw Meshy renders not in this checkout")
+    for path, name in raws:
+        made = mm.prepare(Image.open(path))
+        assert made.tobytes() == Image.open(ART / name).convert("RGBA").tobytes(), name

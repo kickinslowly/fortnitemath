@@ -220,6 +220,16 @@ fnm_hud := class:
         text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
         text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
     ResultsCountdown : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    # The board's header row (Meshy art, tools/make_medal_art.py; 256 x 256 PNGs drawn square): Volt cheering at its left, the
+    # headline and the "GOLD MEDAL" word stacked in the middle, the medal itself at its right (ShowResults swaps its texture to
+    # the run's metal; Medal "" collapses it). They sit IN the row, never over the lines below, so nothing overlaps text: the
+    # row is VoltArt 180 + HeaderGap + HeaderWrap + HeaderGap + MedalArt 160 = 888 <= ResultsWrap (tests/test_hud_layout.py). Volt is
+    # 180, not 200: the board with its five time rows reaches y ~860, and the no-podium CLOSE / NEW SKILL buttons start at y 875.
+    # The two texture sizes are the literals in their DefaultDesiredSize (a field initialiser cannot read another field).
+    HeaderWrap : float = 500.0
+    HeaderGap : float = 24.0
+    VoltArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_volt, DefaultDesiredSize := vector2{X := 180.0, Y := 180.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    MedalArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_medal_gold, DefaultDesiredSize := vector2{X := 160.0, Y := 160.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
     # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black * FnmUiGain, DefaultOpacity := 0.0}
     # Boss mode (BOSS_MODE.md section 9): a full-screen white flash on a MEGA NUKE (above the slate, below the verdict),
@@ -287,8 +297,8 @@ fnm_hud := class:
                 set Row.WrapWidth = FeedWrap
             for (Row : ResultsRows):
                 set Row.WrapWidth = ResultsWrap
-            set ResultsTitle.WrapWidth = ResultsWrap
-            set ResultsMedal.WrapWidth = ResultsWrap
+            set ResultsTitle.WrapWidth = HeaderWrap
+            set ResultsMedal.WrapWidth = HeaderWrap
             set ResultsTime.WrapWidth = ResultsWrap
             set ResultsBest.WrapWidth = ResultsWrap
             set ResultsRecord.WrapWidth = ResultsWrap
@@ -300,6 +310,8 @@ fnm_hud := class:
             SlateArt.SetTint(FnmUi(NamedColors.White))
             BannerArt.SetTint(FnmUi(NamedColors.White))
             VerdictImage.SetTint(FnmUi(NamedColors.White))
+            VoltArt.SetTint(FnmUi(NamedColors.White))
+            MedalArt.SetTint(FnmUi(NamedColors.White))
             # The answer tiles: the tile texture tinted with the tile's colour (its white ring takes the colour, the
             # dark interior stays near-black) under the letter and the choice, both in that colour.
             Tiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
@@ -429,14 +441,33 @@ fnm_hud := class:
                                     Widget := SubtitleText
                                     HorizontalAlignment := horizontal_alignment.Left
                         Padding := margin{Left := 16.0, Top := 6.0, Right := 16.0, Bottom := 8.0}
+            # The header row: Volt, the headline over the medal word, the medal (see HeaderWrap).
+            ResultsHeader : stack_box = stack_box:
+                Orientation := orientation.Horizontal
+                Slots := array:
+                    stack_box_slot:
+                        Widget := VoltArt
+                        VerticalAlignment := vertical_alignment.Center
+                    stack_box_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Vertical
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := ResultsTitle
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                stack_box_slot:
+                                    Widget := ResultsMedal
+                                    HorizontalAlignment := horizontal_alignment.Center
+                        VerticalAlignment := vertical_alignment.Center
+                        Padding := margin{Left := HeaderGap, Right := HeaderGap}
+                    stack_box_slot:
+                        Widget := MedalArt
+                        VerticalAlignment := vertical_alignment.Center
             ResultsLines : stack_box = stack_box:
                 Orientation := orientation.Vertical
                 Slots := array:
                     stack_box_slot:
-                        Widget := ResultsTitle
-                        HorizontalAlignment := horizontal_alignment.Center
-                    stack_box_slot:
-                        Widget := ResultsMedal
+                        Widget := ResultsHeader
                         HorizontalAlignment := horizontal_alignment.Center
                     stack_box_slot:
                         Widget := ResultsTime
@@ -457,10 +488,12 @@ fnm_hud := class:
             for (Row : ResultsRows):
                 ResultsLines.AddWidget(stack_box_slot{Widget := Row, HorizontalAlignment := horizontal_alignment.Center})
             ResultsLines.AddWidget(stack_box_slot{Widget := ResultsCountdown, HorizontalAlignment := horizontal_alignment.Center, Padding := margin{Top := 18.0}})
+            # 0.88, not 0.62: at the podium the world ALL-TIME billboard sits right behind the header, and at 0.62 its text
+            # read through FINISH! and the medal word (H2 frames, 2026-10-13).
             Results : overlay = overlay:
                 Slots := array:
                     overlay_slot:
-                        Widget := color_block{DefaultColor := NamedColors.Black * FnmUiGain, DefaultOpacity := 0.62}
+                        Widget := color_block{DefaultColor := NamedColors.Black * FnmUiGain, DefaultOpacity := 0.88}
                         HorizontalAlignment := horizontal_alignment.Fill
                         VerticalAlignment := vertical_alignment.Fill
                     overlay_slot:
@@ -1019,7 +1052,8 @@ fnm_hud := class:
         if (Slate := MaybeSlate?):
             Slate.SetVisibility(widget_visibility.Collapsed)
 
-    # The finish board. Medal "" leaves its row blank. Rows: the session's top times, best first; OwnRow is the
+    # The finish board. Medal "GOLD" / "SILVER" / "BRONZE" shows that medal's picture and "<Medal> MEDAL"; "" collapses both
+    # (the header's Volt stays). Rows: the session's top times, best first; OwnRow is the
     # viewing player's row (-1 = not on the board), drawn orange. The countdown row starts empty (SetCountdown).
     # BoardHead names the board ("TOP TIMES THIS SESSION  -  <skill>": boards and bests are per skill). Title is the
     # headline: "FINISH!" for a race, "VICTORY!" in boss mode.
@@ -1027,7 +1061,8 @@ fnm_hud := class:
         ResultsTitle.SetTextColor(FnmUi(MedalColor))
         ResultsTitle.SetText(FnmText(Title))
         ResultsMedal.SetTextColor(FnmUi(MedalColor))
-        ResultsMedal.SetText(FnmText(if (Medal = "") then "" else "{Medal} MEDAL"))
+        SetOrCollapse(ResultsMedal, if (Medal = "") then "" else "{Medal} MEDAL")
+        ShowMedalArt(Medal)
         ResultsTime.SetText(FnmText(TimeLine))
         ResultsBest.SetText(FnmText(BestLine))
         ResultsRecord.SetText(RecordLine)
@@ -1044,6 +1079,21 @@ fnm_hud := class:
         SetCountdown("")
         if (Results := MaybeResults?):
             Results.SetVisibility(widget_visibility.Visible)
+
+    # The finish board's medal picture: the texture for ShowResults' Medal string (fnm_logic FnmMedal: "GOLD", "SILVER",
+    # "BRONZE"). "" (boss mode may pass it) or any other word collapses the picture; the "<Medal> MEDAL" word stays beside it.
+    ShowMedalArt(Medal:string):void =
+        if (Medal = "GOLD"):
+            MedalArt.SetImage(FNM_Art.T_fnm_medal_gold)
+            MedalArt.SetVisibility(widget_visibility.Visible)
+        else if (Medal = "SILVER"):
+            MedalArt.SetImage(FNM_Art.T_fnm_medal_silver)
+            MedalArt.SetVisibility(widget_visibility.Visible)
+        else if (Medal = "BRONZE"):
+            MedalArt.SetImage(FNM_Art.T_fnm_medal_bronze)
+            MedalArt.SetVisibility(widget_visibility.Visible)
+        else:
+            MedalArt.SetVisibility(widget_visibility.Collapsed)
 
     # "Next run in 12" on the finish board ("" collapses the row).
     SetCountdown(Text:string):void =

@@ -59,7 +59,12 @@ before UEFN work. Project-specific:
   `tools/build_course.py --paint-only` (paint walls and floors by tier after a cartridge swap, reads back), `--check-paint`
   (read-only: every painted actor and door holds its material), `--door-paint` (re-apply the 40 door panels in place),
   `tools/build_door_marks.py` (3D Alphabet letter over each door's lintel + a letter-colour light; idempotent via
-  `fnm_door_marks`; rerun after a course rebuild), `--doors-only` (swap the door
+  `fnm_door_marks`; rerun after a course rebuild), `tools/import_mascot.py` (once per UEFN project: Volt, the robot
+  host, from `art/mascot/raw` into `FNM_MascotArt`: ONE skeletal mesh, every clip an animation on its skeleton; it deletes
+  and re-imports, which empties the placed devices' references, so rerun `build_mascot.py` after it),
+  `tools/build_mascot.py` (Volt waving at station 1's start and dancing at the podium, Animated Mesh devices, no collision;
+  idempotent via `fnm_mascot`; rerun after a course rebuild or `build_finish.py`), `tools/make_medal_art.py` (the finish
+  board's medal and Volt PNGs in `tools/art` from the Meshy raws in `art/medals`, `art/mascot`), `--doors-only` (swap the door
   props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (refit the vestibule and arena pad triggers in place with `trigger_fit`: a
   trigger senses only its StepBox, so never size one at 600 cm per unit scale; rerun after changing `TRIGGER_DEPTH`,
   `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes

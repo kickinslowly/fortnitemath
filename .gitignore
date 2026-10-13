@@ -18,3 +18,9 @@ art/cannon/raw/*
 
 # Playwright MCP session logs/snapshots (created when agents browse)
 .playwright-mcp/
+
+# Meshy mascot sources besides the clip FBX files tools/import_mascot.py reads (task ids in art/mascot/meshy_tasks.json)
+art/mascot/raw/rig.fbx
+art/mascot/raw/volt_tpose.glb
+art/mascot/raw/volt_tpose_base_color.png
+art/mascot/raw/*.fbm/
