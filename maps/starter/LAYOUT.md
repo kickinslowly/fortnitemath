@@ -234,8 +234,9 @@ station 5 shipping containers that slide across the hallway (Verse, `fnm_slider`
 ## Decor (2026-10-05, `tools/build_decor.py`)
 A giant 3D station number on each door wall's lintel; wall torches above head height; a chalkboard with a chalk
 math line on the right wall facing the station sign; potted plants in the entry corners; six giant digits floating
-outside each station, 25-50 m off the centre line (no collision: a Yeet skydive may pass them); at the finish a
-"100" above the FINISH! sign, a podium, flowers, fireworks props. Nothing stands in the run line, the doors or the
+outside each station, 25-50 m off the centre line (no collision: a Yeet skydive may pass them); at the finish
+torches, flowers, plants and fireworks props behind the end wall (the ALL-TIME BEST screen and the podium buttons are
+`tools/build_finish.py`'s; the old "100" sign is gone). Nothing stands in the run line, the doors or the
 vestibules.
 
 ## Pickups (2026-10-06, `tools/build_pickups.py`)

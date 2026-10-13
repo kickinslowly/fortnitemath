@@ -296,6 +296,11 @@ implement from written briefs (`~/.claude/skills/multi-model-delegation`).
 - [ ] 9. Comedy escalation from the PENALTIES catalog: trapdoor, boulder, chicken swarm, pinball bumpers, flood; one
   rare jackpot door (1 in 20) that hits the whole class
 - [ ] 10. Secrets: hidden rooms behind breakable walls, a collectible coin set with its own board, a developer room
+- Superseded in part by G9 (2026-10-13 review, pending Aaron's yes): the review recommends NOT building four of these:
+  the class-wide jackpot door (9) -> PARTY SURGE (one kid's streak boosts everyone); wall coins + shop (4) -> streak-earned
+  Shield/Strike charges; 50/50 (4) -> X-RAY lectern (shows why two choices are wrong); gold skip-a-station door (4) -> I'M SURE
+  confidence lectern. Item 8 becomes ranks/titles/Trap Dex, item 5 becomes HEAT + class host mode
+  (`reviews/race-2026-10-13/sources/gamification.md` §4, §14)
 - Aaron playtest 2026-10-07 evening (PC, the UEFN session; log 02:36-02:43 UTC): (1) "couldn't hear an announcer":
   the cue log shows the voice devices fired for him (go, penalties); the Fortnite client's Windows-mixer mute is the
   prime suspect (it was muted all day for tests, read unmuted afterwards); OPEN until he says whether he heard the
@@ -358,6 +363,9 @@ question per player on the HUD and make it read as a sign.
   tile, painted into the panel's own texture (2026-10-09, after Aaron found the first version's sign actors stayed in
   the doorway with collision) (LAYOUT.md "Door colours and signs"). Seen in the editor on all four doors; the painted
   version is not yet seen in play or opened in play. The wall frame round each door stays white
+  - [ ] **REGRESSED (found 2026-10-13, race review):** in play AND in the editor the four doors are identical (no letter, no
+    colour); `FNM_S01_DoorB` reads `doorAnimatingMaterial: null`, `DoorComponent.overrideMaterials: [null]` while
+    `M_door_face_a..d` exist. Lost in a later rebuild (not diagnosed). Re-apply `door_dress`, then see it in play (G9 Now 1)
 - [x] 6. Parallelograms give base and height only (Aaron 2026-10-09: the slanted side was useless information);
   wrong answers HALVED / PERIMETER / ADD_SIDES. Triangles in tier 2 still list a slanted side
 - [x] 5. Ceilings invisible (Aaron 2026-10-08 "glass top ... obscuring things"): lids hidden in editor and play, collision
@@ -384,3 +392,48 @@ plans and audits; Opus builds; Sonnet does B3.
   that turns to the nearest player. Seen in play 2026-10-10: OPEN WEAPON CHEST prompt, SMG + ammo granted, letters
   readable and turned from the entry and from a perch. Unverified: two players at one chest, letters from the far side
   of the platform, the letters' no-collision holding in play (bNoCollision read back true).
+
+## G9 — Blockbuster race (Aaron, 2026-10-13: "full review of ux for our race mode ... aiming for a blockbuster")
+Review: `reviews/race-2026-10-13/REVIEW.md` (verdict, ranked findings, gamification system, FX plan, vision, roadmap; agent
+reports in `sources/`). Verdict: not a blockbuster yet (checklist 22/75); the gap is format and identity, not polish.
+State 2026-10-13: review written, nothing built yet; review folder + this G9 + tools/burst.py UNCOMMITTED at session end.
+Decisions pending with Aaron (recommendation after the arrow):
+- Name -> DOORS OF DOOM (check fortnite.gg for title collisions; drop "Fortnite" from title, HUD tag, welcome voice line)
+- World -> Titan Peak volcano ascent; the robot host and mascot "Volt" are one character
+- Grade buttons -> ROOKIE / PRO / LEGEND leagues (Epic Rule 1.15: no content primarily targeting under-13s; a publish is needed)
+- Guards -> keep; remove station 1's; rocket/grenade launchers come from a reward chest, not guards
+- G6 flips (see G6 note) -> accept
+- Meshy -> up to 147 credits (volcano 44, host 67, medal HUD art 36); 156 monthly credits reset 2026-10-14 02:37Z (missed if
+  not decided by then; balance was 1,468)
+- Mint -> Aaron authorises one tiny audio job in his session to learn the price (7,580 credits, period ends 2026-10-21,
+  write tools gated)
+Probe session before probe-dependent builds (~2 h; list in `sources/spectacle.md` §7 and `sources/gamification.md` §16): time of
+day Hour10/14/17/19 + `cameraFilter` frames; volcano-scale mesh at +2 km draw distance; `Powerup_VFX` / `vfx_creator` aura that
+follows a player; `PlayerReference` hologram; `CrowdVolume`; `CameraFocus`/`FixedPoint`; `PP_ActionLines` + partial post-process
+strength; spatial audio player; Niagara 40 m beam cull; door sprint-bash; barrier visibility; `hud_controller_device` hiding
+the GAME MODE box/minimap; `GetLocalParty` in a published version; accolades `TestAwardEvent`.
+- [ ] Now 1. Doors re-painted (G7 4 regression) + 3D lintel letters + letter-colour arch lights, seen in play
+- [ ] Now 2. HUD tile colours: B and C render the same cyan, D renders yellow (sampled 2026-10-13); fix + sample a capture;
+  tile letters 20 -> 40 px
+- [ ] Now 3. Lock lighting (Island Settings `timeOfDayOverride` is NoOverride: night = blue course); compare Hour10/14/17/19
+  frames; dark tier floors via `--paint-only`; rim light
+- [ ] Now 4. Copy pass (picker heading/step, "station" everywhere, one arena instruction, one hit counter, "Today's record",
+  medal rule shown, "RACE AGAIN", "Only A, B, C this time"); `choose` voice 2 s after `welcome`
+- [ ] Now 5. Feed: wrong-door lines to the victim only (leader's misses may stay public); strip = top 3 + rival + you
+- [ ] Now 6. Recap card replaces "Correct! <previous explanation>" under the next question
+- [ ] Now 7. Retry spot 3 m before the door wall, holds ~2.5 s, +3 s clock, non-lethal Spike, letters reshuffle on retry
+- [ ] Now 8. Teleport to the podium when the titan falls; RACE AGAIN within reach
+- [ ] Now 9. Station 1 as the tutorial (first-run captions, no guard)
+- [ ] Now 10. Gates: 2 real players in one session; one human run timed; island memory read; persistence seen surviving a
+  rejoin (Epic: published keeps it, 256 KB/player)
+- [ ] Now 11. Rename: no "Fortnite" in title, HUD tag, welcome voice line
+- [ ] Now 12. Class pilot = UNLISTED publish (Epic: private version codes are owner-only; playtest groups are adults-only;
+  `sources/class_access.md`): logo + landscape/portrait thumbnails (mandatory for releases from 2026-10-22), IARC (aim E/E10+),
+  moderation; `maxPlayers` 16 -> ~30 (setting takes 1-100); then check a few kid accounts land on one server
+- [ ] Next: party HEAT (synced start, places, auto-requeue) tested with 4-8 kids; pillar of light + boost trail; Shield/Strike;
+  Redemption at the boss; medal v2 + brag card; arena pads in one row + bigger titan; host controls + misconception radar;
+  accolades; volcano on the horizon (draw-distance probe first)
+- [ ] Later: Trap Dex + Daily Mix; Titan Peak biome pass + door arch kit; mascot/host Volt; podium ceremony (hologram, crowd);
+  custom music; team relay; grade 7-8 cartridges
+- [ ] Deadlines: Meshy monthly credits reset 2026-10-14 02:37Z; Mint period ends 2026-10-21; Discover thumbnails + logo required
+  to publish/update from 2026-10-22

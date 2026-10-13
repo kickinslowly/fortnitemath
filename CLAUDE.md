@@ -32,7 +32,8 @@ before UEFN work. Project-specific:
   `tools/playtest.py` (relaunch session → screenshot of the game via PrintWindow (`tools/wincap.ps1`, never takes the
   foreground) + the director's `FNM:` log lines; `--watch N`; `--until "text,text"` waits for a director line with no keys;
   `--keys` clicks the game forward — ask first if Aaron may
-  be in another app),
+  be in another app), `tools/burst.py` (PrintWindow burst of N frames once a director line appears; the editor log can lag
+  ~10 s, so `playtest.py --frames` fires late: start a burst on an early line and match frames to log times by file time),
   `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
   (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
   geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen

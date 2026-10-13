@@ -15,3 +15,6 @@ art/boss/unused/
 # Meshy cannon sources besides the imported FBX (task ids in art/cannon/meshy_tasks.json)
 art/cannon/raw/*
 !art/cannon/raw/cannon.fbx
+
+# Playwright MCP session logs/snapshots (created when agents browse)
+.playwright-mcp/
