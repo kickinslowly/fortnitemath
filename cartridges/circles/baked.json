@@ -1,0 +1,4006 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "circles",
+  "version": "1.0.0",
+  "title": "Circles",
+  "subtitle": "Radius, Circumference, Area & π",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.G.B.4"
+  ],
+  "seed": 20261027,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b measurement. Every given radius or diameter is 2-10 (a halved diameter is even, so its radius is 2-5; tier 1 alone halves an odd diameter to x.5). Every × step has both factors 1-10; every ÷ is exact with divisor and quotient 2-10; every + joins two values of 20 or less. Answers stay in terms of π: every π coefficient (circumference, area, arc, perimeter) is a whole number 1-100. 'Use 3 for π' answers are whole numbers 1-100 reached through times-table steps (6 × r, 3 × d, 3 × 3 × 3). Half- and quarter-circle areas go through an even radius ((r/2) × r, (r/2) × (r/2)). Scale questions use factors 1/2, 2, 3, 4. No area-to-radius (square roots are grade 8). Wrong choices up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Radius, Diameter & π",
+      "description": "Radius is half the diameter. Circumference ÷ diameter is π for every circle."
+    },
+    {
+      "tier": 2,
+      "name": "Circumference",
+      "description": "Distance around: C = 2πr = πd. Leave π as π."
+    },
+    {
+      "tier": 3,
+      "name": "Area of a Circle",
+      "description": "Area = π × r × r. Square the radius, not the diameter."
+    },
+    {
+      "tier": 4,
+      "name": "Work Backward & Estimate",
+      "description": "Find the radius from the circumference. Use 3 for π to estimate."
+    },
+    {
+      "tier": 5,
+      "name": "Half & Quarter Circles",
+      "description": "Areas, curved edges and perimeters of parts of a circle."
+    }
+  ],
+  "misconceptions": {
+    "HALVED_FOR_DOUBLED": {
+      "student": "Diameter is twice the radius: it goes all the way across.",
+      "teacher": "Halves the radius to get the diameter."
+    },
+    "DOUBLED_FOR_HALVED": {
+      "student": "Radius is half the diameter: it only goes to the center.",
+      "teacher": "Doubles the diameter to get the radius."
+    },
+    "SAME_NUMBER": {
+      "student": "Radius and diameter are different: the diameter is twice the radius.",
+      "teacher": "Gives the same number for radius and diameter."
+    },
+    "C_FOR_D": {
+      "student": "Diameter is straight across. The distance around needs π.",
+      "teacher": "Reports the circumference where the diameter is asked."
+    },
+    "HALVED_TWICE": {
+      "student": "Halve just once: the radius is half the diameter.",
+      "teacher": "Halves twice (divides by 4) going from diameter to radius."
+    },
+    "SIZE_MATTERS": {
+      "student": "The ratio does not depend on size. Every circle gives the same number.",
+      "teacher": "Answers with the given length instead of the constant ratio."
+    },
+    "TWO_PI": {
+      "student": "π is circumference ÷ diameter. The 2π is circumference ÷ radius.",
+      "teacher": "Gives 2π for circumference ÷ diameter (mixes in the 2 of C = 2πr)."
+    },
+    "DIAMETER_RATIO": {
+      "student": "Circumference ÷ radius is 2π. Only ÷ diameter gives π.",
+      "teacher": "Gives π for circumference ÷ radius (uses the diameter ratio)."
+    },
+    "INVERTED": {
+      "student": "You flipped it: the circumference is the big number on top.",
+      "teacher": "Divides the other way round (diameter or radius ÷ circumference)."
+    },
+    "VOCAB_MIX": {
+      "student": "Around = circumference, inside = area, across = diameter, center-out = radius.",
+      "teacher": "Mixes up the circle vocabulary."
+    },
+    "RADII_COUNT": {
+      "student": "Those are radii. A diameter is 2 radii, so about 3 diameters.",
+      "teacher": "Counts radii when the question asks for diameters."
+    },
+    "DIAMETER_COUNT": {
+      "student": "Those are diameters. A diameter is 2 radii: about 6 radii.",
+      "teacher": "Counts diameters when the question asks for radii."
+    },
+    "SQUARE_AROUND": {
+      "student": "A square around it is longer. A circle is about 3 diameters, 6 radii.",
+      "teacher": "Uses the perimeter of the bounding square (4 diameters or 8 radii)."
+    },
+    "R_FOR_D": {
+      "student": "Circumference = π × diameter. The radius is only half of that.",
+      "teacher": "Uses πr (the radius) where π × diameter is needed."
+    },
+    "AREA_FOR_C": {
+      "student": "That's the area. Circumference goes around the edge: 2πr, or π × diameter.",
+      "teacher": "Computes the area (or squares a length) instead of the circumference."
+    },
+    "DOUBLED_D": {
+      "student": "Too much: circumference is π × diameter, or 2 × π × radius. Not both 2s.",
+      "teacher": "Doubles the diameter: applies 2πr with the diameter in place of r."
+    },
+    "NO_PI": {
+      "student": "Don't drop π: it is part of every circle formula (use 3 if told).",
+      "teacher": "Leaves π out of the answer."
+    },
+    "D_FOR_R": {
+      "student": "In π × r × r, r is the RADIUS. Use half the diameter.",
+      "teacher": "Uses the diameter where the radius belongs (squares the diameter)."
+    },
+    "DOUBLED_RADIUS": {
+      "student": "Square the radius as given: π × r × r. Don't double it first.",
+      "teacher": "Doubles the radius (uses the diameter) before squaring."
+    },
+    "SQUARED_SCALE": {
+      "student": "Circumference is a length: double the radius, double the circumference.",
+      "teacher": "Scales the circumference by the square of the radius factor."
+    },
+    "C_FOR_AREA": {
+      "student": "That's the circumference. Area is π × radius × radius.",
+      "teacher": "Computes the circumference instead of the area."
+    },
+    "NO_SQUARE": {
+      "student": "Area needs r × r: square the radius, don't just use it.",
+      "teacher": "Multiplies by the radius once instead of squaring it."
+    },
+    "SAME_SCALE": {
+      "student": "Area uses r × r, so it grows by the scale factor squared.",
+      "teacher": "Scales the area by the same factor as the radius."
+    },
+    "CUBED_SCALE": {
+      "student": "Cubing is for volume. Lengths scale by k, areas by k × k.",
+      "teacher": "Scales the circumference or area by the cube of the radius factor."
+    },
+    "SUM_RADII": {
+      "student": "Add the AREAS, not the radii. Find each π × r × r first, then add.",
+      "teacher": "Adds the radii first, then finds one area."
+    },
+    "ONE_CIRCLE": {
+      "student": "You used only one circle. Add both areas.",
+      "teacher": "Reports the area of only one of the two circles."
+    },
+    "GAVE_DIAMETER": {
+      "student": "The number beside π is the diameter. The radius is half of it.",
+      "teacher": "Reads the π coefficient (the diameter) as the radius."
+    },
+    "WRONG_WAY": {
+      "student": "Going backward means undoing: divide here, don't multiply.",
+      "teacher": "Multiplies instead of dividing when working back from the circumference."
+    },
+    "GAVE_RADIUS": {
+      "student": "The number beside π is the diameter itself, not half of it.",
+      "teacher": "Halves the π coefficient to give the radius when the diameter is asked."
+    },
+    "FORGOT_PI": {
+      "student": "Don't forget π (3 here): C = 6 × radius, or 3 × diameter.",
+      "teacher": "Ignores π when working back from an estimated circumference."
+    },
+    "WHOLE_CIRCLE": {
+      "student": "That's the whole circle. Take only the half or quarter you need.",
+      "teacher": "Reports the whole circle's measure for a part of a circle."
+    },
+    "HALVED_RADIUS": {
+      "student": "Half the circle means half the AREA, not half the radius.",
+      "teacher": "Halves the radius before squaring instead of halving the area."
+    },
+    "ARC_FOR_AREA": {
+      "student": "That's the curved edge. Area is the space inside.",
+      "teacher": "Gives the length of the curved edge where the area is asked."
+    },
+    "HALF_FOR_QUARTER": {
+      "student": "A quarter is 1/4 of the circle, not 1/2.",
+      "teacher": "Takes half of the circle for a quarter circle."
+    },
+    "QUARTERED_RADIUS": {
+      "student": "Take 1/4 of the area, not 1/4 of the radius.",
+      "teacher": "Quarters the radius before squaring instead of quartering the area."
+    },
+    "AREA_FOR_ARC": {
+      "student": "That's area. The curved edge is a length: part of the circumference.",
+      "teacher": "Gives the area where the curved edge is asked."
+    },
+    "PERIMETER_NOT_ARC": {
+      "student": "That adds the flat side. The curved edge alone is just the curve.",
+      "teacher": "Adds the diameter (the flat side) to the curved edge."
+    },
+    "ARC_ONLY": {
+      "student": "Perimeter also includes the flat side: add the diameter.",
+      "teacher": "Gives only the curved edge for the perimeter of a semicircle."
+    },
+    "WHOLE_C_PLUS": {
+      "student": "Only half the circumference is curved. Then add the diameter.",
+      "teacher": "Uses the whole circumference plus the diameter for a semicircle."
+    },
+    "HALF_C_PLUS_R": {
+      "student": "The flat side is the whole diameter, not just the radius.",
+      "teacher": "Adds the radius, not the diameter, as the flat side."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "circles/t1/001",
+      "tier": 1,
+      "prompt": "A string around a circle is about how many diameters?",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SQUARE_AROUND",
+        null,
+        "RADII_COUNT"
+      ],
+      "explanation": "Circumference = π × diameter, and π is a little more than 3: about 3 diameters."
+    },
+    {
+      "id": "circles/t1/002",
+      "tier": 1,
+      "prompt": "A pizza has diameter 10. Its radius?",
+      "choices": [
+        "10",
+        "20",
+        "2.5",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "DOUBLED_FOR_HALVED",
+        "HALVED_TWICE",
+        null
+      ],
+      "explanation": "Radius = diameter ÷ 2: 10 ÷ 2 = 5."
+    },
+    {
+      "id": "circles/t1/003",
+      "tier": 1,
+      "prompt": "A wheel has radius 4. Circumference ÷ diameter?",
+      "choices": [
+        "2π",
+        "π",
+        "4",
+        "1/π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TWO_PI",
+        null,
+        "SIZE_MATTERS",
+        "INVERTED"
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t1/004",
+      "tier": 1,
+      "prompt": "Distance around a circle is its?",
+      "choices": [
+        "radius",
+        "area",
+        "circumference",
+        "diameter"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VOCAB_MIX",
+        "VOCAB_MIX",
+        null,
+        "VOCAB_MIX"
+      ],
+      "explanation": "The circumference is the distance around a circle."
+    },
+    {
+      "id": "circles/t1/005",
+      "tier": 1,
+      "prompt": "Circle: radius 8. Circumference ÷ radius?",
+      "choices": [
+        "π",
+        "2π",
+        "1/(2π)",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIAMETER_RATIO",
+        null,
+        "INVERTED",
+        "SIZE_MATTERS"
+      ],
+      "explanation": "C = 2πr, so circumference ÷ radius = 2π."
+    },
+    {
+      "id": "circles/t1/006",
+      "tier": 1,
+      "prompt": "Circle: diameter 4. Radius?",
+      "choices": [
+        "8",
+        "4",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_FOR_HALVED",
+        "SAME_NUMBER",
+        "HALVED_TWICE",
+        null
+      ],
+      "explanation": "Radius = diameter ÷ 2: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "circles/t1/007",
+      "tier": 1,
+      "prompt": "Radius 8. What is the diameter of the circle?",
+      "choices": [
+        "16π",
+        "16",
+        "8",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_D",
+        null,
+        "SAME_NUMBER",
+        "HALVED_FOR_DOUBLED"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 8 = 16."
+    },
+    {
+      "id": "circles/t1/008",
+      "tier": 1,
+      "prompt": "Circle: radius 2. Circumference ÷ diameter?",
+      "choices": [
+        "2π",
+        "2",
+        "1/π",
+        "π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TWO_PI",
+        "SIZE_MATTERS",
+        "INVERTED",
+        null
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t1/009",
+      "tier": 1,
+      "prompt": "A pond has diameter 4. What is its radius?",
+      "choices": [
+        "8",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_HALVED",
+        null,
+        "SAME_NUMBER",
+        "HALVED_TWICE"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 4 ÷ 2 = 2."
+    },
+    {
+      "id": "circles/t1/010",
+      "tier": 1,
+      "prompt": "A pond has diameter 7. What is its radius?",
+      "choices": [
+        "3.5",
+        "5.5",
+        "14",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DOUBLED_FOR_HALVED",
+        "SAME_NUMBER"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 7 ÷ 2 = 3.5."
+    },
+    {
+      "id": "circles/t1/011",
+      "tier": 1,
+      "prompt": "A wheel has diameter 10. Circumference ÷ diameter?",
+      "choices": [
+        "2π",
+        "10",
+        "1/π",
+        "π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TWO_PI",
+        "SIZE_MATTERS",
+        "INVERTED",
+        null
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t1/012",
+      "tier": 1,
+      "prompt": "A wheel has diameter 7. Its radius?",
+      "choices": [
+        "2.5",
+        "7",
+        "3.5",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_NUMBER",
+        null,
+        "DOUBLED_FOR_HALVED"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 7 ÷ 2 = 3.5."
+    },
+    {
+      "id": "circles/t1/013",
+      "tier": 1,
+      "prompt": "Circle: radius 10. Circumference ÷ radius?",
+      "choices": [
+        "1/(2π)",
+        "2π",
+        "π",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "DIAMETER_RATIO",
+        "SIZE_MATTERS"
+      ],
+      "explanation": "C = 2πr, so circumference ÷ radius = 2π."
+    },
+    {
+      "id": "circles/t1/014",
+      "tier": 1,
+      "prompt": "Circle: radius 4. Diameter?",
+      "choices": [
+        "8π",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_D",
+        null,
+        "HALVED_FOR_DOUBLED",
+        "SAME_NUMBER"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 4 = 8."
+    },
+    {
+      "id": "circles/t1/015",
+      "tier": 1,
+      "prompt": "Pi (π) is circumference divided by what?",
+      "choices": [
+        "diameter",
+        "radius^2",
+        "radius",
+        "area"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FOR_C",
+        "R_FOR_D",
+        "VOCAB_MIX"
+      ],
+      "explanation": "π = circumference ÷ diameter, so circumference = π × diameter."
+    },
+    {
+      "id": "circles/t1/016",
+      "tier": 1,
+      "prompt": "A wheel has diameter 4. Circumference ÷ diameter?",
+      "choices": [
+        "π",
+        "4",
+        "1/π",
+        "2π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIZE_MATTERS",
+        "INVERTED",
+        "TWO_PI"
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t1/017",
+      "tier": 1,
+      "prompt": "A pond has radius 7. What is its diameter?",
+      "choices": [
+        "7",
+        "3.5",
+        "14π",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "HALVED_FOR_DOUBLED",
+        "C_FOR_D",
+        null
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 7 = 14."
+    },
+    {
+      "id": "circles/t1/018",
+      "tier": 1,
+      "prompt": "A pizza has radius 9. Its diameter?",
+      "choices": [
+        "18",
+        "9",
+        "18π",
+        "4.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NUMBER",
+        "C_FOR_D",
+        "HALVED_FOR_DOUBLED"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 9 = 18."
+    },
+    {
+      "id": "circles/t1/019",
+      "tier": 1,
+      "prompt": "A line from the center to the edge is called?",
+      "choices": [
+        "circumference",
+        "area",
+        "diameter",
+        "radius"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VOCAB_MIX",
+        "VOCAB_MIX",
+        "VOCAB_MIX",
+        null
+      ],
+      "explanation": "A radius goes from the center out to the edge. A diameter is 2 radii."
+    },
+    {
+      "id": "circles/t1/020",
+      "tier": 1,
+      "prompt": "Radius 10. What is the diameter of the circle?",
+      "choices": [
+        "5",
+        "20",
+        "20π",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_FOR_DOUBLED",
+        null,
+        "C_FOR_D",
+        "SAME_NUMBER"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 10 = 20."
+    },
+    {
+      "id": "circles/t1/021",
+      "tier": 1,
+      "prompt": "A pond has radius 3. What is its diameter?",
+      "choices": [
+        "1.5",
+        "3",
+        "6",
+        "6π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_FOR_DOUBLED",
+        "SAME_NUMBER",
+        null,
+        "C_FOR_D"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 3 = 6."
+    },
+    {
+      "id": "circles/t1/022",
+      "tier": 1,
+      "prompt": "A line across a circle through its center is called?",
+      "choices": [
+        "diameter",
+        "radius",
+        "area",
+        "circumference"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VOCAB_MIX",
+        "VOCAB_MIX",
+        "VOCAB_MIX"
+      ],
+      "explanation": "A diameter goes straight across, through the center."
+    },
+    {
+      "id": "circles/t1/023",
+      "tier": 1,
+      "prompt": "Circle: radius 9. Diameter?",
+      "choices": [
+        "9",
+        "18π",
+        "4.5",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "C_FOR_D",
+        "HALVED_FOR_DOUBLED",
+        null
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 9 = 18."
+    },
+    {
+      "id": "circles/t1/024",
+      "tier": 1,
+      "prompt": "A pond has diameter 6. What is its radius?",
+      "choices": [
+        "12",
+        "1.5",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_FOR_HALVED",
+        "HALVED_TWICE",
+        "SAME_NUMBER",
+        null
+      ],
+      "explanation": "Radius = diameter ÷ 2: 6 ÷ 2 = 3."
+    },
+    {
+      "id": "circles/t1/025",
+      "tier": 1,
+      "prompt": "Radius 5. What is the diameter of the circle?",
+      "choices": [
+        "2.5",
+        "10π",
+        "10",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_FOR_DOUBLED",
+        "C_FOR_D",
+        null,
+        "SAME_NUMBER"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 5 = 10."
+    },
+    {
+      "id": "circles/t1/026",
+      "tier": 1,
+      "prompt": "A pizza has diameter 8. Its radius?",
+      "choices": [
+        "2",
+        "16",
+        "4",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_TWICE",
+        "DOUBLED_FOR_HALVED",
+        null,
+        "SAME_NUMBER"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 8 ÷ 2 = 4."
+    },
+    {
+      "id": "circles/t1/027",
+      "tier": 1,
+      "prompt": "A wheel has radius 9. Circumference ÷ diameter?",
+      "choices": [
+        "π",
+        "2π",
+        "1/π",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TWO_PI",
+        "INVERTED",
+        "SIZE_MATTERS"
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t1/028",
+      "tier": 1,
+      "prompt": "Circumference ÷ radius = ?",
+      "choices": [
+        "π",
+        "1/(2π)",
+        "4π",
+        "2π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_RATIO",
+        "INVERTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "C = 2πr, so circumference ÷ radius = 2π."
+    },
+    {
+      "id": "circles/t1/029",
+      "tier": 1,
+      "prompt": "A wheel has diameter 5. Its radius?",
+      "choices": [
+        "0.5",
+        "5",
+        "2.5",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_NUMBER",
+        null,
+        "DOUBLED_FOR_HALVED"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 5 ÷ 2 = 2.5."
+    },
+    {
+      "id": "circles/t1/030",
+      "tier": 1,
+      "prompt": "A pond has radius 6. What is its diameter?",
+      "choices": [
+        "6",
+        "12π",
+        "3",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_NUMBER",
+        "C_FOR_D",
+        "HALVED_FOR_DOUBLED",
+        null
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 6 = 12."
+    },
+    {
+      "id": "circles/t1/031",
+      "tier": 1,
+      "prompt": "Circle: radius 5. Diameter?",
+      "choices": [
+        "10π",
+        "10",
+        "5",
+        "2.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_D",
+        null,
+        "SAME_NUMBER",
+        "HALVED_FOR_DOUBLED"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 5 = 10."
+    },
+    {
+      "id": "circles/t1/032",
+      "tier": 1,
+      "prompt": "A wheel has radius 10. Its diameter?",
+      "choices": [
+        "5",
+        "20π",
+        "20",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_FOR_DOUBLED",
+        "C_FOR_D",
+        null,
+        "SAME_NUMBER"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 10 = 20."
+    },
+    {
+      "id": "circles/t1/033",
+      "tier": 1,
+      "prompt": "Circle: radius 7. Circumference ÷ radius?",
+      "choices": [
+        "7",
+        "2π",
+        "π",
+        "1/(2π)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIZE_MATTERS",
+        null,
+        "DIAMETER_RATIO",
+        "INVERTED"
+      ],
+      "explanation": "C = 2πr, so circumference ÷ radius = 2π."
+    },
+    {
+      "id": "circles/t1/034",
+      "tier": 1,
+      "prompt": "A pizza has diameter 9. Its radius?",
+      "choices": [
+        "4.5",
+        "9",
+        "18",
+        "2.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NUMBER",
+        "DOUBLED_FOR_HALVED",
+        "ARITH"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 9 ÷ 2 = 4.5."
+    },
+    {
+      "id": "circles/t1/035",
+      "tier": 1,
+      "prompt": "Circle: diameter 6. Radius?",
+      "choices": [
+        "3",
+        "1.5",
+        "12",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_TWICE",
+        "DOUBLED_FOR_HALVED",
+        "SAME_NUMBER"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 6 ÷ 2 = 3."
+    },
+    {
+      "id": "circles/t1/036",
+      "tier": 1,
+      "prompt": "A string around a circle is about how many radii?",
+      "choices": [
+        "6",
+        "8",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_AROUND",
+        "ARITH",
+        "DIAMETER_COUNT"
+      ],
+      "explanation": "About 3 diameters, and each diameter is 2 radii: 3 × 2 = 6 radii."
+    },
+    {
+      "id": "circles/t1/037",
+      "tier": 1,
+      "prompt": "Circle: radius 2. Diameter?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "4π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_FOR_DOUBLED",
+        "SAME_NUMBER",
+        null,
+        "C_FOR_D"
+      ],
+      "explanation": "Diameter = 2 × radius: 2 × 2 = 4."
+    },
+    {
+      "id": "circles/t1/038",
+      "tier": 1,
+      "prompt": "Circle: diameter 8. Radius?",
+      "choices": [
+        "2",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_TWICE",
+        null,
+        "SAME_NUMBER",
+        "DOUBLED_FOR_HALVED"
+      ],
+      "explanation": "Radius = diameter ÷ 2: 8 ÷ 2 = 4."
+    },
+    {
+      "id": "circles/t1/039",
+      "tier": 1,
+      "prompt": "Circumference ÷ diameter = ?",
+      "choices": [
+        "π",
+        "π/2",
+        "1/π",
+        "2π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INVERTED",
+        "TWO_PI"
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle. That is what π means."
+    },
+    {
+      "id": "circles/t1/040",
+      "tier": 1,
+      "prompt": "A wheel has radius 7. Circumference ÷ diameter?",
+      "choices": [
+        "2π",
+        "1/π",
+        "π",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TWO_PI",
+        "INVERTED",
+        null,
+        "SIZE_MATTERS"
+      ],
+      "explanation": "Circumference ÷ diameter is π for every circle, big or small."
+    },
+    {
+      "id": "circles/t2/001",
+      "tier": 2,
+      "prompt": "Ribbon around a round cake, radius 10. Ribbon length?",
+      "choices": [
+        "20π",
+        "40π",
+        "10π",
+        "100π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_D",
+        "R_FOR_D",
+        "AREA_FOR_C"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 10 = 20, so 20π."
+    },
+    {
+      "id": "circles/t2/002",
+      "tier": 2,
+      "prompt": "Radius triples. Circumference is how many times as long?",
+      "choices": [
+        "3",
+        "27",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CUBED_SCALE",
+        "SQUARED_SCALE",
+        "ARITH"
+      ],
+      "explanation": "Circumference is proportional to the radius, so it changes by the same factor: 3."
+    },
+    {
+      "id": "circles/t2/003",
+      "tier": 2,
+      "prompt": "A wheel has radius 10. Its circumference?",
+      "choices": [
+        "100π",
+        "40π",
+        "10π",
+        "20π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_FOR_C",
+        "DOUBLED_D",
+        "R_FOR_D",
+        null
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 10 = 20, so 20π."
+    },
+    {
+      "id": "circles/t2/004",
+      "tier": 2,
+      "prompt": "A wheel has radius 5. Its circumference?",
+      "choices": [
+        "5π",
+        "10",
+        "20π",
+        "10π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 5 = 10, so 10π."
+    },
+    {
+      "id": "circles/t2/005",
+      "tier": 2,
+      "prompt": "Ribbon around a round cake, diameter 7. Ribbon length?",
+      "choices": [
+        "7",
+        "7π",
+        "14π",
+        "49π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_PI",
+        null,
+        "DOUBLED_D",
+        "AREA_FOR_C"
+      ],
+      "explanation": "Circumference = π × diameter = 7π."
+    },
+    {
+      "id": "circles/t2/006",
+      "tier": 2,
+      "prompt": "Circle: diameter 3. Circumference?",
+      "choices": [
+        "3",
+        "6π",
+        "9π",
+        "3π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_PI",
+        "DOUBLED_D",
+        "AREA_FOR_C",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 3π."
+    },
+    {
+      "id": "circles/t2/007",
+      "tier": 2,
+      "prompt": "Radius is halved. Circumference is how many times as long?",
+      "choices": [
+        "1/4",
+        "1/8",
+        "1/2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARED_SCALE",
+        "CUBED_SCALE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Circumference is proportional to the radius, so it changes by the same factor: 1/2."
+    },
+    {
+      "id": "circles/t2/008",
+      "tier": 2,
+      "prompt": "Radius quadruples. Circumference is how many times as long?",
+      "choices": [
+        "64",
+        "4",
+        "12",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBED_SCALE",
+        null,
+        "ARITH",
+        "SQUARED_SCALE"
+      ],
+      "explanation": "Circumference is proportional to the radius, so it changes by the same factor: 4."
+    },
+    {
+      "id": "circles/t2/009",
+      "tier": 2,
+      "prompt": "Ribbon around a round cake, diameter 9. Ribbon length?",
+      "choices": [
+        "9",
+        "81π",
+        "9π",
+        "18π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "AREA_FOR_C",
+        null,
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = π × diameter = 9π."
+    },
+    {
+      "id": "circles/t2/010",
+      "tier": 2,
+      "prompt": "Circle: diameter 7. Circumference?",
+      "choices": [
+        "14π",
+        "7π",
+        "7",
+        "49π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_D",
+        null,
+        "NO_PI",
+        "AREA_FOR_C"
+      ],
+      "explanation": "Circumference = π × diameter = 7π."
+    },
+    {
+      "id": "circles/t2/011",
+      "tier": 2,
+      "prompt": "Ribbon around a round cake, diameter 8. Ribbon length?",
+      "choices": [
+        "4π",
+        "16π",
+        "8π",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "R_FOR_D",
+        "DOUBLED_D",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Circumference = π × diameter = 8π."
+    },
+    {
+      "id": "circles/t2/012",
+      "tier": 2,
+      "prompt": "A wheel with diameter 3 rolls once. How far does it go?",
+      "choices": [
+        "9π",
+        "3",
+        "6π",
+        "3π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_FOR_C",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 3π."
+    },
+    {
+      "id": "circles/t2/013",
+      "tier": 2,
+      "prompt": "A wheel with diameter 9 rolls once. How far does it go?",
+      "choices": [
+        "81π",
+        "9",
+        "18π",
+        "9π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_FOR_C",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 9π."
+    },
+    {
+      "id": "circles/t2/014",
+      "tier": 2,
+      "prompt": "A wheel with radius 6 rolls once. How far does it go?",
+      "choices": [
+        "12",
+        "36π",
+        "12π",
+        "6π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "AREA_FOR_C",
+        null,
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 6 = 12, so 12π."
+    },
+    {
+      "id": "circles/t2/015",
+      "tier": 2,
+      "prompt": "A pond has diameter 3. Distance around it?",
+      "choices": [
+        "3",
+        "9π",
+        "3π",
+        "6π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "AREA_FOR_C",
+        null,
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = π × diameter = 3π."
+    },
+    {
+      "id": "circles/t2/016",
+      "tier": 2,
+      "prompt": "A wheel with diameter 5 rolls once. How far does it go?",
+      "choices": [
+        "5π",
+        "10π",
+        "25π",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_D",
+        "AREA_FOR_C",
+        "NO_PI"
+      ],
+      "explanation": "Circumference = π × diameter = 5π."
+    },
+    {
+      "id": "circles/t2/017",
+      "tier": 2,
+      "prompt": "Circle: radius 7. Circumference?",
+      "choices": [
+        "49π",
+        "14π",
+        "14",
+        "7π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "AREA_FOR_C",
+        null,
+        "NO_PI",
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 7 = 14, so 14π."
+    },
+    {
+      "id": "circles/t2/018",
+      "tier": 2,
+      "prompt": "Circle: radius 5. Circumference?",
+      "choices": [
+        "5π",
+        "20π",
+        "10π",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "R_FOR_D",
+        "DOUBLED_D",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 5 = 10, so 10π."
+    },
+    {
+      "id": "circles/t2/019",
+      "tier": 2,
+      "prompt": "A wheel with radius 9 rolls once. How far does it go?",
+      "choices": [
+        "81π",
+        "36π",
+        "18π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "AREA_FOR_C",
+        "DOUBLED_D",
+        null,
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 9 = 18, so 18π."
+    },
+    {
+      "id": "circles/t2/020",
+      "tier": 2,
+      "prompt": "Ribbon around a round cake, radius 8. Ribbon length?",
+      "choices": [
+        "8π",
+        "16π",
+        "32π",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "R_FOR_D",
+        null,
+        "DOUBLED_D",
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 8 = 16, so 16π."
+    },
+    {
+      "id": "circles/t2/021",
+      "tier": 2,
+      "prompt": "Radius doubles. Circumference is how many times as long?",
+      "choices": [
+        "2",
+        "3",
+        "8",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBED_SCALE",
+        "SQUARED_SCALE"
+      ],
+      "explanation": "Circumference is proportional to the radius, so it changes by the same factor: 2."
+    },
+    {
+      "id": "circles/t2/022",
+      "tier": 2,
+      "prompt": "A pond has radius 3. Distance around it?",
+      "choices": [
+        "12π",
+        "6",
+        "6π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED_D",
+        "NO_PI",
+        null,
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 3 = 6, so 6π."
+    },
+    {
+      "id": "circles/t2/023",
+      "tier": 2,
+      "prompt": "A wheel with radius 7 rolls once. How far does it go?",
+      "choices": [
+        "49π",
+        "14π",
+        "7π",
+        "28π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "AREA_FOR_C",
+        null,
+        "R_FOR_D",
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 7 = 14, so 14π."
+    },
+    {
+      "id": "circles/t2/024",
+      "tier": 2,
+      "prompt": "A pond has diameter 10. Distance around it?",
+      "choices": [
+        "5π",
+        "25π",
+        "20π",
+        "10π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "AREA_FOR_C",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 10π."
+    },
+    {
+      "id": "circles/t2/025",
+      "tier": 2,
+      "prompt": "Circle: radius 8. Circumference?",
+      "choices": [
+        "16",
+        "16π",
+        "8π",
+        "64π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_PI",
+        null,
+        "R_FOR_D",
+        "AREA_FOR_C"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 8 = 16, so 16π."
+    },
+    {
+      "id": "circles/t2/026",
+      "tier": 2,
+      "prompt": "A pond has radius 9. Distance around it?",
+      "choices": [
+        "18π",
+        "9π",
+        "36π",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "R_FOR_D",
+        "DOUBLED_D",
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 9 = 18, so 18π."
+    },
+    {
+      "id": "circles/t2/027",
+      "tier": 2,
+      "prompt": "Circumference formula, using diameter d?",
+      "choices": [
+        "πd",
+        "πd^2",
+        "πd/2",
+        "2πd"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FOR_C",
+        "R_FOR_D",
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = π × diameter. With the radius it is 2πr."
+    },
+    {
+      "id": "circles/t2/028",
+      "tier": 2,
+      "prompt": "Circumference formula, using radius r?",
+      "choices": [
+        "πr^2",
+        "2πr",
+        "πr",
+        "4πr"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "AREA_FOR_C",
+        null,
+        "R_FOR_D",
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = 2 × π × r. With the diameter d = 2r, that is πd."
+    },
+    {
+      "id": "circles/t2/029",
+      "tier": 2,
+      "prompt": "A wheel has diameter 7. Its circumference?",
+      "choices": [
+        "49π",
+        "14π",
+        "7",
+        "7π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_FOR_C",
+        "DOUBLED_D",
+        "NO_PI",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 7π."
+    },
+    {
+      "id": "circles/t2/030",
+      "tier": 2,
+      "prompt": "A wheel with diameter 6 rolls once. How far does it go?",
+      "choices": [
+        "12π",
+        "6π",
+        "6",
+        "3π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_D",
+        null,
+        "NO_PI",
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = π × diameter = 6π."
+    },
+    {
+      "id": "circles/t2/031",
+      "tier": 2,
+      "prompt": "A wheel with diameter 10 rolls once. How far does it go?",
+      "choices": [
+        "5π",
+        "10",
+        "20π",
+        "10π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 10π."
+    },
+    {
+      "id": "circles/t2/032",
+      "tier": 2,
+      "prompt": "Circle: diameter 9. Circumference?",
+      "choices": [
+        "9π",
+        "81π",
+        "9",
+        "18π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FOR_C",
+        "NO_PI",
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = π × diameter = 9π."
+    },
+    {
+      "id": "circles/t2/033",
+      "tier": 2,
+      "prompt": "A wheel has diameter 5. Its circumference?",
+      "choices": [
+        "10π",
+        "25π",
+        "5",
+        "5π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_D",
+        "AREA_FOR_C",
+        "NO_PI",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 5π."
+    },
+    {
+      "id": "circles/t2/034",
+      "tier": 2,
+      "prompt": "A wheel has radius 3. Its circumference?",
+      "choices": [
+        "3π",
+        "12π",
+        "6π",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "R_FOR_D",
+        "DOUBLED_D",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 3 = 6, so 6π."
+    },
+    {
+      "id": "circles/t2/035",
+      "tier": 2,
+      "prompt": "Circle: diameter 6. Circumference?",
+      "choices": [
+        "3π",
+        "6",
+        "12π",
+        "6π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "Circumference = π × diameter = 6π."
+    },
+    {
+      "id": "circles/t2/036",
+      "tier": 2,
+      "prompt": "Circle: radius 6. Circumference?",
+      "choices": [
+        "12π",
+        "12",
+        "6π",
+        "36π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_PI",
+        "R_FOR_D",
+        "AREA_FOR_C"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 6 = 12, so 12π."
+    },
+    {
+      "id": "circles/t2/037",
+      "tier": 2,
+      "prompt": "A wheel with radius 10 rolls once. How far does it go?",
+      "choices": [
+        "20π",
+        "20",
+        "40π",
+        "10π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_PI",
+        "DOUBLED_D",
+        "R_FOR_D"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 10 = 20, so 20π."
+    },
+    {
+      "id": "circles/t2/038",
+      "tier": 2,
+      "prompt": "A wheel has diameter 8. Its circumference?",
+      "choices": [
+        "8",
+        "4π",
+        "8π",
+        "16π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "R_FOR_D",
+        null,
+        "DOUBLED_D"
+      ],
+      "explanation": "Circumference = π × diameter = 8π."
+    },
+    {
+      "id": "circles/t2/039",
+      "tier": 2,
+      "prompt": "Circle: radius 4. Circumference?",
+      "choices": [
+        "8π",
+        "4π",
+        "16π",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "R_FOR_D",
+        "AREA_FOR_C",
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 4 = 8, so 8π."
+    },
+    {
+      "id": "circles/t2/040",
+      "tier": 2,
+      "prompt": "A wheel with radius 4 rolls once. How far does it go?",
+      "choices": [
+        "4π",
+        "8π",
+        "16π",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "R_FOR_D",
+        null,
+        "AREA_FOR_C",
+        "NO_PI"
+      ],
+      "explanation": "Circumference = 2 × π × radius: 2 × 4 = 8, so 8π."
+    },
+    {
+      "id": "circles/t3/001",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, diameter 6. Area?",
+      "choices": [
+        "3π",
+        "9π",
+        "6π",
+        "36π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "C_FOR_AREA",
+        "D_FOR_R"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Area = π × 3 × 3 = 9π."
+    },
+    {
+      "id": "circles/t3/002",
+      "tier": 3,
+      "prompt": "Area of a circle is π times what?",
+      "choices": [
+        "diameter^2",
+        "diameter",
+        "radius^2",
+        "radius"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "D_FOR_R",
+        "C_FOR_AREA",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "Area = π × radius × radius: π times the radius squared."
+    },
+    {
+      "id": "circles/t3/003",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, radius 9. Area?",
+      "choices": [
+        "18π",
+        "9π",
+        "81π",
+        "81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Area = π × radius × radius: 9 × 9 = 81, so 81π."
+    },
+    {
+      "id": "circles/t3/004",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, radius 7. Area?",
+      "choices": [
+        "49",
+        "14π",
+        "49π",
+        "196π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "C_FOR_AREA",
+        null,
+        "DOUBLED_RADIUS"
+      ],
+      "explanation": "Area = π × radius × radius: 7 × 7 = 49, so 49π."
+    },
+    {
+      "id": "circles/t3/005",
+      "tier": 3,
+      "prompt": "A pizza has radius 10. Its area?",
+      "choices": [
+        "20π",
+        "10π",
+        "400π",
+        "100π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        "DOUBLED_RADIUS",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 10 × 10 = 100, so 100π."
+    },
+    {
+      "id": "circles/t3/006",
+      "tier": 3,
+      "prompt": "Circle: radius 7. Area?",
+      "choices": [
+        "14π",
+        "7π",
+        "49",
+        "49π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        "NO_PI",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 7 × 7 = 49, so 49π."
+    },
+    {
+      "id": "circles/t3/007",
+      "tier": 3,
+      "prompt": "A rug has diameter 8. Its area?",
+      "choices": [
+        "16π",
+        "8π",
+        "64π",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "C_FOR_AREA",
+        "D_FOR_R",
+        "NO_PI"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Area = π × 4 × 4 = 16π."
+    },
+    {
+      "id": "circles/t3/008",
+      "tier": 3,
+      "prompt": "Circle: diameter 6. Area?",
+      "choices": [
+        "9",
+        "36π",
+        "3π",
+        "9π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_PI",
+        "D_FOR_R",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Area = π × 3 × 3 = 9π."
+    },
+    {
+      "id": "circles/t3/009",
+      "tier": 3,
+      "prompt": "A rug (radius 2) and a mat (radius 4). Total area?",
+      "choices": [
+        "20π",
+        "16π",
+        "12π",
+        "36π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_CIRCLE",
+        "C_FOR_AREA",
+        "SUM_RADII"
+      ],
+      "explanation": "Each area is π × r × r: 4π and 16π. Add: 4 + 16 = 20, so 20π."
+    },
+    {
+      "id": "circles/t3/010",
+      "tier": 3,
+      "prompt": "Radius is halved. Area is how many times as big?",
+      "choices": [
+        "6",
+        "1/2",
+        "1/4",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_SCALE",
+        null,
+        "CUBED_SCALE"
+      ],
+      "explanation": "Area uses r × r, so the factor is squared: 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "circles/t3/011",
+      "tier": 3,
+      "prompt": "Circle: radius 6. Area?",
+      "choices": [
+        "12π",
+        "36π",
+        "144π",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "DOUBLED_RADIUS",
+        "NO_PI"
+      ],
+      "explanation": "Area = π × radius × radius: 6 × 6 = 36, so 36π."
+    },
+    {
+      "id": "circles/t3/012",
+      "tier": 3,
+      "prompt": "Circle: radius 5. Area?",
+      "choices": [
+        "25",
+        "5π",
+        "10π",
+        "25π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_PI",
+        "NO_SQUARE",
+        "C_FOR_AREA",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t3/013",
+      "tier": 3,
+      "prompt": "Two coins, radius 3 and radius 4. Total area of both?",
+      "choices": [
+        "14π",
+        "25π",
+        "49π",
+        "16π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "SUM_RADII",
+        "ONE_CIRCLE"
+      ],
+      "explanation": "Each area is π × r × r: 9π and 16π. Add: 9 + 16 = 25, so 25π."
+    },
+    {
+      "id": "circles/t3/014",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, radius 8. Area?",
+      "choices": [
+        "16π",
+        "64π",
+        "64",
+        "256π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "NO_PI",
+        "DOUBLED_RADIUS"
+      ],
+      "explanation": "Area = π × radius × radius: 8 × 8 = 64, so 64π."
+    },
+    {
+      "id": "circles/t3/015",
+      "tier": 3,
+      "prompt": "Circle: radius 4. Area?",
+      "choices": [
+        "16",
+        "16π",
+        "8π",
+        "64π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_PI",
+        null,
+        "C_FOR_AREA",
+        "DOUBLED_RADIUS"
+      ],
+      "explanation": "Area = π × radius × radius: 4 × 4 = 16, so 16π."
+    },
+    {
+      "id": "circles/t3/016",
+      "tier": 3,
+      "prompt": "A rug has radius 8. Its area?",
+      "choices": [
+        "64π",
+        "16π",
+        "256π",
+        "8π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "C_FOR_AREA",
+        "DOUBLED_RADIUS",
+        "NO_SQUARE"
+      ],
+      "explanation": "Area = π × radius × radius: 8 × 8 = 64, so 64π."
+    },
+    {
+      "id": "circles/t3/017",
+      "tier": 3,
+      "prompt": "Area formula, using radius r?",
+      "choices": [
+        "πr^2",
+        "2πr",
+        "πr",
+        "πd^2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        "D_FOR_R"
+      ],
+      "explanation": "Area = π × r × r = πr^2."
+    },
+    {
+      "id": "circles/t3/018",
+      "tier": 3,
+      "prompt": "A rug has radius 4. Its area?",
+      "choices": [
+        "16",
+        "16π",
+        "8π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_PI",
+        null,
+        "C_FOR_AREA",
+        "NO_SQUARE"
+      ],
+      "explanation": "Area = π × radius × radius: 4 × 4 = 16, so 16π."
+    },
+    {
+      "id": "circles/t3/019",
+      "tier": 3,
+      "prompt": "Radius quadruples. Area is how many times as big?",
+      "choices": [
+        "1",
+        "4",
+        "16",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_SCALE",
+        null,
+        "CUBED_SCALE"
+      ],
+      "explanation": "Area uses r × r, so the factor is squared: 4 × 4 = 16."
+    },
+    {
+      "id": "circles/t3/020",
+      "tier": 3,
+      "prompt": "A pizza has diameter 10. Its area?",
+      "choices": [
+        "25π",
+        "10π",
+        "5π",
+        "100π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        "D_FOR_R"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Area = π × 5 × 5 = 25π."
+    },
+    {
+      "id": "circles/t3/021",
+      "tier": 3,
+      "prompt": "A rug (radius 2) and a mat (radius 3). Total area?",
+      "choices": [
+        "25π",
+        "13π",
+        "9π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_RADII",
+        null,
+        "ONE_CIRCLE",
+        "C_FOR_AREA"
+      ],
+      "explanation": "Each area is π × r × r: 4π and 9π. Add: 4 + 9 = 13, so 13π."
+    },
+    {
+      "id": "circles/t3/022",
+      "tier": 3,
+      "prompt": "Radius triples. Area is how many times as big?",
+      "choices": [
+        "9",
+        "27",
+        "3",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CUBED_SCALE",
+        "SAME_SCALE",
+        "ARITH"
+      ],
+      "explanation": "Area uses r × r, so the factor is squared: 3 × 3 = 9."
+    },
+    {
+      "id": "circles/t3/023",
+      "tier": 3,
+      "prompt": "Two circles: radius 2 and radius 4. Total area?",
+      "choices": [
+        "36π",
+        "12π",
+        "16π",
+        "20π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_RADII",
+        "C_FOR_AREA",
+        "ONE_CIRCLE",
+        null
+      ],
+      "explanation": "Each area is π × r × r: 4π and 16π. Add: 4 + 16 = 20, so 20π."
+    },
+    {
+      "id": "circles/t3/024",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, radius 5. Area?",
+      "choices": [
+        "25",
+        "10π",
+        "5π",
+        "25π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_PI",
+        "C_FOR_AREA",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t3/025",
+      "tier": 3,
+      "prompt": "Radius × radius × π gives a circle's what?",
+      "choices": [
+        "area",
+        "diameter",
+        "circumference",
+        "radius"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VOCAB_MIX",
+        "VOCAB_MIX",
+        "VOCAB_MIX"
+      ],
+      "explanation": "π × r × r is the area, the space inside the circle."
+    },
+    {
+      "id": "circles/t3/026",
+      "tier": 3,
+      "prompt": "Circle: diameter 10. Area?",
+      "choices": [
+        "25",
+        "100π",
+        "25π",
+        "5π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "D_FOR_R",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Area = π × 5 × 5 = 25π."
+    },
+    {
+      "id": "circles/t3/027",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, diameter 10. Area?",
+      "choices": [
+        "5π",
+        "25π",
+        "10π",
+        "100π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "C_FOR_AREA",
+        "D_FOR_R"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Area = π × 5 × 5 = 25π."
+    },
+    {
+      "id": "circles/t3/028",
+      "tier": 3,
+      "prompt": "A drum top has radius 9. Its area?",
+      "choices": [
+        "9π",
+        "18π",
+        "81π",
+        "324π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "C_FOR_AREA",
+        null,
+        "DOUBLED_RADIUS"
+      ],
+      "explanation": "Area = π × radius × radius: 9 × 9 = 81, so 81π."
+    },
+    {
+      "id": "circles/t3/029",
+      "tier": 3,
+      "prompt": "A pizza has radius 9. Its area?",
+      "choices": [
+        "18π",
+        "324π",
+        "9π",
+        "81π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "DOUBLED_RADIUS",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 9 × 9 = 81, so 81π."
+    },
+    {
+      "id": "circles/t3/030",
+      "tier": 3,
+      "prompt": "A drum top has radius 6. Its area?",
+      "choices": [
+        "36π",
+        "144π",
+        "6π",
+        "12π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_RADIUS",
+        "NO_SQUARE",
+        "C_FOR_AREA"
+      ],
+      "explanation": "Area = π × radius × radius: 6 × 6 = 36, so 36π."
+    },
+    {
+      "id": "circles/t3/031",
+      "tier": 3,
+      "prompt": "A rug has radius 3. Its area?",
+      "choices": [
+        "36π",
+        "6π",
+        "9π",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED_RADIUS",
+        "C_FOR_AREA",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Area = π × radius × radius: 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "circles/t3/032",
+      "tier": 3,
+      "prompt": "A drum top has diameter 8. Its area?",
+      "choices": [
+        "4π",
+        "64π",
+        "16π",
+        "8π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "D_FOR_R",
+        null,
+        "C_FOR_AREA"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Area = π × 4 × 4 = 16π."
+    },
+    {
+      "id": "circles/t3/033",
+      "tier": 3,
+      "prompt": "A drum top has diameter 10. Its area?",
+      "choices": [
+        "10π",
+        "25π",
+        "100π",
+        "5π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "D_FOR_R",
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Area = π × 5 × 5 = 25π."
+    },
+    {
+      "id": "circles/t3/034",
+      "tier": 3,
+      "prompt": "Two circles: radius 3 and radius 4. Total area?",
+      "choices": [
+        "14π",
+        "16π",
+        "49π",
+        "25π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "ONE_CIRCLE",
+        "SUM_RADII",
+        null
+      ],
+      "explanation": "Each area is π × r × r: 9π and 16π. Add: 9 + 16 = 25, so 25π."
+    },
+    {
+      "id": "circles/t3/035",
+      "tier": 3,
+      "prompt": "A pizza has radius 5. Its area?",
+      "choices": [
+        "5π",
+        "25",
+        "10π",
+        "25π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "NO_PI",
+        "C_FOR_AREA",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t3/036",
+      "tier": 3,
+      "prompt": "A drum top has diameter 6. Its area?",
+      "choices": [
+        "36π",
+        "9π",
+        "3π",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "D_FOR_R",
+        null,
+        "NO_SQUARE",
+        "NO_PI"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Area = π × 3 × 3 = 9π."
+    },
+    {
+      "id": "circles/t3/037",
+      "tier": 3,
+      "prompt": "Circle: diameter 8. Area?",
+      "choices": [
+        "16π",
+        "64π",
+        "8π",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "D_FOR_R",
+        "C_FOR_AREA",
+        "NO_PI"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Area = π × 4 × 4 = 16π."
+    },
+    {
+      "id": "circles/t3/038",
+      "tier": 3,
+      "prompt": "A sprinkler waters a circle, radius 10. Area?",
+      "choices": [
+        "10π",
+        "20π",
+        "100",
+        "100π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "C_FOR_AREA",
+        "NO_PI",
+        null
+      ],
+      "explanation": "Area = π × radius × radius: 10 × 10 = 100, so 100π."
+    },
+    {
+      "id": "circles/t3/039",
+      "tier": 3,
+      "prompt": "Radius doubles. Area is how many times as big?",
+      "choices": [
+        "4",
+        "2",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SCALE",
+        "ARITH",
+        "CUBED_SCALE"
+      ],
+      "explanation": "Area uses r × r, so the factor is squared: 2 × 2 = 4."
+    },
+    {
+      "id": "circles/t3/040",
+      "tier": 3,
+      "prompt": "Circle: radius 3. Area?",
+      "choices": [
+        "3π",
+        "6π",
+        "9π",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "C_FOR_AREA",
+        null,
+        "NO_PI"
+      ],
+      "explanation": "Area = π × radius × radius: 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "circles/t4/001",
+      "tier": 4,
+      "prompt": "Circle: circumference 12. Diameter? Use 3 for π.",
+      "choices": [
+        "36",
+        "4",
+        "2",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_WAY",
+        null,
+        "GAVE_RADIUS",
+        "FORGOT_PI"
+      ],
+      "explanation": "C = 3 × diameter, so diameter = 12 ÷ 3 = 4."
+    },
+    {
+      "id": "circles/t4/002",
+      "tier": 4,
+      "prompt": "A pond's distance around is 8π. Its radius?",
+      "choices": [
+        "16",
+        "8",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_WAY",
+        "GAVE_DIAMETER",
+        null,
+        "HALVED_TWICE"
+      ],
+      "explanation": "C = 2πr, so the radius is 8 ÷ 2 = 4."
+    },
+    {
+      "id": "circles/t4/003",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 9. Its diameter? Use 3 for π.",
+      "choices": [
+        "3",
+        "27",
+        "9",
+        "1.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_WAY",
+        "FORGOT_PI",
+        "GAVE_RADIUS"
+      ],
+      "explanation": "C = 3 × diameter, so diameter = 9 ÷ 3 = 3."
+    },
+    {
+      "id": "circles/t4/004",
+      "tier": 4,
+      "prompt": "Circle: circumference 18π. Area?",
+      "choices": [
+        "18π",
+        "324π",
+        "81π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "D_FOR_R",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "C = 2πr gives r = 18 ÷ 2 = 9. Area = π × 9 × 9 = 81π."
+    },
+    {
+      "id": "circles/t4/005",
+      "tier": 4,
+      "prompt": "Circumference 10π. What is the radius?",
+      "choices": [
+        "2.5",
+        "20",
+        "10",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED_TWICE",
+        "WRONG_WAY",
+        "GAVE_DIAMETER",
+        null
+      ],
+      "explanation": "C = 2πr, so the radius is 10 ÷ 2 = 5."
+    },
+    {
+      "id": "circles/t4/006",
+      "tier": 4,
+      "prompt": "A rug has radius 3. Its area? Use 3 for π.",
+      "choices": [
+        "18",
+        "27",
+        "9",
+        "108"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "NO_SQUARE",
+        "DOUBLED_RADIUS"
+      ],
+      "explanation": "Area = 3 × radius × radius: radius 3, 3 × 3 = 9, 3 × 9 = 27."
+    },
+    {
+      "id": "circles/t4/007",
+      "tier": 4,
+      "prompt": "Diameter 7. Circumference? Use 3 for π.",
+      "choices": [
+        "10.5",
+        "7",
+        "42",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "C = 3 × diameter: 3 × 7 = 21."
+    },
+    {
+      "id": "circles/t4/008",
+      "tier": 4,
+      "prompt": "Circumference 12π. What is the radius?",
+      "choices": [
+        "6",
+        "24",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_WAY",
+        "GAVE_DIAMETER",
+        "HALVED_TWICE"
+      ],
+      "explanation": "C = 2πr, so the radius is 12 ÷ 2 = 6."
+    },
+    {
+      "id": "circles/t4/009",
+      "tier": 4,
+      "prompt": "Circumference 8π. What is the diameter?",
+      "choices": [
+        "16",
+        "8",
+        "10",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_WAY",
+        null,
+        "ARITH",
+        "GAVE_RADIUS"
+      ],
+      "explanation": "C = π × diameter, so 8π means the diameter is 8."
+    },
+    {
+      "id": "circles/t4/010",
+      "tier": 4,
+      "prompt": "A rug's distance around is 14π. Its area?",
+      "choices": [
+        "196π",
+        "49π",
+        "14π",
+        "49"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "D_FOR_R",
+        null,
+        "C_FOR_AREA",
+        "NO_PI"
+      ],
+      "explanation": "C = 2πr gives r = 14 ÷ 2 = 7. Area = π × 7 × 7 = 49π."
+    },
+    {
+      "id": "circles/t4/011",
+      "tier": 4,
+      "prompt": "A wheel has radius 4. Circumference? Use 3 for π.",
+      "choices": [
+        "8",
+        "12",
+        "24",
+        "48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "R_FOR_D",
+        null,
+        "AREA_FOR_C"
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 4 = 24."
+    },
+    {
+      "id": "circles/t4/012",
+      "tier": 4,
+      "prompt": "Circle: circumference 60. Radius? Use 3 for π.",
+      "choices": [
+        "20",
+        "5",
+        "30",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_DIAMETER",
+        "HALVED_TWICE",
+        "FORGOT_PI",
+        null
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 60 ÷ 6 = 10."
+    },
+    {
+      "id": "circles/t4/013",
+      "tier": 4,
+      "prompt": "Circle: circumference 10π. Area?",
+      "choices": [
+        "100π",
+        "10π",
+        "25π",
+        "5π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "D_FOR_R",
+        "C_FOR_AREA",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "C = 2πr gives r = 10 ÷ 2 = 5. Area = π × 5 × 5 = 25π."
+    },
+    {
+      "id": "circles/t4/014",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 36. Its radius? Use 3 for π.",
+      "choices": [
+        "3",
+        "12",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_TWICE",
+        "GAVE_DIAMETER",
+        null,
+        "FORGOT_PI"
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 36 ÷ 6 = 6."
+    },
+    {
+      "id": "circles/t4/015",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 16π. Its radius?",
+      "choices": [
+        "4",
+        "32",
+        "8",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_TWICE",
+        "WRONG_WAY",
+        null,
+        "GAVE_DIAMETER"
+      ],
+      "explanation": "C = 2πr, so the radius is 16 ÷ 2 = 8."
+    },
+    {
+      "id": "circles/t4/016",
+      "tier": 4,
+      "prompt": "Radius 5. Circumference? Use 3 for π.",
+      "choices": [
+        "30",
+        "15",
+        "75",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "R_FOR_D",
+        "AREA_FOR_C",
+        "DOUBLED_D"
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 5 = 30."
+    },
+    {
+      "id": "circles/t4/017",
+      "tier": 4,
+      "prompt": "Diameter 8. Circumference? Use 3 for π.",
+      "choices": [
+        "12",
+        "8",
+        "48",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D",
+        null
+      ],
+      "explanation": "C = 3 × diameter: 3 × 8 = 24."
+    },
+    {
+      "id": "circles/t4/018",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 20π. Its radius?",
+      "choices": [
+        "20",
+        "10",
+        "40",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GAVE_DIAMETER",
+        null,
+        "WRONG_WAY",
+        "HALVED_TWICE"
+      ],
+      "explanation": "C = 2πr, so the radius is 20 ÷ 2 = 10."
+    },
+    {
+      "id": "circles/t4/019",
+      "tier": 4,
+      "prompt": "Radius 3. Circumference? Use 3 for π.",
+      "choices": [
+        "18",
+        "27",
+        "36",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FOR_C",
+        "DOUBLED_D",
+        "NO_PI"
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 3 = 18."
+    },
+    {
+      "id": "circles/t4/020",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 30. Its radius? Use 3 for π.",
+      "choices": [
+        "2.5",
+        "10",
+        "5",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_TWICE",
+        "GAVE_DIAMETER",
+        null,
+        "FORGOT_PI"
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 30 ÷ 6 = 5."
+    },
+    {
+      "id": "circles/t4/021",
+      "tier": 4,
+      "prompt": "A wheel has radius 8. Circumference? Use 3 for π.",
+      "choices": [
+        "48",
+        "96",
+        "192",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_D",
+        "AREA_FOR_C",
+        "R_FOR_D"
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 8 = 48."
+    },
+    {
+      "id": "circles/t4/022",
+      "tier": 4,
+      "prompt": "A rug's distance around is 16π. Its area?",
+      "choices": [
+        "64π",
+        "16π",
+        "256π",
+        "64"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "C_FOR_AREA",
+        "D_FOR_R",
+        "NO_PI"
+      ],
+      "explanation": "C = 2πr gives r = 16 ÷ 2 = 8. Area = π × 8 × 8 = 64π."
+    },
+    {
+      "id": "circles/t4/023",
+      "tier": 4,
+      "prompt": "A wheel has diameter 5. Circumference? Use 3 for π.",
+      "choices": [
+        "15",
+        "7.5",
+        "5",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "R_FOR_D",
+        "NO_PI",
+        "DOUBLED_D"
+      ],
+      "explanation": "C = 3 × diameter: 3 × 5 = 15."
+    },
+    {
+      "id": "circles/t4/024",
+      "tier": 4,
+      "prompt": "A rug's distance around is 20π. Its area?",
+      "choices": [
+        "400π",
+        "10π",
+        "100π",
+        "20π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "D_FOR_R",
+        "NO_SQUARE",
+        null,
+        "C_FOR_AREA"
+      ],
+      "explanation": "C = 2πr gives r = 20 ÷ 2 = 10. Area = π × 10 × 10 = 100π."
+    },
+    {
+      "id": "circles/t4/025",
+      "tier": 4,
+      "prompt": "A drum top has diameter 6. Area? Use 3 for π.",
+      "choices": [
+        "18",
+        "27",
+        "108",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "C_FOR_AREA",
+        null,
+        "D_FOR_R",
+        "NO_SQUARE"
+      ],
+      "explanation": "Area = 3 × radius × radius: radius 3, 3 × 3 = 9, 3 × 9 = 27."
+    },
+    {
+      "id": "circles/t4/026",
+      "tier": 4,
+      "prompt": "Circle: circumference 6π. Area?",
+      "choices": [
+        "9π",
+        "36π",
+        "6π",
+        "3π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "D_FOR_R",
+        "C_FOR_AREA",
+        "NO_SQUARE"
+      ],
+      "explanation": "C = 2πr gives r = 6 ÷ 2 = 3. Area = π × 3 × 3 = 9π."
+    },
+    {
+      "id": "circles/t4/027",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 9π. Its diameter?",
+      "choices": [
+        "11",
+        "9",
+        "4.5",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GAVE_RADIUS",
+        "WRONG_WAY"
+      ],
+      "explanation": "C = π × diameter, so 9π means the diameter is 9."
+    },
+    {
+      "id": "circles/t4/028",
+      "tier": 4,
+      "prompt": "A rug's distance around is 8π. Its area?",
+      "choices": [
+        "16",
+        "64π",
+        "16π",
+        "8π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "D_FOR_R",
+        null,
+        "C_FOR_AREA"
+      ],
+      "explanation": "C = 2πr gives r = 8 ÷ 2 = 4. Area = π × 4 × 4 = 16π."
+    },
+    {
+      "id": "circles/t4/029",
+      "tier": 4,
+      "prompt": "Circle: circumference 6π. Radius?",
+      "choices": [
+        "12",
+        "6",
+        "1.5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_WAY",
+        "GAVE_DIAMETER",
+        "HALVED_TWICE",
+        null
+      ],
+      "explanation": "C = 2πr, so the radius is 6 ÷ 2 = 3."
+    },
+    {
+      "id": "circles/t4/030",
+      "tier": 4,
+      "prompt": "Circle: circumference 48. Radius? Use 3 for π.",
+      "choices": [
+        "8",
+        "16",
+        "24",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_DIAMETER",
+        "FORGOT_PI",
+        "HALVED_TWICE"
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 48 ÷ 6 = 8."
+    },
+    {
+      "id": "circles/t4/031",
+      "tier": 4,
+      "prompt": "Circle: circumference 12. Radius? Use 3 for π.",
+      "choices": [
+        "4",
+        "6",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_DIAMETER",
+        "FORGOT_PI",
+        "HALVED_TWICE",
+        null
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 12 ÷ 6 = 2."
+    },
+    {
+      "id": "circles/t4/032",
+      "tier": 4,
+      "prompt": "Radius 3. Area? Use 3 for π.",
+      "choices": [
+        "27",
+        "108",
+        "9",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_RADIUS",
+        "NO_SQUARE",
+        "C_FOR_AREA"
+      ],
+      "explanation": "Area = 3 × radius × radius: radius 3, 3 × 3 = 9, 3 × 9 = 27."
+    },
+    {
+      "id": "circles/t4/033",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 3π. Its diameter?",
+      "choices": [
+        "1.5",
+        "6",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_RADIUS",
+        "WRONG_WAY",
+        "ARITH",
+        null
+      ],
+      "explanation": "C = π × diameter, so 3π means the diameter is 3."
+    },
+    {
+      "id": "circles/t4/034",
+      "tier": 4,
+      "prompt": "A pond's distance around is 4π. Its radius?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_TWICE",
+        null,
+        "GAVE_DIAMETER",
+        "WRONG_WAY"
+      ],
+      "explanation": "C = 2πr, so the radius is 4 ÷ 2 = 2."
+    },
+    {
+      "id": "circles/t4/035",
+      "tier": 4,
+      "prompt": "A rug's distance around is 12π. Its area?",
+      "choices": [
+        "12π",
+        "144π",
+        "36",
+        "36π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "C_FOR_AREA",
+        "D_FOR_R",
+        "NO_PI",
+        null
+      ],
+      "explanation": "C = 2πr gives r = 12 ÷ 2 = 6. Area = π × 6 × 6 = 36π."
+    },
+    {
+      "id": "circles/t4/036",
+      "tier": 4,
+      "prompt": "A wheel's circumference is 54. Its radius? Use 3 for π.",
+      "choices": [
+        "18",
+        "27",
+        "4.5",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_DIAMETER",
+        "FORGOT_PI",
+        "HALVED_TWICE",
+        null
+      ],
+      "explanation": "C = 2 × 3 × radius = 6 × radius, so radius = 54 ÷ 6 = 9."
+    },
+    {
+      "id": "circles/t4/037",
+      "tier": 4,
+      "prompt": "A pond's distance around is 30. Diameter? Use 3 for π.",
+      "choices": [
+        "90",
+        "10",
+        "30",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_WAY",
+        null,
+        "FORGOT_PI",
+        "GAVE_RADIUS"
+      ],
+      "explanation": "C = 3 × diameter, so diameter = 30 ÷ 3 = 10."
+    },
+    {
+      "id": "circles/t4/038",
+      "tier": 4,
+      "prompt": "A rug has diameter 6. Its area? Use 3 for π.",
+      "choices": [
+        "108",
+        "27",
+        "9",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "D_FOR_R",
+        null,
+        "NO_SQUARE",
+        "C_FOR_AREA"
+      ],
+      "explanation": "Area = 3 × radius × radius: radius 3, 3 × 3 = 9, 3 × 9 = 27."
+    },
+    {
+      "id": "circles/t4/039",
+      "tier": 4,
+      "prompt": "Radius 9. Circumference? Use 3 for π.",
+      "choices": [
+        "18",
+        "27",
+        "54",
+        "243"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_PI",
+        "R_FOR_D",
+        null,
+        "AREA_FOR_C"
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 9 = 54."
+    },
+    {
+      "id": "circles/t4/040",
+      "tier": 4,
+      "prompt": "A pond has radius 10. Distance around it? Use 3 for π.",
+      "choices": [
+        "20",
+        "30",
+        "300",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_PI",
+        "R_FOR_D",
+        "AREA_FOR_C",
+        null
+      ],
+      "explanation": "C = 2 × 3 × radius: 2 × 3 = 6, 6 × 10 = 60."
+    },
+    {
+      "id": "circles/t5/001",
+      "tier": 5,
+      "prompt": "Quarter circle: radius 10. Area?",
+      "choices": [
+        "5π",
+        "100π",
+        "25π",
+        "50π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "WHOLE_CIRCLE",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 10 ÷ 2 = 5, 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t5/002",
+      "tier": 5,
+      "prompt": "A quarter-circle garden has radius 8. Its area?",
+      "choices": [
+        "4π",
+        "64π",
+        "16π",
+        "32π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "WHOLE_CIRCLE",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 8 ÷ 2 = 4, 4 × 4 = 16, so 16π."
+    },
+    {
+      "id": "circles/t5/003",
+      "tier": 5,
+      "prompt": "A quarter-circle rug has radius 4. Its area?",
+      "choices": [
+        "π",
+        "4π",
+        "2π",
+        "16π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "QUARTERED_RADIUS",
+        null,
+        "NO_SQUARE",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 4 ÷ 2 = 2, 2 × 2 = 4, so 4π."
+    },
+    {
+      "id": "circles/t5/004",
+      "tier": 5,
+      "prompt": "Semicircle: radius 4. Perimeter, flat side included?",
+      "choices": [
+        "8π + 8",
+        "4π + 4",
+        "4π",
+        "4π + 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_C_PLUS",
+        "HALF_C_PLUS_R",
+        "ARC_ONLY",
+        null
+      ],
+      "explanation": "Curved edge πr = 4π, flat side = diameter = 2 × 4 = 8. Total 4π + 8."
+    },
+    {
+      "id": "circles/t5/005",
+      "tier": 5,
+      "prompt": "A half-circle window has radius 3. Curved edge length?",
+      "choices": [
+        "π",
+        "6π",
+        "3π",
+        "3π + 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WHOLE_CIRCLE",
+        null,
+        "PERIMETER_NOT_ARC"
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 3π."
+    },
+    {
+      "id": "circles/t5/006",
+      "tier": 5,
+      "prompt": "A quarter-circle rug has radius 6. Its area?",
+      "choices": [
+        "3π",
+        "36π",
+        "9π",
+        "18π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "WHOLE_CIRCLE",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 6 ÷ 2 = 3, 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "circles/t5/007",
+      "tier": 5,
+      "prompt": "A quarter of a circle has radius 10. Its area?",
+      "choices": [
+        "25π",
+        "50π",
+        "100π",
+        "5π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_FOR_QUARTER",
+        "WHOLE_CIRCLE",
+        "NO_SQUARE"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 10 ÷ 2 = 5, 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t5/008",
+      "tier": 5,
+      "prompt": "Semicircle: diameter 10. Length of the curved edge?",
+      "choices": [
+        "4π",
+        "5π",
+        "10π",
+        "5π + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WHOLE_CIRCLE",
+        "PERIMETER_NOT_ARC"
+      ],
+      "explanation": "Half of the circumference πd is 10π ÷ 2 = 5π."
+    },
+    {
+      "id": "circles/t5/009",
+      "tier": 5,
+      "prompt": "A quarter-circle rug has radius 8. Curved edge length?",
+      "choices": [
+        "16π",
+        "4π",
+        "8π",
+        "2π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_CIRCLE",
+        null,
+        "HALF_FOR_QUARTER",
+        "ARITH"
+      ],
+      "explanation": "A quarter of the circumference 2πr is πr ÷ 2 = 8π ÷ 2 = 4π."
+    },
+    {
+      "id": "circles/t5/010",
+      "tier": 5,
+      "prompt": "Rug: half circle, diameter 4. Distance all the way around?",
+      "choices": [
+        "2π + 4",
+        "2π + 2",
+        "2π",
+        "4π + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_C_PLUS_R",
+        "ARC_ONLY",
+        "WHOLE_C_PLUS"
+      ],
+      "explanation": "Curved edge = half of 4π = 2π. Flat side = the diameter, 4. Total 2π + 4."
+    },
+    {
+      "id": "circles/t5/011",
+      "tier": 5,
+      "prompt": "Rug: half circle, diameter 6. Distance all the way around?",
+      "choices": [
+        "6π + 6",
+        "3π + 6",
+        "3π + 3",
+        "3π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_C_PLUS",
+        null,
+        "HALF_C_PLUS_R",
+        "ARC_ONLY"
+      ],
+      "explanation": "Curved edge = half of 6π = 3π. Flat side = the diameter, 6. Total 3π + 6."
+    },
+    {
+      "id": "circles/t5/012",
+      "tier": 5,
+      "prompt": "A quarter of a circle has radius 8. Its area?",
+      "choices": [
+        "4π",
+        "64π",
+        "16π",
+        "32π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "WHOLE_CIRCLE",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 8 ÷ 2 = 4, 4 × 4 = 16, so 16π."
+    },
+    {
+      "id": "circles/t5/013",
+      "tier": 5,
+      "prompt": "A quarter of a circle has radius 4. Its area?",
+      "choices": [
+        "π",
+        "16π",
+        "2π",
+        "4π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "QUARTERED_RADIUS",
+        "WHOLE_CIRCLE",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 4 ÷ 2 = 2, 2 × 2 = 4, so 4π."
+    },
+    {
+      "id": "circles/t5/014",
+      "tier": 5,
+      "prompt": "Half of a circle has radius 10. Area of the half?",
+      "choices": [
+        "50π",
+        "25π",
+        "10π",
+        "100π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_RADIUS",
+        "ARC_FOR_AREA",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of π × r × r with r = 10: 10 ÷ 2 = 5, 5 × 10 = 50, so 50π."
+    },
+    {
+      "id": "circles/t5/015",
+      "tier": 5,
+      "prompt": "A half-circle rug has diameter 8. Its area?",
+      "choices": [
+        "6π",
+        "8π",
+        "16π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WHOLE_CIRCLE",
+        "HALVED_RADIUS"
+      ],
+      "explanation": "Half of π × r × r with r = 4: 4 ÷ 2 = 2, 2 × 4 = 8, so 8π."
+    },
+    {
+      "id": "circles/t5/016",
+      "tier": 5,
+      "prompt": "A quarter-circle rug has radius 4. Curved edge length?",
+      "choices": [
+        "2π",
+        "8π",
+        "4π",
+        "π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_CIRCLE",
+        "HALF_FOR_QUARTER",
+        "ARITH"
+      ],
+      "explanation": "A quarter of the circumference 2πr is πr ÷ 2 = 4π ÷ 2 = 2π."
+    },
+    {
+      "id": "circles/t5/017",
+      "tier": 5,
+      "prompt": "A half-circle rug has radius 8. Its area?",
+      "choices": [
+        "8π",
+        "16π",
+        "64π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARC_FOR_AREA",
+        "HALVED_RADIUS",
+        "WHOLE_CIRCLE",
+        null
+      ],
+      "explanation": "Half of π × r × r with r = 8: 8 ÷ 2 = 4, 4 × 8 = 32, so 32π."
+    },
+    {
+      "id": "circles/t5/018",
+      "tier": 5,
+      "prompt": "Rug: half circle, radius 6. Distance all the way around?",
+      "choices": [
+        "12π + 12",
+        "6π",
+        "6π + 12",
+        "6π + 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_C_PLUS",
+        "ARC_ONLY",
+        null,
+        "HALF_C_PLUS_R"
+      ],
+      "explanation": "Curved edge πr = 6π, flat side = diameter = 2 × 6 = 12. Total 6π + 12."
+    },
+    {
+      "id": "circles/t5/019",
+      "tier": 5,
+      "prompt": "Semicircle: radius 10. Perimeter, flat side included?",
+      "choices": [
+        "10π + 20",
+        "20π + 20",
+        "10π",
+        "10π + 10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_C_PLUS",
+        "ARC_ONLY",
+        "HALF_C_PLUS_R"
+      ],
+      "explanation": "Curved edge πr = 10π, flat side = diameter = 2 × 10 = 20. Total 10π + 20."
+    },
+    {
+      "id": "circles/t5/020",
+      "tier": 5,
+      "prompt": "Quarter circle: radius 6. Length of the curved edge?",
+      "choices": [
+        "3π",
+        "12π",
+        "6π",
+        "9π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_CIRCLE",
+        "HALF_FOR_QUARTER",
+        "AREA_FOR_ARC"
+      ],
+      "explanation": "A quarter of the circumference 2πr is πr ÷ 2 = 6π ÷ 2 = 3π."
+    },
+    {
+      "id": "circles/t5/021",
+      "tier": 5,
+      "prompt": "Semicircle: diameter 10. Perimeter, flat side included?",
+      "choices": [
+        "5π + 10",
+        "5π",
+        "10π + 10",
+        "5π + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARC_ONLY",
+        "WHOLE_C_PLUS",
+        "HALF_C_PLUS_R"
+      ],
+      "explanation": "Curved edge = half of 10π = 5π. Flat side = the diameter, 10. Total 5π + 10."
+    },
+    {
+      "id": "circles/t5/022",
+      "tier": 5,
+      "prompt": "Semicircle: diameter 6. Length of the curved edge?",
+      "choices": [
+        "3π",
+        "5π",
+        "3π + 6",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERIMETER_NOT_ARC",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of the circumference πd is 6π ÷ 2 = 3π."
+    },
+    {
+      "id": "circles/t5/023",
+      "tier": 5,
+      "prompt": "A half-circle window has radius 9. Curved edge length?",
+      "choices": [
+        "11π",
+        "9π",
+        "9π + 18",
+        "18π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PERIMETER_NOT_ARC",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 9π."
+    },
+    {
+      "id": "circles/t5/024",
+      "tier": 5,
+      "prompt": "Semicircle: radius 5. Perimeter, flat side included?",
+      "choices": [
+        "5π",
+        "5π + 5",
+        "5π + 10",
+        "10π + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARC_ONLY",
+        "HALF_C_PLUS_R",
+        null,
+        "WHOLE_C_PLUS"
+      ],
+      "explanation": "Curved edge πr = 5π, flat side = diameter = 2 × 5 = 10. Total 5π + 10."
+    },
+    {
+      "id": "circles/t5/025",
+      "tier": 5,
+      "prompt": "A half-circle rug has radius 8. Curved edge length?",
+      "choices": [
+        "8π + 16",
+        "16π",
+        "32π",
+        "8π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER_NOT_ARC",
+        "WHOLE_CIRCLE",
+        "AREA_FOR_ARC",
+        null
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 8π."
+    },
+    {
+      "id": "circles/t5/026",
+      "tier": 5,
+      "prompt": "Semicircle: radius 4. Length of the curved edge?",
+      "choices": [
+        "8π",
+        "4π + 8",
+        "2π",
+        "4π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_CIRCLE",
+        "PERIMETER_NOT_ARC",
+        "ARITH",
+        null
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 4π."
+    },
+    {
+      "id": "circles/t5/027",
+      "tier": 5,
+      "prompt": "Semicircle: radius 5. Length of the curved edge?",
+      "choices": [
+        "5π + 10",
+        "5π",
+        "3π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER_NOT_ARC",
+        null,
+        "ARITH",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 5π."
+    },
+    {
+      "id": "circles/t5/028",
+      "tier": 5,
+      "prompt": "Semicircle: radius 8. Perimeter, flat side included?",
+      "choices": [
+        "8π",
+        "16π + 16",
+        "8π + 8",
+        "8π + 16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARC_ONLY",
+        "WHOLE_C_PLUS",
+        "HALF_C_PLUS_R",
+        null
+      ],
+      "explanation": "Curved edge πr = 8π, flat side = diameter = 2 × 8 = 16. Total 8π + 16."
+    },
+    {
+      "id": "circles/t5/029",
+      "tier": 5,
+      "prompt": "A quarter of a circle has radius 6. Its area?",
+      "choices": [
+        "9π",
+        "3π",
+        "18π",
+        "36π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "HALF_FOR_QUARTER",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 6 ÷ 2 = 3, 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "circles/t5/030",
+      "tier": 5,
+      "prompt": "Semicircle: radius 10. Area?",
+      "choices": [
+        "25π",
+        "100π",
+        "10π",
+        "50π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED_RADIUS",
+        "WHOLE_CIRCLE",
+        "ARC_FOR_AREA",
+        null
+      ],
+      "explanation": "Half of π × r × r with r = 10: 10 ÷ 2 = 5, 5 × 10 = 50, so 50π."
+    },
+    {
+      "id": "circles/t5/031",
+      "tier": 5,
+      "prompt": "Rug: half circle, radius 7. Distance all the way around?",
+      "choices": [
+        "14π + 14",
+        "7π + 14",
+        "7π",
+        "7π + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_C_PLUS",
+        null,
+        "ARC_ONLY",
+        "HALF_C_PLUS_R"
+      ],
+      "explanation": "Curved edge πr = 7π, flat side = diameter = 2 × 7 = 14. Total 7π + 14."
+    },
+    {
+      "id": "circles/t5/032",
+      "tier": 5,
+      "prompt": "Semicircle: radius 9. Perimeter, flat side included?",
+      "choices": [
+        "9π",
+        "9π + 9",
+        "18π + 18",
+        "9π + 18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARC_ONLY",
+        "HALF_C_PLUS_R",
+        "WHOLE_C_PLUS",
+        null
+      ],
+      "explanation": "Curved edge πr = 9π, flat side = diameter = 2 × 9 = 18. Total 9π + 18."
+    },
+    {
+      "id": "circles/t5/033",
+      "tier": 5,
+      "prompt": "A half-circle rug has radius 6. Its area?",
+      "choices": [
+        "9π",
+        "18π",
+        "6π",
+        "36π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_RADIUS",
+        null,
+        "ARC_FOR_AREA",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of π × r × r with r = 6: 6 ÷ 2 = 3, 3 × 6 = 18, so 18π."
+    },
+    {
+      "id": "circles/t5/034",
+      "tier": 5,
+      "prompt": "Semicircle: radius 6. Length of the curved edge?",
+      "choices": [
+        "6π",
+        "18π",
+        "6π + 12",
+        "12π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FOR_ARC",
+        "PERIMETER_NOT_ARC",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of the circumference 2πr is πr = 6π."
+    },
+    {
+      "id": "circles/t5/035",
+      "tier": 5,
+      "prompt": "Semicircle: radius 6. Area?",
+      "choices": [
+        "6π",
+        "36π",
+        "18π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARC_FOR_AREA",
+        "WHOLE_CIRCLE",
+        null,
+        "HALVED_RADIUS"
+      ],
+      "explanation": "Half of π × r × r with r = 6: 6 ÷ 2 = 3, 3 × 6 = 18, so 18π."
+    },
+    {
+      "id": "circles/t5/036",
+      "tier": 5,
+      "prompt": "Semicircle: radius 3. Perimeter, flat side included?",
+      "choices": [
+        "3π + 3",
+        "6π + 6",
+        "3π + 6",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_C_PLUS_R",
+        "WHOLE_C_PLUS",
+        null,
+        "ARC_ONLY"
+      ],
+      "explanation": "Curved edge πr = 3π, flat side = diameter = 2 × 3 = 6. Total 3π + 6."
+    },
+    {
+      "id": "circles/t5/037",
+      "tier": 5,
+      "prompt": "Half of a circle has radius 8. Area of the half?",
+      "choices": [
+        "8π",
+        "64π",
+        "16π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARC_FOR_AREA",
+        "WHOLE_CIRCLE",
+        "HALVED_RADIUS",
+        null
+      ],
+      "explanation": "Half of π × r × r with r = 8: 8 ÷ 2 = 4, 4 × 8 = 32, so 32π."
+    },
+    {
+      "id": "circles/t5/038",
+      "tier": 5,
+      "prompt": "A quarter-circle garden has radius 10. Its area?",
+      "choices": [
+        "100π",
+        "50π",
+        "5π",
+        "25π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_CIRCLE",
+        "HALF_FOR_QUARTER",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "A quarter circle is (r ÷ 2) × (r ÷ 2) × π: 10 ÷ 2 = 5, 5 × 5 = 25, so 25π."
+    },
+    {
+      "id": "circles/t5/039",
+      "tier": 5,
+      "prompt": "A half-circle window has radius 4. Its area?",
+      "choices": [
+        "9π",
+        "8π",
+        "4π",
+        "16π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "HALVED_RADIUS",
+        "WHOLE_CIRCLE"
+      ],
+      "explanation": "Half of π × r × r with r = 4: 4 ÷ 2 = 2, 2 × 4 = 8, so 8π."
+    },
+    {
+      "id": "circles/t5/040",
+      "tier": 5,
+      "prompt": "Semicircle: diameter 8. Area?",
+      "choices": [
+        "9π",
+        "16π",
+        "8π",
+        "4π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WHOLE_CIRCLE",
+        null,
+        "HALVED_RADIUS"
+      ],
+      "explanation": "Half of π × r × r with r = 4: 4 ÷ 2 = 2, 2 × 4 = 8, so 8π."
+    }
+  ]
+}

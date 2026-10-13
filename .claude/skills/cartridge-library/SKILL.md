@@ -1,6 +1,6 @@
 ---
 name: cartridge-library
-description: Build a batch of new fortnitemath cartridges (a grade's library) with parallel Opus builders — plan rows in cartridges/LIBRARY.md, fire one builder per cartridge from BRIEF.md, audit, insert once, compile, commit. Use for "add grade 7/8 topics", "new cartridges", or any multi-cartridge content build.
+description: Build a batch of new fortnitemath cartridges (a grade's library) with parallel Sonnet builders under an Opus lead — plan rows in cartridges/LIBRARY.md, fire one builder per cartridge from BRIEF.md, audit, insert once, compile, commit. Use for "add grade 7/8 topics", "new cartridges", or any multi-cartridge content build.
 ---
 
 # Building a cartridge library
@@ -13,7 +13,9 @@ procedure only. First run: grade 6, 2026-10-05, 9 cartridges, ~13 min wall clock
    plan with starting misconception keys. Also fill the "does not fit" table for the grade: pictures, sentence-long
    choices, heavy-arithmetic standards. Check every example in the plan against §4a/§4b before firing; builders
    found three of mine out of bounds (`$1.50` money ÷, `24 + 36 = 12(...)`, "Add 40 to" data).
-2. **Fire one builder per cartridge**, all in one message: `Agent(model: "opus", subagent_type: "general-purpose")`
+2. **Fire one builder per cartridge**, all in one message: `Agent(model: "sonnet", subagent_type: "general-purpose")`
+   (grade 6 used Opus; grade 7, 2026-10-13, used Sonnet under an Opus lead: 8 cartridges, 1 fix round, 80 of 80 audited
+   samples right, so Sonnet is the default and the lead's audit is the gate)
    with the prompt "Read and follow `.claude/skills/cartridge-library/BRIEF.md` exactly. Your cartridge id: `<id>`."
    Edit BRIEF.md's grade line first. Each builder owns only `cartridges/<id>/` and `tests/test_<id>.py`.
 3. **While they run**, own the seams no brief covers: picker capacity (a step with > 5 skills shows two columns,

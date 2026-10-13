@@ -1,0 +1,101 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "angle-relationships",
+  "version": "1.0.0",
+  "title": "Angle Relationships",
+  "subtitle": "Complementary, Supplementary, Vertical",
+  "grade": "7",
+  "standards": ["CCSS.MATH.CONTENT.7.G.B.5"],
+  "seed": 20261026,
+  "items_per_tier": 40,
+  "bounds": "Angles in tens. Every given, unknown and answer angle is a multiple of 10 from 10 to 180 degrees (an x is 10 to 170 on its own, as in x + 40, and 10 to 90 once it has a coefficient). Every + and − on angles is a tens fact (180 − 70 is 18 − 7): operands and results 1-18 tens. Every × and ÷ is a times-table fact in tens: coefficients 1-9, a divisor 2-9 into 18 tens or less (3x = 180 is 18 ÷ 3), a quotient 1-9 tens. Totals are only a right angle (90) and a straight line (180). Angles stay in tens: no half-angles, no angles around a point (360), no triangle sum, no parallel lines. Choices are plain numbers (or the words Complementary, Supplementary, Vertical, Adjacent, Equal); wrong choices are whatever a misreading gives (65, 12, 350), up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Complement & Supplement", "description": "Find the angle that adds to 90 (complement) or to 180 (supplement)." },
+    { "tier": 2, "name": "Vertical & Adjacent", "description": "Two lines cross: vertical angles are equal, angles next to each other add to 180." },
+    { "tier": 3, "name": "Name It & Split Angles", "description": "Name the angle pairs, then find the missing part of a right angle or a straight line." },
+    { "tier": 4, "name": "Solve for the Angle", "description": "Angle pairs with x in them: write the equation and solve for x." },
+    { "tier": 5, "name": "Multi-Step Angles", "description": "Vertical and adjacent angles with 2x + 10 style expressions; find x or the angle." }
+  ],
+  "misconceptions": {
+    "COMP_SUPP_SWAP": {
+      "student": "Complementary adds to 90 (a corner). Supplementary adds to 180 (a line).",
+      "teacher": "Swaps the totals: uses 180 for a complement or 90 for a supplement (or swaps the two words)."
+    },
+    "USED_360": {
+      "student": "A right angle is 90 and a straight line is 180. 360 is a full turn.",
+      "teacher": "Subtracts from 360 (a full turn) instead of 90 or 180."
+    },
+    "ADDED_NOT_SUB": {
+      "student": "The other angle is what is left of the total. Subtract, don't add.",
+      "teacher": "Adds the given angle to the total (30 + 90) instead of subtracting it."
+    },
+    "SUPP_FOR_VERT": {
+      "student": "Vertical angles are equal. Supplementary angles are the ones that add to 180.",
+      "teacher": "Treats vertical angles as supplementary: gives 180 minus the angle instead of the same angle."
+    },
+    "COMP_FOR_VERT": {
+      "student": "Vertical angles are equal. Complementary angles are the ones that add to 90.",
+      "teacher": "Treats vertical angles as complementary: gives 90 minus the angle (or its distance from 90) instead of the same angle."
+    },
+    "VERT_FOR_ADJ": {
+      "student": "Angles next to each other on a line add to 180. They are not equal.",
+      "teacher": "Treats adjacent angles on a line as equal (vertical): gives the same angle instead of 180 minus it."
+    },
+    "COMP_FOR_SUPP": {
+      "student": "A straight line is 180 degrees, not 90. Angles on a line add to 180.",
+      "teacher": "Uses 90 (a right angle) as the total for angles on a straight line: 90 minus the angle (or its distance from 90)."
+    },
+    "POSITION_WORD_FOR_SUM": {
+      "student": "Look at the sum: 90 is complementary, 180 is supplementary.",
+      "teacher": "Names a pair by position (vertical) when the clue is the sum they add to."
+    },
+    "SUM_WORD_FOR_POSITION": {
+      "student": "Vertical and adjacent say where angles sit, not what they add to.",
+      "teacher": "Names a pair by its sum (complementary or supplementary) when the clue is where the angles sit."
+    },
+    "VERT_ADJ_SWAP": {
+      "student": "Adjacent angles share a side. Vertical angles sit across from each other.",
+      "teacher": "Swaps vertical (across from each other, equal) and adjacent (next to each other, share a side)."
+    },
+    "FORGOT_ONE": {
+      "student": "Take away every angle you are given, not just one.",
+      "teacher": "Subtracts only one of the given angles (or leaves out the +number on x)."
+    },
+    "WRONG_TOTAL": {
+      "student": "A right angle is 90 degrees. A straight line is 180. Use the right total.",
+      "teacher": "Uses 180 for a right angle or 90 for a straight line."
+    },
+    "ADDED_PARTS": {
+      "student": "x is what is left. Subtract the given angles from the total, don't add.",
+      "teacher": "Adds the given angles instead of subtracting them from the total."
+    },
+    "ANGLE_NOT_X": {
+      "student": "Check what is asked: here you want x, not the size of an angle.",
+      "teacher": "Finds an angle's size (or copies a given angle) when the question asks for x."
+    },
+    "NO_DIVIDE": {
+      "student": "You stopped early. Divide by the number in front of x.",
+      "teacher": "Combines the terms and forgets the last step of dividing by the coefficient of x."
+    },
+    "SPLIT_EVENLY": {
+      "student": "The angles are not equal. Add the parts: x + 2x is 3x, so divide by 3.",
+      "teacher": "Splits the total in half as if both angles were equal, ignoring the coefficients."
+    },
+    "SIGN_SLIP": {
+      "student": "A + number on one side becomes minus when it moves to the other side.",
+      "teacher": "Moves a +number across the equals sign without changing its sign."
+    },
+    "DIVIDED_ONE_TERM": {
+      "student": "Subtract the other angle first, then divide by the number in front of x.",
+      "teacher": "Divides only the total by the coefficient of x and leaves the other angle undivided."
+    },
+    "GAVE_X": {
+      "student": "x is not the angle. Multiply x by the number in front to get the angle.",
+      "teacher": "Stops at the value of x when the question asks for the size of an angle."
+    },
+    "OTHER_ANGLE": {
+      "student": "Re-read the question: it asks for the larger or the smaller angle.",
+      "teacher": "Finds the right angles but answers with the wrong one (smaller for larger, or the reverse)."
+    }
+  }
+}

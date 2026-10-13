@@ -1,0 +1,208 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "probability",
+  "version": "1.0.0",
+  "title": "Probability",
+  "subtitle": "Chance, Outcomes & Compound Events",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.SP.C.5",
+    "CCSS.MATH.CONTENT.7.SP.C.6",
+    "CCSS.MATH.CONTENT.7.SP.C.7.A",
+    "CCSS.MATH.CONTENT.7.SP.C.8.A",
+    "CCSS.MATH.CONTENT.7.SP.C.8.B",
+    "CCSS.MATH.CONTENT.7.SP.A.2"
+  ],
+  "seed": 20261028,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b fractions. Every probability in a prompt or a correct answer is a fraction a/b in simplest form with b 2-12 (numerator at most 12; at most 12 equally likely outcomes, a die and a coin being 12), or a decimal or percent of the §4b kind (at most 2 places and 2 non-zero digits; 10, 20, 25, 50, 75 percent and tens of percent). T1 range questions also show values past 1 (up to 300 percent, or 3) because that is the concept. No two-dice probabilities (1/36). Counts are whole numbers 1-100 from times-table facts: outcome counts multiply factors 2-10 (three stages: the two smaller factors multiply to 10 or less; at most 4 coin flips); predictions are n ÷ d = k with d 2-10 and k 2-10, then k × a (a 1-9); a sample of 4-25 kids scales by a factor 2-10 to a group of 100 or less; an estimate divides both numbers by a factor 2-10 (totals up to 50). A product of two chances has a denominator of 12 or less (coin and die) or is a square of 2 or 3 (two draws with replacement). Wrong choices may be any size up to 999 and may be improper. Choices use one form per item and never repeat a value.",
+  "tiers": [
+    { "tier": 1, "name": "How Likely?", "description": "Place chances on the 0 to 1 scale, from impossible to certain." },
+    { "tier": 2, "name": "Simple Probability", "description": "Favorable outcomes over all outcomes, in simplest form." },
+    { "tier": 3, "name": "Complement & Predict", "description": "The chance of not, expected counts, and predicting from a sample." },
+    { "tier": 4, "name": "Sample Spaces", "description": "Count the outcomes of two- and three-stage events." },
+    { "tier": 5, "name": "Compound Events", "description": "The chance of two or more events happening together." }
+  ],
+  "misconceptions": {
+    "SCALE_FLIP": {
+      "student": "Closer to 1 means MORE likely. 0 is impossible, 1 is certain.",
+      "teacher": "Reverses the 0-to-1 scale: reads a large probability as unlikely, or 0 as certain."
+    },
+    "HALF_WORD": {
+      "student": "Only 1/2 is equally likely. Near 1 is likely, near 0 is unlikely.",
+      "teacher": "Calls any middling-looking probability 'equally likely'."
+    },
+    "ROUNDED": {
+      "student": "Certain means exactly 1 and impossible exactly 0. Close is just likely.",
+      "teacher": "Rounds a probability near 1 up to certain, or near 0 down to impossible."
+    },
+    "WORD_MIXUP": {
+      "student": "0 is impossible, 1 is certain, 1/2 is the middle. Place the number first.",
+      "teacher": "Picks a likelihood word that does not match where the number sits on the scale."
+    },
+    "HALF_LEANS": {
+      "student": "1/2 is the middle of the scale: neither likely nor unlikely.",
+      "teacher": "Reads a probability of exactly 1/2 as leaning likely or unlikely."
+    },
+    "OVER_ONE": {
+      "student": "A probability is never more than 1. Even a sure thing is just 1.",
+      "teacher": "Accepts a value above 1 (or 100%) as a probability."
+    },
+    "NEGATIVE": {
+      "student": "A probability is never below 0. Impossible is 0, the lowest it goes.",
+      "teacher": "Accepts a negative number as a probability."
+    },
+    "EDGE_EXCLUDED": {
+      "student": "0 and 1 ARE probabilities: impossible and certain events.",
+      "teacher": "Thinks 0 and 1 are not allowed as probabilities."
+    },
+    "RANGE_CHECK": {
+      "student": "A probability is 0 to 1 (0% to 100%). Look for the one outside that.",
+      "teacher": "Picks a value that is inside 0 to 1 when asked for one outside it."
+    },
+    "PERCENT_MIX": {
+      "student": "As a number it stops at 1. The 100 belongs to the percent, 100%.",
+      "teacher": "Mixes the percent scale (0-100) with the 0-to-1 scale."
+    },
+    "PART_TO_PART": {
+      "student": "Probability is part out of the WHOLE, not part out of the other part.",
+      "teacher": "Compares favorable to unfavorable outcomes (odds) instead of favorable to all."
+    },
+    "OTHER_EVENT": {
+      "student": "That is the opposite event. Find the one the question asks about.",
+      "teacher": "Answers for the complementary event (or its count) instead of the asked event."
+    },
+    "ONE_OVER_TOTAL": {
+      "student": "Count every outcome that fits, not just one: favorable over total.",
+      "teacher": "Uses 1 over the total, as if only one outcome were favorable."
+    },
+    "EQUAL_CHANCE": {
+      "student": "Outcomes are not always 50-50 or equal. Count favorable over total.",
+      "teacher": "Assumes equal chances (1/2, or 1 over the number of colors) without counting."
+    },
+    "BOUNDARY": {
+      "student": "Check the edge: 'more than 4' leaves out 4, 'at least 5' keeps 5.",
+      "teacher": "Off by one at the boundary of 'more than', 'less than', 'at least' or 'at most'."
+    },
+    "PRIME_ONE": {
+      "student": "1 is not prime: a prime has exactly two factors, like 2, 3 and 5.",
+      "teacher": "Counts 1 as a prime number."
+    },
+    "DISTINCT_OUTCOMES": {
+      "student": "Repeats count: three A's are three outcomes, not one.",
+      "teacher": "Counts each different letter once, ignoring how many times it appears."
+    },
+    "SAME_AS_EVENT": {
+      "student": "That is the chance of the event itself. 'Not' asks for the rest.",
+      "teacher": "Gives P(event) when asked for P(not event)."
+    },
+    "ADD_TO_ONE": {
+      "student": "P(not A) = 1 minus P(A). Subtract from 1; a chance never tops 1.",
+      "teacher": "Adds the chance to 1 instead of subtracting it from 1."
+    },
+    "ONE_OTHER": {
+      "student": "'Not red' means ALL the other colors together, not just one.",
+      "teacher": "Counts only one of the other colors for the complement."
+    },
+    "IGNORED_NUMERATOR": {
+      "student": "Use the whole fraction: 3/10 of 20 is 3 tenths, not 1 tenth.",
+      "teacher": "Divides by the denominator but forgets to multiply by the numerator."
+    },
+    "INVERTED_P": {
+      "student": "Multiply the tries by the chance: 1/4 of 40 is 40 ÷ 4 = 10, not 40 ÷ 1/4.",
+      "teacher": "Divides the number of tries by the chance (multiplies by the denominator) instead of multiplying."
+    },
+    "SAMPLE_COUNT": {
+      "student": "Scale the sample up to the whole group; the sample count is too small.",
+      "teacher": "Reports the count found in the sample as the prediction for the population."
+    },
+    "ADDITIVE": {
+      "student": "Scale by multiplying: the same fraction of a bigger group, not adding on.",
+      "teacher": "Adds the difference in group sizes instead of scaling proportionally."
+    },
+    "SCALE_ONLY": {
+      "student": "That is only the scale factor. Multiply it by the count in the sample.",
+      "teacher": "Stops after finding the scale factor (population ÷ sample)."
+    },
+    "FLIPPED": {
+      "student": "Chance = successes over tries, with the successes on top.",
+      "teacher": "Writes the ratio upside down (tries over successes)."
+    },
+    "ADDED_COUNTS": {
+      "student": "Pair every choice with every other: multiply the counts, don't add.",
+      "teacher": "Adds the numbers of choices instead of multiplying (counting principle)."
+    },
+    "ONE_STAGE": {
+      "student": "Count both stages: each outcome of one pairs with each of the other.",
+      "teacher": "Counts the outcomes of only one stage."
+    },
+    "FORGOT_ONE": {
+      "student": "Every stage multiplies the count. Don't skip one.",
+      "teacher": "Multiplies only two of the three stages."
+    },
+    "MIXED_OPS": {
+      "student": "All stages multiply: 3 × 4 × 2, not (3 + 4) × 2.",
+      "teacher": "Adds some stages and multiplies others."
+    },
+    "ORDER_BLIND": {
+      "student": "HT and TH are different outcomes. Order counts, so count both.",
+      "teacher": "Treats outcomes that differ only in order as one (counts head totals, not sequences)."
+    },
+    "MULT_BY_COUNT": {
+      "student": "Each flip doubles the count: 2 × 2 × 2 for three flips, not 2 × 3.",
+      "teacher": "Multiplies outcomes per trial by the number of trials."
+    },
+    "POWER_FLIP": {
+      "student": "Two outcomes per flip, once per flip: 2 × 2 × 2 = 8, not 3 × 3.",
+      "teacher": "Swaps base and exponent: flips squared instead of 2 to the number of flips."
+    },
+    "COUNTED_ALL": {
+      "student": "That counts every outcome. Count only the ones that fit the event.",
+      "teacher": "Gives the size of the whole sample space instead of the event."
+    },
+    "ONE_OUTCOME": {
+      "student": "Count ALL the outcomes that fit the event, not just one of them.",
+      "teacher": "Treats the event as a single outcome."
+    },
+    "IGNORED_PART": {
+      "student": "Both conditions must hold: heads AND even, not just one of them.",
+      "teacher": "Counts outcomes meeting only one of the two conditions."
+    },
+    "TOTAL_NOT_EVENT": {
+      "student": "That is every outcome. Count only the ones that fit.",
+      "teacher": "Gives the whole sample space size."
+    },
+    "NOT_PAIRED": {
+      "student": "Pair them up: each coin side goes with each number (H1, H2, T1, T2).",
+      "teacher": "Lists the parts of each stage separately instead of the combined outcomes."
+    },
+    "MISSED_ONE": {
+      "student": "List every pairing: each coin side with each number. Check for gaps.",
+      "teacher": "Gives an incomplete list of the sample space."
+    },
+    "MATCHING_ONLY": {
+      "student": "List every outcome, not only the matching ones. HT and TH count too.",
+      "teacher": "Lists only the outcomes where both parts match."
+    },
+    "ADDED_PROBS": {
+      "student": "For 'and', multiply the chances. Adding makes a chance that's too big.",
+      "teacher": "Adds the probabilities of the two events instead of multiplying."
+    },
+    "ADD_DENOMS": {
+      "student": "Multiply fractions straight across: 1/2 × 1/6 = 1/12, not 1/8.",
+      "teacher": "Adds the denominators (or the denominators and not the numerators) when multiplying."
+    },
+    "FORGOT_STAGE": {
+      "student": "Both parts must happen. Multiply by the other part's chance too.",
+      "teacher": "Gives the chance of only one stage of a compound event."
+    },
+    "ONE_ORDER": {
+      "student": "Either order works (red then blue, or blue then red): count both.",
+      "teacher": "Counts only one of the orders when either order satisfies the event."
+    },
+    "ORDER_OVER": {
+      "student": "The order is given: 'red then blue' is one order only. Don't double it.",
+      "teacher": "Doubles for two orders when the event names a single order."
+    }
+  }
+}

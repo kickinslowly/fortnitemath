@@ -1,0 +1,3936 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "two-step-equations",
+  "version": "1.0.0",
+  "title": "Two-Step Equations",
+  "subtitle": "Equations & Inequalities: px + q = r",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.EE.B.3",
+    "CCSS.MATH.CONTENT.7.EE.B.4.A",
+    "CCSS.MATH.CONTENT.7.EE.B.4.B"
+  ],
+  "seed": 20261025,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a, tightened. Forms px + q = r and p(x + q) = r, and inequalities of the same shapes; one variable, never on both sides (grade 8). p has size 2-10; every solution (or inequality boundary) is a whole number of size 2-10; every division is exact and a times-table fact (p times the solution). T1 and the T4 stories have no negatives: p 2-9, q 1-12 (stories 2-12, never equal to p), r 1-20 (stories 2-20), so px is at most 19, or 32 when q is subtracted. T2 and T5 symbols carry signs as the concept: q has size 1-12 and r size at most 12 (every + and - step uses literals of size at most 12), and px has size at most 24. Groups p(x + q) = r (T3, T4): r = p times s, with p and the group value s of size 2-10 (r at most 100), q of size 1-10 (2-10 where the p is distributed), and x = s - q. Inequality stories: p 2-9, boundary 3-10, q 2-12, r at most 20.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Solve px + q = r",
+      "description": "Undo the plus or minus first, then undo the times. Whole numbers only."
+    },
+    {
+      "tier": 2,
+      "name": "Negatives",
+      "description": "Same two steps with negative coefficients, constants and answers."
+    },
+    {
+      "tier": 3,
+      "name": "Parentheses",
+      "description": "Solve p(x + q) = r by dividing first, and distribute the p."
+    },
+    {
+      "tier": 4,
+      "name": "Stories: Write & Solve",
+      "description": "Turn a short story into a two-step equation, and solve it."
+    },
+    {
+      "tier": 5,
+      "name": "Two-Step Inequalities",
+      "description": "Solve px + q > r and friends. Flip the sign when you divide by a negative."
+    }
+  ],
+  "misconceptions": {
+    "SAME_OP": {
+      "student": "Undo + with −, and − with +, on both sides.",
+      "teacher": "Applies the constant's own operation to the right side instead of undoing it (2x + 6 = 14 gives 14 + 6 = 20, so 10)."
+    },
+    "DIVIDE_FIRST": {
+      "student": "Dividing must hit every term. Safer: undo the + or − first, then divide.",
+      "teacher": "Divides only the right side by the coefficient and leaves the constant alone (2x + 6 = 14 gives 14 ÷ 2 − 6 = 1)."
+    },
+    "ONE_STEP": {
+      "student": "You stopped early. After undoing + or −, divide to get x alone.",
+      "teacher": "Stops after the first inverse step and reports the value of px (2x = 8 answers 8) instead of x. Same stop for an inequality boundary."
+    },
+    "MULTIPLIED": {
+      "student": "x is multiplied by the number, so divide to undo it. Don't multiply again.",
+      "teacher": "Multiplies by the coefficient instead of dividing (2x = 8 gives x = 16)."
+    },
+    "SUBTRACTED": {
+      "student": "2x means 2 times x. Undo times by dividing, not subtracting.",
+      "teacher": "Reads px as p + x and subtracts the coefficient (2x = 8 gives 6)."
+    },
+    "SIGN_DROP": {
+      "student": "Same signs divide to positive; different signs divide to negative.",
+      "teacher": "Loses a negative sign in the division, so the answer has the opposite sign (−2x = 6 gives 3, not −3)."
+    },
+    "WRONG_INVERSE": {
+      "student": "Undo the number inside the parentheses with the OPPOSITE operation.",
+      "teacher": "Undoes the group's constant with the wrong operation (3(x + 2) = 21 gives 7 + 2 = 9)."
+    },
+    "DROPPED_P": {
+      "student": "Divide by the number outside the parentheses first. Don't skip it.",
+      "teacher": "Ignores the factor outside the parentheses (3(x + 2) = 21 gives 21 − 2 = 19)."
+    },
+    "PARTIAL_DIST": {
+      "student": "The number outside multiplies EVERYTHING inside the parentheses.",
+      "teacher": "Distributes to the first term only (3(x + 2) becomes 3x + 2), or writes the group as p times x plus q."
+    },
+    "DIST_LAST_ONLY": {
+      "student": "The number outside multiplies the x too, not just the number.",
+      "teacher": "Multiplies only the constant inside the parentheses (3(x + 2) becomes x + 6)."
+    },
+    "DIST_SIGN": {
+      "student": "Keep the sign of the inner number when you multiply it.",
+      "teacher": "Loses the minus sign when distributing (3(x − 2) becomes 3x + 6), or adds one that is not there."
+    },
+    "ADDED_FOR_MULT": {
+      "student": "Distributing means multiply, not add: 3 times 2 is 6.",
+      "teacher": "Adds the outside number to the inside constant instead of multiplying (3(x + 2) becomes 3x + 5)."
+    },
+    "IGNORED_FIXED": {
+      "student": "Don't forget the one-time amount. Take it off first, then divide.",
+      "teacher": "Leaves out the fixed amount: divides the whole total by the rate, or writes px = r."
+    },
+    "ADDED_FIXED": {
+      "student": "The one-time amount is already inside the total. Undo it with the opposite.",
+      "teacher": "Adds the fixed amount to the total instead of removing it (16 + 4 = 20, so 10 instead of 6)."
+    },
+    "SWAPPED": {
+      "student": "Numbers in the wrong spots. Match each number to its job in the story.",
+      "teacher": "Swaps two numbers: puts the rate on the constant and the fixed amount on the variable (4r + 2 = 16), or the total with a part."
+    },
+    "WRONG_OP": {
+      "student": "Right numbers, wrong sign. Does the story add to the total or take away?",
+      "teacher": "Writes the constant with the wrong operation (2r − 4 = 16 for a fee that is added)."
+    },
+    "COMBINED_TERMS": {
+      "student": "A number and a term with a letter are unlike. Don't add them into one.",
+      "teacher": "Adds the coefficient and the constant into one term (2r + 4 = 16 becomes 6r = 16)."
+    },
+    "NO_FLIP": {
+      "student": "Dividing by a negative FLIPS the sign: < becomes >, ≤ becomes ≥.",
+      "teacher": "Divides both sides by a negative number and keeps the inequality sign."
+    },
+    "FLIP_WRONG": {
+      "student": "Only flip the sign when you divide by a NEGATIVE. Here it stays.",
+      "teacher": "Reverses the inequality after dividing by a positive number."
+    },
+    "BOUNDARY_ONLY": {
+      "student": "That is only the boundary. An inequality has a whole range of answers.",
+      "teacher": "Solves it as an equation and writes x = boundary."
+    },
+    "STRICT_VS_INCLUSIVE": {
+      "student": "Check the sign: ≤ and ≥ include the number, < and > do not.",
+      "teacher": "Confuses strict and inclusive: includes the boundary when the problem excludes it, or the reverse."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Check the words: at most and under mean less, at least and over mean more.",
+      "teacher": "Reads the story's direction backwards (at most gives ≥, at least gives ≤)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "two-step-equations/t1/001",
+      "tier": 1,
+      "prompt": "Solve: 4m + 4 = 20",
+      "choices": [
+        "6",
+        "4",
+        "1",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "DIVIDE_FIRST",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 4 from both sides: 4m = 16. Divide by 4: m = 4. Check: 4 × 4 + 4 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/002",
+      "tier": 1,
+      "prompt": "Solve: 4 = 2n − 4",
+      "choices": [
+        "8",
+        "6",
+        "4",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "Add 4 to both sides: 2n = 8. Divide by 2: n = 4. Check: 2 × 4 − 4 = 4."
+    },
+    {
+      "id": "two-step-equations/t1/003",
+      "tier": 1,
+      "prompt": "Solve: 18 = 3k − 9",
+      "choices": [
+        "3",
+        "15",
+        "27",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Add 9 to both sides: 3k = 27. Divide by 3: k = 9. Check: 3 × 9 − 9 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/004",
+      "tier": 1,
+      "prompt": "Solve: 12 + 4t = 20",
+      "choices": [
+        "32",
+        "2",
+        "8",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "SAME_OP",
+        "SUBTRACTED"
+      ],
+      "explanation": "Subtract 12 from both sides: 4t = 8. Divide by 4: t = 2. Check: 12 + 4 × 2 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/005",
+      "tier": 1,
+      "prompt": "Solve: 2y − 8 = 8",
+      "choices": [
+        "8",
+        "32",
+        "16",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "ONE_STEP",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 8 to both sides: 2y = 16. Divide by 2: y = 8. Check: 2 × 8 − 8 = 8."
+    },
+    {
+      "id": "two-step-equations/t1/006",
+      "tier": 1,
+      "prompt": "Solve: 6 + 2x = 18",
+      "choices": [
+        "12",
+        "6",
+        "3",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 6 from both sides: 2x = 12. Divide by 2: x = 6. Check: 6 + 2 × 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/007",
+      "tier": 1,
+      "prompt": "Solve: 5x + 5 = 20",
+      "choices": [
+        "3",
+        "5",
+        "10",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "SUBTRACTED",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 5 from both sides: 5x = 15. Divide by 5: x = 3. Check: 5 × 3 + 5 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/008",
+      "tier": 1,
+      "prompt": "Solve: 16 = 2t + 10",
+      "choices": [
+        "13",
+        "3",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "ONE_STEP",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 10 from both sides: 2t = 6. Divide by 2: t = 3. Check: 2 × 3 + 10 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/009",
+      "tier": 1,
+      "prompt": "Solve: 12 = 6m − 12",
+      "choices": [
+        "24",
+        "4",
+        "14",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST",
+        "SUBTRACTED"
+      ],
+      "explanation": "Add 12 to both sides: 6m = 24. Divide by 6: m = 4. Check: 6 × 4 − 12 = 12."
+    },
+    {
+      "id": "two-step-equations/t1/010",
+      "tier": 1,
+      "prompt": "Solve: 3m − 9 = 3",
+      "choices": [
+        "12",
+        "10",
+        "36",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Add 9 to both sides: 3m = 12. Divide by 3: m = 4. Check: 3 × 4 − 9 = 3."
+    },
+    {
+      "id": "two-step-equations/t1/011",
+      "tier": 1,
+      "prompt": "Solve: 7x − 7 = 14",
+      "choices": [
+        "9",
+        "21",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Add 7 to both sides: 7x = 21. Divide by 7: x = 3. Check: 7 × 3 − 7 = 14."
+    },
+    {
+      "id": "two-step-equations/t1/012",
+      "tier": 1,
+      "prompt": "Solve: 18 = 2m + 6",
+      "choices": [
+        "24",
+        "3",
+        "6",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "DIVIDE_FIRST",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 6 from both sides: 2m = 12. Divide by 2: m = 6. Check: 2 × 6 + 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/013",
+      "tier": 1,
+      "prompt": "Solve: 2n + 8 = 14",
+      "choices": [
+        "11",
+        "12",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "MULTIPLIED",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 8 from both sides: 2n = 6. Divide by 2: n = 3. Check: 2 × 3 + 8 = 14."
+    },
+    {
+      "id": "two-step-equations/t1/014",
+      "tier": 1,
+      "prompt": "Solve: 11 = 4n − 1",
+      "choices": [
+        "3",
+        "8",
+        "48",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "MULTIPLIED",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 1 to both sides: 4n = 12. Divide by 4: n = 3. Check: 4 × 3 − 1 = 11."
+    },
+    {
+      "id": "two-step-equations/t1/015",
+      "tier": 1,
+      "prompt": "Solve: 2y + 7 = 17",
+      "choices": [
+        "10",
+        "5",
+        "12",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SAME_OP",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 7 from both sides: 2y = 10. Divide by 2: y = 5. Check: 2 × 5 + 7 = 17."
+    },
+    {
+      "id": "two-step-equations/t1/016",
+      "tier": 1,
+      "prompt": "Solve: 4x + 6 = 18",
+      "choices": [
+        "3",
+        "48",
+        "12",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "ONE_STEP",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 6 from both sides: 4x = 12. Divide by 4: x = 3. Check: 4 × 3 + 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/017",
+      "tier": 1,
+      "prompt": "Solve: 3 + 3x = 18",
+      "choices": [
+        "3",
+        "15",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Subtract 3 from both sides: 3x = 15. Divide by 3: x = 5. Check: 3 + 3 × 5 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/018",
+      "tier": 1,
+      "prompt": "Solve: 12 + 2n = 18",
+      "choices": [
+        "12",
+        "6",
+        "15",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ONE_STEP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Subtract 12 from both sides: 2n = 6. Divide by 2: n = 3. Check: 12 + 2 × 3 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/019",
+      "tier": 1,
+      "prompt": "Solve: 8 + 4k = 20",
+      "choices": [
+        "7",
+        "3",
+        "48",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "MULTIPLIED",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 8 from both sides: 4k = 12. Divide by 4: k = 3. Check: 8 + 4 × 3 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/020",
+      "tier": 1,
+      "prompt": "Solve: 3x + 9 = 15",
+      "choices": [
+        "18",
+        "8",
+        "6",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "SAME_OP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 9 from both sides: 3x = 6. Divide by 3: x = 2. Check: 3 × 2 + 9 = 15."
+    },
+    {
+      "id": "two-step-equations/t1/021",
+      "tier": 1,
+      "prompt": "Solve: 7 = 2n − 7",
+      "choices": [
+        "28",
+        "14",
+        "7",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ONE_STEP",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Add 7 to both sides: 2n = 14. Divide by 2: n = 7. Check: 2 × 7 − 7 = 7."
+    },
+    {
+      "id": "two-step-equations/t1/022",
+      "tier": 1,
+      "prompt": "Solve: 2n + 10 = 18",
+      "choices": [
+        "14",
+        "16",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "MULTIPLIED",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 10 from both sides: 2n = 8. Divide by 2: n = 4. Check: 2 × 4 + 10 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/023",
+      "tier": 1,
+      "prompt": "Solve: 3m − 6 = 3",
+      "choices": [
+        "9",
+        "27",
+        "3",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "MULTIPLIED",
+        null,
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 6 to both sides: 3m = 9. Divide by 3: m = 3. Check: 3 × 3 − 6 = 3."
+    },
+    {
+      "id": "two-step-equations/t1/024",
+      "tier": 1,
+      "prompt": "Solve: 8 + 3t = 20",
+      "choices": [
+        "4",
+        "9",
+        "12",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "ONE_STEP",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 8 from both sides: 3t = 12. Divide by 3: t = 4. Check: 8 + 3 × 4 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/025",
+      "tier": 1,
+      "prompt": "Solve: 4w − 4 = 16",
+      "choices": [
+        "5",
+        "20",
+        "3",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SAME_OP",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 4 to both sides: 4w = 20. Divide by 4: w = 5. Check: 4 × 5 − 4 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/026",
+      "tier": 1,
+      "prompt": "Solve: 6 = 3t − 12",
+      "choices": [
+        "14",
+        "6",
+        "54",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        null,
+        "MULTIPLIED",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 12 to both sides: 3t = 18. Divide by 3: t = 6. Check: 3 × 6 − 12 = 6."
+    },
+    {
+      "id": "two-step-equations/t1/027",
+      "tier": 1,
+      "prompt": "Solve: 6n + 6 = 18",
+      "choices": [
+        "12",
+        "6",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "SUBTRACTED",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 6 from both sides: 6n = 12. Divide by 6: n = 2. Check: 6 × 2 + 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/028",
+      "tier": 1,
+      "prompt": "Solve: 5w − 10 = 5",
+      "choices": [
+        "15",
+        "3",
+        "10",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SUBTRACTED",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 10 to both sides: 5w = 15. Divide by 5: w = 3. Check: 5 × 3 − 10 = 5."
+    },
+    {
+      "id": "two-step-equations/t1/029",
+      "tier": 1,
+      "prompt": "Solve: 2 + 2w = 6",
+      "choices": [
+        "8",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Subtract 2 from both sides: 2w = 4. Divide by 2: w = 2. Check: 2 + 2 × 2 = 6."
+    },
+    {
+      "id": "two-step-equations/t1/030",
+      "tier": 1,
+      "prompt": "Solve: 3 + 4w = 15",
+      "choices": [
+        "12",
+        "8",
+        "3",
+        "48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "SUBTRACTED",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 3 from both sides: 4w = 12. Divide by 4: w = 3. Check: 3 + 4 × 3 = 15."
+    },
+    {
+      "id": "two-step-equations/t1/031",
+      "tier": 1,
+      "prompt": "Solve: 6w − 6 = 18",
+      "choices": [
+        "24",
+        "9",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Add 6 to both sides: 6w = 24. Divide by 6: w = 4. Check: 6 × 4 − 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/032",
+      "tier": 1,
+      "prompt": "Solve: 12 + 2x = 16",
+      "choices": [
+        "14",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "ONE_STEP",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 12 from both sides: 2x = 4. Divide by 2: x = 2. Check: 12 + 2 × 2 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/033",
+      "tier": 1,
+      "prompt": "Solve: 12 + 3k = 18",
+      "choices": [
+        "10",
+        "6",
+        "18",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "ONE_STEP",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Subtract 12 from both sides: 3k = 6. Divide by 3: k = 2. Check: 12 + 3 × 2 = 18."
+    },
+    {
+      "id": "two-step-equations/t1/034",
+      "tier": 1,
+      "prompt": "Solve: 12 = 2m − 6",
+      "choices": [
+        "3",
+        "12",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Add 6 to both sides: 2m = 18. Divide by 2: m = 9. Check: 2 × 9 − 6 = 12."
+    },
+    {
+      "id": "two-step-equations/t1/035",
+      "tier": 1,
+      "prompt": "Solve: 3x − 9 = 9",
+      "choices": [
+        "6",
+        "18",
+        "54",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "MULTIPLIED",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 9 to both sides: 3x = 18. Divide by 3: x = 6. Check: 3 × 6 − 9 = 9."
+    },
+    {
+      "id": "two-step-equations/t1/036",
+      "tier": 1,
+      "prompt": "Solve: 2t + 10 = 20",
+      "choices": [
+        "5",
+        "20",
+        "10",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "ONE_STEP",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 10 from both sides: 2t = 10. Divide by 2: t = 5. Check: 2 × 5 + 10 = 20."
+    },
+    {
+      "id": "two-step-equations/t1/037",
+      "tier": 1,
+      "prompt": "Solve: 16 = 2k + 6",
+      "choices": [
+        "5",
+        "11",
+        "2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 6 from both sides: 2k = 10. Divide by 2: k = 5. Check: 2 × 5 + 6 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/038",
+      "tier": 1,
+      "prompt": "Solve: 3y + 1 = 16",
+      "choices": [
+        "15",
+        "45",
+        "5",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "MULTIPLIED",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "Subtract 1 from both sides: 3y = 15. Divide by 3: y = 5. Check: 3 × 5 + 1 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/039",
+      "tier": 1,
+      "prompt": "Solve: 4k − 12 = 16",
+      "choices": [
+        "7",
+        "16",
+        "28",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        "SAME_OP"
+      ],
+      "explanation": "Add 12 to both sides: 4k = 28. Divide by 4: k = 7. Check: 4 × 7 − 12 = 16."
+    },
+    {
+      "id": "two-step-equations/t1/040",
+      "tier": 1,
+      "prompt": "Solve: 4m − 8 = 4",
+      "choices": [
+        "12",
+        "9",
+        "48",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "Add 8 to both sides: 4m = 12. Divide by 4: m = 3. Check: 4 × 3 − 8 = 4."
+    },
+    {
+      "id": "two-step-equations/t2/001",
+      "tier": 2,
+      "prompt": "Solve: −2 = 2y + 12",
+      "choices": [
+        "−13",
+        "5",
+        "−14",
+        "−7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "SAME_OP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 12 from both sides: 2y = −14. Divide by 2: y = −7. Check: 2 × (−7) + 12 = −2."
+    },
+    {
+      "id": "two-step-equations/t2/002",
+      "tier": 2,
+      "prompt": "Solve: −5t − 10 = 10",
+      "choices": [
+        "−4",
+        "20",
+        "8",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        "SAME_OP"
+      ],
+      "explanation": "Add 10 to both sides: −5t = 20. Divide by −5: t = −4. Check: −5 × (−4) − 10 = 10."
+    },
+    {
+      "id": "two-step-equations/t2/003",
+      "tier": 2,
+      "prompt": "Solve: 3t − 11 = −5",
+      "choices": [
+        "18",
+        "2",
+        "−2",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "SIGN_DROP",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 11 to both sides: 3t = 6. Divide by 3: t = 2. Check: 3 × 2 − 11 = −5."
+    },
+    {
+      "id": "two-step-equations/t2/004",
+      "tier": 2,
+      "prompt": "Solve: 2 − 2m = −2",
+      "choices": [
+        "−1",
+        "2",
+        "0",
+        "−4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        null,
+        "SAME_OP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 2 from both sides: −2m = −4. Divide by −2: m = 2. Check: 2 − 2 × 2 = −2."
+    },
+    {
+      "id": "two-step-equations/t2/005",
+      "tier": 2,
+      "prompt": "Solve: 4y + 1 = −11",
+      "choices": [
+        "−12",
+        "−3",
+        "3",
+        "−48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_DROP",
+        "MULTIPLIED"
+      ],
+      "explanation": "Subtract 1 from both sides: 4y = −12. Divide by 4: y = −3. Check: 4 × (−3) + 1 = −11."
+    },
+    {
+      "id": "two-step-equations/t2/006",
+      "tier": 2,
+      "prompt": "Solve: 6 = −2n − 12",
+      "choices": [
+        "−9",
+        "9",
+        "18",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "ONE_STEP",
+        "SAME_OP"
+      ],
+      "explanation": "Add 12 to both sides: −2n = 18. Divide by −2: n = −9. Check: −2 × (−9) − 12 = 6."
+    },
+    {
+      "id": "two-step-equations/t2/007",
+      "tier": 2,
+      "prompt": "Solve: 3w + 4 = −5",
+      "choices": [
+        "−27",
+        "−3",
+        "3",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "SIGN_DROP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 4 from both sides: 3w = −9. Divide by 3: w = −3. Check: 3 × (−3) + 4 = −5."
+    },
+    {
+      "id": "two-step-equations/t2/008",
+      "tier": 2,
+      "prompt": "Solve: 6 = −3x − 3",
+      "choices": [
+        "1",
+        "−1",
+        "−3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "SAME_OP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Add 3 to both sides: −3x = 9. Divide by −3: x = −3. Check: −3 × (−3) − 3 = 6."
+    },
+    {
+      "id": "two-step-equations/t2/009",
+      "tier": 2,
+      "prompt": "Solve: −12 = 4k + 12",
+      "choices": [
+        "−6",
+        "−15",
+        "0",
+        "−24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_FIRST",
+        "SAME_OP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 12 from both sides: 4k = −24. Divide by 4: k = −6. Check: 4 × (−6) + 12 = −12."
+    },
+    {
+      "id": "two-step-equations/t2/010",
+      "tier": 2,
+      "prompt": "Solve: −4 − 2w = −12",
+      "choices": [
+        "4",
+        "8",
+        "−8",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "ONE_STEP",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 4 to both sides: −2w = −8. Divide by −2: w = 4. Check: −4 − 2 × 4 = −12."
+    },
+    {
+      "id": "two-step-equations/t2/011",
+      "tier": 2,
+      "prompt": "Solve: −2y + 2 = −6",
+      "choices": [
+        "2",
+        "4",
+        "1",
+        "−8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_OP",
+        null,
+        "DIVIDE_FIRST",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 2 from both sides: −2y = −8. Divide by −2: y = 4. Check: −2 × 4 + 2 = −6."
+    },
+    {
+      "id": "two-step-equations/t2/012",
+      "tier": 2,
+      "prompt": "Solve: −3 = 3t + 9",
+      "choices": [
+        "4",
+        "−12",
+        "−4",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Subtract 9 from both sides: 3t = −12. Divide by 3: t = −4. Check: 3 × (−4) + 9 = −3."
+    },
+    {
+      "id": "two-step-equations/t2/013",
+      "tier": 2,
+      "prompt": "Solve: 2t + 4 = −4",
+      "choices": [
+        "−4",
+        "−6",
+        "−8",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 4 from both sides: 2t = −8. Divide by 2: t = −4. Check: 2 × (−4) + 4 = −4."
+    },
+    {
+      "id": "two-step-equations/t2/014",
+      "tier": 2,
+      "prompt": "Solve: −2 − 2k = 4",
+      "choices": [
+        "6",
+        "−1",
+        "−3",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "SAME_OP",
+        null,
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 2 to both sides: −2k = 6. Divide by −2: k = −3. Check: −2 − 2 × (−3) = 4."
+    },
+    {
+      "id": "two-step-equations/t2/015",
+      "tier": 2,
+      "prompt": "Solve: 2t − 10 = −4",
+      "choices": [
+        "6",
+        "−3",
+        "−7",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_DROP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Add 10 to both sides: 2t = 6. Divide by 2: t = 3. Check: 2 × 3 − 10 = −4."
+    },
+    {
+      "id": "two-step-equations/t2/016",
+      "tier": 2,
+      "prompt": "Solve: −10 − 10m = 10",
+      "choices": [
+        "20",
+        "9",
+        "−2",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "DIVIDE_FIRST",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Add 10 to both sides: −10m = 20. Divide by −10: m = −2. Check: −10 − 10 × (−2) = 10."
+    },
+    {
+      "id": "two-step-equations/t2/017",
+      "tier": 2,
+      "prompt": "Solve: 4t + 12 = −8",
+      "choices": [
+        "−20",
+        "−5",
+        "1",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SAME_OP",
+        "SIGN_DROP"
+      ],
+      "explanation": "Subtract 12 from both sides: 4t = −20. Divide by 4: t = −5. Check: 4 × (−5) + 12 = −8."
+    },
+    {
+      "id": "two-step-equations/t2/018",
+      "tier": 2,
+      "prompt": "Solve: −2t + 12 = 8",
+      "choices": [
+        "−2",
+        "−10",
+        "2",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "SAME_OP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 12 from both sides: −2t = −4. Divide by −2: t = 2. Check: −2 × 2 + 12 = 8."
+    },
+    {
+      "id": "two-step-equations/t2/019",
+      "tier": 2,
+      "prompt": "Solve: 3w + 3 = −12",
+      "choices": [
+        "5",
+        "−15",
+        "−5",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "ONE_STEP",
+        null,
+        "SAME_OP"
+      ],
+      "explanation": "Subtract 3 from both sides: 3w = −15. Divide by 3: w = −5. Check: 3 × (−5) + 3 = −12."
+    },
+    {
+      "id": "two-step-equations/t2/020",
+      "tier": 2,
+      "prompt": "Solve: −5 − 2w = 11",
+      "choices": [
+        "−8",
+        "−32",
+        "−3",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "SAME_OP",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 5 to both sides: −2w = 16. Divide by −2: w = −8. Check: −5 − 2 × (−8) = 11."
+    },
+    {
+      "id": "two-step-equations/t2/021",
+      "tier": 2,
+      "prompt": "Solve: −2n − 6 = 12",
+      "choices": [
+        "18",
+        "−9",
+        "0",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST",
+        "SAME_OP"
+      ],
+      "explanation": "Add 6 to both sides: −2n = 18. Divide by −2: n = −9. Check: −2 × (−9) − 6 = 12."
+    },
+    {
+      "id": "two-step-equations/t2/022",
+      "tier": 2,
+      "prompt": "Solve: −2t + 8 = −6",
+      "choices": [
+        "−1",
+        "−14",
+        "7",
+        "−5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "ONE_STEP",
+        null,
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Subtract 8 from both sides: −2t = −14. Divide by −2: t = 7. Check: −2 × 7 + 8 = −6."
+    },
+    {
+      "id": "two-step-equations/t2/023",
+      "tier": 2,
+      "prompt": "Solve: 2w − 6 = −2",
+      "choices": [
+        "−4",
+        "4",
+        "−2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "ONE_STEP",
+        "SIGN_DROP",
+        null
+      ],
+      "explanation": "Add 6 to both sides: 2w = 4. Divide by 2: w = 2. Check: 2 × 2 − 6 = −2."
+    },
+    {
+      "id": "two-step-equations/t2/024",
+      "tier": 2,
+      "prompt": "Solve: −12 = −3k + 3",
+      "choices": [
+        "5",
+        "−5",
+        "3",
+        "−15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "SAME_OP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 3 from both sides: −3k = −15. Divide by −3: k = 5. Check: −3 × 5 + 3 = −12."
+    },
+    {
+      "id": "two-step-equations/t2/025",
+      "tier": 2,
+      "prompt": "Solve: −4y − 4 = 8",
+      "choices": [
+        "−1",
+        "2",
+        "−3",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Add 4 to both sides: −4y = 12. Divide by −4: y = −3. Check: −4 × (−3) − 4 = 8."
+    },
+    {
+      "id": "two-step-equations/t2/026",
+      "tier": 2,
+      "prompt": "Solve: −12 − 2m = 4",
+      "choices": [
+        "8",
+        "4",
+        "−8",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "SAME_OP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Add 12 to both sides: −2m = 16. Divide by −2: m = −8. Check: −12 − 2 × (−8) = 4."
+    },
+    {
+      "id": "two-step-equations/t2/027",
+      "tier": 2,
+      "prompt": "Solve: 3m + 10 = −8",
+      "choices": [
+        "−54",
+        "6",
+        "−18",
+        "−6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "SIGN_DROP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 10 from both sides: 3m = −18. Divide by 3: m = −6. Check: 3 × (−6) + 10 = −8."
+    },
+    {
+      "id": "two-step-equations/t2/028",
+      "tier": 2,
+      "prompt": "Solve: −6 − 3x = 3",
+      "choices": [
+        "5",
+        "3",
+        "1",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "SIGN_DROP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Add 6 to both sides: −3x = 9. Divide by −3: x = −3. Check: −6 − 3 × (−3) = 3."
+    },
+    {
+      "id": "two-step-equations/t2/029",
+      "tier": 2,
+      "prompt": "Solve: −4 = 2w − 8",
+      "choices": [
+        "−2",
+        "2",
+        "−6",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "SAME_OP",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 8 to both sides: 2w = 4. Divide by 2: w = 2. Check: 2 × 2 − 8 = −4."
+    },
+    {
+      "id": "two-step-equations/t2/030",
+      "tier": 2,
+      "prompt": "Solve: −12 = −3y − 3",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "−9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 3 to both sides: −3y = −9. Divide by −3: y = 3. Check: −3 × 3 − 3 = −12."
+    },
+    {
+      "id": "two-step-equations/t2/031",
+      "tier": 2,
+      "prompt": "Solve: −9 = −3t − 3",
+      "choices": [
+        "−6",
+        "4",
+        "−2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SAME_OP",
+        "SIGN_DROP",
+        null
+      ],
+      "explanation": "Add 3 to both sides: −3t = −6. Divide by −3: t = 2. Check: −3 × 2 − 3 = −9."
+    },
+    {
+      "id": "two-step-equations/t2/032",
+      "tier": 2,
+      "prompt": "Solve: 10 − 3k = −5",
+      "choices": [
+        "45",
+        "−5",
+        "−15",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "SIGN_DROP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 10 from both sides: −3k = −15. Divide by −3: k = 5. Check: 10 − 3 × 5 = −5."
+    },
+    {
+      "id": "two-step-equations/t2/033",
+      "tier": 2,
+      "prompt": "Solve: −2 = −2y + 4",
+      "choices": [
+        "−3",
+        "3",
+        "−1",
+        "−6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "SAME_OP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 4 from both sides: −2y = −6. Divide by −2: y = 3. Check: −2 × 3 + 4 = −2."
+    },
+    {
+      "id": "two-step-equations/t2/034",
+      "tier": 2,
+      "prompt": "Solve: −2x + 4 = −10",
+      "choices": [
+        "1",
+        "7",
+        "−7",
+        "−14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        null,
+        "SIGN_DROP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 4 from both sides: −2x = −14. Divide by −2: x = 7. Check: −2 × 7 + 4 = −10."
+    },
+    {
+      "id": "two-step-equations/t2/035",
+      "tier": 2,
+      "prompt": "Solve: 9 − 3w = −3",
+      "choices": [
+        "−2",
+        "−8",
+        "−12",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 9 from both sides: −3w = −12. Divide by −3: w = 4. Check: 9 − 3 × 4 = −3."
+    },
+    {
+      "id": "two-step-equations/t2/036",
+      "tier": 2,
+      "prompt": "Solve: −3k − 3 = 6",
+      "choices": [
+        "−3",
+        "9",
+        "−1",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SAME_OP",
+        "DIVIDE_FIRST"
+      ],
+      "explanation": "Add 3 to both sides: −3k = 9. Divide by −3: k = −3. Check: −3 × (−3) − 3 = 6."
+    },
+    {
+      "id": "two-step-equations/t2/037",
+      "tier": 2,
+      "prompt": "Solve: 6y + 12 = −6",
+      "choices": [
+        "1",
+        "−13",
+        "−3",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        null,
+        "SIGN_DROP"
+      ],
+      "explanation": "Subtract 12 from both sides: 6y = −18. Divide by 6: y = −3. Check: 6 × (−3) + 12 = −6."
+    },
+    {
+      "id": "two-step-equations/t2/038",
+      "tier": 2,
+      "prompt": "Solve: −2w + 3 = −9",
+      "choices": [
+        "−12",
+        "3",
+        "−6",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SAME_OP",
+        "SIGN_DROP",
+        null
+      ],
+      "explanation": "Subtract 3 from both sides: −2w = −12. Divide by −2: w = 6. Check: −2 × 6 + 3 = −9."
+    },
+    {
+      "id": "two-step-equations/t2/039",
+      "tier": 2,
+      "prompt": "Solve: 6 − 3w = −9",
+      "choices": [
+        "5",
+        "1",
+        "−3",
+        "−15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_OP",
+        "DIVIDE_FIRST",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 6 from both sides: −3w = −15. Divide by −3: w = 5. Check: 6 − 3 × 5 = −9."
+    },
+    {
+      "id": "two-step-equations/t2/040",
+      "tier": 2,
+      "prompt": "Solve: −6n + 6 = −6",
+      "choices": [
+        "−5",
+        "−12",
+        "0",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_FIRST",
+        "ONE_STEP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Subtract 6 from both sides: −6n = −12. Divide by −6: n = 2. Check: −6 × 2 + 6 = −6."
+    },
+    {
+      "id": "two-step-equations/t3/001",
+      "tier": 3,
+      "prompt": "Solve: 8(n + 2) = 32",
+      "choices": [
+        "4",
+        "2",
+        "6",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "WRONG_INVERSE",
+        "DROPPED_P"
+      ],
+      "explanation": "Divide both sides by 8: n + 2 = 4. Subtract 2: n = 2. Check: 8(2 + 2) = 32."
+    },
+    {
+      "id": "two-step-equations/t3/002",
+      "tier": 3,
+      "prompt": "Solve: −7(w − 4) = −21",
+      "choices": [
+        "−17",
+        "7",
+        "3",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_P",
+        null,
+        "ONE_STEP",
+        "SIGN_DROP"
+      ],
+      "explanation": "Divide both sides by −7: w − 4 = 3. Add 4: w = 7. Check: −7(7 − 4) = −21."
+    },
+    {
+      "id": "two-step-equations/t3/003",
+      "tier": 3,
+      "prompt": "2(m − 2) = 12. Distribute the 2. Result?",
+      "choices": [
+        "2m − 2 = 12",
+        "2m = 12",
+        "2m + 4 = 12",
+        "2m − 4 = 12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "ADDED_FOR_MULT",
+        "DIST_SIGN",
+        null
+      ],
+      "explanation": "Multiply every term inside by 2: 2m and 2 × (−2) = −4. So 2m − 4 = 12."
+    },
+    {
+      "id": "two-step-equations/t3/004",
+      "tier": 3,
+      "prompt": "Solve: 16 = 8(y − 7)",
+      "choices": [
+        "−5",
+        "23",
+        "2",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "DROPPED_P",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Divide both sides by 8: y − 7 = 2. Add 7: y = 9. Check: 8(9 − 7) = 16."
+    },
+    {
+      "id": "two-step-equations/t3/005",
+      "tier": 3,
+      "prompt": "Solve: 5(k + 2) = 35",
+      "choices": [
+        "9",
+        "33",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "DROPPED_P",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 5: k + 2 = 7. Subtract 2: k = 5. Check: 5(5 + 2) = 35."
+    },
+    {
+      "id": "two-step-equations/t3/006",
+      "tier": 3,
+      "prompt": "Solve: 18 = 2(k + 7)",
+      "choices": [
+        "9",
+        "16",
+        "2",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "WRONG_INVERSE",
+        null,
+        "DROPPED_P"
+      ],
+      "explanation": "Divide both sides by 2: k + 7 = 9. Subtract 7: k = 2. Check: 2(2 + 7) = 18."
+    },
+    {
+      "id": "two-step-equations/t3/007",
+      "tier": 3,
+      "prompt": "Solve: 20 = 2(k + 7)",
+      "choices": [
+        "13",
+        "17",
+        "10",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_P",
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Divide both sides by 2: k + 7 = 10. Subtract 7: k = 3. Check: 2(3 + 7) = 20."
+    },
+    {
+      "id": "two-step-equations/t3/008",
+      "tier": 3,
+      "prompt": "5(w − 3) = 35. Distribute the 5. Result?",
+      "choices": [
+        "5w + 15 = 35",
+        "5w − 3 = 35",
+        "w − 15 = 35",
+        "5w − 15 = 35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIST_SIGN",
+        "PARTIAL_DIST",
+        "DIST_LAST_ONLY",
+        null
+      ],
+      "explanation": "Multiply every term inside by 5: 5w and 5 × (−3) = −15. So 5w − 15 = 35."
+    },
+    {
+      "id": "two-step-equations/t3/009",
+      "tier": 3,
+      "prompt": "Solve: −4(m − 4) = −24",
+      "choices": [
+        "10",
+        "−10",
+        "−20",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "DROPPED_P",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Divide both sides by −4: m − 4 = 6. Add 4: m = 10. Check: −4(10 − 4) = −24."
+    },
+    {
+      "id": "two-step-equations/t3/010",
+      "tier": 3,
+      "prompt": "Solve: 10(t + 3) = 60",
+      "choices": [
+        "9",
+        "6",
+        "57",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        "DROPPED_P",
+        null
+      ],
+      "explanation": "Divide both sides by 10: t + 3 = 6. Subtract 3: t = 3. Check: 10(3 + 3) = 60."
+    },
+    {
+      "id": "two-step-equations/t3/011",
+      "tier": 3,
+      "prompt": "3(n + 6) = 24. Distribute the 3. Result?",
+      "choices": [
+        "n + 18 = 24",
+        "3n + 9 = 24",
+        "3n + 18 = 24",
+        "3n − 18 = 24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIST_LAST_ONLY",
+        "ADDED_FOR_MULT",
+        null,
+        "DIST_SIGN"
+      ],
+      "explanation": "Multiply every term inside by 3: 3n and 3 × 6 = 18. So 3n + 18 = 24."
+    },
+    {
+      "id": "two-step-equations/t3/012",
+      "tier": 3,
+      "prompt": "Solve: −4(n − 9) = 16",
+      "choices": [
+        "−13",
+        "5",
+        "25",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        null,
+        "DROPPED_P",
+        "SIGN_DROP"
+      ],
+      "explanation": "Divide both sides by −4: n − 9 = −4. Add 9: n = 5. Check: −4(5 − 9) = 16."
+    },
+    {
+      "id": "two-step-equations/t3/013",
+      "tier": 3,
+      "prompt": "Solve: 10(n − 2) = 70",
+      "choices": [
+        "5",
+        "7",
+        "72",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        "DROPPED_P",
+        null
+      ],
+      "explanation": "Divide both sides by 10: n − 2 = 7. Add 2: n = 9. Check: 10(9 − 2) = 70."
+    },
+    {
+      "id": "two-step-equations/t3/014",
+      "tier": 3,
+      "prompt": "2(k − 5) = −18. Distribute the 2. Result?",
+      "choices": [
+        "2k + 10 = −18",
+        "2k − 10 = −18",
+        "2k − 3 = −18",
+        "2k − 5 = −18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIST_SIGN",
+        null,
+        "ADDED_FOR_MULT",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply every term inside by 2: 2k and 2 × (−5) = −10. So 2k − 10 = −18."
+    },
+    {
+      "id": "two-step-equations/t3/015",
+      "tier": 3,
+      "prompt": "Solve: 50 = 10(y + 1)",
+      "choices": [
+        "6",
+        "49",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "DROPPED_P",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 10: y + 1 = 5. Subtract 1: y = 4. Check: 10(4 + 1) = 50."
+    },
+    {
+      "id": "two-step-equations/t3/016",
+      "tier": 3,
+      "prompt": "Solve: 2(n − 4) = 8",
+      "choices": [
+        "4",
+        "8",
+        "12",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "DROPPED_P",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 2: n − 4 = 4. Add 4: n = 8. Check: 2(8 − 4) = 8."
+    },
+    {
+      "id": "two-step-equations/t3/017",
+      "tier": 3,
+      "prompt": "Solve: 9(t + 7) = 90",
+      "choices": [
+        "3",
+        "10",
+        "83",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "DROPPED_P",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 9: t + 7 = 10. Subtract 7: t = 3. Check: 9(3 + 7) = 90."
+    },
+    {
+      "id": "two-step-equations/t3/018",
+      "tier": 3,
+      "prompt": "Solve: 3(y − 3) = 9",
+      "choices": [
+        "12",
+        "6",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_P",
+        null,
+        "ONE_STEP",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 3: y − 3 = 3. Add 3: y = 6. Check: 3(6 − 3) = 9."
+    },
+    {
+      "id": "two-step-equations/t3/019",
+      "tier": 3,
+      "prompt": "Solve: 42 = 7(x − 2)",
+      "choices": [
+        "8",
+        "6",
+        "4",
+        "44"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "WRONG_INVERSE",
+        "DROPPED_P"
+      ],
+      "explanation": "Divide both sides by 7: x − 2 = 6. Add 2: x = 8. Check: 7(8 − 2) = 42."
+    },
+    {
+      "id": "two-step-equations/t3/020",
+      "tier": 3,
+      "prompt": "Solve: −4(k + 4) = −36",
+      "choices": [
+        "5",
+        "−5",
+        "10",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "PARTIAL_DIST",
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by −4: k + 4 = 9. Subtract 4: k = 5. Check: −4(5 + 4) = −36."
+    },
+    {
+      "id": "two-step-equations/t3/021",
+      "tier": 3,
+      "prompt": "Solve: −21 = −7(x + 9)",
+      "choices": [
+        "3",
+        "−6",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_DROP",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by −7: x + 9 = 3. Subtract 9: x = −6. Check: −7(−6 + 9) = −21."
+    },
+    {
+      "id": "two-step-equations/t3/022",
+      "tier": 3,
+      "prompt": "2(y + 4) = 20. Distribute the 2. Result?",
+      "choices": [
+        "y + 8 = 20",
+        "2y + 4 = 20",
+        "2y + 8 = 20",
+        "2y + 6 = 20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIST_LAST_ONLY",
+        "PARTIAL_DIST",
+        null,
+        "ADDED_FOR_MULT"
+      ],
+      "explanation": "Multiply every term inside by 2: 2y and 2 × 4 = 8. So 2y + 8 = 20."
+    },
+    {
+      "id": "two-step-equations/t3/023",
+      "tier": 3,
+      "prompt": "7(y − 7) = 14. Distribute the 7. Result?",
+      "choices": [
+        "7y − 49 = 14",
+        "7y = 14",
+        "7y − 7 = 14",
+        "y − 49 = 14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_FOR_MULT",
+        "PARTIAL_DIST",
+        "DIST_LAST_ONLY"
+      ],
+      "explanation": "Multiply every term inside by 7: 7y and 7 × (−7) = −49. So 7y − 49 = 14."
+    },
+    {
+      "id": "two-step-equations/t3/024",
+      "tier": 3,
+      "prompt": "Solve: 5(m − 3) = 20",
+      "choices": [
+        "23",
+        "4",
+        "7",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_P",
+        "ONE_STEP",
+        null,
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 5: m − 3 = 4. Add 3: m = 7. Check: 5(7 − 3) = 20."
+    },
+    {
+      "id": "two-step-equations/t3/025",
+      "tier": 3,
+      "prompt": "Solve: 6(x + 3) = −30",
+      "choices": [
+        "−2",
+        "8",
+        "−5",
+        "−8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "SIGN_DROP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Divide both sides by 6: x + 3 = −5. Subtract 3: x = −8. Check: 6(−8 + 3) = −30."
+    },
+    {
+      "id": "two-step-equations/t3/026",
+      "tier": 3,
+      "prompt": "Solve: 48 = 6(n + 6)",
+      "choices": [
+        "2",
+        "7",
+        "42",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "DROPPED_P",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 6: n + 6 = 8. Subtract 6: n = 2. Check: 6(2 + 6) = 48."
+    },
+    {
+      "id": "two-step-equations/t3/027",
+      "tier": 3,
+      "prompt": "Solve: 9(x − 3) = 36",
+      "choices": [
+        "1",
+        "4",
+        "39",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        "DROPPED_P",
+        null
+      ],
+      "explanation": "Divide both sides by 9: x − 3 = 4. Add 3: x = 7. Check: 9(7 − 3) = 36."
+    },
+    {
+      "id": "two-step-equations/t3/028",
+      "tier": 3,
+      "prompt": "Solve: 4(t + 4) = 36",
+      "choices": [
+        "32",
+        "13",
+        "5",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_P",
+        "WRONG_INVERSE",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 4: t + 4 = 9. Subtract 4: t = 5. Check: 4(5 + 4) = 36."
+    },
+    {
+      "id": "two-step-equations/t3/029",
+      "tier": 3,
+      "prompt": "Solve: 2(n − 1) = 8",
+      "choices": [
+        "5",
+        "9",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_P",
+        "WRONG_INVERSE",
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 2: n − 1 = 4. Add 1: n = 5. Check: 2(5 − 1) = 8."
+    },
+    {
+      "id": "two-step-equations/t3/030",
+      "tier": 3,
+      "prompt": "Solve: 25 = −5(y + 5)",
+      "choices": [
+        "20",
+        "10",
+        "−10",
+        "−5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_P",
+        "SIGN_DROP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by −5: y + 5 = −5. Subtract 5: y = −10. Check: −5(−10 + 5) = 25."
+    },
+    {
+      "id": "two-step-equations/t3/031",
+      "tier": 3,
+      "prompt": "6(n + 7) = 54. Distribute the 6. Result?",
+      "choices": [
+        "n + 42 = 54",
+        "6n + 7 = 54",
+        "6n + 42 = 54",
+        "6n + 13 = 54"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIST_LAST_ONLY",
+        "PARTIAL_DIST",
+        null,
+        "ADDED_FOR_MULT"
+      ],
+      "explanation": "Multiply every term inside by 6: 6n and 6 × 7 = 42. So 6n + 42 = 54."
+    },
+    {
+      "id": "two-step-equations/t3/032",
+      "tier": 3,
+      "prompt": "Solve: 10(t + 2) = 50",
+      "choices": [
+        "5",
+        "7",
+        "48",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "WRONG_INVERSE",
+        "DROPPED_P",
+        null
+      ],
+      "explanation": "Divide both sides by 10: t + 2 = 5. Subtract 2: t = 3. Check: 10(3 + 2) = 50."
+    },
+    {
+      "id": "two-step-equations/t3/033",
+      "tier": 3,
+      "prompt": "Solve: 36 = 6(k − 3)",
+      "choices": [
+        "3",
+        "9",
+        "39",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        null,
+        "DROPPED_P",
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 6: k − 3 = 6. Add 3: k = 9. Check: 6(9 − 3) = 36."
+    },
+    {
+      "id": "two-step-equations/t3/034",
+      "tier": 3,
+      "prompt": "9(t + 3) = 45. Distribute the 9. Result?",
+      "choices": [
+        "9t − 27 = 45",
+        "t + 27 = 45",
+        "9t + 27 = 45",
+        "9t + 3 = 45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIST_SIGN",
+        "DIST_LAST_ONLY",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply every term inside by 9: 9t and 9 × 3 = 27. So 9t + 27 = 45."
+    },
+    {
+      "id": "two-step-equations/t3/035",
+      "tier": 3,
+      "prompt": "5(t + 7) = 45. Distribute the 5. Result?",
+      "choices": [
+        "5t + 35 = 45",
+        "5t − 35 = 45",
+        "5t + 7 = 45",
+        "5t + 12 = 45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIST_SIGN",
+        "PARTIAL_DIST",
+        "ADDED_FOR_MULT"
+      ],
+      "explanation": "Multiply every term inside by 5: 5t and 5 × 7 = 35. So 5t + 35 = 45."
+    },
+    {
+      "id": "two-step-equations/t3/036",
+      "tier": 3,
+      "prompt": "Solve: 3(w − 3) = 6",
+      "choices": [
+        "3",
+        "5",
+        "9",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "DROPPED_P",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 3: w − 3 = 2. Add 3: w = 5. Check: 3(5 − 3) = 6."
+    },
+    {
+      "id": "two-step-equations/t3/037",
+      "tier": 3,
+      "prompt": "Solve: −5(y + 10) = −30",
+      "choices": [
+        "−4",
+        "6",
+        "4",
+        "−40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SIGN_DROP",
+        "DROPPED_P"
+      ],
+      "explanation": "Divide both sides by −5: y + 10 = 6. Subtract 10: y = −4. Check: −5(−4 + 10) = −30."
+    },
+    {
+      "id": "two-step-equations/t3/038",
+      "tier": 3,
+      "prompt": "Solve: −60 = −6(k + 8)",
+      "choices": [
+        "2",
+        "18",
+        "−2",
+        "−68"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_INVERSE",
+        "SIGN_DROP",
+        "DROPPED_P"
+      ],
+      "explanation": "Divide both sides by −6: k + 8 = 10. Subtract 8: k = 2. Check: −6(2 + 8) = −60."
+    },
+    {
+      "id": "two-step-equations/t3/039",
+      "tier": 3,
+      "prompt": "2(y + 3) = 18. Distribute the 2. Result?",
+      "choices": [
+        "y + 6 = 18",
+        "2y + 6 = 18",
+        "2y + 5 = 18",
+        "2y + 3 = 18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIST_LAST_ONLY",
+        null,
+        "ADDED_FOR_MULT",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply every term inside by 2: 2y and 2 × 3 = 6. So 2y + 6 = 18."
+    },
+    {
+      "id": "two-step-equations/t3/040",
+      "tier": 3,
+      "prompt": "Solve: 40 = −10(t + 2)",
+      "choices": [
+        "6",
+        "−4",
+        "−2",
+        "−6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROP",
+        "ONE_STEP",
+        "WRONG_INVERSE",
+        null
+      ],
+      "explanation": "Divide both sides by −10: t + 2 = −4. Subtract 2: t = −6. Check: −10(−6 + 2) = 40."
+    },
+    {
+      "id": "two-step-equations/t4/001",
+      "tier": 4,
+      "prompt": "Each of 2 kids gets n cards and 3 pins: 18 items. Equation?",
+      "choices": [
+        "3(n + 2) = 18",
+        "2(n + 3) = 18",
+        "2(n − 3) = 18",
+        "2n = 18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED",
+        null,
+        "WRONG_OP",
+        "IGNORED_FIXED"
+      ],
+      "explanation": "2 people, each with (n + 3): 2(n + 3) = 18. (Then n = 6.)"
+    },
+    {
+      "id": "two-step-equations/t4/002",
+      "tier": 4,
+      "prompt": "Gym: $6 to join, $3 a visit. Paid $15. Visits?",
+      "choices": [
+        "9",
+        "7",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "ADDED_FIXED",
+        "IGNORED_FIXED",
+        null
+      ],
+      "explanation": "3v + 6 = 15. Subtract 6: 3v = 9. Divide by 3: v = 3."
+    },
+    {
+      "id": "two-step-equations/t4/003",
+      "tier": 4,
+      "prompt": "3 packs of k cards, lost 10. 2 cards left. Equation?",
+      "choices": [
+        "10k − 3 = 2",
+        "3k + 10 = 2",
+        "3k − 10 = 2",
+        "3k = 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED",
+        "WRONG_OP",
+        null,
+        "IGNORED_FIXED"
+      ],
+      "explanation": "3 groups of k, minus 10: 3k − 10 = 2. (Then k = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/004",
+      "tier": 4,
+      "prompt": "2 pens at $c each plus a $4 bag cost $12. Equation?",
+      "choices": [
+        "2c + 4 = 12",
+        "2c − 4 = 12",
+        "4c + 2 = 12",
+        "2c = 12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_OP",
+        "SWAPPED",
+        "IGNORED_FIXED"
+      ],
+      "explanation": "2 groups of c plus 4 more: 2c + 4 = 12. (Then c = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/005",
+      "tier": 4,
+      "prompt": "Each of 4 pals pays $b plus a $2 tip. $24 in all. Find b.",
+      "choices": [
+        "8",
+        "4",
+        "22",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_INVERSE",
+        null,
+        "DROPPED_P",
+        "ONE_STEP"
+      ],
+      "explanation": "Divide both sides by 4: b + 2 = 6. Subtract 2: b = 4. Check: 4(4 + 2) = 24."
+    },
+    {
+      "id": "two-step-equations/t4/006",
+      "tier": 4,
+      "prompt": "2 pens at $c each plus a $12 bag cost $20. Equation?",
+      "choices": [
+        "2c − 12 = 20",
+        "14c = 20",
+        "12c + 2 = 20",
+        "2c + 12 = 20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "COMBINED_TERMS",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "2 groups of c plus 12 more: 2c + 12 = 20. (Then c = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/007",
+      "tier": 4,
+      "prompt": "Plan: $10 plus $5 a month. Paid $20. Equation for m months?",
+      "choices": [
+        "5m − 10 = 20",
+        "5m + 10 = 20",
+        "10m + 5 = 20",
+        "5m = 20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "SWAPPED",
+        "IGNORED_FIXED"
+      ],
+      "explanation": "$5 a month plus $10: 5m + 10 = 20. (Then m = 2.)"
+    },
+    {
+      "id": "two-step-equations/t4/008",
+      "tier": 4,
+      "prompt": "4 shirts cost $s each. $8 coupon. Paid $8. Equation?",
+      "choices": [
+        "4s − 8 = 8",
+        "4s = 8",
+        "4s + 8 = 8",
+        "8s − 4 = 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "4 groups of s, minus 8: 4s − 8 = 8. (Then s = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/009",
+      "tier": 4,
+      "prompt": "Save $3 a week from $9 to reach $15. Weeks?",
+      "choices": [
+        "8",
+        "5",
+        "6",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FIXED",
+        "IGNORED_FIXED",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "3w + 9 = 15. Subtract 9: 3w = 6. Divide by 3: w = 2."
+    },
+    {
+      "id": "two-step-equations/t4/010",
+      "tier": 4,
+      "prompt": "Save $4 a week from $8 to reach $16. Equation for w weeks?",
+      "choices": [
+        "4w − 8 = 16",
+        "12w = 16",
+        "4w + 8 = 16",
+        "8w + 4 = 16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "COMBINED_TERMS",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "$4 a week added to $8: 4w + 8 = 16. (Then w = 2.)"
+    },
+    {
+      "id": "two-step-equations/t4/011",
+      "tier": 4,
+      "prompt": "2 packs of k cards, lost 6. 8 cards left. Equation?",
+      "choices": [
+        "2k + 6 = 8",
+        "6k − 2 = 8",
+        "2k − 6 = 8",
+        "2k = 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "SWAPPED",
+        null,
+        "IGNORED_FIXED"
+      ],
+      "explanation": "2 groups of k, minus 6: 2k − 6 = 8. (Then k = 7.)"
+    },
+    {
+      "id": "two-step-equations/t4/012",
+      "tier": 4,
+      "prompt": "2 shirts cost $s each. $3 coupon. Paid $5. Equation?",
+      "choices": [
+        "3s − 2 = 5",
+        "2s + 3 = 5",
+        "2s − 3 = 5",
+        "2s = 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED",
+        "WRONG_OP",
+        null,
+        "IGNORED_FIXED"
+      ],
+      "explanation": "2 groups of s, minus 3: 2s − 3 = 5. (Then s = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/013",
+      "tier": 4,
+      "prompt": "5 packs of k cards, lost 10. 20 cards left. Find k.",
+      "choices": [
+        "6",
+        "4",
+        "30",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "ONE_STEP",
+        "ADDED_FIXED"
+      ],
+      "explanation": "5k − 10 = 20. Add 10: 5k = 30. Divide by 5: k = 6."
+    },
+    {
+      "id": "two-step-equations/t4/014",
+      "tier": 4,
+      "prompt": "$12 to get in, $2 a ride. Spent $16. Equation for r rides?",
+      "choices": [
+        "2r = 16",
+        "2r + 12 = 16",
+        "14r = 16",
+        "12r + 2 = 16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        null,
+        "COMBINED_TERMS",
+        "SWAPPED"
+      ],
+      "explanation": "$2 a ride plus $12 to get in: 2r + 12 = 16. (Then r = 2.)"
+    },
+    {
+      "id": "two-step-equations/t4/015",
+      "tier": 4,
+      "prompt": "2 boxes of n pens. Gave away 4. 6 left. Find n.",
+      "choices": [
+        "3",
+        "1",
+        "5",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        "ADDED_FIXED",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "2n − 4 = 6. Add 4: 2n = 10. Divide by 2: n = 5."
+    },
+    {
+      "id": "two-step-equations/t4/016",
+      "tier": 4,
+      "prompt": "Each of 8 kids gets n cards and 2 pins: 72 items. Equation?",
+      "choices": [
+        "8(n − 2) = 72",
+        "8(n + 2) = 72",
+        "2(n + 8) = 72",
+        "8n = 72"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_OP",
+        null,
+        "SWAPPED",
+        "IGNORED_FIXED"
+      ],
+      "explanation": "8 people, each with (n + 2): 8(n + 2) = 72. (Then n = 7.)"
+    },
+    {
+      "id": "two-step-equations/t4/017",
+      "tier": 4,
+      "prompt": "3 pens at $c each plus a $4 bag cost $10. Find c.",
+      "choices": [
+        "3",
+        "6",
+        "2",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_STEP",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "3c + 4 = 10. Subtract 4: 3c = 6. Divide by 3: c = 2."
+    },
+    {
+      "id": "two-step-equations/t4/018",
+      "tier": 4,
+      "prompt": "3 pens at $c each plus a $6 bag cost $18. Find c.",
+      "choices": [
+        "4",
+        "6",
+        "12",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "ONE_STEP",
+        "ADDED_FIXED"
+      ],
+      "explanation": "3c + 6 = 18. Subtract 6: 3c = 12. Divide by 3: c = 4."
+    },
+    {
+      "id": "two-step-equations/t4/019",
+      "tier": 4,
+      "prompt": "2 pens at $c each plus a $3 bag cost $17. Equation?",
+      "choices": [
+        "2c = 17",
+        "2c + 3 = 17",
+        "3c + 2 = 17",
+        "2c − 3 = 17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        null,
+        "SWAPPED",
+        "WRONG_OP"
+      ],
+      "explanation": "2 groups of c plus 3 more: 2c + 3 = 17. (Then c = 7.)"
+    },
+    {
+      "id": "two-step-equations/t4/020",
+      "tier": 4,
+      "prompt": "4 packs of k cards, lost 12. 4 cards left. Equation?",
+      "choices": [
+        "4k = 4",
+        "12k − 4 = 4",
+        "4k − 12 = 4",
+        "4k + 12 = 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        "SWAPPED",
+        null,
+        "WRONG_OP"
+      ],
+      "explanation": "4 groups of k, minus 12: 4k − 12 = 4. (Then k = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/021",
+      "tier": 4,
+      "prompt": "2 shirts cost $s each. $8 coupon. Paid $8. Find s.",
+      "choices": [
+        "8",
+        "4",
+        "14",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "SUBTRACTED",
+        "ONE_STEP"
+      ],
+      "explanation": "2s − 8 = 8. Add 8: 2s = 16. Divide by 2: s = 8."
+    },
+    {
+      "id": "two-step-equations/t4/022",
+      "tier": 4,
+      "prompt": "3 packs of k cards, lost 12. 12 cards left. Find k.",
+      "choices": [
+        "21",
+        "24",
+        "4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_STEP",
+        "IGNORED_FIXED",
+        null
+      ],
+      "explanation": "3k − 12 = 12. Add 12: 3k = 24. Divide by 3: k = 8."
+    },
+    {
+      "id": "two-step-equations/t4/023",
+      "tier": 4,
+      "prompt": "2 packs of k cards, lost 4. 4 cards left. Equation?",
+      "choices": [
+        "2k + 4 = 4",
+        "2k = 4",
+        "4k − 2 = 4",
+        "2k − 4 = 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_OP",
+        "IGNORED_FIXED",
+        "SWAPPED",
+        null
+      ],
+      "explanation": "2 groups of k, minus 4: 2k − 4 = 4. (Then k = 4.)"
+    },
+    {
+      "id": "two-step-equations/t4/024",
+      "tier": 4,
+      "prompt": "Each of 6 kids pays $c plus $2 tax. $36 in all. Find c.",
+      "choices": [
+        "4",
+        "34",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_P",
+        "ONE_STEP",
+        "WRONG_INVERSE"
+      ],
+      "explanation": "Divide both sides by 6: c + 2 = 6. Subtract 2: c = 4. Check: 6(4 + 2) = 36."
+    },
+    {
+      "id": "two-step-equations/t4/025",
+      "tier": 4,
+      "prompt": "$4 to get in, $2 a ride. Spent $20. Rides?",
+      "choices": [
+        "16",
+        "8",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "IGNORED_FIXED",
+        "ADDED_FIXED"
+      ],
+      "explanation": "2r + 4 = 20. Subtract 4: 2r = 16. Divide by 2: r = 8."
+    },
+    {
+      "id": "two-step-equations/t4/026",
+      "tier": 4,
+      "prompt": "Each of 2 pals pays $b plus a $4 tip. $20 in all. Equation?",
+      "choices": [
+        "4(b + 2) = 20",
+        "2b = 20",
+        "2(b − 4) = 20",
+        "2(b + 4) = 20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED",
+        "IGNORED_FIXED",
+        "WRONG_OP",
+        null
+      ],
+      "explanation": "2 people, each with (b + 4): 2(b + 4) = 20. (Then b = 6.)"
+    },
+    {
+      "id": "two-step-equations/t4/027",
+      "tier": 4,
+      "prompt": "Plan: $6 plus $2 a month. Paid $16. Months?",
+      "choices": [
+        "11",
+        "10",
+        "8",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FIXED",
+        "ONE_STEP",
+        "IGNORED_FIXED",
+        null
+      ],
+      "explanation": "2m + 6 = 16. Subtract 6: 2m = 10. Divide by 2: m = 5."
+    },
+    {
+      "id": "two-step-equations/t4/028",
+      "tier": 4,
+      "prompt": "Each of 5 pals pays $b plus a $2 tip. $25 in all. Find b.",
+      "choices": [
+        "23",
+        "7",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_P",
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Divide both sides by 5: b + 2 = 5. Subtract 2: b = 3. Check: 5(3 + 2) = 25."
+    },
+    {
+      "id": "two-step-equations/t4/029",
+      "tier": 4,
+      "prompt": "Each of 2 pals pays $b plus a $3 tip. $20 in all. Equation?",
+      "choices": [
+        "2(b + 3) = 20",
+        "2b = 20",
+        "2(b − 3) = 20",
+        "3(b + 2) = 20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "2 people, each with (b + 3): 2(b + 3) = 20. (Then b = 7.)"
+    },
+    {
+      "id": "two-step-equations/t4/030",
+      "tier": 4,
+      "prompt": "Each of 2 kids pays $c plus $3 tax. $16 in all. Find c.",
+      "choices": [
+        "13",
+        "8",
+        "11",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_P",
+        "ONE_STEP",
+        "WRONG_INVERSE",
+        null
+      ],
+      "explanation": "Divide both sides by 2: c + 3 = 8. Subtract 3: c = 5. Check: 2(5 + 3) = 16."
+    },
+    {
+      "id": "two-step-equations/t4/031",
+      "tier": 4,
+      "prompt": "Plan: $4 plus $3 a month. Paid $13. Equation for m months?",
+      "choices": [
+        "3m − 4 = 13",
+        "7m = 13",
+        "3m + 4 = 13",
+        "4m + 3 = 13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_OP",
+        "COMBINED_TERMS",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "$3 a month plus $4: 3m + 4 = 13. (Then m = 3.)"
+    },
+    {
+      "id": "two-step-equations/t4/032",
+      "tier": 4,
+      "prompt": "Plan: $6 plus $5 a month. Paid $16. Months?",
+      "choices": [
+        "2",
+        "5",
+        "50",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "MULTIPLIED",
+        "ONE_STEP"
+      ],
+      "explanation": "5m + 6 = 16. Subtract 6: 5m = 10. Divide by 5: m = 2."
+    },
+    {
+      "id": "two-step-equations/t4/033",
+      "tier": 4,
+      "prompt": "Each of 5 kids gets n cards and 3 pins: 50 items. Equation?",
+      "choices": [
+        "5n = 50",
+        "5(n − 3) = 50",
+        "5(n + 3) = 50",
+        "3(n + 5) = 50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        "WRONG_OP",
+        null,
+        "SWAPPED"
+      ],
+      "explanation": "5 people, each with (n + 3): 5(n + 3) = 50. (Then n = 7.)"
+    },
+    {
+      "id": "two-step-equations/t4/034",
+      "tier": 4,
+      "prompt": "Each of 6 pals pays $b plus a $4 tip. $60 in all. Find b.",
+      "choices": [
+        "56",
+        "14",
+        "10",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_P",
+        "WRONG_INVERSE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Divide both sides by 6: b + 4 = 10. Subtract 4: b = 6. Check: 6(6 + 4) = 60."
+    },
+    {
+      "id": "two-step-equations/t4/035",
+      "tier": 4,
+      "prompt": "2 boxes of n pens. Gave away 12. 6 left. Find n.",
+      "choices": [
+        "3",
+        "16",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        "SUBTRACTED",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "2n − 12 = 6. Add 12: 2n = 18. Divide by 2: n = 9."
+    },
+    {
+      "id": "two-step-equations/t4/036",
+      "tier": 4,
+      "prompt": "5 boxes of n pens. Gave away 10. 10 left. Find n.",
+      "choices": [
+        "4",
+        "20",
+        "15",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SUBTRACTED",
+        "IGNORED_FIXED"
+      ],
+      "explanation": "5n − 10 = 10. Add 10: 5n = 20. Divide by 5: n = 4."
+    },
+    {
+      "id": "two-step-equations/t4/037",
+      "tier": 4,
+      "prompt": "2 pens at $c each plus a $7 bag cost $15. Find c.",
+      "choices": [
+        "11",
+        "4",
+        "8",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_FIXED",
+        null,
+        "ONE_STEP",
+        "SUBTRACTED"
+      ],
+      "explanation": "2c + 7 = 15. Subtract 7: 2c = 8. Divide by 2: c = 4."
+    },
+    {
+      "id": "two-step-equations/t4/038",
+      "tier": 4,
+      "prompt": "$7 to get in, $4 a ride. Spent $15. Equation for r rides?",
+      "choices": [
+        "4r = 15",
+        "4r + 7 = 15",
+        "4r − 7 = 15",
+        "7r + 4 = 15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        null,
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "$4 a ride plus $7 to get in: 4r + 7 = 15. (Then r = 2.)"
+    },
+    {
+      "id": "two-step-equations/t4/039",
+      "tier": 4,
+      "prompt": "3 rows of k seats plus 8 extra make 17 seats. Equation?",
+      "choices": [
+        "3k + 8 = 17",
+        "3k = 17",
+        "3k − 8 = 17",
+        "8k + 3 = 17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORED_FIXED",
+        "WRONG_OP",
+        "SWAPPED"
+      ],
+      "explanation": "3 groups of k plus 8 more: 3k + 8 = 17. (Then k = 3.)"
+    },
+    {
+      "id": "two-step-equations/t4/040",
+      "tier": 4,
+      "prompt": "5 shirts cost $s each. $10 coupon. Paid $5. Find s.",
+      "choices": [
+        "1",
+        "3",
+        "10",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_FIXED",
+        null,
+        "SUBTRACTED",
+        "ONE_STEP"
+      ],
+      "explanation": "5s − 10 = 5. Add 10: 5s = 15. Divide by 5: s = 3."
+    },
+    {
+      "id": "two-step-equations/t5/001",
+      "tier": 5,
+      "prompt": "Solve: 10 − 5w < −10",
+      "choices": [
+        "w > −4",
+        "w < 4",
+        "w > 4",
+        "w ≥ 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROP",
+        "NO_FLIP",
+        null,
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "Subtract 10: −5w < −20. Divide by −5 and flip the sign: w > 4."
+    },
+    {
+      "id": "two-step-equations/t5/002",
+      "tier": 5,
+      "prompt": "Solve: −3w + 6 ≥ −9",
+      "choices": [
+        "w ≤ 5",
+        "w ≤ −5",
+        "w ≥ 5",
+        "w = 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "NO_FLIP",
+        "BOUNDARY_ONLY"
+      ],
+      "explanation": "Subtract 6: −3w ≥ −15. Divide by −3 and flip the sign: w ≤ 5."
+    },
+    {
+      "id": "two-step-equations/t5/003",
+      "tier": 5,
+      "prompt": "Save more than $20. Have $8, add $2 a week. Weeks w?",
+      "choices": [
+        "w ≥ 6",
+        "w < 6",
+        "w > 14",
+        "w > 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "WRONG_DIRECTION",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "2w + 8 > 20. Subtract 8: 2w > 12. Divide by 2: w > 6. 6 does not count."
+    },
+    {
+      "id": "two-step-equations/t5/004",
+      "tier": 5,
+      "prompt": "Solve: −5m + 8 ≤ −12",
+      "choices": [
+        "m ≤ 4",
+        "m ≥ −4",
+        "m ≥ 4",
+        "m > 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "SIGN_DROP",
+        null,
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "Subtract 8: −5m ≤ −20. Divide by −5 and flip the sign: m ≥ 4."
+    },
+    {
+      "id": "two-step-equations/t5/005",
+      "tier": 5,
+      "prompt": "Run at least 18 laps. Did 9, do 3 more a day. Days d?",
+      "choices": [
+        "d = 3",
+        "d > 3",
+        "d ≥ 3",
+        "d ≤ 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY_ONLY",
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "3d + 9 ≥ 18. Subtract 9: 3d ≥ 9. Divide by 3: d ≥ 3. 3 counts."
+    },
+    {
+      "id": "two-step-equations/t5/006",
+      "tier": 5,
+      "prompt": "Solve: −2x + 2 ≤ −8",
+      "choices": [
+        "x > 5",
+        "x = 5",
+        "x ≤ 5",
+        "x ≥ 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Subtract 2: −2x ≤ −10. Divide by −2 and flip the sign: x ≥ 5."
+    },
+    {
+      "id": "two-step-equations/t5/007",
+      "tier": 5,
+      "prompt": "Gym $9 to join, $3 a visit. Spend at most $18. Visits v?",
+      "choices": [
+        "v < 3",
+        "v ≥ 3",
+        "v ≤ 9",
+        "v ≤ 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "WRONG_DIRECTION",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "3v + 9 ≤ 18. Subtract 9: 3v ≤ 9. Divide by 3: v ≤ 3. 3 counts."
+    },
+    {
+      "id": "two-step-equations/t5/008",
+      "tier": 5,
+      "prompt": "Solve: −3 − 2m < −11",
+      "choices": [
+        "m < 4",
+        "m > 4",
+        "m ≥ 4",
+        "m > 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "SAME_OP"
+      ],
+      "explanation": "Add 3: −2m < −8. Divide by −2 and flip the sign: m > 4."
+    },
+    {
+      "id": "two-step-equations/t5/009",
+      "tier": 5,
+      "prompt": "Solve: −3y + 8 > 2",
+      "choices": [
+        "y < −2",
+        "y < 2",
+        "y = 2",
+        "y > 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "BOUNDARY_ONLY",
+        "NO_FLIP"
+      ],
+      "explanation": "Subtract 8: −3y > −6. Divide by −3 and flip the sign: y < 2."
+    },
+    {
+      "id": "two-step-equations/t5/010",
+      "tier": 5,
+      "prompt": "Solve: 8y + 7 < −9",
+      "choices": [
+        "y > −2",
+        "y ≤ −2",
+        "y < −16",
+        "y < −2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_WRONG",
+        "STRICT_VS_INCLUSIVE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Subtract 7: 8y < −16. Divide by 8: y < −2. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/011",
+      "tier": 5,
+      "prompt": "Under 20 lb allowed. Cart 8 lb, boxes 4 lb. Boxes b?",
+      "choices": [
+        "b = 3",
+        "b < 3",
+        "b ≤ 3",
+        "b > 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOUNDARY_ONLY",
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "4b + 8 < 20. Subtract 8: 4b < 12. Divide by 4: b < 3. 3 does not count."
+    },
+    {
+      "id": "two-step-equations/t5/012",
+      "tier": 5,
+      "prompt": "Entry $5, rides $3 each. Spend at most $20. Rides r?",
+      "choices": [
+        "r ≤ 5",
+        "r < 5",
+        "r ≤ 15",
+        "r ≥ 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "ONE_STEP",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "3r + 5 ≤ 20. Subtract 5: 3r ≤ 15. Divide by 3: r ≤ 5. 5 counts."
+    },
+    {
+      "id": "two-step-equations/t5/013",
+      "tier": 5,
+      "prompt": "Entry $12, rides $2 each. Spend at most $20. Rides r?",
+      "choices": [
+        "r ≤ 4",
+        "r < 4",
+        "r = 4",
+        "r ≥ 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "2r + 12 ≤ 20. Subtract 12: 2r ≤ 8. Divide by 2: r ≤ 4. 4 counts."
+    },
+    {
+      "id": "two-step-equations/t5/014",
+      "tier": 5,
+      "prompt": "Solve: 2 − 5n < 12",
+      "choices": [
+        "n ≥ −2",
+        "n > −2",
+        "n < −2",
+        "n < 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "NO_FLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 2: −5n < 10. Divide by −5 and flip the sign: n > −2."
+    },
+    {
+      "id": "two-step-equations/t5/015",
+      "tier": 5,
+      "prompt": "Solve: 7n − 11 ≥ 10",
+      "choices": [
+        "n ≥ 21",
+        "n ≤ 3",
+        "n = 3",
+        "n ≥ 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "FLIP_WRONG",
+        "BOUNDARY_ONLY",
+        null
+      ],
+      "explanation": "Add 11: 7n ≥ 21. Divide by 7: n ≥ 3. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/016",
+      "tier": 5,
+      "prompt": "Gym $7 to join, $2 a visit. Spend at most $19. Visits v?",
+      "choices": [
+        "v ≤ 6",
+        "v < 6",
+        "v = 6",
+        "v ≥ 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "2v + 7 ≤ 19. Subtract 7: 2v ≤ 12. Divide by 2: v ≤ 6. 6 counts."
+    },
+    {
+      "id": "two-step-equations/t5/017",
+      "tier": 5,
+      "prompt": "Solve: −2w − 2 < −8",
+      "choices": [
+        "w > 3",
+        "w < 3",
+        "w ≥ 3",
+        "w < −6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "STRICT_VS_INCLUSIVE",
+        "ONE_STEP"
+      ],
+      "explanation": "Add 2: −2w < −6. Divide by −2 and flip the sign: w > 3."
+    },
+    {
+      "id": "two-step-equations/t5/018",
+      "tier": 5,
+      "prompt": "Solve: 7 − 2k ≤ −3",
+      "choices": [
+        "k > 5",
+        "k = 5",
+        "k ≤ 5",
+        "k ≥ 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "Subtract 7: −2k ≤ −10. Divide by −2 and flip the sign: k ≥ 5."
+    },
+    {
+      "id": "two-step-equations/t5/019",
+      "tier": 5,
+      "prompt": "Solve: 4 − 2y < 10",
+      "choices": [
+        "y < 6",
+        "y < −3",
+        "y > −7",
+        "y > −3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "NO_FLIP",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Subtract 4: −2y < 6. Divide by −2 and flip the sign: y > −3."
+    },
+    {
+      "id": "two-step-equations/t5/020",
+      "tier": 5,
+      "prompt": "Gym $4 to join, $2 a visit. Spend at most $12. Visits v?",
+      "choices": [
+        "v < 4",
+        "v ≤ 8",
+        "v ≤ 4",
+        "v ≥ 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "SAME_OP",
+        null,
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "2v + 4 ≤ 12. Subtract 4: 2v ≤ 8. Divide by 2: v ≤ 4. 4 counts."
+    },
+    {
+      "id": "two-step-equations/t5/021",
+      "tier": 5,
+      "prompt": "Solve: 2x − 7 < 5",
+      "choices": [
+        "x < 6",
+        "x = 6",
+        "x < −1",
+        "x > 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOUNDARY_ONLY",
+        "SAME_OP",
+        "FLIP_WRONG"
+      ],
+      "explanation": "Add 7: 2x < 12. Divide by 2: x < 6. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/022",
+      "tier": 5,
+      "prompt": "Solve: −11 − 4y < −3",
+      "choices": [
+        "y ≥ −2",
+        "y > −2",
+        "y < 8",
+        "y < −2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "ONE_STEP",
+        "NO_FLIP"
+      ],
+      "explanation": "Add 11: −4y < 8. Divide by −4 and flip the sign: y > −2."
+    },
+    {
+      "id": "two-step-equations/t5/023",
+      "tier": 5,
+      "prompt": "Under 18 lb allowed. Cart 9 lb, boxes 3 lb. Boxes b?",
+      "choices": [
+        "b < 3",
+        "b > 3",
+        "b ≤ 3",
+        "b < 9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_DIRECTION",
+        "STRICT_VS_INCLUSIVE",
+        "ONE_STEP"
+      ],
+      "explanation": "3b + 9 < 18. Subtract 9: 3b < 9. Divide by 3: b < 3. 3 does not count."
+    },
+    {
+      "id": "two-step-equations/t5/024",
+      "tier": 5,
+      "prompt": "Solve: 3 − 2n > −11",
+      "choices": [
+        "n < 4",
+        "n = 7",
+        "n < 7",
+        "n > 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_OP",
+        "BOUNDARY_ONLY",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Subtract 3: −2n > −14. Divide by −2 and flip the sign: n < 7."
+    },
+    {
+      "id": "two-step-equations/t5/025",
+      "tier": 5,
+      "prompt": "Solve: 3w − 7 ≥ −1",
+      "choices": [
+        "w ≤ 2",
+        "w ≥ 2",
+        "w > 2",
+        "w = 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_WRONG",
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY"
+      ],
+      "explanation": "Add 7: 3w ≥ 6. Divide by 3: w ≥ 2. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/026",
+      "tier": 5,
+      "prompt": "Solve: −5w − 12 ≥ 3",
+      "choices": [
+        "w < −3",
+        "w ≤ 3",
+        "w ≤ −3",
+        "w ≥ −3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "SIGN_DROP",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Add 12: −5w ≥ 15. Divide by −5 and flip the sign: w ≤ −3."
+    },
+    {
+      "id": "two-step-equations/t5/027",
+      "tier": 5,
+      "prompt": "Solve: 7 − 4n < −1",
+      "choices": [
+        "n > −2",
+        "n > 2",
+        "n < −8",
+        "n < 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROP",
+        null,
+        "ONE_STEP",
+        "NO_FLIP"
+      ],
+      "explanation": "Subtract 7: −4n < −8. Divide by −4 and flip the sign: n > 2."
+    },
+    {
+      "id": "two-step-equations/t5/028",
+      "tier": 5,
+      "prompt": "Solve: −12 − 3t < 12",
+      "choices": [
+        "t < −8",
+        "t > 0",
+        "t = −8",
+        "t > −8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FLIP",
+        "SAME_OP",
+        "BOUNDARY_ONLY",
+        null
+      ],
+      "explanation": "Add 12: −3t < 24. Divide by −3 and flip the sign: t > −8."
+    },
+    {
+      "id": "two-step-equations/t5/029",
+      "tier": 5,
+      "prompt": "Solve: −3m + 12 ≤ −9",
+      "choices": [
+        "m > 7",
+        "m ≤ 7",
+        "m ≥ 7",
+        "m ≤ −21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STRICT_VS_INCLUSIVE",
+        "NO_FLIP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 12: −3m ≤ −21. Divide by −3 and flip the sign: m ≥ 7."
+    },
+    {
+      "id": "two-step-equations/t5/030",
+      "tier": 5,
+      "prompt": "Solve: 8 − 2n ≥ −8",
+      "choices": [
+        "n ≤ 8",
+        "n ≤ −8",
+        "n < 8",
+        "n ≥ 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROP",
+        "STRICT_VS_INCLUSIVE",
+        "NO_FLIP"
+      ],
+      "explanation": "Subtract 8: −2n ≥ −16. Divide by −2 and flip the sign: n ≤ 8."
+    },
+    {
+      "id": "two-step-equations/t5/031",
+      "tier": 5,
+      "prompt": "Solve: 3n − 10 < 2",
+      "choices": [
+        "n > 4",
+        "n < 4",
+        "n ≤ 4",
+        "n = 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_WRONG",
+        null,
+        "STRICT_VS_INCLUSIVE",
+        "BOUNDARY_ONLY"
+      ],
+      "explanation": "Add 10: 3n < 12. Divide by 3: n < 4. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/032",
+      "tier": 5,
+      "prompt": "Solve: −4y − 7 < 1",
+      "choices": [
+        "y = −2",
+        "y ≥ −2",
+        "y > −2",
+        "y < −2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY_ONLY",
+        "STRICT_VS_INCLUSIVE",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "Add 7: −4y < 8. Divide by −4 and flip the sign: y > −2."
+    },
+    {
+      "id": "two-step-equations/t5/033",
+      "tier": 5,
+      "prompt": "Phone plan: $8 plus $2 a month. Cost over $14. Months m?",
+      "choices": [
+        "m < 3",
+        "m > 11",
+        "m ≥ 3",
+        "m > 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_DIRECTION",
+        "SAME_OP",
+        "STRICT_VS_INCLUSIVE",
+        null
+      ],
+      "explanation": "2m + 8 > 14. Subtract 8: 2m > 6. Divide by 2: m > 3. 3 does not count."
+    },
+    {
+      "id": "two-step-equations/t5/034",
+      "tier": 5,
+      "prompt": "Solve: 3t + 5 ≥ 11",
+      "choices": [
+        "t = 2",
+        "t ≤ 2",
+        "t ≥ 2",
+        "t ≥ 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY_ONLY",
+        "FLIP_WRONG",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Subtract 5: 3t ≥ 6. Divide by 3: t ≥ 2. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/035",
+      "tier": 5,
+      "prompt": "Solve: −2y + 4 ≥ −10",
+      "choices": [
+        "y ≤ 7",
+        "y = 7",
+        "y ≥ −14",
+        "y ≥ 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOUNDARY_ONLY",
+        "ONE_STEP",
+        "NO_FLIP"
+      ],
+      "explanation": "Subtract 4: −2y ≥ −14. Divide by −2 and flip the sign: y ≤ 7."
+    },
+    {
+      "id": "two-step-equations/t5/036",
+      "tier": 5,
+      "prompt": "Solve: 4x + 3 > −9",
+      "choices": [
+        "x = −3",
+        "x > −3",
+        "x < −3",
+        "x ≥ −3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOUNDARY_ONLY",
+        null,
+        "FLIP_WRONG",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "Subtract 3: 4x > −12. Divide by 4: x > −3. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/037",
+      "tier": 5,
+      "prompt": "Solve: 5x + 6 > −9",
+      "choices": [
+        "x < −3",
+        "x > −3",
+        "x > −15",
+        "x > 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_WRONG",
+        null,
+        "ONE_STEP",
+        "SIGN_DROP"
+      ],
+      "explanation": "Subtract 6: 5x > −15. Divide by 5: x > −3. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/038",
+      "tier": 5,
+      "prompt": "Solve: 3w − 8 ≥ 7",
+      "choices": [
+        "w ≥ 5",
+        "w = 5",
+        "w ≤ 5",
+        "w > 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOUNDARY_ONLY",
+        "FLIP_WRONG",
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "Add 8: 3w ≥ 15. Divide by 3: w ≥ 5. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/039",
+      "tier": 5,
+      "prompt": "Solve: 3t + 3 ≤ 12",
+      "choices": [
+        "t ≥ 3",
+        "t < 3",
+        "t ≤ 5",
+        "t ≤ 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_WRONG",
+        "STRICT_VS_INCLUSIVE",
+        "SAME_OP",
+        null
+      ],
+      "explanation": "Subtract 3: 3t ≤ 9. Divide by 3: t ≤ 3. The sign stays."
+    },
+    {
+      "id": "two-step-equations/t5/040",
+      "tier": 5,
+      "prompt": "Solve: −2w − 9 ≥ 11",
+      "choices": [
+        "w ≥ 20",
+        "w ≥ −10",
+        "w ≤ −10",
+        "w < −10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "NO_FLIP",
+        null,
+        "STRICT_VS_INCLUSIVE"
+      ],
+      "explanation": "Add 9: −2w ≥ 20. Divide by −2 and flip the sign: w ≤ −10."
+    }
+  ]
+}

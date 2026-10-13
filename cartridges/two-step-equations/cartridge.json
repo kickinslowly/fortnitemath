@@ -1,0 +1,113 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "two-step-equations",
+  "version": "1.0.0",
+  "title": "Two-Step Equations",
+  "subtitle": "Equations & Inequalities: px + q = r",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.EE.B.3",
+    "CCSS.MATH.CONTENT.7.EE.B.4.A",
+    "CCSS.MATH.CONTENT.7.EE.B.4.B"
+  ],
+  "seed": 20261025,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a, tightened. Forms px + q = r and p(x + q) = r, and inequalities of the same shapes; one variable, never on both sides (grade 8). p has size 2-10; every solution (or inequality boundary) is a whole number of size 2-10; every division is exact and a times-table fact (p times the solution). T1 and the T4 stories have no negatives: p 2-9, q 1-12 (stories 2-12, never equal to p), r 1-20 (stories 2-20), so px is at most 19, or 32 when q is subtracted. T2 and T5 symbols carry signs as the concept: q has size 1-12 and r size at most 12 (every + and - step uses literals of size at most 12), and px has size at most 24. Groups p(x + q) = r (T3, T4): r = p times s, with p and the group value s of size 2-10 (r at most 100), q of size 1-10 (2-10 where the p is distributed), and x = s - q. Inequality stories: p 2-9, boundary 3-10, q 2-12, r at most 20.",
+  "tiers": [
+    { "tier": 1, "name": "Solve px + q = r", "description": "Undo the plus or minus first, then undo the times. Whole numbers only." },
+    { "tier": 2, "name": "Negatives", "description": "Same two steps with negative coefficients, constants and answers." },
+    { "tier": 3, "name": "Parentheses", "description": "Solve p(x + q) = r by dividing first, and distribute the p." },
+    { "tier": 4, "name": "Stories: Write & Solve", "description": "Turn a short story into a two-step equation, and solve it." },
+    { "tier": 5, "name": "Two-Step Inequalities", "description": "Solve px + q > r and friends. Flip the sign when you divide by a negative." }
+  ],
+  "misconceptions": {
+    "SAME_OP": {
+      "student": "Undo + with −, and − with +, on both sides.",
+      "teacher": "Applies the constant's own operation to the right side instead of undoing it (2x + 6 = 14 gives 14 + 6 = 20, so 10)."
+    },
+    "DIVIDE_FIRST": {
+      "student": "Dividing must hit every term. Safer: undo the + or − first, then divide.",
+      "teacher": "Divides only the right side by the coefficient and leaves the constant alone (2x + 6 = 14 gives 14 ÷ 2 − 6 = 1)."
+    },
+    "ONE_STEP": {
+      "student": "You stopped early. After undoing + or −, divide to get x alone.",
+      "teacher": "Stops after the first inverse step and reports the value of px (2x = 8 answers 8) instead of x. Same stop for an inequality boundary."
+    },
+    "MULTIPLIED": {
+      "student": "x is multiplied by the number, so divide to undo it. Don't multiply again.",
+      "teacher": "Multiplies by the coefficient instead of dividing (2x = 8 gives x = 16)."
+    },
+    "SUBTRACTED": {
+      "student": "2x means 2 times x. Undo times by dividing, not subtracting.",
+      "teacher": "Reads px as p + x and subtracts the coefficient (2x = 8 gives 6)."
+    },
+    "SIGN_DROP": {
+      "student": "Same signs divide to positive; different signs divide to negative.",
+      "teacher": "Loses a negative sign in the division, so the answer has the opposite sign (−2x = 6 gives 3, not −3)."
+    },
+    "WRONG_INVERSE": {
+      "student": "Undo the number inside the parentheses with the OPPOSITE operation.",
+      "teacher": "Undoes the group's constant with the wrong operation (3(x + 2) = 21 gives 7 + 2 = 9)."
+    },
+    "DROPPED_P": {
+      "student": "Divide by the number outside the parentheses first. Don't skip it.",
+      "teacher": "Ignores the factor outside the parentheses (3(x + 2) = 21 gives 21 − 2 = 19)."
+    },
+    "PARTIAL_DIST": {
+      "student": "The number outside multiplies EVERYTHING inside the parentheses.",
+      "teacher": "Distributes to the first term only (3(x + 2) becomes 3x + 2), or writes the group as p times x plus q."
+    },
+    "DIST_LAST_ONLY": {
+      "student": "The number outside multiplies the x too, not just the number.",
+      "teacher": "Multiplies only the constant inside the parentheses (3(x + 2) becomes x + 6)."
+    },
+    "DIST_SIGN": {
+      "student": "Keep the sign of the inner number when you multiply it.",
+      "teacher": "Loses the minus sign when distributing (3(x − 2) becomes 3x + 6), or adds one that is not there."
+    },
+    "ADDED_FOR_MULT": {
+      "student": "Distributing means multiply, not add: 3 times 2 is 6.",
+      "teacher": "Adds the outside number to the inside constant instead of multiplying (3(x + 2) becomes 3x + 5)."
+    },
+    "IGNORED_FIXED": {
+      "student": "Don't forget the one-time amount. Take it off first, then divide.",
+      "teacher": "Leaves out the fixed amount: divides the whole total by the rate, or writes px = r."
+    },
+    "ADDED_FIXED": {
+      "student": "The one-time amount is already inside the total. Undo it with the opposite.",
+      "teacher": "Adds the fixed amount to the total instead of removing it (16 + 4 = 20, so 10 instead of 6)."
+    },
+    "SWAPPED": {
+      "student": "Numbers in the wrong spots. Match each number to its job in the story.",
+      "teacher": "Swaps two numbers: puts the rate on the constant and the fixed amount on the variable (4r + 2 = 16), or the total with a part."
+    },
+    "WRONG_OP": {
+      "student": "Right numbers, wrong sign. Does the story add to the total or take away?",
+      "teacher": "Writes the constant with the wrong operation (2r − 4 = 16 for a fee that is added)."
+    },
+    "COMBINED_TERMS": {
+      "student": "A number and a term with a letter are unlike. Don't add them into one.",
+      "teacher": "Adds the coefficient and the constant into one term (2r + 4 = 16 becomes 6r = 16)."
+    },
+    "NO_FLIP": {
+      "student": "Dividing by a negative FLIPS the sign: < becomes >, ≤ becomes ≥.",
+      "teacher": "Divides both sides by a negative number and keeps the inequality sign."
+    },
+    "FLIP_WRONG": {
+      "student": "Only flip the sign when you divide by a NEGATIVE. Here it stays.",
+      "teacher": "Reverses the inequality after dividing by a positive number."
+    },
+    "BOUNDARY_ONLY": {
+      "student": "That is only the boundary. An inequality has a whole range of answers.",
+      "teacher": "Solves it as an equation and writes x = boundary."
+    },
+    "STRICT_VS_INCLUSIVE": {
+      "student": "Check the sign: ≤ and ≥ include the number, < and > do not.",
+      "teacher": "Confuses strict and inclusive: includes the boundary when the problem excludes it, or the reverse."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Check the words: at most and under mean less, at least and over mean more.",
+      "teacher": "Reads the story's direction backwards (at most gives ≥, at least gives ≤)."
+    }
+  }
+}

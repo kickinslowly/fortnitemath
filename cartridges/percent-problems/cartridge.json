@@ -1,0 +1,101 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "percent-problems",
+  "version": "1.0.0",
+  "title": "Percent Problems",
+  "subtitle": "Tax, Tips, Discounts & Percent Change",
+  "grade": "7",
+  "standards": ["CCSS.MATH.CONTENT.7.RP.A.3"],
+  "seed": 20261022,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b percents. Percents: tip 10, 20, 25; tax 10, 20; discount 10, 20, 25, 30, 40, 50, 75; markup 10, 20, 25, 30, 40, 50; simple interest 10, 20, 25 a year for 2-5 years; percent change 10, 20, 25, 30, 40, 50, 75; percent error 10, 20, 25, 30, 40, 50; a second step 10, 20 (tax) or 10, 20, 25 (off). Every percent is taken of a whole it divides cleanly, so the hidden ÷ is a times-table fact: tens of percent of 20-90 in tens (10% first, then × 1-9), 25% and 75% of 8-40 in fours, 50% also of evens 4-20. Each amount added or subtracted (tip, tax, discount, markup, interest, change, miss) is a whole number 2-20; every whole, new price and total is 100 or less. A percent change or error is the change over the original (actual) value, itself one of those clean wholes. Interest: yearly amount 2-10, years 2-5, interest 20 or less. Two steps: the second percent is of a new whole that is again a clean one. Answers are whole dollars or whole percents. Wrong choices: whatever the misreading gives, up to 999 (a decimal percent like 0.25% is the 'forgot to scale' slip).",
+  "tiers": [
+    { "tier": 1, "name": "Tax & Tip", "description": "Find the tip or tax, then add it on to get the total." },
+    { "tier": 2, "name": "Discounts", "description": "Find the discount, then take it off to get the sale price." },
+    { "tier": 3, "name": "Markup & Interest", "description": "Markups add to a price. Simple interest repeats every year." },
+    { "tier": 4, "name": "Percent Change", "description": "Find the percent increase or decrease from the original value." },
+    { "tier": 5, "name": "Error & Two Steps", "description": "Percent error, and two percents one after the other." }
+  ],
+  "misconceptions": {
+    "PART_ONLY": {
+      "student": "That is only the extra amount. Add it to the price to get the total.",
+      "teacher": "Stops after finding the tip, tax or markup and reports it as the total."
+    },
+    "DISCOUNT_ONLY": {
+      "student": "That is only the discount. Take it off the price to see what you pay.",
+      "teacher": "Stops after finding the discount and reports it as the sale price."
+    },
+    "PERCENT_AS_DOLLARS": {
+      "student": "The % number is not dollars. Find that percent OF the price first.",
+      "teacher": "Uses the percent number itself as the dollar amount (20% of $40 treated as $20)."
+    },
+    "TENTH_FOR_ALL": {
+      "student": "Only 10% is 1/10 of the price. Find 10% first, then scale to the percent.",
+      "teacher": "Takes 10% of the whole whatever percent is asked (20% of $40 as $4)."
+    },
+    "SUBTRACTED": {
+      "student": "Tax, tips and markups add to the price. They do not take away.",
+      "teacher": "Subtracts a tip, tax or markup instead of adding it."
+    },
+    "ADDED": {
+      "student": "A discount takes money off. Subtract it from the price.",
+      "teacher": "Adds the discount to the price instead of subtracting it."
+    },
+    "TOTAL_FOR_PART": {
+      "student": "That is the total. The question asks only for the extra amount.",
+      "teacher": "Gives the price plus the tip, tax or markup when only the amount was asked."
+    },
+    "SALE_FOR_SAVINGS": {
+      "student": "That is the sale price. The question asks how much you save.",
+      "teacher": "Gives the price after the discount when the discount itself was asked."
+    },
+    "ONE_YEAR": {
+      "student": "That is one year. Simple interest repeats every year: times the years.",
+      "teacher": "Finds one year of simple interest and does not multiply by the years."
+    },
+    "TOTAL_FOR_INTEREST": {
+      "student": "That is the balance. Interest is only what you earn on top.",
+      "teacher": "Gives the starting amount plus interest when the interest alone was asked."
+    },
+    "INTEREST_ONLY": {
+      "student": "That is only the interest. The balance is the start amount plus interest.",
+      "teacher": "Gives the interest earned when the total balance was asked."
+    },
+    "DIFFERENCE_AS_PERCENT": {
+      "student": "A change of 5 is not 5%. Divide the change by the original (or actual) value.",
+      "teacher": "Reports the size of the change (or miss) itself as the percent."
+    },
+    "NEW_AS_BASE": {
+      "student": "Compare the change with the ORIGINAL amount, not the new one.",
+      "teacher": "Divides the change by the new value instead of the original."
+    },
+    "RATIO_AS_CHANGE": {
+      "student": "That compares new to old. A percent change is only the part that changed.",
+      "teacher": "Gives new/old as a percent (125%, 80%) instead of the change over the original."
+    },
+    "DECIMAL_NOT_PERCENT": {
+      "student": "That is the decimal. Multiply by 100 to write it as a percent.",
+      "teacher": "Divides the change by the original but leaves it as a decimal, then writes %."
+    },
+    "GUESS_AS_BASE": {
+      "student": "Percent error compares the miss with the ACTUAL value, not the guess.",
+      "teacher": "Divides the miss by the guess instead of the actual value."
+    },
+    "GUESS_RATIO": {
+      "student": "That is guess compared to actual. Percent error is only the miss.",
+      "teacher": "Gives guess/actual as a percent (90%, 120%) instead of the miss over the actual."
+    },
+    "FORGOT_SECOND": {
+      "student": "There is a second step. Take the second percent of the new price too.",
+      "teacher": "Stops after the first percent and ignores the second."
+    },
+    "COMBINED_PERCENTS": {
+      "student": "Do one percent at a time. The second is of the new price, not the original.",
+      "teacher": "Combines the two percents (50% off, 10% tax as 40% off) or takes the second of the original."
+    },
+    "SECOND_WRONG_WAY": {
+      "student": "Check the direction: tax and markups add, discounts take away.",
+      "teacher": "Applies the second percent the wrong way (adds a discount, subtracts a tax)."
+    }
+  }
+}

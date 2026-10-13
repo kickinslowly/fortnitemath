@@ -1,0 +1,181 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "circles",
+  "version": "1.0.0",
+  "title": "Circles",
+  "subtitle": "Radius, Circumference, Area & π",
+  "grade": "7",
+  "standards": ["CCSS.MATH.CONTENT.7.G.B.4"],
+  "seed": 20261027,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b measurement. Every given radius or diameter is 2-10 (a halved diameter is even, so its radius is 2-5; tier 1 alone halves an odd diameter to x.5). Every × step has both factors 1-10; every ÷ is exact with divisor and quotient 2-10; every + joins two values of 20 or less. Answers stay in terms of π: every π coefficient (circumference, area, arc, perimeter) is a whole number 1-100. 'Use 3 for π' answers are whole numbers 1-100 reached through times-table steps (6 × r, 3 × d, 3 × 3 × 3). Half- and quarter-circle areas go through an even radius ((r/2) × r, (r/2) × (r/2)). Scale questions use factors 1/2, 2, 3, 4. No area-to-radius (square roots are grade 8). Wrong choices up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Radius, Diameter & π", "description": "Radius is half the diameter. Circumference ÷ diameter is π for every circle." },
+    { "tier": 2, "name": "Circumference", "description": "Distance around: C = 2πr = πd. Leave π as π." },
+    { "tier": 3, "name": "Area of a Circle", "description": "Area = π × r × r. Square the radius, not the diameter." },
+    { "tier": 4, "name": "Work Backward & Estimate", "description": "Find the radius from the circumference. Use 3 for π to estimate." },
+    { "tier": 5, "name": "Half & Quarter Circles", "description": "Areas, curved edges and perimeters of parts of a circle." }
+  ],
+  "misconceptions": {
+    "HALVED_FOR_DOUBLED": {
+      "student": "Diameter is twice the radius: it goes all the way across.",
+      "teacher": "Halves the radius to get the diameter."
+    },
+    "DOUBLED_FOR_HALVED": {
+      "student": "Radius is half the diameter: it only goes to the center.",
+      "teacher": "Doubles the diameter to get the radius."
+    },
+    "SAME_NUMBER": {
+      "student": "Radius and diameter are different: the diameter is twice the radius.",
+      "teacher": "Gives the same number for radius and diameter."
+    },
+    "C_FOR_D": {
+      "student": "Diameter is straight across. The distance around needs π.",
+      "teacher": "Reports the circumference where the diameter is asked."
+    },
+    "HALVED_TWICE": {
+      "student": "Halve just once: the radius is half the diameter.",
+      "teacher": "Halves twice (divides by 4) going from diameter to radius."
+    },
+    "SIZE_MATTERS": {
+      "student": "The ratio does not depend on size. Every circle gives the same number.",
+      "teacher": "Answers with the given length instead of the constant ratio."
+    },
+    "TWO_PI": {
+      "student": "π is circumference ÷ diameter. The 2π is circumference ÷ radius.",
+      "teacher": "Gives 2π for circumference ÷ diameter (mixes in the 2 of C = 2πr)."
+    },
+    "DIAMETER_RATIO": {
+      "student": "Circumference ÷ radius is 2π. Only ÷ diameter gives π.",
+      "teacher": "Gives π for circumference ÷ radius (uses the diameter ratio)."
+    },
+    "INVERTED": {
+      "student": "You flipped it: the circumference is the big number on top.",
+      "teacher": "Divides the other way round (diameter or radius ÷ circumference)."
+    },
+    "VOCAB_MIX": {
+      "student": "Around = circumference, inside = area, across = diameter, center-out = radius.",
+      "teacher": "Mixes up the circle vocabulary."
+    },
+    "RADII_COUNT": {
+      "student": "Those are radii. A diameter is 2 radii, so about 3 diameters.",
+      "teacher": "Counts radii when the question asks for diameters."
+    },
+    "DIAMETER_COUNT": {
+      "student": "Those are diameters. A diameter is 2 radii: about 6 radii.",
+      "teacher": "Counts diameters when the question asks for radii."
+    },
+    "SQUARE_AROUND": {
+      "student": "A square around it is longer. A circle is about 3 diameters, 6 radii.",
+      "teacher": "Uses the perimeter of the bounding square (4 diameters or 8 radii)."
+    },
+    "R_FOR_D": {
+      "student": "Circumference = π × diameter. The radius is only half of that.",
+      "teacher": "Uses πr (the radius) where π × diameter is needed."
+    },
+    "AREA_FOR_C": {
+      "student": "That's the area. Circumference goes around the edge: 2πr, or π × diameter.",
+      "teacher": "Computes the area (or squares a length) instead of the circumference."
+    },
+    "DOUBLED_D": {
+      "student": "Too much: circumference is π × diameter, or 2 × π × radius. Not both 2s.",
+      "teacher": "Doubles the diameter: applies 2πr with the diameter in place of r."
+    },
+    "NO_PI": {
+      "student": "Don't drop π: it is part of every circle formula (use 3 if told).",
+      "teacher": "Leaves π out of the answer."
+    },
+    "D_FOR_R": {
+      "student": "In π × r × r, r is the RADIUS. Use half the diameter.",
+      "teacher": "Uses the diameter where the radius belongs (squares the diameter)."
+    },
+    "DOUBLED_RADIUS": {
+      "student": "Square the radius as given: π × r × r. Don't double it first.",
+      "teacher": "Doubles the radius (uses the diameter) before squaring."
+    },
+    "SQUARED_SCALE": {
+      "student": "Circumference is a length: double the radius, double the circumference.",
+      "teacher": "Scales the circumference by the square of the radius factor."
+    },
+    "C_FOR_AREA": {
+      "student": "That's the circumference. Area is π × radius × radius.",
+      "teacher": "Computes the circumference instead of the area."
+    },
+    "NO_SQUARE": {
+      "student": "Area needs r × r: square the radius, don't just use it.",
+      "teacher": "Multiplies by the radius once instead of squaring it."
+    },
+    "SAME_SCALE": {
+      "student": "Area uses r × r, so it grows by the scale factor squared.",
+      "teacher": "Scales the area by the same factor as the radius."
+    },
+    "CUBED_SCALE": {
+      "student": "Cubing is for volume. Lengths scale by k, areas by k × k.",
+      "teacher": "Scales the circumference or area by the cube of the radius factor."
+    },
+    "SUM_RADII": {
+      "student": "Add the AREAS, not the radii. Find each π × r × r first, then add.",
+      "teacher": "Adds the radii first, then finds one area."
+    },
+    "ONE_CIRCLE": {
+      "student": "You used only one circle. Add both areas.",
+      "teacher": "Reports the area of only one of the two circles."
+    },
+    "GAVE_DIAMETER": {
+      "student": "The number beside π is the diameter. The radius is half of it.",
+      "teacher": "Reads the π coefficient (the diameter) as the radius."
+    },
+    "WRONG_WAY": {
+      "student": "Going backward means undoing: divide here, don't multiply.",
+      "teacher": "Multiplies instead of dividing when working back from the circumference."
+    },
+    "GAVE_RADIUS": {
+      "student": "The number beside π is the diameter itself, not half of it.",
+      "teacher": "Halves the π coefficient to give the radius when the diameter is asked."
+    },
+    "FORGOT_PI": {
+      "student": "Don't forget π (3 here): C = 6 × radius, or 3 × diameter.",
+      "teacher": "Ignores π when working back from an estimated circumference."
+    },
+    "WHOLE_CIRCLE": {
+      "student": "That's the whole circle. Take only the half or quarter you need.",
+      "teacher": "Reports the whole circle's measure for a part of a circle."
+    },
+    "HALVED_RADIUS": {
+      "student": "Half the circle means half the AREA, not half the radius.",
+      "teacher": "Halves the radius before squaring instead of halving the area."
+    },
+    "ARC_FOR_AREA": {
+      "student": "That's the curved edge. Area is the space inside.",
+      "teacher": "Gives the length of the curved edge where the area is asked."
+    },
+    "HALF_FOR_QUARTER": {
+      "student": "A quarter is 1/4 of the circle, not 1/2.",
+      "teacher": "Takes half of the circle for a quarter circle."
+    },
+    "QUARTERED_RADIUS": {
+      "student": "Take 1/4 of the area, not 1/4 of the radius.",
+      "teacher": "Quarters the radius before squaring instead of quartering the area."
+    },
+    "AREA_FOR_ARC": {
+      "student": "That's area. The curved edge is a length: part of the circumference.",
+      "teacher": "Gives the area where the curved edge is asked."
+    },
+    "PERIMETER_NOT_ARC": {
+      "student": "That adds the flat side. The curved edge alone is just the curve.",
+      "teacher": "Adds the diameter (the flat side) to the curved edge."
+    },
+    "ARC_ONLY": {
+      "student": "Perimeter also includes the flat side: add the diameter.",
+      "teacher": "Gives only the curved edge for the perimeter of a semicircle."
+    },
+    "WHOLE_C_PLUS": {
+      "student": "Only half the circumference is curved. Then add the diameter.",
+      "teacher": "Uses the whole circumference plus the diameter for a semicircle."
+    },
+    "HALF_C_PLUS_R": {
+      "student": "The flat side is the whole diameter, not just the radius.",
+      "teacher": "Adds the radius, not the diameter, as the flat side."
+    }
+  }
+}

@@ -132,7 +132,8 @@ non-integer *is* the concept. They keep §4a's spirit by these rules, stated in 
 | Every topic | Every hidden whole-number step is a §4a step (× and ÷ inside the times tables, + − ≤ 20 per literal, results ≤ 100) |
 | Fractions | Denominators 2–12; numerators ≤ 12; a mixed number's whole part ≤ 10; every numerator/denominator product a times-table fact; answers in simplest form, written `a/b` or `w a/b` (mixed when > 1) |
 | Decimals | Operands with at most 2 decimal places and at most 2 non-zero digits; the digit work is a §4a fact (`0.6 × 0.2` → `6 × 2`); quotients exact |
-| Percents | 10, 20, 25, 50, 75 % and multiples of 10; the whole ≤ 100 and chosen so the hidden ÷ is a times-table fact (25 % and 75 % of wholes ≤ 40, tens of percent of 10 × 2..10); the answer an integer |
+| Percents | 10, 20, 25, 50, 75 % and multiples of 10; the whole ≤ 100 and chosen so the hidden ÷ is a times-table fact (25 % and 75 % of wholes ≤ 40, tens of percent of 10 × 2..10); the answer an integer. A percent change is the difference of two wholes ≤ 100, itself ≤ 20 (80 → 72 is a change of 8 on 80); the running-sum reading of §4a, as in Data (grade 7, 2026-10-13) |
+| Angles | Multiples of 10 from 10 to 180; every + − on angles is a tens fact (180 − 70 is 18 − 7), every × ÷ a times-table fact in tens (3x = 180 is 18 ÷ 3); totals only 90 and 180 (no 360, no triangle sum, no parallel lines). The full rule is `angle-relationships`' bounds string (grade 7, 2026-10-13) |
 | Measurement | Lengths 1–10 (a ½ edge allowed where the standard asks for fractional edges; a length of 1 may be a × factor, the one exception to §4a's 2–10); areas, volumes and surface areas ≤ 100 |
 | Data | 3–7 values, each 0–20, sum ≤ 100; means, medians and MADs integers |
 | Choices | No two choices equal in **value** (`1/2` and `2/4`, `0.5` and `1/2` never sit together): the player must never face two right doors |

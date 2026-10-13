@@ -1,0 +1,147 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "proportional-relationships",
+  "version": "1.0.0",
+  "title": "Proportional Relationships",
+  "subtitle": "Unit Rates, Constant k, Scale Drawings",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.RP.A.1",
+    "CCSS.MATH.CONTENT.7.RP.A.2.A",
+    "CCSS.MATH.CONTENT.7.RP.A.2.B",
+    "CCSS.MATH.CONTENT.7.RP.A.2.C",
+    "CCSS.MATH.CONTENT.7.G.A.1"
+  ],
+  "seed": 20261021,
+  "items_per_tier": 40,
+  "bounds": "T1: fractions a/b in simplest form, a < b, b in 2,3,4,5,6,8,10; the two denominators equal or one a multiple of the other; every cross product a×d and b×c a times-table fact (all four numbers ≤ 10); the unit rate is a whole number 2-10, a proper fraction (denominator ≤ 5) or a mixed number (whole part ≤ 4, fraction denominator ≤ 4); price items: one fractional lb, whole total 2-9, whole rate 2-10. T2-T4: x 1-10, k and every unit rate 2-10, table x values ≤ 9, every y ≤ 100, every × and ÷ a times-table fact. T5: scale k 2-10, drawn lengths 2-10, real lengths ≤ 100, rooms with real sides ≤ 10 (areas ≤ 100), area factor k×k ≤ 100. Distractors may be fractions or products over 100 (what the misreading gives).",
+  "tiers": [
+    { "tier": 1, "name": "Fraction Unit Rates", "description": "Find the rate per 1 when the amounts are fractions." },
+    { "tier": 2, "name": "Proportional or Not?", "description": "Spot the equation, point or table where y is always k times x." },
+    { "tier": 3, "name": "Finding the Constant k", "description": "Find k = y ÷ x from an equation, a point, a table or a story." },
+    { "tier": 4, "name": "Write the Equation", "description": "Write y = kx from a story: totals, rates and unit conversions." },
+    { "tier": 5, "name": "Scale Drawings", "description": "Scale lengths and areas up and down; areas scale by k × k." }
+  ],
+  "misconceptions": {
+    "INVERTED": {
+      "student": "Divided the wrong way. Per 1 means: divide by the 'per' amount.",
+      "teacher": "Inverts the rate: time ÷ amount, x ÷ y or drawn ÷ real instead of amount ÷ time."
+    },
+    "MULTIPLIED": {
+      "student": "Per 1 means divide. Dividing by a fraction makes the answer bigger.",
+      "teacher": "Multiplies the two fractions (or the price and the fraction) instead of dividing."
+    },
+    "FLIPPED_BOTH": {
+      "student": "Flip only the second fraction, then multiply. Not both.",
+      "teacher": "Inverts both fractions when dividing: (a/b) ÷ (c/d) done as (b/a) × (d/c)."
+    },
+    "DROP_DENOMS": {
+      "student": "The bottoms count: 1/4 hour is a quarter of an hour, not 1 hour.",
+      "teacher": "Divides the numerators and ignores the denominators."
+    },
+    "DIFFERENCE": {
+      "student": "A rate, or 'how many times', is a quotient. Divide; don't subtract.",
+      "teacher": "Subtracts the two quantities instead of dividing them."
+    },
+    "PRODUCT": {
+      "student": "k is y ÷ x. Multiplying x and y gives something else.",
+      "teacher": "Multiplies x and y instead of dividing."
+    },
+    "ADDITIVE": {
+      "student": "Scaling multiplies or divides. Adding or subtracting is not scaling.",
+      "teacher": "Adds (or subtracts) the same amount instead of multiplying (or dividing) both quantities."
+    },
+    "INVERSE": {
+      "student": "Same direction: if x goes down by a factor, y goes down by that factor too.",
+      "teacher": "Treats the relationship as inverse variation: keeps x times y fixed instead of y ÷ x."
+    },
+    "ADDS_CONSTANT": {
+      "student": "y = x + 4 adds the same amount. Proportional means multiply: y = kx.",
+      "teacher": "Thinks an adding equation (y = x + k) is proportional."
+    },
+    "HAS_START": {
+      "student": "y = 4x + 1 does not start at 0. Proportional means (0, 0) is on it.",
+      "teacher": "Allows a nonzero starting amount in a proportional equation."
+    },
+    "SWAPPED_XY": {
+      "student": "Swapped. y is the one that equals k times x, so y = kx.",
+      "teacher": "Writes x = ky (or x = y + c) with the variables reversed; k turns into 1/k."
+    },
+    "Y_AS_K": {
+      "student": "That is a y value, not k. Divide: k = y ÷ x.",
+      "teacher": "Uses the first y value as the constant instead of y ÷ x."
+    },
+    "Y_STEP": {
+      "student": "y goes up by that much, but x goes up too. k = y ÷ x.",
+      "teacher": "Uses the step in y between table rows as k."
+    },
+    "PROP_ASSUMED": {
+      "student": "Check every pair. y ÷ x changes, so this is not proportional.",
+      "teacher": "Takes the first pair's ratio as k and never checks the rest of the table."
+    },
+    "PLUS_AS_TIMES": {
+      "student": "The table adds the same amount each time: y = x + c, not y = cx.",
+      "teacher": "Reads the added amount as a multiplier."
+    },
+    "KEEPS_VAR": {
+      "student": "k is only the number. Leave the letter off.",
+      "teacher": "Gives the whole term (6x) as the constant of proportionality."
+    },
+    "TOTAL_AS_RATE": {
+      "student": "That total is for all of them. The rate for 1 is total ÷ count.",
+      "teacher": "Uses the total as the multiplier instead of the unit rate."
+    },
+    "COUNT_AS_RATE": {
+      "student": "That is how many there are. The rate for 1 is total ÷ count.",
+      "teacher": "Uses the count as the unit rate."
+    },
+    "SWAPPED_VARS": {
+      "student": "Backwards. The thing you are finding goes alone on the left.",
+      "teacher": "Reverses the roles of the variables: writes x = ky for y = kx."
+    },
+    "DIVIDES": {
+      "student": "More time means more, so multiply the rate. Dividing makes it shrink.",
+      "teacher": "Writes the rate over the variable (k/x) instead of k times x."
+    },
+    "SCALED_DOWN": {
+      "student": "The real thing is bigger than the drawing: multiply by the scale.",
+      "teacher": "Divides the drawn length by the scale when converting to real size."
+    },
+    "WRONG_WAY": {
+      "student": "Real to drawing: divide by the scale. The drawing is smaller.",
+      "teacher": "Multiplies when converting a real length to the drawing."
+    },
+    "FACTOR_ONLY": {
+      "student": "That is just the scale. Use it to multiply (or divide) the length.",
+      "teacher": "Gives the scale factor itself as the answer."
+    },
+    "LINEAR_AREA": {
+      "student": "Area has two sides to scale, so the scale counts twice: k × k.",
+      "teacher": "Scales an area by k instead of k × k."
+    },
+    "DRAWING_AREA": {
+      "student": "That is the area on the drawing. Scale each side up to get the real area.",
+      "teacher": "Gives the drawing's area instead of the real area."
+    },
+    "ACTUAL_AREA": {
+      "student": "That is the real area. The drawing is smaller: scale each side down.",
+      "teacher": "Gives the real area when the drawing's area is asked."
+    },
+    "ACTUAL_AS_SCALE": {
+      "student": "That is the whole real length. The scale is the real length of 1 unit.",
+      "teacher": "Gives the real length as the scale instead of dividing by the drawn length."
+    },
+    "ONE_SIDE": {
+      "student": "Scale both sides, not just one.",
+      "teacher": "Scales only one side of the rectangle."
+    },
+    "CUBED": {
+      "student": "Area uses 2 lengths, not 3. Multiply the scale by itself once: k × k.",
+      "teacher": "Cubes the scale factor (volume thinking) for an area."
+    },
+    "ADDED_SIDES": {
+      "student": "Each side is scaled and then multiplied: k × k, not k + k.",
+      "teacher": "Doubles the scale factor (k + k) instead of squaring it."
+    }
+  }
+}

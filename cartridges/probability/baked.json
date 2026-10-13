@@ -1,0 +1,4031 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "probability",
+  "version": "1.0.0",
+  "title": "Probability",
+  "subtitle": "Chance, Outcomes & Compound Events",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.SP.C.5",
+    "CCSS.MATH.CONTENT.7.SP.C.6",
+    "CCSS.MATH.CONTENT.7.SP.C.7.A",
+    "CCSS.MATH.CONTENT.7.SP.C.8.A",
+    "CCSS.MATH.CONTENT.7.SP.C.8.B",
+    "CCSS.MATH.CONTENT.7.SP.A.2"
+  ],
+  "seed": 20261028,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b fractions. Every probability in a prompt or a correct answer is a fraction a/b in simplest form with b 2-12 (numerator at most 12; at most 12 equally likely outcomes, a die and a coin being 12), or a decimal or percent of the §4b kind (at most 2 places and 2 non-zero digits; 10, 20, 25, 50, 75 percent and tens of percent). T1 range questions also show values past 1 (up to 300 percent, or 3) because that is the concept. No two-dice probabilities (1/36). Counts are whole numbers 1-100 from times-table facts: outcome counts multiply factors 2-10 (three stages: the two smaller factors multiply to 10 or less; at most 4 coin flips); predictions are n ÷ d = k with d 2-10 and k 2-10, then k × a (a 1-9); a sample of 4-25 kids scales by a factor 2-10 to a group of 100 or less; an estimate divides both numbers by a factor 2-10 (totals up to 50). A product of two chances has a denominator of 12 or less (coin and die) or is a square of 2 or 3 (two draws with replacement). Wrong choices may be any size up to 999 and may be improper. Choices use one form per item and never repeat a value.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "How Likely?",
+      "description": "Place chances on the 0 to 1 scale, from impossible to certain."
+    },
+    {
+      "tier": 2,
+      "name": "Simple Probability",
+      "description": "Favorable outcomes over all outcomes, in simplest form."
+    },
+    {
+      "tier": 3,
+      "name": "Complement & Predict",
+      "description": "The chance of not, expected counts, and predicting from a sample."
+    },
+    {
+      "tier": 4,
+      "name": "Sample Spaces",
+      "description": "Count the outcomes of two- and three-stage events."
+    },
+    {
+      "tier": 5,
+      "name": "Compound Events",
+      "description": "The chance of two or more events happening together."
+    }
+  ],
+  "misconceptions": {
+    "SCALE_FLIP": {
+      "student": "Closer to 1 means MORE likely. 0 is impossible, 1 is certain.",
+      "teacher": "Reverses the 0-to-1 scale: reads a large probability as unlikely, or 0 as certain."
+    },
+    "HALF_WORD": {
+      "student": "Only 1/2 is equally likely. Near 1 is likely, near 0 is unlikely.",
+      "teacher": "Calls any middling-looking probability 'equally likely'."
+    },
+    "ROUNDED": {
+      "student": "Certain means exactly 1 and impossible exactly 0. Close is just likely.",
+      "teacher": "Rounds a probability near 1 up to certain, or near 0 down to impossible."
+    },
+    "WORD_MIXUP": {
+      "student": "0 is impossible, 1 is certain, 1/2 is the middle. Place the number first.",
+      "teacher": "Picks a likelihood word that does not match where the number sits on the scale."
+    },
+    "HALF_LEANS": {
+      "student": "1/2 is the middle of the scale: neither likely nor unlikely.",
+      "teacher": "Reads a probability of exactly 1/2 as leaning likely or unlikely."
+    },
+    "OVER_ONE": {
+      "student": "A probability is never more than 1. Even a sure thing is just 1.",
+      "teacher": "Accepts a value above 1 (or 100%) as a probability."
+    },
+    "NEGATIVE": {
+      "student": "A probability is never below 0. Impossible is 0, the lowest it goes.",
+      "teacher": "Accepts a negative number as a probability."
+    },
+    "EDGE_EXCLUDED": {
+      "student": "0 and 1 ARE probabilities: impossible and certain events.",
+      "teacher": "Thinks 0 and 1 are not allowed as probabilities."
+    },
+    "RANGE_CHECK": {
+      "student": "A probability is 0 to 1 (0% to 100%). Look for the one outside that.",
+      "teacher": "Picks a value that is inside 0 to 1 when asked for one outside it."
+    },
+    "PERCENT_MIX": {
+      "student": "As a number it stops at 1. The 100 belongs to the percent, 100%.",
+      "teacher": "Mixes the percent scale (0-100) with the 0-to-1 scale."
+    },
+    "PART_TO_PART": {
+      "student": "Probability is part out of the WHOLE, not part out of the other part.",
+      "teacher": "Compares favorable to unfavorable outcomes (odds) instead of favorable to all."
+    },
+    "OTHER_EVENT": {
+      "student": "That is the opposite event. Find the one the question asks about.",
+      "teacher": "Answers for the complementary event (or its count) instead of the asked event."
+    },
+    "ONE_OVER_TOTAL": {
+      "student": "Count every outcome that fits, not just one: favorable over total.",
+      "teacher": "Uses 1 over the total, as if only one outcome were favorable."
+    },
+    "EQUAL_CHANCE": {
+      "student": "Outcomes are not always 50-50 or equal. Count favorable over total.",
+      "teacher": "Assumes equal chances (1/2, or 1 over the number of colors) without counting."
+    },
+    "BOUNDARY": {
+      "student": "Check the edge: 'more than 4' leaves out 4, 'at least 5' keeps 5.",
+      "teacher": "Off by one at the boundary of 'more than', 'less than', 'at least' or 'at most'."
+    },
+    "PRIME_ONE": {
+      "student": "1 is not prime: a prime has exactly two factors, like 2, 3 and 5.",
+      "teacher": "Counts 1 as a prime number."
+    },
+    "DISTINCT_OUTCOMES": {
+      "student": "Repeats count: three A's are three outcomes, not one.",
+      "teacher": "Counts each different letter once, ignoring how many times it appears."
+    },
+    "SAME_AS_EVENT": {
+      "student": "That is the chance of the event itself. 'Not' asks for the rest.",
+      "teacher": "Gives P(event) when asked for P(not event)."
+    },
+    "ADD_TO_ONE": {
+      "student": "P(not A) = 1 minus P(A). Subtract from 1; a chance never tops 1.",
+      "teacher": "Adds the chance to 1 instead of subtracting it from 1."
+    },
+    "ONE_OTHER": {
+      "student": "'Not red' means ALL the other colors together, not just one.",
+      "teacher": "Counts only one of the other colors for the complement."
+    },
+    "IGNORED_NUMERATOR": {
+      "student": "Use the whole fraction: 3/10 of 20 is 3 tenths, not 1 tenth.",
+      "teacher": "Divides by the denominator but forgets to multiply by the numerator."
+    },
+    "INVERTED_P": {
+      "student": "Multiply the tries by the chance: 1/4 of 40 is 40 ÷ 4 = 10, not 40 ÷ 1/4.",
+      "teacher": "Divides the number of tries by the chance (multiplies by the denominator) instead of multiplying."
+    },
+    "SAMPLE_COUNT": {
+      "student": "Scale the sample up to the whole group; the sample count is too small.",
+      "teacher": "Reports the count found in the sample as the prediction for the population."
+    },
+    "ADDITIVE": {
+      "student": "Scale by multiplying: the same fraction of a bigger group, not adding on.",
+      "teacher": "Adds the difference in group sizes instead of scaling proportionally."
+    },
+    "SCALE_ONLY": {
+      "student": "That is only the scale factor. Multiply it by the count in the sample.",
+      "teacher": "Stops after finding the scale factor (population ÷ sample)."
+    },
+    "FLIPPED": {
+      "student": "Chance = successes over tries, with the successes on top.",
+      "teacher": "Writes the ratio upside down (tries over successes)."
+    },
+    "ADDED_COUNTS": {
+      "student": "Pair every choice with every other: multiply the counts, don't add.",
+      "teacher": "Adds the numbers of choices instead of multiplying (counting principle)."
+    },
+    "ONE_STAGE": {
+      "student": "Count both stages: each outcome of one pairs with each of the other.",
+      "teacher": "Counts the outcomes of only one stage."
+    },
+    "FORGOT_ONE": {
+      "student": "Every stage multiplies the count. Don't skip one.",
+      "teacher": "Multiplies only two of the three stages."
+    },
+    "MIXED_OPS": {
+      "student": "All stages multiply: 3 × 4 × 2, not (3 + 4) × 2.",
+      "teacher": "Adds some stages and multiplies others."
+    },
+    "ORDER_BLIND": {
+      "student": "HT and TH are different outcomes. Order counts, so count both.",
+      "teacher": "Treats outcomes that differ only in order as one (counts head totals, not sequences)."
+    },
+    "MULT_BY_COUNT": {
+      "student": "Each flip doubles the count: 2 × 2 × 2 for three flips, not 2 × 3.",
+      "teacher": "Multiplies outcomes per trial by the number of trials."
+    },
+    "POWER_FLIP": {
+      "student": "Two outcomes per flip, once per flip: 2 × 2 × 2 = 8, not 3 × 3.",
+      "teacher": "Swaps base and exponent: flips squared instead of 2 to the number of flips."
+    },
+    "COUNTED_ALL": {
+      "student": "That counts every outcome. Count only the ones that fit the event.",
+      "teacher": "Gives the size of the whole sample space instead of the event."
+    },
+    "ONE_OUTCOME": {
+      "student": "Count ALL the outcomes that fit the event, not just one of them.",
+      "teacher": "Treats the event as a single outcome."
+    },
+    "IGNORED_PART": {
+      "student": "Both conditions must hold: heads AND even, not just one of them.",
+      "teacher": "Counts outcomes meeting only one of the two conditions."
+    },
+    "TOTAL_NOT_EVENT": {
+      "student": "That is every outcome. Count only the ones that fit.",
+      "teacher": "Gives the whole sample space size."
+    },
+    "NOT_PAIRED": {
+      "student": "Pair them up: each coin side goes with each number (H1, H2, T1, T2).",
+      "teacher": "Lists the parts of each stage separately instead of the combined outcomes."
+    },
+    "MISSED_ONE": {
+      "student": "List every pairing: each coin side with each number. Check for gaps.",
+      "teacher": "Gives an incomplete list of the sample space."
+    },
+    "MATCHING_ONLY": {
+      "student": "List every outcome, not only the matching ones. HT and TH count too.",
+      "teacher": "Lists only the outcomes where both parts match."
+    },
+    "ADDED_PROBS": {
+      "student": "For 'and', multiply the chances. Adding makes a chance that's too big.",
+      "teacher": "Adds the probabilities of the two events instead of multiplying."
+    },
+    "ADD_DENOMS": {
+      "student": "Multiply fractions straight across: 1/2 × 1/6 = 1/12, not 1/8.",
+      "teacher": "Adds the denominators (or the denominators and not the numerators) when multiplying."
+    },
+    "FORGOT_STAGE": {
+      "student": "Both parts must happen. Multiply by the other part's chance too.",
+      "teacher": "Gives the chance of only one stage of a compound event."
+    },
+    "ONE_ORDER": {
+      "student": "Either order works (red then blue, or blue then red): count both.",
+      "teacher": "Counts only one of the orders when either order satisfies the event."
+    },
+    "ORDER_OVER": {
+      "student": "The order is given: 'red then blue' is one order only. Don't double it.",
+      "teacher": "Doubles for two orders when the event names a single order."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "probability/t1/001",
+      "tier": 1,
+      "prompt": "P(event) = 9/10. How likely is the event?",
+      "choices": [
+        "Unlikely",
+        "Certain",
+        "Likely",
+        "Equally likely"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SCALE_FLIP",
+        "ROUNDED",
+        null,
+        "HALF_WORD"
+      ],
+      "explanation": "9/10 is well over half, near 1, so the event is likely."
+    },
+    {
+      "id": "probability/t1/002",
+      "tier": 1,
+      "prompt": "Roll a die. Get a 7. How likely?",
+      "choices": [
+        "Likely",
+        "Equally likely",
+        "Impossible",
+        "Certain"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WORD_MIXUP",
+        "HALF_WORD",
+        null,
+        "SCALE_FLIP"
+      ],
+      "explanation": "P = 0, exactly 0: impossible."
+    },
+    {
+      "id": "probability/t1/003",
+      "tier": 1,
+      "prompt": "Bag: 7 red, 1 blue. Pick red. How likely?",
+      "choices": [
+        "Likely",
+        "Unlikely",
+        "Equally likely",
+        "Certain"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SCALE_FLIP",
+        "HALF_WORD",
+        "ROUNDED"
+      ],
+      "explanation": "P = 7/8, well over half: likely."
+    },
+    {
+      "id": "probability/t1/004",
+      "tier": 1,
+      "prompt": "Which can't be the chance of a goal?",
+      "choices": [
+        "1",
+        "0.25",
+        "0.1",
+        "−0.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EDGE_EXCLUDED",
+        "RANGE_CHECK",
+        "RANGE_CHECK",
+        null
+      ],
+      "explanation": "−0.5 is less than 0, and a probability is from 0 to 1. It can't be −0.5."
+    },
+    {
+      "id": "probability/t1/005",
+      "tier": 1,
+      "prompt": "A 20% chance means the event is?",
+      "choices": [
+        "Equally likely",
+        "Likely",
+        "Unlikely",
+        "Impossible"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null,
+        "ROUNDED"
+      ],
+      "explanation": "20% is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/006",
+      "tier": 1,
+      "prompt": "A probability of 0.2 means the event is?",
+      "choices": [
+        "Likely",
+        "Unlikely",
+        "Impossible",
+        "Equally likely"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SCALE_FLIP",
+        null,
+        "ROUNDED",
+        "HALF_WORD"
+      ],
+      "explanation": "0.2 is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/007",
+      "tier": 1,
+      "prompt": "P(event) = 1/10. How likely is the event?",
+      "choices": [
+        "Impossible",
+        "Equally likely",
+        "Likely",
+        "Unlikely"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED",
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null
+      ],
+      "explanation": "1/10 is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/008",
+      "tier": 1,
+      "prompt": "As a decimal, the least a probability can be?",
+      "choices": [
+        "0",
+        "−1",
+        "No limit",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEGATIVE",
+        "NEGATIVE",
+        "SCALE_FLIP"
+      ],
+      "explanation": "An impossible event has probability 0, and nothing is less likely: 0."
+    },
+    {
+      "id": "probability/t1/009",
+      "tier": 1,
+      "prompt": "Which could be the chance of a goal?",
+      "choices": [
+        "−0.5",
+        "0.1",
+        "−0.1",
+        "1.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEGATIVE",
+        null,
+        "NEGATIVE",
+        "OVER_ONE"
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 0.1."
+    },
+    {
+      "id": "probability/t1/010",
+      "tier": 1,
+      "prompt": "Which could be the chance of drawing red?",
+      "choices": [
+        "3",
+        "0.5",
+        "−0.5",
+        "1.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_ONE",
+        null,
+        "NEGATIVE",
+        "OVER_ONE"
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 0.5."
+    },
+    {
+      "id": "probability/t1/011",
+      "tier": 1,
+      "prompt": "A 75% chance means the event is?",
+      "choices": [
+        "Equally likely",
+        "Certain",
+        "Unlikely",
+        "Likely"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_WORD",
+        "ROUNDED",
+        "SCALE_FLIP",
+        null
+      ],
+      "explanation": "75% is well over half, near 1, so the event is likely."
+    },
+    {
+      "id": "probability/t1/012",
+      "tier": 1,
+      "prompt": "A 90% chance means the event is?",
+      "choices": [
+        "Likely",
+        "Certain",
+        "Equally likely",
+        "Unlikely"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROUNDED",
+        "HALF_WORD",
+        "SCALE_FLIP"
+      ],
+      "explanation": "90% is well over half, near 1, so the event is likely."
+    },
+    {
+      "id": "probability/t1/013",
+      "tier": 1,
+      "prompt": "A probability of 0.75 means the event is?",
+      "choices": [
+        "Unlikely",
+        "Likely",
+        "Certain",
+        "Equally likely"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SCALE_FLIP",
+        null,
+        "ROUNDED",
+        "HALF_WORD"
+      ],
+      "explanation": "0.75 is well over half, near 1, so the event is likely."
+    },
+    {
+      "id": "probability/t1/014",
+      "tier": 1,
+      "prompt": "Cards 1 to 10. Pick a 7. How likely?",
+      "choices": [
+        "Unlikely",
+        "Impossible",
+        "Equally likely",
+        "Likely"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROUNDED",
+        "HALF_WORD",
+        "SCALE_FLIP"
+      ],
+      "explanation": "P = 1/10, well under half: unlikely."
+    },
+    {
+      "id": "probability/t1/015",
+      "tier": 1,
+      "prompt": "A probability of 0.25 means the event is?",
+      "choices": [
+        "Equally likely",
+        "Likely",
+        "Unlikely",
+        "Impossible"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null,
+        "ROUNDED"
+      ],
+      "explanation": "0.25 is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/016",
+      "tier": 1,
+      "prompt": "Which can't be the chance of snow?",
+      "choices": [
+        "10%",
+        "110%",
+        "20%",
+        "60%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RANGE_CHECK",
+        null,
+        "RANGE_CHECK",
+        "RANGE_CHECK"
+      ],
+      "explanation": "110% is more than 1, and a probability is from 0 to 1. It can't be 110%."
+    },
+    {
+      "id": "probability/t1/017",
+      "tier": 1,
+      "prompt": "Which could be the chance of a hit?",
+      "choices": [
+        "−1/2",
+        "1",
+        "3",
+        "−1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEGATIVE",
+        null,
+        "OVER_ONE",
+        "NEGATIVE"
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 1."
+    },
+    {
+      "id": "probability/t1/018",
+      "tier": 1,
+      "prompt": "Which could be a probability?",
+      "choices": [
+        "3/2",
+        "4/3",
+        "5/3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OVER_ONE",
+        "OVER_ONE",
+        "OVER_ONE",
+        null
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 1."
+    },
+    {
+      "id": "probability/t1/019",
+      "tier": 1,
+      "prompt": "Roll a die. Get a number under 7. How likely?",
+      "choices": [
+        "Unlikely",
+        "Certain",
+        "Equally likely",
+        "Impossible"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WORD_MIXUP",
+        null,
+        "HALF_WORD",
+        "SCALE_FLIP"
+      ],
+      "explanation": "P = 1, exactly 1: certain."
+    },
+    {
+      "id": "probability/t1/020",
+      "tier": 1,
+      "prompt": "A 25% chance means the event is?",
+      "choices": [
+        "Equally likely",
+        "Likely",
+        "Unlikely",
+        "Impossible"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null,
+        "ROUNDED"
+      ],
+      "explanation": "25% is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/021",
+      "tier": 1,
+      "prompt": "A 0% chance means the event is?",
+      "choices": [
+        "Equally likely",
+        "Certain",
+        "Likely",
+        "Impossible"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_WORD",
+        "SCALE_FLIP",
+        "WORD_MIXUP",
+        null
+      ],
+      "explanation": "0% means it can never happen: impossible."
+    },
+    {
+      "id": "probability/t1/022",
+      "tier": 1,
+      "prompt": "A 10% chance means the event is?",
+      "choices": [
+        "Likely",
+        "Impossible",
+        "Unlikely",
+        "Equally likely"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SCALE_FLIP",
+        "ROUNDED",
+        null,
+        "HALF_WORD"
+      ],
+      "explanation": "10% is well under half, near 0, so the event is unlikely."
+    },
+    {
+      "id": "probability/t1/023",
+      "tier": 1,
+      "prompt": "As a decimal, the greatest a probability can be?",
+      "choices": [
+        "No limit",
+        "10",
+        "1",
+        "100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OVER_ONE",
+        "ARITH",
+        null,
+        "PERCENT_MIX"
+      ],
+      "explanation": "A sure thing has probability 1, and nothing is more likely than sure: 1."
+    },
+    {
+      "id": "probability/t1/024",
+      "tier": 1,
+      "prompt": "Which can't be the chance of a tie?",
+      "choices": [
+        "40%",
+        "10%",
+        "150%",
+        "75%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RANGE_CHECK",
+        "RANGE_CHECK",
+        null,
+        "RANGE_CHECK"
+      ],
+      "explanation": "150% is more than 1, and a probability is from 0 to 1. It can't be 150%."
+    },
+    {
+      "id": "probability/t1/025",
+      "tier": 1,
+      "prompt": "A 50% chance means the event is?",
+      "choices": [
+        "Equally likely",
+        "Impossible",
+        "Unlikely",
+        "Likely"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WORD_MIXUP",
+        "HALF_LEANS",
+        "HALF_LEANS"
+      ],
+      "explanation": "50% is halfway between 0 and 1: equally likely."
+    },
+    {
+      "id": "probability/t1/026",
+      "tier": 1,
+      "prompt": "As a decimal, a probability is between which numbers?",
+      "choices": [
+        "0 and 1",
+        "0 and 100",
+        "0 and 10",
+        "−1 and 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_MIX",
+        "ARITH",
+        "NEGATIVE"
+      ],
+      "explanation": "Impossible is 0 and certain is 1, so it is always between 0 and 1."
+    },
+    {
+      "id": "probability/t1/027",
+      "tier": 1,
+      "prompt": "Which can't be the chance of rain?",
+      "choices": [
+        "−50%",
+        "40%",
+        "10%",
+        "75%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_CHECK",
+        "RANGE_CHECK",
+        "RANGE_CHECK"
+      ],
+      "explanation": "−50% is less than 0, and a probability is from 0 to 1. It can't be −50%."
+    },
+    {
+      "id": "probability/t1/028",
+      "tier": 1,
+      "prompt": "Flip a fair coin. Get heads. How likely?",
+      "choices": [
+        "Likely",
+        "Impossible",
+        "Unlikely",
+        "Equally likely"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_LEANS",
+        "WORD_MIXUP",
+        "HALF_LEANS",
+        null
+      ],
+      "explanation": "P = 1/2, exactly half: equally likely."
+    },
+    {
+      "id": "probability/t1/029",
+      "tier": 1,
+      "prompt": "Roll a die. Get a number over 1. How likely?",
+      "choices": [
+        "Likely",
+        "Equally likely",
+        "Unlikely",
+        "Certain"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_WORD",
+        "SCALE_FLIP",
+        "ROUNDED"
+      ],
+      "explanation": "P = 5/6, well over half: likely."
+    },
+    {
+      "id": "probability/t1/030",
+      "tier": 1,
+      "prompt": "Which can't be the chance of drawing red?",
+      "choices": [
+        "−10%",
+        "90%",
+        "50%",
+        "75%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RANGE_CHECK",
+        "RANGE_CHECK",
+        "RANGE_CHECK"
+      ],
+      "explanation": "−10% is less than 0, and a probability is from 0 to 1. It can't be −10%."
+    },
+    {
+      "id": "probability/t1/031",
+      "tier": 1,
+      "prompt": "Spinner is 3/4 red. Land on red. How likely?",
+      "choices": [
+        "Equally likely",
+        "Certain",
+        "Likely",
+        "Unlikely"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_WORD",
+        "ROUNDED",
+        null,
+        "SCALE_FLIP"
+      ],
+      "explanation": "P = 3/4, well over half: likely."
+    },
+    {
+      "id": "probability/t1/032",
+      "tier": 1,
+      "prompt": "Roll a die. Get an even number. How likely?",
+      "choices": [
+        "Unlikely",
+        "Impossible",
+        "Likely",
+        "Equally likely"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_LEANS",
+        "WORD_MIXUP",
+        "HALF_LEANS",
+        null
+      ],
+      "explanation": "P = 1/2, exactly half: equally likely."
+    },
+    {
+      "id": "probability/t1/033",
+      "tier": 1,
+      "prompt": "Which could be the chance of snow?",
+      "choices": [
+        "4/3",
+        "1/3",
+        "3/2",
+        "−3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_ONE",
+        null,
+        "OVER_ONE",
+        "NEGATIVE"
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 1/3."
+    },
+    {
+      "id": "probability/t1/034",
+      "tier": 1,
+      "prompt": "Which can't be the chance of a hit?",
+      "choices": [
+        "1",
+        "0.4",
+        "0.6",
+        "−0.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EDGE_EXCLUDED",
+        "RANGE_CHECK",
+        "RANGE_CHECK",
+        null
+      ],
+      "explanation": "−0.5 is less than 0, and a probability is from 0 to 1. It can't be −0.5."
+    },
+    {
+      "id": "probability/t1/035",
+      "tier": 1,
+      "prompt": "Cards 1 to 10. Pick an even number. How likely?",
+      "choices": [
+        "Unlikely",
+        "Impossible",
+        "Likely",
+        "Equally likely"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_LEANS",
+        "WORD_MIXUP",
+        "HALF_LEANS",
+        null
+      ],
+      "explanation": "P = 1/2, exactly half: equally likely."
+    },
+    {
+      "id": "probability/t1/036",
+      "tier": 1,
+      "prompt": "P(event) = 1. How likely is the event?",
+      "choices": [
+        "Equally likely",
+        "Impossible",
+        "Certain",
+        "Unlikely"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null,
+        "WORD_MIXUP"
+      ],
+      "explanation": "1 means it always happens: certain."
+    },
+    {
+      "id": "probability/t1/037",
+      "tier": 1,
+      "prompt": "Which could be the chance of a tie?",
+      "choices": [
+        "0.5",
+        "−0.5",
+        "−0.3",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEGATIVE",
+        "NEGATIVE",
+        "OVER_ONE"
+      ],
+      "explanation": "A probability is from 0 to 1, so the one that fits is 0.5."
+    },
+    {
+      "id": "probability/t1/038",
+      "tier": 1,
+      "prompt": "Cards 1 to 5. Pick a 9. How likely?",
+      "choices": [
+        "Likely",
+        "Equally likely",
+        "Certain",
+        "Impossible"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WORD_MIXUP",
+        "HALF_WORD",
+        "SCALE_FLIP",
+        null
+      ],
+      "explanation": "P = 0, exactly 0: impossible."
+    },
+    {
+      "id": "probability/t1/039",
+      "tier": 1,
+      "prompt": "Cards 1 to 5. Pick a number under 10. How likely?",
+      "choices": [
+        "Unlikely",
+        "Certain",
+        "Impossible",
+        "Equally likely"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WORD_MIXUP",
+        null,
+        "SCALE_FLIP",
+        "HALF_WORD"
+      ],
+      "explanation": "P = 1, exactly 1: certain."
+    },
+    {
+      "id": "probability/t1/040",
+      "tier": 1,
+      "prompt": "Roll a die. Get an odd number. How likely?",
+      "choices": [
+        "Impossible",
+        "Equally likely",
+        "Unlikely",
+        "Likely"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WORD_MIXUP",
+        null,
+        "HALF_LEANS",
+        "HALF_LEANS"
+      ],
+      "explanation": "P = 1/2, exactly half: equally likely."
+    },
+    {
+      "id": "probability/t2/001",
+      "tier": 2,
+      "prompt": "Bag: 10 red, 2 blue. P(blue)?",
+      "choices": [
+        "1/6",
+        "1/5",
+        "1/2",
+        "1/12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "EQUAL_CHANCE",
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "2 of 12 marbles are blue: 2/12 = 1/6."
+    },
+    {
+      "id": "probability/t2/002",
+      "tier": 2,
+      "prompt": "Spinner: 4 equal parts, 1 blue. P(blue)?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "3/4",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "1 of 4 parts are blue: 1/4."
+    },
+    {
+      "id": "probability/t2/003",
+      "tier": 2,
+      "prompt": "Roll a die. P(more than 2)?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "5/6",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_CHANCE",
+        "BOUNDARY",
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "More than 2: 3, 4, 5, 6. That is 4 of 6: 4/6 = 2/3."
+    },
+    {
+      "id": "probability/t2/004",
+      "tier": 2,
+      "prompt": "Bag: 5 blue, 1 white, 1 black. P(black)?",
+      "choices": [
+        "6/7",
+        "1/3",
+        "1/6",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "1 of 7 marbles are black: 1/7."
+    },
+    {
+      "id": "probability/t2/005",
+      "tier": 2,
+      "prompt": "Roll a die. P(a multiple of 3)?",
+      "choices": [
+        "1/6",
+        "1/3",
+        "2/3",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OVER_TOTAL",
+        null,
+        "OTHER_EVENT",
+        "PART_TO_PART"
+      ],
+      "explanation": "A multiple of 3: 3, 6. That is 2 of 6: 2/6 = 1/3."
+    },
+    {
+      "id": "probability/t2/006",
+      "tier": 2,
+      "prompt": "A letter is picked from ROBOT. P(a vowel)?",
+      "choices": [
+        "2/5",
+        "1/4",
+        "1/5",
+        "2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISTINCT_OUTCOMES",
+        "ONE_OVER_TOTAL",
+        "PART_TO_PART"
+      ],
+      "explanation": "ROBOT has 2 vowels among 5 letters: 2/5."
+    },
+    {
+      "id": "probability/t2/007",
+      "tier": 2,
+      "prompt": "Cards 1 to 10, pick one. P(at most 3)?",
+      "choices": [
+        "1/5",
+        "1/2",
+        "7/10",
+        "3/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOUNDARY",
+        "EQUAL_CHANCE",
+        "OTHER_EVENT",
+        null
+      ],
+      "explanation": "At most 3: 1, 2, 3. That is 3 of 10: 3/10."
+    },
+    {
+      "id": "probability/t2/008",
+      "tier": 2,
+      "prompt": "Cards 1 to 12, pick one. P(a multiple of 4)?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "3/4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "EQUAL_CHANCE",
+        "OTHER_EVENT",
+        null
+      ],
+      "explanation": "A multiple of 4: 4, 8, 12. That is 3 of 12: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t2/009",
+      "tier": 2,
+      "prompt": "A letter is picked from SCHOOL. P(S)?",
+      "choices": [
+        "1/2",
+        "5/6",
+        "1/6",
+        "1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_CHANCE",
+        "OTHER_EVENT",
+        null,
+        "DISTINCT_OUTCOMES"
+      ],
+      "explanation": "SCHOOL has 1 S among 6 letters: 1/6."
+    },
+    {
+      "id": "probability/t2/010",
+      "tier": 2,
+      "prompt": "Bag: 3 red, 8 yellow. P(red)?",
+      "choices": [
+        "3/11",
+        "1/11",
+        "1/2",
+        "3/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OVER_TOTAL",
+        "EQUAL_CHANCE",
+        "PART_TO_PART"
+      ],
+      "explanation": "3 of 11 marbles are red: 3/11."
+    },
+    {
+      "id": "probability/t2/011",
+      "tier": 2,
+      "prompt": "Bag: 1 yellow, 3 red. P(red)?",
+      "choices": [
+        "7/12",
+        "3/4",
+        "1/4",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OTHER_EVENT",
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "3 of 4 marbles are red: 3/4."
+    },
+    {
+      "id": "probability/t2/012",
+      "tier": 2,
+      "prompt": "Cards 1 to 12, pick one. P(at most 4)?",
+      "choices": [
+        "1/2",
+        "1/12",
+        "1/4",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "ONE_OVER_TOTAL",
+        "BOUNDARY",
+        null
+      ],
+      "explanation": "At most 4: 1, 2, 3, 4. That is 4 of 12: 4/12 = 1/3."
+    },
+    {
+      "id": "probability/t2/013",
+      "tier": 2,
+      "prompt": "Spinner: 6 equal parts, 2 red. P(red)?",
+      "choices": [
+        "1/6",
+        "2/3",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OVER_TOTAL",
+        "OTHER_EVENT",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "2 of 6 parts are red: 2/6 = 1/3."
+    },
+    {
+      "id": "probability/t2/014",
+      "tier": 2,
+      "prompt": "Roll a die. P(at least 3)?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "1/6",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOUNDARY",
+        "ONE_OVER_TOTAL",
+        "OTHER_EVENT"
+      ],
+      "explanation": "At least 3: 3, 4, 5, 6. That is 4 of 6: 4/6 = 2/3."
+    },
+    {
+      "id": "probability/t2/015",
+      "tier": 2,
+      "prompt": "A letter is picked from CIRCLE. P(C)?",
+      "choices": [
+        "2/3",
+        "1/3",
+        "1/6",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "ONE_OVER_TOTAL",
+        "PART_TO_PART"
+      ],
+      "explanation": "CIRCLE has 2 C's among 6 letters: 2/6 = 1/3."
+    },
+    {
+      "id": "probability/t2/016",
+      "tier": 2,
+      "prompt": "A letter is picked from SCHOOL. P(L)?",
+      "choices": [
+        "1/6",
+        "5/6",
+        "1/2",
+        "1/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        "DISTINCT_OUTCOMES"
+      ],
+      "explanation": "SCHOOL has 1 L among 6 letters: 1/6."
+    },
+    {
+      "id": "probability/t2/017",
+      "tier": 2,
+      "prompt": "Bag: 7 red, 2 yellow, 1 green. P(yellow)?",
+      "choices": [
+        "4/5",
+        "1/5",
+        "1/3",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "EQUAL_CHANCE",
+        "PART_TO_PART"
+      ],
+      "explanation": "2 of 10 marbles are yellow: 2/10 = 1/5."
+    },
+    {
+      "id": "probability/t2/018",
+      "tier": 2,
+      "prompt": "Cards 1 to 12, pick one. P(at least 6)?",
+      "choices": [
+        "1/2",
+        "1/12",
+        "7/12",
+        "5/12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOUNDARY",
+        "ONE_OVER_TOTAL",
+        null,
+        "OTHER_EVENT"
+      ],
+      "explanation": "At least 6: 6, 7, 8, 9, 10, 11, 12. That is 7 of 12: 7/12."
+    },
+    {
+      "id": "probability/t2/019",
+      "tier": 2,
+      "prompt": "Roll a die. P(a 3)?",
+      "choices": [
+        "1/6",
+        "5/6",
+        "1/2",
+        "1/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        "PART_TO_PART"
+      ],
+      "explanation": "Only the 3 counts. That is 1 of 6: 1/6."
+    },
+    {
+      "id": "probability/t2/020",
+      "tier": 2,
+      "prompt": "Roll a die. P(at least 5)?",
+      "choices": [
+        "1/2",
+        "2/3",
+        "1/3",
+        "1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        null,
+        "BOUNDARY"
+      ],
+      "explanation": "At least 5: 5, 6. That is 2 of 6: 2/6 = 1/3."
+    },
+    {
+      "id": "probability/t2/021",
+      "tier": 2,
+      "prompt": "A letter is picked from SUMMER. P(a consonant)?",
+      "choices": [
+        "1/3",
+        "1/6",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "ONE_OVER_TOTAL",
+        "EQUAL_CHANCE",
+        null
+      ],
+      "explanation": "SUMMER has 4 consonants among 6 letters: 4/6 = 2/3."
+    },
+    {
+      "id": "probability/t2/022",
+      "tier": 2,
+      "prompt": "Bag: 2 blue, 1 white, 1 black. P(white)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/3",
+        "3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PART_TO_PART",
+        "OTHER_EVENT"
+      ],
+      "explanation": "1 of 4 marbles are white: 1/4."
+    },
+    {
+      "id": "probability/t2/023",
+      "tier": 2,
+      "prompt": "Roll a die. P(prime)?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1/2",
+        "1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PRIME_ONE",
+        null,
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "Prime: 2, 3, 5. That is 3 of 6: 3/6 = 1/2."
+    },
+    {
+      "id": "probability/t2/024",
+      "tier": 2,
+      "prompt": "Spinner: 8 equal parts, 5 yellow. P(yellow)?",
+      "choices": [
+        "3/8",
+        "5/8",
+        "1/8",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "ONE_OVER_TOTAL",
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "5 of 8 parts are yellow: 5/8."
+    },
+    {
+      "id": "probability/t2/025",
+      "tier": 2,
+      "prompt": "Roll a die. P(less than 5)?",
+      "choices": [
+        "1/2",
+        "5/6",
+        "2/3",
+        "1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_CHANCE",
+        "BOUNDARY",
+        null,
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "Less than 5: 1, 2, 3, 4. That is 4 of 6: 4/6 = 2/3."
+    },
+    {
+      "id": "probability/t2/026",
+      "tier": 2,
+      "prompt": "Bag: 2 yellow, 6 red. P(yellow)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/8",
+        "3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_CHANCE",
+        null,
+        "ONE_OVER_TOTAL",
+        "OTHER_EVENT"
+      ],
+      "explanation": "2 of 8 marbles are yellow: 2/8 = 1/4."
+    },
+    {
+      "id": "probability/t2/027",
+      "tier": 2,
+      "prompt": "Bag: 1 blue, 6 white, 1 black. P(blue)?",
+      "choices": [
+        "1/8",
+        "1/3",
+        "1/7",
+        "7/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_CHANCE",
+        "PART_TO_PART",
+        "OTHER_EVENT"
+      ],
+      "explanation": "1 of 8 marbles are blue: 1/8."
+    },
+    {
+      "id": "probability/t2/028",
+      "tier": 2,
+      "prompt": "Bag: 6 blue, 4 yellow. P(blue)?",
+      "choices": [
+        "2/5",
+        "1/10",
+        "3/5",
+        "1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "ONE_OVER_TOTAL",
+        null,
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "6 of 10 marbles are blue: 6/10 = 3/5."
+    },
+    {
+      "id": "probability/t2/029",
+      "tier": 2,
+      "prompt": "Roll a die. P(a square number)?",
+      "choices": [
+        "2/3",
+        "1/3",
+        "1/2",
+        "1/6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "PART_TO_PART",
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "A square number: 1, 4. That is 2 of 6: 2/6 = 1/3."
+    },
+    {
+      "id": "probability/t2/030",
+      "tier": 2,
+      "prompt": "Cards 1 to 8, pick one. P(prime)?",
+      "choices": [
+        "5/8",
+        "1/2",
+        "7/8",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PRIME_ONE",
+        null,
+        "ARITH",
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "Prime: 2, 3, 5, 7. That is 4 of 8: 4/8 = 1/2."
+    },
+    {
+      "id": "probability/t2/031",
+      "tier": 2,
+      "prompt": "Bag: 9 red, 2 yellow. P(red)?",
+      "choices": [
+        "2/11",
+        "1/11",
+        "9/11",
+        "1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "ONE_OVER_TOTAL",
+        null,
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "9 of 11 marbles are red: 9/11."
+    },
+    {
+      "id": "probability/t2/032",
+      "tier": 2,
+      "prompt": "Cards 1 to 8, pick one. P(more than 4)?",
+      "choices": [
+        "1/8",
+        "5/8",
+        "1/2",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OVER_TOTAL",
+        "BOUNDARY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "More than 4: 5, 6, 7, 8. That is 4 of 8: 4/8 = 1/2."
+    },
+    {
+      "id": "probability/t2/033",
+      "tier": 2,
+      "prompt": "Bag: 4 green, 3 red. P(green)?",
+      "choices": [
+        "3/7",
+        "1/2",
+        "4/7",
+        "1/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        null,
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "4 of 7 marbles are green: 4/7."
+    },
+    {
+      "id": "probability/t2/034",
+      "tier": 2,
+      "prompt": "Bag: 11 blue, 1 green. P(green)?",
+      "choices": [
+        "1/11",
+        "11/12",
+        "1/2",
+        "1/12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        null
+      ],
+      "explanation": "1 of 12 marbles are green: 1/12."
+    },
+    {
+      "id": "probability/t2/035",
+      "tier": 2,
+      "prompt": "Cards 1 to 10, pick one. P(at most 2)?",
+      "choices": [
+        "4/5",
+        "1/5",
+        "1/4",
+        "1/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "PART_TO_PART",
+        "BOUNDARY"
+      ],
+      "explanation": "At most 2: 1, 2. That is 2 of 10: 2/10 = 1/5."
+    },
+    {
+      "id": "probability/t2/036",
+      "tier": 2,
+      "prompt": "Bag: 6 blue, 3 yellow. P(yellow)?",
+      "choices": [
+        "2/3",
+        "1/9",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_EVENT",
+        "ONE_OVER_TOTAL",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "3 of 9 marbles are yellow: 3/9 = 1/3."
+    },
+    {
+      "id": "probability/t2/037",
+      "tier": 2,
+      "prompt": "A letter is picked from MISSISSIPPI. P(a vowel)?",
+      "choices": [
+        "1/4",
+        "7/11",
+        "4/11",
+        "1/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DISTINCT_OUTCOMES",
+        "OTHER_EVENT",
+        null,
+        "ONE_OVER_TOTAL"
+      ],
+      "explanation": "MISSISSIPPI has 4 vowels among 11 letters: 4/11."
+    },
+    {
+      "id": "probability/t2/038",
+      "tier": 2,
+      "prompt": "Spinner: 10 equal parts, 1 blue. P(blue)?",
+      "choices": [
+        "1/9",
+        "9/10",
+        "1/2",
+        "1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        "EQUAL_CHANCE",
+        null
+      ],
+      "explanation": "1 of 10 parts are blue: 1/10."
+    },
+    {
+      "id": "probability/t2/039",
+      "tier": 2,
+      "prompt": "Cards 1 to 12, pick one. P(at least 10)?",
+      "choices": [
+        "1/4",
+        "1/6",
+        "1/12",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOUNDARY",
+        "ONE_OVER_TOTAL",
+        "EQUAL_CHANCE"
+      ],
+      "explanation": "At least 10: 10, 11, 12. That is 3 of 12: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t2/040",
+      "tier": 2,
+      "prompt": "A letter is picked from BALLOON. P(B)?",
+      "choices": [
+        "1/5",
+        "1/2",
+        "6/7",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DISTINCT_OUTCOMES",
+        "EQUAL_CHANCE",
+        "OTHER_EVENT",
+        null
+      ],
+      "explanation": "BALLOON has 1 B among 7 letters: 1/7."
+    },
+    {
+      "id": "probability/t3/001",
+      "tier": 3,
+      "prompt": "Sample of 10 kids: 4 play chess. About how many of 60?",
+      "choices": [
+        "24",
+        "4",
+        "54",
+        "36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAMPLE_COUNT",
+        "ADDITIVE",
+        "OTHER_EVENT"
+      ],
+      "explanation": "60 ÷ 10 = 6, so 4 × 6 = 24."
+    },
+    {
+      "id": "probability/t3/002",
+      "tier": 3,
+      "prompt": "Shots: 20 of 30 went in. Estimate P(make)?",
+      "choices": [
+        "7/9",
+        "2/3",
+        "1/3",
+        "3/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OTHER_EVENT",
+        "FLIPPED"
+      ],
+      "explanation": "Divide both by 10: 20/30 = 2/3."
+    },
+    {
+      "id": "probability/t3/003",
+      "tier": 3,
+      "prompt": "P(catch) = 70%. Throw 70 times. About how many catches?",
+      "choices": [
+        "49",
+        "21",
+        "7",
+        "100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_EVENT",
+        "IGNORED_NUMERATOR",
+        "INVERTED_P"
+      ],
+      "explanation": "70% = 7/10. 70 ÷ 10 = 7, then 7 × 7 = 49."
+    },
+    {
+      "id": "probability/t3/004",
+      "tier": 3,
+      "prompt": "P(rain) = 3/5. P(no rain)?",
+      "choices": [
+        "3/5",
+        "8/5",
+        "2/5",
+        "4/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_EVENT",
+        "ADD_TO_ONE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 − 3/5 = 2/5."
+    },
+    {
+      "id": "probability/t3/005",
+      "tier": 3,
+      "prompt": "Bag: 5 white, 1 black. P(not white)?",
+      "choices": [
+        "1/6",
+        "2/3",
+        "1/5",
+        "5/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PART_TO_PART",
+        "SAME_AS_EVENT"
+      ],
+      "explanation": "1 of 6 marbles are not white: 1/6."
+    },
+    {
+      "id": "probability/t3/006",
+      "tier": 3,
+      "prompt": "Bag: 5 red, 6 blue, 1 green. P(not red)?",
+      "choices": [
+        "1/2",
+        "5/6",
+        "7/12",
+        "5/12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OTHER",
+        "ARITH",
+        null,
+        "SAME_AS_EVENT"
+      ],
+      "explanation": "7 of 12 marbles are not red: 7/12."
+    },
+    {
+      "id": "probability/t3/007",
+      "tier": 3,
+      "prompt": "Sample of 10 kids: 6 like soccer. About how many of 90?",
+      "choices": [
+        "9",
+        "86",
+        "6",
+        "54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SCALE_ONLY",
+        "ADDITIVE",
+        "SAMPLE_COUNT",
+        null
+      ],
+      "explanation": "90 ÷ 10 = 9, so 6 × 9 = 54."
+    },
+    {
+      "id": "probability/t3/008",
+      "tier": 3,
+      "prompt": "P(snow) = 0.25. P(no snow)?",
+      "choices": [
+        "1.25",
+        "0.55",
+        "0.25",
+        "0.75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_TO_ONE",
+        "ARITH",
+        "SAME_AS_EVENT",
+        null
+      ],
+      "explanation": "1 − 0.25 = 0.75."
+    },
+    {
+      "id": "probability/t3/009",
+      "tier": 3,
+      "prompt": "P(hit) = 2/3. P(not hit)?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1/6",
+        "5/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_AS_EVENT",
+        "ARITH",
+        "ADD_TO_ONE"
+      ],
+      "explanation": "1 − 2/3 = 1/3."
+    },
+    {
+      "id": "probability/t3/010",
+      "tier": 3,
+      "prompt": "Roll a die 60 times. About how many primes?",
+      "choices": [
+        "30",
+        "28",
+        "10",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "IGNORED_NUMERATOR",
+        "INVERTED_P"
+      ],
+      "explanation": "3 of 6 faces: 60 ÷ 6 = 10, then 10 × 3 = 30."
+    },
+    {
+      "id": "probability/t3/011",
+      "tier": 3,
+      "prompt": "P(win) = 3/4. Play 12 times. About how many wins?",
+      "choices": [
+        "3",
+        "8",
+        "16",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "ARITH",
+        "INVERTED_P",
+        null
+      ],
+      "explanation": "12 ÷ 4 = 3, then 3 × 3 = 9."
+    },
+    {
+      "id": "probability/t3/012",
+      "tier": 3,
+      "prompt": "P(snow) = 40%. P(no snow)?",
+      "choices": [
+        "60%",
+        "140%",
+        "40%",
+        "80%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_TO_ONE",
+        "SAME_AS_EVENT",
+        "ARITH"
+      ],
+      "explanation": "100% − 40% = 60%."
+    },
+    {
+      "id": "probability/t3/013",
+      "tier": 3,
+      "prompt": "Sample of 10 kids: 2 play chess. About how many of 40?",
+      "choices": [
+        "4",
+        "8",
+        "2",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SCALE_ONLY",
+        null,
+        "SAMPLE_COUNT",
+        "ADDITIVE"
+      ],
+      "explanation": "40 ÷ 10 = 4, so 2 × 4 = 8."
+    },
+    {
+      "id": "probability/t3/014",
+      "tier": 3,
+      "prompt": "P(pass) = 3/10. Throw 100 times. About how many passes?",
+      "choices": [
+        "32",
+        "30",
+        "10",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "IGNORED_NUMERATOR",
+        "OTHER_EVENT"
+      ],
+      "explanation": "100 ÷ 10 = 10, then 10 × 3 = 30."
+    },
+    {
+      "id": "probability/t3/015",
+      "tier": 3,
+      "prompt": "Seeds: 40 of 50 sprouted. Estimate P(sprout)?",
+      "choices": [
+        "4/5",
+        "5/4",
+        "3/5",
+        "1/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED",
+        "ARITH",
+        "OTHER_EVENT"
+      ],
+      "explanation": "Divide both by 10: 40/50 = 4/5."
+    },
+    {
+      "id": "probability/t3/016",
+      "tier": 3,
+      "prompt": "Sample of 10 kids: 5 walk to school. About how many of 40?",
+      "choices": [
+        "4",
+        "5",
+        "20",
+        "35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SCALE_ONLY",
+        "SAMPLE_COUNT",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "40 ÷ 10 = 4, so 5 × 4 = 20."
+    },
+    {
+      "id": "probability/t3/017",
+      "tier": 3,
+      "prompt": "Roll a die 30 times. About how many 3s?",
+      "choices": [
+        "7",
+        "5",
+        "180",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "INVERTED_P",
+        "OTHER_EVENT"
+      ],
+      "explanation": "1 of 6 faces: 30 ÷ 6 = 5, then 5 × 1 = 5."
+    },
+    {
+      "id": "probability/t3/018",
+      "tier": 3,
+      "prompt": "Bus was late 12 of 40 days. Estimate P(late)?",
+      "choices": [
+        "7/10",
+        "3/10",
+        "3/7",
+        "10/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "PART_TO_PART",
+        "FLIPPED"
+      ],
+      "explanation": "Divide both by 4: 12/40 = 3/10."
+    },
+    {
+      "id": "probability/t3/019",
+      "tier": 3,
+      "prompt": "P(snow) = 0.7. P(no snow)?",
+      "choices": [
+        "1.7",
+        "0.1",
+        "0.7",
+        "0.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_TO_ONE",
+        "ARITH",
+        "SAME_AS_EVENT",
+        null
+      ],
+      "explanation": "1 − 0.7 = 0.3."
+    },
+    {
+      "id": "probability/t3/020",
+      "tier": 3,
+      "prompt": "Sample of 10 kids: 2 play piano. About how many of 60?",
+      "choices": [
+        "12",
+        "52",
+        "6",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "SCALE_ONLY",
+        "OTHER_EVENT"
+      ],
+      "explanation": "60 ÷ 10 = 6, so 2 × 6 = 12."
+    },
+    {
+      "id": "probability/t3/021",
+      "tier": 3,
+      "prompt": "Roll a die 54 times. About how many numbers over 4?",
+      "choices": [
+        "9",
+        "162",
+        "18",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "INVERTED_P",
+        null,
+        "OTHER_EVENT"
+      ],
+      "explanation": "2 of 6 faces: 54 ÷ 6 = 9, then 9 × 2 = 18."
+    },
+    {
+      "id": "probability/t3/022",
+      "tier": 3,
+      "prompt": "P(hit) = 3/8. P(not hit)?",
+      "choices": [
+        "11/8",
+        "3/5",
+        "5/8",
+        "3/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_TO_ONE",
+        "PART_TO_PART",
+        null,
+        "SAME_AS_EVENT"
+      ],
+      "explanation": "1 − 3/8 = 5/8."
+    },
+    {
+      "id": "probability/t3/023",
+      "tier": 3,
+      "prompt": "Spinner: red 3 of 12 spins. Estimate P(red)?",
+      "choices": [
+        "4",
+        "1/4",
+        "1/3",
+        "3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "PART_TO_PART",
+        "OTHER_EVENT"
+      ],
+      "explanation": "Divide both by 3: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t3/024",
+      "tier": 3,
+      "prompt": "P(catch) = 7/10. Throw 90 times. About how many catches?",
+      "choices": [
+        "9",
+        "27",
+        "63",
+        "62"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "OTHER_EVENT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "90 ÷ 10 = 9, then 9 × 7 = 63."
+    },
+    {
+      "id": "probability/t3/025",
+      "tier": 3,
+      "prompt": "Sample of 20 kids: 5 play chess. About how many of 100?",
+      "choices": [
+        "5",
+        "75",
+        "85",
+        "25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAMPLE_COUNT",
+        "OTHER_EVENT",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "100 ÷ 20 = 5, so 5 × 5 = 25."
+    },
+    {
+      "id": "probability/t3/026",
+      "tier": 3,
+      "prompt": "P(win) = 0.1. P(not win)?",
+      "choices": [
+        "0.8",
+        "0.9",
+        "1.1",
+        "0.1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_TO_ONE",
+        "SAME_AS_EVENT"
+      ],
+      "explanation": "1 − 0.1 = 0.9."
+    },
+    {
+      "id": "probability/t3/027",
+      "tier": 3,
+      "prompt": "P(catch) = 1/4. Throw 40 times. About how many catches?",
+      "choices": [
+        "9",
+        "160",
+        "30",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "INVERTED_P",
+        "OTHER_EVENT",
+        null
+      ],
+      "explanation": "40 ÷ 4 = 10, then 10 × 1 = 10."
+    },
+    {
+      "id": "probability/t3/028",
+      "tier": 3,
+      "prompt": "Bag: 7 red, 1 green. P(not red)?",
+      "choices": [
+        "1/4",
+        "1/7",
+        "7/8",
+        "1/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PART_TO_PART",
+        "SAME_AS_EVENT",
+        null
+      ],
+      "explanation": "1 of 8 marbles are not red: 1/8."
+    },
+    {
+      "id": "probability/t3/029",
+      "tier": 3,
+      "prompt": "Bag: 5 white, 4 black. P(not white)?",
+      "choices": [
+        "4/5",
+        "5/9",
+        "4/9",
+        "2/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_PART",
+        "SAME_AS_EVENT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4 of 9 marbles are not white: 4/9."
+    },
+    {
+      "id": "probability/t3/030",
+      "tier": 3,
+      "prompt": "Spinner: red 5 of 15 spins. Estimate P(red)?",
+      "choices": [
+        "1/2",
+        "2/3",
+        "1/3",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        null,
+        "FLIPPED"
+      ],
+      "explanation": "Divide both by 5: 5/15 = 1/3."
+    },
+    {
+      "id": "probability/t3/031",
+      "tier": 3,
+      "prompt": "Seeds: 2 of 24 sprouted. Estimate P(sprout)?",
+      "choices": [
+        "1/11",
+        "1/12",
+        "12",
+        "11/12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "FLIPPED",
+        "OTHER_EVENT"
+      ],
+      "explanation": "Divide both by 2: 2/24 = 1/12."
+    },
+    {
+      "id": "probability/t3/032",
+      "tier": 3,
+      "prompt": "Sample of 25 kids: 8 bring lunch. About how many of 50?",
+      "choices": [
+        "33",
+        "2",
+        "8",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "SCALE_ONLY",
+        "SAMPLE_COUNT",
+        null
+      ],
+      "explanation": "50 ÷ 25 = 2, so 8 × 2 = 16."
+    },
+    {
+      "id": "probability/t3/033",
+      "tier": 3,
+      "prompt": "Sample of 20 kids: 9 like soccer. About how many of 100?",
+      "choices": [
+        "55",
+        "45",
+        "9",
+        "89"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "SAMPLE_COUNT",
+        "ADDITIVE"
+      ],
+      "explanation": "100 ÷ 20 = 5, so 9 × 5 = 45."
+    },
+    {
+      "id": "probability/t3/034",
+      "tier": 3,
+      "prompt": "Bag: 6 blue, 2 white, 3 black. P(not blue)?",
+      "choices": [
+        "6/11",
+        "2/11",
+        "5/11",
+        "5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_EVENT",
+        "ONE_OTHER",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "5 of 11 marbles are not blue: 5/11."
+    },
+    {
+      "id": "probability/t3/035",
+      "tier": 3,
+      "prompt": "P(strike) = 0.2. Bowl 15 times. About how many strikes?",
+      "choices": [
+        "5",
+        "12",
+        "75",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "OTHER_EVENT",
+        "INVERTED_P",
+        null
+      ],
+      "explanation": "0.2 = 1/5. 15 ÷ 5 = 3, then 3 × 1 = 3."
+    },
+    {
+      "id": "probability/t3/036",
+      "tier": 3,
+      "prompt": "Sample of 25 kids: 4 play piano. About how many of 75?",
+      "choices": [
+        "12",
+        "3",
+        "63",
+        "54"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SCALE_ONLY",
+        "OTHER_EVENT",
+        "ADDITIVE"
+      ],
+      "explanation": "75 ÷ 25 = 3, so 4 × 3 = 12."
+    },
+    {
+      "id": "probability/t3/037",
+      "tier": 3,
+      "prompt": "P(catch) = 0.1. Throw 40 times. About how many catches?",
+      "choices": [
+        "36",
+        "4",
+        "3",
+        "400"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_EVENT",
+        null,
+        "ARITH",
+        "INVERTED_P"
+      ],
+      "explanation": "0.1 = 1/10. 40 ÷ 10 = 4, then 4 × 1 = 4."
+    },
+    {
+      "id": "probability/t3/038",
+      "tier": 3,
+      "prompt": "P(rain) = 75%. P(no rain)?",
+      "choices": [
+        "75%",
+        "35%",
+        "175%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_EVENT",
+        "ARITH",
+        "ADD_TO_ONE",
+        null
+      ],
+      "explanation": "100% − 75% = 25%."
+    },
+    {
+      "id": "probability/t3/039",
+      "tier": 3,
+      "prompt": "Seeds: 10 of 40 sprouted. Estimate P(sprout)?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "3/4",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "OTHER_EVENT",
+        "FLIPPED"
+      ],
+      "explanation": "Divide both by 10: 10/40 = 1/4."
+    },
+    {
+      "id": "probability/t3/040",
+      "tier": 3,
+      "prompt": "Roll a die 30 times. About how many multiples of 3?",
+      "choices": [
+        "5",
+        "90",
+        "10",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_NUMERATOR",
+        "INVERTED_P",
+        null,
+        "OTHER_EVENT"
+      ],
+      "explanation": "2 of 6 faces: 30 ÷ 6 = 5, then 5 × 2 = 10."
+    },
+    {
+      "id": "probability/t4/001",
+      "tier": 4,
+      "prompt": "Flip a coin and roll a die. How many outcomes?",
+      "choices": [
+        "6",
+        "12",
+        "10",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STAGE",
+        null,
+        "ARITH",
+        "ADDED_COUNTS"
+      ],
+      "explanation": "Pair each of 2 with each of 6: 2 × 6 = 12."
+    },
+    {
+      "id": "probability/t4/002",
+      "tier": 4,
+      "prompt": "6 mains and 5 sides. How many meals?",
+      "choices": [
+        "30",
+        "31",
+        "11",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_COUNTS",
+        "ONE_STAGE"
+      ],
+      "explanation": "Pair each of 6 with each of 5: 6 × 5 = 30."
+    },
+    {
+      "id": "probability/t4/003",
+      "tier": 4,
+      "prompt": "Spin a 4-part spinner twice. How many outcomes?",
+      "choices": [
+        "8",
+        "4",
+        "10",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_COUNTS",
+        "ONE_STAGE",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "Order matters, so (1, 2) and (2, 1) differ: 4 × 4 = 16."
+    },
+    {
+      "id": "probability/t4/004",
+      "tier": 4,
+      "prompt": "Spin a 2-part spinner twice. How many outcomes?",
+      "choices": [
+        "2",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STAGE",
+        "ARITH",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "Order matters, so (1, 2) and (2, 1) differ: 2 × 2 = 4."
+    },
+    {
+      "id": "probability/t4/005",
+      "tier": 4,
+      "prompt": "Coin and die. How many outcomes: heads and a prime number?",
+      "choices": [
+        "12",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_NOT_EVENT",
+        "IGNORED_PART",
+        null,
+        "ADDED_COUNTS"
+      ],
+      "explanation": "H2, H3, H5: 3."
+    },
+    {
+      "id": "probability/t4/006",
+      "tier": 4,
+      "prompt": "2 bodies and 6 arms. How many robots?",
+      "choices": [
+        "12",
+        "13",
+        "8",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_COUNTS",
+        "ONE_STAGE"
+      ],
+      "explanation": "Pair each of 2 with each of 6: 2 × 6 = 12."
+    },
+    {
+      "id": "probability/t4/007",
+      "tier": 4,
+      "prompt": "8 flavors and 4 cones. How many treats?",
+      "choices": [
+        "8",
+        "12",
+        "32",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STAGE",
+        "ADDED_COUNTS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Pair each of 8 with each of 4: 8 × 4 = 32."
+    },
+    {
+      "id": "probability/t4/008",
+      "tier": 4,
+      "prompt": "Coin and die. How many outcomes: heads and a number under 5?",
+      "choices": [
+        "8",
+        "4",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_PART",
+        null,
+        "IGNORED_PART",
+        "TOTAL_NOT_EVENT"
+      ],
+      "explanation": "H1, H2, H3, H4: 4."
+    },
+    {
+      "id": "probability/t4/009",
+      "tier": 4,
+      "prompt": "2 bodies, 5 arms, 3 wheels. How many robots?",
+      "choices": [
+        "21",
+        "29",
+        "10",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MIXED_OPS",
+        "ARITH",
+        "ADDED_COUNTS",
+        null
+      ],
+      "explanation": "2 × 3 × 5 = 6 × 5 = 30."
+    },
+    {
+      "id": "probability/t4/010",
+      "tier": 4,
+      "prompt": "5 flavors and 7 cones. How many treats?",
+      "choices": [
+        "33",
+        "12",
+        "35",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADDED_COUNTS",
+        null,
+        "ONE_STAGE"
+      ],
+      "explanation": "Pair each of 5 with each of 7: 5 × 7 = 35."
+    },
+    {
+      "id": "probability/t4/011",
+      "tier": 4,
+      "prompt": "Roll a die and spin a 4-part spinner. How many outcomes?",
+      "choices": [
+        "26",
+        "24",
+        "6",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_STAGE",
+        "ADDED_COUNTS"
+      ],
+      "explanation": "Pair each of 6 with each of 4: 6 × 4 = 24."
+    },
+    {
+      "id": "probability/t4/012",
+      "tier": 4,
+      "prompt": "Roll a die twice. How many outcomes?",
+      "choices": [
+        "36",
+        "12",
+        "6",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_COUNTS",
+        "ONE_STAGE",
+        "ORDER_BLIND"
+      ],
+      "explanation": "Order matters, so (1, 2) and (2, 1) differ: 6 × 6 = 36."
+    },
+    {
+      "id": "probability/t4/013",
+      "tier": 4,
+      "prompt": "Flip three coins. How many outcomes have exactly one tail?",
+      "choices": [
+        "8",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ALL",
+        "ARITH",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "HHT, HTH, THH: 3."
+    },
+    {
+      "id": "probability/t4/014",
+      "tier": 4,
+      "prompt": "2 shirts, 5 pants, 5 hats. How many outfits?",
+      "choices": [
+        "35",
+        "12",
+        "10",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MIXED_OPS",
+        "ADDED_COUNTS",
+        "FORGOT_ONE",
+        null
+      ],
+      "explanation": "2 × 5 × 5 = 10 × 5 = 50."
+    },
+    {
+      "id": "probability/t4/015",
+      "tier": 4,
+      "prompt": "7 caps and 4 jerseys. How many uniforms?",
+      "choices": [
+        "7",
+        "30",
+        "11",
+        "28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STAGE",
+        "ARITH",
+        "ADDED_COUNTS",
+        null
+      ],
+      "explanation": "Pair each of 7 with each of 4: 7 × 4 = 28."
+    },
+    {
+      "id": "probability/t4/016",
+      "tier": 4,
+      "prompt": "Flip three coins. How many outcomes have at least one tail?",
+      "choices": [
+        "7",
+        "3",
+        "8",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_BLIND",
+        "COUNTED_ALL",
+        "ONE_OUTCOME"
+      ],
+      "explanation": "HHT, HTH, HTT, THH, THT, TTH, TTT: 7."
+    },
+    {
+      "id": "probability/t4/017",
+      "tier": 4,
+      "prompt": "Coin and die. How many outcomes: heads and a number over 2?",
+      "choices": [
+        "8",
+        "4",
+        "5",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_PART",
+        null,
+        "ADDED_COUNTS",
+        "TOTAL_NOT_EVENT"
+      ],
+      "explanation": "H3, H4, H5, H6: 4."
+    },
+    {
+      "id": "probability/t4/018",
+      "tier": 4,
+      "prompt": "Flip a coin and spin a 3-part spinner. How many outcomes?",
+      "choices": [
+        "6",
+        "5",
+        "7",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_COUNTS",
+        "ARITH",
+        "ONE_STAGE"
+      ],
+      "explanation": "Pair each of 2 with each of 3: 2 × 3 = 6."
+    },
+    {
+      "id": "probability/t4/019",
+      "tier": 4,
+      "prompt": "Flip two coins. How many outcomes have exactly one head?",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_BLIND",
+        "ARITH",
+        null,
+        "COUNTED_ALL"
+      ],
+      "explanation": "HT, TH: 2."
+    },
+    {
+      "id": "probability/t4/020",
+      "tier": 4,
+      "prompt": "Flip a coin and spin a 5-part spinner. How many outcomes?",
+      "choices": [
+        "7",
+        "9",
+        "5",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_COUNTS",
+        "ARITH",
+        "ONE_STAGE",
+        null
+      ],
+      "explanation": "Pair each of 2 with each of 5: 2 × 5 = 10."
+    },
+    {
+      "id": "probability/t4/021",
+      "tier": 4,
+      "prompt": "Flip 2 coins. How many outcomes?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ORDER_BLIND",
+        "ONE_STAGE"
+      ],
+      "explanation": "Each flip has 2 outcomes: 2 × 2 = 4."
+    },
+    {
+      "id": "probability/t4/022",
+      "tier": 4,
+      "prompt": "Flip a coin and spin 1 or 2. Which lists every outcome?",
+      "choices": [
+        "H, T, 1, 2",
+        "H1, H2, T1, T2",
+        "H1, T2",
+        "H1, H2, T1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_PAIRED",
+        null,
+        "MISSED_ONE",
+        "MISSED_ONE"
+      ],
+      "explanation": "Pair each coin side with each number: H1, H2, T1, T2."
+    },
+    {
+      "id": "probability/t4/023",
+      "tier": 4,
+      "prompt": "Flip three coins. How many outcomes have exactly one head?",
+      "choices": [
+        "4",
+        "1",
+        "3",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ORDER_BLIND",
+        null,
+        "COUNTED_ALL"
+      ],
+      "explanation": "HTT, THT, TTH: 3."
+    },
+    {
+      "id": "probability/t4/024",
+      "tier": 4,
+      "prompt": "Flip a coin 4 times. How many outcomes?",
+      "choices": [
+        "8",
+        "16",
+        "2",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BY_COUNT",
+        null,
+        "ONE_STAGE",
+        "ORDER_BLIND"
+      ],
+      "explanation": "Each flip has 2 outcomes: 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "probability/t4/025",
+      "tier": 4,
+      "prompt": "Flip two coins. How many outcomes have at least one head?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_BLIND",
+        "COUNTED_ALL",
+        "ONE_OUTCOME"
+      ],
+      "explanation": "HH, HT, TH: 3."
+    },
+    {
+      "id": "probability/t4/026",
+      "tier": 4,
+      "prompt": "Flip two coins. How many outcomes have the same side up?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OUTCOME",
+        null,
+        "COUNTED_ALL"
+      ],
+      "explanation": "HH, TT: 2."
+    },
+    {
+      "id": "probability/t4/027",
+      "tier": 4,
+      "prompt": "3 crusts and 3 toppings. How many pizzas?",
+      "choices": [
+        "11",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_STAGE",
+        null,
+        "ADDED_COUNTS"
+      ],
+      "explanation": "Pair each of 3 with each of 3: 3 × 3 = 9."
+    },
+    {
+      "id": "probability/t4/028",
+      "tier": 4,
+      "prompt": "3 flavors and 2 cones. How many treats?",
+      "choices": [
+        "5",
+        "6",
+        "4",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_COUNTS",
+        null,
+        "ARITH",
+        "ONE_STAGE"
+      ],
+      "explanation": "Pair each of 3 with each of 2: 3 × 2 = 6."
+    },
+    {
+      "id": "probability/t4/029",
+      "tier": 4,
+      "prompt": "Flip three coins. How many outcomes have exactly two heads?",
+      "choices": [
+        "8",
+        "4",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ALL",
+        "ARITH",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "HHT, HTH, THH: 3."
+    },
+    {
+      "id": "probability/t4/030",
+      "tier": 4,
+      "prompt": "2 shirts, 4 pants, 3 hats. How many outfits?",
+      "choices": [
+        "24",
+        "9",
+        "8",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_COUNTS",
+        "FORGOT_ONE",
+        "MIXED_OPS"
+      ],
+      "explanation": "2 × 3 × 4 = 6 × 4 = 24."
+    },
+    {
+      "id": "probability/t4/031",
+      "tier": 4,
+      "prompt": "Spin a 3-part spinner twice. How many outcomes?",
+      "choices": [
+        "3",
+        "11",
+        "6",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STAGE",
+        "ARITH",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "Order matters, so (1, 2) and (2, 1) differ: 3 × 3 = 9."
+    },
+    {
+      "id": "probability/t4/032",
+      "tier": 4,
+      "prompt": "5 bodies, 3 arms, 3 wheels. How many robots?",
+      "choices": [
+        "45",
+        "15",
+        "11",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_ONE",
+        "ADDED_COUNTS",
+        "MIXED_OPS"
+      ],
+      "explanation": "3 × 3 × 5 = 9 × 5 = 45."
+    },
+    {
+      "id": "probability/t4/033",
+      "tier": 4,
+      "prompt": "Flip a coin 3 times. How many outcomes?",
+      "choices": [
+        "9",
+        "4",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POWER_FLIP",
+        "ORDER_BLIND",
+        "MULT_BY_COUNT",
+        null
+      ],
+      "explanation": "Each flip has 2 outcomes: 2 × 2 × 2 = 8."
+    },
+    {
+      "id": "probability/t4/034",
+      "tier": 4,
+      "prompt": "2 breads and 4 fillings. How many sandwiches?",
+      "choices": [
+        "8",
+        "4",
+        "10",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STAGE",
+        "ARITH",
+        "ADDED_COUNTS"
+      ],
+      "explanation": "Pair each of 2 with each of 4: 2 × 4 = 8."
+    },
+    {
+      "id": "probability/t4/035",
+      "tier": 4,
+      "prompt": "Toss a coin 4 times. How many outcomes?",
+      "choices": [
+        "2",
+        "16",
+        "5",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STAGE",
+        null,
+        "ORDER_BLIND",
+        "MULT_BY_COUNT"
+      ],
+      "explanation": "Each flip has 2 outcomes: 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "probability/t4/036",
+      "tier": 4,
+      "prompt": "2 hats and 5 scarves. How many outfits?",
+      "choices": [
+        "5",
+        "7",
+        "10",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STAGE",
+        "ADDED_COUNTS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Pair each of 2 with each of 5: 2 × 5 = 10."
+    },
+    {
+      "id": "probability/t4/037",
+      "tier": 4,
+      "prompt": "5 bodies, 4 arms, 2 wheels. How many robots?",
+      "choices": [
+        "11",
+        "20",
+        "40",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_COUNTS",
+        "FORGOT_ONE",
+        null,
+        "MIXED_OPS"
+      ],
+      "explanation": "2 × 4 × 5 = 8 × 5 = 40."
+    },
+    {
+      "id": "probability/t4/038",
+      "tier": 4,
+      "prompt": "Roll a die and spin a 5-part spinner. How many outcomes?",
+      "choices": [
+        "31",
+        "30",
+        "6",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_STAGE",
+        "ADDED_COUNTS"
+      ],
+      "explanation": "Pair each of 6 with each of 5: 6 × 5 = 30."
+    },
+    {
+      "id": "probability/t4/039",
+      "tier": 4,
+      "prompt": "Coin and die. How many outcomes: heads and an even number?",
+      "choices": [
+        "6",
+        "3",
+        "12",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_PART",
+        null,
+        "TOTAL_NOT_EVENT",
+        "ADDED_COUNTS"
+      ],
+      "explanation": "H2, H4, H6: 3."
+    },
+    {
+      "id": "probability/t4/040",
+      "tier": 4,
+      "prompt": "Flip two coins. Which lists every outcome?",
+      "choices": [
+        "HH, TT",
+        "H, T",
+        "HH, HT, TH, TT",
+        "HH, HT, TT"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MATCHING_ONLY",
+        "ONE_STAGE",
+        null,
+        "ORDER_BLIND"
+      ],
+      "explanation": "HT and TH are different outcomes: HH, HT, TH, TT."
+    },
+    {
+      "id": "probability/t5/001",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(tails and a prime)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/12",
+        "3/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        null,
+        "ARITH",
+        "ADD_DENOMS"
+      ],
+      "explanation": "3 of 12 outcomes: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t5/002",
+      "tier": 5,
+      "prompt": "3-part spinner (red, blue, green), coin. P(green and tails)?",
+      "choices": [
+        "1/2",
+        "1/5",
+        "1/6",
+        "5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADD_DENOMS",
+        null,
+        "ADDED_PROBS"
+      ],
+      "explanation": "1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "probability/t5/003",
+      "tier": 5,
+      "prompt": "Bag: 2 red, 1 white. Draw, replace, draw. P(white twice)?",
+      "choices": [
+        "2/3",
+        "1/3",
+        "1/6",
+        "1/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_PROBS",
+        "FORGOT_STAGE",
+        "ADD_DENOMS",
+        null
+      ],
+      "explanation": "1/3 × 1/3 = 1/9."
+    },
+    {
+      "id": "probability/t5/004",
+      "tier": 5,
+      "prompt": "4-part spinner (1 to 4), coin. P(under 4 and tails)?",
+      "choices": [
+        "1/8",
+        "3/8",
+        "1/2",
+        "3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_DENOMS",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "3/4 × 1/2 = 3/8."
+    },
+    {
+      "id": "probability/t5/005",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 blue. Draw, replace, draw. P(blue then red)?",
+      "choices": [
+        "2/3",
+        "1/3",
+        "4/9",
+        "2/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADD_DENOMS",
+        "ORDER_OVER",
+        null
+      ],
+      "explanation": "2/3 × 1/3 = 2/9."
+    },
+    {
+      "id": "probability/t5/006",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a 6)?",
+      "choices": [
+        "1/6",
+        "2/3",
+        "1/12",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADDED_PROBS",
+        null,
+        "ADD_DENOMS"
+      ],
+      "explanation": "1 of 12 outcomes: 1/12."
+    },
+    {
+      "id": "probability/t5/007",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 blue. Draw, replace, draw. P(red then blue)?",
+      "choices": [
+        "1/9",
+        "4/9",
+        "1/3",
+        "2/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ORDER_OVER",
+        "ADD_DENOMS",
+        null
+      ],
+      "explanation": "1/3 × 2/3 = 2/9."
+    },
+    {
+      "id": "probability/t5/008",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 blue. Draw, replace, draw. P(red twice)?",
+      "choices": [
+        "1/9",
+        "2/3",
+        "1/6",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PROBS",
+        "ADD_DENOMS",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "1/3 × 1/3 = 1/9."
+    },
+    {
+      "id": "probability/t5/009",
+      "tier": 5,
+      "prompt": "Bag: 2 red, 1 green. Draw, replace, draw. P(one of each)?",
+      "choices": [
+        "2/3",
+        "1/3",
+        "2/9",
+        "4/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADD_DENOMS",
+        "ONE_ORDER",
+        null
+      ],
+      "explanation": "2/3 × 1/3 × 2 orders = 4/9."
+    },
+    {
+      "id": "probability/t5/010",
+      "tier": 5,
+      "prompt": "Bag: 2 red, 1 green. Draw, replace, draw. P(red then green)?",
+      "choices": [
+        "4/9",
+        "1/3",
+        "2/9",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_OVER",
+        "ADD_DENOMS",
+        null,
+        "FORGOT_STAGE"
+      ],
+      "explanation": "2/3 × 1/3 = 2/9."
+    },
+    {
+      "id": "probability/t5/011",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a number under 3)?",
+      "choices": [
+        "1/6",
+        "1/3",
+        "1/2",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_STAGE",
+        "FORGOT_STAGE",
+        "ADD_DENOMS"
+      ],
+      "explanation": "2 of 12 outcomes: 2/12 = 1/6."
+    },
+    {
+      "id": "probability/t5/012",
+      "tier": 5,
+      "prompt": "Flip two coins. P(two tails)?",
+      "choices": [
+        "1/3",
+        "3/4",
+        "1/2",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_BLIND",
+        "OTHER_EVENT",
+        "FORGOT_STAGE",
+        null
+      ],
+      "explanation": "1 of 4 outcomes (TT): 1/4."
+    },
+    {
+      "id": "probability/t5/013",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a prime)?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "1/4",
+        "3/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ARITH",
+        null,
+        "ADD_DENOMS"
+      ],
+      "explanation": "3 of 12 outcomes: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t5/014",
+      "tier": 5,
+      "prompt": "3-part spinner (red, blue, green), coin. P(red and tails)?",
+      "choices": [
+        "5/6",
+        "1/6",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_PROBS",
+        null,
+        "FORGOT_STAGE",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "probability/t5/015",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a 3)?",
+      "choices": [
+        "1/6",
+        "2/3",
+        "1/12",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADDED_PROBS",
+        null,
+        "ADD_DENOMS"
+      ],
+      "explanation": "1 of 12 outcomes: 1/12."
+    },
+    {
+      "id": "probability/t5/016",
+      "tier": 5,
+      "prompt": "Flip three coins. P(all three match)?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_DENOMS",
+        "ORDER_BLIND",
+        "ONE_OUTCOME"
+      ],
+      "explanation": "2 of 8 outcomes (HHH, TTT): 2/8 = 1/4."
+    },
+    {
+      "id": "probability/t5/017",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(tails and a number over 1)?",
+      "choices": [
+        "5/12",
+        "5/8",
+        "5/6",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_DENOMS",
+        "FORGOT_STAGE",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "5 of 12 outcomes: 5/12."
+    },
+    {
+      "id": "probability/t5/018",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and an odd number)?",
+      "choices": [
+        "1/6",
+        "1/4",
+        "1/2",
+        "3/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FORGOT_STAGE",
+        "ADD_DENOMS"
+      ],
+      "explanation": "3 of 12 outcomes: 3/12 = 1/4."
+    },
+    {
+      "id": "probability/t5/019",
+      "tier": 5,
+      "prompt": "4-part spinner (1 to 4), coin. P(a 1 and heads)?",
+      "choices": [
+        "1/8",
+        "3/4",
+        "1/2",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PROBS",
+        "FORGOT_STAGE",
+        "ADD_DENOMS"
+      ],
+      "explanation": "1/4 × 1/2 = 1/8."
+    },
+    {
+      "id": "probability/t5/020",
+      "tier": 5,
+      "prompt": "4-part spinner (1 to 4), coin. P(a 1 and tails)?",
+      "choices": [
+        "1/2",
+        "3/4",
+        "1/6",
+        "1/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ADDED_PROBS",
+        "ADD_DENOMS",
+        null
+      ],
+      "explanation": "1/4 × 1/2 = 1/8."
+    },
+    {
+      "id": "probability/t5/021",
+      "tier": 5,
+      "prompt": "Flip three coins. P(all heads)?",
+      "choices": [
+        "1/4",
+        "1/8",
+        "7/8",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_BLIND",
+        null,
+        "OTHER_EVENT",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "1 of 8 outcomes (HHH): 1/8."
+    },
+    {
+      "id": "probability/t5/022",
+      "tier": 5,
+      "prompt": "Flip two coins. P(no heads)?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "3/4",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_BLIND",
+        "OTHER_EVENT",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "1 of 4 outcomes (TT): 1/4."
+    },
+    {
+      "id": "probability/t5/023",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a number under 5)?",
+      "choices": [
+        "1/4",
+        "1/3",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_DENOMS",
+        "FORGOT_STAGE"
+      ],
+      "explanation": "4 of 12 outcomes: 4/12 = 1/3."
+    },
+    {
+      "id": "probability/t5/024",
+      "tier": 5,
+      "prompt": "Flip two coins. P(one head, one tail)?",
+      "choices": [
+        "3/4",
+        "1/4",
+        "1/2",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OUTCOME",
+        null,
+        "ORDER_BLIND"
+      ],
+      "explanation": "2 of 4 outcomes (HT, TH): 2/4 = 1/2."
+    },
+    {
+      "id": "probability/t5/025",
+      "tier": 5,
+      "prompt": "Flip three coins. P(H, H, T in that order)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "7/8",
+        "1/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "ORDER_BLIND",
+        "OTHER_EVENT",
+        null
+      ],
+      "explanation": "1 of 8 outcomes (HHT): 1/8."
+    },
+    {
+      "id": "probability/t5/026",
+      "tier": 5,
+      "prompt": "Flip three coins. P(at most one head)?",
+      "choices": [
+        "2/3",
+        "3/8",
+        "1/8",
+        "1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_DENOMS",
+        "ARITH",
+        "ONE_OUTCOME",
+        null
+      ],
+      "explanation": "4 of 8 outcomes (HTT, THT, TTH, TTT): 4/8 = 1/2."
+    },
+    {
+      "id": "probability/t5/027",
+      "tier": 5,
+      "prompt": "Flip two coins. P(the coins match)?",
+      "choices": [
+        "3/4",
+        "1/4",
+        "1/2",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OUTCOME",
+        null,
+        "ORDER_BLIND"
+      ],
+      "explanation": "2 of 4 outcomes (HH, TT): 2/4 = 1/2."
+    },
+    {
+      "id": "probability/t5/028",
+      "tier": 5,
+      "prompt": "Flip three coins. P(no heads)?",
+      "choices": [
+        "1/8",
+        "1/4",
+        "7/8",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_BLIND",
+        "OTHER_EVENT",
+        "ADD_DENOMS"
+      ],
+      "explanation": "1 of 8 outcomes (TTT): 1/8."
+    },
+    {
+      "id": "probability/t5/029",
+      "tier": 5,
+      "prompt": "Flip two coins. P(at least one head)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "OTHER_EVENT",
+        "ORDER_BLIND",
+        null
+      ],
+      "explanation": "3 of 4 outcomes (HH, HT, TH): 3/4."
+    },
+    {
+      "id": "probability/t5/030",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 white. Draw, replace, draw. P(red twice)?",
+      "choices": [
+        "1/3",
+        "1/9",
+        "1/6",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        null,
+        "ADD_DENOMS",
+        "ADDED_PROBS"
+      ],
+      "explanation": "1/3 × 1/3 = 1/9."
+    },
+    {
+      "id": "probability/t5/031",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(tails and a number over 4)?",
+      "choices": [
+        "1/6",
+        "5/6",
+        "1/2",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PROBS",
+        "FORGOT_STAGE",
+        "ADD_DENOMS"
+      ],
+      "explanation": "2 of 12 outcomes: 2/12 = 1/6."
+    },
+    {
+      "id": "probability/t5/032",
+      "tier": 5,
+      "prompt": "4-part spinner (1 to 4), coin. P(under 4 and heads)?",
+      "choices": [
+        "3/8",
+        "3/4",
+        "1/2",
+        "5/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_STAGE",
+        "ADD_DENOMS",
+        "ARITH"
+      ],
+      "explanation": "3/4 × 1/2 = 3/8."
+    },
+    {
+      "id": "probability/t5/033",
+      "tier": 5,
+      "prompt": "Bag: 2 red, 1 white. Draw, replace, draw. P(white then red)?",
+      "choices": [
+        "1/3",
+        "2/9",
+        "1/9",
+        "4/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_DENOMS",
+        null,
+        "ARITH",
+        "ORDER_OVER"
+      ],
+      "explanation": "1/3 × 2/3 = 2/9."
+    },
+    {
+      "id": "probability/t5/034",
+      "tier": 5,
+      "prompt": "3-part spinner (red, blue, green), coin. P(red and heads)?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "1/6",
+        "5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "FORGOT_STAGE",
+        null,
+        "ADDED_PROBS"
+      ],
+      "explanation": "1/3 × 1/2 = 1/6."
+    },
+    {
+      "id": "probability/t5/035",
+      "tier": 5,
+      "prompt": "Flip three coins. P(two or more heads)?",
+      "choices": [
+        "2/3",
+        "1/8",
+        "1/4",
+        "1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_DENOMS",
+        "ONE_OUTCOME",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 of 8 outcomes (HHH, HHT, HTH, THH): 4/8 = 1/2."
+    },
+    {
+      "id": "probability/t5/036",
+      "tier": 5,
+      "prompt": "Flip three coins. P(at least one head)?",
+      "choices": [
+        "7/8",
+        "1/8",
+        "1/2",
+        "3/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_EVENT",
+        "FORGOT_STAGE",
+        "ORDER_BLIND"
+      ],
+      "explanation": "7 of 8 outcomes (HHH, HHT, HTH, HTT, THH, THT, TTH): 7/8."
+    },
+    {
+      "id": "probability/t5/037",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 white. Draw, replace, draw. P(one of each)?",
+      "choices": [
+        "1/3",
+        "4/9",
+        "1/9",
+        "2/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_DENOMS",
+        null,
+        "ARITH",
+        "ONE_ORDER"
+      ],
+      "explanation": "1/3 × 2/3 × 2 orders = 4/9."
+    },
+    {
+      "id": "probability/t5/038",
+      "tier": 5,
+      "prompt": "4-part spinner (1 to 4), coin. P(over 2 and heads)?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/3",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        null,
+        "ADD_DENOMS",
+        "ARITH"
+      ],
+      "explanation": "1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "probability/t5/039",
+      "tier": 5,
+      "prompt": "Bag: 1 red, 2 blue. Draw, replace, draw. P(one of each)?",
+      "choices": [
+        "2/9",
+        "1/9",
+        "4/9",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_ORDER",
+        "ARITH",
+        null,
+        "ADD_DENOMS"
+      ],
+      "explanation": "1/3 × 2/3 × 2 orders = 4/9."
+    },
+    {
+      "id": "probability/t5/040",
+      "tier": 5,
+      "prompt": "Flip a coin, roll a die. P(heads and a multiple of 3)?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "1/6",
+        "5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_STAGE",
+        "FORGOT_STAGE",
+        null,
+        "ADDED_PROBS"
+      ],
+      "explanation": "2 of 12 outcomes: 2/12 = 1/6."
+    }
+  ]
+}

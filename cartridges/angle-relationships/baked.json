@@ -1,0 +1,3908 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "angle-relationships",
+  "version": "1.0.0",
+  "title": "Angle Relationships",
+  "subtitle": "Complementary, Supplementary, Vertical",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.G.B.5"
+  ],
+  "seed": 20261026,
+  "items_per_tier": 40,
+  "bounds": "Angles in tens. Every given, unknown and answer angle is a multiple of 10 from 10 to 180 degrees (an x is 10 to 170 on its own, as in x + 40, and 10 to 90 once it has a coefficient). Every + and − on angles is a tens fact (180 − 70 is 18 − 7): operands and results 1-18 tens. Every × and ÷ is a times-table fact in tens: coefficients 1-9, a divisor 2-9 into 18 tens or less (3x = 180 is 18 ÷ 3), a quotient 1-9 tens. Totals are only a right angle (90) and a straight line (180). Angles stay in tens: no half-angles, no angles around a point (360), no triangle sum, no parallel lines. Choices are plain numbers (or the words Complementary, Supplementary, Vertical, Adjacent, Equal); wrong choices are whatever a misreading gives (65, 12, 350), up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Complement & Supplement",
+      "description": "Find the angle that adds to 90 (complement) or to 180 (supplement)."
+    },
+    {
+      "tier": 2,
+      "name": "Vertical & Adjacent",
+      "description": "Two lines cross: vertical angles are equal, angles next to each other add to 180."
+    },
+    {
+      "tier": 3,
+      "name": "Name It & Split Angles",
+      "description": "Name the angle pairs, then find the missing part of a right angle or a straight line."
+    },
+    {
+      "tier": 4,
+      "name": "Solve for the Angle",
+      "description": "Angle pairs with x in them: write the equation and solve for x."
+    },
+    {
+      "tier": 5,
+      "name": "Multi-Step Angles",
+      "description": "Vertical and adjacent angles with 2x + 10 style expressions; find x or the angle."
+    }
+  ],
+  "misconceptions": {
+    "COMP_SUPP_SWAP": {
+      "student": "Complementary adds to 90 (a corner). Supplementary adds to 180 (a line).",
+      "teacher": "Swaps the totals: uses 180 for a complement or 90 for a supplement (or swaps the two words)."
+    },
+    "USED_360": {
+      "student": "A right angle is 90 and a straight line is 180. 360 is a full turn.",
+      "teacher": "Subtracts from 360 (a full turn) instead of 90 or 180."
+    },
+    "ADDED_NOT_SUB": {
+      "student": "The other angle is what is left of the total. Subtract, don't add.",
+      "teacher": "Adds the given angle to the total (30 + 90) instead of subtracting it."
+    },
+    "SUPP_FOR_VERT": {
+      "student": "Vertical angles are equal. Supplementary angles are the ones that add to 180.",
+      "teacher": "Treats vertical angles as supplementary: gives 180 minus the angle instead of the same angle."
+    },
+    "COMP_FOR_VERT": {
+      "student": "Vertical angles are equal. Complementary angles are the ones that add to 90.",
+      "teacher": "Treats vertical angles as complementary: gives 90 minus the angle (or its distance from 90) instead of the same angle."
+    },
+    "VERT_FOR_ADJ": {
+      "student": "Angles next to each other on a line add to 180. They are not equal.",
+      "teacher": "Treats adjacent angles on a line as equal (vertical): gives the same angle instead of 180 minus it."
+    },
+    "COMP_FOR_SUPP": {
+      "student": "A straight line is 180 degrees, not 90. Angles on a line add to 180.",
+      "teacher": "Uses 90 (a right angle) as the total for angles on a straight line: 90 minus the angle (or its distance from 90)."
+    },
+    "POSITION_WORD_FOR_SUM": {
+      "student": "Look at the sum: 90 is complementary, 180 is supplementary.",
+      "teacher": "Names a pair by position (vertical) when the clue is the sum they add to."
+    },
+    "SUM_WORD_FOR_POSITION": {
+      "student": "Vertical and adjacent say where angles sit, not what they add to.",
+      "teacher": "Names a pair by its sum (complementary or supplementary) when the clue is where the angles sit."
+    },
+    "VERT_ADJ_SWAP": {
+      "student": "Adjacent angles share a side. Vertical angles sit across from each other.",
+      "teacher": "Swaps vertical (across from each other, equal) and adjacent (next to each other, share a side)."
+    },
+    "FORGOT_ONE": {
+      "student": "Take away every angle you are given, not just one.",
+      "teacher": "Subtracts only one of the given angles (or leaves out the +number on x)."
+    },
+    "WRONG_TOTAL": {
+      "student": "A right angle is 90 degrees. A straight line is 180. Use the right total.",
+      "teacher": "Uses 180 for a right angle or 90 for a straight line."
+    },
+    "ADDED_PARTS": {
+      "student": "x is what is left. Subtract the given angles from the total, don't add.",
+      "teacher": "Adds the given angles instead of subtracting them from the total."
+    },
+    "ANGLE_NOT_X": {
+      "student": "Check what is asked: here you want x, not the size of an angle.",
+      "teacher": "Finds an angle's size (or copies a given angle) when the question asks for x."
+    },
+    "NO_DIVIDE": {
+      "student": "You stopped early. Divide by the number in front of x.",
+      "teacher": "Combines the terms and forgets the last step of dividing by the coefficient of x."
+    },
+    "SPLIT_EVENLY": {
+      "student": "The angles are not equal. Add the parts: x + 2x is 3x, so divide by 3.",
+      "teacher": "Splits the total in half as if both angles were equal, ignoring the coefficients."
+    },
+    "SIGN_SLIP": {
+      "student": "A + number on one side becomes minus when it moves to the other side.",
+      "teacher": "Moves a +number across the equals sign without changing its sign."
+    },
+    "DIVIDED_ONE_TERM": {
+      "student": "Subtract the other angle first, then divide by the number in front of x.",
+      "teacher": "Divides only the total by the coefficient of x and leaves the other angle undivided."
+    },
+    "GAVE_X": {
+      "student": "x is not the angle. Multiply x by the number in front to get the angle.",
+      "teacher": "Stops at the value of x when the question asks for the size of an angle."
+    },
+    "OTHER_ANGLE": {
+      "student": "Re-read the question: it asks for the larger or the smaller angle.",
+      "teacher": "Finds the right angles but answers with the wrong one (smaller for larger, or the reverse)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "angle-relationships/t1/001",
+      "tier": 1,
+      "prompt": "Angles 130 and x are supplementary. x in degrees?",
+      "choices": [
+        "230",
+        "70",
+        "40",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "angle-relationships/t1/002",
+      "tier": 1,
+      "prompt": "Angles 40 and x are complementary. x in degrees?",
+      "choices": [
+        "40",
+        "320",
+        "50",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 40 = 50."
+    },
+    {
+      "id": "angle-relationships/t1/003",
+      "tier": 1,
+      "prompt": "Angles 60 and x are supplementary. x in degrees?",
+      "choices": [
+        "100",
+        "120",
+        "30",
+        "300"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_SUPP_SWAP",
+        "USED_360"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "angle-relationships/t1/004",
+      "tier": 1,
+      "prompt": "Angles 80 and x are complementary. x in degrees?",
+      "choices": [
+        "10",
+        "170",
+        "100",
+        "280"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_NOT_SUB",
+        "COMP_SUPP_SWAP",
+        "USED_360"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 80 = 10."
+    },
+    {
+      "id": "angle-relationships/t1/005",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 20 degrees?",
+      "choices": [
+        "340",
+        "130",
+        "160",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "angle-relationships/t1/006",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 50 degrees?",
+      "choices": [
+        "310",
+        "130",
+        "120",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "angle-relationships/t1/007",
+      "tier": 1,
+      "prompt": "Angles 80 and x are supplementary. x in degrees?",
+      "choices": [
+        "10",
+        "100",
+        "280",
+        "110"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        null,
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 80 = 100."
+    },
+    {
+      "id": "angle-relationships/t1/008",
+      "tier": 1,
+      "prompt": "Complement of an angle of 70 degrees?",
+      "choices": [
+        "160",
+        "290",
+        "110",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 70 = 20."
+    },
+    {
+      "id": "angle-relationships/t1/009",
+      "tier": 1,
+      "prompt": "Angles 10 and x are complementary. x in degrees?",
+      "choices": [
+        "170",
+        "80",
+        "350",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        null,
+        "USED_360",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 10 = 80."
+    },
+    {
+      "id": "angle-relationships/t1/010",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 110 degrees?",
+      "choices": [
+        "40",
+        "20",
+        "70",
+        "250"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "angle-relationships/t1/011",
+      "tier": 1,
+      "prompt": "Angles 50 and x are complementary. x in degrees?",
+      "choices": [
+        "40",
+        "310",
+        "130",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        "ARITH"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 50 = 40."
+    },
+    {
+      "id": "angle-relationships/t1/012",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 10 degrees?",
+      "choices": [
+        "170",
+        "80",
+        "160",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "angle-relationships/t1/013",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 160 degrees?",
+      "choices": [
+        "340",
+        "20",
+        "50",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        null,
+        "ARITH",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 160 = 20."
+    },
+    {
+      "id": "angle-relationships/t1/014",
+      "tier": 1,
+      "prompt": "Two angles are complementary. One is 40 degrees. The other?",
+      "choices": [
+        "50",
+        "130",
+        "320",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_NOT_SUB",
+        "USED_360",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 40 = 50."
+    },
+    {
+      "id": "angle-relationships/t1/015",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 10 degrees. The other?",
+      "choices": [
+        "80",
+        "180",
+        "350",
+        "170"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "angle-relationships/t1/016",
+      "tier": 1,
+      "prompt": "Angles 170 and x are supplementary. x in degrees?",
+      "choices": [
+        "80",
+        "10",
+        "190",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        null,
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "angle-relationships/t1/017",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 80 degrees. The other?",
+      "choices": [
+        "70",
+        "100",
+        "10",
+        "90"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_SUPP_SWAP",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 80 = 100."
+    },
+    {
+      "id": "angle-relationships/t1/018",
+      "tier": 1,
+      "prompt": "Two angles are complementary. One is 30 degrees. The other?",
+      "choices": [
+        "60",
+        "30",
+        "120",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_NOT_SUB",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 30 = 60."
+    },
+    {
+      "id": "angle-relationships/t1/019",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 140 degrees?",
+      "choices": [
+        "50",
+        "60",
+        "320",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        "ADDED_NOT_SUB",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "angle-relationships/t1/020",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 100 degrees. The other?",
+      "choices": [
+        "50",
+        "10",
+        "80",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 100 = 80."
+    },
+    {
+      "id": "angle-relationships/t1/021",
+      "tier": 1,
+      "prompt": "Two angles are complementary. One is 80 degrees. The other?",
+      "choices": [
+        "170",
+        "10",
+        "280",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        null,
+        "USED_360",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 80 = 10."
+    },
+    {
+      "id": "angle-relationships/t1/022",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 70 degrees. The other?",
+      "choices": [
+        "90",
+        "290",
+        "20",
+        "110"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 70 = 110."
+    },
+    {
+      "id": "angle-relationships/t1/023",
+      "tier": 1,
+      "prompt": "Complement of an angle of 30 degrees?",
+      "choices": [
+        "60",
+        "30",
+        "50",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 30 = 60."
+    },
+    {
+      "id": "angle-relationships/t1/024",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 130 degrees. The other?",
+      "choices": [
+        "30",
+        "40",
+        "50",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "angle-relationships/t1/025",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 60 degrees. The other?",
+      "choices": [
+        "140",
+        "30",
+        "240",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        "ADDED_NOT_SUB",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "angle-relationships/t1/026",
+      "tier": 1,
+      "prompt": "Angles 140 and x are supplementary. x in degrees?",
+      "choices": [
+        "10",
+        "220",
+        "40",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "angle-relationships/t1/027",
+      "tier": 1,
+      "prompt": "Complement of an angle of 10 degrees?",
+      "choices": [
+        "80",
+        "70",
+        "350",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 10 = 80."
+    },
+    {
+      "id": "angle-relationships/t1/028",
+      "tier": 1,
+      "prompt": "Two angles are complementary. One is 20 degrees. The other?",
+      "choices": [
+        "340",
+        "160",
+        "70",
+        "110"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        null,
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 20 = 70."
+    },
+    {
+      "id": "angle-relationships/t1/029",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 170 degrees. The other?",
+      "choices": [
+        "80",
+        "40",
+        "10",
+        "190"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "angle-relationships/t1/030",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 160 degrees. The other?",
+      "choices": [
+        "30",
+        "200",
+        "20",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 160 = 20."
+    },
+    {
+      "id": "angle-relationships/t1/031",
+      "tier": 1,
+      "prompt": "Angles 100 and x are supplementary. x in degrees?",
+      "choices": [
+        "10",
+        "80",
+        "70",
+        "260"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 100 = 80."
+    },
+    {
+      "id": "angle-relationships/t1/032",
+      "tier": 1,
+      "prompt": "Angles 70 and x are complementary. x in degrees?",
+      "choices": [
+        "20",
+        "290",
+        "160",
+        "110"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ADDED_NOT_SUB",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 70 = 20."
+    },
+    {
+      "id": "angle-relationships/t1/033",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 30 degrees. The other?",
+      "choices": [
+        "120",
+        "60",
+        "130",
+        "150"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 30 = 150."
+    },
+    {
+      "id": "angle-relationships/t1/034",
+      "tier": 1,
+      "prompt": "Two angles are complementary. One is 50 degrees. The other?",
+      "choices": [
+        "310",
+        "140",
+        "40",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ADDED_NOT_SUB",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 50 = 40."
+    },
+    {
+      "id": "angle-relationships/t1/035",
+      "tier": 1,
+      "prompt": "Two angles are supplementary. One is 50 degrees. The other?",
+      "choices": [
+        "40",
+        "100",
+        "230",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "ARITH",
+        "ADDED_NOT_SUB",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "angle-relationships/t1/036",
+      "tier": 1,
+      "prompt": "Angles 120 and x are supplementary. x in degrees?",
+      "choices": [
+        "240",
+        "70",
+        "30",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "angle-relationships/t1/037",
+      "tier": 1,
+      "prompt": "Angles 150 and x are supplementary. x in degrees?",
+      "choices": [
+        "30",
+        "20",
+        "60",
+        "330"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "angle-relationships/t1/038",
+      "tier": 1,
+      "prompt": "Angles 60 and x are complementary. x in degrees?",
+      "choices": [
+        "300",
+        "30",
+        "120",
+        "150"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "COMP_SUPP_SWAP",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "Complementary angles add to 90: 90 − 60 = 30."
+    },
+    {
+      "id": "angle-relationships/t1/039",
+      "tier": 1,
+      "prompt": "Angles 40 and x are supplementary. x in degrees?",
+      "choices": [
+        "140",
+        "320",
+        "160",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "angle-relationships/t1/040",
+      "tier": 1,
+      "prompt": "Supplement of an angle of 40 degrees?",
+      "choices": [
+        "130",
+        "120",
+        "50",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "Supplementary angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "angle-relationships/t2/001",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 20 degrees. The other?",
+      "choices": [
+        "30",
+        "20",
+        "70",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_FOR_VERT",
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 20 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/002",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 60 degrees. An adjacent angle?",
+      "choices": [
+        "120",
+        "30",
+        "150",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_SUPP",
+        "ARITH",
+        "VERT_FOR_ADJ"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "angle-relationships/t2/003",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 70 degrees. An adjacent angle?",
+      "choices": [
+        "70",
+        "110",
+        "100",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        null,
+        "ARITH",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 70 = 110."
+    },
+    {
+      "id": "angle-relationships/t2/004",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 40 degrees. The other?",
+      "choices": [
+        "40",
+        "130",
+        "50",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        "ARITH",
+        "COMP_FOR_SUPP",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "angle-relationships/t2/005",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 40 degrees. Its vertical angle?",
+      "choices": [
+        "40",
+        "50",
+        "140",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_VERT",
+        "SUPP_FOR_VERT",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 40 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/006",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 80 degrees. An adjacent angle?",
+      "choices": [
+        "100",
+        "10",
+        "70",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_SUPP",
+        "ARITH",
+        "VERT_FOR_ADJ"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 80 = 100."
+    },
+    {
+      "id": "angle-relationships/t2/007",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 10 degrees. Its vertical angle?",
+      "choices": [
+        "170",
+        "10",
+        "80",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_VERT",
+        null,
+        "COMP_FOR_VERT",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 10 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/008",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 50 degrees. The other?",
+      "choices": [
+        "130",
+        "50",
+        "40",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "angle-relationships/t2/009",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 80 degrees. The other?",
+      "choices": [
+        "100",
+        "10",
+        "80",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 80 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/010",
+      "tier": 2,
+      "prompt": "Angle A is 60 degrees. Its vertical angle B is?",
+      "choices": [
+        "30",
+        "90",
+        "60",
+        "120"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_FOR_VERT",
+        "ARITH",
+        null,
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 60 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/011",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 10 degrees. The angle next to it?",
+      "choices": [
+        "10",
+        "180",
+        "80",
+        "170"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        "ARITH",
+        "COMP_FOR_SUPP",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "angle-relationships/t2/012",
+      "tier": 2,
+      "prompt": "Angle A is 140 degrees. Its vertical angle B is?",
+      "choices": [
+        "140",
+        "40",
+        "50",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 140 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/013",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 60 degrees. The angle next to it?",
+      "choices": [
+        "130",
+        "120",
+        "30",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_FOR_SUPP",
+        "VERT_FOR_ADJ"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "angle-relationships/t2/014",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 130 degrees. The other?",
+      "choices": [
+        "50",
+        "130",
+        "70",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VERT_FOR_ADJ",
+        "ARITH",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "angle-relationships/t2/015",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 140 degrees. The angle next to it?",
+      "choices": [
+        "70",
+        "40",
+        "140",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "angle-relationships/t2/016",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 20 degrees. The angle next to it?",
+      "choices": [
+        "180",
+        "160",
+        "20",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "angle-relationships/t2/017",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 20 degrees. The other?",
+      "choices": [
+        "150",
+        "160",
+        "20",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "angle-relationships/t2/018",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 100 degrees. The other?",
+      "choices": [
+        "10",
+        "100",
+        "110",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_VERT",
+        null,
+        "ARITH",
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 100 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/019",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 40 degrees. The other?",
+      "choices": [
+        "60",
+        "40",
+        "140",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 40 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/020",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 30 degrees. The angle next to it?",
+      "choices": [
+        "60",
+        "30",
+        "120",
+        "150"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "VERT_FOR_ADJ",
+        "ARITH",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 30 = 150."
+    },
+    {
+      "id": "angle-relationships/t2/021",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 150 degrees. The other?",
+      "choices": [
+        "30",
+        "60",
+        "50",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_SUPP",
+        "ARITH",
+        "VERT_FOR_ADJ"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "angle-relationships/t2/022",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 50 degrees. An adjacent angle?",
+      "choices": [
+        "40",
+        "50",
+        "100",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "VERT_FOR_ADJ",
+        "ARITH",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "angle-relationships/t2/023",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 130 degrees. The other?",
+      "choices": [
+        "40",
+        "150",
+        "50",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_VERT",
+        "ARITH",
+        "SUPP_FOR_VERT",
+        null
+      ],
+      "explanation": "Vertical angles are equal, so it is also 130 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/024",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 30 degrees. Its vertical angle?",
+      "choices": [
+        "150",
+        "60",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 30 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/025",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 140 degrees. Its vertical angle?",
+      "choices": [
+        "110",
+        "50",
+        "140",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_FOR_VERT",
+        null,
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 140 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/026",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 130 degrees. The angle next to it?",
+      "choices": [
+        "40",
+        "20",
+        "130",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "ARITH",
+        "VERT_FOR_ADJ",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "angle-relationships/t2/027",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 110 degrees. The other?",
+      "choices": [
+        "110",
+        "70",
+        "120",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_VERT",
+        "ARITH",
+        "COMP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 110 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/028",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 170 degrees. The angle next to it?",
+      "choices": [
+        "80",
+        "40",
+        "170",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "ARITH",
+        "VERT_FOR_ADJ",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "angle-relationships/t2/029",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 110 degrees. The angle next to it?",
+      "choices": [
+        "110",
+        "70",
+        "20",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        null,
+        "COMP_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "angle-relationships/t2/030",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 150 degrees. Its vertical angle?",
+      "choices": [
+        "150",
+        "30",
+        "60",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 150 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/031",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 160 degrees. The other?",
+      "choices": [
+        "140",
+        "70",
+        "160",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_FOR_VERT",
+        null,
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 160 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/032",
+      "tier": 2,
+      "prompt": "Vertical angles: one is 50 degrees. The other?",
+      "choices": [
+        "70",
+        "40",
+        "50",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_FOR_VERT",
+        null,
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 50 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/033",
+      "tier": 2,
+      "prompt": "Angle A is 100 degrees. Its vertical angle B is?",
+      "choices": [
+        "120",
+        "80",
+        "10",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        null
+      ],
+      "explanation": "Vertical angles are equal, so it is also 100 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/034",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 120 degrees. Its vertical angle?",
+      "choices": [
+        "30",
+        "60",
+        "100",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_VERT",
+        "SUPP_FOR_VERT",
+        "ARITH",
+        null
+      ],
+      "explanation": "Vertical angles are equal, so it is also 120 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/035",
+      "tier": 2,
+      "prompt": "Adjacent angles on a line: one is 160 degrees. The other?",
+      "choices": [
+        "50",
+        "70",
+        "20",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COMP_FOR_SUPP",
+        null,
+        "VERT_FOR_ADJ"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 160 = 20."
+    },
+    {
+      "id": "angle-relationships/t2/036",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 70 degrees. Its vertical angle?",
+      "choices": [
+        "20",
+        "110",
+        "70",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_FOR_VERT",
+        "SUPP_FOR_VERT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 70 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/037",
+      "tier": 2,
+      "prompt": "Angle A is 70 degrees. Its vertical angle B is?",
+      "choices": [
+        "110",
+        "20",
+        "70",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_VERT",
+        "COMP_FOR_VERT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 70 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/038",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 120 degrees. The angle next to it?",
+      "choices": [
+        "60",
+        "120",
+        "30",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "angle-relationships/t2/039",
+      "tier": 2,
+      "prompt": "Angle A is 170 degrees. Its vertical angle B is?",
+      "choices": [
+        "160",
+        "10",
+        "170",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_VERT",
+        null,
+        "COMP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal, so it is also 170 degrees."
+    },
+    {
+      "id": "angle-relationships/t2/040",
+      "tier": 2,
+      "prompt": "Lines cross. One angle is 100 degrees. An adjacent angle?",
+      "choices": [
+        "10",
+        "100",
+        "90",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "VERT_FOR_ADJ",
+        "ARITH",
+        null
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 100 = 80."
+    },
+    {
+      "id": "angle-relationships/t3/001",
+      "tier": 3,
+      "prompt": "Angles of 50 and 130 degrees are?",
+      "choices": [
+        "Supplementary",
+        "Complementary",
+        "Vertical"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_SUPP_SWAP",
+        "POSITION_WORD_FOR_SUM"
+      ],
+      "explanation": "50 + 130 = 180, so the angles are supplementary."
+    },
+    {
+      "id": "angle-relationships/t3/002",
+      "tier": 3,
+      "prompt": "Angles 30, 10 and x make a right angle. x in degrees?",
+      "choices": [
+        "30",
+        "50",
+        "20",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 90: 90 − 30 − 10 = 50."
+    },
+    {
+      "id": "angle-relationships/t3/003",
+      "tier": 3,
+      "prompt": "Two angles make a right angle together. They are?",
+      "choices": [
+        "Supplementary",
+        "Complementary",
+        "Vertical"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        null,
+        "POSITION_WORD_FOR_SUM"
+      ],
+      "explanation": "A right angle is 90, so the pair adds to 90: complementary."
+    },
+    {
+      "id": "angle-relationships/t3/004",
+      "tier": 3,
+      "prompt": "Angles 70, 80 and x make a straight line. x in degrees?",
+      "choices": [
+        "30",
+        "150",
+        "50",
+        "110"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PARTS",
+        "ARITH",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 180: 180 − 70 − 80 = 30."
+    },
+    {
+      "id": "angle-relationships/t3/005",
+      "tier": 3,
+      "prompt": "Angles that share a side and a vertex are?",
+      "choices": [
+        "Supplementary",
+        "Vertical",
+        "Complementary",
+        "Adjacent"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_WORD_FOR_POSITION",
+        "VERT_ADJ_SWAP",
+        "SUM_WORD_FOR_POSITION",
+        null
+      ],
+      "explanation": "Adjacent angles are next to each other: they share a side and a vertex."
+    },
+    {
+      "id": "angle-relationships/t3/006",
+      "tier": 3,
+      "prompt": "Angles of 70 and 20 degrees are?",
+      "choices": [
+        "Vertical",
+        "Complementary",
+        "Supplementary"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITION_WORD_FOR_SUM",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "70 + 20 = 90, so the angles are complementary."
+    },
+    {
+      "id": "angle-relationships/t3/007",
+      "tier": 3,
+      "prompt": "Complementary angles add to how many degrees?",
+      "choices": [
+        "120",
+        "90",
+        "360",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "USED_360",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "Complementary angles add to 90 degrees."
+    },
+    {
+      "id": "angle-relationships/t3/008",
+      "tier": 3,
+      "prompt": "A right angle is split into 20, 30 and x degrees. x?",
+      "choices": [
+        "30",
+        "50",
+        "70",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADDED_PARTS",
+        "FORGOT_ONE",
+        null
+      ],
+      "explanation": "The parts add to 90: 90 − 20 − 30 = 40."
+    },
+    {
+      "id": "angle-relationships/t3/009",
+      "tier": 3,
+      "prompt": "A straight angle measures how many degrees?",
+      "choices": [
+        "150",
+        "360",
+        "90",
+        "180"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "A straight angle is a straight line: 180 degrees."
+    },
+    {
+      "id": "angle-relationships/t3/010",
+      "tier": 3,
+      "prompt": "A straight angle is split into 80, 50 and x degrees. x?",
+      "choices": [
+        "50",
+        "100",
+        "20",
+        "130"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_ONE",
+        "ARITH",
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 180: 180 − 80 − 50 = 50."
+    },
+    {
+      "id": "angle-relationships/t3/011",
+      "tier": 3,
+      "prompt": "Angles 60, 80 and x make a straight line. x in degrees?",
+      "choices": [
+        "50",
+        "40",
+        "120",
+        "140"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FORGOT_ONE",
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 180: 180 − 60 − 80 = 40."
+    },
+    {
+      "id": "angle-relationships/t3/012",
+      "tier": 3,
+      "prompt": "Angles 30, 10 and x make a straight line. x in degrees?",
+      "choices": [
+        "170",
+        "140",
+        "150",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FORGOT_ONE",
+        "ARITH"
+      ],
+      "explanation": "The parts add to 180: 180 − 30 − 10 = 140."
+    },
+    {
+      "id": "angle-relationships/t3/013",
+      "tier": 3,
+      "prompt": "A right angle is split into 30, 30 and x degrees. x?",
+      "choices": [
+        "30",
+        "120",
+        "50",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "ARITH",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 90: 90 − 30 − 30 = 30."
+    },
+    {
+      "id": "angle-relationships/t3/014",
+      "tier": 3,
+      "prompt": "A straight angle is split into 140, 20 and x degrees. x?",
+      "choices": [
+        "160",
+        "40",
+        "20",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_PARTS",
+        "FORGOT_ONE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The parts add to 180: 180 − 140 − 20 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/015",
+      "tier": 3,
+      "prompt": "Angles 130, 30 and x make a straight line. x in degrees?",
+      "choices": [
+        "160",
+        "20",
+        "30",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_PARTS",
+        null,
+        "ARITH",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 180: 180 − 130 − 30 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/016",
+      "tier": 3,
+      "prompt": "Vertical angles are always?",
+      "choices": [
+        "Supplementary",
+        "Equal",
+        "Adjacent",
+        "Complementary"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_VERT",
+        null,
+        "VERT_ADJ_SWAP",
+        "COMP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are always equal."
+    },
+    {
+      "id": "angle-relationships/t3/017",
+      "tier": 3,
+      "prompt": "A straight angle is split into 10, 140 and x degrees. x?",
+      "choices": [
+        "10",
+        "30",
+        "150",
+        "170"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADDED_PARTS",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 180: 180 − 10 − 140 = 30."
+    },
+    {
+      "id": "angle-relationships/t3/018",
+      "tier": 3,
+      "prompt": "A straight angle is split into 20, 60 and x degrees. x?",
+      "choices": [
+        "130",
+        "160",
+        "110",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "The parts add to 180: 180 − 20 − 60 = 100."
+    },
+    {
+      "id": "angle-relationships/t3/019",
+      "tier": 3,
+      "prompt": "Two angles make a straight line together. They are?",
+      "choices": [
+        "Complementary",
+        "Vertical",
+        "Supplementary"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "POSITION_WORD_FOR_SUM",
+        null
+      ],
+      "explanation": "A straight line is 180, so the pair adds to 180: supplementary."
+    },
+    {
+      "id": "angle-relationships/t3/020",
+      "tier": 3,
+      "prompt": "Angles across from each other where lines cross are?",
+      "choices": [
+        "Adjacent",
+        "Complementary",
+        "Vertical",
+        "Supplementary"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VERT_ADJ_SWAP",
+        "SUM_WORD_FOR_POSITION",
+        null,
+        "SUM_WORD_FOR_POSITION"
+      ],
+      "explanation": "Vertical angles sit across from each other where two lines cross."
+    },
+    {
+      "id": "angle-relationships/t3/021",
+      "tier": 3,
+      "prompt": "Angles 20, 140 and x make a straight line. x in degrees?",
+      "choices": [
+        "30",
+        "160",
+        "50",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "The parts add to 180: 180 − 20 − 140 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/022",
+      "tier": 3,
+      "prompt": "Two angles that add to 180 are?",
+      "choices": [
+        "Supplementary",
+        "Complementary",
+        "Vertical"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_SUPP_SWAP",
+        "POSITION_WORD_FOR_SUM"
+      ],
+      "explanation": "Angles that add to 180 are supplementary."
+    },
+    {
+      "id": "angle-relationships/t3/023",
+      "tier": 3,
+      "prompt": "Angles of 40 and 140 degrees are?",
+      "choices": [
+        "Vertical",
+        "Complementary",
+        "Supplementary"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITION_WORD_FOR_SUM",
+        "COMP_SUPP_SWAP",
+        null
+      ],
+      "explanation": "40 + 140 = 180, so the angles are supplementary."
+    },
+    {
+      "id": "angle-relationships/t3/024",
+      "tier": 3,
+      "prompt": "A straight angle is split into 120, 50 and x degrees. x?",
+      "choices": [
+        "40",
+        "60",
+        "10",
+        "170"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 180: 180 − 120 − 50 = 10."
+    },
+    {
+      "id": "angle-relationships/t3/025",
+      "tier": 3,
+      "prompt": "A straight angle is split into 50, 30 and x degrees. x?",
+      "choices": [
+        "120",
+        "130",
+        "110",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "The parts add to 180: 180 − 50 − 30 = 100."
+    },
+    {
+      "id": "angle-relationships/t3/026",
+      "tier": 3,
+      "prompt": "Supplementary angles add to how many degrees?",
+      "choices": [
+        "180",
+        "360",
+        "90",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        "ARITH"
+      ],
+      "explanation": "Supplementary angles add to 180 degrees."
+    },
+    {
+      "id": "angle-relationships/t3/027",
+      "tier": 3,
+      "prompt": "A right angle is split into 10, 20 and x degrees. x?",
+      "choices": [
+        "80",
+        "30",
+        "60",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "ADDED_PARTS",
+        null,
+        "WRONG_TOTAL"
+      ],
+      "explanation": "The parts add to 90: 90 − 10 − 20 = 60."
+    },
+    {
+      "id": "angle-relationships/t3/028",
+      "tier": 3,
+      "prompt": "A right angle is split into 20, 50 and x degrees. x?",
+      "choices": [
+        "30",
+        "20",
+        "110",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WRONG_TOTAL",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 90: 90 − 20 − 50 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/029",
+      "tier": 3,
+      "prompt": "Angles 30, 40 and x make a right angle. x in degrees?",
+      "choices": [
+        "110",
+        "60",
+        "20",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TOTAL",
+        "FORGOT_ONE",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 90: 90 − 30 − 40 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/030",
+      "tier": 3,
+      "prompt": "Angles 50, 30 and x make a right angle. x in degrees?",
+      "choices": [
+        "10",
+        "40",
+        "100",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_ONE",
+        "WRONG_TOTAL",
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 90: 90 − 50 − 30 = 10."
+    },
+    {
+      "id": "angle-relationships/t3/031",
+      "tier": 3,
+      "prompt": "Angles of 150 and 30 degrees are?",
+      "choices": [
+        "Supplementary",
+        "Vertical",
+        "Complementary"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POSITION_WORD_FOR_SUM",
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "150 + 30 = 180, so the angles are supplementary."
+    },
+    {
+      "id": "angle-relationships/t3/032",
+      "tier": 3,
+      "prompt": "Two angles that add to 90 are?",
+      "choices": [
+        "Supplementary",
+        "Vertical",
+        "Complementary"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_SUPP_SWAP",
+        "POSITION_WORD_FOR_SUM",
+        null
+      ],
+      "explanation": "Angles that add to 90 are complementary."
+    },
+    {
+      "id": "angle-relationships/t3/033",
+      "tier": 3,
+      "prompt": "A right angle measures how many degrees?",
+      "choices": [
+        "90",
+        "360",
+        "180",
+        "100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "COMP_SUPP_SWAP",
+        "ARITH"
+      ],
+      "explanation": "A right angle is a square corner: 90 degrees."
+    },
+    {
+      "id": "angle-relationships/t3/034",
+      "tier": 3,
+      "prompt": "Angles 130, 20 and x make a straight line. x in degrees?",
+      "choices": [
+        "10",
+        "50",
+        "30",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 180: 180 − 130 − 20 = 30."
+    },
+    {
+      "id": "angle-relationships/t3/035",
+      "tier": 3,
+      "prompt": "A right angle is split into 60, 10 and x degrees. x?",
+      "choices": [
+        "20",
+        "110",
+        "70",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "ADDED_PARTS",
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 90: 90 − 60 − 10 = 20."
+    },
+    {
+      "id": "angle-relationships/t3/036",
+      "tier": 3,
+      "prompt": "A right angle is split into 30, 50 and x degrees. x?",
+      "choices": [
+        "60",
+        "100",
+        "80",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "WRONG_TOTAL",
+        "ADDED_PARTS",
+        null
+      ],
+      "explanation": "The parts add to 90: 90 − 30 − 50 = 10."
+    },
+    {
+      "id": "angle-relationships/t3/037",
+      "tier": 3,
+      "prompt": "Angles 100, 30 and x make a straight line. x in degrees?",
+      "choices": [
+        "130",
+        "20",
+        "50",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_PARTS",
+        "ARITH",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 180: 180 − 100 − 30 = 50."
+    },
+    {
+      "id": "angle-relationships/t3/038",
+      "tier": 3,
+      "prompt": "Angles 120, 20 and x make a straight line. x in degrees?",
+      "choices": [
+        "50",
+        "140",
+        "40",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADDED_PARTS",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "The parts add to 180: 180 − 120 − 20 = 40."
+    },
+    {
+      "id": "angle-relationships/t3/039",
+      "tier": 3,
+      "prompt": "Angles of 20 and 70 degrees are?",
+      "choices": [
+        "Vertical",
+        "Complementary",
+        "Supplementary"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POSITION_WORD_FOR_SUM",
+        null,
+        "COMP_SUPP_SWAP"
+      ],
+      "explanation": "20 + 70 = 90, so the angles are complementary."
+    },
+    {
+      "id": "angle-relationships/t3/040",
+      "tier": 3,
+      "prompt": "Angles 20, 20 and x make a right angle. x in degrees?",
+      "choices": [
+        "50",
+        "70",
+        "20",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_ONE",
+        "ARITH",
+        "ADDED_PARTS"
+      ],
+      "explanation": "The parts add to 90: 90 − 20 − 20 = 50."
+    },
+    {
+      "id": "angle-relationships/t4/001",
+      "tier": 4,
+      "prompt": "3x and 90 are supplementary. x?",
+      "choices": [
+        "90",
+        "30",
+        "20",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3x + 90 = 180, so 3x = 90. 90 ÷ 3 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/002",
+      "tier": 4,
+      "prompt": "x + 50 and 60 make a straight line. x?",
+      "choices": [
+        "40",
+        "120",
+        "70",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "x + 50 + 60 = 180, so x = 180 − 110 = 70."
+    },
+    {
+      "id": "angle-relationships/t4/003",
+      "tier": 4,
+      "prompt": "x + 30 and 90 are supplementary. x?",
+      "choices": [
+        "60",
+        "30",
+        "90",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FORGOT_ONE",
+        "SIGN_SLIP"
+      ],
+      "explanation": "x + 30 + 90 = 180, so x = 180 − 120 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/004",
+      "tier": 4,
+      "prompt": "x + 40 and 30 make a right angle. x?",
+      "choices": [
+        "100",
+        "110",
+        "20",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "WRONG_TOTAL",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "x + 40 + 30 = 90, so x = 90 − 70 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/005",
+      "tier": 4,
+      "prompt": "Complementary angles are 3x and 6x. x?",
+      "choices": [
+        "45",
+        "90",
+        "10",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        null,
+        "ANGLE_NOT_X"
+      ],
+      "explanation": "3x + 6x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/006",
+      "tier": 4,
+      "prompt": "Supplementary angles are 2x and x. x?",
+      "choices": [
+        "90",
+        "40",
+        "60",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "ARITH",
+        null,
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2x + x = 180, so 3x = 180. 180 ÷ 3 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/007",
+      "tier": 4,
+      "prompt": "x + 40 and 60 make a straight line. x?",
+      "choices": [
+        "160",
+        "100",
+        "60",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ADDED_PARTS",
+        "ARITH",
+        null
+      ],
+      "explanation": "x + 40 + 60 = 180, so x = 180 − 100 = 80."
+    },
+    {
+      "id": "angle-relationships/t4/008",
+      "tier": 4,
+      "prompt": "4x and 10 are complementary. x?",
+      "choices": [
+        "20",
+        "80",
+        "50",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_DIVIDE",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "4x + 10 = 90, so 4x = 80. 80 ÷ 4 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/009",
+      "tier": 4,
+      "prompt": "Supplementary angles are x and 2x. x?",
+      "choices": [
+        "90",
+        "60",
+        "180",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        null,
+        "NO_DIVIDE",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "x + 2x = 180, so 3x = 180. 180 ÷ 3 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/010",
+      "tier": 4,
+      "prompt": "Angles 8x and x make a straight line. x?",
+      "choices": [
+        "180",
+        "160",
+        "90",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_DIVIDE",
+        "ANGLE_NOT_X",
+        "SPLIT_EVENLY",
+        null
+      ],
+      "explanation": "8x + x = 180, so 9x = 180. 180 ÷ 9 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/011",
+      "tier": 4,
+      "prompt": "Complementary angles are x + 10 and 50. x?",
+      "choices": [
+        "20",
+        "10",
+        "120",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "x + 10 + 50 = 90, so x = 90 − 60 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/012",
+      "tier": 4,
+      "prompt": "6x and 60 are supplementary. x?",
+      "choices": [
+        "20",
+        "30",
+        "5",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "WRONG_TOTAL",
+        "NO_DIVIDE"
+      ],
+      "explanation": "6x + 60 = 180, so 6x = 120. 120 ÷ 6 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/013",
+      "tier": 4,
+      "prompt": "Angles 2x and 50 make a right angle. x?",
+      "choices": [
+        "40",
+        "50",
+        "20",
+        "65"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_DIVIDE",
+        "ARITH",
+        null,
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2x + 50 = 90, so 2x = 40. 40 ÷ 2 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/014",
+      "tier": 4,
+      "prompt": "Angles 6x and 3x make a right angle. x?",
+      "choices": [
+        "45",
+        "10",
+        "60",
+        "90"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        null,
+        "ANGLE_NOT_X",
+        "NO_DIVIDE"
+      ],
+      "explanation": "6x + 3x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/015",
+      "tier": 4,
+      "prompt": "x + 50 and 30 make a straight line. x?",
+      "choices": [
+        "200",
+        "10",
+        "80",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "WRONG_TOTAL",
+        "ADDED_PARTS",
+        null
+      ],
+      "explanation": "x + 50 + 30 = 180, so x = 180 − 80 = 100."
+    },
+    {
+      "id": "angle-relationships/t4/016",
+      "tier": 4,
+      "prompt": "5x and 4x are complementary. x?",
+      "choices": [
+        "45",
+        "20",
+        "50",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "WRONG_TOTAL",
+        "ANGLE_NOT_X",
+        null
+      ],
+      "explanation": "5x + 4x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/017",
+      "tier": 4,
+      "prompt": "Supplementary angles are 2x and 4x. x?",
+      "choices": [
+        "90",
+        "120",
+        "15",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "ANGLE_NOT_X",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "2x + 4x = 180, so 6x = 180. 180 ÷ 6 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/018",
+      "tier": 4,
+      "prompt": "Complementary angles are 3x and 30. x?",
+      "choices": [
+        "30",
+        "20",
+        "50",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WRONG_TOTAL",
+        "NO_DIVIDE"
+      ],
+      "explanation": "3x + 30 = 90, so 3x = 60. 60 ÷ 3 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/019",
+      "tier": 4,
+      "prompt": "Angles 7x and 2x make a right angle. x?",
+      "choices": [
+        "90",
+        "10",
+        "45",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "SPLIT_EVENLY",
+        "ANGLE_NOT_X"
+      ],
+      "explanation": "7x + 2x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/020",
+      "tier": 4,
+      "prompt": "Complementary angles are 2x and x. x?",
+      "choices": [
+        "20",
+        "45",
+        "60",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SPLIT_EVENLY",
+        "ANGLE_NOT_X",
+        null
+      ],
+      "explanation": "2x + x = 90, so 3x = 90. 90 ÷ 3 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/021",
+      "tier": 4,
+      "prompt": "Supplementary angles are x and 5x. x?",
+      "choices": [
+        "30",
+        "150",
+        "15",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANGLE_NOT_X",
+        "WRONG_TOTAL",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "x + 5x = 180, so 6x = 180. 180 ÷ 6 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/022",
+      "tier": 4,
+      "prompt": "Supplementary angles are 5x and 30. x?",
+      "choices": [
+        "30",
+        "6",
+        "50",
+        "150"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_ONE_TERM",
+        "ARITH",
+        "NO_DIVIDE"
+      ],
+      "explanation": "5x + 30 = 180, so 5x = 150. 150 ÷ 5 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/023",
+      "tier": 4,
+      "prompt": "Supplementary angles are 7x and 2x. x?",
+      "choices": [
+        "20",
+        "140",
+        "90",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANGLE_NOT_X",
+        "SPLIT_EVENLY",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "7x + 2x = 180, so 9x = 180. 180 ÷ 9 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/024",
+      "tier": 4,
+      "prompt": "x + 100 and 20 make a straight line. x?",
+      "choices": [
+        "160",
+        "120",
+        "260",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "ADDED_PARTS",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "x + 100 + 20 = 180, so x = 180 − 120 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/025",
+      "tier": 4,
+      "prompt": "8x and x are complementary. x?",
+      "choices": [
+        "45",
+        "90",
+        "20",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "8x + x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/026",
+      "tier": 4,
+      "prompt": "Supplementary angles are x and 8x. x?",
+      "choices": [
+        "20",
+        "180",
+        "90",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_DIVIDE",
+        "SPLIT_EVENLY",
+        "ANGLE_NOT_X"
+      ],
+      "explanation": "x + 8x = 180, so 9x = 180. 180 ÷ 9 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/027",
+      "tier": 4,
+      "prompt": "Supplementary angles are 4x and 60. x?",
+      "choices": [
+        "60",
+        "120",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_DIVIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4x + 60 = 180, so 4x = 120. 120 ÷ 4 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/028",
+      "tier": 4,
+      "prompt": "x + 60 and 60 make a straight line. x?",
+      "choices": [
+        "80",
+        "60",
+        "180",
+        "120"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "FORGOT_ONE"
+      ],
+      "explanation": "x + 60 + 60 = 180, so x = 180 − 120 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/029",
+      "tier": 4,
+      "prompt": "Angles 6x and 30 make a right angle. x?",
+      "choices": [
+        "60",
+        "10",
+        "20",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "ARITH",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "6x + 30 = 90, so 6x = 60. 60 ÷ 6 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/030",
+      "tier": 4,
+      "prompt": "x + 60 and 40 make a straight line. x?",
+      "choices": [
+        "80",
+        "100",
+        "200",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PARTS",
+        "SIGN_SLIP",
+        "FORGOT_ONE"
+      ],
+      "explanation": "x + 60 + 40 = 180, so x = 180 − 100 = 80."
+    },
+    {
+      "id": "angle-relationships/t4/031",
+      "tier": 4,
+      "prompt": "2x and 70 are complementary. x?",
+      "choices": [
+        "55",
+        "20",
+        "10",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TOTAL",
+        "NO_DIVIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2x + 70 = 90, so 2x = 20. 20 ÷ 2 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/032",
+      "tier": 4,
+      "prompt": "x + 40 and 40 make a right angle. x?",
+      "choices": [
+        "10",
+        "100",
+        "80",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "ADDED_PARTS",
+        "FORGOT_ONE"
+      ],
+      "explanation": "x + 40 + 40 = 90, so x = 90 − 80 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/033",
+      "tier": 4,
+      "prompt": "x + 100 and 10 make a straight line. x?",
+      "choices": [
+        "50",
+        "60",
+        "70",
+        "170"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "x + 100 + 10 = 180, so x = 180 − 110 = 70."
+    },
+    {
+      "id": "angle-relationships/t4/034",
+      "tier": 4,
+      "prompt": "4x and 5x are complementary. x?",
+      "choices": [
+        "50",
+        "10",
+        "90",
+        "45"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        null,
+        "NO_DIVIDE",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "4x + 5x = 90, so 9x = 90. 90 ÷ 9 = 10."
+    },
+    {
+      "id": "angle-relationships/t4/035",
+      "tier": 4,
+      "prompt": "2x and 10 are complementary. x?",
+      "choices": [
+        "35",
+        "40",
+        "20",
+        "85"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_ONE_TERM",
+        null,
+        "ARITH",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2x + 10 = 90, so 2x = 80. 80 ÷ 2 = 40."
+    },
+    {
+      "id": "angle-relationships/t4/036",
+      "tier": 4,
+      "prompt": "Complementary angles are 2x and 30. x?",
+      "choices": [
+        "10",
+        "30",
+        "75",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "WRONG_TOTAL",
+        "DIVIDED_ONE_TERM"
+      ],
+      "explanation": "2x + 30 = 90, so 2x = 60. 60 ÷ 2 = 30."
+    },
+    {
+      "id": "angle-relationships/t4/037",
+      "tier": 4,
+      "prompt": "Angles 4x and 100 make a straight line. x?",
+      "choices": [
+        "20",
+        "50",
+        "80",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_DIVIDE",
+        "ARITH"
+      ],
+      "explanation": "4x + 100 = 180, so 4x = 80. 80 ÷ 4 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/038",
+      "tier": 4,
+      "prompt": "x + 20 and 10 make a right angle. x?",
+      "choices": [
+        "30",
+        "40",
+        "60",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_PARTS",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "x + 20 + 10 = 90, so x = 90 − 30 = 60."
+    },
+    {
+      "id": "angle-relationships/t4/039",
+      "tier": 4,
+      "prompt": "Angles 2x and 7x make a straight line. x?",
+      "choices": [
+        "90",
+        "140",
+        "180",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "ANGLE_NOT_X",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "2x + 7x = 180, so 9x = 180. 180 ÷ 9 = 20."
+    },
+    {
+      "id": "angle-relationships/t4/040",
+      "tier": 4,
+      "prompt": "4x and 5x are supplementary. x?",
+      "choices": [
+        "10",
+        "100",
+        "20",
+        "90"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TOTAL",
+        "ANGLE_NOT_X",
+        null,
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "4x + 5x = 180, so 9x = 180. 180 ÷ 9 = 20."
+    },
+    {
+      "id": "angle-relationships/t5/001",
+      "tier": 5,
+      "prompt": "Lines cross. Adjacent angles: 4x and 140. x?",
+      "choices": [
+        "35",
+        "40",
+        "10",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        "NO_DIVIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Adjacent angles add to 180: 4x = 180 − 140 = 40, x = 10."
+    },
+    {
+      "id": "angle-relationships/t5/002",
+      "tier": 5,
+      "prompt": "Vertical angles are 3x + 50 and 80 degrees. x?",
+      "choices": [
+        "10",
+        "80",
+        "30",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANGLE_NOT_X",
+        "NO_DIVIDE",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal: 3x + 50 = 80, 3x = 30, x = 10."
+    },
+    {
+      "id": "angle-relationships/t5/003",
+      "tier": 5,
+      "prompt": "Lines cross. Vertical angles: 2x + 60 and 100. x?",
+      "choices": [
+        "20",
+        "40",
+        "100",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_DIVIDE",
+        "ANGLE_NOT_X",
+        "SUPP_FOR_VERT"
+      ],
+      "explanation": "Vertical angles are equal: 2x + 60 = 100, 2x = 40, x = 20."
+    },
+    {
+      "id": "angle-relationships/t5/004",
+      "tier": 5,
+      "prompt": "Lines cross. Adjacent angles: 5x and 30. x?",
+      "choices": [
+        "12",
+        "150",
+        "6",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        "NO_DIVIDE",
+        "VERT_FOR_ADJ",
+        null
+      ],
+      "explanation": "Adjacent angles add to 180: 5x = 180 − 30 = 150, x = 30."
+    },
+    {
+      "id": "angle-relationships/t5/005",
+      "tier": 5,
+      "prompt": "Lines cross. Adjacent angles: 2x and 60. x?",
+      "choices": [
+        "40",
+        "60",
+        "30",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "VERT_FOR_ADJ",
+        "COMP_FOR_SUPP"
+      ],
+      "explanation": "Adjacent angles add to 180: 2x = 180 − 60 = 120, x = 60."
+    },
+    {
+      "id": "angle-relationships/t5/006",
+      "tier": 5,
+      "prompt": "Straight line: 5x, x and 3x. Largest angle?",
+      "choices": [
+        "20",
+        "60",
+        "100",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_X",
+        "OTHER_ANGLE",
+        null,
+        "WRONG_TOTAL"
+      ],
+      "explanation": "5x + x + 3x = 180, x = 180 ÷ 9 = 20. Largest: 5 × 20 = 100."
+    },
+    {
+      "id": "angle-relationships/t5/007",
+      "tier": 5,
+      "prompt": "Vertical angles are 2x + 20 and 160 degrees. x?",
+      "choices": [
+        "160",
+        "90",
+        "60",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Vertical angles are equal: 2x + 20 = 160, 2x = 140, x = 70."
+    },
+    {
+      "id": "angle-relationships/t5/008",
+      "tier": 5,
+      "prompt": "Vertical angles: 4x + 60 and 180. x?",
+      "choices": [
+        "180",
+        "30",
+        "120",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        null,
+        "NO_DIVIDE",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Vertical angles are equal: 4x + 60 = 180, 4x = 120, x = 30."
+    },
+    {
+      "id": "angle-relationships/t5/009",
+      "tier": 5,
+      "prompt": "Supplementary angles: 4x and 2x. Smaller angle?",
+      "choices": [
+        "30",
+        "90",
+        "60",
+        "120"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_X",
+        "ARITH",
+        null,
+        "OTHER_ANGLE"
+      ],
+      "explanation": "4x + 2x = 180, x = 180 ÷ 6 = 30. Smaller: 2 × 30 = 60."
+    },
+    {
+      "id": "angle-relationships/t5/010",
+      "tier": 5,
+      "prompt": "x, 2x and 3x make a straight line. Largest angle?",
+      "choices": [
+        "60",
+        "100",
+        "30",
+        "90"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "ARITH",
+        "GAVE_X",
+        null
+      ],
+      "explanation": "x + 2x + 3x = 180, x = 180 ÷ 6 = 30. Largest: 3 × 30 = 90."
+    },
+    {
+      "id": "angle-relationships/t5/011",
+      "tier": 5,
+      "prompt": "x and 8x form a right angle. Larger angle?",
+      "choices": [
+        "70",
+        "10",
+        "160",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GAVE_X",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "x + 8x = 90, x = 90 ÷ 9 = 10. Larger: 8 × 10 = 80."
+    },
+    {
+      "id": "angle-relationships/t5/012",
+      "tier": 5,
+      "prompt": "Straight line: 6x, 2x and x. Largest angle?",
+      "choices": [
+        "150",
+        "60",
+        "120",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "WRONG_TOTAL",
+        null,
+        "ARITH"
+      ],
+      "explanation": "6x + 2x + x = 180, x = 180 ÷ 9 = 20. Largest: 6 × 20 = 120."
+    },
+    {
+      "id": "angle-relationships/t5/013",
+      "tier": 5,
+      "prompt": "3x + 20 and 40 are supplementary. x?",
+      "choices": [
+        "40",
+        "10",
+        "120",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "NO_DIVIDE",
+        "ARITH"
+      ],
+      "explanation": "3x + 20 + 40 = 180, so 3x = 120, x = 40."
+    },
+    {
+      "id": "angle-relationships/t5/014",
+      "tier": 5,
+      "prompt": "Vertical angles: 2x + 40 and 120. x?",
+      "choices": [
+        "40",
+        "10",
+        "20",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_VERT",
+        "ARITH",
+        "ANGLE_NOT_X"
+      ],
+      "explanation": "Vertical angles are equal: 2x + 40 = 120, 2x = 80, x = 40."
+    },
+    {
+      "id": "angle-relationships/t5/015",
+      "tier": 5,
+      "prompt": "4x and 5x form a straight line. Larger angle?",
+      "choices": [
+        "20",
+        "100",
+        "50",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GAVE_X",
+        null,
+        "WRONG_TOTAL",
+        "OTHER_ANGLE"
+      ],
+      "explanation": "4x + 5x = 180, x = 180 ÷ 9 = 20. Larger: 5 × 20 = 100."
+    },
+    {
+      "id": "angle-relationships/t5/016",
+      "tier": 5,
+      "prompt": "3x + 20 and 10 are supplementary. x?",
+      "choices": [
+        "50",
+        "150",
+        "80",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_DIVIDE",
+        "ARITH",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "3x + 20 + 10 = 180, so 3x = 150, x = 50."
+    },
+    {
+      "id": "angle-relationships/t5/017",
+      "tier": 5,
+      "prompt": "Vertical angles are 3x + 40 and 160 degrees. x?",
+      "choices": [
+        "160",
+        "40",
+        "120",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        null,
+        "NO_DIVIDE",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are equal: 3x + 40 = 160, 3x = 120, x = 40."
+    },
+    {
+      "id": "angle-relationships/t5/018",
+      "tier": 5,
+      "prompt": "2x + 50 and 90 are supplementary. x?",
+      "choices": [
+        "45",
+        "40",
+        "70",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "NO_DIVIDE",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "2x + 50 + 90 = 180, so 2x = 40, x = 20."
+    },
+    {
+      "id": "angle-relationships/t5/019",
+      "tier": 5,
+      "prompt": "Vertical angles: 2x + 30 and 170. x?",
+      "choices": [
+        "170",
+        "50",
+        "70",
+        "100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        "ARITH",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Vertical angles are equal: 2x + 30 = 170, 2x = 140, x = 70."
+    },
+    {
+      "id": "angle-relationships/t5/020",
+      "tier": 5,
+      "prompt": "Adjacent angles on a line: 2x and 20. x?",
+      "choices": [
+        "110",
+        "90",
+        "160",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Adjacent angles add to 180: 2x = 180 − 20 = 160, x = 80."
+    },
+    {
+      "id": "angle-relationships/t5/021",
+      "tier": 5,
+      "prompt": "6x and 3x form a right angle. Smaller angle?",
+      "choices": [
+        "60",
+        "30",
+        "20",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        null,
+        "ARITH",
+        "GAVE_X"
+      ],
+      "explanation": "6x + 3x = 90, x = 90 ÷ 9 = 10. Smaller: 3 × 10 = 30."
+    },
+    {
+      "id": "angle-relationships/t5/022",
+      "tier": 5,
+      "prompt": "Supplementary angles: 6x and 3x. Smaller angle?",
+      "choices": [
+        "60",
+        "120",
+        "90",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_ANGLE",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "6x + 3x = 180, x = 180 ÷ 9 = 20. Smaller: 3 × 20 = 60."
+    },
+    {
+      "id": "angle-relationships/t5/023",
+      "tier": 5,
+      "prompt": "Straight line: 3x, 2x and 4x. Largest angle?",
+      "choices": [
+        "80",
+        "40",
+        "90",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "ARITH",
+        "OTHER_ANGLE"
+      ],
+      "explanation": "3x + 2x + 4x = 180, x = 180 ÷ 9 = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "angle-relationships/t5/024",
+      "tier": 5,
+      "prompt": "Straight line: 3x, 4x and 2x. Largest angle?",
+      "choices": [
+        "20",
+        "40",
+        "60",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_X",
+        "WRONG_TOTAL",
+        "OTHER_ANGLE",
+        null
+      ],
+      "explanation": "3x + 4x + 2x = 180, x = 180 ÷ 9 = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "angle-relationships/t5/025",
+      "tier": 5,
+      "prompt": "Complementary angles: 8x and x. Larger angle?",
+      "choices": [
+        "80",
+        "160",
+        "100",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TOTAL",
+        "ARITH",
+        "GAVE_X"
+      ],
+      "explanation": "8x + x = 90, x = 90 ÷ 9 = 10. Larger: 8 × 10 = 80."
+    },
+    {
+      "id": "angle-relationships/t5/026",
+      "tier": 5,
+      "prompt": "Lines cross. Adjacent angles: 4x and 60. x?",
+      "choices": [
+        "15",
+        "120",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VERT_FOR_ADJ",
+        "NO_DIVIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Adjacent angles add to 180: 4x = 180 − 60 = 120, x = 30."
+    },
+    {
+      "id": "angle-relationships/t5/027",
+      "tier": 5,
+      "prompt": "Adjacent angles on a line: 2x and 120. x?",
+      "choices": [
+        "30",
+        "60",
+        "40",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VERT_FOR_ADJ",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Adjacent angles add to 180: 2x = 180 − 120 = 60, x = 30."
+    },
+    {
+      "id": "angle-relationships/t5/028",
+      "tier": 5,
+      "prompt": "Adjacent angles on a line: 3x and 30. x?",
+      "choices": [
+        "20",
+        "50",
+        "70",
+        "150"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_SUPP",
+        null,
+        "ARITH",
+        "NO_DIVIDE"
+      ],
+      "explanation": "Adjacent angles add to 180: 3x = 180 − 30 = 150, x = 50."
+    },
+    {
+      "id": "angle-relationships/t5/029",
+      "tier": 5,
+      "prompt": "Supplementary angles: 2x + 40 and 60. x?",
+      "choices": [
+        "70",
+        "80",
+        "40",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "2x + 40 + 60 = 180, so 2x = 80, x = 40."
+    },
+    {
+      "id": "angle-relationships/t5/030",
+      "tier": 5,
+      "prompt": "Vertical angles are 3x + 60 and 120 degrees. x?",
+      "choices": [
+        "120",
+        "60",
+        "40",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANGLE_NOT_X",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Vertical angles are equal: 3x + 60 = 120, 3x = 60, x = 20."
+    },
+    {
+      "id": "angle-relationships/t5/031",
+      "tier": 5,
+      "prompt": "Lines cross. Adjacent angles: 4x and 100. x?",
+      "choices": [
+        "10",
+        "25",
+        "80",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "VERT_FOR_ADJ",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Adjacent angles add to 180: 4x = 180 − 100 = 80, x = 20."
+    },
+    {
+      "id": "angle-relationships/t5/032",
+      "tier": 5,
+      "prompt": "5x and x form a straight line. Larger angle?",
+      "choices": [
+        "140",
+        "150",
+        "30",
+        "75"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GAVE_X",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "5x + x = 180, x = 180 ÷ 6 = 30. Larger: 5 × 30 = 150."
+    },
+    {
+      "id": "angle-relationships/t5/033",
+      "tier": 5,
+      "prompt": "Complementary angles: 3x + 20 and 40. x?",
+      "choices": [
+        "30",
+        "10",
+        "20",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "ARITH",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "3x + 20 + 40 = 90, so 3x = 30, x = 10."
+    },
+    {
+      "id": "angle-relationships/t5/034",
+      "tier": 5,
+      "prompt": "x, 3x and 5x make a straight line. Largest angle?",
+      "choices": [
+        "20",
+        "60",
+        "100",
+        "120"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_X",
+        "OTHER_ANGLE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "x + 3x + 5x = 180, x = 180 ÷ 9 = 20. Largest: 5 × 20 = 100."
+    },
+    {
+      "id": "angle-relationships/t5/035",
+      "tier": 5,
+      "prompt": "Lines cross. Vertical angles: 4x + 40 and 80. x?",
+      "choices": [
+        "30",
+        "10",
+        "15",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "SUPP_FOR_VERT",
+        "ANGLE_NOT_X"
+      ],
+      "explanation": "Vertical angles are equal: 4x + 40 = 80, 4x = 40, x = 10."
+    },
+    {
+      "id": "angle-relationships/t5/036",
+      "tier": 5,
+      "prompt": "6x and 3x form a right angle. Larger angle?",
+      "choices": [
+        "10",
+        "30",
+        "120",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_X",
+        "OTHER_ANGLE",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "6x + 3x = 90, x = 90 ÷ 9 = 10. Larger: 6 × 10 = 60."
+    },
+    {
+      "id": "angle-relationships/t5/037",
+      "tier": 5,
+      "prompt": "Supplementary angles: 2x and 7x. Larger angle?",
+      "choices": [
+        "40",
+        "70",
+        "140",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "WRONG_TOTAL",
+        null,
+        "GAVE_X"
+      ],
+      "explanation": "2x + 7x = 180, x = 180 ÷ 9 = 20. Larger: 7 × 20 = 140."
+    },
+    {
+      "id": "angle-relationships/t5/038",
+      "tier": 5,
+      "prompt": "Lines cross. Vertical angles: 3x + 40 and 70. x?",
+      "choices": [
+        "20",
+        "70",
+        "10",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ANGLE_NOT_X",
+        null,
+        "NO_DIVIDE"
+      ],
+      "explanation": "Vertical angles are equal: 3x + 40 = 70, 3x = 30, x = 10."
+    },
+    {
+      "id": "angle-relationships/t5/039",
+      "tier": 5,
+      "prompt": "x and 2x form a straight line. Larger angle?",
+      "choices": [
+        "100",
+        "120",
+        "130",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "GAVE_X"
+      ],
+      "explanation": "x + 2x = 180, x = 180 ÷ 3 = 60. Larger: 2 × 60 = 120."
+    },
+    {
+      "id": "angle-relationships/t5/040",
+      "tier": 5,
+      "prompt": "2x + 30 and 30 are supplementary. x?",
+      "choices": [
+        "60",
+        "40",
+        "30",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2x + 30 + 30 = 180, so 2x = 120, x = 60."
+    }
+  ]
+}

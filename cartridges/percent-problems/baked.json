@@ -1,0 +1,3926 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "percent-problems",
+  "version": "1.0.0",
+  "title": "Percent Problems",
+  "subtitle": "Tax, Tips, Discounts & Percent Change",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.RP.A.3"
+  ],
+  "seed": 20261022,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b percents. Percents: tip 10, 20, 25; tax 10, 20; discount 10, 20, 25, 30, 40, 50, 75; markup 10, 20, 25, 30, 40, 50; simple interest 10, 20, 25 a year for 2-5 years; percent change 10, 20, 25, 30, 40, 50, 75; percent error 10, 20, 25, 30, 40, 50; a second step 10, 20 (tax) or 10, 20, 25 (off). Every percent is taken of a whole it divides cleanly, so the hidden ÷ is a times-table fact: tens of percent of 20-90 in tens (10% first, then × 1-9), 25% and 75% of 8-40 in fours, 50% also of evens 4-20. Each amount added or subtracted (tip, tax, discount, markup, interest, change, miss) is a whole number 2-20; every whole, new price and total is 100 or less. A percent change or error is the change over the original (actual) value, itself one of those clean wholes. Interest: yearly amount 2-10, years 2-5, interest 20 or less. Two steps: the second percent is of a new whole that is again a clean one. Answers are whole dollars or whole percents. Wrong choices: whatever the misreading gives, up to 999 (a decimal percent like 0.25% is the 'forgot to scale' slip).",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Tax & Tip",
+      "description": "Find the tip or tax, then add it on to get the total."
+    },
+    {
+      "tier": 2,
+      "name": "Discounts",
+      "description": "Find the discount, then take it off to get the sale price."
+    },
+    {
+      "tier": 3,
+      "name": "Markup & Interest",
+      "description": "Markups add to a price. Simple interest repeats every year."
+    },
+    {
+      "tier": 4,
+      "name": "Percent Change",
+      "description": "Find the percent increase or decrease from the original value."
+    },
+    {
+      "tier": 5,
+      "name": "Error & Two Steps",
+      "description": "Percent error, and two percents one after the other."
+    }
+  ],
+  "misconceptions": {
+    "PART_ONLY": {
+      "student": "That is only the extra amount. Add it to the price to get the total.",
+      "teacher": "Stops after finding the tip, tax or markup and reports it as the total."
+    },
+    "DISCOUNT_ONLY": {
+      "student": "That is only the discount. Take it off the price to see what you pay.",
+      "teacher": "Stops after finding the discount and reports it as the sale price."
+    },
+    "PERCENT_AS_DOLLARS": {
+      "student": "The % number is not dollars. Find that percent OF the price first.",
+      "teacher": "Uses the percent number itself as the dollar amount (20% of $40 treated as $20)."
+    },
+    "TENTH_FOR_ALL": {
+      "student": "Only 10% is 1/10 of the price. Find 10% first, then scale to the percent.",
+      "teacher": "Takes 10% of the whole whatever percent is asked (20% of $40 as $4)."
+    },
+    "SUBTRACTED": {
+      "student": "Tax, tips and markups add to the price. They do not take away.",
+      "teacher": "Subtracts a tip, tax or markup instead of adding it."
+    },
+    "ADDED": {
+      "student": "A discount takes money off. Subtract it from the price.",
+      "teacher": "Adds the discount to the price instead of subtracting it."
+    },
+    "TOTAL_FOR_PART": {
+      "student": "That is the total. The question asks only for the extra amount.",
+      "teacher": "Gives the price plus the tip, tax or markup when only the amount was asked."
+    },
+    "SALE_FOR_SAVINGS": {
+      "student": "That is the sale price. The question asks how much you save.",
+      "teacher": "Gives the price after the discount when the discount itself was asked."
+    },
+    "ONE_YEAR": {
+      "student": "That is one year. Simple interest repeats every year: times the years.",
+      "teacher": "Finds one year of simple interest and does not multiply by the years."
+    },
+    "TOTAL_FOR_INTEREST": {
+      "student": "That is the balance. Interest is only what you earn on top.",
+      "teacher": "Gives the starting amount plus interest when the interest alone was asked."
+    },
+    "INTEREST_ONLY": {
+      "student": "That is only the interest. The balance is the start amount plus interest.",
+      "teacher": "Gives the interest earned when the total balance was asked."
+    },
+    "DIFFERENCE_AS_PERCENT": {
+      "student": "A change of 5 is not 5%. Divide the change by the original (or actual) value.",
+      "teacher": "Reports the size of the change (or miss) itself as the percent."
+    },
+    "NEW_AS_BASE": {
+      "student": "Compare the change with the ORIGINAL amount, not the new one.",
+      "teacher": "Divides the change by the new value instead of the original."
+    },
+    "RATIO_AS_CHANGE": {
+      "student": "That compares new to old. A percent change is only the part that changed.",
+      "teacher": "Gives new/old as a percent (125%, 80%) instead of the change over the original."
+    },
+    "DECIMAL_NOT_PERCENT": {
+      "student": "That is the decimal. Multiply by 100 to write it as a percent.",
+      "teacher": "Divides the change by the original but leaves it as a decimal, then writes %."
+    },
+    "GUESS_AS_BASE": {
+      "student": "Percent error compares the miss with the ACTUAL value, not the guess.",
+      "teacher": "Divides the miss by the guess instead of the actual value."
+    },
+    "GUESS_RATIO": {
+      "student": "That is guess compared to actual. Percent error is only the miss.",
+      "teacher": "Gives guess/actual as a percent (90%, 120%) instead of the miss over the actual."
+    },
+    "FORGOT_SECOND": {
+      "student": "There is a second step. Take the second percent of the new price too.",
+      "teacher": "Stops after the first percent and ignores the second."
+    },
+    "COMBINED_PERCENTS": {
+      "student": "Do one percent at a time. The second is of the new price, not the original.",
+      "teacher": "Combines the two percents (50% off, 10% tax as 40% off) or takes the second of the original."
+    },
+    "SECOND_WRONG_WAY": {
+      "student": "Check the direction: tax and markups add, discounts take away.",
+      "teacher": "Applies the second percent the wrong way (adds a discount, subtracts a tax)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "percent-problems/t1/001",
+      "tier": 1,
+      "prompt": "$40 meal plus a 25% tip. Total?",
+      "choices": [
+        "$10",
+        "$44",
+        "$65",
+        "$50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_ONLY",
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "25% is 1/4 of $40: $10. $40 + $10 = $50."
+    },
+    {
+      "id": "percent-problems/t1/002",
+      "tier": 1,
+      "prompt": "The $8 bill gets a 25% tip. Total paid?",
+      "choices": [
+        "$2",
+        "$6",
+        "$33",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_ONLY",
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "25% is 1/4 of $8: $2. $8 + $2 = $10."
+    },
+    {
+      "id": "percent-problems/t1/003",
+      "tier": 1,
+      "prompt": "The $20 game has 20% tax. Tax in dollars?",
+      "choices": [
+        "$24",
+        "$2",
+        "$4",
+        "$20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_FOR_PART",
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4."
+    },
+    {
+      "id": "percent-problems/t1/004",
+      "tier": 1,
+      "prompt": "The $70 game has 20% tax. Tax in dollars?",
+      "choices": [
+        "$84",
+        "$14",
+        "$20",
+        "$7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_FOR_PART",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $70 is $7, so 20% is $14."
+    },
+    {
+      "id": "percent-problems/t1/005",
+      "tier": 1,
+      "prompt": "25% tip on the $40 meal. How much is the tip?",
+      "choices": [
+        "$25",
+        "$4",
+        "$50",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL",
+        "TOTAL_FOR_PART",
+        null
+      ],
+      "explanation": "25% is 1/4 of $40: $10."
+    },
+    {
+      "id": "percent-problems/t1/006",
+      "tier": 1,
+      "prompt": "You tip 25% on the $32 dinner. Total cost?",
+      "choices": [
+        "$24",
+        "$57",
+        "$8",
+        "$40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "25% is 1/4 of $32: $8. $32 + $8 = $40."
+    },
+    {
+      "id": "percent-problems/t1/007",
+      "tier": 1,
+      "prompt": "Tip 25% on the $28 bill. Tip in dollars?",
+      "choices": [
+        "$25",
+        "$6",
+        "$7",
+        "$35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "ARITH",
+        null,
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "25% is 1/4 of $28: $7."
+    },
+    {
+      "id": "percent-problems/t1/008",
+      "tier": 1,
+      "prompt": "$90 meal plus a 10% tip. Total?",
+      "choices": [
+        "$100",
+        "$81",
+        "$9",
+        "$99"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "10% of $90 is $9. $90 + $9 = $99."
+    },
+    {
+      "id": "percent-problems/t1/009",
+      "tier": 1,
+      "prompt": "You tip 10% on the $90 dinner. Total cost?",
+      "choices": [
+        "$9",
+        "$81",
+        "$100",
+        "$99"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_ONLY",
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $90 is $9. $90 + $9 = $99."
+    },
+    {
+      "id": "percent-problems/t1/010",
+      "tier": 1,
+      "prompt": "10% tip on the $50 meal. How much is the tip?",
+      "choices": [
+        "$5",
+        "$6",
+        "$10",
+        "$55"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "10% of $50 is $5."
+    },
+    {
+      "id": "percent-problems/t1/011",
+      "tier": 1,
+      "prompt": "You tip 10% on the $50 dinner. Total cost?",
+      "choices": [
+        "$60",
+        "$45",
+        "$5",
+        "$55"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "10% of $50 is $5. $50 + $5 = $55."
+    },
+    {
+      "id": "percent-problems/t1/012",
+      "tier": 1,
+      "prompt": "Tip 25% on the $40 bill. Tip in dollars?",
+      "choices": [
+        "$10",
+        "$4",
+        "$50",
+        "$25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENTH_FOR_ALL",
+        "TOTAL_FOR_PART",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $40: $10."
+    },
+    {
+      "id": "percent-problems/t1/013",
+      "tier": 1,
+      "prompt": "You tip 20% on the $50 dinner. Total cost?",
+      "choices": [
+        "$60",
+        "$40",
+        "$10",
+        "$70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10. $50 + $10 = $60."
+    },
+    {
+      "id": "percent-problems/t1/014",
+      "tier": 1,
+      "prompt": "$60 jacket plus 20% sales tax. Total cost?",
+      "choices": [
+        "$12",
+        "$66",
+        "$72",
+        "$80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_ONLY",
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12. $60 + $12 = $72."
+    },
+    {
+      "id": "percent-problems/t1/015",
+      "tier": 1,
+      "prompt": "Tip 10% on the $80 bill. Tip in dollars?",
+      "choices": [
+        "$6",
+        "$10",
+        "$8",
+        "$88"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "10% of $80 is $8."
+    },
+    {
+      "id": "percent-problems/t1/016",
+      "tier": 1,
+      "prompt": "Tip 20% on the $20 bill. Tip in dollars?",
+      "choices": [
+        "$2",
+        "$20",
+        "$4",
+        "$24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4."
+    },
+    {
+      "id": "percent-problems/t1/017",
+      "tier": 1,
+      "prompt": "Tax is 20% on the $30 game. Total price?",
+      "choices": [
+        "$6",
+        "$36",
+        "$50",
+        "$33"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6. $30 + $6 = $36."
+    },
+    {
+      "id": "percent-problems/t1/018",
+      "tier": 1,
+      "prompt": "The $30 toy has 20% tax. What do you pay?",
+      "choices": [
+        "$50",
+        "$24",
+        "$6",
+        "$36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6. $30 + $6 = $36."
+    },
+    {
+      "id": "percent-problems/t1/019",
+      "tier": 1,
+      "prompt": "The $80 toy has 20% tax. What do you pay?",
+      "choices": [
+        "$96",
+        "$16",
+        "$64",
+        "$100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_ONLY",
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $80 is $8, so 20% is $16. $80 + $16 = $96."
+    },
+    {
+      "id": "percent-problems/t1/020",
+      "tier": 1,
+      "prompt": "20% sales tax on $40. How much is the tax?",
+      "choices": [
+        "$8",
+        "$4",
+        "$20",
+        "$48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8."
+    },
+    {
+      "id": "percent-problems/t1/021",
+      "tier": 1,
+      "prompt": "$50 jacket plus 20% sales tax. Total cost?",
+      "choices": [
+        "$40",
+        "$60",
+        "$70",
+        "$10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10. $50 + $10 = $60."
+    },
+    {
+      "id": "percent-problems/t1/022",
+      "tier": 1,
+      "prompt": "The $20 toy has 20% tax. What do you pay?",
+      "choices": [
+        "$4",
+        "$24",
+        "$22",
+        "$40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4. $20 + $4 = $24."
+    },
+    {
+      "id": "percent-problems/t1/023",
+      "tier": 1,
+      "prompt": "$30 jacket plus 10% sales tax. Total cost?",
+      "choices": [
+        "$40",
+        "$3",
+        "$27",
+        "$33"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "10% of $30 is $3. $30 + $3 = $33."
+    },
+    {
+      "id": "percent-problems/t1/024",
+      "tier": 1,
+      "prompt": "$20 meal plus a 10% tip. Total?",
+      "choices": [
+        "$2",
+        "$22",
+        "$18",
+        "$30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $20 is $2. $20 + $2 = $22."
+    },
+    {
+      "id": "percent-problems/t1/025",
+      "tier": 1,
+      "prompt": "The $50 toy has 10% tax. What do you pay?",
+      "choices": [
+        "$5",
+        "$60",
+        "$55",
+        "$45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "10% of $50 is $5. $50 + $5 = $55."
+    },
+    {
+      "id": "percent-problems/t1/026",
+      "tier": 1,
+      "prompt": "The $28 bill gets a 25% tip. Total paid?",
+      "choices": [
+        "$35",
+        "$7",
+        "$53",
+        "$21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED"
+      ],
+      "explanation": "25% is 1/4 of $28: $7. $28 + $7 = $35."
+    },
+    {
+      "id": "percent-problems/t1/027",
+      "tier": 1,
+      "prompt": "$70 meal plus a 20% tip. Total?",
+      "choices": [
+        "$84",
+        "$14",
+        "$56",
+        "$90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_ONLY",
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $70 is $7, so 20% is $14. $70 + $14 = $84."
+    },
+    {
+      "id": "percent-problems/t1/028",
+      "tier": 1,
+      "prompt": "The $20 bill gets a 25% tip. Total paid?",
+      "choices": [
+        "$15",
+        "$5",
+        "$45",
+        "$25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "25% is 1/4 of $20: $5. $20 + $5 = $25."
+    },
+    {
+      "id": "percent-problems/t1/029",
+      "tier": 1,
+      "prompt": "$40 jacket plus 20% sales tax. Total cost?",
+      "choices": [
+        "$8",
+        "$48",
+        "$60",
+        "$44"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8. $40 + $8 = $48."
+    },
+    {
+      "id": "percent-problems/t1/030",
+      "tier": 1,
+      "prompt": "$30 jacket plus 20% sales tax. Total cost?",
+      "choices": [
+        "$50",
+        "$36",
+        "$6",
+        "$33"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "PART_ONLY",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6. $30 + $6 = $36."
+    },
+    {
+      "id": "percent-problems/t1/031",
+      "tier": 1,
+      "prompt": "The $30 game has 20% tax. Tax in dollars?",
+      "choices": [
+        "$20",
+        "$36",
+        "$6",
+        "$3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_PART",
+        null,
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6."
+    },
+    {
+      "id": "percent-problems/t1/032",
+      "tier": 1,
+      "prompt": "The $20 bill gets a 20% tip. Total paid?",
+      "choices": [
+        "$24",
+        "$4",
+        "$40",
+        "$22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4. $20 + $4 = $24."
+    },
+    {
+      "id": "percent-problems/t1/033",
+      "tier": 1,
+      "prompt": "The $80 game has 20% tax. Tax in dollars?",
+      "choices": [
+        "$96",
+        "$16",
+        "$20",
+        "$8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_FOR_PART",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $80 is $8, so 20% is $16."
+    },
+    {
+      "id": "percent-problems/t1/034",
+      "tier": 1,
+      "prompt": "Tax is 10% on the $30 game. Total price?",
+      "choices": [
+        "$27",
+        "$40",
+        "$33",
+        "$3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $30 is $3. $30 + $3 = $33."
+    },
+    {
+      "id": "percent-problems/t1/035",
+      "tier": 1,
+      "prompt": "The $60 toy has 10% tax. What do you pay?",
+      "choices": [
+        "$66",
+        "$70",
+        "$54",
+        "$6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $60 is $6. $60 + $6 = $66."
+    },
+    {
+      "id": "percent-problems/t1/036",
+      "tier": 1,
+      "prompt": "$70 meal plus a 10% tip. Total?",
+      "choices": [
+        "$80",
+        "$63",
+        "$77",
+        "$7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        null,
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $70 is $7. $70 + $7 = $77."
+    },
+    {
+      "id": "percent-problems/t1/037",
+      "tier": 1,
+      "prompt": "You tip 10% on the $60 dinner. Total cost?",
+      "choices": [
+        "$54",
+        "$70",
+        "$66",
+        "$6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $60 is $6. $60 + $6 = $66."
+    },
+    {
+      "id": "percent-problems/t1/038",
+      "tier": 1,
+      "prompt": "Tax is 20% on the $60 game. Total price?",
+      "choices": [
+        "$72",
+        "$80",
+        "$48",
+        "$12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED",
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12. $60 + $12 = $72."
+    },
+    {
+      "id": "percent-problems/t1/039",
+      "tier": 1,
+      "prompt": "The $60 game has 10% tax. Tax in dollars?",
+      "choices": [
+        "$10",
+        "$6",
+        "$66",
+        "$5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TOTAL_FOR_PART",
+        "ARITH"
+      ],
+      "explanation": "10% of $60 is $6."
+    },
+    {
+      "id": "percent-problems/t1/040",
+      "tier": 1,
+      "prompt": "Tax is 20% on the $40 game. Total price?",
+      "choices": [
+        "$8",
+        "$48",
+        "$60",
+        "$32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8. $40 + $8 = $48."
+    },
+    {
+      "id": "percent-problems/t2/001",
+      "tier": 2,
+      "prompt": "$50 shoes, 20% off. How much is the discount?",
+      "choices": [
+        "$20",
+        "$5",
+        "$40",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL",
+        "SALE_FOR_SAVINGS",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10."
+    },
+    {
+      "id": "percent-problems/t2/002",
+      "tier": 2,
+      "prompt": "The $80 game is 20% off. What do you pay?",
+      "choices": [
+        "$16",
+        "$64",
+        "$60",
+        "$96"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DISCOUNT_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "ADDED"
+      ],
+      "explanation": "10% of $80 is $8, so 20% is $16. $80 − $16 = $64."
+    },
+    {
+      "id": "percent-problems/t2/003",
+      "tier": 2,
+      "prompt": "Sale! 75% off the $20 bag. New price?",
+      "choices": [
+        "$35",
+        "$15",
+        "$18",
+        "$5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "DISCOUNT_ONLY",
+        "TENTH_FOR_ALL",
+        null
+      ],
+      "explanation": "1/4 of $20 is $5, so 75% is $15. $20 − $15 = $5."
+    },
+    {
+      "id": "percent-problems/t2/004",
+      "tier": 2,
+      "prompt": "$8 shirt, 50% off. Sale price?",
+      "choices": [
+        "$12",
+        "$5",
+        "$3",
+        "$4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "50% is half of $8: $4. $8 − $4 = $4."
+    },
+    {
+      "id": "percent-problems/t2/005",
+      "tier": 2,
+      "prompt": "The $10 cap gets 50% off. Savings in dollars?",
+      "choices": [
+        "$1",
+        "$50",
+        "$3",
+        "$5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        "ARITH",
+        null
+      ],
+      "explanation": "50% is half of $10: $5."
+    },
+    {
+      "id": "percent-problems/t2/006",
+      "tier": 2,
+      "prompt": "The $40 hoodie gets a 20% discount. Price now?",
+      "choices": [
+        "$20",
+        "$48",
+        "$32",
+        "$8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "ADDED",
+        null,
+        "DISCOUNT_ONLY"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8. $40 − $8 = $32."
+    },
+    {
+      "id": "percent-problems/t2/007",
+      "tier": 2,
+      "prompt": "The $20 hoodie gets a 10% discount. Price now?",
+      "choices": [
+        "$18",
+        "$10",
+        "$2",
+        "$22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "DISCOUNT_ONLY",
+        "ADDED"
+      ],
+      "explanation": "10% of $20 is $2. $20 − $2 = $18."
+    },
+    {
+      "id": "percent-problems/t2/008",
+      "tier": 2,
+      "prompt": "The $80 game is 10% off. What do you pay?",
+      "choices": [
+        "$72",
+        "$8",
+        "$88",
+        "$70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISCOUNT_ONLY",
+        "ADDED",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $80 is $8. $80 − $8 = $72."
+    },
+    {
+      "id": "percent-problems/t2/009",
+      "tier": 2,
+      "prompt": "The $90 hoodie gets a 20% discount. Price now?",
+      "choices": [
+        "$72",
+        "$18",
+        "$70",
+        "$81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISCOUNT_ONLY",
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $90 is $9, so 20% is $18. $90 − $18 = $72."
+    },
+    {
+      "id": "percent-problems/t2/010",
+      "tier": 2,
+      "prompt": "$30 shoes, 30% off. How much is the discount?",
+      "choices": [
+        "$3",
+        "$9",
+        "$21",
+        "$30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "SALE_FOR_SAVINGS",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $30 is $3, so 30% is $9."
+    },
+    {
+      "id": "percent-problems/t2/011",
+      "tier": 2,
+      "prompt": "The $16 hoodie gets a 50% discount. Price now?",
+      "choices": [
+        "$9",
+        "$10",
+        "$8",
+        "$24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ADDED"
+      ],
+      "explanation": "50% is half of $16: $8. $16 − $8 = $8."
+    },
+    {
+      "id": "percent-problems/t2/012",
+      "tier": 2,
+      "prompt": "Sale! 20% off the $90 bag. New price?",
+      "choices": [
+        "$72",
+        "$70",
+        "$18",
+        "$108"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "DISCOUNT_ONLY",
+        "ADDED"
+      ],
+      "explanation": "10% of $90 is $9, so 20% is $18. $90 − $18 = $72."
+    },
+    {
+      "id": "percent-problems/t2/013",
+      "tier": 2,
+      "prompt": "$60 shirt, 20% off. Sale price?",
+      "choices": [
+        "$48",
+        "$12",
+        "$40",
+        "$72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISCOUNT_ONLY",
+        "PERCENT_AS_DOLLARS",
+        "ADDED"
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12. $60 − $12 = $48."
+    },
+    {
+      "id": "percent-problems/t2/014",
+      "tier": 2,
+      "prompt": "The $8 game is 75% off. What do you pay?",
+      "choices": [
+        "$6",
+        "$1",
+        "$14",
+        "$2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DISCOUNT_ONLY",
+        "ARITH",
+        "ADDED",
+        null
+      ],
+      "explanation": "1/4 of $8 is $2, so 75% is $6. $8 − $6 = $2."
+    },
+    {
+      "id": "percent-problems/t2/015",
+      "tier": 2,
+      "prompt": "The $60 game is 20% off. What do you pay?",
+      "choices": [
+        "$72",
+        "$40",
+        "$48",
+        "$12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "DISCOUNT_ONLY"
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12. $60 − $12 = $48."
+    },
+    {
+      "id": "percent-problems/t2/016",
+      "tier": 2,
+      "prompt": "$40 shoes, 20% off. How much is the discount?",
+      "choices": [
+        "$20",
+        "$8",
+        "$32",
+        "$4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "SALE_FOR_SAVINGS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8."
+    },
+    {
+      "id": "percent-problems/t2/017",
+      "tier": 2,
+      "prompt": "$30 shirt, 40% off. Sale price?",
+      "choices": [
+        "$42",
+        "$27",
+        "$18",
+        "$12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENTH_FOR_ALL",
+        null,
+        "DISCOUNT_ONLY"
+      ],
+      "explanation": "10% of $30 is $3, so 40% is $12. $30 − $12 = $18."
+    },
+    {
+      "id": "percent-problems/t2/018",
+      "tier": 2,
+      "prompt": "The $8 cap gets 50% off. Savings in dollars?",
+      "choices": [
+        "$4",
+        "$6",
+        "$50",
+        "$3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PERCENT_AS_DOLLARS",
+        "ARITH"
+      ],
+      "explanation": "50% is half of $8: $4."
+    },
+    {
+      "id": "percent-problems/t2/019",
+      "tier": 2,
+      "prompt": "The $90 game is 20% off. What do you pay?",
+      "choices": [
+        "$70",
+        "$81",
+        "$72",
+        "$18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL",
+        null,
+        "DISCOUNT_ONLY"
+      ],
+      "explanation": "10% of $90 is $9, so 20% is $18. $90 − $18 = $72."
+    },
+    {
+      "id": "percent-problems/t2/020",
+      "tier": 2,
+      "prompt": "$90 shirt, 10% off. Sale price?",
+      "choices": [
+        "$81",
+        "$99",
+        "$9",
+        "$80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "DISCOUNT_ONLY",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $90 is $9. $90 − $9 = $81."
+    },
+    {
+      "id": "percent-problems/t2/021",
+      "tier": 2,
+      "prompt": "The $20 game is 75% off. What do you pay?",
+      "choices": [
+        "$18",
+        "$5",
+        "$15",
+        "$35"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "DISCOUNT_ONLY",
+        "ADDED"
+      ],
+      "explanation": "1/4 of $20 is $5, so 75% is $15. $20 − $15 = $5."
+    },
+    {
+      "id": "percent-problems/t2/022",
+      "tier": 2,
+      "prompt": "20% off the $20 coat. How much do you save?",
+      "choices": [
+        "$20",
+        "$2",
+        "$16",
+        "$4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TENTH_FOR_ALL",
+        "SALE_FOR_SAVINGS",
+        null
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4."
+    },
+    {
+      "id": "percent-problems/t2/023",
+      "tier": 2,
+      "prompt": "The $36 hoodie gets a 25% discount. Price now?",
+      "choices": [
+        "$11",
+        "$9",
+        "$27",
+        "$45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "DISCOUNT_ONLY",
+        null,
+        "ADDED"
+      ],
+      "explanation": "25% is 1/4 of $36: $9. $36 − $9 = $27."
+    },
+    {
+      "id": "percent-problems/t2/024",
+      "tier": 2,
+      "prompt": "$70 shirt, 10% off. Sale price?",
+      "choices": [
+        "$63",
+        "$7",
+        "$77",
+        "$60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISCOUNT_ONLY",
+        "ADDED",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $70 is $7. $70 − $7 = $63."
+    },
+    {
+      "id": "percent-problems/t2/025",
+      "tier": 2,
+      "prompt": "The $40 hoodie gets a 40% discount. Price now?",
+      "choices": [
+        "$36",
+        "$16",
+        "$24",
+        "$56"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "DISCOUNT_ONLY",
+        null,
+        "ADDED"
+      ],
+      "explanation": "10% of $40 is $4, so 40% is $16. $40 − $16 = $24."
+    },
+    {
+      "id": "percent-problems/t2/026",
+      "tier": 2,
+      "prompt": "$20 shoes, 75% off. How much is the discount?",
+      "choices": [
+        "$15",
+        "$75",
+        "$5",
+        "$2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "SALE_FOR_SAVINGS",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "1/4 of $20 is $5, so 75% is $15."
+    },
+    {
+      "id": "percent-problems/t2/027",
+      "tier": 2,
+      "prompt": "$24 shirt, 25% off. Sale price?",
+      "choices": [
+        "$6",
+        "$30",
+        "$18",
+        "$19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DISCOUNT_ONLY",
+        "ADDED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "25% is 1/4 of $24: $6. $24 − $6 = $18."
+    },
+    {
+      "id": "percent-problems/t2/028",
+      "tier": 2,
+      "prompt": "20% off the $60 coat. How much do you save?",
+      "choices": [
+        "$20",
+        "$12",
+        "$6",
+        "$48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TENTH_FOR_ALL",
+        "SALE_FOR_SAVINGS"
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12."
+    },
+    {
+      "id": "percent-problems/t2/029",
+      "tier": 2,
+      "prompt": "The $50 hoodie gets a 40% discount. Price now?",
+      "choices": [
+        "$10",
+        "$70",
+        "$20",
+        "$30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "ADDED",
+        "DISCOUNT_ONLY",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 40% is $20. $50 − $20 = $30."
+    },
+    {
+      "id": "percent-problems/t2/030",
+      "tier": 2,
+      "prompt": "The $40 cap gets 30% off. Savings in dollars?",
+      "choices": [
+        "$4",
+        "$28",
+        "$30",
+        "$12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "SALE_FOR_SAVINGS",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $40 is $4, so 30% is $12."
+    },
+    {
+      "id": "percent-problems/t2/031",
+      "tier": 2,
+      "prompt": "Sale! 30% off the $20 bag. New price?",
+      "choices": [
+        "$26",
+        "$18",
+        "$6",
+        "$14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "TENTH_FOR_ALL",
+        "DISCOUNT_ONLY",
+        null
+      ],
+      "explanation": "10% of $20 is $2, so 30% is $6. $20 − $6 = $14."
+    },
+    {
+      "id": "percent-problems/t2/032",
+      "tier": 2,
+      "prompt": "Sale! 50% off the $40 bag. New price?",
+      "choices": [
+        "$36",
+        "$19",
+        "$60",
+        "$20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "ARITH",
+        "ADDED",
+        null
+      ],
+      "explanation": "50% is half of $40: $20. $40 − $20 = $20."
+    },
+    {
+      "id": "percent-problems/t2/033",
+      "tier": 2,
+      "prompt": "10% off the $90 coat. How much do you save?",
+      "choices": [
+        "$11",
+        "$9",
+        "$10",
+        "$81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "SALE_FOR_SAVINGS"
+      ],
+      "explanation": "10% of $90 is $9."
+    },
+    {
+      "id": "percent-problems/t2/034",
+      "tier": 2,
+      "prompt": "$8 shirt, 75% off. Sale price?",
+      "choices": [
+        "$14",
+        "$2",
+        "$3",
+        "$6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ARITH",
+        "DISCOUNT_ONLY"
+      ],
+      "explanation": "1/4 of $8 is $2, so 75% is $6. $8 − $6 = $2."
+    },
+    {
+      "id": "percent-problems/t2/035",
+      "tier": 2,
+      "prompt": "$14 shirt, 50% off. Sale price?",
+      "choices": [
+        "$8",
+        "$7",
+        "$21",
+        "$9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADDED",
+        "ARITH"
+      ],
+      "explanation": "50% is half of $14: $7. $14 − $7 = $7."
+    },
+    {
+      "id": "percent-problems/t2/036",
+      "tier": 2,
+      "prompt": "20% off the $90 coat. How much do you save?",
+      "choices": [
+        "$9",
+        "$18",
+        "$72",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        null,
+        "SALE_FOR_SAVINGS",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $90 is $9, so 20% is $18."
+    },
+    {
+      "id": "percent-problems/t2/037",
+      "tier": 2,
+      "prompt": "The $20 hoodie gets a 40% discount. Price now?",
+      "choices": [
+        "$12",
+        "$8",
+        "$28",
+        "$18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DISCOUNT_ONLY",
+        "ADDED",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $20 is $2, so 40% is $8. $20 − $8 = $12."
+    },
+    {
+      "id": "percent-problems/t2/038",
+      "tier": 2,
+      "prompt": "The $40 hoodie gets a 30% discount. Price now?",
+      "choices": [
+        "$12",
+        "$28",
+        "$36",
+        "$10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DISCOUNT_ONLY",
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $40 is $4, so 30% is $12. $40 − $12 = $28."
+    },
+    {
+      "id": "percent-problems/t2/039",
+      "tier": 2,
+      "prompt": "Sale! 20% off the $50 bag. New price?",
+      "choices": [
+        "$60",
+        "$10",
+        "$40",
+        "$30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "DISCOUNT_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10. $50 − $10 = $40."
+    },
+    {
+      "id": "percent-problems/t2/040",
+      "tier": 2,
+      "prompt": "$6 shoes, 50% off. How much is the discount?",
+      "choices": [
+        "$1",
+        "$50",
+        "$3",
+        "$2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "50% is half of $6: $3."
+    },
+    {
+      "id": "percent-problems/t3/001",
+      "tier": 3,
+      "prompt": "$30 at 20% simple interest a year for 3 years. Interest?",
+      "choices": [
+        "$9",
+        "$6",
+        "$18",
+        "$48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "ONE_YEAR",
+        null,
+        "TOTAL_FOR_INTEREST"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6 a year. 3 × $6 = $18."
+    },
+    {
+      "id": "percent-problems/t3/002",
+      "tier": 3,
+      "prompt": "$32 earns 25% simple interest a year. Interest in 2 years?",
+      "choices": [
+        "$50",
+        "$16",
+        "$8",
+        "$48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST"
+      ],
+      "explanation": "25% is 1/4 of $32: $8 a year. 2 × $8 = $16."
+    },
+    {
+      "id": "percent-problems/t3/003",
+      "tier": 3,
+      "prompt": "$20 at 25% simple interest a year for 3 years. Interest?",
+      "choices": [
+        "$35",
+        "$5",
+        "$15",
+        "$75"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_FOR_INTEREST",
+        "ONE_YEAR",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $20: $5 a year. 3 × $5 = $15."
+    },
+    {
+      "id": "percent-problems/t3/004",
+      "tier": 3,
+      "prompt": "$50 earns 20% simple interest a year. Balance in 2 years?",
+      "choices": [
+        "$20",
+        "$90",
+        "$70",
+        "$60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTEREST_ONLY",
+        "PERCENT_AS_DOLLARS",
+        null,
+        "ONE_YEAR"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10 a year. 2 × $10 = $20. $50 + $20 = $70."
+    },
+    {
+      "id": "percent-problems/t3/005",
+      "tier": 3,
+      "prompt": "The $16 item gets a 25% markup. New price?",
+      "choices": [
+        "$4",
+        "$12",
+        "$20",
+        "$41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_ONLY",
+        "SUBTRACTED",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $16: $4. $16 + $4 = $20."
+    },
+    {
+      "id": "percent-problems/t3/006",
+      "tier": 3,
+      "prompt": "$30 at 10% simple interest a year for 4 years. Interest?",
+      "choices": [
+        "$12",
+        "$40",
+        "$42",
+        "$3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_INTEREST",
+        "ONE_YEAR"
+      ],
+      "explanation": "10% of $30 is $3 a year. 4 × $3 = $12."
+    },
+    {
+      "id": "percent-problems/t3/007",
+      "tier": 3,
+      "prompt": "A shop pays $40 and marks it up 30%. Selling price?",
+      "choices": [
+        "$12",
+        "$44",
+        "$52",
+        "$70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_ONLY",
+        "TENTH_FOR_ALL",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $40 is $4, so 30% is $12. $40 + $12 = $52."
+    },
+    {
+      "id": "percent-problems/t3/008",
+      "tier": 3,
+      "prompt": "The $20 item gets a 40% markup. New price?",
+      "choices": [
+        "$22",
+        "$60",
+        "$8",
+        "$28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "10% of $20 is $2, so 40% is $8. $20 + $8 = $28."
+    },
+    {
+      "id": "percent-problems/t3/009",
+      "tier": 3,
+      "prompt": "Cost $50, markup 40%. How much is the markup?",
+      "choices": [
+        "$20",
+        "$5",
+        "$40",
+        "$70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_PART"
+      ],
+      "explanation": "10% of $50 is $5, so 40% is $20."
+    },
+    {
+      "id": "percent-problems/t3/010",
+      "tier": 3,
+      "prompt": "$30 at 10% simple interest a year for 3 years. Balance?",
+      "choices": [
+        "$60",
+        "$9",
+        "$39",
+        "$33"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "INTEREST_ONLY",
+        null,
+        "ONE_YEAR"
+      ],
+      "explanation": "10% of $30 is $3 a year. 3 × $3 = $9. $30 + $9 = $39."
+    },
+    {
+      "id": "percent-problems/t3/011",
+      "tier": 3,
+      "prompt": "A shop pays $16 and marks it up 25%. Selling price?",
+      "choices": [
+        "$12",
+        "$41",
+        "$4",
+        "$20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "25% is 1/4 of $16: $4. $16 + $4 = $20."
+    },
+    {
+      "id": "percent-problems/t3/012",
+      "tier": 3,
+      "prompt": "Cost $50, markup 30%. How much is the markup?",
+      "choices": [
+        "$5",
+        "$65",
+        "$30",
+        "$15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "TOTAL_FOR_PART",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 30% is $15."
+    },
+    {
+      "id": "percent-problems/t3/013",
+      "tier": 3,
+      "prompt": "A shop marks up the $60 item 20%. Markup in dollars?",
+      "choices": [
+        "$72",
+        "$6",
+        "$20",
+        "$12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_FOR_PART",
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $60 is $6, so 20% is $12."
+    },
+    {
+      "id": "percent-problems/t3/014",
+      "tier": 3,
+      "prompt": "The $40 item gets a 20% markup. New price?",
+      "choices": [
+        "$60",
+        "$48",
+        "$44",
+        "$8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TENTH_FOR_ALL",
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $40 is $4, so 20% is $8. $40 + $8 = $48."
+    },
+    {
+      "id": "percent-problems/t3/015",
+      "tier": 3,
+      "prompt": "$60 deposit, 10% simple interest a year, 3 years. Balance?",
+      "choices": [
+        "$78",
+        "$66",
+        "$90",
+        "$18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_YEAR",
+        "PERCENT_AS_DOLLARS",
+        "INTEREST_ONLY"
+      ],
+      "explanation": "10% of $60 is $6 a year. 3 × $6 = $18. $60 + $18 = $78."
+    },
+    {
+      "id": "percent-problems/t3/016",
+      "tier": 3,
+      "prompt": "$12 at 25% simple interest a year for 4 years. Balance?",
+      "choices": [
+        "$12",
+        "$24",
+        "$112",
+        "$15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTEREST_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "ONE_YEAR"
+      ],
+      "explanation": "25% is 1/4 of $12: $3 a year. 4 × $3 = $12. $12 + $12 = $24."
+    },
+    {
+      "id": "percent-problems/t3/017",
+      "tier": 3,
+      "prompt": "$20 earns 25% simple interest a year. Balance in 3 years?",
+      "choices": [
+        "$15",
+        "$26",
+        "$35",
+        "$25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTEREST_ONLY",
+        "TENTH_FOR_ALL",
+        null,
+        "ONE_YEAR"
+      ],
+      "explanation": "25% is 1/4 of $20: $5 a year. 3 × $5 = $15. $20 + $15 = $35."
+    },
+    {
+      "id": "percent-problems/t3/018",
+      "tier": 3,
+      "prompt": "$20 earns 20% simple interest a year. Interest in 3 years?",
+      "choices": [
+        "$12",
+        "$6",
+        "$4",
+        "$32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENTH_FOR_ALL",
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4 a year. 3 × $4 = $12."
+    },
+    {
+      "id": "percent-problems/t3/019",
+      "tier": 3,
+      "prompt": "$20 deposit, 25% simple interest a year, 2 years. Interest?",
+      "choices": [
+        "$4",
+        "$5",
+        "$30",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENTH_FOR_ALL",
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST",
+        null
+      ],
+      "explanation": "25% is 1/4 of $20: $5 a year. 2 × $5 = $10."
+    },
+    {
+      "id": "percent-problems/t3/020",
+      "tier": 3,
+      "prompt": "The $28 item gets a 25% markup. New price?",
+      "choices": [
+        "$35",
+        "$53",
+        "$7",
+        "$21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        "SUBTRACTED"
+      ],
+      "explanation": "25% is 1/4 of $28: $7. $28 + $7 = $35."
+    },
+    {
+      "id": "percent-problems/t3/021",
+      "tier": 3,
+      "prompt": "Cost $40, markup 30%. How much is the markup?",
+      "choices": [
+        "$52",
+        "$12",
+        "$4",
+        "$30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_FOR_PART",
+        null,
+        "TENTH_FOR_ALL",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $40 is $4, so 30% is $12."
+    },
+    {
+      "id": "percent-problems/t3/022",
+      "tier": 3,
+      "prompt": "$40 earns 25% simple interest a year. Balance in 2 years?",
+      "choices": [
+        "$20",
+        "$60",
+        "$50",
+        "$90"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTEREST_ONLY",
+        null,
+        "ONE_YEAR",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $40: $10 a year. 2 × $10 = $20. $40 + $20 = $60."
+    },
+    {
+      "id": "percent-problems/t3/023",
+      "tier": 3,
+      "prompt": "The $10 item gets a 50% markup. New price?",
+      "choices": [
+        "$60",
+        "$5",
+        "$15",
+        "$11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        null,
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "50% is half of $10: $5. $10 + $5 = $15."
+    },
+    {
+      "id": "percent-problems/t3/024",
+      "tier": 3,
+      "prompt": "$30 deposit, 20% simple interest a year, 2 years. Interest?",
+      "choices": [
+        "$42",
+        "$12",
+        "$40",
+        "$6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_FOR_INTEREST",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "ONE_YEAR"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6 a year. 2 × $6 = $12."
+    },
+    {
+      "id": "percent-problems/t3/025",
+      "tier": 3,
+      "prompt": "$30 earns 10% simple interest a year. Balance in 4 years?",
+      "choices": [
+        "$33",
+        "$12",
+        "$42",
+        "$70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_YEAR",
+        "INTEREST_ONLY",
+        null,
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $30 is $3 a year. 4 × $3 = $12. $30 + $12 = $42."
+    },
+    {
+      "id": "percent-problems/t3/026",
+      "tier": 3,
+      "prompt": "$50 at 20% simple interest a year for 2 years. Interest?",
+      "choices": [
+        "$40",
+        "$10",
+        "$70",
+        "$20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10 a year. 2 × $10 = $20."
+    },
+    {
+      "id": "percent-problems/t3/027",
+      "tier": 3,
+      "prompt": "$12 at 25% simple interest a year for 2 years. Interest?",
+      "choices": [
+        "$18",
+        "$6",
+        "$3",
+        "$50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_FOR_INTEREST",
+        null,
+        "ONE_YEAR",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $12: $3 a year. 2 × $3 = $6."
+    },
+    {
+      "id": "percent-problems/t3/028",
+      "tier": 3,
+      "prompt": "$30 earns 20% simple interest a year. Interest in 2 years?",
+      "choices": [
+        "$12",
+        "$6",
+        "$42",
+        "$40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "10% of $30 is $3, so 20% is $6 a year. 2 × $6 = $12."
+    },
+    {
+      "id": "percent-problems/t3/029",
+      "tier": 3,
+      "prompt": "Cost $20, markup 30%. What is the selling price?",
+      "choices": [
+        "$50",
+        "$6",
+        "$26",
+        "$22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY",
+        null,
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $20 is $2, so 30% is $6. $20 + $6 = $26."
+    },
+    {
+      "id": "percent-problems/t3/030",
+      "tier": 3,
+      "prompt": "$20 at 20% simple interest a year for 5 years. Interest?",
+      "choices": [
+        "$40",
+        "$4",
+        "$100",
+        "$20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_FOR_INTEREST",
+        "ONE_YEAR",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4 a year. 5 × $4 = $20."
+    },
+    {
+      "id": "percent-problems/t3/031",
+      "tier": 3,
+      "prompt": "$16 at 25% simple interest a year for 2 years. Interest?",
+      "choices": [
+        "$50",
+        "$4",
+        "$24",
+        "$8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "ONE_YEAR",
+        "TOTAL_FOR_INTEREST",
+        null
+      ],
+      "explanation": "25% is 1/4 of $16: $4 a year. 2 × $4 = $8."
+    },
+    {
+      "id": "percent-problems/t3/032",
+      "tier": 3,
+      "prompt": "Cost $40, markup 25%. What is the selling price?",
+      "choices": [
+        "$65",
+        "$50",
+        "$44",
+        "$10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "TENTH_FOR_ALL",
+        "PART_ONLY"
+      ],
+      "explanation": "25% is 1/4 of $40: $10. $40 + $10 = $50."
+    },
+    {
+      "id": "percent-problems/t3/033",
+      "tier": 3,
+      "prompt": "Cost $40, markup 10%. What is the selling price?",
+      "choices": [
+        "$44",
+        "$4",
+        "$50",
+        "$36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_ONLY",
+        "PERCENT_AS_DOLLARS",
+        "SUBTRACTED"
+      ],
+      "explanation": "10% of $40 is $4. $40 + $4 = $44."
+    },
+    {
+      "id": "percent-problems/t3/034",
+      "tier": 3,
+      "prompt": "Cost $16, markup 25%. How much is the markup?",
+      "choices": [
+        "$4",
+        "$20",
+        "$25",
+        "$5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_FOR_PART",
+        "PERCENT_AS_DOLLARS",
+        "ARITH"
+      ],
+      "explanation": "25% is 1/4 of $16: $4."
+    },
+    {
+      "id": "percent-problems/t3/035",
+      "tier": 3,
+      "prompt": "$20 deposit, 10% simple interest a year, 5 years. Interest?",
+      "choices": [
+        "$30",
+        "$2",
+        "$50",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_FOR_INTEREST",
+        "ONE_YEAR",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "10% of $20 is $2 a year. 5 × $2 = $10."
+    },
+    {
+      "id": "percent-problems/t3/036",
+      "tier": 3,
+      "prompt": "Cost $20, markup 30%. How much is the markup?",
+      "choices": [
+        "$6",
+        "$30",
+        "$26",
+        "$2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_PART",
+        "TENTH_FOR_ALL"
+      ],
+      "explanation": "10% of $20 is $2, so 30% is $6."
+    },
+    {
+      "id": "percent-problems/t3/037",
+      "tier": 3,
+      "prompt": "Cost $8, markup 25%. What is the selling price?",
+      "choices": [
+        "$6",
+        "$10",
+        "$33",
+        "$2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "PERCENT_AS_DOLLARS",
+        "PART_ONLY"
+      ],
+      "explanation": "25% is 1/4 of $8: $2. $8 + $2 = $10."
+    },
+    {
+      "id": "percent-problems/t3/038",
+      "tier": 3,
+      "prompt": "$16 deposit, 25% simple interest a year, 4 years. Interest?",
+      "choices": [
+        "$100",
+        "$32",
+        "$4",
+        "$16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "TOTAL_FOR_INTEREST",
+        "ONE_YEAR",
+        null
+      ],
+      "explanation": "25% is 1/4 of $16: $4 a year. 4 × $4 = $16."
+    },
+    {
+      "id": "percent-problems/t3/039",
+      "tier": 3,
+      "prompt": "$24 deposit, 25% simple interest a year, 2 years. Balance?",
+      "choices": [
+        "$36",
+        "$74",
+        "$12",
+        "$30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_DOLLARS",
+        "INTEREST_ONLY",
+        "ONE_YEAR"
+      ],
+      "explanation": "25% is 1/4 of $24: $6 a year. 2 × $6 = $12. $24 + $12 = $36."
+    },
+    {
+      "id": "percent-problems/t3/040",
+      "tier": 3,
+      "prompt": "The $50 item gets a 40% markup. New price?",
+      "choices": [
+        "$90",
+        "$70",
+        "$30",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        null,
+        "SUBTRACTED",
+        "PART_ONLY"
+      ],
+      "explanation": "10% of $50 is $5, so 40% is $20. $50 + $20 = $70."
+    },
+    {
+      "id": "percent-problems/t4/001",
+      "tier": 4,
+      "prompt": "A class shrinks from 32 to 24 kids. Percent decrease?",
+      "choices": [
+        "8%",
+        "75%",
+        "30%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Change: 32 − 24 = 8. 8 is 1/4 of 32, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/002",
+      "tier": 4,
+      "prompt": "Tickets go up from $16 to $20. Percent increase?",
+      "choices": [
+        "4%",
+        "20%",
+        "25%",
+        "125%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "NEW_AS_BASE",
+        null,
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $20 − $16 = $4. $4 is 1/4 of $16, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/003",
+      "tier": 4,
+      "prompt": "Tickets go up from $36 to $45. Percent increase?",
+      "choices": [
+        "20%",
+        "25%",
+        "125%",
+        "9%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        null,
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: $45 − $36 = $9. $9 is 1/4 of $36, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/004",
+      "tier": 4,
+      "prompt": "Tickets go up from $30 to $39. Percent increase?",
+      "choices": [
+        "0.3%",
+        "30%",
+        "130%",
+        "9%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        null,
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: $39 − $30 = $9. 10% of $30 is $3; $9 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t4/005",
+      "tier": 4,
+      "prompt": "Score rises from 24 to 30 points. Percent increase?",
+      "choices": [
+        "0.25%",
+        "25%",
+        "6%",
+        "125%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 30 − 24 = 6. 6 is 1/4 of 24, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/006",
+      "tier": 4,
+      "prompt": "Score falls from 80 to 72 points. Percent decrease?",
+      "choices": [
+        "8%",
+        "90%",
+        "15%",
+        "10%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Change: 80 − 72 = 8. 8 is 1/10 of 80, so 10%."
+    },
+    {
+      "id": "percent-problems/t4/007",
+      "tier": 4,
+      "prompt": "A class shrinks from 40 to 30 kids. Percent decrease?",
+      "choices": [
+        "25%",
+        "30%",
+        "10%",
+        "75%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 40 − 30 = 10. 10 is 1/4 of 40, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/008",
+      "tier": 4,
+      "prompt": "Price drops from $30 to $18. Percent decrease?",
+      "choices": [
+        "0.4%",
+        "40%",
+        "12%",
+        "60%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $30 − $18 = $12. 10% of $30 is $3; $12 is 4 of those, so 40%."
+    },
+    {
+      "id": "percent-problems/t4/009",
+      "tier": 4,
+      "prompt": "A class shrinks from 18 to 9 kids. Percent decrease?",
+      "choices": [
+        "0.5%",
+        "100%",
+        "50%",
+        "9%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        "NEW_AS_BASE",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: 18 − 9 = 9. 9 is half of 18, so 50%."
+    },
+    {
+      "id": "percent-problems/t4/010",
+      "tier": 4,
+      "prompt": "A plant grows from 12 cm to 15 cm. Percent increase?",
+      "choices": [
+        "0.25%",
+        "3%",
+        "125%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        null
+      ],
+      "explanation": "Change: 15 − 12 = 3. 3 is 1/4 of 12, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/011",
+      "tier": 4,
+      "prompt": "Score rises from 36 to 45 points. Percent increase?",
+      "choices": [
+        "20%",
+        "125%",
+        "25%",
+        "9%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: 45 − 36 = 9. 9 is 1/4 of 36, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/012",
+      "tier": 4,
+      "prompt": "A club grows from 4 to 6 kids. Percent increase?",
+      "choices": [
+        "50%",
+        "150%",
+        "2%",
+        "45%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT",
+        "ARITH"
+      ],
+      "explanation": "Change: 6 − 4 = 2. 2 is half of 4, so 50%."
+    },
+    {
+      "id": "percent-problems/t4/013",
+      "tier": 4,
+      "prompt": "Tickets go up from $20 to $26. Percent increase?",
+      "choices": [
+        "30%",
+        "35%",
+        "6%",
+        "130%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $26 − $20 = $6. 10% of $20 is $2; $6 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t4/014",
+      "tier": 4,
+      "prompt": "Score rises from 40 to 50 points. Percent increase?",
+      "choices": [
+        "125%",
+        "10%",
+        "25%",
+        "20%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT",
+        null,
+        "NEW_AS_BASE"
+      ],
+      "explanation": "Change: 50 − 40 = 10. 10 is 1/4 of 40, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/015",
+      "tier": 4,
+      "prompt": "A club grows from 12 to 15 kids. Percent increase?",
+      "choices": [
+        "20%",
+        "3%",
+        "125%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        null
+      ],
+      "explanation": "Change: 15 − 12 = 3. 3 is 1/4 of 12, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/016",
+      "tier": 4,
+      "prompt": "Tickets go up from $50 to $55. Percent increase?",
+      "choices": [
+        "0.1%",
+        "10%",
+        "110%",
+        "5%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        null,
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: $55 − $50 = $5. $5 is 1/10 of $50, so 10%."
+    },
+    {
+      "id": "percent-problems/t4/017",
+      "tier": 4,
+      "prompt": "Sales fall from $24 to $6. Percent decrease?",
+      "choices": [
+        "300%",
+        "25%",
+        "75%",
+        "18%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: $24 − $6 = $18. 1/4 of $24 is $6; $18 is 3 of those, so 75%."
+    },
+    {
+      "id": "percent-problems/t4/018",
+      "tier": 4,
+      "prompt": "Sales fall from $18 to $9. Percent decrease?",
+      "choices": [
+        "55%",
+        "100%",
+        "9%",
+        "50%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NEW_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Change: $18 − $9 = $9. $9 is half of $18, so 50%."
+    },
+    {
+      "id": "percent-problems/t4/019",
+      "tier": 4,
+      "prompt": "A class shrinks from 28 to 21 kids. Percent decrease?",
+      "choices": [
+        "30%",
+        "25%",
+        "75%",
+        "7%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: 28 − 21 = 7. 7 is 1/4 of 28, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/020",
+      "tier": 4,
+      "prompt": "A club grows from 8 to 10 kids. Percent increase?",
+      "choices": [
+        "2%",
+        "20%",
+        "25%",
+        "125%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "NEW_AS_BASE",
+        null,
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 10 − 8 = 2. 2 is 1/4 of 8, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/021",
+      "tier": 4,
+      "prompt": "A plant grows from 30 cm to 36 cm. Percent increase?",
+      "choices": [
+        "120%",
+        "6%",
+        "0.2%",
+        "20%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT",
+        "DECIMAL_NOT_PERCENT",
+        null
+      ],
+      "explanation": "Change: 36 − 30 = 6. 10% of 30 is 3; 6 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/022",
+      "tier": 4,
+      "prompt": "Score rises from 70 to 84 points. Percent increase?",
+      "choices": [
+        "120%",
+        "0.2%",
+        "14%",
+        "20%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "DECIMAL_NOT_PERCENT",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Change: 84 − 70 = 14. 10% of 70 is 7; 14 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/023",
+      "tier": 4,
+      "prompt": "Score falls from 20 to 16 points. Percent decrease?",
+      "choices": [
+        "20%",
+        "25%",
+        "80%",
+        "4%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: 20 − 16 = 4. 10% of 20 is 2; 4 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/024",
+      "tier": 4,
+      "prompt": "Sales fall from $50 to $35. Percent decrease?",
+      "choices": [
+        "15%",
+        "70%",
+        "35%",
+        "30%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        "ARITH",
+        null
+      ],
+      "explanation": "Change: $50 − $35 = $15. 10% of $50 is $5; $15 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t4/025",
+      "tier": 4,
+      "prompt": "Tickets go up from $20 to $28. Percent increase?",
+      "choices": [
+        "0.4%",
+        "140%",
+        "40%",
+        "8%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_NOT_PERCENT",
+        "RATIO_AS_CHANGE",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: $28 − $20 = $8. 10% of $20 is $2; $8 is 4 of those, so 40%."
+    },
+    {
+      "id": "percent-problems/t4/026",
+      "tier": 4,
+      "prompt": "Water drops from 24 cm to 6 cm. Percent decrease?",
+      "choices": [
+        "18%",
+        "300%",
+        "75%",
+        "25%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "NEW_AS_BASE",
+        null,
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 24 − 6 = 18. 1/4 of 24 is 6; 18 is 3 of those, so 75%."
+    },
+    {
+      "id": "percent-problems/t4/027",
+      "tier": 4,
+      "prompt": "Water drops from 70 cm to 56 cm. Percent decrease?",
+      "choices": [
+        "20%",
+        "14%",
+        "80%",
+        "25%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        "NEW_AS_BASE"
+      ],
+      "explanation": "Change: 70 − 56 = 14. 10% of 70 is 7; 14 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/028",
+      "tier": 4,
+      "prompt": "A club grows from 6 to 9 kids. Percent increase?",
+      "choices": [
+        "50%",
+        "3%",
+        "150%",
+        "0.5%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        "DECIMAL_NOT_PERCENT"
+      ],
+      "explanation": "Change: 9 − 6 = 3. 3 is half of 6, so 50%."
+    },
+    {
+      "id": "percent-problems/t4/029",
+      "tier": 4,
+      "prompt": "Water drops from 28 cm to 21 cm. Percent decrease?",
+      "choices": [
+        "25%",
+        "20%",
+        "75%",
+        "7%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Change: 28 − 21 = 7. 7 is 1/4 of 28, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/030",
+      "tier": 4,
+      "prompt": "A club grows from 36 to 45 kids. Percent increase?",
+      "choices": [
+        "125%",
+        "9%",
+        "25%",
+        "20%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT",
+        null,
+        "NEW_AS_BASE"
+      ],
+      "explanation": "Change: 45 − 36 = 9. 9 is 1/4 of 36, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/031",
+      "tier": 4,
+      "prompt": "Sales fall from $90 to $72. Percent decrease?",
+      "choices": [
+        "20%",
+        "18%",
+        "0.2%",
+        "80%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "DECIMAL_NOT_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $90 − $72 = $18. 10% of $90 is $9; $18 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/032",
+      "tier": 4,
+      "prompt": "Water drops from 20 cm to 16 cm. Percent decrease?",
+      "choices": [
+        "4%",
+        "80%",
+        "20%",
+        "25%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE",
+        null,
+        "NEW_AS_BASE"
+      ],
+      "explanation": "Change: 20 − 16 = 4. 10% of 20 is 2; 4 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/033",
+      "tier": 4,
+      "prompt": "Water drops from 80 cm to 64 cm. Percent decrease?",
+      "choices": [
+        "25%",
+        "20%",
+        "16%",
+        "80%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 80 − 64 = 16. 10% of 80 is 8; 16 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/034",
+      "tier": 4,
+      "prompt": "Price drops from $70 to $56. Percent decrease?",
+      "choices": [
+        "20%",
+        "14%",
+        "25%",
+        "80%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $70 − $56 = $14. 10% of $70 is $7; $14 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/035",
+      "tier": 4,
+      "prompt": "Price drops from $60 to $48. Percent decrease?",
+      "choices": [
+        "80%",
+        "25%",
+        "12%",
+        "20%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "NEW_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Change: $60 − $48 = $12. 10% of $60 is $6; $12 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/036",
+      "tier": 4,
+      "prompt": "Score rises from 30 to 36 points. Percent increase?",
+      "choices": [
+        "25%",
+        "20%",
+        "6%",
+        "120%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 36 − 30 = 6. 10% of 30 is 3; 6 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t4/037",
+      "tier": 4,
+      "prompt": "Price drops from $80 to $72. Percent decrease?",
+      "choices": [
+        "10%",
+        "0.1%",
+        "8%",
+        "90%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_NOT_PERCENT",
+        "DIFFERENCE_AS_PERCENT",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: $80 − $72 = $8. $8 is 1/10 of $80, so 10%."
+    },
+    {
+      "id": "percent-problems/t4/038",
+      "tier": 4,
+      "prompt": "A plant grows from 16 cm to 20 cm. Percent increase?",
+      "choices": [
+        "20%",
+        "125%",
+        "4%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Change: 20 − 16 = 4. 4 is 1/4 of 16, so 25%."
+    },
+    {
+      "id": "percent-problems/t4/039",
+      "tier": 4,
+      "prompt": "Score falls from 16 to 4 points. Percent decrease?",
+      "choices": [
+        "12%",
+        "75%",
+        "300%",
+        "25%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        null,
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 16 − 4 = 12. 1/4 of 16 is 4; 12 is 3 of those, so 75%."
+    },
+    {
+      "id": "percent-problems/t4/040",
+      "tier": 4,
+      "prompt": "A club grows from 24 to 30 kids. Percent increase?",
+      "choices": [
+        "6%",
+        "25%",
+        "20%",
+        "125%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        null,
+        "NEW_AS_BASE",
+        "RATIO_AS_CHANGE"
+      ],
+      "explanation": "Change: 30 − 24 = 6. 6 is 1/4 of 24, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/001",
+      "tier": 5,
+      "prompt": "Cost $20, marked up 20%, then 25% off that. Price?",
+      "choices": [
+        "$18",
+        "$30",
+        "$24",
+        "$19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SECOND_WRONG_WAY",
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS"
+      ],
+      "explanation": "10% of $20 is $2, so 20% is $4; $20 + $4 = $24. 25% is 1/4 of $24: $6; $24 − $6 = $18."
+    },
+    {
+      "id": "percent-problems/t5/002",
+      "tier": 5,
+      "prompt": "Measured 24 cm. True length: 30 cm. Percent error?",
+      "choices": [
+        "25%",
+        "80%",
+        "20%",
+        "6%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "GUESS_RATIO",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Miss: 30 − 24 = 6. Compare with the actual 30. 10% of 30 is 3; 6 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t5/003",
+      "tier": 5,
+      "prompt": "$40 jacket, 25% off, then 10% off the sale price. Price?",
+      "choices": [
+        "$26",
+        "$27",
+        "$30",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        null,
+        "FORGOT_SECOND",
+        "PERCENT_AS_DOLLARS"
+      ],
+      "explanation": "25% is 1/4 of $40: $10; $40 − $10 = $30. 10% of $30 is $3; $30 − $3 = $27."
+    },
+    {
+      "id": "percent-problems/t5/004",
+      "tier": 5,
+      "prompt": "The $16 item is marked up 50%, then 25% off that. Price?",
+      "choices": [
+        "$18",
+        "$24",
+        "$30",
+        "$20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_SECOND",
+        "SECOND_WRONG_WAY",
+        "COMBINED_PERCENTS"
+      ],
+      "explanation": "50% is half of $16: $8; $16 + $8 = $24. 25% is 1/4 of $24: $6; $24 − $6 = $18."
+    },
+    {
+      "id": "percent-problems/t5/005",
+      "tier": 5,
+      "prompt": "Scale shows 40 lb. True weight: 50 lb. Percent error?",
+      "choices": [
+        "25%",
+        "80%",
+        "20%",
+        "10%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "GUESS_RATIO",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Miss: 50 − 40 = 10. Compare with the actual 50. 10% of 50 is 5; 10 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t5/006",
+      "tier": 5,
+      "prompt": "Estimated 6 kids. Really 12. Percent error?",
+      "choices": [
+        "50%",
+        "100%",
+        "6%",
+        "45%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GUESS_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        "ARITH"
+      ],
+      "explanation": "Miss: 12 − 6 = 6. Compare with the actual 12. 6 is half of 12, so 50%."
+    },
+    {
+      "id": "percent-problems/t5/007",
+      "tier": 5,
+      "prompt": "Estimated 14 kids. Really 20. Percent error?",
+      "choices": [
+        "30%",
+        "0.3%",
+        "70%",
+        "6%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_NOT_PERCENT",
+        "GUESS_RATIO",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Miss: 20 − 14 = 6. Compare with the actual 20. 10% of 20 is 2; 6 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t5/008",
+      "tier": 5,
+      "prompt": "$40 coat, 50% off, then 20% tax. Cost?",
+      "choices": [
+        "$40",
+        "$28",
+        "$24",
+        "$20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "COMBINED_PERCENTS",
+        null,
+        "FORGOT_SECOND"
+      ],
+      "explanation": "50% is half of $40: $20; $40 − $20 = $20. 10% of $20 is $2, so 20% is $4; $20 + $4 = $24."
+    },
+    {
+      "id": "percent-problems/t5/009",
+      "tier": 5,
+      "prompt": "Scale shows 21 lb. True weight: 30 lb. Percent error?",
+      "choices": [
+        "30%",
+        "70%",
+        "25%",
+        "9%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GUESS_RATIO",
+        "ARITH",
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Miss: 30 − 21 = 9. Compare with the actual 30. 10% of 30 is 3; 9 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t5/010",
+      "tier": 5,
+      "prompt": "$40 shirt, 25% off, then 20% off that. Price?",
+      "choices": [
+        "$22",
+        "$36",
+        "$24",
+        "$30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        "SECOND_WRONG_WAY",
+        null,
+        "FORGOT_SECOND"
+      ],
+      "explanation": "25% is 1/4 of $40: $10; $40 − $10 = $30. 10% of $30 is $3, so 20% is $6; $30 − $6 = $24."
+    },
+    {
+      "id": "percent-problems/t5/011",
+      "tier": 5,
+      "prompt": "The $50 game is 20% off, then 20% tax. Total?",
+      "choices": [
+        "$32",
+        "$48",
+        "$40",
+        "$50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SECOND_WRONG_WAY",
+        null,
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10; $50 − $10 = $40. 10% of $40 is $4, so 20% is $8; $40 + $8 = $48."
+    },
+    {
+      "id": "percent-problems/t5/012",
+      "tier": 5,
+      "prompt": "$40 shirt, 50% off, then 20% off that. Price?",
+      "choices": [
+        "$20",
+        "$16",
+        "$12",
+        "$24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_SECOND",
+        null,
+        "COMBINED_PERCENTS",
+        "SECOND_WRONG_WAY"
+      ],
+      "explanation": "50% is half of $40: $20; $40 − $20 = $20. 10% of $20 is $2, so 20% is $4; $20 − $4 = $16."
+    },
+    {
+      "id": "percent-problems/t5/013",
+      "tier": 5,
+      "prompt": "Cost $24, marked up 25%, then 20% off that. Price?",
+      "choices": [
+        "$10",
+        "$30",
+        "$24",
+        "$36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "FORGOT_SECOND",
+        null,
+        "SECOND_WRONG_WAY"
+      ],
+      "explanation": "25% is 1/4 of $24: $6; $24 + $6 = $30. 10% of $30 is $3, so 20% is $6; $30 − $6 = $24."
+    },
+    {
+      "id": "percent-problems/t5/014",
+      "tier": 5,
+      "prompt": "$50 shirt, 20% off, then 20% off that. Price?",
+      "choices": [
+        "$20",
+        "$30",
+        "$40",
+        "$32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_DOLLARS",
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10; $50 − $10 = $40. 10% of $40 is $4, so 20% is $8; $40 − $8 = $32."
+    },
+    {
+      "id": "percent-problems/t5/015",
+      "tier": 5,
+      "prompt": "$20 shirt, 40% off, then 25% off that. Price?",
+      "choices": [
+        "$15",
+        "$9",
+        "$7",
+        "$12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SECOND_WRONG_WAY",
+        null,
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "10% of $20 is $2, so 40% is $8; $20 − $8 = $12. 25% is 1/4 of $12: $3; $12 − $3 = $9."
+    },
+    {
+      "id": "percent-problems/t5/016",
+      "tier": 5,
+      "prompt": "The $32 item is marked up 25%, then 25% off that. Price?",
+      "choices": [
+        "$40",
+        "$32",
+        "$15",
+        "$30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "25% is 1/4 of $32: $8; $32 + $8 = $40. 25% is 1/4 of $40: $10; $40 − $10 = $30."
+    },
+    {
+      "id": "percent-problems/t5/017",
+      "tier": 5,
+      "prompt": "$40 jacket, 30% off, then 25% off the sale price. Price?",
+      "choices": [
+        "$18",
+        "$21",
+        "$35",
+        "$28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        null,
+        "SECOND_WRONG_WAY",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "10% of $40 is $4, so 30% is $12; $40 − $12 = $28. 25% is 1/4 of $28: $7; $28 − $7 = $21."
+    },
+    {
+      "id": "percent-problems/t5/018",
+      "tier": 5,
+      "prompt": "The $16 item is marked up 25%, then 20% off that. Price?",
+      "choices": [
+        "$24",
+        "$16",
+        "$14",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SECOND_WRONG_WAY",
+        null,
+        "ARITH",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "25% is 1/4 of $16: $4; $16 + $4 = $20. 10% of $20 is $2, so 20% is $4; $20 − $4 = $16."
+    },
+    {
+      "id": "percent-problems/t5/019",
+      "tier": 5,
+      "prompt": "$20 jacket, 40% off, then 25% off the sale price. Price?",
+      "choices": [
+        "$9",
+        "$7",
+        "$12",
+        "$15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND",
+        "SECOND_WRONG_WAY"
+      ],
+      "explanation": "10% of $20 is $2, so 40% is $8; $20 − $8 = $12. 25% is 1/4 of $12: $3; $12 − $3 = $9."
+    },
+    {
+      "id": "percent-problems/t5/020",
+      "tier": 5,
+      "prompt": "$50 coat, 40% off, then 20% tax. Cost?",
+      "choices": [
+        "$24",
+        "$30",
+        "$40",
+        "$36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SECOND_WRONG_WAY",
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS",
+        null
+      ],
+      "explanation": "10% of $50 is $5, so 40% is $20; $50 − $20 = $30. 10% of $30 is $3, so 20% is $6; $30 + $6 = $36."
+    },
+    {
+      "id": "percent-problems/t5/021",
+      "tier": 5,
+      "prompt": "Measured 10 cm. True length: 8 cm. Percent error?",
+      "choices": [
+        "20%",
+        "125%",
+        "2%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "GUESS_RATIO",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Miss: 10 − 8 = 2. Compare with the actual 8. 2 is 1/4 of 8, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/022",
+      "tier": 5,
+      "prompt": "$16 jacket, 50% off, then 25% off the sale price. Price?",
+      "choices": [
+        "$4",
+        "$10",
+        "$8",
+        "$6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        "SECOND_WRONG_WAY",
+        "FORGOT_SECOND",
+        null
+      ],
+      "explanation": "50% is half of $16: $8; $16 − $8 = $8. 25% is 1/4 of $8: $2; $8 − $2 = $6."
+    },
+    {
+      "id": "percent-problems/t5/023",
+      "tier": 5,
+      "prompt": "$50 coat, 40% off, then 10% tax. Cost?",
+      "choices": [
+        "$33",
+        "$35",
+        "$40",
+        "$30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMBINED_PERCENTS",
+        "PERCENT_AS_DOLLARS",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "10% of $50 is $5, so 40% is $20; $50 − $20 = $30. 10% of $30 is $3; $30 + $3 = $33."
+    },
+    {
+      "id": "percent-problems/t5/024",
+      "tier": 5,
+      "prompt": "Cost $40, marked up 50%, then 10% off that. Price?",
+      "choices": [
+        "$56",
+        "$60",
+        "$50",
+        "$54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND",
+        "PERCENT_AS_DOLLARS",
+        null
+      ],
+      "explanation": "50% is half of $40: $20; $40 + $20 = $60. 10% of $60 is $6; $60 − $6 = $54."
+    },
+    {
+      "id": "percent-problems/t5/025",
+      "tier": 5,
+      "prompt": "Scale shows 30 lb. True weight: 24 lb. Percent error?",
+      "choices": [
+        "20%",
+        "6%",
+        "125%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        "GUESS_RATIO",
+        null
+      ],
+      "explanation": "Miss: 30 − 24 = 6. Compare with the actual 24. 6 is 1/4 of 24, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/026",
+      "tier": 5,
+      "prompt": "Estimated 32 kids. Really 40. Percent error?",
+      "choices": [
+        "80%",
+        "20%",
+        "8%",
+        "25%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GUESS_RATIO",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "GUESS_AS_BASE"
+      ],
+      "explanation": "Miss: 40 − 32 = 8. Compare with the actual 40. 10% of 40 is 4; 8 is 2 of those, so 20%."
+    },
+    {
+      "id": "percent-problems/t5/027",
+      "tier": 5,
+      "prompt": "Estimated 40 kids. Really 32. Percent error?",
+      "choices": [
+        "8%",
+        "20%",
+        "25%",
+        "125%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "GUESS_AS_BASE",
+        null,
+        "GUESS_RATIO"
+      ],
+      "explanation": "Miss: 40 − 32 = 8. Compare with the actual 32. 8 is 1/4 of 32, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/028",
+      "tier": 5,
+      "prompt": "The $40 game is 25% off, then 10% tax. Total?",
+      "choices": [
+        "$33",
+        "$34",
+        "$40",
+        "$30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMBINED_PERCENTS",
+        "PERCENT_AS_DOLLARS",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "25% is 1/4 of $40: $10; $40 − $10 = $30. 10% of $30 is $3; $30 + $3 = $33."
+    },
+    {
+      "id": "percent-problems/t5/029",
+      "tier": 5,
+      "prompt": "$16 shirt, 25% off, then 25% off that. Price?",
+      "choices": [
+        "$12",
+        "$8",
+        "$9",
+        "$15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS",
+        null,
+        "SECOND_WRONG_WAY"
+      ],
+      "explanation": "25% is 1/4 of $16: $4; $16 − $4 = $12. 25% is 1/4 of $12: $3; $12 − $3 = $9."
+    },
+    {
+      "id": "percent-problems/t5/030",
+      "tier": 5,
+      "prompt": "The $50 item is marked up 20%, then 20% off that. Price?",
+      "choices": [
+        "$48",
+        "$72",
+        "$60",
+        "$50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SECOND_WRONG_WAY",
+        "FORGOT_SECOND",
+        "COMBINED_PERCENTS"
+      ],
+      "explanation": "10% of $50 is $5, so 20% is $10; $50 + $10 = $60. 10% of $60 is $6, so 20% is $12; $60 − $12 = $48."
+    },
+    {
+      "id": "percent-problems/t5/031",
+      "tier": 5,
+      "prompt": "Guessed 30. Actual was 24. Percent error?",
+      "choices": [
+        "20%",
+        "125%",
+        "6%",
+        "25%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "GUESS_RATIO",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Miss: 30 − 24 = 6. Compare with the actual 24. 6 is 1/4 of 24, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/032",
+      "tier": 5,
+      "prompt": "Guessed $30. Actual price: $24. Percent error?",
+      "choices": [
+        "20%",
+        "125%",
+        "25%",
+        "6%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        "GUESS_RATIO",
+        null,
+        "DIFFERENCE_AS_PERCENT"
+      ],
+      "explanation": "Miss: $30 − $24 = $6. Compare with the actual $24. $6 is 1/4 of $24, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/033",
+      "tier": 5,
+      "prompt": "Cost $20, marked up 50%, then 10% off that. Price?",
+      "choices": [
+        "$28",
+        "$33",
+        "$27",
+        "$30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        "SECOND_WRONG_WAY",
+        null,
+        "FORGOT_SECOND"
+      ],
+      "explanation": "50% is half of $20: $10; $20 + $10 = $30. 10% of $30 is $3; $30 − $3 = $27."
+    },
+    {
+      "id": "percent-problems/t5/034",
+      "tier": 5,
+      "prompt": "$40 bike, 50% off, then 20% tax. Total?",
+      "choices": [
+        "$16",
+        "$24",
+        "$28",
+        "$20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SECOND_WRONG_WAY",
+        null,
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND"
+      ],
+      "explanation": "50% is half of $40: $20; $40 − $20 = $20. 10% of $20 is $2, so 20% is $4; $20 + $4 = $24."
+    },
+    {
+      "id": "percent-problems/t5/035",
+      "tier": 5,
+      "prompt": "Guessed $21. Actual price: $30. Percent error?",
+      "choices": [
+        "9%",
+        "35%",
+        "30%",
+        "70%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE_AS_PERCENT",
+        "ARITH",
+        null,
+        "GUESS_RATIO"
+      ],
+      "explanation": "Miss: $30 − $21 = $9. Compare with the actual $30. 10% of $30 is $3; $9 is 3 of those, so 30%."
+    },
+    {
+      "id": "percent-problems/t5/036",
+      "tier": 5,
+      "prompt": "Guessed $20. Actual price: $40. Percent error?",
+      "choices": [
+        "55%",
+        "100%",
+        "20%",
+        "50%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GUESS_AS_BASE",
+        "DIFFERENCE_AS_PERCENT",
+        null
+      ],
+      "explanation": "Miss: $40 − $20 = $20. Compare with the actual $40. $20 is half of $40, so 50%."
+    },
+    {
+      "id": "percent-problems/t5/037",
+      "tier": 5,
+      "prompt": "Measured 56 cm. True length: 40 cm. Percent error?",
+      "choices": [
+        "40%",
+        "16%",
+        "35%",
+        "140%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "ARITH",
+        "GUESS_RATIO"
+      ],
+      "explanation": "Miss: 56 − 40 = 16. Compare with the actual 40. 10% of 40 is 4; 16 is 4 of those, so 40%."
+    },
+    {
+      "id": "percent-problems/t5/038",
+      "tier": 5,
+      "prompt": "The $40 item is marked up 25%, then 10% off that. Price?",
+      "choices": [
+        "$46",
+        "$50",
+        "$55",
+        "$45"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMBINED_PERCENTS",
+        "FORGOT_SECOND",
+        "SECOND_WRONG_WAY",
+        null
+      ],
+      "explanation": "25% is 1/4 of $40: $10; $40 + $10 = $50. 10% of $50 is $5; $50 − $5 = $45."
+    },
+    {
+      "id": "percent-problems/t5/039",
+      "tier": 5,
+      "prompt": "Measured 20 cm. True length: 16 cm. Percent error?",
+      "choices": [
+        "20%",
+        "25%",
+        "4%",
+        "125%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GUESS_AS_BASE",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "GUESS_RATIO"
+      ],
+      "explanation": "Miss: 20 − 16 = 4. Compare with the actual 16. 4 is 1/4 of 16, so 25%."
+    },
+    {
+      "id": "percent-problems/t5/040",
+      "tier": 5,
+      "prompt": "Estimated 30 kids. Really 24. Percent error?",
+      "choices": [
+        "125%",
+        "25%",
+        "6%",
+        "20%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GUESS_RATIO",
+        null,
+        "DIFFERENCE_AS_PERCENT",
+        "GUESS_AS_BASE"
+      ],
+      "explanation": "Miss: 30 − 24 = 6. Compare with the actual 24. 6 is 1/4 of 24, so 25%."
+    }
+  ]
+}

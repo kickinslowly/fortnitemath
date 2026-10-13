@@ -1,0 +1,129 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-expressions",
+  "version": "1.0.0",
+  "title": "Equivalent Expressions",
+  "subtitle": "Combine, Expand & Factor with Signs",
+  "grade": "7",
+  "standards": ["CCSS.MATH.CONTENT.7.EE.A.1", "CCSS.MATH.CONTENT.7.EE.A.2"],
+  "seed": 20261024,
+  "items_per_tier": 40,
+  "bounds": "T1-T4: every coefficient and constant in a prompt, in the correct answer and in every step between has size 1-12 (single-letter variables, one or two per item, no x^2 term); an outside multiplier has size 1-10 (a bare minus is -1) and each product is a times-table fact with a result of size <= 12; a combined coefficient or constant is never 0 and never over 12 in size. T4 GCF 2-6 (or its negative), the parts inside the bracket 1-6 with no common factor. T5 (PROTOCOL 4b): percents 10 20 25 30 40 50 60 75 off or down and 5 10 20 30 40 50 up; decimals at most 2 places and 2 non-zero digits; fractions proper, denominators 2-12 with lcm <= 12, results proper and in simplest form; perimeter: width w, length k times w plus c, with k 1-3 and c 1-6.",
+  "tiers": [
+    { "tier": 1, "name": "Combine Like Terms", "description": "Combine like terms when some coefficients are negative: 5x − 8x = −3x." },
+    { "tier": 2, "name": "Distribute Negatives", "description": "Multiply a bracket by a negative number or a minus sign: −3(x − 4) = −3x + 12." },
+    { "tier": 3, "name": "Add & Subtract Groups", "description": "Add or subtract whole expressions: (5x + 2) − (2x − 3) = 3x + 5." },
+    { "tier": 4, "name": "Factoring", "description": "Pull out a common factor, even a negative one: −4x + 8 = −4(x − 2)." },
+    { "tier": 5, "name": "Rewrite to Show Meaning", "description": "Same value, new form: 20% off p is 0.8p, and a + 0.05a is 1.05a." }
+  ],
+  "misconceptions": {
+    "WRONG_SIGN": {
+      "student": "Right size, wrong sign. Check which number is bigger and what its sign is.",
+      "teacher": "Combines to the right size but writes the wrong sign on the variable term or the constant."
+    },
+    "DROPPED_VARIABLE": {
+      "student": "Keep the letter. Only the coefficients combine; the letter stays on.",
+      "teacher": "Combines the numbers and drops the variable (or leaves it off a result that has one)."
+    },
+    "UNLIKE_COMBINED": {
+      "student": "Only like terms combine. A letter term and a plain number can't merge.",
+      "teacher": "Combines unlike terms (a variable term with a constant, or two different letters)."
+    },
+    "IGNORED_MINUS": {
+      "student": "A minus sign means take that term away. Don't turn it into a plus.",
+      "teacher": "Treats a subtracted term (or group) as if it were added."
+    },
+    "NO_COEF_ONE": {
+      "student": "A letter alone is 1 of it (a is 1a, −a is −1a). Don't skip it.",
+      "teacher": "Skips a term whose coefficient 1 is not written."
+    },
+    "ADD_SIZES": {
+      "student": "Different signs: subtract the sizes, keep the sign of the bigger one.",
+      "teacher": "Adds the sizes of two numbers with different signs instead of subtracting them."
+    },
+    "DROPPED_TERM": {
+      "student": "Don't leave a term out. Every term is either combined or kept.",
+      "teacher": "Leaves a term out of the result (a different letter, or the second like term)."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply EVERY term inside ( ) by the outside number, not just the first.",
+      "teacher": "Applies the outside multiplier to the first term only."
+    },
+    "SIGN_INSIDE": {
+      "student": "Watch each sign: −3 × 4 = −12, but −3 × (−4) = +12.",
+      "teacher": "Gets the sign of a product wrong (negative times negative kept negative, or a sign flipped)."
+    },
+    "NEG_FIRST_ONLY": {
+      "student": "A minus in front of ( ) changes EVERY sign inside: −(2x + 5) = −2x − 5.",
+      "teacher": "Applies a leading minus to the first term in the bracket only."
+    },
+    "IGNORED_OUTER_MINUS": {
+      "student": "Keep the outside minus. −3(x − 4) means −3 times each term.",
+      "teacher": "Distributes the size of a negative multiplier and drops its sign."
+    },
+    "DROPPED_NEG": {
+      "student": "Don't lose a minus sign. It stays with the term it belongs to.",
+      "teacher": "Drops the negative sign on one term (inside a bracket, a group or a factored form)."
+    },
+    "FIRST_TERM_ONLY": {
+      "student": "A minus in front of ( ) flips EVERY sign inside, not just the first.",
+      "teacher": "Changes the sign of only the first term of the group being subtracted."
+    },
+    "PARTIAL_FACTOR": {
+      "student": "Divide EVERY term by the factor you take out, not just the first.",
+      "teacher": "Factors the common factor out of one term only and leaves the other unchanged."
+    },
+    "SIGN_FACTOR": {
+      "student": "Dividing by a negative flips the sign: −4x + 8 = −4(x − 2).",
+      "teacher": "Factors out a negative but keeps the old sign inside the bracket."
+    },
+    "SUB_FOR_DIV": {
+      "student": "Factoring divides each term by the factor. Subtracting it is wrong.",
+      "teacher": "Subtracts the common factor from each term instead of dividing."
+    },
+    "ONE_TERM_FACTOR": {
+      "student": "Pull out what BOTH terms share, not just one term's number.",
+      "teacher": "Factors out one term's number instead of the greatest common factor."
+    },
+    "PART_ONLY": {
+      "student": "That's only the extra part. Combine it with the whole: 1 + 0.2 = 1.2.",
+      "teacher": "Gives only the percent part (or the decimal part) and loses the whole amount."
+    },
+    "PERCENT_AS_NUMBER": {
+      "student": "A percent is a part OF the amount (like 0.2p), not a plain 20 or 0.2.",
+      "teacher": "Adds or subtracts the percent as a plain number instead of taking that part of the amount."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Off or a drop means subtract (1 − 0.2). A rise or tax means add (1 + 0.2).",
+      "teacher": "Adds where the situation subtracts, or subtracts where it adds."
+    },
+    "PLACE_VALUE": {
+      "student": "Check the decimal point: 5% is 0.05 and 50% is 0.5.",
+      "teacher": "Misplaces the decimal point converting between a percent and a decimal."
+    },
+    "RATIO_AS_CHANGE": {
+      "student": "1.2p is 120% of p. The change is only how far it is from 100%.",
+      "teacher": "Reports the whole multiplier as the percent of change (1.2 as 120%)."
+    },
+    "ADD_ACROSS": {
+      "student": "Don't add the bottoms. Use a common denominator and add only the tops.",
+      "teacher": "Adds (or subtracts) numerators and denominators straight across."
+    },
+    "NO_CONVERT": {
+      "student": "Rename BOTH fractions with the common denominator, then add the tops.",
+      "teacher": "Uses the common denominator but combines the original numerators."
+    },
+    "MULTIPLIED": {
+      "student": "Like terms ADD or SUBTRACT their coefficients. Don't multiply them.",
+      "teacher": "Multiplies the coefficients of like terms."
+    },
+    "HALF_PERIMETER": {
+      "student": "The perimeter goes all the way around: two widths AND two lengths.",
+      "teacher": "Adds one width and one length, half the perimeter."
+    },
+    "MISSING_SIDE": {
+      "student": "Count all 4 sides: the width twice and the length twice.",
+      "teacher": "Counts the width once and the length twice (or the reverse)."
+    }
+  }
+}

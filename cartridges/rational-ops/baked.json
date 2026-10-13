@@ -1,0 +1,3959 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "rational-ops",
+  "version": "1.0.0",
+  "title": "Rational Number Operations",
+  "subtitle": "Fractions & Decimals with Signs",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.NS.A.1.C",
+    "CCSS.MATH.CONTENT.7.NS.A.1.D",
+    "CCSS.MATH.CONTENT.7.NS.A.2.B",
+    "CCSS.MATH.CONTENT.7.NS.A.2.C",
+    "CCSS.MATH.CONTENT.7.NS.A.2.D",
+    "CCSS.MATH.CONTENT.7.NS.A.3"
+  ],
+  "seed": 20261023,
+  "items_per_tier": 40,
+  "bounds": "Rational numbers (PROTOCOL 4b). DECIMALS: every operand, step and answer has at most 2 decimal places, at most 2 non-zero digits, size <= 12; + and -: at most one carry or borrow; x: both digit factors 2-10; division: exact on the digits, divisor 2-10, quotient 2-10, dividend digits at most 100 (7.2 / 0.9 is 72 / 9). FRACTIONS: operands in lowest terms with denominator 2-12 (proper unless a whole number 2-10); + and -: denominators equal or one a multiple of the other; x and division: every numerator and denominator used is at most 10 (times-table facts); answers in simplest form, denominator <= 12, a mixed number's whole part <= 10. T1: tenths 0.1-1.9, answer size <= 2. T2: proper fractions, answer size < 2. T3: proper fractions (numerator <= 9, denominator <= 10) or wholes 2-10, answers with numerator and denominator <= 12; decimal factors and divisors are single-digit tenths (0.2-0.9) or wholes 2-10, a dividend is a tenths number up to 9.0. T4: denominators 2, 4, 5, 10, 20, 25 (terminating) and 3, 9 (repeating, written 0.666...), numerators <= 12; the fraction-form items use proper fractions with denominators 3-12. T5: stories and two-step expressions whose every step meets the rules above, inner whole-number steps size <= 12 with factors 2-10. No two choices equal in value.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Signed Decimals",
+      "description": "Add and subtract decimals with negatives."
+    },
+    {
+      "tier": 2,
+      "name": "Signed Fractions",
+      "description": "Add and subtract fractions with negatives. Same bottom first."
+    },
+    {
+      "tier": 3,
+      "name": "Multiply & Divide",
+      "description": "Multiply and divide fractions and decimals. Watch the signs."
+    },
+    {
+      "tier": 4,
+      "name": "Fractions as Decimals",
+      "description": "Turn fractions into decimals. Some repeat forever."
+    },
+    {
+      "tier": 5,
+      "name": "Stories & Two Steps",
+      "description": "Temperature, money and elevation stories, plus two-step problems."
+    }
+  ],
+  "misconceptions": {
+    "WRONG_SIGN": {
+      "student": "Right size, wrong sign. Which number is farther from 0?",
+      "teacher": "Correct magnitude, wrong sign on a sum or difference."
+    },
+    "ADD_SIZES": {
+      "student": "Different signs: subtract the sizes, keep the sign of the bigger one.",
+      "teacher": "Adds absolute values when signs differ: -0.5 + 0.8 = 1.3."
+    },
+    "KEEP_FIRST_SIGN": {
+      "student": "Different signs: subtract the sizes. The bigger size decides the sign.",
+      "teacher": "Adds the sizes and keeps the first number's sign: 0.2 + (-0.9) = 1.1."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative is adding: 4 − (−6) = 4 + 6.",
+      "teacher": "Treats subtracting a negative as subtracting a positive: -0.2 - (-0.7) = -0.9."
+    },
+    "NEG_NEG_ADD": {
+      "student": "Two negatives make a positive only when you multiply or divide.",
+      "teacher": "Applies the multiplication sign rule to addition: -0.3 + (-0.4) = 0.7."
+    },
+    "SAME_SIGN_SUB": {
+      "student": "Same signs: add the sizes and keep the sign. Don't subtract.",
+      "teacher": "Subtracts the sizes when the signs agree: -0.3 + (-0.4) = -0.1."
+    },
+    "ADD_ACROSS": {
+      "student": "Never add the bottoms. Make them the same, then add only the tops.",
+      "teacher": "Adds numerators and adds denominators: -1/2 + 3/4 = 2/6."
+    },
+    "NO_SCALE": {
+      "student": "Rename BOTH with the same bottom first: 1/2 is 2/4, not 1/4.",
+      "teacher": "Writes the common denominator but does not scale the numerators: -1/2 + 3/4 = 2/4."
+    },
+    "SIGN_RULE": {
+      "student": "One negative makes it negative. Two negatives make it positive.",
+      "teacher": "Wrong sign on a product or quotient; magnitude correct."
+    },
+    "NO_FLIP": {
+      "student": "You multiplied as is. To divide, multiply by the flipped divisor.",
+      "teacher": "Multiplies straight across without inverting the divisor: -1/2 / (-1/4) = 1/8."
+    },
+    "FLIP_FIRST": {
+      "student": "Flip the second fraction, not the first: keep, change, flip.",
+      "teacher": "Inverts the dividend instead of the divisor, giving the reciprocal of the quotient."
+    },
+    "FLIP_MULT": {
+      "student": "No flipping when you multiply. Multiply tops, multiply bottoms.",
+      "teacher": "Divides (inverts the second factor) on a product: 2/3 x 3/4 -> 2/3 / 3/4."
+    },
+    "ADD_FOR_MUL": {
+      "student": "× means groups of, not +. Multiply the two numbers.",
+      "teacher": "Adds the factors instead of multiplying: -0.4 x 6 -> 5.6."
+    },
+    "ADD_BOTTOMS": {
+      "student": "Multiply the bottoms too. Don't add them.",
+      "teacher": "Multiplies the numerators but adds the denominators: 2/3 x 3/4 -> 6/7."
+    },
+    "WHOLE_ON_BOTTOM": {
+      "student": "A whole number multiplies the top, not the bottom.",
+      "teacher": "Multiplies the whole number into the denominator: 3/4 x 8 -> 3/32."
+    },
+    "POINT_PLACE": {
+      "student": "Do the digits, then put the decimal point back by counting places.",
+      "teacher": "Misplaces the decimal point (one place off) in a product, quotient or conversion."
+    },
+    "MUL_FOR_DIV": {
+      "student": "Divide, don't multiply: ask what times the divisor makes the number.",
+      "teacher": "Multiplies instead of dividing: -0.6 / 0.2 -> -0.12."
+    },
+    "WRONG_ORDER": {
+      "student": "Backwards: divide the first number by the second, in that order.",
+      "teacher": "Divides the divisor by the dividend: -0.8 / 4 -> 4 / -0.8."
+    },
+    "DROPPED_SIGN": {
+      "student": "Keep the negative: a negative fraction has a negative decimal.",
+      "teacher": "Drops the negative sign when converting: -3/4 -> 0.75."
+    },
+    "FLIPPED": {
+      "student": "Upside down: a/b means a ÷ b, the top divided by the bottom.",
+      "teacher": "Divides the denominator by the numerator: 3/4 -> 4 / 3."
+    },
+    "DIGITS_AS_DECIMAL": {
+      "student": "3/4 is not 0.34. Divide the top by the bottom: 3 ÷ 4.",
+      "teacher": "Writes numerator and denominator digits after the point: 3/4 -> 0.34."
+    },
+    "DENOM_ONLY": {
+      "student": "The top number counts too. Divide the top by the bottom.",
+      "teacher": "Uses only the denominator's digit as the decimal: 3/4 -> 0.4."
+    },
+    "UNIT_ONLY": {
+      "student": "3/4 is three quarters, not one. Use the top number too.",
+      "teacher": "Ignores the numerator and converts 1/d: 3/4 -> 0.25."
+    },
+    "TRUNCATED": {
+      "student": "It repeats forever. Keep the dots: 2/3 is 0.666...",
+      "teacher": "Stops a repeating decimal after one digit: 2/3 -> 0.6."
+    },
+    "DOUBLE_NEG": {
+      "student": "A negative on top AND bottom makes it positive.",
+      "teacher": "Chooses a form with two negative signs, which is positive."
+    },
+    "NEG_STAYS": {
+      "student": "One negative sign makes it negative. You need two to get positive.",
+      "teacher": "Thinks a single negative sign on the top or bottom still gives a positive value."
+    },
+    "ORDER": {
+      "student": "Do the parentheses first, then × and ÷, then + and −.",
+      "teacher": "Ignores the order of operations (multiplies before the parentheses, or adds before multiplying)."
+    },
+    "DIRECTION": {
+      "student": "Read the story: down or spend means subtract, up or deposit means add.",
+      "teacher": "Applies the opposite operation to the story's direction word."
+    },
+    "SUBTRACT_SIZES": {
+      "student": "Across zero, add the sizes: from −2 up to 0 is 2, then on to 1.",
+      "teacher": "Subtracts the sizes to find a distance across zero."
+    },
+    "NEG_DISTANCE": {
+      "student": "Distance is never negative. Count the steps between them.",
+      "teacher": "Reports the distance with a negative sign."
+    },
+    "ONE_SIDE": {
+      "student": "Count both parts: up to 0 from the negative, then on to the positive.",
+      "teacher": "Counts only the longer side of zero when finding a distance."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "rational-ops/t1/001",
+      "tier": 1,
+      "prompt": "−0.9 + 0.2",
+      "choices": [
+        "−0.7",
+        "−1.1",
+        "0.7",
+        "−0.6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Signs differ: 0.9 − 0.2 = 0.7, and the bigger one is negative, so −0.7."
+    },
+    {
+      "id": "rational-ops/t1/002",
+      "tier": 1,
+      "prompt": "0.3 − 1.9",
+      "choices": [
+        "1.6",
+        "2.2",
+        "−1.6",
+        "−2.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "KEEP_FIRST_SIGN",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting 1.9 is adding −1.9. Signs differ: 1.9 − 0.3 = 1.6, and the bigger one is negative, so −1.6."
+    },
+    {
+      "id": "rational-ops/t1/003",
+      "tier": 1,
+      "prompt": "0.5 − 0.7",
+      "choices": [
+        "−1.2",
+        "−0.2",
+        "0.2",
+        "1.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "WRONG_SIGN",
+        "KEEP_FIRST_SIGN"
+      ],
+      "explanation": "Subtracting 0.7 is adding −0.7. Signs differ: 0.7 − 0.5 = 0.2, and the bigger one is negative, so −0.2."
+    },
+    {
+      "id": "rational-ops/t1/004",
+      "tier": 1,
+      "prompt": "−0.1 − 0.7",
+      "choices": [
+        "−0.9",
+        "0.8",
+        "−0.8",
+        "−0.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NEG_NEG_ADD",
+        null,
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Subtracting 0.7 is adding −0.7. Same signs: 0.1 + 0.7 = 0.8, both negative, so −0.8."
+    },
+    {
+      "id": "rational-ops/t1/005",
+      "tier": 1,
+      "prompt": "−0.6 − 1.1",
+      "choices": [
+        "−0.5",
+        "−1.8",
+        "−1.7",
+        "1.7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "ARITH",
+        null,
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Subtracting 1.1 is adding −1.1. Same signs: 0.6 + 1.1 = 1.7, both negative, so −1.7."
+    },
+    {
+      "id": "rational-ops/t1/006",
+      "tier": 1,
+      "prompt": "−1.2 + 0.6",
+      "choices": [
+        "−1.8",
+        "−0.7",
+        "0.6",
+        "−0.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "ARITH",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Signs differ: 1.2 − 0.6 = 0.6, and the bigger one is negative, so −0.6."
+    },
+    {
+      "id": "rational-ops/t1/007",
+      "tier": 1,
+      "prompt": "0.2 − (−0.4)",
+      "choices": [
+        "0.2",
+        "−0.2",
+        "−0.6",
+        "0.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "SUB_NEG",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Subtracting −0.4 is adding 0.4. Same signs: 0.2 + 0.4 = 0.6, both positive, so 0.6."
+    },
+    {
+      "id": "rational-ops/t1/008",
+      "tier": 1,
+      "prompt": "−1.2 − 0.4",
+      "choices": [
+        "1.6",
+        "−1.7",
+        "−1.6",
+        "−0.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "ARITH",
+        null,
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Subtracting 0.4 is adding −0.4. Same signs: 1.2 + 0.4 = 1.6, both negative, so −1.6."
+    },
+    {
+      "id": "rational-ops/t1/009",
+      "tier": 1,
+      "prompt": "−0.8 − 0.3",
+      "choices": [
+        "−0.5",
+        "−1.1",
+        "−1.2",
+        "1.1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        null,
+        "ARITH",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Subtracting 0.3 is adding −0.3. Same signs: 0.8 + 0.3 = 1.1, both negative, so −1.1."
+    },
+    {
+      "id": "rational-ops/t1/010",
+      "tier": 1,
+      "prompt": "−0.3 + (−1.3)",
+      "choices": [
+        "−1",
+        "1.6",
+        "−1.5",
+        "−1.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "NEG_NEG_ADD",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same signs: 0.3 + 1.3 = 1.6, both negative, so −1.6."
+    },
+    {
+      "id": "rational-ops/t1/011",
+      "tier": 1,
+      "prompt": "0.7 + (−1.7)",
+      "choices": [
+        "−1",
+        "2.4",
+        "−2.4",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEP_FIRST_SIGN",
+        "ADD_SIZES",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Signs differ: 1.7 − 0.7 = 1, and the bigger one is negative, so −1."
+    },
+    {
+      "id": "rational-ops/t1/012",
+      "tier": 1,
+      "prompt": "−0.8 − 0.1",
+      "choices": [
+        "0.9",
+        "−0.7",
+        "−0.9",
+        "−0.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "SAME_SIGN_SUB",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Subtracting 0.1 is adding −0.1. Same signs: 0.8 + 0.1 = 0.9, both negative, so −0.9."
+    },
+    {
+      "id": "rational-ops/t1/013",
+      "tier": 1,
+      "prompt": "0.7 − 1.2",
+      "choices": [
+        "−0.5",
+        "0.5",
+        "1.9",
+        "−1.9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "KEEP_FIRST_SIGN",
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting 1.2 is adding −1.2. Signs differ: 1.2 − 0.7 = 0.5, and the bigger one is negative, so −0.5."
+    },
+    {
+      "id": "rational-ops/t1/014",
+      "tier": 1,
+      "prompt": "0.6 − (−1.1)",
+      "choices": [
+        "−0.5",
+        "1.7",
+        "0.5",
+        "−1.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_NEG",
+        null,
+        "SAME_SIGN_SUB",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Subtracting −1.1 is adding 1.1. Same signs: 0.6 + 1.1 = 1.7, both positive, so 1.7."
+    },
+    {
+      "id": "rational-ops/t1/015",
+      "tier": 1,
+      "prompt": "−1.9 + 1.7",
+      "choices": [
+        "−3.6",
+        "−0.2",
+        "−0.3",
+        "0.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "ARITH",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Signs differ: 1.9 − 1.7 = 0.2, and the bigger one is negative, so −0.2."
+    },
+    {
+      "id": "rational-ops/t1/016",
+      "tier": 1,
+      "prompt": "−1.1 − (−1.5)",
+      "choices": [
+        "−2.6",
+        "0.4",
+        "−0.4",
+        "2.6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_NEG",
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting −1.5 is adding 1.5. Signs differ: 1.5 − 1.1 = 0.4, and the bigger one is positive, so 0.4."
+    },
+    {
+      "id": "rational-ops/t1/017",
+      "tier": 1,
+      "prompt": "−0.5 + 1.6",
+      "choices": [
+        "2.1",
+        "−2.1",
+        "−1.1",
+        "1.1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "KEEP_FIRST_SIGN",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Signs differ: 1.6 − 0.5 = 1.1, and the bigger one is positive, so 1.1."
+    },
+    {
+      "id": "rational-ops/t1/018",
+      "tier": 1,
+      "prompt": "−0.5 + 1.7",
+      "choices": [
+        "2.2",
+        "−1.2",
+        "1.2",
+        "−2.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null,
+        "KEEP_FIRST_SIGN"
+      ],
+      "explanation": "Signs differ: 1.7 − 0.5 = 1.2, and the bigger one is positive, so 1.2."
+    },
+    {
+      "id": "rational-ops/t1/019",
+      "tier": 1,
+      "prompt": "−1.2 − (−1.3)",
+      "choices": [
+        "−2.5",
+        "2.5",
+        "−0.1",
+        "0.1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Subtracting −1.3 is adding 1.3. Signs differ: 1.3 − 1.2 = 0.1, and the bigger one is positive, so 0.1."
+    },
+    {
+      "id": "rational-ops/t1/020",
+      "tier": 1,
+      "prompt": "−1.6 − 0.4",
+      "choices": [
+        "2",
+        "−2",
+        "−1.2",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        null,
+        "SAME_SIGN_SUB",
+        "ARITH"
+      ],
+      "explanation": "Subtracting 0.4 is adding −0.4. Same signs: 1.6 + 0.4 = 2, both negative, so −2."
+    },
+    {
+      "id": "rational-ops/t1/021",
+      "tier": 1,
+      "prompt": "−0.4 + 0.1",
+      "choices": [
+        "−0.3",
+        "0.3",
+        "−0.4",
+        "−0.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ARITH",
+        "ADD_SIZES"
+      ],
+      "explanation": "Signs differ: 0.4 − 0.1 = 0.3, and the bigger one is negative, so −0.3."
+    },
+    {
+      "id": "rational-ops/t1/022",
+      "tier": 1,
+      "prompt": "−0.9 + (−0.4)",
+      "choices": [
+        "1.3",
+        "−1.2",
+        "−0.5",
+        "−1.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "ARITH",
+        "SAME_SIGN_SUB",
+        null
+      ],
+      "explanation": "Same signs: 0.9 + 0.4 = 1.3, both negative, so −1.3."
+    },
+    {
+      "id": "rational-ops/t1/023",
+      "tier": 1,
+      "prompt": "−0.9 − (−1.8)",
+      "choices": [
+        "0.9",
+        "−0.9",
+        "−2.7",
+        "2.7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "SUB_NEG",
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting −1.8 is adding 1.8. Signs differ: 1.8 − 0.9 = 0.9, and the bigger one is positive, so 0.9."
+    },
+    {
+      "id": "rational-ops/t1/024",
+      "tier": 1,
+      "prompt": "−0.3 + (−1.2)",
+      "choices": [
+        "1.5",
+        "−1.4",
+        "−0.9",
+        "−1.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "ARITH",
+        "SAME_SIGN_SUB",
+        null
+      ],
+      "explanation": "Same signs: 0.3 + 1.2 = 1.5, both negative, so −1.5."
+    },
+    {
+      "id": "rational-ops/t1/025",
+      "tier": 1,
+      "prompt": "−1.5 − (−0.6)",
+      "choices": [
+        "−2.1",
+        "−1",
+        "−0.9",
+        "0.9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_NEG",
+        "ARITH",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Subtracting −0.6 is adding 0.6. Signs differ: 1.5 − 0.6 = 0.9, and the bigger one is negative, so −0.9."
+    },
+    {
+      "id": "rational-ops/t1/026",
+      "tier": 1,
+      "prompt": "1.5 + (−1.7)",
+      "choices": [
+        "−0.2",
+        "0.2",
+        "−3.2",
+        "3.2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        "KEEP_FIRST_SIGN"
+      ],
+      "explanation": "Signs differ: 1.7 − 1.5 = 0.2, and the bigger one is negative, so −0.2."
+    },
+    {
+      "id": "rational-ops/t1/027",
+      "tier": 1,
+      "prompt": "0.8 − (−0.9)",
+      "choices": [
+        "−1.7",
+        "−0.1",
+        "1.7",
+        "0.1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "SUB_NEG",
+        null,
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Subtracting −0.9 is adding 0.9. Same signs: 0.8 + 0.9 = 1.7, both positive, so 1.7."
+    },
+    {
+      "id": "rational-ops/t1/028",
+      "tier": 1,
+      "prompt": "−1.3 − (−0.9)",
+      "choices": [
+        "−0.4",
+        "−0.5",
+        "0.4",
+        "−2.2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "WRONG_SIGN",
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −0.9 is adding 0.9. Signs differ: 1.3 − 0.9 = 0.4, and the bigger one is negative, so −0.4."
+    },
+    {
+      "id": "rational-ops/t1/029",
+      "tier": 1,
+      "prompt": "0.3 + (−0.6)",
+      "choices": [
+        "0.9",
+        "−0.9",
+        "0.3",
+        "−0.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEP_FIRST_SIGN",
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Signs differ: 0.6 − 0.3 = 0.3, and the bigger one is negative, so −0.3."
+    },
+    {
+      "id": "rational-ops/t1/030",
+      "tier": 1,
+      "prompt": "0.9 − (−0.6)",
+      "choices": [
+        "0.3",
+        "1.4",
+        "−1.5",
+        "1.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "ARITH",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Subtracting −0.6 is adding 0.6. Same signs: 0.9 + 0.6 = 1.5, both positive, so 1.5."
+    },
+    {
+      "id": "rational-ops/t1/031",
+      "tier": 1,
+      "prompt": "0.9 + (−0.7)",
+      "choices": [
+        "0.1",
+        "1.6",
+        "0.2",
+        "−0.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_SIZES",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Signs differ: 0.9 − 0.7 = 0.2, and the bigger one is positive, so 0.2."
+    },
+    {
+      "id": "rational-ops/t1/032",
+      "tier": 1,
+      "prompt": "0.1 − 0.3",
+      "choices": [
+        "−0.4",
+        "0.4",
+        "0.2",
+        "−0.2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "KEEP_FIRST_SIGN",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Subtracting 0.3 is adding −0.3. Signs differ: 0.3 − 0.1 = 0.2, and the bigger one is negative, so −0.2."
+    },
+    {
+      "id": "rational-ops/t1/033",
+      "tier": 1,
+      "prompt": "−1.4 + (−0.1)",
+      "choices": [
+        "−1.5",
+        "−1.3",
+        "−1.4",
+        "1.5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIGN_SUB",
+        "ARITH",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Same signs: 1.4 + 0.1 = 1.5, both negative, so −1.5."
+    },
+    {
+      "id": "rational-ops/t1/034",
+      "tier": 1,
+      "prompt": "1.9 + (−0.1)",
+      "choices": [
+        "−1.8",
+        "1.8",
+        "2",
+        "1.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "ADD_SIZES",
+        "ARITH"
+      ],
+      "explanation": "Signs differ: 1.9 − 0.1 = 1.8, and the bigger one is positive, so 1.8."
+    },
+    {
+      "id": "rational-ops/t1/035",
+      "tier": 1,
+      "prompt": "−1.6 + (−0.3)",
+      "choices": [
+        "−1.3",
+        "−1.9",
+        "−2",
+        "1.9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        null,
+        "ARITH",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Same signs: 1.6 + 0.3 = 1.9, both negative, so −1.9."
+    },
+    {
+      "id": "rational-ops/t1/036",
+      "tier": 1,
+      "prompt": "−0.2 + (−1.1)",
+      "choices": [
+        "−1.3",
+        "−1.4",
+        "1.3",
+        "−0.9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NEG_NEG_ADD",
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Same signs: 0.2 + 1.1 = 1.3, both negative, so −1.3."
+    },
+    {
+      "id": "rational-ops/t1/037",
+      "tier": 1,
+      "prompt": "0.4 − (−0.7)",
+      "choices": [
+        "−1.1",
+        "1.1",
+        "0.3",
+        "−0.3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "SAME_SIGN_SUB",
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −0.7 is adding 0.7. Same signs: 0.4 + 0.7 = 1.1, both positive, so 1.1."
+    },
+    {
+      "id": "rational-ops/t1/038",
+      "tier": 1,
+      "prompt": "0.5 − 0.8",
+      "choices": [
+        "−1.3",
+        "−0.3",
+        "1.3",
+        "0.3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "KEEP_FIRST_SIGN",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Subtracting 0.8 is adding −0.8. Signs differ: 0.8 − 0.5 = 0.3, and the bigger one is negative, so −0.3."
+    },
+    {
+      "id": "rational-ops/t1/039",
+      "tier": 1,
+      "prompt": "−1.2 − (−0.8)",
+      "choices": [
+        "−0.4",
+        "0.4",
+        "−0.3",
+        "−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ARITH",
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −0.8 is adding 0.8. Signs differ: 1.2 − 0.8 = 0.4, and the bigger one is negative, so −0.4."
+    },
+    {
+      "id": "rational-ops/t1/040",
+      "tier": 1,
+      "prompt": "0.1 + (−1.1)",
+      "choices": [
+        "−1.2",
+        "1.2",
+        "−1",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIZES",
+        "KEEP_FIRST_SIGN",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Signs differ: 1.1 − 0.1 = 1, and the bigger one is negative, so −1."
+    },
+    {
+      "id": "rational-ops/t2/001",
+      "tier": 2,
+      "prompt": "−1/9 + 2/9",
+      "choices": [
+        "1/9",
+        "−1/9",
+        "1/3",
+        "1/18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Common bottom 9: −1/9 + 2/9 = 1/9."
+    },
+    {
+      "id": "rational-ops/t2/002",
+      "tier": 2,
+      "prompt": "−8/9 + (−1/3)",
+      "choices": [
+        "−1 2/9",
+        "−3/4",
+        "−1",
+        "1 2/9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_ACROSS",
+        "NO_SCALE",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Common bottom 9: −8/9 + (−3/9) = −11/9 = −1 2/9."
+    },
+    {
+      "id": "rational-ops/t2/003",
+      "tier": 2,
+      "prompt": "−5/9 − 1/3",
+      "choices": [
+        "−2/3",
+        "8/9",
+        "−1/2",
+        "−8/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SCALE",
+        "NEG_NEG_ADD",
+        "ADD_ACROSS",
+        null
+      ],
+      "explanation": "Subtracting 1/3 is adding −1/3. Common bottom 9: −5/9 + (−3/9) = −8/9."
+    },
+    {
+      "id": "rational-ops/t2/004",
+      "tier": 2,
+      "prompt": "−3/4 − (−3/8)",
+      "choices": [
+        "3/8",
+        "−1 1/8",
+        "−3/8",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "SUB_NEG",
+        null,
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting −3/8 is adding 3/8. Common bottom 8: −6/8 + 3/8 = −3/8."
+    },
+    {
+      "id": "rational-ops/t2/005",
+      "tier": 2,
+      "prompt": "−3/10 − 2/5",
+      "choices": [
+        "−1/2",
+        "7/10",
+        "−1/3",
+        "−7/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SCALE",
+        "NEG_NEG_ADD",
+        "ADD_ACROSS",
+        null
+      ],
+      "explanation": "Subtracting 2/5 is adding −2/5. Common bottom 10: −3/10 + (−4/10) = −7/10."
+    },
+    {
+      "id": "rational-ops/t2/006",
+      "tier": 2,
+      "prompt": "4/5 − (−9/10)",
+      "choices": [
+        "1 3/10",
+        "−1 7/10",
+        "1 7/10",
+        "1/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SCALE",
+        "WRONG_SIGN",
+        null,
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Subtracting −9/10 is adding 9/10. Common bottom 10: 8/10 + 9/10 = 17/10 = 1 7/10."
+    },
+    {
+      "id": "rational-ops/t2/007",
+      "tier": 2,
+      "prompt": "−4/11 + 6/11",
+      "choices": [
+        "10/11",
+        "2/11",
+        "−2/11",
+        "1/11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "WRONG_SIGN",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Common bottom 11: −4/11 + 6/11 = 2/11."
+    },
+    {
+      "id": "rational-ops/t2/008",
+      "tier": 2,
+      "prompt": "−1/4 + 1/2",
+      "choices": [
+        "0",
+        "−1/4",
+        "1/4",
+        "−3/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_ACROSS",
+        "WRONG_SIGN",
+        null,
+        "KEEP_FIRST_SIGN"
+      ],
+      "explanation": "Common bottom 4: −1/4 + 2/4 = 1/4."
+    },
+    {
+      "id": "rational-ops/t2/009",
+      "tier": 2,
+      "prompt": "7/12 − 2/3",
+      "choices": [
+        "1 1/4",
+        "1/12",
+        "−1/12",
+        "−1 1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "KEEP_FIRST_SIGN",
+        "WRONG_SIGN",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting 2/3 is adding −2/3. Common bottom 12: 7/12 + (−8/12) = −1/12."
+    },
+    {
+      "id": "rational-ops/t2/010",
+      "tier": 2,
+      "prompt": "−2/11 − (−10/11)",
+      "choices": [
+        "−1 1/11",
+        "8/11",
+        "−8/11",
+        "4/11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_NEG",
+        null,
+        "WRONG_SIGN",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting −10/11 is adding 10/11. Common bottom 11: −2/11 + 10/11 = 8/11."
+    },
+    {
+      "id": "rational-ops/t2/011",
+      "tier": 2,
+      "prompt": "−2/11 + 6/11",
+      "choices": [
+        "4/11",
+        "2/11",
+        "−8/11",
+        "−4/11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_ACROSS",
+        "KEEP_FIRST_SIGN",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Common bottom 11: −2/11 + 6/11 = 4/11."
+    },
+    {
+      "id": "rational-ops/t2/012",
+      "tier": 2,
+      "prompt": "−1/5 − (−3/5)",
+      "choices": [
+        "1/5",
+        "2/5",
+        "−2/5",
+        "−4/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_ACROSS",
+        null,
+        "WRONG_SIGN",
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −3/5 is adding 3/5. Common bottom 5: −1/5 + 3/5 = 2/5."
+    },
+    {
+      "id": "rational-ops/t2/013",
+      "tier": 2,
+      "prompt": "3/5 + (−7/10)",
+      "choices": [
+        "−1 3/10",
+        "−4/15",
+        "−2/5",
+        "−1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "ADD_ACROSS",
+        "NO_SCALE",
+        null
+      ],
+      "explanation": "Common bottom 10: 6/10 + (−7/10) = −1/10."
+    },
+    {
+      "id": "rational-ops/t2/014",
+      "tier": 2,
+      "prompt": "2/3 + (−1/3)",
+      "choices": [
+        "1/3",
+        "−1/3",
+        "1",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Common bottom 3: 2/3 + (−1/3) = 1/3."
+    },
+    {
+      "id": "rational-ops/t2/015",
+      "tier": 2,
+      "prompt": "−2/3 − (−5/12)",
+      "choices": [
+        "−1/4",
+        "−1 1/12",
+        "1/4",
+        "1/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_NEG",
+        "NO_SCALE",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting −5/12 is adding 5/12. Common bottom 12: −8/12 + 5/12 = −3/12 = −1/4."
+    },
+    {
+      "id": "rational-ops/t2/016",
+      "tier": 2,
+      "prompt": "−2/9 + (−1/3)",
+      "choices": [
+        "5/9",
+        "−1/4",
+        "−1/3",
+        "−5/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        "ADD_ACROSS",
+        "NO_SCALE",
+        null
+      ],
+      "explanation": "Common bottom 9: −2/9 + (−3/9) = −5/9."
+    },
+    {
+      "id": "rational-ops/t2/017",
+      "tier": 2,
+      "prompt": "5/6 + (−1/2)",
+      "choices": [
+        "1 1/3",
+        "2/3",
+        "1/3",
+        "−1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIZES",
+        "NO_SCALE",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Common bottom 6: 5/6 + (−3/6) = 2/6 = 1/3."
+    },
+    {
+      "id": "rational-ops/t2/018",
+      "tier": 2,
+      "prompt": "4/5 + (−1/10)",
+      "choices": [
+        "3/10",
+        "−7/10",
+        "7/10",
+        "9/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SCALE",
+        "WRONG_SIGN",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Common bottom 10: 8/10 + (−1/10) = 7/10."
+    },
+    {
+      "id": "rational-ops/t2/019",
+      "tier": 2,
+      "prompt": "−7/12 − 1/2",
+      "choices": [
+        "−1/12",
+        "−1 1/12",
+        "−2/3",
+        "−4/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        null,
+        "NO_SCALE",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting 1/2 is adding −1/2. Common bottom 12: −7/12 + (−6/12) = −13/12 = −1 1/12."
+    },
+    {
+      "id": "rational-ops/t2/020",
+      "tier": 2,
+      "prompt": "−4/5 − 3/5",
+      "choices": [
+        "1 2/5",
+        "−1 2/5",
+        "−1/5",
+        "−7/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_NEG_ADD",
+        null,
+        "SAME_SIGN_SUB",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting 3/5 is adding −3/5. Common bottom 5: −4/5 + (−3/5) = −7/5 = −1 2/5."
+    },
+    {
+      "id": "rational-ops/t2/021",
+      "tier": 2,
+      "prompt": "3/10 + (−1/5)",
+      "choices": [
+        "−1/10",
+        "1/5",
+        "1/10",
+        "2/15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "NO_SCALE",
+        null,
+        "ADD_ACROSS"
+      ],
+      "explanation": "Common bottom 10: 3/10 + (−2/10) = 1/10."
+    },
+    {
+      "id": "rational-ops/t2/022",
+      "tier": 2,
+      "prompt": "3/4 − (−1/4)",
+      "choices": [
+        "1/2",
+        "−1",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "WRONG_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Subtracting −1/4 is adding 1/4. Common bottom 4: 3/4 + 1/4 = 4/4 = 1."
+    },
+    {
+      "id": "rational-ops/t2/023",
+      "tier": 2,
+      "prompt": "2/9 − (−1/3)",
+      "choices": [
+        "1/9",
+        "1/4",
+        "5/9",
+        "−1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "ADD_ACROSS",
+        null,
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −1/3 is adding 1/3. Common bottom 9: 2/9 + 3/9 = 5/9."
+    },
+    {
+      "id": "rational-ops/t2/024",
+      "tier": 2,
+      "prompt": "−1/9 − (−2/3)",
+      "choices": [
+        "−7/9",
+        "−5/9",
+        "1/12",
+        "5/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_NEG",
+        "WRONG_SIGN",
+        "ADD_ACROSS",
+        null
+      ],
+      "explanation": "Subtracting −2/3 is adding 2/3. Common bottom 9: −1/9 + 6/9 = 5/9."
+    },
+    {
+      "id": "rational-ops/t2/025",
+      "tier": 2,
+      "prompt": "−6/7 − 4/7",
+      "choices": [
+        "−2/7",
+        "1 3/7",
+        "−5/7",
+        "−1 3/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "NEG_NEG_ADD",
+        "ADD_ACROSS",
+        null
+      ],
+      "explanation": "Subtracting 4/7 is adding −4/7. Common bottom 7: −6/7 + (−4/7) = −10/7 = −1 3/7."
+    },
+    {
+      "id": "rational-ops/t2/026",
+      "tier": 2,
+      "prompt": "2/7 − 5/7",
+      "choices": [
+        "−1",
+        "−3/7",
+        "3/7",
+        "−3/14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "WRONG_SIGN",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting 5/7 is adding −5/7. Common bottom 7: 2/7 + (−5/7) = −3/7."
+    },
+    {
+      "id": "rational-ops/t2/027",
+      "tier": 2,
+      "prompt": "−1/3 + 4/9",
+      "choices": [
+        "1/3",
+        "7/9",
+        "1/9",
+        "−7/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SCALE",
+        "ADD_SIZES",
+        null,
+        "KEEP_FIRST_SIGN"
+      ],
+      "explanation": "Common bottom 9: −3/9 + 4/9 = 1/9."
+    },
+    {
+      "id": "rational-ops/t2/028",
+      "tier": 2,
+      "prompt": "−1/3 + (−2/3)",
+      "choices": [
+        "−1/2",
+        "−1/3",
+        "1",
+        "−1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_ACROSS",
+        "SAME_SIGN_SUB",
+        "NEG_NEG_ADD",
+        null
+      ],
+      "explanation": "Common bottom 3: −1/3 + (−2/3) = −3/3 = −1."
+    },
+    {
+      "id": "rational-ops/t2/029",
+      "tier": 2,
+      "prompt": "3/11 − 10/11",
+      "choices": [
+        "1 2/11",
+        "−7/22",
+        "7/11",
+        "−7/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEEP_FIRST_SIGN",
+        "ADD_ACROSS",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Subtracting 10/11 is adding −10/11. Common bottom 11: 3/11 + (−10/11) = −7/11."
+    },
+    {
+      "id": "rational-ops/t2/030",
+      "tier": 2,
+      "prompt": "3/4 − (−1/2)",
+      "choices": [
+        "−1 1/4",
+        "1 1/4",
+        "1/4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "SUB_NEG",
+        "NO_SCALE"
+      ],
+      "explanation": "Subtracting −1/2 is adding 1/2. Common bottom 4: 3/4 + 2/4 = 5/4 = 1 1/4."
+    },
+    {
+      "id": "rational-ops/t2/031",
+      "tier": 2,
+      "prompt": "−2/5 + (−4/5)",
+      "choices": [
+        "−1 1/5",
+        "1 1/5",
+        "−3/5",
+        "−2/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_NEG_ADD",
+        "ADD_ACROSS",
+        "SAME_SIGN_SUB"
+      ],
+      "explanation": "Common bottom 5: −2/5 + (−4/5) = −6/5 = −1 1/5."
+    },
+    {
+      "id": "rational-ops/t2/032",
+      "tier": 2,
+      "prompt": "−7/9 + 1/3",
+      "choices": [
+        "−2/3",
+        "−1 1/9",
+        "−4/9",
+        "−1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SCALE",
+        "ADD_SIZES",
+        null,
+        "ADD_ACROSS"
+      ],
+      "explanation": "Common bottom 9: −7/9 + 3/9 = −4/9."
+    },
+    {
+      "id": "rational-ops/t2/033",
+      "tier": 2,
+      "prompt": "−5/8 − 1/2",
+      "choices": [
+        "−1 1/8",
+        "1 1/8",
+        "−1/8",
+        "−3/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_NEG_ADD",
+        "SAME_SIGN_SUB",
+        "ADD_ACROSS"
+      ],
+      "explanation": "Subtracting 1/2 is adding −1/2. Common bottom 8: −5/8 + (−4/8) = −9/8 = −1 1/8."
+    },
+    {
+      "id": "rational-ops/t2/034",
+      "tier": 2,
+      "prompt": "−2/5 + (−7/10)",
+      "choices": [
+        "−1 1/10",
+        "−9/10",
+        "−3/5",
+        "1 1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SCALE",
+        "ADD_ACROSS",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Common bottom 10: −4/10 + (−7/10) = −11/10 = −1 1/10."
+    },
+    {
+      "id": "rational-ops/t2/035",
+      "tier": 2,
+      "prompt": "1/2 − 9/10",
+      "choices": [
+        "1 2/5",
+        "−2/5",
+        "−2/3",
+        "−1 2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEP_FIRST_SIGN",
+        null,
+        "ADD_ACROSS",
+        "ADD_SIZES"
+      ],
+      "explanation": "Subtracting 9/10 is adding −9/10. Common bottom 10: 5/10 + (−9/10) = −4/10 = −2/5."
+    },
+    {
+      "id": "rational-ops/t2/036",
+      "tier": 2,
+      "prompt": "1/7 − (−6/7)",
+      "choices": [
+        "1",
+        "1/2",
+        "−1",
+        "−5/7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_ACROSS",
+        "WRONG_SIGN",
+        "SUB_NEG"
+      ],
+      "explanation": "Subtracting −6/7 is adding 6/7. Common bottom 7: 1/7 + 6/7 = 7/7 = 1."
+    },
+    {
+      "id": "rational-ops/t2/037",
+      "tier": 2,
+      "prompt": "3/10 − 2/5",
+      "choices": [
+        "−7/10",
+        "−1/10",
+        "1/15",
+        "1/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "ADD_ACROSS",
+        "NO_SCALE"
+      ],
+      "explanation": "Subtracting 2/5 is adding −2/5. Common bottom 10: 3/10 + (−4/10) = −1/10."
+    },
+    {
+      "id": "rational-ops/t2/038",
+      "tier": 2,
+      "prompt": "−2/11 + (−9/11)",
+      "choices": [
+        "−1",
+        "−1/2",
+        "−7/11",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_ACROSS",
+        "SAME_SIGN_SUB",
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Common bottom 11: −2/11 + (−9/11) = −11/11 = −1."
+    },
+    {
+      "id": "rational-ops/t2/039",
+      "tier": 2,
+      "prompt": "−1/6 − (−1/3)",
+      "choices": [
+        "0",
+        "−1/6",
+        "1/2",
+        "1/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_ACROSS",
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Subtracting −1/3 is adding 1/3. Common bottom 6: −1/6 + 2/6 = 1/6."
+    },
+    {
+      "id": "rational-ops/t2/040",
+      "tier": 2,
+      "prompt": "1/7 + (−5/7)",
+      "choices": [
+        "6/7",
+        "−4/7",
+        "−2/7",
+        "−6/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEP_FIRST_SIGN",
+        null,
+        "ADD_ACROSS",
+        "ADD_SIZES"
+      ],
+      "explanation": "Common bottom 7: 1/7 + (−5/7) = −4/7."
+    },
+    {
+      "id": "rational-ops/t3/001",
+      "tier": 3,
+      "prompt": "1/2 ÷ (−6)",
+      "choices": [
+        "−3",
+        "−1/12",
+        "1/12",
+        "−12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FLIP",
+        null,
+        "SIGN_RULE",
+        "FLIP_FIRST"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 1/2 × 1/6 = 1/12, so −1/12."
+    },
+    {
+      "id": "rational-ops/t3/002",
+      "tier": 3,
+      "prompt": "−1/2 ÷ 4/9",
+      "choices": [
+        "1 1/8",
+        "−1 1/8",
+        "−2/9",
+        "−8/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE",
+        null,
+        "NO_FLIP",
+        "FLIP_FIRST"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 1/2 × 9/4 = 9/8 = 1 1/8, so −1 1/8."
+    },
+    {
+      "id": "rational-ops/t3/003",
+      "tier": 3,
+      "prompt": "−0.4 × 9",
+      "choices": [
+        "−3.6",
+        "−0.36",
+        "8.6",
+        "3.6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POINT_PLACE",
+        "ADD_FOR_MUL",
+        "SIGN_RULE"
+      ],
+      "explanation": "One negative, so negative. Digits: 4 × 9 = 36; 1 decimal place in all, so −3.6."
+    },
+    {
+      "id": "rational-ops/t3/004",
+      "tier": 3,
+      "prompt": "−10 × 0.5",
+      "choices": [
+        "−0.5",
+        "5",
+        "−9.5",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POINT_PLACE",
+        "SIGN_RULE",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "One negative, so negative. Digits: 10 × 5 = 50; 1 decimal place in all, so −5."
+    },
+    {
+      "id": "rational-ops/t3/005",
+      "tier": 3,
+      "prompt": "1/6 × (−3/5)",
+      "choices": [
+        "−13/30",
+        "1/10",
+        "−3/11",
+        "−1/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "SIGN_RULE",
+        "ADD_BOTTOMS",
+        null
+      ],
+      "explanation": "One negative, so negative. 1×3 over 6×5 = 3/30 = 1/10, so −1/10."
+    },
+    {
+      "id": "rational-ops/t3/006",
+      "tier": 3,
+      "prompt": "−2/7 × 1/2",
+      "choices": [
+        "3/14",
+        "−1/7",
+        "1/7",
+        "−4/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "SIGN_RULE",
+        "FLIP_MULT"
+      ],
+      "explanation": "One negative, so negative. 2×1 over 7×2 = 2/14 = 1/7, so −1/7."
+    },
+    {
+      "id": "rational-ops/t3/007",
+      "tier": 3,
+      "prompt": "−2/3 × 5/6",
+      "choices": [
+        "−4/5",
+        "5/9",
+        "1/6",
+        "−5/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_MULT",
+        "SIGN_RULE",
+        "ADD_FOR_MUL",
+        null
+      ],
+      "explanation": "One negative, so negative. 2×5 over 3×6 = 10/18 = 5/9, so −5/9."
+    },
+    {
+      "id": "rational-ops/t3/008",
+      "tier": 3,
+      "prompt": "4/5 ÷ (−1/2)",
+      "choices": [
+        "−1 3/5",
+        "1 3/5",
+        "−5/8",
+        "−2/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_RULE",
+        "FLIP_FIRST",
+        "NO_FLIP"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 4/5 × 2 = 8/5 = 1 3/5, so −1 3/5."
+    },
+    {
+      "id": "rational-ops/t3/009",
+      "tier": 3,
+      "prompt": "−1/4 × (−9)",
+      "choices": [
+        "2 1/4",
+        "−9 1/4",
+        "1/36",
+        "−2 1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "WHOLE_ON_BOTTOM",
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. 1×9 over 4×1 = 9/4 = 2 1/4, so 2 1/4."
+    },
+    {
+      "id": "rational-ops/t3/010",
+      "tier": 3,
+      "prompt": "−5.4 ÷ 6",
+      "choices": [
+        "−32.4",
+        "0.9",
+        "−0.9",
+        "−0.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "SIGN_RULE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "One negative, so negative. Digits: 54 ÷ 6 = 9, then place the point: −0.9."
+    },
+    {
+      "id": "rational-ops/t3/011",
+      "tier": 3,
+      "prompt": "−1/2 × (−1/6)",
+      "choices": [
+        "3",
+        "−2/3",
+        "−1/12",
+        "1/12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_MULT",
+        "ADD_FOR_MUL",
+        "SIGN_RULE",
+        null
+      ],
+      "explanation": "Two negatives, so positive. 1×1 over 2×6 = 1/12, so 1/12."
+    },
+    {
+      "id": "rational-ops/t3/012",
+      "tier": 3,
+      "prompt": "−0.7 × 0.9",
+      "choices": [
+        "0.2",
+        "0.63",
+        "−0.63",
+        "−6.3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "SIGN_RULE",
+        null,
+        "POINT_PLACE"
+      ],
+      "explanation": "One negative, so negative. Digits: 7 × 9 = 63; 2 decimal places in all, so −0.63."
+    },
+    {
+      "id": "rational-ops/t3/013",
+      "tier": 3,
+      "prompt": "−0.3 × 7",
+      "choices": [
+        "2.1",
+        "−2.1",
+        "6.7",
+        "−0.21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE",
+        null,
+        "ADD_FOR_MUL",
+        "POINT_PLACE"
+      ],
+      "explanation": "One negative, so negative. Digits: 3 × 7 = 21; 1 decimal place in all, so −2.1."
+    },
+    {
+      "id": "rational-ops/t3/014",
+      "tier": 3,
+      "prompt": "4.2 ÷ (−7)",
+      "choices": [
+        "−0.5",
+        "0.6",
+        "−29.4",
+        "−0.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_RULE",
+        "MUL_FOR_DIV",
+        null
+      ],
+      "explanation": "One negative, so negative. Digits: 42 ÷ 7 = 6, then place the point: −0.6."
+    },
+    {
+      "id": "rational-ops/t3/015",
+      "tier": 3,
+      "prompt": "−0.3 × (−0.6)",
+      "choices": [
+        "0.18",
+        "−0.9",
+        "1.8",
+        "−0.18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "POINT_PLACE",
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. Digits: 3 × 6 = 18; 2 decimal places in all, so 0.18."
+    },
+    {
+      "id": "rational-ops/t3/016",
+      "tier": 3,
+      "prompt": "−3.2 ÷ (−0.8)",
+      "choices": [
+        "2.56",
+        "−4",
+        "0.25",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "SIGN_RULE",
+        "WRONG_ORDER",
+        null
+      ],
+      "explanation": "Two negatives, so positive. Digits: 32 ÷ 8 = 4, then place the point: 4."
+    },
+    {
+      "id": "rational-ops/t3/017",
+      "tier": 3,
+      "prompt": "−1/5 × 1/2",
+      "choices": [
+        "3/10",
+        "−1/10",
+        "−2/5",
+        "1/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "FLIP_MULT",
+        "SIGN_RULE"
+      ],
+      "explanation": "One negative, so negative. 1×1 over 5×2 = 1/10, so −1/10."
+    },
+    {
+      "id": "rational-ops/t3/018",
+      "tier": 3,
+      "prompt": "3/4 ÷ (−1/4)",
+      "choices": [
+        "−3",
+        "−1/3",
+        "3",
+        "−3/16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "SIGN_RULE",
+        "NO_FLIP"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 3/4 × 4 = 12/4 = 3, so −3."
+    },
+    {
+      "id": "rational-ops/t3/019",
+      "tier": 3,
+      "prompt": "−0.5 × 0.5",
+      "choices": [
+        "−2.5",
+        "−0.25",
+        "0.25",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POINT_PLACE",
+        null,
+        "SIGN_RULE",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "One negative, so negative. Digits: 5 × 5 = 25; 2 decimal places in all, so −0.25."
+    },
+    {
+      "id": "rational-ops/t3/020",
+      "tier": 3,
+      "prompt": "−1/3 × (−1/2)",
+      "choices": [
+        "1/6",
+        "1/5",
+        "2/3",
+        "−1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_BOTTOMS",
+        "FLIP_MULT",
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. 1×1 over 3×2 = 1/6, so 1/6."
+    },
+    {
+      "id": "rational-ops/t3/021",
+      "tier": 3,
+      "prompt": "1/3 ÷ (−3)",
+      "choices": [
+        "−1/9",
+        "−1",
+        "1/9",
+        "−9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FLIP",
+        "SIGN_RULE",
+        "FLIP_FIRST"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 1/3 × 1/3 = 1/9, so −1/9."
+    },
+    {
+      "id": "rational-ops/t3/022",
+      "tier": 3,
+      "prompt": "2/5 ÷ (−1/2)",
+      "choices": [
+        "−1 1/4",
+        "4/5",
+        "−1/5",
+        "−4/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIP_FIRST",
+        "SIGN_RULE",
+        "NO_FLIP",
+        null
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 2/5 × 2 = 4/5, so −4/5."
+    },
+    {
+      "id": "rational-ops/t3/023",
+      "tier": 3,
+      "prompt": "−4.5 ÷ 0.5",
+      "choices": [
+        "−0.9",
+        "9",
+        "−2.25",
+        "−9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POINT_PLACE",
+        "SIGN_RULE",
+        "MUL_FOR_DIV",
+        null
+      ],
+      "explanation": "One negative, so negative. Digits: 45 ÷ 5 = 9, then place the point: −9."
+    },
+    {
+      "id": "rational-ops/t3/024",
+      "tier": 3,
+      "prompt": "2.8 ÷ (−0.7)",
+      "choices": [
+        "−0.4",
+        "−4",
+        "−0.25",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POINT_PLACE",
+        null,
+        "WRONG_ORDER",
+        "SIGN_RULE"
+      ],
+      "explanation": "One negative, so negative. Digits: 28 ÷ 7 = 4, then place the point: −4."
+    },
+    {
+      "id": "rational-ops/t3/025",
+      "tier": 3,
+      "prompt": "−1.8 ÷ (−2)",
+      "choices": [
+        "1",
+        "0.9",
+        "3.6",
+        "−0.9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MUL_FOR_DIV",
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. Digits: 18 ÷ 2 = 9, then place the point: 0.9."
+    },
+    {
+      "id": "rational-ops/t3/026",
+      "tier": 3,
+      "prompt": "−1/6 × 8",
+      "choices": [
+        "1 1/3",
+        "−1/48",
+        "−1 1/3",
+        "7 5/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "WHOLE_ON_BOTTOM",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "One negative, so negative. 1×8 over 6×1 = 8/6 = 1 1/3, so −1 1/3."
+    },
+    {
+      "id": "rational-ops/t3/027",
+      "tier": 3,
+      "prompt": "4.2 ÷ (−0.6)",
+      "choices": [
+        "7",
+        "−0.7",
+        "−7",
+        "−2.52"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "POINT_PLACE",
+        null,
+        "MUL_FOR_DIV"
+      ],
+      "explanation": "One negative, so negative. Digits: 42 ÷ 6 = 7, then place the point: −7."
+    },
+    {
+      "id": "rational-ops/t3/028",
+      "tier": 3,
+      "prompt": "−4.2 ÷ (−6)",
+      "choices": [
+        "25.2",
+        "0.7",
+        "−0.7",
+        "0.8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        null,
+        "SIGN_RULE",
+        "ARITH"
+      ],
+      "explanation": "Two negatives, so positive. Digits: 42 ÷ 6 = 7, then place the point: 0.7."
+    },
+    {
+      "id": "rational-ops/t3/029",
+      "tier": 3,
+      "prompt": "−2/7 × 2",
+      "choices": [
+        "1 5/7",
+        "4/7",
+        "−4/7",
+        "−1/7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "SIGN_RULE",
+        null,
+        "WHOLE_ON_BOTTOM"
+      ],
+      "explanation": "One negative, so negative. 2×2 over 7×1 = 4/7, so −4/7."
+    },
+    {
+      "id": "rational-ops/t3/030",
+      "tier": 3,
+      "prompt": "−1/2 ÷ (−5)",
+      "choices": [
+        "1/10",
+        "10",
+        "2 1/2",
+        "−1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. Flip the divisor: 1/2 × 1/5 = 1/10, so 1/10."
+    },
+    {
+      "id": "rational-ops/t3/031",
+      "tier": 3,
+      "prompt": "−1/10 ÷ (−1/2)",
+      "choices": [
+        "1/20",
+        "5",
+        "1/5",
+        "−1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null,
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. Flip the divisor: 1/10 × 2 = 2/10 = 1/5, so 1/5."
+    },
+    {
+      "id": "rational-ops/t3/032",
+      "tier": 3,
+      "prompt": "−2/3 × (−1/4)",
+      "choices": [
+        "−11/12",
+        "2/7",
+        "1/6",
+        "−1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "ADD_BOTTOMS",
+        null,
+        "SIGN_RULE"
+      ],
+      "explanation": "Two negatives, so positive. 2×1 over 3×4 = 2/12 = 1/6, so 1/6."
+    },
+    {
+      "id": "rational-ops/t3/033",
+      "tier": 3,
+      "prompt": "−2/9 ÷ 1/3",
+      "choices": [
+        "2/3",
+        "−1 1/2",
+        "−2/3",
+        "−2/27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 2/9 × 3 = 6/9 = 2/3, so −2/3."
+    },
+    {
+      "id": "rational-ops/t3/034",
+      "tier": 3,
+      "prompt": "−1/5 × (−10)",
+      "choices": [
+        "2",
+        "−2",
+        "1/50",
+        "−10 1/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_RULE",
+        "WHOLE_ON_BOTTOM",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Two negatives, so positive. 1×10 over 5×1 = 10/5 = 2, so 2."
+    },
+    {
+      "id": "rational-ops/t3/035",
+      "tier": 3,
+      "prompt": "−0.5 × (−0.4)",
+      "choices": [
+        "−0.2",
+        "2",
+        "0.2",
+        "−0.9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "POINT_PLACE",
+        null,
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "Two negatives, so positive. Digits: 5 × 4 = 20; 2 decimal places in all, so 0.2."
+    },
+    {
+      "id": "rational-ops/t3/036",
+      "tier": 3,
+      "prompt": "2/3 ÷ (−4)",
+      "choices": [
+        "−1/6",
+        "−6",
+        "−2 2/3",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIP_FIRST",
+        "NO_FLIP",
+        "SIGN_RULE"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 2/3 × 1/4 = 2/12 = 1/6, so −1/6."
+    },
+    {
+      "id": "rational-ops/t3/037",
+      "tier": 3,
+      "prompt": "−9 × 0.3",
+      "choices": [
+        "−0.27",
+        "−2.7",
+        "−8.7",
+        "2.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POINT_PLACE",
+        null,
+        "ADD_FOR_MUL",
+        "SIGN_RULE"
+      ],
+      "explanation": "One negative, so negative. Digits: 9 × 3 = 27; 1 decimal place in all, so −2.7."
+    },
+    {
+      "id": "rational-ops/t3/038",
+      "tier": 3,
+      "prompt": "−2/3 × (−1/3)",
+      "choices": [
+        "−1",
+        "2",
+        "−2/9",
+        "2/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        "FLIP_MULT",
+        "SIGN_RULE",
+        null
+      ],
+      "explanation": "Two negatives, so positive. 2×1 over 3×3 = 2/9, so 2/9."
+    },
+    {
+      "id": "rational-ops/t3/039",
+      "tier": 3,
+      "prompt": "1/2 ÷ (−3/7)",
+      "choices": [
+        "1 1/6",
+        "−3/14",
+        "−6/7",
+        "−1 1/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_RULE",
+        "NO_FLIP",
+        "FLIP_FIRST",
+        null
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 1/2 × 7/3 = 7/6 = 1 1/6, so −1 1/6."
+    },
+    {
+      "id": "rational-ops/t3/040",
+      "tier": 3,
+      "prompt": "6/7 ÷ (−4/7)",
+      "choices": [
+        "1 1/2",
+        "−2/3",
+        "−1 1/2",
+        "−24/49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "FLIP_FIRST",
+        null,
+        "NO_FLIP"
+      ],
+      "explanation": "One negative, so negative. Flip the divisor: 6/7 × 7/4 = 42/28 = 1 1/2, so −1 1/2."
+    },
+    {
+      "id": "rational-ops/t4/001",
+      "tier": 4,
+      "prompt": "Write 8/9 as a decimal.",
+      "choices": [
+        "1.125",
+        "0.111...",
+        "0.888...",
+        "0.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED",
+        "UNIT_ONLY",
+        null,
+        "TRUNCATED"
+      ],
+      "explanation": "8 ÷ 9 repeats forever: 0.888..."
+    },
+    {
+      "id": "rational-ops/t4/002",
+      "tier": 4,
+      "prompt": "−11/20 as a decimal?",
+      "choices": [
+        "0.55",
+        "−0.55",
+        "−0.05",
+        "−0.112"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SIGN",
+        null,
+        "UNIT_ONLY",
+        "DIGITS_AS_DECIMAL"
+      ],
+      "explanation": "11/20 = 55/100 = 0.55, so −0.55."
+    },
+    {
+      "id": "rational-ops/t4/003",
+      "tier": 4,
+      "prompt": "Write −12/25 as a decimal.",
+      "choices": [
+        "−0.48",
+        "−0.1225",
+        "−4.8",
+        "−0.04"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIGITS_AS_DECIMAL",
+        "POINT_PLACE",
+        "UNIT_ONLY"
+      ],
+      "explanation": "12/25 = 48/100 = 0.48, so −0.48."
+    },
+    {
+      "id": "rational-ops/t4/004",
+      "tier": 4,
+      "prompt": "4/9 as a decimal?",
+      "choices": [
+        "0.444...",
+        "0.9",
+        "0.111...",
+        "2.25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DENOM_ONLY",
+        "UNIT_ONLY",
+        "FLIPPED"
+      ],
+      "explanation": "4 ÷ 9 repeats forever: 0.444..."
+    },
+    {
+      "id": "rational-ops/t4/005",
+      "tier": 4,
+      "prompt": "−4/9 as a decimal?",
+      "choices": [
+        "−2.25",
+        "0.444...",
+        "−0.9",
+        "−0.444..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED",
+        "DROPPED_SIGN",
+        "DENOM_ONLY",
+        null
+      ],
+      "explanation": "4 ÷ 9 repeats forever: 0.444..., so −0.444..."
+    },
+    {
+      "id": "rational-ops/t4/006",
+      "tier": 4,
+      "prompt": "7/20 as a decimal?",
+      "choices": [
+        "0.05",
+        "0.72",
+        "0.35",
+        "3.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNIT_ONLY",
+        "DIGITS_AS_DECIMAL",
+        null,
+        "POINT_PLACE"
+      ],
+      "explanation": "7/20 = 35/100 = 0.35."
+    },
+    {
+      "id": "rational-ops/t4/007",
+      "tier": 4,
+      "prompt": "3/4 as a decimal?",
+      "choices": [
+        "0.34",
+        "1.333...",
+        "0.75",
+        "7.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGITS_AS_DECIMAL",
+        "FLIPPED",
+        null,
+        "POINT_PLACE"
+      ],
+      "explanation": "3/4 = 75/100 = 0.75."
+    },
+    {
+      "id": "rational-ops/t4/008",
+      "tier": 4,
+      "prompt": "Write 4/25 as a decimal.",
+      "choices": [
+        "1.6",
+        "0.425",
+        "0.16",
+        "6.25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POINT_PLACE",
+        "DIGITS_AS_DECIMAL",
+        null,
+        "FLIPPED"
+      ],
+      "explanation": "4/25 = 16/100 = 0.16."
+    },
+    {
+      "id": "rational-ops/t4/009",
+      "tier": 4,
+      "prompt": "3/20 as a decimal?",
+      "choices": [
+        "1.5",
+        "0.15",
+        "6.666...",
+        "0.32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POINT_PLACE",
+        null,
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL"
+      ],
+      "explanation": "3/20 = 15/100 = 0.15."
+    },
+    {
+      "id": "rational-ops/t4/010",
+      "tier": 4,
+      "prompt": "Convert −3/4 to a decimal.",
+      "choices": [
+        "−7.5",
+        "−0.75",
+        "−0.34",
+        "−1.333..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "POINT_PLACE",
+        null,
+        "DIGITS_AS_DECIMAL",
+        "FLIPPED"
+      ],
+      "explanation": "3/4 = 75/100 = 0.75, so −0.75."
+    },
+    {
+      "id": "rational-ops/t4/011",
+      "tier": 4,
+      "prompt": "−1/2 as a decimal?",
+      "choices": [
+        "−5",
+        "−2",
+        "−0.12",
+        "−0.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POINT_PLACE",
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL",
+        null
+      ],
+      "explanation": "1/2 = 5/10 = 0.5, so −0.5."
+    },
+    {
+      "id": "rational-ops/t4/012",
+      "tier": 4,
+      "prompt": "3/5 as a decimal?",
+      "choices": [
+        "6",
+        "0.35",
+        "1.666...",
+        "0.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POINT_PLACE",
+        "DIGITS_AS_DECIMAL",
+        "FLIPPED",
+        null
+      ],
+      "explanation": "3/5 = 6/10 = 0.6."
+    },
+    {
+      "id": "rational-ops/t4/013",
+      "tier": 4,
+      "prompt": "−2/9 as a decimal?",
+      "choices": [
+        "0.222...",
+        "−4.5",
+        "−0.9",
+        "−0.222..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_SIGN",
+        "FLIPPED",
+        "DENOM_ONLY",
+        null
+      ],
+      "explanation": "2 ÷ 9 repeats forever: 0.222..., so −0.222..."
+    },
+    {
+      "id": "rational-ops/t4/014",
+      "tier": 4,
+      "prompt": "Write −8/9 as a decimal.",
+      "choices": [
+        "−1.125",
+        "−0.888...",
+        "−0.8",
+        "0.888..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "TRUNCATED",
+        "DROPPED_SIGN"
+      ],
+      "explanation": "8 ÷ 9 repeats forever: 0.888..., so −0.888..."
+    },
+    {
+      "id": "rational-ops/t4/015",
+      "tier": 4,
+      "prompt": "Which equals −5/11?",
+      "choices": [
+        "(−5)/11",
+        "(−11)/5",
+        "−5/(−11)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED",
+        "DOUBLE_NEG"
+      ],
+      "explanation": "A minus sign on the top, the bottom or the front means the same: −5/11 = (−5)/11."
+    },
+    {
+      "id": "rational-ops/t4/016",
+      "tier": 4,
+      "prompt": "Which equals 9/10?",
+      "choices": [
+        "9/(−10)",
+        "10/9",
+        "(−9)/(−10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_STAYS",
+        "FLIPPED",
+        null
+      ],
+      "explanation": "Two negatives cancel: (−9)/(−10) = 9/10."
+    },
+    {
+      "id": "rational-ops/t4/017",
+      "tier": 4,
+      "prompt": "Which equals 2/3?",
+      "choices": [
+        "−2/(−3)",
+        "(−2)/3",
+        "3/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_STAYS",
+        "FLIPPED"
+      ],
+      "explanation": "Two negatives cancel: −2/(−3) = 2/3."
+    },
+    {
+      "id": "rational-ops/t4/018",
+      "tier": 4,
+      "prompt": "1/2 as a decimal?",
+      "choices": [
+        "0.5",
+        "2",
+        "5",
+        "0.12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED",
+        "POINT_PLACE",
+        "DIGITS_AS_DECIMAL"
+      ],
+      "explanation": "1/2 = 5/10 = 0.5."
+    },
+    {
+      "id": "rational-ops/t4/019",
+      "tier": 4,
+      "prompt": "−1/4 as a decimal?",
+      "choices": [
+        "−4",
+        "−0.14",
+        "−0.25",
+        "0.25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL",
+        null,
+        "DROPPED_SIGN"
+      ],
+      "explanation": "1/4 = 25/100 = 0.25, so −0.25."
+    },
+    {
+      "id": "rational-ops/t4/020",
+      "tier": 4,
+      "prompt": "Which equals −2/5?",
+      "choices": [
+        "2/5",
+        "(−2)/5",
+        "(−5)/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SIGN",
+        null,
+        "FLIPPED"
+      ],
+      "explanation": "A minus sign on the top, the bottom or the front means the same: −2/5 = (−2)/5."
+    },
+    {
+      "id": "rational-ops/t4/021",
+      "tier": 4,
+      "prompt": "Which equals 3/11?",
+      "choices": [
+        "3/(−11)",
+        "−3/(−11)",
+        "11/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_STAYS",
+        null,
+        "FLIPPED"
+      ],
+      "explanation": "Two negatives cancel: −3/(−11) = 3/11."
+    },
+    {
+      "id": "rational-ops/t4/022",
+      "tier": 4,
+      "prompt": "Convert −1/10 to a decimal.",
+      "choices": [
+        "−0.1",
+        "−1",
+        "−10",
+        "0.1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POINT_PLACE",
+        "FLIPPED",
+        "DROPPED_SIGN"
+      ],
+      "explanation": "1/10 = 0.1, so −0.1."
+    },
+    {
+      "id": "rational-ops/t4/023",
+      "tier": 4,
+      "prompt": "Convert 7/25 to a decimal.",
+      "choices": [
+        "0.28",
+        "0.725",
+        "0.04",
+        "2.8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIGITS_AS_DECIMAL",
+        "UNIT_ONLY",
+        "POINT_PLACE"
+      ],
+      "explanation": "7/25 = 28/100 = 0.28."
+    },
+    {
+      "id": "rational-ops/t4/024",
+      "tier": 4,
+      "prompt": "Convert 4/5 to a decimal.",
+      "choices": [
+        "1.25",
+        "0.8",
+        "0.45",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "DIGITS_AS_DECIMAL",
+        "POINT_PLACE"
+      ],
+      "explanation": "4/5 = 8/10 = 0.8."
+    },
+    {
+      "id": "rational-ops/t4/025",
+      "tier": 4,
+      "prompt": "Convert −2/3 to a decimal.",
+      "choices": [
+        "−0.333...",
+        "−1.5",
+        "−0.666...",
+        "−0.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNIT_ONLY",
+        "FLIPPED",
+        null,
+        "TRUNCATED"
+      ],
+      "explanation": "2 ÷ 3 repeats forever: 0.666..., so −0.666..."
+    },
+    {
+      "id": "rational-ops/t4/026",
+      "tier": 4,
+      "prompt": "1/5 as a decimal?",
+      "choices": [
+        "0.2",
+        "0.5",
+        "5",
+        "0.15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DENOM_ONLY",
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL"
+      ],
+      "explanation": "1/5 = 2/10 = 0.2."
+    },
+    {
+      "id": "rational-ops/t4/027",
+      "tier": 4,
+      "prompt": "−1/3 as a decimal?",
+      "choices": [
+        "−3",
+        "−0.333...",
+        "−0.13",
+        "0.333..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "DIGITS_AS_DECIMAL",
+        "DROPPED_SIGN"
+      ],
+      "explanation": "1 ÷ 3 repeats forever: 0.333..., so −0.333..."
+    },
+    {
+      "id": "rational-ops/t4/028",
+      "tier": 4,
+      "prompt": "−7/9 as a decimal?",
+      "choices": [
+        "−0.111...",
+        "−0.777...",
+        "−0.9",
+        "−0.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNIT_ONLY",
+        null,
+        "DENOM_ONLY",
+        "TRUNCATED"
+      ],
+      "explanation": "7 ÷ 9 repeats forever: 0.777..., so −0.777..."
+    },
+    {
+      "id": "rational-ops/t4/029",
+      "tier": 4,
+      "prompt": "Write 2/3 as a decimal.",
+      "choices": [
+        "1.5",
+        "0.23",
+        "0.6",
+        "0.666..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL",
+        "TRUNCATED",
+        null
+      ],
+      "explanation": "2 ÷ 3 repeats forever: 0.666..."
+    },
+    {
+      "id": "rational-ops/t4/030",
+      "tier": 4,
+      "prompt": "Which equals −5/8?",
+      "choices": [
+        "(−8)/5",
+        "5/8",
+        "(−5)/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED",
+        "DROPPED_SIGN",
+        null
+      ],
+      "explanation": "A minus sign on the top, the bottom or the front means the same: −5/8 = (−5)/8."
+    },
+    {
+      "id": "rational-ops/t4/031",
+      "tier": 4,
+      "prompt": "Convert −4/25 to a decimal.",
+      "choices": [
+        "−6.25",
+        "0.16",
+        "−0.425",
+        "−0.16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED",
+        "DROPPED_SIGN",
+        "DIGITS_AS_DECIMAL",
+        null
+      ],
+      "explanation": "4/25 = 16/100 = 0.16, so −0.16."
+    },
+    {
+      "id": "rational-ops/t4/032",
+      "tier": 4,
+      "prompt": "−7/25 as a decimal?",
+      "choices": [
+        "−0.725",
+        "0.28",
+        "−0.28",
+        "−2.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGITS_AS_DECIMAL",
+        "DROPPED_SIGN",
+        null,
+        "POINT_PLACE"
+      ],
+      "explanation": "7/25 = 28/100 = 0.28, so −0.28."
+    },
+    {
+      "id": "rational-ops/t4/033",
+      "tier": 4,
+      "prompt": "Write −3/5 as a decimal.",
+      "choices": [
+        "−1.666...",
+        "−0.35",
+        "−6",
+        "−0.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED",
+        "DIGITS_AS_DECIMAL",
+        "POINT_PLACE",
+        null
+      ],
+      "explanation": "3/5 = 6/10 = 0.6, so −0.6."
+    },
+    {
+      "id": "rational-ops/t4/034",
+      "tier": 4,
+      "prompt": "Write −11/25 as a decimal.",
+      "choices": [
+        "0.44",
+        "−4.4",
+        "−0.1125",
+        "−0.44"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_SIGN",
+        "POINT_PLACE",
+        "DIGITS_AS_DECIMAL",
+        null
+      ],
+      "explanation": "11/25 = 44/100 = 0.44, so −0.44."
+    },
+    {
+      "id": "rational-ops/t4/035",
+      "tier": 4,
+      "prompt": "Convert 2/5 to a decimal.",
+      "choices": [
+        "0.25",
+        "0.2",
+        "0.4",
+        "2.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGITS_AS_DECIMAL",
+        "UNIT_ONLY",
+        null,
+        "FLIPPED"
+      ],
+      "explanation": "2/5 = 4/10 = 0.4."
+    },
+    {
+      "id": "rational-ops/t4/036",
+      "tier": 4,
+      "prompt": "Convert −2/25 to a decimal.",
+      "choices": [
+        "−0.08",
+        "−12.5",
+        "0.08",
+        "−0.225"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED",
+        "DROPPED_SIGN",
+        "DIGITS_AS_DECIMAL"
+      ],
+      "explanation": "2/25 = 8/100 = 0.08, so −0.08."
+    },
+    {
+      "id": "rational-ops/t4/037",
+      "tier": 4,
+      "prompt": "Write 5/9 as a decimal.",
+      "choices": [
+        "1.8",
+        "0.555...",
+        "0.5",
+        "0.111..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "TRUNCATED",
+        "UNIT_ONLY"
+      ],
+      "explanation": "5 ÷ 9 repeats forever: 0.555..."
+    },
+    {
+      "id": "rational-ops/t4/038",
+      "tier": 4,
+      "prompt": "Which equals 2/5?",
+      "choices": [
+        "5/2",
+        "−2/(−5)",
+        "(−2)/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED",
+        null,
+        "NEG_STAYS"
+      ],
+      "explanation": "Two negatives cancel: −2/(−5) = 2/5."
+    },
+    {
+      "id": "rational-ops/t4/039",
+      "tier": 4,
+      "prompt": "Convert 1/10 to a decimal.",
+      "choices": [
+        "0.1",
+        "0.2",
+        "1",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "POINT_PLACE",
+        "FLIPPED"
+      ],
+      "explanation": "1/10 = 0.1."
+    },
+    {
+      "id": "rational-ops/t4/040",
+      "tier": 4,
+      "prompt": "Which equals −3/7?",
+      "choices": [
+        "(−3)/7",
+        "−3/(−7)",
+        "(−7)/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLE_NEG",
+        "FLIPPED"
+      ],
+      "explanation": "A minus sign on the top, the bottom or the front means the same: −3/7 = (−3)/7."
+    },
+    {
+      "id": "rational-ops/t5/001",
+      "tier": 5,
+      "prompt": "Account changes −$0.50 a day for 8 days. Total?",
+      "choices": [
+        "$7.50",
+        "−$4",
+        "$4",
+        "−$0.40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_FOR_MUL",
+        null,
+        "SIGN_RULE",
+        "POINT_PLACE"
+      ],
+      "explanation": "8 groups of −$0.50: one negative, so negative. Digits 5 × 8 = 40, so −$4."
+    },
+    {
+      "id": "rational-ops/t5/002",
+      "tier": 5,
+      "prompt": "Temp is 3 degrees, then drops 3.9 degrees. Now?",
+      "choices": [
+        "−0.9",
+        "0.9",
+        "−6.9",
+        "6.9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        "DIRECTION"
+      ],
+      "explanation": "Drops means subtract. Subtracting 3.9 is adding −3.9. Signs differ: 3.9 − 3 = 0.9, and the bigger one is negative, so −0.9."
+    },
+    {
+      "id": "rational-ops/t5/003",
+      "tier": 5,
+      "prompt": "Diver at −2/5 m dives 9/10 m deeper. New elevation?",
+      "choices": [
+        "−1/2",
+        "−1 1/10",
+        "1/2",
+        "−1 3/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SIGN_SUB",
+        "NO_SCALE",
+        "DIRECTION",
+        null
+      ],
+      "explanation": "Deeper means subtract. Subtracting 9/10 is adding −9/10. Common bottom 10: −4/10 + (−9/10) = −13/10 = −1 3/10."
+    },
+    {
+      "id": "rational-ops/t5/004",
+      "tier": 5,
+      "prompt": "(5/6 + (−1/3)) ÷ 5",
+      "choices": [
+        "1/10",
+        "7/30",
+        "−1/10",
+        "23/30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "SIGN_RULE",
+        "ORDER"
+      ],
+      "explanation": "Inside first: 5/6 + (−1/3) = 1/2. Then 1/2 ÷ 5 = 1/10."
+    },
+    {
+      "id": "rational-ops/t5/005",
+      "tier": 5,
+      "prompt": "−3/8 + (−1/2) × (−4)",
+      "choices": [
+        "2 3/8",
+        "3 1/2",
+        "−1 5/8",
+        "1 5/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "ORDER",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Multiply first: −1/2 × (−4) = 2. Then −3/8 + 2 = 1 5/8."
+    },
+    {
+      "id": "rational-ops/t5/006",
+      "tier": 5,
+      "prompt": "Temp is 1.2 degrees, then drops 3.6 degrees. Now?",
+      "choices": [
+        "−2.4",
+        "−4.8",
+        "4.8",
+        "2.4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "DIRECTION",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Drops means subtract. Subtracting 3.6 is adding −3.6. Signs differ: 3.6 − 1.2 = 2.4, and the bigger one is negative, so −2.4."
+    },
+    {
+      "id": "rational-ops/t5/007",
+      "tier": 5,
+      "prompt": "Temps are −2.4 and 3.9 degrees. How far apart?",
+      "choices": [
+        "3.9",
+        "1.5",
+        "−6.3",
+        "6.3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_SIDE",
+        "SUBTRACT_SIZES",
+        "NEG_DISTANCE",
+        null
+      ],
+      "explanation": "Across zero, add the sizes: 2.4 + 3.9 = 6.3. Distance is |3.9 − (−2.4)| = 6.3."
+    },
+    {
+      "id": "rational-ops/t5/008",
+      "tier": 5,
+      "prompt": "Temps are −2.8 and 3 degrees. How far apart?",
+      "choices": [
+        "3",
+        "0.2",
+        "5.8",
+        "−5.8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_SIDE",
+        "SUBTRACT_SIZES",
+        null,
+        "NEG_DISTANCE"
+      ],
+      "explanation": "Across zero, add the sizes: 2.8 + 3 = 5.8. Distance is |3 − (−2.8)| = 5.8."
+    },
+    {
+      "id": "rational-ops/t5/009",
+      "tier": 5,
+      "prompt": "Balance is −$7.50. You deposit $4.50. New balance?",
+      "choices": [
+        "−$3.50",
+        "−$3",
+        "−$12",
+        "$3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIRECTION",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Deposit means add. Signs differ: $7.50 − $4.50 = $3, and the bigger one is negative, so −$3."
+    },
+    {
+      "id": "rational-ops/t5/010",
+      "tier": 5,
+      "prompt": "Diver at −3/4 m swims up 1/12 m. New elevation?",
+      "choices": [
+        "−2/3",
+        "2/3",
+        "−1/6",
+        "−5/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "NO_SCALE",
+        "DIRECTION"
+      ],
+      "explanation": "Up means add. Common bottom 12: −9/12 + 1/12 = −8/12 = −2/3."
+    },
+    {
+      "id": "rational-ops/t5/011",
+      "tier": 5,
+      "prompt": "Temp changes −0.8 degrees an hour for 5 hours. Total?",
+      "choices": [
+        "4",
+        "−4",
+        "4.2",
+        "−0.4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE",
+        null,
+        "ADD_FOR_MUL",
+        "POINT_PLACE"
+      ],
+      "explanation": "5 groups of −0.8: one negative, so negative. Digits 8 × 5 = 40, so −4."
+    },
+    {
+      "id": "rational-ops/t5/012",
+      "tier": 5,
+      "prompt": "(−2/3 − 1/3) ÷ 4",
+      "choices": [
+        "−1/4",
+        "−4",
+        "−3/4",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_FOR_DIV",
+        "ORDER",
+        "SIGN_RULE"
+      ],
+      "explanation": "Inside first: −2/3 − 1/3 = −1. Then −1 ÷ 4 = −1/4."
+    },
+    {
+      "id": "rational-ops/t5/013",
+      "tier": 5,
+      "prompt": "2.4 − (−0.8) × 2",
+      "choices": [
+        "−4",
+        "0.8",
+        "4",
+        "6.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "SIGN_RULE",
+        null,
+        "ORDER"
+      ],
+      "explanation": "Multiply first: −0.8 × 2 = −1.6. Then 2.4 − (−1.6) = 4."
+    },
+    {
+      "id": "rational-ops/t5/014",
+      "tier": 5,
+      "prompt": "−1/4 × (3 − 7)",
+      "choices": [
+        "−1",
+        "1",
+        "2 1/2",
+        "−7 3/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE",
+        null,
+        "ADD_SIZES",
+        "ORDER"
+      ],
+      "explanation": "Inside first: 3 − 7 = −4. Then −1/4 × (−4) = 1."
+    },
+    {
+      "id": "rational-ops/t5/015",
+      "tier": 5,
+      "prompt": "1/3 × (−3 − (−6))",
+      "choices": [
+        "5",
+        "3",
+        "1",
+        "−1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER",
+        "ADD_SIZES",
+        null,
+        "SIGN_RULE"
+      ],
+      "explanation": "Inside first: −3 − (−6) = 3. Then 1/3 × 3 = 1."
+    },
+    {
+      "id": "rational-ops/t5/016",
+      "tier": 5,
+      "prompt": "−0.8 × (3 + (−5))",
+      "choices": [
+        "6.4",
+        "−7.4",
+        "−1.6",
+        "1.6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "ORDER",
+        "SIGN_RULE",
+        null
+      ],
+      "explanation": "Inside first: 3 + (−5) = −2. Then −0.8 × (−2) = 1.6."
+    },
+    {
+      "id": "rational-ops/t5/017",
+      "tier": 5,
+      "prompt": "Water level changes −4/5 inch a day for 5 days. Total?",
+      "choices": [
+        "4",
+        "4 1/5",
+        "−4",
+        "−4/25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_RULE",
+        "ADD_FOR_MUL",
+        null,
+        "WHOLE_ON_BOTTOM"
+      ],
+      "explanation": "5 days of −4/5: one negative, so negative. 4×5 over 5 = 20/5 = 4, so −4."
+    },
+    {
+      "id": "rational-ops/t5/018",
+      "tier": 5,
+      "prompt": "Temp changes −0.9 degrees an hour for 6 hours. Total?",
+      "choices": [
+        "−5.4",
+        "5.4",
+        "−0.54",
+        "5.1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_RULE",
+        "POINT_PLACE",
+        "ADD_FOR_MUL"
+      ],
+      "explanation": "6 groups of −0.9: one negative, so negative. Digits 9 × 6 = 54, so −5.4."
+    },
+    {
+      "id": "rational-ops/t5/019",
+      "tier": 5,
+      "prompt": "(−1/4 − (−7/8)) ÷ 5",
+      "choices": [
+        "1/8",
+        "9/40",
+        "−1/8",
+        "−3/40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "SIGN_RULE",
+        "ORDER"
+      ],
+      "explanation": "Inside first: −1/4 − (−7/8) = 5/8. Then 5/8 ÷ 5 = 1/8."
+    },
+    {
+      "id": "rational-ops/t5/020",
+      "tier": 5,
+      "prompt": "A diver at −0.6 m and a bird at 3.9 m. Distance apart?",
+      "choices": [
+        "−4.5",
+        "3.3",
+        "3.9",
+        "4.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DISTANCE",
+        "SUBTRACT_SIZES",
+        "ONE_SIDE",
+        null
+      ],
+      "explanation": "Across zero, add the sizes: 0.6 + 3.9 = 4.5. Distance is |3.9 − (−0.6)| = 4.5."
+    },
+    {
+      "id": "rational-ops/t5/021",
+      "tier": 5,
+      "prompt": "Balance is −$4. You deposit $3. New balance?",
+      "choices": [
+        "$1",
+        "−$7",
+        "−$1.50",
+        "−$1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "DIRECTION",
+        "ARITH",
+        null
+      ],
+      "explanation": "Deposit means add. Signs differ: $4 − $3 = $1, and the bigger one is negative, so −$1."
+    },
+    {
+      "id": "rational-ops/t5/022",
+      "tier": 5,
+      "prompt": "Water level changes −4/5 inch a day for 8 days. Total?",
+      "choices": [
+        "−6 2/5",
+        "7 1/5",
+        "−1/10",
+        "6 2/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_MUL",
+        "WHOLE_ON_BOTTOM",
+        "SIGN_RULE"
+      ],
+      "explanation": "8 days of −4/5: one negative, so negative. 4×8 over 5 = 32/5 = 6 2/5, so −6 2/5."
+    },
+    {
+      "id": "rational-ops/t5/023",
+      "tier": 5,
+      "prompt": "Diver at −1/5 m swims up 4/5 m. New elevation?",
+      "choices": [
+        "−1",
+        "1",
+        "−3/5",
+        "3/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIRECTION",
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Up means add. Common bottom 5: −1/5 + 4/5 = 3/5."
+    },
+    {
+      "id": "rational-ops/t5/024",
+      "tier": 5,
+      "prompt": "Balance is $1. You spend $3.50. New balance?",
+      "choices": [
+        "$2.50",
+        "$4.50",
+        "−$2.50",
+        "−$4.50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "DIRECTION",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Spend means subtract. Subtracting $3.50 is adding −$3.50. Signs differ: $3.50 − $1 = $2.50, and the bigger one is negative, so −$2.50."
+    },
+    {
+      "id": "rational-ops/t5/025",
+      "tier": 5,
+      "prompt": "Temp is −1.2 degrees, then rises 3.3 degrees. Now?",
+      "choices": [
+        "4.5",
+        "−4.5",
+        "−2.1",
+        "2.1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "DIRECTION",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Rises means add. Signs differ: 3.3 − 1.2 = 2.1, and the bigger one is positive, so 2.1."
+    },
+    {
+      "id": "rational-ops/t5/026",
+      "tier": 5,
+      "prompt": "−1.7 − 0.6 × 9",
+      "choices": [
+        "7.1",
+        "−7.1",
+        "3.7",
+        "−20.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "SIGN_RULE",
+        "ORDER"
+      ],
+      "explanation": "Multiply first: 0.6 × 9 = 5.4. Then −1.7 − 5.4 = −7.1."
+    },
+    {
+      "id": "rational-ops/t5/027",
+      "tier": 5,
+      "prompt": "1/4 + 2/3 × (−6)",
+      "choices": [
+        "−3 3/4",
+        "−4 1/4",
+        "−5 1/2",
+        "4 1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "ORDER",
+        "SIGN_RULE"
+      ],
+      "explanation": "Multiply first: 2/3 × (−6) = −4. Then 1/4 + (−4) = −3 3/4."
+    },
+    {
+      "id": "rational-ops/t5/028",
+      "tier": 5,
+      "prompt": "(−1.7 + 0.1) ÷ 4",
+      "choices": [
+        "−1.675",
+        "−0.4",
+        "0.4",
+        "−6.4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "SIGN_RULE",
+        "MUL_FOR_DIV"
+      ],
+      "explanation": "Inside first: −1.7 + 0.1 = −1.6. Then −1.6 ÷ 4 = −0.4."
+    },
+    {
+      "id": "rational-ops/t5/029",
+      "tier": 5,
+      "prompt": "(−0.1 + 1.3) ÷ (−3)",
+      "choices": [
+        "−3.6",
+        "−0.5",
+        "−0.4",
+        "0.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_FOR_DIV",
+        "ARITH",
+        null,
+        "SIGN_RULE"
+      ],
+      "explanation": "Inside first: −0.1 + 1.3 = 1.2. Then 1.2 ÷ (−3) = −0.4."
+    },
+    {
+      "id": "rational-ops/t5/030",
+      "tier": 5,
+      "prompt": "Temp is −1.3 degrees, then rises 0.6 degrees. Now?",
+      "choices": [
+        "−1.9",
+        "−0.7",
+        "0.7",
+        "−0.8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIRECTION",
+        null,
+        "WRONG_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Rises means add. Signs differ: 1.3 − 0.6 = 0.7, and the bigger one is negative, so −0.7."
+    },
+    {
+      "id": "rational-ops/t5/031",
+      "tier": 5,
+      "prompt": "Diver at −3.4 m dives 2.2 m deeper. New elevation?",
+      "choices": [
+        "−5.7",
+        "−1.2",
+        "−5.6",
+        "5.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DIRECTION",
+        null,
+        "NEG_NEG_ADD"
+      ],
+      "explanation": "Deeper means subtract. Subtracting 2.2 is adding −2.2. Same signs: 3.4 + 2.2 = 5.6, both negative, so −5.6."
+    },
+    {
+      "id": "rational-ops/t5/032",
+      "tier": 5,
+      "prompt": "−1/4 × (8 + (−10))",
+      "choices": [
+        "−12",
+        "−1/2",
+        "4 1/2",
+        "1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER",
+        "SIGN_RULE",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Inside first: 8 + (−10) = −2. Then −1/4 × (−2) = 1/2."
+    },
+    {
+      "id": "rational-ops/t5/033",
+      "tier": 5,
+      "prompt": "−0.6 × (8 − 3)",
+      "choices": [
+        "−3",
+        "−6.6",
+        "−7.8",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "ORDER",
+        "SIGN_RULE"
+      ],
+      "explanation": "Inside first: 8 − 3 = 5. Then −0.6 × 5 = −3."
+    },
+    {
+      "id": "rational-ops/t5/034",
+      "tier": 5,
+      "prompt": "(−0.8 − 1.6) ÷ 6",
+      "choices": [
+        "−0.5",
+        "0.4",
+        "−0.4",
+        "−14.4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_RULE",
+        null,
+        "MUL_FOR_DIV"
+      ],
+      "explanation": "Inside first: −0.8 − 1.6 = −2.4. Then −2.4 ÷ 6 = −0.4."
+    },
+    {
+      "id": "rational-ops/t5/035",
+      "tier": 5,
+      "prompt": "−2.2 − (−0.8) × 3",
+      "choices": [
+        "−4.6",
+        "0.2",
+        "−4.2",
+        "−0.2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_RULE",
+        null,
+        "ORDER",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Multiply first: −0.8 × 3 = −2.4. Then −2.2 − (−2.4) = 0.2."
+    },
+    {
+      "id": "rational-ops/t5/036",
+      "tier": 5,
+      "prompt": "−1/2 − 2/3 × 6",
+      "choices": [
+        "−7",
+        "3 1/2",
+        "−4 1/2",
+        "4 1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER",
+        "SIGN_RULE",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Multiply first: 2/3 × 6 = 4. Then −1/2 − 4 = −4 1/2."
+    },
+    {
+      "id": "rational-ops/t5/037",
+      "tier": 5,
+      "prompt": "Diver at −1.9 m swims up 3.6 m. New elevation?",
+      "choices": [
+        "5.5",
+        "−1.7",
+        "−5.5",
+        "1.7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        "DIRECTION",
+        null
+      ],
+      "explanation": "Up means add. Signs differ: 3.6 − 1.9 = 1.7, and the bigger one is positive, so 1.7."
+    },
+    {
+      "id": "rational-ops/t5/038",
+      "tier": 5,
+      "prompt": "0.3 − 0.7 × (−10)",
+      "choices": [
+        "−7.3",
+        "7.3",
+        "4",
+        "−6.7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "ORDER",
+        "SIGN_RULE"
+      ],
+      "explanation": "Multiply first: 0.7 × (−10) = −7. Then 0.3 − (−7) = 7.3."
+    },
+    {
+      "id": "rational-ops/t5/039",
+      "tier": 5,
+      "prompt": "−0.9 × (−3 + (−2))",
+      "choices": [
+        "0.7",
+        "4.5",
+        "−4.5",
+        "4.6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER",
+        null,
+        "SIGN_RULE",
+        "ARITH"
+      ],
+      "explanation": "Inside first: −3 + (−2) = −5. Then −0.9 × (−5) = 4.5."
+    },
+    {
+      "id": "rational-ops/t5/040",
+      "tier": 5,
+      "prompt": "−3/4 × (2 − (−6))",
+      "choices": [
+        "4 1/2",
+        "6",
+        "−6",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER",
+        "SIGN_RULE",
+        null,
+        "SUB_NEG"
+      ],
+      "explanation": "Inside first: 2 − (−6) = 8. Then −3/4 × 8 = −6."
+    }
+  ]
+}

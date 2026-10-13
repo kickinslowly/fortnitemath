@@ -1,0 +1,152 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "rational-ops",
+  "version": "1.0.0",
+  "title": "Rational Number Operations",
+  "subtitle": "Fractions & Decimals with Signs",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.NS.A.1.C",
+    "CCSS.MATH.CONTENT.7.NS.A.1.D",
+    "CCSS.MATH.CONTENT.7.NS.A.2.B",
+    "CCSS.MATH.CONTENT.7.NS.A.2.C",
+    "CCSS.MATH.CONTENT.7.NS.A.2.D",
+    "CCSS.MATH.CONTENT.7.NS.A.3"
+  ],
+  "seed": 20261023,
+  "items_per_tier": 40,
+  "bounds": "Rational numbers (PROTOCOL 4b). DECIMALS: every operand, step and answer has at most 2 decimal places, at most 2 non-zero digits, size <= 12; + and -: at most one carry or borrow; x: both digit factors 2-10; division: exact on the digits, divisor 2-10, quotient 2-10, dividend digits at most 100 (7.2 / 0.9 is 72 / 9). FRACTIONS: operands in lowest terms with denominator 2-12 (proper unless a whole number 2-10); + and -: denominators equal or one a multiple of the other; x and division: every numerator and denominator used is at most 10 (times-table facts); answers in simplest form, denominator <= 12, a mixed number's whole part <= 10. T1: tenths 0.1-1.9, answer size <= 2. T2: proper fractions, answer size < 2. T3: proper fractions (numerator <= 9, denominator <= 10) or wholes 2-10, answers with numerator and denominator <= 12; decimal factors and divisors are single-digit tenths (0.2-0.9) or wholes 2-10, a dividend is a tenths number up to 9.0. T4: denominators 2, 4, 5, 10, 20, 25 (terminating) and 3, 9 (repeating, written 0.666...), numerators <= 12; the fraction-form items use proper fractions with denominators 3-12. T5: stories and two-step expressions whose every step meets the rules above, inner whole-number steps size <= 12 with factors 2-10. No two choices equal in value.",
+  "tiers": [
+    { "tier": 1, "name": "Signed Decimals", "description": "Add and subtract decimals with negatives." },
+    { "tier": 2, "name": "Signed Fractions", "description": "Add and subtract fractions with negatives. Same bottom first." },
+    { "tier": 3, "name": "Multiply & Divide", "description": "Multiply and divide fractions and decimals. Watch the signs." },
+    { "tier": 4, "name": "Fractions as Decimals", "description": "Turn fractions into decimals. Some repeat forever." },
+    { "tier": 5, "name": "Stories & Two Steps", "description": "Temperature, money and elevation stories, plus two-step problems." }
+  ],
+  "misconceptions": {
+    "WRONG_SIGN": {
+      "student": "Right size, wrong sign. Which number is farther from 0?",
+      "teacher": "Correct magnitude, wrong sign on a sum or difference."
+    },
+    "ADD_SIZES": {
+      "student": "Different signs: subtract the sizes, keep the sign of the bigger one.",
+      "teacher": "Adds absolute values when signs differ: -0.5 + 0.8 = 1.3."
+    },
+    "KEEP_FIRST_SIGN": {
+      "student": "Different signs: subtract the sizes. The bigger size decides the sign.",
+      "teacher": "Adds the sizes and keeps the first number's sign: 0.2 + (-0.9) = 1.1."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative is adding: 4 − (−6) = 4 + 6.",
+      "teacher": "Treats subtracting a negative as subtracting a positive: -0.2 - (-0.7) = -0.9."
+    },
+    "NEG_NEG_ADD": {
+      "student": "Two negatives make a positive only when you multiply or divide.",
+      "teacher": "Applies the multiplication sign rule to addition: -0.3 + (-0.4) = 0.7."
+    },
+    "SAME_SIGN_SUB": {
+      "student": "Same signs: add the sizes and keep the sign. Don't subtract.",
+      "teacher": "Subtracts the sizes when the signs agree: -0.3 + (-0.4) = -0.1."
+    },
+    "ADD_ACROSS": {
+      "student": "Never add the bottoms. Make them the same, then add only the tops.",
+      "teacher": "Adds numerators and adds denominators: -1/2 + 3/4 = 2/6."
+    },
+    "NO_SCALE": {
+      "student": "Rename BOTH with the same bottom first: 1/2 is 2/4, not 1/4.",
+      "teacher": "Writes the common denominator but does not scale the numerators: -1/2 + 3/4 = 2/4."
+    },
+    "SIGN_RULE": {
+      "student": "One negative makes it negative. Two negatives make it positive.",
+      "teacher": "Wrong sign on a product or quotient; magnitude correct."
+    },
+    "NO_FLIP": {
+      "student": "You multiplied as is. To divide, multiply by the flipped divisor.",
+      "teacher": "Multiplies straight across without inverting the divisor: -1/2 / (-1/4) = 1/8."
+    },
+    "FLIP_FIRST": {
+      "student": "Flip the second fraction, not the first: keep, change, flip.",
+      "teacher": "Inverts the dividend instead of the divisor, giving the reciprocal of the quotient."
+    },
+    "FLIP_MULT": {
+      "student": "No flipping when you multiply. Multiply tops, multiply bottoms.",
+      "teacher": "Divides (inverts the second factor) on a product: 2/3 x 3/4 -> 2/3 / 3/4."
+    },
+    "ADD_FOR_MUL": {
+      "student": "× means groups of, not +. Multiply the two numbers.",
+      "teacher": "Adds the factors instead of multiplying: -0.4 x 6 -> 5.6."
+    },
+    "ADD_BOTTOMS": {
+      "student": "Multiply the bottoms too. Don't add them.",
+      "teacher": "Multiplies the numerators but adds the denominators: 2/3 x 3/4 -> 6/7."
+    },
+    "WHOLE_ON_BOTTOM": {
+      "student": "A whole number multiplies the top, not the bottom.",
+      "teacher": "Multiplies the whole number into the denominator: 3/4 x 8 -> 3/32."
+    },
+    "POINT_PLACE": {
+      "student": "Do the digits, then put the decimal point back by counting places.",
+      "teacher": "Misplaces the decimal point (one place off) in a product, quotient or conversion."
+    },
+    "MUL_FOR_DIV": {
+      "student": "Divide, don't multiply: ask what times the divisor makes the number.",
+      "teacher": "Multiplies instead of dividing: -0.6 / 0.2 -> -0.12."
+    },
+    "WRONG_ORDER": {
+      "student": "Backwards: divide the first number by the second, in that order.",
+      "teacher": "Divides the divisor by the dividend: -0.8 / 4 -> 4 / -0.8."
+    },
+    "DROPPED_SIGN": {
+      "student": "Keep the negative: a negative fraction has a negative decimal.",
+      "teacher": "Drops the negative sign when converting: -3/4 -> 0.75."
+    },
+    "FLIPPED": {
+      "student": "Upside down: a/b means a ÷ b, the top divided by the bottom.",
+      "teacher": "Divides the denominator by the numerator: 3/4 -> 4 / 3."
+    },
+    "DIGITS_AS_DECIMAL": {
+      "student": "3/4 is not 0.34. Divide the top by the bottom: 3 ÷ 4.",
+      "teacher": "Writes numerator and denominator digits after the point: 3/4 -> 0.34."
+    },
+    "DENOM_ONLY": {
+      "student": "The top number counts too. Divide the top by the bottom.",
+      "teacher": "Uses only the denominator's digit as the decimal: 3/4 -> 0.4."
+    },
+    "UNIT_ONLY": {
+      "student": "3/4 is three quarters, not one. Use the top number too.",
+      "teacher": "Ignores the numerator and converts 1/d: 3/4 -> 0.25."
+    },
+    "TRUNCATED": {
+      "student": "It repeats forever. Keep the dots: 2/3 is 0.666...",
+      "teacher": "Stops a repeating decimal after one digit: 2/3 -> 0.6."
+    },
+    "DOUBLE_NEG": {
+      "student": "A negative on top AND bottom makes it positive.",
+      "teacher": "Chooses a form with two negative signs, which is positive."
+    },
+    "NEG_STAYS": {
+      "student": "One negative sign makes it negative. You need two to get positive.",
+      "teacher": "Thinks a single negative sign on the top or bottom still gives a positive value."
+    },
+    "ORDER": {
+      "student": "Do the parentheses first, then × and ÷, then + and −.",
+      "teacher": "Ignores the order of operations (multiplies before the parentheses, or adds before multiplying)."
+    },
+    "DIRECTION": {
+      "student": "Read the story: down or spend means subtract, up or deposit means add.",
+      "teacher": "Applies the opposite operation to the story's direction word."
+    },
+    "SUBTRACT_SIZES": {
+      "student": "Across zero, add the sizes: from −2 up to 0 is 2, then on to 1.",
+      "teacher": "Subtracts the sizes to find a distance across zero."
+    },
+    "NEG_DISTANCE": {
+      "student": "Distance is never negative. Count the steps between them.",
+      "teacher": "Reports the distance with a negative sign."
+    },
+    "ONE_SIDE": {
+      "student": "Count both parts: up to 0 from the negative, then on to the positive.",
+      "teacher": "Counts only the longer side of zero when finding a distance."
+    }
+  }
+}

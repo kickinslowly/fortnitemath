@@ -1,0 +1,3970 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "proportional-relationships",
+  "version": "1.0.0",
+  "title": "Proportional Relationships",
+  "subtitle": "Unit Rates, Constant k, Scale Drawings",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.RP.A.1",
+    "CCSS.MATH.CONTENT.7.RP.A.2.A",
+    "CCSS.MATH.CONTENT.7.RP.A.2.B",
+    "CCSS.MATH.CONTENT.7.RP.A.2.C",
+    "CCSS.MATH.CONTENT.7.G.A.1"
+  ],
+  "seed": 20261021,
+  "items_per_tier": 40,
+  "bounds": "T1: fractions a/b in simplest form, a < b, b in 2,3,4,5,6,8,10; the two denominators equal or one a multiple of the other; every cross product a×d and b×c a times-table fact (all four numbers ≤ 10); the unit rate is a whole number 2-10, a proper fraction (denominator ≤ 5) or a mixed number (whole part ≤ 4, fraction denominator ≤ 4); price items: one fractional lb, whole total 2-9, whole rate 2-10. T2-T4: x 1-10, k and every unit rate 2-10, table x values ≤ 9, every y ≤ 100, every × and ÷ a times-table fact. T5: scale k 2-10, drawn lengths 2-10, real lengths ≤ 100, rooms with real sides ≤ 10 (areas ≤ 100), area factor k×k ≤ 100. Distractors may be fractions or products over 100 (what the misreading gives).",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Fraction Unit Rates",
+      "description": "Find the rate per 1 when the amounts are fractions."
+    },
+    {
+      "tier": 2,
+      "name": "Proportional or Not?",
+      "description": "Spot the equation, point or table where y is always k times x."
+    },
+    {
+      "tier": 3,
+      "name": "Finding the Constant k",
+      "description": "Find k = y ÷ x from an equation, a point, a table or a story."
+    },
+    {
+      "tier": 4,
+      "name": "Write the Equation",
+      "description": "Write y = kx from a story: totals, rates and unit conversions."
+    },
+    {
+      "tier": 5,
+      "name": "Scale Drawings",
+      "description": "Scale lengths and areas up and down; areas scale by k × k."
+    }
+  ],
+  "misconceptions": {
+    "INVERTED": {
+      "student": "Divided the wrong way. Per 1 means: divide by the 'per' amount.",
+      "teacher": "Inverts the rate: time ÷ amount, x ÷ y or drawn ÷ real instead of amount ÷ time."
+    },
+    "MULTIPLIED": {
+      "student": "Per 1 means divide. Dividing by a fraction makes the answer bigger.",
+      "teacher": "Multiplies the two fractions (or the price and the fraction) instead of dividing."
+    },
+    "FLIPPED_BOTH": {
+      "student": "Flip only the second fraction, then multiply. Not both.",
+      "teacher": "Inverts both fractions when dividing: (a/b) ÷ (c/d) done as (b/a) × (d/c)."
+    },
+    "DROP_DENOMS": {
+      "student": "The bottoms count: 1/4 hour is a quarter of an hour, not 1 hour.",
+      "teacher": "Divides the numerators and ignores the denominators."
+    },
+    "DIFFERENCE": {
+      "student": "A rate, or 'how many times', is a quotient. Divide; don't subtract.",
+      "teacher": "Subtracts the two quantities instead of dividing them."
+    },
+    "PRODUCT": {
+      "student": "k is y ÷ x. Multiplying x and y gives something else.",
+      "teacher": "Multiplies x and y instead of dividing."
+    },
+    "ADDITIVE": {
+      "student": "Scaling multiplies or divides. Adding or subtracting is not scaling.",
+      "teacher": "Adds (or subtracts) the same amount instead of multiplying (or dividing) both quantities."
+    },
+    "INVERSE": {
+      "student": "Same direction: if x goes down by a factor, y goes down by that factor too.",
+      "teacher": "Treats the relationship as inverse variation: keeps x times y fixed instead of y ÷ x."
+    },
+    "ADDS_CONSTANT": {
+      "student": "y = x + 4 adds the same amount. Proportional means multiply: y = kx.",
+      "teacher": "Thinks an adding equation (y = x + k) is proportional."
+    },
+    "HAS_START": {
+      "student": "y = 4x + 1 does not start at 0. Proportional means (0, 0) is on it.",
+      "teacher": "Allows a nonzero starting amount in a proportional equation."
+    },
+    "SWAPPED_XY": {
+      "student": "Swapped. y is the one that equals k times x, so y = kx.",
+      "teacher": "Writes x = ky (or x = y + c) with the variables reversed; k turns into 1/k."
+    },
+    "Y_AS_K": {
+      "student": "That is a y value, not k. Divide: k = y ÷ x.",
+      "teacher": "Uses the first y value as the constant instead of y ÷ x."
+    },
+    "Y_STEP": {
+      "student": "y goes up by that much, but x goes up too. k = y ÷ x.",
+      "teacher": "Uses the step in y between table rows as k."
+    },
+    "PROP_ASSUMED": {
+      "student": "Check every pair. y ÷ x changes, so this is not proportional.",
+      "teacher": "Takes the first pair's ratio as k and never checks the rest of the table."
+    },
+    "PLUS_AS_TIMES": {
+      "student": "The table adds the same amount each time: y = x + c, not y = cx.",
+      "teacher": "Reads the added amount as a multiplier."
+    },
+    "KEEPS_VAR": {
+      "student": "k is only the number. Leave the letter off.",
+      "teacher": "Gives the whole term (6x) as the constant of proportionality."
+    },
+    "TOTAL_AS_RATE": {
+      "student": "That total is for all of them. The rate for 1 is total ÷ count.",
+      "teacher": "Uses the total as the multiplier instead of the unit rate."
+    },
+    "COUNT_AS_RATE": {
+      "student": "That is how many there are. The rate for 1 is total ÷ count.",
+      "teacher": "Uses the count as the unit rate."
+    },
+    "SWAPPED_VARS": {
+      "student": "Backwards. The thing you are finding goes alone on the left.",
+      "teacher": "Reverses the roles of the variables: writes x = ky for y = kx."
+    },
+    "DIVIDES": {
+      "student": "More time means more, so multiply the rate. Dividing makes it shrink.",
+      "teacher": "Writes the rate over the variable (k/x) instead of k times x."
+    },
+    "SCALED_DOWN": {
+      "student": "The real thing is bigger than the drawing: multiply by the scale.",
+      "teacher": "Divides the drawn length by the scale when converting to real size."
+    },
+    "WRONG_WAY": {
+      "student": "Real to drawing: divide by the scale. The drawing is smaller.",
+      "teacher": "Multiplies when converting a real length to the drawing."
+    },
+    "FACTOR_ONLY": {
+      "student": "That is just the scale. Use it to multiply (or divide) the length.",
+      "teacher": "Gives the scale factor itself as the answer."
+    },
+    "LINEAR_AREA": {
+      "student": "Area has two sides to scale, so the scale counts twice: k × k.",
+      "teacher": "Scales an area by k instead of k × k."
+    },
+    "DRAWING_AREA": {
+      "student": "That is the area on the drawing. Scale each side up to get the real area.",
+      "teacher": "Gives the drawing's area instead of the real area."
+    },
+    "ACTUAL_AREA": {
+      "student": "That is the real area. The drawing is smaller: scale each side down.",
+      "teacher": "Gives the real area when the drawing's area is asked."
+    },
+    "ACTUAL_AS_SCALE": {
+      "student": "That is the whole real length. The scale is the real length of 1 unit.",
+      "teacher": "Gives the real length as the scale instead of dividing by the drawn length."
+    },
+    "ONE_SIDE": {
+      "student": "Scale both sides, not just one.",
+      "teacher": "Scales only one side of the rectangle."
+    },
+    "CUBED": {
+      "student": "Area uses 2 lengths, not 3. Multiply the scale by itself once: k × k.",
+      "teacher": "Cubes the scale factor (volume thinking) for an area."
+    },
+    "ADDED_SIDES": {
+      "student": "Each side is scaled and then multiplied: k × k, not k + k.",
+      "teacher": "Doubles the scale factor (k + k) instead of squaring it."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "proportional-relationships/t1/001",
+      "tier": 1,
+      "prompt": "Pipe A is 3/8 ft, pipe B is 1/4 ft. A is how many times B?",
+      "choices": [
+        "3/32",
+        "1/8",
+        "2/3",
+        "1 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "DIFFERENCE",
+        "INVERTED",
+        null
+      ],
+      "explanation": "3/8 ÷ 1/4 = 3/8 × 4 = 12/8 = 1 1/2 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/002",
+      "tier": 1,
+      "prompt": "1/2 yd of yarn makes 3/8 scarf. Yards for 1 scarf?",
+      "choices": [
+        "1/3",
+        "3/4",
+        "5 1/3",
+        "1 1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_DENOMS",
+        "INVERTED",
+        "FLIPPED_BOTH",
+        null
+      ],
+      "explanation": "1/2 ÷ 3/8 = 1/2 × 8/3 = 8/6 = 1 1/3 yards per scarf."
+    },
+    {
+      "id": "proportional-relationships/t1/003",
+      "tier": 1,
+      "prompt": "3/5 gal of paint covers 3/10 wall. Gallons for 1 wall?",
+      "choices": [
+        "2",
+        "1",
+        "1/2",
+        "9/50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_DENOMS",
+        "INVERTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "3/5 ÷ 3/10 = 3/5 × 10/3 = 30/15 = 2 gallons per wall."
+    },
+    {
+      "id": "proportional-relationships/t1/004",
+      "tier": 1,
+      "prompt": "A cyclist rides 5/6 mile in 1/6 hour. Miles per hour?",
+      "choices": [
+        "7 1/5",
+        "1/5",
+        "5/36",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_BOTH",
+        "INVERTED",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "5/6 ÷ 1/6 = 5/6 × 6 = 30/6 = 5 miles per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/005",
+      "tier": 1,
+      "prompt": "2/3 lb of grapes costs $2. Cost per lb?",
+      "choices": [
+        "$1",
+        "$1 1/3",
+        "$3",
+        "$1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_DENOMS",
+        "MULTIPLIED",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "$2 ÷ 2/3 = $2 × 3/2 = $3 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/006",
+      "tier": 1,
+      "prompt": "1/2 lb of fudge costs $3. Cost per lb?",
+      "choices": [
+        "$1/6",
+        "$1 1/2",
+        "$6",
+        "$3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED",
+        null,
+        "DROP_DENOMS"
+      ],
+      "explanation": "$3 ÷ 1/2 = $3 × 2 = $6 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/007",
+      "tier": 1,
+      "prompt": "Tube A is 1/6 yd, tube B is 5/6 yd. A is how many times B?",
+      "choices": [
+        "5",
+        "1/5",
+        "5/36",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "MULTIPLIED",
+        "DIFFERENCE"
+      ],
+      "explanation": "1/6 ÷ 5/6 = 1/6 × 6/5 = 6/30 = 1/5 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/008",
+      "tier": 1,
+      "prompt": "A tap fills 7/8 gal in 1/8 minute. Gallons per minute?",
+      "choices": [
+        "7/64",
+        "9",
+        "1/7",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ARITH",
+        "INVERTED",
+        null
+      ],
+      "explanation": "7/8 ÷ 1/8 = 7/8 × 8 = 56/8 = 7 gallons per minute."
+    },
+    {
+      "id": "proportional-relationships/t1/009",
+      "tier": 1,
+      "prompt": "7/10 cup of sugar makes 1/10 batch. Cups for 1 batch?",
+      "choices": [
+        "7/100",
+        "7",
+        "1/7",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "INVERTED",
+        "ARITH"
+      ],
+      "explanation": "7/10 ÷ 1/10 = 7/10 × 10 = 70/10 = 7 cups per batch."
+    },
+    {
+      "id": "proportional-relationships/t1/010",
+      "tier": 1,
+      "prompt": "A hiker walks 5/8 mile in 3/8 hour. Miles per hour?",
+      "choices": [
+        "3/5",
+        "1 2/3",
+        "3 2/3",
+        "15/64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "ARITH",
+        "MULTIPLIED"
+      ],
+      "explanation": "5/8 ÷ 3/8 = 5/8 × 8/3 = 40/24 = 1 2/3 miles per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/011",
+      "tier": 1,
+      "prompt": "A hose adds 4/5 gal in 2/5 minute. Gallons per minute?",
+      "choices": [
+        "2",
+        "1/2",
+        "8/25",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "MULTIPLIED",
+        "ARITH"
+      ],
+      "explanation": "4/5 ÷ 2/5 = 4/5 × 5/2 = 20/10 = 2 gallons per minute."
+    },
+    {
+      "id": "proportional-relationships/t1/012",
+      "tier": 1,
+      "prompt": "Wire A is 2/5 yd, wire B is 1/5 yd. A is how many times B?",
+      "choices": [
+        "2/25",
+        "1/2",
+        "2",
+        "1/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "INVERTED",
+        null,
+        "DIFFERENCE"
+      ],
+      "explanation": "2/5 ÷ 1/5 = 2/5 × 5 = 10/5 = 2 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/013",
+      "tier": 1,
+      "prompt": "A hiker walks 3/10 mile in 1/10 hour. Miles per hour?",
+      "choices": [
+        "3/100",
+        "1",
+        "3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "ARITH",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "3/10 ÷ 1/10 = 3/10 × 10 = 30/10 = 3 miles per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/014",
+      "tier": 1,
+      "prompt": "A painter covers 3/10 wall in 1/2 hour. Walls per hour?",
+      "choices": [
+        "1 2/3",
+        "3/5",
+        "3/20",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "MULTIPLIED",
+        "DROP_DENOMS"
+      ],
+      "explanation": "3/10 ÷ 1/2 = 3/10 × 2 = 6/10 = 3/5 walls per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/015",
+      "tier": 1,
+      "prompt": "7/8 lb of grapes costs $7. Cost per lb?",
+      "choices": [
+        "$8",
+        "$1/8",
+        "$6 1/8",
+        "$1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "MULTIPLIED",
+        "DROP_DENOMS"
+      ],
+      "explanation": "$7 ÷ 7/8 = $7 × 8/7 = $8 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/016",
+      "tier": 1,
+      "prompt": "Tube A is 3/4 yd, tube B is 1/2 yd. A is how many times B?",
+      "choices": [
+        "1/4",
+        "3",
+        "3/8",
+        "1 1/2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE",
+        "DROP_DENOMS",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "3/4 ÷ 1/2 = 3/4 × 2 = 6/4 = 1 1/2 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/017",
+      "tier": 1,
+      "prompt": "Rope A is 5/6 ft, rope B is 1/3 ft. A is how many times B?",
+      "choices": [
+        "2/5",
+        "5",
+        "2 1/2",
+        "1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DROP_DENOMS",
+        null,
+        "DIFFERENCE"
+      ],
+      "explanation": "5/6 ÷ 1/3 = 5/6 × 3 = 15/6 = 2 1/2 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/018",
+      "tier": 1,
+      "prompt": "7/8 yd of yarn makes 1/8 scarf. Yards for 1 scarf?",
+      "choices": [
+        "7/64",
+        "7",
+        "1/7",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "INVERTED",
+        "ARITH"
+      ],
+      "explanation": "7/8 ÷ 1/8 = 7/8 × 8 = 56/8 = 7 yards per scarf."
+    },
+    {
+      "id": "proportional-relationships/t1/019",
+      "tier": 1,
+      "prompt": "3/10 cup of flour makes 1/10 batch. Cups for 1 batch?",
+      "choices": [
+        "3",
+        "1",
+        "1/3",
+        "3/100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INVERTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "3/10 ÷ 1/10 = 3/10 × 10 = 30/10 = 3 cups per batch."
+    },
+    {
+      "id": "proportional-relationships/t1/020",
+      "tier": 1,
+      "prompt": "1/2 lb of cheese costs $5. Cost per lb?",
+      "choices": [
+        "$1/10",
+        "$2 1/2",
+        "$5",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "MULTIPLIED",
+        "DROP_DENOMS",
+        null
+      ],
+      "explanation": "$5 ÷ 1/2 = $5 × 2 = $10 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/021",
+      "tier": 1,
+      "prompt": "2/3 gal of paint covers 1/6 wall. Gallons for 1 wall?",
+      "choices": [
+        "9",
+        "1/9",
+        "1/4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_BOTH",
+        "MULTIPLIED",
+        "INVERTED",
+        null
+      ],
+      "explanation": "2/3 ÷ 1/6 = 2/3 × 6 = 12/3 = 4 gallons per wall."
+    },
+    {
+      "id": "proportional-relationships/t1/022",
+      "tier": 1,
+      "prompt": "1/2 ft of wood builds 1/8 shelf. Feet for 1 shelf?",
+      "choices": [
+        "16",
+        "4",
+        "1/4",
+        "1/16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_BOTH",
+        null,
+        "INVERTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "1/2 ÷ 1/8 = 1/2 × 8 = 8/2 = 4 feet per shelf."
+    },
+    {
+      "id": "proportional-relationships/t1/023",
+      "tier": 1,
+      "prompt": "1/3 lb of nuts costs $3. Cost per lb?",
+      "choices": [
+        "$1",
+        "$3",
+        "$9",
+        "$1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "DROP_DENOMS",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "$3 ÷ 1/3 = $3 × 3 = $9 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/024",
+      "tier": 1,
+      "prompt": "Bar A is 1/2 ft, bar B is 3/10 ft. A is how many times B?",
+      "choices": [
+        "1/3",
+        "1/5",
+        "3/20",
+        "1 2/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_DENOMS",
+        "DIFFERENCE",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "1/2 ÷ 3/10 = 1/2 × 10/3 = 10/6 = 1 2/3 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/025",
+      "tier": 1,
+      "prompt": "7/8 yd of yarn makes 1/2 scarf. Yards for 1 scarf?",
+      "choices": [
+        "7/16",
+        "1 3/4",
+        "4/7",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "INVERTED",
+        "DROP_DENOMS"
+      ],
+      "explanation": "7/8 ÷ 1/2 = 7/8 × 2 = 14/8 = 1 3/4 yards per scarf."
+    },
+    {
+      "id": "proportional-relationships/t1/026",
+      "tier": 1,
+      "prompt": "1/2 lb of grapes costs $3. Cost per lb?",
+      "choices": [
+        "$1 1/2",
+        "$6",
+        "$1/6",
+        "$3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "INVERTED",
+        "DROP_DENOMS"
+      ],
+      "explanation": "$3 ÷ 1/2 = $3 × 2 = $6 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/027",
+      "tier": 1,
+      "prompt": "A hiker walks 5/6 mile in 1/6 hour. Miles per hour?",
+      "choices": [
+        "5",
+        "1/5",
+        "7 1/5",
+        "5/36"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "FLIPPED_BOTH",
+        "MULTIPLIED"
+      ],
+      "explanation": "5/6 ÷ 1/6 = 5/6 × 6 = 30/6 = 5 miles per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/028",
+      "tier": 1,
+      "prompt": "7/8 gal of paint covers 3/8 wall. Gallons for 1 wall?",
+      "choices": [
+        "1 1/3",
+        "21/64",
+        "3/7",
+        "2 1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MULTIPLIED",
+        "INVERTED",
+        null
+      ],
+      "explanation": "7/8 ÷ 3/8 = 7/8 × 8/3 = 56/24 = 2 1/3 gallons per wall."
+    },
+    {
+      "id": "proportional-relationships/t1/029",
+      "tier": 1,
+      "prompt": "3/5 lb of nuts costs $3. Cost per lb?",
+      "choices": [
+        "$5",
+        "$1/5",
+        "$1 4/5",
+        "$1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "MULTIPLIED",
+        "DROP_DENOMS"
+      ],
+      "explanation": "$3 ÷ 3/5 = $3 × 5/3 = $5 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/030",
+      "tier": 1,
+      "prompt": "Wire A is 2/5 yd, wire B is 1/10 yd. A is how many times B?",
+      "choices": [
+        "1/4",
+        "2",
+        "3/10",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "DROP_DENOMS",
+        "DIFFERENCE",
+        null
+      ],
+      "explanation": "2/5 ÷ 1/10 = 2/5 × 10 = 20/5 = 4 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/031",
+      "tier": 1,
+      "prompt": "A snail crawls 1/2 ft in 1/4 minute. Feet per minute?",
+      "choices": [
+        "2",
+        "8",
+        "1",
+        "1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_BOTH",
+        "DROP_DENOMS",
+        "MULTIPLIED"
+      ],
+      "explanation": "1/2 ÷ 1/4 = 1/2 × 4 = 4/2 = 2 feet per minute."
+    },
+    {
+      "id": "proportional-relationships/t1/032",
+      "tier": 1,
+      "prompt": "A painter covers 1/2 wall in 1/4 hour. Walls per hour?",
+      "choices": [
+        "1",
+        "1/2",
+        "2",
+        "1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_DENOMS",
+        "INVERTED",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "1/2 ÷ 1/4 = 1/2 × 4 = 4/2 = 2 walls per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/033",
+      "tier": 1,
+      "prompt": "A painter covers 7/8 wall in 1/8 hour. Walls per hour?",
+      "choices": [
+        "1/7",
+        "9",
+        "7",
+        "7/64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "ARITH",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "7/8 ÷ 1/8 = 7/8 × 8 = 56/8 = 7 walls per hour."
+    },
+    {
+      "id": "proportional-relationships/t1/034",
+      "tier": 1,
+      "prompt": "Rope A is 9/10 ft, rope B is 3/5 ft. A is how many times B?",
+      "choices": [
+        "1 1/2",
+        "3/10",
+        "2/3",
+        "27/50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE",
+        "INVERTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "9/10 ÷ 3/5 = 9/10 × 5/3 = 45/30 = 1 1/2 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/035",
+      "tier": 1,
+      "prompt": "3/5 yd of yarn makes 9/10 scarf. Yards for 1 scarf?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1 1/2",
+        "27/50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_DENOMS",
+        null,
+        "INVERTED",
+        "MULTIPLIED"
+      ],
+      "explanation": "3/5 ÷ 9/10 = 3/5 × 10/9 = 30/45 = 2/3 yards per scarf."
+    },
+    {
+      "id": "proportional-relationships/t1/036",
+      "tier": 1,
+      "prompt": "7/8 lb of beans costs $7. Cost per lb?",
+      "choices": [
+        "$1/8",
+        "$1",
+        "$8",
+        "$6 1/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DROP_DENOMS",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "$7 ÷ 7/8 = $7 × 8/7 = $8 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/037",
+      "tier": 1,
+      "prompt": "Tube A is 1/2 ft, tube B is 3/8 ft. A is how many times B?",
+      "choices": [
+        "1 1/3",
+        "3/16",
+        "3/4",
+        "1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "INVERTED",
+        "DIFFERENCE"
+      ],
+      "explanation": "1/2 ÷ 3/8 = 1/2 × 8/3 = 8/6 = 1 1/3 times as long."
+    },
+    {
+      "id": "proportional-relationships/t1/038",
+      "tier": 1,
+      "prompt": "A plant grows 3/4 inch in 1/8 day. Inches per day?",
+      "choices": [
+        "1/6",
+        "6",
+        "10 2/3",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "FLIPPED_BOTH",
+        "DROP_DENOMS"
+      ],
+      "explanation": "3/4 ÷ 1/8 = 3/4 × 8 = 24/4 = 6 inches per day."
+    },
+    {
+      "id": "proportional-relationships/t1/039",
+      "tier": 1,
+      "prompt": "3/10 lb of ham costs $3. Cost per lb?",
+      "choices": [
+        "$10",
+        "$1/10",
+        "$1",
+        "$9/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "DROP_DENOMS",
+        "MULTIPLIED"
+      ],
+      "explanation": "$3 ÷ 3/10 = $3 × 10/3 = $10 per lb."
+    },
+    {
+      "id": "proportional-relationships/t1/040",
+      "tier": 1,
+      "prompt": "A hose adds 1/4 gal in 3/4 minute. Gallons per minute?",
+      "choices": [
+        "5 1/3",
+        "3/16",
+        "1/3",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_BOTH",
+        "MULTIPLIED",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "1/4 ÷ 3/4 = 1/4 × 4/3 = 4/12 = 1/3 gallons per minute."
+    },
+    {
+      "id": "proportional-relationships/t2/001",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 12, 16, 20. Which equation fits?",
+      "choices": [
+        "y = 12x",
+        "y = x + 9",
+        "x = 4y",
+        "y = 4x"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "Y_AS_K",
+        "ADDS_CONSTANT",
+        "SWAPPED_XY",
+        null
+      ],
+      "explanation": "y ÷ x is 4 every time (12 ÷ 3 = 4), so y = 4x."
+    },
+    {
+      "id": "proportional-relationships/t2/002",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 8, 12, 16. Which equation fits?",
+      "choices": [
+        "y = 4x",
+        "x = 4y",
+        "y = x + 6",
+        "y = 8x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "ADDS_CONSTANT",
+        "Y_AS_K"
+      ],
+      "explanation": "y ÷ x is 4 every time (8 ÷ 2 = 4), so y = 4x."
+    },
+    {
+      "id": "proportional-relationships/t2/003",
+      "tier": 2,
+      "prompt": "Which equation has w proportional to d with k = 2?",
+      "choices": [
+        "w = 2d + 2",
+        "w = 2d",
+        "d = 2w",
+        "w = d + 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HAS_START",
+        null,
+        "SWAPPED_XY",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "Proportional means w = kd with nothing added. With k = 2: w = 2d."
+    },
+    {
+      "id": "proportional-relationships/t2/004",
+      "tier": 2,
+      "prompt": "x: 1, 3, 5. y: 6, 8, 10. Which equation fits?",
+      "choices": [
+        "y = 5x",
+        "y = 6x",
+        "y = x + 5",
+        "x = y + 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLUS_AS_TIMES",
+        "PROP_ASSUMED",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "6 ÷ 1 and 8 ÷ 3 differ, so not proportional. Each y is x + 5: y = x + 5."
+    },
+    {
+      "id": "proportional-relationships/t2/005",
+      "tier": 2,
+      "prompt": "x: 1, 2, 4. y: 7, 8, 10. Which equation fits?",
+      "choices": [
+        "y = x + 6",
+        "y = 6x",
+        "x = y + 6",
+        "y = 7x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLUS_AS_TIMES",
+        "SWAPPED_XY",
+        "PROP_ASSUMED"
+      ],
+      "explanation": "7 ÷ 1 and 8 ÷ 2 differ, so not proportional. Each y is x + 6: y = x + 6."
+    },
+    {
+      "id": "proportional-relationships/t2/006",
+      "tier": 2,
+      "prompt": "x: 1, 3, 5. y: 3, 5, 7. Which equation fits?",
+      "choices": [
+        "y = 3x",
+        "x = y + 2",
+        "y = x + 2",
+        "y = 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PROP_ASSUMED",
+        "SWAPPED_XY",
+        null,
+        "PLUS_AS_TIMES"
+      ],
+      "explanation": "3 ÷ 1 and 5 ÷ 3 differ, so not proportional. Each y is x + 2: y = x + 2."
+    },
+    {
+      "id": "proportional-relationships/t2/007",
+      "tier": 2,
+      "prompt": "Which shows w proportional to d, k = 4?",
+      "choices": [
+        "w = 4d + 4",
+        "w = 4d",
+        "w = d + 4",
+        "d = 4w"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HAS_START",
+        null,
+        "ADDS_CONSTANT",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Proportional means w = kd with nothing added. With k = 4: w = 4d."
+    },
+    {
+      "id": "proportional-relationships/t2/008",
+      "tier": 2,
+      "prompt": "Which shows c proportional to n, k = 7?",
+      "choices": [
+        "c = 7n + 2",
+        "n = 7c",
+        "c = n + 7",
+        "c = 7n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HAS_START",
+        "SWAPPED_XY",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "Proportional means c = kn with nothing added. With k = 7: c = 7n."
+    },
+    {
+      "id": "proportional-relationships/t2/009",
+      "tier": 2,
+      "prompt": "x: 4, 5, 6. y: 36, 45, 54. Which equation fits?",
+      "choices": [
+        "y = x + 32",
+        "y = 9x",
+        "x = 9y",
+        "y = 36x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_XY",
+        "Y_AS_K"
+      ],
+      "explanation": "y ÷ x is 9 every time (36 ÷ 4 = 9), so y = 9x."
+    },
+    {
+      "id": "proportional-relationships/t2/010",
+      "tier": 2,
+      "prompt": "Which equation has c proportional to n with k = 10?",
+      "choices": [
+        "c = 10n + 5",
+        "n = 10c",
+        "c = 10n",
+        "c = n + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HAS_START",
+        "SWAPPED_XY",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "Proportional means c = kn with nothing added. With k = 10: c = 10n."
+    },
+    {
+      "id": "proportional-relationships/t2/011",
+      "tier": 2,
+      "prompt": "Which shows p proportional to h, k = 7?",
+      "choices": [
+        "p = 7h + 4",
+        "p = h + 7",
+        "h = 7p",
+        "p = 7h"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HAS_START",
+        "ADDS_CONSTANT",
+        "SWAPPED_XY",
+        null
+      ],
+      "explanation": "Proportional means p = kh with nothing added. With k = 7: p = 7h."
+    },
+    {
+      "id": "proportional-relationships/t2/012",
+      "tier": 2,
+      "prompt": "Which shows p proportional to h, k = 9?",
+      "choices": [
+        "p = 9h",
+        "p = 9h + 1",
+        "p = h + 9",
+        "h = 9p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HAS_START",
+        "ADDS_CONSTANT",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Proportional means p = kh with nothing added. With k = 9: p = 9h."
+    },
+    {
+      "id": "proportional-relationships/t2/013",
+      "tier": 2,
+      "prompt": "(6, 48) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(56, 7)",
+        "(7, 56)",
+        "(7, 59)",
+        "(7, 49)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "ARITH",
+        "ADDITIVE"
+      ],
+      "explanation": "48 ÷ 6 = 8, so y = 8x. At x = 7: 8 × 7 = 56. Point (7, 56)."
+    },
+    {
+      "id": "proportional-relationships/t2/014",
+      "tier": 2,
+      "prompt": "(2, 8) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(40, 10)",
+        "(10, 16)",
+        "(10, 40)",
+        "(10, 38)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "ADDITIVE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "8 ÷ 2 = 4, so y = 4x. At x = 10: 4 × 10 = 40. Point (10, 40)."
+    },
+    {
+      "id": "proportional-relationships/t2/015",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 12, 18, 24. Which equation fits?",
+      "choices": [
+        "x = 6y",
+        "y = 12x",
+        "y = x + 10",
+        "y = 6x"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "Y_AS_K",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "y ÷ x is 6 every time (12 ÷ 2 = 6), so y = 6x."
+    },
+    {
+      "id": "proportional-relationships/t2/016",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 20, 30, 40. Which equation fits?",
+      "choices": [
+        "x = 10y",
+        "y = x + 18",
+        "y = 20x",
+        "y = 10x"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "ADDS_CONSTANT",
+        "Y_AS_K",
+        null
+      ],
+      "explanation": "y ÷ x is 10 every time (20 ÷ 2 = 10), so y = 10x."
+    },
+    {
+      "id": "proportional-relationships/t2/017",
+      "tier": 2,
+      "prompt": "(4, 20) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(3, 19)",
+        "(15, 3)",
+        "(3, 14)",
+        "(3, 15)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "SWAPPED_XY",
+        "ARITH",
+        null
+      ],
+      "explanation": "20 ÷ 4 = 5, so y = 5x. At x = 3: 5 × 3 = 15. Point (3, 15)."
+    },
+    {
+      "id": "proportional-relationships/t2/018",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 4, 5, 6. Which equation fits?",
+      "choices": [
+        "y = x + 2",
+        "y = 5x",
+        "x = y + 2",
+        "y = 2x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SWAPPED_XY",
+        "PROP_ASSUMED"
+      ],
+      "explanation": "4 ÷ 2 and 5 ÷ 3 differ, so not proportional. Each y is x + 2: y = x + 2."
+    },
+    {
+      "id": "proportional-relationships/t2/019",
+      "tier": 2,
+      "prompt": "x: 1, 2, 5. y: 9, 10, 13. Which equation fits?",
+      "choices": [
+        "y = x + 8",
+        "y = 9x",
+        "x = y + 8",
+        "y = 8x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PROP_ASSUMED",
+        "SWAPPED_XY",
+        "PLUS_AS_TIMES"
+      ],
+      "explanation": "9 ÷ 1 and 10 ÷ 2 differ, so not proportional. Each y is x + 8: y = x + 8."
+    },
+    {
+      "id": "proportional-relationships/t2/020",
+      "tier": 2,
+      "prompt": "(5, 25) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(6, 30)",
+        "(6, 26)",
+        "(30, 6)",
+        "(6, 28)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "SWAPPED_XY",
+        "ARITH"
+      ],
+      "explanation": "25 ÷ 5 = 5, so y = 5x. At x = 6: 5 × 6 = 30. Point (6, 30)."
+    },
+    {
+      "id": "proportional-relationships/t2/021",
+      "tier": 2,
+      "prompt": "(5, 50) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(4, 49)",
+        "(4, 41)",
+        "(40, 4)",
+        "(4, 40)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "ARITH",
+        "SWAPPED_XY",
+        null
+      ],
+      "explanation": "50 ÷ 5 = 10, so y = 10x. At x = 4: 10 × 4 = 40. Point (4, 40)."
+    },
+    {
+      "id": "proportional-relationships/t2/022",
+      "tier": 2,
+      "prompt": "x: 1, 2, 4. y: 5, 6, 8. Which equation fits?",
+      "choices": [
+        "x = y + 4",
+        "y = x + 4",
+        "y = 4x",
+        "y = 5x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "PLUS_AS_TIMES",
+        "PROP_ASSUMED"
+      ],
+      "explanation": "5 ÷ 1 and 6 ÷ 2 differ, so not proportional. Each y is x + 4: y = x + 4."
+    },
+    {
+      "id": "proportional-relationships/t2/023",
+      "tier": 2,
+      "prompt": "x: 1, 2, 5. y: 10, 11, 14. Which equation fits?",
+      "choices": [
+        "x = y + 9",
+        "y = 9x",
+        "y = 10x",
+        "y = x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "PLUS_AS_TIMES",
+        "PROP_ASSUMED",
+        null
+      ],
+      "explanation": "10 ÷ 1 and 11 ÷ 2 differ, so not proportional. Each y is x + 9: y = x + 9."
+    },
+    {
+      "id": "proportional-relationships/t2/024",
+      "tier": 2,
+      "prompt": "x: 2, 4, 6. y: 16, 32, 48. Which equation fits?",
+      "choices": [
+        "y = x + 14",
+        "y = 8x",
+        "y = 16x",
+        "x = 8y"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "Y_AS_K",
+        "SWAPPED_XY"
+      ],
+      "explanation": "y ÷ x is 8 every time (16 ÷ 2 = 8), so y = 8x."
+    },
+    {
+      "id": "proportional-relationships/t2/025",
+      "tier": 2,
+      "prompt": "x: 2, 5, 8. y: 6, 15, 24. Which equation fits?",
+      "choices": [
+        "y = 6x",
+        "x = 3y",
+        "y = 3x",
+        "y = x + 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "Y_AS_K",
+        "SWAPPED_XY",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "y ÷ x is 3 every time (6 ÷ 2 = 3), so y = 3x."
+    },
+    {
+      "id": "proportional-relationships/t2/026",
+      "tier": 2,
+      "prompt": "x: 1, 3, 4. y: 7, 9, 10. Which equation fits?",
+      "choices": [
+        "x = y + 6",
+        "y = 6x",
+        "y = x + 6",
+        "y = 7x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "PLUS_AS_TIMES",
+        null,
+        "PROP_ASSUMED"
+      ],
+      "explanation": "7 ÷ 1 and 9 ÷ 3 differ, so not proportional. Each y is x + 6: y = x + 6."
+    },
+    {
+      "id": "proportional-relationships/t2/027",
+      "tier": 2,
+      "prompt": "Which shows y proportional to x, k = 3?",
+      "choices": [
+        "y = 3x",
+        "y = x + 3",
+        "y = 3x + 5",
+        "x = 3y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_CONSTANT",
+        "HAS_START",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Proportional means y = kx with nothing added. With k = 3: y = 3x."
+    },
+    {
+      "id": "proportional-relationships/t2/028",
+      "tier": 2,
+      "prompt": "x: 4, 5, 6. y: 20, 25, 30. Which equation fits?",
+      "choices": [
+        "y = x + 16",
+        "y = 20x",
+        "y = 5x",
+        "x = 5y"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "Y_AS_K",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "y ÷ x is 5 every time (20 ÷ 4 = 5), so y = 5x."
+    },
+    {
+      "id": "proportional-relationships/t2/029",
+      "tier": 2,
+      "prompt": "(2, 14) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(7, 49)",
+        "(7, 19)",
+        "(7, 4)",
+        "(49, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "INVERSE",
+        "SWAPPED_XY"
+      ],
+      "explanation": "14 ÷ 2 = 7, so y = 7x. At x = 7: 7 × 7 = 49. Point (7, 49)."
+    },
+    {
+      "id": "proportional-relationships/t2/030",
+      "tier": 2,
+      "prompt": "(6, 54) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(2, 162)",
+        "(18, 2)",
+        "(2, 18)",
+        "(2, 50)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERSE",
+        "SWAPPED_XY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "54 ÷ 6 = 9, so y = 9x. At x = 2: 9 × 2 = 18. Point (2, 18)."
+    },
+    {
+      "id": "proportional-relationships/t2/031",
+      "tier": 2,
+      "prompt": "x: 3, 6, 9. y: 9, 18, 27. Which equation fits?",
+      "choices": [
+        "y = x + 6",
+        "y = 3x",
+        "x = 3y",
+        "y = 9x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_XY",
+        "Y_AS_K"
+      ],
+      "explanation": "y ÷ x is 3 every time (9 ÷ 3 = 3), so y = 3x."
+    },
+    {
+      "id": "proportional-relationships/t2/032",
+      "tier": 2,
+      "prompt": "Which shows p proportional to h, k = 2?",
+      "choices": [
+        "p = 2h",
+        "h = 2p",
+        "p = 2h + 4",
+        "p = h + 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "HAS_START",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "Proportional means p = kh with nothing added. With k = 2: p = 2h."
+    },
+    {
+      "id": "proportional-relationships/t2/033",
+      "tier": 2,
+      "prompt": "(4, 32) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(9, 72)",
+        "(9, 75)",
+        "(9, 37)",
+        "(72, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDITIVE",
+        "SWAPPED_XY"
+      ],
+      "explanation": "32 ÷ 4 = 8, so y = 8x. At x = 9: 8 × 9 = 72. Point (9, 72)."
+    },
+    {
+      "id": "proportional-relationships/t2/034",
+      "tier": 2,
+      "prompt": "Which equation has c proportional to n with k = 9?",
+      "choices": [
+        "c = 9n + 4",
+        "n = 9c",
+        "c = 9n",
+        "c = n + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HAS_START",
+        "SWAPPED_XY",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "Proportional means c = kn with nothing added. With k = 9: c = 9n."
+    },
+    {
+      "id": "proportional-relationships/t2/035",
+      "tier": 2,
+      "prompt": "x: 3, 6, 9. y: 27, 54, 81. Which equation fits?",
+      "choices": [
+        "y = 27x",
+        "y = 9x",
+        "x = 9y",
+        "y = x + 24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "Y_AS_K",
+        null,
+        "SWAPPED_XY",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "y ÷ x is 9 every time (27 ÷ 3 = 9), so y = 9x."
+    },
+    {
+      "id": "proportional-relationships/t2/036",
+      "tier": 2,
+      "prompt": "(5, 30) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(2, 27)",
+        "(2, 75)",
+        "(12, 2)",
+        "(2, 12)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDITIVE",
+        "INVERSE",
+        "SWAPPED_XY",
+        null
+      ],
+      "explanation": "30 ÷ 5 = 6, so y = 6x. At x = 2: 6 × 2 = 12. Point (2, 12)."
+    },
+    {
+      "id": "proportional-relationships/t2/037",
+      "tier": 2,
+      "prompt": "x: 1, 3, 4. y: 10, 12, 13. Which equation fits?",
+      "choices": [
+        "x = y + 9",
+        "y = 10x",
+        "y = 9x",
+        "y = x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "PROP_ASSUMED",
+        "PLUS_AS_TIMES",
+        null
+      ],
+      "explanation": "10 ÷ 1 and 12 ÷ 3 differ, so not proportional. Each y is x + 9: y = x + 9."
+    },
+    {
+      "id": "proportional-relationships/t2/038",
+      "tier": 2,
+      "prompt": "x: 2, 4, 6. y: 8, 10, 12. Which equation fits?",
+      "choices": [
+        "y = 4x",
+        "y = x + 6",
+        "x = y + 6",
+        "y = 6x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PROP_ASSUMED",
+        null,
+        "SWAPPED_XY",
+        "PLUS_AS_TIMES"
+      ],
+      "explanation": "8 ÷ 2 and 10 ÷ 4 differ, so not proportional. Each y is x + 6: y = x + 6."
+    },
+    {
+      "id": "proportional-relationships/t2/039",
+      "tier": 2,
+      "prompt": "(3, 30) is on y = kx. Which point is also on it?",
+      "choices": [
+        "(70, 7)",
+        "(7, 70)",
+        "(7, 34)",
+        "(7, 71)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "ADDITIVE",
+        "ARITH"
+      ],
+      "explanation": "30 ÷ 3 = 10, so y = 10x. At x = 7: 10 × 7 = 70. Point (7, 70)."
+    },
+    {
+      "id": "proportional-relationships/t2/040",
+      "tier": 2,
+      "prompt": "Which equation has p proportional to h with k = 4?",
+      "choices": [
+        "p = 4h + 1",
+        "h = 4p",
+        "p = 4h",
+        "p = h + 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HAS_START",
+        "SWAPPED_XY",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "Proportional means p = kh with nothing added. With k = 4: p = 4h."
+    },
+    {
+      "id": "proportional-relationships/t3/001",
+      "tier": 3,
+      "prompt": "10 pens cost $60. In c = kn, what is k?",
+      "choices": [
+        "$6",
+        "$1/6",
+        "$600",
+        "$50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "PRODUCT",
+        "DIFFERENCE"
+      ],
+      "explanation": "k = c ÷ n = $60 ÷ 10 = $6."
+    },
+    {
+      "id": "proportional-relationships/t3/002",
+      "tier": 3,
+      "prompt": "12 cards in 2 packs. In c = kp, what is k?",
+      "choices": [
+        "6",
+        "1/6",
+        "24",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "PRODUCT",
+        "DIFFERENCE"
+      ],
+      "explanation": "k = c ÷ p = 12 ÷ 2 = 6."
+    },
+    {
+      "id": "proportional-relationships/t3/003",
+      "tier": 3,
+      "prompt": "6 tacos cost $30. In c = kn, what is k?",
+      "choices": [
+        "$1/5",
+        "$24",
+        "$5",
+        "$180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DIFFERENCE",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "k = c ÷ n = $30 ÷ 6 = $5."
+    },
+    {
+      "id": "proportional-relationships/t3/004",
+      "tier": 3,
+      "prompt": "(6, 18) is on y = kx. What is k?",
+      "choices": [
+        "1/3",
+        "108",
+        "3",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "PRODUCT",
+        null,
+        "DIFFERENCE"
+      ],
+      "explanation": "k = y ÷ x = 18 ÷ 6 = 3."
+    },
+    {
+      "id": "proportional-relationships/t3/005",
+      "tier": 3,
+      "prompt": "90 words in 10 minutes. In w = km, what is k?",
+      "choices": [
+        "9",
+        "900",
+        "1/9",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "INVERTED",
+        "DIFFERENCE"
+      ],
+      "explanation": "k = w ÷ m = 90 ÷ 10 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/006",
+      "tier": 3,
+      "prompt": "x: 3, 6, 9. y: 15, 30, 45. In y = kx, what is k?",
+      "choices": [
+        "5",
+        "15",
+        "1/5",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "Y_AS_K",
+        "INVERTED",
+        "DIFFERENCE"
+      ],
+      "explanation": "k = y ÷ x. 15 ÷ 3 = 5; 30 ÷ 6 = 5."
+    },
+    {
+      "id": "proportional-relationships/t3/007",
+      "tier": 3,
+      "prompt": "(6, 12) is on y = kx. What is k?",
+      "choices": [
+        "2",
+        "1/2",
+        "6",
+        "72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "DIFFERENCE",
+        "PRODUCT"
+      ],
+      "explanation": "k = y ÷ x = 12 ÷ 6 = 2."
+    },
+    {
+      "id": "proportional-relationships/t3/008",
+      "tier": 3,
+      "prompt": "(2, 14) is on y = kx. What is k?",
+      "choices": [
+        "12",
+        "1/7",
+        "28",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED",
+        "PRODUCT",
+        null
+      ],
+      "explanation": "k = y ÷ x = 14 ÷ 2 = 7."
+    },
+    {
+      "id": "proportional-relationships/t3/009",
+      "tier": 3,
+      "prompt": "p = 6h. Constant of proportionality of p to h?",
+      "choices": [
+        "1/6",
+        "6",
+        "5",
+        "6h"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "ARITH",
+        "KEEPS_VAR"
+      ],
+      "explanation": "p = kh, so k is the number with h: k = 6."
+    },
+    {
+      "id": "proportional-relationships/t3/010",
+      "tier": 3,
+      "prompt": "2 tacos cost $10. In c = kn, what is k?",
+      "choices": [
+        "$1/5",
+        "$8",
+        "$5",
+        "$20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DIFFERENCE",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "k = c ÷ n = $10 ÷ 2 = $5."
+    },
+    {
+      "id": "proportional-relationships/t3/011",
+      "tier": 3,
+      "prompt": "Earns $90 in 9 hours. In p = kh, what is k?",
+      "choices": [
+        "$81",
+        "$810",
+        "$10",
+        "$1/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE",
+        "PRODUCT",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "k = p ÷ h = $90 ÷ 9 = $10."
+    },
+    {
+      "id": "proportional-relationships/t3/012",
+      "tier": 3,
+      "prompt": "x: 2, 3, 4. y: 18, 27, 36. In y = kx, what is k?",
+      "choices": [
+        "16",
+        "1/9",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED",
+        null,
+        "Y_AS_K"
+      ],
+      "explanation": "k = y ÷ x. 18 ÷ 2 = 9; 27 ÷ 3 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/013",
+      "tier": 3,
+      "prompt": "(9, 45) is on y = kx. What is k?",
+      "choices": [
+        "405",
+        "5",
+        "36",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PRODUCT",
+        null,
+        "DIFFERENCE",
+        "INVERTED"
+      ],
+      "explanation": "k = y ÷ x = 45 ÷ 9 = 5."
+    },
+    {
+      "id": "proportional-relationships/t3/014",
+      "tier": 3,
+      "prompt": "d = 7t. Constant of proportionality of d to t?",
+      "choices": [
+        "1/7",
+        "7",
+        "5",
+        "7t"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "ARITH",
+        "KEEPS_VAR"
+      ],
+      "explanation": "d = kt, so k is the number with t: k = 7."
+    },
+    {
+      "id": "proportional-relationships/t3/015",
+      "tier": 3,
+      "prompt": "d = 3t. Constant of proportionality of d to t?",
+      "choices": [
+        "1",
+        "3t",
+        "3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "KEEPS_VAR",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "d = kt, so k is the number with t: k = 3."
+    },
+    {
+      "id": "proportional-relationships/t3/016",
+      "tier": 3,
+      "prompt": "(6, 60) is on y = kx. What is k?",
+      "choices": [
+        "54",
+        "10",
+        "360",
+        "1/10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE",
+        null,
+        "PRODUCT",
+        "INVERTED"
+      ],
+      "explanation": "k = y ÷ x = 60 ÷ 6 = 10."
+    },
+    {
+      "id": "proportional-relationships/t3/017",
+      "tier": 3,
+      "prompt": "p = 4h. Constant of proportionality of p to h?",
+      "choices": [
+        "1/4",
+        "2",
+        "4h",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "ARITH",
+        "KEEPS_VAR",
+        null
+      ],
+      "explanation": "p = kh, so k is the number with h: k = 4."
+    },
+    {
+      "id": "proportional-relationships/t3/018",
+      "tier": 3,
+      "prompt": "x: 4, 5, 6. y: 20, 25, 30. In y = kx, what is k?",
+      "choices": [
+        "1/5",
+        "5",
+        "20",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "Y_AS_K",
+        "DIFFERENCE"
+      ],
+      "explanation": "k = y ÷ x. 20 ÷ 4 = 5; 25 ÷ 5 = 5."
+    },
+    {
+      "id": "proportional-relationships/t3/019",
+      "tier": 3,
+      "prompt": "x: 2, 5, 8. y: 12, 30, 48. In y = kx, what is k?",
+      "choices": [
+        "18",
+        "12",
+        "6",
+        "1/6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "Y_STEP",
+        "Y_AS_K",
+        null,
+        "INVERTED"
+      ],
+      "explanation": "k = y ÷ x. 12 ÷ 2 = 6; 30 ÷ 5 = 6."
+    },
+    {
+      "id": "proportional-relationships/t3/020",
+      "tier": 3,
+      "prompt": "36 goals in 4 games. In g = kn, what is k?",
+      "choices": [
+        "1/9",
+        "144",
+        "32",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "PRODUCT",
+        "DIFFERENCE",
+        null
+      ],
+      "explanation": "k = g ÷ n = 36 ÷ 4 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/021",
+      "tier": 3,
+      "prompt": "x: 2, 3, 4. y: 16, 24, 32. In y = kx, what is k?",
+      "choices": [
+        "14",
+        "1/8",
+        "8",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED",
+        null,
+        "Y_AS_K"
+      ],
+      "explanation": "k = y ÷ x. 16 ÷ 2 = 8; 24 ÷ 3 = 8."
+    },
+    {
+      "id": "proportional-relationships/t3/022",
+      "tier": 3,
+      "prompt": "6 cans cost $60. In c = kn, what is k?",
+      "choices": [
+        "$10",
+        "$1/10",
+        "$54",
+        "$360"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED",
+        "DIFFERENCE",
+        "PRODUCT"
+      ],
+      "explanation": "k = c ÷ n = $60 ÷ 6 = $10."
+    },
+    {
+      "id": "proportional-relationships/t3/023",
+      "tier": 3,
+      "prompt": "x: 2, 3, 4. y: 6, 9, 12. In y = kx, what is k?",
+      "choices": [
+        "4",
+        "6",
+        "1/3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE",
+        "Y_AS_K",
+        "INVERTED",
+        null
+      ],
+      "explanation": "k = y ÷ x. 6 ÷ 2 = 3; 9 ÷ 3 = 3."
+    },
+    {
+      "id": "proportional-relationships/t3/024",
+      "tier": 3,
+      "prompt": "w = 3d. Constant of proportionality of w to d?",
+      "choices": [
+        "1",
+        "3",
+        "1/3",
+        "3d"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "INVERTED",
+        "KEEPS_VAR"
+      ],
+      "explanation": "w = kd, so k is the number with d: k = 3."
+    },
+    {
+      "id": "proportional-relationships/t3/025",
+      "tier": 3,
+      "prompt": "w = 9d. Constant of proportionality of w to d?",
+      "choices": [
+        "9d",
+        "9",
+        "10",
+        "1/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEEPS_VAR",
+        null,
+        "ARITH",
+        "INVERTED"
+      ],
+      "explanation": "w = kd, so k is the number with d: k = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/026",
+      "tier": 3,
+      "prompt": "c = 9n. Constant of proportionality of c to n?",
+      "choices": [
+        "1/9",
+        "11",
+        "9n",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "ARITH",
+        "KEEPS_VAR",
+        null
+      ],
+      "explanation": "c = kn, so k is the number with n: k = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/027",
+      "tier": 3,
+      "prompt": "(4, 36) is on y = kx. What is k?",
+      "choices": [
+        "32",
+        "9",
+        "1/9",
+        "144"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE",
+        null,
+        "INVERTED",
+        "PRODUCT"
+      ],
+      "explanation": "k = y ÷ x = 36 ÷ 4 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/028",
+      "tier": 3,
+      "prompt": "x: 2, 4, 6. y: 18, 36, 54. In y = kx, what is k?",
+      "choices": [
+        "18",
+        "1/9",
+        "16",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "Y_AS_K",
+        "INVERTED",
+        "DIFFERENCE",
+        null
+      ],
+      "explanation": "k = y ÷ x. 18 ÷ 2 = 9; 36 ÷ 4 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/029",
+      "tier": 3,
+      "prompt": "(2, 20) is on y = kx. What is k?",
+      "choices": [
+        "10",
+        "40",
+        "18",
+        "1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "DIFFERENCE",
+        "INVERTED"
+      ],
+      "explanation": "k = y ÷ x = 20 ÷ 2 = 10."
+    },
+    {
+      "id": "proportional-relationships/t3/030",
+      "tier": 3,
+      "prompt": "x: 3, 6, 9. y: 24, 48, 72. In y = kx, what is k?",
+      "choices": [
+        "1/8",
+        "21",
+        "8",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DIFFERENCE",
+        null,
+        "Y_AS_K"
+      ],
+      "explanation": "k = y ÷ x. 24 ÷ 3 = 8; 48 ÷ 6 = 8."
+    },
+    {
+      "id": "proportional-relationships/t3/031",
+      "tier": 3,
+      "prompt": "(4, 28) is on y = kx. What is k?",
+      "choices": [
+        "1/7",
+        "24",
+        "7",
+        "112"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED",
+        "DIFFERENCE",
+        null,
+        "PRODUCT"
+      ],
+      "explanation": "k = y ÷ x = 28 ÷ 4 = 7."
+    },
+    {
+      "id": "proportional-relationships/t3/032",
+      "tier": 3,
+      "prompt": "p = 5h. Constant of proportionality of p to h?",
+      "choices": [
+        "1/5",
+        "5",
+        "4",
+        "5h"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED",
+        null,
+        "ARITH",
+        "KEEPS_VAR"
+      ],
+      "explanation": "p = kh, so k is the number with h: k = 5."
+    },
+    {
+      "id": "proportional-relationships/t3/033",
+      "tier": 3,
+      "prompt": "d = 5t. Constant of proportionality of d to t?",
+      "choices": [
+        "5",
+        "5t",
+        "1/5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEEPS_VAR",
+        "INVERTED",
+        "ARITH"
+      ],
+      "explanation": "d = kt, so k is the number with t: k = 5."
+    },
+    {
+      "id": "proportional-relationships/t3/034",
+      "tier": 3,
+      "prompt": "Earns $60 in 6 hours. In p = kh, what is k?",
+      "choices": [
+        "$360",
+        "$54",
+        "$1/10",
+        "$10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PRODUCT",
+        "DIFFERENCE",
+        "INVERTED",
+        null
+      ],
+      "explanation": "k = p ÷ h = $60 ÷ 6 = $10."
+    },
+    {
+      "id": "proportional-relationships/t3/035",
+      "tier": 3,
+      "prompt": "y = 8x. Constant of proportionality of y to x?",
+      "choices": [
+        "1/8",
+        "8x",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "KEEPS_VAR",
+        "ARITH",
+        null
+      ],
+      "explanation": "y = kx, so k is the number with x: k = 8."
+    },
+    {
+      "id": "proportional-relationships/t3/036",
+      "tier": 3,
+      "prompt": "x: 2, 4, 6. y: 14, 28, 42. In y = kx, what is k?",
+      "choices": [
+        "1/7",
+        "14",
+        "12",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "Y_AS_K",
+        "DIFFERENCE",
+        null
+      ],
+      "explanation": "k = y ÷ x. 14 ÷ 2 = 7; 28 ÷ 4 = 7."
+    },
+    {
+      "id": "proportional-relationships/t3/037",
+      "tier": 3,
+      "prompt": "(9, 81) is on y = kx. What is k?",
+      "choices": [
+        "72",
+        "9",
+        "729",
+        "1/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE",
+        null,
+        "PRODUCT",
+        "INVERTED"
+      ],
+      "explanation": "k = y ÷ x = 81 ÷ 9 = 9."
+    },
+    {
+      "id": "proportional-relationships/t3/038",
+      "tier": 3,
+      "prompt": "x: 2, 4, 6. y: 4, 8, 12. In y = kx, what is k?",
+      "choices": [
+        "2",
+        "3",
+        "1/2",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INVERTED",
+        "Y_AS_K"
+      ],
+      "explanation": "k = y ÷ x. 4 ÷ 2 = 2; 8 ÷ 4 = 2."
+    },
+    {
+      "id": "proportional-relationships/t3/039",
+      "tier": 3,
+      "prompt": "20 cards in 2 packs. In c = kp, what is k?",
+      "choices": [
+        "10",
+        "40",
+        "18",
+        "1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PRODUCT",
+        "DIFFERENCE",
+        "INVERTED"
+      ],
+      "explanation": "k = c ÷ p = 20 ÷ 2 = 10."
+    },
+    {
+      "id": "proportional-relationships/t3/040",
+      "tier": 3,
+      "prompt": "(5, 30) is on y = kx. What is k?",
+      "choices": [
+        "150",
+        "25",
+        "1/6",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PRODUCT",
+        "DIFFERENCE",
+        "INVERTED",
+        null
+      ],
+      "explanation": "k = y ÷ x = 30 ÷ 5 = 6."
+    },
+    {
+      "id": "proportional-relationships/t4/001",
+      "tier": 4,
+      "prompt": "10 dimes make 1 dollar. Dimes d in n dollars?",
+      "choices": [
+        "n = 10d",
+        "d = 10/n",
+        "d = n + 10",
+        "d = 10n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "DIVIDES",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "1 dollar = 10 dimes, so d = 10n."
+    },
+    {
+      "id": "proportional-relationships/t4/002",
+      "tier": 4,
+      "prompt": "A tap fills 2 gal per minute. Gallons g in m minutes?",
+      "choices": [
+        "g = 2m",
+        "g = m + 2",
+        "m = 2g",
+        "g = 2/m"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS",
+        "DIVIDES"
+      ],
+      "explanation": "2 gal each minute, so g = 2m."
+    },
+    {
+      "id": "proportional-relationships/t4/003",
+      "tier": 4,
+      "prompt": "1 quart = 2 pt. Pints p in q quarts?",
+      "choices": [
+        "q = 2p",
+        "p = 2/q",
+        "p = 2q",
+        "p = q + 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "DIVIDES",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "1 quart = 2 pt, so p = 2q."
+    },
+    {
+      "id": "proportional-relationships/t4/004",
+      "tier": 4,
+      "prompt": "70 pages in 7 days. Pages p in d days?",
+      "choices": [
+        "p = 10d",
+        "p = 7d",
+        "p = d + 63",
+        "p = 70d"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNT_AS_RATE",
+        "ADDS_CONSTANT",
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "70 ÷ 7 = 10 for 1, so p = 10d."
+    },
+    {
+      "id": "proportional-relationships/t4/005",
+      "tier": 4,
+      "prompt": "Pens cost $5 each. Cost c for p pens?",
+      "choices": [
+        "p = 5c",
+        "c = 5/p",
+        "c = p + 5",
+        "c = 5p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "DIVIDES",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "Each one costs $5, so c = 5p."
+    },
+    {
+      "id": "proportional-relationships/t4/006",
+      "tier": 4,
+      "prompt": "49 goals in 7 games. Goals g in n games?",
+      "choices": [
+        "g = 49n",
+        "n = 7g",
+        "g = n + 42",
+        "g = 7n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "49 ÷ 7 = 7 for 1, so g = 7n."
+    },
+    {
+      "id": "proportional-relationships/t4/007",
+      "tier": 4,
+      "prompt": "4 qt make 1 gallon. Quarts q in g gallons?",
+      "choices": [
+        "g = 4q",
+        "q = 4g",
+        "q = g + 4",
+        "q = 4/g"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        null,
+        "ADDS_CONSTANT",
+        "DIVIDES"
+      ],
+      "explanation": "1 gallon = 4 qt, so q = 4g."
+    },
+    {
+      "id": "proportional-relationships/t4/008",
+      "tier": 4,
+      "prompt": "A tap fills 10 gal per minute. Gallons g in m minutes?",
+      "choices": [
+        "g = 10/m",
+        "g = 10m",
+        "g = m + 10",
+        "m = 10g"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDES",
+        null,
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "10 gal each minute, so g = 10m."
+    },
+    {
+      "id": "proportional-relationships/t4/009",
+      "tier": 4,
+      "prompt": "1 yard = 3 ft. Feet f in y yards?",
+      "choices": [
+        "f = 3/y",
+        "y = 3f",
+        "f = 3y",
+        "f = y + 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDES",
+        "SWAPPED_VARS",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "1 yard = 3 ft, so f = 3y."
+    },
+    {
+      "id": "proportional-relationships/t4/010",
+      "tier": 4,
+      "prompt": "6 cans cost $24. Cost c for n cans?",
+      "choices": [
+        "c = 6n",
+        "c = n + 18",
+        "c = 4n",
+        "n = 4c"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_AS_RATE",
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_VARS"
+      ],
+      "explanation": "24 ÷ 6 = 4 for 1, so c = 4n."
+    },
+    {
+      "id": "proportional-relationships/t4/011",
+      "tier": 4,
+      "prompt": "A jogger runs 9 miles per hour. Miles d in h hours?",
+      "choices": [
+        "h = 9d",
+        "d = 9/h",
+        "d = 9h",
+        "d = h + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "DIVIDES",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "9 miles each hour, so d = 9h."
+    },
+    {
+      "id": "proportional-relationships/t4/012",
+      "tier": 4,
+      "prompt": "A baker makes 3 rolls per hour. Rolls r in h hours?",
+      "choices": [
+        "r = h + 3",
+        "r = 3h",
+        "r = 3/h",
+        "h = 3r"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "DIVIDES",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "3 rolls each hour, so r = 3h."
+    },
+    {
+      "id": "proportional-relationships/t4/013",
+      "tier": 4,
+      "prompt": "6 books cost $24. Cost c for b books?",
+      "choices": [
+        "c = b + 18",
+        "c = 4b",
+        "c = 24b",
+        "b = 4c"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "TOTAL_AS_RATE",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "24 ÷ 6 = 4 for 1, so c = 4b."
+    },
+    {
+      "id": "proportional-relationships/t4/014",
+      "tier": 4,
+      "prompt": "2 pt make 1 quart. Pints p in q quarts?",
+      "choices": [
+        "p = q + 2",
+        "p = 2/q",
+        "p = 2q",
+        "q = 2p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "DIVIDES",
+        null,
+        "SWAPPED_VARS"
+      ],
+      "explanation": "1 quart = 2 pt, so p = 2q."
+    },
+    {
+      "id": "proportional-relationships/t4/015",
+      "tier": 4,
+      "prompt": "A printer prints 5 pages per minute. Pages p in m minutes?",
+      "choices": [
+        "p = 5m",
+        "p = 5/m",
+        "m = 5p",
+        "p = m + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDES",
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "5 pages each minute, so p = 5m."
+    },
+    {
+      "id": "proportional-relationships/t4/016",
+      "tier": 4,
+      "prompt": "A baker makes 9 rolls per hour. Rolls r in h hours?",
+      "choices": [
+        "r = h + 9",
+        "r = 9h",
+        "h = 9r",
+        "r = 9/h"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_VARS",
+        "DIVIDES"
+      ],
+      "explanation": "9 rolls each hour, so r = 9h."
+    },
+    {
+      "id": "proportional-relationships/t4/017",
+      "tier": 4,
+      "prompt": "A tap fills 8 gal per minute. Gallons g in m minutes?",
+      "choices": [
+        "m = 8g",
+        "g = 8m",
+        "g = m + 8",
+        "g = 8/m"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        null,
+        "ADDS_CONSTANT",
+        "DIVIDES"
+      ],
+      "explanation": "8 gal each minute, so g = 8m."
+    },
+    {
+      "id": "proportional-relationships/t4/018",
+      "tier": 4,
+      "prompt": "A jogger runs 8 miles per hour. Miles d in h hours?",
+      "choices": [
+        "h = 8d",
+        "d = h + 8",
+        "d = 8/h",
+        "d = 8h"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT",
+        "DIVIDES",
+        null
+      ],
+      "explanation": "8 miles each hour, so d = 8h."
+    },
+    {
+      "id": "proportional-relationships/t4/019",
+      "tier": 4,
+      "prompt": "8 tickets cost $72. Cost c for n tickets?",
+      "choices": [
+        "c = 72n",
+        "c = 9n",
+        "c = n + 64",
+        "c = 8n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        null,
+        "ADDS_CONSTANT",
+        "COUNT_AS_RATE"
+      ],
+      "explanation": "72 ÷ 8 = 9 for 1, so c = 9n."
+    },
+    {
+      "id": "proportional-relationships/t4/020",
+      "tier": 4,
+      "prompt": "Each yard is 3 ft. Feet f in y yards?",
+      "choices": [
+        "f = 3y",
+        "f = y + 3",
+        "y = 3f",
+        "f = 3/y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS",
+        "DIVIDES"
+      ],
+      "explanation": "1 yard = 3 ft, so f = 3y."
+    },
+    {
+      "id": "proportional-relationships/t4/021",
+      "tier": 4,
+      "prompt": "56 goals in 8 games. Goals g in n games?",
+      "choices": [
+        "g = n + 48",
+        "g = 7n",
+        "n = 7g",
+        "g = 56n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_VARS",
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "56 ÷ 8 = 7 for 1, so g = 7n."
+    },
+    {
+      "id": "proportional-relationships/t4/022",
+      "tier": 4,
+      "prompt": "Pens cost $8 each. Cost c for p pens?",
+      "choices": [
+        "c = p + 8",
+        "c = 8p",
+        "c = 8/p",
+        "p = 8c"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        null,
+        "DIVIDES",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "Each one costs $8, so c = 8p."
+    },
+    {
+      "id": "proportional-relationships/t4/023",
+      "tier": 4,
+      "prompt": "4 tacos cost $20. Cost c for t tacos?",
+      "choices": [
+        "c = 4t",
+        "c = 5t",
+        "c = t + 16",
+        "c = 20t"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_AS_RATE",
+        null,
+        "ADDS_CONSTANT",
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "20 ÷ 4 = 5 for 1, so c = 5t."
+    },
+    {
+      "id": "proportional-relationships/t4/024",
+      "tier": 4,
+      "prompt": "63 pizzas in 9 hours. Pizzas p in h hours?",
+      "choices": [
+        "h = 7p",
+        "p = h + 54",
+        "p = 7h",
+        "p = 9h"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT",
+        null,
+        "COUNT_AS_RATE"
+      ],
+      "explanation": "63 ÷ 9 = 7 for 1, so p = 7h."
+    },
+    {
+      "id": "proportional-relationships/t4/025",
+      "tier": 4,
+      "prompt": "Each dollar is 10 dimes. Dimes d in n dollars?",
+      "choices": [
+        "d = n + 10",
+        "n = 10d",
+        "d = 10/n",
+        "d = 10n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS",
+        "DIVIDES",
+        null
+      ],
+      "explanation": "1 dollar = 10 dimes, so d = 10n."
+    },
+    {
+      "id": "proportional-relationships/t4/026",
+      "tier": 4,
+      "prompt": "Each week is 7 days. Days d in w weeks?",
+      "choices": [
+        "d = 7w",
+        "d = 7/w",
+        "w = 7d",
+        "d = w + 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDES",
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "1 week = 7 days, so d = 7w."
+    },
+    {
+      "id": "proportional-relationships/t4/027",
+      "tier": 4,
+      "prompt": "A printer prints 10 pages per minute. Pages p in m minutes?",
+      "choices": [
+        "p = 10m",
+        "p = m + 10",
+        "m = 10p",
+        "p = 10/m"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS",
+        "DIVIDES"
+      ],
+      "explanation": "10 pages each minute, so p = 10m."
+    },
+    {
+      "id": "proportional-relationships/t4/028",
+      "tier": 4,
+      "prompt": "A worker packs 4 boxes per hour. Boxes b in h hours?",
+      "choices": [
+        "h = 4b",
+        "b = 4/h",
+        "b = h + 4",
+        "b = 4h"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_VARS",
+        "DIVIDES",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "4 boxes each hour, so b = 4h."
+    },
+    {
+      "id": "proportional-relationships/t4/029",
+      "tier": 4,
+      "prompt": "10 tacos cost $40. Cost c for t tacos?",
+      "choices": [
+        "c = t + 30",
+        "c = 10t",
+        "c = 4t",
+        "t = 4c"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "COUNT_AS_RATE",
+        null,
+        "SWAPPED_VARS"
+      ],
+      "explanation": "40 ÷ 10 = 4 for 1, so c = 4t."
+    },
+    {
+      "id": "proportional-relationships/t4/030",
+      "tier": 4,
+      "prompt": "8 pages in 4 days. Pages p in d days?",
+      "choices": [
+        "p = d + 4",
+        "p = 8d",
+        "p = 4d",
+        "p = 2d"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "TOTAL_AS_RATE",
+        "COUNT_AS_RATE",
+        null
+      ],
+      "explanation": "8 ÷ 4 = 2 for 1, so p = 2d."
+    },
+    {
+      "id": "proportional-relationships/t4/031",
+      "tier": 4,
+      "prompt": "Tickets cost $5 each. Cost c for n tickets?",
+      "choices": [
+        "c = 5/n",
+        "c = n + 5",
+        "c = 5n",
+        "n = 5c"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDES",
+        "ADDS_CONSTANT",
+        null,
+        "SWAPPED_VARS"
+      ],
+      "explanation": "Each one costs $5, so c = 5n."
+    },
+    {
+      "id": "proportional-relationships/t4/032",
+      "tier": 4,
+      "prompt": "Books cost $8 each. Cost c for b books?",
+      "choices": [
+        "c = b + 8",
+        "b = 8c",
+        "c = 8b",
+        "c = 8/b"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS",
+        null,
+        "DIVIDES"
+      ],
+      "explanation": "Each one costs $8, so c = 8b."
+    },
+    {
+      "id": "proportional-relationships/t4/033",
+      "tier": 4,
+      "prompt": "2 cups make 1 pint. Cups c in p pints?",
+      "choices": [
+        "c = 2/p",
+        "p = 2c",
+        "c = p + 2",
+        "c = 2p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDES",
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "1 pint = 2 cups, so c = 2p."
+    },
+    {
+      "id": "proportional-relationships/t4/034",
+      "tier": 4,
+      "prompt": "Each quart is 2 pt. Pints p in q quarts?",
+      "choices": [
+        "p = 2q",
+        "p = 2/q",
+        "p = q + 2",
+        "q = 2p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDES",
+        "ADDS_CONSTANT",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "1 quart = 2 pt, so p = 2q."
+    },
+    {
+      "id": "proportional-relationships/t4/035",
+      "tier": 4,
+      "prompt": "1 gallon = 4 qt. Quarts q in g gallons?",
+      "choices": [
+        "q = 4g",
+        "q = g + 4",
+        "q = 4/g",
+        "g = 4q"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_CONSTANT",
+        "DIVIDES",
+        "SWAPPED_VARS"
+      ],
+      "explanation": "1 gallon = 4 qt, so q = 4g."
+    },
+    {
+      "id": "proportional-relationships/t4/036",
+      "tier": 4,
+      "prompt": "63 miles in 9 hours. Miles d in h hours?",
+      "choices": [
+        "d = h + 54",
+        "d = 9h",
+        "h = 7d",
+        "d = 7h"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDS_CONSTANT",
+        "COUNT_AS_RATE",
+        "SWAPPED_VARS",
+        null
+      ],
+      "explanation": "63 ÷ 9 = 7 for 1, so d = 7h."
+    },
+    {
+      "id": "proportional-relationships/t4/037",
+      "tier": 4,
+      "prompt": "10 tickets cost $40. Cost c for n tickets?",
+      "choices": [
+        "c = 10n",
+        "c = 40n",
+        "c = n + 30",
+        "c = 4n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_AS_RATE",
+        "TOTAL_AS_RATE",
+        "ADDS_CONSTANT",
+        null
+      ],
+      "explanation": "40 ÷ 10 = 4 for 1, so c = 4n."
+    },
+    {
+      "id": "proportional-relationships/t4/038",
+      "tier": 4,
+      "prompt": "1 dollar = 10 dimes. Dimes d in n dollars?",
+      "choices": [
+        "d = 10n",
+        "d = 10/n",
+        "n = 10d",
+        "d = n + 10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDES",
+        "SWAPPED_VARS",
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "1 dollar = 10 dimes, so d = 10n."
+    },
+    {
+      "id": "proportional-relationships/t4/039",
+      "tier": 4,
+      "prompt": "16 laps in 2 minutes. Laps n in m minutes?",
+      "choices": [
+        "n = 8m",
+        "n = 16m",
+        "m = 8n",
+        "n = 2m"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_RATE",
+        "SWAPPED_VARS",
+        "COUNT_AS_RATE"
+      ],
+      "explanation": "16 ÷ 2 = 8 for 1, so n = 8m."
+    },
+    {
+      "id": "proportional-relationships/t4/040",
+      "tier": 4,
+      "prompt": "9 pens cost $45. Cost c for p pens?",
+      "choices": [
+        "c = 9p",
+        "c = 45p",
+        "c = 5p",
+        "c = p + 36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_AS_RATE",
+        "TOTAL_AS_RATE",
+        null,
+        "ADDS_CONSTANT"
+      ],
+      "explanation": "45 ÷ 9 = 5 for 1, so c = 5p."
+    },
+    {
+      "id": "proportional-relationships/t5/001",
+      "tier": 5,
+      "prompt": "Plan scale 1 in : 3 ft. A 15 ft wall is how many in?",
+      "choices": [
+        "12",
+        "3",
+        "5",
+        "45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null,
+        "WRONG_WAY"
+      ],
+      "explanation": "Each in is 3 ft: 15 ÷ 3 = 5 in."
+    },
+    {
+      "id": "proportional-relationships/t5/002",
+      "tier": 5,
+      "prompt": "Map scale 1 cm : 9 km. 6 cm is how many km?",
+      "choices": [
+        "2/3",
+        "15",
+        "9",
+        "54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SCALED_DOWN",
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "Each cm is 9 km: 6 × 9 = 54 km."
+    },
+    {
+      "id": "proportional-relationships/t5/003",
+      "tier": 5,
+      "prompt": "Each side is 7 times as long. Area is ? times as big.",
+      "choices": [
+        "343",
+        "49",
+        "14",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBED",
+        null,
+        "ADDED_SIDES",
+        "LINEAR_AREA"
+      ],
+      "explanation": "Area multiplies both sides: 7 × 7 = 49."
+    },
+    {
+      "id": "proportional-relationships/t5/004",
+      "tier": 5,
+      "prompt": "Scale a 2 by 4 rectangle by 2. New size?",
+      "choices": [
+        "4 by 8",
+        "2 by 8",
+        "4 by 6",
+        "4 by 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_SIDE",
+        "ADDITIVE",
+        "ONE_SIDE"
+      ],
+      "explanation": "Multiply both sides by 2: 2 × 2 = 4, 4 × 2 = 8."
+    },
+    {
+      "id": "proportional-relationships/t5/005",
+      "tier": 5,
+      "prompt": "Map scale 1 in : 4 mi. A 28 mi trail is how many in?",
+      "choices": [
+        "4",
+        "24",
+        "7",
+        "112"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null,
+        "WRONG_WAY"
+      ],
+      "explanation": "Each in is 4 mi: 28 ÷ 4 = 7 in."
+    },
+    {
+      "id": "proportional-relationships/t5/006",
+      "tier": 5,
+      "prompt": "Each side is 9 times as long. Area is ? times as big.",
+      "choices": [
+        "81",
+        "18",
+        "9",
+        "729"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SIDES",
+        "LINEAR_AREA",
+        "CUBED"
+      ],
+      "explanation": "Area multiplies both sides: 9 × 9 = 81."
+    },
+    {
+      "id": "proportional-relationships/t5/007",
+      "tier": 5,
+      "prompt": "Scale 1 cm = 4 m. A room is drawn 2 cm by 2 cm. Real area?",
+      "choices": [
+        "64 sq m",
+        "4 sq m",
+        "16 sq m",
+        "36 sq m"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DRAWING_AREA",
+        "LINEAR_AREA",
+        "ADDITIVE"
+      ],
+      "explanation": "Sides: 2 × 4 = 8 m, 2 × 4 = 8 m. Area 8 × 8 = 64 sq m."
+    },
+    {
+      "id": "proportional-relationships/t5/008",
+      "tier": 5,
+      "prompt": "Divide each side of a 6 by 9 rectangle by 3. New size?",
+      "choices": [
+        "2 by 4",
+        "2 by 9",
+        "3 by 6",
+        "2 by 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_SIDE",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "Divide both sides by 3: 6 ÷ 3 = 2, 9 ÷ 3 = 3."
+    },
+    {
+      "id": "proportional-relationships/t5/009",
+      "tier": 5,
+      "prompt": "Divide each side of a 6 by 10 rectangle by 2. New size?",
+      "choices": [
+        "4 by 8",
+        "3 by 5",
+        "3 by 10",
+        "6 by 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "ONE_SIDE",
+        "ONE_SIDE"
+      ],
+      "explanation": "Divide both sides by 2: 6 ÷ 2 = 3, 10 ÷ 2 = 5."
+    },
+    {
+      "id": "proportional-relationships/t5/010",
+      "tier": 5,
+      "prompt": "Scale 1 in = 5 ft. A room is 10 ft by 10 ft. Drawing area?",
+      "choices": [
+        "2 sq in",
+        "4 sq in",
+        "20 sq in",
+        "100 sq in"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_AREA",
+        "ACTUAL_AREA"
+      ],
+      "explanation": "Sides: 10 ÷ 5 = 2 in, 10 ÷ 5 = 2 in. Area 2 × 2 = 4 sq in."
+    },
+    {
+      "id": "proportional-relationships/t5/011",
+      "tier": 5,
+      "prompt": "10 cm on the map is 60 km. 1 cm = ? km",
+      "choices": [
+        "6",
+        "50",
+        "60",
+        "1/6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "ACTUAL_AS_SCALE",
+        "INVERTED"
+      ],
+      "explanation": "60 ÷ 10 = 6, so 1 cm = 6 km."
+    },
+    {
+      "id": "proportional-relationships/t5/012",
+      "tier": 5,
+      "prompt": "8 in on the map is 64 mi. 1 in = ? mi",
+      "choices": [
+        "8",
+        "56",
+        "64",
+        "1/8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "ACTUAL_AS_SCALE",
+        "INVERTED"
+      ],
+      "explanation": "64 ÷ 8 = 8, so 1 in = 8 mi."
+    },
+    {
+      "id": "proportional-relationships/t5/013",
+      "tier": 5,
+      "prompt": "Map scale 1 cm : 7 km. A 28 km road is how many cm?",
+      "choices": [
+        "7",
+        "196",
+        "4",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "WRONG_WAY",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "Each cm is 7 km: 28 ÷ 7 = 4 cm."
+    },
+    {
+      "id": "proportional-relationships/t5/014",
+      "tier": 5,
+      "prompt": "Each side is 4 times as long. Area is ? times as big.",
+      "choices": [
+        "64",
+        "4",
+        "8",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBED",
+        "LINEAR_AREA",
+        "ADDED_SIDES",
+        null
+      ],
+      "explanation": "Area multiplies both sides: 4 × 4 = 16."
+    },
+    {
+      "id": "proportional-relationships/t5/015",
+      "tier": 5,
+      "prompt": "Map scale 1 in : 3 mi. 10 in is how many mi?",
+      "choices": [
+        "3",
+        "30",
+        "3 1/3",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        null,
+        "SCALED_DOWN",
+        "ADDITIVE"
+      ],
+      "explanation": "Each in is 3 mi: 10 × 3 = 30 mi."
+    },
+    {
+      "id": "proportional-relationships/t5/016",
+      "tier": 5,
+      "prompt": "Scale 1 in = 5 ft. A room is drawn 2 in by 2 in. Real area?",
+      "choices": [
+        "4 sq ft",
+        "100 sq ft",
+        "20 sq ft",
+        "49 sq ft"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DRAWING_AREA",
+        null,
+        "LINEAR_AREA",
+        "ADDITIVE"
+      ],
+      "explanation": "Sides: 2 × 5 = 10 ft, 2 × 5 = 10 ft. Area 10 × 10 = 100 sq ft."
+    },
+    {
+      "id": "proportional-relationships/t5/017",
+      "tier": 5,
+      "prompt": "Plan scale 1 in : 4 ft. 8 in is how many ft?",
+      "choices": [
+        "12",
+        "32",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "SCALED_DOWN",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "Each in is 4 ft: 8 × 4 = 32 ft."
+    },
+    {
+      "id": "proportional-relationships/t5/018",
+      "tier": 5,
+      "prompt": "Scale 1 in = 2 ft. A room is 8 ft by 4 ft. Drawing area?",
+      "choices": [
+        "8 sq in",
+        "16 sq in",
+        "32 sq in",
+        "6 sq in"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LINEAR_AREA",
+        "ACTUAL_AREA",
+        "ARITH"
+      ],
+      "explanation": "Sides: 8 ÷ 2 = 4 in, 4 ÷ 2 = 2 in. Area 4 × 2 = 8 sq in."
+    },
+    {
+      "id": "proportional-relationships/t5/019",
+      "tier": 5,
+      "prompt": "Scale 1 cm = 2 m. A room is drawn 4 cm by 4 cm. Real area?",
+      "choices": [
+        "16 sq m",
+        "36 sq m",
+        "64 sq m",
+        "32 sq m"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DRAWING_AREA",
+        "ADDITIVE",
+        null,
+        "LINEAR_AREA"
+      ],
+      "explanation": "Sides: 4 × 2 = 8 m, 4 × 2 = 8 m. Area 8 × 8 = 64 sq m."
+    },
+    {
+      "id": "proportional-relationships/t5/020",
+      "tier": 5,
+      "prompt": "Scale 1 in = 2 ft. A room is 10 ft by 8 ft. Drawing area?",
+      "choices": [
+        "19 sq in",
+        "40 sq in",
+        "80 sq in",
+        "20 sq in"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "LINEAR_AREA",
+        "ACTUAL_AREA",
+        null
+      ],
+      "explanation": "Sides: 10 ÷ 2 = 5 in, 8 ÷ 2 = 4 in. Area 5 × 4 = 20 sq in."
+    },
+    {
+      "id": "proportional-relationships/t5/021",
+      "tier": 5,
+      "prompt": "4 in on the map is 40 mi. 1 in = ? mi",
+      "choices": [
+        "10",
+        "40",
+        "36",
+        "1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ACTUAL_AS_SCALE",
+        "ADDITIVE",
+        "INVERTED"
+      ],
+      "explanation": "40 ÷ 4 = 10, so 1 in = 10 mi."
+    },
+    {
+      "id": "proportional-relationships/t5/022",
+      "tier": 5,
+      "prompt": "Plan scale 1 in : 5 ft. 2 in is how many ft?",
+      "choices": [
+        "5",
+        "7",
+        "10",
+        "2/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null,
+        "SCALED_DOWN"
+      ],
+      "explanation": "Each in is 5 ft: 2 × 5 = 10 ft."
+    },
+    {
+      "id": "proportional-relationships/t5/023",
+      "tier": 5,
+      "prompt": "Scale 1 in = 3 ft. A room is 6 ft by 9 ft. Drawing area?",
+      "choices": [
+        "4 sq in",
+        "18 sq in",
+        "6 sq in",
+        "54 sq in"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LINEAR_AREA",
+        null,
+        "ACTUAL_AREA"
+      ],
+      "explanation": "Sides: 6 ÷ 3 = 2 in, 9 ÷ 3 = 3 in. Area 2 × 3 = 6 sq in."
+    },
+    {
+      "id": "proportional-relationships/t5/024",
+      "tier": 5,
+      "prompt": "Plan scale 1 cm : 3 m. 2 cm is how many m?",
+      "choices": [
+        "6",
+        "5",
+        "3",
+        "2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        "SCALED_DOWN"
+      ],
+      "explanation": "Each cm is 3 m: 2 × 3 = 6 m."
+    },
+    {
+      "id": "proportional-relationships/t5/025",
+      "tier": 5,
+      "prompt": "Plan scale 1 cm : 5 m. A 15 m wall is how many cm?",
+      "choices": [
+        "75",
+        "5",
+        "10",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_WAY",
+        "FACTOR_ONLY",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "Each cm is 5 m: 15 ÷ 5 = 3 cm."
+    },
+    {
+      "id": "proportional-relationships/t5/026",
+      "tier": 5,
+      "prompt": "Each side is 3 times as long. Area is ? times as big.",
+      "choices": [
+        "6",
+        "3",
+        "27",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SIDES",
+        "LINEAR_AREA",
+        "CUBED",
+        null
+      ],
+      "explanation": "Area multiplies both sides: 3 × 3 = 9."
+    },
+    {
+      "id": "proportional-relationships/t5/027",
+      "tier": 5,
+      "prompt": "7 in on the plan is 28 ft. 1 in = ? ft",
+      "choices": [
+        "28",
+        "4",
+        "1/4",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ACTUAL_AS_SCALE",
+        null,
+        "INVERTED",
+        "ADDITIVE"
+      ],
+      "explanation": "28 ÷ 7 = 4, so 1 in = 4 ft."
+    },
+    {
+      "id": "proportional-relationships/t5/028",
+      "tier": 5,
+      "prompt": "Plan scale 1 in : 5 ft. A 40 ft wall is how many in?",
+      "choices": [
+        "200",
+        "35",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_WAY",
+        "ADDITIVE",
+        "FACTOR_ONLY",
+        null
+      ],
+      "explanation": "Each in is 5 ft: 40 ÷ 5 = 8 in."
+    },
+    {
+      "id": "proportional-relationships/t5/029",
+      "tier": 5,
+      "prompt": "Each side is 2 times as long. Area is ? times as big.",
+      "choices": [
+        "8",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBED",
+        "ARITH",
+        "LINEAR_AREA",
+        null
+      ],
+      "explanation": "Area multiplies both sides: 2 × 2 = 4."
+    },
+    {
+      "id": "proportional-relationships/t5/030",
+      "tier": 5,
+      "prompt": "Scale 1 in = 3 ft. A room is drawn 2 in by 3 in. Real area?",
+      "choices": [
+        "30 sq ft",
+        "6 sq ft",
+        "54 sq ft",
+        "18 sq ft"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDITIVE",
+        "DRAWING_AREA",
+        null,
+        "LINEAR_AREA"
+      ],
+      "explanation": "Sides: 2 × 3 = 6 ft, 3 × 3 = 9 ft. Area 6 × 9 = 54 sq ft."
+    },
+    {
+      "id": "proportional-relationships/t5/031",
+      "tier": 5,
+      "prompt": "Map scale 1 in : 7 mi. 2 in is how many mi?",
+      "choices": [
+        "14",
+        "2/7",
+        "9",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SCALED_DOWN",
+        "ADDITIVE",
+        "FACTOR_ONLY"
+      ],
+      "explanation": "Each in is 7 mi: 2 × 7 = 14 mi."
+    },
+    {
+      "id": "proportional-relationships/t5/032",
+      "tier": 5,
+      "prompt": "4 cm on the plan is 40 m. 1 cm = ? m",
+      "choices": [
+        "40",
+        "1/10",
+        "10",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ACTUAL_AS_SCALE",
+        "INVERTED",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "40 ÷ 4 = 10, so 1 cm = 10 m."
+    },
+    {
+      "id": "proportional-relationships/t5/033",
+      "tier": 5,
+      "prompt": "Enlarge a 4 by 5 rectangle with scale factor 2. New size?",
+      "choices": [
+        "6 by 7",
+        "8 by 10",
+        "4 by 10",
+        "8 by 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "ONE_SIDE",
+        "ONE_SIDE"
+      ],
+      "explanation": "Multiply both sides by 2: 4 × 2 = 8, 5 × 2 = 10."
+    },
+    {
+      "id": "proportional-relationships/t5/034",
+      "tier": 5,
+      "prompt": "Scale factor 6. Area is multiplied by what?",
+      "choices": [
+        "36",
+        "12",
+        "216",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SIDES",
+        "CUBED",
+        "LINEAR_AREA"
+      ],
+      "explanation": "Area multiplies both sides: 6 × 6 = 36."
+    },
+    {
+      "id": "proportional-relationships/t5/035",
+      "tier": 5,
+      "prompt": "8 in on the map is 40 mi. 1 in = ? mi",
+      "choices": [
+        "1/5",
+        "32",
+        "40",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED",
+        "ADDITIVE",
+        "ACTUAL_AS_SCALE",
+        null
+      ],
+      "explanation": "40 ÷ 8 = 5, so 1 in = 5 mi."
+    },
+    {
+      "id": "proportional-relationships/t5/036",
+      "tier": 5,
+      "prompt": "Plan scale 1 in : 9 ft. A 81 ft wall is how many in?",
+      "choices": [
+        "729",
+        "11",
+        "72",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_WAY",
+        "ARITH",
+        "ADDITIVE",
+        null
+      ],
+      "explanation": "Each in is 9 ft: 81 ÷ 9 = 9 in."
+    },
+    {
+      "id": "proportional-relationships/t5/037",
+      "tier": 5,
+      "prompt": "Scale a 4 by 5 rectangle by 2. New size?",
+      "choices": [
+        "6 by 7",
+        "8 by 10",
+        "4 by 10",
+        "8 by 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDITIVE",
+        null,
+        "ONE_SIDE",
+        "ONE_SIDE"
+      ],
+      "explanation": "Multiply both sides by 2: 4 × 2 = 8, 5 × 2 = 10."
+    },
+    {
+      "id": "proportional-relationships/t5/038",
+      "tier": 5,
+      "prompt": "Plan scale 1 cm : 2 m. A 10 m wall is how many cm?",
+      "choices": [
+        "20",
+        "8",
+        "5",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_WAY",
+        "ADDITIVE",
+        null,
+        "FACTOR_ONLY"
+      ],
+      "explanation": "Each cm is 2 m: 10 ÷ 2 = 5 cm."
+    },
+    {
+      "id": "proportional-relationships/t5/039",
+      "tier": 5,
+      "prompt": "Map scale 1 cm : 6 km. 10 cm is how many km?",
+      "choices": [
+        "6",
+        "60",
+        "1 2/3",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        null,
+        "SCALED_DOWN",
+        "ADDITIVE"
+      ],
+      "explanation": "Each cm is 6 km: 10 × 6 = 60 km."
+    },
+    {
+      "id": "proportional-relationships/t5/040",
+      "tier": 5,
+      "prompt": "Plan scale 1 cm : 2 m. 5 cm is how many m?",
+      "choices": [
+        "2",
+        "2 1/2",
+        "10",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FACTOR_ONLY",
+        "SCALED_DOWN",
+        null,
+        "ADDITIVE"
+      ],
+      "explanation": "Each cm is 2 m: 5 × 2 = 10 m."
+    }
+  ]
+}

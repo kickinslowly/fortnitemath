@@ -1,0 +1,3955 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-expressions",
+  "version": "1.0.0",
+  "title": "Equivalent Expressions",
+  "subtitle": "Combine, Expand & Factor with Signs",
+  "grade": "7",
+  "standards": [
+    "CCSS.MATH.CONTENT.7.EE.A.1",
+    "CCSS.MATH.CONTENT.7.EE.A.2"
+  ],
+  "seed": 20261024,
+  "items_per_tier": 40,
+  "bounds": "T1-T4: every coefficient and constant in a prompt, in the correct answer and in every step between has size 1-12 (single-letter variables, one or two per item, no x^2 term); an outside multiplier has size 1-10 (a bare minus is -1) and each product is a times-table fact with a result of size <= 12; a combined coefficient or constant is never 0 and never over 12 in size. T4 GCF 2-6 (or its negative), the parts inside the bracket 1-6 with no common factor. T5 (PROTOCOL 4b): percents 10 20 25 30 40 50 60 75 off or down and 5 10 20 30 40 50 up; decimals at most 2 places and 2 non-zero digits; fractions proper, denominators 2-12 with lcm <= 12, results proper and in simplest form; perimeter: width w, length k times w plus c, with k 1-3 and c 1-6.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Combine Like Terms",
+      "description": "Combine like terms when some coefficients are negative: 5x − 8x = −3x."
+    },
+    {
+      "tier": 2,
+      "name": "Distribute Negatives",
+      "description": "Multiply a bracket by a negative number or a minus sign: −3(x − 4) = −3x + 12."
+    },
+    {
+      "tier": 3,
+      "name": "Add & Subtract Groups",
+      "description": "Add or subtract whole expressions: (5x + 2) − (2x − 3) = 3x + 5."
+    },
+    {
+      "tier": 4,
+      "name": "Factoring",
+      "description": "Pull out a common factor, even a negative one: −4x + 8 = −4(x − 2)."
+    },
+    {
+      "tier": 5,
+      "name": "Rewrite to Show Meaning",
+      "description": "Same value, new form: 20% off p is 0.8p, and a + 0.05a is 1.05a."
+    }
+  ],
+  "misconceptions": {
+    "WRONG_SIGN": {
+      "student": "Right size, wrong sign. Check which number is bigger and what its sign is.",
+      "teacher": "Combines to the right size but writes the wrong sign on the variable term or the constant."
+    },
+    "DROPPED_VARIABLE": {
+      "student": "Keep the letter. Only the coefficients combine; the letter stays on.",
+      "teacher": "Combines the numbers and drops the variable (or leaves it off a result that has one)."
+    },
+    "UNLIKE_COMBINED": {
+      "student": "Only like terms combine. A letter term and a plain number can't merge.",
+      "teacher": "Combines unlike terms (a variable term with a constant, or two different letters)."
+    },
+    "IGNORED_MINUS": {
+      "student": "A minus sign means take that term away. Don't turn it into a plus.",
+      "teacher": "Treats a subtracted term (or group) as if it were added."
+    },
+    "NO_COEF_ONE": {
+      "student": "A letter alone is 1 of it (a is 1a, −a is −1a). Don't skip it.",
+      "teacher": "Skips a term whose coefficient 1 is not written."
+    },
+    "ADD_SIZES": {
+      "student": "Different signs: subtract the sizes, keep the sign of the bigger one.",
+      "teacher": "Adds the sizes of two numbers with different signs instead of subtracting them."
+    },
+    "DROPPED_TERM": {
+      "student": "Don't leave a term out. Every term is either combined or kept.",
+      "teacher": "Leaves a term out of the result (a different letter, or the second like term)."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply EVERY term inside ( ) by the outside number, not just the first.",
+      "teacher": "Applies the outside multiplier to the first term only."
+    },
+    "SIGN_INSIDE": {
+      "student": "Watch each sign: −3 × 4 = −12, but −3 × (−4) = +12.",
+      "teacher": "Gets the sign of a product wrong (negative times negative kept negative, or a sign flipped)."
+    },
+    "NEG_FIRST_ONLY": {
+      "student": "A minus in front of ( ) changes EVERY sign inside: −(2x + 5) = −2x − 5.",
+      "teacher": "Applies a leading minus to the first term in the bracket only."
+    },
+    "IGNORED_OUTER_MINUS": {
+      "student": "Keep the outside minus. −3(x − 4) means −3 times each term.",
+      "teacher": "Distributes the size of a negative multiplier and drops its sign."
+    },
+    "DROPPED_NEG": {
+      "student": "Don't lose a minus sign. It stays with the term it belongs to.",
+      "teacher": "Drops the negative sign on one term (inside a bracket, a group or a factored form)."
+    },
+    "FIRST_TERM_ONLY": {
+      "student": "A minus in front of ( ) flips EVERY sign inside, not just the first.",
+      "teacher": "Changes the sign of only the first term of the group being subtracted."
+    },
+    "PARTIAL_FACTOR": {
+      "student": "Divide EVERY term by the factor you take out, not just the first.",
+      "teacher": "Factors the common factor out of one term only and leaves the other unchanged."
+    },
+    "SIGN_FACTOR": {
+      "student": "Dividing by a negative flips the sign: −4x + 8 = −4(x − 2).",
+      "teacher": "Factors out a negative but keeps the old sign inside the bracket."
+    },
+    "SUB_FOR_DIV": {
+      "student": "Factoring divides each term by the factor. Subtracting it is wrong.",
+      "teacher": "Subtracts the common factor from each term instead of dividing."
+    },
+    "ONE_TERM_FACTOR": {
+      "student": "Pull out what BOTH terms share, not just one term's number.",
+      "teacher": "Factors out one term's number instead of the greatest common factor."
+    },
+    "PART_ONLY": {
+      "student": "That's only the extra part. Combine it with the whole: 1 + 0.2 = 1.2.",
+      "teacher": "Gives only the percent part (or the decimal part) and loses the whole amount."
+    },
+    "PERCENT_AS_NUMBER": {
+      "student": "A percent is a part OF the amount (like 0.2p), not a plain 20 or 0.2.",
+      "teacher": "Adds or subtracts the percent as a plain number instead of taking that part of the amount."
+    },
+    "WRONG_DIRECTION": {
+      "student": "Off or a drop means subtract (1 − 0.2). A rise or tax means add (1 + 0.2).",
+      "teacher": "Adds where the situation subtracts, or subtracts where it adds."
+    },
+    "PLACE_VALUE": {
+      "student": "Check the decimal point: 5% is 0.05 and 50% is 0.5.",
+      "teacher": "Misplaces the decimal point converting between a percent and a decimal."
+    },
+    "RATIO_AS_CHANGE": {
+      "student": "1.2p is 120% of p. The change is only how far it is from 100%.",
+      "teacher": "Reports the whole multiplier as the percent of change (1.2 as 120%)."
+    },
+    "ADD_ACROSS": {
+      "student": "Don't add the bottoms. Use a common denominator and add only the tops.",
+      "teacher": "Adds (or subtracts) numerators and denominators straight across."
+    },
+    "NO_CONVERT": {
+      "student": "Rename BOTH fractions with the common denominator, then add the tops.",
+      "teacher": "Uses the common denominator but combines the original numerators."
+    },
+    "MULTIPLIED": {
+      "student": "Like terms ADD or SUBTRACT their coefficients. Don't multiply them.",
+      "teacher": "Multiplies the coefficients of like terms."
+    },
+    "HALF_PERIMETER": {
+      "student": "The perimeter goes all the way around: two widths AND two lengths.",
+      "teacher": "Adds one width and one length, half the perimeter."
+    },
+    "MISSING_SIDE": {
+      "student": "Count all 4 sides: the width twice and the length twice.",
+      "teacher": "Counts the width once and the length twice (or the reverse)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "linear-expressions/t1/001",
+      "tier": 1,
+      "prompt": "Simplify: −8t + 11 − 4t",
+      "choices": [
+        "12t + 11",
+        "−1",
+        "−12t + 11",
+        "−t"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms: −8t − 4t = −12t. 11 has no t, so it stays: −12t + 11."
+    },
+    {
+      "id": "linear-expressions/t1/002",
+      "tier": 1,
+      "prompt": "Simplify: −6p + 6t + 8p",
+      "choices": [
+        "2p + 6t",
+        "14p + 6t",
+        "2p",
+        "8p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Combine only the p terms: −6p + 8p = 2p. The t term stays: 2p + 6t."
+    },
+    {
+      "id": "linear-expressions/t1/003",
+      "tier": 1,
+      "prompt": "Simplify: −7k + 3k",
+      "choices": [
+        "−4k",
+        "4k",
+        "−4",
+        "−10k"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE",
+        "ADD_SIZES"
+      ],
+      "explanation": "Add the coefficients: −7 + 3 = −4. So −7k + 3k = −4k."
+    },
+    {
+      "id": "linear-expressions/t1/004",
+      "tier": 1,
+      "prompt": "Simplify: −5b + 8 − 2b",
+      "choices": [
+        "−3b + 8",
+        "1",
+        "−7b + 8",
+        "b"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "DROPPED_VARIABLE",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms: −5b − 2b = −7b. 8 has no b, so it stays: −7b + 8."
+    },
+    {
+      "id": "linear-expressions/t1/005",
+      "tier": 1,
+      "prompt": "Simplify: 7 − 9p + p",
+      "choices": [
+        "−9p + 7",
+        "−8p + 7",
+        "8p + 7",
+        "−10p + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_COEF_ONE",
+        null,
+        "WRONG_SIGN",
+        "ADD_SIZES"
+      ],
+      "explanation": "Like terms: −9p + p = −8p. 7 has no p, so it stays: −8p + 7."
+    },
+    {
+      "id": "linear-expressions/t1/006",
+      "tier": 1,
+      "prompt": "Simplify: 4w − 2w",
+      "choices": [
+        "6w",
+        "−2w",
+        "2",
+        "2w"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE",
+        null
+      ],
+      "explanation": "Add the coefficients: 4 − 2 = 2. So 4w − 2w = 2w."
+    },
+    {
+      "id": "linear-expressions/t1/007",
+      "tier": 1,
+      "prompt": "Simplify: 4p + 3p − 2t",
+      "choices": [
+        "7p",
+        "7p + 2t",
+        "7p − 2t",
+        "5p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "IGNORED_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Combine only the p terms: 4p + 3p = 7p. The t term stays: 7p − 2t."
+    },
+    {
+      "id": "linear-expressions/t1/008",
+      "tier": 1,
+      "prompt": "Simplify: a − 10a",
+      "choices": [
+        "−11a",
+        "−9a",
+        "11a",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "IGNORED_MINUS",
+        "DROPPED_VARIABLE"
+      ],
+      "explanation": "Add the coefficients (a alone is 1a): 1 − 10 = −9. So a − 10a = −9a."
+    },
+    {
+      "id": "linear-expressions/t1/009",
+      "tier": 1,
+      "prompt": "Simplify: 7w − 11w",
+      "choices": [
+        "−4w",
+        "−18w",
+        "4w",
+        "18w"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Add the coefficients: 7 − 11 = −4. So 7w − 11w = −4w."
+    },
+    {
+      "id": "linear-expressions/t1/010",
+      "tier": 1,
+      "prompt": "Simplify: 9b − 3b",
+      "choices": [
+        "6",
+        "−6b",
+        "6b",
+        "12b"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        null,
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Add the coefficients: 9 − 3 = 6. So 9b − 3b = 6b."
+    },
+    {
+      "id": "linear-expressions/t1/011",
+      "tier": 1,
+      "prompt": "Simplify: −2y + 3 − 9 + 6y",
+      "choices": [
+        "4y − 6",
+        "−2y",
+        "4y − 12",
+        "4y + 12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "ADD_SIZES",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "y terms: −2y + 6y = 4y. Numbers: 3 − 9 = −6. So 4y − 6."
+    },
+    {
+      "id": "linear-expressions/t1/012",
+      "tier": 1,
+      "prompt": "Simplify: −6y − 5 + 3y",
+      "choices": [
+        "−8y",
+        "−8",
+        "−3y − 5",
+        "−9y − 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "DROPPED_VARIABLE",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Like terms: −6y + 3y = −3y. −5 has no y, so it stays: −3y − 5."
+    },
+    {
+      "id": "linear-expressions/t1/013",
+      "tier": 1,
+      "prompt": "Simplify: −2t − 10 + 8t",
+      "choices": [
+        "−4t",
+        "6t − 10",
+        "−6t − 10",
+        "6t + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "WRONG_SIGN",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Like terms: −2t + 8t = 6t. −10 has no t, so it stays: 6t − 10."
+    },
+    {
+      "id": "linear-expressions/t1/014",
+      "tier": 1,
+      "prompt": "Simplify: −m + 9 + 5m",
+      "choices": [
+        "5m + 9",
+        "13m",
+        "4m + 9",
+        "6m + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_COEF_ONE",
+        "UNLIKE_COMBINED",
+        null,
+        "ADD_SIZES"
+      ],
+      "explanation": "Like terms: −m + 5m = 4m. 9 has no m, so it stays: 4m + 9."
+    },
+    {
+      "id": "linear-expressions/t1/015",
+      "tier": 1,
+      "prompt": "Simplify: −6n − 3 − 5 − 5n",
+      "choices": [
+        "−19",
+        "11n − 8",
+        "−11n − 8",
+        "−n − 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        null,
+        "IGNORED_MINUS"
+      ],
+      "explanation": "n terms: −6n − 5n = −11n. Numbers: −3 − 5 = −8. So −11n − 8."
+    },
+    {
+      "id": "linear-expressions/t1/016",
+      "tier": 1,
+      "prompt": "Simplify: 6t − 8t",
+      "choices": [
+        "2t",
+        "−2",
+        "−14t",
+        "−2t"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Add the coefficients: 6 − 8 = −2. So 6t − 8t = −2t."
+    },
+    {
+      "id": "linear-expressions/t1/017",
+      "tier": 1,
+      "prompt": "Simplify: −9t − 4 + 5t",
+      "choices": [
+        "−8t",
+        "−8",
+        "−14t − 4",
+        "−4t − 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "DROPPED_VARIABLE",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Like terms: −9t + 5t = −4t. −4 has no t, so it stays: −4t − 4."
+    },
+    {
+      "id": "linear-expressions/t1/018",
+      "tier": 1,
+      "prompt": "Simplify: m − 9m",
+      "choices": [
+        "8m",
+        "10m",
+        "−8m",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "IGNORED_MINUS",
+        null,
+        "DROPPED_VARIABLE"
+      ],
+      "explanation": "Add the coefficients (m alone is 1m): 1 − 9 = −8. So m − 9m = −8m."
+    },
+    {
+      "id": "linear-expressions/t1/019",
+      "tier": 1,
+      "prompt": "Simplify: −8m − 4m − 3",
+      "choices": [
+        "−12m − 3",
+        "−15m",
+        "12m − 3",
+        "−4m − 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "WRONG_SIGN",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Like terms: −8m − 4m = −12m. −3 has no m, so it stays: −12m − 3."
+    },
+    {
+      "id": "linear-expressions/t1/020",
+      "tier": 1,
+      "prompt": "Simplify: −10 − x + 4x",
+      "choices": [
+        "4x − 10",
+        "3x − 10",
+        "5x − 10",
+        "−7x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_COEF_ONE",
+        null,
+        "ADD_SIZES",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms: −x + 4x = 3x. −10 has no x, so it stays: 3x − 10."
+    },
+    {
+      "id": "linear-expressions/t1/021",
+      "tier": 1,
+      "prompt": "Simplify: 2b − 5a + 6a",
+      "choices": [
+        "a",
+        "2b + 11a",
+        "2b − a",
+        "2b + a"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_TERM",
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Combine only the a terms: −5a + 6a = a. The b term stays: 2b + a."
+    },
+    {
+      "id": "linear-expressions/t1/022",
+      "tier": 1,
+      "prompt": "Simplify: −9a − 5 − a",
+      "choices": [
+        "−9a − 5",
+        "−10a − 5",
+        "−15",
+        "−15a"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_COEF_ONE",
+        null,
+        "DROPPED_VARIABLE",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms: −9a − a = −10a. −5 has no a, so it stays: −10a − 5."
+    },
+    {
+      "id": "linear-expressions/t1/023",
+      "tier": 1,
+      "prompt": "Simplify: −9x + 5 + 3x − 1",
+      "choices": [
+        "−6x + 6",
+        "−6x + 4",
+        "6x + 4",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        null,
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE"
+      ],
+      "explanation": "x terms: −9x + 3x = −6x. Numbers: 5 − 1 = 4. So −6x + 4."
+    },
+    {
+      "id": "linear-expressions/t1/024",
+      "tier": 1,
+      "prompt": "Simplify: −4 + 8k + 7 − 3k",
+      "choices": [
+        "5k + 3",
+        "8k",
+        "11k + 3",
+        "5k + 11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS",
+        "ADD_SIZES"
+      ],
+      "explanation": "k terms: 8k − 3k = 5k. Numbers: −4 + 7 = 3. So 5k + 3."
+    },
+    {
+      "id": "linear-expressions/t1/025",
+      "tier": 1,
+      "prompt": "Simplify: 4 − 6k − 5 + 9k",
+      "choices": [
+        "2",
+        "3k − 1",
+        "2k",
+        "3k − 9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        null,
+        "UNLIKE_COMBINED",
+        "ADD_SIZES"
+      ],
+      "explanation": "k terms: −6k + 9k = 3k. Numbers: 4 − 5 = −1. So 3k − 1."
+    },
+    {
+      "id": "linear-expressions/t1/026",
+      "tier": 1,
+      "prompt": "Simplify: −5m + 9n − 3m",
+      "choices": [
+        "−8m + 9n",
+        "−8m",
+        "−2m + 9n",
+        "8m + 9n"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "IGNORED_MINUS",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Combine only the m terms: −5m − 3m = −8m. The n term stays: −8m + 9n."
+    },
+    {
+      "id": "linear-expressions/t1/027",
+      "tier": 1,
+      "prompt": "Simplify: −4y − 3 + 8y",
+      "choices": [
+        "12y − 3",
+        "4y + 3",
+        "4y − 3",
+        "y"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_SIZES",
+        "IGNORED_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Like terms: −4y + 8y = 4y. −3 has no y, so it stays: 4y − 3."
+    },
+    {
+      "id": "linear-expressions/t1/028",
+      "tier": 1,
+      "prompt": "Simplify: 2a − 7a + 8b",
+      "choices": [
+        "−5a + 8b",
+        "−5a",
+        "5a + 8b",
+        "−9a + 8b"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "WRONG_SIGN",
+        "ADD_SIZES"
+      ],
+      "explanation": "Combine only the a terms: 2a − 7a = −5a. The b term stays: −5a + 8b."
+    },
+    {
+      "id": "linear-expressions/t1/029",
+      "tier": 1,
+      "prompt": "Simplify: 3 + 7y − 4y",
+      "choices": [
+        "6",
+        "3y + 3",
+        "−3y + 3",
+        "11y + 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        null,
+        "WRONG_SIGN",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Like terms: 7y − 4y = 3y. 3 has no y, so it stays: 3y + 3."
+    },
+    {
+      "id": "linear-expressions/t1/030",
+      "tier": 1,
+      "prompt": "Simplify: 5c − 2d + 7c",
+      "choices": [
+        "12c − 2d",
+        "12c",
+        "10c",
+        "12c + 2d"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Combine only the c terms: 5c + 7c = 12c. The d term stays: 12c − 2d."
+    },
+    {
+      "id": "linear-expressions/t1/031",
+      "tier": 1,
+      "prompt": "Simplify: 8n − n",
+      "choices": [
+        "7",
+        "−7n",
+        "9n",
+        "7n"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Add the coefficients (n alone is 1n): 8 − 1 = 7. So 8n − n = 7n."
+    },
+    {
+      "id": "linear-expressions/t1/032",
+      "tier": 1,
+      "prompt": "Simplify: −3y + 2y",
+      "choices": [
+        "−1",
+        "y",
+        "−5y",
+        "−y"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        "ADD_SIZES",
+        null
+      ],
+      "explanation": "Add the coefficients: −3 + 2 = −1. So −3y + 2y = −y."
+    },
+    {
+      "id": "linear-expressions/t1/033",
+      "tier": 1,
+      "prompt": "Simplify: 6k − 9k",
+      "choices": [
+        "15k",
+        "−3k",
+        "−3",
+        "3k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        null,
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Add the coefficients: 6 − 9 = −3. So 6k − 9k = −3k."
+    },
+    {
+      "id": "linear-expressions/t1/034",
+      "tier": 1,
+      "prompt": "Simplify: 7c − 6c + 5d",
+      "choices": [
+        "c + 5d",
+        "c",
+        "6c",
+        "13c + 5d"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_TERM",
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Combine only the c terms: 7c − 6c = c. The d term stays: c + 5d."
+    },
+    {
+      "id": "linear-expressions/t1/035",
+      "tier": 1,
+      "prompt": "Simplify: 8t − t",
+      "choices": [
+        "9t",
+        "7",
+        "−7t",
+        "7t"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Add the coefficients (t alone is 1t): 8 − 1 = 7. So 8t − t = 7t."
+    },
+    {
+      "id": "linear-expressions/t1/036",
+      "tier": 1,
+      "prompt": "Simplify: 4w − 11w",
+      "choices": [
+        "15w",
+        "−15w",
+        "−7",
+        "−7w"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "ADD_SIZES",
+        "DROPPED_VARIABLE",
+        null
+      ],
+      "explanation": "Add the coefficients: 4 − 11 = −7. So 4w − 11w = −7w."
+    },
+    {
+      "id": "linear-expressions/t1/037",
+      "tier": 1,
+      "prompt": "Simplify: −8 − 5x + 2x",
+      "choices": [
+        "−11x",
+        "−11",
+        "−3x − 8",
+        "3x − 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "DROPPED_VARIABLE",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Like terms: −5x + 2x = −3x. −8 has no x, so it stays: −3x − 8."
+    },
+    {
+      "id": "linear-expressions/t1/038",
+      "tier": 1,
+      "prompt": "Simplify: −11t + 5t",
+      "choices": [
+        "−16t",
+        "−6",
+        "6t",
+        "−6t"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "DROPPED_VARIABLE",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Add the coefficients: −11 + 5 = −6. So −11t + 5t = −6t."
+    },
+    {
+      "id": "linear-expressions/t1/039",
+      "tier": 1,
+      "prompt": "Simplify: −8x − x",
+      "choices": [
+        "−7x",
+        "9x",
+        "−9",
+        "−9x"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "WRONG_SIGN",
+        "DROPPED_VARIABLE",
+        null
+      ],
+      "explanation": "Add the coefficients (x alone is 1x): −8 − 1 = −9. So −8x − x = −9x."
+    },
+    {
+      "id": "linear-expressions/t1/040",
+      "tier": 1,
+      "prompt": "Simplify: 6k − 1 − 7k + 2",
+      "choices": [
+        "−k + 3",
+        "−k + 1",
+        "13k + 1",
+        "k + 1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIZES",
+        null,
+        "IGNORED_MINUS",
+        "WRONG_SIGN"
+      ],
+      "explanation": "k terms: 6k − 7k = −k. Numbers: −1 + 2 = 1. So −k + 1."
+    },
+    {
+      "id": "linear-expressions/t2/001",
+      "tier": 2,
+      "prompt": "Distribute: −3(4n + 2)",
+      "choices": [
+        "−18n",
+        "−12n + 2",
+        "−12n − 6",
+        "12n + 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST",
+        null,
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −3: −3 × 4n = −12n and −3 × 2 = −6. So −12n − 6."
+    },
+    {
+      "id": "linear-expressions/t2/002",
+      "tier": 2,
+      "prompt": "Distribute: 3(−n − 4)",
+      "choices": [
+        "−3n + 12",
+        "−3n − 12",
+        "−15n",
+        "−3n − 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_NEG",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 3: 3 × (−n) = −3n and 3 × (−4) = −12. So −3n − 12."
+    },
+    {
+      "id": "linear-expressions/t2/003",
+      "tier": 2,
+      "prompt": "Distribute: −6(2t − 1)",
+      "choices": [
+        "−12t + 6",
+        "−12t − 6",
+        "12t − 6",
+        "−12t − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −6: −6 × 2t = −12t and −6 × (−1) = 6. So −12t + 6."
+    },
+    {
+      "id": "linear-expressions/t2/004",
+      "tier": 2,
+      "prompt": "Distribute: 2(−4k + 6)",
+      "choices": [
+        "8k + 12",
+        "−8k + 12",
+        "4k",
+        "−8k + 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_NEG",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by 2: 2 × (−4k) = −8k and 2 × 6 = 12. So −8k + 12."
+    },
+    {
+      "id": "linear-expressions/t2/005",
+      "tier": 2,
+      "prompt": "Distribute: −(8a + 3)",
+      "choices": [
+        "−8a + 3",
+        "−8a − 3",
+        "8a + 3",
+        "−11a"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        null,
+        "IGNORED_OUTER_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 8a = −8a and −1 × 3 = −3. So −8a − 3."
+    },
+    {
+      "id": "linear-expressions/t2/006",
+      "tier": 2,
+      "prompt": "Distribute: −2(5 + 6x)",
+      "choices": [
+        "−10 + 12x",
+        "−10 − 12x",
+        "10 + 12x",
+        "−10 + 6x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        null,
+        "IGNORED_OUTER_MINUS",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −2: −2 × 5 = −10 and −2 × 6x = −12x. So −10 − 12x."
+    },
+    {
+      "id": "linear-expressions/t2/007",
+      "tier": 2,
+      "prompt": "Distribute: −(10y − 1)",
+      "choices": [
+        "−10y + 1",
+        "−10y − 1",
+        "−9y",
+        "10y − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FIRST_ONLY",
+        "UNLIKE_COMBINED",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 10y = −10y and −1 × (−1) = 1. So −10y + 1."
+    },
+    {
+      "id": "linear-expressions/t2/008",
+      "tier": 2,
+      "prompt": "Distribute: −3(4t − 2)",
+      "choices": [
+        "−12t + 6",
+        "−12t − 6",
+        "−12t − 2",
+        "12t − 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −3: −3 × 4t = −12t and −3 × (−2) = 6. So −12t + 6."
+    },
+    {
+      "id": "linear-expressions/t2/009",
+      "tier": 2,
+      "prompt": "Distribute: −2(2 + 6k)",
+      "choices": [
+        "−4 + 12k",
+        "−4 − 12k",
+        "−16k",
+        "−4 + 6k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −2: −2 × 2 = −4 and −2 × 6k = −12k. So −4 − 12k."
+    },
+    {
+      "id": "linear-expressions/t2/010",
+      "tier": 2,
+      "prompt": "Distribute: −2(2k − 6)",
+      "choices": [
+        "−4k − 12",
+        "−4k + 12",
+        "4k − 12",
+        "8k"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        null,
+        "IGNORED_OUTER_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −2: −2 × 2k = −4k and −2 × (−6) = 12. So −4k + 12."
+    },
+    {
+      "id": "linear-expressions/t2/011",
+      "tier": 2,
+      "prompt": "Distribute: −3(3m + 1)",
+      "choices": [
+        "−9m + 3",
+        "−12m",
+        "−9m − 3",
+        "9m + 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "UNLIKE_COMBINED",
+        null,
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −3: −3 × 3m = −9m and −3 × 1 = −3. So −9m − 3."
+    },
+    {
+      "id": "linear-expressions/t2/012",
+      "tier": 2,
+      "prompt": "Distribute: −5(b + 2)",
+      "choices": [
+        "−5b + 10",
+        "−5b + 2",
+        "−5b − 10",
+        "−15b"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −5: −5 × b = −5b and −5 × 2 = −10. So −5b − 10."
+    },
+    {
+      "id": "linear-expressions/t2/013",
+      "tier": 2,
+      "prompt": "Distribute: −6(2 − n)",
+      "choices": [
+        "−12 − 6n",
+        "−12 + 6n",
+        "−12 − n",
+        "12 − 6n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        null,
+        "PARTIAL_DIST",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −6: −6 × 2 = −12 and −6 × (−n) = 6n. So −12 + 6n."
+    },
+    {
+      "id": "linear-expressions/t2/014",
+      "tier": 2,
+      "prompt": "Distribute: −(−4x − 1)",
+      "choices": [
+        "4x − 1",
+        "4x + 1",
+        "−4x + 1",
+        "−4x − 1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        null,
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −1: −1 × (−4x) = 4x and −1 × (−1) = 1. So 4x + 1."
+    },
+    {
+      "id": "linear-expressions/t2/015",
+      "tier": 2,
+      "prompt": "Distribute: −2(3k − 1)",
+      "choices": [
+        "−6k − 1",
+        "−6k − 2",
+        "−6k + 2",
+        "−4k"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "SIGN_INSIDE",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −2: −2 × 3k = −6k and −2 × (−1) = 2. So −6k + 2."
+    },
+    {
+      "id": "linear-expressions/t2/016",
+      "tier": 2,
+      "prompt": "Distribute: −(5a + 1)",
+      "choices": [
+        "−5a − 1",
+        "−5a + 1",
+        "5a + 1",
+        "−6a"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FIRST_ONLY",
+        "IGNORED_OUTER_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 5a = −5a and −1 × 1 = −1. So −5a − 1."
+    },
+    {
+      "id": "linear-expressions/t2/017",
+      "tier": 2,
+      "prompt": "Distribute: 2(−4w − 4)",
+      "choices": [
+        "−8w + 8",
+        "−8w − 4",
+        "−8w − 8",
+        "−16w"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 2: 2 × (−4w) = −8w and 2 × (−4) = −8. So −8w − 8."
+    },
+    {
+      "id": "linear-expressions/t2/018",
+      "tier": 2,
+      "prompt": "Distribute: −(8k + 4)",
+      "choices": [
+        "−8k + 4",
+        "8k + 4",
+        "−8k − 4",
+        "−12k"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        "IGNORED_OUTER_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 8k = −8k and −1 × 4 = −4. So −8k − 4."
+    },
+    {
+      "id": "linear-expressions/t2/019",
+      "tier": 2,
+      "prompt": "Distribute: 2(−6m + 5)",
+      "choices": [
+        "12m + 10",
+        "−12m + 5",
+        "−2m",
+        "−12m + 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Multiply each term by 2: 2 × (−6m) = −12m and 2 × 5 = 10. So −12m + 10."
+    },
+    {
+      "id": "linear-expressions/t2/020",
+      "tier": 2,
+      "prompt": "Distribute: 2(−6p + 1)",
+      "choices": [
+        "−12p + 2",
+        "12p + 2",
+        "−12p + 1",
+        "−10p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 2: 2 × (−6p) = −12p and 2 × 1 = 2. So −12p + 2."
+    },
+    {
+      "id": "linear-expressions/t2/021",
+      "tier": 2,
+      "prompt": "Distribute: −4(3t + 3)",
+      "choices": [
+        "−12t − 12",
+        "−12t + 12",
+        "12t + 12",
+        "−12t + 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −4: −4 × 3t = −12t and −4 × 3 = −12. So −12t − 12."
+    },
+    {
+      "id": "linear-expressions/t2/022",
+      "tier": 2,
+      "prompt": "Distribute: 2(−6b + 1)",
+      "choices": [
+        "12b + 2",
+        "−12b + 1",
+        "−10b",
+        "−12b + 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Multiply each term by 2: 2 × (−6b) = −12b and 2 × 1 = 2. So −12b + 2."
+    },
+    {
+      "id": "linear-expressions/t2/023",
+      "tier": 2,
+      "prompt": "Distribute: −(−6k − 5)",
+      "choices": [
+        "6k − 5",
+        "−6k + 5",
+        "6k + 5",
+        "−6k − 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        "SIGN_INSIDE",
+        null,
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −1: −1 × (−6k) = 6k and −1 × (−5) = 5. So 6k + 5."
+    },
+    {
+      "id": "linear-expressions/t2/024",
+      "tier": 2,
+      "prompt": "Distribute: −(−5a + 2)",
+      "choices": [
+        "5a − 2",
+        "5a + 2",
+        "−5a − 2",
+        "−5a + 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FIRST_ONLY",
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −1: −1 × (−5a) = 5a and −1 × 2 = −2. So 5a − 2."
+    },
+    {
+      "id": "linear-expressions/t2/025",
+      "tier": 2,
+      "prompt": "Distribute: −2(5b − 4)",
+      "choices": [
+        "−10b − 8",
+        "10b − 8",
+        "−10b − 4",
+        "−10b + 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Multiply each term by −2: −2 × 5b = −10b and −2 × (−4) = 8. So −10b + 8."
+    },
+    {
+      "id": "linear-expressions/t2/026",
+      "tier": 2,
+      "prompt": "Distribute: −3(p − 4)",
+      "choices": [
+        "−3p − 12",
+        "−3p + 12",
+        "9p",
+        "−3p − 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        null,
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −3: −3 × p = −3p and −3 × (−4) = 12. So −3p + 12."
+    },
+    {
+      "id": "linear-expressions/t2/027",
+      "tier": 2,
+      "prompt": "Distribute: −(2x − 4)",
+      "choices": [
+        "−2x + 4",
+        "−2x − 4",
+        "2x − 4",
+        "2x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FIRST_ONLY",
+        "IGNORED_OUTER_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 2x = −2x and −1 × (−4) = 4. So −2x + 4."
+    },
+    {
+      "id": "linear-expressions/t2/028",
+      "tier": 2,
+      "prompt": "Distribute: 3(−4k − 4)",
+      "choices": [
+        "−12k − 12",
+        "−12k + 12",
+        "−12k − 4",
+        "−24k"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by 3: 3 × (−4k) = −12k and 3 × (−4) = −12. So −12k − 12."
+    },
+    {
+      "id": "linear-expressions/t2/029",
+      "tier": 2,
+      "prompt": "Distribute: −2(5p − 3)",
+      "choices": [
+        "−10p − 6",
+        "10p − 6",
+        "−10p + 6",
+        "−10p − 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Multiply each term by −2: −2 × 5p = −10p and −2 × (−3) = 6. So −10p + 6."
+    },
+    {
+      "id": "linear-expressions/t2/030",
+      "tier": 2,
+      "prompt": "Distribute: −3(−4n − 4)",
+      "choices": [
+        "12n − 12",
+        "−12n − 12",
+        "12n + 12",
+        "24n"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −3: −3 × (−4n) = 12n and −3 × (−4) = 12. So 12n + 12."
+    },
+    {
+      "id": "linear-expressions/t2/031",
+      "tier": 2,
+      "prompt": "Distribute: −(12k − 2)",
+      "choices": [
+        "−12k + 2",
+        "−12k − 2",
+        "12k − 2",
+        "−10k"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FIRST_ONLY",
+        "IGNORED_OUTER_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 12k = −12k and −1 × (−2) = 2. So −12k + 2."
+    },
+    {
+      "id": "linear-expressions/t2/032",
+      "tier": 2,
+      "prompt": "Distribute: −(−5w − 4)",
+      "choices": [
+        "5w − 4",
+        "−5w + 4",
+        "−5w − 4",
+        "5w + 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        "SIGN_INSIDE",
+        "IGNORED_OUTER_MINUS",
+        null
+      ],
+      "explanation": "Multiply each term by −1: −1 × (−5w) = 5w and −1 × (−4) = 4. So 5w + 4."
+    },
+    {
+      "id": "linear-expressions/t2/033",
+      "tier": 2,
+      "prompt": "Distribute: −4(3t + 2)",
+      "choices": [
+        "−12t + 8",
+        "−12t + 2",
+        "12t + 8",
+        "−12t − 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "IGNORED_OUTER_MINUS",
+        null
+      ],
+      "explanation": "Multiply each term by −4: −4 × 3t = −12t and −4 × 2 = −8. So −12t − 8."
+    },
+    {
+      "id": "linear-expressions/t2/034",
+      "tier": 2,
+      "prompt": "Distribute: −4(a + 2)",
+      "choices": [
+        "−4a + 8",
+        "−4a + 2",
+        "−12a",
+        "−4a − 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Multiply each term by −4: −4 × a = −4a and −4 × 2 = −8. So −4a − 8."
+    },
+    {
+      "id": "linear-expressions/t2/035",
+      "tier": 2,
+      "prompt": "Distribute: 3(−2p − 3)",
+      "choices": [
+        "−6p + 9",
+        "−6p − 3",
+        "−15p",
+        "−6p − 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Multiply each term by 3: 3 × (−2p) = −6p and 3 × (−3) = −9. So −6p − 9."
+    },
+    {
+      "id": "linear-expressions/t2/036",
+      "tier": 2,
+      "prompt": "Distribute: −(3n + 11)",
+      "choices": [
+        "−3n + 11",
+        "3n + 11",
+        "−3n − 11",
+        "−14n"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        "IGNORED_OUTER_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 3n = −3n and −1 × 11 = −11. So −3n − 11."
+    },
+    {
+      "id": "linear-expressions/t2/037",
+      "tier": 2,
+      "prompt": "Distribute: −2(p − 5)",
+      "choices": [
+        "−2p − 10",
+        "−2p − 5",
+        "2p − 10",
+        "−2p + 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "IGNORED_OUTER_MINUS",
+        null
+      ],
+      "explanation": "Multiply each term by −2: −2 × p = −2p and −2 × (−5) = 10. So −2p + 10."
+    },
+    {
+      "id": "linear-expressions/t2/038",
+      "tier": 2,
+      "prompt": "Distribute: −2(−2 + 3a)",
+      "choices": [
+        "4 + 6a",
+        "4 + 3a",
+        "−4 + 6a",
+        "4 − 6a"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "IGNORED_OUTER_MINUS",
+        null
+      ],
+      "explanation": "Multiply each term by −2: −2 × (−2) = 4 and −2 × 3a = −6a. So 4 − 6a."
+    },
+    {
+      "id": "linear-expressions/t2/039",
+      "tier": 2,
+      "prompt": "Distribute: −(8x + 6)",
+      "choices": [
+        "−8x + 6",
+        "−14x",
+        "8x + 6",
+        "−8x − 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        "UNLIKE_COMBINED",
+        "IGNORED_OUTER_MINUS",
+        null
+      ],
+      "explanation": "Multiply each term by −1: −1 × 8x = −8x and −1 × 6 = −6. So −8x − 6."
+    },
+    {
+      "id": "linear-expressions/t2/040",
+      "tier": 2,
+      "prompt": "Distribute: −(4 − 5p)",
+      "choices": [
+        "−4 − 5p",
+        "−4 + 5p",
+        "p",
+        "4 − 5p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_FIRST_ONLY",
+        null,
+        "UNLIKE_COMBINED",
+        "IGNORED_OUTER_MINUS"
+      ],
+      "explanation": "Multiply each term by −1: −1 × 4 = −4 and −1 × (−5p) = 5p. So −4 + 5p."
+    },
+    {
+      "id": "linear-expressions/t3/001",
+      "tier": 3,
+      "prompt": "Simplify: (9t + 5) − (7t − 3)",
+      "choices": [
+        "16t + 2",
+        "2t + 2",
+        "−2t + 8",
+        "2t + 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "FIRST_TERM_ONLY",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 9t + 5 − 7t + 3. Combine: 2t + 8."
+    },
+    {
+      "id": "linear-expressions/t3/002",
+      "tier": 3,
+      "prompt": "Simplify: (−w − 4) + (−2w + 2)",
+      "choices": [
+        "−3w − 2",
+        "−5w",
+        "w − 2",
+        "−3w − 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "UNLIKE_COMBINED",
+        "DROPPED_NEG",
+        "ADD_SIZES"
+      ],
+      "explanation": "Drop the ( ): −w − 4 − 2w + 2. Combine like terms: −3w − 2."
+    },
+    {
+      "id": "linear-expressions/t3/003",
+      "tier": 3,
+      "prompt": "Simplify: (a + 1) − (9a − 8)",
+      "choices": [
+        "−8a − 7",
+        "−8a + 9",
+        "10a − 7",
+        "a"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FIRST_TERM_ONLY",
+        null,
+        "IGNORED_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): a + 1 − 9a + 8. Combine: −8a + 9."
+    },
+    {
+      "id": "linear-expressions/t3/004",
+      "tier": 3,
+      "prompt": "Simplify: (−6m + 2n) + (−4m − 8n)",
+      "choices": [
+        "10m − 6n",
+        "−10m − 6n",
+        "−2m − 6n",
+        "−10m − 10n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "DROPPED_NEG",
+        "ADD_SIZES"
+      ],
+      "explanation": "Drop the ( ): −6m + 2n − 4m − 8n. Combine like terms: −10m − 6n."
+    },
+    {
+      "id": "linear-expressions/t3/005",
+      "tier": 3,
+      "prompt": "Simplify: (2k + 7) − (3k − 3)",
+      "choices": [
+        "9k",
+        "−k + 4",
+        "−k + 10",
+        "k + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "FIRST_TERM_ONLY",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 2k + 7 − 3k + 3. Combine: −k + 10."
+    },
+    {
+      "id": "linear-expressions/t3/006",
+      "tier": 3,
+      "prompt": "Simplify: (m − 4n) − (−6m + 4n)",
+      "choices": [
+        "−5m",
+        "−m",
+        "7m − 8n",
+        "7m"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "UNLIKE_COMBINED",
+        null,
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): m − 4n + 6m − 4n. Combine: 7m − 8n."
+    },
+    {
+      "id": "linear-expressions/t3/007",
+      "tier": 3,
+      "prompt": "Simplify: 8p − (4p − 9)",
+      "choices": [
+        "12p − 9",
+        "4p + 9",
+        "−4p + 9",
+        "13p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        null,
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 8p − 4p + 9. Combine: 4p + 9."
+    },
+    {
+      "id": "linear-expressions/t3/008",
+      "tier": 3,
+      "prompt": "Simplify: (−7b − 2) + (−b + 9)",
+      "choices": [
+        "−6b + 7",
+        "−8b + 11",
+        "8b + 7",
+        "−8b + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Drop the ( ): −7b − 2 − b + 9. Combine like terms: −8b + 7."
+    },
+    {
+      "id": "linear-expressions/t3/009",
+      "tier": 3,
+      "prompt": "Simplify: (−2k − 5) − (5k + 6)",
+      "choices": [
+        "3k + 1",
+        "−7k − 11",
+        "−7k + 1",
+        "7k − 11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        null,
+        "FIRST_TERM_ONLY",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −2k − 5 − 5k − 6. Combine: −7k − 11."
+    },
+    {
+      "id": "linear-expressions/t3/010",
+      "tier": 3,
+      "prompt": "Simplify: 3p − (6p + 1)",
+      "choices": [
+        "−4p",
+        "9p + 1",
+        "−3p − 1",
+        "−3p + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS",
+        null,
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 3p − 6p − 1. Combine: −3p − 1."
+    },
+    {
+      "id": "linear-expressions/t3/011",
+      "tier": 3,
+      "prompt": "Simplify: (−8m + 6) − (−5m − 4)",
+      "choices": [
+        "−3m + 2",
+        "7m",
+        "−3m + 10",
+        "−13m + 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_TERM_ONLY",
+        "UNLIKE_COMBINED",
+        null,
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −8m + 6 + 5m + 4. Combine: −3m + 10."
+    },
+    {
+      "id": "linear-expressions/t3/012",
+      "tier": 3,
+      "prompt": "Simplify: (−2p − 6t) + (9p + 2t)",
+      "choices": [
+        "11p − 4t",
+        "7p − 4t",
+        "−7p − 4t",
+        "3p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_NEG",
+        null,
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Drop the ( ): −2p − 6t + 9p + 2t. Combine like terms: 7p − 4t."
+    },
+    {
+      "id": "linear-expressions/t3/013",
+      "tier": 3,
+      "prompt": "Simplify: (7x + 4) − (6x − 3)",
+      "choices": [
+        "13x + 1",
+        "−x + 7",
+        "x + 1",
+        "x + 7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "WRONG_SIGN",
+        "FIRST_TERM_ONLY",
+        null
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 7x + 4 − 6x + 3. Combine: x + 7."
+    },
+    {
+      "id": "linear-expressions/t3/014",
+      "tier": 3,
+      "prompt": "Simplify: 6y − 4 − 3(−2y − 4)",
+      "choices": [
+        "12y",
+        "12y + 8",
+        "−16",
+        "12y − 16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "IGNORED_MINUS",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Distribute −3: 6y − 4 + 6y + 12. Combine: 12y + 8."
+    },
+    {
+      "id": "linear-expressions/t3/015",
+      "tier": 3,
+      "prompt": "Simplify: 3n − (−2n + 8)",
+      "choices": [
+        "−3n",
+        "−5n − 8",
+        "5n − 8",
+        "n + 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        "WRONG_SIGN",
+        null,
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 3n + 2n − 8. Combine: 5n − 8."
+    },
+    {
+      "id": "linear-expressions/t3/016",
+      "tier": 3,
+      "prompt": "Simplify: 9w + 7 − 2(4w − 1)",
+      "choices": [
+        "w + 8",
+        "w + 9",
+        "10w",
+        "w + 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "UNLIKE_COMBINED",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Distribute −2: 9w + 7 − 8w + 2. Combine: w + 9."
+    },
+    {
+      "id": "linear-expressions/t3/017",
+      "tier": 3,
+      "prompt": "Simplify: −6t + 9 − 2(−2t − 1)",
+      "choices": [
+        "−2t + 10",
+        "−10t + 7",
+        "−2t + 7",
+        "−2t + 11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "IGNORED_MINUS",
+        "FIRST_TERM_ONLY",
+        null
+      ],
+      "explanation": "Distribute −2: −6t + 9 + 4t + 2. Combine: −2t + 11."
+    },
+    {
+      "id": "linear-expressions/t3/018",
+      "tier": 3,
+      "prompt": "Simplify: (−6x − 3) − (−7x − 4)",
+      "choices": [
+        "x + 1",
+        "−x + 1",
+        "2x",
+        "x − 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −6x − 3 + 7x + 4. Combine: x + 1."
+    },
+    {
+      "id": "linear-expressions/t3/019",
+      "tier": 3,
+      "prompt": "Simplify: −7p + 6 − 2(−2p + 1)",
+      "choices": [
+        "−3p + 5",
+        "−11p + 8",
+        "p",
+        "−3p + 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "IGNORED_MINUS",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Distribute −2: −7p + 6 + 4p − 2. Combine: −3p + 4."
+    },
+    {
+      "id": "linear-expressions/t3/020",
+      "tier": 3,
+      "prompt": "Simplify: 2y + 3 − 3(−2y − 2)",
+      "choices": [
+        "8y + 9",
+        "8y + 5",
+        "8y − 3",
+        "−4y − 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "FIRST_TERM_ONLY",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Distribute −3: 2y + 3 + 6y + 6. Combine: 8y + 9."
+    },
+    {
+      "id": "linear-expressions/t3/021",
+      "tier": 3,
+      "prompt": "Simplify: −(7n + 4) + (−n + 9)",
+      "choices": [
+        "8n + 5",
+        "−3n",
+        "6n + 13",
+        "−8n + 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS",
+        null
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −7n − 4 − n + 9. Combine: −8n + 5."
+    },
+    {
+      "id": "linear-expressions/t3/022",
+      "tier": 3,
+      "prompt": "Simplify: (−7m + 9) + (−5m − 3)",
+      "choices": [
+        "−12m + 6",
+        "−12m + 12",
+        "−2m + 6",
+        "12m + 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "DROPPED_NEG",
+        "WRONG_SIGN"
+      ],
+      "explanation": "Drop the ( ): −7m + 9 − 5m − 3. Combine like terms: −12m + 6."
+    },
+    {
+      "id": "linear-expressions/t3/023",
+      "tier": 3,
+      "prompt": "Simplify: (−9p + 2t) − (−3p + 5t)",
+      "choices": [
+        "−6p − 3t",
+        "6p − 3t",
+        "−6p + 7t",
+        "−9p"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "FIRST_TERM_ONLY",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −9p + 2t + 3p − 5t. Combine: −6p − 3t."
+    },
+    {
+      "id": "linear-expressions/t3/024",
+      "tier": 3,
+      "prompt": "Simplify: (4k − 9) − (−k + 1)",
+      "choices": [
+        "−5k − 10",
+        "3k − 8",
+        "5k − 10",
+        "−5k"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "IGNORED_MINUS",
+        null,
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 4k − 9 + k − 1. Combine: 5k − 10."
+    },
+    {
+      "id": "linear-expressions/t3/025",
+      "tier": 3,
+      "prompt": "Simplify: (−x + 1) + (−x + 8)",
+      "choices": [
+        "−2x + 9",
+        "9",
+        "2x + 9",
+        "7x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Drop the ( ): −x + 1 − x + 8. Combine like terms: −2x + 9."
+    },
+    {
+      "id": "linear-expressions/t3/026",
+      "tier": 3,
+      "prompt": "Simplify: (3x + 2) − (−2x + 6)",
+      "choices": [
+        "5x + 8",
+        "x + 8",
+        "5x − 4",
+        "−5x − 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_TERM_ONLY",
+        "IGNORED_MINUS",
+        null,
+        "WRONG_SIGN"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 3x + 2 + 2x − 6. Combine: 5x − 4."
+    },
+    {
+      "id": "linear-expressions/t3/027",
+      "tier": 3,
+      "prompt": "Simplify: (2a + 4) − (−5a + 8)",
+      "choices": [
+        "7a − 4",
+        "7a + 12",
+        "−3a + 12",
+        "3a"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_TERM_ONLY",
+        "IGNORED_MINUS",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 2a + 4 + 5a − 8. Combine: 7a − 4."
+    },
+    {
+      "id": "linear-expressions/t3/028",
+      "tier": 3,
+      "prompt": "Simplify: −9n + 5 − 2(n + 2)",
+      "choices": [
+        "−11n + 3",
+        "−11n + 9",
+        "−11n + 1",
+        "−7n + 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "FIRST_TERM_ONLY",
+        null,
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Distribute −2: −9n + 5 − 2n − 4. Combine: −11n + 1."
+    },
+    {
+      "id": "linear-expressions/t3/029",
+      "tier": 3,
+      "prompt": "Simplify: −(−3x − 4) + (−x − 9)",
+      "choices": [
+        "−2x − 5",
+        "2x − 13",
+        "−3x",
+        "2x − 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_SIGN",
+        "FIRST_TERM_ONLY",
+        "UNLIKE_COMBINED",
+        null
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 3x + 4 − x − 9. Combine: 2x − 5."
+    },
+    {
+      "id": "linear-expressions/t3/030",
+      "tier": 3,
+      "prompt": "Simplify: 7n − 4 − 2(2n + 1)",
+      "choices": [
+        "3n − 6",
+        "3n − 5",
+        "3n − 2",
+        "11n − 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "FIRST_TERM_ONLY",
+        "IGNORED_MINUS"
+      ],
+      "explanation": "Distribute −2: 7n − 4 − 4n − 2. Combine: 3n − 6."
+    },
+    {
+      "id": "linear-expressions/t3/031",
+      "tier": 3,
+      "prompt": "Simplify: −(−4k + 3) + (2k + 6)",
+      "choices": [
+        "−6k + 3",
+        "6k + 3",
+        "9k",
+        "6k + 9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_SIGN",
+        null,
+        "UNLIKE_COMBINED",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 4k − 3 + 2k + 6. Combine: 6k + 3."
+    },
+    {
+      "id": "linear-expressions/t3/032",
+      "tier": 3,
+      "prompt": "Simplify: (−2w − 4) + (−w + 1)",
+      "choices": [
+        "−3w − 5",
+        "−w − 3",
+        "3w − 3",
+        "−3w − 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "DROPPED_NEG",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Drop the ( ): −2w − 4 − w + 1. Combine like terms: −3w − 3."
+    },
+    {
+      "id": "linear-expressions/t3/033",
+      "tier": 3,
+      "prompt": "Simplify: 8n − 9 − 4(3n − 2)",
+      "choices": [
+        "−4n − 7",
+        "−5n",
+        "20n − 17",
+        "−4n − 1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        "IGNORED_MINUS",
+        null
+      ],
+      "explanation": "Distribute −4: 8n − 9 − 12n + 8. Combine: −4n − 1."
+    },
+    {
+      "id": "linear-expressions/t3/034",
+      "tier": 3,
+      "prompt": "Simplify: −9p + 3 − 4(−2p − 1)",
+      "choices": [
+        "−p + 4",
+        "−p + 7",
+        "−p − 1",
+        "6p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "FIRST_TERM_ONLY",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Distribute −4: −9p + 3 + 8p + 4. Combine: −p + 7."
+    },
+    {
+      "id": "linear-expressions/t3/035",
+      "tier": 3,
+      "prompt": "Simplify: (6t − 4) + (−5t − 8)",
+      "choices": [
+        "t − 12",
+        "11t − 12",
+        "−t − 12",
+        "−11t"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIZES",
+        "WRONG_SIGN",
+        "UNLIKE_COMBINED"
+      ],
+      "explanation": "Drop the ( ): 6t − 4 − 5t − 8. Combine like terms: t − 12."
+    },
+    {
+      "id": "linear-expressions/t3/036",
+      "tier": 3,
+      "prompt": "Simplify: 2m − (−8m + 7)",
+      "choices": [
+        "−6m + 7",
+        "−10m − 7",
+        "10m − 7",
+        "10m + 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "WRONG_SIGN",
+        null,
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 2m + 8m − 7. Combine: 10m − 7."
+    },
+    {
+      "id": "linear-expressions/t3/037",
+      "tier": 3,
+      "prompt": "Simplify: −(3x − 4) + (−5x + 5)",
+      "choices": [
+        "−8x + 9",
+        "8x + 9",
+        "−2x + 1",
+        "−8x + 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_SIGN",
+        "IGNORED_MINUS",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −3x + 4 − 5x + 5. Combine: −8x + 9."
+    },
+    {
+      "id": "linear-expressions/t3/038",
+      "tier": 3,
+      "prompt": "Simplify: (4x − 5) + (7x + 8)",
+      "choices": [
+        "11x + 13",
+        "14x",
+        "−11x + 3",
+        "11x + 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_SIZES",
+        "UNLIKE_COMBINED",
+        "WRONG_SIGN",
+        null
+      ],
+      "explanation": "Drop the ( ): 4x − 5 + 7x + 8. Combine like terms: 11x + 3."
+    },
+    {
+      "id": "linear-expressions/t3/039",
+      "tier": 3,
+      "prompt": "Simplify: −7b − (3b − 7)",
+      "choices": [
+        "−4b − 7",
+        "−3b",
+        "−10b + 7",
+        "−10b − 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        "UNLIKE_COMBINED",
+        null,
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): −7b − 3b + 7. Combine: −10b + 7."
+    },
+    {
+      "id": "linear-expressions/t3/040",
+      "tier": 3,
+      "prompt": "Simplify: (7m + 3n) − (4m + n)",
+      "choices": [
+        "11m + 4n",
+        "3m + 2n",
+        "−3m + 2n",
+        "3m + 4n"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORED_MINUS",
+        null,
+        "WRONG_SIGN",
+        "FIRST_TERM_ONLY"
+      ],
+      "explanation": "Change every sign in the subtracted ( ): 7m + 3n − 4m − n. Combine: 3m + 2n."
+    },
+    {
+      "id": "linear-expressions/t4/001",
+      "tier": 4,
+      "prompt": "−12k + 10 = −2(6k + ?)",
+      "choices": [
+        "−5",
+        "5",
+        "12",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FACTOR",
+        "SUB_FOR_DIV",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: 10 ÷ (−2) = −5. So −2(6k − 5)."
+    },
+    {
+      "id": "linear-expressions/t4/002",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 4p − 10",
+      "choices": [
+        "2(2p + 5)",
+        "4(p − 10)",
+        "2(2p − 10)",
+        "2(2p − 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "ONE_TERM_FACTOR",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "GCF of 4 and 10 is 2. Divide each term by 2: 2p − 5. So 2(2p − 5)."
+    },
+    {
+      "id": "linear-expressions/t4/003",
+      "tier": 4,
+      "prompt": "Factor out −2: −6k − 10",
+      "choices": [
+        "−2(3k − 5)",
+        "2(3k − 5)",
+        "−2(3k − 10)",
+        "−2(3k + 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        "DROPPED_NEG",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "Divide each term by −2: −6k ÷ (−2) = 3k, −10 ÷ (−2) = 5. So −2(3k + 5)."
+    },
+    {
+      "id": "linear-expressions/t4/004",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6x − 4",
+      "choices": [
+        "2(4x − 2)",
+        "2(3x − 2)",
+        "6(x − 4)",
+        "2(3x + 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "ONE_TERM_FACTOR",
+        "DROPPED_NEG"
+      ],
+      "explanation": "GCF of 6 and 4 is 2. Divide each term by 2: 3x − 2. So 2(3x − 2)."
+    },
+    {
+      "id": "linear-expressions/t4/005",
+      "tier": 4,
+      "prompt": "2b + 10 = 2(b + ?)",
+      "choices": [
+        "8",
+        "5",
+        "−5",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by 2: 10 ÷ 2 = 5. So 2(b + 5)."
+    },
+    {
+      "id": "linear-expressions/t4/006",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 4m − 10",
+      "choices": [
+        "4(m − 10)",
+        "2(2m − 8)",
+        "2(2m + 5)",
+        "2(2m − 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM_FACTOR",
+        "SUB_FOR_DIV",
+        "DROPPED_NEG",
+        null
+      ],
+      "explanation": "GCF of 4 and 10 is 2. Divide each term by 2: 2m − 5. So 2(2m − 5)."
+    },
+    {
+      "id": "linear-expressions/t4/007",
+      "tier": 4,
+      "prompt": "−10y − 5 = −5(2y + ?)",
+      "choices": [
+        "−1",
+        "1",
+        "−5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "Divide each term by −5: −5 ÷ (−5) = 1. So −5(2y + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/008",
+      "tier": 4,
+      "prompt": "Factor out −2: −6k + 2",
+      "choices": [
+        "−2(3k − 1)",
+        "2(3k + 1)",
+        "−2(3k + 1)",
+        "−2(3k + 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −6k ÷ (−2) = 3k, 2 ÷ (−2) = −1. So −2(3k − 1)."
+    },
+    {
+      "id": "linear-expressions/t4/009",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 2n + 4",
+      "choices": [
+        "2(n + 4)",
+        "4(2n + 1)",
+        "2(n + 2)",
+        "3(n + 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_TERM_FACTOR",
+        "ONE_TERM_FACTOR",
+        null,
+        "ARITH"
+      ],
+      "explanation": "GCF of 2 and 4 is 2. Divide each term by 2: n + 2. So 2(n + 2)."
+    },
+    {
+      "id": "linear-expressions/t4/010",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 10n − 8",
+      "choices": [
+        "2(8n − 6)",
+        "2(5n − 4)",
+        "10(n − 8)",
+        "2(5n + 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "ONE_TERM_FACTOR",
+        "DROPPED_NEG"
+      ],
+      "explanation": "GCF of 10 and 8 is 2. Divide each term by 2: 5n − 4. So 2(5n − 4)."
+    },
+    {
+      "id": "linear-expressions/t4/011",
+      "tier": 4,
+      "prompt": "−6x − 9 = −3(2x + ?)",
+      "choices": [
+        "3",
+        "−6",
+        "−3",
+        "−9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −3: −9 ÷ (−3) = 3. So −3(2x + 3)."
+    },
+    {
+      "id": "linear-expressions/t4/012",
+      "tier": 4,
+      "prompt": "Factor out −2: −4x − 6",
+      "choices": [
+        "−2(2x − 3)",
+        "−2(2x + 3)",
+        "2(2x − 3)",
+        "−2(2x − 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        null,
+        "DROPPED_NEG",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −4x ÷ (−2) = 2x, −6 ÷ (−2) = 3. So −2(2x + 3)."
+    },
+    {
+      "id": "linear-expressions/t4/013",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 2k − 6",
+      "choices": [
+        "2(k − 6)",
+        "2(k − 3)",
+        "2(k − 4)",
+        "2(k + 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_FACTOR",
+        null,
+        "SUB_FOR_DIV",
+        "DROPPED_NEG"
+      ],
+      "explanation": "GCF of 2 and 6 is 2. Divide each term by 2: k − 3. So 2(k − 3)."
+    },
+    {
+      "id": "linear-expressions/t4/014",
+      "tier": 4,
+      "prompt": "−6k − 6 = −6(k + ?)",
+      "choices": [
+        "−1",
+        "−6",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "Divide each term by −6: −6 ÷ (−6) = 1. So −6(k + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/015",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 4m − 2",
+      "choices": [
+        "4(m − 2)",
+        "2(2m + 1)",
+        "2(2m − 2)",
+        "2(2m − 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM_FACTOR",
+        "DROPPED_NEG",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "GCF of 4 and 2 is 2. Divide each term by 2: 2m − 1. So 2(2m − 1)."
+    },
+    {
+      "id": "linear-expressions/t4/016",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 12p + 9",
+      "choices": [
+        "3(9p + 6)",
+        "12(p + 9)",
+        "3(4p + 3)",
+        "3(4p + 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "ONE_TERM_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 12 and 9 is 3. Divide each term by 3: 4p + 3. So 3(4p + 3)."
+    },
+    {
+      "id": "linear-expressions/t4/017",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 4x + 2",
+      "choices": [
+        "2(2x + 1)",
+        "4(x + 2)",
+        "2(2x + 2)",
+        "2(4x + 1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_TERM_FACTOR",
+        "PARTIAL_FACTOR",
+        "ONE_TERM_FACTOR"
+      ],
+      "explanation": "GCF of 4 and 2 is 2. Divide each term by 2: 2x + 1. So 2(2x + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/018",
+      "tier": 4,
+      "prompt": "Factor out −2: −6t + 4",
+      "choices": [
+        "−2(3t + 2)",
+        "2(3t + 2)",
+        "−2(3t − 2)",
+        "−2(3t + 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        "DROPPED_NEG",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −6t ÷ (−2) = 3t, 4 ÷ (−2) = −2. So −2(3t − 2)."
+    },
+    {
+      "id": "linear-expressions/t4/019",
+      "tier": 4,
+      "prompt": "Factor out −2: −10k + 12",
+      "choices": [
+        "−2(5k − 6)",
+        "−2(5k + 6)",
+        "2(5k + 6)",
+        "−2(5k + 12)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FACTOR",
+        "DROPPED_NEG",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −10k ÷ (−2) = 5k, 12 ÷ (−2) = −6. So −2(5k − 6)."
+    },
+    {
+      "id": "linear-expressions/t4/020",
+      "tier": 4,
+      "prompt": "−4x + 10 = −2(2x + ?)",
+      "choices": [
+        "12",
+        "5",
+        "−5",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: 10 ÷ (−2) = −5. So −2(2x − 5)."
+    },
+    {
+      "id": "linear-expressions/t4/021",
+      "tier": 4,
+      "prompt": "Factor out −2: −4p + 2",
+      "choices": [
+        "2(2p + 1)",
+        "−2(2p + 1)",
+        "−2(2p + 2)",
+        "−2(2p − 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "Divide each term by −2: −4p ÷ (−2) = 2p, 2 ÷ (−2) = −1. So −2(2p − 1)."
+    },
+    {
+      "id": "linear-expressions/t4/022",
+      "tier": 4,
+      "prompt": "−2n − 10 = −2(n + ?)",
+      "choices": [
+        "−8",
+        "−5",
+        "5",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −10 ÷ (−2) = 5. So −2(n + 5)."
+    },
+    {
+      "id": "linear-expressions/t4/023",
+      "tier": 4,
+      "prompt": "Factor out −2: −8x − 2",
+      "choices": [
+        "2(4x − 1)",
+        "−2(4x − 1)",
+        "−2(4x + 1)",
+        "−2(4x − 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −8x ÷ (−2) = 4x, −2 ÷ (−2) = 1. So −2(4x + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/024",
+      "tier": 4,
+      "prompt": "Factor out −5: −5w + 10",
+      "choices": [
+        "5(w + 2)",
+        "−5(w + 2)",
+        "−5(w − 2)",
+        "−5(w + 10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −5: −5w ÷ (−5) = w, 10 ÷ (−5) = −2. So −5(w − 2)."
+    },
+    {
+      "id": "linear-expressions/t4/025",
+      "tier": 4,
+      "prompt": "−12p + 10 = −2(6p + ?)",
+      "choices": [
+        "12",
+        "5",
+        "10",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "Divide each term by −2: 10 ÷ (−2) = −5. So −2(6p − 5)."
+    },
+    {
+      "id": "linear-expressions/t4/026",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 10b − 2",
+      "choices": [
+        "2(5b − 1)",
+        "10(b − 2)",
+        "2(5b + 1)",
+        "2(5b − 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_TERM_FACTOR",
+        "DROPPED_NEG",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 10 and 2 is 2. Divide each term by 2: 5b − 1. So 2(5b − 1)."
+    },
+    {
+      "id": "linear-expressions/t4/027",
+      "tier": 4,
+      "prompt": "Factor out −3: −9p + 3",
+      "choices": [
+        "3(3p + 1)",
+        "−3(3p − 1)",
+        "−3(3p + 1)",
+        "−3(3p + 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_NEG",
+        null,
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −3: −9p ÷ (−3) = 3p, 3 ÷ (−3) = −1. So −3(3p − 1)."
+    },
+    {
+      "id": "linear-expressions/t4/028",
+      "tier": 4,
+      "prompt": "12n + 6 = 6(2n + ?)",
+      "choices": [
+        "−1",
+        "6",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "Divide each term by 6: 6 ÷ 6 = 1. So 6(2n + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/029",
+      "tier": 4,
+      "prompt": "10a + 8 = 2(5a + ?)",
+      "choices": [
+        "4",
+        "6",
+        "−4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by 2: 8 ÷ 2 = 4. So 2(5a + 4)."
+    },
+    {
+      "id": "linear-expressions/t4/030",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 2n + 8",
+      "choices": [
+        "2(n + 6)",
+        "2(n + 8)",
+        "2(n + 4)",
+        "8(2n + 1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "ONE_TERM_FACTOR",
+        null,
+        "ONE_TERM_FACTOR"
+      ],
+      "explanation": "GCF of 2 and 8 is 2. Divide each term by 2: n + 4. So 2(n + 4)."
+    },
+    {
+      "id": "linear-expressions/t4/031",
+      "tier": 4,
+      "prompt": "Factor out −2: −6y − 8",
+      "choices": [
+        "−2(3y + 4)",
+        "2(3y − 4)",
+        "−2(3y − 4)",
+        "−2(3y − 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −6y ÷ (−2) = 3y, −8 ÷ (−2) = 4. So −2(3y + 4)."
+    },
+    {
+      "id": "linear-expressions/t4/032",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 8b + 2",
+      "choices": [
+        "8(b + 2)",
+        "2(4b + 1)",
+        "2(4b + 2)",
+        "2(8b + 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_FACTOR",
+        null,
+        "PARTIAL_FACTOR",
+        "ONE_TERM_FACTOR"
+      ],
+      "explanation": "GCF of 8 and 2 is 2. Divide each term by 2: 4b + 1. So 2(4b + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/033",
+      "tier": 4,
+      "prompt": "Factor out −5: −5m − 5",
+      "choices": [
+        "5(m − 1)",
+        "−5(m − 1)",
+        "−5(m − 5)",
+        "−5(m + 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR",
+        null
+      ],
+      "explanation": "Divide each term by −5: −5m ÷ (−5) = m, −5 ÷ (−5) = 1. So −5(m + 1)."
+    },
+    {
+      "id": "linear-expressions/t4/034",
+      "tier": 4,
+      "prompt": "Factor out −2: −10x − 8",
+      "choices": [
+        "−2(5x + 4)",
+        "2(5x − 4)",
+        "−2(5x − 4)",
+        "−2(5x − 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −10x ÷ (−2) = 5x, −8 ÷ (−2) = 4. So −2(5x + 4)."
+    },
+    {
+      "id": "linear-expressions/t4/035",
+      "tier": 4,
+      "prompt": "Factor out −2: −2b − 12",
+      "choices": [
+        "2(b − 6)",
+        "−2(b + 6)",
+        "−2(b − 6)",
+        "−2(b − 12)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_NEG",
+        null,
+        "SIGN_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −2b ÷ (−2) = b, −12 ÷ (−2) = 6. So −2(b + 6)."
+    },
+    {
+      "id": "linear-expressions/t4/036",
+      "tier": 4,
+      "prompt": "−2x − 10 = −2(x + ?)",
+      "choices": [
+        "−8",
+        "−5",
+        "5",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −10 ÷ (−2) = 5. So −2(x + 5)."
+    },
+    {
+      "id": "linear-expressions/t4/037",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 10t + 6",
+      "choices": [
+        "2(8t + 4)",
+        "2(5t + 3)",
+        "10(t + 6)",
+        "2(5t + 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        null,
+        "ONE_TERM_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 10 and 6 is 2. Divide each term by 2: 5t + 3. So 2(5t + 3)."
+    },
+    {
+      "id": "linear-expressions/t4/038",
+      "tier": 4,
+      "prompt": "Factor out −2: −10y − 4",
+      "choices": [
+        "2(5y − 2)",
+        "−2(5y − 2)",
+        "−2(5y + 2)",
+        "−2(5y − 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_NEG",
+        "SIGN_FACTOR",
+        null,
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "Divide each term by −2: −10y ÷ (−2) = 5y, −4 ÷ (−2) = 2. So −2(5y + 2)."
+    },
+    {
+      "id": "linear-expressions/t4/039",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 2w + 12",
+      "choices": [
+        "2(w + 10)",
+        "2(w + 12)",
+        "12(2w + 1)",
+        "2(w + 6)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_FOR_DIV",
+        "ONE_TERM_FACTOR",
+        "ONE_TERM_FACTOR",
+        null
+      ],
+      "explanation": "GCF of 2 and 12 is 2. Divide each term by 2: w + 6. So 2(w + 6)."
+    },
+    {
+      "id": "linear-expressions/t4/040",
+      "tier": 4,
+      "prompt": "Factor out the GCF: 6t + 9",
+      "choices": [
+        "3(2t + 3)",
+        "3(3t + 6)",
+        "6(t + 9)",
+        "3(2t + 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_FOR_DIV",
+        "ONE_TERM_FACTOR",
+        "PARTIAL_FACTOR"
+      ],
+      "explanation": "GCF of 6 and 9 is 3. Divide each term by 3: 2t + 3. So 3(2t + 3)."
+    },
+    {
+      "id": "linear-expressions/t5/001",
+      "tier": 5,
+      "prompt": "A meal costs m. Add a 40% tip. Total?",
+      "choices": [
+        "m + 40",
+        "1.4m",
+        "0.4m",
+        "0.6m"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        null,
+        "PART_ONLY",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Adding 40% of m: m + 0.4m = 1.4m."
+    },
+    {
+      "id": "linear-expressions/t5/002",
+      "tier": 5,
+      "prompt": "Simplify: (1/12)m + (1/2)m",
+      "choices": [
+        "7/12",
+        "(1/12)m",
+        "(7/12)m",
+        "(1/7)m"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "DROPPED_TERM",
+        null,
+        "ADD_ACROSS"
+      ],
+      "explanation": "Use denominator 12: 1/12 + 6/12 = 7/12. So (7/12)m."
+    },
+    {
+      "id": "linear-expressions/t5/003",
+      "tier": 5,
+      "prompt": "Cost c, with 20% taken off. New cost?",
+      "choices": [
+        "0.98c",
+        "1.2c",
+        "0.8c",
+        "c − 20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_VALUE",
+        "WRONG_DIRECTION",
+        null,
+        "PERCENT_AS_NUMBER"
+      ],
+      "explanation": "Taking off 20% of c: c − 0.2c = 0.8c."
+    },
+    {
+      "id": "linear-expressions/t5/004",
+      "tier": 5,
+      "prompt": "Simplify: (1/3)y + (5/12)y",
+      "choices": [
+        "(3/4)y",
+        "(1/2)y",
+        "(2/5)y",
+        "(1/3)y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_CONVERT",
+        "ADD_ACROSS",
+        "DROPPED_TERM"
+      ],
+      "explanation": "Use denominator 12: 4/12 + 5/12 = 9/12 = 3/4. So (3/4)y."
+    },
+    {
+      "id": "linear-expressions/t5/005",
+      "tier": 5,
+      "prompt": "A game costs g. Now 40% off. New price?",
+      "choices": [
+        "0.6g",
+        "0.96g",
+        "0.4g",
+        "1.4g"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_VALUE",
+        "PART_ONLY",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Taking off 40% of g: g − 0.4g = 0.6g."
+    },
+    {
+      "id": "linear-expressions/t5/006",
+      "tier": 5,
+      "prompt": "Rectangle: width c, length c + 1. Perimeter?",
+      "choices": [
+        "4c + 1",
+        "6c",
+        "4c + 2",
+        "2c + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "UNLIKE_COMBINED",
+        null,
+        "HALF_PERIMETER"
+      ],
+      "explanation": "All 4 sides: c + (c + 1) + c + (c + 1). Combine like terms: 4c + 2."
+    },
+    {
+      "id": "linear-expressions/t5/007",
+      "tier": 5,
+      "prompt": "Increase by 10%: multiply by what?",
+      "choices": [
+        "1.01",
+        "1.1",
+        "10",
+        "0.1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_VALUE",
+        null,
+        "PERCENT_AS_NUMBER",
+        "PART_ONLY"
+      ],
+      "explanation": "10% is 0.1. The whole is 1, and the change adds 0.1: 1 + 0.1 = 1.1."
+    },
+    {
+      "id": "linear-expressions/t5/008",
+      "tier": 5,
+      "prompt": "Cost c rises 5%. New cost?",
+      "choices": [
+        "1.05c",
+        "c + 5",
+        "0.95c",
+        "0.05c"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_NUMBER",
+        "WRONG_DIRECTION",
+        "PART_ONLY"
+      ],
+      "explanation": "Adding 5% of c: c + 0.05c = 1.05c."
+    },
+    {
+      "id": "linear-expressions/t5/009",
+      "tier": 5,
+      "prompt": "Simplify: 4x − 0.1x",
+      "choices": [
+        "3.9",
+        "4.1x",
+        "0.1x",
+        "3.9x"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "WRONG_DIRECTION",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "Like terms: 4 − 0.1 = 3.9, so 4x − 0.1x = 3.9x."
+    },
+    {
+      "id": "linear-expressions/t5/010",
+      "tier": 5,
+      "prompt": "Simplify: 3x − 0.5x",
+      "choices": [
+        "2.5x",
+        "2.5",
+        "3.5x",
+        "0.5x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_VARIABLE",
+        "WRONG_DIRECTION",
+        "PART_ONLY"
+      ],
+      "explanation": "Like terms: 3 − 0.5 = 2.5, so 3x − 0.5x = 2.5x."
+    },
+    {
+      "id": "linear-expressions/t5/011",
+      "tier": 5,
+      "prompt": "Simplify: (3/5)t − (1/10)t",
+      "choices": [
+        "(1/5)t",
+        "(3/5)t",
+        "1/2",
+        "(1/2)t"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_CONVERT",
+        "DROPPED_TERM",
+        "DROPPED_VARIABLE",
+        null
+      ],
+      "explanation": "Use denominator 10: 6/10 − 1/10 = 5/10 = 1/2. So (1/2)t."
+    },
+    {
+      "id": "linear-expressions/t5/012",
+      "tier": 5,
+      "prompt": "1.05p means p went up by what percent?",
+      "choices": [
+        "105%",
+        "5%",
+        "1.05%",
+        "10.5%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        null,
+        "PLACE_VALUE",
+        "PLACE_VALUE"
+      ],
+      "explanation": "1.05p = p + 0.05p, and 0.05 is 5%, so p went up by 5%."
+    },
+    {
+      "id": "linear-expressions/t5/013",
+      "tier": 5,
+      "prompt": "Simplify: 3p + 0.6p",
+      "choices": [
+        "3.6",
+        "3.06p",
+        "3.6p",
+        "2.4p"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "PLACE_VALUE",
+        null,
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Like terms: 3 + 0.6 = 3.6, so 3p + 0.6p = 3.6p."
+    },
+    {
+      "id": "linear-expressions/t5/014",
+      "tier": 5,
+      "prompt": "Simplify: (4/5)y − (1/2)y",
+      "choices": [
+        "(2/5)y",
+        "(4/5)y",
+        "3/10",
+        "(3/10)y"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "DROPPED_TERM",
+        "DROPPED_VARIABLE",
+        null
+      ],
+      "explanation": "Use denominator 10: 8/10 − 5/10 = 3/10. So (3/10)y."
+    },
+    {
+      "id": "linear-expressions/t5/015",
+      "tier": 5,
+      "prompt": "Increase by 40%: multiply by what?",
+      "choices": [
+        "40",
+        "0.4",
+        "1.04",
+        "1.4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PART_ONLY",
+        "PLACE_VALUE",
+        null
+      ],
+      "explanation": "40% is 0.4. The whole is 1, and the change adds 0.4: 1 + 0.4 = 1.4."
+    },
+    {
+      "id": "linear-expressions/t5/016",
+      "tier": 5,
+      "prompt": "Price p, then 20% tax. Total price?",
+      "choices": [
+        "p + 20",
+        "0.8p",
+        "0.2p",
+        "1.2p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "WRONG_DIRECTION",
+        "PART_ONLY",
+        null
+      ],
+      "explanation": "Adding 20% of p: p + 0.2p = 1.2p."
+    },
+    {
+      "id": "linear-expressions/t5/017",
+      "tier": 5,
+      "prompt": "Simplify: 4p − 0.1p",
+      "choices": [
+        "3.9",
+        "3.9p",
+        "4.1p",
+        "0.1p"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        null,
+        "WRONG_DIRECTION",
+        "PART_ONLY"
+      ],
+      "explanation": "Like terms: 4 − 0.1 = 3.9, so 4p − 0.1p = 3.9p."
+    },
+    {
+      "id": "linear-expressions/t5/018",
+      "tier": 5,
+      "prompt": "A price rises 50%. New price = old price × ?",
+      "choices": [
+        "50",
+        "1.05",
+        "1.5",
+        "0.5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE",
+        null,
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "50% is 0.5. The whole is 1, and the change adds 0.5: 1 + 0.5 = 1.5."
+    },
+    {
+      "id": "linear-expressions/t5/019",
+      "tier": 5,
+      "prompt": "A plant is h tall and grows 40%. New height?",
+      "choices": [
+        "h + 40",
+        "1.04h",
+        "1.4h",
+        "0.4h"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE",
+        null,
+        "PART_ONLY"
+      ],
+      "explanation": "Adding 40% of h: h + 0.4h = 1.4h."
+    },
+    {
+      "id": "linear-expressions/t5/020",
+      "tier": 5,
+      "prompt": "A bike costs b. Sale: 10% off. Sale price?",
+      "choices": [
+        "b − 10",
+        "0.99b",
+        "1.1b",
+        "0.9b"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE",
+        "WRONG_DIRECTION",
+        null
+      ],
+      "explanation": "Taking off 10% of b: b − 0.1b = 0.9b."
+    },
+    {
+      "id": "linear-expressions/t5/021",
+      "tier": 5,
+      "prompt": "Price p, then 5% tax. Total price?",
+      "choices": [
+        "p + 5",
+        "0.05p",
+        "0.95p",
+        "1.05p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PART_ONLY",
+        "WRONG_DIRECTION",
+        null
+      ],
+      "explanation": "Adding 5% of p: p + 0.05p = 1.05p."
+    },
+    {
+      "id": "linear-expressions/t5/022",
+      "tier": 5,
+      "prompt": "A shirt costs s. It goes 60% off. Sale price?",
+      "choices": [
+        "0.4s",
+        "s − 60",
+        "0.94s",
+        "0.6s"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE",
+        "PART_ONLY"
+      ],
+      "explanation": "Taking off 60% of s: s − 0.6s = 0.4s."
+    },
+    {
+      "id": "linear-expressions/t5/023",
+      "tier": 5,
+      "prompt": "A price rises 5%. New price = old price × ?",
+      "choices": [
+        "5",
+        "0.95",
+        "1.05",
+        "0.05"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "WRONG_DIRECTION",
+        null,
+        "PART_ONLY"
+      ],
+      "explanation": "5% is 0.05. The whole is 1, and the change adds 0.05: 1 + 0.05 = 1.05."
+    },
+    {
+      "id": "linear-expressions/t5/024",
+      "tier": 5,
+      "prompt": "Simplify: 3w − 0.5w",
+      "choices": [
+        "2.5",
+        "0.5w",
+        "3.5w",
+        "2.5w"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "PART_ONLY",
+        "WRONG_DIRECTION",
+        null
+      ],
+      "explanation": "Like terms: 3 − 0.5 = 2.5, so 3w − 0.5w = 2.5w."
+    },
+    {
+      "id": "linear-expressions/t5/025",
+      "tier": 5,
+      "prompt": "0.75b means b dropped by what percent?",
+      "choices": [
+        "25%",
+        "75%",
+        "0.75%",
+        "7.5%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATIO_AS_CHANGE",
+        "PLACE_VALUE",
+        "PLACE_VALUE"
+      ],
+      "explanation": "0.75b = b − 0.25b, and 0.25 is 25%, so b dropped by 25%."
+    },
+    {
+      "id": "linear-expressions/t5/026",
+      "tier": 5,
+      "prompt": "A game costs g. Now 60% off. New price?",
+      "choices": [
+        "0.4g",
+        "g − 60",
+        "0.94g",
+        "1.6g"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Taking off 60% of g: g − 0.6g = 0.4g."
+    },
+    {
+      "id": "linear-expressions/t5/027",
+      "tier": 5,
+      "prompt": "Simplify: (2/3)p − (1/9)p",
+      "choices": [
+        "(1/9)p",
+        "(5/9)p",
+        "(2/3)p",
+        "5/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_CONVERT",
+        null,
+        "DROPPED_TERM",
+        "DROPPED_VARIABLE"
+      ],
+      "explanation": "Use denominator 9: 6/9 − 1/9 = 5/9. So (5/9)p."
+    },
+    {
+      "id": "linear-expressions/t5/028",
+      "tier": 5,
+      "prompt": "Rectangle: width c, length 3c + 3. Perimeter?",
+      "choices": [
+        "7c + 6",
+        "4c + 3",
+        "8c + 6",
+        "8c + 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SIDE",
+        "HALF_PERIMETER",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "All 4 sides: c + (3c + 3) + c + (3c + 3). Combine like terms: 8c + 6."
+    },
+    {
+      "id": "linear-expressions/t5/029",
+      "tier": 5,
+      "prompt": "Cost c, with 50% taken off. New cost?",
+      "choices": [
+        "c − 50",
+        "0.5c",
+        "0.95c",
+        "1.5c"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        null,
+        "PLACE_VALUE",
+        "WRONG_DIRECTION"
+      ],
+      "explanation": "Taking off 50% of c: c − 0.5c = 0.5c."
+    },
+    {
+      "id": "linear-expressions/t5/030",
+      "tier": 5,
+      "prompt": "Decrease by 40%: multiply by what?",
+      "choices": [
+        "0.4",
+        "0.6",
+        "40",
+        "0.96"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_ONLY",
+        null,
+        "PERCENT_AS_NUMBER",
+        "PLACE_VALUE"
+      ],
+      "explanation": "40% is 0.4. The whole is 1, and the change takes away 0.4: 1 − 0.4 = 0.6."
+    },
+    {
+      "id": "linear-expressions/t5/031",
+      "tier": 5,
+      "prompt": "Cost c rises 10%. New cost?",
+      "choices": [
+        "0.1c",
+        "c + 10",
+        "0.9c",
+        "1.1c"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_ONLY",
+        "PERCENT_AS_NUMBER",
+        "WRONG_DIRECTION",
+        null
+      ],
+      "explanation": "Adding 10% of c: c + 0.1c = 1.1c."
+    },
+    {
+      "id": "linear-expressions/t5/032",
+      "tier": 5,
+      "prompt": "Rectangle: width w, length 2w + 4. Perimeter?",
+      "choices": [
+        "6w + 8",
+        "5w + 8",
+        "14w",
+        "6w + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SIDE",
+        "UNLIKE_COMBINED",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "All 4 sides: w + (2w + 4) + w + (2w + 4). Combine like terms: 6w + 8."
+    },
+    {
+      "id": "linear-expressions/t5/033",
+      "tier": 5,
+      "prompt": "Simplify: (3/5)m − (1/10)m",
+      "choices": [
+        "(1/5)m",
+        "(1/2)m",
+        "(3/5)m",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_CONVERT",
+        null,
+        "DROPPED_TERM",
+        "DROPPED_VARIABLE"
+      ],
+      "explanation": "Use denominator 10: 6/10 − 1/10 = 5/10 = 1/2. So (1/2)m."
+    },
+    {
+      "id": "linear-expressions/t5/034",
+      "tier": 5,
+      "prompt": "Simplify: 4b + 0.1b",
+      "choices": [
+        "4.1",
+        "4.1b",
+        "0.1b",
+        "4.01b"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        null,
+        "PART_ONLY",
+        "PLACE_VALUE"
+      ],
+      "explanation": "Like terms: 4 + 0.1 = 4.1, so 4b + 0.1b = 4.1b."
+    },
+    {
+      "id": "linear-expressions/t5/035",
+      "tier": 5,
+      "prompt": "Simplify: 3p + 0.1p",
+      "choices": [
+        "3.1",
+        "0.1p",
+        "3.01p",
+        "3.1p"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_VARIABLE",
+        "PART_ONLY",
+        "PLACE_VALUE",
+        null
+      ],
+      "explanation": "Like terms: 3 + 0.1 = 3.1, so 3p + 0.1p = 3.1p."
+    },
+    {
+      "id": "linear-expressions/t5/036",
+      "tier": 5,
+      "prompt": "Simplify: (1/2)n + (2/5)n",
+      "choices": [
+        "(9/10)n",
+        "(1/5)n",
+        "(3/7)n",
+        "(3/10)n"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "ADD_ACROSS",
+        "NO_CONVERT"
+      ],
+      "explanation": "Use denominator 10: 5/10 + 4/10 = 9/10. So (9/10)n."
+    },
+    {
+      "id": "linear-expressions/t5/037",
+      "tier": 5,
+      "prompt": "Rectangle: width m, length m + 1. Perimeter?",
+      "choices": [
+        "6m",
+        "4m + 2",
+        "3m + 2",
+        "2m + 1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "UNLIKE_COMBINED",
+        null,
+        "MISSING_SIDE",
+        "HALF_PERIMETER"
+      ],
+      "explanation": "All 4 sides: m + (m + 1) + m + (m + 1). Combine like terms: 4m + 2."
+    },
+    {
+      "id": "linear-expressions/t5/038",
+      "tier": 5,
+      "prompt": "A shirt costs s. It goes 75% off. Sale price?",
+      "choices": [
+        "s − 75",
+        "0.75s",
+        "0.25s",
+        "s − 0.75"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PERCENT_AS_NUMBER",
+        "PART_ONLY",
+        null,
+        "PERCENT_AS_NUMBER"
+      ],
+      "explanation": "Taking off 75% of s: s − 0.75s = 0.25s."
+    },
+    {
+      "id": "linear-expressions/t5/039",
+      "tier": 5,
+      "prompt": "1.05m means m went up by what percent?",
+      "choices": [
+        "105%",
+        "1.05%",
+        "5%",
+        "10.5%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RATIO_AS_CHANGE",
+        "PLACE_VALUE",
+        null,
+        "PLACE_VALUE"
+      ],
+      "explanation": "1.05m = m + 0.05m, and 0.05 is 5%, so m went up by 5%."
+    },
+    {
+      "id": "linear-expressions/t5/040",
+      "tier": 5,
+      "prompt": "0.4n means n dropped by what percent?",
+      "choices": [
+        "60%",
+        "40%",
+        "0.4%",
+        "4%"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATIO_AS_CHANGE",
+        "PLACE_VALUE",
+        "PLACE_VALUE"
+      ],
+      "explanation": "0.4n = n − 0.6n, and 0.6 is 60%, so n dropped by 60%."
+    }
+  ]
+}
