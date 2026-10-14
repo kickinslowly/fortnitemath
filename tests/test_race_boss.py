@@ -243,7 +243,7 @@ def test_builder_places_the_rig_and_removes_the_old_pieces(monkeypatch):
     monkeypatch.setattr(c, "project_mount", lambda: "/proj")
     r.build()
     labels = [a["label"] for t, a in fake.calls if t == "set_label"]
-    expect = (["FNM_RaceBoss_Megaboss"] + [f"FNM_RaceBoss_Titan{k}" for k in range(1, 5)]
+    expect = (["FNM_RaceBoss_Megaboss"] + [f"FNM_RaceBoss_Titan{k}" for k in range(1, 6)]     # 5: the jump-slam (G9 D2)
               + [f"FNM_RaceBoss_Cannon{s}_{p}" for s in "L" for p in ("Body", "Glow", "MuzzleGlow")] + ["FNM_RaceBoss_BeamL"]
               + [f"FNM_RaceBoss_Cannon{s}_{p}" for s in "R" for p in ("Body", "Glow", "MuzzleGlow")] + ["FNM_RaceBoss_BeamR"]
               + ["FNM_RaceBoss_Strike", "FNM_RaceBoss_Blast1", "FNM_RaceBoss_Blast2"]
@@ -256,7 +256,7 @@ def test_builder_places_the_rig_and_removes_the_old_pieces(monkeypatch):
                   if t == "set_properties" and "internalTags" in a["values"]]
     names = [[t["internalTag"]["refPath"].rsplit(".", 1)[1] for t in tags] for tags in verse_tags]
     assert names[0] == ["fnm_race_megaboss"]
-    assert names[1:5] == [["fnm_race_titan", f"fnm_bm_slot_{k}"] for k in range(1, 5)]
+    assert names[1:6] == [["fnm_race_titan", f"fnm_bm_slot_{k}"] for k in range(1, 6)]
     assert ["fnm_race_beam", "fnm_bm_slot_1"] in names and ["fnm_race_beam", "fnm_bm_slot_2"] in names
     assert [["fnm_race_letter", f"fnm_bm_slot_{k}"] for k in range(1, 5)] == names[-4:]
     # the Megabrute stands on the platform top, mid-platform, facing the entry; the idle clip with it at TITAN_SCALE
@@ -267,7 +267,13 @@ def test_builder_places_the_rig_and_removes_the_old_pieces(monkeypatch):
     idle = places[1]["transform"]
     assert idle["location"] == boss["location"] and idle["scale"]["x"] == r.TITAN_SCALE
     titan_props = [fake.props[f"/new/A{k}"] for k in range(1, 20) if "animation" in fake.props.get(f"/new/A{k}", {})]
-    assert [p["loop"] for p in titan_props] == [True, True, True, False]       # the fall plays once (boss mode's)
+    assert [p["loop"] for p in titan_props] == [True, True, True, False, False]   # the fall and the jump-slam play once
+    # the jump-slam plays on idle's mesh (an animation imported onto idle's skeleton, G9 D2), every other clip on its own
+    meshes = [p["skeletalMesh"]["refPath"].rsplit("/", 1)[1] for p in titan_props]
+    assert meshes == ["SK_fnm_titan_idle.SK_fnm_titan_idle", "SK_fnm_titan_flail.SK_fnm_titan_flail",
+                      "SK_fnm_titan_stomp.SK_fnm_titan_stomp", "SK_fnm_titan_dead.SK_fnm_titan_dead",
+                      "SK_fnm_titan_idle.SK_fnm_titan_idle"]
+    assert titan_props[4]["animation"]["refPath"].endswith("/Clip_jumpslam/A_fnm_titan_jumpslam.A_fnm_titan_jumpslam")
     assert fake.props["/new/A1"]["creature Type"] == "Megabrute"
     # each beam marker starts at its muzzle point and is as long as the race laser
     beams = [a["xform"] for t, a in fake.calls if t == "add_to_scene_from_asset" and a["name"].startswith("FNM_RaceBoss_Beam")]
@@ -393,7 +399,9 @@ def test_wrong_door_charge_never_moves_the_clock_start():
     assert "set State.ClockPenalty += WrongDoorSeconds" in body_of(d, "ChargeWrongDoor(State:fnm_player_state)<transacts>:string =")
     assert "Now - State.StartTime + State.ClockPenalty" in body_of(d, "RunClock(State:fnm_player_state, Now:float)<transacts>:float =")
     assert d.count("GetSimulationElapsedTime() - State.StartTime") == 0          # no read bypasses RunClock
-    for head in ("Countdown(State:fnm_player_state)<suspends>:void =", "FinishPlayer(State:fnm_player_state):void ="):
+    # (FinishPlayer hands the finish to FinishRun since G9 D2: the arena's kill defers the fanfare to the podium.)
+    assert "FinishRun(State, 0.0)" in body_of(d, "FinishPlayer(State:fnm_player_state):void =")
+    for head in ("Countdown(State:fnm_player_state)<suspends>:void =", "FinishRun(State:fnm_player_state, FanfareDelay:float):void ="):
         body = body_of(d, head)
         assert "set State.StartTime = -1.0" in body and "set State.ClockPenalty = 0.0" in body, head
 

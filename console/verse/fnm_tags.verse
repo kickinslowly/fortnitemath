@@ -151,8 +151,14 @@ fnm_cue_bm_gates := class(tag){}
 fnm_cue_bm_weapon := class(tag){}
 fnm_cue_volt_yay := class(tag){}
 fnm_cue_volt_hmm := class(tag){}
+fnm_cue_music_boss := class(tag){}
+fnm_cue_music_menu := class(tag){}
+fnm_cue_titan_roar := class(tag){}
+fnm_cue_volt_oops := class(tag){}
+fnm_cue_crowd_cheer := class(tag){}
+fnm_cue_crowd_aww := class(tag){}
 # Cue tag types in fnm_cue enum order (FnmCues()).
-FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5, fnm_cue_boss_fight, fnm_cue_boss_hit, fnm_cue_boss_dead, fnm_cue_direct_hit, fnm_cue_hits_left4, fnm_cue_hits_left3, fnm_cue_hits_left2, fnm_cue_hits_left1, fnm_cue_boss_down, fnm_cue_bm_start, fnm_cue_bm_level2, fnm_cue_bm_level3, fnm_cue_bm_level4, fnm_cue_bm_level5, fnm_cue_bm_boss_l1, fnm_cue_bm_boss_l2, fnm_cue_bm_boss_l3, fnm_cue_bm_boss_l4, fnm_cue_bm_boss_l5, fnm_cue_bm_boss_wrong, fnm_cue_bm_boss_hit, fnm_cue_bm_boss_dead, fnm_cue_bm_nuke, fnm_cue_bm_mega_nuke, fnm_cue_bm_level_clear, fnm_cue_bm_victory, fnm_cue_bm_gates, fnm_cue_bm_weapon, fnm_cue_volt_yay, fnm_cue_volt_hmm}
+FnmCueTags()<transacts>:[]castable_subtype(tag) = array{fnm_cue_countdown3, fnm_cue_countdown2, fnm_cue_countdown1, fnm_cue_go, fnm_cue_correct, fnm_cue_correct_retry, fnm_cue_wrong, fnm_cue_door_open, fnm_cue_boost, fnm_cue_streak2, fnm_cue_streak3, fnm_cue_streak4, fnm_cue_streak5, fnm_cue_streak6, fnm_cue_streak7, fnm_cue_perfect, fnm_cue_finish, fnm_cue_new_best, fnm_cue_new_record, fnm_cue_medal_gold, fnm_cue_medal_silver, fnm_cue_medal_bronze, fnm_cue_penalty_freeze, fnm_cue_penalty_spike, fnm_cue_penalty_mud, fnm_cue_penalty_dizzy, fnm_cue_penalty_blackout, fnm_cue_penalty_yeet, fnm_cue_no_skip, fnm_cue_guards_up, fnm_cue_welcome, fnm_cue_choose, fnm_cue_music_t1, fnm_cue_music_t2, fnm_cue_music_t3, fnm_cue_music_t4, fnm_cue_music_t5, fnm_cue_boss_fight, fnm_cue_boss_hit, fnm_cue_boss_dead, fnm_cue_direct_hit, fnm_cue_hits_left4, fnm_cue_hits_left3, fnm_cue_hits_left2, fnm_cue_hits_left1, fnm_cue_boss_down, fnm_cue_bm_start, fnm_cue_bm_level2, fnm_cue_bm_level3, fnm_cue_bm_level4, fnm_cue_bm_level5, fnm_cue_bm_boss_l1, fnm_cue_bm_boss_l2, fnm_cue_bm_boss_l3, fnm_cue_bm_boss_l4, fnm_cue_bm_boss_l5, fnm_cue_bm_boss_wrong, fnm_cue_bm_boss_hit, fnm_cue_bm_boss_dead, fnm_cue_bm_nuke, fnm_cue_bm_mega_nuke, fnm_cue_bm_level_clear, fnm_cue_bm_victory, fnm_cue_bm_gates, fnm_cue_bm_weapon, fnm_cue_volt_yay, fnm_cue_volt_hmm, fnm_cue_music_boss, fnm_cue_music_menu, fnm_cue_titan_roar, fnm_cue_volt_oops, fnm_cue_crowd_cheer, fnm_cue_crowd_aww}
 
 # The race arena's laser cannons (Aaron 2026-10-08 "epic laser cannon blast"; tools/build_race_boss.py since 2026-10-11):
 # the explosive devices parked under the boss platform (the blast, moved to the boss's feet per hit) and the one VFX
@@ -200,5 +206,7 @@ fnm_bm_slot_2 := class(tag){}
 fnm_bm_slot_3 := class(tag){}
 fnm_bm_slot_4 := class(tag){}
 fnm_bm_slot_5 := class(tag){}
+# Slot 6: the titan's sixth clip (build_bossmode TITAN_CLIPS: the scream, boss mode only; G9 D2).
+fnm_bm_slot_6 := class(tag){}
 # Slot tag types in order (index 0 = slot 1).
-FnmBmSlotTags()<transacts>:[]castable_subtype(tag) = array{fnm_bm_slot_1, fnm_bm_slot_2, fnm_bm_slot_3, fnm_bm_slot_4, fnm_bm_slot_5}
+FnmBmSlotTags()<transacts>:[]castable_subtype(tag) = array{fnm_bm_slot_1, fnm_bm_slot_2, fnm_bm_slot_3, fnm_bm_slot_4, fnm_bm_slot_5, fnm_bm_slot_6}

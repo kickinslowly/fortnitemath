@@ -261,6 +261,11 @@ fnm_hud := class:
     BannerSub : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 40.0, DefaultJustification := text_justification.Center}
     # Seconds the verdict stays up.
     VerdictSeconds : float = 1.5
+    # The DOORS OF DOOM logo (G9 D2; tools/art/fnm_logo.png, 512 x 284, drawn pixel for pixel at 1080p) over the grade step's
+    # heading, collapsed on the skill step: the grade step measured 503 px tall in play (2026-10-13 frame), 797 with the
+    # logo, y ~89-886 round the panel's centre at 0.45; the grade-6 skill step is already 870 (y 51-921) and has no room
+    # for it (tests/test_hud_layout.py). 512 is narrower than the BOSS BATTLE caption, so the panel stays as wide.
+    LogoArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_logo, DefaultDesiredSize := vector2{X := 512.0, Y := 284.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
     # Skill picker (PROTOCOL 6b), centre screen on its own root: heading, step line, one button per grade or skill.
     PickerHeading : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 60.0, DefaultJustification := text_justification.Center}
     PickerStep : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
@@ -334,6 +339,7 @@ fnm_hud := class:
             VoltArt.SetTint(FnmUi(NamedColors.White))
             MedalArt.SetTint(FnmUi(NamedColors.White))
             VoltCard.SetTint(FnmUi(NamedColors.White))
+            LogoArt.SetTint(FnmUi(NamedColors.White))
             # The answer tiles: the tile texture tinted with the tile's colour (its white ring takes the colour, the
             # dark interior stays near-black) under the letter and the choice, both in that colour.
             Tiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
@@ -752,6 +758,10 @@ fnm_hud := class:
                         Widget := stack_box:
                             Orientation := orientation.Vertical
                             Slots := array:
+                                stack_box_slot:
+                                    Widget := LogoArt
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    Padding := margin{Bottom := 6.0}
                                 stack_box_slot:
                                     Widget := PickerHeading
                                     HorizontalAlignment := horizontal_alignment.Center
@@ -1195,6 +1205,7 @@ fnm_hud := class:
             BossButton.OnClick().Subscribe(fnm_pick_handler{Hud := Self, Kind := fnm_pick.Boss, Index := 0}.OnClick)
             set Lead = array{MakeCell(BossButton, "Every grade, every skill. Right answers NUKE the boss!")}
         PickerHeading.SetText(FnmText("PICK YOUR GRADE"))
+        LogoArt.SetVisibility(widget_visibility.Visible)
         ShowPickerStep("Step 1 of 2", Labels, array{}, fnm_pick.Grade, Indices, false, Lead)
 
     # Skill step for Grade: one button per skill, its title on the button and its subtitle in small text under it
@@ -1203,6 +1214,7 @@ fnm_hud := class:
     # 2026-10-06: "words are cut off"); a text_block caption has a size we choose.
     ShowSkillStep(Grade:string, Titles:[]string, Subtitles:[]string, Indices:[]int, WithBack:logic):void =
         PickerHeading.SetText(FnmText("PICK YOUR SKILL"))
+        LogoArt.SetVisibility(widget_visibility.Collapsed)
         ShowPickerStep(if (WithBack?) then "Grade {Grade}  -  step 2 of 2" else "Grade {Grade}", Titles, Subtitles, fnm_pick.Skill, Indices, WithBack, array{})
 
     # Replaces the picker's buttons with this step's (Captions[K], when present and not empty, goes under button K),

@@ -186,19 +186,20 @@ CUES = {
     # else it is a logged no-op. Same order as the fnm_cue enum (fnm_audio.verse).
     "volt_yay": (None, {}),
     "volt_hmm": (None, {}),
+    # G9 D2 (2026-10-13): their Verse side landed (enum ids, tag classes, the director's calls; console/AUDIO.md "Mint music
+    # and SFX" lists each moment).
+    "music_boss": (None, LOOP),       # race arena + Boss Battle mode (FnmBedBoss)
+    "music_menu": (None, LOOP),       # the grade picker (FnmBedMenu), off at the countdown
+    "titan_roar": (None, {}),         # the titan's jump-slam entrance, with the slam
+    "volt_oops": (None, {}),          # no call site (no free window, AUDIO.md)
+    "crowd_cheer": (None, {}),        # the podium arrival, with the finish fanfare
+    "crowd_aww": (None, {}),          # a wrong pad in an arena, after the penalty's voice line
 }
 # Mint-only cues whose Verse side (enum id in fnm_audio.verse, tag class in fnm_tags.verse, the director call) is a later
 # round. They live apart from CUES because tests/test_audio_cues.py asserts list(CUES) == the enum. When a cue's Verse
 # side lands, move its row into CUES, in enum order, and add the member to that test's MEMBERS. Until then build() skips
-# it with a message, so importing its wave early is harmless.
-PENDING_CUES = {
-    "music_boss": (None, LOOP),       # race arena + Boss Battle mode
-    "music_menu": (None, LOOP),       # the grade picker
-    "titan_roar": (None, {}),         # the titan appears
-    "volt_oops": (None, {}),          # Volt's wag card
-    "crowd_cheer": (None, {}),        # the titan dies, the podium
-    "crowd_aww": (None, {}),          # a wrong pad
-}
+# it with a message, so importing its wave early is harmless. (Empty since G9 D2.)
+PENDING_CUES = {}
 ALL_CUES = {**CUES, **PENDING_CUES}
 
 READ_BACK = list(BASE) + ["audio"]

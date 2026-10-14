@@ -16,7 +16,7 @@ MEMBERS = ("Countdown3 Countdown2 Countdown1 Go Correct CorrectRetry Wrong DoorO
            "MusicT2 MusicT3 MusicT4 MusicT5 BossFight BossHit BossDead DirectHit HitsLeft4 HitsLeft3 HitsLeft2 "
            "HitsLeft1 BossDown BmStart BmLevel2 BmLevel3 BmLevel4 BmLevel5 BmBossL1 BmBossL2 BmBossL3 BmBossL4 "
            "BmBossL5 BmBossWrong BmBossHit BmBossDead BmNuke BmMegaNuke BmLevelClear BmVictory BmGates "
-           "BmWeapon VoltYay VoltHmm").split()
+           "BmWeapon VoltYay VoltHmm MusicBoss MusicMenu TitanRoar VoltOops CrowdCheer CrowdAww").split()
 
 
 def snake(member):
@@ -62,7 +62,8 @@ def test_builder_table_matches_and_is_allowed():
         assert asset.startswith(("/Game/Sounds/Creative/", "/CRD_SkilledInteractionDevice/")), (cue, asset)
         package, name = asset.rsplit("/", 1)[1].split(".")
         assert package.lower() == name.lower(), (cue, asset)
-    for t in range(1, 6):
-        assert build_audio.CUES[f"music_t{t}"][1].get("loopAudio") is True
+    for bed in [f"music_t{t}" for t in range(1, 6)] + ["music_boss", "music_menu"]:
+        assert build_audio.CUES[bed][1].get("loopAudio") is True, bed
+    assert build_audio.PENDING_CUES == {}                  # G9 D2: every Mint cue has its Verse side
     assert build_audio.label("correct_retry") == "FNM_Cue_CorrectRetry"
     assert build_audio.BASE["can Be Heard By"] == "Instigator Only"

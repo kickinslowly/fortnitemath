@@ -61,7 +61,8 @@ before UEFN work. Project-specific:
   `tools/build_course.py --paint-only` (paint walls and floors by tier after a cartridge swap, reads back; Titan Peak surfaces by
   default, world-aligned tiling master `M_fnm_tp_surface`, `--flat` = the old flat colours), `--check-paint`
   (read-only: every painted actor and door holds its material), `--door-paint` (re-apply the 40 door panels in place),
-  `tools/build_door_marks.py` (3D Alphabet letter over each door's lintel + a letter-colour light; idempotent via
+  `tools/build_door_marks.py` (3D Alphabet letter over each door's lintel + a letter-colour light at intensity 15: 40 blew the
+  white door and the arch stone out up close; `--lights` re-sets the 40 lights in place; idempotent via
   `fnm_door_marks`; rerun after a course rebuild), `tools/import_mascot.py` (once per UEFN project: Volt, the robot
   host, from `art/mascot/raw` into `FNM_MascotArt`: ONE skeletal mesh, every clip an animation on its skeleton; it deletes
   and re-imports, which empties the placed devices' references, so rerun `build_mascot.py` after it),
@@ -91,8 +92,10 @@ before UEFN work. Project-specific:
   Station hallways sit at different X and levels, so never assume x = 0 or z = 0 for a course actor.
   Ice hallways: `ICE_STATIONS` (needs the `ice` material: `python tools/import_art.py ice`).
 - Test hooks on the director (ship values 0 / false / -1): `DebugAutoPick` (pick cartridge N on join with no menu;
-  every other hook needs it or a real click), `DebugAutoWrongAnswers`, `DebugAutoRightAnswers` (runs
-  the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only),
+  every other hook needs it or a real click; `DebugPickerSeconds` N shows the picker N s first, for its frames),
+  `DebugAutoWrongAnswers`, `DebugAutoRightAnswers` (runs
+  the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only; waits
+  `DebugEntranceSeconds` at the arena entry for the titan's entrance),
   `DebugIgnoreTriggerEvents` (drops every door trigger event, so only the position backstop answers; with
   `DebugAutoRightAnswers` it proves the backstop carries a run),
   `DebugVictoryTest` (when the finish board hides itself, `ResultsSeconds` after a finish, stands the player before NEW

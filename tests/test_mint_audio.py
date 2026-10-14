@@ -404,10 +404,11 @@ def test_build_skips_cues_the_project_has_no_tag_class_for(monkeypatch, capsys):
     monkeypatch.setattr(ba, "verse_tags", lambda *a: None)
     monkeypatch.setattr(ba, "props_set", lambda *a, **k: None)
     monkeypatch.setattr(ba, "check", lambda actor, want: (None, []))
-    monkeypatch.setattr(ba, "sources", lambda *a, **k: {"countdown3": ba.CUES["countdown3"][0], "music_boss": ba.mint_path(PROJECT, "music_boss"),
+    # (music_boss was the undeclared example until G9 D2 gave it a tag class: a made-up id stands in for one now)
+    monkeypatch.setattr(ba, "sources", lambda *a, **k: {"countdown3": ba.CUES["countdown3"][0], "zz_undeclared": ba.mint_path(PROJECT, "zz_undeclared"),
                                                          "volt_hmm": ba.mint_path(PROJECT, "volt_hmm")})
     assert ba.build(mint=True) == 0
     out = capsys.readouterr().out
     assert calls.count("PlaceDevice") == 1                                  # only countdown3
-    assert "no fnm_cue_<id> tag class in any fnm_tags.verse" in out and "music_boss" in out
+    assert "no fnm_cue_<id> tag class in any fnm_tags.verse" in out and "zz_undeclared" in out
     assert "declared in the repo's fnm_tags.verse but not in the project yet" in out and "volt_hmm" in out

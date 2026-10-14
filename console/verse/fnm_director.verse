@@ -416,6 +416,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # The arena auto-run drops the player this far off the pad's centre in x and y (a 450 cm pad senses to 225): every run
     # proves the trigger senses its whole tile, not just its middle (until 2026-10-09 it sensed a 96 cm square).
     DebugPadOffset : float = 180.0
+    # DebugAutoRightAnswers in the race arena: seconds at its entry before the first pad, for the titan's entrance (G9 D2).
+    DebugEntranceSeconds : float = 5.0
     # Test hook for the victory area: when a player's finish board hides (ResultsSeconds after the finish, or CLOSE
     # without a podium), stand them 1.5 m in front of the NEW RACE button facing it (press E to try it), and
     # DebugAutoRightAnswers waits for that real press instead of simulating one. false = off (ship value).
@@ -429,6 +431,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # SKILL), so tools/playtest.py and every other debug hook run headless. -1 = off, the menu shows (ship value).
     @editable
     DebugAutoPick : int = -1
+    # Test hook (G9 D2): with DebugAutoPick, show the picker (logo, grade step, its music bed) for this many seconds first,
+    # then pick, so a headless session sees the picker with no click. 0 = pick at once (ship value).
+    @editable
+    DebugPickerSeconds : float = 0.0
     # Test hook: drop every door trigger event, so only the position backstop (WatchDoors) answers doors. Pair with
     # DebugAutoRightAnswers to prove the backstop carries a whole run. false = ship value.
     @editable
@@ -589,9 +595,18 @@ fnm_director := class(creative_device, fnm_picker_listener):
     var HallHoldUntil : float = 0.0
     # The sound layer (fnm_audio.verse, tools/build_audio.py): one audio player per cue, found by tag at OnBegin.
     var Audio : ?fnm_audio = false
-    # Seconds between the stacked finish cues (finish, best/record, medal, perfect), so they do not pile up.
+    # Seconds between the stacked finish voice lines (best/record, medal, perfect), so they do not pile up.
     @editable
     FinishCueGapSeconds : float = 1.6
+    # G9 D2: the first of them comes this long after the finish fanfare starts. The Mint fanfare is 5.46 s: a quiet lead-in
+    # to 1.75 s, its loud body to ~4.25 s (-19..-23 dB in 0.25 s frames, peak at 2.5 s; -34 dB by 4.5 s), so a line at 1.6 s
+    # (the stock fanfare's gap) landed on the body. FinishSounds.
+    FinishVoiceSeconds : float = 4.2
+    # G9 D2: on a wrong pad in an arena (the race's boss arena, Boss Battle mode) the crowd's aww follows the penalty's voice
+    # line by CrowdAfterVoiceSeconds, and in boss mode the boss's taunt follows the aww by TauntAfterCrowdSeconds
+    # (PenaltyLines): 0.9 s apart, the mix rule between a voice and a stinger.
+    CrowdAfterVoiceSeconds : float = 0.9
+    TauntAfterCrowdSeconds : float = 0.9
     # The penalty voice line comes this long after the wrong buzzer and the effect's own sound, so it is not buried under
     # them (2026-10-07: matched filter found the lines at 0.2-0.3 correlation when played on the same instant, GO at 0.88).
     @editable
@@ -1211,13 +1226,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
         SetMusic(State.Player, 0)
         if (DebugAutoBoss?, BM := BossMode?):
             BM.Start(State)
-        else if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
+        else if (DebugAutoPick >= 0, Cartridges[DebugAutoPick], DebugPickerSeconds <= 0.0):
             Pick(State, DebugAutoPick)
         else if (Cartridges.Length = 1, not BossMode?):
             Pick(State, 0)
         else:
-            if (DebugAutoPick >= 0):
+            if (DebugAutoPick >= 0, not Cartridges[DebugAutoPick]):
                 Print("FNM: DebugAutoPick {DebugAutoPick} is out of range ({Cartridges.Length} cartridges); showing the picker")
+            if (DebugAutoPick >= 0, Cartridges[DebugAutoPick]):
+                spawn{ DebugPickLater(State) }
             Grades := GradeList()
             WithBoss := if (BossMode?) then true else false
             if (Grades.Length = 1, not WithBoss?, Only := Grades[0]):
@@ -1225,8 +1242,18 @@ fnm_director := class(creative_device, fnm_picker_listener):
             else:
                 State.Hud.ShowGradeStep(Grades, WithBoss)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
+            # The picker's own bed (G9 D2, music_menu) while they choose; the countdown stops it (Countdown), boss mode
+            # swaps it for the boss bed (fnm_boss_mode.Start).
+            SetMusic(State.Player, FnmBedMenu)
             if (State.Picks = 0):
                 spawn{ ChooseLater(State) }
+
+    # DebugPickerSeconds with the picker up, then DebugAutoPick's cartridge, if the player is still picking.
+    DebugPickLater(State:fnm_player_state)<suspends>:void =
+        Sleep(DebugPickerSeconds)
+        if (PlayerStates[State.Player], State.Picking?):
+            Print("FNM: debug pick after {FnmBmWholeSeconds(DebugPickerSeconds)} s of the picker")
+            Pick(State, DebugAutoPick)
 
     # "Choose your grade and your skill." ChooseDelaySeconds after the welcome line (StartPlayer plays both in the same tick
     # otherwise, and the two announcer lines overlapped: ux_critique B1), if the player is still picking.
@@ -1783,19 +1810,22 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(CountdownStepSeconds * 3.0 + 2.0)
             # With DebugAutoWrongAnswers as well (round 2): up to two wrong doors at each station of run 1 until that many are
             # spent (the +3 s clock charges over a whole run), each followed by a beat on the retry spot (the wide camera).
+            # With a boss arena the last one is kept for a wrong pad there (G9 D2: the crowd's aww, the titan's taunt).
             if (State.Stage <> WrongStage):
                 set WrongStage = State.Stage
                 set WrongsHere = 0
+            KeepForArena := if (Arena?, Finishes = 0) then 1 else 0
             loop:
-                if (WrongsLeft <= 0 or WrongsHere >= 2 or Finishes > 0 or AtArena(State)? or State.Finished? or State.CurrentItem < 0) then break
+                if (WrongsLeft <= KeepForArena or WrongsHere >= 2 or Finishes > 0 or AtArena(State)? or State.Finished? or State.CurrentItem < 0) then break
                 set WrongsLeft -= 1
                 set WrongsHere += 1
                 DebugWrongDoor(State)
                 Sleep(RetryWideSeconds + 1.0)
             Answer := AnswerDoor(State)
             if (AtArena(State)?):
-                # The boss arena: onto the right pad until the boss goes down.
-                Done := DebugBossRun(State)
+                # The boss arena: in at its entry, a wrong pad if one is left, then onto the right pad until the boss goes down.
+                Done := DebugBossRun(State, if (Finishes = 0) then WrongsLeft else 0)
+                set WrongsLeft = 0
                 if (not Done?):
                     break
             else if (State.CurrentItem >= 0, Station := Stations[State.Stage - 1], Door := Station.Doors[Answer], Character := State.Player.GetFortCharacter[]):
@@ -1830,7 +1860,22 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # DebugAutoRight in the boss arena: waits for a boss, then drops the player onto the right pad (each hit sends them back
     # to the entry), at most 12 tries. True once the kill has finished their run.
-    DebugBossRun(State:fnm_player_state)<suspends>:logic =
+    DebugBossRun(State:fnm_player_state, Wrongs:int)<suspends>:logic =
+        # G9 D2: first in at the arena entry, as a player walks in, so ArenaArrival's titan entrance (the jump-slam and the
+        # roar) plays out before any pad; then Wrongs wrong pads with the boss up (the crowd's aww, the titan's stomp).
+        if (not State.ArenaArrived?, A := Arena?):
+            SendTo(State.Player, A.Station.RetryTeleporter)
+            Print("FNM: debug auto-right at the arena entry")
+            Sleep(DebugEntranceSeconds)
+        for (N := 1..Wrongs, Wrongs > 0):
+            var Waited : float = 0.0
+            loop:
+                if (BossAlive? or Waited >= 10.0) then break
+                Sleep(0.5)
+                set Waited += 0.5
+            if (not State.Finished?, AtArena(State)?):
+                DebugWrongDoor(State)
+                Sleep(2.0)
         var Tries : int = 0
         loop:
             if (State.Finished? or not AtArena(State)?) then break
@@ -1961,7 +2006,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 FxOn(Player, FrostFx)
-                spawn{ SoundLater(Player, fnm_cue.PenaltyFreeze, PenaltyVoiceDelaySeconds) }
+                spawn{ PenaltyLines(Player, fnm_cue.PenaltyFreeze) }
                 Ice := IceRig.NextIndex()
                 Placed := IceRig.Place(Ice, Feet, 0.0)
                 Print("FNM: ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
@@ -1986,7 +2031,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sleep(0.1)
                 Hop := Character.GetTransform()
                 if (Character.TeleportTo[Hop.Translation + vector3{X := 0.0, Y := 0.0, Z := 40.0}, Hop.Rotation]) {}
-                spawn{ SoundLater(Player, fnm_cue.PenaltyYeet, PenaltyVoiceDelaySeconds) }
+                spawn{ PenaltyLines(Player, fnm_cue.PenaltyYeet) }
                 Print("FNM: vent {Pad} placed={FnmYesNo(Placed)} at {Feet}")
                 Sleep(YeetSeconds)
                 YeetRig.Park(Pad)
@@ -2000,7 +2045,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: yeet thrown {Feet.Y - Landed.Y} cm back in {Airborne} s (on the ground {FnmYesNo(if (Character.IsOnGround[]) then true else false)})")
             SendToRetry(Player, Station)
         else if (Kind = fnm_penalty.Mud):
-            spawn{ SoundLater(Player, fnm_cue.PenaltyMud, PenaltyVoiceDelaySeconds) }
+            spawn{ PenaltyLines(Player, fnm_cue.PenaltyMud) }
             Afflict(Player)
             Epoch := EpochOf(Player)
             # Boss mode: no stuck beat, only the slow, as before G9 (a held player at the entry was shot by the wave's
@@ -2019,7 +2064,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 SendToRetry(Player, Station)
             spawn{ Muddy(Player, Epoch) }
         else if (Kind = fnm_penalty.Dizzy):
-            spawn{ SoundLater(Player, fnm_cue.PenaltyDizzy, PenaltyVoiceDelaySeconds) }
+            spawn{ PenaltyLines(Player, fnm_cue.PenaltyDizzy) }
             Afflict(Player)
             Epoch := EpochOf(Player)
             Spin(Player)
@@ -2029,7 +2074,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Character := Player.GetFortCharacter[]):
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 if (State := PlayerStates[Player]) then State.Hud.SetBlack(true)
-                spawn{ SoundLater(Player, fnm_cue.PenaltyBlackout, PenaltyVoiceDelaySeconds) }
+                spawn{ PenaltyLines(Player, fnm_cue.PenaltyBlackout) }
                 Sleep(BlackoutSeconds)
                 SendToRetry(Player, Station)
                 Character.ReleaseFromStasis()
@@ -2052,7 +2097,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: spears placed {Placed}/{Spears.Length} at {Feet}")
                 for (Index : Spears):
                     spawn{ SpikeRig.Rise(Index, SpearRise, SpearSeconds) }
-                spawn{ SoundLater(Player, fnm_cue.PenaltySpike, PenaltyVoiceDelaySeconds) }
+                spawn{ PenaltyLines(Player, fnm_cue.PenaltySpike) }
                 Sleep(SpearSeconds)
                 Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
                 Sleep(SpikeHoldSeconds)
@@ -2219,6 +2264,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Pad.Teleport(Player)
 
     FinishPlayer(State:fnm_player_state):void =
+        FinishRun(State, 0.0)
+
+    # The finish, with its fanfare FanfareDelay seconds later (FinishSounds): 0 at the finish pad, PodiumSeconds after the
+    # arena's kill (BossDown), where the fanfare and the crowd's cheer greet the player at the podium (PodiumLater).
+    FinishRun(State:fnm_player_state, FanfareDelay:float):void =
         set State.Finished = true
         set State.Runs += 1
         Total := Stations.Length
@@ -2252,7 +2302,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Board := BoardFor(Skill)
         Medal := FnmMedal(State.FirstTryCorrect, Total)
         SetMusic(State.Player, 0)
-        spawn{ FinishSounds(State.Player, if (NewBest?, HadBest?) then true else false, IslandRecord, Medal, if (State.FirstTryCorrect >= Total) then true else false) }
+        spawn{ FinishSounds(State, FanfareDelay, if (NewBest?, HadBest?) then true else false, IslandRecord, Medal, if (State.FirstTryCorrect >= Total) then true else false) }
         MedalColor := if (Medal = "GOLD") then NamedColors.Gold else if (Medal = "SILVER") then NamedColors.Silver else NamedColors.Peru
         # The board is the only thing on screen besides the clock, which keeps the final time.
         State.Hud.SetClock(FnmClock(Time))
@@ -2373,6 +2423,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (PlayerStates[State.Player], State.Finished?, not State.Picking?, State.RunGeneration = Generation, State.Mode = fnm_mode.Race):
             if (Spot := PodiumSpot[], Character := State.Player.GetFortCharacter[], Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                 Print("FNM: to the podium at {Spot}, {PodiumDistance(Spot)}")
+                # The crowd cheers them in (G9 D2), with the finish fanfare (FinishSounds waits PodiumSeconds too); not on
+                # the kill, which has boss_dead and BOSS DOWN.
+                Sound(State.Player, fnm_cue.CrowdCheer)
                 spawn{ WideLook(State, PodiumWideSeconds, WideMoveCm, "podium") }
             else:
                 Print("FNM: podium teleport failed (no RACE AGAIN button, or the character could not be moved)")
@@ -2527,6 +2580,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     Countdown(State:fnm_player_state)<suspends>:void =
         set State.RunGeneration += 1
         Generation := State.RunGeneration
+        # The picker's bed stops at the countdown (G9 D2); GO starts the tier's (Music).
+        SetMusic(State.Player, 0)
         # Station 1 as the tutorial (G9): on the player's first run of the session.
         if (not State.TutorialDone?, State.Stage = 1, State.Mode = fnm_mode.Race):
             set State.TutorialDone = true
@@ -2699,6 +2754,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     ArenaArrival(State:fnm_player_state):void =
         set State.ArenaArrived = true
         Sound(State.Player, fnm_cue.BossFight)
+        # The titan's entrance (G9 D2): the jump-slam from its first frame and the roar as the slam lands, SlamLandsSeconds
+        # (1.15) after boss_fight, past the 0.9 s mix rule. Not while it lies after a kill: the respawn's Arrive stands it up.
+        if (not RaceTitan.Falling?):
+            spawn{ RaceTitan.Entrance() }
+            spawn{ SoundLater(State.Player, fnm_cue.TitanRoar, RaceTitan.SlamLandsSeconds) }
         Broadcast(FnmFeedBoss(State.Player), "reached the boss!")
         State.Hud.FlashBig("STEP ON THE RIGHT ANSWER PAD!", NamedColors.Gold, 4.0)
         Print("FNM: entered the arena: instruction up")
@@ -2933,7 +2993,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (Gate := A.Gate?):
                     Gate.AddToIgnoreList(State.Player)
                     Print("FNM: gate open for the player")
-                FinishPlayer(State)
+                FinishRun(State, PodiumSeconds)
                 Sound(State.Player, fnm_cue.BossDead)
                 spawn{ SoundAfter(State.Player, fnm_cue.BossDown, BossDownVoiceDelaySeconds) }
                 spawn{ PodiumLater(State) }
@@ -3341,26 +3401,56 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (A := Audio?):
             A.SetMusic(Player, Tier)
 
-    # The bed for the tier of the player's current station (boss mode: the bed of the fight's level).
+    # The bed for the tier of the player's current station; the boss bed in the race's boss arena and in boss mode (G9 D2,
+    # music_boss: boss mode played the tier beds by level until then).
     Music(State:fnm_player_state):void =
         if (not State.Finished?, not State.Picking?):
-            if (State.Mode = fnm_mode.Boss) then SetMusic(State.Player, Clamp(State.Level, 1, 5)) else SetMusic(State.Player, StationTier(State, State.Stage))
+            if (State.Mode = fnm_mode.Boss or AtArena(State)?) then SetMusic(State.Player, FnmBedBoss) else SetMusic(State.Player, StationTier(State, State.Stage))
 
-    # The finish fanfare, spaced FinishCueGapSeconds apart: the finish, then a new island record or else a new personal
-    # best, then the medal, then PERFECT when every answer was right first try.
-    FinishSounds(Player:player, NewBest:logic, Record:logic, Medal:string, Perfect:logic)<suspends>:void =
+    # The finish sounds, Delay seconds after the finish (FinishRun): the fanfare, then FinishVoiceSeconds later (its loud body
+    # played out; G9 D2, the 5.5 s Mint fanfare) today's record or else a new personal best, the medal, and PERFECT when
+    # every answer was right first try, FinishCueGapSeconds apart. A new run or a skill change meanwhile (RunGeneration)
+    # silences what is left.
+    FinishSounds(State:fnm_player_state, Delay:float, NewBest:logic, Record:logic, Medal:string, Perfect:logic)<suspends>:void =
+        Generation := State.RunGeneration
+        Player := State.Player
+        if (Delay > 0.0):
+            Sleep(Delay)
+        if (not FinishLive(State, Generation)?) then return
         Sound(Player, fnm_cue.Finish)
-        Sleep(FinishCueGapSeconds)
+        Sleep(FinishVoiceSeconds)
+        if (not FinishLive(State, Generation)?) then return
         if (Record?):
             Sound(Player, fnm_cue.NewRecord)
             Sleep(FinishCueGapSeconds)
         else if (NewBest?):
             Sound(Player, fnm_cue.NewBest)
             Sleep(FinishCueGapSeconds)
+        if (not FinishLive(State, Generation)?) then return
         Sound(Player, if (Medal = "GOLD") then fnm_cue.MedalGold else if (Medal = "SILVER") then fnm_cue.MedalSilver else fnm_cue.MedalBronze)
         if (Perfect?):
             Sleep(FinishCueGapSeconds)
-            Sound(Player, fnm_cue.Perfect)
+            if (FinishLive(State, Generation)?) then Sound(Player, fnm_cue.Perfect)
+
+    # Still the finished run FinishSounds began for: present, finished, no new run or pick since.
+    FinishLive(State:fnm_player_state, Generation:int)<transacts>:logic =
+        if (PlayerStates[State.Player], State.Finished?, State.RunGeneration = Generation, not State.Picking?) then true else false
+
+    # A penalty's voice line PenaltyVoiceDelaySeconds after Punish's moment for it (as SoundLater; the yeet's comes 0.5 s
+    # later than the others, after the pull-out). In an arena (the race's boss arena, Boss Battle mode) the crowd's aww
+    # follows CrowdAfterVoiceSeconds after the line, and in boss mode the boss's taunt (its voice and the titan's scream,
+    # fnm_boss_mode.Taunt) TauntAfterCrowdSeconds after the aww (G9 D2): timed from the voice, each 0.9 s from the last, so no
+    # two start together and at most two start in any second (console/AUDIO.md mix rules). A race station stays as it was.
+    PenaltyLines(Player:player, Voice:fnm_cue)<suspends>:void =
+        SoundLater(Player, Voice, PenaltyVoiceDelaySeconds)
+        if (State := PlayerStates[Player], (State.Mode = fnm_mode.Boss or AtArena(State)?)):
+            Sleep(CrowdAfterVoiceSeconds)
+            if (PlayerStates[Player], not State.Finished?):
+                Sound(Player, fnm_cue.CrowdAww)
+                if (State.Mode = fnm_mode.Boss, BM := BossMode?):
+                    Sleep(TauntAfterCrowdSeconds)
+                    if (PlayerStates[Player], not State.Finished?, State.Mode = fnm_mode.Boss):
+                        BM.Taunt(State)
 
     # Shows a short orange notice that clears itself after NoticeSeconds.
     FlashNotice(State:fnm_player_state, Message:string)<suspends>:void =

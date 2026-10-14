@@ -87,19 +87,20 @@ def test_every_bm_tag_the_runtime_names_is_declared():
                 "fnm_bm_grant", "fnm_bm_cannon_fx", "fnm_bm_strike", "fnm_bm_blast", "fnm_bm_nuke_fx",
                 "fnm_bm_anger_fx", "fnm_bm_creature", "fnm_bm_chest", "fnm_bm_letter",
                 "fnm_bm_megaboss", "fnm_bm_beam", "fnm_bm_titan",
-                "fnm_bm_chest_beacon", "fnm_bm_chest_light"} | {f"fnm_bm_slot_{n}" for n in range(1, 6)}
+                "fnm_bm_chest_beacon", "fnm_bm_chest_light"} | {f"fnm_bm_slot_{n}" for n in range(1, 7)}   # slot 6: the titan's scream (G9 D2)
     assert used == expected
     assert used <= declared, used - declared
 
 
-def test_slot_tags_list_has_five():
+def test_slot_tags_list_has_six():
+    """Five numbered pieces (levels, gates, perches, pads), plus the titan's sixth clip (the scream, G9 D2)."""
     tags = src("fnm_tags.verse")
     body = re.search(r"FnmBmSlotTags\(\)<transacts>:\[\]castable_subtype\(tag\) = array\{(.*)\}", tags).group(1)
-    assert [t.strip() for t in body.split(",")] == [f"fnm_bm_slot_{n}" for n in range(1, 6)]
+    assert [t.strip() for t in body.split(",")] == [f"fnm_bm_slot_{n}" for n in range(1, 7)]
 
 
 SHIP_DEFAULTS = ("DebugAutoBoss : logic = false", "DebugBossLevel : int = 0", "DebugBossHold : float = 0.0", "DebugAutoRightAnswers : logic = false",
-                 "DebugAutoPick : int = -1", "DebugAutoWrongAnswers : int = 0", "BmRespawnSeconds : float = 4.0",
+                 "DebugAutoPick : int = -1", "DebugPickerSeconds : float = 0.0", "DebugAutoWrongAnswers : int = 0", "BmRespawnSeconds : float = 4.0",
                  "BmSummonSeconds : float = 5.0", "NukeSeconds : float = 2.5", "BossBoardKey : int = 9999")
 
 

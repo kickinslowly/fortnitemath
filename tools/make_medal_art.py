@@ -11,6 +11,8 @@ background; each becomes a 256x256 HUD texture that console/verse/fnm_ui.verse d
     art/mascot/hud_portrait_raw.png    -> fnm_volt.png            (T_fnm_volt, the host on every finish board)
     art/mascot/reactions/<kind>_raw.png -> fnm_volt_<kind>.png    (T_fnm_volt_<kind>, kind = wag thumbs fire shocked go think:
                                                                   the reaction card, fnm_ui.verse ShowVolt)
+    art/logo/logo_b_raw.png            -> fnm_logo.png            (T_fnm_logo, the DOORS OF DOOM logo over the grade picker;
+                                                                  LOGO_JOB: NOT square, see prepare_logo)
 
 Per image: alpha below ALPHA_CUT (16) is zeroed (the raw silver and bronze carry a stray near-transparent pixel at the
 image edge, so their alpha bbox started at 0,0 and the medal would have shrunk), the image is cropped to the bbox of what
@@ -18,6 +20,9 @@ is left, padded to a square with the subject centred (transparent padding), and 
 resizes RGBA premultiplied, so no dark fringe). Deterministic: a rerun writes identical bytes. Then
 `python tools/import_art.py medal_gold medal_silver medal_bronze volt` brings the textures into the UEFN project (HUD keys
 are the PNG names less "fnm_").
+The logo (G9 D2, 2026-10-13; Aaron chose logo b) keeps its aspect: the same alpha cut and crop, then resized to LOGO_WIDTH
+wide (prepare_logo), 512 x 284. `python tools/import_art.py logo` imports it (never --force: nothing else uses it yet, but
+the default keeps an existing one).
 """
 import sys
 from pathlib import Path
@@ -42,6 +47,9 @@ JOBS = (
     ("art/mascot/reactions/go_raw.png", "fnm_volt_go.png"),
     ("art/mascot/reactions/think_raw.png", "fnm_volt_think.png"),
 )
+# The logo over the grade picker (fnm_ui.verse LogoArt): cropped to its letters, aspect kept, LOGO_WIDTH wide.
+LOGO_JOB = ("art/logo/logo_b_raw.png", "fnm_logo.png")
+LOGO_WIDTH = 512
 
 
 def prepare(raw: Image.Image) -> Image.Image:
@@ -61,12 +69,34 @@ def prepare(raw: Image.Image) -> Image.Image:
     return square.resize((SIZE, SIZE), Image.LANCZOS)
 
 
+def crop_to_alpha(raw: Image.Image) -> Image.Image:
+    """Zero alpha below ALPHA_CUT and crop to the alpha bbox of what is left."""
+    im = raw.convert("RGBA")
+    r, g, b, a = im.split()
+    a = a.point(lambda v: 0 if v < ALPHA_CUT else v)
+    box = a.getbbox()
+    if box is None:
+        raise ValueError("image has no pixel at or above the alpha cut")
+    return Image.merge("RGBA", (r, g, b, a)).crop(box)
+
+
+def prepare_logo(raw: Image.Image, width: int = LOGO_WIDTH) -> Image.Image:
+    """The logo: cropped to its alpha bbox (as prepare), aspect kept, resized to `width` wide (height rounded)."""
+    im = crop_to_alpha(raw)
+    w, h = im.size
+    return im.resize((width, round(width * h / w)), Image.LANCZOS)
+
+
 def main(out: Path = OUT):
     out.mkdir(parents=True, exist_ok=True)
     for src, name in JOBS:
         done = prepare(Image.open(ROOT / src))
         done.save(out / name, optimize=False)
         print(f"wrote {out / name}  {done.size[0]}x{done.size[1]}  alpha bbox {done.getchannel('A').getbbox()}")
+    src, name = LOGO_JOB
+    done = prepare_logo(Image.open(ROOT / src))
+    done.save(out / name, optimize=False)
+    print(f"wrote {out / name}  {done.size[0]}x{done.size[1]}  alpha bbox {done.getchannel('A').getbbox()}")
 
 
 if __name__ == "__main__":

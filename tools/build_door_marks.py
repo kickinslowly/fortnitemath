@@ -11,8 +11,9 @@ Per door (stations 1..N, doors A..D):
   (tools/build_decor.py stands the digits ON the wall top, from z 600 up) and clear of the door panel (top at 384).
   The lintel is painted near-black by build_course.paint (key `lintel`) so the letters read against it.
 - the light: a Customizable Light (PID_Device_PointLight) a little in front of the arch in the letter's colour, a glow
-  (lightSizePercentage 25, intensity 40; the brief's 50 / 60-100 bleached the white doors and pale walls in daylight in
-  editor frames, 100 floods a room white), so a door reads from the lit pool it throws on the wall and floor at dusk.
+  (lightSizePercentage 25, intensity 15; the brief's 50 / 60-100 bleached the white doors and pale walls in daylight in
+  editor frames, 100 floods a room white, and even 40 blew the white door and the arch stone out to near-white for a player
+  standing at the door at dusk, G9 L 2026-10-13), so a door reads from the lit pool it throws on the wall and floor at dusk.
 
 Geometry comes from the course actors (their Lintel bounds and Door transforms), never from assumed coordinates: station
 hallways sit at different X and levels. Idempotent via actor tag `fnm_door_marks`: a run first deletes everything with it.
@@ -20,6 +21,7 @@ Rerun it after a course rebuild (the course's doors and lintels are re-placed).
 
     python tools/build_door_marks.py             # every station
     python tools/build_door_marks.py --only 1    # only station 1's marks (rebuilds just those)
+    python tools/build_door_marks.py --lights    # re-apply the light options to the existing lights in place (a tuning pass)
     python tools/build_door_marks.py --check     # read-only report: counts and the read-back options
     python tools/build_door_marks.py --clear     # remove all door marks
 """
@@ -44,7 +46,10 @@ LETTER_OUT = 2.0                                    # the letter's back stands t
 LIGHT_BACK = 100.0                                  # cm in front of the lintel face
 LIGHT_Z = 350.0                                     # above the station floor
 LIGHT_SIZE_PERCENT = 25
-LIGHT_INTENSITY_PERCENT = 40
+# Intensity is linear (device intensity = percent x 0.256; 40 read 10.24, radius 560 cm at size 25). Seen in play at Hour19, a player at
+# the door (G9 L, 2026-10-13): 40 blew the white door and the arch stone out to near-white; with no light the stone is clean grey;
+# 10 on the white door A and 20 on blue B kept the letter tile and the stone's carving; 15 is between the two seen values.
+LIGHT_INTENSITY_PERCENT = 15
 
 
 def rgba(rgb):
@@ -159,6 +164,22 @@ def build(only=0):
         sys.exit(1)
 
 
+def relight():
+    """Re-apply light_options to every existing door-mark light in place (no rebuild of letters, no moves): a light tuning pass.
+    Position constants (LIGHT_BACK, LIGHT_Z) still need a full run."""
+    n, problems = 0, []
+    for a in sorted(marks(), key=lambda a: a.get("label", "")):
+        m = re.fullmatch(r"FNM_S(\d\d)_Mark([A-D])Light", a.get("label", ""))
+        if m:
+            problems += [f"{a['label']} {w}" for w in options(a["actorPath"], light_options(c.LETTERS.index(m[2])), a["label"]).items()]
+            n += 1
+    u.call(c.ASSETS, "save_assets", {"asset_paths": []})
+    print(f"{n} lights re-set (size {LIGHT_SIZE_PERCENT}, intensity {LIGHT_INTENSITY_PERCENT}); {len(problems)} read-back problems"
+          + ("" if not problems else ": " + "; ".join(map(str, problems[:6]))))
+    if problems:
+        sys.exit(1)
+
+
 def check():
     found = marks()
     letters = [a for a in found if re.fullmatch(r"FNM_S\d\d_Mark[A-D]", a.get("label", ""))]
@@ -187,9 +208,12 @@ if __name__ == "__main__":
     ap.add_argument("--only", type=int, default=0, help="only station N's marks")
     ap.add_argument("--check", action="store_true", help="read-only report")
     ap.add_argument("--clear", action="store_true", help="remove all door marks")
+    ap.add_argument("--lights", action="store_true", help="re-apply the light options to the existing lights in place")
     a = ap.parse_args()
     if a.check:
         check()
+    elif a.lights:
+        relight()
     elif a.clear:
         print("removed", c.clear(TAG), "door marks")
     else:

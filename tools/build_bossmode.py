@@ -181,8 +181,13 @@ TITAN_ART = "FNM_BossArt"
 TITAN_MESH = "SK_fnm_titan"
 # The chest pound (taunt) and knockdown (defeat) clips are imported but unused: on the device one tipped the titan flat
 # partway through its loop and the other turned on the spot instead of falling (BOSS_MODE.md section 15b).
-TITAN_CLIPS = ["idle", "flail", "stomp", "dead"]
-TITAN_ONCE = {"dead"}
+# G9 D2 (2026-10-13): slot 5 the jump-slam (the entrance: boss mode's level start, the race arena's walk-in), slot 6 the
+# scream (boss mode's wrong pad; the race places only the first five, build_race_boss RACE_TITAN_CLIPS). Both play once from
+# their first frame like the fall (TITAN_ONCE; fnm_titan.verse Once) and on idle's mesh (TITAN_SHARED: tools/import_boss.py
+# brings them in as animations on idle's skeleton). The shout (Shouting Angrily, 7.2 s) is imported but placed nowhere.
+TITAN_CLIPS = ["idle", "flail", "stomp", "dead", "jumpslam", "scream"]
+TITAN_ONCE = {"dead", "jumpslam", "scream"}
+TITAN_SHARED = {"jumpslam": "idle", "scream": "idle", "shout": "idle"}
 TITAN_SCALE = 4.0        # the mesh is 3 m tall: 12 m, head just under the question panel at the player's eye line
 TITAN_PARK = 3000
 # Perches P1..P4 as (x, y, top above the floor): P1 front-right, P2 front-left, P3 back-right, P4 back-left. A PERCH_TOP
@@ -774,8 +779,8 @@ def boss_rig(project=None):
 
 
 def titan(project, top):
-    """The titan's Animated Mesh devices FNM_BM_Titan1..4 (tag fnm_bm_titan + slot), facing the entry. Needs
-    tools/import_boss.py once per UEFN project."""
+    """The titan's Animated Mesh devices FNM_BM_Titan1..N (tag fnm_bm_titan + slot, TITAN_CLIPS order), facing the entry.
+    Needs tools/import_boss.py once per UEFN project."""
     x, y, _ = at(PLATFORM_X, PLATFORM_Y)
     ex, ey, _ = at(*ENTRY)
     yaw = math.degrees(math.atan2(ey - y, ex - x))       # the mesh faces +X
@@ -794,13 +799,26 @@ def titan(project, top):
 
 
 def titan_clip_props(project, clip):
-    """An Animated Mesh device's settings for one titan clip: its own mesh and animation, Playing from the start, looping
-    unless it is the fall (TITAN_ONCE: it plays once and holds; fnm_titan.verse). The race finale's titan uses them too
-    (tools/build_race_boss.py)."""
+    """An Animated Mesh device's settings for one titan clip: its mesh (its own, or for a TITAN_SHARED clip the base clip's)
+    and animation, Playing from the start, looping unless it is a one-shot (TITAN_ONCE: it plays once and holds; Verse
+    rewinds and replays it, fnm_titan.verse). The race finale's titan and the volcano's use them too
+    (tools/build_race_boss.py, tools/build_landmarks.py)."""
     art = f"/{project}/{TITAN_ART}"
-    return {"skeletalMesh": {"refPath": f"{art}/Clip_{clip}/{TITAN_MESH}_{clip}.{TITAN_MESH}_{clip}"},
+    mesh = TITAN_SHARED.get(clip, clip)
+    return {"skeletalMesh": {"refPath": f"{art}/Clip_{mesh}/{TITAN_MESH}_{mesh}.{TITAN_MESH}_{mesh}"},
             "animation": {"refPath": f"{art}/Clip_{clip}/A_fnm_titan_{clip}.A_fnm_titan_{clip}"},
             "loop": clip not in TITAN_ONCE, "initialState": "Playing"}
+
+
+def retitan(project=None):
+    """Re-place only the titan's clip devices (FNM_BM_Titan*), the rest of the boss rig left as it is: what a new titan clip
+    needs (G9 D2). Their transform comes from the platform, as boss_rig places them."""
+    project = project or c.project_mount().strip("/")
+    old = [a for a in placed() if re.fullmatch(r"FNM_BM_Titan\d+", a.get("label", ""))]
+    for a in old:
+        u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+    print("removed", len(old), "old titan clip devices")
+    titan(project, FLOOR_Z + PLATFORM_H)
 
 
 def letter_asset(letter):
@@ -949,8 +967,12 @@ if __name__ == "__main__":
     ap.add_argument("--probe", action="store_true", help="answer BOSS_MODE.md 3's UNVERIFIED items (no build)")
     ap.add_argument("--boss", action="store_true", help="(re)place only the Megabrute boss spawner and the cannon beams")
     ap.add_argument("--cannons", action="store_true", help="(re)place only the mega laser cannons, then the boss rig")
+    ap.add_argument("--titan", action="store_true", help="(re)place only the titan's clip devices (TITAN_CLIPS)")
     a = ap.parse_args()
-    if a.dress or a.boss or a.cannons:
+    if a.titan:
+        retitan()
+        u.call(ASSETS, "save_assets", {"asset_paths": []})
+    elif a.dress or a.boss or a.cannons:
         if a.cannons:
             cannons()
         dress() if a.dress else boss_rig()

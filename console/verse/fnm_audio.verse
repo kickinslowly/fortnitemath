@@ -121,12 +121,28 @@ fnm_cue := enum:
     VoltYay
     # Volt's thinking warble, at the retry spot after a wrong door (Punish)
     VoltHmm
+    # The Mint beds and effects (G9 D2, console/AUDIO.md "Mint music and SFX"): the boss bed (race arena, Boss Battle mode)
+    MusicBoss
+    # the grade picker's bed (BeginPicking; stopped at the run's countdown)
+    MusicMenu
+    # the titan's roar with its jump-slam entrance (race arena entry, boss mode's level start)
+    TitanRoar
+    # Volt's "uh-oh" (id only: no free window for it yet, AUDIO.md)
+    VoltOops
+    # the crowd at the podium arrival (PodiumLater), with the finish fanfare
+    CrowdCheer
+    # the crowd after the penalty's voice line on a wrong pad in an arena (PenaltyLines)
+    CrowdAww
 
 # Every cue, in enum order (FnmCueIds and FnmCueTags follow the same order).
-FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead, fnm_cue.DirectHit, fnm_cue.HitsLeft4, fnm_cue.HitsLeft3, fnm_cue.HitsLeft2, fnm_cue.HitsLeft1, fnm_cue.BossDown, fnm_cue.BmStart, fnm_cue.BmLevel2, fnm_cue.BmLevel3, fnm_cue.BmLevel4, fnm_cue.BmLevel5, fnm_cue.BmBossL1, fnm_cue.BmBossL2, fnm_cue.BmBossL3, fnm_cue.BmBossL4, fnm_cue.BmBossL5, fnm_cue.BmBossWrong, fnm_cue.BmBossHit, fnm_cue.BmBossDead, fnm_cue.BmNuke, fnm_cue.BmMegaNuke, fnm_cue.BmLevelClear, fnm_cue.BmVictory, fnm_cue.BmGates, fnm_cue.BmWeapon, fnm_cue.VoltYay, fnm_cue.VoltHmm}
+FnmCues()<transacts>:[]fnm_cue = array{fnm_cue.Countdown3, fnm_cue.Countdown2, fnm_cue.Countdown1, fnm_cue.Go, fnm_cue.Correct, fnm_cue.CorrectRetry, fnm_cue.Wrong, fnm_cue.DoorOpen, fnm_cue.Boost, fnm_cue.Streak2, fnm_cue.Streak3, fnm_cue.Streak4, fnm_cue.Streak5, fnm_cue.Streak6, fnm_cue.Streak7, fnm_cue.Perfect, fnm_cue.Finish, fnm_cue.NewBest, fnm_cue.NewRecord, fnm_cue.MedalGold, fnm_cue.MedalSilver, fnm_cue.MedalBronze, fnm_cue.PenaltyFreeze, fnm_cue.PenaltySpike, fnm_cue.PenaltyMud, fnm_cue.PenaltyDizzy, fnm_cue.PenaltyBlackout, fnm_cue.PenaltyYeet, fnm_cue.NoSkip, fnm_cue.GuardsUp, fnm_cue.Welcome, fnm_cue.Choose, fnm_cue.MusicT1, fnm_cue.MusicT2, fnm_cue.MusicT3, fnm_cue.MusicT4, fnm_cue.MusicT5, fnm_cue.BossFight, fnm_cue.BossHit, fnm_cue.BossDead, fnm_cue.DirectHit, fnm_cue.HitsLeft4, fnm_cue.HitsLeft3, fnm_cue.HitsLeft2, fnm_cue.HitsLeft1, fnm_cue.BossDown, fnm_cue.BmStart, fnm_cue.BmLevel2, fnm_cue.BmLevel3, fnm_cue.BmLevel4, fnm_cue.BmLevel5, fnm_cue.BmBossL1, fnm_cue.BmBossL2, fnm_cue.BmBossL3, fnm_cue.BmBossL4, fnm_cue.BmBossL5, fnm_cue.BmBossWrong, fnm_cue.BmBossHit, fnm_cue.BmBossDead, fnm_cue.BmNuke, fnm_cue.BmMegaNuke, fnm_cue.BmLevelClear, fnm_cue.BmVictory, fnm_cue.BmGates, fnm_cue.BmWeapon, fnm_cue.VoltYay, fnm_cue.VoltHmm, fnm_cue.MusicBoss, fnm_cue.MusicMenu, fnm_cue.TitanRoar, fnm_cue.VoltOops, fnm_cue.CrowdCheer, fnm_cue.CrowdAww}
 
 # Snake-case id per cue, enum order: the Verse tag is fnm_cue_<id> (tools/build_audio.py CUES keys).
-FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead", "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down", "bm_start", "bm_level2", "bm_level3", "bm_level4", "bm_level5", "bm_boss_l1", "bm_boss_l2", "bm_boss_l3", "bm_boss_l4", "bm_boss_l5", "bm_boss_wrong", "bm_boss_hit", "bm_boss_dead", "bm_nuke", "bm_mega_nuke", "bm_level_clear", "bm_victory", "bm_gates", "bm_weapon", "volt_yay", "volt_hmm"}
+FnmCueIds()<transacts>:[]string = array{"countdown3", "countdown2", "countdown1", "go", "correct", "correct_retry", "wrong", "door_open", "boost", "streak2", "streak3", "streak4", "streak5", "streak6", "streak7", "perfect", "finish", "new_best", "new_record", "medal_gold", "medal_silver", "medal_bronze", "penalty_freeze", "penalty_spike", "penalty_mud", "penalty_dizzy", "penalty_blackout", "penalty_yeet", "no_skip", "guards_up", "welcome", "choose", "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "boss_fight", "boss_hit", "boss_dead", "direct_hit", "hits_left4", "hits_left3", "hits_left2", "hits_left1", "boss_down", "bm_start", "bm_level2", "bm_level3", "bm_level4", "bm_level5", "bm_boss_l1", "bm_boss_l2", "bm_boss_l3", "bm_boss_l4", "bm_boss_l5", "bm_boss_wrong", "bm_boss_hit", "bm_boss_dead", "bm_nuke", "bm_mega_nuke", "bm_level_clear", "bm_victory", "bm_gates", "bm_weapon", "volt_yay", "volt_hmm", "music_boss", "music_menu", "titan_roar", "volt_oops", "crowd_cheer", "crowd_aww"}
+
+# The music beds SetMusic takes besides the station tiers 1..5 (0 = silence): the boss bed and the picker's.
+FnmBedBoss : int = 6
+FnmBedMenu : int = 7
 
 # The announcer's line for a boss hit that leaves Left team hits to go: a counted line for 1..4, "Direct hit!" otherwise.
 FnmHitCue(Left:int)<transacts>:fnm_cue =
@@ -169,13 +185,15 @@ FnmCueId(Cue:fnm_cue)<transacts>:string =
 # The Verse tag name that marks this cue's audio player: fnm_cue_countdown3, fnm_cue_correct_retry, ...
 FnmCueTag(Cue:fnm_cue)<transacts>:string = "fnm_cue_" + FnmCueId(Cue)
 
-# The music bed cue for tier Tier (1..5); false outside that range.
+# The music bed cue for tier Tier (1..5), the boss bed (FnmBedBoss) or the picker's (FnmBedMenu); false otherwise (0 = none).
 FnmMusicCue(Tier:int)<transacts>:?fnm_cue =
     if (Tier = 1) then option{fnm_cue.MusicT1}
     else if (Tier = 2) then option{fnm_cue.MusicT2}
     else if (Tier = 3) then option{fnm_cue.MusicT3}
     else if (Tier = 4) then option{fnm_cue.MusicT4}
     else if (Tier = 5) then option{fnm_cue.MusicT5}
+    else if (Tier = FnmBedBoss) then option{fnm_cue.MusicBoss}
+    else if (Tier = FnmBedMenu) then option{fnm_cue.MusicMenu}
     else false
 
 # The streak milestone cue after a first-try right answer: Streak2..Streak7 for a streak of 2..7, Streak7 again above.

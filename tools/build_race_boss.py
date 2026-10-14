@@ -54,6 +54,9 @@ OLD_COURSE_LABELS = re.compile(r"FNM_Arena_(Boss|Label[A-D])")
 # (2026-10-11) and the explanation line covered it; 2.1 makes it 6.3 m on the 1 m platform, the head clear of the panel.
 # It stands taller than the 6 m walls (the lid is invisible).
 TITAN_SCALE = 2.1
+# The race titan's clips, slots 1..5: boss mode's first five (no scream: the race's wrong pad keeps the stomp). The jump-slam
+# (slot 5) is the entrance when a player walks into the arena (fnm_director ArenaArrival; G9 D2).
+RACE_TITAN_CLIPS = b.TITAN_CLIPS[:5]
 # The beams aim at its waist: boss mode's BEAM_AIM scaled with the titan (450 at scale 4).
 BEAM_AIM = round(b.BEAM_AIM * TITAN_SCALE / b.TITAN_SCALE)
 # The mega cannons. Scale 3 (5.7 m long, 2.9 m tall; boss mode's 4 in a 64 m colosseum would be 7.6 m in a 22 m hall):
@@ -186,7 +189,7 @@ def arena():
 def require(project):
     """Stop naming the import command when the titan clips or the cannon mesh are missing."""
     need = {f"/{project}/{b.CANNON_ART.split('.')[0]}": "python tools/import_cannon.py"}
-    for clip in b.TITAN_CLIPS:
+    for clip in RACE_TITAN_CLIPS:
         need[f"/{project}/{b.TITAN_ART}/Clip_{clip}/A_fnm_titan_{clip}"] = "python tools/import_boss.py"
     missing = sorted({cmd for path, cmd in need.items() if not u.call(ASSETS, "exists", {"path": path})["returnValue"]})
     if missing:
@@ -211,16 +214,7 @@ def build():
     if "creature Type" in wrong:
         sys.exit(f"the creature spawner refused {b.MEGABOSS}: {wrong}")
 
-    yaw = titan_yaw()
-    for k, clip in enumerate(b.TITAN_CLIPS, 1):
-        z = top if k == 1 else top - b.TITAN_PARK
-        dev = device(b.ANIMATED_MESH, f"FNM_RaceBoss_Titan{k}", *at(0, c.PLATFORM_Y, z), TITAN_SCALE, yaw)
-        verse_tags(dev, project, ["fnm_race_titan", f"fnm_bm_slot_{k}"])
-        u.call(OBJ, "set_properties", {"instance": ref(dev), "values": json.dumps(b.titan_clip_props(project, clip))})
-        got = b.get(dev, ["animation"])
-        if not got.get("animation", {}).get("refPath", "").endswith(f"A_fnm_titan_{clip}"):
-            sys.exit(f"FNM_RaceBoss_Titan{k}: animation did not take ({got}); run tools/import_boss.py")
-    print(f"Megabrute spawner + {len(b.TITAN_CLIPS)} titan clips at scale {TITAN_SCALE}, yaw {yaw:.1f}")
+    titan(project, at, top)
 
     ax, ay, az = aim()
     for k, side in enumerate(SIDES, 1):
@@ -267,6 +261,32 @@ def build():
           f"laser {laser_length():.0f} cm (build_fx RACE_LENGTH), coil back {coil_back():.0f} cm")
 
 
+def titan(project, at, top):
+    """The titan's clip devices FNM_RaceBoss_Titan1..5 (fnm_race_titan + slot, RACE_TITAN_CLIPS order) on the platform,
+    facing the entry; the idle at home, the rest parked under it until Verse shrinks them there."""
+    yaw = titan_yaw()
+    for k, clip in enumerate(RACE_TITAN_CLIPS, 1):
+        z = top if k == 1 else top - b.TITAN_PARK
+        dev = device(b.ANIMATED_MESH, f"FNM_RaceBoss_Titan{k}", *at(0, c.PLATFORM_Y, z), TITAN_SCALE, yaw)
+        verse_tags(dev, project, ["fnm_race_titan", f"fnm_bm_slot_{k}"])
+        u.call(OBJ, "set_properties", {"instance": ref(dev), "values": json.dumps(b.titan_clip_props(project, clip))})
+        got = b.get(dev, ["animation"])
+        if not got.get("animation", {}).get("refPath", "").endswith(f"A_fnm_titan_{clip}"):
+            sys.exit(f"FNM_RaceBoss_Titan{k}: animation did not take ({got}); run tools/import_boss.py")
+    print(f"Megabrute spawner + {len(RACE_TITAN_CLIPS)} titan clips at scale {TITAN_SCALE}, yaw {yaw:.1f}")
+
+
+def retitan():
+    """Re-place only the titan's clip devices (FNM_RaceBoss_Titan*), the rest of the rig left as it is (G9 D2: a new clip)."""
+    project = c.project_mount().strip("/")
+    require(project)
+    old = [a for a in found(TAG) if re.fullmatch(r"FNM_RaceBoss_Titan\d+", a.get("label", ""))]
+    print("removed", remove(old), "old titan clip devices")
+    ox, oy, z0 = arena()
+    titan(project, lambda x, y, z=0.0: (ox + x, oy + y, z0 + z), c.PLATFORM_H)
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+
+
 def check():
     actors = sorted(found(TAG), key=lambda a: a.get("label", ""))
     print(len(actors), "race boss actors;", len(found(OLD_CANNON_TAG)), "build_cannon actors left;",
@@ -291,4 +311,6 @@ def check():
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="list the placed actors and the devices' read-back options")
-    check() if ap.parse_args().check else build()
+    ap.add_argument("--titan", action="store_true", help="(re)place only the titan's clip devices (RACE_TITAN_CLIPS)")
+    a = ap.parse_args()
+    check() if a.check else retitan() if a.titan else build()

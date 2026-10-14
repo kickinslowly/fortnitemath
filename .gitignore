@@ -47,3 +47,6 @@ art/volcano/raw/*_base_color.png
 art/trophy/raw/*.fbx
 art/trophy/raw/*.fbm/
 art/trophy/raw/*_base_color.png
+
+# The UEFN FBX import writes a textures folder next to each FBX it reads
+art/boss/raw/*.fbm/

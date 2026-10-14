@@ -9,14 +9,19 @@
 # broken pose, so a resting clip is shrunk to ParkScale at home instead (it keeps rendering and ticking). Titan self-test
 # frames, 2026-10-10. The fall is the exception: it plays once and holds lying down; Play() does not restart it once
 # finished, but PlayReverse() runs it back to standing (shrunk, out of sight), and Play() then falls again.
+# G9 D2 (2026-10-13): two more one-shot clips work the fall's way (placed loop off, rewound at the build, Play() from their
+# first frame, run back while shrunk afterwards): the jump-slam entrance (Entrance: the race arena when a player walks in,
+# boss mode's level start) and the scream (Yell: boss mode's wrong pad, with the boss's "HA! WRONG!"). A looping clip shows
+# from wherever its loop happens to be, which suits a flail but not a 2.7 s jump that must start on the ground. Both play on
+# idle's mesh (an animation-only import onto its skeleton, tools/import_boss.py SHARED): no second copy of the mesh.
 
 using { /Fortnite.com/Devices }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 using { /Verse.org/Simulation }
 
 fnm_titan := class:
-    # Indexed by slot - 1, build_bossmode TITAN_CLIPS order.
-    var Clips : []?animated_mesh_device = array{false, false, false, false}
+    # Indexed by slot - 1, build_bossmode TITAN_CLIPS order (the race places the first five: no scream).
+    var Clips : []?animated_mesh_device = array{false, false, false, false, false, false}
     var Home : ?transform = false
     # Bumped by every new sequence, so an older one in flight stops at its next step.
     var Generation : int = 0
@@ -25,6 +30,15 @@ fnm_titan := class:
     Stomp : int = 2
     # Plays once and holds lying down (build_bossmode TITAN_ONCE); Fall restarts it.
     Dead : int = 3
+    # One-shots too (TITAN_ONCE): Meshy "Jump and Slam Back Down" (83 frames at 30 fps) and "Zombie Scream" (83 frames, 2.77 s as imported).
+    JumpSlam : int = 4
+    Scream : int = 5
+    JumpSlamSeconds : float = 2.73
+    ScreamSeconds : float = 2.77
+    # The slam lands this long into the jump-slam (Blender: the hips drop from 1.6 m to 0.5 m over frames 28-37, down by
+    # frame 35): the roar goes there (the director's ArenaArrival, boss mode's Summon). Over the 0.9 s that keep a stinger
+    # off the sound before it (console/AUDIO.md mix rules).
+    SlamLandsSeconds : float = 1.15
     # The killing hit's flail shows this long before the fall; the fall clip runs FallSeconds; it then lies at least
     # DownHoldSeconds before the next level's Arrive stands it up (the next boss is summoned 4 s after a clear).
     FallDelaySeconds : float = 1.5
@@ -77,6 +91,59 @@ fnm_titan := class:
         if (MaybeClip := Clips[Dead], Clip := MaybeClip?):
             Clip.PlayReverse()
 
+    # Every one-shot clip back to its first frame: at the build they have all played themselves once (loop off, placed
+    # Playing), like the fall.
+    RewindAll():void =
+        for (K : array{Dead, JumpSlam, Scream}, MaybeClip := Clips[K], Clip := MaybeClip?):
+            Clip.PlayReverse()
+
+    # Seconds until the titan can stand for an arrival: a fall still playing or lying out its DownHoldSeconds; 0 otherwise.
+    ReadyIn()<transacts>:float =
+        if (Falling?) then Max(0.0, FallEnds - GetSimulationElapsedTime()) else 0.0
+
+    # One-shot clip K from its first frame for Seconds, then idle (unless a newer sequence began meanwhile), and K runs back
+    # to its first frame while it is shrunk away. A fall lying down is stood up (rewound) as K takes over. False when clip K
+    # is not placed (nothing changes).
+    Once(K:int, Seconds:float)<suspends>:logic =
+        if (MaybeClip := Clips[K], Clip := MaybeClip?):
+            G := Begin()
+            Clip.Play()
+            Show(K)
+            if (Falling?):
+                set Falling = false
+                Rewind()
+            Sleep(Seconds)
+            if (G = Generation):
+                Show(Idle)
+            Clip.PlayReverse()
+            true
+        else:
+            false
+
+    # The entrance: once a fall has played out (ReadyIn), the scream from its first frame, then idle; without a scream clip
+    # (the race places none), Arrive's stomp. Not the jump-slam: Meshy's "Jump and Slam Back Down" is a forward somersault
+    # that leaves the titan upside down for ~1.5 s in play (G9 D2 frames), which reads as a glitch; its device stays placed
+    # for a later look. (The caller plays the roar SlamLandsSeconds after the entrance starts.)
+    Entrance()<suspends>:void =
+        G := Generation
+        Wait := ReadyIn()
+        if (Wait > 0.0):
+            Sleep(Wait)
+        if (G = Generation):
+            Print("FNM: titan entrance")
+            Played := Once(Scream, ScreamSeconds)
+            if (not Played?):
+                Arrive()
+
+    # Boss mode's wrong pad: the scream with the boss's taunt line, then idle; the stomp without a scream clip. Not while it
+    # lies after a level clear.
+    Yell()<suspends>:void =
+        if (Falling?) then return
+        Print("FNM: titan scream")
+        Played := Once(Scream, ScreamSeconds)
+        if (not Played?):
+            Taunt()
+
     # A level's boss arrives: once the last fall has played out, an angry stomp, then idle.
     Arrive()<suspends>:void =
         G := Generation
@@ -121,9 +188,9 @@ fnm_titan := class:
             Print("FNM: titan falls")
 
     # The fight resets: any sequence stops and the titan idles; a fall in progress or lying down stays.
-    # (At the build, the fall clip has played itself down at the session start: this rewinds it too.)
+    # (At the build, the one-shot clips have played themselves at the session start: this rewinds them too.)
     Reset():void =
         if (Falling?) then return
         Begin()
         Show(Idle)
-        Rewind()
+        RewindAll()

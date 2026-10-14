@@ -271,11 +271,12 @@ def test_new_cue_ids_are_appended_in_the_same_order_everywhere():
     a = src("fnm_audio")
     body = a.split("fnm_cue := enum:\n", 1)[1].split("\n\n", 1)[0]
     members = [line.strip() for line in body.splitlines() if line.strip() and not line.strip().startswith("#")]
-    assert members[-3:] == ["BmWeapon", "VoltYay", "VoltHmm"]
+    k = members.index("BmWeapon")                     # (G9 D2 appended six more after them: tests/test_audio_cues.py MEMBERS)
+    assert members[k:k + 3] == ["BmWeapon", "VoltYay", "VoltHmm"]
     cues = re.findall(r"fnm_cue\.(\w+)", re.search(r"FnmCues\(\)<transacts>:\[\]fnm_cue = array\{(.*)\}", a).group(1))
     ids = re.findall(r'"([a-z0-9_]+)"', re.search(r"FnmCueIds\(\)<transacts>:\[\]string = array\{(.*)\}", a).group(1))
     assert cues == members and len(ids) == len(members)
-    assert ids[-2:] == ["volt_yay", "volt_hmm"]
+    assert ids[k + 1:k + 3] == ["volt_yay", "volt_hmm"]
 
 
 def test_volt_hmm_plays_at_the_retry_spot_only_and_volt_yay_nowhere():

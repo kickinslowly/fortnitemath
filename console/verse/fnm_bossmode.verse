@@ -144,8 +144,8 @@ FnmPinBoss(Character:fort_character, Home:?transform):void =
     Character.ReleaseFromStasis()
     Character.PutInStasis(FnmBossPin())
 
-# Which fnm_bm_slot_N an object carries (1..5), -1 for none (like fnm_director DoorLetter). Boss mode's numbered pieces
-# and the race finale's titan clips, beam markers and letters.
+# Which fnm_bm_slot_N an object carries (1..6), -1 for none (like fnm_director DoorLetter). Boss mode's numbered pieces
+# and the race finale's titan clips, beam markers and letters (slot 6 is only the titan's scream).
 FnmBmSlotOf(Object:creative_object_interface)<transacts>:int =
     ObjectTags := Object.GetTags()
     if (ObjectTags.Has[fnm_bm_slot_1{}]) then 1
@@ -153,6 +153,7 @@ FnmBmSlotOf(Object:creative_object_interface)<transacts>:int =
     else if (ObjectTags.Has[fnm_bm_slot_3{}]) then 3
     else if (ObjectTags.Has[fnm_bm_slot_4{}]) then 4
     else if (ObjectTags.Has[fnm_bm_slot_5{}]) then 5
+    else if (ObjectTags.Has[fnm_bm_slot_6{}]) then 6
     else -1
 
 # Binds one answer pad of the boss-mode arena to its letter (0 = A), so one callback serves all four.
@@ -415,10 +416,12 @@ fnm_boss_mode := class:
     # The floating letters turn to the nearest boss-mode player and bob (fnm_director FaceLetter, shared with the race).
     # A wrong-answer wave may go this many over the level's alive cap.
     WaveExtra : int = 2
-    # Voice timings after a pad: the boss's grunt, and (wrong pad) its taunt after the penalty's own voice line (which
-    # comes PenaltyVoiceDelaySeconds after the buzzer); a streak line after the hit count; the death cry after the kill.
+    # Voice timings after a pad: the boss's grunt; a streak line after the hit count; the death cry after the kill. (A wrong
+    # pad's taunt comes after the penalty's voice line and the crowd's aww: fnm_director PenaltyLines, Taunt here; G9 D2.)
     BossGruntSeconds : float = 0.4
-    TauntDelaySeconds : float = 2.5
+    # The summon's roar and the boss's line (G9 D2): the roar lands with the titan's slam (fnm_titan SlamLandsSeconds after
+    # its jump-slam starts), the boss's line RoarToLineSeconds after the roar (0.9 s mix rule, console/AUDIO.md).
+    RoarToLineSeconds : float = 0.9
     # How long after a right pad its explanation appears (OnPad): fnm_director ExplainDelaySeconds (shared with the race).
     StreakCueDelaySeconds : float = 2.3
     BossDeadSeconds : float = 0.5
@@ -509,7 +512,8 @@ fnm_boss_mode := class:
             Character.ReleaseFromStasis()
         Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
         Director.GiveLoadout(State.Player)
-        Director.SetMusic(State.Player, Level)
+        # The boss bed (G9 D2, music_boss), whatever the level; it replaces the picker's.
+        Director.SetMusic(State.Player, FnmBedBoss)
         State.Hud.FlashBig("STEP ON THE RIGHT ANSWER!", NamedColors.Gold, StartFlashSeconds)
         spawn{ ShowLine(State, "Bullets can't hurt the boss. Step on the pad with the RIGHT ANSWER to nuke it!", NamedColors.Orange, LineSeconds) }
         # (Boss mode never charges wrong doors to its clock; ClockPenalty is the race's, cleared with StartTime.)
@@ -689,17 +693,24 @@ fnm_boss_mode := class:
         Past := FnmPenaltyPast(Kind)
         Director.Broadcast(FnmFeedBmWrong(State.Player, Past), "got {Past}  -  BOSS: HA! WRONG!")
         Director.Sound(State.Player, fnm_cue.Wrong)
-        spawn{ Director.SoundLater(State.Player, fnm_cue.BmBossWrong, TauntDelaySeconds) }
         State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
         State.Hud.ShowVolt(fnm_volt.Wag)
         Shown := State.Hud.ShowFeedback(Director.FeedbackFor(Item, Choice), NamedColors.Tomato)
         Wave()
-        if (BossAlive?):
-            spawn{ Arena.Titan.Taunt() }
+        # The penalty's voice line, the crowd's aww and then the boss's taunt with the titan's scream follow from Punish
+        # (fnm_director PenaltyLines -> Taunt; G9 D2: until then the taunt line came 2.5 s after the buzzer, under the
+        # yeet's voice line, and the titan stomped at once).
         Director.Punish(State.Player, Arena.Station, DoorIndex, Kind)
         set State.Busy = false
         Sleep(Director.WrongFeedbackSeconds)
         State.Hud.ClearFeedbackIf(Shown)
+
+    # A wrong pad's taunt (fnm_director PenaltyLines, after the penalty's voice line and the crowd's aww): the boss's "HA!
+    # WRONG!" for that player and, while a boss is up, the titan's scream (fnm_titan Yell) with it.
+    Taunt(State:fnm_player_state):void =
+        Director.Sound(State.Player, fnm_cue.BmBossWrong)
+        if (BossAlive?):
+            spawn{ Arena.Titan.Yell() }
 
     # The wrong-answer wave: one monster out of every open gate while the alive count stays within the cap + WaveExtra.
     Wave():void =
@@ -848,7 +859,7 @@ fnm_boss_mode := class:
         for (State : Fighting()):
             set State.Level = L
             State.Hud.ShowBanner("LEVEL {L}", Row.Banner)
-            Director.SetMusic(State.Player, L)
+            Director.SetMusic(State.Player, FnmBedBoss)
             Director.Sound(State.Player, FnmBmLevelCue(L))
             Director.ShowCurrent(State)
         for (K -> MaybeFx : Arena.AngerFx, Fx := MaybeFx?):
@@ -857,18 +868,26 @@ fnm_boss_mode := class:
                 Fx.Restart()
             else:
                 Fx.Disable()
-        Sleep(0.8 * Scale)
+        # G9 D2: the titan jump-slams in (SpawnBoss, fnm_titan Entrance) once it is up from the last level's fall
+        # (ReadyIn), and roars as the slam lands; the boss's line follows the roar by RoarToLineSeconds, the gates the line
+        # by 0.9 s. With Scale 1 and no fall to wait out: level line 0, jump 0.3, roar 1.45, boss line 2.35, gates 3.25,
+        # chests 4.25, done 5.05 (the old order put the boss line at 1.5 and the gates at 2.5). A fall still lying shifts
+        # everything after the jump by its ReadyIn (up to ~1.7 s at levels 2-5).
+        Sleep(0.3 * Scale)
         if (MyEpoch <> Epoch):
             return
+        RoarAt := Arena.Titan.ReadyIn() + Arena.Titan.SlamLandsSeconds
         SpawnBoss(L)
-        Sleep(0.7 * Scale)
+        for (State : Fighting()):
+            spawn{ Director.SoundLater(State.Player, fnm_cue.TitanRoar, RoarAt) }
+        Sleep(RoarAt + RoarToLineSeconds)
         if (MyEpoch <> Epoch):
             return
         Line := FnmBmBossLineText(L)
         for (State : Fighting()):
             Director.Sound(State.Player, FnmBmBossCue(L))
             spawn{ ShowLine(State, "BOSS: {Line}", NamedColors.Orange, LineSeconds) }
-        Sleep(1.0 * Scale)
+        Sleep(0.9 * Scale)
         if (MyEpoch <> Epoch):
             return
         OpenGates(Row.Gates)
@@ -876,14 +895,14 @@ fnm_boss_mode := class:
             Director.Sound(State.Player, fnm_cue.BmGates)
         Director.Broadcast(FnmText("The boss summons his minions!"), "The boss summons his minions!")
         spawn{ GateFxOff() }
-        Sleep(1.5 * Scale)
+        Sleep(1.0 * Scale)
         if (MyEpoch <> Epoch):
             return
         LightPerches(Row.Perches)
         Hint := FnmBmPerchHint(L)
         for (State : Fighting()):
             spawn{ ShowLine(State, "WEAPON CHEST: {Hint} - jump up and open it!", NamedColors.Gold, LineSeconds) }
-        Sleep(1.0 * Scale)
+        Sleep(0.8 * Scale)
         if (MyEpoch <> Epoch):
             return
         for (State : Director.PlayerStates, State.Mode = fnm_mode.Boss):
@@ -906,7 +925,8 @@ fnm_boss_mode := class:
         if (Mega := Arena.Megaboss?):
             set BossRequestedAt = GetSimulationElapsedTime()
             Mega.Enable()
-            spawn{ Arena.Titan.Arrive() }
+            # The jump-slam entrance (G9 D2; the stomp until then, and still without a jump-slam clip).
+            spawn{ Arena.Titan.Entrance() }
             Print("FNM: boss mode megaboss requested (level {L})")
             spawn{ StrikeAt(Mega.GetTransform().Translation) }
         else if (Spawner := BossSpawnerFor(L)?):

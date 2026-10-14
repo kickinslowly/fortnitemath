@@ -42,7 +42,7 @@ it was offered (below).
 | `door_open` | the barrier opens for the player (`AdvancePlayer`) | Gadgets/SlidingDoor/SlidingDoor_Open_Cue | 1.57 |
 | `boost` | a speed boost starts, 0.4 s after the chime (`Boost`) | Gadgets/SpeedBoost/Trap_Speed_Alt_Increase_Cue | 3.50 |
 | `streak2` .. `streak7` | first-try streak 2..7, 0.9 s after the chime; `streak7` again above 7 | Target_Impact_Success_2D, Target_Impact_Bullseye, Creative_PowerUp_Collect, CaptureDevice_Capture_Finish, Stinger_Success_02, Stinger_Success_03 | 0.54 .. 3.09 |
-| `finish` | the finish (`FinishSounds`, then +1.2 s steps) | Modes/Match/Match_Win_01_Cue | 3.93 |
+| `finish` | the finish (`FinishSounds`); after the race arena's kill at the podium arrival, `PodiumSeconds` later (G9 D2) | Modes/Match/Match_Win_01_Cue | 3.93 |
 | `new_record` / else `new_best` | today's record (the session's best for the skill; the HUD says "Today's record" since G9, but the stock voice line still says "NEW ISLAND RECORD!") / new personal best (only when there was an earlier best, like the HUD's NEW BEST!) | Music_Fantasy_Lrg_Victory_Stinger_02 / Music_Fantasy_Sml_Victory_Stinger_01 | 3.18 / 2.81 |
 | `medal_gold/silver/bronze` | the medal | Music_Fantasy_Acceptance_Stinger_03 / Scoring_Point_Added / Match_Round_Change_01 | 3.00 / 2.46 / 2.31 |
 | `perfect` | every answer first try | Music_Fantasy_Sml_Victory_Stinger_03 | 3.91 |
@@ -61,15 +61,15 @@ it was offered (below).
 | `boss_dead` | the boss goes down, for every player in the arena (`BossDown`) | Gadgets/Radio/Stingers/BlackMonday/Stinger_BlackMonday_Win_01 | 6.14 |
 | `bm_start` | Boss Battle starts, level-1 summon (`Summon(1)`), as `boss_fight` | Gadgets/Radio/Stingers/Stinger_Threat_01 | 7.36 |
 | `bm_level2` .. `bm_level5` | level 2..5 summon (`Summon(L)`) | Modes/Match/Match_Round_Change_01 | 2.31 |
-| `bm_boss_l1` .. `bm_boss_l5` | the boss's line at +1.5 s of the level's summon (`Summon(L)`) | none: voice only (`BOSS_CUES`) | - |
-| `bm_boss_wrong` | wrong pad, +0.9 s (`OnBmPad`, wrong) | none: voice only | - |
+| `bm_boss_l1` .. `bm_boss_l5` | the boss's line `RoarToLineSeconds` (0.9) after the summon's roar (`Summon(L)`, +2.35 s; G9 D2) | none: voice only (`BOSS_CUES`) | - |
+| `bm_boss_wrong` | wrong pad: 0.9 s after the crowd's aww, with the titan's scream (`PenaltyLines` -> `fnm_boss_mode.Taunt`; G9 D2) | none: voice only | - |
 | `bm_boss_hit` | right pad, +0.4 s, not on the killing hit (`OnBmPad`, correct) | none: voice only | - |
 | `bm_boss_dead` | final kill, +0.5 s (`OnBmPad`, boss dead) | none: voice only | - |
 | `bm_nuke` | right pad, at once (`OnBmPad`) | Gadgets/ExplodingBarrel/ExplodingBarrel_Explode_01 | 3.97 |
 | `bm_mega_nuke` | right pad, +0.9 s when Left is above 4 or 0 (`OnBmPad`; else the `hits_left` line) | none: voice only (announcer) | - |
 | `bm_level_clear` | level clear | Gadgets/Radio/Stingers/Stinger_Success_03 | 3.09 |
 | `bm_victory` | victory (`Victory`) | Modes/Match/Match_Win_01_Cue | 3.93 |
-| `bm_gates` | the gates open at a summon (`Summon(L)`, +2.5 s) | Gadgets/SlidingDoor/SlidingDoor_Open_Cue | 1.57 |
+| `bm_gates` | the gates open at a summon (`Summon(L)`, 0.9 s after the boss's line, +3.25 s; G9 D2) | Gadgets/SlidingDoor/SlidingDoor_Open_Cue | 1.57 |
 | `bm_weapon` | a weapon is granted on a perch (`OnBmPerch`) | Toys/PowerUp/Creative_PowerUp_Collect_Cue | as `streak4` |
 | `music_t1` .. `music_t5` | music bed per station tier: on at GO, swapped when the tier changes, off at the finish and while the picker is up | Gadgets/Radio/Music_Loops: Music_StW_Ambient_Morning01, _Medium_Exploration01, _Low_Combat01, _High_Action01, _High_Combat01 | loop |
 
@@ -196,19 +196,52 @@ the voice volume.
 | Cue | Source take | Moment | Stock until imported |
 |---|---|---|---|
 | `music_t1` .. `music_t5` | tier beds | the tier's bed (on at GO, swapped on a tier change) | the Save the World loops |
-| `finish` | victory fanfare | the finish (`FinishSounds`). 5.5 s against the stock 3.93 s: `FinishCueGapSeconds` (1.6) puts the record / medal / perfect stingers over it | Match_Win_01 |
+| `finish` | victory fanfare | the finish (`FinishSounds`); after the race arena's kill, at the podium arrival with `crowd_cheer`. 5.46 s against the stock 3.93 s: a quiet 1.75 s lead-in and a loud body to ~4.25 s, so the record / best, medal and perfect lines start `FinishVoiceSeconds` (4.2) after it, then `FinishCueGapSeconds` (1.6) apart (G9 D2; at 1.6 the first line sat on the body) | Match_Win_01 |
 | `door_open` | portal whoosh | the barrier opens (`AdvancePlayer`) | SlidingDoor_Open |
-| `volt_yay`, `volt_hmm` | Volt chirp (0.38 s of sound in the 1.2 s Mint file) / warble | Volt reaction cards (`volt_hmm` at the retry spot; `volt_yay` has no call site yet) | none: not wired |
-| `music_boss` | boss bed | the race arena and Boss Battle mode (Verse side not built) | none |
-| `music_menu` | lobby loop | the grade picker (not built) | none |
-| `titan_roar` | roar | the titan appears (not built) | none |
-| `volt_oops` | "uh-oh" | with Volt's wag card (not built) | none |
-| `crowd_cheer` | cheer | the titan's death, the podium (not built) | none |
-| `crowd_aww` | aww | a wrong pad (not built) | none |
+| `volt_yay`, `volt_hmm` | Volt chirp (0.38 s of sound in the 1.2 s Mint file) / warble | Volt reaction cards (`volt_hmm` at the retry spot; `volt_yay` has no call site: see below) | none: not wired |
+| `music_boss` | boss bed | the race arena from its stage on (`Music`: `AtArena`, the bed swaps at the station-10 door) and all of Boss Battle mode (`fnm_boss_mode.Start`, `Summon`; it played the tier beds by level until G9 D2) | none |
+| `music_menu` | lobby loop | the grade picker (`BeginPicking`, only when the picker is shown: not under `DebugAutoPick` / `DebugAutoBoss`); off at the run's countdown (`Countdown`), swapped for the boss bed by BOSS BATTLE | none |
+| `titan_roar` | roar | with the titan's jump-slam, as the slam lands (`fnm_titan.SlamLandsSeconds` 1.15 s into the clip): the race arena when a player walks into the hall (`ArenaArrival`, 1.15 s after `boss_fight`), boss mode's level start (`Summon`, +1.45 s: level line 0, roar 1.45, boss line 2.35, gates 3.25) | none |
+| `volt_oops` | "uh-oh" | no call site: see below | none |
+| `crowd_cheer` | cheer | the podium arrival after the race arena's kill (`PodiumLater`), with the finish fanfare; not on the kill (`boss_dead` + `boss_down` fill it) | none |
+| `crowd_aww` | aww | a wrong pad in an arena (the race's boss arena, Boss Battle mode): 0.9 s after the penalty's voice line (`PenaltyLines`, `CrowdAfterVoiceSeconds`); in boss mode the boss's taunt and the titan's scream follow 0.9 s later. Race stations: no aww | none |
 
-The last six are `PENDING_CUES` in `tools/build_audio.py`, not `CUES`: `tests/test_audio_cues.py` asserts `list(CUES)` equals the Verse
-enum, and these have no enum id, tag class or director call yet. When one lands, move its row into `CUES` (enum order) and add the
-member to that test's `MEMBERS`. Until then `build()` skips it: a cue is placed only when the project's Verse root declares its `fnm_cue_<id>` tag class
+**Timelines (G9 D2), against the mix rules** (no voice on the same instant as a stinger: 0.9 s apart; at most two sounds starting
+in any 1 s window; nothing new on a kill). `tests/test_mix_rules.py` reads these out of the Verse.
+- Race arena walk-in: `boss_fight` 0, the jump-slam 0, `titan_roar` 1.15.
+- Wrong pad, race arena: `wrong` 0 (and the titan's stomp), the penalty's line 0.9 (the yeet's 1.4), `crowd_aww` 1.8 (2.3).
+  Boss mode: the same, then `bm_boss_wrong` with the titan's scream 2.7 (3.2). Until G9 D2 the taunt came at a fixed 2.5 s
+  after the buzzer and the titan stomped at once.
+- Race kill: `boss_dead` 0, `boss_down` 1.0, podium arrival 3.0: `crowd_cheer` + `finish` together (two non-voice sounds meant
+  to start together), then today's record / new best 7.2, the medal 8.8, PERFECT 10.4 (the lines are dropped if a new run or a
+  skill change starts first). The FINISH board is up from the kill to 10 s.
+- Boss mode summon (Scale 1): the level line 0, the jump-slam 0.3 (or once the last level's fall has played out: everything
+  after it moves by `fnm_titan.ReadyIn`, up to ~1.7 s at levels 2-5), `titan_roar` 1.45, the boss's line 2.35, `bm_gates` 3.25,
+  the chests 4.25, the banner down 5.05 (the old order: boss line 1.5, gates 2.5).
+
+**`volt_yay` and `volt_oops` stay unused** (no free window): Volt's cards show at the answer instants, which already carry the
+chime / buzzer at 0 and a voice line at 0.9 (streak, hit count, penalty), the boost at 0.4, and on a wrong door `volt_hmm` at
+the retry spot. A chirp at ~1.8 s after a right door with no streak line would pass the rules by the letter but makes three
+sounds per door. Their devices are placed (`--mint`) so a call site needs only Verse.
+
+**Seen in play (G9 D2, 2026-10-13, editor log; nobody listened):** `audio: 73 of 73 cues wired, missing: none` and no
+`(not wired)` line in either session. Race (`DebugAutoPick 7` + `DebugPickerSeconds 25` + `DebugAutoRightAnswers` +
+`DebugAutoWrongAnswers 8`): `cue music_menu` with `picker shown`, `cue stop music_menu` at the pick; `cue music_boss` at `arena stage
+reached`, stopped at the kill; `cue boss_fight` + `titan jump-slam`, then `cue titan_roar`; a wrong pad (YEET): `cue wrong`,
+`cue penalty_yeet`, `cue crowd_aww`; the kill: `boss_dead`, `boss_down`, then at `to the podium` `cue finish` and `cue crowd_cheer` in the
+same millisecond, `new_record` 4.2 s and the medal 1.6 s later. Boss mode (`DebugAutoBoss` + `DebugAutoRightAnswers` +
+`DebugAutoWrongAnswers 2`, VICTORY): `cue music_boss` at the start, no tier bed; every summon `bm_levelN` / `bm_start`, `titan_roar`,
+`bm_boss_lN`, `bm_gates` in that order; both wrong pads `wrong`, the penalty line, `crowd_aww`, `bm_boss_wrong` + `titan scream`.
+The editor log's stamps jitter: `Sleep(0.9)` gaps read 0.42 to 1.09 s, so the log proves the order, and `tests/test_mix_rules.py`
+the gaps.
+
+Boss mode's own victory and level clear still stack voices on the kill (not changed here): at the killing pad `bm_nuke` 0,
+`bm_victory` (voice) 0, `bm_boss_dead` 0.5, the MEGA NUKE line 0.9 (`FnmBmHitVoice(0)`), the medal 1.6; a level clear has
+`bm_nuke` 0, `bm_level_clear` (voice) 0 and MEGA NUKE 0.9.
+
+The six rows were `PENDING_CUES` in `tools/build_audio.py` until G9 D2 (no enum id, tag class or call site); now they are in `CUES`
+and `PENDING_CUES` is empty. A future cue with no Verse side waits there the same way: `tests/test_audio_cues.py` asserts
+`list(CUES)` equals the Verse enum. `build()` places a cue only when the project's Verse root declares its `fnm_cue_<id>` tag class
 (VerseToolset `Grep`), because a device cannot be tagged with a class the project has not compiled (2026-10-13:
 `set_properties` answered "_Verse.fnm_cue_volt_yay is not valid Class for property 'InternalTag'" and the run died with
 a half-built device and nothing saved; now it is caught, the device removed and the cue skipped with a message). `volt_yay` /

@@ -52,7 +52,7 @@ def ihdr(path):
 
 
 def test_png_sizes_and_format():
-    expected = {"fnm_slate.png": (1024, 256), "fnm_tile.png": (560, 240),
+    expected = {"fnm_slate.png": (1024, 256), "fnm_tile.png": (560, 240), "fnm_logo.png": (512, 284),
                 "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256),
                 "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256),
                 "fnm_medal_gold.png": (256, 256), "fnm_medal_silver.png": (256, 256),
@@ -239,14 +239,15 @@ def test_every_widget_colour_goes_through_fnmui():
 
 
 def test_textures_are_tinted_back_down():
-    """A texture draws lifted by the same gain (the slate PNG (34, 38, 40) came out near (94, 98, 101)): the five plain
-    texture_blocks (slate, banner, verdict, the finish board's Volt and medal, and Volt's reaction card) get the corrected white as their tint;
-    the tiles take their own tint. Every texture_block in the file is one of these or a tile."""
+    """A texture draws lifted by the same gain (the slate PNG (34, 38, 40) came out near (94, 98, 101)): the plain
+    texture_blocks (slate, banner, verdict, the finish board's Volt and medal, Volt's reaction card, the picker's logo) get the
+    corrected white as their tint; the tiles take their own tint. Every texture_block in the file is one of these or a tile."""
     src = ui_src()
-    for art in ("SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard"):
+    plain = {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard", "LogoArt"}
+    for art in plain:
         assert f"{art}.SetTint(FnmUi(NamedColors.White))" in src
     # no texture_block escapes the rule: a new one must be added here (and tinted) or it draws 3.86x too bright
-    assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard"}
+    assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == plain
     assert "    TileArt : []texture_block = array:" in src and "Art.SetTint(FnmUi(TileColor))" in src
     # white stays white: 1.0 x 0.259 x 3.86 ~ 1.0
     assert abs(1.0 * 0.259 * 3.86 - 1.0) < 0.01
@@ -576,3 +577,66 @@ def test_committed_art_is_what_make_medal_art_makes_from_the_raws():
     for path, name in raws:
         made = mm.prepare(Image.open(path))
         assert made.tobytes() == Image.open(ART / name).convert("RGBA").tobytes(), name
+
+
+# ---------------------------------------------------------------- the DOORS OF DOOM logo on the picker (G9 D2, 2026-10-13)
+
+# Measured on 1920 x 1080 play frames of the picker before the logo (2026-10-13, %TEMP% pick0.png / grade6.png): the grade
+# step's dark panel ran y 235-738 (503 px: heading, step line, BOSS BATTLE + its caption, GRADE 6, GRADE 7) and the grade-6
+# skill step's y 51-921 (870 px: ten skills in two columns, captions, BACK). The panel is centred on 0.45 of the height.
+PICKER_PANEL_PX = {"ShowGradeStep": 503, "ShowSkillStep": 870}
+PICKER_CENTRE_Y = 0.45 * 1080
+# 20 px clear of the screen's top and bottom edges. (The skill step's 921 already touches the top 11 px of the hotbar's first
+# slot, x 1418-1496 from y 910, in grade6.png: it was so before the logo, which is not on that step.)
+PICKER_TOP_MIN, PICKER_BOTTOM_MAX = 20, 1060
+
+
+def logo_slot():
+    src = ui_src()
+    stack = src.split("PickerPanel : overlay = overlay:", 1)[1].split("set MaybePickerRoot", 1)[0]
+    return stack
+
+
+def logo_visible_on(step):
+    """True when the picker step method `step` shows the logo, False when it collapses it (it must say which)."""
+    body = ui_src().split(f"    {step}(", 1)[1].split("\n\n", 1)[0]
+    shown = "LogoArt.SetVisibility(widget_visibility.Visible)" in body
+    hidden = "LogoArt.SetVisibility(widget_visibility.Collapsed)" in body
+    assert shown != hidden, step
+    return shown
+
+
+def test_logo_png_is_the_logo_cropped_with_its_aspect():
+    Image = pytest.importorskip("PIL.Image")
+    im = Image.open(ART / "fnm_logo.png").convert("RGBA")
+    assert im.size == (512, 284)
+    assert im.getchannel("A").getbbox() == (0, 0, 512, 284)            # cropped to the letters, no empty margin
+    assert all(im.getpixel(c)[3] == 0 for c in ((0, 0), (511, 0), (0, 283), (511, 283)))   # rounded backing: corners clear
+    sys.path.insert(0, str(ROOT / "tools"))
+    import make_medal_art as mm
+    raw = ROOT / mm.LOGO_JOB[0]
+    if raw.exists():                                                   # reproducible from the raw Aaron chose (logo b)
+        assert mm.prepare_logo(Image.open(raw)).tobytes() == im.tobytes()
+        w, h = mm.crop_to_alpha(Image.open(raw)).size
+        assert abs(512 / 284 - w / h) < 0.01                           # aspect kept, not squared
+
+
+def test_logo_sits_over_the_grade_heading_and_the_picker_fits_1080p():
+    """The logo is the first thing in the picker panel, over PICK YOUR GRADE (never among the buttons), drawn at its PNG's
+    size, shown on the grade step and collapsed on the skill step; with it, every step still fits a 1080p screen."""
+    src = ui_src()
+    size = desired_size("LogoArt")
+    assert size == (512.0, 284.0)                                      # the PNG pixel for pixel
+    stack = logo_slot()
+    order = [stack.index(f"Widget := {w}") for w in ("LogoArt", "PickerHeading", "PickerStep", "PickerButtons")]
+    assert order == sorted(order)
+    pad = float(re.search(r"Widget := LogoArt\n\s+HorizontalAlignment := horizontal_alignment.Center\n\s+Padding := "
+                          r"margin\{Bottom := ([\d.]+)\}", stack).group(1))
+    assert "PickerButtons.AddWidget(stack_box_slot{Widget := LogoArt" not in src
+    assert logo_visible_on("ShowGradeStep") and not logo_visible_on("ShowSkillStep")
+    for step, base in PICKER_PANEL_PX.items():
+        height = base + (size[1] + pad if logo_visible_on(step) else 0)
+        top, bottom = PICKER_CENTRE_Y - height / 2, PICKER_CENTRE_Y + height / 2
+        assert top >= PICKER_TOP_MIN and bottom <= PICKER_BOTTOM_MAX, (step, top, bottom)
+    # the logo is no wider than the grade step's widest line (the BOSS BATTLE caption, ~575 px), so the panel keeps its width
+    assert size[0] <= 575
