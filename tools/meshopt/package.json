@@ -1,0 +1,11 @@
+{
+  "name": "fnm-meshopt",
+  "private": true,
+  "description": "tools/simplify_glb.py's simplifier: meshoptimizer on a Meshy GLB (see simplify.mjs)",
+  "type": "module",
+  "dependencies": {
+    "@gltf-transform/core": "4.5.1",
+    "@gltf-transform/functions": "4.5.1",
+    "meshoptimizer": "1.3.0"
+  }
+}

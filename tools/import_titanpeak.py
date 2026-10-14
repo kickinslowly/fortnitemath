@@ -14,7 +14,9 @@ What it makes (T2 and build_arches/build_course code against these names; <F> = 
 - Props: <F>/<Sub>/SM_fnm_tp_<name> for gate, podium, jungle_pillar, river_boulders, ice_crystals, obsidian_spire, lava_vent,
   rune_stone (PROPS: one subfolder each, because every Meshy GLB names its material Material_0 and its texture Image_0).
   Route as tools/import_cannon.py: the GLB re-exported to FBX by headless Blender (tools/glb_to_fbx.py, cached next to the GLB
-  as <name>_blender.fbx; Meshy's own FBX welds UV seams), StaticMeshTools.import_file with materials and textures, lODBias 0 on
+  as <name>_blender.fbx; Meshy's own FBX welds UV seams; a model over UEFN's 30k LOD0 vertex cap is simplified first by
+  tools/simplify_glb.py, the gate 43k -> 29.6k vertices; tools/replace_mesh.py swaps a placed one), StaticMeshTools.import_file
+  with materials and textures, lODBias 0 on
   the base colour (the import's bias 1 drops the top mip in play). The meshes are centred on their bounding box (the GLBs are
   NOT origin-bottom): place by get_bounds, not by the pivot.
 - Banners: <F>/Banners/SM_fnm_tp_banner_<key> (key = the PNG stem less "_raw": base_camp, waterfall_gorge, frost_ridge,
@@ -53,6 +55,7 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
+from simplify_glb import fit  # noqa: E402
 
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 STATIC = "editor_toolset.toolsets.static_mesh.StaticMeshTools"
@@ -194,13 +197,14 @@ def find(f, name=""):
 # ---------------------------------------------------------------- meshes (props and the arch)
 
 def make_fbx(glb_rel):
-    """Headless Blender: art/titanpeak/<glb_rel>.glb -> <glb_rel>_blender.fbx (textures embedded), when missing or stale."""
+    """Headless Blender: art/titanpeak/<glb_rel>.glb -> <glb_rel>_blender.fbx (textures embedded), when missing or older than the
+    GLB or tools/simplify_glb.py. A GLB over UEFN's LOD0 vertex cap goes through simplify_glb.fit first (meshopt)."""
     src, dst = TP / f"{glb_rel}.glb", TP / f"{glb_rel}_blender.fbx"
     if not src.exists():
         sys.exit(f"{src} is missing")
-    if not dst.exists() or dst.stat().st_mtime < src.stat().st_mtime:
+    if not dst.exists() or dst.stat().st_mtime < max(src.stat().st_mtime, (ROOT / "tools" / "simplify_glb.py").stat().st_mtime):
         subprocess.run([str(BLENDER), "-b", "--factory-startup", "--python", str(ROOT / "tools" / "glb_to_fbx.py"), "--",
-                        str(src), str(dst)], check=True, capture_output=True)
+                        str(fit(src)), str(dst)], check=True, capture_output=True)
         print(f"  blender: {src.name} -> {dst.name}")
     return dst
 
@@ -776,11 +780,13 @@ def check():
             print(f"MISSING SM_fnm_tp_{name}")
             continue
         tris = u.call(STATIC, "get_triangle_count", {"mesh": ref(mp)})["returnValue"]
+        verts = u.call(STATIC, "get_vertex_count", {"mesh": ref(mp), "lod_index": 0})["returnValue"]
         b = u.call(STATIC, "get_bounds", {"mesh": ref(mp)})["returnValue"]
         size = [round(b["max"][k] - b["min"][k]) for k in "xyz"]
         texs = [(t.split("/")[-1].split(".")[0], u.call(TEX, "get_size", {"texture": ref(t)})["returnValue"])
                 for t in find(f"{f}/{sub}", "Image_")]
-        print(f"SM_fnm_tp_{name}: {tris} tris, size {size} cm, min z {b['min']['z']:.0f}; textures {texs}")
+        print(f"SM_fnm_tp_{name}: {tris} tris, {verts} LOD0 vertices{' OVER UEFN CAP' if verts > 30000 else ''}, size {size} cm, "
+              f"min z {b['min']['z']:.0f}; textures {texs}")
     for key in BANNERS:
         mp = obj_path(f"{f}/Banners/SM_fnm_tp_banner_{key}")
         if not exists(mp):

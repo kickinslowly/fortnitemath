@@ -35,6 +35,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 import uefn_mcp as u  # noqa: E402
+from simplify_glb import fit  # noqa: E402
 
 ASSETS = "editor_toolset.toolsets.asset.AssetTools"
 STATIC = "editor_toolset.toolsets.static_mesh.StaticMeshTools"
@@ -61,14 +62,15 @@ def fbx(name):
 
 
 def make_fbx(name):
-    """Blender headless: art/<name>/raw/<name>.glb -> <name>_blender.fbx (textures embedded) when missing or stale."""
+    """Blender headless: art/<name>/raw/<name>.glb -> <name>_blender.fbx (textures embedded) when missing or stale. A GLB over
+    UEFN's LOD0 vertex cap goes through tools/simplify_glb.py first (meshopt)."""
     src, dst = ROOT / "art" / name / "raw" / f"{name}.glb", fbx(name)
     if dst.exists() and dst.stat().st_mtime >= src.stat().st_mtime:
         return dst
     if not src.exists():
         sys.exit(f"{src} is missing")
-    subprocess.run([str(BLENDER), "-b", "--factory-startup", "--python", str(ROOT / "tools" / "glb_to_fbx.py"), "--", str(src), str(dst)],
-                   check=True, capture_output=True)
+    subprocess.run([str(BLENDER), "-b", "--factory-startup", "--python", str(ROOT / "tools" / "glb_to_fbx.py"), "--", str(fit(src)),
+                    str(dst)], check=True, capture_output=True)
     print(f"  blender: {src.name} -> {dst.name}")
     return dst
 

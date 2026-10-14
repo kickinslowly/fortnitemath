@@ -83,7 +83,10 @@ before UEFN work. Project-specific:
   `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
-  gallery props; `--check` reports; `--time HourNN` sets the locked time of day). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the
+  gallery props; `--check` reports; `--time HourNN` sets the locked time of day), `tools/replace_mesh.py` (`--audit`: every
+  project mesh's LOD0 vertices against UEFN's 30,000 cap, a validator Warning; `<mesh> <fbx>` swaps a placed mesh for a new FBX
+  in place, keeping its actors, material and collision state), `tools/simplify_glb.py` (meshopt, `tools/meshopt/`, needs node:
+  the Meshy importers run every GLB through it, a GLB over the cap is simplified to ~27k UE vertices first). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the
   spawner accepts are listed there; `--probe WID,WID` tests more).
   Wrong-door penalty catalog and status: `console/PENALTIES.md`.
 - The director finds stations by Verse tags (`console/verse/fnm_tags.verse`: `fnm_station_NN`,

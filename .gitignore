@@ -3,6 +3,7 @@
 
 # emulator e2e (Playwright)
 emulator/node_modules/
+tools/meshopt/node_modules/
 emulator/e2e/test-results/
 emulator/e2e/screens/
 emulator/playwright-report/
@@ -47,6 +48,8 @@ art/volcano/raw/*_base_color.png
 art/trophy/raw/*.fbx
 art/trophy/raw/*.fbm/
 art/trophy/raw/*_base_color.png
+# tools/simplify_glb.py's output for a GLB over UEFN's LOD0 vertex cap (remade from the GLB)
+art/**/*_lod.glb
 
 # The UEFN FBX import writes a textures folder next to each FBX it reads
 art/boss/raw/*.fbm/

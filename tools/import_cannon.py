@@ -1,12 +1,18 @@
 """Import the boss arena's mega laser cannon (Meshy static mesh, art/cannon/raw/cannon.glb) into the UEFN project as
 FNM_CannonArt/SM_fnm_megacannon (+ its material and base-colour texture). Idempotent: deletes the folder's assets first.
 The FBX is art/cannon/raw/cannon.glb re-exported by Blender (tools/glb_to_fbx.py): Meshy's own FBX of this model welded the
-texture's UV seams and the import showed blotches in place of the stripes and rivets (editor frames 2026-10-10).
+texture's UV seams and the import showed blotches in place of the stripes and rivets (editor frames 2026-10-10). Since 2026-10-14
+the GLB is simplified first (tools/simplify_glb.py, meshopt: 40k -> 20k triangles, 26.5k vertices): at 42,866 LOD0 vertices UEFN
+warned (cap 30,000). Remake the committed FBX with:
 
+    python tools/simplify_glb.py art/cannon/raw/cannon.glb      # -> cannon_lod.glb
+    blender -b --factory-startup --python tools/glb_to_fbx.py -- art/cannon/raw/cannon_lod.glb art/cannon/raw/cannon.fbx
     python tools/import_cannon.py
 
-Then `python tools/build_bossmode.py --cannons` places it (BOSS_MODE 15d). The art: a Meshy concept image
-(art/cannon/concept.png) and image to 3D, textured, 40k triangles; task ids in art/cannon/meshy_tasks.json.
+Then `python tools/build_bossmode.py --cannons` places it (BOSS_MODE 15d). This deletes the folder first, which empties the placed
+cannons: to swap the mesh under placed cannons use `python tools/replace_mesh.py FNM_CannonArt/SM_fnm_megacannon
+art/cannon/raw/cannon.fbx` instead. The art: a Meshy concept image (art/cannon/concept.png) and image to 3D, textured, 40k
+triangles; task ids in art/cannon/meshy_tasks.json.
 """
 import json
 import sys
