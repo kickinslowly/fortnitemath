@@ -344,6 +344,25 @@ a `Tint` that darkens the pale textures (t3_floor snow 0.3, t1_floor 0.5: the wh
 (the Mint roughness maps are glossy), the normal map re-expressed in world space. Each surface `M_fnm_tp_<key>` is a material
 instance of it. `build_course.py --paint-only` paints them (`SURFACES`); `--paint-only --flat` puts the flat colours back and
 `--check-paint [--flat]` checks either.
+**Variation (same evening, after Aaron played: "tiled too monotonously like wallpaper").** The master also multiplies the
+texture by a macro map: the same texture turned 37 degrees, 2.7 tiles across, read 5 mips blurred and divided by its own average
+colour (its last mip), so the tier's own light, dark and mossy patches drift over metres and never line up with the repeat
+(`VariationBlend`, 1-2 per tier). A first probe that blended the sharp turned sample in by a sine mask ghosted a second paving
+pattern over the station 1 flagstones, so the second sample now carries only light and colour. On top: a +-12% colour jitter
+over ~13 m, grime at a wall's foot (80 cm towards `GrimeTint`) and a lighter weathered band at its top (35 cm), floors 30%
+darker within 1.4 m of the walls (short side only, so floor pieces join cleanly; not on stair treads), and a per-actor UV
+offset on wall faces so facing walls do not mirror. Cost: 8 texture fetches over 3 samplers, 344 pixel instructions (was 6 and
+248). Knobs per tier: `import_titanpeak.surface_knobs`; rerun `import_titanpeak.py --materials` after changing one.
+**Second layer (wave 5c, same night: the base pattern still dominated).** Each tier got an organic, gridless Mint material blended
+over the first in irregular patches, like terrain blending: t1 floor earth, leaves and grass tufts, t1 wall dense ivy; t2 floor
+wet sand, pebbles and algae, t2 wall teal moss and ferns; t3 floor snow drifts, t3 wall glacier ice; t4 floor ash and cinders,
+t4 wall pumice; t5 floor lava rubble (t5 wall's scorched rock was still generating: coverage 0 until a rerun). The arena's
+forge floor has no patch layer. The mask is a periodic band-limited noise (`art/titanpeak/materials/patch_noise.png`, made by
+`make_patch_noise`) read twice over each face at 24 m and ~10 m per repeat, turned 23 and -61 degrees, thresholded for 35-40 %
+coverage (`PATCH_COVERAGE`; the threshold is the analytic quantile, checked against the real noise) with a soft edge, plus a
+bias toward a wall's foot (more ivy, moss, ice low on a wall) and along a floor's long sides (more leaves, drift, ash at the
+walls). The first try in offline previews (1.6 m noise) read as busy camouflage. Cost now 13 texture samples over 7 samplers,
+408 pixel instructions.
 
 ### Door arches (2026-10-13 evening, `tools/build_arches.py`)
 A Meshy stone arch (`SM_fnm_tp_arch`, 8195 triangles, no collision) frames every door in its tier's skin (`M_fnm_tp_arch_t1..t5`:

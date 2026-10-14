@@ -422,8 +422,20 @@ Decisions pending with Aaron (recommendation after the arrow):
   settings), Volt reaction cards on the HUD, Mint music on tiers 1-5 + fanfare + door whoosh, sky digits removed.
   Unverified: by ear (no one has listened: `tools/audio/mint/LISTEN.md`), the question panel hides the volcano during a
   station (Aaron's call: keep the panel), door-mark lights overexpose doors up close (T1), Xbox, memory
-- [ ] Wave 6 (D2, `briefs/g9/D2_sound_titan_logo.md`): six pending cues in Verse (music_boss/menu, titan_roar, crowd_cheer/aww,
-  volt_oops), titan entrance clip, logo on the picker, finish fanfare vs medal stingers
+- [x] Wave 6 (2026-10-13 night, Aaron: "full control for the evening"; briefs D2, L, F + T1 follow-ups):
+  - D2: six more Mint cues in Verse (73 of 73 wired in play): menu music on the picker, boss music in the arena and boss
+    mode, titan roar on the entrance, crowd aww after an arena penalty line, crowd cheer at the podium; finish lines wait for
+    the fanfare; logo above PICK YOUR GRADE; titan clips on the shared skeleton (no mesh copies). The entrance is the scream
+    (boss mode) / stomp (race): Meshy's "Jump and Slam" is a somersault (parent's call; device still placed)
+  - L: door-mark lights 40 -> 15 (the white door and arch stone blew out up close)
+  - T1: Aaron played and said the walls read "like wallpaper": macro variation + per-wall offset + wall-foot grime, then a
+    second organic Mint surface per tier in irregular patches (ivy, moss, ice, pumice, scorched rock; earth, sand, drift,
+    ash, rubble), floors toned down; shader 13 samples / 408 instr (Xbox cost unmeasured)
+  - F: right-answer gate burst + 40 m gold sky pillar (seen at 78.5 m) + boost trail cyan/gold/fire (zero credits); first cut
+    whited out the screen, retuned. Not seen: Low/Medium effects quality, the Xbox, another player's view of a trail
+  - Unverified by ear: all Mint audio (Aaron heard no music in his run although music cues fired: likely his Music slider at 0)
+- [ ] Aaron: check his Fortnite Music slider; listen to `tools/audio/mint/LISTEN.md` takes (t2 and boss are coin flips);
+  judge the titan somersault (`scratchpad` D2 frames) if he wants it back as the race entrance
 - Grade buttons -> ROOKIE / PRO / LEGEND leagues (Epic Rule 1.15: no content primarily targeting under-13s; a publish is needed)
 - Guards -> keep; remove station 1's; rocket/grenade launchers come from a reward chest, not guards
 - G6 flips (see G6 note) -> accept

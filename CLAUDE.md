@@ -69,7 +69,8 @@ before UEFN work. Project-specific:
   `tools/build_mascot.py` (Volt waving at station 1's start and dancing at the podium, Animated Mesh devices, no collision;
   idempotent via `fnm_mascot`; rerun after a course rebuild or `build_finish.py`), `tools/make_medal_art.py` (the finish
   board's medal and Volt PNGs (+ the six Volt reaction cards) in `tools/art` from the Meshy raws in `art/medals`, `art/mascot`),
-  Titan Peak world (2026-10-13, art ids in `art/titanpeak/meshy_tasks.json`): `tools/import_titanpeak.py` (arch + 5 skins, gate,
+  Titan Peak world (2026-10-13, art ids in `art/titanpeak/meshy_tasks.json`; surfaces = two Mint layers per tier blended by a
+  noise mask, per-tier knobs in `surface_knobs`, `--rebuild-surface` rebuilds the master in place): `tools/import_titanpeak.py` (arch + 5 skins, gate,
   podium, set pieces, banners, Mint surface materials into `FNM_TitanPeakArt`; keeps existing assets; `--props/--banners/--arch/
   --materials/--check`), `tools/build_arches.py` (a stone arch round every answer door, tier skin; tag `fnm_arches`; `--check`),
   `tools/build_titanpeak.py` (BASE CAMP gate on station 1's left wall, never in the doors' sightline (test), champions' podium,
@@ -117,7 +118,9 @@ before UEFN work. Project-specific:
   project), then the boss rig (BOSS_MODE.md §15d).
   `tools/build_fx.py` builds the Niagara lasers and impact (§15f) and the cannons' muzzle discharge and looping coil crackle
   (§15g) (`FNM_FX`, spawned by `console/verse/fnm_fx.verse`; `build_fx.py NS_fnm_coil` rebuilds one; rerun after moving a
-  cannon: the beam length is baked; `NS_fnm_laser_race` is the race finale's, §16). A new system must be built before the
+  cannon: the beam length is baked; `NS_fnm_laser_race` is the race finale's, §16; the race's right-answer `NS_fnm_gate_burst`
+  + `NS_fnm_sky_pillar` and the boost `NS_fnm_trail_cyan/_gold/_fire`, §15f; `DebugFarPillar` N shows a pillar N stations
+  ahead). A new system must be built before the
   Verse that names it (`FNM_FX.<name>_asset`) compiles.
   Creature spawners refuse `SpawnAt`; the runtime pulses Enable/Disable per creature (BOSS_MODE.md §14).
 - HUD colours: Verse UI draws a raw `color` ~3.86x too bright (measured 2026-10-13; B and C tiles both cyan), so every

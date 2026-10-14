@@ -1,4 +1,5 @@
-# FNM console runtime -- the boss arena's Niagara effects (BOSS_MODE.md 15f, 15g). Verse can spawn a particle system that
+# FNM console runtime -- the project's Niagara effects: the boss arenas' (BOSS_MODE.md 15f, 15g) and the race's right-answer
+# and boost effects (end of file). Verse can spawn a particle system that
 # lives in the project (FNM_FX, authored by tools/build_fx.py through UEFN's Niagara MCP toolset); it cannot set a system's
 # user parameters, so the laser's length is baked: NS_fnm_laser runs 18.3 m along the system's +X, the boss battle's mega
 # cannons' muzzle-to-waist distance (tools/build_bossmode.py prints it); NS_fnm_laser_race 5.1 m, the race finale's
@@ -65,3 +66,41 @@ FnmSpawnCoils(Beams:[]transform, Back:float):[]cancelable =
 # The electrical explosion where the lasers meet.
 FnmSpawnImpact(At:vector3):void =
     SpawnParticleSystem(FNM_FX.NS_fnm_impact_asset, At)
+
+# --- The race's right-answer and boost effects (tools/build_fx.py; G9 spectacle, reviews/race-2026-10-13/sources/spectacle.md
+# 1a). Spawns are global: every player sees every one, which is the point of the pillar and the trail.
+
+# How high above a barrier's base (the vestibule floor) the gate burst fires: chest height in the 384 cm doorway.
+FnmGateBurstHeight : float = 190.0
+
+# A right answer opening the barrier whose base centre is At: NS_fnm_gate_burst (0.7 s), its +X along Ahead (the way on),
+# so its shock ring stands in the barrier plane.
+FnmSpawnGateBurst(At:vector3, Ahead:vector3):void =
+    SpawnParticleSystem(FNM_FX.NS_fnm_gate_burst_asset, At + vector3{X := 0.0, Y := 0.0, Z := FnmGateBurstHeight}, ?Rotation := FnmAimAlong(Ahead))
+
+# The pillar of light standing on Base (a vestibule floor): NS_fnm_sky_pillar runs 40 m up world +Z for 1.2 s (no rotation).
+FnmSpawnPillar(Base:vector3):void =
+    SpawnParticleSystem(FNM_FX.NS_fnm_sky_pillar_asset, Base)
+
+# Seconds between two puffs of a boosting player's comet tail (NS_fnm_trail_*: 20 particles living 0.6 s each, so 16
+# boosting players stay near 1.5k particles alive, spectacle 1a's budget).
+FnmTrailEvery : float = 0.12
+
+# How far under a fort_character's position (its capsule centre, ~77 cm above the feet) a trail puff goes: at the feet,
+# where the third-person camera passes over the puffs instead of through them.
+FnmTrailDrop : float = 60.0
+
+# The boost trail's tier for a streak: 0 cyan (streak 1-2), 1 gold (3-5), 2 fire (6+).
+FnmTrailTier(Streak:int)<transacts>:int =
+    if (Streak >= 6) then 2 else if (Streak >= 3) then 1 else 0
+
+FnmTrailNames : []string = array{"cyan", "gold", "fire"}
+
+# One puff of the comet tail for a streak, under a character's position At (its capsule centre). (The asset type,
+# particle_system, lives in /Verse.org/Assets, whose names clash here, so the tier picks the call, not a value.)
+FnmSpawnTrail(Streak:int, At:vector3):void =
+    Feet := At - vector3{X := 0.0, Y := 0.0, Z := FnmTrailDrop}
+    Tier := FnmTrailTier(Streak)
+    if (Tier = 2) then SpawnParticleSystem(FNM_FX.NS_fnm_trail_fire_asset, Feet)
+    else if (Tier = 1) then SpawnParticleSystem(FNM_FX.NS_fnm_trail_gold_asset, Feet)
+    else SpawnParticleSystem(FNM_FX.NS_fnm_trail_cyan_asset, Feet)

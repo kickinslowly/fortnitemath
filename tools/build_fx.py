@@ -22,6 +22,12 @@ jagged arcs, 1 s, Once. NS_fnm_coil is the always-on crackle round the barrel co
 flickering on loops of different lengths, small sparks and a slowly pulsing glow; it loops forever, so Verse keeps the
 cancelable SpawnParticleSystem returns and spawns it once per cannon.
 
+The race's right-answer and boost effects (G9 spectacle; BOSS_MODE 15f note), all gold-family, all Once:
+NS_fnm_gate_burst fires at the barrier a right answer opens (white-gold flash, a shock ring in the barrier plane, 120
+velocity-aligned sparks, 0.7 s); NS_fnm_sky_pillar is a 40 m gold beam rising from that door's vestibule for 1.2 s, for
+everyone behind to see; NS_fnm_trail_cyan / _gold / _fire are one 20-particle puff of a boosting player's comet tail, which
+the director spawns at their feet every 0.12 s while the boost runs (streak 1-2, 3-5, 6+).
+
 FNM_FX is also the Verse module the runtime reads the assets from (FNM_FX.NS_fnm_laser), so the folder name stays.
 
 The editor world does not tick particles while UEFN sits in the background, so a placed system shows nothing in a
@@ -30,7 +36,7 @@ renders at that age without ticking; place one, capture, and delete it with --cl
 
 Idempotent: each run deletes and recreates the systems from scratch.
 
-    python tools/build_fx.py                    # build all five systems (both lasers, impact, muzzle, coil), save, report
+    python tools/build_fx.py                    # build every system (SYSTEMS), save, report
     python tools/build_fx.py NS_fnm_coil        # build only the named systems
     python tools/build_fx.py --check            # compile state, stack issues and dependencies only
     python tools/build_fx.py --preview 0.3      # looping copies warmed up 0.3 s, for viewport captures
@@ -205,8 +211,8 @@ def beam(s, name, loop, start, end, width, color, alpha, count=60, life=0.8, jit
         "offset": {"x": 0.5, "y": 0}, "scale": {"x": 0, "y": 1}}})
 
 
-def flare(s, name, loop, at, size, color, alpha, life, grow=None, delay=0.0, duration=1.0):
-    """One big soft sprite: a flash or a glow."""
+def flare(s, name, loop, at, size, color, alpha, life, grow=None, delay=0.0, duration=1.0, extra=None):
+    """One big soft sprite: a flash or a glow. extra: more sprite renderer values (near_cull())."""
     add_emitter(s, "SimpleSpriteBurst", name, loop, duration)
     if delay:
         s.set(name, EU, "SpawnBurst_Instantaneous", "Spawn Time", F(delay))
@@ -220,7 +226,7 @@ def flare(s, name, loop, at, size, color, alpha, life, grow=None, delay=0.0, dur
     if grow:
         m = add_module(s, name, PU, "/Niagara/Modules/Update/Size/ScaleSpriteSize.ScaleSpriteSize", "ScaleColor")["moduleName"]
         s.set(name, PU, m, "Uniform Curve Sprite Scale", curve(grow))   # the module's default mode: Uniform Curve
-    renderer(s, name, {"bCastShadows": False})
+    renderer(s, name, {"bCastShadows": False, **(extra or {})})
 
 
 def sparks(s, name, loop, at, count, speed, life, size, color, away_from=(0, 0, 0), radius=20, gravity=-980,
@@ -400,8 +406,103 @@ def build_race_laser(name, loop=False):
     return build_laser(name, loop, RACE_LENGTH)
 
 
+# --- the race's right-answer and boost effects (G9 spectacle, reviews/race-2026-10-13/sources/spectacle.md 1a) ----------
+# Gold is the reward colour, the opposite of the cannons' cyan. Station vestibules are 513 cm wide between the dividers and
+# 600 cm tall (tools/build_course.py), the barrier stands at their back, and every hallway runs toward +Y.
+# These are seen from 3-6 m (the answering player's camera sits in the doorway), not from 38 m like the cannons' effects:
+# in play on Titan Peak's daylight (2026-10-13, F) the first cut (HDR 6-8, a 5.2 m flash, a 3.8 m base flare at the
+# player) whited out the whole screen for ~0.4 s and burned gold to white. So channels stay near 2.5 or under (hue
+# survives the tonemapper), the flares are small and cull within NEAR cm of the camera, and the pillar is narrow and dim
+# inside the vestibule (below PILLAR_LOW) and wide and bright only above the walls, where the players behind see it.
+GOLD = (2.2, 1.3, 0.2, 1.0)
+WHITE_GOLD = (2.6, 2.0, 0.9, 1.0)
+NEAR = 250                            # cm: a flare closer than this to the camera is not drawn (sprite camera-distance cull)
+GATE_TIME = 0.7                       # s: NS_fnm_gate_burst's emitters and system run once for this long
+GATE_SPARKS = 120
+PILLAR_TIME = 1.3                     # s: the pillar's beams live PILLAR_LIFE, its motes a little longer
+PILLAR_LIFE = 1.2
+PILLAR_HEIGHT = 4000.0                # cm: NS_fnm_sky_pillar's beam runs from the vestibule floor up local +Z
+PILLAR_LOW = 600.0                    # cm: below this (the vestibule's walls) the beam is narrow and dim
+TRAIL_TIME = 0.6                      # s: one boost trail puff lives this long (fnm_fx.verse spawns one every FnmTrailEvery)
+TRAIL_SPECKS = 19                     # + one soft puff: 20 particles a spawn
+# Trail tiers (fnm_fx.verse FnmTrailTier: streak 1-2 cyan, 3-5 gold, 6+ fire): (puff colour, speck colour, gravity).
+# Fire's specks rise like embers; the others drift down.
+TRAILS = {"NS_fnm_trail_cyan": ((0.15, 0.8, 1.8, 0.5), (0.3, 1.2, 2.6, 1.0), -250),
+          "NS_fnm_trail_gold": ((1.2, 0.7, 0.08, 0.5), GOLD, -250),
+          "NS_fnm_trail_fire": ((1.6, 0.35, 0.03, 0.55), (2.4, 0.55, 0.05, 1.0), 300)}
+
+
+def near_cull(distance=NEAR):
+    """Sprite renderer values that skip particles closer than distance cm to the camera."""
+    return {"bEnableCameraDistanceCulling": True, "MinCameraDistance": distance, "MaxCameraDistance": 1000000}
+
+
+def build_gate_burst(name, loop=False):
+    """A right answer opening the barrier (fnm_fx.verse FnmSpawnGateBurst): spawned at the barrier's centre at chest
+    height, local +X along the way on (+Y), so a ring round +X stands in the barrier plane. A white-gold flash and a gold
+    glow, a shock ring of soft blobs flung out across the doorway to ~4.8 m, and 120 velocity-aligned sparks bursting
+    out of it, mostly through the barrier, some back at the player. 0.7 s, Once."""
+    s = recreate(name)
+    system_state(s, loop, GATE_TIME)
+    t = GATE_TIME
+    flare(s, "Glow", loop, (0, 0, 0), 260, (1.3, 0.8, 0.12, 0.45), [(0, 1), (0.3, 0.6), (1, 0)], 0.45,
+          grow=[(0, 0.5), (0.2, 1.0), (1, 1.2)], duration=t, extra=near_cull())
+    flare(s, "Flash", loop, (0, 0, 0), 280, WHITE_GOLD[:3] + (0.7,), [(0, 1), (0.35, 0.6), (1, 0)], 0.18,
+          grow=[(0, 0.4), (0.25, 1.0), (1, 1.2)], duration=t, extra=near_cull())
+    sparks(s, "Ring", loop, (0, 0, 0), 100, (800, 950), (0.4, 0.55), (30, 45, 30, 45), (1.8, 1.15, 0.25, 0.65),
+           gravity=0, drag=3.0, shape=ring_shape_x(60), duration=t)
+    sparks(s, "Sparks", loop, (0, 0, 0), GATE_SPARKS, (900, 2000), (0.3, 0.6), (4, 8, 30, 80), GOLD,
+           away_from=(-30, 0, 0), radius=70, gravity=-600, drag=2.0, duration=t)
+    return s
+
+
+def build_sky_pillar(name, loop=False):
+    """A right answer seen from afar (fnm_fx.verse FnmSpawnPillar): a gold beam from the vestibule floor straight up local
+    +Z (spawned with no rotation), PILLAR_HEIGHT cm, for PILLAR_LIFE s. The NS_fnm_laser glow and core retuned gold. Inside
+    the vestibule's walls (below PILLAR_LOW) it is a thin dim thread, so the answering player's camera, a few metres
+    behind them in the doorway, is not filled with gold; above the walls it is a 3 m glow round a bright core for everyone
+    behind. A faint ground ring, a cap glow at the top, and motes streaking up the beam from above the player's head."""
+    s = recreate(name)
+    system_state(s, loop, PILLAR_TIME)
+    t, life, top, low = PILLAR_TIME, PILLAR_LIFE, PILLAR_HEIGHT, PILLAR_LOW
+    rise = [(0, 0), (0.06, 1), (0.7, 1), (1, 0)]
+    width = [(0, 0.3), (0.08, 1.2), (0.2, 1.0), (0.7, 1.0), (1, 0.4)]
+    beam(s, "GlowLow", loop, (0, 0, 0), (0, 0, low), 60, (0.6, 0.35, 0.05, 0.25), rise, count=8, life=life,
+         width_scale=width, duration=t)
+    beam(s, "Glow", loop, (0, 0, low), (0, 0, top), 300, (1.2, 0.7, 0.1, 0.45), rise, count=20, life=life,
+         width_scale=width, duration=t)
+    beam(s, "CoreLow", loop, (0, 0, 0), (0, 0, low), 20, (1.4, 0.85, 0.2, 0.7), rise, count=8, life=life,
+         duration=t)
+    beam(s, "Core", loop, (0, 0, low), (0, 0, top), 60, (3.0, 2.1, 0.6, 1.0), rise, count=20, life=life,
+         width_scale=[(0, 1.6), (0.1, 1.0), (0.7, 1.0), (1, 0.3)], duration=t)
+    flare(s, "Cap", loop, (0, 0, top), 900, (1.4, 0.85, 0.12, 0.5), rise, life, grow=[(0, 0.4), (0.1, 1.0), (1, 0.8)],
+          duration=t)
+    sparks(s, "Ring", loop, (0, 0, 20), 36, (500, 600), (0.4, 0.5), (30, 40, 30, 40), (1.2, 0.75, 0.15, 0.5),
+           gravity=0, drag=3.0, shape=ring_shape(40), duration=t)
+    # Velocity away from a point 3 m under a 60 cm sphere above the head: a narrow upward cone, streaking up the beam.
+    sparks(s, "Motes", loop, (0, 0, 300), 48, (1500, 3200), (0.7, 1.2), (6, 12, 60, 160), GOLD, away_from=(0, 0, -300),
+           radius=60, gravity=0, drag=0.4, duration=t)
+    return s
+
+
+def build_trail(name, loop=False):
+    """One puff of a boosting player's comet tail (fnm_fx.verse FnmSpawnTrail spawns one at their feet every
+    FnmTrailEvery s while the boost runs): a soft glow and TRAIL_SPECKS small specks, TRAIL_TIME s, Once. Spawned at
+    the feet, not the waist: the third-person camera trails a few metres behind and above, and passes over the puffs,
+    not through them. Budget (spectacle 1a): 16 players x 8 spawns/s x 20 particles x 0.6 s ~ 1.5k alive."""
+    puff, speck, gravity = TRAILS[name.removesuffix("_preview")]
+    s = recreate(name)
+    system_state(s, loop, TRAIL_TIME)
+    flare(s, "Puff", loop, (0, 0, 0), 110, puff, [(0, 1), (0.3, 0.7), (1, 0)], 0.45, grow=[(0, 0.6), (1, 1.3)],
+          duration=TRAIL_TIME, extra=near_cull(150))
+    sparks(s, "Specks", loop, (0, 0, 0), TRAIL_SPECKS, (60, 260), (0.4, TRAIL_TIME), (4, 7, 10, 24), speck, radius=35,
+           gravity=gravity, drag=2.0, duration=TRAIL_TIME)
+    return s
+
+
 SYSTEMS = {"NS_fnm_laser": build_laser, "NS_fnm_laser_race": build_race_laser, "NS_fnm_impact": build_impact,
-           "NS_fnm_muzzle": build_muzzle, "NS_fnm_coil": build_coil}
+           "NS_fnm_muzzle": build_muzzle, "NS_fnm_coil": build_coil, "NS_fnm_gate_burst": build_gate_burst,
+           "NS_fnm_sky_pillar": build_sky_pillar, **{k: build_trail for k in TRAILS}}
 ALLOWED = ("/Niagara/", "/Engine/", "/Script/", MOUNT + "/")
 # Every UEFN-created Niagara system carries this effect type (scalability defaults); UEFN sets it, validation knows it.
 EFFECT_TYPE = "/Game/Valkyrie/Niagara/EffectTypes/UEFN_DefaultEffectType"

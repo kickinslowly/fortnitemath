@@ -681,6 +681,26 @@ make that tasty?"
   - The titan's lava cracks are crisp.
 - **The titan's texture.** The blotchy titan in editor captures is an editor streaming artifact, not the texture (see the
   `uefn-mcp` skill). `import_boss.py` and `import_cannon.py` now set LOD bias 0, so the top mip is kept in play.
+- **The race's right-answer and boost effects** (G9 F, 2026-10-13; spec `reviews/race-2026-10-13/sources/spectacle.md` 1a).
+  `build_fx.py` makes five more Once systems; `fnm_fx.verse` spawns them; `tests/test_fx.py` ties both.
+  - `NS_fnm_gate_burst` (0.7 s): at the barrier a right answer opens (`AdvancePlayer` -> `RightAnswerFx`), +X along the way
+    on, so its ring of 100 blobs stands in the barrier plane; a white-gold flash, a gold glow, 120 velocity-aligned sparks.
+  - `NS_fnm_sky_pillar` (1.2 s): 40 m up from the vestibule floor. A thin dim thread below 6 m (inside the vestibule
+    walls), a 3 m glow round a bright core above; a cap glow at the top, motes streaking up from above the player's head.
+  - `NS_fnm_trail_cyan` / `_gold` / `_fire` (0.6 s, 20 particles): `BoostTrail` spawns one at the player's feet every
+    `FnmTrailEvery` 0.12 s while the boost runs (streak 1-2 / 3-5 / 6+; 23-53 puffs a boost in play), and stops with
+    the boost (`BoostGeneration`: a newer boost, a wrong door, an elimination, the finish) or a finish.
+  - **Close up, HDR burns.** The first cut (colour channels 6-8, a 5.2 m flash, a 3.8 m flare at the player's feet)
+    whited out the whole screen for ~0.4 s and drew gold as white: these are seen from 3-6 m, not 38 m like the cannons'.
+    Channels now stay at 3 or under, flares are small and skip particles within 1.5-2.5 m of the camera
+    (`bEnableCameraDistanceCulling` + `MinCameraDistance` on the sprite renderer), and `test_seen_up_close_without_a_whiteout`
+    holds that.
+  - **Draw distance.** `UEFN_DefaultEffectType` has no system scalability entries (no distance cull), only spawn-count
+    scaling (Low 0.3, Medium 0.6, High 1.0); the emitters are CPU sims with dynamic bounds. Seen in play: a pillar 78.5 m
+    away (`DebugFarPillar 1`) glowed over the next ice wall from +0.4 s and was gone by +1.5 s. What hides pillars ahead
+    is the HUD slate, which covers the sky in front of a level camera, and the course's tall walls.
+  - Not seen: the burst's ring as a ring (it reads as glow and sparks), a pillar's full 40 m column from afar, and
+    any of it on Low or Medium effects quality, where a one-particle flare times 0.3 or 0.6 may spawn nothing.
 
 ### 15g. Cannon muzzle and coil effects (2026-10-11)
 

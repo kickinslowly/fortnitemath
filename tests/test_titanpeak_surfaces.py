@@ -267,3 +267,166 @@ def test_arch_frames_every_door_and_stays_out_of_the_doorway():
     assert boxes[0][1] < half and boxes[-1][0] > -half                        # inside the hallway's side walls
     for a, b in zip(boxes, boxes[1:]):
         assert b[1] < a[0], (a, b)                                            # neighbouring arches do not overlap
+
+
+# ---------------------------------------------------------------- wave 5b: variation (Aaron: "tiled too monotonously like wallpaper")
+
+def _graph_fake(existing=(), params=()):
+    """A FakeUefn for surface_master: records the expressions it adds and the parameter names it sets."""
+    counter = {"n": 0}
+
+    def add_expression(a):
+        counter["n"] += 1
+        return {"returnValue": {"refPath": f"/m.M:{a['expression_class']['refPath'].split('Expression')[-1]}_{counter['n']}"}}
+
+    return FakeUefn({"ListFiles": [{"name": "/proj/", "type": "Directory"}],
+                     "exists": lambda a: {"returnValue": bool(existing)}, "create_material": True,
+                     "get_expressions": [{"refPath": e} for e in existing],
+                     "list_parameters": [{"name": p, "type": "Scalar"} for p in params],
+                     "add_expression": add_expression, "set_properties": True, "connect_expressions": True,
+                     "connect_to_output": True, "layout_expressions": True, "recompile": True, "delete_expression": True,
+                     "get_expression_input_names": ["A", "B", "A > B", "A == B", "A < B"],
+                     "get_properties": '{"parameterName": "BaseColor"}'})
+
+
+def _run_master(fake):
+    saved = tp.u.call
+    tp.u.call = fake
+    try:
+        return tp.surface_master("/proj/FNM_TitanPeakArt/Surfaces", {k: f"/t/{k}.{k}" for k in tp.TEXTURE_PARAMS.values()})
+    finally:
+        tp.u.call = saved
+
+
+def test_surface_master_wires_every_parameter_and_both_layers():
+    fake = _graph_fake()
+    _run_master(fake)
+    names = [json.loads(a["values"]).get("parameterName") for t, a in fake.calls if t == "set_properties"]
+    names = [n for n in names if n]
+    assert set(names) == set(tp.SURFACE_PARAMS) | {"MacroBlur"}, set(names) ^ set(tp.SURFACE_PARAMS)
+    samples = [a for t, a in fake.calls if t == "add_expression" and a["expression_class"]["refPath"].endswith("TextureSampleParameter2D")]
+    # BaseColor, its blurred macro and its mean; Normal, Roughness; the patch layer's three; the noise read twice
+    assert len(samples) == 10 and names.count("BaseColor") == 3 and names.count("PatchNoise") == 2
+    for n in ("Normal", "Roughness", "PatchBaseColor", "PatchNormal", "PatchRoughness"):
+        assert names.count(n) == 1, n
+    modes = [json.loads(a["values"]).get("mipValueMode") for t, a in fake.calls if t == "set_properties"]
+    assert modes.count("TMVM_MipBias") == 1 and modes.count("TMVM_MipLevel") == 1   # the macro is blurred, the mean is the last mip
+    outs = {a["material_property"] for t, a in fake.calls if t == "connect_to_output"}
+    assert outs == {"MP_BaseColor", "MP_Roughness", "MP_Normal"}
+    assert "recompile" in fake.tools() and "delete_expression" not in fake.tools()
+
+
+def test_an_old_surface_graph_is_rebuilt_in_place_and_a_current_one_kept():
+    old = _graph_fake(existing=["/m.M:Old_1", "/m.M:Old_2"], params=("BaseColor", "Normal", "Roughness", "TileSize", "Tint"))
+    _run_master(old)
+    assert old.tools().count("delete_expression") == 2 and "add_expression" in old.tools()   # expressions replaced ...
+    assert "delete" not in old.tools() and "create_material" not in old.tools()                 # ... the asset kept
+    current = _graph_fake(existing=["/m.M:TextureSampleParameter2D_1"], params=tp.SURFACE_PARAMS)
+    _run_master(current)
+    assert "add_expression" not in current.tools() and "delete_expression" not in current.tools() and "recompile" in current.tools()
+
+
+def test_variation_knobs_cover_the_parameters_and_stay_in_range():
+    import math
+    for key in tp.SURFACES:
+        scalars, vectors = tp.surface_knobs(key)
+        names = {k for k, _ in scalars} | {k for k, _ in vectors}
+        assert names | set(tp.TEXTURE_PARAMS) == set(tp.SURFACE_PARAMS) | {"MacroBlur"}, (key, names)
+        v = dict(scalars)
+        wall = key.endswith("_wall")
+        assert 0 <= v["VariationBlend"] <= 2.5 and 1.5 <= v["VariationScale"] <= 4 and 0 <= v["Jitter"] <= 0.15, key
+        assert 3 <= v["MacroBlur"] <= 8                                               # blurred patches, not a second paving
+        assert (v["GrimeStrength"] > 0) == wall and (v["TopLight"] > 0) == wall      # the height bands are for walls
+        assert (v["EdgeDark"] > 0) == (not wall) and v["EdgeDark"] <= 0.5            # edge darkening is for floors
+        assert 40 <= v["GrimeHeight"] <= 120 and 20 <= v["TopHeight"] <= 60 and v["EdgeWidth"] > tp.EDGE_INSET
+        assert v["ActorOffset"] in (0.0, 1.0)
+    assert all(0 < c_ < 1 for c_ in tp.GRIME_TINT)
+    # the jitter varies over metres, several tiles per cycle, so no repeat lines up with it
+    period = 1 / math.sqrt(sum(c_ * c_ for c_ in tp.JITTER_K))
+    assert 500 < period < 2000 and period > 1.5 * max(tp.TILE.values()), period
+    # the macro map: turned off the grid, larger than a tile, its average read past the last mip (1 x 1), a sane clamp
+    assert tp.VARIATION_ANGLE % 90 != 0 and tp.MEAN_MIP >= 10 and 0 < tp.MACRO_CLAMP[0] < 1 < tp.MACRO_CLAMP[1] <= 2
+    assert tp.EDGE_INSET == c.WALL_T
+
+
+# ---------------------------------------------------------------- wave 5c: the second, organic layer in patches
+
+def test_patch_threshold_is_the_quantile_of_the_two_noise_reads():
+    import random
+    rnd = random.Random(7)
+    sums = sorted(tp.NOISE_WEIGHTS[0] * rnd.random() + tp.NOISE_WEIGHTS[1] * rnd.random() for _ in range(200000))
+    for cov in (0.1, 0.3, 0.35, 0.4, 0.45, 0.6, 0.9):
+        t = tp.patch_threshold(cov)
+        got = sum(1 for v in sums if v > t) / len(sums)
+        assert abs(got - cov) < 0.006, (cov, got)
+    assert tp.patch_threshold(0.0) > sum(tp.NOISE_WEIGHTS) + max(tp.PATCH_FOOT_BIAS.values()) + max(tp.PATCH_EDGE_BIAS.values())
+
+
+def test_patch_noise_is_periodic_uniform_and_deterministic(tmp_path):
+    import numpy as np
+    from PIL import Image
+    a, b = tp.make_patch_noise(tmp_path / "a.png"), tp.make_patch_noise(tmp_path / "b.png")
+    assert a.read_bytes() == b.read_bytes()                                    # the same seed, the same bytes
+    n = np.asarray(Image.open(a), dtype=np.float32)
+    assert n.shape == (tp.NOISE_SIZE, tp.NOISE_SIZE)
+    hist = np.bincount(n.astype(int).ravel(), minlength=256)
+    assert hist.min() == hist.max() == tp.NOISE_SIZE ** 2 // 256              # rank-normalised: every grey level equally often
+    # it tiles: the jump across the wrap is no bigger than between neighbours inside (no seam)
+    inside = np.abs(np.diff(n, axis=1)).mean()
+    wrap = np.abs(n[:, 0] - n[:, -1]).mean()
+    assert wrap < 1.5 * inside
+    # band-limited: neighbouring texels are close (nothing finer than NOISE_BAND[0] texels), so mips barely shift coverage
+    assert inside < 256 / tp.NOISE_BAND[0] * 2
+    assert tp.NOISE_PNG.exists() and tp.NOISE_PNG.read_bytes() == a.read_bytes()   # the committed noise is this one
+
+
+def test_coverage_on_the_real_noise_matches_the_knob():
+    import math
+    import numpy as np
+    from PIL import Image
+    n = np.asarray(Image.open(tp.NOISE_PNG), dtype=np.float32) / 255
+    N = n.shape[0]
+
+    def read(uu, vv):
+        x, y = (uu * N) % N, (vv * N) % N
+        x0, y0 = np.floor(x).astype(int), np.floor(y).astype(int)
+        fx, fy = x - x0, y - y0
+        x1, y1 = (x0 + 1) % N, (y0 + 1) % N
+        return n[y0, x0] * (1 - fx) * (1 - fy) + n[y0, x1] * fx * (1 - fy) + n[y1, x0] * (1 - fx) * fy + n[y1, x1] * fx * fy
+
+    rng = np.random.default_rng(3)
+    px, py = rng.uniform(-60000, 60000, (2, 300000))
+    s = 0
+    for ang, sc, w, sh in zip(tp.NOISE_ANGLES, tp.NOISE_SCALES, tp.NOISE_WEIGHTS, ((0.0, 0.0), tp.NOISE_SHIFT)):
+        a = math.radians(ang)
+        s = s + w * read((px * math.cos(a) - py * math.sin(a)) / (tp.PATCH_SCALE * sc) + sh[0],
+                         (px * math.sin(a) + py * math.cos(a)) / (tp.PATCH_SCALE * sc) + sh[1])
+    for cov in (0.35, 0.40):
+        m = np.clip((s - tp.patch_threshold(cov)) / tp.PATCH_EDGE["t1_wall"] + 0.5, 0, 1)
+        assert abs(m.mean() - cov) < 0.03, (cov, m.mean())
+
+
+def test_patch_knobs_per_tier():
+    assert set(tp.PATCHES) == set(tp.SURFACES) - {"forge_floor"}               # the arena's forge floor stays as it is
+    assert tp.PATCH_COVERAGE["forge_floor"] == 0 and tp.PATCH_EDGE_BIAS["forge_floor"] == 0
+    ready = [k for k in tp.PATCHES if tp.patch_ready(k)]
+    assert set(ready) == set(tp.PATCHES), set(tp.PATCHES) - set(ready)        # every tier's patch maps are unzipped
+    for key in tp.PATCHES:
+        assert 0.2 <= tp.PATCH_COVERAGE[key] <= 0.45, key                       # ~30-45 %, floors cut to 25-30 % (wave 5d)
+        assert 0.02 <= tp.PATCH_EDGE[key] <= 0.2, key
+        assert all(0.2 <= c_ <= 1.0 for c_ in tp.PATCH_TINT[key]), key           # a tint only darkens
+        assert 200 <= tp.PATCH_TILE[key] <= 400, key
+        wall = key.endswith("_wall")
+        assert (tp.PATCH_FOOT_BIAS[key] > 0) == wall and (tp.PATCH_EDGE_BIAS[key] > 0) == (not wall)
+    # the snow drift and the ice are as pale as their base: tinted like it, so the frost tier does not glare
+    assert tp.PATCH_TINT["t3_floor"] == tp.TINT["t3_floor"] and max(tp.PATCH_TINT["t3_wall"]) <= max(tp.TINT["t3_wall"])
+    scalars, vectors = tp.surface_knobs("t1_floor")
+    v = dict(scalars)
+    assert v["PatchThreshold"] == tp.patch_threshold(tp.PATCH_COVERAGE["t1_floor"]) and dict(vectors)["PatchTint"]
+    assert 1200 <= v["PatchScale"] <= 4000 and v["PatchEdge"] == tp.PATCH_EDGE["t1_floor"]
+    # wave 5d (the manager on pairs3_A.png): floors cover less than walls, t1's earth is greener than it is red, t2's sand not blue
+    assert tp.PATCH_COVERAGE["t1_floor"] < tp.PATCH_COVERAGE["t1_wall"] and tp.PATCH_COVERAGE["t2_floor"] < tp.PATCH_COVERAGE["t2_wall"]
+    r, g_, b = tp.PATCH_TINT["t1_floor"]
+    assert g_ > r and max(tp.PATCH_TINT["t1_floor"]) <= 0.7
+    r, g_, b = tp.PATCH_TINT["t2_floor"]
+    assert r >= g_ > b

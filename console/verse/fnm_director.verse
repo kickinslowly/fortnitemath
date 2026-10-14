@@ -462,6 +462,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # How far in front of the chest DebugBossChest stands the player (cm, toward the stepping stones).
     @editable
     DebugChestDistance : float = 150.0
+    # Test hook (G9 F, the pillar's draw distance): every right answer at a station also stands a pillar of light in the
+    # same door's vestibule this many stations ahead, 2.5 s later (FarPillarLater), logged with its distance from the
+    # player, to see a pillar from afar in a one-player session. 0 = off (ship value).
+    @editable
+    DebugFarPillar : int = 0
     # Boss mode: seconds from a level's clear to the next level's summon; the summon's length (its timeline scales to it);
     # how long the MEGA NUKE verdict stays up.
     @editable
@@ -1757,6 +1762,33 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: passage {FnmChoiceLetter(DoorIndex)} open for the player")
         else:
             SendTo(State.Player, Station.NextTeleporter)
+        RightAnswerFx(State, Station, DoorIndex)
+
+    # A right answer seen (G9 spectacle, fnm_fx): the pillar of light from the door's vestibule floor (its trigger box sits
+    # in the vestibule, its bottom on the floor), for everyone behind to see, and the gate burst on the barrier it opened.
+    # DebugFarPillar adds a pillar the same door's vestibule that many stations ahead (State.Stage has already moved on).
+    RightAnswerFx(State:fnm_player_state, Station:fnm_station, DoorIndex:int):void =
+        var Burst : logic = false
+        if (Door := Station.Doors[DoorIndex]):
+            FnmSpawnPillar(VestibuleFloor(Door))
+        if (MaybePassage := Station.Passages[DoorIndex], Passage := MaybePassage?):
+            FnmSpawnGateBurst(Passage.GetTransform().Translation, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0).GetLocalForward())
+            set Burst = true
+        Print("FNM: fx right answer door {FnmChoiceLetter(DoorIndex)}: pillar, gate burst {FnmYesNo(Burst)}")
+        if (DebugFarPillar > 0, Far := Stations[State.Stage - 2 + DebugFarPillar], FarDoor := Far.Doors[DoorIndex]):
+            spawn{ FarPillarLater(State, VestibuleFloor(FarDoor)) }
+
+    # DebugFarPillar's pillar, 2.5 s after the answer: time for a test to turn the player's camera up after the auto-run's
+    # teleport (which levels it) and look over the HUD slate, which hides the sky ahead.
+    FarPillarLater(State:fnm_player_state, Spot:vector3)<suspends>:void =
+        Sleep(2.5)
+        FnmSpawnPillar(Spot)
+        Away := if (Character := State.Player.GetFortCharacter[]) then FnmMetres(Character.GetTransform().Translation, Spot) else "?"
+        Print("FNM: fx far pillar {DebugFarPillar} stations ahead at {Spot}, {Away} m from the player")
+
+    # The floor of a door's vestibule under its trigger's box centre.
+    VestibuleFloor(Door:trigger_device)<transacts>:vector3 =
+        ZoneCentre(Door) - vector3{X := 0.0, Y := 0.0, Z := TriggerHalfZ * Door.GetTransform().Scale.Z}
 
     PickPenalty()<transacts>:fnm_penalty =
         Index := if (DebugAutoWrongAnswers > 0) then Mod[DebugPenaltyCursor, Max(Penalties.Length, 1)] or 0
@@ -2662,6 +2694,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             # With a streak the voice line is the celebration; the 3.5 s boost whoosh would bury it.
             if (State.Streak < 2):
                 spawn{ SoundLater(State.Player, fnm_cue.Boost, 0.4) }
+            spawn{ BoostTrail(State, Generation, Seconds) }
             var Elapsed : float = 0.0
             var SinceApply : float = BoostReapplySeconds
             loop:
@@ -2682,6 +2715,30 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     State.Hud.SetStreak(StreakCopy(State, 0))
         else if (not State.Finished?):
             State.Hud.SetStreak(StreakCopy(State, 0))
+
+    # The boost's comet tail (G9 spectacle, fnm_fx): a puff of NS_fnm_trail_* at the player's feet every FnmTrailEvery s in
+    # the streak's colour (FnmTrailTier: 1-2 cyan, 3-5 gold, 6+ fire), so the others see a streaker go by. It stops when
+    # the boost runs out or ends early (a newer boost or StopBoost: a wrong door, an elimination, the finish), when the
+    # player finishes or leaves; nothing is spawned while they are down.
+    BoostTrail(State:fnm_player_state, Generation:int, Seconds:float)<suspends>:void =
+        Streak := State.Streak
+        Colour := FnmTrailNames[FnmTrailTier(Streak)] or "?"
+        Start := GetSimulationElapsedTime()
+        var Puffs : int = 0
+        var Why : string = "ran out"
+        loop:
+            if (State.BoostGeneration <> Generation):
+                set Why = "boost ended early"
+                break
+            if (State.Finished? or not PlayerStates[State.Player]):
+                set Why = "finished or left"
+                break
+            if (GetSimulationElapsedTime() - Start >= Seconds) then break
+            if (Character := State.Player.GetFortCharacter[], Character.IsActive[]):
+                FnmSpawnTrail(Streak, Character.GetTransform().Translation)
+                set Puffs += 1
+            Sleep(FnmTrailEvery)
+        Print("FNM: fx boost trail {Colour} (streak {Streak}): {Puffs} puffs in {GetSimulationElapsedTime() - Start} s, {Why}")
 
     StopBoost(State:fnm_player_state):void =
         set State.BoostGeneration += 1
