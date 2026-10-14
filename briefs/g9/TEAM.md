@@ -107,3 +107,18 @@ D copies the files it changed the same way. `cp` keeps the bytes (LF). Then
 7. **Your shakiest assumption, stated plainly.**
 8. Bugs you found in files you do not own.
 9. Lock: confirm released; background jobs: confirm none running.
+
+## Wave 4-5 (2026-10-13 evening): roster, and the PC
+
+| Agent | Model | Brief | Owns |
+|---|---|---|---|
+| **V** Volt reactions | Sonnet | `V_reactions.md` | all `console/verse/*.verse`, `tests/test_hud_layout.py`, `tests/test_volt_reactions.py`, `tools/make_medal_art.py`, `tools/art/fnm_volt_*.png` |
+| **A** audio | Sonnet | `A_audio.md` | `tools/build_audio.py`, `console/AUDIO.md`, `tools/make_mint_audio.py`, `tests/test_mint_audio.py`, `art/audio/mint/`, `tools/audio/mint/` |
+| **P** volcano + trophy | Sonnet | `P_landmarks.md` | `tools/import_landmarks.py`, `tools/build_landmarks.py`, `tests/test_landmarks.py`, `art/volcano/`, `art/trophy/` |
+| **T1** surfaces + arches | Opus | `T1_surfaces_arches.md` | `tools/import_art.py`, `tools/build_course.py` (paint), `tools/import_titanpeak.py`, `tools/build_arches.py`, `maps/starter/LAYOUT.md`, `tests/test_arena_layout.py`, `tests/test_titanpeak_surfaces.py`, `art/titanpeak/` |
+| **T2** dressing | Sonnet | `T2_dressing.md` | `tools/build_titanpeak.py`, `tests/test_titanpeak.py` (+ the trophy spot in `build_landmarks.py` after P is done) |
+
+**The PC (Aaron, 2026-10-13 ~18:30 PT: "u have control of pc as long as u need"):** foreground actions (`--keys`,
+`click_hud.py`, `gui_act.ps1`, the GUI wav import) are allowed, but ONLY while you hold the UEFN lock, so two agents never
+drive the mouse at once. Minimize the Fortnite client before clicking UEFN (AUDIO.md import step 0). Release the
+foreground and the lock together. The "Aaron may be at this PC" rule above is suspended until the manager says otherwise.

@@ -135,8 +135,9 @@ though the player has just finished).
 A line that was not imported keeps its stock sound and the run says `NOT IMPORTED, stock kept: <cues>`. `--list` accepts
 a voice wave only on an `ANNOUNCER_CUES` device for the same cue id (anything else is a mismatch).
 
-**Import procedure (UEFN 42.30, worked first try 2026-10-07; again 2026-10-08 for the six boss-hit lines):** no
-headless route exists (a wav dropped into `Content/` is never picked up; `AssetTools` has no import). Screenshots
+**Import procedure (UEFN 42.30, worked first try 2026-10-07; again 2026-10-08 for the six boss-hit lines, and 2026-10-13 for
+the Mint waves and the re-rendered `welcome`):** no headless route exists (a wav dropped into `Content/` is never picked up, even
+with the editor's auto-import settings switched on, see "Mint music and SFX"; `AssetTools` has no import). Screenshots
 `imp_*.png` in `%TEMP%`.
 0. If a play session is running, MINIMIZE the Fortnite client first (`ShowWindow(h, 6)`): a foreground client clips the
    cursor to its own window, so `SetCursorPos` to the left monitor lands at x 320 inside the game and every "UEFN click"
@@ -154,6 +155,98 @@ headless route exists (a wav dropped into `Content/` is never picked up; `AssetT
 7. A progress box ("Importing ...") runs ~10 s; no import-options dialog for wav. The drawer shows one Sound Wave item per wav in the folder (37 per voice before Boss Battle mode, 53 after).
 8. MCP: `AssetTools.find_assets` (folder `/<mount>/FNM_Audio`, class `/Script/Engine.SoundWave`) = the file count, names = cue ids;
    `save_assets` on them.
+
+## Mint music and SFX (G9, 2026-10-13)
+
+Bought on Aaron's Mint account (project "First Project"; every asset id and the one-line ask for each is in `SOURCES` at the top
+of `tools/make_mint_audio.py`). **Aaron's ear has not judged any of it yet.** `tools/audio/mint/LISTEN.md` is the sheet to listen
+with: which take is in, which is the alt, the measured numbers, and why.
+
+**Files.** `art/audio/mint/<stem>.mp3` (tracked: the bought originals, 192 kbps, 60 s / 90 s beds) ->
+`python tools/make_mint_audio.py` -> `tools/audio/mint/<cue>.wav` (44.1 kHz, 16-bit, stereo; git-ignored, rebuilt byte for
+byte; the other take of a pair is `<cue>_alt.wav`), `LISTEN.md`, `vocal_check.json` (`vocal_check.py`, Whisper small.en).
+`--stage` / `--stage-only` copy the wavs that get imported to `%TEMP%\fnm_mint`; `--pick music_t3=b` forces a take;
+`--bad-loops music_t3_b` is the disproof (deliberately bad loop points, scored).
+
+**How a bed becomes a loop.** The tempo comes from the audio (autocorrelation of the onset envelope near the ask, a comb filter to
+0.01 BPM), not from the prompt: every 120 BPM ask came back 120.00 except `music_t4_a`, which is 144 BPM. The loop is N bars
+(a multiple of 4) from a bar line; its true repeat length is found by cross-correlating the amplitude envelope of the first bar
+with the audio N bars on (so L is the music's own repeat, e.g. 55.9999 s, not 28 x 2.0 s on trust). The first bar is replaced by an
+equal-power crossfade of the audio that follows the loop end (out) into the audio at the start (in), so the wrap is continuous
+by construction. A candidate is rejected when a half-second of its body sits 15 dB under the median (a gap, an intro, a fade-out;
+`music_t1_a` has a 1 s rest every 4 s for its first 16 s, `music_t2_b` / `music_t4_b` / `music_t1_a` fade out in their last
+seconds) or a bar strays more than 6 dB from the median. The take of a tier is the one with the better numbers (envelope
+repeatability, timbre match of the two crossfaded bars, seam against the music's own bar lines, level steadiness, tempo near the
+ask, no speech); the numbers and the reason per tier are in `LISTEN.md`.
+What the numbers prove: the wrap is continuous and no rougher than the music's own bar lines; the beds sit at -18 LUFS integrated
+(BS.1770-4, checked against ffmpeg `ebur128` in `tests/test_mint_audio.py`) and <= -1 dBTP; one-shots at -16 LUFS short-term,
+leading silence under 10 ms. What they do not prove: that a loop sounds right, that two bars with the same rhythm share a chord,
+or anything about the choir and guitar in `music_boss_*` (Whisper only says it heard no speech). A through-composed bed
+(`music_menu`, `music_t5_b`) has no loop that is truly seamless: the crossfade morphs between unlike bars. The loops are
+short where the numbers preferred it (t3 and t4 16 s, the menu 17 s, t2 24 s, boss 34 s, t5 48 s, t1 56 s): the other take (and
+`--pick`) is the way to a longer one, e.g. `music_t3_a` is 40 s. About 80 MB of wav in total; the island's memory calculation has
+not been run with them.
+
+**Mix.** Beds: -18 LUFS at device volume 0.5 (about -24 in play), under the voice lines (announcer -13 LUFS at volume 2.5 = `VO_VOLUME`).
+One-shots: -16 LUFS short-term at volume 1.0. A Mint wave is never `is_vo` (the folder name `mint` is reserved), so it never gets
+the voice volume.
+
+**Cues and moments** (`MINT_CUES` in `tools/build_audio.py`; waves in `/<mount>/FNM_Audio/mint/<cue>.<cue>`):
+
+| Cue | Source take | Moment | Stock until imported |
+|---|---|---|---|
+| `music_t1` .. `music_t5` | tier beds | the tier's bed (on at GO, swapped on a tier change) | the Save the World loops |
+| `finish` | victory fanfare | the finish (`FinishSounds`). 5.5 s against the stock 3.93 s: `FinishCueGapSeconds` (1.6) puts the record / medal / perfect stingers over it | Match_Win_01 |
+| `door_open` | portal whoosh | the barrier opens (`AdvancePlayer`) | SlidingDoor_Open |
+| `volt_yay`, `volt_hmm` | Volt chirp (0.38 s of sound in the 1.2 s Mint file) / warble | Volt reaction cards (`volt_hmm` at the retry spot; `volt_yay` has no call site yet) | none: not wired |
+| `music_boss` | boss bed | the race arena and Boss Battle mode (Verse side not built) | none |
+| `music_menu` | lobby loop | the grade picker (not built) | none |
+| `titan_roar` | roar | the titan appears (not built) | none |
+| `volt_oops` | "uh-oh" | with Volt's wag card (not built) | none |
+| `crowd_cheer` | cheer | the titan's death, the podium (not built) | none |
+| `crowd_aww` | aww | a wrong pad (not built) | none |
+
+The last six are `PENDING_CUES` in `tools/build_audio.py`, not `CUES`: `tests/test_audio_cues.py` asserts `list(CUES)` equals the Verse
+enum, and these have no enum id, tag class or director call yet. When one lands, move its row into `CUES` (enum order) and add the
+member to that test's `MEMBERS`. Until then `build()` skips it: a cue is placed only when the project's Verse root declares its `fnm_cue_<id>` tag class
+(VerseToolset `Grep`), because a device cannot be tagged with a class the project has not compiled (2026-10-13:
+`set_properties` answered "_Verse.fnm_cue_volt_yay is not valid Class for property 'InternalTag'" and the run died with
+a half-built device and nothing saved; now it is caught, the device removed and the cue skipped with a message). `volt_yay` /
+`volt_hmm` are declared in the repo's `fnm_tags.verse` but were not compiled until the next sync + BuildAll, so they wait:
+rerun the `--mint` command after that compile.
+
+**Wire them** (after the waves are imported; the full live command):
+
+    python tools/build_audio.py --announcer am_michael --boss-voice am_onyx --mint
+    python tools/build_audio.py --list            # source column: stock / announcer / boss / mint
+
+A cue whose wave is missing keeps its stock sound and the run says `NOT IMPORTED, stock kept: ...`; a Mint-only cue says
+`not wired: ...` and is a logged no-op in play. `--list` accepts a Mint wave only on a `MINT_CUES` device for the same cue id.
+
+**Import route (2026-10-13): the GUI, same as the announcer; headless does not work.** Tried under the UEFN lock: the editor
+settings object `/Script/UnrealEd.Default__EditorLoadingSavingSettings` reads and writes through ObjectTools `get_properties` /
+`set_properties` (found `bMonitorContentDirectories` false, `bAutoCreateAssets` false, `bPromptBeforeAutoImporting` true,
+`autoReimportDirectorySettings` one rule, `/Game/`). With monitoring and auto-create on, the prompt off and a rule for the
+project's Content (the virtual path `/<mount>/`; then the absolute `.../FortniteMath/Content/` with that mount point),
+`Content/FNM_Audio/mint/volt_yay.wav` was not imported after 100 s / 75 s, and the editor log never mentions the monitor. All
+four properties were put back and read back identical. So the 15 waves went in through the Import dialog:
+
+1. `python tools/make_mint_audio.py --stage-only` (the wavs to `%TEMP%nm_mint`); MCP `AssetTools create_folder
+   /<mount>/FNM_Audio/mint`, `EditorAppToolset SetContentBrowserPath` to it.
+2. Minimize the Fortnite client (`ShowWindow(h, 6)`, no focus needed). UEFN was a 1292x766 window on the PRIMARY monitor this time
+   (the 2026-10-08 coordinates were stale): `ShowWindow` minimize + restore brings it to the front; a floating Message Log hid
+   the Content Drawer, closed with `WM_CLOSE`. Screenshot every step (`PrintWindow` is not enough for dialogs: a virtual-screen
+   `CopyFromScreen`, then crop and Read).
+3. Click the drawer's **Import** button (window-relative (390, 498)), a Windows "Import" dialog opens. Type the folder path +
+   Enter, then the quoted file list (`"a.wav" "b.wav" ...`) + Enter: no Ctrl+A needed. A progress bar runs about 30 s for 15 waves.
+4. `AssetTools find_assets` (folder `/<mount>/FNM_Audio/mint`, class `/Script/Engine.SoundWave`) lists 15; every asset's
+   `duration` / `sampleRate` / `numChannels` matches its wav; `save_assets`.
+
+**Replacing a wave in place** (done for `am_michael/welcome`, re-rendered "Welcome to Doors of Doom!"): the same dialog into the
+voice's folder. UEFN asks "Do you want to overwrite the existing asset?" (Yes) and then "overwrite its existing settings?"
+(No). The asset is replaced in place: `duration` 1.860 s -> 1.901 s, the `FNM_Cue_Welcome` device still points at the same
+path, nothing nulled. Never delete the asset first (that nulls the device's reference).
+
 
 ## Rewire a cue
 1. `python tools/build_audio.py --probe Name1,Name2` lists matching SoundCues / SoundWaves with class and duration.

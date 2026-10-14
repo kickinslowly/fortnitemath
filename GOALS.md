@@ -409,8 +409,21 @@ headless play, committed. Open: Now 10-12 (need Aaron / real players) and the de
 the slate covers the top half of the lintel letters at the retry spot; the HUD finish board sits over the world ALL-TIME
 board for its 10 s; boss mode's own feed still names the player on a miss.
 Decisions pending with Aaron (recommendation after the arrow):
-- Name -> DOORS OF DOOM (check fortnite.gg for title collisions; drop "Fortnite" from title, HUD tag, welcome voice line)
-- World -> Titan Peak volcano ascent; the robot host and mascot "Volt" are one character
+- [x] Name: **DOORS OF DOOM** (Aaron, 2026-10-13 night: "I'm fine with the name"). HUD title and the welcome voice line
+  renamed; logo drafts in `art/logo/` (pick: b, DOORS in the four door colours); the publish title is set at publish time
+- [x] World: **Titan Peak** (Aaron greenlit the Meshy spend for it, 2026-10-13 night); Volt is the host and mascot
+- [x] Credits (Aaron 2026-10-13: "fine with you using as much as we have already paid for"; then "greenlight the meshy and
+  mint spends"): Meshy 1,367 -> 844 permanent (Volt reactions, volcano, trophy, arch + 4 skins, gate, podium, 6 set pieces,
+  7 banners, 3 titan clips, 3 logos), and the monthly pool refilled to 1,000 at 2026-10-14 02:37Z (expires 2026-11-14); Mint 7,580 -> 5,723 (music beds x2 takes, boss, menu, fanfares, Volt/titan/crowd SFX, 11 PBR
+  surface materials). Ids in each `art/*/meshy_tasks.json`; Mint asset ids in `briefs/g9/A_audio.md` and `art/titanpeak/`
+- [x] Titan Peak pass (wave 4-5, `briefs/g9/V,A,P,T1,T2`; seen in a hooked play run 2026-10-13 ~20:10 PT, SILVER 1:52.0):
+  tier surfaces on all 340 course pieces (world-aligned tiling, `--flat` restores), 40 door arches, BASE CAMP gate (off the
+  doors' sightline, test), podium + Titan Cup, 29 set pieces, 6 place banners, the volcano with the titan on its rim (far-art
+  settings), Volt reaction cards on the HUD, Mint music on tiers 1-5 + fanfare + door whoosh, sky digits removed.
+  Unverified: by ear (no one has listened: `tools/audio/mint/LISTEN.md`), the question panel hides the volcano during a
+  station (Aaron's call: keep the panel), door-mark lights overexpose doors up close (T1), Xbox, memory
+- [ ] Wave 6 (D2, `briefs/g9/D2_sound_titan_logo.md`): six pending cues in Verse (music_boss/menu, titan_roar, crowd_cheer/aww,
+  volt_oops), titan entrance clip, logo on the picker, finish fanfare vs medal stingers
 - Grade buttons -> ROOKIE / PRO / LEGEND leagues (Epic Rule 1.15: no content primarily targeting under-13s; a publish is needed)
 - Guards -> keep; remove station 1's; rocket/grenade launchers come from a reward chest, not guards
 - G6 flips (see G6 note) -> accept
@@ -419,8 +432,7 @@ Decisions pending with Aaron (recommendation after the arrow):
   concept (9), Volt textured 20k-tri model (30), rig (5), 7 clips (21: idle, Big Wave Hello, YMCA, Funny Dancing,
   Victory Cheer, Cheer Both Hands Up, Finger Wag No), Volt cheering HUD portrait (9). Task ids: `art/medals/`,
   `art/mascot/meshy_tasks.json`
-- Mint -> Aaron authorises one tiny audio job in his session to learn the price (7,580 credits, period ends 2026-10-21,
-  write tools gated)
+- [x] Mint price learned: a 2 s SFX = 5 credits, a 60 s music bed = ~47, a PBR material set = ~30-60
 Probe session before probe-dependent builds (~2 h; list in `sources/spectacle.md` §7 and `sources/gamification.md` §16): time of
 day Hour10/14/17/19 + `cameraFilter` frames; volcano-scale mesh at +2 km draw distance; `Powerup_VFX` / `vfx_creator` aura that
 follows a player; `PlayerReference` hologram; `CrowdVolume`; `CameraFocus`/`FixedPoint`; `PP_ActionLines` + partial post-process

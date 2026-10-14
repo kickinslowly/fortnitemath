@@ -354,17 +354,17 @@
         "limiting_db": 2.6
       },
       "welcome": {
-        "text": "Welcome to Fortnite Math!",
-        "spoken": "Welcome to Fortnite Math!",
+        "text": "Welcome to Doors of Doom!",
+        "spoken": "Welcome to Doors of Doom!",
         "lang": "en-us",
         "speed": 0.95,
         "tail": "std",
         "file": "am_michael/welcome.wav",
-        "duration_s": 1.86,
+        "duration_s": 1.901,
         "cap_s": 4.0,
         "peak_dbfs": -1.0,
-        "lufs": -13.2,
-        "limiting_db": 3.3
+        "lufs": -13.1,
+        "limiting_db": 5.4
       },
       "choose": {
         "text": "Choose your grade and your skill.",

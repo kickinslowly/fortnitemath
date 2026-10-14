@@ -1163,7 +1163,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Hud := fnm_hud{}
             Hud.Attach(Joined)
             Hud.SetListener(Self)
-            Hud.SetTitle("Fortnite Math", "Choose your skill")
+            Hud.SetTitle("DOORS OF DOOM", "Choose your skill")
             Hud.ClearQuestion()
             Hud.SetClock(FnmClock(0.0))
             State := fnm_player_state{Player := Joined, Hud := Hud}
@@ -1355,7 +1355,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.ClearDelta()
         State.Hud.SetStreak("")
         State.Hud.ClearVerdictNow()
-        State.Hud.SetTitle("Fortnite Math", "Choose your skill")
+        State.Hud.SetTitle("DOORS OF DOOM", "Choose your skill")
         State.Hud.ClearQuestion()
         State.Hud.SetClock(FnmClock(0.0))
         if (First := Stations[0]):
@@ -1500,6 +1500,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                         Broadcast(FnmFeedStreak(State.Player, Milestone), "is on a {Milestone} streak!")
                 Sound(State.Player, if (State.MissedCurrent?) then fnm_cue.CorrectRetry else fnm_cue.Correct)
                 State.Hud.FlashVerdict(true, Label)
+                # Volt's card (picture only): fire when this answer makes a streak of 3 or more, else thumbs up.
+                State.Hud.ShowVolt(if (State.Streak >= 3) then fnm_volt.Fire else fnm_volt.Thumbs)
                 Pace := RecordSplit(State)
                 Solved := RecapOf(State, Item, DoorIndex, if (Pace = "") then "CORRECT!" else "CORRECT!  {Pace}")
                 AdvancePlayer(State, Station, DoorIndex, false)
@@ -1516,6 +1518,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sound(State.Player, fnm_cue.Wrong)
                 Tail := ChargeWrongDoor(State)
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind) + Tail)
+                State.Hud.ShowVolt(fnm_volt.Wag)
                 Lesson := FeedbackFor(Item, Choice)
                 Shown := State.Hud.ShowFeedback(Lesson, NamedColors.Tomato)
                 Punish(State.Player, Station, DoorIndex, Kind)
@@ -1945,6 +1948,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     Punish(Player:player, Station:fnm_station, DoorIndex:int, Kind:fnm_penalty)<suspends>:void =
         Began := GetSimulationElapsedTime()
         Print("FNM: penalty {FnmPenaltyLabel(Kind)}")
+        # Volt is shocked when the penalty lands: with its voice line, a beat after the wag HandleDoor / HandlePad showed.
+        spawn{ VoltLater(Player, fnm_volt.Shocked, PenaltyVoiceDelaySeconds) }
         InBossMode := if (Mover := PlayerStates[Player], Mover.Mode = fnm_mode.Boss) then true else false
         Wide := if (Station.RetrySpot?, not InBossMode?) then true else false
         if (InBossMode?):
@@ -2062,6 +2067,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Took := GetSimulationElapsedTime() - Began
         Print("FNM: wrong door {FnmPenaltyLabel(Kind)}: ready on the retry spot {RetryPoint(Station)} {Took} s after the verdict")
         if (Wide?, Viewer := PlayerStates[Player]):
+            # On the retry spot with all four doors in view: Volt thinks about it (the card and the quiet warble).
+            Viewer.Hud.ShowVolt(fnm_volt.Think)
+            Sound(Player, fnm_cue.VoltHmm)
             spawn{ WideLook(Viewer, RetryWideSeconds, WideMoveCm, "retry spot") }
 
     # Blends a screen effect in (FxOn) or out (FxOff) for Player only.
@@ -2540,6 +2548,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Character := MaybeCharacter?):
             Character.ReleaseFromStasis()
         State.Hud.FlashBig("GO!", NamedColors.Lime, 1.0)
+        State.Hud.ShowVolt(fnm_volt.Go)
         Sound(State.Player, fnm_cue.Go)
         Music(State)
         # The pace target is fixed at GO! (a record set during the countdown counts).
@@ -2737,6 +2746,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Sound(State.Player, fnm_cue.Wrong)
                 Tail := ChargeWrongDoor(State)
                 State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind) + Tail)
+                State.Hud.ShowVolt(fnm_volt.Wag)
                 Lesson := FeedbackFor(Item, Choice)
                 Shown := State.Hud.ShowFeedback(Lesson, NamedColors.Tomato)
                 SummonAdds(A)
@@ -2772,7 +2782,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: boss hit {State.Hits} by the player, but no boss is up")
         Sound(State.Player, fnm_cue.BossHit)
         State.Hud.FlashVerdict(true, if (Left = 1) then "DIRECT HIT!  1 TO GO" else if (Left > 1) then "DIRECT HIT!  {Left} TO GO" else "DIRECT HIT!")
+        # Volt cheers a hit that leaves the titan standing; the killing hit gets the finish board instead.
         if (Left > 0):
+            State.Hud.ShowVolt(fnm_volt.Thumbs)
             spawn{ SoundLater(State.Player, FnmHitCue(Left), HitVoiceDelaySeconds) }
         # Back to the entry first, facing the boss: the show plays out ahead of them, and the blast cannot catch them.
         SendTo(State.Player, A.Station.RetryTeleporter)
@@ -3310,6 +3322,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
         Sleep(Seconds)
         if (State := PlayerStates[Player], not State.Finished?):
             Sound(Player, Cue)
+
+    # Volt's reaction card on Player's HUD a moment later (a penalty landing: with its voice line). Pure UI: nothing here touches
+    # the run. Dropped once the player has finished or is picking (the finish board and the picker have the screen).
+    VoltLater(Player:player, Kind:fnm_volt, Seconds:float)<suspends>:void =
+        Sleep(Seconds)
+        if (State := PlayerStates[Player], not State.Finished?, not State.Picking?):
+            State.Hud.ShowVolt(Kind)
 
     # Cue a moment later whether or not the player has finished (BOSS DOWN lands after FinishPlayer).
     SoundAfter(Player:player, Cue:fnm_cue, Seconds:float)<suspends>:void =

@@ -62,7 +62,7 @@ LINES: dict[str, tuple[str, str, float, str, float]] = {
     "penalty_yeet":     ("Yeet!",                             "Yeeeet!",                           0.85, "std", 2.0),
     "no_skip":          ("No skipping!",                      "No skipping!",                      0.95, "std", 2.0),
     "guards_up":        ("Guards ahead!",                     "Guards ahead!",                     0.95, "std", 2.0),
-    "welcome":          ("Welcome to Fortnite Math!",         "Welcome to Fortnite Math!",         0.95, "std", 4.0),
+    "welcome":          ("Welcome to Doors of Doom!",         "Welcome to Doors of Doom!",         0.95, "std", 4.0),
     "choose":           ("Choose your grade and your skill.", "Choose your grade and your skill.", 1.00, "dry", 4.0),
     "boss_fight":       ("Boss fight!",                       "Boss fight!",                       0.90, "std", 2.0),
     "lifeline":         ("Lifeline!",                         "Lifeline!",                         0.90, "std", 2.0),

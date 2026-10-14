@@ -322,6 +322,38 @@ the first values (0.05 0.14 0.07 for tier 1, wall x 0.2) still read mid-bright i
 The final look is judged in play under a locked time of day (`build_island.py --time list` shows the choices; the island
 still reads `NoOverride`).
 
+### Titan Peak surfaces (2026-10-13 evening, G9 wave 5, `tools/import_titanpeak.py --materials`)
+The flat tier colours gave way to the Titan Peak world (spectacle review section 3): each tier's station hallways and the
+connectors into them wear that tier's tiling Mint material, the arena floor iron plates.
+
+| tier (stations) | place | floor | wall |
+|---|---|---|---|
+| 1 (1-2) | BASE CAMP | `t1_floor` mossy flagstones | `t1_wall` carved green-grey blocks |
+| 2 (3-4) | WATERFALL GORGE | `t2_floor` river stone | `t2_wall` blue slate strata |
+| 3 (5-6) | FROST RIDGE | `t3_floor` snow + violet ice (also the ice station's floor) | `t3_wall` purple rock, snow |
+| 4 (7-8) | OBSIDIAN DESCENT | `t4_floor` basalt hex tiles | `t4_wall` obsidian, lava cracks |
+| 5 (9-10) | MAGMA CORE | `t5_floor` lava crust | `t5_wall` red rock, lava veins |
+| arena | TITAN'S FORGE | `forge_floor` iron plates | flat tier 5 (left as it was) |
+
+Kept flat: the lintels (the dark band the door letters read against), hurdles (gold), the arena's pads and platform, the
+finish. **Tiling:** every course piece is a scaled engine cube whose UVs run 0..1 per face, so a plain material stretches with
+the actor. `M_fnm_tp_surface` (a Material built over MCP with MaterialTools) takes its UVs from the world position measured
+along the actor's own X / Y axes and picks the projection from the pixel's local-space normal (exactly one axis on a box face),
+so the stone keeps its real size on every face at any yaw (45-degree connector walls too): `TileSize` cm per repeat (250-400),
+a `Tint` that darkens the pale textures (t3_floor snow 0.3, t1_floor 0.5: the white floors glared before), `RoughnessMin` 0.6
+(the Mint roughness maps are glossy), the normal map re-expressed in world space. Each surface `M_fnm_tp_<key>` is a material
+instance of it. `build_course.py --paint-only` paints them (`SURFACES`); `--paint-only --flat` puts the flat colours back and
+`--check-paint [--flat]` checks either.
+
+### Door arches (2026-10-13 evening, `tools/build_arches.py`)
+A Meshy stone arch (`SM_fnm_tp_arch`, 8195 triangles, no collision) frames every door in its tier's skin (`M_fnm_tp_arch_t1..t5`:
+mossy grey, river teal, frost violet, obsidian with orange runes, dark slate with red runes). 520 wide x 590 tall on the floor,
+centred on the door, back 6 cm inside the door wall and front 40 cm proud of it (scale 0.839 x 2.931 x 3.103, yaw -90: the
+mesh's width is its local Y). The opening (47% of the width between the pillars, 78% of the height up to the keystone) is
+244 x 460 cm against the door prop's ~190 x 250 white frame, so nothing is in the doorway; the keystone sits on the lintel
+band behind the 3D letter (the letter's front is 52 cm out, the arch's 40). Geometry is read from each station's Lintel and
+Door bounds. Tag `fnm_arches`, labels `FNM_Sxx_ArchA..D`, 40 actors; rerun after a course rebuild.
+
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");
 there is no automatic restart. The end wall's board is a giant ALL-TIME BEST screen: the director cycles it through

@@ -38,7 +38,8 @@ def test_every_texture_has_a_png_and_every_png_is_used():
     for path in VERSE.glob("*.verse"):
         referenced |= set(re.findall(r"FNM_Art\.T_fnm_(\w+)", path.read_text(encoding="utf-8")))
     pngs = {p.stem[len("fnm_"):] for p in ART.glob("fnm_*.png")}
-    assert {"check", "cross", "slate", "tile", "medal_gold", "medal_silver", "medal_bronze", "volt"} <= referenced
+    assert {"check", "cross", "slate", "tile", "medal_gold", "medal_silver", "medal_bronze", "volt",
+            "volt_wag", "volt_thumbs", "volt_fire", "volt_shocked", "volt_go", "volt_think"} <= referenced
     assert referenced == pngs
 
 
@@ -55,7 +56,8 @@ def test_png_sizes_and_format():
                 "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256),
                 "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256),
                 "fnm_medal_gold.png": (256, 256), "fnm_medal_silver.png": (256, 256),
-                "fnm_medal_bronze.png": (256, 256), "fnm_volt.png": (256, 256)}
+                "fnm_medal_bronze.png": (256, 256), "fnm_volt.png": (256, 256),
+                **{f"fnm_volt_{k}.png": (256, 256) for k in ("wag", "thumbs", "fire", "shocked", "go", "think")}}
     for name, size in expected.items():
         width, height, depth, colour = ihdr(ART / name)
         assert (width, height) == size, name
@@ -238,13 +240,13 @@ def test_every_widget_colour_goes_through_fnmui():
 
 def test_textures_are_tinted_back_down():
     """A texture draws lifted by the same gain (the slate PNG (34, 38, 40) came out near (94, 98, 101)): the five plain
-    texture_blocks (slate, banner, verdict, and the finish board's Volt and medal) get the corrected white as their tint;
+    texture_blocks (slate, banner, verdict, the finish board's Volt and medal, and Volt's reaction card) get the corrected white as their tint;
     the tiles take their own tint. Every texture_block in the file is one of these or a tile."""
     src = ui_src()
-    for art in ("SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt"):
+    for art in ("SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard"):
         assert f"{art}.SetTint(FnmUi(NamedColors.White))" in src
     # no texture_block escapes the rule: a new one must be added here (and tinted) or it draws 3.86x too bright
-    assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt"}
+    assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard"}
     assert "    TileArt : []texture_block = array:" in src and "Art.SetTint(FnmUi(TileColor))" in src
     # white stays white: 1.0 x 0.259 x 3.86 ~ 1.0
     assert abs(1.0 * 0.259 * 3.86 - 1.0) < 0.01
@@ -533,7 +535,8 @@ def test_the_three_medal_pngs_are_the_three_metals():
 
 def test_art_pngs_are_square_with_a_transparent_surround():
     Image = pytest.importorskip("PIL.Image")
-    for name in ("fnm_medal_gold.png", "fnm_medal_silver.png", "fnm_medal_bronze.png", "fnm_volt.png"):
+    for name in ("fnm_medal_gold.png", "fnm_medal_silver.png", "fnm_medal_bronze.png", "fnm_volt.png",
+                 *(f"fnm_volt_{k}.png" for k in ("wag", "thumbs", "fire", "shocked", "go", "think"))):
         im = Image.open(ART / name).convert("RGBA")
         assert im.size == (256, 256), name
         assert all(im.getpixel(c)[3] == 0 for c in ((0, 0), (255, 0), (0, 255), (255, 255))), name   # transparent corners

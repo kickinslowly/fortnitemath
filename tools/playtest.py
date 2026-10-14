@@ -66,7 +66,7 @@ if ([WF]::GetForegroundWindow() -eq $h) { "focused" } else { "not-focused" }
 HOLDKEY = Path(__file__).parent / "holdkey.ps1"
 WINCAP = Path(__file__).parent / "wincap.ps1"
 # Keyboard scan codes for --keys.
-SCANCODES = {"W": 0x11, "A": 0x1E, "S": 0x1F, "D": 0x20, "E": 0x12, "SPACE": 0x39}
+SCANCODES = {"W": 0x11, "A": 0x1E, "S": 0x1F, "D": 0x20, "E": 0x12, "SPACE": 0x39, "ESC": 0x01}
 
 
 def shot(name, steps=None):

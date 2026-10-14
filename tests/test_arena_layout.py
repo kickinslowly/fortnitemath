@@ -257,6 +257,7 @@ def test_island_time_of_day_refuses_unknown_values_and_list_writes_nothing():
 
 
 def test_paint_stops_before_writing_when_a_material_is_missing_and_skips_actors_already_right():
+    """The flat-colour paint (--flat); the Titan Peak surfaces' own run is test_titanpeak_surfaces.py."""
     import json
     state = {}                                                            # component path -> override ref path
     actors = [{"label": "FNM_S01_Floor", "actorPath": "/lvl/f1"}, {"label": "FNM_S01_WallL", "actorPath": "/lvl/w1"},
@@ -282,21 +283,21 @@ def test_paint_stops_before_writing_when_a_material_is_missing_and_skips_actors_
     c.u.call = fake
     try:
         try:
-            c.paint()
+            c.paint(surfaces=False)
             raise AssertionError("paint ran with a material missing")
         except SystemExit as e:
             assert "floor_tier1" in str(e) and "import_art.py" in str(e)
         assert "set_properties" not in fake.tools()
         made["/proj/FNM_Art/M_fnm_wall_floor_tier1"] = True
-        c.paint()
+        c.paint(surfaces=False)
         assert fake.tools().count("set_properties") == 2                  # the floor and the wall; not the entry teleporter
         assert state == {"/lvl/f1.C": "/proj/FNM_Art/M_fnm_wall_floor_tier1.M_fnm_wall_floor_tier1",
                          "/lvl/w1.C": "/proj/FNM_Art/M_fnm_wall_tier1.M_fnm_wall_tier1"}
         fake.calls.clear()
-        c.paint()
+        c.paint(surfaces=False)
         assert "set_properties" not in fake.tools()                       # a second run writes nothing
         state["/lvl/w1.C"] = None                                         # the 2026-10-13 state: a reference emptied
-        bad = c.check_paint()
+        bad = c.check_paint(surfaces=False)
         assert len(bad) == 1 and bad[0].startswith("FNM_S01_WallL"), bad    # check_paint sees the emptied override
     finally:
         c.u.call = saved

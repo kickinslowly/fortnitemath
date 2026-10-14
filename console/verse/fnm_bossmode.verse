@@ -638,6 +638,8 @@ fnm_boss_mode := class:
             spawn{ Director.Boost(State, Min(Director.MaxBoostSeconds, Director.BoostSeconds + Director.StreakBonusSeconds * (State.Streak - 1) * 1.0)) }
             for (Milestone : array{3, 5, 7, 10}, Milestone = State.Streak):
                 Director.Broadcast(FnmFeedStreak(State.Player, Milestone), "is on a {Milestone} streak!")
+        # Volt's card (picture only): a right pad, whether or not a boss is up to take the hit.
+        State.Hud.ShowVolt(fnm_volt.Thumbs)
         L := Level
         Need := FnmBmLevel(L).Hits
         if (L >= 1, BossAlive?, TeamHits < Need, Agent := BossAgent?, Character := Agent.GetFortCharacter[]):
@@ -689,6 +691,7 @@ fnm_boss_mode := class:
         Director.Sound(State.Player, fnm_cue.Wrong)
         spawn{ Director.SoundLater(State.Player, fnm_cue.BmBossWrong, TauntDelaySeconds) }
         State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
+        State.Hud.ShowVolt(fnm_volt.Wag)
         Shown := State.Hud.ShowFeedback(Director.FeedbackFor(Item, Choice), NamedColors.Tomato)
         Wave()
         if (BossAlive?):

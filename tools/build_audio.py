@@ -17,13 +17,17 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
                                                # the same, but ANNOUNCER_CUES carry that voice's imported SoundWave
     python tools/build_audio.py --announcer am_michael --boss-voice am_onyx
                                                # ... and BOSS_CUES (the boss's own lines) carry am_onyx's imported waves
-    python tools/build_audio.py --list         # placed devices with their sound, its source (stock / announcer)
-                                               # and the read-back options
+    python tools/build_audio.py --announcer am_michael --boss-voice am_onyx --mint
+                                               # ... and MINT_CUES (music beds, finish fanfare, door whoosh, Volt, titan,
+                                               # crowd) carry the project's imported Mint waves (FNM_Audio/mint/<cue>)
+    python tools/build_audio.py --list         # placed devices with their sound, its source (stock / announcer / boss /
+                                               # mint) and the read-back options
     python tools/build_audio.py --probe Mud,Countdown_Go
                                                # find_assets matches per name (SoundCue + SoundWave), class, duration
 """
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -46,6 +50,15 @@ ANNOUNCER_CUES = [
 # recommended voice is am_onyx. A separate list because it is a separate voice, wired separately.
 BOSS_CUES = [
     "bm_boss_l1", "bm_boss_l2", "bm_boss_l3", "bm_boss_l4", "bm_boss_l5", "bm_boss_wrong", "bm_boss_hit", "bm_boss_dead",
+]
+# Mint music and sound effects (console/AUDIO.md "Mint music and SFX"): waves made by tools/make_mint_audio.py
+# (tools/audio/mint/<cue>.wav), imported into /<mount>/FNM_Audio/mint/<cue>.<cue> and put on their devices with --mint.
+# The first seven have a stock sound that stays until the wave is imported; the rest have none (placed only once their
+# wave is imported, else a logged "(not wired)" in play). The folder name "mint" is reserved: it is not a voice.
+MINT_FOLDER = "mint"
+MINT_CUES = [
+    "music_t1", "music_t2", "music_t3", "music_t4", "music_t5", "finish", "door_open",
+    "volt_yay", "volt_hmm", "music_boss", "music_menu", "titan_roar", "volt_oops", "crowd_cheer", "crowd_aww",
 ]
 # The voice pack's SoundWaves, imported through the UEFN GUI (tools/audio/announcer/<voice>/<cue>.wav).
 VO_FOLDER = "FNM_Audio"
@@ -169,7 +182,24 @@ CUES = {
     "bm_victory": (f"{CR}/Modes/Match/Match_Win_01_Cue.Match_Win_01_Cue", {}),
     "bm_gates": (f"{CR}/Gadgets/SlidingDoor/SlidingDoor_Open_Cue.SlidingDoor_Open_Cue", {}),
     "bm_weapon": (f"{TOYS}/PowerUp/Creative_PowerUp_Collect_Cue.Creative_PowerUp_Collect_Cue", {}),
+    # Mint-only cues (G9, MINT_CUES): no library stand-in, so each plays only once its wave is imported and wired (--mint),
+    # else it is a logged no-op. Same order as the fnm_cue enum (fnm_audio.verse).
+    "volt_yay": (None, {}),
+    "volt_hmm": (None, {}),
 }
+# Mint-only cues whose Verse side (enum id in fnm_audio.verse, tag class in fnm_tags.verse, the director call) is a later
+# round. They live apart from CUES because tests/test_audio_cues.py asserts list(CUES) == the enum. When a cue's Verse
+# side lands, move its row into CUES, in enum order, and add the member to that test's MEMBERS. Until then build() skips
+# it with a message, so importing its wave early is harmless.
+PENDING_CUES = {
+    "music_boss": (None, LOOP),       # race arena + Boss Battle mode
+    "music_menu": (None, LOOP),       # the grade picker
+    "titan_roar": (None, {}),         # the titan appears
+    "volt_oops": (None, {}),          # Volt's wag card
+    "crowd_cheer": (None, {}),        # the titan dies, the podium
+    "crowd_aww": (None, {}),          # a wrong pad
+}
+ALL_CUES = {**CUES, **PENDING_CUES}
 
 READ_BACK = list(BASE) + ["audio"]
 
@@ -242,23 +272,61 @@ def vo_path(project, voice, cue):
 def is_vo(path, cue=None):
     """True when an audio path is an imported announcer wave (for that cue, when given)."""
     parts = (path or "").split("/")
-    if len(parts) != 5 or parts[2] != VO_FOLDER:
+    if len(parts) != 5 or parts[2] != VO_FOLDER or parts[3] == MINT_FOLDER:
         return False
     return cue is None or parts[4] == f"{cue}.{cue}"
 
 
-def sources(project, voice, boss_voice=None):
+def mint_path(project, cue):
+    """The imported Mint SoundWave for a cue: /<mount>/FNM_Audio/mint/<cue>.<cue>."""
+    return f"/{project}/{VO_FOLDER}/{MINT_FOLDER}/{cue}.{cue}"
+
+
+def is_mint(path, cue=None):
+    """True when an audio path is an imported Mint wave (for that cue, when given)."""
+    parts = (path or "").split("/")
+    if len(parts) != 5 or parts[2] != VO_FOLDER or parts[3] != MINT_FOLDER:
+        return False
+    return cue is None or parts[4] == f"{cue}.{cue}"
+
+
+def asset_exists(path):
+    return u.call(ASSETS, "exists", {"path": path.split(".")[0]})["returnValue"]
+
+
+def repo_cue_tags():
+    """The cue ids whose tag class the repo's console/verse/fnm_tags.verse declares (what the next sync + BuildAll compiles)."""
+    text = (Path(__file__).resolve().parents[1] / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
+    return set(re.findall(r"^fnm_cue_(\w+) := class\(tag\)", text, re.M))
+
+
+def verse_cue_tags():
+    """The cue ids whose Verse tag class (fnm_cue_<id> := class(tag) in fnm_tags.verse) is in the project's Verse root, or
+    None when the project cannot be searched. build() places only these: a device cannot be tagged with a class the project
+    has not compiled (2026-10-13: set_properties answers "_Verse.fnm_cue_volt_yay is not valid Class for property
+    'InternalTag'", and the half-built device is left behind)."""
+    try:
+        r = u.call("ValkyrieToolset.VerseToolset", "Grep", {"pattern": "/^fnm_cue_\\w+ := class\\(tag\\)/", "pathGlob": "**/fnm_tags.verse"})
+    except RuntimeError:
+        return None
+    hits = r.get("returnValue", []) if isinstance(r, dict) else r
+    ids = {m.group(1) for h in hits for m in [re.match(r"fnm_cue_(\w+) := class", h.get("lineText", ""))] if m}
+    return ids or None
+
+
+def sources(project, voice, boss_voice=None, mint=False, exists=None):
     """cue -> asset path to place: the stock CUES path, or for ANNOUNCER_CUES the voice's imported SoundWave (and for
-    BOSS_CUES the boss voice's) when it exists. A missing wave keeps the stock sound (or, with none, leaves the cue
-    unwired) and is reported."""
-    out = {cue: asset for cue, (asset, _) in CUES.items() if asset}
+    BOSS_CUES the boss voice's, for MINT_CUES the Mint wave) when it exists. A missing wave keeps the stock sound (or,
+    with none, leaves the cue unwired) and is reported. exists(path) -> bool is the asset check (tests pass a fake)."""
+    exists = exists or asset_exists
+    out = {cue: asset for cue, (asset, _) in ALL_CUES.items() if asset}
     for who, cues, name in ((voice, ANNOUNCER_CUES, "announcer"), (boss_voice, BOSS_CUES, "boss voice")):
         if not who:
             continue
         missing = []
         for cue in cues:
             path = vo_path(project, who, cue)
-            if u.call(ASSETS, "exists", {"path": path.split(".")[0]})["returnValue"]:
+            if exists(path):
                 out[cue] = path
             else:
                 missing.append(cue)
@@ -266,15 +334,40 @@ def sources(project, voice, boss_voice=None):
               f"/{project}/{VO_FOLDER}/{who}"
               + (f"; NOT IMPORTED, {'stock kept' if name == 'announcer' else 'not wired'}: {', '.join(missing)}"
                  if missing else ""))
+    if mint:
+        stock, bare, found = [], [], 0
+        for cue in MINT_CUES:
+            path = mint_path(project, cue)
+            if exists(path):
+                out[cue] = path
+                found += 1
+            elif ALL_CUES[cue][0]:
+                stock.append(cue)
+            else:
+                bare.append(cue)
+        print(f"mint: {found} of {len(MINT_CUES)} waves found under /{project}/{VO_FOLDER}/{MINT_FOLDER}"
+              + (f"; NOT IMPORTED, stock kept: {', '.join(stock)}" if stock else "")
+              + (f"; NOT IMPORTED, not wired: {', '.join(bare)}" if bare else ""))
     return out
 
 
-def build(voice=None, boss_voice=None):
+def build(voice=None, boss_voice=None, mint=False):
     project = project_id()
-    chosen = sources(project, voice, boss_voice)
+    chosen = sources(project, voice, boss_voice, mint)
     print("removed", clear(), "old audio players")
-    # A cue is placed when it has a sound to carry: its stock asset, or an imported voice line on an announcer-only cue.
-    wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in CUES.items() if cue in chosen]
+    # A cue is placed when it has a sound to carry (its stock asset, or an imported wave on a cue with none) and its
+    # Verse tag class is compiled: the director finds a device by that tag, and a dead tag reference is not worth placing.
+    declared = repo_cue_tags()
+    compiled = verse_cue_tags()
+    if compiled is None:             # the project cannot be searched: trust the repo's file
+        compiled = declared
+    skipped = [cue for cue in chosen if cue not in compiled]
+    waiting = [cue for cue in skipped if cue in declared]
+    if waiting:
+        print(f"SKIPPED, tag class declared in the repo's fnm_tags.verse but not in the project yet (rerun after the next sync + BuildAll): {', '.join(waiting)}")
+    if [cue for cue in skipped if cue not in declared]:
+        print(f"SKIPPED, no fnm_cue_<id> tag class in any fnm_tags.verse (the cue's Verse side is not built): {', '.join(cue for cue in skipped if cue not in declared)}")
+    wired = [(cue, chosen[cue], opts) for cue, (asset, opts) in ALL_CUES.items() if cue in chosen and cue not in skipped]
     problems = 0
     for n, (cue, asset, opts) in enumerate(wired):
         r = u.call(DEV, "PlaceDevice", {"assetPath": ref(PLAYER), "transform": xform(PARK[0] + PITCH * n, PARK[1], PARK[2])})
@@ -282,18 +375,25 @@ def build(voice=None, boss_voice=None):
         u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
         u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label(cue)})
         # Tag first: adding the tag component rebuilds a device's instanced sub-objects (uefn-mcp skill).
-        verse_tags(actor, project, [f"fnm_cue_{cue}"])
+        try:
+            verse_tags(actor, project, [f"fnm_cue_{cue}"])
+        except RuntimeError as e:    # the class is not compiled after all: do not leave a half-built device behind
+            u.call(SCENE, "remove_from_scene", {"actor": ref(actor)})
+            print(f"{label(cue):24} SKIPPED, the tag does not resolve ({str(e).splitlines()[0][:90]}); device removed")
+            problems += 1
+            continue
         want = {**BASE, **opts, **({"volume": VO_VOLUME} if is_vo(asset) else {}), "audio": asset}
         props_set(actor, {k: (ref(v) if k == "audio" else v) for k, v in want.items()})
         _, bad = check(actor, want)
         problems += len(bad)
-        source = ("boss" if cue in BOSS_CUES else "announcer") if is_vo(asset) else "stock"
+        source = ("boss" if cue in BOSS_CUES else "announcer") if is_vo(asset) else "mint" if is_mint(asset) else "stock"
         print(f"{label(cue):24} {source:9} {asset.rsplit('/', 1)[-1].split('.')[0]:44} {'OK' if not bad else 'MISMATCH ' + '; '.join(bad)}")
     u.call(ASSETS, "save_assets", {"asset_paths": []})
-    missing = [cue for cue in CUES if cue not in chosen]
+    missing = [cue for cue in ALL_CUES if cue not in chosen]
     voiced = sum(1 for _, asset, _ in wired if is_vo(asset))
-    print(f"{len(wired)} of {len(CUES)} cues wired ({voiced} announcer, {len(wired) - voiced} stock), {problems} read-back "
-          f"mismatches; no library sound: {', '.join(missing) or 'none'}")
+    minted = sum(1 for _, asset, _ in wired if is_mint(asset))
+    print(f"{len(wired)} of {len(ALL_CUES)} cues wired ({voiced} announcer, {minted} mint, {len(wired) - voiced - minted} stock), "
+          f"{problems} read-back mismatches; no sound: {', '.join(missing) or 'none'}")
     return problems
 
 
@@ -321,8 +421,8 @@ def list_placed():
     accepted only on ANNOUNCER_CUES), duration, the read-back options, and two checks against CUES: the live
     properties (props) and the saved options cache (cache)."""
     actors = found(TAG)
-    by_label = {label(cue): (cue, asset, opts) for cue, (asset, opts) in CUES.items()}
-    rows, problems, voiced = [], 0, []
+    by_label = {label(cue): (cue, asset, opts) for cue, (asset, opts) in ALL_CUES.items()}
+    rows, problems, voiced, minted = [], 0, [], []
     for a in actors:
         name = u.call(ACTOR, "get_label", {"actor": ref(a)})
         rows.append((name.get("returnValue", name) if isinstance(name, dict) else name, a))
@@ -333,8 +433,13 @@ def list_placed():
         if cue in ANNOUNCER_CUES + BOSS_CUES and is_vo(live, cue):
             asset, source = live, "boss" if cue in BOSS_CUES else "announcer"
             voiced.append(cue)
+        elif cue in MINT_CUES and is_mint(live, cue):
+            asset, source = live, "mint"
+            minted.append(cue)
         elif is_vo(live):
             source = "announcer?"   # a voice wave on a cue that should stay stock: check() flags it
+        elif is_mint(live):
+            source = "mint?"        # a Mint wave on a cue that is not a MINT_CUE, or on the wrong cue
         want = {**BASE, **opts, **({"volume": VO_VOLUME} if is_vo(asset) else {}), "audio": asset}
         got, bad = check(a, want) if cue else (props_get(a, READ_BACK), ["not in CUES"])
         cache = cached(a)
@@ -347,8 +452,9 @@ def list_placed():
         verdict += ", cache OK" if not cache_bad else ", cache MISMATCH " + ", ".join(cache_bad)
         print(f"{name:24} {source:10} {have.rsplit('/', 1)[-1].split('.')[0] if have else '-':42} "
               f"{dur if dur is None else round(dur, 2):>7} s | {verdict} | {opts_text}")
-    print(f"{len(actors)} audio players tagged {TAG}, {problems} mismatches; announcer on {len(voiced)} "
-          f"({', '.join(voiced) or 'none'}), stock on {len(actors) - len(voiced)}")
+    print(f"{len(actors)} audio players tagged {TAG}, {problems} mismatches; announcer/boss on {len(voiced)} "
+          f"({', '.join(voiced) or 'none'}), mint on {len(minted)} ({', '.join(minted) or 'none'}), "
+          f"stock on {len(actors) - len(voiced) - len(minted)}")
     return problems
 
 
@@ -372,10 +478,12 @@ if __name__ == "__main__":
     ap.add_argument("--announcer", metavar="VOICE", help="put that voice's imported lines on ANNOUNCER_CUES (e.g. am_michael)")
     ap.add_argument("--boss-voice", metavar="VOICE", help="put that voice's imported lines on BOSS_CUES, the boss's own "
                     "lines (e.g. am_onyx)")
+    ap.add_argument("--mint", action="store_true", help="put the project's imported Mint waves (FNM_Audio/mint/<cue>) on "
+                    "MINT_CUES: the music beds, the finish fanfare, the door whoosh, Volt, the titan and the crowd")
     a = ap.parse_args()
     if a.probe:
         probe([n for n in a.probe.split(",") if n])
     elif a.list:
         list_placed()
     else:
-        sys.exit(1 if build(a.announcer, a.boss_voice) else 0)
+        sys.exit(1 if build(a.announcer, a.boss_voice, a.mint) else 0)

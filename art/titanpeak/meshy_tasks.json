@@ -1,0 +1,41 @@
+{
+  "note": "Titan Peak art, bought 2026-10-13 evening (Aaron greenlit). Concepts nano-banana-pro (9) / nano-banana-2 (6); heroes image-to-3d meshy-7.1 textured 2K (30); set pieces meshy-6-lite textured (15); banners nano-banana-pro 16:9 transparent (9).",
+  "arch": {"concept_rejected_checker_in_opening": "01a137e9-9e13-708d-80d7-39a8a59d9755", "concept": "01a137eb-1189-7249-99f9-070399bf9210"},
+  "gate": {"concept": "01a137e9-9e5c-7526-ad5c-30e7221ca719", "image_to_3d": "01a137eb-11d3-77da-a3e8-d37ea2eb9b23"},
+  "podium": {"concept": "01a137e9-9e99-7601-ad88-4b50aec00cf2", "image_to_3d": "01a137eb-1492-7251-b7ca-898bfd88705f"},
+  "set_pieces": {
+    "jungle_pillar": {"concept": "01a137e9-ffa4-7707-a2f9-3151daeea125", "image_to_3d": "01a137eb-685f-713e-ae2f-455ace8d9da2"},
+    "river_boulders": {"concept": "01a137e9-fff3-7152-a0be-193c799377ac", "image_to_3d": "01a137eb-6b22-77f6-a97d-32061ac5f24d"},
+    "ice_crystals": {"concept": "01a137ea-0033-708c-8f56-31e8be721e8d", "image_to_3d": "01a137eb-6e4c-7199-a3cb-17b369caf29c"},
+    "obsidian_spire": {"concept": "01a137ea-0076-7005-8b8b-f8ebad26d10c", "image_to_3d": "01a137eb-710f-7799-a7e1-c846982885ec"},
+    "lava_vent": {"concept": "01a137ea-00b7-718d-9685-3504c20ab10e", "image_to_3d": "01a137eb-7798-721d-b656-eeb4dd2af790"},
+    "rune_stone": {"concept": "01a137ea-00f7-7054-973d-da8980f8ff96", "image_to_3d": "01a137eb-7a31-77a4-8277-58d37b1d8ee5"}
+  },
+  "banners": {
+    "base_camp": "01a137ea-401e-76c0-a3e6-c1434c73c10d",
+    "waterfall_gorge": "01a137ea-4065-76a2-8fde-83f28f539256",
+    "frost_ridge": "01a137ea-40ac-72b1-a2cb-583963b0e4c2",
+    "obsidian_descent": "01a137ea-40fd-7549-96ef-7cbf1309b87e",
+    "magma_core": "01a137ea-4161-73d8-8edf-398d9336372b",
+    "titans_forge": "01a137ea-41b3-7135-84cc-cbbf76cc5dba",
+    "hall_of_champions": "01a137ea-426e-7374-bb53-74032067cabb"
+  },
+  "titan_clips": {
+    "rig": "01a12783-b858-718d-bd38-ab2923d7ecc1",
+    "jump_slam_382": "01a137e9-b1a0-758b-a0bc-d6568620209b",
+    "zombie_scream_386": "01a137e9-b2b9-73ff-bf58-83c0f8d1f864",
+    "shouting_angrily_51": "01a137e9-b3a9-7525-b1f2-1da6cf7cc92b"
+  },
+  "arch_image_to_3d": "01a137ec-eab1-707b-b0d5-60986ab68e0a",
+  "arch_retexture": {"t1_jungle": "base (the image_to_3d texture)", "t2_river": "01a137ef-2ffd-7558-82ea-3d2bdc552007",
+                     "t3_frost": "01a137ef-3741-7510-80fc-6bac31132275", "t4_obsidian": "01a137ef-3e74-76d1-a241-84d1bcdf73c4",
+                     "t5_magma": "01a137ef-4613-73f0-93f6-68c494ae2208"},
+  "mint_materials": {
+    "t1_floor": "w17293sak8kp7774zazcg76ybh8g9pje", "t1_wall": "w172t2pwqr1p6yms2fk0at7xcx8g95v3",
+    "t2_floor": "w17784264e6agd96at1ysdwsas8g8tjn", "t2_wall": "w17f2t64hr3xjx6b9sx7wndj118g98hz",
+    "t3_floor": "w173da5cdgg4tf83h9dbhr75kx8g89q3", "t3_wall": "w172vc2m7zt38haxxj1f5wkpgn8g82px",
+    "t4_floor": "w17e2vyx0rm3fk1pydhn2qjr758g9bdr", "t4_wall": "w179y2c9shp8jm32b8sz220q2d8g9nr2",
+    "t5_floor": "w17b53mtgjth8tdp09dam2vqb58g9amy", "t5_wall": "w17dq561xxb1h5rrw1qhjm9b5d8g9kpg",
+    "forge_floor": "w170thwpwrpy0f4n9y7j1bxkfh8g83cc"
+  }
+}

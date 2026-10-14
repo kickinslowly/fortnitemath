@@ -36,6 +36,9 @@ NUMBER_IDS = {
 # Out of reach of play: a Yeet skydive (PENALTIES.md) may pass the sky digits; nothing should snag a player.
 GHOST = {"bNoCollision": True}
 SKY_SEED = 20261005
+# Off since 2026-10-13: the Titan Peak volcano (tools/build_landmarks.py) owns the sky beyond the walls, and the pastel digits
+# floated in front of it from station 1 (the race review's spectacle plan replaces them with it). --remove-sky clears placed ones.
+SKY_DIGITS = False
 SKY_PER_SIDE = 3
 SKY_DIST = (2500, 5000)   # from the hallway centre line, well outside the walls (half width ~1150)
 SKY_Z = (900, 2600)
@@ -171,7 +174,8 @@ def station(k, b):
     else:
         for side, x in (("L", left - 110), ("R", right + 110)):
             place(PLANT, f"{pre}_Plant{side}", x, oy + 110, oz)
-    sky_digits(k, cx, oy, oz, random.Random(SKY_SEED + k))
+    if SKY_DIGITS:
+        sky_digits(k, cx, oy, oz, random.Random(SKY_SEED + k))
     return door_y
 
 
@@ -311,7 +315,16 @@ def main():
     ap.add_argument("--stations", type=int, default=0, help="only the first N stations (0 = all) and no finish")
     ap.add_argument("--only", type=int, default=0, help="rebuild only station N's decor, and no finish")
     ap.add_argument("--clear", action="store_true")
+    ap.add_argument("--remove-sky", action="store_true", help="only remove the floating sky digits (FNM_Dkk_Sky*), keep the rest")
     a = ap.parse_args()
+    if a.remove_sky:
+        found = u.call(c.SCENE, "find_actors", {"tag": TAG, "collision_channels": []})
+        sky = [s for s in (found if isinstance(found, list) else found.get("returnValue", []))
+               if re.match(r"FNM_D\d\d_Sky[LR]\d$", s["label"])]
+        for s in sky:
+            u.call(c.SCENE, "remove_from_scene", {"actor": c.ref(s["actorPath"])})
+        print("removed", len(sky), "sky digits")
+        return
     if a.only:
         print("removed", clear_station(a.only), f"old station {a.only} decor actors")
     else:

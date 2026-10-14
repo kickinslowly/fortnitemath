@@ -24,3 +24,26 @@ art/mascot/raw/rig.fbx
 art/mascot/raw/volt_tpose.glb
 art/mascot/raw/volt_tpose_base_color.png
 art/mascot/raw/*.fbm/
+
+# Mint audio: the processed wavs (about 100 MB) are rebuilt byte for byte from the tracked art/audio/mint/*.mp3 by
+# tools/make_mint_audio.py; tools/audio/mint/LISTEN.md says which take is in.
+tools/audio/mint/*.wav
+
+# Titan Peak, volcano, trophy (2026-10-13; task ids in each folder's meshy_tasks.json): the importers read the GLBs (re-exported
+# to *_blender.fbx by headless Blender), the arch skins' base colours and the Mint maps' base / normal / roughness PNGs;
+# everything else here is derived or unread.
+art/titanpeak/**/*_blender.fbx
+art/titanpeak/**/*.fbm/
+art/titanpeak/arch/raw/arch_t[2-5].glb
+art/titanpeak/materials/*.zip
+art/titanpeak/materials/**/04-metalness-*
+art/titanpeak/materials/**/05-height-*
+art/titanpeak/gate/raw/*_base_color.png
+art/titanpeak/podium/raw/*_base_color.png
+art/titanpeak/set/raw/*_base_color.png
+art/volcano/raw/*.fbx
+art/volcano/raw/*.fbm/
+art/volcano/raw/*_base_color.png
+art/trophy/raw/*.fbx
+art/trophy/raw/*.fbm/
+art/trophy/raw/*_base_color.png

@@ -16,7 +16,7 @@ MEMBERS = ("Countdown3 Countdown2 Countdown1 Go Correct CorrectRetry Wrong DoorO
            "MusicT2 MusicT3 MusicT4 MusicT5 BossFight BossHit BossDead DirectHit HitsLeft4 HitsLeft3 HitsLeft2 "
            "HitsLeft1 BossDown BmStart BmLevel2 BmLevel3 BmLevel4 BmLevel5 BmBossL1 BmBossL2 BmBossL3 BmBossL4 "
            "BmBossL5 BmBossWrong BmBossHit BmBossDead BmNuke BmMegaNuke BmLevelClear BmVictory BmGates "
-           "BmWeapon").split()
+           "BmWeapon VoltYay VoltHmm").split()
 
 
 def snake(member):

@@ -81,6 +81,18 @@ fnm_pick := enum:
     Boss
     Again
 
+# Volt's reaction cards (fnm_hud ShowVolt): one picture of the robot host per mood, drawn for VoltSeconds in a fixed spot on
+# the right of the screen. Go = pointing forward (the run starts), Thumbs = thumbs up and a wink (a right answer),
+# Fire = both fists up in flames (a right answer that makes a streak of 3), Wag = finger wag (a wrong door), Shocked =
+# hands on the helmet (a penalty landing), Think = hand on chin and a "?" (the retry spot). Art: tools/make_medal_art.py.
+fnm_volt := enum:
+    Go
+    Thumbs
+    Fire
+    Wag
+    Shocked
+    Think
+
 # Who hears the HUD's button clicks (the director). The HUD only reports; the listener decides what shows next.
 fnm_picker_listener := interface:
     OnPickerChoice(Player:player, Kind:fnm_pick, Index:int):void
@@ -230,6 +242,15 @@ fnm_hud := class:
     HeaderGap : float = 24.0
     VoltArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_volt, DefaultDesiredSize := vector2{X := 180.0, Y := 180.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
     MedalArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_medal_gold, DefaultDesiredSize := vector2{X := 160.0, Y := 160.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    # Volt's reaction card (ShowVolt / HideVolt): ONE 180 x 180 picture (the size is the literal in DefaultDesiredSize: a field
+    # initialiser cannot read another field), right edge 20 px in from the screen's right edge, top at y 480 (1080p): x 1720-1900,
+    # y 480-660. That spot is clear of everything else this HUD draws: under the feed (it ends y ~466 with its three rows) and the
+    # minimap (to y ~335), right of the verdict, the banner, the finish board and the left panel, above the hotbar and the boss
+    # bar (tests/test_hud_layout.py pins the rectangles). The default image is a placeholder: the card is collapsed until ShowVolt.
+    # A newer ShowVolt swaps the picture and restarts the timer (VoltGeneration, so an older timer never hides a newer card).
+    VoltCard : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_volt_go, DefaultDesiredSize := vector2{X := 180.0, Y := 180.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    VoltSeconds : float = 1.8
+    var VoltGeneration : int = 0
     # Full-screen black for the Blackout penalty (the post-process "Dark" effect only tinted the view).
     BlackScreen : color_block = color_block{DefaultColor := NamedColors.Black * FnmUiGain, DefaultOpacity := 0.0}
     # Boss mode (BOSS_MODE.md section 9): a full-screen white flash on a MEGA NUKE (above the slate, below the verdict),
@@ -312,6 +333,7 @@ fnm_hud := class:
             VerdictImage.SetTint(FnmUi(NamedColors.White))
             VoltArt.SetTint(FnmUi(NamedColors.White))
             MedalArt.SetTint(FnmUi(NamedColors.White))
+            VoltCard.SetTint(FnmUi(NamedColors.White))
             # The answer tiles: the tile texture tinted with the tile's colour (its white ring takes the colour, the
             # dark interior stays near-black) under the letter and the choice, both in that colour.
             Tiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
@@ -676,6 +698,13 @@ fnm_hud := class:
                         Alignment := vector2{X := 1.0, Y := 0.0}
                         Offsets := margin{Left := -20.0, Top := 358.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
+                    # Volt's reaction card (ShowVolt), right edge, under the feed: x 1720-1900, y 480-660 (see VoltCard).
+                    canvas_slot:
+                        Widget := VoltCard
+                        Anchors := anchors{Minimum := vector2{X := 1.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 0.0}}
+                        Alignment := vector2{X := 1.0, Y := 0.0}
+                        Offsets := margin{Left := -20.0, Top := 480.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
                     # The boss bar along the bottom edge (at 1080p y ~950..1060), under the MEGA NUKE label (which ends
                     # near y 900: 160 px higher the bar covered it, 2026-10-10 frame), centred at x 900 so its ~720 px
                     # run (x ~540..1260) clears the health bars (end x ~445) and the hotbar's ammo line (from x ~1230,
@@ -688,6 +717,7 @@ fnm_hud := class:
                         SizeToContent := true
             VerdictImage.SetVisibility(widget_visibility.Collapsed)
             Results.SetVisibility(widget_visibility.Collapsed)
+            VoltCard.SetVisibility(widget_visibility.Collapsed)
             StreakBig.SetVisibility(widget_visibility.Collapsed)
             BossText.SetVisibility(widget_visibility.Collapsed)
             RecapSteps.SetVisibility(widget_visibility.Collapsed)
@@ -1077,8 +1107,47 @@ fnm_hud := class:
                 Block.SetText(FnmText(""))
                 Block.SetVisibility(widget_visibility.Collapsed)
         SetCountdown("")
+        # The finish board has its own Volt (the header): a reaction card still up from the last answer goes.
+        HideVolt()
         if (Results := MaybeResults?):
             Results.SetVisibility(widget_visibility.Visible)
+
+    # Volt's reaction card: the picture for Kind in the fixed spot (VoltCard) for VoltSeconds, picture only. A newer call swaps
+    # the picture and restarts the timer; the director and boss mode pick the moment, this just draws it. Logs "FNM: volt <kind>"
+    # so a play log proves the call happened.
+    ShowVolt(Kind:fnm_volt):void =
+        set VoltGeneration += 1
+        var Name : string = "go"
+        if (Kind = fnm_volt.Thumbs):
+            set Name = "thumbs"
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_thumbs)
+        else if (Kind = fnm_volt.Fire):
+            set Name = "fire"
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_fire)
+        else if (Kind = fnm_volt.Wag):
+            set Name = "wag"
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_wag)
+        else if (Kind = fnm_volt.Shocked):
+            set Name = "shocked"
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_shocked)
+        else if (Kind = fnm_volt.Think):
+            set Name = "think"
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_think)
+        else:
+            VoltCard.SetImage(FNM_Art.T_fnm_volt_go)
+        VoltCard.SetVisibility(widget_visibility.Visible)
+        Print("FNM: volt {Name}")
+        spawn{ HideVoltLater(VoltGeneration) }
+
+    # Takes the card off now (and makes every older timer a no-op).
+    HideVolt():void =
+        set VoltGeneration += 1
+        VoltCard.SetVisibility(widget_visibility.Collapsed)
+
+    HideVoltLater(Generation:int)<suspends>:void =
+        Sleep(VoltSeconds)
+        if (Generation = VoltGeneration):
+            VoltCard.SetVisibility(widget_visibility.Collapsed)
 
     # The finish board's medal picture: the texture for ShowResults' Medal string (fnm_logic FnmMedal: "GOLD", "SILVER",
     # "BRONZE"). "" (boss mode may pass it) or any other word collapses the picture; the "<Medal> MEDAL" word stays beside it.

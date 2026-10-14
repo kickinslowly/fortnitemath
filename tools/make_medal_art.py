@@ -2,12 +2,15 @@
 cheering portrait come from Meshy (bought 2026-10-13, kept untracked under art/) as 1024x1024 RGBA with a transparent
 background; each becomes a 256x256 HUD texture that console/verse/fnm_ui.verse draws on the finish board.
 
-    python tools/make_medal_art.py [OUTDIR]   # writes tools/art/fnm_medal_{gold,silver,bronze}.png and fnm_volt.png
+    python tools/make_medal_art.py [OUTDIR]   # writes tools/art/fnm_medal_{gold,silver,bronze}.png, fnm_volt.png and
+                                              # fnm_volt_{wag,thumbs,fire,shocked,go,think}.png
 
     art/medals/gold_raw.png            -> fnm_medal_gold.png      (T_fnm_medal_gold,   ShowResults, Medal "GOLD")
     art/medals/silver_raw.png          -> fnm_medal_silver.png    (T_fnm_medal_silver, Medal "SILVER")
     art/medals/bronze_raw.png          -> fnm_medal_bronze.png    (T_fnm_medal_bronze, Medal "BRONZE")
     art/mascot/hud_portrait_raw.png    -> fnm_volt.png            (T_fnm_volt, the host on every finish board)
+    art/mascot/reactions/<kind>_raw.png -> fnm_volt_<kind>.png    (T_fnm_volt_<kind>, kind = wag thumbs fire shocked go think:
+                                                                  the reaction card, fnm_ui.verse ShowVolt)
 
 Per image: alpha below ALPHA_CUT (16) is zeroed (the raw silver and bronze carry a stray near-transparent pixel at the
 image edge, so their alpha bbox started at 0,0 and the medal would have shrunk), the image is cropped to the bbox of what
@@ -31,6 +34,13 @@ JOBS = (
     ("art/medals/silver_raw.png", "fnm_medal_silver.png"),
     ("art/medals/bronze_raw.png", "fnm_medal_bronze.png"),
     ("art/mascot/hud_portrait_raw.png", "fnm_volt.png"),
+    # Volt's reaction cards (Meshy, bought 2026-10-13): fnm_ui.verse ShowVolt(Player, Kind) draws one for ~1.8 s.
+    ("art/mascot/reactions/wag_raw.png", "fnm_volt_wag.png"),
+    ("art/mascot/reactions/thumbs_raw.png", "fnm_volt_thumbs.png"),
+    ("art/mascot/reactions/fire_raw.png", "fnm_volt_fire.png"),
+    ("art/mascot/reactions/shocked_raw.png", "fnm_volt_shocked.png"),
+    ("art/mascot/reactions/go_raw.png", "fnm_volt_go.png"),
+    ("art/mascot/reactions/think_raw.png", "fnm_volt_think.png"),
 )
 
 

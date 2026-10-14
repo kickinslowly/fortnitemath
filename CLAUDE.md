@@ -35,7 +35,8 @@ before UEFN work. Project-specific:
   be in another app), `tools/burst.py` (PrintWindow burst of N frames once a director line appears; the editor log can lag
   ~10 s, so `playtest.py --frames` fires late: start a burst on an early line and match frames to log times by file time),
   `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
-  (station numbers, torches, chalkboards, plants, floating sky digits, finish "100"; idempotent via `fnm_decor`, reads
+  (station numbers, torches, chalkboards, plants, finish "100"; sky digits off since 2026-10-13 (`SKY_DIGITS`, the volcano owns
+  the sky; `--remove-sky` clears placed ones); idempotent via `fnm_decor`, reads
   geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen
   billboards + podium NEW RACE / CHANGE SKILL buttons; idempotent via `fnm_finish_rig`, rerun after a course rebuild), `tools/build_guards.py`
   (hostile guard spawner per hallway, count rises by station; idempotent via `fnm_guards`; rerun after a course rebuild),
@@ -51,12 +52,14 @@ before UEFN work. Project-specific:
   `tools/build_lids.py` (invisible ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
   `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the
-  imported voice lines on its `ANNOUNCER_CUES`, plain rerun = all stock), `tools/import_art.py`
+  imported voice lines on its `ANNOUNCER_CUES`, `--mint` the imported Mint music / SFX (`tools/make_mint_audio.py` makes the
+  wavs from `art/audio/mint/*.mp3`; `tools/audio/mint/LISTEN.md`), plain rerun = all stock), `tools/import_art.py`
   (once per UEFN project: the HUD textures check, cross, slate, tile (drawn by `tools/make_verdict_art.py` +
   `tools/make_hud_art.py`) + wall-colour materials, needed before Verse compiles; keeps an existing material by default,
   because deleting one nulls it on every actor that uses it (the whole course lost its paint that way, found 2026-10-13);
   `--force` replaces them and repaints the course and doors itself),
-  `tools/build_course.py --paint-only` (paint walls and floors by tier after a cartridge swap, reads back), `--check-paint`
+  `tools/build_course.py --paint-only` (paint walls and floors by tier after a cartridge swap, reads back; Titan Peak surfaces by
+  default, world-aligned tiling master `M_fnm_tp_surface`, `--flat` = the old flat colours), `--check-paint`
   (read-only: every painted actor and door holds its material), `--door-paint` (re-apply the 40 door panels in place),
   `tools/build_door_marks.py` (3D Alphabet letter over each door's lintel + a letter-colour light; idempotent via
   `fnm_door_marks`; rerun after a course rebuild), `tools/import_mascot.py` (once per UEFN project: Volt, the robot
@@ -64,7 +67,15 @@ before UEFN work. Project-specific:
   and re-imports, which empties the placed devices' references, so rerun `build_mascot.py` after it),
   `tools/build_mascot.py` (Volt waving at station 1's start and dancing at the podium, Animated Mesh devices, no collision;
   idempotent via `fnm_mascot`; rerun after a course rebuild or `build_finish.py`), `tools/make_medal_art.py` (the finish
-  board's medal and Volt PNGs in `tools/art` from the Meshy raws in `art/medals`, `art/mascot`), `--doors-only` (swap the door
+  board's medal and Volt PNGs (+ the six Volt reaction cards) in `tools/art` from the Meshy raws in `art/medals`, `art/mascot`),
+  Titan Peak world (2026-10-13, art ids in `art/titanpeak/meshy_tasks.json`): `tools/import_titanpeak.py` (arch + 5 skins, gate,
+  podium, set pieces, banners, Mint surface materials into `FNM_TitanPeakArt`; keeps existing assets; `--props/--banners/--arch/
+  --materials/--check`), `tools/build_arches.py` (a stone arch round every answer door, tier skin; tag `fnm_arches`; `--check`),
+  `tools/build_titanpeak.py` (BASE CAMP gate on station 1's left wall, never in the doors' sightline (test), champions' podium,
+  tier set pieces, place banners; tags `fnm_titanpeak_*`; `--part/--remove/--verify`), `tools/import_landmarks.py` +
+  `tools/build_landmarks.py` (the volcano 1.5 km past the arena with the titan on its rim, the Titan Cup trophy; far art needs
+  `bIsSpatiallyLoaded` false + never-distance-cull or play drops it; `--on-podium` seats the trophy on the podium); rerun
+  arches, titanpeak and landmarks (`--on-podium`) after a course rebuild, `--doors-only` (swap the door
   props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (refit the vestibule and arena pad triggers in place with `trigger_fit`: a
   trigger senses only its StepBox, so never size one at 600 cm per unit scale; rerun after changing `TRIGGER_DEPTH`,
   `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes

@@ -60,7 +60,7 @@ Median -13.2 LUFS; spread -13.2 to -12.9.
 | penalty_yeet | Yeet! | 1.03 | 2 | -1.00 | -13.1 | 1.8 |  |
 | no_skip | No skipping! | 1.16 | 2 | -1.00 | -13.2 | 2.2 |  |
 | guards_up | Guards ahead! | 1.14 | 2 | -1.00 | -13.2 | 2.6 |  |
-| welcome | Welcome to Fortnite Math! | 1.86 | 4 | -1.00 | -13.2 | 3.3 |  |
+| welcome | Welcome to Doors of Doom! | 1.90 | 4 | -1.00 | -13.1 | 5.4 |  |
 | choose | Choose your grade and your skill. | 1.75 | 4 | -1.00 | -13.2 | 1.9 |  |
 | boss_fight | Boss fight! | 1.10 | 2 | -1.00 | -13.2 | 2.5 |  |
 | lifeline | Lifeline! | 1.09 | 2 | -1.00 | -13.2 | 5.4 |  |

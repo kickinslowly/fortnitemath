@@ -12,9 +12,11 @@ its own floor slabs, so it may run past the template's ground.
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
     python tools/build_course.py [--stations 10] [--doors 4] [--hall 3000]
-    python tools/build_course.py --paint-only   # recolour walls AND floors by tier (materials: tools/import_art.py), saves, reads back
+    python tools/build_course.py --paint-only   # dress walls AND floors by tier (the Titan Peak surfaces, tools/import_titanpeak.py
+                                                # --materials; flat colours with --flat: tools/import_art.py), saves, reads back
     python tools/build_course.py --door-paint   # re-apply each door's letter material in place (no replacing), saves, reads back
-    python tools/build_course.py --check-paint  # read-only: every door and painted wall / floor against what the build wants (exit 1 if off)
+    python tools/build_course.py --check-paint  # read-only: every door and painted wall / floor against what the build wants (exit 1 if off;
+                                                # add --flat to check against the flat colours)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
     python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
 
@@ -660,12 +662,48 @@ def paint_key(label, stations, tiers):
     return f"{kind}tier{auto_tier(int(label[5:7]), stations, tiers)}"
 
 
-def paint_jobs():
-    """[(actor, material key)] for every course actor paint() colours, plus (stations, tiers)."""
+# Titan Peak surfaces (G9 wave 5, briefs/g9/T1_surfaces_arches.md): the walls and floors of each tier's stations and connectors
+# wear that tier's tiling Mint material (tools/import_titanpeak.py --materials: M_fnm_tp_<t1_floor .. t5_wall, forge_floor>,
+# world-scale box projection, so a scaled engine cube is not stretched) instead of the flat WALL_COLOURS paint. The arena floor
+# wears forge_floor; the arena walls, the lintels (the dark band the door letters read against), the hurdles, the arena pads and
+# platform, and the finish keep their flat colours. SURFACES is the default; `--flat` paints (and checks) the old flat colours,
+# one command back: `python tools/build_course.py --paint-only --flat`.
+SURFACES = True
+SURFACE_FOLDER = "FNM_TitanPeakArt/Surfaces"
+
+
+def surface_key(label, key, stations, tiers):
+    """The Titan Peak surface (import_titanpeak.SURFACES) the actor `label` wears in place of its flat paint `key` (paint_key),
+    None when it keeps the flat colour."""
+    if key is None or key in ("lintel", "finish", "floor_finish") or key.startswith("pad_"):
+        return None
+    if label.startswith("FNM_Arena"):
+        return "forge_floor" if key.startswith("floor_") else None     # TITAN'S FORGE: iron floor, walls left as they are
+    if key == "ice":                                                   # the ice station's floor: its tier's (FROST RIDGE) floor
+        return f"t{auto_tier(int(label[5:7]), stations, tiers)}_floor"
+    m = re.fullmatch(r"(floor_)?tier(\d)", key)
+    return f"t{m[2]}_{'floor' if m[1] else 'wall'}" if m else None
+
+
+def surface_material(key):
+    return f"{project_mount()}/{SURFACE_FOLDER}/M_fnm_tp_{key}.M_fnm_tp_{key}"
+
+
+def paint_material(label, stations, tiers, surfaces=None):
+    """The material path paint() puts on actor `label` (None: not painted). surfaces None = the SURFACES default."""
+    key = paint_key(label, stations, tiers)
+    if key is None:
+        return None
+    s = surface_key(label, key, stations, tiers) if (SURFACES if surfaces is None else surfaces) else None
+    return surface_material(s) if s else wall_material(key)
+
+
+def paint_jobs(surfaces=None):
+    """[(actor, material path)] for every course actor paint() colours, plus (stations, tiers)."""
     found = [a for a in u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"] if isinstance(a, dict)]
     stations = len({a["label"][5:7] for a in found if re.match(r"FNM_S\d\d_(Wall|Lintel)", a.get("label", ""))})
     tiers = tier_count()
-    jobs = [(a, k) for a in found if (k := paint_key(a.get("label", ""), stations, tiers))]
+    jobs = [(a, m) for a in found if (m := paint_material(a.get("label", ""), stations, tiers, surfaces))]
     return jobs, stations, tiers
 
 
@@ -680,38 +718,47 @@ def wall_override(actor_path):
     return comp, first_ref(read(comp, "overrideMaterials"))
 
 
-def paint():
-    """Colour each hallway's walls AND floor by the tier played there, the finish gold (materials from
-    tools/import_art.py), then save and read every actor's override back. Idempotent (an actor already right is not
-    written); safe to rerun alone after a cartridge change (--paint-only). A missing material stops it before anything
-    is written."""
-    jobs, stations, tiers = paint_jobs()
-    missing = sorted(k for k in {k for _, k in jobs} if not exists(wall_material(k).split(".")[0]))
+def short(material):
+    """M_fnm_wall_tier1 / M_fnm_tp_t1_wall from a material path (for messages)."""
+    return (material or "None").rsplit(".", 1)[-1]
+
+
+def paint(surfaces=None):
+    """Dress each hallway's walls AND floor by the tier played there (the Titan Peak surfaces, or with surfaces=False the flat
+    colours of tools/import_art.py), the finish gold, then save and read every actor's override back. Idempotent (an actor
+    already right is not written); safe to rerun alone after a cartridge change (--paint-only). A missing material stops it
+    before anything is written."""
+    jobs, stations, tiers = paint_jobs(surfaces)
+    missing = sorted(m for m in {m for _, m in jobs} if not exists(m.split(".")[0]))
     if missing:
-        sys.exit(f"materials missing: {missing}: python tools/import_art.py {' '.join(missing)}")
+        flat = [short(m)[len("M_fnm_wall_"):] for m in missing if "/FNM_Art/" in m]
+        tp = [short(m)[len("M_fnm_tp_"):] for m in missing if "/FNM_Art/" not in m]
+        sys.exit("materials missing: " + "; ".join(([f"{flat}: python tools/import_art.py {' '.join(flat)}"] if flat else [])
+                                                   + ([f"{tp}: python tools/import_titanpeak.py --materials"] if tp else [])))
     wrote = 0
-    for a, key in jobs:
+    for a, material in jobs:
         comp, now = wall_override(a["actorPath"])
-        if now != wall_material(key):
-            props(comp, {"overrideMaterials": [ref(wall_material(key))]})
+        if now != material:
+            props(comp, {"overrideMaterials": [ref(material)]})
             wrote += 1
     u.call(ASSETS, "save_assets", {"asset_paths": []})
     bad = check_paint(jobs)
     if bad:
         sys.exit(f"{len(bad)} actors did not keep their paint after the save, e.g. " + "; ".join(bad[:4]))
-    print(f"painted {len(jobs)} actors ({wrote} written, the rest already right) over {stations} stations ({tiers} tiers); "
-          f"read back after save: all {len(jobs)} hold their material")
+    kind = "Titan Peak surfaces" if (SURFACES if surfaces is None else surfaces) else "flat colours"
+    print(f"painted {len(jobs)} actors with {kind} ({wrote} written, the rest already right) over {stations} stations "
+          f"({tiers} tiers); read back after save: all {len(jobs)} hold their material")
 
 
-def check_paint(jobs=None):
+def check_paint(jobs=None, surfaces=None):
     """Read every painted actor's override back; the list of those that do not hold the wanted material."""
     if jobs is None:
-        jobs = paint_jobs()[0]
+        jobs = paint_jobs(surfaces)[0]
     bad = []
-    for a, key in jobs:
+    for a, material in jobs:
         _, now = wall_override(a["actorPath"])
-        if now != wall_material(key):
-            bad.append(f"{a['label']} {now} != {key}")
+        if now != material:
+            bad.append(f"{a['label']} {short(now)} != {short(material)}")
     return bad
 
 
@@ -737,11 +784,11 @@ def door_paint():
           f"as its own letter's M_door_face_x")
 
 
-def check_all_paint():
+def check_all_paint(surfaces=None):
     """Read-only: every door and every painted wall / floor against what the build wants. Exit 1 when any is off."""
     doors = find_doors()
     bad = [f"{a['label']}: {p}" for a in doors if (p := door_problem(a["actorPath"], LETTERS.index(a["label"][-1])))]
-    bad += check_paint()
+    bad += check_paint(surfaces=surfaces)
     print(f"{len(doors)} doors checked; {len(bad)} paint problems" + ("" if not bad else ": " + "; ".join(bad[:6])))
     if bad:
         sys.exit(1)
@@ -894,7 +941,11 @@ if __name__ == "__main__":
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     ap.add_argument("--triggers-only", action="store_true", help="only refit the vestibule and arena pad triggers in place (trigger_fit)")
     ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
+    ap.add_argument("--flat", action="store_true", help="with --paint-only / --check-paint / a build: the old flat WALL_COLOURS "
+                                                        "paint instead of the Titan Peak surfaces")
     a = ap.parse_args()
+    if a.flat:
+        SURFACES = False
     if a.paint_only:
         paint()
     elif a.door_paint:
