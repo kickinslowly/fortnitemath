@@ -15,13 +15,13 @@
   under it (`MakeCell` in fnm_ui.verse). Aaron: "looks much better"
 - [x] One run on a new grade-6 skill in play: area-volume (index 0) auto-run to GOLD 1:29.8, questions incl. `1/2` and
   "cu units" render (2026-10-13, Q). Cook/runtime at 19 cartridges (1.7 MB slot): compiles in ~2 s, first session cook
-  ~100 s, runs. Island MEMORY at 19 still unmeasured (GUI-only Launch Memory Calculation, Aaron)
+  ~100 s, runs. Island memory at 19: 35,635 / 100,000 (Aaron's Launch Memory Calculation, 2026-10-14 14:24 UTC)
 - [ ] Aaron content review of the grade-6 library (emulator: `emulator/` with the regenerated carts.js)
 - [x] Grade-7 library (2026-10-13; Opus lead + 8 Sonnet builders, one fix round): proportional-relationships,
   percent-problems, rational-ops, linear-expressions, two-step-equations, angle-relationships, circles, probability (200
   items each; plan + "does not fit" table in LIBRARY.md; PROTOCOL §4b gained Angles + percent change). Inserted: slot 19
   cartridges. Seen in play: circles to the finish, π draws in the HUD font. Parent worked 80 samples, all right
-- [ ] Grade-8 library (after island memory at 19 is read; slot would reach ~2.4 MB)
+- [ ] Grade-8 library (unblocked 2026-10-14: memory at 19 cartridges is 35.6k of 100k; slot would reach ~2.4 MB)
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.
@@ -42,7 +42,10 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
 - [x] Every door type opens with E in play and its trigger fires on the way through (A, C, D tested 2026-10-03)
 - [ ] One test session showed "Performance Warning: See editor" on the HUD (nothing in the editor log; seen once
   in four runs). Not seen again in ~12 sessions on 2026-10-04 and not in any log; watch item. UEFN's memory panel
-  is GUI-only
+  is GUI-only. 2026-10-14: back on a session's HUD, and now the editor log names its source: the SpatialMetrics memory
+  sampler (`SpatialMetricsMemoryUsage threshold exceedance: 100% of window`), the editor's live monitor. Not the island's
+  memory (calculation 35,635 / 100,000) and not the LOD0 vertex cap. Not investigated; that it measures this PC with the
+  editor and the client both running is a guess
 - [x] Map profile chooses its penalty pool (map.json `penalties` → generated `FnmMapPenalties`, PROTOCOL §6a)
 - [x] More penalties (2026-10-04, all seen in play): Mud (slowed + sepia), Dizzy (colour swirl), Blackout (black
   screen, wake at entry); Freeze also frosts the screen. Catalog: `console/PENALTIES.md`
@@ -213,7 +216,7 @@ content rule from the same conversation: simple numbers, concept over arithmetic
   wipes a best, `Pick` restores the chosen skill's. PROTOCOL §6b
 - [ ] A 1-row board was seen; the 5-row board + CHANGE SKILL spacing is not (five finishers needed)
 - [ ] "Performance Warning: See editor" sat on the HUD for the whole session (background-throttled client); the
-  G4 watch item, still nothing in the editor log
+  G4 watch item (its source found there, 2026-10-14)
 - [x] Simple-numbers rebake of both cartridges to 1.2.0 (seeds kept): new per-item bounds tests went red on 130/200
   old order-of-ops items and 105/200 old integer items, green on the rebake; Fable's independent ast re-check of
   all 400 answers and bounds found nothing; no tier near its attempt budget
@@ -475,16 +478,25 @@ the GAME MODE box/minimap; `GetLocalParty` in a published version; accolades `Te
   skeleton (5 spare for a later host layer: wag on a wrong door, cheer on a streak, victory at the finish). Unverified:
   Volt's collision in play (flag reads back off), aspect ratios other than 16:9, the 5-row board's clearance above the
   no-podium buttons (estimate 861 vs 875 px)
-- [ ] Now 10. Gates: 2 real players in one session; one human run timed; island memory read; persistence seen surviving a
-  rejoin (Epic: published keeps it, 256 KB/player)
-- [ ] Now 11. Rename: no "Fortnite" in title, HUD tag, welcome voice line
+- [x] Memory and vertex cap (2026-10-14): Aaron's Launch Memory Calculation (14:24 UTC) passed, 35,635 / 100,000, and
+  uploaded a private version (code not read). Its log warned (a validator Warning: the calculation and sessions ran) that
+  SM_fnm_megacannon (42,866) and SM_fnm_tp_gate (43,050) are over UEFN's 30,000 LOD0 vertex cap. Both swapped in place to
+  26,181 / 27,337 (`tools/replace_mesh.py`, `tools/simplify_glb.py`: meshopt, a Blender collapse crinkled the gate), every
+  actor kept; a session's validator passed both, gate seen in play. Unverified: the cannons in play since (editor frames only), Xbox
+- [ ] New private version so the upload carries the lighter meshes (the 2026-10-14 one has the heavy ones): Launch Memory
+  Calculation, Aaron's click, at his next upload
+- [ ] Now 10. Gates: 2 real players in one session; persistence seen surviving a rejoin (Epic: published keeps it, 256
+  KB/player). Done: one human run timed (Aaron, 2026-10-13 night: 11:31, SILVER 8/10), island memory read (above)
+- [x] Now 11. Rename (2026-10-13 night): HUD title DOORS OF DOOM, the announcer's (am_michael) "Welcome to Doors of Doom!";
+  "Fortnite" is left only in Verse comments. The publish title is set at publish time (Now 12). The am_onyx and bm_george
+  takes' welcome lines in `tools/audio/announcer/manifest.json` still say Fortnite Math (not the announcer)
 - [ ] Now 12. Class pilot = UNLISTED publish (Epic: private version codes are owner-only; playtest groups are adults-only;
   `sources/class_access.md`): logo + landscape/portrait thumbnails (mandatory for releases from 2026-10-22), IARC (aim E/E10+),
   moderation; `maxPlayers` 16 -> ~30 (setting takes 1-100); then check a few kid accounts land on one server
-- [ ] Next: party HEAT (synced start, places, auto-requeue) tested with 4-8 kids; pillar of light + boost trail; Shield/Strike;
-  Redemption at the boss; medal v2 + brag card; arena pads in one row + bigger titan; host controls + misconception radar;
-  accolades; volcano on the horizon (draw-distance probe first)
-- [ ] Later: Trap Dex + Daily Mix; Titan Peak biome pass + door arch kit; mascot/host Volt; podium ceremony (hologram, crowd);
-  custom music; team relay; grade 7-8 cartridges
-- [ ] Deadlines: Meshy monthly credits reset 2026-10-14 02:37Z; Mint period ends 2026-10-21; Discover thumbnails + logo required
-  to publish/update from 2026-10-22
+- [ ] Next: party HEAT (synced start, places, auto-requeue) tested with 4-8 kids; Shield/Strike; Redemption at the boss;
+  medal v2 + brag card; arena pads in one row + bigger titan; host controls + misconception radar; accolades. Done since:
+  pillar of light + boost trail (wave 6 F), the volcano on the horizon (Titan Peak)
+- [ ] Later: Trap Dex + Daily Mix; podium ceremony (hologram); team relay; grade-8 cartridges. Done since: Titan Peak pass +
+  door arches, Volt as host (world + HUD reaction cards), custom music (Mint), crowd cheer at the podium, grade 7
+- [ ] Deadlines: Mint period ends 2026-10-21; Discover thumbnails + logo required to publish/update from 2026-10-22 (ready in
+  `art/keyart/out`); the Meshy monthly pool (1,000, refilled 2026-10-14 02:37Z) expires 2026-11-14
