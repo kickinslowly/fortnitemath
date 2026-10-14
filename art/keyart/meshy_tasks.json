@@ -1,0 +1,3 @@
+{"note": "DOORS OF DOOM Discover art, 2026-10-13. nano-banana-pro image-to-image from an editor capture of station 1 + art/logo/logo_b_raw.png + art/mascot/hud_portrait_raw.png + art/boss/concept.png; art-only = the same image with the logo removed (input_task_id). tools/make_keyart.py crops them to 1920x1080 / 1080x1920.",
+ "landscape_logo": "01a13869-1f21-7104-8640-683e2e02466c", "portrait_logo": "01a13869-27bc-7120-9f58-781ffa4322f0",
+ "landscape_art": "01a1386b-785b-77ef-941f-a76cd8db723c", "portrait_art": "01a1386b-7a10-7711-a4a0-6c55eafbe85f"}
