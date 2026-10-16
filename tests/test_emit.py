@@ -41,6 +41,8 @@ def test_unicode_profile():
     assert render("3^2", "unicode") == "3²"
     assert render("(1 + 2)^3 × 2", "unicode") == "(1 + 2)³ × 2"
     assert render("10^23", "unicode") == "10²³"
+    assert render("10^−2 × 2^−10", "unicode") == "10⁻² × 2⁻¹⁰"  # grade 8: negative exponents
+    assert render("5 − 2^3", "unicode") == "5 − 2³"  # a minus not after ^ stays
     assert render("2^(1 + 1)", "unicode") == "2^(1 + 1)"
     assert render("3 × 4", "unicode") == "3 × 4"
 

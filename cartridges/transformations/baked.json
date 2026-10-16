@@ -1,0 +1,3994 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "transformations",
+  "version": "1.0.0",
+  "title": "Transformations",
+  "subtitle": "Slide, Flip, Turn & Dilate Points",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.A.1.A",
+    "CCSS.MATH.CONTENT.8.G.A.1.B",
+    "CCSS.MATH.CONTENT.8.G.A.2",
+    "CCSS.MATH.CONTENT.8.G.A.3",
+    "CCSS.MATH.CONTENT.8.G.A.4"
+  ],
+  "seed": 20261037,
+  "items_per_tier": 40,
+  "bounds": "Coordinates and transformations (PROTOCOL 4b, grade 8). Every point is an integer pair of size 10 or less before every move and after every rigid move; slides are 1-10 per axis (1-9 when both axes move); turns are 90 degrees (CW or CCW) and 180 degrees about (0, 0); flips are over the x-axis and the y-axis; dilations are about (0, 0) by scale factor 2, 3, 4, 5 or 1/2, 1/3, 1/4, only on coordinates that divide, so every image is an integer pair of size 20 or less and every product or quotient is a times-table fact (both values 10 or less). Side lengths are 2-10 before and 2-20 after a dilation; angles are multiples of 10 from 10 to 180. Rules are written (x + a, y - b) with a, b of size 10 or less. A distractor may leave these bounds (it is a wrong answer), but a right answer and every step to it stay inside.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Slides",
+      "description": "Slide points left, right, up and down, read a slide off two points, and write its rule."
+    },
+    {
+      "tier": 2,
+      "name": "Flips",
+      "description": "Reflect points over the x-axis and the y-axis. A flip changes one sign."
+    },
+    {
+      "tier": 3,
+      "name": "Turns",
+      "description": "Turn points 90 or 180 degrees about (0, 0). CW is clockwise, CCW is counterclockwise."
+    },
+    {
+      "tier": 4,
+      "name": "Dilations",
+      "description": "Dilate from (0, 0): multiply both coordinates by the scale factor."
+    },
+    {
+      "tier": 5,
+      "name": "Move Sequences",
+      "description": "Do two moves in order, and tell congruent from similar."
+    }
+  ],
+  "misconceptions": {
+    "REVERSED_DIRECTION": {
+      "student": "Right and up add. Left and down subtract. Yours went the opposite way.",
+      "teacher": "Moves the opposite way on every axis involved (adds for left or down, subtracts for right or up)."
+    },
+    "HALF_REVERSED": {
+      "student": "One of your directions is backwards. Right and up add; left and down subtract.",
+      "teacher": "Applies the correct amount on both axes but reverses the direction on one of them."
+    },
+    "SWAPPED_AMOUNTS": {
+      "student": "Left or right changes x, up or down changes y. Match each amount to its axis.",
+      "teacher": "Swaps the two amounts between the axes (the horizontal amount goes to y and the vertical to x)."
+    },
+    "ONE_AXIS": {
+      "student": "A slide that goes two ways changes both x and y. Do both parts.",
+      "teacher": "Applies only one of the two parts of the slide."
+    },
+    "WRONG_AXIS": {
+      "student": "Left and right change x. Up and down change y.",
+      "teacher": "Applies a horizontal slide to y (or a vertical slide to x)."
+    },
+    "IMAGE_AS_ANSWER": {
+      "student": "That is where the first point went. Use the same slide on the new point.",
+      "teacher": "Gives the image of the example point instead of applying the slide to the asked point."
+    },
+    "ADDED_COORDS": {
+      "student": "Find the slide first (end minus start), then add it to the new point.",
+      "teacher": "Adds the example image's coordinates to the asked point instead of finding the slide."
+    },
+    "SIZE_CHANGES": {
+      "student": "Slides, flips and turns keep every length the same. Nothing doubles.",
+      "teacher": "Thinks a rigid motion scales a length (doubles or halves it)."
+    },
+    "LENGTH_CHANGES": {
+      "student": "Moving a shape does not change its length. The distance moved is not added.",
+      "teacher": "Adds or subtracts the distance moved from the length."
+    },
+    "ANGLE_CHANGES": {
+      "student": "Slides, flips and turns keep every angle exactly the same.",
+      "teacher": "Believes a rigid motion changes an angle (supplement, complement or doubled)."
+    },
+    "FLIP_SUPPLEMENT": {
+      "student": "A flip reverses direction but keeps the angle the same size.",
+      "teacher": "Replaces an angle by its supplement (180 minus the angle) after a reflection."
+    },
+    "REFLECTION_NEGATES": {
+      "student": "A flip turns the picture around, but an angle's size is never negative.",
+      "teacher": "Thinks a reflection makes the angle measure negative."
+    },
+    "WRONG_MIRROR": {
+      "student": "Over the x-axis only y changes sign. Over the y-axis only x does.",
+      "teacher": "Reflects over the other axis."
+    },
+    "BOTH_SIGNS": {
+      "student": "A flip over one axis changes just one sign. Both signs is a 180 turn.",
+      "teacher": "Negates both coordinates (a half turn) for a reflection."
+    },
+    "SWAPPED_XY": {
+      "student": "Swapping x and y is a flip over a slanted line, not over an axis.",
+      "teacher": "Swaps the coordinates (reflection over y = x) instead of changing a sign."
+    },
+    "IMAGE_AS_START": {
+      "student": "That is the image. Flip it back over the same axis to find the start.",
+      "teacher": "Gives the image itself when asked for the start point (does not undo the reflection)."
+    },
+    "TURN_FOR_FLIP": {
+      "student": "A 180 turn changes both signs. A flip over one axis changes only one.",
+      "teacher": "Picks a half turn for a reflection (checks one coordinate only)."
+    },
+    "SLIDE_FOR_FLIP": {
+      "student": "A slide moves every point the same way. A flip changes a sign.",
+      "teacher": "Picks a slide by the coordinate's size for a reflection."
+    },
+    "NOT_ON_AXIS": {
+      "student": "Only a point ON the axis stays put. Check that the other coordinate is 0.",
+      "teacher": "Picks a point that is not on the axis (it moves when reflected)."
+    },
+    "NOTHING_CHANGES": {
+      "student": "A flip moves every point off the axis to the other side. A sign changes.",
+      "teacher": "Believes a reflection changes no coordinate's sign."
+    },
+    "WRONG_TURN": {
+      "student": "CCW is against the clock hands, CW is with them. Check your direction.",
+      "teacher": "Turns the right amount in the opposite direction."
+    },
+    "SWAP_ONLY": {
+      "student": "A 90 turn swaps x and y AND changes one sign. Swapping alone is a flip.",
+      "teacher": "Swaps the coordinates without a sign change (a reflection over y = x)."
+    },
+    "REFLECTED_INSTEAD": {
+      "student": "Changing one sign is a flip, not a turn. A turn also swaps x and y.",
+      "teacher": "Negates one coordinate (a reflection) when a rotation was asked."
+    },
+    "HALF_FOR_QUARTER": {
+      "student": "180 changes both signs. A 90 turn swaps x and y too.",
+      "teacher": "Uses a half turn for a quarter turn."
+    },
+    "QUARTER_FOR_HALF": {
+      "student": "A 180 turn keeps x and y where they are and changes both signs.",
+      "teacher": "Uses a quarter turn for a half turn."
+    },
+    "ADDED_FACTOR": {
+      "student": "Scale factor multiplies. Multiply each coordinate by it.",
+      "teacher": "Adds the scale factor instead of multiplying by it."
+    },
+    "ONE_COORD": {
+      "student": "A dilation scales both x and y, not just one.",
+      "teacher": "Scales only one coordinate."
+    },
+    "INVERTED_FACTOR": {
+      "student": "A factor below 1 shrinks (divide by the bottom). Above 1 it grows.",
+      "teacher": "Uses the reciprocal of the scale factor (enlarges for a shrink, or the reverse)."
+    },
+    "SUBTRACTED_DENOM": {
+      "student": "Scale factor 1/2 means half, not take away 2.",
+      "teacher": "Subtracts the denominator instead of dividing by it."
+    },
+    "DIFFERENCE": {
+      "student": "Scale factor is new over old (a ratio), not new minus old.",
+      "teacher": "Subtracts the lengths or coordinates to get the scale factor."
+    },
+    "IMAGE_AS_FACTOR": {
+      "student": "The scale factor is new divided by old, not the new number itself.",
+      "teacher": "Gives the new length or coordinate as the scale factor."
+    },
+    "SAME_SIZE": {
+      "student": "A dilation changes size. Slides, flips and turns do not.",
+      "teacher": "Believes a dilation keeps the size (treats it as rigid)."
+    },
+    "AREA_FACTOR": {
+      "student": "Lengths grow by the factor itself. The factor squared is for area.",
+      "teacher": "Multiplies the length by the square of the scale factor."
+    },
+    "ANGLES_SCALE": {
+      "student": "A dilation scales lengths, never angles. An angle stays the same.",
+      "teacher": "Multiplies or divides an angle by the scale factor."
+    },
+    "CENTER_MOVES": {
+      "student": "The center of a dilation stays put. (0, 0) times anything is (0, 0).",
+      "teacher": "Moves the center of dilation (adds the factor to the origin)."
+    },
+    "GROW_SHRINK_SWAP": {
+      "student": "Factor above 1 grows the figure. Factor below 1 shrinks it.",
+      "teacher": "Mixes up which scale factors enlarge and which shrink."
+    },
+    "ORDER_SWAP": {
+      "student": "Do the moves in the order given. Slide then flip is not flip then slide.",
+      "teacher": "Applies the two moves in the reverse order."
+    },
+    "ONLY_FIRST": {
+      "student": "There is a second move. Do both, in order.",
+      "teacher": "Stops after the first move."
+    },
+    "ONLY_SECOND": {
+      "student": "The first move changes the point too. Do both, in order.",
+      "teacher": "Applies only the second move to the starting point."
+    },
+    "RIGID_CHANGES_SIZE": {
+      "student": "Slides, flips and turns keep size. Only a dilation changes it.",
+      "teacher": "Thinks a slide, flip or turn can change a shape's size."
+    },
+    "DILATION_CONGRUENT": {
+      "student": "Congruent means the same size. A dilation changes size, so not congruent.",
+      "teacher": "Calls the image of a dilation congruent."
+    },
+    "NEEDS_SAME_SIZE": {
+      "student": "Similar means the same shape at any size. A dilation keeps the shape.",
+      "teacher": "Thinks similar figures must also be the same size, so answers Neither."
+    },
+    "COMPOSE_WRONG": {
+      "student": "Multiply the two scale factors to see the overall change in size.",
+      "teacher": "Judges two dilations in a row without multiplying their factors."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "transformations/t1/001",
+      "tier": 1,
+      "prompt": "(3, −6) moves 3 down. New point?",
+      "choices": [
+        "(6, −6)",
+        "(3, −3)",
+        "(0, −6)",
+        "(3, −9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (3, −6) goes to (3, −9)."
+    },
+    {
+      "id": "transformations/t1/002",
+      "tier": 1,
+      "prompt": "A 60 degree angle slides 4 right. New angle?",
+      "choices": [
+        "70",
+        "120",
+        "60",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 60 degree angle is still 60 degrees."
+    },
+    {
+      "id": "transformations/t1/003",
+      "tier": 1,
+      "prompt": "Slide rule (x + 4, y + 6). Where does (−2, −4) go?",
+      "choices": [
+        "(2, −4)",
+        "(−6, −10)",
+        "(2, 2)",
+        "(4, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        null,
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "(x + 4, y + 6) adds 4 to x and 6 to y: (−2, −4) goes to (2, 2)."
+    },
+    {
+      "id": "transformations/t1/004",
+      "tier": 1,
+      "prompt": "Slide rule (x − 9, y − 9). Where does (9, 2) go?",
+      "choices": [
+        "(18, −7)",
+        "(9, −7)",
+        "(18, 11)",
+        "(0, −7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "(x − 9, y − 9) adds −9 to x and −9 to y: (9, 2) goes to (0, −7)."
+    },
+    {
+      "id": "transformations/t1/005",
+      "tier": 1,
+      "prompt": "(−10, −4) moves to (−10, 4). The slide?",
+      "choices": [
+        "8 down",
+        "8 left",
+        "8 up",
+        "8 right"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "End minus start: x changes by 0, y by 8. That is 8 up."
+    },
+    {
+      "id": "transformations/t1/006",
+      "tier": 1,
+      "prompt": "(7, −8) moves to (7, −2). The slide?",
+      "choices": [
+        "6 right",
+        "6 left",
+        "6 up",
+        "6 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null,
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "End minus start: x changes by 0, y by 6. That is 6 up."
+    },
+    {
+      "id": "transformations/t1/007",
+      "tier": 1,
+      "prompt": "Rule (x + 8, y − 8) is applied to (−4, 5). Image?",
+      "choices": [
+        "(−4, −3)",
+        "(4, 5)",
+        "(4, −3)",
+        "(4, 13)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_AXIS",
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED"
+      ],
+      "explanation": "(x + 8, y − 8) adds 8 to x and −8 to y: (−4, 5) goes to (4, −3)."
+    },
+    {
+      "id": "transformations/t1/008",
+      "tier": 1,
+      "prompt": "Which rule slides (7, 4) to (1, 4)?",
+      "choices": [
+        "(x + 6, y)",
+        "(x, y + 6)",
+        "(x, y − 6)",
+        "(x − 6, y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "x goes 7 to 1 and y goes 4 to 4, so the rule is (x − 6, y)."
+    },
+    {
+      "id": "transformations/t1/009",
+      "tier": 1,
+      "prompt": "A slide takes (−3, −2) to (4, 0). Where does (−5, −5) go?",
+      "choices": [
+        "(−1, −5)",
+        "(−12, −7)",
+        "(2, −3)",
+        "(−3, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_COORDS",
+        "REVERSED_DIRECTION",
+        null,
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "The slide is 7 in x and 2 in y. Apply it to (−5, −5): (2, −3)."
+    },
+    {
+      "id": "transformations/t1/010",
+      "tier": 1,
+      "prompt": "A segment of length 8 slides 4 up. New length?",
+      "choices": [
+        "8",
+        "16",
+        "4",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t1/011",
+      "tier": 1,
+      "prompt": "A slide takes (−6, −5) to (−7, −2). Where does (−1, −10) go?",
+      "choices": [
+        "(−8, −12)",
+        "(−2, −7)",
+        "(−7, −2)",
+        "(0, −13)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_COORDS",
+        null,
+        "IMAGE_AS_ANSWER",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "The slide is −1 in x and 3 in y. Apply it to (−1, −10): (−2, −7)."
+    },
+    {
+      "id": "transformations/t1/012",
+      "tier": 1,
+      "prompt": "(2, −3) slides 3 up and 1 right. New point?",
+      "choices": [
+        "(3, 0)",
+        "(3, −3)",
+        "(1, 0)",
+        "(5, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (2, −3) goes to (3, 0)."
+    },
+    {
+      "id": "transformations/t1/013",
+      "tier": 1,
+      "prompt": "(−5, 2) shifts 9 right and 5 up. New point?",
+      "choices": [
+        "(4, 7)",
+        "(4, 2)",
+        "(4, −3)",
+        "(−5, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−5, 2) goes to (4, 7)."
+    },
+    {
+      "id": "transformations/t1/014",
+      "tier": 1,
+      "prompt": "(6, 1) moves to (9, 1). The slide?",
+      "choices": [
+        "3 down",
+        "3 up",
+        "3 left",
+        "3 right"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "End minus start: x changes by 3, y by 0. That is 3 right."
+    },
+    {
+      "id": "transformations/t1/015",
+      "tier": 1,
+      "prompt": "(−1, 8) shifts 2 up and 3 right. New point?",
+      "choices": [
+        "(−1, 10)",
+        "(−4, 6)",
+        "(2, 6)",
+        "(2, 10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        "HALF_REVERSED",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (−1, 8) goes to (2, 10)."
+    },
+    {
+      "id": "transformations/t1/016",
+      "tier": 1,
+      "prompt": "(9, −2) moves 8 left. Image?",
+      "choices": [
+        "(9, −10)",
+        "(1, −2)",
+        "(9, 6)",
+        "(17, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "Right and up add, left and down subtract: (9, −2) goes to (1, −2)."
+    },
+    {
+      "id": "transformations/t1/017",
+      "tier": 1,
+      "prompt": "(8, −6) moves to (−2, −6). The slide?",
+      "choices": [
+        "10 up",
+        "10 down",
+        "10 right",
+        "10 left"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "End minus start: x changes by −10, y by 0. That is 10 left."
+    },
+    {
+      "id": "transformations/t1/018",
+      "tier": 1,
+      "prompt": "(−8, −2) moves to (−6, −2). The slide?",
+      "choices": [
+        "2 left",
+        "2 up",
+        "2 down",
+        "2 right"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "End minus start: x changes by 2, y by 0. That is 2 right."
+    },
+    {
+      "id": "transformations/t1/019",
+      "tier": 1,
+      "prompt": "A segment of length 8 slides 5 down. New length?",
+      "choices": [
+        "16",
+        "4",
+        "3",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES",
+        null
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t1/020",
+      "tier": 1,
+      "prompt": "A slide takes (−2, 4) to (4, 6). Where does (−8, 7) go?",
+      "choices": [
+        "(4, 6)",
+        "(−14, 5)",
+        "(−6, 13)",
+        "(−2, 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IMAGE_AS_ANSWER",
+        "REVERSED_DIRECTION",
+        "SWAPPED_AMOUNTS",
+        null
+      ],
+      "explanation": "The slide is 6 in x and 2 in y. Apply it to (−8, 7): (−2, 9)."
+    },
+    {
+      "id": "transformations/t1/021",
+      "tier": 1,
+      "prompt": "A segment of length 7 slides 2 left. New length?",
+      "choices": [
+        "14",
+        "7",
+        "9",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        null,
+        "LENGTH_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t1/022",
+      "tier": 1,
+      "prompt": "(−4, −2) shifts 7 down. New point?",
+      "choices": [
+        "(3, −2)",
+        "(−11, −2)",
+        "(−4, 5)",
+        "(−4, −9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (−4, −2) goes to (−4, −9)."
+    },
+    {
+      "id": "transformations/t1/023",
+      "tier": 1,
+      "prompt": "Which rule slides (−1, −2) to (7, 2)?",
+      "choices": [
+        "(x + 8, y)",
+        "(x + 8, y + 4)",
+        "(x − 8, y + 4)",
+        "(x + 4, y + 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "x goes −1 to 7 and y goes −2 to 2, so the rule is (x + 8, y + 4)."
+    },
+    {
+      "id": "transformations/t1/024",
+      "tier": 1,
+      "prompt": "(7, 7) moves to (10, 6). The slide?",
+      "choices": [
+        "3 right 1 up",
+        "3 left 1 up",
+        "3 right 1 down",
+        "1 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "REVERSED_DIRECTION",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "End minus start: x changes by 3, y by −1. That is 3 right 1 down."
+    },
+    {
+      "id": "transformations/t1/025",
+      "tier": 1,
+      "prompt": "(1, 7) moves to (0, 9). The slide?",
+      "choices": [
+        "1 left 2 up",
+        "1 right 2 up",
+        "1 left 2 down",
+        "1 left"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "End minus start: x changes by −1, y by 2. That is 1 left 2 up."
+    },
+    {
+      "id": "transformations/t1/026",
+      "tier": 1,
+      "prompt": "Rule (x + 6, y + 1) is applied to (−6, 8). Image?",
+      "choices": [
+        "(0, 8)",
+        "(0, 9)",
+        "(−12, 7)",
+        "(−5, 14)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "REVERSED_DIRECTION",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "(x + 6, y + 1) adds 6 to x and 1 to y: (−6, 8) goes to (0, 9)."
+    },
+    {
+      "id": "transformations/t1/027",
+      "tier": 1,
+      "prompt": "(−2, −6) moves to (−9, −4). The slide?",
+      "choices": [
+        "7 left",
+        "7 left 2 up",
+        "7 right 2 up",
+        "7 right 2 down"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "End minus start: x changes by −7, y by 2. That is 7 left 2 up."
+    },
+    {
+      "id": "transformations/t1/028",
+      "tier": 1,
+      "prompt": "A slide takes (−9, −6) to (−5, −2). Where does (−5, 4) go?",
+      "choices": [
+        "(−1, 8)",
+        "(−9, 0)",
+        "(−10, 2)",
+        "(−5, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED_DIRECTION",
+        "ADDED_COORDS",
+        "IMAGE_AS_ANSWER"
+      ],
+      "explanation": "The slide is 4 in x and 4 in y. Apply it to (−5, 4): (−1, 8)."
+    },
+    {
+      "id": "transformations/t1/029",
+      "tier": 1,
+      "prompt": "Slide rule (x + 3, y + 5). Where does (−4, −6) go?",
+      "choices": [
+        "(−1, −1)",
+        "(−1, −11)",
+        "(1, −3)",
+        "(−7, −11)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "(x + 3, y + 5) adds 3 to x and 5 to y: (−4, −6) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t1/030",
+      "tier": 1,
+      "prompt": "A slide takes (10, −2) to (7, 1). Where does (−2, −5) go?",
+      "choices": [
+        "(5, −4)",
+        "(−5, −2)",
+        "(1, −8)",
+        "(7, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_COORDS",
+        null,
+        "REVERSED_DIRECTION",
+        "IMAGE_AS_ANSWER"
+      ],
+      "explanation": "The slide is −3 in x and 3 in y. Apply it to (−2, −5): (−5, −2)."
+    },
+    {
+      "id": "transformations/t1/031",
+      "tier": 1,
+      "prompt": "(3, 6) slides 6 right and 3 up. Image?",
+      "choices": [
+        "(−3, 3)",
+        "(9, 3)",
+        "(9, 9)",
+        "(9, 6)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "HALF_REVERSED",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (3, 6) goes to (9, 9)."
+    },
+    {
+      "id": "transformations/t1/032",
+      "tier": 1,
+      "prompt": "Rule (x − 2, y + 6) is applied to (8, −8). Image?",
+      "choices": [
+        "(6, −14)",
+        "(6, −8)",
+        "(6, −2)",
+        "(8, −2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "ONE_AXIS",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "(x − 2, y + 6) adds −2 to x and 6 to y: (8, −8) goes to (6, −2)."
+    },
+    {
+      "id": "transformations/t1/033",
+      "tier": 1,
+      "prompt": "(7, 2) shifts 7 down. New point?",
+      "choices": [
+        "(7, 9)",
+        "(7, −5)",
+        "(0, 2)",
+        "(14, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        null,
+        "WRONG_AXIS",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (7, 2) goes to (7, −5)."
+    },
+    {
+      "id": "transformations/t1/034",
+      "tier": 1,
+      "prompt": "A segment of length 5 slides 7 up. New length?",
+      "choices": [
+        "6",
+        "5",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 5."
+    },
+    {
+      "id": "transformations/t1/035",
+      "tier": 1,
+      "prompt": "(−9, 1) slides 2 right and 9 down. Image?",
+      "choices": [
+        "(−7, −8)",
+        "(−7, 1)",
+        "(−11, 10)",
+        "(−9, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−9, 1) goes to (−7, −8)."
+    },
+    {
+      "id": "transformations/t1/036",
+      "tier": 1,
+      "prompt": "Which rule slides (−9, 2) to (−3, 2)?",
+      "choices": [
+        "(x + 6, y)",
+        "(x, y + 6)",
+        "(x − 6, y)",
+        "(x, y − 6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS"
+      ],
+      "explanation": "x goes −9 to −3 and y goes 2 to 2, so the rule is (x + 6, y)."
+    },
+    {
+      "id": "transformations/t1/037",
+      "tier": 1,
+      "prompt": "(−4, 5) shifts 3 right and 4 up. Image?",
+      "choices": [
+        "(−1, 9)",
+        "(0, 8)",
+        "(−1, 1)",
+        "(−4, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_AMOUNTS",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−4, 5) goes to (−1, 9)."
+    },
+    {
+      "id": "transformations/t1/038",
+      "tier": 1,
+      "prompt": "(−7, −9) moves to (−8, −9). The slide?",
+      "choices": [
+        "1 right",
+        "1 up",
+        "1 left",
+        "1 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "End minus start: x changes by −1, y by 0. That is 1 left."
+    },
+    {
+      "id": "transformations/t1/039",
+      "tier": 1,
+      "prompt": "Which rule slides (3, 6) to (10, −1)?",
+      "choices": [
+        "(x − 7, y − 7)",
+        "(x + 7, y − 7)",
+        "(x + 7, y + 7)",
+        "(x + 7, y)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_REVERSED",
+        null,
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "x goes 3 to 10 and y goes 6 to −1, so the rule is (x + 7, y − 7)."
+    },
+    {
+      "id": "transformations/t1/040",
+      "tier": 1,
+      "prompt": "(1, 2) moves 6 down and 9 left. New point?",
+      "choices": [
+        "(−8, −4)",
+        "(10, −4)",
+        "(−5, −7)",
+        "(10, 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "Right and up add, left and down subtract: (1, 2) goes to (−8, −4)."
+    },
+    {
+      "id": "transformations/t2/001",
+      "tier": 2,
+      "prompt": "(7, −9) reflected over the x-axis?",
+      "choices": [
+        "(−9, 7)",
+        "(−7, 9)",
+        "(7, 9)",
+        "(−7, −9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "BOTH_SIGNS",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (7, −9) goes to (7, 9)."
+    },
+    {
+      "id": "transformations/t2/002",
+      "tier": 2,
+      "prompt": "A 30 degree angle is flipped. New angle?",
+      "choices": [
+        "−30",
+        "60",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTION_NEGATES",
+        "ANGLE_CHANGES",
+        "FLIP_SUPPLEMENT",
+        null
+      ],
+      "explanation": "Rigid moves keep every angle. A 30 degree angle is still 30 degrees."
+    },
+    {
+      "id": "transformations/t2/003",
+      "tier": 2,
+      "prompt": "(−10, 8) reflected over the y-axis?",
+      "choices": [
+        "(8, −10)",
+        "(−10, −8)",
+        "(10, −8)",
+        "(10, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−10, 8) goes to (10, 8)."
+    },
+    {
+      "id": "transformations/t2/004",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−8, −3). Start point?",
+      "choices": [
+        "(8, −3)",
+        "(3, −8)",
+        "(−8, −3)",
+        "(−8, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "IMAGE_AS_START",
+        null
+      ],
+      "explanation": "A flip undoes itself: flip (−8, −3) over the x-axis to get (−8, 3)."
+    },
+    {
+      "id": "transformations/t2/005",
+      "tier": 2,
+      "prompt": "A segment of length 7 is flipped. New length?",
+      "choices": [
+        "7",
+        "14",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIZE_CHANGES",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t2/006",
+      "tier": 2,
+      "prompt": "Reflect over the x-axis: (x, y) becomes?",
+      "choices": [
+        "(−x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(x, −y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "Over the x-axis only the y sign changes: (x, −y)."
+    },
+    {
+      "id": "transformations/t2/007",
+      "tier": 2,
+      "prompt": "A 40 degree angle is flipped. New angle?",
+      "choices": [
+        "140",
+        "40",
+        "50",
+        "−40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_SUPPLEMENT",
+        null,
+        "ANGLE_CHANGES",
+        "REFLECTION_NEGATES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 40 degree angle is still 40 degrees."
+    },
+    {
+      "id": "transformations/t2/008",
+      "tier": 2,
+      "prompt": "A segment of length 8 is reflected. New length?",
+      "choices": [
+        "16",
+        "8",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        null,
+        "SIZE_CHANGES",
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t2/009",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−9, −1). Start point?",
+      "choices": [
+        "(−9, 1)",
+        "(−9, −1)",
+        "(9, 1)",
+        "(1, −9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IMAGE_AS_START",
+        "WRONG_MIRROR",
+        "SWAPPED_XY"
+      ],
+      "explanation": "A flip undoes itself: flip (−9, −1) over the x-axis to get (−9, 1)."
+    },
+    {
+      "id": "transformations/t2/010",
+      "tier": 2,
+      "prompt": "(−1, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(1, 0)",
+        "(0, −1)",
+        "(−1, 0)",
+        "(0, 1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "(−1, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/011",
+      "tier": 2,
+      "prompt": "Which move takes (−5, −10) to (−5, 10)?",
+      "choices": [
+        "Over y-axis",
+        "Slide 10 up",
+        "Over x-axis",
+        "Turn 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP",
+        null,
+        "TURN_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/012",
+      "tier": 2,
+      "prompt": "Reflect over the y-axis: (x, y) becomes?",
+      "choices": [
+        "(x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(−x, −y)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only the x sign changes: (−x, y)."
+    },
+    {
+      "id": "transformations/t2/013",
+      "tier": 2,
+      "prompt": "(5, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(0, −5)",
+        "(0, 5)",
+        "(5, 0)",
+        "(−5, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "(5, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/014",
+      "tier": 2,
+      "prompt": "(−6, −2) reflected over the y-axis?",
+      "choices": [
+        "(−2, −6)",
+        "(−6, 2)",
+        "(6, 2)",
+        "(6, −2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−6, −2) goes to (6, −2)."
+    },
+    {
+      "id": "transformations/t2/015",
+      "tier": 2,
+      "prompt": "Which move takes (5, −1) to (5, 1)?",
+      "choices": [
+        "Over x-axis",
+        "Turn 180",
+        "Over y-axis",
+        "Slide 1 up"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TURN_FOR_FLIP",
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/016",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−7, 10). Start point?",
+      "choices": [
+        "(−10, −7)",
+        "(−7, −10)",
+        "(7, 10)",
+        "(7, −10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "A flip undoes itself: flip (−7, 10) over the x-axis to get (−7, −10)."
+    },
+    {
+      "id": "transformations/t2/017",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (10, 5). Start point?",
+      "choices": [
+        "(5, −10)",
+        "(10, 5)",
+        "(10, −5)",
+        "(−10, 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "IMAGE_AS_START",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "A flip undoes itself: flip (10, 5) over the y-axis to get (−10, 5)."
+    },
+    {
+      "id": "transformations/t2/018",
+      "tier": 2,
+      "prompt": "Which move takes (3, 5) to (−3, 5)?",
+      "choices": [
+        "Slide 3 left",
+        "Turn 180",
+        "Over y-axis",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "TURN_FOR_FLIP",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/019",
+      "tier": 2,
+      "prompt": "(−7, 1) reflected over the y-axis?",
+      "choices": [
+        "(−7, −1)",
+        "(7, 1)",
+        "(1, −7)",
+        "(7, −1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−7, 1) goes to (7, 1)."
+    },
+    {
+      "id": "transformations/t2/020",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (8, −3). Start point?",
+      "choices": [
+        "(−8, −3)",
+        "(8, 3)",
+        "(−3, −8)",
+        "(8, −3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "IMAGE_AS_START"
+      ],
+      "explanation": "A flip undoes itself: flip (8, −3) over the y-axis to get (−8, −3)."
+    },
+    {
+      "id": "transformations/t2/021",
+      "tier": 2,
+      "prompt": "(10, 2) reflected over the y-axis?",
+      "choices": [
+        "(−10, −2)",
+        "(2, 10)",
+        "(10, −2)",
+        "(−10, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (10, 2) goes to (−10, 2)."
+    },
+    {
+      "id": "transformations/t2/022",
+      "tier": 2,
+      "prompt": "(−10, −8) reflected over the x-axis?",
+      "choices": [
+        "(−10, 8)",
+        "(10, −8)",
+        "(−8, −10)",
+        "(10, 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (−10, −8) goes to (−10, 8)."
+    },
+    {
+      "id": "transformations/t2/023",
+      "tier": 2,
+      "prompt": "(1, −6) reflected over the y-axis?",
+      "choices": [
+        "(1, 6)",
+        "(−1, −6)",
+        "(−1, 6)",
+        "(−6, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "BOTH_SIGNS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (1, −6) goes to (−1, −6)."
+    },
+    {
+      "id": "transformations/t2/024",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (4, 2). Start point?",
+      "choices": [
+        "(4, 2)",
+        "(4, −2)",
+        "(−4, −2)",
+        "(−4, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_START",
+        null,
+        "WRONG_MIRROR",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "A flip undoes itself: flip (4, 2) over the x-axis to get (4, −2)."
+    },
+    {
+      "id": "transformations/t2/025",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (10, 3). Start point?",
+      "choices": [
+        "(−10, 3)",
+        "(3, −10)",
+        "(−10, −3)",
+        "(10, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "IMAGE_AS_START"
+      ],
+      "explanation": "A flip undoes itself: flip (10, 3) over the y-axis to get (−10, 3)."
+    },
+    {
+      "id": "transformations/t2/026",
+      "tier": 2,
+      "prompt": "Reflect over the y-axis. Which coordinate changes sign?",
+      "choices": [
+        "x",
+        "Neither",
+        "Both",
+        "y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOTHING_CHANGES",
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "The axis is a mirror: distance along it stays, the other coordinate (x) changes sign."
+    },
+    {
+      "id": "transformations/t2/027",
+      "tier": 2,
+      "prompt": "(8, 9) reflected over the y-axis?",
+      "choices": [
+        "(9, 8)",
+        "(−8, 9)",
+        "(−8, −9)",
+        "(8, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (8, 9) goes to (−8, 9)."
+    },
+    {
+      "id": "transformations/t2/028",
+      "tier": 2,
+      "prompt": "(3, −4) maps to (3, 4). Which move?",
+      "choices": [
+        "Slide 4 up",
+        "Over y-axis",
+        "Turn 180",
+        "Over x-axis"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "WRONG_MIRROR",
+        "TURN_FOR_FLIP",
+        null
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/029",
+      "tier": 2,
+      "prompt": "(5, 1) reflected over the y-axis?",
+      "choices": [
+        "(−5, 1)",
+        "(5, −1)",
+        "(1, 5)",
+        "(−5, −1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (5, 1) goes to (−5, 1)."
+    },
+    {
+      "id": "transformations/t2/030",
+      "tier": 2,
+      "prompt": "(6, −3) maps to (−6, −3). Which move?",
+      "choices": [
+        "Slide 6 left",
+        "Over x-axis",
+        "Turn 180",
+        "Over y-axis"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "WRONG_MIRROR",
+        "TURN_FOR_FLIP",
+        null
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/031",
+      "tier": 2,
+      "prompt": "(9, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(0, 9)",
+        "(9, 0)",
+        "(0, −9)",
+        "(−9, 0)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "(9, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/032",
+      "tier": 2,
+      "prompt": "Which move takes (−3, −1) to (3, −1)?",
+      "choices": [
+        "Over y-axis",
+        "Turn 180",
+        "Over x-axis",
+        "Slide 3 right"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TURN_FOR_FLIP",
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP"
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/033",
+      "tier": 2,
+      "prompt": "Reflect over the x-axis. Which coordinate changes sign?",
+      "choices": [
+        "x",
+        "Both",
+        "Neither",
+        "y"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        "NOTHING_CHANGES",
+        null
+      ],
+      "explanation": "The axis is a mirror: distance along it stays, the other coordinate (y) changes sign."
+    },
+    {
+      "id": "transformations/t2/034",
+      "tier": 2,
+      "prompt": "(10, 5) maps to (10, −5). Which move?",
+      "choices": [
+        "Over y-axis",
+        "Slide 5 down",
+        "Over x-axis",
+        "Turn 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP",
+        null,
+        "TURN_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/035",
+      "tier": 2,
+      "prompt": "Which move takes (−6, 9) to (−6, −9)?",
+      "choices": [
+        "Slide 9 down",
+        "Turn 180",
+        "Over x-axis",
+        "Over y-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "TURN_FOR_FLIP",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/036",
+      "tier": 2,
+      "prompt": "(9, −2) flipped over the y-axis?",
+      "choices": [
+        "(−2, 9)",
+        "(9, 2)",
+        "(−9, −2)",
+        "(−9, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (9, −2) goes to (−9, −2)."
+    },
+    {
+      "id": "transformations/t2/037",
+      "tier": 2,
+      "prompt": "(10, −3) reflected over the y-axis?",
+      "choices": [
+        "(10, 3)",
+        "(−10, −3)",
+        "(−3, 10)",
+        "(−10, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (10, −3) goes to (−10, −3)."
+    },
+    {
+      "id": "transformations/t2/038",
+      "tier": 2,
+      "prompt": "Which point stays put when reflected over the y-axis?",
+      "choices": [
+        "(−1, 0)",
+        "(0, −1)",
+        "(1, −1)",
+        "(−1, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "NOT_ON_AXIS",
+        "NOT_ON_AXIS"
+      ],
+      "explanation": "A point on the y-axis (x = 0) is its own mirror image. (0, −1) stays put."
+    },
+    {
+      "id": "transformations/t2/039",
+      "tier": 2,
+      "prompt": "(−7, −4) reflected over the x-axis?",
+      "choices": [
+        "(−7, 4)",
+        "(−4, −7)",
+        "(7, −4)",
+        "(7, 4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (−7, −4) goes to (−7, 4)."
+    },
+    {
+      "id": "transformations/t2/040",
+      "tier": 2,
+      "prompt": "Which point stays put when flipped over the x-axis?",
+      "choices": [
+        "(−2, −2)",
+        "(−2, 2)",
+        "(−2, 0)",
+        "(0, −2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ON_AXIS",
+        "NOT_ON_AXIS",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "A point on the x-axis (y = 0) is its own mirror image. (−2, 0) stays put."
+    },
+    {
+      "id": "transformations/t3/001",
+      "tier": 3,
+      "prompt": "(4, −9) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−4, −9)",
+        "(4, 9)",
+        "(−4, 9)",
+        "(−9, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        null,
+        "SWAP_ONLY"
+      ],
+      "explanation": "A half turn changes both signs: (4, −9) goes to (−4, 9)."
+    },
+    {
+      "id": "transformations/t3/002",
+      "tier": 3,
+      "prompt": "(10, 10) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(10, 10)",
+        "(−10, 10)",
+        "(10, −10)",
+        "(−10, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (10, 10) goes to (−10, −10)."
+    },
+    {
+      "id": "transformations/t3/003",
+      "tier": 3,
+      "prompt": "A segment of length 7 is rotated. New length?",
+      "choices": [
+        "8",
+        "14",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIZE_CHANGES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t3/004",
+      "tier": 3,
+      "prompt": "Turning (x, y) 180 degrees gives?",
+      "choices": [
+        "(−x, −y)",
+        "(y, x)",
+        "(y, −x)",
+        "(−y, x)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn negates both. (3, 1) goes to (−3, −1)."
+    },
+    {
+      "id": "transformations/t3/005",
+      "tier": 3,
+      "prompt": "(4, 5) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(5, −4)",
+        "(−4, −5)",
+        "(−5, 4)",
+        "(5, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        null,
+        "SWAP_ONLY"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (4, 5) goes to (−5, 4)."
+    },
+    {
+      "id": "transformations/t3/006",
+      "tier": 3,
+      "prompt": "(−5, 5) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−5, −5)",
+        "(6, −5)",
+        "(5, −5)",
+        "(5, 5)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "ARITH",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−5, 5) goes to (5, −5)."
+    },
+    {
+      "id": "transformations/t3/007",
+      "tier": 3,
+      "prompt": "(9, 8) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(8, −9)",
+        "(−9, −8)",
+        "(−8, 9)",
+        "(9, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (9, 8) goes to (8, −9)."
+    },
+    {
+      "id": "transformations/t3/008",
+      "tier": 3,
+      "prompt": "Rule for a 90 degree clockwise turn about (0, 0)?",
+      "choices": [
+        "(y, x)",
+        "(−y, x)",
+        "(−x, y)",
+        "(y, −x)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "Clockwise: swap, then negate the new y. (3, 1) goes to (1, −3)."
+    },
+    {
+      "id": "transformations/t3/009",
+      "tier": 3,
+      "prompt": "(10, −9) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−9, 10)",
+        "(−9, −10)",
+        "(9, 10)",
+        "(10, 9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_ONLY",
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (10, −9) goes to (−9, −10)."
+    },
+    {
+      "id": "transformations/t3/010",
+      "tier": 3,
+      "prompt": "A segment of length 3 turns 90 degrees. New length?",
+      "choices": [
+        "4",
+        "6",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIZE_CHANGES",
+        "ARITH",
+        null
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 3."
+    },
+    {
+      "id": "transformations/t3/011",
+      "tier": 3,
+      "prompt": "(−9, −8) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(9, 8)",
+        "(−8, 9)",
+        "(8, −9)",
+        "(9, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−9, −8) goes to (8, −9)."
+    },
+    {
+      "id": "transformations/t3/012",
+      "tier": 3,
+      "prompt": "A 40 degree angle turns 180 degrees. New angle?",
+      "choices": [
+        "80",
+        "40",
+        "140",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 40 degree angle is still 40 degrees."
+    },
+    {
+      "id": "transformations/t3/013",
+      "tier": 3,
+      "prompt": "About (0, 0), (−10, −4) maps to (10, 4). Which move?",
+      "choices": [
+        "90 CCW",
+        "90 CW",
+        "180 turn",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(−10, −4) to (10, 4): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/014",
+      "tier": 3,
+      "prompt": "(−3, −10) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−3, 10)",
+        "(−10, −3)",
+        "(−10, 3)",
+        "(3, 10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (−3, −10) goes to (3, 10)."
+    },
+    {
+      "id": "transformations/t3/015",
+      "tier": 3,
+      "prompt": "About (0, 0), (3, 10) maps to (−3, −10). Which move?",
+      "choices": [
+        "Over y-axis",
+        "90 CCW",
+        "90 CW",
+        "180 turn"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "(3, 10) to (−3, −10): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/016",
+      "tier": 3,
+      "prompt": "(1, −2) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−1, 2)",
+        "(−2, −1)",
+        "(2, 1)",
+        "(−2, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "WRONG_TURN",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (1, −2) goes to (−2, −1)."
+    },
+    {
+      "id": "transformations/t3/017",
+      "tier": 3,
+      "prompt": "A 10 degree angle turns 90 degrees. New angle?",
+      "choices": [
+        "170",
+        "10",
+        "20",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 10 degree angle is still 10 degrees."
+    },
+    {
+      "id": "transformations/t3/018",
+      "tier": 3,
+      "prompt": "(−10, 10) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(10, 10)",
+        "(11, 10)",
+        "(10, −10)",
+        "(−10, −10)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (−10, 10) goes to (10, 10)."
+    },
+    {
+      "id": "transformations/t3/019",
+      "tier": 3,
+      "prompt": "About (0, 0), (8, −5) maps to (−5, −8). Which move?",
+      "choices": [
+        "180 turn",
+        "90 CW",
+        "Over y-axis",
+        "Over x-axis"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(8, −5) to (−5, −8): 90 CW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/020",
+      "tier": 3,
+      "prompt": "About (0, 0), (−7, −1) maps to (1, −7). Which move?",
+      "choices": [
+        "180 turn",
+        "Over x-axis",
+        "90 CW",
+        "90 CCW"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        "WRONG_TURN",
+        null
+      ],
+      "explanation": "(−7, −1) to (1, −7): 90 CCW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/021",
+      "tier": 3,
+      "prompt": "About (0, 0), (−3, −10) maps to (3, 10). Which move?",
+      "choices": [
+        "Over y-axis",
+        "90 CCW",
+        "180 turn",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(−3, −10) to (3, 10): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/022",
+      "tier": 3,
+      "prompt": "About (0, 0), (6, −3) maps to (−6, 3). Which move?",
+      "choices": [
+        "Over y-axis",
+        "180 turn",
+        "Over x-axis",
+        "90 CW"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        null,
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "(6, −3) to (−6, 3): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/023",
+      "tier": 3,
+      "prompt": "Turning (x, y) 90 degrees counterclockwise gives?",
+      "choices": [
+        "(−x, y)",
+        "(x, −y)",
+        "(−y, x)",
+        "(−x, −y)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: swap, then negate the new x. (3, 1) goes to (−1, 3)."
+    },
+    {
+      "id": "transformations/t3/024",
+      "tier": 3,
+      "prompt": "(−6, −6) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(6, −6)",
+        "(−6, 6)",
+        "(6, 6)",
+        "(−6, −6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−6, −6) goes to (6, −6)."
+    },
+    {
+      "id": "transformations/t3/025",
+      "tier": 3,
+      "prompt": "Rule for a 180 degree turn about (0, 0)?",
+      "choices": [
+        "(x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(−x, −y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "A half turn negates both. (3, 1) goes to (−3, −1)."
+    },
+    {
+      "id": "transformations/t3/026",
+      "tier": 3,
+      "prompt": "(−2, 0) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(1, −2)",
+        "(0, −2)",
+        "(2, 0)",
+        "(0, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−2, 0) goes to (0, −2)."
+    },
+    {
+      "id": "transformations/t3/027",
+      "tier": 3,
+      "prompt": "(7, 8) turns 180 degrees about the origin?",
+      "choices": [
+        "(−7, 8)",
+        "(7, −8)",
+        "(8, −7)",
+        "(−7, −8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (7, 8) goes to (−7, −8)."
+    },
+    {
+      "id": "transformations/t3/028",
+      "tier": 3,
+      "prompt": "(7, −6) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−6, −7)",
+        "(6, 7)",
+        "(7, 6)",
+        "(−6, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (7, −6) goes to (−6, −7)."
+    },
+    {
+      "id": "transformations/t3/029",
+      "tier": 3,
+      "prompt": "(10, −4) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−4, 10)",
+        "(−10, 4)",
+        "(10, 4)",
+        "(−4, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (10, −4) goes to (−4, −10)."
+    },
+    {
+      "id": "transformations/t3/030",
+      "tier": 3,
+      "prompt": "(−4, −3) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(3, −4)",
+        "(−3, −4)",
+        "(−3, 4)",
+        "(4, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−4, −3) goes to (3, −4)."
+    },
+    {
+      "id": "transformations/t3/031",
+      "tier": 3,
+      "prompt": "(5, 8) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(8, −5)",
+        "(−8, 5)",
+        "(5, −8)",
+        "(−5, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (5, 8) goes to (8, −5)."
+    },
+    {
+      "id": "transformations/t3/032",
+      "tier": 3,
+      "prompt": "About (0, 0), (6, 3) maps to (3, −6). Which move?",
+      "choices": [
+        "90 CCW",
+        "180 turn",
+        "Over y-axis",
+        "90 CW"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "(6, 3) to (3, −6): 90 CW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/033",
+      "tier": 3,
+      "prompt": "About (0, 0), (7, −6) maps to (6, 7). Which move?",
+      "choices": [
+        "180 turn",
+        "90 CCW",
+        "90 CW",
+        "Over x-axis"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(7, −6) to (6, 7): 90 CCW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/034",
+      "tier": 3,
+      "prompt": "A 30 degree angle is rotated. New angle?",
+      "choices": [
+        "150",
+        "60",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep every angle. A 30 degree angle is still 30 degrees."
+    },
+    {
+      "id": "transformations/t3/035",
+      "tier": 3,
+      "prompt": "(−7, 5) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(−5, −7)",
+        "(5, −7)",
+        "(7, 5)",
+        "(7, −5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−7, 5) goes to (−5, −7)."
+    },
+    {
+      "id": "transformations/t3/036",
+      "tier": 3,
+      "prompt": "A 130 degree angle is rotated. New angle?",
+      "choices": [
+        "140",
+        "130",
+        "120",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 130 degree angle is still 130 degrees."
+    },
+    {
+      "id": "transformations/t3/037",
+      "tier": 3,
+      "prompt": "(8, 6) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−8, −6)",
+        "(6, −8)",
+        "(6, 8)",
+        "(−6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "SWAP_ONLY",
+        "WRONG_TURN"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (8, 6) goes to (6, −8)."
+    },
+    {
+      "id": "transformations/t3/038",
+      "tier": 3,
+      "prompt": "(−10, 2) turns 180 degrees about the origin?",
+      "choices": [
+        "(10, −2)",
+        "(−10, −2)",
+        "(−2, −10)",
+        "(10, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "A half turn changes both signs: (−10, 2) goes to (10, −2)."
+    },
+    {
+      "id": "transformations/t3/039",
+      "tier": 3,
+      "prompt": "(−7, 7) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(7, −7)",
+        "(−7, −7)",
+        "(8, −7)",
+        "(7, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "QUARTER_FOR_HALF",
+        "ARITH",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−7, 7) goes to (7, −7)."
+    },
+    {
+      "id": "transformations/t3/040",
+      "tier": 3,
+      "prompt": "(−8, −9) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−9, −8)",
+        "(8, −9)",
+        "(8, 9)",
+        "(9, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−8, −9) goes to (8, 9)."
+    },
+    {
+      "id": "transformations/t4/001",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 6. Scale factor?",
+      "choices": [
+        "2",
+        "3",
+        "6",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE",
+        "IMAGE_AS_FACTOR",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 6/3 = 2."
+    },
+    {
+      "id": "transformations/t4/002",
+      "tier": 4,
+      "prompt": "(−4, 4) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(−20, 20)",
+        "(−4, 20)",
+        "(−20, 4)",
+        "(1, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 5: (−4, 4) goes to (−20, 20)."
+    },
+    {
+      "id": "transformations/t4/003",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 12. Scale factor?",
+      "choices": [
+        "12",
+        "4",
+        "9",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_FACTOR",
+        null,
+        "DIFFERENCE",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 12/3 = 4."
+    },
+    {
+      "id": "transformations/t4/004",
+      "tier": 4,
+      "prompt": "(−8, 4) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(−8, 1)",
+        "(−32, 16)",
+        "(−2, 4)",
+        "(−2, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_COORD",
+        "INVERTED_FACTOR",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply by 1/4, which means divide by 4: (−8, 4) goes to (−2, 1)."
+    },
+    {
+      "id": "transformations/t4/005",
+      "tier": 4,
+      "prompt": "(1, −1) dilates to (4, −4) about (0, 0). Factor?",
+      "choices": [
+        "4",
+        "1/4",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_FACTOR",
+        "DIFFERENCE",
+        "ARITH"
+      ],
+      "explanation": "Scale factor = image / start: 4/1 = 4."
+    },
+    {
+      "id": "transformations/t4/006",
+      "tier": 4,
+      "prompt": "A side of 3 becomes 15. Scale factor?",
+      "choices": [
+        "12",
+        "5",
+        "15",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE",
+        null,
+        "IMAGE_AS_FACTOR",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 15/3 = 5."
+    },
+    {
+      "id": "transformations/t4/007",
+      "tier": 4,
+      "prompt": "(−3, 4) dilates to (−9, 12) about (0, 0). Factor?",
+      "choices": [
+        "1/3",
+        "6",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "DIFFERENCE",
+        null,
+        "IMAGE_AS_FACTOR"
+      ],
+      "explanation": "Scale factor = image / start: −9/−3 = 3."
+    },
+    {
+      "id": "transformations/t4/008",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 1/4. The image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor below 1 makes the image smaller."
+    },
+    {
+      "id": "transformations/t4/009",
+      "tier": 4,
+      "prompt": "(−4, 6) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−12, 18)",
+        "(−12, 6)",
+        "(−4, 18)",
+        "(−1, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−4, 6) goes to (−12, 18)."
+    },
+    {
+      "id": "transformations/t4/010",
+      "tier": 4,
+      "prompt": "(3, −6) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(1, −2)",
+        "(1, −6)",
+        "(9, −18)",
+        "(3, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "INVERTED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (3, −6) goes to (1, −2)."
+    },
+    {
+      "id": "transformations/t4/011",
+      "tier": 4,
+      "prompt": "Scale factor 1/3. A 60 degree angle becomes?",
+      "choices": [
+        "120",
+        "180",
+        "20",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "INVERTED_FACTOR",
+        "ANGLES_SCALE",
+        null
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 60 degrees."
+    },
+    {
+      "id": "transformations/t4/012",
+      "tier": 4,
+      "prompt": "(−8, 6) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(−16, 12)",
+        "(−10, 4)",
+        "(−4, 3)",
+        "(−8, 3)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "SUBTRACTED_DENOM",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (−8, 6) goes to (−4, 3)."
+    },
+    {
+      "id": "transformations/t4/013",
+      "tier": 4,
+      "prompt": "With scale factor 3, the image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        null,
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/014",
+      "tier": 4,
+      "prompt": "A segment of 10 becomes 20. Scale factor?",
+      "choices": [
+        "10",
+        "1/2",
+        "20",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED_FACTOR",
+        "IMAGE_AS_FACTOR",
+        null
+      ],
+      "explanation": "Scale factor = new length / old length = 20/10 = 2."
+    },
+    {
+      "id": "transformations/t4/015",
+      "tier": 4,
+      "prompt": "(−3, −3) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−9, −3)",
+        "(−3, −9)",
+        "(−9, −9)",
+        "(0, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_COORD",
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−3, −3) goes to (−9, −9)."
+    },
+    {
+      "id": "transformations/t4/016",
+      "tier": 4,
+      "prompt": "(3, −3) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(9, −3)",
+        "(9, −9)",
+        "(6, 0)",
+        "(3, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 3: (3, −3) goes to (9, −9)."
+    },
+    {
+      "id": "transformations/t4/017",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A leg of 18 becomes?",
+      "choices": [
+        "16",
+        "36",
+        "18",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: 18 becomes 9."
+    },
+    {
+      "id": "transformations/t4/018",
+      "tier": 4,
+      "prompt": "(−6, −6) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(−12, −12)",
+        "(−3, −3)",
+        "(−6, −3)",
+        "(−8, −8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD",
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (−6, −6) goes to (−3, −3)."
+    },
+    {
+      "id": "transformations/t4/019",
+      "tier": 4,
+      "prompt": "(2, 4) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(1, 2)",
+        "(0, 2)",
+        "(4, 8)",
+        "(1, 4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (2, 4) goes to (1, 2)."
+    },
+    {
+      "id": "transformations/t4/020",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A 160 degree angle becomes?",
+      "choices": [
+        "158",
+        "320",
+        "20",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "ANGLE_CHANGES",
+        null
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 160 degrees."
+    },
+    {
+      "id": "transformations/t4/021",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 1/3. The image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor below 1 makes the image smaller."
+    },
+    {
+      "id": "transformations/t4/022",
+      "tier": 4,
+      "prompt": "(4, 4) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(20, 20)",
+        "(20, 4)",
+        "(4, 20)",
+        "(9, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 5: (4, 4) goes to (20, 20)."
+    },
+    {
+      "id": "transformations/t4/023",
+      "tier": 4,
+      "prompt": "(4, −2) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(9, 3)",
+        "(20, −2)",
+        "(4, −10)",
+        "(20, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONE_COORD",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply both coordinates by 5: (4, −2) goes to (20, −10)."
+    },
+    {
+      "id": "transformations/t4/024",
+      "tier": 4,
+      "prompt": "(−3, −6) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(−9, −18)",
+        "(−1, −2)",
+        "(−3, −2)",
+        "(−6, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD",
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (−3, −6) goes to (−1, −2)."
+    },
+    {
+      "id": "transformations/t4/025",
+      "tier": 4,
+      "prompt": "Scale factor 5. A leg of 3 becomes?",
+      "choices": [
+        "15",
+        "75",
+        "8",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FACTOR",
+        "ADDED_FACTOR",
+        "SAME_SIZE"
+      ],
+      "explanation": "Lengths grow by the scale factor: 3 x 5 = 15."
+    },
+    {
+      "id": "transformations/t4/026",
+      "tier": 4,
+      "prompt": "A segment of 4 becomes 8. Scale factor?",
+      "choices": [
+        "8",
+        "2",
+        "4",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_FACTOR",
+        null,
+        "DIFFERENCE",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 8/4 = 2."
+    },
+    {
+      "id": "transformations/t4/027",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 9. Scale factor?",
+      "choices": [
+        "1/3",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "IMAGE_AS_FACTOR",
+        "DIFFERENCE"
+      ],
+      "explanation": "Scale factor = new length / old length = 9/3 = 3."
+    },
+    {
+      "id": "transformations/t4/028",
+      "tier": 4,
+      "prompt": "(−3, −3) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(−6, −6)",
+        "(−9, −9)",
+        "(−1, −1)",
+        "(−3, −1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (−3, −3) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t4/029",
+      "tier": 4,
+      "prompt": "(1, −2) dilated by scale factor 4 from (0, 0)?",
+      "choices": [
+        "(5, 2)",
+        "(1, −8)",
+        "(4, −2)",
+        "(4, −8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONE_COORD",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply both coordinates by 4: (1, −2) goes to (4, −8)."
+    },
+    {
+      "id": "transformations/t4/030",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 5. The image is?",
+      "choices": [
+        "Smaller",
+        "Same size",
+        "Larger"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/031",
+      "tier": 4,
+      "prompt": "(10, −10) dilated by scale factor 2 from (0, 0)?",
+      "choices": [
+        "(20, −10)",
+        "(20, −20)",
+        "(12, −8)",
+        "(10, −20)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 2: (10, −10) goes to (20, −20)."
+    },
+    {
+      "id": "transformations/t4/032",
+      "tier": 4,
+      "prompt": "With scale factor 4, the image is?",
+      "choices": [
+        "Same size",
+        "Larger",
+        "Smaller"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/033",
+      "tier": 4,
+      "prompt": "(0, 0) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(4, 4)",
+        "(4, 0)",
+        "(−4, −4)",
+        "(0, 0)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CENTER_MOVES",
+        "CENTER_MOVES",
+        "CENTER_MOVES",
+        null
+      ],
+      "explanation": "The center of a dilation stays put. 0 x any factor is 0, so (0, 0) stays (0, 0)."
+    },
+    {
+      "id": "transformations/t4/034",
+      "tier": 4,
+      "prompt": "Scale factor 2. A segment of 9 becomes?",
+      "choices": [
+        "18",
+        "9",
+        "36",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIZE",
+        "AREA_FACTOR",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Lengths grow by the scale factor: 9 x 2 = 18."
+    },
+    {
+      "id": "transformations/t4/035",
+      "tier": 4,
+      "prompt": "(2, 2) dilated by scale factor 4 from (0, 0)?",
+      "choices": [
+        "(8, 2)",
+        "(6, 6)",
+        "(8, 8)",
+        "(2, 8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_COORD",
+        "ADDED_FACTOR",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 4: (2, 2) goes to (8, 8)."
+    },
+    {
+      "id": "transformations/t4/036",
+      "tier": 4,
+      "prompt": "(−4, −4) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(−16, −16)",
+        "(−4, −1)",
+        "(−1, −1)",
+        "(−8, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "ONE_COORD",
+        null,
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/4, which means divide by 4: (−4, −4) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t4/037",
+      "tier": 4,
+      "prompt": "Scale factor 3 makes the figure?",
+      "choices": [
+        "Smaller",
+        "Same size",
+        "Larger"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/038",
+      "tier": 4,
+      "prompt": "(−3, −5) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−9, −5)",
+        "(−9, −15)",
+        "(−3, −15)",
+        "(0, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−3, −5) goes to (−9, −15)."
+    },
+    {
+      "id": "transformations/t4/039",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A 120 degree angle becomes?",
+      "choices": [
+        "118",
+        "240",
+        "120",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        null,
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 120 degrees."
+    },
+    {
+      "id": "transformations/t4/040",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A segment of 16 becomes?",
+      "choices": [
+        "16",
+        "32",
+        "8",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIZE",
+        "INVERTED_FACTOR",
+        null,
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: 16 becomes 8."
+    },
+    {
+      "id": "transformations/t5/001",
+      "tier": 5,
+      "prompt": "(−2, 1): slide 1 down, then dilate by 4?",
+      "choices": [
+        "(−8, 0)",
+        "(2, 4)",
+        "(−2, 0)",
+        "(−8, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_FACTOR",
+        "ONLY_FIRST",
+        "ORDER_SWAP"
+      ],
+      "explanation": "slide 1 down: (−2, 0); then dilate by 4: (−8, 0)."
+    },
+    {
+      "id": "transformations/t5/002",
+      "tier": 5,
+      "prompt": "A 140 degree angle is flipped, then turned. New angle?",
+      "choices": [
+        "40",
+        "150",
+        "140",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_SUPPLEMENT",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep angles, however many you do. Still 140 degrees."
+    },
+    {
+      "id": "transformations/t5/003",
+      "tier": 5,
+      "prompt": "(2, −8): flip over the x-axis, then slide 5 left?",
+      "choices": [
+        "(−3, 8)",
+        "(2, 8)",
+        "(−7, −8)",
+        "(−3, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        "ONLY_SECOND"
+      ],
+      "explanation": "flip over the x-axis: (2, 8); then slide 5 left: (−3, 8)."
+    },
+    {
+      "id": "transformations/t5/004",
+      "tier": 5,
+      "prompt": "Dilate by 1/3, then turn it. The image is?",
+      "choices": [
+        "Neither",
+        "Congruent",
+        "Similar"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT",
+        null
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/005",
+      "tier": 5,
+      "prompt": "A 20 degree angle is flipped, then dilated by 4. New angle?",
+      "choices": [
+        "20",
+        "80",
+        "24",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANGLES_SCALE",
+        "ADDED_FACTOR",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Flips, slides, turns and dilations all keep angles. Still 20 degrees."
+    },
+    {
+      "id": "transformations/t5/006",
+      "tier": 5,
+      "prompt": "Dilate by 1/2, then by 2. Its size?",
+      "choices": [
+        "Gets smaller",
+        "Stays same",
+        "Gets bigger"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMPOSE_WRONG",
+        null,
+        "COMPOSE_WRONG"
+      ],
+      "explanation": "Multiply the factors: 1/2 x 2 = 1, so the size stays the same."
+    },
+    {
+      "id": "transformations/t5/007",
+      "tier": 5,
+      "prompt": "(−8, 6): dilate by 1/2, then slide 3 up?",
+      "choices": [
+        "(−4, 0)",
+        "(−8, 9)",
+        "(−4, 3)",
+        "(−4, 6)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        null
+      ],
+      "explanation": "dilate by 1/2: (−4, 3); then slide 3 up: (−4, 6)."
+    },
+    {
+      "id": "transformations/t5/008",
+      "tier": 5,
+      "prompt": "(1, 6): turn 180 degrees, then slide 4 up?",
+      "choices": [
+        "(1, 10)",
+        "(−1, −6)",
+        "(−1, −10)",
+        "(−1, −2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "ORDER_SWAP",
+        null
+      ],
+      "explanation": "turn 180 degrees: (−1, −6); then slide 4 up: (−1, −2)."
+    },
+    {
+      "id": "transformations/t5/009",
+      "tier": 5,
+      "prompt": "Which scale factor shrinks a figure?",
+      "choices": [
+        "3",
+        "5",
+        "1/2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "GROW_SHRINK_SWAP",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor below 1 shrinks a figure. 1/2 is below 1."
+    },
+    {
+      "id": "transformations/t5/010",
+      "tier": 5,
+      "prompt": "(3, 6): flip over the y-axis, then turn 180 degrees?",
+      "choices": [
+        "(−6, −3)",
+        "(3, −6)",
+        "(−3, −6)",
+        "(−3, 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        null,
+        "ONLY_SECOND",
+        "ONLY_FIRST"
+      ],
+      "explanation": "flip over the y-axis: (−3, 6); then turn 180 degrees: (3, −6)."
+    },
+    {
+      "id": "transformations/t5/011",
+      "tier": 5,
+      "prompt": "A side of 3 is flipped, then dilated by 5. New length?",
+      "choices": [
+        "3",
+        "15",
+        "75",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "AREA_FACTOR",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "The flip keeps length 3; the dilation multiplies by 5. New length 15."
+    },
+    {
+      "id": "transformations/t5/012",
+      "tier": 5,
+      "prompt": "Which move can change a shape's size?",
+      "choices": [
+        "Slide",
+        "Flip",
+        "Dilation",
+        "Turn"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE",
+        null,
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/013",
+      "tier": 5,
+      "prompt": "(3, 5): dilate by 2, then slide 1 down?",
+      "choices": [
+        "(6, 8)",
+        "(6, 11)",
+        "(5, 6)",
+        "(6, 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_SWAP",
+        "REVERSED_DIRECTION",
+        "ADDED_FACTOR",
+        null
+      ],
+      "explanation": "dilate by 2: (6, 10); then slide 1 down: (6, 9)."
+    },
+    {
+      "id": "transformations/t5/014",
+      "tier": 5,
+      "prompt": "Which factor makes a shape larger?",
+      "choices": [
+        "1/2",
+        "2",
+        "1/3",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        null,
+        "GROW_SHRINK_SWAP",
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor above 1 enlarges a figure. 2 is above 1."
+    },
+    {
+      "id": "transformations/t5/015",
+      "tier": 5,
+      "prompt": "(1, 9): turn 180 degrees, then slide 1 down?",
+      "choices": [
+        "(−1, −10)",
+        "(−1, −9)",
+        "(−9, 0)",
+        "(−1, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "QUARTER_FOR_HALF",
+        "ORDER_SWAP"
+      ],
+      "explanation": "turn 180 degrees: (−1, −9); then slide 1 down: (−1, −10)."
+    },
+    {
+      "id": "transformations/t5/016",
+      "tier": 5,
+      "prompt": "Which scale factor keeps the size the same?",
+      "choices": [
+        "1/2",
+        "1",
+        "4",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "SAME_SIZE",
+        "SAME_SIZE"
+      ],
+      "explanation": "Scale factor 1 multiplies every length by 1, so the size stays the same."
+    },
+    {
+      "id": "transformations/t5/017",
+      "tier": 5,
+      "prompt": "A side of 4 is flipped, then dilated by 1/2. New length?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "ARITH",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "The flip keeps length 4; the dilation multiplies by 1/2. New length 2."
+    },
+    {
+      "id": "transformations/t5/018",
+      "tier": 5,
+      "prompt": "(−2, 3): slide 1 left, then flip over the y-axis?",
+      "choices": [
+        "(−3, −3)",
+        "(3, 3)",
+        "(1, 3)",
+        "(−3, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "ORDER_SWAP",
+        "ONLY_FIRST"
+      ],
+      "explanation": "slide 1 left: (−3, 3); then flip over the y-axis: (3, 3)."
+    },
+    {
+      "id": "transformations/t5/019",
+      "tier": 5,
+      "prompt": "(−10, 2): flip over the x-axis, then flip over the y-axis?",
+      "choices": [
+        "(10, −2)",
+        "(−10, −2)",
+        "(−10, 2)",
+        "(10, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        "ONLY_SECOND"
+      ],
+      "explanation": "flip over the x-axis: (−10, −2); then flip over the y-axis: (10, −2)."
+    },
+    {
+      "id": "transformations/t5/020",
+      "tier": 5,
+      "prompt": "(−10, 8): dilate by 1/2, then turn 180 degrees?",
+      "choices": [
+        "(20, −16)",
+        "(−4, −5)",
+        "(10, −8)",
+        "(5, −4)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "QUARTER_FOR_HALF",
+        "ONLY_SECOND",
+        null
+      ],
+      "explanation": "dilate by 1/2: (−5, 4); then turn 180 degrees: (5, −4)."
+    },
+    {
+      "id": "transformations/t5/021",
+      "tier": 5,
+      "prompt": "(−5, −5): flip over the x-axis, then dilate by 4?",
+      "choices": [
+        "(−1, 9)",
+        "(−5, 5)",
+        "(20, −20)",
+        "(−20, 20)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "flip over the x-axis: (−5, 5); then dilate by 4: (−20, 20)."
+    },
+    {
+      "id": "transformations/t5/022",
+      "tier": 5,
+      "prompt": "(−3, 6): turn 90 CCW, then turn 180 degrees?",
+      "choices": [
+        "(−3, 6)",
+        "(−6, −3)",
+        "(6, 3)",
+        "(3, −6)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "ONLY_FIRST",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "turn 90 CCW: (−6, −3); then turn 180 degrees: (6, 3)."
+    },
+    {
+      "id": "transformations/t5/023",
+      "tier": 5,
+      "prompt": "A 30 degree angle is turned, then flipped. New angle?",
+      "choices": [
+        "60",
+        "150",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "FLIP_SUPPLEMENT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep angles, however many you do. Still 30 degrees."
+    },
+    {
+      "id": "transformations/t5/024",
+      "tier": 5,
+      "prompt": "Which move can make a shape bigger?",
+      "choices": [
+        "Flip",
+        "Dilation",
+        "Turn",
+        "Slide"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RIGID_CHANGES_SIZE",
+        null,
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/025",
+      "tier": 5,
+      "prompt": "A side of 3 is slid, then dilated by 5. New length?",
+      "choices": [
+        "8",
+        "3",
+        "75",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "SAME_SIZE",
+        "AREA_FACTOR",
+        null
+      ],
+      "explanation": "The slide keeps length 3; the dilation multiplies by 5. New length 15."
+    },
+    {
+      "id": "transformations/t5/026",
+      "tier": 5,
+      "prompt": "Dilate by 3, then by 1/2. Its size?",
+      "choices": [
+        "Gets smaller",
+        "Gets bigger",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMPOSE_WRONG",
+        null,
+        "COMPOSE_WRONG"
+      ],
+      "explanation": "Multiply the factors: 3 x 1/2 = 3/2, so the size gets bigger."
+    },
+    {
+      "id": "transformations/t5/027",
+      "tier": 5,
+      "prompt": "Dilate by 5, then turn it. The image is?",
+      "choices": [
+        "Similar",
+        "Congruent",
+        "Neither"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DILATION_CONGRUENT",
+        "NEEDS_SAME_SIZE"
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/028",
+      "tier": 5,
+      "prompt": "Dilate by 3, then flip it. Its size?",
+      "choices": [
+        "Gets bigger",
+        "Stays same",
+        "Gets smaller"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIZE",
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "Only the dilation changes size, and a factor above 1 makes it bigger."
+    },
+    {
+      "id": "transformations/t5/029",
+      "tier": 5,
+      "prompt": "Which move is NOT rigid?",
+      "choices": [
+        "Dilation",
+        "Flip",
+        "Turn",
+        "Slide"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/030",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 3. Its size?",
+      "choices": [
+        "Stays same",
+        "Gets bigger",
+        "Gets smaller"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "Only the dilation changes size, and a factor above 1 makes it bigger."
+    },
+    {
+      "id": "transformations/t5/031",
+      "tier": 5,
+      "prompt": "(−5, −5): turn 90 CCW, then turn 180 degrees?",
+      "choices": [
+        "(5, 5)",
+        "(−5, −5)",
+        "(−5, 5)",
+        "(5, −5)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "HALF_FOR_QUARTER",
+        null,
+        "ONLY_FIRST"
+      ],
+      "explanation": "turn 90 CCW: (5, −5); then turn 180 degrees: (−5, 5)."
+    },
+    {
+      "id": "transformations/t5/032",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 1/3. The image is?",
+      "choices": [
+        "Similar",
+        "Neither",
+        "Congruent"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT"
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/033",
+      "tier": 5,
+      "prompt": "(4, 10): turn 90 CCW, then dilate by 1/2?",
+      "choices": [
+        "(2, 5)",
+        "(−10, 4)",
+        "(−20, 8)",
+        "(−5, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "INVERTED_FACTOR",
+        null
+      ],
+      "explanation": "turn 90 CCW: (−10, 4); then dilate by 1/2: (−5, 2)."
+    },
+    {
+      "id": "transformations/t5/034",
+      "tier": 5,
+      "prompt": "(−5, −10): flip over the y-axis, then turn 90 CCW?",
+      "choices": [
+        "(−5, 10)",
+        "(−10, −5)",
+        "(10, 5)",
+        "(5, −10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "ORDER_SWAP",
+        null,
+        "ONLY_FIRST"
+      ],
+      "explanation": "flip over the y-axis: (5, −10); then turn 90 CCW: (10, 5)."
+    },
+    {
+      "id": "transformations/t5/035",
+      "tier": 5,
+      "prompt": "(−3, −3): slide 7 left, then flip over the y-axis?",
+      "choices": [
+        "(10, −3)",
+        "(3, −3)",
+        "(−10, −3)",
+        "(−4, −3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "ORDER_SWAP"
+      ],
+      "explanation": "slide 7 left: (−10, −3); then flip over the y-axis: (10, −3)."
+    },
+    {
+      "id": "transformations/t5/036",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 1/2. The image is?",
+      "choices": [
+        "Neither",
+        "Congruent",
+        "Similar"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT",
+        null
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/037",
+      "tier": 5,
+      "prompt": "(−10, 6): slide 3 up, then turn 90 CCW?",
+      "choices": [
+        "(−6, −7)",
+        "(−3, −10)",
+        "(−9, −10)",
+        "(−6, −10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_SWAP",
+        "REVERSED_DIRECTION",
+        null,
+        "ONLY_SECOND"
+      ],
+      "explanation": "slide 3 up: (−10, 9); then turn 90 CCW: (−9, −10)."
+    },
+    {
+      "id": "transformations/t5/038",
+      "tier": 5,
+      "prompt": "(8, 5): flip over the y-axis, then turn 180 degrees?",
+      "choices": [
+        "(−5, −8)",
+        "(−8, −5)",
+        "(−8, 5)",
+        "(8, −5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "ONLY_SECOND",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "flip over the y-axis: (−8, 5); then turn 180 degrees: (8, −5)."
+    },
+    {
+      "id": "transformations/t5/039",
+      "tier": 5,
+      "prompt": "(1, −8): turn 180 degrees, then flip over the x-axis?",
+      "choices": [
+        "(−1, 8)",
+        "(−1, −8)",
+        "(1, 8)",
+        "(8, −1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONLY_FIRST",
+        null,
+        "ONLY_SECOND",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "turn 180 degrees: (−1, 8); then flip over the x-axis: (−1, −8)."
+    },
+    {
+      "id": "transformations/t5/040",
+      "tier": 5,
+      "prompt": "(5, 8): flip over the x-axis, then turn 180 degrees?",
+      "choices": [
+        "(−5, 8)",
+        "(5, −8)",
+        "(−5, −8)",
+        "(8, 5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "ONLY_SECOND",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "flip over the x-axis: (5, −8); then turn 180 degrees: (−5, 8)."
+    }
+  ]
+}

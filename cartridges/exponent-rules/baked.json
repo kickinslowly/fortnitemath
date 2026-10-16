@@ -1,0 +1,3950 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "exponent-rules",
+  "version": "1.0.0",
+  "title": "Integer Exponents",
+  "subtitle": "Product, Quotient, Power, Zero, Negative",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.A.1"
+  ],
+  "seed": 20261031,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Exponents. Numeric bases 2-10 only (no letters; a missing exponent is a ?). Every exponent in a prompt, a step, a choice or an answer is an integer of size 12 or less, and every exponent step is a signed sum or difference or a times-table product of size 12 or less. Answers stay in power form (2^7) except where a value is asked for: then only a power of 10, 1, the base, or a power of size 100 or less, or 1 over one of these (1/8, 1/100). A negative exponent is written ^−3.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Zero & Negative Powers",
+      "description": "Anything to the 0 power is 1. A negative exponent means a reciprocal."
+    },
+    {
+      "tier": 2,
+      "name": "Product Rule",
+      "description": "Same base, multiply: add the exponents."
+    },
+    {
+      "tier": 3,
+      "name": "Quotient Rule",
+      "description": "Same base, divide: subtract the exponents."
+    },
+    {
+      "tier": 4,
+      "name": "Power of a Power",
+      "description": "Raise a power to a power: multiply. Raise a product: each factor gets it."
+    },
+    {
+      "tier": 5,
+      "name": "Mixed Rules to a Value",
+      "description": "Use two rules in a row, then find the value."
+    }
+  ],
+  "misconceptions": {
+    "ZERO_IS_ZERO": {
+      "student": "A 0 exponent doesn't make 0. b^2 ÷ b^2 = 1, and that is b^0.",
+      "teacher": "Reads b^0 as 0 (zero exponent means zero)."
+    },
+    "ZERO_KEEPS_BASE": {
+      "student": "b^0 isn't b. Dividing b^n by b^n gives 1, so b^0 = 1.",
+      "teacher": "Reads b^0 as b (no multiplications means the base is left alone)."
+    },
+    "NEG_VALUE": {
+      "student": "A negative exponent doesn't make a negative number. It flips: 2^−3 = 1/8.",
+      "teacher": "Treats b^−n as −(b^n)."
+    },
+    "NEG_TIMES": {
+      "student": "An exponent counts copies of the base, it isn't a factor. 2^−3 is 1/(2 × 2 × 2).",
+      "teacher": "Reads b^−n as −(b × n): multiplies base and exponent and keeps the sign."
+    },
+    "NEG_FRACTION": {
+      "student": "The minus tells you to flip, not to go negative. 2^−3 = 1/8, a positive.",
+      "teacher": "Flips b^−n correctly but keeps a negative sign: −1/b^n."
+    },
+    "IGNORE_SIGN": {
+      "student": "The minus matters: 2^−3 is 1/8, not 8. It flips the power.",
+      "teacher": "Drops the sign of the exponent: b^−n = b^n."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "An exponent is repeated multiplication, not base × exponent.",
+      "teacher": "Computes b^n as b × n."
+    },
+    "RECIP_TIMES": {
+      "student": "Flip the power, don't flip the product. 2^−3 = 1/(2 × 2 × 2) = 1/8.",
+      "teacher": "Takes the reciprocal of b × n instead of b^n."
+    },
+    "SWAP_BASE_EXP": {
+      "student": "Base and exponent have different jobs. Check which number is the base.",
+      "teacher": "Swaps the base and the exponent."
+    },
+    "MULT_EXPONENTS": {
+      "student": "Multiplying same-base powers adds the exponents: b^m × b^n = b^(m+n).",
+      "teacher": "Multiplies the exponents in a product rule step."
+    },
+    "MULT_BASES": {
+      "student": "Keep the base the same and add the exponents. The base doesn't change.",
+      "teacher": "Multiplies the bases as well as adding the exponents."
+    },
+    "ADD_BASES": {
+      "student": "Keep the base the same and add the exponents. Don't add the bases.",
+      "teacher": "Adds the bases (b + b = 2b) as well as the exponents in a product."
+    },
+    "MULT_BOTH": {
+      "student": "Keep the base. Same base: add the exponents. Nothing else changes.",
+      "teacher": "Multiplies both the bases and the exponents."
+    },
+    "SUB_EXPONENTS": {
+      "student": "Multiplying powers adds exponents. Subtracting is for dividing.",
+      "teacher": "Subtracts the exponents in a product."
+    },
+    "SKIPS_FACTOR": {
+      "student": "Use every factor. Add all three exponents.",
+      "teacher": "Adds only two of the three exponents."
+    },
+    "SIGN_SLIP": {
+      "student": "Careful with the minus signs. Add or subtract the signed exponents.",
+      "teacher": "Drops a negative sign from an exponent, or flips the sign of the result."
+    },
+    "ADD_GIVEN": {
+      "student": "Subtract to find the missing exponent. Added they overshoot.",
+      "teacher": "Adds the exponents given instead of undoing the rule with the opposite operation."
+    },
+    "COPY_TOTAL": {
+      "student": "The total exponent is the sum (or difference), not the missing one.",
+      "teacher": "Gives the exponent of the result as the missing exponent."
+    },
+    "MULT_GIVEN": {
+      "student": "Same base: exponents add, so undo it by subtracting, not by multiplying.",
+      "teacher": "Multiplies the two exponents given."
+    },
+    "DIVIDE_EXPONENTS": {
+      "student": "Dividing same-base powers subtracts exponents: b^m ÷ b^n = b^(m−n).",
+      "teacher": "Divides the exponents in a quotient rule step."
+    },
+    "ADD_EXPONENTS": {
+      "student": "Dividing powers subtracts exponents. Adding is for multiplying.",
+      "teacher": "Adds the exponents in a quotient."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative exponent adds: 3 − (−2) = 5.",
+      "teacher": "Adds the exponents in a quotient with a negative divisor exponent: m + n instead of m − n."
+    },
+    "DIVIDE_BASES": {
+      "student": "The base stays. Don't divide it: b ÷ b isn't the answer, subtract exponents.",
+      "teacher": "Divides the bases to get 1 as the new base."
+    },
+    "FLIPPED_SUB": {
+      "student": "Top exponent minus bottom exponent, in that order. Check the sign.",
+      "teacher": "Subtracts the exponents in the wrong order."
+    },
+    "ADD_FOR_POWER": {
+      "student": "A power of a power multiplies the exponents: (b^m)^n = b^(mn).",
+      "teacher": "Adds the exponents in a power of a power."
+    },
+    "DROP_OUTER": {
+      "student": "Use both exponents. The outer one multiplies the inner one.",
+      "teacher": "Keeps only the inner exponent in a power of a power."
+    },
+    "DROP_INNER": {
+      "student": "Use both exponents. The inner one is multiplied by the outer one.",
+      "teacher": "Keeps only the outer exponent in a power of a power."
+    },
+    "FIRST_FACTOR_ONLY": {
+      "student": "The exponent goes on every factor inside the parentheses.",
+      "teacher": "Applies the exponent to only one factor of a product."
+    },
+    "SUM_FOR_PRODUCT": {
+      "student": "A product to a power is a product of powers: (ab)^n = a^n × b^n.",
+      "teacher": "Replaces the product of powers with a sum."
+    },
+    "SUM_BASES": {
+      "student": "The parentheses hold a product, not a sum. Raise each factor.",
+      "teacher": "Adds the bases inside the parentheses instead of keeping them as factors."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "exponent-rules/t1/001",
+      "tier": 1,
+      "prompt": "5^−2 = ?",
+      "choices": [
+        "10",
+        "−25",
+        "1/25",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "5^−2 = 1/5^2 = 1/25. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/002",
+      "tier": 1,
+      "prompt": "2^−6",
+      "choices": [
+        "1/64",
+        "12",
+        "1/12",
+        "−12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "RECIP_TIMES",
+        "NEG_TIMES"
+      ],
+      "explanation": "2^−6 = 1/2^6 = 1/64. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/003",
+      "tier": 1,
+      "prompt": "Which equals 1/9?",
+      "choices": [
+        "9^−1",
+        "−(9^−1)",
+        "9^1",
+        "−(9^1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "9^−1 = 1/9^1 = 1/9. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/004",
+      "tier": 1,
+      "prompt": "Which equals 1/8?",
+      "choices": [
+        "2^3",
+        "−(2^−3)",
+        "3^−2",
+        "2^−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "SWAP_BASE_EXP",
+        null
+      ],
+      "explanation": "2^−3 = 1/2^3 = 1/8. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/005",
+      "tier": 1,
+      "prompt": "3^−2 = ?",
+      "choices": [
+        "1/6",
+        "1/9",
+        "−1/9",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RECIP_TIMES",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−2 = 1/3^2 = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/006",
+      "tier": 1,
+      "prompt": "Simplify 3^−1",
+      "choices": [
+        "1/3",
+        "3",
+        "−3",
+        "−1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "3^−1 = 1/3^1 = 1/3. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/007",
+      "tier": 1,
+      "prompt": "2^−2 = ?",
+      "choices": [
+        "4",
+        "−4",
+        "−1/4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        null
+      ],
+      "explanation": "2^−2 = 1/2^2 = 1/4. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/008",
+      "tier": 1,
+      "prompt": "What is 7^0?",
+      "choices": [
+        "1",
+        "0",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "7^2 ÷ 7^2 = 1, and by the quotient rule it is 7^0. So 7^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/009",
+      "tier": 1,
+      "prompt": "5^0 = ?",
+      "choices": [
+        "5",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        "ZERO_IS_ZERO",
+        null
+      ],
+      "explanation": "5^2 ÷ 5^2 = 1, and by the quotient rule it is 5^0. So 5^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/010",
+      "tier": 1,
+      "prompt": "8^−1 = ?",
+      "choices": [
+        "−1/8",
+        "8",
+        "1/8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "8^−1 = 1/8^1 = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/011",
+      "tier": 1,
+      "prompt": "Simplify 3^−4",
+      "choices": [
+        "81",
+        "−12",
+        "1/81",
+        "−81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−4 = 1/3^4 = 1/81. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/012",
+      "tier": 1,
+      "prompt": "7^−1 = ?",
+      "choices": [
+        "−1/7",
+        "7",
+        "−7",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null
+      ],
+      "explanation": "7^−1 = 1/7^1 = 1/7. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/013",
+      "tier": 1,
+      "prompt": "2^−3 = ?",
+      "choices": [
+        "8",
+        "1/8",
+        "−8",
+        "−1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "2^−3 = 1/2^3 = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/014",
+      "tier": 1,
+      "prompt": "6^−1 = ?",
+      "choices": [
+        "6",
+        "1/6",
+        "−1/6",
+        "−6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES"
+      ],
+      "explanation": "6^−1 = 1/6^1 = 1/6. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/015",
+      "tier": 1,
+      "prompt": "Which equals 1/4?",
+      "choices": [
+        "2^−2",
+        "2^2",
+        "−(2^−2)",
+        "−(2^2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "2^−2 = 1/2^2 = 1/4. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/016",
+      "tier": 1,
+      "prompt": "3^−2",
+      "choices": [
+        "9",
+        "−6",
+        "1/9",
+        "−9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−2 = 1/3^2 = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/017",
+      "tier": 1,
+      "prompt": "Which equals 1/81?",
+      "choices": [
+        "−(3^−4)",
+        "4^−3",
+        "−(3^4)",
+        "3^−4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "SWAP_BASE_EXP",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "3^−4 = 1/3^4 = 1/81. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/018",
+      "tier": 1,
+      "prompt": "Which equals 1/1000?",
+      "choices": [
+        "3^−10",
+        "10^−3",
+        "10^3",
+        "−(10^−3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_BASE_EXP",
+        null,
+        "IGNORE_SIGN",
+        "NEG_FRACTION"
+      ],
+      "explanation": "10^−3 = 1/10^3 = 1/1000. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/019",
+      "tier": 1,
+      "prompt": "Which equals 1/7?",
+      "choices": [
+        "7^1",
+        "−(7^−1)",
+        "−(7^1)",
+        "7^−1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "7^−1 = 1/7^1 = 1/7. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/020",
+      "tier": 1,
+      "prompt": "Which equals 1/3?",
+      "choices": [
+        "3^1",
+        "3^−1",
+        "−(3^−1)",
+        "−(3^1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−1 = 1/3^1 = 1/3. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/021",
+      "tier": 1,
+      "prompt": "Which equals 1/6?",
+      "choices": [
+        "6^−1",
+        "−(6^−1)",
+        "−(6^1)",
+        "6^1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6^−1 = 1/6^1 = 1/6. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/022",
+      "tier": 1,
+      "prompt": "Value of 3^−3",
+      "choices": [
+        "−9",
+        "9",
+        "1/27",
+        "−27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_TIMES",
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−3 = 1/3^3 = 1/27. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/023",
+      "tier": 1,
+      "prompt": "What is 5^0?",
+      "choices": [
+        "0",
+        "1",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_IS_ZERO",
+        null,
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "5^2 ÷ 5^2 = 1, and by the quotient rule it is 5^0. So 5^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/024",
+      "tier": 1,
+      "prompt": "Simplify 2^−4",
+      "choices": [
+        "−16",
+        "16",
+        "1/8",
+        "1/16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        "RECIP_TIMES",
+        null
+      ],
+      "explanation": "2^−4 = 1/2^4 = 1/16. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/025",
+      "tier": 1,
+      "prompt": "Value of 8^−1",
+      "choices": [
+        "8",
+        "−1/8",
+        "1/8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_FRACTION",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "8^−1 = 1/8^1 = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/026",
+      "tier": 1,
+      "prompt": "9^−1 = ?",
+      "choices": [
+        "−9",
+        "9",
+        "1/9",
+        "−1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "9^−1 = 1/9^1 = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/027",
+      "tier": 1,
+      "prompt": "Which equals 1/16?",
+      "choices": [
+        "−(2^−4)",
+        "2^4",
+        "−(2^4)",
+        "2^−4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "2^−4 = 1/2^4 = 1/16. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/028",
+      "tier": 1,
+      "prompt": "9^0",
+      "choices": [
+        "1",
+        "0",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "9^2 ÷ 9^2 = 1, and by the quotient rule it is 9^0. So 9^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/029",
+      "tier": 1,
+      "prompt": "What is 2^0?",
+      "choices": [
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "2^2 ÷ 2^2 = 1, and by the quotient rule it is 2^0. So 2^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/030",
+      "tier": 1,
+      "prompt": "7^−2",
+      "choices": [
+        "1/49",
+        "−14",
+        "49",
+        "−49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "7^−2 = 1/7^2 = 1/49. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/031",
+      "tier": 1,
+      "prompt": "2^0",
+      "choices": [
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "2^2 ÷ 2^2 = 1, and by the quotient rule it is 2^0. So 2^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/032",
+      "tier": 1,
+      "prompt": "Which equals 1/36?",
+      "choices": [
+        "2^−6",
+        "6^−2",
+        "−(6^−2)",
+        "6^2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_BASE_EXP",
+        null,
+        "NEG_FRACTION",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6^−2 = 1/6^2 = 1/36. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/033",
+      "tier": 1,
+      "prompt": "Which equals 1/32?",
+      "choices": [
+        "2^5",
+        "5^−2",
+        "−(2^5)",
+        "2^−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "SWAP_BASE_EXP",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "2^−5 = 1/2^5 = 1/32. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/034",
+      "tier": 1,
+      "prompt": "9^−2 = ?",
+      "choices": [
+        "1/81",
+        "−18",
+        "−1/81",
+        "−81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "9^−2 = 1/9^2 = 1/81. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/035",
+      "tier": 1,
+      "prompt": "What is 6^0?",
+      "choices": [
+        "6",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        "ZERO_IS_ZERO",
+        null
+      ],
+      "explanation": "6^2 ÷ 6^2 = 1, and by the quotient rule it is 6^0. So 6^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/036",
+      "tier": 1,
+      "prompt": "Which equals 1/27?",
+      "choices": [
+        "−(3^−3)",
+        "3^−3",
+        "3^3",
+        "−(3^3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_FRACTION",
+        null,
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "3^−3 = 1/3^3 = 1/27. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/037",
+      "tier": 1,
+      "prompt": "3^0",
+      "choices": [
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "3^2 ÷ 3^2 = 1, and by the quotient rule it is 3^0. So 3^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t1/038",
+      "tier": 1,
+      "prompt": "6^−2",
+      "choices": [
+        "−12",
+        "1/36",
+        "−36",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6^−2 = 1/6^2 = 1/36. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/039",
+      "tier": 1,
+      "prompt": "4^−3 = ?",
+      "choices": [
+        "12",
+        "−64",
+        "1/64",
+        "−1/64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "4^−3 = 1/4^3 = 1/64. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/040",
+      "tier": 1,
+      "prompt": "2^−1",
+      "choices": [
+        "1/2",
+        "2",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "NEG_TIMES",
+        "NEG_FRACTION"
+      ],
+      "explanation": "2^−1 = 1/2^1 = 1/2. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t2/001",
+      "tier": 2,
+      "prompt": "4^−2 × 4^2 × 4^3",
+      "choices": [
+        "4^−7",
+        "4^3",
+        "4^7",
+        "4^−12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "SIGN_SLIP",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: −2 + 2 + 3 = 3. So 4^3."
+    },
+    {
+      "id": "exponent-rules/t2/002",
+      "tier": 2,
+      "prompt": "10^2 × 10^6",
+      "choices": [
+        "100^8",
+        "100^12",
+        "10^−4",
+        "10^8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BASES",
+        "MULT_BOTH",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 2 + 6 = 8. So 10^8."
+    },
+    {
+      "id": "exponent-rules/t2/003",
+      "tier": 2,
+      "prompt": "5^4 × 5^2",
+      "choices": [
+        "25^8",
+        "10^6",
+        "25^6",
+        "5^6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BOTH",
+        "ADD_BASES",
+        "MULT_BASES",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 4 + 2 = 6. So 5^6."
+    },
+    {
+      "id": "exponent-rules/t2/004",
+      "tier": 2,
+      "prompt": "7^−6 × 7^4",
+      "choices": [
+        "49^−2",
+        "7^10",
+        "7^−10",
+        "7^−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BASES",
+        "SIGN_SLIP",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add the exponents: −6 + 4 = −2. So 7^−2."
+    },
+    {
+      "id": "exponent-rules/t2/005",
+      "tier": 2,
+      "prompt": "2^−4 × 2^3",
+      "choices": [
+        "2^7",
+        "2^−12",
+        "2^−1",
+        "4^−1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "MULT_EXPONENTS",
+        null,
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −4 + 3 = −1. So 2^−1."
+    },
+    {
+      "id": "exponent-rules/t2/006",
+      "tier": 2,
+      "prompt": "3^8 × 3^−5",
+      "choices": [
+        "3^3",
+        "9^3",
+        "6^3",
+        "3^4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_BASES",
+        "ADD_BASES",
+        "ARITH"
+      ],
+      "explanation": "Same base, add the exponents: 8 + (−5) = 3. So 3^3."
+    },
+    {
+      "id": "exponent-rules/t2/007",
+      "tier": 2,
+      "prompt": "2^4 × 2^3 × 2^3",
+      "choices": [
+        "2^10",
+        "2^−2",
+        "2^11",
+        "2^7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_EXPONENTS",
+        "ARITH",
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 4 + 3 + 3 = 10. So 2^10."
+    },
+    {
+      "id": "exponent-rules/t2/008",
+      "tier": 2,
+      "prompt": "5^4 × 5^4 × 5^3",
+      "choices": [
+        "5^12",
+        "5^11",
+        "5^−3",
+        "5^8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUB_EXPONENTS",
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 4 + 4 + 3 = 11. So 5^11."
+    },
+    {
+      "id": "exponent-rules/t2/009",
+      "tier": 2,
+      "prompt": "10^2 × 10^? = 10^9",
+      "choices": [
+        "7",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents add: 2 + ? = 9, so ? = 9 − 2 = 7."
+    },
+    {
+      "id": "exponent-rules/t2/010",
+      "tier": 2,
+      "prompt": "2^3 × 2^? = 2^−1",
+      "choices": [
+        "−4",
+        "−1",
+        "2",
+        "−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "MULT_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = −1, so ? = −1 − 3 = −4."
+    },
+    {
+      "id": "exponent-rules/t2/011",
+      "tier": 2,
+      "prompt": "5^−9 × 5^2",
+      "choices": [
+        "5^11",
+        "10^−7",
+        "5^−7",
+        "25^−7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ADD_BASES",
+        null,
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −9 + 2 = −7. So 5^−7."
+    },
+    {
+      "id": "exponent-rules/t2/012",
+      "tier": 2,
+      "prompt": "2^3 × 2^? = 2^5",
+      "choices": [
+        "8",
+        "5",
+        "3",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH",
+        null
+      ],
+      "explanation": "Exponents add: 3 + ? = 5, so ? = 5 − 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t2/013",
+      "tier": 2,
+      "prompt": "3^−2 × 3^−4",
+      "choices": [
+        "9^−6",
+        "3^8",
+        "3^−6",
+        "9^8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "MULT_EXPONENTS",
+        null,
+        "MULT_BOTH"
+      ],
+      "explanation": "Same base, add the exponents: −2 + (−4) = −6. So 3^−6."
+    },
+    {
+      "id": "exponent-rules/t2/014",
+      "tier": 2,
+      "prompt": "5^−5 × 5^−2",
+      "choices": [
+        "5^10",
+        "25^−7",
+        "25^10",
+        "5^−7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        "MULT_BASES",
+        "MULT_BOTH",
+        null
+      ],
+      "explanation": "Same base, add the exponents: −5 + (−2) = −7. So 5^−7."
+    },
+    {
+      "id": "exponent-rules/t2/015",
+      "tier": 2,
+      "prompt": "4^4 × 4^3",
+      "choices": [
+        "16^12",
+        "16^7",
+        "4^7",
+        "4^1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BOTH",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 4 + 3 = 7. So 4^7."
+    },
+    {
+      "id": "exponent-rules/t2/016",
+      "tier": 2,
+      "prompt": "7^3 × 7^2",
+      "choices": [
+        "49^5",
+        "7^5",
+        "49^6",
+        "7^1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "MULT_BOTH",
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 3 + 2 = 5. So 7^5."
+    },
+    {
+      "id": "exponent-rules/t2/017",
+      "tier": 2,
+      "prompt": "2^3 × 2^4",
+      "choices": [
+        "2^12",
+        "2^7",
+        "2^−1",
+        "4^7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SUB_EXPONENTS",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 3 + 4 = 7. So 2^7."
+    },
+    {
+      "id": "exponent-rules/t2/018",
+      "tier": 2,
+      "prompt": "2^5 × 2^−2 × 2^4",
+      "choices": [
+        "2^11",
+        "2^3",
+        "2^8",
+        "2^7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SKIPS_FACTOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 5 + (−2) + 4 = 7. So 2^7."
+    },
+    {
+      "id": "exponent-rules/t2/019",
+      "tier": 2,
+      "prompt": "10^2 × 10^2 × 10^−3",
+      "choices": [
+        "10^1",
+        "10^7",
+        "10^4",
+        "10^−12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "SKIPS_FACTOR",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 2 + (−3) = 1. So 10^1."
+    },
+    {
+      "id": "exponent-rules/t2/020",
+      "tier": 2,
+      "prompt": "8^5 × 8^−6 × 8^4",
+      "choices": [
+        "8^4",
+        "8^7",
+        "8^−1",
+        "8^3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUB_EXPONENTS",
+        "SKIPS_FACTOR",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 5 + (−6) + 4 = 3. So 8^3."
+    },
+    {
+      "id": "exponent-rules/t2/021",
+      "tier": 2,
+      "prompt": "4^7 × 4^2",
+      "choices": [
+        "16^9",
+        "8^9",
+        "4^9",
+        "4^5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "ADD_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 7 + 2 = 9. So 4^9."
+    },
+    {
+      "id": "exponent-rules/t2/022",
+      "tier": 2,
+      "prompt": "7^2 × 7^−3",
+      "choices": [
+        "7^−6",
+        "7^−1",
+        "7^5",
+        "49^−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SUB_EXPONENTS",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 2 + (−3) = −1. So 7^−1."
+    },
+    {
+      "id": "exponent-rules/t2/023",
+      "tier": 2,
+      "prompt": "9^2 × 9^4 × 9^4",
+      "choices": [
+        "9^−6",
+        "9^10",
+        "9^6",
+        "9^11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "SKIPS_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 4 + 4 = 10. So 9^10."
+    },
+    {
+      "id": "exponent-rules/t2/024",
+      "tier": 2,
+      "prompt": "5^2 × 5^3 × 5^−6",
+      "choices": [
+        "5^0",
+        "5^11",
+        "5^−1",
+        "5^5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        null,
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 3 + (−6) = −1. So 5^−1."
+    },
+    {
+      "id": "exponent-rules/t2/025",
+      "tier": 2,
+      "prompt": "2^−5 × 2^−3",
+      "choices": [
+        "4^−8",
+        "2^−2",
+        "2^−8",
+        "2^8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "SUB_EXPONENTS",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Same base, add the exponents: −5 + (−3) = −8. So 2^−8."
+    },
+    {
+      "id": "exponent-rules/t2/026",
+      "tier": 2,
+      "prompt": "6^2 × 6^4",
+      "choices": [
+        "6^−2",
+        "6^6",
+        "36^6",
+        "6^8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "MULT_BASES",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 2 + 4 = 6. So 6^6."
+    },
+    {
+      "id": "exponent-rules/t2/027",
+      "tier": 2,
+      "prompt": "3^4 × 3^? = 3^8",
+      "choices": [
+        "8",
+        "5",
+        "12",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "ARITH",
+        "ADD_GIVEN",
+        null
+      ],
+      "explanation": "Exponents add: 4 + ? = 8, so ? = 8 − 4 = 4."
+    },
+    {
+      "id": "exponent-rules/t2/028",
+      "tier": 2,
+      "prompt": "4^−2 × 4^6",
+      "choices": [
+        "16^4",
+        "4^4",
+        "16^−12",
+        "4^−12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "MULT_BOTH",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: −2 + 6 = 4. So 4^4."
+    },
+    {
+      "id": "exponent-rules/t2/029",
+      "tier": 2,
+      "prompt": "8^−3 × 8^9",
+      "choices": [
+        "64^6",
+        "8^6",
+        "8^−12",
+        "8^7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS",
+        "ARITH"
+      ],
+      "explanation": "Same base, add the exponents: −3 + 9 = 6. So 8^6."
+    },
+    {
+      "id": "exponent-rules/t2/030",
+      "tier": 2,
+      "prompt": "5^3 × 5^4 × 5^3",
+      "choices": [
+        "5^7",
+        "5^11",
+        "5^−4",
+        "5^10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SKIPS_FACTOR",
+        "ARITH",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 3 + 4 + 3 = 10. So 5^10."
+    },
+    {
+      "id": "exponent-rules/t2/031",
+      "tier": 2,
+      "prompt": "6^3 × 6^? = 6^5",
+      "choices": [
+        "2",
+        "3",
+        "5",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COPY_TOTAL",
+        "ADD_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = 5, so ? = 5 − 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t2/032",
+      "tier": 2,
+      "prompt": "9^4 × 9^? = 9^7",
+      "choices": [
+        "3",
+        "11",
+        "7",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents add: 4 + ? = 7, so ? = 7 − 4 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/033",
+      "tier": 2,
+      "prompt": "4^2 × 4^6 × 4^−2",
+      "choices": [
+        "4^6",
+        "4^8",
+        "4^10",
+        "4^−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SKIPS_FACTOR",
+        "SIGN_SLIP",
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 6 + (−2) = 6. So 4^6."
+    },
+    {
+      "id": "exponent-rules/t2/034",
+      "tier": 2,
+      "prompt": "9^−2 × 9^−4",
+      "choices": [
+        "9^2",
+        "9^−6",
+        "81^8",
+        "81^−6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "MULT_BOTH",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −2 + (−4) = −6. So 9^−6."
+    },
+    {
+      "id": "exponent-rules/t2/035",
+      "tier": 2,
+      "prompt": "4^3 × 4^? = 4^6",
+      "choices": [
+        "6",
+        "4",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "ARITH",
+        null,
+        "ADD_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = 6, so ? = 6 − 3 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/036",
+      "tier": 2,
+      "prompt": "2^3 × 2^7",
+      "choices": [
+        "2^−4",
+        "2^11",
+        "4^10",
+        "2^10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        "ARITH",
+        "MULT_BASES",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 3 + 7 = 10. So 2^10."
+    },
+    {
+      "id": "exponent-rules/t2/037",
+      "tier": 2,
+      "prompt": "7^−3 × 7^8",
+      "choices": [
+        "7^11",
+        "49^5",
+        "7^5",
+        "7^−11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: −3 + 8 = 5. So 7^5."
+    },
+    {
+      "id": "exponent-rules/t2/038",
+      "tier": 2,
+      "prompt": "3^7 × 3^5",
+      "choices": [
+        "6^12",
+        "9^12",
+        "3^12",
+        "3^2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_BASES",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 7 + 5 = 12. So 3^12."
+    },
+    {
+      "id": "exponent-rules/t2/039",
+      "tier": 2,
+      "prompt": "6^2 × 6^? = 6^5",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "MULT_GIVEN"
+      ],
+      "explanation": "Exponents add: 2 + ? = 5, so ? = 5 − 2 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/040",
+      "tier": 2,
+      "prompt": "10^6 × 10^3",
+      "choices": [
+        "10^9",
+        "10^3",
+        "10^10",
+        "100^9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_EXPONENTS",
+        "ARITH",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 6 + 3 = 9. So 10^9."
+    },
+    {
+      "id": "exponent-rules/t3/001",
+      "tier": 3,
+      "prompt": "4^−6 ÷ 4^6",
+      "choices": [
+        "4^−12",
+        "4^12",
+        "4^0",
+        "4^−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 6 = −12. So 4^−12."
+    },
+    {
+      "id": "exponent-rules/t3/002",
+      "tier": 3,
+      "prompt": "6^2 ÷ 6^5",
+      "choices": [
+        "6^−3",
+        "6^3",
+        "6^−2",
+        "6^7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "ARITH",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 5 = −3. So 6^−3."
+    },
+    {
+      "id": "exponent-rules/t3/003",
+      "tier": 3,
+      "prompt": "2^3 ÷ 2^9",
+      "choices": [
+        "2^6",
+        "2^12",
+        "2^−5",
+        "2^−6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − 9 = −6. So 2^−6."
+    },
+    {
+      "id": "exponent-rules/t3/004",
+      "tier": 3,
+      "prompt": "10^−2 ÷ 10^6",
+      "choices": [
+        "10^8",
+        "1^−8",
+        "10^−4",
+        "10^−8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "DIVIDE_BASES",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −2 − 6 = −8. So 10^−8."
+    },
+    {
+      "id": "exponent-rules/t3/005",
+      "tier": 3,
+      "prompt": "2^7 ÷ 2^12",
+      "choices": [
+        "2^−4",
+        "2^−5",
+        "2^5",
+        "1^−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIPPED_SUB",
+        "DIVIDE_BASES"
+      ],
+      "explanation": "Same base, subtract the exponents: 7 − 12 = −5. So 2^−5."
+    },
+    {
+      "id": "exponent-rules/t3/006",
+      "tier": 3,
+      "prompt": "7^8 ÷ 7^? = 7^5",
+      "choices": [
+        "5",
+        "−3",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "FLIPPED_SUB",
+        "ARITH",
+        null
+      ],
+      "explanation": "Exponents subtract: 8 − ? = 5, so ? = 8 − 5 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/007",
+      "tier": 3,
+      "prompt": "9^−4 ÷ 9^−2",
+      "choices": [
+        "9^2",
+        "9^−1",
+        "9^−2",
+        "9^−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        "ARITH",
+        null,
+        "SUB_NEG"
+      ],
+      "explanation": "Same base, subtract the exponents: −4 − (−2) = −2. So 9^−2."
+    },
+    {
+      "id": "exponent-rules/t3/008",
+      "tier": 3,
+      "prompt": "9^5 ÷ 9^3",
+      "choices": [
+        "9^8",
+        "9^−2",
+        "9^2",
+        "9^3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 5 − 3 = 2. So 9^2."
+    },
+    {
+      "id": "exponent-rules/t3/009",
+      "tier": 3,
+      "prompt": "4^2 ÷ 4^9",
+      "choices": [
+        "1^−7",
+        "4^7",
+        "4^−7",
+        "4^11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null,
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 9 = −7. So 4^−7."
+    },
+    {
+      "id": "exponent-rules/t3/010",
+      "tier": 3,
+      "prompt": "6^3 ÷ 6^−7",
+      "choices": [
+        "6^−4",
+        "6^11",
+        "6^10",
+        "6^−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        null,
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − (−7) = 10. So 6^10."
+    },
+    {
+      "id": "exponent-rules/t3/011",
+      "tier": 3,
+      "prompt": "4^2 ÷ 4^−3",
+      "choices": [
+        "4^6",
+        "4^5",
+        "4^−1",
+        "4^−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUB_NEG",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − (−3) = 5. So 4^5."
+    },
+    {
+      "id": "exponent-rules/t3/012",
+      "tier": 3,
+      "prompt": "2^6 ÷ 2^4",
+      "choices": [
+        "2^10",
+        "2^2",
+        "2^3",
+        "2^−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 4 = 2. So 2^2."
+    },
+    {
+      "id": "exponent-rules/t3/013",
+      "tier": 3,
+      "prompt": "9^9 ÷ 9^? = 9^5",
+      "choices": [
+        "4",
+        "3",
+        "−4",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FLIPPED_SUB",
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 9 − ? = 5, so ? = 9 − 5 = 4."
+    },
+    {
+      "id": "exponent-rules/t3/014",
+      "tier": 3,
+      "prompt": "4^2 ÷ 4^10",
+      "choices": [
+        "4^−8",
+        "1^−8",
+        "4^8",
+        "4^12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 10 = −8. So 4^−8."
+    },
+    {
+      "id": "exponent-rules/t3/015",
+      "tier": 3,
+      "prompt": "5^−6 ÷ 5^3",
+      "choices": [
+        "5^−2",
+        "1^−9",
+        "5^9",
+        "5^−9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 3 = −9. So 5^−9."
+    },
+    {
+      "id": "exponent-rules/t3/016",
+      "tier": 3,
+      "prompt": "5^11 ÷ 5^? = 5^9",
+      "choices": [
+        "−2",
+        "9",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "COPY_TOTAL",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Exponents subtract: 11 − ? = 9, so ? = 11 − 9 = 2."
+    },
+    {
+      "id": "exponent-rules/t3/017",
+      "tier": 3,
+      "prompt": "2^9 ÷ 2^? = 2^6",
+      "choices": [
+        "−3",
+        "3",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents subtract: 9 − ? = 6, so ? = 9 − 6 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/018",
+      "tier": 3,
+      "prompt": "4^6 ÷ 4^5",
+      "choices": [
+        "4^−1",
+        "4^2",
+        "4^11",
+        "4^1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        "ADD_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 5 = 1. So 4^1."
+    },
+    {
+      "id": "exponent-rules/t3/019",
+      "tier": 3,
+      "prompt": "8^3 ÷ 8^2",
+      "choices": [
+        "8^1",
+        "8^5",
+        "8^2",
+        "8^−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS",
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − 2 = 1. So 8^1."
+    },
+    {
+      "id": "exponent-rules/t3/020",
+      "tier": 3,
+      "prompt": "4^−8 ÷ 4^−4",
+      "choices": [
+        "4^−4",
+        "4^2",
+        "4^−12",
+        "4^4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_EXPONENTS",
+        "SUB_NEG",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: −8 − (−4) = −4. So 4^−4."
+    },
+    {
+      "id": "exponent-rules/t3/021",
+      "tier": 3,
+      "prompt": "4^12 ÷ 4^? = 4^10",
+      "choices": [
+        "3",
+        "2",
+        "10",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COPY_TOTAL",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Exponents subtract: 12 − ? = 10, so ? = 12 − 10 = 2."
+    },
+    {
+      "id": "exponent-rules/t3/022",
+      "tier": 3,
+      "prompt": "5^4 ÷ 5^−3",
+      "choices": [
+        "5^7",
+        "5^1",
+        "5^−7",
+        "5^8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − (−3) = 7. So 5^7."
+    },
+    {
+      "id": "exponent-rules/t3/023",
+      "tier": 3,
+      "prompt": "9^7 ÷ 9^11",
+      "choices": [
+        "1^−4",
+        "9^4",
+        "9^−4",
+        "9^−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 7 − 11 = −4. So 9^−4."
+    },
+    {
+      "id": "exponent-rules/t3/024",
+      "tier": 3,
+      "prompt": "5^4 ÷ 5^3",
+      "choices": [
+        "5^7",
+        "5^−1",
+        "5^2",
+        "5^1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 3 = 1. So 5^1."
+    },
+    {
+      "id": "exponent-rules/t3/025",
+      "tier": 3,
+      "prompt": "9^4 ÷ 9^6",
+      "choices": [
+        "9^2",
+        "9^10",
+        "9^−1",
+        "9^−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 6 = −2. So 9^−2."
+    },
+    {
+      "id": "exponent-rules/t3/026",
+      "tier": 3,
+      "prompt": "3^12 ÷ 3^? = 3^7",
+      "choices": [
+        "−5",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 12 − ? = 7, so ? = 12 − 7 = 5."
+    },
+    {
+      "id": "exponent-rules/t3/027",
+      "tier": 3,
+      "prompt": "6^4 ÷ 6^2",
+      "choices": [
+        "6^6",
+        "6^2",
+        "1^2",
+        "6^−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "DIVIDE_BASES",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 2 = 2. So 6^2."
+    },
+    {
+      "id": "exponent-rules/t3/028",
+      "tier": 3,
+      "prompt": "4^−3 ÷ 4^3",
+      "choices": [
+        "4^0",
+        "4^−1",
+        "4^6",
+        "4^−6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "DIVIDE_EXPONENTS",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −3 − 3 = −6. So 4^−6."
+    },
+    {
+      "id": "exponent-rules/t3/029",
+      "tier": 3,
+      "prompt": "5^6 ÷ 5^3",
+      "choices": [
+        "5^3",
+        "5^9",
+        "5^2",
+        "5^−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS",
+        "DIVIDE_EXPONENTS",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 3 = 3. So 5^3."
+    },
+    {
+      "id": "exponent-rules/t3/030",
+      "tier": 3,
+      "prompt": "9^5 ÷ 9^−4",
+      "choices": [
+        "9^−9",
+        "9^1",
+        "9^9",
+        "9^10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 5 − (−4) = 9. So 9^9."
+    },
+    {
+      "id": "exponent-rules/t3/031",
+      "tier": 3,
+      "prompt": "10^8 ÷ 10^? = 10^5",
+      "choices": [
+        "−3",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 8 − ? = 5, so ? = 8 − 5 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/032",
+      "tier": 3,
+      "prompt": "3^9 ÷ 3^3",
+      "choices": [
+        "3^12",
+        "3^−6",
+        "3^6",
+        "3^3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        null,
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 9 − 3 = 6. So 3^6."
+    },
+    {
+      "id": "exponent-rules/t3/033",
+      "tier": 3,
+      "prompt": "6^9 ÷ 6^2",
+      "choices": [
+        "6^11",
+        "6^7",
+        "6^−7",
+        "6^8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 9 − 2 = 7. So 6^7."
+    },
+    {
+      "id": "exponent-rules/t3/034",
+      "tier": 3,
+      "prompt": "6^−5 ÷ 6^−3",
+      "choices": [
+        "6^2",
+        "6^−2",
+        "1^−2",
+        "6^−8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "DIVIDE_BASES",
+        "SUB_NEG"
+      ],
+      "explanation": "Same base, subtract the exponents: −5 − (−3) = −2. So 6^−2."
+    },
+    {
+      "id": "exponent-rules/t3/035",
+      "tier": 3,
+      "prompt": "2^4 ÷ 2^6",
+      "choices": [
+        "2^10",
+        "2^−2",
+        "2^−1",
+        "2^2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 6 = −2. So 2^−2."
+    },
+    {
+      "id": "exponent-rules/t3/036",
+      "tier": 3,
+      "prompt": "6^−6 ÷ 6^−4",
+      "choices": [
+        "6^−1",
+        "6^2",
+        "6^−10",
+        "6^−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_SUB",
+        "SUB_NEG",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − (−4) = −2. So 6^−2."
+    },
+    {
+      "id": "exponent-rules/t3/037",
+      "tier": 3,
+      "prompt": "6^6 ÷ 6^? = 6^2",
+      "choices": [
+        "4",
+        "2",
+        "8",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Exponents subtract: 6 − ? = 2, so ? = 6 − 2 = 4."
+    },
+    {
+      "id": "exponent-rules/t3/038",
+      "tier": 3,
+      "prompt": "6^−5 ÷ 6^7",
+      "choices": [
+        "6^−12",
+        "6^12",
+        "6^−2",
+        "6^2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: −5 − 7 = −12. So 6^−12."
+    },
+    {
+      "id": "exponent-rules/t3/039",
+      "tier": 3,
+      "prompt": "10^−6 ÷ 10^2",
+      "choices": [
+        "10^8",
+        "10^−8",
+        "10^−4",
+        "10^4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "ADD_EXPONENTS",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 2 = −8. So 10^−8."
+    },
+    {
+      "id": "exponent-rules/t3/040",
+      "tier": 3,
+      "prompt": "4^4 ÷ 4^2",
+      "choices": [
+        "1^2",
+        "4^−2",
+        "4^6",
+        "4^2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 2 = 2. So 4^2."
+    },
+    {
+      "id": "exponent-rules/t4/001",
+      "tier": 4,
+      "prompt": "(7^5)^−2",
+      "choices": [
+        "7^5",
+        "7^3",
+        "7^−10",
+        "7^10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 5 × (−2) = −10. So 7^−10."
+    },
+    {
+      "id": "exponent-rules/t4/002",
+      "tier": 4,
+      "prompt": "(5^2)^5",
+      "choices": [
+        "5^5",
+        "5^7",
+        "5^10",
+        "5^2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null,
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 5 = 10. So 5^10."
+    },
+    {
+      "id": "exponent-rules/t4/003",
+      "tier": 4,
+      "prompt": "(4^3)^3",
+      "choices": [
+        "4^6",
+        "4^10",
+        "4^3",
+        "4^9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "ARITH",
+        "DROP_OUTER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 3 = 9. So 4^9."
+    },
+    {
+      "id": "exponent-rules/t4/004",
+      "tier": 4,
+      "prompt": "(4^2)^6",
+      "choices": [
+        "4^6",
+        "4^12",
+        "4^2",
+        "4^8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "DROP_OUTER",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 6 = 12. So 4^12."
+    },
+    {
+      "id": "exponent-rules/t4/005",
+      "tier": 4,
+      "prompt": "(6^6)^2",
+      "choices": [
+        "6^12",
+        "6^8",
+        "6^6",
+        "6^2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_POWER",
+        "DROP_OUTER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 6 × 2 = 12. So 6^12."
+    },
+    {
+      "id": "exponent-rules/t4/006",
+      "tier": 4,
+      "prompt": "(3 × 4)^5",
+      "choices": [
+        "(3 + 4)^5",
+        "3^5 + 4^5",
+        "3 × 4 × 5",
+        "3^5 × 4^5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_BASES",
+        "SUM_FOR_PRODUCT",
+        "TIMES_FOR_POWER",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (3 × 4)^5 = 3^5 × 4^5."
+    },
+    {
+      "id": "exponent-rules/t4/007",
+      "tier": 4,
+      "prompt": "(3^4)^? = 3^8",
+      "choices": [
+        "4",
+        "12",
+        "8",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        null
+      ],
+      "explanation": "Power of a power multiplies: 4 × ? = 8, so ? = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/008",
+      "tier": 4,
+      "prompt": "(5^4)^? = 5^12",
+      "choices": [
+        "3",
+        "12",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ARITH",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 4 × ? = 12, so ? = 12 ÷ 4 = 3."
+    },
+    {
+      "id": "exponent-rules/t4/009",
+      "tier": 4,
+      "prompt": "(2 × 6)^2",
+      "choices": [
+        "2^2 + 6^2",
+        "(2 + 6)^2",
+        "2^2 × 6^2",
+        "2 × 6 × 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_FOR_PRODUCT",
+        "SUM_BASES",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 6)^2 = 2^2 × 6^2."
+    },
+    {
+      "id": "exponent-rules/t4/010",
+      "tier": 4,
+      "prompt": "(8^2)^? = 8^4",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 4, so ? = 4 ÷ 2 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/011",
+      "tier": 4,
+      "prompt": "(4^−3)^2",
+      "choices": [
+        "4^2",
+        "4^−6",
+        "4^6",
+        "4^−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "SIGN_SLIP",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × 2 = −6. So 4^−6."
+    },
+    {
+      "id": "exponent-rules/t4/012",
+      "tier": 4,
+      "prompt": "(3^−3)^−3",
+      "choices": [
+        "3^−3",
+        "3^−6",
+        "3^−9",
+        "3^9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × (−3) = 9. So 3^9."
+    },
+    {
+      "id": "exponent-rules/t4/013",
+      "tier": 4,
+      "prompt": "(2^−4)^2",
+      "choices": [
+        "2^−4",
+        "2^2",
+        "2^−8",
+        "2^−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        null,
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −4 × 2 = −8. So 2^−8."
+    },
+    {
+      "id": "exponent-rules/t4/014",
+      "tier": 4,
+      "prompt": "(4^2)^−3",
+      "choices": [
+        "4^2",
+        "4^−6",
+        "4^−3",
+        "4^6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "DROP_INNER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−3) = −6. So 4^−6."
+    },
+    {
+      "id": "exponent-rules/t4/015",
+      "tier": 4,
+      "prompt": "(2^4)^−2",
+      "choices": [
+        "2^4",
+        "2^−2",
+        "2^8",
+        "2^−8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 4 × (−2) = −8. So 2^−8."
+    },
+    {
+      "id": "exponent-rules/t4/016",
+      "tier": 4,
+      "prompt": "(8^2)^−2",
+      "choices": [
+        "8^4",
+        "8^−4",
+        "8^2",
+        "8^−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "DROP_OUTER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−2) = −4. So 8^−4."
+    },
+    {
+      "id": "exponent-rules/t4/017",
+      "tier": 4,
+      "prompt": "(8^2)^−5",
+      "choices": [
+        "8^−5",
+        "8^−3",
+        "8^−10",
+        "8^10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−5) = −10. So 8^−10."
+    },
+    {
+      "id": "exponent-rules/t4/018",
+      "tier": 4,
+      "prompt": "(2 × 9)^5",
+      "choices": [
+        "2 × 9 × 5",
+        "2 × 9^5",
+        "2^5 + 9^5",
+        "2^5 × 9^5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "FIRST_FACTOR_ONLY",
+        "SUM_FOR_PRODUCT",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 9)^5 = 2^5 × 9^5."
+    },
+    {
+      "id": "exponent-rules/t4/019",
+      "tier": 4,
+      "prompt": "(8 × 9)^4",
+      "choices": [
+        "8 × 9^4",
+        "8^4 × 9",
+        "8^4 × 9^4",
+        "8 × 9 × 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "FIRST_FACTOR_ONLY",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (8 × 9)^4 = 8^4 × 9^4."
+    },
+    {
+      "id": "exponent-rules/t4/020",
+      "tier": 4,
+      "prompt": "(7^−3)^−3",
+      "choices": [
+        "7^−3",
+        "7^9",
+        "7^−6",
+        "7^−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × (−3) = 9. So 7^9."
+    },
+    {
+      "id": "exponent-rules/t4/021",
+      "tier": 4,
+      "prompt": "(4^3)^4",
+      "choices": [
+        "4^3",
+        "4^12",
+        "4^7",
+        "4^4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 4 = 12. So 4^12."
+    },
+    {
+      "id": "exponent-rules/t4/022",
+      "tier": 4,
+      "prompt": "(4^3)^? = 4^6",
+      "choices": [
+        "2",
+        "6",
+        "9",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 3 × ? = 6, so ? = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/023",
+      "tier": 4,
+      "prompt": "(8 × 10)^5",
+      "choices": [
+        "8^5 × 10^5",
+        "8 × 10 × 5",
+        "(8 + 10)^5",
+        "8 × 10^5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "SUM_BASES",
+        "FIRST_FACTOR_ONLY"
+      ],
+      "explanation": "The exponent goes on each factor: (8 × 10)^5 = 8^5 × 10^5."
+    },
+    {
+      "id": "exponent-rules/t4/024",
+      "tier": 4,
+      "prompt": "(8^2)^? = 8^10",
+      "choices": [
+        "5",
+        "10",
+        "12",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 10, so ? = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "exponent-rules/t4/025",
+      "tier": 4,
+      "prompt": "(7^4)^2",
+      "choices": [
+        "7^4",
+        "7^8",
+        "7^6",
+        "7^2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 4 × 2 = 8. So 7^8."
+    },
+    {
+      "id": "exponent-rules/t4/026",
+      "tier": 4,
+      "prompt": "(2^−3)^4",
+      "choices": [
+        "2^−12",
+        "2^−3",
+        "2^1",
+        "2^4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × 4 = −12. So 2^−12."
+    },
+    {
+      "id": "exponent-rules/t4/027",
+      "tier": 4,
+      "prompt": "(5 × 7)^4",
+      "choices": [
+        "5 × 7^4",
+        "(5 + 7)^4",
+        "5 × 7 × 4",
+        "5^4 × 7^4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "SUM_BASES",
+        "TIMES_FOR_POWER",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (5 × 7)^4 = 5^4 × 7^4."
+    },
+    {
+      "id": "exponent-rules/t4/028",
+      "tier": 4,
+      "prompt": "(9^3)^2",
+      "choices": [
+        "9^2",
+        "9^6",
+        "9^5",
+        "9^3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 2 = 6. So 9^6."
+    },
+    {
+      "id": "exponent-rules/t4/029",
+      "tier": 4,
+      "prompt": "(4^2)^4",
+      "choices": [
+        "4^2",
+        "4^4",
+        "4^6",
+        "4^8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 4 = 8. So 4^8."
+    },
+    {
+      "id": "exponent-rules/t4/030",
+      "tier": 4,
+      "prompt": "(4 × 10)^2",
+      "choices": [
+        "4^2 + 10^2",
+        "4^2 × 10^2",
+        "(4 + 10)^2",
+        "4 × 10 × 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_FOR_PRODUCT",
+        null,
+        "SUM_BASES",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (4 × 10)^2 = 4^2 × 10^2."
+    },
+    {
+      "id": "exponent-rules/t4/031",
+      "tier": 4,
+      "prompt": "(4^3)^2",
+      "choices": [
+        "4^6",
+        "4^2",
+        "4^5",
+        "4^3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 2 = 6. So 4^6."
+    },
+    {
+      "id": "exponent-rules/t4/032",
+      "tier": 4,
+      "prompt": "(6 × 8)^2",
+      "choices": [
+        "(6 + 8)^2",
+        "6 × 8 × 2",
+        "6^2 × 8^2",
+        "6^2 + 8^2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_BASES",
+        "TIMES_FOR_POWER",
+        null,
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (6 × 8)^2 = 6^2 × 8^2."
+    },
+    {
+      "id": "exponent-rules/t4/033",
+      "tier": 4,
+      "prompt": "(2^2)^? = 2^6",
+      "choices": [
+        "8",
+        "4",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "ADD_FOR_POWER",
+        "COPY_TOTAL",
+        null
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 6, so ? = 6 ÷ 2 = 3."
+    },
+    {
+      "id": "exponent-rules/t4/034",
+      "tier": 4,
+      "prompt": "(2 × 3)^5",
+      "choices": [
+        "2^5 × 3^5",
+        "(2 + 3)^5",
+        "2^5 × 3",
+        "2^5 + 3^5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_BASES",
+        "FIRST_FACTOR_ONLY",
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 3)^5 = 2^5 × 3^5."
+    },
+    {
+      "id": "exponent-rules/t4/035",
+      "tier": 4,
+      "prompt": "(3^3)^? = 3^6",
+      "choices": [
+        "9",
+        "3",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "ADD_FOR_POWER",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Power of a power multiplies: 3 × ? = 6, so ? = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/036",
+      "tier": 4,
+      "prompt": "(3^−5)^2",
+      "choices": [
+        "3^−10",
+        "3^−5",
+        "3^2",
+        "3^10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_OUTER",
+        "DROP_INNER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −5 × 2 = −10. So 3^−10."
+    },
+    {
+      "id": "exponent-rules/t4/037",
+      "tier": 4,
+      "prompt": "(8^3)^3",
+      "choices": [
+        "8^10",
+        "8^6",
+        "8^3",
+        "8^9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_FOR_POWER",
+        "DROP_INNER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 3 = 9. So 8^9."
+    },
+    {
+      "id": "exponent-rules/t4/038",
+      "tier": 4,
+      "prompt": "(6 × 7)^5",
+      "choices": [
+        "6^5 × 7",
+        "(6 + 7)^5",
+        "6^5 × 7^5",
+        "6^5 + 7^5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "SUM_BASES",
+        null,
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (6 × 7)^5 = 6^5 × 7^5."
+    },
+    {
+      "id": "exponent-rules/t4/039",
+      "tier": 4,
+      "prompt": "(4^−2)^6",
+      "choices": [
+        "4^12",
+        "4^−2",
+        "4^−12",
+        "4^4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −2 × 6 = −12. So 4^−12."
+    },
+    {
+      "id": "exponent-rules/t4/040",
+      "tier": 4,
+      "prompt": "(2^2)^? = 2^10",
+      "choices": [
+        "5",
+        "8",
+        "10",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_POWER",
+        "COPY_TOTAL",
+        "ADD_GIVEN"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 10, so ? = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "exponent-rules/t5/001",
+      "tier": 5,
+      "prompt": "(4^−3)^−2 ÷ 4^6",
+      "choices": [
+        "0",
+        "1/4",
+        "1",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_IS_ZERO",
+        "ARITH",
+        null,
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "−3 × (−2) = 6; then 6 − 6 = 0. So 4^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t5/002",
+      "tier": 5,
+      "prompt": "5^5 × 5^−5 ÷ 5^−2",
+      "choices": [
+        "10",
+        "25",
+        "1/25",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "5 + (−5) = 0; then 0 − (−2) = 2. So 5^2 = 25."
+    },
+    {
+      "id": "exponent-rules/t5/003",
+      "tier": 5,
+      "prompt": "10^3 × 10^−3",
+      "choices": [
+        "1000000",
+        "10",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "Add the exponents: 3 + (−3) = 0. So 10^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t5/004",
+      "tier": 5,
+      "prompt": "(10^3)^2 ÷ 10^2",
+      "choices": [
+        "1000",
+        "40",
+        "1/10000",
+        "10000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "TIMES_FOR_POWER",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "3 × 2 = 6; then 6 − 2 = 4. So 10^4 = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/005",
+      "tier": 5,
+      "prompt": "9^6 ÷ 9^7",
+      "choices": [
+        "9",
+        "−9",
+        "1/9",
+        "−1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "NEG_VALUE",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "Subtract the exponents: 6 − 7 = −1. So 9^−1 = 1/9."
+    },
+    {
+      "id": "exponent-rules/t5/006",
+      "tier": 5,
+      "prompt": "5^−4 × 5^−2 ÷ 5^−4",
+      "choices": [
+        "1/25",
+        "−1/25",
+        "25",
+        "−10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "SUB_EXPONENTS",
+        "NEG_TIMES"
+      ],
+      "explanation": "−4 + (−2) = −6; then −6 − (−4) = −2. So 5^−2 = 1/25."
+    },
+    {
+      "id": "exponent-rules/t5/007",
+      "tier": 5,
+      "prompt": "10^−6 ÷ 10^−5",
+      "choices": [
+        "1/10",
+        "−10",
+        "−1/10",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Subtract the exponents: −6 − (−5) = −1. So 10^−1 = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/008",
+      "tier": 5,
+      "prompt": "2^3 × 2^−2",
+      "choices": [
+        "1/64",
+        "2",
+        "32",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Add the exponents: 3 + (−2) = 1. So 2^1 = 2."
+    },
+    {
+      "id": "exponent-rules/t5/009",
+      "tier": 5,
+      "prompt": "(3^−2)^−2 ÷ 3^7",
+      "choices": [
+        "1/27",
+        "−1/27",
+        "−9",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "−2 × (−2) = 4; then 4 − 7 = −3. So 3^−3 = 1/27."
+    },
+    {
+      "id": "exponent-rules/t5/010",
+      "tier": 5,
+      "prompt": "5^3 × 5^−7 ÷ 5^−3",
+      "choices": [
+        "−5",
+        "−1/5",
+        "5",
+        "1/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "3 + (−7) = −4; then −4 − (−3) = −1. So 5^−1 = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/011",
+      "tier": 5,
+      "prompt": "(10^3)^−3 × 10^8",
+      "choices": [
+        "1/10",
+        "−1/10",
+        "−10",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "3 × (−3) = −9; then −9 + 8 = −1. So 10^−1 = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/012",
+      "tier": 5,
+      "prompt": "(10^−2)^−2 × 10^2",
+      "choices": [
+        "60",
+        "1000000",
+        "100",
+        "1/100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "SUB_EXPONENTS",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "−2 × (−2) = 4; then 4 + 2 = 6. So 10^6 = 1000000."
+    },
+    {
+      "id": "exponent-rules/t5/013",
+      "tier": 5,
+      "prompt": "5^5 ÷ 5^7",
+      "choices": [
+        "25",
+        "−10",
+        "−25",
+        "1/25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "Subtract the exponents: 5 − 7 = −2. So 5^−2 = 1/25."
+    },
+    {
+      "id": "exponent-rules/t5/014",
+      "tier": 5,
+      "prompt": "2^−4 ÷ 2^−2",
+      "choices": [
+        "1/64",
+        "−1/4",
+        "−4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "Subtract the exponents: −4 − (−2) = −2. So 2^−2 = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/015",
+      "tier": 5,
+      "prompt": "(2^−2)^2 × 2^−2",
+      "choices": [
+        "1/64",
+        "64",
+        "−12",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "−2 × 2 = −4; then −4 + (−2) = −6. So 2^−6 = 1/64."
+    },
+    {
+      "id": "exponent-rules/t5/016",
+      "tier": 5,
+      "prompt": "(9^−2)^3 ÷ 9^−4",
+      "choices": [
+        "−18",
+        "−1/81",
+        "81",
+        "1/81"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "−2 × 3 = −6; then −6 − (−4) = −2. So 9^−2 = 1/81."
+    },
+    {
+      "id": "exponent-rules/t5/017",
+      "tier": 5,
+      "prompt": "2^−7 ÷ 2^−2",
+      "choices": [
+        "−32",
+        "32",
+        "−1/32",
+        "1/32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "SIGN_SLIP",
+        "NEG_FRACTION",
+        null
+      ],
+      "explanation": "Subtract the exponents: −7 − (−2) = −5. So 2^−5 = 1/32."
+    },
+    {
+      "id": "exponent-rules/t5/018",
+      "tier": 5,
+      "prompt": "5^2 × 5^−3",
+      "choices": [
+        "5",
+        "1/5",
+        "−5",
+        "−1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "Add the exponents: 2 + (−3) = −1. So 5^−1 = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/019",
+      "tier": 5,
+      "prompt": "(4^4)^−2 ÷ 4^−7",
+      "choices": [
+        "1/4",
+        "−4",
+        "4",
+        "−1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_VALUE",
+        "FLIPPED_SUB",
+        "NEG_FRACTION"
+      ],
+      "explanation": "4 × (−2) = −8; then −8 − (−7) = −1. So 4^−1 = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/020",
+      "tier": 5,
+      "prompt": "(5^2)^−3 × 5^5",
+      "choices": [
+        "5",
+        "1/5",
+        "−1/5",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "2 × (−3) = −6; then −6 + 5 = −1. So 5^−1 = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/021",
+      "tier": 5,
+      "prompt": "(10^4)^3 ÷ 10^8",
+      "choices": [
+        "10000",
+        "1/10000",
+        "1/10",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "ADD_FOR_POWER",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "4 × 3 = 12; then 12 − 8 = 4. So 10^4 = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/022",
+      "tier": 5,
+      "prompt": "6^−5 ÷ 6^2 ÷ 6^−5",
+      "choices": [
+        "36",
+        "−1/36",
+        "−12",
+        "1/36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        null
+      ],
+      "explanation": "−5 − 2 = −7; then −7 − (−5) = −2. So 6^−2 = 1/36."
+    },
+    {
+      "id": "exponent-rules/t5/023",
+      "tier": 5,
+      "prompt": "(3^3)^−2 × 3^5",
+      "choices": [
+        "3",
+        "−1/3",
+        "1/3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "3 × (−2) = −6; then −6 + 5 = −1. So 3^−1 = 1/3."
+    },
+    {
+      "id": "exponent-rules/t5/024",
+      "tier": 5,
+      "prompt": "3^−5 ÷ 3^−5",
+      "choices": [
+        "1/3",
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "Subtract the exponents: −5 − (−5) = 0. So 3^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t5/025",
+      "tier": 5,
+      "prompt": "10^−4 ÷ 10^5 ÷ 10^−8",
+      "choices": [
+        "−10",
+        "−1/10",
+        "1/10",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "NEG_FRACTION",
+        null,
+        "IGNORE_SIGN"
+      ],
+      "explanation": "−4 − 5 = −9; then −9 − (−8) = −1. So 10^−1 = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/026",
+      "tier": 5,
+      "prompt": "10^8 ÷ 10^4 ÷ 10^8",
+      "choices": [
+        "−10000",
+        "−1/10000",
+        "10000",
+        "1/10000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        null
+      ],
+      "explanation": "8 − 4 = 4; then 4 − 8 = −4. So 10^−4 = 1/10000."
+    },
+    {
+      "id": "exponent-rules/t5/027",
+      "tier": 5,
+      "prompt": "10^6 × 10^6 ÷ 10^8",
+      "choices": [
+        "1/10000",
+        "10000",
+        "40",
+        "100000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "TIMES_FOR_POWER",
+        "ARITH"
+      ],
+      "explanation": "6 + 6 = 12; then 12 − 8 = 4. So 10^4 = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/028",
+      "tier": 5,
+      "prompt": "2^3 × 2^−8 ÷ 2^−3",
+      "choices": [
+        "4",
+        "−1/4",
+        "1/4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3 + (−8) = −5; then −5 − (−3) = −2. So 2^−2 = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/029",
+      "tier": 5,
+      "prompt": "(7^2)^2 ÷ 7^2",
+      "choices": [
+        "7",
+        "1/49",
+        "49",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_SUB",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "2 × 2 = 4; then 4 − 2 = 2. So 7^2 = 49."
+    },
+    {
+      "id": "exponent-rules/t5/030",
+      "tier": 5,
+      "prompt": "6^7 × 6^−2 ÷ 6^3",
+      "choices": [
+        "1/36",
+        "36",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "ARITH",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "7 + (−2) = 5; then 5 − 3 = 2. So 6^2 = 36."
+    },
+    {
+      "id": "exponent-rules/t5/031",
+      "tier": 5,
+      "prompt": "3^2 ÷ 3^−2 ÷ 3^2",
+      "choices": [
+        "1/9",
+        "27",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "2 − (−2) = 4; then 4 − 2 = 2. So 3^2 = 9."
+    },
+    {
+      "id": "exponent-rules/t5/032",
+      "tier": 5,
+      "prompt": "10^−4 ÷ 10^−2 ÷ 10^−6",
+      "choices": [
+        "100000",
+        "10000",
+        "1/10000",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "−4 − (−2) = −2; then −2 − (−6) = 4. So 10^4 = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/033",
+      "tier": 5,
+      "prompt": "(10^−2)^−3 ÷ 10^8",
+      "choices": [
+        "1/100",
+        "100",
+        "−100",
+        "−20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_VALUE",
+        "NEG_TIMES"
+      ],
+      "explanation": "−2 × (−3) = 6; then 6 − 8 = −2. So 10^−2 = 1/100."
+    },
+    {
+      "id": "exponent-rules/t5/034",
+      "tier": 5,
+      "prompt": "9^−5 ÷ 9^−3",
+      "choices": [
+        "−1/81",
+        "81",
+        "1/81",
+        "−18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "FLIPPED_SUB",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "Subtract the exponents: −5 − (−3) = −2. So 9^−2 = 1/81."
+    },
+    {
+      "id": "exponent-rules/t5/035",
+      "tier": 5,
+      "prompt": "5^−6 ÷ 5^−4 ÷ 5^−2",
+      "choices": [
+        "1",
+        "0",
+        "1/5",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ARITH",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "−6 − (−4) = −2; then −2 − (−2) = 0. So 5^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t5/036",
+      "tier": 5,
+      "prompt": "(4^2)^−3 ÷ 4^−5",
+      "choices": [
+        "−4",
+        "4",
+        "1/4",
+        "−1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "2 × (−3) = −6; then −6 − (−5) = −1. So 4^−1 = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/037",
+      "tier": 5,
+      "prompt": "6^−2 × 6^−3 ÷ 6^−3",
+      "choices": [
+        "−1/36",
+        "−12",
+        "−36",
+        "1/36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "−2 + (−3) = −5; then −5 − (−3) = −2. So 6^−2 = 1/36."
+    },
+    {
+      "id": "exponent-rules/t5/038",
+      "tier": 5,
+      "prompt": "2^−5 × 2^5",
+      "choices": [
+        "1/2",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "Add the exponents: −5 + 5 = 0. So 2^0 = 1."
+    },
+    {
+      "id": "exponent-rules/t5/039",
+      "tier": 5,
+      "prompt": "3^8 × 3^2 ÷ 3^7",
+      "choices": [
+        "9",
+        "1/27",
+        "1/3",
+        "27"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "FLIPPED_SUB",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "8 + 2 = 10; then 10 − 7 = 3. So 3^3 = 27."
+    },
+    {
+      "id": "exponent-rules/t5/040",
+      "tier": 5,
+      "prompt": "2^3 × 2^−8",
+      "choices": [
+        "1/32",
+        "−10",
+        "−32",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "Add the exponents: 3 + (−8) = −5. So 2^−5 = 1/32."
+    }
+  ]
+}

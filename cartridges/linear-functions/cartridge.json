@@ -1,0 +1,205 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-functions",
+  "version": "1.0.0",
+  "title": "Functions & Slope",
+  "subtitle": "Rate of Change, Start Value, y = mx + b",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.B.5",
+    "CCSS.MATH.CONTENT.8.EE.B.6",
+    "CCSS.MATH.CONTENT.8.F.A.1",
+    "CCSS.MATH.CONTENT.8.F.A.2",
+    "CCSS.MATH.CONTENT.8.F.A.3",
+    "CCSS.MATH.CONTENT.8.F.B.4",
+    "CCSS.MATH.CONTENT.8.F.B.5"
+  ],
+  "seed": 20261035,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Coordinates and lines. Coordinates in a prompt are integers of size <= 10; every table value, input and output is an integer of size <= 20 (tables have 3 rows; T1 pairs use 0-9). Slopes and rates: an integer of size 2-10, or a simplest fraction a/b with a, b <= 5 and a/b != 1; rise and run each of size <= 10 (run >= 2) and the division exact or a times-table fact (rise = g*a, run = g*b). Every y = mx + b has m and b nonzero integers of size <= 10 (T1 rule evaluation: m 2-5, input 1-6, output 1-20). Unit rate k 2-5 with x*k <= 10; compared rates are integers 2-9. Equations use only x to the first power except the not-linear examples (x^2, x^3, 2^x). No f(x), no graphs, no domain and range. Wrong choices may be any size <= 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Is It a Function?",
+      "description": "One input, one output: spot functions, then plug in a rule."
+    },
+    {
+      "tier": 2,
+      "name": "Slope & Rate of Change",
+      "description": "Rise over run from points, tables and stories."
+    },
+    {
+      "tier": 3,
+      "name": "Start Value & y = mx + b",
+      "description": "Read the slope and the start; write the equation."
+    },
+    {
+      "tier": 4,
+      "name": "Proportional & Compare",
+      "description": "Unit rates through the origin; which rate is greater?"
+    },
+    {
+      "tier": 5,
+      "name": "Linear or Not?",
+      "description": "Lines, curves, rising and falling, steady steps."
+    }
+  ],
+  "misconceptions": {
+    "REPEAT_OUTPUT": {
+      "student": "Outputs may repeat. Only one input with two outputs breaks it.",
+      "teacher": "Says a repeated output means not a function (reads the rule backwards)."
+    },
+    "REPEAT_INPUT_OK": {
+      "student": "One input can't have two outputs. That's what breaks a function.",
+      "teacher": "Accepts an input that is paired with two different outputs as a function."
+    },
+    "INPUT_OUTPUT_SWAP": {
+      "student": "Inputs go in, outputs come out. The input is x, the output is y.",
+      "teacher": "Swaps input and output: tests the second number for repeats, or solves for x instead of y."
+    },
+    "PLUGGED_WRONG": {
+      "student": "Do the steps in the order the rule says, one at a time.",
+      "teacher": "Applies the rule's steps in the wrong order, or puts the constant inside the product."
+    },
+    "ADDED_PARTS": {
+      "student": "Multiply where it says multiply. Don't just add every number.",
+      "teacher": "Adds slope, input and constant instead of multiplying the input by the slope."
+    },
+    "STOPPED_EARLY": {
+      "student": "Finish both steps of the rule: multiply, then add or subtract.",
+      "teacher": "Does only the first step of a two-step rule."
+    },
+    "RUN_OVER_RISE": {
+      "student": "Slope is rise over run: the up-down change goes on top.",
+      "teacher": "Divides run by rise, the reciprocal of the slope."
+    },
+    "SIGN_SLIP": {
+      "student": "Check the sign: going down as x goes up means a negative slope.",
+      "teacher": "Right size, wrong sign on a slope or rate of change."
+    },
+    "RISE_ONLY": {
+      "student": "Divide by the run too. Slope is the rise over the run.",
+      "teacher": "Reports the change in y and never divides by the change in x."
+    },
+    "START_AS_RATE": {
+      "student": "The first y is where it starts. The rate is the change per step.",
+      "teacher": "Reads the first y value in a table or story as the rate of change."
+    },
+    "TOTAL_CHANGE": {
+      "student": "Rate is the change for 1 step of x, not across the whole table.",
+      "teacher": "Uses the change from the first to the last row instead of the change per unit of x."
+    },
+    "ADDED_RISE_RUN": {
+      "student": "Slope divides rise by run. Adding them doesn't give a rate.",
+      "teacher": "Adds rise and run instead of dividing."
+    },
+    "SLOPE_AS_START": {
+      "student": "The number with x is the slope. The start is the lone number.",
+      "teacher": "Reports the coefficient of x as the initial value (or its absolute value, or m + b)."
+    },
+    "START_AS_SLOPE": {
+      "student": "The slope is the number multiplying x, not the one added.",
+      "teacher": "Reports the constant term as the slope."
+    },
+    "VALUE_AT_1": {
+      "student": "Start means x = 0, not x = 1. Back up one step to find it.",
+      "teacher": "Uses y at x = 1 (or the first table value) as the initial value."
+    },
+    "SIGN_DROPPED": {
+      "student": "Keep the minus sign. It belongs to the number after it.",
+      "teacher": "Drops a negative sign on the slope or the start value."
+    },
+    "SWAPPED_MB": {
+      "student": "The slope goes with x. The start is the number you add.",
+      "teacher": "Swaps m and b in y = mx + b."
+    },
+    "NO_START": {
+      "student": "Include the starting amount: y = rate × x + start.",
+      "teacher": "Writes y = mx and leaves out the initial value."
+    },
+    "LAST_VALUE": {
+      "student": "The start is y at x = 0, not the last y in the table.",
+      "teacher": "Uses the last table value as the initial value."
+    },
+    "BIGGER_TOTAL": {
+      "student": "Compare rates, not totals: divide each total by its time.",
+      "teacher": "Picks the case with the bigger headline number instead of the bigger rate."
+    },
+    "INVERTED_RATE": {
+      "student": "Rate is amount per 1 unit: divide the amount by the units.",
+      "teacher": "Divides the units by the amount (or x by y), the reciprocal of the rate."
+    },
+    "START_NOT_RATE": {
+      "student": "Speed is the slope, the number with x. A big start isn't speed.",
+      "teacher": "Compares starting amounts (the constants) instead of the rates of change."
+    },
+    "DIFFERENCE": {
+      "student": "Unit rate is y ÷ x, not y − x.",
+      "teacher": "Subtracts y − x to get the rate."
+    },
+    "TOTAL_AS_RATE": {
+      "student": "Unit rate is for 1 x, so divide y by x.",
+      "teacher": "Reports y itself as the unit rate."
+    },
+    "HAS_START": {
+      "student": "Proportional lines have no added number: y = kx exactly.",
+      "teacher": "Treats y = kx + c as proportional (ignores the constant)."
+    },
+    "ADDS_NOT_MULTIPLIES": {
+      "student": "Proportional means y = kx (multiply), not y = x + k.",
+      "teacher": "Treats a constant difference (y = x + k) as proportional."
+    },
+    "STEADY_MEANS_PROP": {
+      "student": "Steady steps aren't enough. y ÷ x must match in every row.",
+      "teacher": "Calls a table proportional because y rises by equal steps (ignores the ratio)."
+    },
+    "NEEDS_ZERO_ROW": {
+      "student": "No x = 0 row needed. Check that y ÷ x is the same each row.",
+      "teacher": "Says a table with constant ratio is not proportional because it lacks (0, 0)."
+    },
+    "CONSTANT_NOT_LINEAR": {
+      "student": "Adding a number still makes a line: y = mx + b is linear.",
+      "teacher": "Says y = mx + b (b nonzero) is not linear."
+    },
+    "MINUS_NOT_LINEAR": {
+      "student": "A minus sign still makes a line. It slopes down or shifts.",
+      "teacher": "Says an equation with subtraction or a negative slope is not linear."
+    },
+    "EXPONENT_IGNORED": {
+      "student": "A power of x (x^2, 2^x) bends the graph. Linear is x to the 1st.",
+      "teacher": "Ignores the exponent and calls a squared, cubed or exponential rule linear."
+    },
+    "CONSTANT_SIGN_DECIDES": {
+      "student": "The number multiplying x sets the direction, not the added one.",
+      "teacher": "Decides rising or falling from the sign of the constant term."
+    },
+    "SLOPE_SIGN_IGNORED": {
+      "student": "Slope sign: positive y rises, negative falls, zero stays put.",
+      "teacher": "Picks a direction that disagrees with the sign of the slope."
+    },
+    "CONSTANT_RATE_MEANS_SAME": {
+      "student": "A steady rate still moves y. It stays put only if the slope is 0.",
+      "teacher": "Reads a constant rate of change as y staying the same."
+    },
+    "EQUAL_STEPS_MISSED": {
+      "student": "Uneven x steps are fine. Check that y changes at a steady rate.",
+      "teacher": "Says a table with uneven x gaps is not linear (compares y steps only)."
+    },
+    "DECREASING_NOT_LINEAR": {
+      "student": "Going down steadily is still a line, with a negative slope.",
+      "teacher": "Says a steadily decreasing table is not linear."
+    },
+    "LOOKS_GROWING": {
+      "student": "Going up isn't enough. The steps in y must match the steps in x.",
+      "teacher": "Calls any increasing table linear without checking for a constant rate."
+    },
+    "SAME_NOT_CHECKED": {
+      "student": "Work out both rates. They differ, so one is greater.",
+      "teacher": "Says the two are the same without comparing the rates."
+    },
+    "RATE_NOT_COMPARED": {
+      "student": "Work out both rates. Here they match, so it's a tie.",
+      "teacher": "Picks one line when the rates are equal (compares something else)."
+    }
+  }
+}

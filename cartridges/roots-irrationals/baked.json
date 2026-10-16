@@ -1,0 +1,3892 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "roots-irrationals",
+  "version": "1.0.0",
+  "title": "Roots & Irrational Numbers",
+  "subtitle": "Square Roots, Cube Roots & Estimates",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.NS.A.1",
+    "CCSS.MATH.CONTENT.8.NS.A.2",
+    "CCSS.MATH.CONTENT.8.EE.A.2"
+  ],
+  "seed": 20261033,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Roots. Square roots only of the perfect squares 4-100 and cube roots only of 1, 8, 27, 64 (cube roots are written in words, 'Cube root of 27'); a side or edge comes from an area or volume of that kind. An irrational number is an unsimplified √n (n 2-99, not a perfect square) or π; no radical is simplified, added or multiplied. Repeating decimals have 1 or 2 repeating digits (0.777..., 0.1818..., or one digit after a non-repeating one: 0.1666...) and a fraction in simplest form with numerator and denominator 1-12 (ninths, elevenths, sixths); terminating decimals convert to fractions with denominator 2-10. The 10x − x step shows x with 1 or 2 repeating digits and an answer 1-90. Estimates name the whole numbers around √n (n 2-99) or the nearest whole number (the decimal part of √n is under 0.3 or over 0.7) or k.5 for √(k(k+1)) with k 2-9. Any two values compared differ by at least 0.3; an ordering has 3 values. Wrong choices: whatever a misreading gives, up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Square & Cube Roots",
+      "description": "Square roots of perfect squares and cube roots of 1, 8, 27, 64."
+    },
+    {
+      "tier": 2,
+      "name": "Rational or Irrational?",
+      "description": "Which numbers are fractions, and which never end or repeat."
+    },
+    {
+      "tier": 3,
+      "name": "Repeating Decimals",
+      "description": "Turn repeating and ending decimals into fractions."
+    },
+    {
+      "tier": 4,
+      "name": "Estimate Square Roots",
+      "description": "Place a square root between whole numbers."
+    },
+    {
+      "tier": 5,
+      "name": "Compare & Order Roots",
+      "description": "Compare and order roots, whole numbers and π."
+    }
+  ],
+  "misconceptions": {
+    "HALVED": {
+      "student": "A square root is not half. Ask: what times itself makes the number?",
+      "teacher": "Divides by 2 instead of taking the root (√49 = 24.5)."
+    },
+    "DOUBLED": {
+      "student": "Not double. √49 asks what number times itself makes 49.",
+      "teacher": "Doubles the root instead of squaring or rooting (√49 = 14)."
+    },
+    "NOT_ROOTED": {
+      "student": "That is the number itself. The root times itself makes that number.",
+      "teacher": "Gives the number back without taking the root."
+    },
+    "THIRD_FOR_CUBE": {
+      "student": "A cube root is not dividing by 3. Find a number used 3 times in a product.",
+      "teacher": "Divides by 3 for a cube root (cube root of 27 = 9)."
+    },
+    "TRIPLED": {
+      "student": "A cube root is not times 3. 3 × 3 × 3 makes 27, so the root is 3.",
+      "teacher": "Multiplies the root by 3 instead of cubing or rooting."
+    },
+    "SQUARE_ROOT_FOR_CUBE": {
+      "student": "That is the square root. A cube root uses the number three times.",
+      "teacher": "Takes the square root where a cube root was asked (cube root of 64 = 8)."
+    },
+    "POSITIVE_ONLY": {
+      "student": "Both signs square to the same number. Check the sign the question asks for.",
+      "teacher": "Ignores the negative solution, or ignores the sign condition."
+    },
+    "AREA_OVER_4": {
+      "student": "Side × side = area. Dividing by 4 would find a side only for a perimeter.",
+      "teacher": "Divides the area by 4 (perimeter thinking) instead of taking the root."
+    },
+    "PERIMETER_FOR_SIDE": {
+      "student": "That is the perimeter. The side is the root of the area.",
+      "teacher": "Gives 4 × side (perimeter) where the side was asked."
+    },
+    "ROOT_IS_IRRATIONAL": {
+      "student": "A root sign does not make it irrational. √36 = 6 is a whole number.",
+      "teacher": "Calls every square root irrational, even of a perfect square."
+    },
+    "ROOT_IS_RATIONAL": {
+      "student": "√7 is not a whole number or a fraction. It never ends or repeats.",
+      "teacher": "Thinks the root of a non-square is rational."
+    },
+    "REPEAT_IS_IRRATIONAL": {
+      "student": "A repeating decimal is a fraction (0.333... = 1/3), so it is rational.",
+      "teacher": "Thinks a decimal that goes on forever must be irrational."
+    },
+    "NONWHOLE_IS_IRRATIONAL": {
+      "student": "Fractions and ending decimals are rational. Irrational means no fraction fits.",
+      "teacher": "Thinks any number that is not a whole number is irrational."
+    },
+    "PI_IS_RATIONAL": {
+      "student": "π never ends and never repeats, so it is irrational. 3.14 is only close.",
+      "teacher": "Treats π as exactly 3.14 or 22/7."
+    },
+    "OVER_TEN": {
+      "student": "Repeating digits are not tenths. Use 9 for one repeating digit.",
+      "teacher": "Writes the repeating digit over 10."
+    },
+    "ROUNDED_UP": {
+      "student": "Rounding changes the value. 0.666... is exactly 6/9, not 7/10.",
+      "teacher": "Rounds the repeating decimal up, then writes it over 10."
+    },
+    "OVER_HUNDRED": {
+      "student": "Two repeating digits go over 99, not 100.",
+      "teacher": "Uses the digits over 100 for a repeating decimal."
+    },
+    "NINTHS_ONLY": {
+      "student": "Two repeating digits go over 99. That reduces to elevenths.",
+      "teacher": "Treats a two-digit repeat like a one-digit repeat (ninths)."
+    },
+    "NINE_FOR_TERMINATING": {
+      "student": "9s are for repeating decimals. An ending decimal uses 10, 100 or 1000.",
+      "teacher": "Uses a denominator of 9, 99 or 999 for a decimal that ends."
+    },
+    "DIGIT_AS_DENOM": {
+      "student": "0.4 means 4 tenths. The digits go on top, not on the bottom.",
+      "teacher": "Puts the digits in the denominator (0.4 = 1/4)."
+    },
+    "PLACE_VALUE_SLIP": {
+      "student": "Count decimal places: 1 is tenths, 2 hundredths, 3 thousandths.",
+      "teacher": "Uses the wrong place value for the denominator."
+    },
+    "TIMES_ONLY": {
+      "student": "That is only 10x or 100x. Subtract x so the repeating tails cancel.",
+      "teacher": "Multiplies by 10 or 100 but forgets to subtract x."
+    },
+    "NINES_ONLY": {
+      "student": "The 9 is how many x you have. The answer is the difference of the numbers.",
+      "teacher": "Gives the coefficient of x (9 or 99) instead of the difference."
+    },
+    "TRUNCATED_REPEAT": {
+      "student": "Cut-off digits lose value. 4.444... − 0.444... is exactly 4.",
+      "teacher": "Multiplies the truncated decimal (9 × 0.4) instead of subtracting."
+    },
+    "DECIMAL_SLIP": {
+      "student": "Line up the decimal points. The repeating tails cancel, leaving a whole number.",
+      "teacher": "Misplaces the decimal point after subtracting."
+    },
+    "SQUARES_NOT_ROOTS": {
+      "student": "Those are the squares around the number. The root is between their roots.",
+      "teacher": "Names the perfect squares on each side instead of their roots."
+    },
+    "NEXT_SQUARE_DOWN": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step below the correct pair."
+    },
+    "NEXT_SQUARE_UP": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step above the correct pair."
+    },
+    "NEAREST_SQUARE_NOT_ROOT": {
+      "student": "That is the nearest square. Its root is the whole number you want.",
+      "teacher": "Gives the nearest perfect square instead of its square root."
+    },
+    "ROUNDED_WRONG": {
+      "student": "Which perfect square is closer? Its root is the nearest whole number.",
+      "teacher": "Picks the far whole number when rounding a root."
+    },
+    "RADICAND_AS_VALUE": {
+      "student": "A root is much smaller than the number under it. Judge √50 by 7 × 7.",
+      "teacher": "Compares the number under the root sign, not the root's value."
+    },
+    "ROOT_ALWAYS_SMALL": {
+      "student": "A root is not always the smaller one. Estimate it between two whole numbers.",
+      "teacher": "Assumes any √ expression is smaller than the other number."
+    },
+    "ORDER_REVERSED": {
+      "student": "Re-read which way the list should run, least to greatest or the other way.",
+      "teacher": "Orders the list in the opposite direction."
+    },
+    "GIVEN_ORDER": {
+      "student": "The list is not in order yet. Estimate each root, then sort.",
+      "teacher": "Keeps the order the numbers were written in."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "π^2 is π times π, about 3 × 3, not 2 × π.",
+      "teacher": "Multiplies by the exponent (2 × π) instead of squaring."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "roots-irrationals/t1/001",
+      "tier": 1,
+      "prompt": "A square has area 81. Side?",
+      "choices": [
+        "36",
+        "9",
+        "40.5",
+        "81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        null,
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Side × side = area. 9 × 9 = 81, so the side is 9."
+    },
+    {
+      "id": "roots-irrationals/t1/002",
+      "tier": 1,
+      "prompt": "√100 = ?",
+      "choices": [
+        "10",
+        "50",
+        "20",
+        "100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "DOUBLED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "10 × 10 = 100, so √100 = 10."
+    },
+    {
+      "id": "roots-irrationals/t1/003",
+      "tier": 1,
+      "prompt": "A cube has volume 27. Edge?",
+      "choices": [
+        "9",
+        "3",
+        "13.5",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "THIRD_FOR_CUBE",
+        null,
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Edge × edge × edge = volume. 3 × 3 × 3 = 27, so the edge is 3."
+    },
+    {
+      "id": "roots-irrationals/t1/004",
+      "tier": 1,
+      "prompt": "A square has area 25. Side?",
+      "choices": [
+        "20",
+        "5",
+        "6.25",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        null,
+        "AREA_OVER_4",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Side × side = area. 5 × 5 = 25, so the side is 5."
+    },
+    {
+      "id": "roots-irrationals/t1/005",
+      "tier": 1,
+      "prompt": "Cube root of 27?",
+      "choices": [
+        "3",
+        "27",
+        "13.5",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "HALVED",
+        "TRIPLED"
+      ],
+      "explanation": "3 × 3 × 3 = 27, so the cube root of 27 is 3."
+    },
+    {
+      "id": "roots-irrationals/t1/006",
+      "tier": 1,
+      "prompt": "x^2 = 4 and x > 0. x?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 = 4, and x is positive, so x = 2."
+    },
+    {
+      "id": "roots-irrationals/t1/007",
+      "tier": 1,
+      "prompt": "A cube has volume 64. Edge?",
+      "choices": [
+        "64",
+        "4",
+        "32",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_ROOTED",
+        null,
+        "HALVED",
+        "SQUARE_ROOT_FOR_CUBE"
+      ],
+      "explanation": "Edge × edge × edge = volume. 4 × 4 × 4 = 64, so the edge is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/008",
+      "tier": 1,
+      "prompt": "A cube has volume 8. Edge?",
+      "choices": [
+        "8",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_ROOTED",
+        null,
+        "TRIPLED",
+        "HALVED"
+      ],
+      "explanation": "Edge × edge × edge = volume. 2 × 2 × 2 = 8, so the edge is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/009",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 64?",
+      "choices": [
+        "8 or −8",
+        "64 or −64",
+        "8",
+        "32 or −32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64 and (−8) × (−8) = 64. Both 8 and −8 work."
+    },
+    {
+      "id": "roots-irrationals/t1/010",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 4?",
+      "choices": [
+        "2",
+        "4 or −4",
+        "1 or −1",
+        "2 or −2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 × 2 = 4 and (−2) × (−2) = 4. Both 2 and −2 work."
+    },
+    {
+      "id": "roots-irrationals/t1/011",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 81?",
+      "choices": [
+        "9",
+        "40.5 or −40.5",
+        "9 or −9",
+        "81 or −81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "9 × 9 = 81 and (−9) × (−9) = 81. Both 9 and −9 work."
+    },
+    {
+      "id": "roots-irrationals/t1/012",
+      "tier": 1,
+      "prompt": "x^2 = 16 and x > 0. x?",
+      "choices": [
+        "3",
+        "16",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "4 × 4 = 16, and x is positive, so x = 4."
+    },
+    {
+      "id": "roots-irrationals/t1/013",
+      "tier": 1,
+      "prompt": "x^2 = 81 and x > 0. x?",
+      "choices": [
+        "40.5",
+        "81",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "DOUBLED"
+      ],
+      "explanation": "9 × 9 = 81, and x is positive, so x = 9."
+    },
+    {
+      "id": "roots-irrationals/t1/014",
+      "tier": 1,
+      "prompt": "x^3 = 64. x?",
+      "choices": [
+        "32",
+        "12",
+        "4",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "TRIPLED",
+        null,
+        "SQUARE_ROOT_FOR_CUBE"
+      ],
+      "explanation": "4 × 4 × 4 = 64, so the cube root of 64 is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/015",
+      "tier": 1,
+      "prompt": "A square has area 49. Side?",
+      "choices": [
+        "7",
+        "24.5",
+        "28",
+        "12.25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "PERIMETER_FOR_SIDE",
+        "AREA_OVER_4"
+      ],
+      "explanation": "Side × side = area. 7 × 7 = 49, so the side is 7."
+    },
+    {
+      "id": "roots-irrationals/t1/016",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 49?",
+      "choices": [
+        "7",
+        "49 or −49",
+        "24.5 or −24.5",
+        "7 or −7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "7 × 7 = 49 and (−7) × (−7) = 49. Both 7 and −7 work."
+    },
+    {
+      "id": "roots-irrationals/t1/017",
+      "tier": 1,
+      "prompt": "x^2 = 49 and x < 0. x?",
+      "choices": [
+        "−24.5",
+        "−49",
+        "7",
+        "−7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null
+      ],
+      "explanation": "7 × 7 = 49 and (−7) × (−7) = 49. x is negative, so x = −7."
+    },
+    {
+      "id": "roots-irrationals/t1/018",
+      "tier": 1,
+      "prompt": "√64 = ?",
+      "choices": [
+        "8",
+        "64",
+        "16",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "DOUBLED",
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64, so √64 = 8."
+    },
+    {
+      "id": "roots-irrationals/t1/019",
+      "tier": 1,
+      "prompt": "x^2 = 49 and x > 0. x?",
+      "choices": [
+        "7",
+        "14",
+        "24.5",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "7 × 7 = 49, and x is positive, so x = 7."
+    },
+    {
+      "id": "roots-irrationals/t1/020",
+      "tier": 1,
+      "prompt": "√9 = ?",
+      "choices": [
+        "6",
+        "4.5",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED",
+        null
+      ],
+      "explanation": "3 × 3 = 9, so √9 = 3."
+    },
+    {
+      "id": "roots-irrationals/t1/021",
+      "tier": 1,
+      "prompt": "x^2 = 16 and x < 0. x?",
+      "choices": [
+        "4",
+        "−8",
+        "−4",
+        "−16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "4 × 4 = 16 and (−4) × (−4) = 16. x is negative, so x = −4."
+    },
+    {
+      "id": "roots-irrationals/t1/022",
+      "tier": 1,
+      "prompt": "A square has area 4. Side?",
+      "choices": [
+        "8",
+        "4",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        "NOT_ROOTED",
+        "AREA_OVER_4",
+        null
+      ],
+      "explanation": "Side × side = area. 2 × 2 = 4, so the side is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/023",
+      "tier": 1,
+      "prompt": "√81 = ?",
+      "choices": [
+        "18",
+        "40.5",
+        "9",
+        "81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "9 × 9 = 81, so √81 = 9."
+    },
+    {
+      "id": "roots-irrationals/t1/024",
+      "tier": 1,
+      "prompt": "√16 = ?",
+      "choices": [
+        "8",
+        "2",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "ARITH",
+        "NOT_ROOTED",
+        null
+      ],
+      "explanation": "4 × 4 = 16, so √16 = 4."
+    },
+    {
+      "id": "roots-irrationals/t1/025",
+      "tier": 1,
+      "prompt": "A square has area 64. Side?",
+      "choices": [
+        "32",
+        "8",
+        "64",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NOT_ROOTED",
+        "AREA_OVER_4"
+      ],
+      "explanation": "Side × side = area. 8 × 8 = 64, so the side is 8."
+    },
+    {
+      "id": "roots-irrationals/t1/026",
+      "tier": 1,
+      "prompt": "A square has area 16. Side?",
+      "choices": [
+        "16",
+        "5",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        "ARITH",
+        "HALVED",
+        null
+      ],
+      "explanation": "Side × side = area. 4 × 4 = 16, so the side is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/027",
+      "tier": 1,
+      "prompt": "x^2 = 64 and x < 0. x?",
+      "choices": [
+        "−64",
+        "8",
+        "−8",
+        "−32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null,
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64 and (−8) × (−8) = 64. x is negative, so x = −8."
+    },
+    {
+      "id": "roots-irrationals/t1/028",
+      "tier": 1,
+      "prompt": "x^2 = 25 and x < 0. x?",
+      "choices": [
+        "−5",
+        "5",
+        "−12.5",
+        "−25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POSITIVE_ONLY",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "5 × 5 = 25 and (−5) × (−5) = 25. x is negative, so x = −5."
+    },
+    {
+      "id": "roots-irrationals/t1/029",
+      "tier": 1,
+      "prompt": "x^3 = 1. x?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TRIPLED",
+        null,
+        "ARITH",
+        "HALVED"
+      ],
+      "explanation": "1 × 1 × 1 = 1, so the cube root of 1 is 1."
+    },
+    {
+      "id": "roots-irrationals/t1/030",
+      "tier": 1,
+      "prompt": "Cube root of 8?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TRIPLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 × 2 = 8, so the cube root of 8 is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/031",
+      "tier": 1,
+      "prompt": "x^2 = 36 and x > 0. x?",
+      "choices": [
+        "18",
+        "6",
+        "36",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NOT_ROOTED",
+        "DOUBLED"
+      ],
+      "explanation": "6 × 6 = 36, and x is positive, so x = 6."
+    },
+    {
+      "id": "roots-irrationals/t1/032",
+      "tier": 1,
+      "prompt": "x^2 = 25 and x > 0. x?",
+      "choices": [
+        "5",
+        "10",
+        "12.5",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "5 × 5 = 25, and x is positive, so x = 5."
+    },
+    {
+      "id": "roots-irrationals/t1/033",
+      "tier": 1,
+      "prompt": "x^3 = 8. x?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TRIPLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 × 2 = 8, so the cube root of 8 is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/034",
+      "tier": 1,
+      "prompt": "Cube root of 64?",
+      "choices": [
+        "8",
+        "4",
+        "12",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_ROOT_FOR_CUBE",
+        null,
+        "TRIPLED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "4 × 4 × 4 = 64, so the cube root of 64 is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/035",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 100?",
+      "choices": [
+        "100 or −100",
+        "10",
+        "10 or −10",
+        "50 or −50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null,
+        "HALVED"
+      ],
+      "explanation": "10 × 10 = 100 and (−10) × (−10) = 100. Both 10 and −10 work."
+    },
+    {
+      "id": "roots-irrationals/t1/036",
+      "tier": 1,
+      "prompt": "√4 = ?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NOT_ROOTED",
+        "ARITH"
+      ],
+      "explanation": "2 × 2 = 4, so √4 = 2."
+    },
+    {
+      "id": "roots-irrationals/t1/037",
+      "tier": 1,
+      "prompt": "x^2 = 4 and x < 0. x?",
+      "choices": [
+        "−4",
+        "−3",
+        "2",
+        "−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "ARITH",
+        "POSITIVE_ONLY",
+        null
+      ],
+      "explanation": "2 × 2 = 4 and (−2) × (−2) = 4. x is negative, so x = −2."
+    },
+    {
+      "id": "roots-irrationals/t1/038",
+      "tier": 1,
+      "prompt": "x^2 = 100 and x < 0. x?",
+      "choices": [
+        "−50",
+        "−100",
+        "−10",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "POSITIVE_ONLY"
+      ],
+      "explanation": "10 × 10 = 100 and (−10) × (−10) = 100. x is negative, so x = −10."
+    },
+    {
+      "id": "roots-irrationals/t1/039",
+      "tier": 1,
+      "prompt": "All solutions of x^2 = 16?",
+      "choices": [
+        "4",
+        "16 or −16",
+        "8 or −8",
+        "4 or −4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "4 × 4 = 16 and (−4) × (−4) = 16. Both 4 and −4 work."
+    },
+    {
+      "id": "roots-irrationals/t1/040",
+      "tier": 1,
+      "prompt": "√25 = ?",
+      "choices": [
+        "12.5",
+        "25",
+        "5",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "DOUBLED"
+      ],
+      "explanation": "5 × 5 = 25, so √25 = 5."
+    },
+    {
+      "id": "roots-irrationals/t2/001",
+      "tier": 2,
+      "prompt": "0.5 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "0.5 ends, so it is a fraction (1/2): rational."
+    },
+    {
+      "id": "roots-irrationals/t2/002",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.333..., √16, π, 7/9?",
+      "choices": [
+        "7/9",
+        "π",
+        "√16",
+        "0.333..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/003",
+      "tier": 2,
+      "prompt": "√4 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "√4 = 2, a whole number, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/004",
+      "tier": 2,
+      "prompt": "Which is rational: 0.777..., √19, √38, √40?",
+      "choices": [
+        "0.777...",
+        "√40",
+        "√38",
+        "√19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "0.777... repeats, so it is the fraction 7/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/005",
+      "tier": 2,
+      "prompt": "Which is irrational: π, √9, 1/6, 0.8333...?",
+      "choices": [
+        "1/6",
+        "π",
+        "0.8333...",
+        "√9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "REPEAT_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/006",
+      "tier": 2,
+      "prompt": "√64 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "√64 = 8, a whole number, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/007",
+      "tier": 2,
+      "prompt": "√38 is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "38 is not a perfect square, so √38 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/008",
+      "tier": 2,
+      "prompt": "Which is rational: √8, √23, √35, √64?",
+      "choices": [
+        "√8",
+        "√23",
+        "√64",
+        "√35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√64 = 8, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/009",
+      "tier": 2,
+      "prompt": "Which is rational: √30, √18, √19, 0.555...?",
+      "choices": [
+        "√18",
+        "0.555...",
+        "√30",
+        "√19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "0.555... repeats, so it is the fraction 5/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/010",
+      "tier": 2,
+      "prompt": "A square has area 18. Its side is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "Side = √18. 18 is not a perfect square, so the side is irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/011",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.777..., π, √9, 4/11?",
+      "choices": [
+        "√9",
+        "0.777...",
+        "π",
+        "4/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/012",
+      "tier": 2,
+      "prompt": "Which is rational: 1.5, √6, √30, π?",
+      "choices": [
+        "1.5",
+        "√30",
+        "π",
+        "√6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "1.5 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/013",
+      "tier": 2,
+      "prompt": "Which is rational: π, √21, √31, 0.25?",
+      "choices": [
+        "√21",
+        "0.25",
+        "√31",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "0.25 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/014",
+      "tier": 2,
+      "prompt": "A circle has diameter 1. Circumference?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "Circumference = π × diameter = π, which never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/015",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.777..., 3/7, √64, √21?",
+      "choices": [
+        "√64",
+        "√21",
+        "3/7",
+        "0.777..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "21 is not a perfect square, so √21 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/016",
+      "tier": 2,
+      "prompt": "0.333... is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "A repeating decimal is a fraction (1/3), so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/017",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.4545..., √6, √9, 1.25?",
+      "choices": [
+        "√6",
+        "√9",
+        "1.25",
+        "0.4545..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "6 is not a perfect square, so √6 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/018",
+      "tier": 2,
+      "prompt": "Which is rational: π, √10, √36, √18?",
+      "choices": [
+        "π",
+        "√18",
+        "√36",
+        "√10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√36 = 6, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/019",
+      "tier": 2,
+      "prompt": "Which is irrational: √29, 5/12, 0.4545..., √81?",
+      "choices": [
+        "√29",
+        "√81",
+        "0.4545...",
+        "5/12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "29 is not a perfect square, so √29 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/020",
+      "tier": 2,
+      "prompt": "Which is rational: π, √32, √21, 0.777...?",
+      "choices": [
+        "√21",
+        "√32",
+        "π",
+        "0.777..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.777... repeats, so it is the fraction 7/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/021",
+      "tier": 2,
+      "prompt": "Which is rational: 0.75, π, √8, √2?",
+      "choices": [
+        "√2",
+        "√8",
+        "π",
+        "0.75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.75 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/022",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.6, √25, 0.1818..., √31?",
+      "choices": [
+        "√25",
+        "0.1818...",
+        "√31",
+        "0.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "31 is not a perfect square, so √31 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/023",
+      "tier": 2,
+      "prompt": "Which is irrational: 1/6, √13, 0.1818..., √36?",
+      "choices": [
+        "√36",
+        "0.1818...",
+        "1/6",
+        "√13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "13 is not a perfect square, so √13 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/024",
+      "tier": 2,
+      "prompt": "Which is irrational: √35, √9, 1/6, 0.4545...?",
+      "choices": [
+        "√9",
+        "1/6",
+        "0.4545...",
+        "√35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "35 is not a perfect square, so √35 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/025",
+      "tier": 2,
+      "prompt": "π is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "π never ends and never repeats, so it is irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/026",
+      "tier": 2,
+      "prompt": "3/7 is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "3/7 is a fraction of whole numbers, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/027",
+      "tier": 2,
+      "prompt": "Which is rational: √33, √7, 0.2727..., √2?",
+      "choices": [
+        "√7",
+        "√2",
+        "√33",
+        "0.2727..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.2727... repeats, so it is the fraction 3/11: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/028",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.4545..., √38, √64, 1.5?",
+      "choices": [
+        "√38",
+        "1.5",
+        "0.4545...",
+        "√64"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "38 is not a perfect square, so √38 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/029",
+      "tier": 2,
+      "prompt": "Which is rational: √34, √27, √18, 0.333...?",
+      "choices": [
+        "√34",
+        "√27",
+        "√18",
+        "0.333..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.333... repeats, so it is the fraction 1/3: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/030",
+      "tier": 2,
+      "prompt": "Which is irrational: √7, 3/7, 0.777..., √49?",
+      "choices": [
+        "√7",
+        "√49",
+        "3/7",
+        "0.777..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "7 is not a perfect square, so √7 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/031",
+      "tier": 2,
+      "prompt": "√92 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "92 is not a perfect square, so √92 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/032",
+      "tier": 2,
+      "prompt": "Which is rational: √32, √49, π, √29?",
+      "choices": [
+        "√29",
+        "π",
+        "√49",
+        "√32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√49 = 7, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/033",
+      "tier": 2,
+      "prompt": "Which is rational: 1.25, √8, √21, π?",
+      "choices": [
+        "π",
+        "√8",
+        "√21",
+        "1.25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "1.25 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/034",
+      "tier": 2,
+      "prompt": "√85 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "85 is not a perfect square, so √85 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/035",
+      "tier": 2,
+      "prompt": "Which is irrational: 4/11, √24, 0.2727..., √49?",
+      "choices": [
+        "0.2727...",
+        "√24",
+        "4/11",
+        "√49"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "24 is not a perfect square, so √24 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/036",
+      "tier": 2,
+      "prompt": "Which is irrational: 1.5, 0.777..., π, √64?",
+      "choices": [
+        "π",
+        "1.5",
+        "√64",
+        "0.777..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/037",
+      "tier": 2,
+      "prompt": "A circle has radius 1. Its area is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "Area = π × 1 × 1 = π, which never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/038",
+      "tier": 2,
+      "prompt": "Which is rational: √17, √19, π, √49?",
+      "choices": [
+        "π",
+        "√49",
+        "√17",
+        "√19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√49 = 7, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/039",
+      "tier": 2,
+      "prompt": "Which is irrational: √49, 2.4, 0.777..., √11?",
+      "choices": [
+        "0.777...",
+        "2.4",
+        "√11",
+        "√49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "11 is not a perfect square, so √11 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/040",
+      "tier": 2,
+      "prompt": "Which is rational: π, √35, √34, √64?",
+      "choices": [
+        "π",
+        "√34",
+        "√64",
+        "√35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√64 = 8, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t3/001",
+      "tier": 3,
+      "prompt": "x = 0.888... Then 10x − x = ?",
+      "choices": [
+        "7.2",
+        "8.888...",
+        "0.8",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TRUNCATED_REPEAT",
+        "TIMES_ONLY",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "10x = 8.888... and x = 0.888.... Subtract: 9x = 8, so 10x − x = 8."
+    },
+    {
+      "id": "roots-irrationals/t3/002",
+      "tier": 3,
+      "prompt": "0.444... as a fraction?",
+      "choices": [
+        "4/11",
+        "4/9",
+        "1/2",
+        "2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROUNDED_UP",
+        "OVER_TEN"
+      ],
+      "explanation": "One digit repeats, so 0.444... = 4/9."
+    },
+    {
+      "id": "roots-irrationals/t3/003",
+      "tier": 3,
+      "prompt": "x = 0.9090... Then 100x − x = ?",
+      "choices": [
+        "90",
+        "99",
+        "90.9090...",
+        "89.1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NINES_ONLY",
+        "TIMES_ONLY",
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "100x = 90.9090... and x = 0.9090.... Subtract: 99x = 90, so 100x − x = 90."
+    },
+    {
+      "id": "roots-irrationals/t3/004",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.9090...?",
+      "choices": [
+        "10/11",
+        "8/11",
+        "9/11",
+        "9/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.9090... = 90/99 = 10/11."
+    },
+    {
+      "id": "roots-irrationals/t3/005",
+      "tier": 3,
+      "prompt": "0.1666... as a fraction?",
+      "choices": [
+        "17/100",
+        "1/6",
+        "1/7",
+        "4/25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_UP",
+        null,
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.1666... = 1/6."
+    },
+    {
+      "id": "roots-irrationals/t3/006",
+      "tier": 3,
+      "prompt": "x = 0.333... Then 10x − x = ?",
+      "choices": [
+        "9",
+        "0.3",
+        "3",
+        "3.333..."
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NINES_ONLY",
+        "DECIMAL_SLIP",
+        null,
+        "TIMES_ONLY"
+      ],
+      "explanation": "10x = 3.333... and x = 0.333.... Subtract: 9x = 3, so 10x − x = 3."
+    },
+    {
+      "id": "roots-irrationals/t3/007",
+      "tier": 3,
+      "prompt": "x = 0.0909... Then 100x − x = ?",
+      "choices": [
+        "0.09",
+        "8.91",
+        "99",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "NINES_ONLY",
+        null
+      ],
+      "explanation": "100x = 9.0909... and x = 0.0909.... Subtract: 99x = 9, so 100x − x = 9."
+    },
+    {
+      "id": "roots-irrationals/t3/008",
+      "tier": 3,
+      "prompt": "0.666... as a fraction?",
+      "choices": [
+        "2/3",
+        "3/5",
+        "5/9",
+        "7/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OVER_TEN",
+        "ARITH",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.666... = 6/9 = 2/3."
+    },
+    {
+      "id": "roots-irrationals/t3/009",
+      "tier": 3,
+      "prompt": "0.9090... as a fraction?",
+      "choices": [
+        "10/11",
+        "8/11",
+        "9/11",
+        "9/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.9090... = 90/99 = 10/11."
+    },
+    {
+      "id": "roots-irrationals/t3/010",
+      "tier": 3,
+      "prompt": "0.6363... as a fraction?",
+      "choices": [
+        "7/9",
+        "5/11",
+        "63/100",
+        "7/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "ARITH",
+        "OVER_HUNDRED",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.6363... = 63/99 = 7/11."
+    },
+    {
+      "id": "roots-irrationals/t3/011",
+      "tier": 3,
+      "prompt": "0.555... as a fraction?",
+      "choices": [
+        "3/5",
+        "1/2",
+        "5/8",
+        "5/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "OVER_TEN",
+        "ARITH",
+        null
+      ],
+      "explanation": "One digit repeats, so 0.555... = 5/9."
+    },
+    {
+      "id": "roots-irrationals/t3/012",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.4545...?",
+      "choices": [
+        "9/20",
+        "5/9",
+        "5/11",
+        "7/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        "NINTHS_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.4545... = 45/99 = 5/11."
+    },
+    {
+      "id": "roots-irrationals/t3/013",
+      "tier": 3,
+      "prompt": "0.3636... as a fraction?",
+      "choices": [
+        "2/11",
+        "4/9",
+        "4/11",
+        "9/25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NINTHS_ONLY",
+        null,
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.3636... = 36/99 = 4/11."
+    },
+    {
+      "id": "roots-irrationals/t3/014",
+      "tier": 3,
+      "prompt": "0.1 as a fraction?",
+      "choices": [
+        "1/10",
+        "1",
+        "1/9",
+        "1/100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIGIT_AS_DENOM",
+        "NINE_FOR_TERMINATING",
+        "PLACE_VALUE_SLIP"
+      ],
+      "explanation": "0.1 = 1/10."
+    },
+    {
+      "id": "roots-irrationals/t3/015",
+      "tier": 3,
+      "prompt": "x = 0.777... Then 10x − x = ?",
+      "choices": [
+        "7.777...",
+        "7",
+        "0.7",
+        "6.3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_ONLY",
+        null,
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "10x = 7.777... and x = 0.777.... Subtract: 9x = 7, so 10x − x = 7."
+    },
+    {
+      "id": "roots-irrationals/t3/016",
+      "tier": 3,
+      "prompt": "0.7272... as a fraction?",
+      "choices": [
+        "18/25",
+        "8/11",
+        "8/9",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.7272... = 72/99 = 8/11."
+    },
+    {
+      "id": "roots-irrationals/t3/017",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.333...?",
+      "choices": [
+        "3/10",
+        "1/3",
+        "2/5",
+        "4/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_TEN",
+        null,
+        "ROUNDED_UP",
+        "ARITH"
+      ],
+      "explanation": "One digit repeats, so 0.333... = 3/9 = 1/3."
+    },
+    {
+      "id": "roots-irrationals/t3/018",
+      "tier": 3,
+      "prompt": "x = 0.6363... Then 100x − x = ?",
+      "choices": [
+        "63.6363...",
+        "99",
+        "63",
+        "62.37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_ONLY",
+        "NINES_ONLY",
+        null,
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "100x = 63.6363... and x = 0.6363.... Subtract: 99x = 63, so 100x − x = 63."
+    },
+    {
+      "id": "roots-irrationals/t3/019",
+      "tier": 3,
+      "prompt": "0.375 as a fraction?",
+      "choices": [
+        "1/375",
+        "15/4",
+        "125/333",
+        "3/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIGIT_AS_DENOM",
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        null
+      ],
+      "explanation": "0.375 = 375/1000 = 3/8."
+    },
+    {
+      "id": "roots-irrationals/t3/020",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.8181...?",
+      "choices": [
+        "9/11",
+        "9/10",
+        "81/100",
+        "3/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "OVER_HUNDRED",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.8181... = 81/99 = 9/11."
+    },
+    {
+      "id": "roots-irrationals/t3/021",
+      "tier": 3,
+      "prompt": "0.875 as a fraction?",
+      "choices": [
+        "7/8",
+        "35/4",
+        "875/999",
+        "1/875"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.875 = 875/1000 = 7/8."
+    },
+    {
+      "id": "roots-irrationals/t3/022",
+      "tier": 3,
+      "prompt": "0.1818... as a fraction?",
+      "choices": [
+        "2/9",
+        "3/11",
+        "9/50",
+        "2/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "ARITH",
+        "OVER_HUNDRED",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.1818... = 18/99 = 2/11."
+    },
+    {
+      "id": "roots-irrationals/t3/023",
+      "tier": 3,
+      "prompt": "0.2 as a fraction?",
+      "choices": [
+        "1/5",
+        "1/50",
+        "2/9",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.2 = 2/10 = 1/5."
+    },
+    {
+      "id": "roots-irrationals/t3/024",
+      "tier": 3,
+      "prompt": "x = 0.2727... Then 100x − x = ?",
+      "choices": [
+        "27",
+        "0.27",
+        "26.73",
+        "27.2727..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "TIMES_ONLY"
+      ],
+      "explanation": "100x = 27.2727... and x = 0.2727.... Subtract: 99x = 27, so 100x − x = 27."
+    },
+    {
+      "id": "roots-irrationals/t3/025",
+      "tier": 3,
+      "prompt": "x = 0.222... Then 10x − x = ?",
+      "choices": [
+        "9",
+        "2.222...",
+        "2",
+        "0.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NINES_ONLY",
+        "TIMES_ONLY",
+        null,
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10x = 2.222... and x = 0.222.... Subtract: 9x = 2, so 10x − x = 2."
+    },
+    {
+      "id": "roots-irrationals/t3/026",
+      "tier": 3,
+      "prompt": "x = 0.8181... Then 100x − x = ?",
+      "choices": [
+        "0.81",
+        "80.19",
+        "99",
+        "81"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "NINES_ONLY",
+        null
+      ],
+      "explanation": "100x = 81.8181... and x = 0.8181.... Subtract: 99x = 81, so 100x − x = 81."
+    },
+    {
+      "id": "roots-irrationals/t3/027",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.8333...?",
+      "choices": [
+        "21/25",
+        "5/6",
+        "83/100",
+        "5/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_UP",
+        null,
+        "OVER_HUNDRED",
+        "ARITH"
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.8333... = 5/6."
+    },
+    {
+      "id": "roots-irrationals/t3/028",
+      "tier": 3,
+      "prompt": "0.777... as a fraction?",
+      "choices": [
+        "7/9",
+        "7/10",
+        "5/9",
+        "4/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OVER_TEN",
+        "ARITH",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.777... = 7/9."
+    },
+    {
+      "id": "roots-irrationals/t3/029",
+      "tier": 3,
+      "prompt": "0.5 as a fraction?",
+      "choices": [
+        "1/20",
+        "1/2",
+        "5/9",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        null,
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.5 = 5/10 = 1/2."
+    },
+    {
+      "id": "roots-irrationals/t3/030",
+      "tier": 3,
+      "prompt": "0.4 as a fraction?",
+      "choices": [
+        "1/25",
+        "1/4",
+        "2/5",
+        "4/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        "DIGIT_AS_DENOM",
+        null,
+        "NINE_FOR_TERMINATING"
+      ],
+      "explanation": "0.4 = 4/10 = 2/5."
+    },
+    {
+      "id": "roots-irrationals/t3/031",
+      "tier": 3,
+      "prompt": "0.5454... as a fraction?",
+      "choices": [
+        "5/11",
+        "27/50",
+        "6/11",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY"
+      ],
+      "explanation": "Two digits repeat: 0.5454... = 54/99 = 6/11."
+    },
+    {
+      "id": "roots-irrationals/t3/032",
+      "tier": 3,
+      "prompt": "0.125 as a fraction?",
+      "choices": [
+        "1/125",
+        "125/999",
+        "1/8",
+        "5/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGIT_AS_DENOM",
+        "NINE_FOR_TERMINATING",
+        null,
+        "PLACE_VALUE_SLIP"
+      ],
+      "explanation": "0.125 = 125/1000 = 1/8."
+    },
+    {
+      "id": "roots-irrationals/t3/033",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.1818...?",
+      "choices": [
+        "2/9",
+        "9/50",
+        "1/5",
+        "2/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "OVER_HUNDRED",
+        "ARITH",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.1818... = 18/99 = 2/11."
+    },
+    {
+      "id": "roots-irrationals/t3/034",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.444...?",
+      "choices": [
+        "1/2",
+        "4/11",
+        "4/9",
+        "2/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "ARITH",
+        null,
+        "OVER_TEN"
+      ],
+      "explanation": "One digit repeats, so 0.444... = 4/9."
+    },
+    {
+      "id": "roots-irrationals/t3/035",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.777...?",
+      "choices": [
+        "5/9",
+        "7/9",
+        "7/10",
+        "4/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OVER_TEN",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.777... = 7/9."
+    },
+    {
+      "id": "roots-irrationals/t3/036",
+      "tier": 3,
+      "prompt": "0.625 as a fraction?",
+      "choices": [
+        "25/4",
+        "5/8",
+        "625/999",
+        "1/625"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        null,
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.625 = 625/1000 = 5/8."
+    },
+    {
+      "id": "roots-irrationals/t3/037",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.7272...?",
+      "choices": [
+        "18/25",
+        "8/11",
+        "8/9",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.7272... = 72/99 = 8/11."
+    },
+    {
+      "id": "roots-irrationals/t3/038",
+      "tier": 3,
+      "prompt": "x = 0.1818... Then 100x − x = ?",
+      "choices": [
+        "0.18",
+        "99",
+        "18",
+        "18.1818..."
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "NINES_ONLY",
+        null,
+        "TIMES_ONLY"
+      ],
+      "explanation": "100x = 18.1818... and x = 0.1818.... Subtract: 99x = 18, so 100x − x = 18."
+    },
+    {
+      "id": "roots-irrationals/t3/039",
+      "tier": 3,
+      "prompt": "0.8333... as a fraction?",
+      "choices": [
+        "83/100",
+        "1/5",
+        "21/25",
+        "5/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        "ARITH",
+        "ROUNDED_UP",
+        null
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.8333... = 5/6."
+    },
+    {
+      "id": "roots-irrationals/t3/040",
+      "tier": 3,
+      "prompt": "0.333... as a fraction?",
+      "choices": [
+        "2/5",
+        "3/10",
+        "3/8",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "OVER_TEN",
+        "ARITH",
+        null
+      ],
+      "explanation": "One digit repeats, so 0.333... = 3/9 = 1/3."
+    },
+    {
+      "id": "roots-irrationals/t4/001",
+      "tier": 4,
+      "prompt": "√56 is about?",
+      "choices": [
+        "49",
+        "7.5",
+        "28",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "56 is halfway between 7^2 = 49 and 8^2 = 64, so √56 is about 7.5."
+    },
+    {
+      "id": "roots-irrationals/t4/002",
+      "tier": 4,
+      "prompt": "√30 is between which two whole numbers?",
+      "choices": [
+        "15 and 16",
+        "4 and 5",
+        "25 and 36",
+        "5 and 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS",
+        null
+      ],
+      "explanation": "5^2 = 25 and 6^2 = 36. 30 is between, so √30 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t4/003",
+      "tier": 4,
+      "prompt": "√58 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "8 and 9",
+        "49 and 64",
+        "6 and 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "7^2 = 49 and 8^2 = 64. 58 is between, so √58 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t4/004",
+      "tier": 4,
+      "prompt": "Nearest whole number to √95?",
+      "choices": [
+        "9",
+        "10",
+        "47.5",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        null,
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "95 is close to 100 = 10 × 10, so √95 is about 10."
+    },
+    {
+      "id": "roots-irrationals/t4/005",
+      "tier": 4,
+      "prompt": "√76 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "8 and 9",
+        "7 and 8",
+        "64 and 81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8^2 = 64 and 9^2 = 81. 76 is between, so √76 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/006",
+      "tier": 4,
+      "prompt": "Square area 47. Side is between which whole numbers?",
+      "choices": [
+        "36 and 49",
+        "6 and 7",
+        "7 and 8",
+        "5 and 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "6^2 = 36 and 7^2 = 49. 47 is between, so √47 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/007",
+      "tier": 4,
+      "prompt": "Square area 79. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "9 and 10",
+        "39 and 40",
+        "64 and 81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8^2 = 64 and 9^2 = 81. 79 is between, so √79 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/008",
+      "tier": 4,
+      "prompt": "Nearest whole number to √33?",
+      "choices": [
+        "16.5",
+        "6",
+        "36",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "ROUNDED_WRONG"
+      ],
+      "explanation": "33 is close to 36 = 6 × 6, so √33 is about 6."
+    },
+    {
+      "id": "roots-irrationals/t4/009",
+      "tier": 4,
+      "prompt": "Square area 99. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "10 and 11",
+        "81 and 100",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        null
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 99 is between, so √99 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/010",
+      "tier": 4,
+      "prompt": "√42 is about?",
+      "choices": [
+        "36",
+        "6.5",
+        "49",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED"
+      ],
+      "explanation": "42 is halfway between 6^2 = 36 and 7^2 = 49, so √42 is about 6.5."
+    },
+    {
+      "id": "roots-irrationals/t4/011",
+      "tier": 4,
+      "prompt": "Square area 92. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "81 and 100",
+        "46 and 47",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS",
+        "HALVED",
+        null
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 92 is between, so √92 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/012",
+      "tier": 4,
+      "prompt": "√43 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "21 and 22",
+        "6 and 7",
+        "5 and 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "6^2 = 36 and 7^2 = 49. 43 is between, so √43 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/013",
+      "tier": 4,
+      "prompt": "√44 is between which two whole numbers?",
+      "choices": [
+        "36 and 49",
+        "6 and 7",
+        "5 and 6",
+        "22 and 23"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "HALVED"
+      ],
+      "explanation": "6^2 = 36 and 7^2 = 49. 44 is between, so √44 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/014",
+      "tier": 4,
+      "prompt": "Nearest whole number to √5?",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 is close to 4 = 2 × 2, so √5 is about 2."
+    },
+    {
+      "id": "roots-irrationals/t4/015",
+      "tier": 4,
+      "prompt": "√30 is about?",
+      "choices": [
+        "15",
+        "36",
+        "25",
+        "5.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "30 is halfway between 5^2 = 25 and 6^2 = 36, so √30 is about 5.5."
+    },
+    {
+      "id": "roots-irrationals/t4/016",
+      "tier": 4,
+      "prompt": "Nearest whole number to √53?",
+      "choices": [
+        "26.5",
+        "8",
+        "49",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "53 is close to 49 = 7 × 7, so √53 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/017",
+      "tier": 4,
+      "prompt": "√93 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "46 and 47",
+        "8 and 9",
+        "81 and 100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 93 is between, so √93 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/018",
+      "tier": 4,
+      "prompt": "√67 is between which two whole numbers?",
+      "choices": [
+        "8 and 9",
+        "7 and 8",
+        "9 and 10",
+        "33 and 34"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "8^2 = 64 and 9^2 = 81. 67 is between, so √67 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/019",
+      "tier": 4,
+      "prompt": "√12 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "4 and 5",
+        "3 and 4",
+        "6 and 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        null,
+        "HALVED"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 12 is between, so √12 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/020",
+      "tier": 4,
+      "prompt": "Nearest whole number to √17?",
+      "choices": [
+        "8.5",
+        "5",
+        "4",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "ROUNDED_WRONG",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "17 is close to 16 = 4 × 4, so √17 is about 4."
+    },
+    {
+      "id": "roots-irrationals/t4/021",
+      "tier": 4,
+      "prompt": "Nearest whole number to √97?",
+      "choices": [
+        "48.5",
+        "100",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "ROUNDED_WRONG"
+      ],
+      "explanation": "97 is close to 100 = 10 × 10, so √97 is about 10."
+    },
+    {
+      "id": "roots-irrationals/t4/022",
+      "tier": 4,
+      "prompt": "√8 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "4 and 9",
+        "2 and 3",
+        "1 and 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "2^2 = 4 and 3^2 = 9. 8 is between, so √8 is between 2 and 3."
+    },
+    {
+      "id": "roots-irrationals/t4/023",
+      "tier": 4,
+      "prompt": "√92 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "81 and 100",
+        "10 and 11",
+        "46 and 47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 92 is between, so √92 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/024",
+      "tier": 4,
+      "prompt": "√26 is between which two whole numbers?",
+      "choices": [
+        "5 and 6",
+        "4 and 5",
+        "6 and 7",
+        "13 and 14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "5^2 = 25 and 6^2 = 36. 26 is between, so √26 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t4/025",
+      "tier": 4,
+      "prompt": "Nearest whole number to √45?",
+      "choices": [
+        "7",
+        "22.5",
+        "6",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "45 is close to 49 = 7 × 7, so √45 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/026",
+      "tier": 4,
+      "prompt": "√11 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "5 and 6",
+        "2 and 3",
+        "4 and 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 11 is between, so √11 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/027",
+      "tier": 4,
+      "prompt": "√3 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "0 and 1",
+        "1 and 2",
+        "1 and 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "1^2 = 1 and 2^2 = 4. 3 is between, so √3 is between 1 and 2."
+    },
+    {
+      "id": "roots-irrationals/t4/028",
+      "tier": 4,
+      "prompt": "Square area 82. Side is between which whole numbers?",
+      "choices": [
+        "41 and 42",
+        "81 and 100",
+        "8 and 9",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_DOWN",
+        null
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 82 is between, so √82 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/029",
+      "tier": 4,
+      "prompt": "√83 is between which two whole numbers?",
+      "choices": [
+        "10 and 11",
+        "81 and 100",
+        "41 and 42",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        "HALVED",
+        null
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 83 is between, so √83 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/030",
+      "tier": 4,
+      "prompt": "√90 is about?",
+      "choices": [
+        "9.5",
+        "100",
+        "45",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "90 is halfway between 9^2 = 81 and 10^2 = 100, so √90 is about 9.5."
+    },
+    {
+      "id": "roots-irrationals/t4/031",
+      "tier": 4,
+      "prompt": "Square area 89. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "44 and 45",
+        "9 and 10",
+        "81 and 100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "HALVED",
+        null,
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 89 is between, so √89 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/032",
+      "tier": 4,
+      "prompt": "Nearest whole number to √48?",
+      "choices": [
+        "6",
+        "7",
+        "49",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED"
+      ],
+      "explanation": "48 is close to 49 = 7 × 7, so √48 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/033",
+      "tier": 4,
+      "prompt": "√20 is about?",
+      "choices": [
+        "16",
+        "10",
+        "4.5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "20 is halfway between 4^2 = 16 and 5^2 = 25, so √20 is about 4.5."
+    },
+    {
+      "id": "roots-irrationals/t4/034",
+      "tier": 4,
+      "prompt": "√65 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "8 and 9",
+        "32 and 33",
+        "64 and 81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        null,
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8^2 = 64 and 9^2 = 81. 65 is between, so √65 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/035",
+      "tier": 4,
+      "prompt": "√72 is about?",
+      "choices": [
+        "36",
+        "64",
+        "81",
+        "8.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "72 is halfway between 8^2 = 64 and 9^2 = 81, so √72 is about 8.5."
+    },
+    {
+      "id": "roots-irrationals/t4/036",
+      "tier": 4,
+      "prompt": "√10 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "4 and 5",
+        "5 and 6",
+        "9 and 16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 10 is between, so √10 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/037",
+      "tier": 4,
+      "prompt": "√55 is between which two whole numbers?",
+      "choices": [
+        "6 and 7",
+        "8 and 9",
+        "7 and 8",
+        "27 and 28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        null,
+        "HALVED"
+      ],
+      "explanation": "7^2 = 49 and 8^2 = 64. 55 is between, so √55 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t4/038",
+      "tier": 4,
+      "prompt": "√98 is between which two whole numbers?",
+      "choices": [
+        "49 and 50",
+        "10 and 11",
+        "9 and 10",
+        "8 and 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "9^2 = 81 and 10^2 = 100. 98 is between, so √98 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/039",
+      "tier": 4,
+      "prompt": "√23 is between which two whole numbers?",
+      "choices": [
+        "16 and 25",
+        "5 and 6",
+        "11 and 12",
+        "4 and 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        null
+      ],
+      "explanation": "4^2 = 16 and 5^2 = 25. 23 is between, so √23 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t4/040",
+      "tier": 4,
+      "prompt": "√14 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "3 and 4",
+        "4 and 5",
+        "7 and 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 14 is between, so √14 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/001",
+      "tier": 5,
+      "prompt": "Least: √11, 6, √18?",
+      "choices": [
+        "√11",
+        "6",
+        "√18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ARITH"
+      ],
+      "explanation": "√11 is between 3 and 4; √18 is between 4 and 5. Both are below 6; √11 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/002",
+      "tier": 5,
+      "prompt": "Smaller: √31 or 10?",
+      "choices": [
+        "10",
+        "√31"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√31 is between 5 and 6, so √31 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/003",
+      "tier": 5,
+      "prompt": "Smaller: √17 or 5?",
+      "choices": [
+        "5",
+        "√17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√17 is between 4 and 5, so √17 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/004",
+      "tier": 5,
+      "prompt": "Least: 7, √37, √33?",
+      "choices": [
+        "√33",
+        "√37",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√33 is between 5 and 6; √37 is between 6 and 7. Both are below 7; √33 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/005",
+      "tier": 5,
+      "prompt": "Least to greatest: 4, 10, √43",
+      "choices": [
+        "10, √43, 4",
+        "√43, 4, 10",
+        "4, √43, 10",
+        "4, 10, √43"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        null,
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√43 is between 6 and 7. Sorted least to greatest: 4, √43, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/006",
+      "tier": 5,
+      "prompt": "π^2 is about?",
+      "choices": [
+        "6",
+        "10",
+        "3",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "π is about 3.14. π^2 = π × π, a bit under 10."
+    },
+    {
+      "id": "roots-irrationals/t5/007",
+      "tier": 5,
+      "prompt": "Which is between 8 and 9?",
+      "choices": [
+        "√91",
+        "√72",
+        "√56",
+        "√8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "8^2 = 64 and 9^2 = 81. 72 is between them, so √72 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t5/008",
+      "tier": 5,
+      "prompt": "Greater: √32 or 7?",
+      "choices": [
+        "√32",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√32 is between 5 and 6, so 7 is the greater."
+    },
+    {
+      "id": "roots-irrationals/t5/009",
+      "tier": 5,
+      "prompt": "Greatest to least: √14, 10, 3",
+      "choices": [
+        "10, 3, √14",
+        "3, √14, 10",
+        "√14, 10, 3",
+        "10, √14, 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ORDER_REVERSED",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√14 is between 3 and 4. Sorted greatest to least: 10, √14, 3."
+    },
+    {
+      "id": "roots-irrationals/t5/010",
+      "tier": 5,
+      "prompt": "Least to greatest: 10, √14, 9",
+      "choices": [
+        "10, 9, √14",
+        "10, √14, 9",
+        "9, 10, √14",
+        "√14, 9, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "GIVEN_ORDER",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√14 is between 3 and 4. Sorted least to greatest: √14, 9, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/011",
+      "tier": 5,
+      "prompt": "Greatest: √30, √14, 6.5?",
+      "choices": [
+        "6.5",
+        "√14",
+        "√30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√30 is between 5 and 6; √14 is between 3 and 4. Both are below 6.5, so 6.5 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/012",
+      "tier": 5,
+      "prompt": "Smaller: √15 or 10?",
+      "choices": [
+        "√15",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√15 is between 3 and 4, so √15 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/013",
+      "tier": 5,
+      "prompt": "Least to greatest: 5, 2, √13",
+      "choices": [
+        "√13, 2, 5",
+        "5, 2, √13",
+        "2, √13, 5",
+        "2, 5, √13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√13 is between 3 and 4. Sorted least to greatest: 2, √13, 5."
+    },
+    {
+      "id": "roots-irrationals/t5/014",
+      "tier": 5,
+      "prompt": "Least to greatest: 8, 10, √58",
+      "choices": [
+        "8, √58, 10",
+        "10, 8, √58",
+        "8, 10, √58",
+        "√58, 8, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ORDER_REVERSED",
+        "GIVEN_ORDER",
+        null
+      ],
+      "explanation": "√58 is between 7 and 8. Sorted least to greatest: √58, 8, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/015",
+      "tier": 5,
+      "prompt": "Which is between 5 and 6?",
+      "choices": [
+        "√44",
+        "√22",
+        "√29",
+        "√5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "5^2 = 25 and 6^2 = 36. 29 is between them, so √29 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t5/016",
+      "tier": 5,
+      "prompt": "Which is between 4 and 5?",
+      "choices": [
+        "√31",
+        "√13",
+        "√21",
+        "√4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "4^2 = 16 and 5^2 = 25. 21 is between them, so √21 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t5/017",
+      "tier": 5,
+      "prompt": "Greatest: √22, √27, 6?",
+      "choices": [
+        "√22",
+        "√27",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√22 is between 4 and 5; √27 is between 5 and 6. Both are below 6, so 6 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/018",
+      "tier": 5,
+      "prompt": "Least to greatest: 8, √30, 5",
+      "choices": [
+        "8, √30, 5",
+        "√30, 5, 8",
+        "5, 8, √30",
+        "5, √30, 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√30 is between 5 and 6. Sorted least to greatest: 5, √30, 8."
+    },
+    {
+      "id": "roots-irrationals/t5/019",
+      "tier": 5,
+      "prompt": "Greatest to least: 7, 10, √39",
+      "choices": [
+        "√39, 7, 10",
+        "10, 7, √39",
+        "√39, 10, 7",
+        "7, 10, √39"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        null,
+        "RADICAND_AS_VALUE",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√39 is between 6 and 7. Sorted greatest to least: 10, 7, √39."
+    },
+    {
+      "id": "roots-irrationals/t5/020",
+      "tier": 5,
+      "prompt": "Smaller: √70 or 5.5?",
+      "choices": [
+        "5.5",
+        "√70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√70 is between 8 and 9, so 5.5 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/021",
+      "tier": 5,
+      "prompt": "Which number lies between 4 and 5?",
+      "choices": [
+        "√19",
+        "√13",
+        "√32",
+        "√4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "4^2 = 16 and 5^2 = 25. 19 is between them, so √19 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t5/022",
+      "tier": 5,
+      "prompt": "Which is between 3 and 4?",
+      "choices": [
+        "√20",
+        "√11",
+        "√7",
+        "√3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 11 is between them, so √11 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/023",
+      "tier": 5,
+      "prompt": "Greatest: 5.5, √20, √17?",
+      "choices": [
+        "√17",
+        "5.5",
+        "√20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√17 is between 4 and 5; √20 is between 4 and 5. Both are below 5.5, so 5.5 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/024",
+      "tier": 5,
+      "prompt": "Greatest: 6, √66, √7?",
+      "choices": [
+        "√7",
+        "√66",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√66 is between 8 and 9, above 6; √7 is between 2 and 3, below it. √66 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/025",
+      "tier": 5,
+      "prompt": "Greatest to least: √13, 3, 5",
+      "choices": [
+        "3, √13, 5",
+        "5, 3, √13",
+        "√13, 3, 5",
+        "5, √13, 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER",
+        null
+      ],
+      "explanation": "√13 is between 3 and 4. Sorted greatest to least: 5, √13, 3."
+    },
+    {
+      "id": "roots-irrationals/t5/026",
+      "tier": 5,
+      "prompt": "Least to greatest: 7, 5, √19",
+      "choices": [
+        "√19, 5, 7",
+        "5, 7, √19",
+        "5, √19, 7",
+        "7, 5, √19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ARITH",
+        "ORDER_REVERSED"
+      ],
+      "explanation": "√19 is between 4 and 5. Sorted least to greatest: √19, 5, 7."
+    },
+    {
+      "id": "roots-irrationals/t5/027",
+      "tier": 5,
+      "prompt": "Which is between 6 and 7?",
+      "choices": [
+        "√44",
+        "√54",
+        "√29",
+        "√6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "6^2 = 36 and 7^2 = 49. 44 is between them, so √44 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t5/028",
+      "tier": 5,
+      "prompt": "Which number lies between 3 and 4?",
+      "choices": [
+        "√3",
+        "√6",
+        "√12",
+        "√22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "3^2 = 9 and 4^2 = 16. 12 is between them, so √12 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/029",
+      "tier": 5,
+      "prompt": "Least: √78, √44, π?",
+      "choices": [
+        "√78",
+        "√44",
+        "π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ROOT_ALWAYS_SMALL",
+        null
+      ],
+      "explanation": "√44 is between 6 and 7; √78 is between 8 and 9. Both are above π, so π is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/030",
+      "tier": 5,
+      "prompt": "Least to greatest: √51, 10, 2",
+      "choices": [
+        "√51, 2, 10",
+        "10, √51, 2",
+        "2, √51, 10",
+        "2, 10, √51"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ORDER_REVERSED",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√51 is between 7 and 8. Sorted least to greatest: 2, √51, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/031",
+      "tier": 5,
+      "prompt": "Greater: √21 or 9.5?",
+      "choices": [
+        "9.5",
+        "√21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√21 is between 4 and 5, so 9.5 is the greater."
+    },
+    {
+      "id": "roots-irrationals/t5/032",
+      "tier": 5,
+      "prompt": "Least to greatest: √15, 6, √10",
+      "choices": [
+        "√10, √15, 6",
+        "6, √10, √15",
+        "6, √15, √10",
+        "√15, 6, √10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ORDER_REVERSED",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√15 is between 3 and 4; √10 is between 3 and 4. Sorted least to greatest: √10, √15, 6."
+    },
+    {
+      "id": "roots-irrationals/t5/033",
+      "tier": 5,
+      "prompt": "Greatest: √78, π, √2?",
+      "choices": [
+        "π",
+        "√2",
+        "√78"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ARITH",
+        null
+      ],
+      "explanation": "√78 is between 8 and 9, above π; √2 is between 1 and 2, below it. √78 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/034",
+      "tier": 5,
+      "prompt": "Which is between 7 and 8?",
+      "choices": [
+        "√73",
+        "√56",
+        "√7",
+        "√43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "7^2 = 49 and 8^2 = 64. 56 is between them, so √56 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t5/035",
+      "tier": 5,
+      "prompt": "Least: √95, √84, 7?",
+      "choices": [
+        "√95",
+        "7",
+        "√84"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√95 is between 9 and 10; √84 is between 9 and 10. Both are above 7, so 7 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/036",
+      "tier": 5,
+      "prompt": "Which number lies between 5 and 6?",
+      "choices": [
+        "√30",
+        "√5",
+        "√20",
+        "√42"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "5^2 = 25 and 6^2 = 36. 30 is between them, so √30 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t5/037",
+      "tier": 5,
+      "prompt": "Greatest: π, √2, √66?",
+      "choices": [
+        "√66",
+        "π",
+        "√2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_ALWAYS_SMALL",
+        "ARITH"
+      ],
+      "explanation": "√66 is between 8 and 9, above π; √2 is between 1 and 2, below it. √66 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/038",
+      "tier": 5,
+      "prompt": "Which number lies between 7 and 8?",
+      "choices": [
+        "√58",
+        "√7",
+        "√42",
+        "√75"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "7^2 = 49 and 8^2 = 64. 58 is between them, so √58 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t5/039",
+      "tier": 5,
+      "prompt": "Least to greatest: 9, 4, √43",
+      "choices": [
+        "9, √43, 4",
+        "4, √43, 9",
+        "√43, 4, 9",
+        "9, 4, √43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        null,
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√43 is between 6 and 7. Sorted least to greatest: 4, √43, 9."
+    },
+    {
+      "id": "roots-irrationals/t5/040",
+      "tier": 5,
+      "prompt": "Greater: √47 or 9?",
+      "choices": [
+        "9",
+        "√47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√47 is between 6 and 7, so 9 is the greater."
+    }
+  ]
+}

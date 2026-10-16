@@ -1,0 +1,3970 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-equations",
+  "version": "1.0.0",
+  "title": "Linear Equations",
+  "subtitle": "Both Sides, Solution Count & Systems",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.C.7.A",
+    "CCSS.MATH.CONTENT.8.EE.C.7.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.A",
+    "CCSS.MATH.CONTENT.8.EE.C.8.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.C"
+  ],
+  "seed": 20261034,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a and 4b (coordinates and lines), grade 8. One variable letter per equation, written ax + b = cx + d or with one group p(x + t); every coefficient of size 1-10 (p 2-6). Constants: when any literal is negative, every constant (and every distributed product p times t) has size at most 12, otherwise at most 20. After collecting terms the x coefficient has size 2-10 and the number side is the times-table product of it and the solution (size at most 100). Solutions are integers of size 1-10, never 0 (x = 0 is only ever a distractor); T3 counts are one, none or infinite, and the one-solution equations also have a nonzero integer solution of size at most 10. T4: fractions 1/2, 1/3, 1/4, 1/5 written (1/k)x or x/k and decimals 0.5, 0.25, 0.2, 0.1, every x a times-table multiple so the solution is an integer of size at most 40 and the collected number side is a whole number of size at most 10; both-sided coefficient pairs (1, 1/2), (1/2, 1/4), (0.5, 1), (0.5, 0.25). T5: lines y = mx + b with m of size 1-6 and b of size at most 12; sum-or-difference systems have coefficients 1-2, an integer solution of size 1-8 with x not equal to y, constants of size at most 20 (at most 12 if one is negative), solved by adding the two equations only; crossing lines meet at integer coordinates of size at most 10.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Both Sides",
+      "description": "x on both sides: collect the x terms, then the numbers."
+    },
+    {
+      "tier": 2,
+      "name": "Distribute, Solve",
+      "description": "Distribute first, then solve with x on both sides."
+    },
+    {
+      "tier": 3,
+      "name": "One, None, Infinite",
+      "description": "Decide how many solutions an equation has."
+    },
+    {
+      "tier": 4,
+      "name": "Fractions & Decimals",
+      "description": "Solve equations with 1/2 or 0.5 coefficients."
+    },
+    {
+      "tier": 5,
+      "name": "Systems",
+      "description": "Two lines at once: how many points, and where."
+    }
+  ],
+  "misconceptions": {
+    "SAME_SIGN_MOVE": {
+      "student": "To move 3x across the = sign, subtract 3x from both sides. Don't add it.",
+      "teacher": "Moves a variable term across the equals sign without changing its sign: 5x + 2 = 3x + 10 becomes 8x = 8."
+    },
+    "CONST_SIGN": {
+      "student": "Undo + 2 by subtracting 2 from both sides. Undo − 2 by adding 2.",
+      "teacher": "Moves a constant across the equals sign without changing its sign (adds instead of subtracts)."
+    },
+    "ONE_STEP": {
+      "student": "Stopped early: 2x = 8 still has to be divided by 2.",
+      "teacher": "Stops at the collected equation (ax = k) and reports k as the answer."
+    },
+    "SIGN_SLIP": {
+      "student": "Right size, wrong sign. Put your x back in to check.",
+      "teacher": "Subtracts the x terms the wrong way round and answers with the opposite sign."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply the outside number by EVERY term inside: 3(x + 2) = 3x + 6.",
+      "teacher": "Distributes only to the variable: 3(x + 2) becomes 3x + 2."
+    },
+    "SIGN_INSIDE": {
+      "student": "3(x − 2) = 3x − 6. The minus sign stays with the 2.",
+      "teacher": "Loses the negative inside the parentheses when distributing: 3(x − 2) becomes 3x + 6."
+    },
+    "DROP_LIKE_TERM": {
+      "student": "Don't lose the extra x. Count every x term after distributing.",
+      "teacher": "Drops the loose x term when collecting like terms after distributing."
+    },
+    "CANCEL_IS_ZERO": {
+      "student": "When the x terms cancel, there is no x left to be 0. Look at the numbers.",
+      "teacher": "Reads an equation whose variable terms cancel as x = 0."
+    },
+    "ALWAYS_ONE": {
+      "student": "Not every equation has one answer. If the x terms cancel, check the numbers.",
+      "teacher": "Assumes every linear equation has exactly one solution."
+    },
+    "NONE_FOR_IDENTITY": {
+      "student": "If both sides come out equal (6 = 6), it is true for EVERY x.",
+      "teacher": "Reads a true statement with no variable left (an identity) as no solution."
+    },
+    "INFINITE_FOR_FALSE": {
+      "student": "If the x terms cancel and the numbers differ (4 = 7), it is never true.",
+      "teacher": "Reads a false statement with no variable left (a contradiction) as infinitely many solutions."
+    },
+    "ONE_IS_MANY": {
+      "student": "x on both sides does not mean many answers. Collect x and get one value.",
+      "teacher": "Believes variables on both sides produce infinitely many solutions."
+    },
+    "ONE_IS_NONE": {
+      "student": "x on both sides can still be solved: collect the x terms and divide.",
+      "teacher": "Believes variables on both sides mean the equation cannot be solved."
+    },
+    "ZERO_GUESS": {
+      "student": "Try x = 0 in the equation: the sides don't match. Solve it instead.",
+      "teacher": "Guesses x = 0 instead of counting solutions."
+    },
+    "CONST_FOR_COEFF": {
+      "student": "Match like with like: x terms with x terms, numbers with numbers.",
+      "teacher": "Puts a constant where the coefficient belongs (or the reverse) when matching two sides."
+    },
+    "SIGN_PICK": {
+      "student": "Right size, wrong sign. The two sides must match exactly, sign included.",
+      "teacher": "Matches the size of the number on the other side but flips its sign."
+    },
+    "DIVIDE_FOR_MULT": {
+      "student": "(1/2)x = 4 means x is 2 times bigger: multiply by 2, don't divide.",
+      "teacher": "Divides by the denominator to undo a fractional coefficient instead of multiplying."
+    },
+    "FORGOT_LAST_STEP": {
+      "student": "Stopped early: you still have to undo the fraction or decimal on x.",
+      "teacher": "Stops at the collected equation and answers with the number side."
+    },
+    "ONE_TERM_CLEARED": {
+      "student": "To clear a fraction, multiply EVERY term on both sides, not just one.",
+      "teacher": "Multiplies only the fractional term (or one side) by the denominator."
+    },
+    "DEC_WRONG_WAY": {
+      "student": "0.5x = 3 means x is 2 times bigger. Divide by 0.5, which doubles.",
+      "teacher": "Multiplies by the decimal coefficient instead of dividing by it."
+    },
+    "DEC_AS_FRAC": {
+      "student": "0.5 is 1/2, not 1/5. Read a decimal as a part of one whole.",
+      "teacher": "Reads the digit after the decimal point as the denominator: 0.5 as 1/5."
+    },
+    "PARALLEL_ONE": {
+      "student": "Same slope, different start: parallel lines never meet.",
+      "teacher": "Thinks two lines with the same slope still cross once."
+    },
+    "SAME_SLOPE_SAME_LINE": {
+      "student": "Same slope but different starts are different lines. They never touch.",
+      "teacher": "Reads two parallel lines as the same line, with infinitely many shared points."
+    },
+    "TWO_LINES_TWO": {
+      "student": "A solution is a point on BOTH lines. Two lines don't mean two solutions.",
+      "teacher": "Counts one solution per line."
+    },
+    "STOPPED_AT_SUM": {
+      "student": "After adding the equations, divide: 3x = 15 means x = 5.",
+      "teacher": "Reports the added constants without dividing by the combined coefficient."
+    },
+    "GAVE_OTHER": {
+      "student": "Check which variable the question asks for.",
+      "teacher": "Solves correctly but reports the other variable."
+    },
+    "SWAPPED_XY": {
+      "student": "Points are written (x, y): x first, then y.",
+      "teacher": "Reverses the coordinates of the solution point."
+    },
+    "READ_CONSTANT": {
+      "student": "x − y = 4 does not say y is 4. Solve for both variables.",
+      "teacher": "Reads a constant from an equation as the value of a variable."
+    },
+    "INTERCEPT_AS_MEET": {
+      "student": "The y-intercept is where a line crosses the y-axis, not where the lines meet.",
+      "teacher": "Gives the y-intercept of a line as the intersection point."
+    },
+    "DROPPED_SLOPE": {
+      "student": "Put x into the WHOLE rule: y = 3x + 4 uses 3 times x.",
+      "teacher": "Finds y by substituting x without the slope multiplier."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "linear-equations/t1/001",
+      "tier": 1,
+      "prompt": "Solve: 6m = m + 20",
+      "choices": [
+        "5",
+        "−4",
+        "20",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect m: 5m = 20. Divide by 5: m = 4."
+    },
+    {
+      "id": "linear-equations/t1/002",
+      "tier": 1,
+      "prompt": "Solve: 9t + 2 = 5t + 18",
+      "choices": [
+        "4",
+        "−4",
+        "5",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect t: 4t = 16. Divide by 4: t = 4."
+    },
+    {
+      "id": "linear-equations/t1/003",
+      "tier": 1,
+      "prompt": "Solve: 6m = 4m + 8",
+      "choices": [
+        "8",
+        "−4",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect m: 2m = 8. Divide by 2: m = 4."
+    },
+    {
+      "id": "linear-equations/t1/004",
+      "tier": 1,
+      "prompt": "Solve: 5y + 1 = 2y + 16",
+      "choices": [
+        "5",
+        "−5",
+        "7",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 3y = 15. Divide by 3: y = 5."
+    },
+    {
+      "id": "linear-equations/t1/005",
+      "tier": 1,
+      "prompt": "Solve: 4t + 12 = 7t + 9",
+      "choices": [
+        "−3",
+        "1",
+        "−1",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect t: 3 = 3t. Divide by 3: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/006",
+      "tier": 1,
+      "prompt": "Solve: 3m + 5 = 10m − 9",
+      "choices": [
+        "−14",
+        "5",
+        "2",
+        "−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "ARITH",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect m: 14 = 7m. Divide by 7: m = 2."
+    },
+    {
+      "id": "linear-equations/t1/007",
+      "tier": 1,
+      "prompt": "Solve: m + 1 = 7m − 5",
+      "choices": [
+        "−6",
+        "4",
+        "−1",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect m: 6 = 6m. Divide by 6: m = 1."
+    },
+    {
+      "id": "linear-equations/t1/008",
+      "tier": 1,
+      "prompt": "Solve: 7t + 13 = t + 19",
+      "choices": [
+        "1",
+        "−2",
+        "6",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect t: 6t = 6. Divide by 6: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/009",
+      "tier": 1,
+      "prompt": "Solve: 2w − 12 = 6w",
+      "choices": [
+        "−6",
+        "3",
+        "12",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: −12 = 4w. Divide by 4: w = −3."
+    },
+    {
+      "id": "linear-equations/t1/010",
+      "tier": 1,
+      "prompt": "Solve: 4n + 14 = 7n + 8",
+      "choices": [
+        "2",
+        "−2",
+        "3",
+        "−6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect n: 6 = 3n. Divide by 3: n = 2."
+    },
+    {
+      "id": "linear-equations/t1/011",
+      "tier": 1,
+      "prompt": "Solve: 6w + 9 = 9w",
+      "choices": [
+        "−3",
+        "−9",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Collect w: 9 = 3w. Divide by 3: w = 3."
+    },
+    {
+      "id": "linear-equations/t1/012",
+      "tier": 1,
+      "prompt": "Solve: 7n + 4 = 10n − 11",
+      "choices": [
+        "5",
+        "−15",
+        "3",
+        "−5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 15 = 3n. Divide by 3: n = 5."
+    },
+    {
+      "id": "linear-equations/t1/013",
+      "tier": 1,
+      "prompt": "Solve: 7w + 12 = 3w + 20",
+      "choices": [
+        "−2",
+        "2",
+        "8",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect w: 4w = 8. Divide by 4: w = 2."
+    },
+    {
+      "id": "linear-equations/t1/014",
+      "tier": 1,
+      "prompt": "Solve: 6k = 10k + 20",
+      "choices": [
+        "−5",
+        "20",
+        "5",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect k: −20 = 4k. Divide by 4: k = −5."
+    },
+    {
+      "id": "linear-equations/t1/015",
+      "tier": 1,
+      "prompt": "Solve: 9x − 6 = 3x + 6",
+      "choices": [
+        "12",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "CONST_SIGN",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect x: 6x = 12. Divide by 6: x = 2."
+    },
+    {
+      "id": "linear-equations/t1/016",
+      "tier": 1,
+      "prompt": "Solve: 9n − 5 = 3n + 7",
+      "choices": [
+        "−2",
+        "1",
+        "12",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect n: 6n = 12. Divide by 6: n = 2."
+    },
+    {
+      "id": "linear-equations/t1/017",
+      "tier": 1,
+      "prompt": "Solve: 9t + 9 = 5t + 17",
+      "choices": [
+        "−2",
+        "2",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 4t = 8. Divide by 4: t = 2."
+    },
+    {
+      "id": "linear-equations/t1/018",
+      "tier": 1,
+      "prompt": "Solve: 8y + 2 = 10y",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 2 = 2y. Divide by 2: y = 1."
+    },
+    {
+      "id": "linear-equations/t1/019",
+      "tier": 1,
+      "prompt": "Solve: 6x − 4 = 4x + 10",
+      "choices": [
+        "7",
+        "3",
+        "14",
+        "−7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ONE_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect x: 2x = 14. Divide by 2: x = 7."
+    },
+    {
+      "id": "linear-equations/t1/020",
+      "tier": 1,
+      "prompt": "Solve: 9w + 1 = 7w + 3",
+      "choices": [
+        "−1",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: 2w = 2. Divide by 2: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/021",
+      "tier": 1,
+      "prompt": "Solve: 8n = n + 7",
+      "choices": [
+        "1",
+        "7",
+        "4",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 7n = 7. Divide by 7: n = 1."
+    },
+    {
+      "id": "linear-equations/t1/022",
+      "tier": 1,
+      "prompt": "Solve: 3x + 15 = 7x + 3",
+      "choices": [
+        "−12",
+        "−3",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect x: 12 = 4x. Divide by 4: x = 3."
+    },
+    {
+      "id": "linear-equations/t1/023",
+      "tier": 1,
+      "prompt": "Solve: 4w + 14 = 8w + 10",
+      "choices": [
+        "−4",
+        "−1",
+        "1",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect w: 4 = 4w. Divide by 4: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/024",
+      "tier": 1,
+      "prompt": "Solve: 3k = k + 2",
+      "choices": [
+        "−1",
+        "2",
+        "−2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect k: 2k = 2. Divide by 2: k = 1."
+    },
+    {
+      "id": "linear-equations/t1/025",
+      "tier": 1,
+      "prompt": "Solve: 8n − 7 = 6n + 1",
+      "choices": [
+        "−4",
+        "4",
+        "8",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect n: 2n = 8. Divide by 2: n = 4."
+    },
+    {
+      "id": "linear-equations/t1/026",
+      "tier": 1,
+      "prompt": "Solve: 2x + 15 = 5x",
+      "choices": [
+        "−5",
+        "−15",
+        "5",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_STEP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Collect x: 15 = 3x. Divide by 3: x = 5."
+    },
+    {
+      "id": "linear-equations/t1/027",
+      "tier": 1,
+      "prompt": "Solve: 3n + 8 = n − 12",
+      "choices": [
+        "10",
+        "−20",
+        "−10",
+        "−5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect n: 2n = −20. Divide by 2: n = −10."
+    },
+    {
+      "id": "linear-equations/t1/028",
+      "tier": 1,
+      "prompt": "Solve: 7t − 3 = 4t",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 3t = 3. Divide by 3: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/029",
+      "tier": 1,
+      "prompt": "Solve: 9x + 1 = 5x + 17",
+      "choices": [
+        "4",
+        "16",
+        "7",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect x: 4x = 16. Divide by 4: x = 4."
+    },
+    {
+      "id": "linear-equations/t1/030",
+      "tier": 1,
+      "prompt": "Solve: 4x + 3 = 7x",
+      "choices": [
+        "2",
+        "−1",
+        "1",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Collect x: 3 = 3x. Divide by 3: x = 1."
+    },
+    {
+      "id": "linear-equations/t1/031",
+      "tier": 1,
+      "prompt": "Solve: 9k + 16 = k",
+      "choices": [
+        "−16",
+        "−2",
+        "2",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect k: 8k = −16. Divide by 8: k = −2."
+    },
+    {
+      "id": "linear-equations/t1/032",
+      "tier": 1,
+      "prompt": "Solve: 6w = 8w − 2",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect w: 2 = 2w. Divide by 2: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/033",
+      "tier": 1,
+      "prompt": "Solve: 7t + 8 = t + 2",
+      "choices": [
+        "1",
+        "−1",
+        "−6",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 6t = −6. Divide by 6: t = −1."
+    },
+    {
+      "id": "linear-equations/t1/034",
+      "tier": 1,
+      "prompt": "Solve: 10m = 6m + 4",
+      "choices": [
+        "−1",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect m: 4m = 4. Divide by 4: m = 1."
+    },
+    {
+      "id": "linear-equations/t1/035",
+      "tier": 1,
+      "prompt": "Solve: 8y = 3y + 15",
+      "choices": [
+        "3",
+        "2",
+        "−3",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 5y = 15. Divide by 5: y = 3."
+    },
+    {
+      "id": "linear-equations/t1/036",
+      "tier": 1,
+      "prompt": "Solve: 5n + 1 = 3n + 9",
+      "choices": [
+        "5",
+        "8",
+        "4",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect n: 2n = 8. Divide by 2: n = 4."
+    },
+    {
+      "id": "linear-equations/t1/037",
+      "tier": 1,
+      "prompt": "Solve: 2w + 11 = 4w − 7",
+      "choices": [
+        "−2",
+        "−3",
+        "−18",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: 18 = 2w. Divide by 2: w = 9."
+    },
+    {
+      "id": "linear-equations/t1/038",
+      "tier": 1,
+      "prompt": "Solve: 3x + 10 = x − 6",
+      "choices": [
+        "8",
+        "−4",
+        "−8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SAME_SIGN_MOVE",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect x: 2x = −16. Divide by 2: x = −8."
+    },
+    {
+      "id": "linear-equations/t1/039",
+      "tier": 1,
+      "prompt": "Solve: 6m − 8 = 2m",
+      "choices": [
+        "1",
+        "8",
+        "2",
+        "−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect m: 4m = 8. Divide by 4: m = 2."
+    },
+    {
+      "id": "linear-equations/t1/040",
+      "tier": 1,
+      "prompt": "Solve: 7n + 13 = 9n + 3",
+      "choices": [
+        "−10",
+        "5",
+        "−8",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "CONST_SIGN",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 10 = 2n. Divide by 2: n = 5."
+    },
+    {
+      "id": "linear-equations/t2/001",
+      "tier": 2,
+      "prompt": "Solve: 3(m + 3) = 9m − 9",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3m + 9 = 9m − 9. Collect: 18 = 6m. m = 3."
+    },
+    {
+      "id": "linear-equations/t2/002",
+      "tier": 2,
+      "prompt": "Solve: 3(w + 6) = 5w",
+      "choices": [
+        "−9",
+        "9",
+        "10",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "ARITH",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3w + 18 = 5w. Collect: 18 = 2w. w = 9."
+    },
+    {
+      "id": "linear-equations/t2/003",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 4) = m + 4",
+      "choices": [
+        "−4",
+        "0",
+        "−2",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "ARITH",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5m + 20 = m + 4. Collect: 4m = −16. m = −4."
+    },
+    {
+      "id": "linear-equations/t2/004",
+      "tier": 2,
+      "prompt": "Solve: 2(k + 1) + 3k = 3k + 6",
+      "choices": [
+        "−4",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "ARITH",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Distribute: 5k + 2 = 3k + 6. Collect: 2k = 4. k = 2."
+    },
+    {
+      "id": "linear-equations/t2/005",
+      "tier": 2,
+      "prompt": "Solve: 9n + 12 = 5(n + 4)",
+      "choices": [
+        "2",
+        "4",
+        "−2",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5n + 20 = 9n + 12. Collect: 8 = 4n. n = 2."
+    },
+    {
+      "id": "linear-equations/t2/006",
+      "tier": 2,
+      "prompt": "Solve: 3(t − 2) = 7t − 10",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PARTIAL_DIST",
+        null,
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 3t − 6 = 7t − 10. Collect: 4 = 4t. t = 1."
+    },
+    {
+      "id": "linear-equations/t2/007",
+      "tier": 2,
+      "prompt": "Solve: 2(y − 6) + 3y = 7y",
+      "choices": [
+        "1",
+        "−3",
+        "−6",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        "PARTIAL_DIST",
+        null,
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 5y − 12 = 7y. Collect: −12 = 2y. y = −6."
+    },
+    {
+      "id": "linear-equations/t2/008",
+      "tier": 2,
+      "prompt": "Solve: 3(x + 4) + 2x = 8x − 3",
+      "choices": [
+        "−3",
+        "5",
+        "3",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "DROP_LIKE_TERM",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5x + 12 = 8x − 3. Collect: 15 = 3x. x = 5."
+    },
+    {
+      "id": "linear-equations/t2/009",
+      "tier": 2,
+      "prompt": "Solve: 2(x + 3) + 3x = 3x + 14",
+      "choices": [
+        "1",
+        "4",
+        "−8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "DROP_LIKE_TERM",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5x + 6 = 3x + 14. Collect: 2x = 8. x = 4."
+    },
+    {
+      "id": "linear-equations/t2/010",
+      "tier": 2,
+      "prompt": "Solve: 5y − 11 = 3(y + 1)",
+      "choices": [
+        "6",
+        "7",
+        "10",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "ARITH",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3y + 3 = 5y − 11. Collect: 14 = 2y. y = 7."
+    },
+    {
+      "id": "linear-equations/t2/011",
+      "tier": 2,
+      "prompt": "Solve: 2(n + 4) + n = 5n − 10",
+      "choices": [
+        "6",
+        "7",
+        "9",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "PARTIAL_DIST",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3n + 8 = 5n − 10. Collect: 18 = 2n. n = 9."
+    },
+    {
+      "id": "linear-equations/t2/012",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 4) + 2m = 9m + 6",
+      "choices": [
+        "7",
+        "9",
+        "−1",
+        "−13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 7m + 20 = 9m + 6. Collect: 14 = 2m. m = 7."
+    },
+    {
+      "id": "linear-equations/t2/013",
+      "tier": 2,
+      "prompt": "Solve: 2(y + 3) = 5y + 3",
+      "choices": [
+        "0",
+        "−3",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 2y + 6 = 5y + 3. Collect: 3 = 3y. y = 1."
+    },
+    {
+      "id": "linear-equations/t2/014",
+      "tier": 2,
+      "prompt": "Solve: 5k + 9 = 3(k + 5)",
+      "choices": [
+        "3",
+        "−2",
+        "−12",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3k + 15 = 5k + 9. Collect: 6 = 2k. k = 3."
+    },
+    {
+      "id": "linear-equations/t2/015",
+      "tier": 2,
+      "prompt": "Solve: 4(w + 5) + 3w = 9w + 4",
+      "choices": [
+        "8",
+        "−12",
+        "7",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ARITH",
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Distribute: 7w + 20 = 9w + 4. Collect: 16 = 2w. w = 8."
+    },
+    {
+      "id": "linear-equations/t2/016",
+      "tier": 2,
+      "prompt": "Solve: 5w − 7 = 3(w + 3)",
+      "choices": [
+        "−2",
+        "8",
+        "5",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3w + 9 = 5w − 7. Collect: 16 = 2w. w = 8."
+    },
+    {
+      "id": "linear-equations/t2/017",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 3) + m = 15",
+      "choices": [
+        "7",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ARITH",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3m + 6 = 15. Collect: 3m = 9. m = 3."
+    },
+    {
+      "id": "linear-equations/t2/018",
+      "tier": 2,
+      "prompt": "Solve: 3w + 5 = 5(w + 3)",
+      "choices": [
+        "−3",
+        "10",
+        "1",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 5w + 15 = 3w + 5. Collect: 2w = −10. w = −5."
+    },
+    {
+      "id": "linear-equations/t2/019",
+      "tier": 2,
+      "prompt": "Solve: 3(y + 6) = 5y + 14",
+      "choices": [
+        "−4",
+        "3",
+        "−16",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "ARITH",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Distribute: 3y + 18 = 5y + 14. Collect: 4 = 2y. y = 2."
+    },
+    {
+      "id": "linear-equations/t2/020",
+      "tier": 2,
+      "prompt": "Solve: 5(w + 4) + 3w = 10w + 10",
+      "choices": [
+        "5",
+        "−15",
+        "2",
+        "−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "DROP_LIKE_TERM",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 8w + 20 = 10w + 10. Collect: 10 = 2w. w = 5."
+    },
+    {
+      "id": "linear-equations/t2/021",
+      "tier": 2,
+      "prompt": "Solve: 6(m + 2) = 4m + 16",
+      "choices": [
+        "3",
+        "2",
+        "14",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "CONST_SIGN",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 6m + 12 = 4m + 16. Collect: 2m = 4. m = 2."
+    },
+    {
+      "id": "linear-equations/t2/022",
+      "tier": 2,
+      "prompt": "Solve: 3(y + 5) = 8y",
+      "choices": [
+        "5",
+        "−3",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3y + 15 = 8y. Collect: 15 = 5y. y = 3."
+    },
+    {
+      "id": "linear-equations/t2/023",
+      "tier": 2,
+      "prompt": "Solve: 6(x − 2) + 3x = 5x",
+      "choices": [
+        "12",
+        "−3",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "SIGN_INSIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Distribute: 9x − 12 = 5x. Collect: 4x = 12. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/024",
+      "tier": 2,
+      "prompt": "Solve: 5(x + 2) = 3x",
+      "choices": [
+        "5",
+        "−1",
+        "−4",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 5x + 10 = 3x. Collect: 2x = −10. x = −5."
+    },
+    {
+      "id": "linear-equations/t2/025",
+      "tier": 2,
+      "prompt": "Solve: 6t − 12 = 3(t − 1)",
+      "choices": [
+        "−1",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "SIGN_INSIDE",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3t − 3 = 6t − 12. Collect: 9 = 3t. t = 3."
+    },
+    {
+      "id": "linear-equations/t2/026",
+      "tier": 2,
+      "prompt": "Solve: 3(m + 2) = 5m − 10",
+      "choices": [
+        "8",
+        "6",
+        "−2",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "SAME_SIGN_MOVE",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3m + 6 = 5m − 10. Collect: 16 = 2m. m = 8."
+    },
+    {
+      "id": "linear-equations/t2/027",
+      "tier": 2,
+      "prompt": "Solve: 2(x + 3) + 2x = 2x + 12",
+      "choices": [
+        "5",
+        "1",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_SIGN_MOVE",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 4x + 6 = 2x + 12. Collect: 2x = 6. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/028",
+      "tier": 2,
+      "prompt": "Solve: 4(n − 1) = 8n + 8",
+      "choices": [
+        "1",
+        "−3",
+        "−1",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "SIGN_INSIDE",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 4n − 4 = 8n + 8. Collect: −12 = 4n. n = −3."
+    },
+    {
+      "id": "linear-equations/t2/029",
+      "tier": 2,
+      "prompt": "Solve: 2(y − 2) + 3y = 7y − 10",
+      "choices": [
+        "3",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5y − 4 = 7y − 10. Collect: 6 = 2y. y = 3."
+    },
+    {
+      "id": "linear-equations/t2/030",
+      "tier": 2,
+      "prompt": "Solve: 5k + 3 = 3(k + 5)",
+      "choices": [
+        "1",
+        "−9",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 3k + 15 = 5k + 3. Collect: 12 = 2k. k = 6."
+    },
+    {
+      "id": "linear-equations/t2/031",
+      "tier": 2,
+      "prompt": "Solve: x + 9 = 3(x + 1)",
+      "choices": [
+        "6",
+        "1",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ARITH",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 3x + 3 = x + 9. Collect: 2x = 6. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/032",
+      "tier": 2,
+      "prompt": "Solve: 5(x + 3) + x = 9x",
+      "choices": [
+        "−5",
+        "1",
+        "5",
+        "−1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Distribute: 6x + 15 = 9x. Collect: 15 = 3x. x = 5."
+    },
+    {
+      "id": "linear-equations/t2/033",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 4) + 2m = 12",
+      "choices": [
+        "1",
+        "2",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_LIKE_TERM",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 4m + 8 = 12. Collect: 4m = 4. m = 1."
+    },
+    {
+      "id": "linear-equations/t2/034",
+      "tier": 2,
+      "prompt": "Solve: 5(t + 3) = 3t + 13",
+      "choices": [
+        "5",
+        "−1",
+        "14",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5t + 15 = 3t + 13. Collect: 2t = −2. t = −1."
+    },
+    {
+      "id": "linear-equations/t2/035",
+      "tier": 2,
+      "prompt": "Solve: 4(m − 2) = 2m + 6",
+      "choices": [
+        "7",
+        "4",
+        "9",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "ARITH",
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 4m − 8 = 2m + 6. Collect: 2m = 14. m = 7."
+    },
+    {
+      "id": "linear-equations/t2/036",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 2) = 3m + 20",
+      "choices": [
+        "9",
+        "15",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 5m + 10 = 3m + 20. Collect: 2m = 10. m = 5."
+    },
+    {
+      "id": "linear-equations/t2/037",
+      "tier": 2,
+      "prompt": "Solve: 5(t + 2) = 9t − 6",
+      "choices": [
+        "7",
+        "4",
+        "2",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5t + 10 = 9t − 6. Collect: 16 = 4t. t = 4."
+    },
+    {
+      "id": "linear-equations/t2/038",
+      "tier": 2,
+      "prompt": "Solve: 2(w + 6) = 5w",
+      "choices": [
+        "6",
+        "−4",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 2w + 12 = 5w. Collect: 12 = 3w. w = 4."
+    },
+    {
+      "id": "linear-equations/t2/039",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 6) + 2m = 7m + 9",
+      "choices": [
+        "−1",
+        "−7",
+        "−2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 4m + 12 = 7m + 9. Collect: 3 = 3m. m = 1."
+    },
+    {
+      "id": "linear-equations/t2/040",
+      "tier": 2,
+      "prompt": "Solve: 2(t + 3) + 3t = 3t + 8",
+      "choices": [
+        "−1",
+        "−2",
+        "1",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DROP_LIKE_TERM",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5t + 6 = 3t + 8. Collect: 2t = 2. t = 1."
+    },
+    {
+      "id": "linear-equations/t3/001",
+      "tier": 3,
+      "prompt": "2(m + 5) = 8m − 8. How many solutions?",
+      "choices": [
+        "m = 0",
+        "None",
+        "One",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        null,
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect m: −6m = −18, so m = 3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/002",
+      "tier": 3,
+      "prompt": "4(x + 3) = 6x + 2. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        null,
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect x: −2x = −10, so x = 5. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/003",
+      "tier": 3,
+      "prompt": "8x + 2 = kx + 2. Infinite solutions when k is?",
+      "choices": [
+        "−8",
+        "9",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_PICK",
+        "ARITH",
+        null,
+        "CONST_FOR_COEFF"
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 8."
+    },
+    {
+      "id": "linear-equations/t3/004",
+      "tier": 3,
+      "prompt": "7x + 4 = 7x + k. Infinite solutions when k is?",
+      "choices": [
+        "4",
+        "6",
+        "7",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CONST_FOR_COEFF",
+        "SIGN_PICK"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 4. Then both sides are 7x + 4."
+    },
+    {
+      "id": "linear-equations/t3/005",
+      "tier": 3,
+      "prompt": "9y − 3 = 5y − 3 + 4y. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "y = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 9y − 3. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/006",
+      "tier": 3,
+      "prompt": "7x + 15 = 8x + 13. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "x = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect x: −x = −2, so x = 2. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/007",
+      "tier": 3,
+      "prompt": "2m + 4 = 2(m + 2). How many solutions?",
+      "choices": [
+        "m = 0",
+        "One",
+        "Infinite",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 2m + 4. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/008",
+      "tier": 3,
+      "prompt": "9n + 12 = 9n − 7. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "n = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 9n + 12, right is 9n − 7. The n terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/009",
+      "tier": 3,
+      "prompt": "6(n + 1) = 4n + 16. How many solutions?",
+      "choices": [
+        "None",
+        "Infinite",
+        "One",
+        "n = 0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        "ONE_IS_MANY",
+        null,
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect n: 2n = 10, so n = 5. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/010",
+      "tier": 3,
+      "prompt": "2(y + 6) = 4y + 18. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect y: −2y = 6, so y = −3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/011",
+      "tier": 3,
+      "prompt": "2(x + 1) = 4x − 4. How many solutions?",
+      "choices": [
+        "Infinite",
+        "One",
+        "None",
+        "x = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect x: −2x = −6, so x = 3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/012",
+      "tier": 3,
+      "prompt": "2(k − 4) = 2k − 8. How many solutions?",
+      "choices": [
+        "One",
+        "k = 0",
+        "Infinite",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null,
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 2k − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/013",
+      "tier": 3,
+      "prompt": "3x + 5 = kx + 5. Infinite solutions when k is?",
+      "choices": [
+        "5",
+        "3",
+        "2",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        null,
+        "ARITH",
+        "SIGN_PICK"
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 3."
+    },
+    {
+      "id": "linear-equations/t3/014",
+      "tier": 3,
+      "prompt": "5y − 6 = 2y − 6 + 3y. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Both sides simplify to 5y − 6. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/015",
+      "tier": 3,
+      "prompt": "8t + 3 = 4t − 1. How many solutions?",
+      "choices": [
+        "One",
+        "t = 0",
+        "None",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect t: 4t = −4, so t = −1. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/016",
+      "tier": 3,
+      "prompt": "5(k + 2) = 8k + 4. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "k = 0",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_MANY",
+        "ZERO_GUESS",
+        "ONE_IS_NONE"
+      ],
+      "explanation": "Collect k: −3k = −6, so k = 2. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/017",
+      "tier": 3,
+      "prompt": "3(t + 1) = 3t + 7. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "t = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 3t + 3, right is 3t + 7. The t terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/018",
+      "tier": 3,
+      "prompt": "4n + 7 = 4n − 4. How many solutions?",
+      "choices": [
+        "n = 0",
+        "One",
+        "Infinite",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        "INFINITE_FOR_FALSE",
+        null
+      ],
+      "explanation": "Left is 4n + 7, right is 4n − 4. The n terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/019",
+      "tier": 3,
+      "prompt": "5x + 9 = kx + 3. No solution when k is?",
+      "choices": [
+        "3",
+        "−5",
+        "9",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        null
+      ],
+      "explanation": "No solution needs the same x term on both sides but different numbers: k = 5."
+    },
+    {
+      "id": "linear-equations/t3/020",
+      "tier": 3,
+      "prompt": "y + 11 = 2y + 14. How many solutions?",
+      "choices": [
+        "Infinite",
+        "y = 0",
+        "None",
+        "One"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        null
+      ],
+      "explanation": "Collect y: −y = 3, so y = −3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/021",
+      "tier": 3,
+      "prompt": "6m + 9 = 5m + 9 + m. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "m = 0",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "CANCEL_IS_ZERO",
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 6m + 9. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/022",
+      "tier": 3,
+      "prompt": "2x − 5 = 2x + 2. How many solutions?",
+      "choices": [
+        "One",
+        "x = 0",
+        "None",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null,
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 2x − 5, right is 2x + 2. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/023",
+      "tier": 3,
+      "prompt": "5m − 2 = 3m − 2 + 2m. How many solutions?",
+      "choices": [
+        "m = 0",
+        "One",
+        "None",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        "NONE_FOR_IDENTITY",
+        null
+      ],
+      "explanation": "Both sides simplify to 5m − 2. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/024",
+      "tier": 3,
+      "prompt": "7t + 9 = 3t + 9 + 4t. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "t = 0",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Both sides simplify to 7t + 9. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/025",
+      "tier": 3,
+      "prompt": "4m + 12 = m − 1 + 3m. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "m = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 4m + 12, right is 4m − 1. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/026",
+      "tier": 3,
+      "prompt": "6w − 2 = 5w − 2 + w. How many solutions?",
+      "choices": [
+        "w = 0",
+        "None",
+        "Infinite",
+        "One"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "NONE_FOR_IDENTITY",
+        null,
+        "ALWAYS_ONE"
+      ],
+      "explanation": "Both sides simplify to 6w − 2. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/027",
+      "tier": 3,
+      "prompt": "4x − 8 = 4(x − 2). How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 4x − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/028",
+      "tier": 3,
+      "prompt": "7x + 6 = 3x + 4 + 4x. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 7x + 6, right is 7x + 4. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/029",
+      "tier": 3,
+      "prompt": "3(m + 1) = 3m + 5. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "m = 0",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 3m + 3, right is 3m + 5. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/030",
+      "tier": 3,
+      "prompt": "6x + 4 = kx + 8. No solution when k is?",
+      "choices": [
+        "4",
+        "8",
+        "6",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "CONST_FOR_COEFF",
+        null,
+        "SIGN_PICK"
+      ],
+      "explanation": "No solution needs the same x term on both sides but different numbers: k = 6."
+    },
+    {
+      "id": "linear-equations/t3/031",
+      "tier": 3,
+      "prompt": "6x + 3 = 6x + k. Infinite solutions when k is?",
+      "choices": [
+        "3",
+        "6",
+        "−3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_FOR_COEFF",
+        "SIGN_PICK",
+        "ARITH"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 3. Then both sides are 6x + 3."
+    },
+    {
+      "id": "linear-equations/t3/032",
+      "tier": 3,
+      "prompt": "5x + 8 = 5x + k. Infinite solutions when k is?",
+      "choices": [
+        "6",
+        "−8",
+        "8",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_PICK",
+        null,
+        "CONST_FOR_COEFF"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 8. Then both sides are 5x + 8."
+    },
+    {
+      "id": "linear-equations/t3/033",
+      "tier": 3,
+      "prompt": "3(x + 1) = 3x + 2. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "x = 0",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "INFINITE_FOR_FALSE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Left is 3x + 3, right is 3x + 2. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/034",
+      "tier": 3,
+      "prompt": "3(y + 6) = 5y. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        null,
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect y: −2y = −18, so y = 9. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/035",
+      "tier": 3,
+      "prompt": "6x + 2 = 6x + k. Infinite solutions when k is?",
+      "choices": [
+        "2",
+        "−2",
+        "6",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        "ARITH"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 2. Then both sides are 6x + 2."
+    },
+    {
+      "id": "linear-equations/t3/036",
+      "tier": 3,
+      "prompt": "2x + 4 = 2x + k. Infinite solutions when k is?",
+      "choices": [
+        "−4",
+        "2",
+        "5",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 4. Then both sides are 2x + 4."
+    },
+    {
+      "id": "linear-equations/t3/037",
+      "tier": 3,
+      "prompt": "6y − 8 = 2y − 8 + 4y. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "y = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 6y − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/038",
+      "tier": 3,
+      "prompt": "4x + 6 = kx + 6. Infinite solutions when k is?",
+      "choices": [
+        "6",
+        "2",
+        "−4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "ARITH",
+        "SIGN_PICK",
+        null
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 4."
+    },
+    {
+      "id": "linear-equations/t3/039",
+      "tier": 3,
+      "prompt": "6m + 2 = 4m − 6 + 2m. How many solutions?",
+      "choices": [
+        "m = 0",
+        "Infinite",
+        "One",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE",
+        "ALWAYS_ONE",
+        null
+      ],
+      "explanation": "Left is 6m + 2, right is 6m − 6. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/040",
+      "tier": 3,
+      "prompt": "4x + 19 = 4(x + 4). How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "x = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 4x + 19, right is 4x + 16. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t4/001",
+      "tier": 4,
+      "prompt": "Solve: 0.2x − 10 = −3",
+      "choices": [
+        "−65",
+        "35",
+        "7",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP",
+        "DEC_AS_FRAC"
+      ],
+      "explanation": "Collect: 0.2x = 7, so x = 7 ÷ 0.2 = 35."
+    },
+    {
+      "id": "linear-equations/t4/002",
+      "tier": 4,
+      "prompt": "Solve: x/4 + 9 = x/2 + 7",
+      "choices": [
+        "−2",
+        "−64",
+        "8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 2 = x/4, so x = 2 ÷ 1/4 = 8."
+    },
+    {
+      "id": "linear-equations/t4/003",
+      "tier": 4,
+      "prompt": "Solve: 0.5x − 10 = −5",
+      "choices": [
+        "−30",
+        "5",
+        "10",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null,
+        "DEC_AS_FRAC"
+      ],
+      "explanation": "Collect: 0.5x = 5, so x = 5 ÷ 0.5 = 10."
+    },
+    {
+      "id": "linear-equations/t4/004",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 6 = 16",
+      "choices": [
+        "5",
+        "44",
+        "10",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DEC_WRONG_WAY",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 10, so x = 10 ÷ 0.5 = 20."
+    },
+    {
+      "id": "linear-equations/t4/005",
+      "tier": 4,
+      "prompt": "Solve: 0.2x − 8 = −5",
+      "choices": [
+        "15",
+        "6",
+        "−65",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DEC_AS_FRAC",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.2x = 3, so x = 3 ÷ 0.2 = 15."
+    },
+    {
+      "id": "linear-equations/t4/006",
+      "tier": 4,
+      "prompt": "Solve: 0.5m + 9 = m + 7",
+      "choices": [
+        "4",
+        "−32",
+        "−2",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 2 = 0.5m, so m = 2 ÷ 0.5 = 4."
+    },
+    {
+      "id": "linear-equations/t4/007",
+      "tier": 4,
+      "prompt": "Solve: x/5 + 8 = 3",
+      "choices": [
+        "−5",
+        "−25",
+        "−1",
+        "55"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "DIVIDE_FOR_MULT",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: x/5 = −5, so x = −5 ÷ 1/5 = −25."
+    },
+    {
+      "id": "linear-equations/t4/008",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 5 = 0.25x + 6",
+      "choices": [
+        "44",
+        "1",
+        "4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 0.25x = 1, so x = 1 ÷ 0.25 = 4."
+    },
+    {
+      "id": "linear-equations/t4/009",
+      "tier": 4,
+      "prompt": "Solve: x/5 + 3 = 8",
+      "choices": [
+        "25",
+        "5",
+        "−7",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_LAST_STEP",
+        "ONE_TERM_CLEARED",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: x/5 = 5, so x = 5 ÷ 1/5 = 25."
+    },
+    {
+      "id": "linear-equations/t4/010",
+      "tier": 4,
+      "prompt": "Solve: w + 4 = (1/2)w − 4",
+      "choices": [
+        "16",
+        "0",
+        "−16",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)w = −8, so w = −8 ÷ 1/2 = −16."
+    },
+    {
+      "id": "linear-equations/t4/011",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 9 = 10",
+      "choices": [
+        "5",
+        "1",
+        "38",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DEC_AS_FRAC",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 1, so x = 1 ÷ 0.5 = 2."
+    },
+    {
+      "id": "linear-equations/t4/012",
+      "tier": 4,
+      "prompt": "Solve: (1/4)x − 2 = 3",
+      "choices": [
+        "4",
+        "11",
+        "5",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_TERM_CLEARED",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: (1/4)x = 5, so x = 5 ÷ 1/4 = 20."
+    },
+    {
+      "id": "linear-equations/t4/013",
+      "tier": 4,
+      "prompt": "Solve: x/2 − 6 = x − 8",
+      "choices": [
+        "4",
+        "1",
+        "−4",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_FOR_MULT",
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 2 = x/2, so x = 2 ÷ 1/2 = 4."
+    },
+    {
+      "id": "linear-equations/t4/014",
+      "tier": 4,
+      "prompt": "Solve: 0.1x − 4 = 0",
+      "choices": [
+        "39",
+        "40",
+        "4",
+        "−40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DEC_AS_FRAC",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.1x = 4, so x = 4 ÷ 0.1 = 40."
+    },
+    {
+      "id": "linear-equations/t4/015",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 4 = 0.25x + 14",
+      "choices": [
+        "72",
+        "−40",
+        "10",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: 0.25x = 10, so x = 10 ÷ 0.25 = 40."
+    },
+    {
+      "id": "linear-equations/t4/016",
+      "tier": 4,
+      "prompt": "Solve: y − 2 = y/2 + 8",
+      "choices": [
+        "10",
+        "20",
+        "12",
+        "−20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "CONST_SIGN",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: y/2 = 10, so y = 10 ÷ 1/2 = 20."
+    },
+    {
+      "id": "linear-equations/t4/017",
+      "tier": 4,
+      "prompt": "Solve: w + 9 = 0.5w + 14",
+      "choices": [
+        "−10",
+        "46",
+        "10",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.5w = 5, so w = 5 ÷ 0.5 = 10."
+    },
+    {
+      "id": "linear-equations/t4/018",
+      "tier": 4,
+      "prompt": "Solve: t/2 + 6 = 13",
+      "choices": [
+        "1",
+        "38",
+        "7",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: t/2 = 7, so t = 7 ÷ 1/2 = 14."
+    },
+    {
+      "id": "linear-equations/t4/019",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 8 = (1/4)x + 15",
+      "choices": [
+        "92",
+        "7",
+        "−28",
+        "28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: (1/4)x = 7, so x = 7 ÷ 1/4 = 28."
+    },
+    {
+      "id": "linear-equations/t4/020",
+      "tier": 4,
+      "prompt": "Solve: 0.25x − 8 = 0.5x − 12",
+      "choices": [
+        "−4",
+        "80",
+        "16",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null,
+        "DEC_WRONG_WAY"
+      ],
+      "explanation": "Collect: 4 = 0.25x, so x = 4 ÷ 0.25 = 16."
+    },
+    {
+      "id": "linear-equations/t4/021",
+      "tier": 4,
+      "prompt": "Solve: (1/3)x − 3 = 6",
+      "choices": [
+        "27",
+        "9",
+        "15",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ONE_TERM_CLEARED",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: (1/3)x = 9, so x = 9 ÷ 1/3 = 27."
+    },
+    {
+      "id": "linear-equations/t4/022",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 2 = x − 8",
+      "choices": [
+        "12",
+        "5",
+        "20",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 10 = 0.5x, so x = 10 ÷ 0.5 = 20."
+    },
+    {
+      "id": "linear-equations/t4/023",
+      "tier": 4,
+      "prompt": "Solve: y + 3 = y/2 + 6",
+      "choices": [
+        "3",
+        "18",
+        "−6",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: y/2 = 3, so y = 3 ÷ 1/2 = 6."
+    },
+    {
+      "id": "linear-equations/t4/024",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 6 = x − 3",
+      "choices": [
+        "−18",
+        "−9",
+        "18",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect: 9 = (1/2)x, so x = 9 ÷ 1/2 = 18."
+    },
+    {
+      "id": "linear-equations/t4/025",
+      "tier": 4,
+      "prompt": "Solve: x − 6 = 0.5x − 3",
+      "choices": [
+        "6",
+        "2",
+        "−6",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIGN_MOVE",
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.5x = 3, so x = 3 ÷ 0.5 = 6."
+    },
+    {
+      "id": "linear-equations/t4/026",
+      "tier": 4,
+      "prompt": "Solve: x/2 + 5 = x/4 + 15",
+      "choices": [
+        "−40",
+        "10",
+        "80",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: x/4 = 10, so x = 10 ÷ 1/4 = 40."
+    },
+    {
+      "id": "linear-equations/t4/027",
+      "tier": 4,
+      "prompt": "Solve: 0.25x − 8 = −1",
+      "choices": [
+        "7",
+        "26",
+        "28",
+        "−36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "ARITH",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.25x = 7, so x = 7 ÷ 0.25 = 28."
+    },
+    {
+      "id": "linear-equations/t4/028",
+      "tier": 4,
+      "prompt": "Solve: n − 7 = 0.5n − 12",
+      "choices": [
+        "−5",
+        "−10",
+        "10",
+        "−38"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.5n = −5, so n = −5 ÷ 0.5 = −10."
+    },
+    {
+      "id": "linear-equations/t4/029",
+      "tier": 4,
+      "prompt": "Solve: 0.5m + 3 = 11",
+      "choices": [
+        "16",
+        "4",
+        "8",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DEC_WRONG_WAY",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.5m = 8, so m = 8 ÷ 0.5 = 16."
+    },
+    {
+      "id": "linear-equations/t4/030",
+      "tier": 4,
+      "prompt": "Solve: x − 9 = 0.5x − 1",
+      "choices": [
+        "−20",
+        "4",
+        "−16",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 8, so x = 8 ÷ 0.5 = 16."
+    },
+    {
+      "id": "linear-equations/t4/031",
+      "tier": 4,
+      "prompt": "Solve: 0.25m − 9 = −3",
+      "choices": [
+        "24",
+        "6",
+        "−48",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Collect: 0.25m = 6, so m = 6 ÷ 0.25 = 24."
+    },
+    {
+      "id": "linear-equations/t4/032",
+      "tier": 4,
+      "prompt": "Solve: x + 6 = x/2 + 8",
+      "choices": [
+        "−4",
+        "4",
+        "1",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "DIVIDE_FOR_MULT",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: x/2 = 2, so x = 2 ÷ 1/2 = 4."
+    },
+    {
+      "id": "linear-equations/t4/033",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 3 = 8",
+      "choices": [
+        "2",
+        "10",
+        "22",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)x = 5, so x = 5 ÷ 1/2 = 10."
+    },
+    {
+      "id": "linear-equations/t4/034",
+      "tier": 4,
+      "prompt": "Solve: 0.25x + 9 = 13",
+      "choices": [
+        "88",
+        "1",
+        "16",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.25x = 4, so x = 4 ÷ 0.25 = 16."
+    },
+    {
+      "id": "linear-equations/t4/035",
+      "tier": 4,
+      "prompt": "Solve: n/2 + 7 = 17",
+      "choices": [
+        "20",
+        "48",
+        "10",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: n/2 = 10, so n = 10 ÷ 1/2 = 20."
+    },
+    {
+      "id": "linear-equations/t4/036",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 6 = x + 5",
+      "choices": [
+        "2",
+        "−2",
+        "−1",
+        "−22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 1 = 0.5x, so x = 1 ÷ 0.5 = 2."
+    },
+    {
+      "id": "linear-equations/t4/037",
+      "tier": 4,
+      "prompt": "Solve: (1/4)x + 7 = 0",
+      "choices": [
+        "−26",
+        "−28",
+        "28",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/4)x = −7, so x = −7 ÷ 1/4 = −28."
+    },
+    {
+      "id": "linear-equations/t4/038",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 9 = 18",
+      "choices": [
+        "0",
+        "18",
+        "54",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)x = 9, so x = 9 ÷ 1/2 = 18."
+    },
+    {
+      "id": "linear-equations/t4/039",
+      "tier": 4,
+      "prompt": "Solve: (1/3)x + 5 = 12",
+      "choices": [
+        "−3",
+        "21",
+        "51",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/3)x = 7, so x = 7 ÷ 1/3 = 21."
+    },
+    {
+      "id": "linear-equations/t4/040",
+      "tier": 4,
+      "prompt": "Solve: x/2 + 5 = x + 2",
+      "choices": [
+        "−6",
+        "−3",
+        "−14",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: 3 = x/2, so x = 3 ÷ 1/2 = 6."
+    },
+    {
+      "id": "linear-equations/t5/001",
+      "tier": 5,
+      "prompt": "y = −6x − 1 and y = −6x + 6. How many solutions?",
+      "choices": [
+        "None",
+        "Two",
+        "Infinite",
+        "One"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TWO_LINES_TWO",
+        "SAME_SLOPE_SAME_LINE",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Both lines have slope −6 but start at −1 and 6: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/002",
+      "tier": 5,
+      "prompt": "x + y = 10 and x − y = −6. Find y.",
+      "choices": [
+        "2",
+        "4",
+        "8",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 2x = 4, so x = 2. Put it back: y = 8."
+    },
+    {
+      "id": "linear-equations/t5/003",
+      "tier": 5,
+      "prompt": "y = 5x + 4 and y = −x + 10. Where do they meet?",
+      "choices": [
+        "(1, 5)",
+        "(1, 9)",
+        "(9, 1)",
+        "(0, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        null,
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: 5x + 4 = −x + 10, so x = 1. Then y = 9."
+    },
+    {
+      "id": "linear-equations/t5/004",
+      "tier": 5,
+      "prompt": "x + y = 9 and y − x = −1. Find x.",
+      "choices": [
+        "−1",
+        "8",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        null,
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 2y = 8, so y = 4. Put it back: x = 5."
+    },
+    {
+      "id": "linear-equations/t5/005",
+      "tier": 5,
+      "prompt": "y = 6x + 10 and y − 6x = −1. How many solutions?",
+      "choices": [
+        "Infinite",
+        "Two",
+        "One",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SLOPE_SAME_LINE",
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE",
+        null
+      ],
+      "explanation": "Both lines have slope 6 but start at 10 and −1: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/006",
+      "tier": 5,
+      "prompt": "y = 3x − 3 and y = −2x + 7. Where do they meet?",
+      "choices": [
+        "(2, −1)",
+        "(0, −3)",
+        "(0, 7)",
+        "(2, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        "INTERCEPT_AS_MEET",
+        null
+      ],
+      "explanation": "Set equal: 3x − 3 = −2x + 7, so x = 2. Then y = 3."
+    },
+    {
+      "id": "linear-equations/t5/007",
+      "tier": 5,
+      "prompt": "y = 6x − 4 and y − 6x = 0. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "Two",
+        "One"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SLOPE_SAME_LINE",
+        null,
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Both lines have slope 6 but start at −4 and 0: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/008",
+      "tier": 5,
+      "prompt": "y = 2x + 4 and y = −5x − 10. Where do they meet?",
+      "choices": [
+        "(−2, 2)",
+        "(−2, 0)",
+        "(0, −10)",
+        "(0, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        null,
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: 2x + 4 = −5x − 10, so x = −2. Then y = 0."
+    },
+    {
+      "id": "linear-equations/t5/009",
+      "tier": 5,
+      "prompt": "x + y = 6 and 2x − y = 6. Find (x, y).",
+      "choices": [
+        "(4, 2)",
+        "(12, 2)",
+        "(2, 4)",
+        "(4, 6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3x = 12, so x = 4. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/010",
+      "tier": 5,
+      "prompt": "y = 4x − 2 and y − 4x = 5. How many solutions?",
+      "choices": [
+        "Two",
+        "None",
+        "One",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TWO_LINES_TWO",
+        null,
+        "PARALLEL_ONE",
+        "SAME_SLOPE_SAME_LINE"
+      ],
+      "explanation": "Both lines have slope 4 but start at −2 and 5: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/011",
+      "tier": 5,
+      "prompt": "y = −2x − 11 and y = 5x − 3. How many solutions?",
+      "choices": [
+        "One",
+        "Two",
+        "Infinite",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TWO_LINES_TWO",
+        "ONE_IS_MANY",
+        "ONE_IS_NONE"
+      ],
+      "explanation": "The slopes −2 and 5 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/012",
+      "tier": 5,
+      "prompt": "x + 2y = 19 and y − x = 5. Find x.",
+      "choices": [
+        "8",
+        "24",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3y = 24, so y = 8. Put it back: x = 3."
+    },
+    {
+      "id": "linear-equations/t5/013",
+      "tier": 5,
+      "prompt": "x + y = 12 and x − y = −4. Find (x, y).",
+      "choices": [
+        "(4, 8)",
+        "(8, 8)",
+        "(8, 4)",
+        "(4, −4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 2x = 8, so x = 4. Put it back: y = 8."
+    },
+    {
+      "id": "linear-equations/t5/014",
+      "tier": 5,
+      "prompt": "x + y = 4 and 2x − y = 5. Find x.",
+      "choices": [
+        "3",
+        "9",
+        "5",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 3x = 9, so x = 3."
+    },
+    {
+      "id": "linear-equations/t5/015",
+      "tier": 5,
+      "prompt": "y = 3x + 7 and y = 5x + 5. Where do they meet?",
+      "choices": [
+        "(10, 1)",
+        "(0, 5)",
+        "(1, 10)",
+        "(0, 7)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET",
+        null,
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: 3x + 7 = 5x + 5, so x = 1. Then y = 10."
+    },
+    {
+      "id": "linear-equations/t5/016",
+      "tier": 5,
+      "prompt": "y = x and y = −x + 2. Where do they meet?",
+      "choices": [
+        "(1, 1)",
+        "(2, 1)",
+        "(0, 0)",
+        "(0, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INTERCEPT_AS_MEET",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: x = −x + 2, so x = 1. Then y = 1."
+    },
+    {
+      "id": "linear-equations/t5/017",
+      "tier": 5,
+      "prompt": "y = −x − 7 and y = −3x − 9. Where do they meet?",
+      "choices": [
+        "(0, −9)",
+        "(−1, −6)",
+        "(−6, −1)",
+        "(0, −7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        null,
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: −x − 7 = −3x − 9, so x = −1. Then y = −6."
+    },
+    {
+      "id": "linear-equations/t5/018",
+      "tier": 5,
+      "prompt": "x + 2y = 8 and 2y − x = −4. Find (x, y).",
+      "choices": [
+        "(6, 4)",
+        "(1, 6)",
+        "(6, −4)",
+        "(6, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 4y = 4, so y = 1. Put it back: x = 6."
+    },
+    {
+      "id": "linear-equations/t5/019",
+      "tier": 5,
+      "prompt": "y − 6x = −8 and y = 6x − 8. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        "NONE_FOR_IDENTITY",
+        null,
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "Rearranged, both are y = 6x − 8: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/020",
+      "tier": 5,
+      "prompt": "y = −4x + 7 and y + 4x = 7. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "Two",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        null,
+        "TWO_LINES_TWO",
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Rearranged, both are y = −4x + 7: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/021",
+      "tier": 5,
+      "prompt": "x + y = 13 and x − y = 1. Find x.",
+      "choices": [
+        "1",
+        "14",
+        "6",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        "GAVE_OTHER",
+        null
+      ],
+      "explanation": "Add the equations: 2x = 14, so x = 7."
+    },
+    {
+      "id": "linear-equations/t5/022",
+      "tier": 5,
+      "prompt": "x + 2y = 7 and 2y − x = 5. Find (x, y).",
+      "choices": [
+        "(1, 5)",
+        "(3, 1)",
+        "(1, 12)",
+        "(1, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 4y = 12, so y = 3. Put it back: x = 1."
+    },
+    {
+      "id": "linear-equations/t5/023",
+      "tier": 5,
+      "prompt": "2x + y = 6 and 2x − y = −2. Find (x, y).",
+      "choices": [
+        "(1, −2)",
+        "(1, 4)",
+        "(4, 1)",
+        "(4, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "READ_CONSTANT",
+        null,
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 4x = 4, so x = 1. Put it back: y = 4."
+    },
+    {
+      "id": "linear-equations/t5/024",
+      "tier": 5,
+      "prompt": "2x + y = 6 and x − y = −3. Find x.",
+      "choices": [
+        "4",
+        "3",
+        "−3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 3x = 3, so x = 1."
+    },
+    {
+      "id": "linear-equations/t5/025",
+      "tier": 5,
+      "prompt": "2x + 2y = 10 and x − 2y = −1. Find y.",
+      "choices": [
+        "−1",
+        "9",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        null,
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 3x = 9, so x = 3. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/026",
+      "tier": 5,
+      "prompt": "y = 2x − 3 and y = 3x − 9. Where do they meet?",
+      "choices": [
+        "(0, −9)",
+        "(6, 9)",
+        "(0, −3)",
+        "(6, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        null,
+        "INTERCEPT_AS_MEET",
+        "DROPPED_SLOPE"
+      ],
+      "explanation": "Set equal: 2x − 3 = 3x − 9, so x = 6. Then y = 9."
+    },
+    {
+      "id": "linear-equations/t5/027",
+      "tier": 5,
+      "prompt": "x + y = 8 and x − y = 4. Find y.",
+      "choices": [
+        "6",
+        "12",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 2x = 12, so x = 6. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/028",
+      "tier": 5,
+      "prompt": "y = 5x − 6 and y = −2x + 9. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        null,
+        "ONE_IS_MANY",
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "The slopes 5 and −2 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/029",
+      "tier": 5,
+      "prompt": "y + 6x = −3 and y = −6x − 3. How many solutions?",
+      "choices": [
+        "None",
+        "Infinite",
+        "Two",
+        "One"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        null,
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Rearranged, both are y = −6x − 3: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/030",
+      "tier": 5,
+      "prompt": "y = −2x and y = 2x − 4. Where do they meet?",
+      "choices": [
+        "(1, −2)",
+        "(1, 1)",
+        "(0, 0)",
+        "(−2, 1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: −2x = 2x − 4, so x = 1. Then y = −2."
+    },
+    {
+      "id": "linear-equations/t5/031",
+      "tier": 5,
+      "prompt": "y = x + 6 and y = 4x. Where do they meet?",
+      "choices": [
+        "(0, 0)",
+        "(8, 2)",
+        "(0, 6)",
+        "(2, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET",
+        null
+      ],
+      "explanation": "Set equal: x + 6 = 4x, so x = 2. Then y = 8."
+    },
+    {
+      "id": "linear-equations/t5/032",
+      "tier": 5,
+      "prompt": "y = −6x + 4 and y = −3x − 5. How many solutions?",
+      "choices": [
+        "Two",
+        "Infinite",
+        "None",
+        "One"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TWO_LINES_TWO",
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        null
+      ],
+      "explanation": "The slopes −6 and −3 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/033",
+      "tier": 5,
+      "prompt": "y = 4x + 12 and y = −2x − 5. How many solutions?",
+      "choices": [
+        "None",
+        "Two",
+        "One",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        "TWO_LINES_TWO",
+        null,
+        "ONE_IS_MANY"
+      ],
+      "explanation": "The slopes 4 and −2 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/034",
+      "tier": 5,
+      "prompt": "y − 2x = 11 and y = 2x + 11. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "Two",
+        "One"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONE_FOR_IDENTITY",
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Rearranged, both are y = 2x + 11: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/035",
+      "tier": 5,
+      "prompt": "y = −3x + 6 and y = 4x − 8. Where do they meet?",
+      "choices": [
+        "(2, 8)",
+        "(0, 6)",
+        "(2, 0)",
+        "(0, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: −3x + 6 = 4x − 8, so x = 2. Then y = 0."
+    },
+    {
+      "id": "linear-equations/t5/036",
+      "tier": 5,
+      "prompt": "y = 2x − 3 and y = −6x. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "Two"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "The slopes 2 and −6 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/037",
+      "tier": 5,
+      "prompt": "2x + 2y = 14 and x − 2y = 1. Find y.",
+      "choices": [
+        "15",
+        "5",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_AT_SUM",
+        "GAVE_OTHER",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3x = 15, so x = 5. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/038",
+      "tier": 5,
+      "prompt": "y = 6x + 5 and y − 6x = −9. How many solutions?",
+      "choices": [
+        "One",
+        "Two",
+        "Infinite",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        "TWO_LINES_TWO",
+        "SAME_SLOPE_SAME_LINE",
+        null
+      ],
+      "explanation": "Both lines have slope 6 but start at 5 and −9: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/039",
+      "tier": 5,
+      "prompt": "y + x = 3 and y = −x + 3. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "PARALLEL_ONE",
+        null,
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "Rearranged, both are y = −x + 3: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/040",
+      "tier": 5,
+      "prompt": "x + y = 10 and 2y − x = −4. Find y.",
+      "choices": [
+        "2",
+        "8",
+        "−4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_OTHER",
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM"
+      ],
+      "explanation": "Add the equations: 3y = 6, so y = 2."
+    }
+  ]
+}

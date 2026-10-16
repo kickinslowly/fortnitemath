@@ -1,0 +1,3776 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-functions",
+  "version": "1.0.0",
+  "title": "Functions & Slope",
+  "subtitle": "Rate of Change, Start Value, y = mx + b",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.B.5",
+    "CCSS.MATH.CONTENT.8.EE.B.6",
+    "CCSS.MATH.CONTENT.8.F.A.1",
+    "CCSS.MATH.CONTENT.8.F.A.2",
+    "CCSS.MATH.CONTENT.8.F.A.3",
+    "CCSS.MATH.CONTENT.8.F.B.4",
+    "CCSS.MATH.CONTENT.8.F.B.5"
+  ],
+  "seed": 20261035,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Coordinates and lines. Coordinates in a prompt are integers of size <= 10; every table value, input and output is an integer of size <= 20 (tables have 3 rows; T1 pairs use 0-9). Slopes and rates: an integer of size 2-10, or a simplest fraction a/b with a, b <= 5 and a/b != 1; rise and run each of size <= 10 (run >= 2) and the division exact or a times-table fact (rise = g*a, run = g*b). Every y = mx + b has m and b nonzero integers of size <= 10 (T1 rule evaluation: m 2-5, input 1-6, output 1-20). Unit rate k 2-5 with x*k <= 10; compared rates are integers 2-9. Equations use only x to the first power except the not-linear examples (x^2, x^3, 2^x). No f(x), no graphs, no domain and range. Wrong choices may be any size <= 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Is It a Function?",
+      "description": "One input, one output: spot functions, then plug in a rule."
+    },
+    {
+      "tier": 2,
+      "name": "Slope & Rate of Change",
+      "description": "Rise over run from points, tables and stories."
+    },
+    {
+      "tier": 3,
+      "name": "Start Value & y = mx + b",
+      "description": "Read the slope and the start; write the equation."
+    },
+    {
+      "tier": 4,
+      "name": "Proportional & Compare",
+      "description": "Unit rates through the origin; which rate is greater?"
+    },
+    {
+      "tier": 5,
+      "name": "Linear or Not?",
+      "description": "Lines, curves, rising and falling, steady steps."
+    }
+  ],
+  "misconceptions": {
+    "REPEAT_OUTPUT": {
+      "student": "Outputs may repeat. Only one input with two outputs breaks it.",
+      "teacher": "Says a repeated output means not a function (reads the rule backwards)."
+    },
+    "REPEAT_INPUT_OK": {
+      "student": "One input can't have two outputs. That's what breaks a function.",
+      "teacher": "Accepts an input that is paired with two different outputs as a function."
+    },
+    "INPUT_OUTPUT_SWAP": {
+      "student": "Inputs go in, outputs come out. The input is x, the output is y.",
+      "teacher": "Swaps input and output: tests the second number for repeats, or solves for x instead of y."
+    },
+    "PLUGGED_WRONG": {
+      "student": "Do the steps in the order the rule says, one at a time.",
+      "teacher": "Applies the rule's steps in the wrong order, or puts the constant inside the product."
+    },
+    "ADDED_PARTS": {
+      "student": "Multiply where it says multiply. Don't just add every number.",
+      "teacher": "Adds slope, input and constant instead of multiplying the input by the slope."
+    },
+    "STOPPED_EARLY": {
+      "student": "Finish both steps of the rule: multiply, then add or subtract.",
+      "teacher": "Does only the first step of a two-step rule."
+    },
+    "RUN_OVER_RISE": {
+      "student": "Slope is rise over run: the up-down change goes on top.",
+      "teacher": "Divides run by rise, the reciprocal of the slope."
+    },
+    "SIGN_SLIP": {
+      "student": "Check the sign: going down as x goes up means a negative slope.",
+      "teacher": "Right size, wrong sign on a slope or rate of change."
+    },
+    "RISE_ONLY": {
+      "student": "Divide by the run too. Slope is the rise over the run.",
+      "teacher": "Reports the change in y and never divides by the change in x."
+    },
+    "START_AS_RATE": {
+      "student": "The first y is where it starts. The rate is the change per step.",
+      "teacher": "Reads the first y value in a table or story as the rate of change."
+    },
+    "TOTAL_CHANGE": {
+      "student": "Rate is the change for 1 step of x, not across the whole table.",
+      "teacher": "Uses the change from the first to the last row instead of the change per unit of x."
+    },
+    "ADDED_RISE_RUN": {
+      "student": "Slope divides rise by run. Adding them doesn't give a rate.",
+      "teacher": "Adds rise and run instead of dividing."
+    },
+    "SLOPE_AS_START": {
+      "student": "The number with x is the slope. The start is the lone number.",
+      "teacher": "Reports the coefficient of x as the initial value (or its absolute value, or m + b)."
+    },
+    "START_AS_SLOPE": {
+      "student": "The slope is the number multiplying x, not the one added.",
+      "teacher": "Reports the constant term as the slope."
+    },
+    "VALUE_AT_1": {
+      "student": "Start means x = 0, not x = 1. Back up one step to find it.",
+      "teacher": "Uses y at x = 1 (or the first table value) as the initial value."
+    },
+    "SIGN_DROPPED": {
+      "student": "Keep the minus sign. It belongs to the number after it.",
+      "teacher": "Drops a negative sign on the slope or the start value."
+    },
+    "SWAPPED_MB": {
+      "student": "The slope goes with x. The start is the number you add.",
+      "teacher": "Swaps m and b in y = mx + b."
+    },
+    "NO_START": {
+      "student": "Include the starting amount: y = rate × x + start.",
+      "teacher": "Writes y = mx and leaves out the initial value."
+    },
+    "LAST_VALUE": {
+      "student": "The start is y at x = 0, not the last y in the table.",
+      "teacher": "Uses the last table value as the initial value."
+    },
+    "BIGGER_TOTAL": {
+      "student": "Compare rates, not totals: divide each total by its time.",
+      "teacher": "Picks the case with the bigger headline number instead of the bigger rate."
+    },
+    "INVERTED_RATE": {
+      "student": "Rate is amount per 1 unit: divide the amount by the units.",
+      "teacher": "Divides the units by the amount (or x by y), the reciprocal of the rate."
+    },
+    "START_NOT_RATE": {
+      "student": "Speed is the slope, the number with x. A big start isn't speed.",
+      "teacher": "Compares starting amounts (the constants) instead of the rates of change."
+    },
+    "DIFFERENCE": {
+      "student": "Unit rate is y ÷ x, not y − x.",
+      "teacher": "Subtracts y − x to get the rate."
+    },
+    "TOTAL_AS_RATE": {
+      "student": "Unit rate is for 1 x, so divide y by x.",
+      "teacher": "Reports y itself as the unit rate."
+    },
+    "HAS_START": {
+      "student": "Proportional lines have no added number: y = kx exactly.",
+      "teacher": "Treats y = kx + c as proportional (ignores the constant)."
+    },
+    "ADDS_NOT_MULTIPLIES": {
+      "student": "Proportional means y = kx (multiply), not y = x + k.",
+      "teacher": "Treats a constant difference (y = x + k) as proportional."
+    },
+    "STEADY_MEANS_PROP": {
+      "student": "Steady steps aren't enough. y ÷ x must match in every row.",
+      "teacher": "Calls a table proportional because y rises by equal steps (ignores the ratio)."
+    },
+    "NEEDS_ZERO_ROW": {
+      "student": "No x = 0 row needed. Check that y ÷ x is the same each row.",
+      "teacher": "Says a table with constant ratio is not proportional because it lacks (0, 0)."
+    },
+    "CONSTANT_NOT_LINEAR": {
+      "student": "Adding a number still makes a line: y = mx + b is linear.",
+      "teacher": "Says y = mx + b (b nonzero) is not linear."
+    },
+    "MINUS_NOT_LINEAR": {
+      "student": "A minus sign still makes a line. It slopes down or shifts.",
+      "teacher": "Says an equation with subtraction or a negative slope is not linear."
+    },
+    "EXPONENT_IGNORED": {
+      "student": "A power of x (x^2, 2^x) bends the graph. Linear is x to the 1st.",
+      "teacher": "Ignores the exponent and calls a squared, cubed or exponential rule linear."
+    },
+    "CONSTANT_SIGN_DECIDES": {
+      "student": "The number multiplying x sets the direction, not the added one.",
+      "teacher": "Decides rising or falling from the sign of the constant term."
+    },
+    "SLOPE_SIGN_IGNORED": {
+      "student": "Slope sign: positive y rises, negative falls, zero stays put.",
+      "teacher": "Picks a direction that disagrees with the sign of the slope."
+    },
+    "CONSTANT_RATE_MEANS_SAME": {
+      "student": "A steady rate still moves y. It stays put only if the slope is 0.",
+      "teacher": "Reads a constant rate of change as y staying the same."
+    },
+    "EQUAL_STEPS_MISSED": {
+      "student": "Uneven x steps are fine. Check that y changes at a steady rate.",
+      "teacher": "Says a table with uneven x gaps is not linear (compares y steps only)."
+    },
+    "DECREASING_NOT_LINEAR": {
+      "student": "Going down steadily is still a line, with a negative slope.",
+      "teacher": "Says a steadily decreasing table is not linear."
+    },
+    "LOOKS_GROWING": {
+      "student": "Going up isn't enough. The steps in y must match the steps in x.",
+      "teacher": "Calls any increasing table linear without checking for a constant rate."
+    },
+    "SAME_NOT_CHECKED": {
+      "student": "Work out both rates. They differ, so one is greater.",
+      "teacher": "Says the two are the same without comparing the rates."
+    },
+    "RATE_NOT_COMPARED": {
+      "student": "Work out both rates. Here they match, so it's a tie.",
+      "teacher": "Picks one line when the rates are equal (compares something else)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "linear-functions/t1/001",
+      "tier": 1,
+      "prompt": "y = 3x + 5. If x = 2, what is y?",
+      "choices": [
+        "11",
+        "10",
+        "21",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "3 × 2 + 5 = 11."
+    },
+    {
+      "id": "linear-functions/t1/002",
+      "tier": 1,
+      "prompt": "y = 5x − 2. Input 3. Output?",
+      "choices": [
+        "5",
+        "6",
+        "13",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        "ADDED_PARTS",
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "5 × 3 − 2 = 13."
+    },
+    {
+      "id": "linear-functions/t1/003",
+      "tier": 1,
+      "prompt": "y = 2x − 6. If x = 4, what is y?",
+      "choices": [
+        "5",
+        "2",
+        "0",
+        "−4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "ADDED_PARTS",
+        "PLUGGED_WRONG"
+      ],
+      "explanation": "2 × 4 − 6 = 2."
+    },
+    {
+      "id": "linear-functions/t1/004",
+      "tier": 1,
+      "prompt": "Input: a movie. Output: an actor in it. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "A movie has many actors. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/005",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 5), (0, 8), (2, 8), (7, 9)?",
+      "choices": [
+        "2",
+        "7",
+        "None",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "ARITH",
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "Input 0 goes to 5 and 8: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/006",
+      "tier": 1,
+      "prompt": "Rule: add 7, then multiply by 2. Input 2. Output?",
+      "choices": [
+        "18",
+        "11",
+        "17",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLUGGED_WRONG",
+        "ARITH",
+        "STOPPED_EARLY"
+      ],
+      "explanation": "2 + 7 = 9, then 9 × 2 = 18."
+    },
+    {
+      "id": "linear-functions/t1/007",
+      "tier": 1,
+      "prompt": "Which of these is a function?",
+      "choices": [
+        "(7, 7), (7, 8)",
+        "(8, 1), (8, 9)",
+        "(0, 2), (5, 2)",
+        "(2, 6), (2, 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK",
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "Each input in (0, 2), (5, 2) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/008",
+      "tier": 1,
+      "prompt": "y = 2x + 3. Input 6. Output?",
+      "choices": [
+        "18",
+        "15",
+        "11",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS",
+        "ARITH"
+      ],
+      "explanation": "2 × 6 + 3 = 15."
+    },
+    {
+      "id": "linear-functions/t1/009",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (5, 4), (7, 6), (8, 4), (8, 6)?",
+      "choices": [
+        "None",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Input 8 goes to 4 and 6: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/010",
+      "tier": 1,
+      "prompt": "y = 4x − 3. Input 3. Output?",
+      "choices": [
+        "9",
+        "11",
+        "0",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PLUGGED_WRONG",
+        "ADDED_PARTS"
+      ],
+      "explanation": "4 × 3 − 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/011",
+      "tier": 1,
+      "prompt": "Pairs (7, 9), (8, 4), (9, 9). Is it a function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/012",
+      "tier": 1,
+      "prompt": "y = 4x − 1. Input 3. Output?",
+      "choices": [
+        "1",
+        "8",
+        "11",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "4 × 3 − 1 = 11."
+    },
+    {
+      "id": "linear-functions/t1/013",
+      "tier": 1,
+      "prompt": "Input: a book. Output: its page count. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each book has one page count. Outputs may repeat."
+    },
+    {
+      "id": "linear-functions/t1/014",
+      "tier": 1,
+      "prompt": "y = 2x − 3. Input 6. Output?",
+      "choices": [
+        "5",
+        "9",
+        "6",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_PARTS",
+        null,
+        "PLUGGED_WRONG",
+        "ARITH"
+      ],
+      "explanation": "2 × 6 − 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/015",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 3. Input 3. Output?",
+      "choices": [
+        "6",
+        "8",
+        "12",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        null
+      ],
+      "explanation": "3 × 2 = 6, then 6 + 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/016",
+      "tier": 1,
+      "prompt": "Which of these is NOT a function?",
+      "choices": [
+        "(2, 6), (3, 6)",
+        "(7, 9), (8, 9)",
+        "(3, 4), (3, 9)",
+        "(4, 9), (8, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Input 3 has two outputs, 4 and 9. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/017",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 1), (3, 1), (4, 2), (7, 2)?",
+      "choices": [
+        "None",
+        "4",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Every input appears once, so each has one output. None has two."
+    },
+    {
+      "id": "linear-functions/t1/018",
+      "tier": 1,
+      "prompt": "Pairs (5, 2), (5, 3), (9, 2). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "Input 5 has two outputs, 2 and 3, so it is not a function."
+    },
+    {
+      "id": "linear-functions/t1/019",
+      "tier": 1,
+      "prompt": "Input: a store. Output: an item it sells. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A store sells many items. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/020",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 6), (0, 7), (1, 3), (9, 7)?",
+      "choices": [
+        "1",
+        "0",
+        "9",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Input 0 goes to 6 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/021",
+      "tier": 1,
+      "prompt": "Pick the set that is NOT a function.",
+      "choices": [
+        "(0, 8), (7, 8)",
+        "(1, 5), (6, 5)",
+        "(3, 6), (9, 8)",
+        "(5, 6), (5, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "ARITH",
+        null
+      ],
+      "explanation": "Input 5 has two outputs, 6 and 8. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/022",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 4), (1, 6), (6, 6), (9, 4)?",
+      "choices": [
+        "None",
+        "6",
+        "9",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Every input appears once, so each has one output. None has two."
+    },
+    {
+      "id": "linear-functions/t1/023",
+      "tier": 1,
+      "prompt": "Input: a student. Output: a class they take. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "A student takes many classes. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/024",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (3, 2), (5, 6), (5, 7), (9, 6)?",
+      "choices": [
+        "None",
+        "3",
+        "5",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "ARITH",
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Input 5 goes to 6 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/025",
+      "tier": 1,
+      "prompt": "Which pairs are NOT a function?",
+      "choices": [
+        "(6, 5), (8, 5)",
+        "(4, 4), (4, 5)",
+        "(3, 3), (9, 3)",
+        "(3, 4), (6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null,
+        "REPEAT_OUTPUT",
+        "ARITH"
+      ],
+      "explanation": "Input 4 has two outputs, 4 and 5. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/026",
+      "tier": 1,
+      "prompt": "y = 2x − 2. Input 5. Output?",
+      "choices": [
+        "10",
+        "6",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLUGGED_WRONG",
+        "ADDED_PARTS",
+        null
+      ],
+      "explanation": "2 × 5 − 2 = 8."
+    },
+    {
+      "id": "linear-functions/t1/027",
+      "tier": 1,
+      "prompt": "Input: a state. Output: a city in it. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A state has many cities. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/028",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (4, 3), (4, 7), (5, 3), (8, 9)?",
+      "choices": [
+        "4",
+        "5",
+        "None",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_INPUT_OK",
+        "ARITH"
+      ],
+      "explanation": "Input 4 goes to 3 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/029",
+      "tier": 1,
+      "prompt": "Pairs (2, 5), (3, 1), (3, 4). Is it a function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "Input 3 has two outputs, 1 and 4, so it is not a function."
+    },
+    {
+      "id": "linear-functions/t1/030",
+      "tier": 1,
+      "prompt": "Input: a team. Output: a player on it. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A team has many players. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/031",
+      "tier": 1,
+      "prompt": "Pairs (2, 9), (5, 5), (6, 5), (7, 3). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/032",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 9. Input 1. Output?",
+      "choices": [
+        "20",
+        "11",
+        "12",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS",
+        "STOPPED_EARLY"
+      ],
+      "explanation": "1 × 2 = 2, then 2 + 9 = 11."
+    },
+    {
+      "id": "linear-functions/t1/033",
+      "tier": 1,
+      "prompt": "Which set is NOT a function?",
+      "choices": [
+        "(3, 8), (7, 2)",
+        "(5, 3), (6, 3)",
+        "(2, 1), (3, 1)",
+        "(3, 4), (3, 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Input 3 has two outputs, 4 and 5. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/034",
+      "tier": 1,
+      "prompt": "y = 3x − 2. Input 2. Output?",
+      "choices": [
+        "3",
+        "0",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 × 2 − 2 = 4."
+    },
+    {
+      "id": "linear-functions/t1/035",
+      "tier": 1,
+      "prompt": "Which set of pairs is a function?",
+      "choices": [
+        "(4, 4), (4, 5)",
+        "(4, 3), (9, 4)",
+        "(0, 6), (0, 7)",
+        "(9, 2), (9, 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Each input in (4, 3), (9, 4) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/036",
+      "tier": 1,
+      "prompt": "Pick the set that is a function.",
+      "choices": [
+        "(5, 1), (5, 9)",
+        "(0, 5), (0, 6)",
+        "(4, 9), (7, 5)",
+        "(3, 8), (3, 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Each input in (4, 9), (7, 5) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/037",
+      "tier": 1,
+      "prompt": "Input: a student. Output: their math teacher. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Each student has one math teacher. Outputs may repeat."
+    },
+    {
+      "id": "linear-functions/t1/038",
+      "tier": 1,
+      "prompt": "Pairs (1, 2), (2, 7), (6, 2), (8, 1). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/039",
+      "tier": 1,
+      "prompt": "Which set IS a function?",
+      "choices": [
+        "(5, 3), (5, 6)",
+        "(2, 2), (2, 4)",
+        "(9, 5), (9, 7)",
+        "(7, 3), (9, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK",
+        "INPUT_OUTPUT_SWAP",
+        null
+      ],
+      "explanation": "Each input in (7, 3), (9, 2) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/040",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 1. Input 3. Output?",
+      "choices": [
+        "7",
+        "9",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_PARTS",
+        "PLUGGED_WRONG"
+      ],
+      "explanation": "3 × 2 = 6, then 6 + 1 = 7."
+    },
+    {
+      "id": "linear-functions/t2/001",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 10, 8, 6. Rate of change?",
+      "choices": [
+        "−4",
+        "2",
+        "−2",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_CHANGE",
+        "SIGN_SLIP",
+        null,
+        "START_AS_RATE"
+      ],
+      "explanation": "From x = 3 to 4, y goes 10 to 8: −2 ÷ 1 = −2 per 1."
+    },
+    {
+      "id": "linear-functions/t2/002",
+      "tier": 2,
+      "prompt": "Slope through (−3, −4) and (−5, −10)?",
+      "choices": [
+        "−3",
+        "−6",
+        "1/3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise (−10) − (−4) = −6, run (−5) − (−3) = −2. −6 ÷ −2 = 3."
+    },
+    {
+      "id": "linear-functions/t2/003",
+      "tier": 2,
+      "prompt": "Stairs rise 2 in over a run of 6 in. Slope?",
+      "choices": [
+        "3",
+        "1/3",
+        "8",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "ADDED_RISE_RUN",
+        "RISE_ONLY"
+      ],
+      "explanation": "Slope = rise ÷ run = 2 ÷ 6 = 1/3."
+    },
+    {
+      "id": "linear-functions/t2/004",
+      "tier": 2,
+      "prompt": "A candle: 16 in at hour 3, 4 at hour 6. Change per hour?",
+      "choices": [
+        "−4",
+        "16",
+        "4",
+        "−1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "y goes 16 to 4 in 3 hours: −12 ÷ 3 = −4 per hour."
+    },
+    {
+      "id": "linear-functions/t2/005",
+      "tier": 2,
+      "prompt": "A plant: 14 in at week 1, 20 at week 3. Change per week?",
+      "choices": [
+        "14",
+        "6",
+        "3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "y goes 14 to 20 in 2 weeks: 6 ÷ 2 = 3 per week."
+    },
+    {
+      "id": "linear-functions/t2/006",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (5, 2)?",
+      "choices": [
+        "5/2",
+        "−2/5",
+        "2",
+        "2/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        null
+      ],
+      "explanation": "Rise 2 − 0 = 2, run 5 − 0 = 5. 2 ÷ 5 = 2/5."
+    },
+    {
+      "id": "linear-functions/t2/007",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 6, 9, 12. Rate of change?",
+      "choices": [
+        "4",
+        "3",
+        "6",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 0 to 1, y goes 6 to 9: 3 ÷ 1 = 3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/008",
+      "tier": 2,
+      "prompt": "Slope through (4, 1) and (7, −3)?",
+      "choices": [
+        "−4/3",
+        "−4",
+        "4/3",
+        "−3/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−3) − 1 = −4, run 7 − 4 = 3. −4 ÷ 3 = −4/3."
+    },
+    {
+      "id": "linear-functions/t2/009",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 18, 14, 10. Rate of change?",
+      "choices": [
+        "18",
+        "−8",
+        "4",
+        "−4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "From x = 2 to 3, y goes 18 to 14: −4 ÷ 1 = −4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/010",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 9, 12, 15. Rate of change?",
+      "choices": [
+        "9",
+        "6",
+        "3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 0 to 1, y goes 9 to 12: 3 ÷ 1 = 3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/011",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (3, −9)?",
+      "choices": [
+        "3",
+        "−3",
+        "−1/3",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−9) − 0 = −9, run 3 − 0 = 3. −9 ÷ 3 = −3."
+    },
+    {
+      "id": "linear-functions/t2/012",
+      "tier": 2,
+      "prompt": "Stairs rise 1 in over a run of 5 in. Slope?",
+      "choices": [
+        "1/5",
+        "5",
+        "1",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 1 ÷ 5 = 1/5."
+    },
+    {
+      "id": "linear-functions/t2/013",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 8, 5, 2. Rate of change?",
+      "choices": [
+        "3",
+        "−6",
+        "−3",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "TOTAL_CHANGE",
+        null,
+        "START_AS_RATE"
+      ],
+      "explanation": "From x = 0 to 1, y goes 8 to 5: −3 ÷ 1 = −3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/014",
+      "tier": 2,
+      "prompt": "Slope through (−1, −1) and (1, −5)?",
+      "choices": [
+        "−4",
+        "−2",
+        "2",
+        "−1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−5) − (−1) = −4, run 1 − (−1) = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t2/015",
+      "tier": 2,
+      "prompt": "Slope through (5, −1) and (7, 7)?",
+      "choices": [
+        "−4",
+        "8",
+        "1/4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise 7 − (−1) = 8, run 7 − 5 = 2. 8 ÷ 2 = 4."
+    },
+    {
+      "id": "linear-functions/t2/016",
+      "tier": 2,
+      "prompt": "Slope through (4, −5) and (6, −9)?",
+      "choices": [
+        "−2",
+        "−1/2",
+        "2",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "SIGN_SLIP",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−9) − (−5) = −4, run 6 − 4 = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t2/017",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 3, 7, 11. Rate of change?",
+      "choices": [
+        "−4",
+        "4",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "START_AS_RATE",
+        "TOTAL_CHANGE"
+      ],
+      "explanation": "From x = 0 to 1, y goes 3 to 7: 4 ÷ 1 = 4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/018",
+      "tier": 2,
+      "prompt": "A tank: 7 gal at min 1, 15 at min 5. Change per min?",
+      "choices": [
+        "2",
+        "7",
+        "8",
+        "−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "RISE_ONLY",
+        "SIGN_SLIP"
+      ],
+      "explanation": "y goes 7 to 15 in 4 mins: 8 ÷ 4 = 2 per min."
+    },
+    {
+      "id": "linear-functions/t2/019",
+      "tier": 2,
+      "prompt": "Slope through (−1, −2) and (8, 1)?",
+      "choices": [
+        "3",
+        "1/4",
+        "1/3",
+        "−1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "ARITH",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Rise 1 − (−2) = 3, run 8 − (−1) = 9. 3 ÷ 9 = 1/3."
+    },
+    {
+      "id": "linear-functions/t2/020",
+      "tier": 2,
+      "prompt": "A pup: 7 lb at month 1, 19 at month 5. Change per month?",
+      "choices": [
+        "1/3",
+        "7",
+        "−3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "y goes 7 to 19 in 4 months: 12 ÷ 4 = 3 per month."
+    },
+    {
+      "id": "linear-functions/t2/021",
+      "tier": 2,
+      "prompt": "A pool: 18 gal at min 1, 6 at min 5. Change per min?",
+      "choices": [
+        "−3",
+        "−12",
+        "3",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "START_AS_RATE"
+      ],
+      "explanation": "y goes 18 to 6 in 4 mins: −12 ÷ 4 = −3 per min."
+    },
+    {
+      "id": "linear-functions/t2/022",
+      "tier": 2,
+      "prompt": "A slide rises 4 ft over a run of 5 ft. Slope?",
+      "choices": [
+        "5/4",
+        "4/5",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 4 ÷ 5 = 4/5."
+    },
+    {
+      "id": "linear-functions/t2/023",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 16, 14, 12. Rate of change?",
+      "choices": [
+        "2",
+        "−4",
+        "16",
+        "−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "TOTAL_CHANGE",
+        "START_AS_RATE",
+        null
+      ],
+      "explanation": "From x = 3 to 4, y goes 16 to 14: −2 ÷ 1 = −2 per 1."
+    },
+    {
+      "id": "linear-functions/t2/024",
+      "tier": 2,
+      "prompt": "Slope through (5, −4) and (−1, 5)?",
+      "choices": [
+        "9",
+        "3/2",
+        "−3/2",
+        "−2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise 5 − (−4) = 9, run (−1) − 5 = −6. 9 ÷ −6 = −3/2."
+    },
+    {
+      "id": "linear-functions/t2/025",
+      "tier": 2,
+      "prompt": "A snowman: 12 in at hour 2, 6 at hour 5. Change per hour?",
+      "choices": [
+        "12",
+        "−6",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "RISE_ONLY",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "y goes 12 to 6 in 3 hours: −6 ÷ 3 = −2 per hour."
+    },
+    {
+      "id": "linear-functions/t2/026",
+      "tier": 2,
+      "prompt": "A slide rises 2 ft over a run of 10 ft. Slope?",
+      "choices": [
+        "5",
+        "1/5",
+        "2",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 2 ÷ 10 = 1/5."
+    },
+    {
+      "id": "linear-functions/t2/027",
+      "tier": 2,
+      "prompt": "A snowman: 19 in at hour 0, 9 at hour 2. Change per hour?",
+      "choices": [
+        "−5",
+        "−10",
+        "5",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "START_AS_RATE"
+      ],
+      "explanation": "y goes 19 to 9 in 2 hours: −10 ÷ 2 = −5 per hour."
+    },
+    {
+      "id": "linear-functions/t2/028",
+      "tier": 2,
+      "prompt": "Slope through (0, −1) and (2, 9)?",
+      "choices": [
+        "−5",
+        "1/5",
+        "10",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        null
+      ],
+      "explanation": "Rise 9 − (−1) = 10, run 2 − 0 = 2. 10 ÷ 2 = 5."
+    },
+    {
+      "id": "linear-functions/t2/029",
+      "tier": 2,
+      "prompt": "Slope through (2, 4) and (−1, 10)?",
+      "choices": [
+        "−1/2",
+        "−2",
+        "2",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "SIGN_SLIP",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise 10 − 4 = 6, run (−1) − 2 = −3. 6 ÷ −3 = −2."
+    },
+    {
+      "id": "linear-functions/t2/030",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (2, 4)?",
+      "choices": [
+        "−2",
+        "1/2",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise 4 − 0 = 4, run 2 − 0 = 2. 4 ÷ 2 = 2."
+    },
+    {
+      "id": "linear-functions/t2/031",
+      "tier": 2,
+      "prompt": "Slope through (3, 0) and (5, −6)?",
+      "choices": [
+        "−6",
+        "3",
+        "−1/3",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise (−6) − 0 = −6, run 5 − 3 = 2. −6 ÷ 2 = −3."
+    },
+    {
+      "id": "linear-functions/t2/032",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 15, 12, 9. Rate of change?",
+      "choices": [
+        "−3",
+        "15",
+        "3",
+        "−6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        "TOTAL_CHANGE"
+      ],
+      "explanation": "From x = 3 to 4, y goes 15 to 12: −3 ÷ 1 = −3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/033",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 9, 13, 17. Rate of change?",
+      "choices": [
+        "9",
+        "8",
+        "4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 3 to 4, y goes 9 to 13: 4 ÷ 1 = 4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/034",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (4, 8)?",
+      "choices": [
+        "8",
+        "2",
+        "−2",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise 8 − 0 = 8, run 4 − 0 = 4. 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t2/035",
+      "tier": 2,
+      "prompt": "Slope through (−2, 1) and (−6, −7)?",
+      "choices": [
+        "2",
+        "−2",
+        "1/2",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−7) − 1 = −8, run (−6) − (−2) = −4. −8 ÷ −4 = 2."
+    },
+    {
+      "id": "linear-functions/t2/036",
+      "tier": 2,
+      "prompt": "A tree: 5 ft at year 2, 13 at year 6. Change per year?",
+      "choices": [
+        "8",
+        "−2",
+        "1/2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "y goes 5 to 13 in 4 years: 8 ÷ 4 = 2 per year."
+    },
+    {
+      "id": "linear-functions/t2/037",
+      "tier": 2,
+      "prompt": "Slope through (−1, 1) and (1, 6)?",
+      "choices": [
+        "2/5",
+        "5/2",
+        "5",
+        "−5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Rise 6 − 1 = 5, run 1 − (−1) = 2. 5 ÷ 2 = 5/2."
+    },
+    {
+      "id": "linear-functions/t2/038",
+      "tier": 2,
+      "prompt": "A hill rises 4 m over a run of 5 m. Slope?",
+      "choices": [
+        "5/4",
+        "4",
+        "9",
+        "4/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN",
+        null
+      ],
+      "explanation": "Slope = rise ÷ run = 4 ÷ 5 = 4/5."
+    },
+    {
+      "id": "linear-functions/t2/039",
+      "tier": 2,
+      "prompt": "A roof rises 10 ft over a run of 8 ft. Slope?",
+      "choices": [
+        "5/4",
+        "4/5",
+        "10",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 10 ÷ 8 = 5/4."
+    },
+    {
+      "id": "linear-functions/t2/040",
+      "tier": 2,
+      "prompt": "Slope through (2, −5) and (4, −9)?",
+      "choices": [
+        "2",
+        "−4",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−9) − (−5) = −4, run 4 − 2 = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t3/001",
+      "tier": 3,
+      "prompt": "Tank: 8 gal, gains 3 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = 3x + 8",
+        "y = 3x",
+        "y = 8x + 3",
+        "y = 2x + 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "SWAPPED_MB",
+        "ARITH"
+      ],
+      "explanation": "Start 8 is the added number; 3 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/002",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −3, 1, 5. Equation?",
+      "choices": [
+        "y = 4x + 1",
+        "y = 4x − 3",
+        "y = 4x + 5",
+        "y = 4x + 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SIGN_DROPPED"
+      ],
+      "explanation": "y at x = 0 is −3, the start. Each step adds 4: y = 4x − 3."
+    },
+    {
+      "id": "linear-functions/t3/003",
+      "tier": 3,
+      "prompt": "y = 5 + 2x. Value of y when x = 0?",
+      "choices": [
+        "3",
+        "2",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SLOPE_AS_START",
+        null,
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = 5. The start is the lone number, 5."
+    },
+    {
+      "id": "linear-functions/t3/004",
+      "tier": 3,
+      "prompt": "Rate of change of y = 8x − 4?",
+      "choices": [
+        "4",
+        "7",
+        "−4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: 8."
+    },
+    {
+      "id": "linear-functions/t3/005",
+      "tier": 3,
+      "prompt": "Slope 1, initial value 9. Equation?",
+      "choices": [
+        "y = 9x + 1",
+        "y = x",
+        "y = x + 11",
+        "y = x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "NO_START",
+        "ARITH",
+        null
+      ],
+      "explanation": "y = mx + b with m = 1 and b = 9: y = x + 9."
+    },
+    {
+      "id": "linear-functions/t3/006",
+      "tier": 3,
+      "prompt": "A jar has $4. Add $6 a week. Total y after x weeks?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 6x",
+        "y = 6x + 2",
+        "y = 4x + 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 4 is the added number; 6 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/007",
+      "tier": 3,
+      "prompt": "y = 3 − 2x. Initial value?",
+      "choices": [
+        "−2",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        null,
+        "SLOPE_AS_START",
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = 3. The start is the lone number, 3."
+    },
+    {
+      "id": "linear-functions/t3/008",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 2, 7, 12. Equation?",
+      "choices": [
+        "y = 2x + 5",
+        "y = 5x + 12",
+        "y = 5x + 2",
+        "y = 5x + 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "LAST_VALUE",
+        null,
+        "VALUE_AT_1"
+      ],
+      "explanation": "y at x = 0 is 2, the start. Each step adds 5: y = 5x + 2."
+    },
+    {
+      "id": "linear-functions/t3/009",
+      "tier": 3,
+      "prompt": "Rate of change of y = 3x − 6?",
+      "choices": [
+        "−6",
+        "1",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "The number multiplying x is the slope: 3."
+    },
+    {
+      "id": "linear-functions/t3/010",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 9, 13, 17. Equation?",
+      "choices": [
+        "y = 4x + 13",
+        "y = 4x + 9",
+        "y = 4x + 17",
+        "y = 9x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 9, the start. Each step adds 4: y = 4x + 9."
+    },
+    {
+      "id": "linear-functions/t3/011",
+      "tier": 3,
+      "prompt": "Rate of change of y = 4x + 2?",
+      "choices": [
+        "2",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: 4."
+    },
+    {
+      "id": "linear-functions/t3/012",
+      "tier": 3,
+      "prompt": "y = −8x − 9. Initial value?",
+      "choices": [
+        "−9",
+        "9",
+        "−17",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = −9. The start is the lone number, −9."
+    },
+    {
+      "id": "linear-functions/t3/013",
+      "tier": 3,
+      "prompt": "You have $2. Spend $7 a day. Money y after x days?",
+      "choices": [
+        "y = 7x + 2",
+        "y = −7x + 2",
+        "y = −7x",
+        "y = −2x + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        null,
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 2 is the added number; 7 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/014",
+      "tier": 3,
+      "prompt": "Rate of change of y = −8x + 6?",
+      "choices": [
+        "−10",
+        "6",
+        "8",
+        "−8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "START_AS_SLOPE",
+        "SIGN_DROPPED",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −8."
+    },
+    {
+      "id": "linear-functions/t3/015",
+      "tier": 3,
+      "prompt": "Rate of change of y = 5 − 9x?",
+      "choices": [
+        "−9",
+        "−7",
+        "9",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SIGN_DROPPED",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "The number multiplying x is the slope: −9."
+    },
+    {
+      "id": "linear-functions/t3/016",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 2, −1, −4. Equation?",
+      "choices": [
+        "y = 3x + 2",
+        "y = −3x − 1",
+        "y = −3x + 2",
+        "y = 2x − 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 2, the start. Each step adds −3: y = −3x + 2."
+    },
+    {
+      "id": "linear-functions/t3/017",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 6, 1, −4. Equation?",
+      "choices": [
+        "y = −5x + 1",
+        "y = 5x + 6",
+        "y = −5x + 6",
+        "y = 6x − 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_AT_1",
+        "SIGN_DROPPED",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 6, the start. Each step adds −5: y = −5x + 6."
+    },
+    {
+      "id": "linear-functions/t3/018",
+      "tier": 3,
+      "prompt": "A taxi charges $9 plus $5 a mile. Cost y for x miles?",
+      "choices": [
+        "y = 9x + 5",
+        "y = 4x + 9",
+        "y = 5x",
+        "y = 5x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "Start 9 is the added number; 5 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/019",
+      "tier": 3,
+      "prompt": "Slope 5, initial value 5. Equation?",
+      "choices": [
+        "y = 5x + 7",
+        "y = 5x + 5",
+        "y = 5x",
+        "y = 5x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y = mx + b with m = 5 and b = 5: y = 5x + 5."
+    },
+    {
+      "id": "linear-functions/t3/020",
+      "tier": 3,
+      "prompt": "Tank: 8 gal, loses 5 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = −5x + 8",
+        "y = 5x + 8",
+        "y = −5x",
+        "y = −8x + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 8 is the added number; 5 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/021",
+      "tier": 3,
+      "prompt": "Slope 2, initial value 8. Equation?",
+      "choices": [
+        "y = 2x + 10",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 8x + 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y = mx + b with m = 2 and b = 8: y = 2x + 8."
+    },
+    {
+      "id": "linear-functions/t3/022",
+      "tier": 3,
+      "prompt": "A gym costs $5 to join, $6 a month. Cost y for x months?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 5x + 6",
+        "y = 6x + 5",
+        "y = 6x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SWAPPED_MB",
+        null,
+        "NO_START"
+      ],
+      "explanation": "Start 5 is the added number; 6 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/023",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 9, 5, 1. Equation?",
+      "choices": [
+        "y = 4x + 9",
+        "y = 9x − 4",
+        "y = −4x + 1",
+        "y = −4x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "SWAPPED_MB",
+        "LAST_VALUE",
+        null
+      ],
+      "explanation": "y at x = 0 is 9, the start. Each step adds −4: y = −4x + 9."
+    },
+    {
+      "id": "linear-functions/t3/024",
+      "tier": 3,
+      "prompt": "y = 9x + 1. Starting value?",
+      "choices": [
+        "1",
+        "10",
+        "0",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_AT_1",
+        "ARITH",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 1. The start is the lone number, 1."
+    },
+    {
+      "id": "linear-functions/t3/025",
+      "tier": 3,
+      "prompt": "y = 3x − 7. Initial value?",
+      "choices": [
+        "−7",
+        "7",
+        "3",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "SLOPE_AS_START",
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = −7. The start is the lone number, −7."
+    },
+    {
+      "id": "linear-functions/t3/026",
+      "tier": 3,
+      "prompt": "A gym costs $5 to join, $8 a month. Cost y for x months?",
+      "choices": [
+        "y = 7x + 5",
+        "y = 8x",
+        "y = 8x + 5",
+        "y = 5x + 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 5 is the added number; 8 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/027",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −2, 2, 6. Equation?",
+      "choices": [
+        "y = 4x + 2",
+        "y = 4x − 2",
+        "y = 4x + 6",
+        "y = −2x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is −2, the start. Each step adds 4: y = 4x − 2."
+    },
+    {
+      "id": "linear-functions/t3/028",
+      "tier": 3,
+      "prompt": "Slope 6, initial value 2. Equation?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 6x",
+        "y = 2x + 6",
+        "y = 6x + 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        "SWAPPED_MB",
+        null
+      ],
+      "explanation": "y = mx + b with m = 6 and b = 2: y = 6x + 2."
+    },
+    {
+      "id": "linear-functions/t3/029",
+      "tier": 3,
+      "prompt": "A taxi charges $3 plus $4 a mile. Cost y for x miles?",
+      "choices": [
+        "y = 4x + 3",
+        "y = 4x",
+        "y = 4x + 1",
+        "y = 3x + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 3 is the added number; 4 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/030",
+      "tier": 3,
+      "prompt": "y = 4 − 5x. Initial value?",
+      "choices": [
+        "−1",
+        "−5",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_AT_1",
+        "SLOPE_AS_START",
+        null,
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 4. The start is the lone number, 4."
+    },
+    {
+      "id": "linear-functions/t3/031",
+      "tier": 3,
+      "prompt": "y = 3 + 2x. Initial value?",
+      "choices": [
+        "5",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "ARITH",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 3. The start is the lone number, 3."
+    },
+    {
+      "id": "linear-functions/t3/032",
+      "tier": 3,
+      "prompt": "y = 3x − 3. Starting value?",
+      "choices": [
+        "3",
+        "0",
+        "−1",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "VALUE_AT_1",
+        "ARITH",
+        null
+      ],
+      "explanation": "At x = 0, y = −3. The start is the lone number, −3."
+    },
+    {
+      "id": "linear-functions/t3/033",
+      "tier": 3,
+      "prompt": "Slope −5, initial value 9. Equation?",
+      "choices": [
+        "y = −5x",
+        "y = −5x + 9",
+        "y = 5x + 9",
+        "y = 9x − 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_START",
+        null,
+        "SIGN_DROPPED",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y = mx + b with m = −5 and b = 9: y = −5x + 9."
+    },
+    {
+      "id": "linear-functions/t3/034",
+      "tier": 3,
+      "prompt": "Slope of y = x − 5?",
+      "choices": [
+        "1",
+        "5",
+        "−5",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "START_AS_SLOPE",
+        "ARITH"
+      ],
+      "explanation": "The number multiplying x is the slope: 1."
+    },
+    {
+      "id": "linear-functions/t3/035",
+      "tier": 3,
+      "prompt": "Slope of y = −3x + 6?",
+      "choices": [
+        "3",
+        "−1",
+        "6",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "ARITH",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −3."
+    },
+    {
+      "id": "linear-functions/t3/036",
+      "tier": 3,
+      "prompt": "Tank: 6 gal, gains 8 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = 8x + 5",
+        "y = 8x",
+        "y = 8x + 6",
+        "y = 6x + 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 6 is the added number; 8 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/037",
+      "tier": 3,
+      "prompt": "A 10 in candle burns 8 in an hour. Height y after x hours?",
+      "choices": [
+        "y = −10x + 8",
+        "y = −8x",
+        "y = −8x + 10",
+        "y = 8x + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "NO_START",
+        null,
+        "SIGN_DROPPED"
+      ],
+      "explanation": "Start 10 is the added number; 8 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/038",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 7, 10, 13. Equation?",
+      "choices": [
+        "y = 3x + 13",
+        "y = 3x + 7",
+        "y = 3x + 10",
+        "y = 7x + 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LAST_VALUE",
+        null,
+        "VALUE_AT_1",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 7, the start. Each step adds 3: y = 3x + 7."
+    },
+    {
+      "id": "linear-functions/t3/039",
+      "tier": 3,
+      "prompt": "Rate of change of y = −6 − 3x?",
+      "choices": [
+        "3",
+        "−6",
+        "6",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "START_AS_SLOPE",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −3."
+    },
+    {
+      "id": "linear-functions/t3/040",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −4, −1, 2. Equation?",
+      "choices": [
+        "y = 3x − 4",
+        "y = 3x + 4",
+        "y = 3x − 1",
+        "y = −4x + 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is −4, the start. Each step adds 3: y = 3x − 4."
+    },
+    {
+      "id": "linear-functions/t4/001",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 6x + 7, y = x + 9, y = 9x?",
+      "choices": [
+        "y = x + 9",
+        "y = 6x + 7",
+        "y = 9x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/002",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (5, 10). B: y = 2x. Steeper?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both have slope 2 (10 ÷ 5 = 2). Same."
+    },
+    {
+      "id": "linear-functions/t4/003",
+      "tier": 4,
+      "prompt": "A: 12 pages in 4 minutes. B: p = 6m. Which is faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NOT_CHECKED",
+        "BIGGER_TOTAL"
+      ],
+      "explanation": "B goes 6 per minute. A: 12 ÷ 4 = 3 per minute. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/004",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 2x + 6, y = 4x, y = x + 7?",
+      "choices": [
+        "y = x + 7",
+        "y = 2x + 6",
+        "y = 4x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 4x."
+    },
+    {
+      "id": "linear-functions/t4/005",
+      "tier": 4,
+      "prompt": "A: 35 pages in 5 minutes. B: p = 2m. Which is faster?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_RATE",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 2 per minute. A: 35 ÷ 5 = 7 per minute. A is faster."
+    },
+    {
+      "id": "linear-functions/t4/006",
+      "tier": 4,
+      "prompt": "y = kx, and (2, 8) is on it. Unit rate?",
+      "choices": [
+        "4",
+        "1/4",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_RATE",
+        "DIFFERENCE",
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 2 = 4."
+    },
+    {
+      "id": "linear-functions/t4/007",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (2, 4). Unit rate?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        null,
+        "ARITH",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 4 ÷ 2 = 2."
+    },
+    {
+      "id": "linear-functions/t4/008",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 2, y = 8x, y = 6x + 5?",
+      "choices": [
+        "y = x + 2",
+        "y = 8x",
+        "y = 6x + 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        null,
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 8x."
+    },
+    {
+      "id": "linear-functions/t4/009",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 6, y = 9x, y = 9x − 6?",
+      "choices": [
+        "y = 9x − 6",
+        "y = x + 6",
+        "y = 9x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HAS_START",
+        "ADDS_NOT_MULTIPLIES",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/010",
+      "tier": 4,
+      "prompt": "y = kx, and (4, 8) is on it. Unit rate?",
+      "choices": [
+        "8",
+        "4",
+        "1/2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        "DIFFERENCE",
+        "INVERTED_RATE",
+        null
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t4/011",
+      "tier": 4,
+      "prompt": "y = kx, and (3, 6) is on it. Unit rate?",
+      "choices": [
+        "3",
+        "1/2",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED_RATE",
+        null,
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "linear-functions/t4/012",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 9, y = 3x, y = 4x − 1?",
+      "choices": [
+        "y = 3x",
+        "y = x + 9",
+        "y = 4x − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 3x."
+    },
+    {
+      "id": "linear-functions/t4/013",
+      "tier": 4,
+      "prompt": "A: 24 miles in 3 hours. B: d = 8t. Which is faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 8 per hour (24 ÷ 3 = 8). Same."
+    },
+    {
+      "id": "linear-functions/t4/014",
+      "tier": 4,
+      "prompt": "x: 1, 2, 3. y: 5, 10, 15. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 5 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/015",
+      "tier": 4,
+      "prompt": "A: p = 4m. B: 12 pages in 3 minutes. Which is faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 4 per minute (12 ÷ 3 = 4). Same."
+    },
+    {
+      "id": "linear-functions/t4/016",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 2, 6, 10. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 2 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/017",
+      "tier": 4,
+      "prompt": "x: 1, 2, 3. y: 2, 4, 6. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 2 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/018",
+      "tier": 4,
+      "prompt": "x: 1, 2, 4. y: 5, 10, 20. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 5 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/019",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 9x, y = 6x + 6, y = x + 4?",
+      "choices": [
+        "y = 9x",
+        "y = x + 4",
+        "y = 6x + 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/020",
+      "tier": 4,
+      "prompt": "y = kx, and (2, 10) is on it. Unit rate?",
+      "choices": [
+        "10",
+        "5",
+        "8",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        null,
+        "DIFFERENCE",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "linear-functions/t4/021",
+      "tier": 4,
+      "prompt": "A: 32 cans in 4 hours. B: c = 3h. Which is faster?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "INVERTED_RATE",
+        null
+      ],
+      "explanation": "B goes 3 per hour. A: 32 ÷ 4 = 8 per hour. A is faster."
+    },
+    {
+      "id": "linear-functions/t4/022",
+      "tier": 4,
+      "prompt": "A: g = 9m. B: 45 gallons in 5 minutes. Which is faster?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATE_NOT_COMPARED",
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 9 per minute (45 ÷ 5 = 9). Same."
+    },
+    {
+      "id": "linear-functions/t4/023",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (4, 8). Unit rate?",
+      "choices": [
+        "1/2",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_RATE",
+        "TOTAL_AS_RATE",
+        null,
+        "DIFFERENCE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t4/024",
+      "tier": 4,
+      "prompt": "x: 0, 1, 2. y: 1, 3, 5. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STEADY_MEANS_PROP"
+      ],
+      "explanation": "At x = 0, y is 1, not 0. A proportional line passes through (0, 0)."
+    },
+    {
+      "id": "linear-functions/t4/025",
+      "tier": 4,
+      "prompt": "A: y = 8x + 4. B: y = 5x + 6. Which grows faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "Growth speed is the slope: 8 beats 5. The bigger start (6) does not matter."
+    },
+    {
+      "id": "linear-functions/t4/026",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 4, 12, 20. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 4 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/027",
+      "tier": 4,
+      "prompt": "x: 2, 3, 5. y: 8, 12, 20. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 4 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/028",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (3, 6). B: y = 3x. Steeper?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        null,
+        "BIGGER_TOTAL"
+      ],
+      "explanation": "B has slope 3. A: 6 ÷ 3 = 2. B is steeper."
+    },
+    {
+      "id": "linear-functions/t4/029",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 3, 9, 15. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 3 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/030",
+      "tier": 4,
+      "prompt": "A: y = 3x + 4. B: y = 5x + 2. Which grows faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "Growth speed is the slope: 5 beats 3. The bigger start (4) does not matter."
+    },
+    {
+      "id": "linear-functions/t4/031",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 8x − 7, y = 2x, y = x + 6?",
+      "choices": [
+        "y = x + 6",
+        "y = 2x",
+        "y = 8x − 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        null,
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 2x."
+    },
+    {
+      "id": "linear-functions/t4/032",
+      "tier": 4,
+      "prompt": "A: 6 cans in 3 hours. B: c = 5h. Which is faster?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BIGGER_TOTAL",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 5 per hour. A: 6 ÷ 3 = 2 per hour. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/033",
+      "tier": 4,
+      "prompt": "A: y = 3x. B: line through (0, 0) and (3, 6). Steeper?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "BIGGER_TOTAL",
+        null
+      ],
+      "explanation": "A has slope 3. B: 6 ÷ 3 = 2. A is steeper."
+    },
+    {
+      "id": "linear-functions/t4/034",
+      "tier": 4,
+      "prompt": "A: y = 2x. B: line through (0, 0) and (2, 10). Steeper?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NOT_CHECKED",
+        "INVERTED_RATE"
+      ],
+      "explanation": "A has slope 2. B: 10 ÷ 2 = 5. B is steeper."
+    },
+    {
+      "id": "linear-functions/t4/035",
+      "tier": 4,
+      "prompt": "A: y = 9x + 8. B: y = 9x + 9. Which grows faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "START_NOT_RATE"
+      ],
+      "explanation": "Both have slope 9, so they grow equally fast. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t4/036",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 5x, y = x + 3, y = 6x − 6?",
+      "choices": [
+        "y = x + 3",
+        "y = 6x − 6",
+        "y = 5x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 5x."
+    },
+    {
+      "id": "linear-functions/t4/037",
+      "tier": 4,
+      "prompt": "A: 12 miles in 4 hours. B: d = 5t. Which is faster?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BIGGER_TOTAL",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 5 per hour. A: 12 ÷ 4 = 3 per hour. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/038",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (2, 10). B: y = 3x. Steeper?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_RATE",
+        null,
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B has slope 3. A: 10 ÷ 2 = 5. A is steeper."
+    },
+    {
+      "id": "linear-functions/t4/039",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (2, 6). Unit rate?",
+      "choices": [
+        "3",
+        "4",
+        "6",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE",
+        "TOTAL_AS_RATE",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 6 ÷ 2 = 3."
+    },
+    {
+      "id": "linear-functions/t4/040",
+      "tier": 4,
+      "prompt": "A: y = 4x. B: y = 4x + 3. Which grows faster?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        "START_NOT_RATE",
+        null
+      ],
+      "explanation": "Both have slope 4, so they grow equally fast. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/001",
+      "tier": 5,
+      "prompt": "y = −2 + 4x. As x grows, y?",
+      "choices": [
+        "Stays same",
+        "Increases",
+        "Decreases"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_RATE_MEANS_SAME",
+        null,
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope 4 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/002",
+      "tier": 5,
+      "prompt": "y = x + 5. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Stays same",
+        "Increases"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_SIGN_IGNORED",
+        "CONSTANT_RATE_MEANS_SAME",
+        null
+      ],
+      "explanation": "The slope 1 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/003",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6x + 5, y = x^3, y = −1 − 4x?",
+      "choices": [
+        "y = x^3",
+        "y = −1 − 4x",
+        "y = −6x + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x^3 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/004",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x^2 + 3, y = 4x + 7, y = 2 + 4x?",
+      "choices": [
+        "y = 4x + 7",
+        "y = x^2 + 3",
+        "y = 2 + 4x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_NOT_LINEAR",
+        null,
+        "CONSTANT_NOT_LINEAR"
+      ],
+      "explanation": "y = x^2 + 3 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/005",
+      "tier": 5,
+      "prompt": "y = 5. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_SIGN_IGNORED",
+        "SLOPE_SIGN_IGNORED",
+        null
+      ],
+      "explanation": "No x in the rule: the slope is 0, so y stays 5."
+    },
+    {
+      "id": "linear-functions/t5/006",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 5, 10, 15. B: y = 5x + 4. Greater rate?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATE_NOT_COMPARED",
+        "START_NOT_RATE"
+      ],
+      "explanation": "Both rise 5 per step. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/007",
+      "tier": 5,
+      "prompt": "y = 2x − 7. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        null,
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/008",
+      "tier": 5,
+      "prompt": "Is y = 2^x + 1 linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = 2^x + 1 has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/009",
+      "tier": 5,
+      "prompt": "y = x − 9. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Decreases",
+        "Stays same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_SIGN_DECIDES",
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 1 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/010",
+      "tier": 5,
+      "prompt": "Which is linear: y = x^3 + 4, y = x^2 − 2, y = −1 + 2x?",
+      "choices": [
+        "y = x^2 − 2",
+        "y = x^3 + 4",
+        "y = −1 + 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −1 + 2x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/011",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6x − 4, y = −2x − 4, y = x^3 + 1?",
+      "choices": [
+        "y = −6x − 4",
+        "y = −2x − 4",
+        "y = x^3 + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = x^3 + 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/012",
+      "tier": 5,
+      "prompt": "x: 1, 2, 4. y: 2, 5, 12. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LOOKS_GROWING"
+      ],
+      "explanation": "The rate changes (3, then 7/2) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/013",
+      "tier": 5,
+      "prompt": "Which is linear: y = x^2 + 5, y = 4x + 8, y = x^3 − 1?",
+      "choices": [
+        "y = x^2 + 5",
+        "y = 4x + 8",
+        "y = x^3 − 1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = 4x + 8 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/014",
+      "tier": 5,
+      "prompt": "x: 2, 3, 5. y: 11, 14, 20. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_STEPS_MISSED"
+      ],
+      "explanation": "y changes 3 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/015",
+      "tier": 5,
+      "prompt": "y = 2x + 4. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Stays same",
+        "Decreases"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_RATE_MEANS_SAME",
+        "SLOPE_SIGN_IGNORED"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/016",
+      "tier": 5,
+      "prompt": "Is y = x^2 + 2 linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = x^2 + 2 has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/017",
+      "tier": 5,
+      "prompt": "Which is linear: y = −3 + 5x, y = 2^x − 2, y = 2^x + 3?",
+      "choices": [
+        "y = 2^x + 3",
+        "y = −3 + 5x",
+        "y = 2^x − 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = −3 + 5x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/018",
+      "tier": 5,
+      "prompt": "y = −9 + 3x. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Stays same",
+        "Increases"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        "CONSTANT_RATE_MEANS_SAME",
+        null
+      ],
+      "explanation": "The slope 3 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/019",
+      "tier": 5,
+      "prompt": "Is y = 6x + 6 linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = 6x + 6 fits y = mx + b: x only to the first power, so it is a line."
+    },
+    {
+      "id": "linear-functions/t5/020",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 3, 9, 15. B: y = 4x + 7. Greater rate?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B has rate 4. A rises 6 per step. A is greater."
+    },
+    {
+      "id": "linear-functions/t5/021",
+      "tier": 5,
+      "prompt": "x: 1, 2, 3. y: 4, 5, 8. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LOOKS_GROWING"
+      ],
+      "explanation": "The rate changes (1, then 3) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/022",
+      "tier": 5,
+      "prompt": "y = −3 + 5x. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        null,
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 5 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/023",
+      "tier": 5,
+      "prompt": "Which is linear: y = 6 − 6x, y = x^2 + 2, y = x^2 + 5?",
+      "choices": [
+        "y = x^2 + 5",
+        "y = x^2 + 2",
+        "y = 6 − 6x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = 6 − 6x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/024",
+      "tier": 5,
+      "prompt": "Is y = x^2 linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = x^2 has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/025",
+      "tier": 5,
+      "prompt": "y = 2x − 1. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Stays same",
+        "Decreases"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_RATE_MEANS_SAME",
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/026",
+      "tier": 5,
+      "prompt": "Is y = −6x + 2 linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = −6x + 2 fits y = mx + b: x only to the first power, so it is a line."
+    },
+    {
+      "id": "linear-functions/t5/027",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x^2 − 1, y = −5x − 1, y = −2x + 7?",
+      "choices": [
+        "y = −5x − 1",
+        "y = x^2 − 1",
+        "y = −2x + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x^2 − 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/028",
+      "tier": 5,
+      "prompt": "A: y = 3x + 9. B: x: 0, 1, 2; y: 2, 5, 8. Greater rate?",
+      "choices": [
+        "Same",
+        "A",
+        "B"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_NOT_RATE",
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both rise 3 per step. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/029",
+      "tier": 5,
+      "prompt": "Which is linear: y = x^3, y = 2^x − 1, y = −2x − 6?",
+      "choices": [
+        "y = 2^x − 1",
+        "y = x^3",
+        "y = −2x − 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −2x − 6 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/030",
+      "tier": 5,
+      "prompt": "Which is linear: y = 2^x − 3, y = −4x + 1, y = 2^x + 1?",
+      "choices": [
+        "y = 2^x + 1",
+        "y = 2^x − 3",
+        "y = −4x + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −4x + 1 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/031",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6 + x, y = −2 + x, y = x^3 + 5?",
+      "choices": [
+        "y = −2 + x",
+        "y = x^3 + 5",
+        "y = −6 + x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x^3 + 5 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/032",
+      "tier": 5,
+      "prompt": "x: 2, 4, 6. y: 1, 5, 7. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LOOKS_GROWING",
+        null
+      ],
+      "explanation": "The rate changes (2, then 1) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/033",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −4x + 6, y = x^2 + 1, y = 5x − 4?",
+      "choices": [
+        "y = x^2 + 1",
+        "y = −4x + 6",
+        "y = 5x − 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x^2 + 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/034",
+      "tier": 5,
+      "prompt": "y = −5x + 4. As x grows, y?",
+      "choices": [
+        "Stays same",
+        "Decreases",
+        "Increases"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_RATE_MEANS_SAME",
+        null,
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope −5 is negative, so y goes down as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/035",
+      "tier": 5,
+      "prompt": "x: 2, 4, 6. y: 4, 2, 0. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECREASING_NOT_LINEAR"
+      ],
+      "explanation": "y changes −1 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/036",
+      "tier": 5,
+      "prompt": "x: 1, 2, 4. y: 7, 9, 13. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_STEPS_MISSED",
+        null
+      ],
+      "explanation": "y changes 2 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/037",
+      "tier": 5,
+      "prompt": "A: y = 3x + 8. B: x: 0, 1, 2; y: 1, 7, 13. Greater rate?",
+      "choices": [
+        "Same",
+        "A",
+        "B"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "START_NOT_RATE",
+        null
+      ],
+      "explanation": "A has rate 3. B rises 6 per step. B is greater."
+    },
+    {
+      "id": "linear-functions/t5/038",
+      "tier": 5,
+      "prompt": "y = 4x + 2. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Decreases",
+        "Stays same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_SIGN_IGNORED",
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 4 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/039",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x^2 − 1, y = −5 − 2x, y = 2x − 6?",
+      "choices": [
+        "y = 2x − 6",
+        "y = x^2 − 1",
+        "y = −5 − 2x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x^2 − 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/040",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 1, 7, 13. B: y = 3x + 9. Greater rate?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "B has rate 3. A rises 6 per step. A is greater."
+    }
+  ]
+}

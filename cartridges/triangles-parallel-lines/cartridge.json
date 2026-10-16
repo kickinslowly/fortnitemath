@@ -1,0 +1,141 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "triangles-parallel-lines",
+  "version": "1.0.0",
+  "title": "Triangles & Parallel Lines",
+  "subtitle": "Angle Sum, Exterior Angles, Transversals",
+  "grade": "8",
+  "standards": ["CCSS.MATH.CONTENT.8.G.A.5"],
+  "seed": 20261038,
+  "items_per_tier": 40,
+  "bounds": "Angles in tens. Every given, unknown and answer angle is a multiple of 10 from 10 to 170 degrees (an x is 10 to 90, a tens quotient). Every + and − on angles is a tens fact (180 − 70 is 18 − 7): operands and results 1-18 tens. Every × and ÷ is a times-table fact in tens: coefficients 2-9, a divisor 2-9 into 18 tens or less (6x = 180 is 18 ÷ 6), a quotient 1-9 tens. Totals: a triangle is 180, a right triangle's other two add to 90, an exterior angle equals the sum of its two remote angles (at most 170), parallel-line pairs are equal (corresponding, alternate; vertical angles of crossing lines) or add to 180 (same-side, or neighbors on a line). Isosceles base angles come from an even-tens top angle ((180 − 40) ÷ 2 is 14 ÷ 2). Similar triangles are told by two angles each; the third is 180 minus their tens sum. No 360, no half-angles, no trigonometry. Choices are plain numbers (or Equal, Add to 180, Add to 90, Yes, No); wrong choices are whatever a misreading gives (45, 98, 330), up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Triangle Angle Sum", "description": "The three angles of a triangle add to 180. Find the missing one, even in right and isosceles triangles." },
+    { "tier": 2, "name": "Exterior Angles", "description": "An exterior angle equals the sum of the two remote angles, the inside angles far from it." },
+    { "tier": 3, "name": "Transversal Angles", "description": "Parallel lines cut by a line: corresponding and alternate angles are equal, same-side angles and neighbors on a line add to 180." },
+    { "tier": 4, "name": "Equal or Add to 180?", "description": "Decide for each pair of angles on parallel lines: equal, or adding to 180. Then tell if lines are parallel." },
+    { "tier": 5, "name": "Solve for x & Similar", "description": "Angle equations with x in triangles and parallel lines, then similar triangles told by two angles." }
+  ],
+  "misconceptions": {
+    "USED_360": {
+      "student": "A triangle's angles add to 180, and so does a straight line. 360 is a full turn.",
+      "teacher": "Subtracts from 360 (a full turn) instead of 180 or 90."
+    },
+    "FORGOT_ONE": {
+      "student": "Use every piece you are given. Don't leave one out.",
+      "teacher": "Takes away only one of the given angles, or skips the +number on x."
+    },
+    "ADDED_ANGLES": {
+      "student": "The missing angle is what is left of the total. Subtract, don't add.",
+      "teacher": "Adds the angles (or the angle and the total) instead of subtracting from the total."
+    },
+    "USED_90": {
+      "student": "90 is only for a right angle. Here the total is 180.",
+      "teacher": "Uses 90 as the total (a complement) for a triangle or for supplementary angles."
+    },
+    "FORGOT_RIGHT": {
+      "student": "A right triangle already has a 90 angle. The other two add to 90.",
+      "teacher": "Subtracts only the given angle from 180 and forgets the right angle."
+    },
+    "NO_HALF": {
+      "student": "Two base angles share what is left. Split it in half.",
+      "teacher": "Gives 180 minus the top angle as one base angle, without halving it."
+    },
+    "HALF_TOP": {
+      "student": "Base angles come from what is left of 180, not from half the top angle.",
+      "teacher": "Halves the top angle instead of halving 180 minus the top angle."
+    },
+    "SAME_AS_TOP": {
+      "student": "Only the two base angles are equal. The top angle is different.",
+      "teacher": "Gives the top angle as each base angle."
+    },
+    "NO_DOUBLE": {
+      "student": "There are two base angles. Add both before you subtract from 180.",
+      "teacher": "Subtracts one base angle from 180 instead of both."
+    },
+    "SAME_AS_BASE": {
+      "student": "The top angle is what is left after both base angles, not a copy of one.",
+      "teacher": "Gives a base angle as the top angle."
+    },
+    "SPLIT_IN_TWO": {
+      "student": "A triangle has three angles. Split 180 three ways, not two.",
+      "teacher": "Divides 180 by 2 instead of 3 for an equilateral triangle."
+    },
+    "INTERIOR_FOR_EXTERIOR": {
+      "student": "An exterior angle makes a straight line with its inside angle. Not the same.",
+      "teacher": "Gives the inside angle (180 minus the exterior) where the exterior is wanted, or the reverse."
+    },
+    "ONE_REMOTE": {
+      "student": "The exterior angle is both remote angles added together, not just one.",
+      "teacher": "Gives one remote angle instead of the sum of both."
+    },
+    "ADDED_NOT_SUB": {
+      "student": "The exterior angle is the SUM of the remotes. To find one remote, subtract.",
+      "teacher": "Adds the exterior and the known remote angle instead of subtracting."
+    },
+    "EQUAL_REMOTES": {
+      "student": "The two remote angles need not be equal. Subtract to find the other.",
+      "teacher": "Assumes the unknown remote angle equals the given one."
+    },
+    "SAME_AS_EXT": {
+      "student": "The exterior angle and its inside neighbor make a straight line: 180.",
+      "teacher": "Gives the exterior angle itself as the inside angle next to it."
+    },
+    "SUPP_FOR_EQUAL": {
+      "student": "Alternate, corresponding and vertical angles are equal. Don't subtract.",
+      "teacher": "Treats an equal pair as supplementary: gives 180 minus the angle."
+    },
+    "COMP_FOR_EQUAL": {
+      "student": "These angles are equal. 90 minus the angle is for a corner, not this.",
+      "teacher": "Treats an equal pair as complementary: gives 90 minus the angle (or its distance from 90)."
+    },
+    "EQUAL_FOR_SUPP": {
+      "student": "A pair that adds to 180 is not an equal pair.",
+      "teacher": "Treats a same-side (supplementary) pair as equal."
+    },
+    "GAVE_ANGLE": {
+      "student": "Check what is asked: you want x, not the size of an angle.",
+      "teacher": "Answers with an angle's size when the question asks for x."
+    },
+    "NO_DIVIDE": {
+      "student": "You stopped early. Divide by the number in front of x.",
+      "teacher": "Gets the total for the x terms and forgets to divide by the coefficient."
+    },
+    "MULTIPLIED_NOT_DIVIDED": {
+      "student": "2x means 2 times x. To undo it, divide by 2.",
+      "teacher": "Multiplies by the coefficient of x instead of dividing."
+    },
+    "SPLIT_EVENLY": {
+      "student": "The angles are not all equal. Add the x parts, then divide by that.",
+      "teacher": "Splits the total evenly (by the number of angles) instead of by the sum of the coefficients."
+    },
+    "USED_180": {
+      "student": "Use the right total. Here the angles do not add to 180.",
+      "teacher": "Uses 180 as the total for the x terms where the total is 90 or the exterior angle."
+    },
+    "SIGN_SLIP": {
+      "student": "A + number on one side becomes minus when it moves to the other side.",
+      "teacher": "Moves a +number across the equals sign without changing its sign."
+    },
+    "GAVE_X": {
+      "student": "x is not the angle. Multiply x by the number in front to get the angle.",
+      "teacher": "Stops at the value of x when the question asks for an angle."
+    },
+    "OTHER_ANGLE": {
+      "student": "Re-read the question: it asks for the largest angle.",
+      "teacher": "Finds x correctly but answers with the wrong angle (not the largest)."
+    },
+    "NEEDS_SAME_LISTED": {
+      "student": "Find each third angle. Same three angles means similar, however they are listed.",
+      "teacher": "Says No because the two listed angles differ, without finding the third angles."
+    },
+    "ONE_ANGLE_ENOUGH": {
+      "student": "Similar needs all three angles to match. One shared angle is not enough.",
+      "teacher": "Says Yes because the triangles share one listed angle."
+    },
+    "ALL_TRIANGLES_ALIKE": {
+      "student": "Every triangle adds to 180, but similar needs the same three angles.",
+      "teacher": "Says Yes because both triangles' angles add to 180."
+    }
+  }
+}

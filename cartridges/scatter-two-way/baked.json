@@ -1,0 +1,3897 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "scatter-two-way",
+  "version": "1.0.0",
+  "title": "Scatter Plots & Two-Way Tables",
+  "subtitle": "Association, Lines of Fit, Frequencies",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.SP.A.1",
+    "CCSS.MATH.CONTENT.8.SP.A.2",
+    "CCSS.MATH.CONTENT.8.SP.A.3",
+    "CCSS.MATH.CONTENT.8.SP.A.4"
+  ],
+  "seed": 20261040,
+  "items_per_tier": 40,
+  "bounds": "Two-way tables and Coordinates and lines (PROTOCOL 4b, grade 8). Point lists: 3-5 integer points, each coordinate 0-20 (x = 1..5 in steps of 1; an outlier item has 4-5 points, the odd one at least 7 off the line). Lines of fit y = mx + b: m 1-10 (or -1 to -5), b 0-20, x 1-10, every prediction a whole number 0-100, every product a times-table fact (m x); an inverse item has m 2-10, a whole x 2-10. Two-way tables: 2-by-2, each cell 0-20 (here 2-14), grand total <= 60; every sum is a +/- fact. Relative frequencies: a count over its row or column total (total <= 20), simplest form, denominator 2-12, or a 4b percent (10-90 in tens, 25, 75); every division a times-table fact. Choices never equal in value; Boys/Girls/Same: exactly one is true.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Association",
+      "description": "Does one thing rise or fall with the other? Positive, negative or none."
+    },
+    {
+      "tier": 2,
+      "name": "Outliers & Lines of Fit",
+      "description": "Spot the point that breaks the pattern and pick the line that fits."
+    },
+    {
+      "tier": 3,
+      "name": "Use a Line of Fit",
+      "description": "Predict with y = mx + b and read what the slope and the start mean."
+    },
+    {
+      "tier": 4,
+      "name": "Two-Way Table Counts",
+      "description": "Read counts in a 2-by-2 table: totals, only-one-group and missing cells."
+    },
+    {
+      "tier": 5,
+      "name": "Relative Frequency",
+      "description": "Compare parts to their own whole: fractions and percents of a row or column."
+    }
+  ],
+  "misconceptions": {
+    "REVERSED": {
+      "student": "Positive: both go the same way. Negative: one up, one down.",
+      "teacher": "Swaps positive and negative association."
+    },
+    "BOTH_DOWN_NEGATIVE": {
+      "student": "Both falling together is still positive. Same direction = positive.",
+      "teacher": "Calls two variables that fall together a negative association."
+    },
+    "FIRST_VARIABLE": {
+      "student": "Look at both. One rises while the other falls: negative.",
+      "teacher": "Judges the association from the first variable's direction only."
+    },
+    "DOWN_IS_NONE": {
+      "student": "A downhill pattern is still a pattern: negative, not none.",
+      "teacher": "Treats a falling pattern as no association."
+    },
+    "CAUSE_FOR_LINK": {
+      "student": "Association is a pattern, not a cause. They can move together anyway.",
+      "teacher": "Needs one variable to cause the other before calling it an association."
+    },
+    "MISSES_PATTERN": {
+      "student": "Rising together is a pattern. That is a positive association.",
+      "teacher": "Fails to see a clear rising pattern and answers none."
+    },
+    "PATTERN_FROM_NOISE": {
+      "student": "Up and down with no trend means no association.",
+      "teacher": "Reads a trend into points that zigzag with no overall direction."
+    },
+    "LARGEST_X_OUTLIER": {
+      "student": "An outlier is off the pattern, not just the far-right point.",
+      "teacher": "Picks the point with the largest x as the outlier."
+    },
+    "HIGHEST_Y_OUTLIER": {
+      "student": "The highest point can sit on the pattern. Find the one that breaks it.",
+      "teacher": "Picks the point with the largest y as the outlier."
+    },
+    "ANY_POINT": {
+      "student": "That point fits the pattern. The outlier is the one that does not.",
+      "teacher": "Picks a point that sits on the trend as the outlier."
+    },
+    "START_AS_SLOPE": {
+      "student": "The number with x is the slope. The added number is the start.",
+      "teacher": "Swaps the slope and the start (y-intercept)."
+    },
+    "NO_START": {
+      "student": "Do not forget the start: add b after you multiply by x.",
+      "teacher": "Uses only the slope part m times x and drops the start."
+    },
+    "SLOPE_FROM_ONE_POINT": {
+      "student": "One point's y over x is not the slope. Use the change from point to point.",
+      "teacher": "Takes y divided by x of one point as the slope and ignores the start."
+    },
+    "ADDED_ALL": {
+      "student": "The slope multiplies x. Do not add the numbers.",
+      "teacher": "Adds the numbers in the rule instead of multiplying the slope by x."
+    },
+    "ADDED_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not add them.",
+      "teacher": "Adds the slope and the start when asked for one of them."
+    },
+    "SLOPE_AS_START": {
+      "student": "The start is the number added on, not the number with x.",
+      "teacher": "Gives the slope when asked for the start value."
+    },
+    "MULT_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not multiply them.",
+      "teacher": "Multiplies the slope and the start."
+    },
+    "STOPPED_EARLY": {
+      "student": "You took away the start. Now divide by the slope to get x.",
+      "teacher": "Subtracts the start but never divides by the slope."
+    },
+    "IGNORE_START": {
+      "student": "Take away the start first, then divide by the slope.",
+      "teacher": "Divides y by the slope without subtracting the start."
+    },
+    "ADD_START": {
+      "student": "The start was added to make y. Take it away, do not add it again.",
+      "teacher": "Adds the start instead of subtracting it when solving for x."
+    },
+    "WRONG_ROW": {
+      "student": "Add only the cells for the group you are asked about.",
+      "teacher": "Adds along the wrong line of the table (a row for a column, or the reverse)."
+    },
+    "GRAND_TOTAL": {
+      "student": "That's everyone. Add only the cells that match the question.",
+      "teacher": "Gives the grand total of the table instead of one row or column total."
+    },
+    "ONE_CELL": {
+      "student": "One cell is not a total. Add the whole row or column.",
+      "teacher": "Reports a single cell instead of adding its row or column."
+    },
+    "LEFT_OUT_CELL": {
+      "student": "Count all four cells for everyone.",
+      "teacher": "Leaves one cell out of the grand total."
+    },
+    "ADDED_FOR_ONLY": {
+      "student": "The group already includes the overlap. Take it away to get 'only'.",
+      "teacher": "Adds the overlap instead of subtracting it to get 'only'."
+    },
+    "WHOLE_FOR_ONLY": {
+      "student": "That counts the overlap too. Only means without the overlap.",
+      "teacher": "Gives the whole group as 'only' without removing the overlap."
+    },
+    "ONLY_IS_BOTH": {
+      "student": "The overlap does both. Only means the rest of the group.",
+      "teacher": "Gives the overlap count as the 'only' count."
+    },
+    "ADDED_FOR_MISSING": {
+      "student": "The part plus the missing part makes the total. Subtract.",
+      "teacher": "Adds the known part to the total instead of subtracting."
+    },
+    "GIVEN_CELL": {
+      "student": "That's the cell you were given. Take it from the total.",
+      "teacher": "Repeats the known cell as the missing one."
+    },
+    "TOTAL_AS_MISSING": {
+      "student": "That's the whole column. Take away the part you know.",
+      "teacher": "Gives the given total as the missing cell."
+    },
+    "PART_TO_PART": {
+      "student": "Compare the part to the whole group, not to the other part.",
+      "teacher": "Divides one part by the other part instead of by the total."
+    },
+    "OTHER_PART": {
+      "student": "That's the other category. Use the category you were asked for.",
+      "teacher": "Takes the fraction of the other category over the total."
+    },
+    "WHOLE_OVER_PART": {
+      "student": "The part goes on top and the whole on the bottom.",
+      "teacher": "Flips the fraction: whole over part."
+    },
+    "WRONG_TOTAL": {
+      "student": "Divide by the group's own total, not by the whole column.",
+      "teacher": "Divides by the total of the other margin (the whole column)."
+    },
+    "GRAND_DENOMINATOR": {
+      "student": "Divide by the group's own total, not by everyone.",
+      "teacher": "Divides by the grand total instead of the group's total."
+    },
+    "COUNT_AS_PERCENT": {
+      "student": "Percent means out of 100. Turn the fraction into hundredths.",
+      "teacher": "Writes the count as the percent."
+    },
+    "COUNT_NOT_RATE": {
+      "student": "Bigger count isn't bigger rate. Compare each part to its own whole.",
+      "teacher": "Compares the counts instead of the fractions."
+    },
+    "NOT_COMPARED": {
+      "student": "Turn each group into a fraction of its own total, then compare.",
+      "teacher": "Chooses without comparing the two fractions."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "scatter-two-way/t1/001",
+      "tier": 1,
+      "prompt": "Points (1, 9), (2, 20), (3, 11), (4, 12). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/002",
+      "tier": 1,
+      "prompt": "Points (1, 11), (2, 8), (3, 7), (4, 3). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/003",
+      "tier": 1,
+      "prompt": "Altitude falls, air temperature rises. Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/004",
+      "tier": 1,
+      "prompt": "Backpack color and reading speed. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/005",
+      "tier": 1,
+      "prompt": "Car age rises, car value falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/006",
+      "tier": 1,
+      "prompt": "Altitude rises, air temperature falls. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "FIRST_VARIABLE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/007",
+      "tier": 1,
+      "prompt": "Hours worked fall, pay falls. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_DOWN_NEGATIVE",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/008",
+      "tier": 1,
+      "prompt": "Points (1, 9), (2, 8), (3, 3). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/009",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 3), (3, 2), (4, 1). Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/010",
+      "tier": 1,
+      "prompt": "Temperature rises, cocoa sales fall. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/011",
+      "tier": 1,
+      "prompt": "Study time falls, test scores fall. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        null,
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/012",
+      "tier": 1,
+      "prompt": "Points (1, 12), (2, 2), (3, 11), (4, 9). Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/013",
+      "tier": 1,
+      "prompt": "Hours worked rise, pay rises. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/014",
+      "tier": 1,
+      "prompt": "Hair length and math grade. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/015",
+      "tier": 1,
+      "prompt": "Points (1, 7), (2, 8), (3, 11). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/016",
+      "tier": 1,
+      "prompt": "Car speed rises, trip time falls. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FIRST_VARIABLE",
+        null,
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/017",
+      "tier": 1,
+      "prompt": "Rainfall falls, umbrella sales fall. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        "MISSES_PATTERN",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/018",
+      "tier": 1,
+      "prompt": "Absences rise, grades fall. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "FIRST_VARIABLE",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/019",
+      "tier": 1,
+      "prompt": "Seat number and lunch cost. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/020",
+      "tier": 1,
+      "prompt": "Pizza size falls, price falls. Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "BOTH_DOWN_NEGATIVE",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/021",
+      "tier": 1,
+      "prompt": "Points (1, 12), (2, 9), (3, 5). Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/022",
+      "tier": 1,
+      "prompt": "Practice time falls, shots made fall. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "BOTH_DOWN_NEGATIVE"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/023",
+      "tier": 1,
+      "prompt": "Screen time falls, sleep time rises. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/024",
+      "tier": 1,
+      "prompt": "Tree height falls, trunk width falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        null,
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/025",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 9), (3, 13), (4, 15). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/026",
+      "tier": 1,
+      "prompt": "Eye color and free throws made. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/027",
+      "tier": 1,
+      "prompt": "Burn time rises, candle height falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/028",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 9), (3, 13). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED",
+        "MISSES_PATTERN",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/029",
+      "tier": 1,
+      "prompt": "Ice cream sales fall, sunburns fall. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        "CAUSE_FOR_LINK",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/030",
+      "tier": 1,
+      "prompt": "Temperature falls, cocoa sales rise. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED",
+        null,
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/031",
+      "tier": 1,
+      "prompt": "Shoe size and favorite color. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/032",
+      "tier": 1,
+      "prompt": "Points (1, 4), (2, 6), (3, 11). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/033",
+      "tier": 1,
+      "prompt": "Absences fall, grades rise. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "REVERSED",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/034",
+      "tier": 1,
+      "prompt": "Practice time rises, shots made rise. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/035",
+      "tier": 1,
+      "prompt": "Phone number and shoe size. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/036",
+      "tier": 1,
+      "prompt": "Points (1, 1), (2, 12), (3, 3), (4, 8), (5, 3). Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/037",
+      "tier": 1,
+      "prompt": "Points (1, 3), (2, 6), (3, 8). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/038",
+      "tier": 1,
+      "prompt": "Points (1, 18), (2, 13), (3, 10), (4, 6). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/039",
+      "tier": 1,
+      "prompt": "Puppy age rises, puppy weight rises. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/040",
+      "tier": 1,
+      "prompt": "Points (1, 6), (2, 17), (3, 8), (4, 9). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t2/001",
+      "tier": 2,
+      "prompt": "Which line fits (2, 13), (3, 15), (4, 17)?",
+      "choices": [
+        "y = 2x",
+        "y = 2x + 10",
+        "y = 2x + 9",
+        "y = 9x + 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "ARITH",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 9: y = 2x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/002",
+      "tier": 2,
+      "prompt": "Which line fits (1, 8), (2, 5), (3, 2)?",
+      "choices": [
+        "y = −3x + 12",
+        "y = −3x + 11",
+        "y = −3x",
+        "y = 8x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "SLOPE_FROM_ONE_POINT"
+      ],
+      "explanation": "y falls 3 for each step in x, and at x = 0 it is 11: y = −3x + 11."
+    },
+    {
+      "id": "scatter-two-way/t2/003",
+      "tier": 2,
+      "prompt": "Points (3, 5), (4, 14), (5, 7), (6, 8), (7, 9). Outlier?",
+      "choices": [
+        "(3, 5)",
+        "(4, 14)",
+        "(7, 9)",
+        "(6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 14) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/004",
+      "tier": 2,
+      "prompt": "Which line fits (2, 2), (3, 1), (4, 0)?",
+      "choices": [
+        "y = x",
+        "y = −x",
+        "y = 4x − 1",
+        "y = −x + 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "y falls 1 for each step in x, and at x = 0 it is 4: y = −x + 4."
+    },
+    {
+      "id": "scatter-two-way/t2/005",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 14), (3, 16), (4, 18)?",
+      "choices": [
+        "y = 2x + 10",
+        "y = 10x + 2",
+        "y = 7x",
+        "y = 2x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 10: y = 2x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/006",
+      "tier": 2,
+      "prompt": "Points (5, 10), (6, 9), (7, 8), (8, 7), (9, 15). Outlier?",
+      "choices": [
+        "(6, 9)",
+        "(5, 10)",
+        "(8, 7)",
+        "(9, 15)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (9, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/007",
+      "tier": 2,
+      "prompt": "Points (4, 1), (5, 12), (6, 13), (7, 14). Outlier?",
+      "choices": [
+        "(5, 12)",
+        "(6, 13)",
+        "(7, 14)",
+        "(4, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null
+      ],
+      "explanation": "The others follow one line. (4, 1) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/008",
+      "tier": 2,
+      "prompt": "Points (2, 3), (3, 4), (4, 5), (5, 6), (6, 17). Outlier?",
+      "choices": [
+        "(5, 6)",
+        "(6, 17)",
+        "(3, 4)",
+        "(2, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "ANY_POINT",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 17) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/009",
+      "tier": 2,
+      "prompt": "Points (2, 14), (3, 20), (4, 10), (5, 8). Outlier?",
+      "choices": [
+        "(2, 14)",
+        "(4, 10)",
+        "(5, 8)",
+        "(3, 20)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null
+      ],
+      "explanation": "The others follow one line. (3, 20) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/010",
+      "tier": 2,
+      "prompt": "Points (2, 7), (3, 9), (4, 19), (5, 13). Outlier?",
+      "choices": [
+        "(2, 7)",
+        "(3, 9)",
+        "(4, 19)",
+        "(5, 13)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 19) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/011",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 13), (2, 16), (3, 19)?",
+      "choices": [
+        "y = 10x + 3",
+        "y = 13x",
+        "y = 3x + 10",
+        "y = 3x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "SLOPE_FROM_ONE_POINT",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 3 for each step in x, and at x = 0 it is 10: y = 3x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/012",
+      "tier": 2,
+      "prompt": "Points (2, 7), (3, 5), (4, 3), (5, 1), (6, 9). Outlier?",
+      "choices": [
+        "(6, 9)",
+        "(4, 3)",
+        "(2, 7)",
+        "(3, 5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 9) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/013",
+      "tier": 2,
+      "prompt": "Which line fits (1, 15), (2, 16), (3, 17)?",
+      "choices": [
+        "y = 15x",
+        "y = x + 15",
+        "y = x",
+        "y = x + 14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 14: y = x + 14."
+    },
+    {
+      "id": "scatter-two-way/t2/014",
+      "tier": 2,
+      "prompt": "Which line fits (2, 11), (3, 13), (4, 15)?",
+      "choices": [
+        "y = 2x + 7",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 7x + 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 7: y = 2x + 7."
+    },
+    {
+      "id": "scatter-two-way/t2/015",
+      "tier": 2,
+      "prompt": "Points (2, 15), (3, 8), (4, 9), (5, 10). Outlier?",
+      "choices": [
+        "(4, 9)",
+        "(2, 15)",
+        "(3, 8)",
+        "(5, 10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (2, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/016",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 6), (2, 4), (3, 2)?",
+      "choices": [
+        "y = −2x + 8",
+        "y = 6x",
+        "y = −2x",
+        "y = 8x − 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 8: y = −2x + 8."
+    },
+    {
+      "id": "scatter-two-way/t2/017",
+      "tier": 2,
+      "prompt": "Which line fits (1, 14), (2, 16), (3, 18)?",
+      "choices": [
+        "y = 14x",
+        "y = 2x + 13",
+        "y = 2x + 12",
+        "y = 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 12: y = 2x + 12."
+    },
+    {
+      "id": "scatter-two-way/t2/018",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 6), (3, 3), (4, 0)?",
+      "choices": [
+        "y = −3x + 12",
+        "y = 3x",
+        "y = −3x + 13",
+        "y = −3x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START"
+      ],
+      "explanation": "y falls 3 for each step in x, and at x = 0 it is 12: y = −3x + 12."
+    },
+    {
+      "id": "scatter-two-way/t2/019",
+      "tier": 2,
+      "prompt": "Which line fits (1, 7), (2, 9), (3, 11)?",
+      "choices": [
+        "y = 7x",
+        "y = 5x + 2",
+        "y = 2x + 5",
+        "y = 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "START_AS_SLOPE",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 5: y = 2x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/020",
+      "tier": 2,
+      "prompt": "Which line fits (1, 7), (2, 8), (3, 9)?",
+      "choices": [
+        "y = 6x + 1",
+        "y = x + 6",
+        "y = x",
+        "y = 7x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "SLOPE_FROM_ONE_POINT"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 6: y = x + 6."
+    },
+    {
+      "id": "scatter-two-way/t2/021",
+      "tier": 2,
+      "prompt": "Points (4, 8), (5, 10), (6, 2), (7, 14), (8, 16). Outlier?",
+      "choices": [
+        "(4, 8)",
+        "(8, 16)",
+        "(6, 2)",
+        "(7, 14)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null,
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 2) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/022",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 3), (3, 2), (4, 1)?",
+      "choices": [
+        "y = −x + 5",
+        "y = −x",
+        "y = −x + 6",
+        "y = 5x − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y falls 1 for each step in x, and at x = 0 it is 5: y = −x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/023",
+      "tier": 2,
+      "prompt": "Plot (2, 18), (3, 10), (4, 12), (5, 14). Outlier?",
+      "choices": [
+        "(2, 18)",
+        "(4, 12)",
+        "(5, 14)",
+        "(3, 10)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (2, 18) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/024",
+      "tier": 2,
+      "prompt": "Points (5, 9), (6, 8), (7, 18), (8, 6), (9, 5). Outlier?",
+      "choices": [
+        "(5, 9)",
+        "(9, 5)",
+        "(6, 8)",
+        "(7, 18)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (7, 18) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/025",
+      "tier": 2,
+      "prompt": "Points (3, 17), (4, 9), (5, 15), (6, 14), (7, 13). Outlier?",
+      "choices": [
+        "(7, 13)",
+        "(3, 17)",
+        "(4, 9)",
+        "(5, 15)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "HIGHEST_Y_OUTLIER",
+        null,
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 9) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/026",
+      "tier": 2,
+      "prompt": "Points (1, 4), (2, 7), (3, 10), (4, 3), (5, 16). Outlier?",
+      "choices": [
+        "(4, 3)",
+        "(1, 4)",
+        "(3, 10)",
+        "(5, 16)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/027",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 12), (2, 10), (3, 8)?",
+      "choices": [
+        "y = 12x",
+        "y = −2x + 15",
+        "y = −2x",
+        "y = −2x + 14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 14: y = −2x + 14."
+    },
+    {
+      "id": "scatter-two-way/t2/028",
+      "tier": 2,
+      "prompt": "Which line fits (2, 12), (3, 14), (4, 16)?",
+      "choices": [
+        "y = 6x",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 8x + 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        null,
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 8: y = 2x + 8."
+    },
+    {
+      "id": "scatter-two-way/t2/029",
+      "tier": 2,
+      "prompt": "Points (3, 11), (4, 13), (5, 3), (6, 17), (7, 19). Outlier?",
+      "choices": [
+        "(7, 19)",
+        "(4, 13)",
+        "(6, 17)",
+        "(5, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (5, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/030",
+      "tier": 2,
+      "prompt": "Plot (3, 4), (4, 2), (5, 0), (6, 7). Outlier?",
+      "choices": [
+        "(5, 0)",
+        "(3, 4)",
+        "(4, 2)",
+        "(6, 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (6, 7) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/031",
+      "tier": 2,
+      "prompt": "Which line fits (1, 10), (2, 15), (3, 20)?",
+      "choices": [
+        "y = 5x + 6",
+        "y = 5x + 5",
+        "y = 10x",
+        "y = 5x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START"
+      ],
+      "explanation": "y rises 5 for each step in x, and at x = 0 it is 5: y = 5x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/032",
+      "tier": 2,
+      "prompt": "Points (1, 12), (2, 14), (3, 7), (4, 18), (5, 20). Outlier?",
+      "choices": [
+        "(5, 20)",
+        "(1, 12)",
+        "(2, 14)",
+        "(3, 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (3, 7) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/033",
+      "tier": 2,
+      "prompt": "Which line fits (2, 5), (3, 3), (4, 1)?",
+      "choices": [
+        "y = 9x − 2",
+        "y = −2x + 9",
+        "y = −2x",
+        "y = −2x + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 9: y = −2x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/034",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 11), (3, 12), (4, 13)?",
+      "choices": [
+        "y = 9x + 1",
+        "y = x",
+        "y = x + 9",
+        "y = x + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "NO_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 9: y = x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/035",
+      "tier": 2,
+      "prompt": "Which line fits (1, 11), (2, 12), (3, 13)?",
+      "choices": [
+        "y = 11x",
+        "y = x",
+        "y = x + 10",
+        "y = 10x + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 10: y = x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/036",
+      "tier": 2,
+      "prompt": "Points (5, 17), (6, 6), (7, 5), (8, 4), (9, 3). Outlier?",
+      "choices": [
+        "(7, 5)",
+        "(5, 17)",
+        "(9, 3)",
+        "(8, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (5, 17) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/037",
+      "tier": 2,
+      "prompt": "Points (4, 3), (5, 14), (6, 13), (7, 12). Outlier?",
+      "choices": [
+        "(4, 3)",
+        "(7, 12)",
+        "(5, 14)",
+        "(6, 13)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST_X_OUTLIER",
+        "HIGHEST_Y_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/038",
+      "tier": 2,
+      "prompt": "Points (2, 11), (3, 2), (4, 7), (5, 5), (6, 3). Outlier?",
+      "choices": [
+        "(2, 11)",
+        "(3, 2)",
+        "(6, 3)",
+        "(4, 7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HIGHEST_Y_OUTLIER",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (3, 2) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/039",
+      "tier": 2,
+      "prompt": "Points (3, 9), (4, 15), (5, 5), (6, 3), (7, 1). Outlier?",
+      "choices": [
+        "(6, 3)",
+        "(5, 5)",
+        "(4, 15)",
+        "(7, 1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/040",
+      "tier": 2,
+      "prompt": "Which line fits (1, 8), (2, 13), (3, 18)?",
+      "choices": [
+        "y = 5x + 3",
+        "y = 8x",
+        "y = 3x + 5",
+        "y = 5x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "START_AS_SLOPE",
+        "NO_START"
+      ],
+      "explanation": "y rises 5 for each step in x, and at x = 0 it is 3: y = 5x + 3."
+    },
+    {
+      "id": "scatter-two-way/t3/001",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 7. For which x is y = 35?",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_START",
+        "IGNORE_START",
+        null,
+        "STOPPED_EARLY"
+      ],
+      "explanation": "35 − 7 = 28, then 28 ÷ 7 = 4."
+    },
+    {
+      "id": "scatter-two-way/t3/002",
+      "tier": 3,
+      "prompt": "Miles y = 7x + 11 (x hours). Miles at the start?",
+      "choices": [
+        "77 mi",
+        "18 mi",
+        "11 mi",
+        "7 mi"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START",
+        null,
+        "SLOPE_AS_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 11 = 11."
+    },
+    {
+      "id": "scatter-two-way/t3/003",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 16. For which x is y = 96?",
+      "choices": [
+        "14",
+        "80",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_START",
+        "STOPPED_EARLY",
+        "IGNORE_START",
+        null
+      ],
+      "explanation": "96 − 16 = 80, then 80 ÷ 8 = 10."
+    },
+    {
+      "id": "scatter-two-way/t3/004",
+      "tier": 3,
+      "prompt": "Miles y = 9x + 7 (x hours). Miles per hour?",
+      "choices": [
+        "63 mi",
+        "7 mi",
+        "16 mi",
+        "9 mi"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START",
+        null
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 9."
+    },
+    {
+      "id": "scatter-two-way/t3/005",
+      "tier": 3,
+      "prompt": "Cost y = 5x + 19 (x hours). Cost per hour?",
+      "choices": [
+        "$5",
+        "$95",
+        "$24",
+        "$19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 5."
+    },
+    {
+      "id": "scatter-two-way/t3/006",
+      "tier": 3,
+      "prompt": "Miles y = 5x + 6 (x hours). Miles per hour?",
+      "choices": [
+        "5 mi",
+        "6 mi",
+        "30 mi",
+        "11 mi"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 5."
+    },
+    {
+      "id": "scatter-two-way/t3/007",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 16. Predict y at x = 9.",
+      "choices": [
+        "33",
+        "89",
+        "72",
+        "88"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y = 8 × 9 + 16 = 72 + 16 = 88."
+    },
+    {
+      "id": "scatter-two-way/t3/008",
+      "tier": 3,
+      "prompt": "Miles y = 6x + 20 (x hours). Miles per hour?",
+      "choices": [
+        "120 mi",
+        "6 mi",
+        "20 mi",
+        "26 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 6."
+    },
+    {
+      "id": "scatter-two-way/t3/009",
+      "tier": 3,
+      "prompt": "Line of fit y = 6x + 9. For which x is y = 51?",
+      "choices": [
+        "7",
+        "8",
+        "42",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "STOPPED_EARLY",
+        "ADD_START"
+      ],
+      "explanation": "51 − 9 = 42, then 42 ÷ 6 = 7."
+    },
+    {
+      "id": "scatter-two-way/t3/010",
+      "tier": 3,
+      "prompt": "Miles y = 3x + 3 (x hours). Miles after 7 hours?",
+      "choices": [
+        "24 mi",
+        "13 mi",
+        "25 mi",
+        "21 mi"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "ARITH",
+        "NO_START"
+      ],
+      "explanation": "3 × 7 + 3 = 21 + 3 = 24."
+    },
+    {
+      "id": "scatter-two-way/t3/011",
+      "tier": 3,
+      "prompt": "Savings y = 7x + 19 (x weeks). Savings at the start?",
+      "choices": [
+        "$133",
+        "$19",
+        "$7",
+        "$26"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 19 = 19."
+    },
+    {
+      "id": "scatter-two-way/t3/012",
+      "tier": 3,
+      "prompt": "Miles y = 2x + 4 (x hours). Miles after 9 hours?",
+      "choices": [
+        "38 mi",
+        "22 mi",
+        "15 mi",
+        "18 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "ADDED_ALL",
+        "NO_START"
+      ],
+      "explanation": "2 × 9 + 4 = 18 + 4 = 22."
+    },
+    {
+      "id": "scatter-two-way/t3/013",
+      "tier": 3,
+      "prompt": "Savings y = 3x + 4 (x weeks). Saved per week?",
+      "choices": [
+        "$7",
+        "$12",
+        "$4",
+        "$3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SLOPE_START",
+        "MULT_SLOPE_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 3."
+    },
+    {
+      "id": "scatter-two-way/t3/014",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 17. Predict y at x = 2.",
+      "choices": [
+        "33",
+        "15",
+        "−2",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "y = −1 × 2 + 17 = −2 + 17 = 15."
+    },
+    {
+      "id": "scatter-two-way/t3/015",
+      "tier": 3,
+      "prompt": "Height y = 2x + 13 (x weeks). Height at week 8?",
+      "choices": [
+        "29 cm",
+        "30 cm",
+        "16 cm",
+        "23 cm"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "2 × 8 + 13 = 16 + 13 = 29."
+    },
+    {
+      "id": "scatter-two-way/t3/016",
+      "tier": 3,
+      "prompt": "Line of fit y = 10x + 3. Predict y at x = 5.",
+      "choices": [
+        "25",
+        "50",
+        "53",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "NO_START",
+        null,
+        "ADDED_ALL"
+      ],
+      "explanation": "y = 10 × 5 + 3 = 50 + 3 = 53."
+    },
+    {
+      "id": "scatter-two-way/t3/017",
+      "tier": 3,
+      "prompt": "Miles y = 7x + 3 (x hours). Miles at the start?",
+      "choices": [
+        "7 mi",
+        "3 mi",
+        "21 mi",
+        "10 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 3 = 3."
+    },
+    {
+      "id": "scatter-two-way/t3/018",
+      "tier": 3,
+      "prompt": "Line of fit y = −5x + 19. Predict y at x = 2.",
+      "choices": [
+        "−10",
+        "33",
+        "16",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_START",
+        "START_AS_SLOPE",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "y = −5 × 2 + 19 = −10 + 19 = 9."
+    },
+    {
+      "id": "scatter-two-way/t3/019",
+      "tier": 3,
+      "prompt": "Savings y = 7x + 16 (x weeks). Savings at the start?",
+      "choices": [
+        "$23",
+        "$16",
+        "$112",
+        "$7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SLOPE_START",
+        null,
+        "MULT_SLOPE_START",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 16 = 16."
+    },
+    {
+      "id": "scatter-two-way/t3/020",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 20. For which x is y = 44?",
+      "choices": [
+        "24",
+        "8",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADD_START",
+        "ARITH",
+        null
+      ],
+      "explanation": "44 − 20 = 24, then 24 ÷ 8 = 3."
+    },
+    {
+      "id": "scatter-two-way/t3/021",
+      "tier": 3,
+      "prompt": "Savings y = 5x + 7 (x weeks). Savings after 6 weeks?",
+      "choices": [
+        "$30",
+        "$18",
+        "$37",
+        "$47"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "ADDED_ALL",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "5 × 6 + 7 = 30 + 7 = 37."
+    },
+    {
+      "id": "scatter-two-way/t3/022",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 2. Predict y at x = 7.",
+      "choices": [
+        "12",
+        "21",
+        "17",
+        "23"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "y = 3 × 7 + 2 = 21 + 2 = 23."
+    },
+    {
+      "id": "scatter-two-way/t3/023",
+      "tier": 3,
+      "prompt": "Height y = 6x + 8 (x weeks). Growth per week?",
+      "choices": [
+        "8 cm",
+        "6 cm",
+        "48 cm",
+        "14 cm"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 6."
+    },
+    {
+      "id": "scatter-two-way/t3/024",
+      "tier": 3,
+      "prompt": "Savings y = 10x + 13 (x weeks). Savings at the start?",
+      "choices": [
+        "$10",
+        "$23",
+        "$13",
+        "$130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START",
+        null,
+        "MULT_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 10 × 0 + 13 = 13."
+    },
+    {
+      "id": "scatter-two-way/t3/025",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 10. Predict y at x = 8.",
+      "choices": [
+        "17",
+        "−8",
+        "2",
+        "79"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_START",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y = −1 × 8 + 10 = −8 + 10 = 2."
+    },
+    {
+      "id": "scatter-two-way/t3/026",
+      "tier": 3,
+      "prompt": "Height y = 8x + 11 (x weeks). Height at week 10?",
+      "choices": [
+        "92 cm",
+        "80 cm",
+        "29 cm",
+        "91 cm"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "8 × 10 + 11 = 80 + 11 = 91."
+    },
+    {
+      "id": "scatter-two-way/t3/027",
+      "tier": 3,
+      "prompt": "Line of fit y = 5x + 5. Predict y at x = 10.",
+      "choices": [
+        "55",
+        "20",
+        "50",
+        "56"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y = 5 × 10 + 5 = 50 + 5 = 55."
+    },
+    {
+      "id": "scatter-two-way/t3/028",
+      "tier": 3,
+      "prompt": "Line of fit y = 10x + 2. Predict y at x = 4.",
+      "choices": [
+        "42",
+        "16",
+        "40",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y = 10 × 4 + 2 = 40 + 2 = 42."
+    },
+    {
+      "id": "scatter-two-way/t3/029",
+      "tier": 3,
+      "prompt": "Cost y = 9x + 5 (x hours). Cost at 0 hours?",
+      "choices": [
+        "$45",
+        "$5",
+        "$9",
+        "$14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 9 × 0 + 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t3/030",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 3. Predict y at x = 5.",
+      "choices": [
+        "15",
+        "11",
+        "19",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_START",
+        "ADDED_ALL",
+        "ARITH",
+        null
+      ],
+      "explanation": "y = 3 × 5 + 3 = 15 + 3 = 18."
+    },
+    {
+      "id": "scatter-two-way/t3/031",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 14. Predict y at x = 3.",
+      "choices": [
+        "35",
+        "49",
+        "24",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "ADDED_ALL",
+        "NO_START"
+      ],
+      "explanation": "y = 7 × 3 + 14 = 21 + 14 = 35."
+    },
+    {
+      "id": "scatter-two-way/t3/032",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 15. For which x is y = 42?",
+      "choices": [
+        "19",
+        "14",
+        "27",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_START",
+        "IGNORE_START",
+        "STOPPED_EARLY",
+        null
+      ],
+      "explanation": "42 − 15 = 27, then 27 ÷ 3 = 9."
+    },
+    {
+      "id": "scatter-two-way/t3/033",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 18. Predict y at x = 3.",
+      "choices": [
+        "−3",
+        "53",
+        "15",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "START_AS_SLOPE",
+        null,
+        "ADDED_ALL"
+      ],
+      "explanation": "y = −1 × 3 + 18 = −3 + 18 = 15."
+    },
+    {
+      "id": "scatter-two-way/t3/034",
+      "tier": 3,
+      "prompt": "Line of fit y = 6x + 3. For which x is y = 51?",
+      "choices": [
+        "48",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADD_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "51 − 3 = 48, then 48 ÷ 6 = 8."
+    },
+    {
+      "id": "scatter-two-way/t3/035",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 15. Predict y at x = 2.",
+      "choices": [
+        "24",
+        "37",
+        "29",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "START_AS_SLOPE",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y = 7 × 2 + 15 = 14 + 15 = 29."
+    },
+    {
+      "id": "scatter-two-way/t3/036",
+      "tier": 3,
+      "prompt": "Savings y = 3x + 1 (x weeks). Saved per week?",
+      "choices": [
+        "$3",
+        "$1",
+        "$4",
+        "$2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START",
+        "ARITH"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 3."
+    },
+    {
+      "id": "scatter-two-way/t3/037",
+      "tier": 3,
+      "prompt": "Cost y = 10x + 15 (x hours). Cost for 2 hours?",
+      "choices": [
+        "$20",
+        "$35",
+        "$27",
+        "$40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_START",
+        null,
+        "ADDED_ALL",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "10 × 2 + 15 = 20 + 15 = 35."
+    },
+    {
+      "id": "scatter-two-way/t3/038",
+      "tier": 3,
+      "prompt": "Miles y = 3x + 1 (x hours). Miles at the start?",
+      "choices": [
+        "3 mi",
+        "4 mi",
+        "1 mi",
+        "2 mi"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The start is y when x = 0: 3 × 0 + 1 = 1."
+    },
+    {
+      "id": "scatter-two-way/t3/039",
+      "tier": 3,
+      "prompt": "Height y = 9x + 20 (x weeks). Height at week 3?",
+      "choices": [
+        "47 cm",
+        "69 cm",
+        "27 cm",
+        "32 cm"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "9 × 3 + 20 = 27 + 20 = 47."
+    },
+    {
+      "id": "scatter-two-way/t3/040",
+      "tier": 3,
+      "prompt": "Height y = 8x + 2 (x weeks). Height at week 5?",
+      "choices": [
+        "15 cm",
+        "42 cm",
+        "40 cm",
+        "18 cm"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ALL",
+        null,
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "8 × 5 + 2 = 40 + 2 = 42."
+    },
+    {
+      "id": "scatter-two-way/t4/001",
+      "tier": 4,
+      "prompt": "Boys: 2 bus, 13 walk. Girls: 2 bus, 5 walk. How many in all?",
+      "choices": [
+        "22",
+        "4",
+        "15",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "WRONG_ROW",
+        "LEFT_OUT_CELL"
+      ],
+      "explanation": "2 + 13 + 2 + 5 = 22."
+    },
+    {
+      "id": "scatter-two-way/t4/002",
+      "tier": 4,
+      "prompt": "Passers: 9 in all, 5 are boys. How many are girls?",
+      "choices": [
+        "4",
+        "9",
+        "14",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 9. 9 − 5 = 4."
+    },
+    {
+      "id": "scatter-two-way/t4/003",
+      "tier": 4,
+      "prompt": "Pizza fans: 11 in all, 8 are kids. How many are adults?",
+      "choices": [
+        "11",
+        "19",
+        "3",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        null,
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 11. 11 − 8 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/004",
+      "tier": 4,
+      "prompt": "Boys: 8 bus, 3 walk. Girls: 10 bus, 7 walk. Total bus?",
+      "choices": [
+        "18",
+        "28",
+        "8",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "bus: 8 + 10 = 18."
+    },
+    {
+      "id": "scatter-two-way/t4/005",
+      "tier": 4,
+      "prompt": "Boys: 11 yes, 3 no. Girls: 9 yes, 4 no. How many in all?",
+      "choices": [
+        "27",
+        "14",
+        "24",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "LEFT_OUT_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "11 + 3 + 9 + 4 = 27."
+    },
+    {
+      "id": "scatter-two-way/t4/006",
+      "tier": 4,
+      "prompt": "Boys: 5 bus, 4 walk. Girls: 3 bus, 3 walk. How many in all?",
+      "choices": [
+        "12",
+        "8",
+        "15",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "5 + 4 + 3 + 3 = 15."
+    },
+    {
+      "id": "scatter-two-way/t4/007",
+      "tier": 4,
+      "prompt": "Boys: 3 pass, 9 fail. Girls: 7 pass, 5 fail. Total pass?",
+      "choices": [
+        "24",
+        "10",
+        "3",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "pass: 3 + 7 = 10."
+    },
+    {
+      "id": "scatter-two-way/t4/008",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 13 walk. Girls: 3 bus, 10 walk. Total boys?",
+      "choices": [
+        "13",
+        "26",
+        "39",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_CELL",
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW"
+      ],
+      "explanation": "Boys: 13 + 13 = 26."
+    },
+    {
+      "id": "scatter-two-way/t4/009",
+      "tier": 4,
+      "prompt": "Tea drinkers: 12 in all, 7 are kids. How many are adults?",
+      "choices": [
+        "7",
+        "19",
+        "5",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null,
+        "TOTAL_AS_MISSING"
+      ],
+      "explanation": "The two groups make 12. 12 − 7 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/010",
+      "tier": 4,
+      "prompt": "Boys: 11 pass, 3 fail. Girls: 9 pass, 13 fail. Total boys?",
+      "choices": [
+        "14",
+        "20",
+        "36",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL"
+      ],
+      "explanation": "Boys: 11 + 3 = 14."
+    },
+    {
+      "id": "scatter-two-way/t4/011",
+      "tier": 4,
+      "prompt": "Boys: 9 yes, 3 no. Girls: 7 yes, 2 no. Total girls?",
+      "choices": [
+        "21",
+        "7",
+        "9",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "Girls: 7 + 2 = 9."
+    },
+    {
+      "id": "scatter-two-way/t4/012",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 13 walk. Girls: 7 bus, 3 walk. Total bus?",
+      "choices": [
+        "20",
+        "36",
+        "26",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "bus: 13 + 7 = 20."
+    },
+    {
+      "id": "scatter-two-way/t4/013",
+      "tier": 4,
+      "prompt": "8 kids like pizza; 5 of them like tacos. Pizza only?",
+      "choices": [
+        "8",
+        "13",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        null
+      ],
+      "explanation": "The 5 who do both are inside the 8. Only: 8 − 5 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/014",
+      "tier": 4,
+      "prompt": "Boys: 6 bus, 7 walk. Girls: 10 bus, 10 walk. Total bus?",
+      "choices": [
+        "33",
+        "16",
+        "13",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "bus: 6 + 10 = 16."
+    },
+    {
+      "id": "scatter-two-way/t4/015",
+      "tier": 4,
+      "prompt": "Boys: 14 yes, 10 no. Girls: 13 yes, 12 no. Total boys?",
+      "choices": [
+        "49",
+        "14",
+        "24",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "Boys: 14 + 10 = 24."
+    },
+    {
+      "id": "scatter-two-way/t4/016",
+      "tier": 4,
+      "prompt": "Cats: 5 big, 7 small. Dogs: 7 big, 2 small. How many in all?",
+      "choices": [
+        "16",
+        "9",
+        "12",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        "WRONG_ROW",
+        null
+      ],
+      "explanation": "5 + 7 + 7 + 2 = 21."
+    },
+    {
+      "id": "scatter-two-way/t4/017",
+      "tier": 4,
+      "prompt": "Bus riders: 15 in all, 12 are boys. How many are girls?",
+      "choices": [
+        "15",
+        "3",
+        "27",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        null,
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 15. 15 − 12 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/018",
+      "tier": 4,
+      "prompt": "Kids: 11 tea, 8 juice. Adults: 9 tea, 14 juice. Total kids?",
+      "choices": [
+        "42",
+        "19",
+        "20",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "Kids: 11 + 8 = 19."
+    },
+    {
+      "id": "scatter-two-way/t4/019",
+      "tier": 4,
+      "prompt": "Kids: 3 tea, 9 juice. Adults: 6 tea, 10 juice. Total kids?",
+      "choices": [
+        "28",
+        "9",
+        "12",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "WRONG_ROW",
+        null,
+        "ONE_CELL"
+      ],
+      "explanation": "Kids: 3 + 9 = 12."
+    },
+    {
+      "id": "scatter-two-way/t4/020",
+      "tier": 4,
+      "prompt": "19 kids have a dog; 3 of them have a cat. Dog only?",
+      "choices": [
+        "3",
+        "22",
+        "19",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_IS_BOTH",
+        "ADDED_FOR_ONLY",
+        "WHOLE_FOR_ONLY",
+        null
+      ],
+      "explanation": "The 3 who do both are inside the 19. Only: 19 − 3 = 16."
+    },
+    {
+      "id": "scatter-two-way/t4/021",
+      "tier": 4,
+      "prompt": "16 kids ride a bus; 3 of them ride a bike. Bus only?",
+      "choices": [
+        "19",
+        "3",
+        "16",
+        "13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        "WHOLE_FOR_ONLY",
+        null
+      ],
+      "explanation": "The 3 who do both are inside the 16. Only: 16 − 3 = 13."
+    },
+    {
+      "id": "scatter-two-way/t4/022",
+      "tier": 4,
+      "prompt": "Boys: 3 bus, 5 walk. Girls: 8 bus, 10 walk. Total bus?",
+      "choices": [
+        "3",
+        "11",
+        "26",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_CELL",
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW"
+      ],
+      "explanation": "bus: 3 + 8 = 11."
+    },
+    {
+      "id": "scatter-two-way/t4/023",
+      "tier": 4,
+      "prompt": "10 kids take art; 2 of them take band. Art only?",
+      "choices": [
+        "10",
+        "12",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        null,
+        "ONLY_IS_BOTH"
+      ],
+      "explanation": "The 2 who do both are inside the 10. Only: 10 − 2 = 8."
+    },
+    {
+      "id": "scatter-two-way/t4/024",
+      "tier": 4,
+      "prompt": "Pizza fans: 10 in all, 6 are kids. How many are adults?",
+      "choices": [
+        "4",
+        "10",
+        "16",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 10. 10 − 6 = 4."
+    },
+    {
+      "id": "scatter-two-way/t4/025",
+      "tier": 4,
+      "prompt": "Boys: 6 pass, 9 fail. Girls: 3 pass, 5 fail. Total girls?",
+      "choices": [
+        "9",
+        "23",
+        "8",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL"
+      ],
+      "explanation": "Girls: 3 + 5 = 8."
+    },
+    {
+      "id": "scatter-two-way/t4/026",
+      "tier": 4,
+      "prompt": "Boys: 3 yes, 11 no. Girls: 3 yes, 3 no. Total yes?",
+      "choices": [
+        "20",
+        "3",
+        "14",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        "WRONG_ROW",
+        null
+      ],
+      "explanation": "yes: 3 + 3 = 6."
+    },
+    {
+      "id": "scatter-two-way/t4/027",
+      "tier": 4,
+      "prompt": "Boys: 12 yes, 9 no. Girls: 5 yes, 10 no. How many in all?",
+      "choices": [
+        "36",
+        "24",
+        "17",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        "WRONG_ROW"
+      ],
+      "explanation": "12 + 9 + 5 + 10 = 36."
+    },
+    {
+      "id": "scatter-two-way/t4/028",
+      "tier": 4,
+      "prompt": "Boys: 8 pass, 6 fail. Girls: 14 pass, 10 fail. Total pass?",
+      "choices": [
+        "14",
+        "8",
+        "38",
+        "22"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "ONE_CELL",
+        "GRAND_TOTAL",
+        null
+      ],
+      "explanation": "pass: 8 + 14 = 22."
+    },
+    {
+      "id": "scatter-two-way/t4/029",
+      "tier": 4,
+      "prompt": "Cats: 4 big, 8 small. Dogs: 3 big, 4 small. How many in all?",
+      "choices": [
+        "19",
+        "7",
+        "12",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "WRONG_ROW",
+        "LEFT_OUT_CELL"
+      ],
+      "explanation": "4 + 8 + 3 + 4 = 19."
+    },
+    {
+      "id": "scatter-two-way/t4/030",
+      "tier": 4,
+      "prompt": "16 kids ride a bus; 11 of them ride a bike. Bus only?",
+      "choices": [
+        "5",
+        "16",
+        "11",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        "ADDED_FOR_ONLY"
+      ],
+      "explanation": "The 11 who do both are inside the 16. Only: 16 − 11 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/031",
+      "tier": 4,
+      "prompt": "Cats: 6 big, 4 small. Dogs: 12 big, 13 small. Total dogs?",
+      "choices": [
+        "35",
+        "25",
+        "12",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "Dogs: 12 + 13 = 25."
+    },
+    {
+      "id": "scatter-two-way/t4/032",
+      "tier": 4,
+      "prompt": "Tea drinkers: 17 in all, 12 are kids. How many are adults?",
+      "choices": [
+        "12",
+        "29",
+        "5",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null,
+        "TOTAL_AS_MISSING"
+      ],
+      "explanation": "The two groups make 17. 17 − 12 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/033",
+      "tier": 4,
+      "prompt": "Cats: 13 big, 12 small. Dogs: 11 big, 6 small. Total big?",
+      "choices": [
+        "25",
+        "42",
+        "13",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null
+      ],
+      "explanation": "big: 13 + 11 = 24."
+    },
+    {
+      "id": "scatter-two-way/t4/034",
+      "tier": 4,
+      "prompt": "Bus riders: 19 in all, 2 are boys. How many are girls?",
+      "choices": [
+        "19",
+        "2",
+        "21",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null
+      ],
+      "explanation": "The two groups make 19. 19 − 2 = 17."
+    },
+    {
+      "id": "scatter-two-way/t4/035",
+      "tier": 4,
+      "prompt": "10 kids take art; 5 of them take band. Art only?",
+      "choices": [
+        "10",
+        "15",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The 5 who do both are inside the 10. Only: 10 − 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/036",
+      "tier": 4,
+      "prompt": "9 kids ride a bus; 3 of them ride a bike. Bus only?",
+      "choices": [
+        "3",
+        "6",
+        "9",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONLY_IS_BOTH",
+        null,
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY"
+      ],
+      "explanation": "The 3 who do both are inside the 9. Only: 9 − 3 = 6."
+    },
+    {
+      "id": "scatter-two-way/t4/037",
+      "tier": 4,
+      "prompt": "Bus riders: 10 in all, 5 are boys. How many are girls?",
+      "choices": [
+        "6",
+        "5",
+        "10",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING"
+      ],
+      "explanation": "The two groups make 10. 10 − 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/038",
+      "tier": 4,
+      "prompt": "Cats: 9 big, 9 small. Dogs: 6 big, 13 small. Total cats?",
+      "choices": [
+        "15",
+        "37",
+        "9",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null
+      ],
+      "explanation": "Cats: 9 + 9 = 18."
+    },
+    {
+      "id": "scatter-two-way/t4/039",
+      "tier": 4,
+      "prompt": "13 kids take art; 6 of them take band. Art only?",
+      "choices": [
+        "19",
+        "7",
+        "13",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_FOR_ONLY",
+        null,
+        "WHOLE_FOR_ONLY",
+        "ONLY_IS_BOTH"
+      ],
+      "explanation": "The 6 who do both are inside the 13. Only: 13 − 6 = 7."
+    },
+    {
+      "id": "scatter-two-way/t4/040",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 7 walk. Girls: 6 bus, 13 walk. Total bus?",
+      "choices": [
+        "20",
+        "13",
+        "39",
+        "19"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "ONE_CELL",
+        "GRAND_TOTAL",
+        null
+      ],
+      "explanation": "bus: 13 + 6 = 19."
+    },
+    {
+      "id": "scatter-two-way/t5/001",
+      "tier": 5,
+      "prompt": "Boys: 6 bus, 9 walk. Fraction of boys taking the bus?",
+      "choices": [
+        "2/3",
+        "2/5",
+        "3/5",
+        "5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "6 of 15 boys: 6/15 = 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/002",
+      "tier": 5,
+      "prompt": "Kids: 3 pizza, 1 taco. Fraction of kids picking pizza?",
+      "choices": [
+        "4/3",
+        "3",
+        "3/4",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "PART_TO_PART",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "3 of 4 kids: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/003",
+      "tier": 5,
+      "prompt": "Boys: 6 of 8 pass. Girls: 8 of 20. Who is more likely?",
+      "choices": [
+        "Girls",
+        "Same",
+        "Boys"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Boys 6/8 = 3/4, Girls 8/20 = 2/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/004",
+      "tier": 5,
+      "prompt": "Teens: 5 of 6 say yes. Parents: 6 of 10. Who is more likely?",
+      "choices": [
+        "Same",
+        "Teens",
+        "Parents"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Teens 5/6, Parents 6/10 = 3/5. Teens has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/005",
+      "tier": 5,
+      "prompt": "Tea drinkers: 3 kids, 2 adults. Fraction that are kids?",
+      "choices": [
+        "3/5",
+        "2/5",
+        "3/2",
+        "5/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "3 kids out of 5 in all: 3/5."
+    },
+    {
+      "id": "scatter-two-way/t5/006",
+      "tier": 5,
+      "prompt": "Men: 2 of 10 say yes. Women: 3 of 15. Who is more likely?",
+      "choices": [
+        "Men",
+        "Same",
+        "Women"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 2/10 = 1/5, Women 3/15 = 1/5. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/007",
+      "tier": 5,
+      "prompt": "Boys: 1 bus, 4 walk. Percent of boys taking the bus?",
+      "choices": [
+        "30%",
+        "20%",
+        "80%",
+        "1%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OTHER_PART",
+        "COUNT_AS_PERCENT"
+      ],
+      "explanation": "1 out of 5 = 1/5 = 20/100 = 20%."
+    },
+    {
+      "id": "scatter-two-way/t5/008",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 4 no. All: 16 yes. Fraction of boys saying yes?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "1/8",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "2 of 6 boys: 2/6 = 1/3."
+    },
+    {
+      "id": "scatter-two-way/t5/009",
+      "tier": 5,
+      "prompt": "Kids: 2 pizza, 3 tacos. Fraction of kids picking pizza?",
+      "choices": [
+        "3/5",
+        "2/5",
+        "2/3",
+        "5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "PART_TO_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "2 of 5 kids: 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/010",
+      "tier": 5,
+      "prompt": "Kids: 3 of 4 say yes. Adults: 12 of 16. Who is more likely?",
+      "choices": [
+        "Kids",
+        "Same",
+        "Adults"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Kids 3/4, Adults 12/16 = 3/4. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/011",
+      "tier": 5,
+      "prompt": "Boys: 3 of 4 vote yes. Girls: 6 of 15. Who is more likely?",
+      "choices": [
+        "Boys",
+        "Same",
+        "Girls"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Boys 3/4, Girls 6/15 = 2/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/012",
+      "tier": 5,
+      "prompt": "Men: 5 of 6 pass. Women: 6 of 10. Who is more likely?",
+      "choices": [
+        "Men",
+        "Same",
+        "Women"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 5/6, Women 6/10 = 3/5. Men has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/013",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 9 no. All: 17 yes. Fraction of boys saying yes?",
+      "choices": [
+        "6/17",
+        "2/5",
+        "2/3",
+        "3/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TOTAL",
+        null,
+        "PART_TO_PART",
+        "OTHER_PART"
+      ],
+      "explanation": "6 of 15 boys: 6/15 = 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/014",
+      "tier": 5,
+      "prompt": "Boys: 5 yes, 3 no. 26 in all. Fraction of boys saying yes?",
+      "choices": [
+        "5/3",
+        "5/26",
+        "5/8",
+        "3/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_PART",
+        "GRAND_DENOMINATOR",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "5 of 8 boys: 5/8."
+    },
+    {
+      "id": "scatter-two-way/t5/015",
+      "tier": 5,
+      "prompt": "Boys: 3 of 6 pass. Girls: 4 of 20. Who is more likely?",
+      "choices": [
+        "Girls",
+        "Same",
+        "Boys"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Boys 3/6 = 1/2, Girls 4/20 = 1/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/016",
+      "tier": 5,
+      "prompt": "Boys: 1 yes, 11 no. 17 in all. Fraction of boys saying yes?",
+      "choices": [
+        "1/12",
+        "1/11",
+        "1/17",
+        "11/12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "GRAND_DENOMINATOR",
+        "OTHER_PART"
+      ],
+      "explanation": "1 of 12 boys: 1/12."
+    },
+    {
+      "id": "scatter-two-way/t5/017",
+      "tier": 5,
+      "prompt": "Kids: 3 of 12 win. Adults: 2 of 4. Who is more likely?",
+      "choices": [
+        "Adults",
+        "Same",
+        "Kids"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Kids 3/12 = 1/4, Adults 2/4 = 1/2. Adults has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/018",
+      "tier": 5,
+      "prompt": "Teens: 12 of 15 pass. Parents: 4 of 5. Who is more likely?",
+      "choices": [
+        "Parents",
+        "Same",
+        "Teens"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Teens 12/15 = 4/5, Parents 4/5. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/019",
+      "tier": 5,
+      "prompt": "Boys: 6 bus, 2 walk. Percent of boys taking the bus?",
+      "choices": [
+        "6%",
+        "75%",
+        "25%",
+        "85%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_AS_PERCENT",
+        null,
+        "OTHER_PART",
+        "ARITH"
+      ],
+      "explanation": "6 out of 8 = 6/8 = 75/100 = 75%."
+    },
+    {
+      "id": "scatter-two-way/t5/020",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 2 no. All: 11 yes. Fraction of boys saying yes?",
+      "choices": [
+        "1/4",
+        "6/11",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "WRONG_TOTAL",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "6 of 8 boys: 6/8 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/021",
+      "tier": 5,
+      "prompt": "Boys: 3 yes, 1 no. 17 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/17",
+        "3",
+        "1/4",
+        "3/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GRAND_DENOMINATOR",
+        "PART_TO_PART",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "3 of 4 boys: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/022",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 3 no. 21 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/5",
+        "2/21",
+        "2/3",
+        "2/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "GRAND_DENOMINATOR",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "2 of 5 boys: 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/023",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 2 no. 16 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/8",
+        "1/4",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_DENOMINATOR",
+        "OTHER_PART",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "6 of 8 boys: 6/8 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/024",
+      "tier": 5,
+      "prompt": "Pizza fans: 10 kids, 5 adults. Fraction that are kids?",
+      "choices": [
+        "3/2",
+        "2/3",
+        "1/3",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        null,
+        "OTHER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "10 kids out of 15 in all: 10/15 = 2/3."
+    },
+    {
+      "id": "scatter-two-way/t5/025",
+      "tier": 5,
+      "prompt": "Boys: 1 pass, 5 fail. Fraction of boys who passed?",
+      "choices": [
+        "5/6",
+        "1/5",
+        "1/6",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "PART_TO_PART",
+        null,
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "1 of 6 boys: 1/6."
+    },
+    {
+      "id": "scatter-two-way/t5/026",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 1 juice. Fraction of kids picking tea?",
+      "choices": [
+        "4/3",
+        "1/4",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "OTHER_PART",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "3 of 4 kids: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/027",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 7 juice. Percent of kids picking tea?",
+      "choices": [
+        "3%",
+        "40%",
+        "70%",
+        "30%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_AS_PERCENT",
+        "ARITH",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "3 out of 10 = 3/10 = 30/100 = 30%."
+    },
+    {
+      "id": "scatter-two-way/t5/028",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 7 juice. Fraction of kids picking tea?",
+      "choices": [
+        "10/3",
+        "7/10",
+        "3/7",
+        "3/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "OTHER_PART",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "3 of 10 kids: 3/10."
+    },
+    {
+      "id": "scatter-two-way/t5/029",
+      "tier": 5,
+      "prompt": "Kids: 2 tea, 3 juice. Percent of kids picking tea?",
+      "choices": [
+        "60%",
+        "40%",
+        "2%",
+        "50%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "COUNT_AS_PERCENT",
+        "ARITH"
+      ],
+      "explanation": "2 out of 5 = 2/5 = 40/100 = 40%."
+    },
+    {
+      "id": "scatter-two-way/t5/030",
+      "tier": 5,
+      "prompt": "Kids: 5 pizza, 15 tacos. Percent of kids picking pizza?",
+      "choices": [
+        "35%",
+        "5%",
+        "25%",
+        "75%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COUNT_AS_PERCENT",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "5 out of 20 = 5/20 = 25/100 = 25%."
+    },
+    {
+      "id": "scatter-two-way/t5/031",
+      "tier": 5,
+      "prompt": "Teens: 3 of 15 walk. Parents: 2 of 3. Who is more likely?",
+      "choices": [
+        "Teens",
+        "Same",
+        "Parents"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Teens 3/15 = 1/5, Parents 2/3. Parents has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/032",
+      "tier": 5,
+      "prompt": "Teens: 6 of 15 say yes. Parents: 3 of 4. Who is more likely?",
+      "choices": [
+        "Teens",
+        "Same",
+        "Parents"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Teens 6/15 = 2/5, Parents 3/4. Parents has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/033",
+      "tier": 5,
+      "prompt": "Boys: 2 pass, 8 fail. Percent of boys who passed?",
+      "choices": [
+        "80%",
+        "2%",
+        "30%",
+        "20%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "COUNT_AS_PERCENT",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 out of 10 = 2/10 = 20/100 = 20%."
+    },
+    {
+      "id": "scatter-two-way/t5/034",
+      "tier": 5,
+      "prompt": "Winners: 9 boys, 3 girls. Fraction that are boys?",
+      "choices": [
+        "3/4",
+        "3",
+        "1/4",
+        "4/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "OTHER_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "9 boys out of 12 in all: 9/12 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/035",
+      "tier": 5,
+      "prompt": "Bus riders: 1 boy, 3 girls. Fraction that are boys?",
+      "choices": [
+        "1/4",
+        "3/4",
+        "4",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "1 boys out of 4 in all: 1/4."
+    },
+    {
+      "id": "scatter-two-way/t5/036",
+      "tier": 5,
+      "prompt": "Men: 8 of 20 walk. Women: 4 of 5. Who is more likely?",
+      "choices": [
+        "Women",
+        "Same",
+        "Men"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 8/20 = 2/5, Women 4/5. Women has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/037",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 14 no. All: 7 yes. Fraction of boys saying yes?",
+      "choices": [
+        "1/8",
+        "7/8",
+        "1/7",
+        "2/7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2 of 16 boys: 2/16 = 1/8."
+    },
+    {
+      "id": "scatter-two-way/t5/038",
+      "tier": 5,
+      "prompt": "Pizza fans: 1 kid, 7 adults. Fraction that are kids?",
+      "choices": [
+        "1/8",
+        "7/8",
+        "8",
+        "1/7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "1 kids out of 8 in all: 1/8."
+    },
+    {
+      "id": "scatter-two-way/t5/039",
+      "tier": 5,
+      "prompt": "Boys: 7 yes, 1 no. All: 13 yes. Fraction of boys saying yes?",
+      "choices": [
+        "7",
+        "1/8",
+        "7/13",
+        "7/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_PART",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "7 of 8 boys: 7/8."
+    },
+    {
+      "id": "scatter-two-way/t5/040",
+      "tier": 5,
+      "prompt": "Boys: 12 bus, 3 walk. Fraction of boys taking the bus?",
+      "choices": [
+        "4/5",
+        "1/5",
+        "5/4",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "12 of 15 boys: 12/15 = 4/5."
+    }
+  ]
+}

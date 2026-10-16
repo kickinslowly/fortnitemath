@@ -133,9 +133,16 @@ non-integer *is* the concept. They keep §4a's spirit by these rules, stated in 
 | Fractions | Denominators 2–12; numerators ≤ 12; a mixed number's whole part ≤ 10; every numerator/denominator product a times-table fact; answers in simplest form, written `a/b` or `w a/b` (mixed when > 1) |
 | Decimals | Operands with at most 2 decimal places and at most 2 non-zero digits; the digit work is a §4a fact (`0.6 × 0.2` → `6 × 2`); quotients exact |
 | Percents | 10, 20, 25, 50, 75 % and multiples of 10; the whole ≤ 100 and chosen so the hidden ÷ is a times-table fact (25 % and 75 % of wholes ≤ 40, tens of percent of 10 × 2..10); the answer an integer. A percent change is the difference of two wholes ≤ 100, itself ≤ 20 (80 → 72 is a change of 8 on 80); the running-sum reading of §4a, as in Data (grade 7, 2026-10-13) |
-| Angles | Multiples of 10 from 10 to 180; every + − on angles is a tens fact (180 − 70 is 18 − 7), every × ÷ a times-table fact in tens (3x = 180 is 18 ÷ 3); totals only 90 and 180 (no 360, no triangle sum, no parallel lines). The full rule is `angle-relationships`' bounds string (grade 7, 2026-10-13) |
+| Angles | Multiples of 10 from 10 to 180; every + − on angles is a tens fact (180 − 70 is 18 − 7), every × ÷ a times-table fact in tens (3x = 180 is 18 ÷ 3); totals only 90 and 180 (no 360). Grade 7 has no triangle sum and no parallel lines (`angle-relationships`' bounds string, 2026-10-13); grade 8 adds the triangle sum (180), an exterior angle as the sum of the two remote angles (≤ 170) and parallel-line pairs (equal, or adding to 180), isosceles base angles through an even-tens top angle (`triangles-parallel-lines`, 2026-10-14) |
 | Measurement | Lengths 1–10 (a ½ edge allowed where the standard asks for fractional edges; a length of 1 may be a × factor, the one exception to §4a's 2–10); areas, volumes and surface areas ≤ 100 |
 | Data | 3–7 values, each 0–20, sum ≤ 100; means, medians and MADs integers |
+| Exponents (grade 8, 2026-10-14) | Numeric bases 2–10; every exponent shown or reached is an integer of size ≤ 12, each exponent step a §4a step (a signed sum or difference, or a times-table product ≤ 12). Answers stay in power form (`2^7`) unless a tier evaluates, and a value is shown only for a power whose value is ≤ 100 (§4a's squares and cubes, plus 2^5, 2^6 and 3^4: the topic's own facts, reached by doubling or tripling), a power of 10, 1 (a zero exponent), the base, or 1 over one of these (`2^−3` = `1/8`, `10^−2` = `1/100`: the denominator may pass 12 because it is the power, not arithmetic). A negative exponent is written `^−3` (U+2212; §7 leaves it a caret) |
+| Scientific notation (grade 8) | Coefficients 1 to 9.5 with at most 2 non-zero digits; exponents of size ≤ 12. A power of 10 is place value, not arithmetic, so its size is free inside that range: standard forms ≤ 14 chars with commas (`3,000,000,000`, `0.000000003`). Every coefficient × ÷ is a times-table fact, renormalised by one place (5 × 4 = 20 = 2 × 10^1) |
+| Roots (grade 8) | Square roots of perfect squares 1–100 and cube roots of 1, 8, 27, 64 (§4a's powers read backwards); estimates name the whole numbers around √n, n ≤ 100; two values compared are ≥ 0.3 apart; an irrational answer is an unsimplified `√n` (simplifying radicals is high school); a repeating decimal has 1 or 2 repeating digits and a fraction with denominator 2–12 |
+| Pythagorean (grade 8) | Sides 1–10; every square ≤ 100 and every sum or difference of two squares (three for a box diagonal) ≤ 100, so whole answers come from 3-4-5, 6-8-10 and the box diagonals 1-2-2, 2-4-4, 2-3-6, 1-4-8, 4-4-7, 3-6-6 (that list is complete); every other length is `√n` (n ≤ 99, unsimplified) |
+| π volumes (grade 8) | Radii 1–5 (a sphere's only 1 or 3), heights 1–10; every π coefficient a whole number 1–100 reached by times-table steps in some order (2 × 5 × 5 is 10 × 5; (1/3) × 9 × 4 is 3 × 4), or `(4/3)π` / `(2/3)π` for a radius-1 sphere or hemisphere; "using 3 for π" answers whole ≤ 100 |
+| Coordinates and lines (grade 8) | Integer coordinates of size ≤ 10 (≤ 20 for a dilation image or a table value); slopes integers of size 1–10 or a simplest fraction with parts ≤ 5; rise and run each ≤ 10 in size; `y = mx + b` with m and b of size ≤ 10 (a line of fit's b ≤ 20) |
+| Two-way tables (grade 8) | 2-by-2 counts, each cell 0–20, grand total ≤ 60; a relative frequency is a cell over its row or column total, a times-table division, written as a simplest fraction with denominator 2–12 or a §4b percent |
 | Choices | No two choices equal in **value** (`1/2` and `2/4`, `0.5` and `1/2` never sit together): the player must never face two right doors |
 
 Like §4a, each such cartridge's tests assert its bounds against `baked.json`.
@@ -244,7 +251,7 @@ Baked text is canonical. Emitters apply a **render profile**:
 
 | Profile | `^n` with digit exponent | `×` `÷` `−` etc. |
 |---|---|---|
-| `unicode` | superscript digits (`3^2` → `3²`) | kept |
+| `unicode` | superscript digits (`3^2` → `3²`, `10^−2` → `10⁻²`) | kept |
 | `ascii` | kept as `^` | `×`→`*`, `÷`→`/`, `−`→`-`, `≤`→`<=`, `≥`→`>=`, `≠`→`!=`, `√`→`sqrt`, `π`→`pi` |
 
 Non-digit exponents (`2^(1 + 1)`) stay `^` in both. Which profile the UEFN map uses is decided once by

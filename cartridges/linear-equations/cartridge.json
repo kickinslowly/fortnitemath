@@ -1,0 +1,147 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "linear-equations",
+  "version": "1.0.0",
+  "title": "Linear Equations",
+  "subtitle": "Both Sides, Solution Count & Systems",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.C.7.A",
+    "CCSS.MATH.CONTENT.8.EE.C.7.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.A",
+    "CCSS.MATH.CONTENT.8.EE.C.8.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.C"
+  ],
+  "seed": 20261034,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a and 4b (coordinates and lines), grade 8. One variable letter per equation, written ax + b = cx + d or with one group p(x + t); every coefficient of size 1-10 (p 2-6). Constants: when any literal is negative, every constant (and every distributed product p times t) has size at most 12, otherwise at most 20. After collecting terms the x coefficient has size 2-10 and the number side is the times-table product of it and the solution (size at most 100). Solutions are integers of size 1-10, never 0 (x = 0 is only ever a distractor); T3 counts are one, none or infinite, and the one-solution equations also have a nonzero integer solution of size at most 10. T4: fractions 1/2, 1/3, 1/4, 1/5 written (1/k)x or x/k and decimals 0.5, 0.25, 0.2, 0.1, every x a times-table multiple so the solution is an integer of size at most 40 and the collected number side is a whole number of size at most 10; both-sided coefficient pairs (1, 1/2), (1/2, 1/4), (0.5, 1), (0.5, 0.25). T5: lines y = mx + b with m of size 1-6 and b of size at most 12; sum-or-difference systems have coefficients 1-2, an integer solution of size 1-8 with x not equal to y, constants of size at most 20 (at most 12 if one is negative), solved by adding the two equations only; crossing lines meet at integer coordinates of size at most 10.",
+  "tiers": [
+    { "tier": 1, "name": "Both Sides", "description": "x on both sides: collect the x terms, then the numbers." },
+    { "tier": 2, "name": "Distribute, Solve", "description": "Distribute first, then solve with x on both sides." },
+    { "tier": 3, "name": "One, None, Infinite", "description": "Decide how many solutions an equation has." },
+    { "tier": 4, "name": "Fractions & Decimals", "description": "Solve equations with 1/2 or 0.5 coefficients." },
+    { "tier": 5, "name": "Systems", "description": "Two lines at once: how many points, and where." }
+  ],
+  "misconceptions": {
+    "SAME_SIGN_MOVE": {
+      "student": "To move 3x across the = sign, subtract 3x from both sides. Don't add it.",
+      "teacher": "Moves a variable term across the equals sign without changing its sign: 5x + 2 = 3x + 10 becomes 8x = 8."
+    },
+    "CONST_SIGN": {
+      "student": "Undo + 2 by subtracting 2 from both sides. Undo − 2 by adding 2.",
+      "teacher": "Moves a constant across the equals sign without changing its sign (adds instead of subtracts)."
+    },
+    "ONE_STEP": {
+      "student": "Stopped early: 2x = 8 still has to be divided by 2.",
+      "teacher": "Stops at the collected equation (ax = k) and reports k as the answer."
+    },
+    "SIGN_SLIP": {
+      "student": "Right size, wrong sign. Put your x back in to check.",
+      "teacher": "Subtracts the x terms the wrong way round and answers with the opposite sign."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply the outside number by EVERY term inside: 3(x + 2) = 3x + 6.",
+      "teacher": "Distributes only to the variable: 3(x + 2) becomes 3x + 2."
+    },
+    "SIGN_INSIDE": {
+      "student": "3(x − 2) = 3x − 6. The minus sign stays with the 2.",
+      "teacher": "Loses the negative inside the parentheses when distributing: 3(x − 2) becomes 3x + 6."
+    },
+    "DROP_LIKE_TERM": {
+      "student": "Don't lose the extra x. Count every x term after distributing.",
+      "teacher": "Drops the loose x term when collecting like terms after distributing."
+    },
+    "CANCEL_IS_ZERO": {
+      "student": "When the x terms cancel, there is no x left to be 0. Look at the numbers.",
+      "teacher": "Reads an equation whose variable terms cancel as x = 0."
+    },
+    "ALWAYS_ONE": {
+      "student": "Not every equation has one answer. If the x terms cancel, check the numbers.",
+      "teacher": "Assumes every linear equation has exactly one solution."
+    },
+    "NONE_FOR_IDENTITY": {
+      "student": "If both sides come out equal (6 = 6), it is true for EVERY x.",
+      "teacher": "Reads a true statement with no variable left (an identity) as no solution."
+    },
+    "INFINITE_FOR_FALSE": {
+      "student": "If the x terms cancel and the numbers differ (4 = 7), it is never true.",
+      "teacher": "Reads a false statement with no variable left (a contradiction) as infinitely many solutions."
+    },
+    "ONE_IS_MANY": {
+      "student": "x on both sides does not mean many answers. Collect x and get one value.",
+      "teacher": "Believes variables on both sides produce infinitely many solutions."
+    },
+    "ONE_IS_NONE": {
+      "student": "x on both sides can still be solved: collect the x terms and divide.",
+      "teacher": "Believes variables on both sides mean the equation cannot be solved."
+    },
+    "ZERO_GUESS": {
+      "student": "Try x = 0 in the equation: the sides don't match. Solve it instead.",
+      "teacher": "Guesses x = 0 instead of counting solutions."
+    },
+    "CONST_FOR_COEFF": {
+      "student": "Match like with like: x terms with x terms, numbers with numbers.",
+      "teacher": "Puts a constant where the coefficient belongs (or the reverse) when matching two sides."
+    },
+    "SIGN_PICK": {
+      "student": "Right size, wrong sign. The two sides must match exactly, sign included.",
+      "teacher": "Matches the size of the number on the other side but flips its sign."
+    },
+    "DIVIDE_FOR_MULT": {
+      "student": "(1/2)x = 4 means x is 2 times bigger: multiply by 2, don't divide.",
+      "teacher": "Divides by the denominator to undo a fractional coefficient instead of multiplying."
+    },
+    "FORGOT_LAST_STEP": {
+      "student": "Stopped early: you still have to undo the fraction or decimal on x.",
+      "teacher": "Stops at the collected equation and answers with the number side."
+    },
+    "ONE_TERM_CLEARED": {
+      "student": "To clear a fraction, multiply EVERY term on both sides, not just one.",
+      "teacher": "Multiplies only the fractional term (or one side) by the denominator."
+    },
+    "DEC_WRONG_WAY": {
+      "student": "0.5x = 3 means x is 2 times bigger. Divide by 0.5, which doubles.",
+      "teacher": "Multiplies by the decimal coefficient instead of dividing by it."
+    },
+    "DEC_AS_FRAC": {
+      "student": "0.5 is 1/2, not 1/5. Read a decimal as a part of one whole.",
+      "teacher": "Reads the digit after the decimal point as the denominator: 0.5 as 1/5."
+    },
+    "PARALLEL_ONE": {
+      "student": "Same slope, different start: parallel lines never meet.",
+      "teacher": "Thinks two lines with the same slope still cross once."
+    },
+    "SAME_SLOPE_SAME_LINE": {
+      "student": "Same slope but different starts are different lines. They never touch.",
+      "teacher": "Reads two parallel lines as the same line, with infinitely many shared points."
+    },
+    "TWO_LINES_TWO": {
+      "student": "A solution is a point on BOTH lines. Two lines don't mean two solutions.",
+      "teacher": "Counts one solution per line."
+    },
+    "STOPPED_AT_SUM": {
+      "student": "After adding the equations, divide: 3x = 15 means x = 5.",
+      "teacher": "Reports the added constants without dividing by the combined coefficient."
+    },
+    "GAVE_OTHER": {
+      "student": "Check which variable the question asks for.",
+      "teacher": "Solves correctly but reports the other variable."
+    },
+    "SWAPPED_XY": {
+      "student": "Points are written (x, y): x first, then y.",
+      "teacher": "Reverses the coordinates of the solution point."
+    },
+    "READ_CONSTANT": {
+      "student": "x − y = 4 does not say y is 4. Solve for both variables.",
+      "teacher": "Reads a constant from an equation as the value of a variable."
+    },
+    "INTERCEPT_AS_MEET": {
+      "student": "The y-intercept is where a line crosses the y-axis, not where the lines meet.",
+      "teacher": "Gives the y-intercept of a line as the intersection point."
+    },
+    "DROPPED_SLOPE": {
+      "student": "Put x into the WHOLE rule: y = 3x + 4 uses 3 times x.",
+      "teacher": "Finds y by substituting x without the slope multiplier."
+    }
+  }
+}

@@ -1,0 +1,3874 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "triangles-parallel-lines",
+  "version": "1.0.0",
+  "title": "Triangles & Parallel Lines",
+  "subtitle": "Angle Sum, Exterior Angles, Transversals",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.A.5"
+  ],
+  "seed": 20261038,
+  "items_per_tier": 40,
+  "bounds": "Angles in tens. Every given, unknown and answer angle is a multiple of 10 from 10 to 170 degrees (an x is 10 to 90, a tens quotient). Every + and − on angles is a tens fact (180 − 70 is 18 − 7): operands and results 1-18 tens. Every × and ÷ is a times-table fact in tens: coefficients 2-9, a divisor 2-9 into 18 tens or less (6x = 180 is 18 ÷ 6), a quotient 1-9 tens. Totals: a triangle is 180, a right triangle's other two add to 90, an exterior angle equals the sum of its two remote angles (at most 170), parallel-line pairs are equal (corresponding, alternate; vertical angles of crossing lines) or add to 180 (same-side, or neighbors on a line). Isosceles base angles come from an even-tens top angle ((180 − 40) ÷ 2 is 14 ÷ 2). Similar triangles are told by two angles each; the third is 180 minus their tens sum. No 360, no half-angles, no trigonometry. Choices are plain numbers (or Equal, Add to 180, Add to 90, Yes, No); wrong choices are whatever a misreading gives (45, 98, 330), up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Triangle Angle Sum",
+      "description": "The three angles of a triangle add to 180. Find the missing one, even in right and isosceles triangles."
+    },
+    {
+      "tier": 2,
+      "name": "Exterior Angles",
+      "description": "An exterior angle equals the sum of the two remote angles, the inside angles far from it."
+    },
+    {
+      "tier": 3,
+      "name": "Transversal Angles",
+      "description": "Parallel lines cut by a line: corresponding and alternate angles are equal, same-side angles and neighbors on a line add to 180."
+    },
+    {
+      "tier": 4,
+      "name": "Equal or Add to 180?",
+      "description": "Decide for each pair of angles on parallel lines: equal, or adding to 180. Then tell if lines are parallel."
+    },
+    {
+      "tier": 5,
+      "name": "Solve for x & Similar",
+      "description": "Angle equations with x in triangles and parallel lines, then similar triangles told by two angles."
+    }
+  ],
+  "misconceptions": {
+    "USED_360": {
+      "student": "A triangle's angles add to 180, and so does a straight line. 360 is a full turn.",
+      "teacher": "Subtracts from 360 (a full turn) instead of 180 or 90."
+    },
+    "FORGOT_ONE": {
+      "student": "Use every piece you are given. Don't leave one out.",
+      "teacher": "Takes away only one of the given angles, or skips the +number on x."
+    },
+    "ADDED_ANGLES": {
+      "student": "The missing angle is what is left of the total. Subtract, don't add.",
+      "teacher": "Adds the angles (or the angle and the total) instead of subtracting from the total."
+    },
+    "USED_90": {
+      "student": "90 is only for a right angle. Here the total is 180.",
+      "teacher": "Uses 90 as the total (a complement) for a triangle or for supplementary angles."
+    },
+    "FORGOT_RIGHT": {
+      "student": "A right triangle already has a 90 angle. The other two add to 90.",
+      "teacher": "Subtracts only the given angle from 180 and forgets the right angle."
+    },
+    "NO_HALF": {
+      "student": "Two base angles share what is left. Split it in half.",
+      "teacher": "Gives 180 minus the top angle as one base angle, without halving it."
+    },
+    "HALF_TOP": {
+      "student": "Base angles come from what is left of 180, not from half the top angle.",
+      "teacher": "Halves the top angle instead of halving 180 minus the top angle."
+    },
+    "SAME_AS_TOP": {
+      "student": "Only the two base angles are equal. The top angle is different.",
+      "teacher": "Gives the top angle as each base angle."
+    },
+    "NO_DOUBLE": {
+      "student": "There are two base angles. Add both before you subtract from 180.",
+      "teacher": "Subtracts one base angle from 180 instead of both."
+    },
+    "SAME_AS_BASE": {
+      "student": "The top angle is what is left after both base angles, not a copy of one.",
+      "teacher": "Gives a base angle as the top angle."
+    },
+    "SPLIT_IN_TWO": {
+      "student": "A triangle has three angles. Split 180 three ways, not two.",
+      "teacher": "Divides 180 by 2 instead of 3 for an equilateral triangle."
+    },
+    "INTERIOR_FOR_EXTERIOR": {
+      "student": "An exterior angle makes a straight line with its inside angle. Not the same.",
+      "teacher": "Gives the inside angle (180 minus the exterior) where the exterior is wanted, or the reverse."
+    },
+    "ONE_REMOTE": {
+      "student": "The exterior angle is both remote angles added together, not just one.",
+      "teacher": "Gives one remote angle instead of the sum of both."
+    },
+    "ADDED_NOT_SUB": {
+      "student": "The exterior angle is the SUM of the remotes. To find one remote, subtract.",
+      "teacher": "Adds the exterior and the known remote angle instead of subtracting."
+    },
+    "EQUAL_REMOTES": {
+      "student": "The two remote angles need not be equal. Subtract to find the other.",
+      "teacher": "Assumes the unknown remote angle equals the given one."
+    },
+    "SAME_AS_EXT": {
+      "student": "The exterior angle and its inside neighbor make a straight line: 180.",
+      "teacher": "Gives the exterior angle itself as the inside angle next to it."
+    },
+    "SUPP_FOR_EQUAL": {
+      "student": "Alternate, corresponding and vertical angles are equal. Don't subtract.",
+      "teacher": "Treats an equal pair as supplementary: gives 180 minus the angle."
+    },
+    "COMP_FOR_EQUAL": {
+      "student": "These angles are equal. 90 minus the angle is for a corner, not this.",
+      "teacher": "Treats an equal pair as complementary: gives 90 minus the angle (or its distance from 90)."
+    },
+    "EQUAL_FOR_SUPP": {
+      "student": "A pair that adds to 180 is not an equal pair.",
+      "teacher": "Treats a same-side (supplementary) pair as equal."
+    },
+    "GAVE_ANGLE": {
+      "student": "Check what is asked: you want x, not the size of an angle.",
+      "teacher": "Answers with an angle's size when the question asks for x."
+    },
+    "NO_DIVIDE": {
+      "student": "You stopped early. Divide by the number in front of x.",
+      "teacher": "Gets the total for the x terms and forgets to divide by the coefficient."
+    },
+    "MULTIPLIED_NOT_DIVIDED": {
+      "student": "2x means 2 times x. To undo it, divide by 2.",
+      "teacher": "Multiplies by the coefficient of x instead of dividing."
+    },
+    "SPLIT_EVENLY": {
+      "student": "The angles are not all equal. Add the x parts, then divide by that.",
+      "teacher": "Splits the total evenly (by the number of angles) instead of by the sum of the coefficients."
+    },
+    "USED_180": {
+      "student": "Use the right total. Here the angles do not add to 180.",
+      "teacher": "Uses 180 as the total for the x terms where the total is 90 or the exterior angle."
+    },
+    "SIGN_SLIP": {
+      "student": "A + number on one side becomes minus when it moves to the other side.",
+      "teacher": "Moves a +number across the equals sign without changing its sign."
+    },
+    "GAVE_X": {
+      "student": "x is not the angle. Multiply x by the number in front to get the angle.",
+      "teacher": "Stops at the value of x when the question asks for an angle."
+    },
+    "OTHER_ANGLE": {
+      "student": "Re-read the question: it asks for the largest angle.",
+      "teacher": "Finds x correctly but answers with the wrong angle (not the largest)."
+    },
+    "NEEDS_SAME_LISTED": {
+      "student": "Find each third angle. Same three angles means similar, however they are listed.",
+      "teacher": "Says No because the two listed angles differ, without finding the third angles."
+    },
+    "ONE_ANGLE_ENOUGH": {
+      "student": "Similar needs all three angles to match. One shared angle is not enough.",
+      "teacher": "Says Yes because the triangles share one listed angle."
+    },
+    "ALL_TRIANGLES_ALIKE": {
+      "student": "Every triangle adds to 180, but similar needs the same three angles.",
+      "teacher": "Says Yes because both triangles' angles add to 180."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "triangles-parallel-lines/t1/001",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 70 degrees. Third angle?",
+      "choices": [
+        "80",
+        "70",
+        "100",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        null,
+        "USED_90"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 70 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/002",
+      "tier": 1,
+      "prompt": "Triangle angles: 30 and 120 degrees. Third angle?",
+      "choices": [
+        "60",
+        "30",
+        "150",
+        "210"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 120 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/003",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 20 degrees. Each base angle?",
+      "choices": [
+        "20",
+        "10",
+        "80",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "HALF_TOP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 20) ÷ 2 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/004",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 50 degree angles. The third?",
+      "choices": [
+        "130",
+        "50",
+        "70",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_DOUBLE",
+        "SAME_AS_BASE",
+        "ARITH",
+        null
+      ],
+      "explanation": "The two base angles make 50 + 50 = 100. Top angle: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/005",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 10. Its third angle?",
+      "choices": [
+        "80",
+        "100",
+        "260",
+        "170"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ANGLES",
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 10 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/006",
+      "tier": 1,
+      "prompt": "Triangle angles: 40 and 80 degrees. Third angle?",
+      "choices": [
+        "120",
+        "30",
+        "240",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 80 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/007",
+      "tier": 1,
+      "prompt": "A triangle has angles 50 and 70 degrees. Third angle?",
+      "choices": [
+        "60",
+        "30",
+        "130",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FORGOT_ONE",
+        "ADDED_ANGLES"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 70 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/008",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 50 and 80. The third?",
+      "choices": [
+        "230",
+        "100",
+        "50",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 80 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/009",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 110 degrees. Third angle?",
+      "choices": [
+        "50",
+        "40",
+        "60",
+        "120"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ADDED_ANGLES"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 110 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/010",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 80. Its third angle?",
+      "choices": [
+        "170",
+        "10",
+        "190",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 80 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/011",
+      "tier": 1,
+      "prompt": "Triangle angles: 50 and 60 degrees. Third angle?",
+      "choices": [
+        "250",
+        "110",
+        "70",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ADDED_ANGLES",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 60 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/012",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 60. Its third angle?",
+      "choices": [
+        "30",
+        "120",
+        "10",
+        "210"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_RIGHT",
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 60 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/013",
+      "tier": 1,
+      "prompt": "Triangle angles: 30 and 50 degrees. Third angle?",
+      "choices": [
+        "80",
+        "100",
+        "10",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_90",
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 50 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/014",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 30. Its third angle?",
+      "choices": [
+        "60",
+        "240",
+        "50",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 30 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/015",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 120 degrees. Third angle?",
+      "choices": [
+        "30",
+        "170",
+        "20",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 120 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/016",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 80 degrees. Each base angle?",
+      "choices": [
+        "80",
+        "100",
+        "70",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "NO_HALF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 80) ÷ 2 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/017",
+      "tier": 1,
+      "prompt": "A triangle has angles 10 and 10 degrees. Third angle?",
+      "choices": [
+        "170",
+        "20",
+        "160",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null,
+        "USED_90"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 10 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/018",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 40 and 70. The third?",
+      "choices": [
+        "110",
+        "70",
+        "140",
+        "250"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 70 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/019",
+      "tier": 1,
+      "prompt": "An equilateral triangle has three equal angles. Each?",
+      "choices": [
+        "30",
+        "90",
+        "120",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SPLIT_IN_TWO",
+        "USED_360",
+        null
+      ],
+      "explanation": "All three angles are equal and add to 180: 180 ÷ 3 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/020",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 140. Each base angle?",
+      "choices": [
+        "40",
+        "20",
+        "140",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "SAME_AS_TOP",
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 140) ÷ 2 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/021",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 120. Each base angle?",
+      "choices": [
+        "120",
+        "60",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 120) ÷ 2 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/022",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 40 and 100. The third?",
+      "choices": [
+        "40",
+        "20",
+        "140",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FORGOT_ONE",
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 100 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/023",
+      "tier": 1,
+      "prompt": "Isosceles triangle, base angles 40 degrees each. Top angle?",
+      "choices": [
+        "110",
+        "130",
+        "140",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "NO_DOUBLE",
+        null
+      ],
+      "explanation": "The two base angles make 40 + 40 = 80. Top angle: 180 − 80 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/024",
+      "tier": 1,
+      "prompt": "A triangle has angles 30 and 100 degrees. Third angle?",
+      "choices": [
+        "230",
+        "80",
+        "130",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 100 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/025",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 20. Its third angle?",
+      "choices": [
+        "110",
+        "250",
+        "70",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "USED_360",
+        null,
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 20 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/026",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 40 degrees. Each base angle?",
+      "choices": [
+        "140",
+        "40",
+        "70",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_HALF",
+        "SAME_AS_TOP",
+        null,
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 40) ÷ 2 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/027",
+      "tier": 1,
+      "prompt": "Right triangle with an angle of 70 degrees. Third angle?",
+      "choices": [
+        "20",
+        "110",
+        "160",
+        "200"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_RIGHT",
+        "ADDED_ANGLES",
+        "USED_360"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 70 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/028",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 100 degrees. Each base angle?",
+      "choices": [
+        "40",
+        "80",
+        "30",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_HALF",
+        "ARITH",
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 100) ÷ 2 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/029",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 160. Each base angle?",
+      "choices": [
+        "10",
+        "20",
+        "160",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_HALF",
+        "SAME_AS_TOP",
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 160) ÷ 2 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/030",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 80 degree angles. The third?",
+      "choices": [
+        "160",
+        "20",
+        "100",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "NO_DOUBLE",
+        "SAME_AS_BASE"
+      ],
+      "explanation": "The two base angles make 80 + 80 = 160. Top angle: 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/031",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 30 degree angles. The third?",
+      "choices": [
+        "110",
+        "60",
+        "30",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADDED_ANGLES",
+        "SAME_AS_BASE",
+        null
+      ],
+      "explanation": "The two base angles make 30 + 30 = 60. Top angle: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/032",
+      "tier": 1,
+      "prompt": "Each angle of an equilateral triangle, in degrees?",
+      "choices": [
+        "60",
+        "80",
+        "120",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "SPLIT_IN_TWO"
+      ],
+      "explanation": "All three angles are equal and add to 180: 180 ÷ 3 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/033",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 60 degrees. Third angle?",
+      "choices": [
+        "70",
+        "110",
+        "20",
+        "290"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 60 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/034",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 20 degree angles. The third?",
+      "choices": [
+        "40",
+        "140",
+        "110",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "ARITH",
+        "SAME_AS_BASE"
+      ],
+      "explanation": "The two base angles make 20 + 20 = 40. Top angle: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/035",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 40. Its third angle?",
+      "choices": [
+        "50",
+        "30",
+        "130",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_ANGLES",
+        "ARITH"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 40 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/036",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 70 degree angles. The third?",
+      "choices": [
+        "70",
+        "140",
+        "40",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_BASE",
+        "ADDED_ANGLES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The two base angles make 70 + 70 = 140. Top angle: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/037",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 10 and 100. The third?",
+      "choices": [
+        "110",
+        "60",
+        "40",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 100 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/038",
+      "tier": 1,
+      "prompt": "Right triangle with an angle of 50 degrees. Third angle?",
+      "choices": [
+        "140",
+        "40",
+        "220",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 50 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/039",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 10 degree angles. The third?",
+      "choices": [
+        "10",
+        "160",
+        "20",
+        "150"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_AS_BASE",
+        null,
+        "ADDED_ANGLES",
+        "ARITH"
+      ],
+      "explanation": "The two base angles make 10 + 10 = 20. Top angle: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/040",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 70 and 80. The third?",
+      "choices": [
+        "10",
+        "100",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 70 − 80 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/001",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Remote angles: 30 and x. x?",
+      "choices": [
+        "130",
+        "70",
+        "90",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        null,
+        "ARITH",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 30 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/002",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Remote angles: 30 and x. x?",
+      "choices": [
+        "200",
+        "150",
+        "170",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 170 − 30 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/003",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 130. Inside angle next to it?",
+      "choices": [
+        "50",
+        "40",
+        "20",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/004",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 80. Inside angle next to it?",
+      "choices": [
+        "80",
+        "130",
+        "280",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 80 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/005",
+      "tier": 2,
+      "prompt": "Exterior angle is 120. Remote angles: 20 and x. x?",
+      "choices": [
+        "20",
+        "60",
+        "100",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 120 − 20 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/006",
+      "tier": 2,
+      "prompt": "Exterior angle is 150. Remote angles: 100 and x. x?",
+      "choices": [
+        "30",
+        "50",
+        "250",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ADDED_NOT_SUB",
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 150 − 100 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/007",
+      "tier": 2,
+      "prompt": "Exterior angle 100, one remote angle 40. The other?",
+      "choices": [
+        "60",
+        "30",
+        "40",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 40 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/008",
+      "tier": 2,
+      "prompt": "Exterior angle 100, one remote angle 90. The other?",
+      "choices": [
+        "90",
+        "190",
+        "10",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "ADDED_NOT_SUB",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 90 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/009",
+      "tier": 2,
+      "prompt": "Exterior angle is 110. Its adjacent inside angle?",
+      "choices": [
+        "40",
+        "70",
+        "60",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_90"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/010",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 140 degrees. Exterior angle?",
+      "choices": [
+        "190",
+        "10",
+        "170",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ONE_REMOTE"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 140 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/011",
+      "tier": 2,
+      "prompt": "Exterior angle is 140. Remote angles: 40 and x. x?",
+      "choices": [
+        "100",
+        "40",
+        "180",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_REMOTES",
+        "ADDED_NOT_SUB",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 140 − 40 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/012",
+      "tier": 2,
+      "prompt": "Exterior angle is 50. Remote angles: 20 and x. x?",
+      "choices": [
+        "30",
+        "130",
+        "70",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB",
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 50 − 20 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/013",
+      "tier": 2,
+      "prompt": "Remote angles are 20 and 130 degrees. Exterior angle?",
+      "choices": [
+        "20",
+        "150",
+        "210",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_REMOTE",
+        null,
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 130 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/014",
+      "tier": 2,
+      "prompt": "Exterior angle is 140. Remote angles: 30 and x. x?",
+      "choices": [
+        "30",
+        "40",
+        "80",
+        "110"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 140 − 30 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/015",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 50. Inside angle next to it?",
+      "choices": [
+        "160",
+        "310",
+        "140",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 50 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/016",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Its adjacent inside angle?",
+      "choices": [
+        "80",
+        "260",
+        "100",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SAME_AS_EXT",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/017",
+      "tier": 2,
+      "prompt": "Remote angles are 20 and 30 degrees. Exterior angle?",
+      "choices": [
+        "30",
+        "20",
+        "50",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 30 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/018",
+      "tier": 2,
+      "prompt": "Exterior angle is 40. Its adjacent inside angle?",
+      "choices": [
+        "40",
+        "130",
+        "50",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        "ARITH",
+        "USED_90",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/019",
+      "tier": 2,
+      "prompt": "Remote angles are 70 and 90 degrees. Exterior angle?",
+      "choices": [
+        "90",
+        "160",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_REMOTE",
+        null,
+        "ONE_REMOTE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 70 + 90 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/020",
+      "tier": 2,
+      "prompt": "Exterior angle is 60. Its adjacent inside angle?",
+      "choices": [
+        "30",
+        "100",
+        "120",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "ARITH",
+        null,
+        "SAME_AS_EXT"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/021",
+      "tier": 2,
+      "prompt": "Exterior angle 120, one remote angle 90. The other?",
+      "choices": [
+        "210",
+        "60",
+        "90",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        "INTERIOR_FOR_EXTERIOR",
+        "EQUAL_REMOTES",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 120 − 90 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/022",
+      "tier": 2,
+      "prompt": "Remote angles are 50 and 100 degrees. Exterior angle?",
+      "choices": [
+        "30",
+        "150",
+        "100",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ONE_REMOTE",
+        "ONE_REMOTE"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 50 + 100 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/023",
+      "tier": 2,
+      "prompt": "Remote angles are 10 and 120 degrees. Exterior angle?",
+      "choices": [
+        "230",
+        "140",
+        "160",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 10 + 120 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/024",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Remote angles: 60 and x. x?",
+      "choices": [
+        "60",
+        "110",
+        "10",
+        "230"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 170 − 60 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/025",
+      "tier": 2,
+      "prompt": "Triangle angles 30 and 70. Exterior angle at the third?",
+      "choices": [
+        "120",
+        "110",
+        "260",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 70 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/026",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 110 degrees. Exterior angle?",
+      "choices": [
+        "140",
+        "110",
+        "30",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 110 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/027",
+      "tier": 2,
+      "prompt": "Triangle angles 20 and 20. Exterior angle at the third?",
+      "choices": [
+        "40",
+        "140",
+        "20",
+        "320"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ONE_REMOTE",
+        "USED_360"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 20 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/028",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 100 degrees. Exterior angle?",
+      "choices": [
+        "230",
+        "100",
+        "130",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ONE_REMOTE",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 100 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/029",
+      "tier": 2,
+      "prompt": "Exterior angle is 130. Remote angles: 40 and x. x?",
+      "choices": [
+        "50",
+        "60",
+        "40",
+        "90"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        "EQUAL_REMOTES",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 130 − 40 = 90."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/030",
+      "tier": 2,
+      "prompt": "Exterior angle 70, one remote angle 30. The other?",
+      "choices": [
+        "50",
+        "40",
+        "100",
+        "110"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADDED_NOT_SUB",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 70 − 30 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/031",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 10. Inside angle next to it?",
+      "choices": [
+        "170",
+        "10",
+        "350",
+        "180"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_AS_EXT",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/032",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Remote angles: 60 and x. x?",
+      "choices": [
+        "40",
+        "60",
+        "80",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 60 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/033",
+      "tier": 2,
+      "prompt": "Exterior angle is 40. Remote angles: 10 and x. x?",
+      "choices": [
+        "140",
+        "40",
+        "30",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        null,
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 40 − 10 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/034",
+      "tier": 2,
+      "prompt": "Remote angles are 60 and 60 degrees. Exterior angle?",
+      "choices": [
+        "120",
+        "240",
+        "60",
+        "130"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 60 + 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/035",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Its adjacent inside angle?",
+      "choices": [
+        "170",
+        "10",
+        "80",
+        "190"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/036",
+      "tier": 2,
+      "prompt": "Triangle angles 20 and 150. Exterior angle at the third?",
+      "choices": [
+        "20",
+        "190",
+        "170",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_REMOTE",
+        "USED_360",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 150 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/037",
+      "tier": 2,
+      "prompt": "Exterior angle is 130. Remote angles: 100 and x. x?",
+      "choices": [
+        "50",
+        "230",
+        "30",
+        "100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB",
+        null,
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 130 − 100 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/038",
+      "tier": 2,
+      "prompt": "Remote angles are 10 and 100 degrees. Exterior angle?",
+      "choices": [
+        "140",
+        "100",
+        "110",
+        "250"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_REMOTE",
+        null,
+        "USED_360"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 10 + 100 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/039",
+      "tier": 2,
+      "prompt": "Remote angles are 40 and 120 degrees. Exterior angle?",
+      "choices": [
+        "20",
+        "40",
+        "120",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 40 + 120 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/040",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 20. Inside angle next to it?",
+      "choices": [
+        "180",
+        "160",
+        "170",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/001",
+      "tier": 3,
+      "prompt": "Parallel lines cut by a line: corresponding angles are?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/002",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 80. Its corresponding angle?",
+      "choices": [
+        "110",
+        "100",
+        "80",
+        "280"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 80 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/003",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 130. The angle next to it?",
+      "choices": [
+        "40",
+        "230",
+        "50",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/004",
+      "tier": 3,
+      "prompt": "50 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "140",
+        "310",
+        "130",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/005",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 20. Its corresponding angle?",
+      "choices": [
+        "20",
+        "340",
+        "160",
+        "70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/006",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 50. Its corresponding angle?",
+      "choices": [
+        "80",
+        "130",
+        "50",
+        "310"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 50 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/007",
+      "tier": 3,
+      "prompt": "Lines cross. One angle is 70 degrees. Its vertical angle?",
+      "choices": [
+        "290",
+        "70",
+        "90",
+        "110"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/008",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 140. Other?",
+      "choices": [
+        "40",
+        "220",
+        "50",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "USED_90",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/009",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate interior pair: one is 140. Other?",
+      "choices": [
+        "220",
+        "140",
+        "170",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/010",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 60. Its corresponding angle?",
+      "choices": [
+        "60",
+        "40",
+        "30",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 60 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/011",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate interior pair: one is 20. Other?",
+      "choices": [
+        "160",
+        "20",
+        "70",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        null,
+        "COMP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/012",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 30. Its alternate interior angle?",
+      "choices": [
+        "150",
+        "60",
+        "330",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/013",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 120. Its same-side interior angle?",
+      "choices": [
+        "240",
+        "120",
+        "30",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/014",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 140. The angle next to it?",
+      "choices": [
+        "40",
+        "140",
+        "50",
+        "220"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/015",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 150. Other?",
+      "choices": [
+        "150",
+        "170",
+        "210",
+        "180"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/016",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 10. Its corresponding angle?",
+      "choices": [
+        "350",
+        "80",
+        "10",
+        "170"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 10 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/017",
+      "tier": 3,
+      "prompt": "Parallel lines: alternate exterior angles are always?",
+      "choices": [
+        "Add to 90",
+        "Add to 180",
+        "Equal"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/018",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 10. Its same-side interior angle?",
+      "choices": [
+        "10",
+        "80",
+        "350",
+        "170"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/019",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 100. Its alternate exterior angle?",
+      "choices": [
+        "260",
+        "110",
+        "100",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 100 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/020",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 70. Its alternate exterior angle?",
+      "choices": [
+        "20",
+        "40",
+        "290",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/021",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 110. Its alternate interior angle?",
+      "choices": [
+        "250",
+        "110",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 110 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/022",
+      "tier": 3,
+      "prompt": "Parallel lines: corresponding angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/023",
+      "tier": 3,
+      "prompt": "Parallel lines: alternate exterior angles are?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/024",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 70. Its alternate interior angle?",
+      "choices": [
+        "20",
+        "110",
+        "290",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/025",
+      "tier": 3,
+      "prompt": "Vertical angles: one is 130 degrees. The other?",
+      "choices": [
+        "130",
+        "230",
+        "140",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 130 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/026",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 140. Other?",
+      "choices": [
+        "160",
+        "220",
+        "40",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/027",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 130. Other?",
+      "choices": [
+        "120",
+        "50",
+        "40",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 130 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/028",
+      "tier": 3,
+      "prompt": "Lines cross. One angle is 40 degrees. Its vertical angle?",
+      "choices": [
+        "10",
+        "20",
+        "320",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/029",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 70. Other?",
+      "choices": [
+        "70",
+        "110",
+        "290",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_360",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 70 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/030",
+      "tier": 3,
+      "prompt": "40 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "140",
+        "50",
+        "40",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/031",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 150. Other?",
+      "choices": [
+        "20",
+        "30",
+        "10",
+        "210"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/032",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 30. Other?",
+      "choices": [
+        "150",
+        "330",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/033",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 30. The angle next to it?",
+      "choices": [
+        "30",
+        "150",
+        "60",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_90",
+        "ARITH"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 30 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/034",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 40. Other?",
+      "choices": [
+        "40",
+        "50",
+        "140",
+        "320"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/035",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 160. Its corresponding angle?",
+      "choices": [
+        "200",
+        "160",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/036",
+      "tier": 3,
+      "prompt": "60 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "150",
+        "300",
+        "120",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/037",
+      "tier": 3,
+      "prompt": "An angle is 160 degrees. The angle next to it on a line?",
+      "choices": [
+        "70",
+        "200",
+        "20",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/038",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 100. Its alternate interior angle?",
+      "choices": [
+        "70",
+        "100",
+        "10",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 100 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/039",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 100. Other?",
+      "choices": [
+        "80",
+        "100",
+        "90",
+        "260"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP",
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/040",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 70. Its corresponding angle?",
+      "choices": [
+        "80",
+        "290",
+        "110",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/001",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 30 and 150. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "30 + 150 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/002",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 170. Its same-side interior angle?",
+      "choices": [
+        "80",
+        "170",
+        "10",
+        "190"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/003",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 40. Its alternate exterior angle?",
+      "choices": [
+        "320",
+        "140",
+        "30",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/004",
+      "tier": 4,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 120. Other?",
+      "choices": [
+        "240",
+        "60",
+        "120",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null,
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 120 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/005",
+      "tier": 4,
+      "prompt": "Same-side interior: 120 and 60. Are the lines parallel?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "120 + 60 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/006",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 160. Its alternate interior angle?",
+      "choices": [
+        "70",
+        "200",
+        "20",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/007",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side exterior pair: one is 110. Other?",
+      "choices": [
+        "110",
+        "20",
+        "70",
+        "250"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/008",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 170. Its same-side exterior angle?",
+      "choices": [
+        "10",
+        "190",
+        "170",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "EQUAL_FOR_SUPP",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/009",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side interior angles are always?",
+      "choices": [
+        "Add to 90",
+        "Add to 180",
+        "Equal"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_90",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/010",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side exterior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/011",
+      "tier": 4,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 30. Other?",
+      "choices": [
+        "30",
+        "150",
+        "60",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/012",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 150. Its corresponding angle?",
+      "choices": [
+        "30",
+        "60",
+        "150",
+        "210"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/013",
+      "tier": 4,
+      "prompt": "Parallel lines. Corresponding pair: one is 140. Other?",
+      "choices": [
+        "50",
+        "140",
+        "170",
+        "220"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/014",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 60. Its corresponding angle?",
+      "choices": [
+        "50",
+        "40",
+        "30",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 60 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/015",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 140. Its alternate interior angle?",
+      "choices": [
+        "140",
+        "150",
+        "40",
+        "220"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/016",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 40 and 40. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "40 + 40 = 80, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/017",
+      "tier": 4,
+      "prompt": "In parallel lines, alternate interior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/018",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 110. Its same-side interior angle?",
+      "choices": [
+        "110",
+        "250",
+        "100",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_360",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/019",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 100 and 80. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "100 + 80 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/020",
+      "tier": 4,
+      "prompt": "In parallel lines, same-side interior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/021",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 130. Its same-side exterior angle?",
+      "choices": [
+        "230",
+        "30",
+        "50",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        null,
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/022",
+      "tier": 4,
+      "prompt": "20 and x are same-side exterior angles of parallel lines. x?",
+      "choices": [
+        "170",
+        "160",
+        "340",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/023",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side interior pair: one is 130. Other?",
+      "choices": [
+        "50",
+        "40",
+        "20",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/024",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 20 and 20. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "20 + 20 = 40, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/025",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side exterior pair: one is 150. Other?",
+      "choices": [
+        "20",
+        "60",
+        "10",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_90",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/026",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 20. Its corresponding angle?",
+      "choices": [
+        "20",
+        "340",
+        "10",
+        "70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/027",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side exterior angles are always?",
+      "choices": [
+        "Add to 180",
+        "Add to 90",
+        "Equal"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/028",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 10. Its same-side interior angle?",
+      "choices": [
+        "180",
+        "170",
+        "10",
+        "350"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EQUAL_FOR_SUPP",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/029",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 40. Its same-side exterior angle?",
+      "choices": [
+        "320",
+        "140",
+        "40",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/030",
+      "tier": 4,
+      "prompt": "20 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "20",
+        "160",
+        "70",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/031",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 140. Its same-side exterior angle?",
+      "choices": [
+        "220",
+        "50",
+        "40",
+        "140"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "USED_90",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/032",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 150. Its alternate interior angle?",
+      "choices": [
+        "60",
+        "150",
+        "210",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "USED_360",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/033",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 20 and 70. Lines parallel?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90"
+      ],
+      "explanation": "20 + 70 = 90, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/034",
+      "tier": 4,
+      "prompt": "Same-side interior: 30 and 30. Are the lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "30 + 30 = 60, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/035",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 120. Its corresponding angle?",
+      "choices": [
+        "120",
+        "150",
+        "240",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 120 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/036",
+      "tier": 4,
+      "prompt": "Parallel lines: alternate interior angles are always?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/037",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 110. Its corresponding angle?",
+      "choices": [
+        "70",
+        "90",
+        "20",
+        "110"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 110 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/038",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side interior pair: one is 120. Other?",
+      "choices": [
+        "60",
+        "50",
+        "40",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/039",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 160. Its corresponding angle?",
+      "choices": [
+        "200",
+        "160",
+        "170",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/040",
+      "tier": 4,
+      "prompt": "Same-side interior: 10 and 170. Are the lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "10 + 170 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/001",
+      "tier": 5,
+      "prompt": "Triangle A has 10 and 30. B has 10 and 140. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_LISTED"
+      ],
+      "explanation": "A: 10, 30, 140. B: 10, 30, 140. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/002",
+      "tier": 5,
+      "prompt": "Triangle A: 40 and 80. Triangle B: 10 and 160. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALL_TRIANGLES_ALIKE"
+      ],
+      "explanation": "A: 40, 60, 80. B: 10, 10, 160. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/003",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 3x + 20 and 80. x?",
+      "choices": [
+        "60",
+        "10",
+        "40",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_DIVIDE",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "Corresponding angles are equal: 3x + 20 = 80, 3x = 60, x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/004",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles x + 30 and 140. x?",
+      "choices": [
+        "40",
+        "110",
+        "70",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "EQUAL_FOR_SUPP",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Same-side angles add to 180: x + 30 + 140 = 180, x = 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/005",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 120, remote angles 3x and x. x?",
+      "choices": [
+        "30",
+        "10",
+        "20",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: 3x + x = 4x = 120, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/006",
+      "tier": 5,
+      "prompt": "A triangle has angles x, 3x and 2x. x?",
+      "choices": [
+        "90",
+        "60",
+        "180",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Angles add to 180: x + 3x + 2x = 6x = 180, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/007",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles x + 40 and 70. x?",
+      "choices": [
+        "110",
+        "50",
+        "70",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Alternate interior angles are equal: x + 40 = 70, so x = 70 − 40 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/008",
+      "tier": 5,
+      "prompt": "Triangle angles x, 6x and 2x degrees. x?",
+      "choices": [
+        "20",
+        "40",
+        "60",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SPLIT_EVENLY",
+        "GAVE_ANGLE"
+      ],
+      "explanation": "Angles add to 180: x + 6x + 2x = 9x = 180, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/009",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 5x + 30 and 130. x?",
+      "choices": [
+        "10",
+        "20",
+        "4",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUPP_FOR_EQUAL",
+        "NO_DIVIDE"
+      ],
+      "explanation": "Corresponding angles are equal: 5x + 30 = 130, 5x = 100, x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/010",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 3x + 20 and 70. x?",
+      "choices": [
+        "90",
+        "30",
+        "20",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Same-side angles add to 180: 3x + 20 + 70 = 180, 3x = 90, x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/011",
+      "tier": 5,
+      "prompt": "Triangle angles 4x, 3x and 2x. Largest angle?",
+      "choices": [
+        "70",
+        "80",
+        "20",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GAVE_X",
+        "OTHER_ANGLE"
+      ],
+      "explanation": "4x + 3x + 2x = 9x = 180, x = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/012",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 3x and 30. x?",
+      "choices": [
+        "10",
+        "20",
+        "50",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null,
+        "NO_DIVIDE"
+      ],
+      "explanation": "Same-side angles add to 180: 3x = 180 − 30 = 150, x = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/013",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side exterior angles x + 40 and 120. x?",
+      "choices": [
+        "20",
+        "10",
+        "80",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EQUAL_FOR_SUPP",
+        "FORGOT_ONE"
+      ],
+      "explanation": "Same-side angles add to 180: x + 40 + 120 = 180, x = 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/014",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate exterior angles 6x and 120. x?",
+      "choices": [
+        "10",
+        "120",
+        "20",
+        "720"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "NO_DIVIDE",
+        null,
+        "MULTIPLIED_NOT_DIVIDED"
+      ],
+      "explanation": "Alternate exterior angles are equal: 6x = 120, so x = 120 ÷ 6 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/015",
+      "tier": 5,
+      "prompt": "Exterior angle is 150. Remote angles are x and 4x. x?",
+      "choices": [
+        "36",
+        "120",
+        "30",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_180",
+        "GAVE_ANGLE",
+        null,
+        "NO_DIVIDE"
+      ],
+      "explanation": "Exterior = remote angles added: x + 4x = 5x = 150, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/016",
+      "tier": 5,
+      "prompt": "Triangle A: 50 and 50. Triangle B: 20 and 50. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ANGLE_ENOUGH",
+        null
+      ],
+      "explanation": "A: 50, 50, 80. B: 20, 50, 110. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/017",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 2x and 140. x?",
+      "choices": [
+        "60",
+        "70",
+        "140",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_DIVIDE",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Corresponding angles are equal: 2x = 140, so x = 140 ÷ 2 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/018",
+      "tier": 5,
+      "prompt": "A right triangle has angles 90, 2x and x. x?",
+      "choices": [
+        "30",
+        "45",
+        "20",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SPLIT_EVENLY",
+        "ARITH",
+        "USED_180"
+      ],
+      "explanation": "The other two angles add to 90: 2x + x = 3x = 90, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/019",
+      "tier": 5,
+      "prompt": "Right triangle: 90, 4x and 5x. x?",
+      "choices": [
+        "10",
+        "20",
+        "50",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_180",
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "The other two angles add to 90: 4x + 5x = 9x = 90, so x = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/020",
+      "tier": 5,
+      "prompt": "A triangle has angles 3x, 2x and x. x?",
+      "choices": [
+        "90",
+        "60",
+        "20",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY",
+        "ARITH",
+        null
+      ],
+      "explanation": "Angles add to 180: 3x + 2x + x = 6x = 180, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/021",
+      "tier": 5,
+      "prompt": "A triangle has angles 3x, 5x and x. x?",
+      "choices": [
+        "40",
+        "20",
+        "180",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "NO_DIVIDE",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "Angles add to 180: 3x + 5x + x = 9x = 180, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/022",
+      "tier": 5,
+      "prompt": "Triangle A: 30 and 40. Triangle B: 40 and 130. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ANGLE_ENOUGH",
+        null
+      ],
+      "explanation": "A: 30, 40, 110. B: 10, 40, 130. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/023",
+      "tier": 5,
+      "prompt": "Right triangle: 90, 5x and 4x. x?",
+      "choices": [
+        "10",
+        "50",
+        "20",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_ANGLE",
+        "USED_180",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "The other two angles add to 90: 5x + 4x = 9x = 90, so x = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/024",
+      "tier": 5,
+      "prompt": "Triangle angles 2x, 3x and x. Largest angle?",
+      "choices": [
+        "60",
+        "30",
+        "90",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "GAVE_X",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2x + 3x + x = 6x = 180, x = 30. Largest: 3 × 30 = 90."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/025",
+      "tier": 5,
+      "prompt": "Triangle A: 80 and 90. Triangle B: 10 and 90. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 10, 80, 90. B: 10, 80, 90. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/026",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 120, remote angles x and 5x. x?",
+      "choices": [
+        "20",
+        "100",
+        "30",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_ANGLE",
+        "USED_180",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: x + 5x = 6x = 120, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/027",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles x + 60 and 130. x?",
+      "choices": [
+        "50",
+        "130",
+        "70",
+        "190"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GAVE_ANGLE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Alternate interior angles are equal: x + 60 = 130, so x = 130 − 60 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/028",
+      "tier": 5,
+      "prompt": "Triangle A: 60 and 70. Triangle B: 70 and 100. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_ANGLE_ENOUGH"
+      ],
+      "explanation": "A: 50, 60, 70. B: 10, 70, 100. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/029",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate exterior angles x + 90 and 130. x?",
+      "choices": [
+        "130",
+        "40",
+        "220",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Alternate exterior angles are equal: x + 90 = 130, so x = 130 − 90 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/030",
+      "tier": 5,
+      "prompt": "Triangle angles 2x, 6x and x. Largest angle?",
+      "choices": [
+        "240",
+        "60",
+        "40",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "SPLIT_EVENLY",
+        "OTHER_ANGLE",
+        null
+      ],
+      "explanation": "2x + 6x + x = 9x = 180, x = 20. Largest: 6 × 20 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/031",
+      "tier": 5,
+      "prompt": "Triangle A has 40 and 110. B has 50 and 90. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALL_TRIANGLES_ALIKE"
+      ],
+      "explanation": "A: 30, 40, 110. B: 40, 50, 90. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/032",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 4x and 60. x?",
+      "choices": [
+        "40",
+        "30",
+        "120",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_DIVIDE",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Same-side angles add to 180: 4x = 180 − 60 = 120, x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/033",
+      "tier": 5,
+      "prompt": "A right triangle has angles 90, x and 2x. x?",
+      "choices": [
+        "45",
+        "90",
+        "30",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        null,
+        "USED_180"
+      ],
+      "explanation": "The other two angles add to 90: x + 2x = 3x = 90, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/034",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles 2x and 60. x?",
+      "choices": [
+        "60",
+        "30",
+        "120",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        null,
+        "MULTIPLIED_NOT_DIVIDED",
+        "ARITH"
+      ],
+      "explanation": "Alternate interior angles are equal: 2x = 60, so x = 60 ÷ 2 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/035",
+      "tier": 5,
+      "prompt": "Triangle A: 10 and 40. Triangle B: 40 and 130. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_LISTED"
+      ],
+      "explanation": "A: 10, 40, 130. B: 10, 40, 130. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/036",
+      "tier": 5,
+      "prompt": "Triangle A: 30 and 50. Triangle B: 30 and 100. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 30, 50, 100. B: 30, 50, 100. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/037",
+      "tier": 5,
+      "prompt": "Triangle A has 10 and 140. B has 10 and 30. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 10, 30, 140. B: 10, 30, 140. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/038",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 160, remote angles 3x and x. x?",
+      "choices": [
+        "40",
+        "45",
+        "160",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_180",
+        "NO_DIVIDE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: 3x + x = 4x = 160, so x = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/039",
+      "tier": 5,
+      "prompt": "Triangle angles 4x, 2x and 3x. Largest angle?",
+      "choices": [
+        "60",
+        "160",
+        "80",
+        "90"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4x + 2x + 3x = 9x = 180, x = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/040",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side exterior angles 5x and 30. x?",
+      "choices": [
+        "12",
+        "50",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_90",
+        "ARITH",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Same-side angles add to 180: 5x = 180 − 30 = 150, x = 30."
+    }
+  ]
+}

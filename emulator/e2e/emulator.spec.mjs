@@ -213,6 +213,7 @@ test('draw without replacement reshuffles when a tier runs dry', async ({ page }
 const REAL = path.join(EMU, 'carts.js');
 test('real carts.js: one full run of each cartridge', async ({ page }) => {
   test.skip(!fs.existsSync(REAL), 'emulator/carts.js not generated yet');
+  test.setTimeout(240_000);  // two runs of every cartridge: 29 cartridges took ~45 s (2026-10-14)
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   await page.goto(pageUrl('?seed=7'));
@@ -231,17 +232,18 @@ const homeSequence = (page) => page.evaluate(() =>
   [...document.querySelectorAll('[data-testid=grade-heading], [data-testid=cart-card]')].map((e) =>
     e.dataset.testid === 'grade-heading' ? `H:${e.textContent}|${e.dataset.grade}` : `C:${e.dataset.cart}`));
 
-test('home groups cartridges by grade: real carts.js gives Grade 6 then Grade 7', async ({ page }) => {
+test('home groups cartridges by grade: real carts.js gives Grade 6, then 7, then 8', async ({ page }) => {
   test.skip(!fs.existsSync(REAL), 'emulator/carts.js not generated yet');
   await page.goto(pageUrl());
   // within a grade the home sorts cards by title (PROTOCOL 6b), not by id
   const carts = await page.evaluate(() => Object.entries(window.FNM_CARTRIDGES)
     .sort(([, x], [, y]) => (x.title < y.title ? -1 : x.title > y.title ? 1 : 0)).map(([k, c]) => [k, String(c.grade)]));
-  const g6 = carts.filter(([, g]) => g === '6').map(([k]) => `C:${k}`);
-  const g7 = carts.filter(([, g]) => g === '7').map(([k]) => `C:${k}`);
-  expect(g6.length + g7.length, 'real carts.js holds only grade 6 and 7 cartridges').toBe(carts.length);
-  expect(await homeSequence(page), 'home sequence: Grade 6 heading, its cards, Grade 7 heading, its cards')
-    .toEqual(['H:Grade 6|6', ...g6, 'H:Grade 7|7', ...g7]);
+  const grades = ['6', '7', '8'];
+  const byGrade = grades.map((G) => carts.filter(([, g]) => g === G).map(([k]) => `C:${k}`));
+  for (const [i, cards] of byGrade.entries()) expect(cards.length, `grade ${grades[i]} has cartridges`).toBeGreaterThan(0);
+  expect(byGrade.flat().length, 'real carts.js holds only grade 6, 7 and 8 cartridges').toBe(carts.length);
+  expect(await homeSequence(page), 'home sequence: each grade heading, then its cards, grades ascending')
+    .toEqual(grades.flatMap((G, i) => [`H:Grade ${G}|${G}`, ...byGrade[i]]));
 });
 
 test('home grade order: numeric when all grades are numbers, string otherwise, no grade last as Other', async ({ page }) => {

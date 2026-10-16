@@ -6,8 +6,8 @@ import re
 
 PROFILES = ("unicode", "ascii")
 
-_SUPER = str.maketrans("0123456789", "⁰¹²³⁴⁵⁶⁷⁸⁹")
-_DIGIT_EXP = re.compile(r"\^(\d+)")
+_SUPER = str.maketrans("0123456789−", "⁰¹²³⁴⁵⁶⁷⁸⁹⁻")
+_DIGIT_EXP = re.compile(r"\^(−?\d+)")
 ASCII_MAP = {
     "×": "*", "÷": "/", "−": "-", "≤": "<=", "≥": ">=",
     "≠": "!=", "√": "sqrt", "π": "pi",
@@ -16,7 +16,8 @@ ASCII_MAP = {
 
 def render(text: str, profile: str) -> str:
     if profile == "unicode":
-        # Only a run of digits directly after ^ becomes superscript; 2^(1 + 1) stays.
+        # Only a run of digits directly after ^ (with an optional leading −, U+2212) becomes superscript: 10^−2 -> 10⁻²;
+        # 2^(1 + 1) stays.
         return _DIGIT_EXP.sub(lambda m: m.group(1).translate(_SUPER), text)
     if profile == "ascii":
         for k, v in ASCII_MAP.items():

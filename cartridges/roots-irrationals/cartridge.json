@@ -1,0 +1,161 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "roots-irrationals",
+  "version": "1.0.0",
+  "title": "Roots & Irrational Numbers",
+  "subtitle": "Square Roots, Cube Roots & Estimates",
+  "grade": "8",
+  "standards": ["CCSS.MATH.CONTENT.8.NS.A.1", "CCSS.MATH.CONTENT.8.NS.A.2", "CCSS.MATH.CONTENT.8.EE.A.2"],
+  "seed": 20261033,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Roots. Square roots only of the perfect squares 4-100 and cube roots only of 1, 8, 27, 64 (cube roots are written in words, 'Cube root of 27'); a side or edge comes from an area or volume of that kind. An irrational number is an unsimplified √n (n 2-99, not a perfect square) or π; no radical is simplified, added or multiplied. Repeating decimals have 1 or 2 repeating digits (0.777..., 0.1818..., or one digit after a non-repeating one: 0.1666...) and a fraction in simplest form with numerator and denominator 1-12 (ninths, elevenths, sixths); terminating decimals convert to fractions with denominator 2-10. The 10x − x step shows x with 1 or 2 repeating digits and an answer 1-90. Estimates name the whole numbers around √n (n 2-99) or the nearest whole number (the decimal part of √n is under 0.3 or over 0.7) or k.5 for √(k(k+1)) with k 2-9. Any two values compared differ by at least 0.3; an ordering has 3 values. Wrong choices: whatever a misreading gives, up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Square & Cube Roots", "description": "Square roots of perfect squares and cube roots of 1, 8, 27, 64." },
+    { "tier": 2, "name": "Rational or Irrational?", "description": "Which numbers are fractions, and which never end or repeat." },
+    { "tier": 3, "name": "Repeating Decimals", "description": "Turn repeating and ending decimals into fractions." },
+    { "tier": 4, "name": "Estimate Square Roots", "description": "Place a square root between whole numbers." },
+    { "tier": 5, "name": "Compare & Order Roots", "description": "Compare and order roots, whole numbers and π." }
+  ],
+  "misconceptions": {
+    "HALVED": {
+      "student": "A square root is not half. Ask: what times itself makes the number?",
+      "teacher": "Divides by 2 instead of taking the root (√49 = 24.5)."
+    },
+    "DOUBLED": {
+      "student": "Not double. √49 asks what number times itself makes 49.",
+      "teacher": "Doubles the root instead of squaring or rooting (√49 = 14)."
+    },
+    "NOT_ROOTED": {
+      "student": "That is the number itself. The root times itself makes that number.",
+      "teacher": "Gives the number back without taking the root."
+    },
+    "THIRD_FOR_CUBE": {
+      "student": "A cube root is not dividing by 3. Find a number used 3 times in a product.",
+      "teacher": "Divides by 3 for a cube root (cube root of 27 = 9)."
+    },
+    "TRIPLED": {
+      "student": "A cube root is not times 3. 3 × 3 × 3 makes 27, so the root is 3.",
+      "teacher": "Multiplies the root by 3 instead of cubing or rooting."
+    },
+    "SQUARE_ROOT_FOR_CUBE": {
+      "student": "That is the square root. A cube root uses the number three times.",
+      "teacher": "Takes the square root where a cube root was asked (cube root of 64 = 8)."
+    },
+    "POSITIVE_ONLY": {
+      "student": "Both signs square to the same number. Check the sign the question asks for.",
+      "teacher": "Ignores the negative solution, or ignores the sign condition."
+    },
+    "AREA_OVER_4": {
+      "student": "Side × side = area. Dividing by 4 would find a side only for a perimeter.",
+      "teacher": "Divides the area by 4 (perimeter thinking) instead of taking the root."
+    },
+    "PERIMETER_FOR_SIDE": {
+      "student": "That is the perimeter. The side is the root of the area.",
+      "teacher": "Gives 4 × side (perimeter) where the side was asked."
+    },
+    "ROOT_IS_IRRATIONAL": {
+      "student": "A root sign does not make it irrational. √36 = 6 is a whole number.",
+      "teacher": "Calls every square root irrational, even of a perfect square."
+    },
+    "ROOT_IS_RATIONAL": {
+      "student": "√7 is not a whole number or a fraction. It never ends or repeats.",
+      "teacher": "Thinks the root of a non-square is rational."
+    },
+    "REPEAT_IS_IRRATIONAL": {
+      "student": "A repeating decimal is a fraction (0.333... = 1/3), so it is rational.",
+      "teacher": "Thinks a decimal that goes on forever must be irrational."
+    },
+    "NONWHOLE_IS_IRRATIONAL": {
+      "student": "Fractions and ending decimals are rational. Irrational means no fraction fits.",
+      "teacher": "Thinks any number that is not a whole number is irrational."
+    },
+    "PI_IS_RATIONAL": {
+      "student": "π never ends and never repeats, so it is irrational. 3.14 is only close.",
+      "teacher": "Treats π as exactly 3.14 or 22/7."
+    },
+    "OVER_TEN": {
+      "student": "Repeating digits are not tenths. Use 9 for one repeating digit.",
+      "teacher": "Writes the repeating digit over 10."
+    },
+    "ROUNDED_UP": {
+      "student": "Rounding changes the value. 0.666... is exactly 6/9, not 7/10.",
+      "teacher": "Rounds the repeating decimal up, then writes it over 10."
+    },
+    "OVER_HUNDRED": {
+      "student": "Two repeating digits go over 99, not 100.",
+      "teacher": "Uses the digits over 100 for a repeating decimal."
+    },
+    "NINTHS_ONLY": {
+      "student": "Two repeating digits go over 99. That reduces to elevenths.",
+      "teacher": "Treats a two-digit repeat like a one-digit repeat (ninths)."
+    },
+    "NINE_FOR_TERMINATING": {
+      "student": "9s are for repeating decimals. An ending decimal uses 10, 100 or 1000.",
+      "teacher": "Uses a denominator of 9, 99 or 999 for a decimal that ends."
+    },
+    "DIGIT_AS_DENOM": {
+      "student": "0.4 means 4 tenths. The digits go on top, not on the bottom.",
+      "teacher": "Puts the digits in the denominator (0.4 = 1/4)."
+    },
+    "PLACE_VALUE_SLIP": {
+      "student": "Count decimal places: 1 is tenths, 2 hundredths, 3 thousandths.",
+      "teacher": "Uses the wrong place value for the denominator."
+    },
+    "TIMES_ONLY": {
+      "student": "That is only 10x or 100x. Subtract x so the repeating tails cancel.",
+      "teacher": "Multiplies by 10 or 100 but forgets to subtract x."
+    },
+    "NINES_ONLY": {
+      "student": "The 9 is how many x you have. The answer is the difference of the numbers.",
+      "teacher": "Gives the coefficient of x (9 or 99) instead of the difference."
+    },
+    "TRUNCATED_REPEAT": {
+      "student": "Cut-off digits lose value. 4.444... − 0.444... is exactly 4.",
+      "teacher": "Multiplies the truncated decimal (9 × 0.4) instead of subtracting."
+    },
+    "DECIMAL_SLIP": {
+      "student": "Line up the decimal points. The repeating tails cancel, leaving a whole number.",
+      "teacher": "Misplaces the decimal point after subtracting."
+    },
+    "SQUARES_NOT_ROOTS": {
+      "student": "Those are the squares around the number. The root is between their roots.",
+      "teacher": "Names the perfect squares on each side instead of their roots."
+    },
+    "NEXT_SQUARE_DOWN": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step below the correct pair."
+    },
+    "NEXT_SQUARE_UP": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step above the correct pair."
+    },
+    "NEAREST_SQUARE_NOT_ROOT": {
+      "student": "That is the nearest square. Its root is the whole number you want.",
+      "teacher": "Gives the nearest perfect square instead of its square root."
+    },
+    "ROUNDED_WRONG": {
+      "student": "Which perfect square is closer? Its root is the nearest whole number.",
+      "teacher": "Picks the far whole number when rounding a root."
+    },
+    "RADICAND_AS_VALUE": {
+      "student": "A root is much smaller than the number under it. Judge √50 by 7 × 7.",
+      "teacher": "Compares the number under the root sign, not the root's value."
+    },
+    "ROOT_ALWAYS_SMALL": {
+      "student": "A root is not always the smaller one. Estimate it between two whole numbers.",
+      "teacher": "Assumes any √ expression is smaller than the other number."
+    },
+    "ORDER_REVERSED": {
+      "student": "Re-read which way the list should run, least to greatest or the other way.",
+      "teacher": "Orders the list in the opposite direction."
+    },
+    "GIVEN_ORDER": {
+      "student": "The list is not in order yet. Estimate each root, then sort.",
+      "teacher": "Keeps the order the numbers were written in."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "π^2 is π times π, about 3 × 3, not 2 × π.",
+      "teacher": "Multiplies by the exponent (2 × π) instead of squaring."
+    }
+  }
+}

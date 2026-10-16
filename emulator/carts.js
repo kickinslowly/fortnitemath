@@ -11846,6 +11846,4045 @@ window.FNM_CARTRIDGES["circles"] = {
   ],
   "render_profile": "unicode"
 };
+window.FNM_CARTRIDGES["cylinders-cones-spheres"] = {
+  "protocol": "fnm-cart/1",
+  "id": "cylinders-cones-spheres",
+  "version": "1.0.0",
+  "title": "Cylinders, Cones & Spheres",
+  "subtitle": "Volume in Terms of π",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.C.9"
+  ],
+  "seed": 20261039,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b π volumes. Radii 1-5 (a sphere's or hemisphere's only 1 or 3, or 2 in 'using 3 for π'), diameters 2-10 and even, heights 1-10. Every π coefficient is a whole number 1-100 reached through times-table steps in some order (2 × 5 × 5 is 10 × 5; 9 ÷ 3 × 4 is 3 × 4): each × has both factors 1-10, each ÷ divisor and quotient 2-10, every value 100 or less. Exceptions: (4/3)π and (2/3)π for a radius-1 sphere or hemisphere; halving a diameter (÷ 2, quotient 1-5); square roots of 4 and 9 and cube roots of 1 and 27. 'Using 3 for π' answers are whole numbers 1-100 (the 3 cancels the thirds). Scale questions use factors 2, 3 and 1/2 on a radius or height. Wrong choices up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Cylinders",
+      "description": "Volume = base area × height: π × r × r × h. Square the radius."
+    },
+    {
+      "tier": 2,
+      "name": "Cones",
+      "description": "A cone is one third of the cylinder with the same base and height."
+    },
+    {
+      "tier": 3,
+      "name": "Spheres",
+      "description": "Sphere: (4/3) × π × r × r × r. A hemisphere is half of that."
+    },
+    {
+      "tier": 4,
+      "name": "Work Backward & Estimate",
+      "description": "Find a height or radius from the volume. Use 3 for π."
+    },
+    {
+      "tier": 5,
+      "name": "Compare & Scale",
+      "description": "Double a length and the volume changes by 2, 4 or 8 times."
+    }
+  ],
+  "misconceptions": {
+    "NO_SQUARE": {
+      "student": "The radius is used twice: π × r × r. Multiply it by itself first.",
+      "teacher": "Uses r where r × r belongs (forgets to square the radius)."
+    },
+    "LATERAL_AREA": {
+      "student": "Doubling r is not squaring it. The base area is π × r × r.",
+      "teacher": "Doubles the radius instead of squaring it (the 2πr of the edge)."
+    },
+    "FORGOT_HEIGHT": {
+      "student": "Volume stacks the base up the whole height. Multiply by the height.",
+      "teacher": "Gives the base area and leaves out the height."
+    },
+    "ADDED_HEIGHT": {
+      "student": "Multiply the base area by the height. Do not add them.",
+      "teacher": "Adds the height to the base instead of multiplying."
+    },
+    "DIAMETER_AS_RADIUS": {
+      "student": "Halve the diameter first: the formula wants the radius.",
+      "teacher": "Puts the diameter into the formula where the radius belongs."
+    },
+    "HALVED_AFTER_SQUARE": {
+      "student": "Halve the diameter first, then square it. Not the other way.",
+      "teacher": "Squares the diameter and then halves once (gets 2 × r × r)."
+    },
+    "AREA_AS_RADIUS": {
+      "student": "The base area is already the π part. Do not square it again.",
+      "teacher": "Treats the base area number as a radius and squares it."
+    },
+    "FORMULA_MIX": {
+      "student": "Volume is base area times height: the layers stack up.",
+      "teacher": "Names the wrong measure in the volume formula."
+    },
+    "CIRCUMFERENCE_FOR_AREA": {
+      "student": "Around the edge is 2πr. The area inside is π × r × r.",
+      "teacher": "Gives a circumference formula for the base area."
+    },
+    "RADIUS_NOT_SQUARED": {
+      "student": "Area needs r twice: π × r × r, not just π × r.",
+      "teacher": "Writes the circle area as π × r (one r)."
+    },
+    "SAME_BASE_SAME_VOLUME": {
+      "student": "Same base, but a taller cylinder stacks more layers.",
+      "teacher": "Thinks equal bases mean equal volumes and ignores height."
+    },
+    "SHORTER_HOLDS_MORE": {
+      "student": "Taller means more layers of the same base: more volume.",
+      "teacher": "Picks the shorter cylinder."
+    },
+    "CANT_TELL": {
+      "student": "Same base area, so the height decides: taller holds more.",
+      "teacher": "Thinks the heights are needed to compare."
+    },
+    "NO_THIRD": {
+      "student": "A cone is only one third of its cylinder. Divide by 3.",
+      "teacher": "Gives the cylinder's volume for the cone (no 1/3)."
+    },
+    "HALF_FOR_THIRD": {
+      "student": "A cone is one third of its cylinder, not one half.",
+      "teacher": "Uses 1/2 (or 2 times) where 1/3 (or 3 times) belongs."
+    },
+    "TIMES_THREE": {
+      "student": "A cone is a third of the cylinder: divide by 3, do not multiply.",
+      "teacher": "Multiplies by 3 where the 1/3 belongs."
+    },
+    "SAME_AS_CYLINDER": {
+      "student": "A cone is smaller than its cylinder: one third of it.",
+      "teacher": "Says the cone and the cylinder hold the same."
+    },
+    "SAME_AS_CONE": {
+      "student": "Three cones fill the cylinder, so it is 3 times the cone.",
+      "teacher": "Says the cylinder holds the same as the cone."
+    },
+    "DIVIDED_BY_THREE": {
+      "student": "The cylinder is 3 times the cone: multiply by 3.",
+      "teacher": "Divides by 3 where the cylinder needs 3 times the cone."
+    },
+    "ADDED_THREE": {
+      "student": "Three cones fill the cylinder: multiply by 3, do not add 3.",
+      "teacher": "Adds 3 instead of multiplying by 3."
+    },
+    "NO_FOUR_THIRDS": {
+      "student": "A sphere is (4/3) × π × r × r × r. Keep the 4/3.",
+      "teacher": "Leaves the 4/3 out (or the 2/3 for a hemisphere)."
+    },
+    "SQUARED_NOT_CUBED": {
+      "student": "A sphere uses the radius three times: r × r × r.",
+      "teacher": "Squares the radius where the formula cubes it."
+    },
+    "FOUR_NOT_THIRD": {
+      "student": "It is four thirds, (4/3), not 4.",
+      "teacher": "Uses 4 where 4/3 belongs (forgets the ÷ 3)."
+    },
+    "HEMI_FORMULA": {
+      "student": "A whole sphere is (4/3) × π × r × r × r. Half of it is (2/3).",
+      "teacher": "Uses the half-sphere formula for a whole sphere."
+    },
+    "WHOLE_FOR_HALF": {
+      "student": "A hemisphere is half a sphere. Halve the sphere's volume.",
+      "teacher": "Gives the whole sphere for a hemisphere."
+    },
+    "NO_TWO_THIRDS": {
+      "student": "A hemisphere is (2/3) × π × r × r × r. Keep the 2/3.",
+      "teacher": "Leaves the 2/3 out of the hemisphere formula."
+    },
+    "FORGOT_SQUARE": {
+      "student": "Volume is π × r × r × h. Divide by r × r, not just r.",
+      "teacher": "Divides by r once instead of r × r."
+    },
+    "RADIUS_AS_DIAMETER": {
+      "student": "The radius is the number given. Do not halve it again.",
+      "teacher": "Treats the given radius as a diameter and halves it."
+    },
+    "STOPPED_AT_SQUARE": {
+      "student": "You found r × r. What number times itself gives that?",
+      "teacher": "Stops at r × r and does not take the square root."
+    },
+    "DIAMETER_FOR_RADIUS": {
+      "student": "That is the diameter. The radius is half of it.",
+      "teacher": "Answers with the diameter where the radius is asked."
+    },
+    "RADIUS_FOR_HEIGHT": {
+      "student": "That is the radius you were given. Divide the volume by r × r.",
+      "teacher": "Gives back the radius where the height is asked."
+    },
+    "HEIGHT_FOR_RADIUS": {
+      "student": "That is the height you were given. Find r from r × r.",
+      "teacher": "Gives back the height where the radius is asked."
+    },
+    "FORGOT_THIRD": {
+      "student": "A cone has the 1/3: V = (1/3) × π × r × r × h. Use it.",
+      "teacher": "Solves with the cylinder formula (no 1/3)."
+    },
+    "DIVIDED_NOT_MULTIPLIED": {
+      "student": "Undo the 1/3 by multiplying by 3, not dividing.",
+      "teacher": "Divides by 3 where undoing the 1/3 needs × 3."
+    },
+    "STOPPED_AT_CUBE": {
+      "student": "You found r × r × r. Which number cubed gives that?",
+      "teacher": "Stops at r × r × r and does not take the cube root."
+    },
+    "DIVIDED_NOT_ROOTED": {
+      "student": "A cube root is not ÷ 3. Which number times itself 3 times?",
+      "teacher": "Divides by 3 instead of taking the cube root."
+    },
+    "COEFFICIENT_AS_RADIUS": {
+      "student": "That is the volume's number, not the radius. Undo the formula.",
+      "teacher": "Reads the volume's coefficient as the radius."
+    },
+    "RADIUS_FOR_DIAMETER": {
+      "student": "The diameter is twice the radius: all the way across.",
+      "teacher": "Answers with the radius where the diameter is asked."
+    },
+    "LEFT_OUT_PI": {
+      "student": "Using 3 for π, put the 3 in where π would go.",
+      "teacher": "Leaves out the 3 that replaces π."
+    },
+    "LINEAR_SCALE": {
+      "student": "Count how many times that length is in the formula.",
+      "teacher": "Scales the volume by the plain factor, ignoring repeats."
+    },
+    "SQUARE_FOR_CUBE": {
+      "student": "A sphere's radius appears three times: use the factor 3 times.",
+      "teacher": "Squares the scale factor where it should be cubed."
+    },
+    "CUBE_FOR_SQUARE": {
+      "student": "The radius appears twice (r × r): use the factor twice.",
+      "teacher": "Cubes the scale factor where it should be squared."
+    },
+    "SQUARE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Squares the factor for a length used once."
+    },
+    "CUBE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Cubes the factor for a length used once."
+    },
+    "MULT_BY_EXPONENT": {
+      "student": "Repeat the multiplying: 2 × 2 × 2, not 2 × 3.",
+      "teacher": "Multiplies the factor by the count instead of repeating it."
+    },
+    "SPHERE_FOR_CONE": {
+      "student": "A ball is 2/3 of its can. The cone is 1/3.",
+      "teacher": "Gives the ball's share for the cone."
+    },
+    "CONE_FOR_SPHERE": {
+      "student": "The cone is 1/3 of the can. The ball is 2/3.",
+      "teacher": "Gives the cone's share for the ball."
+    },
+    "HALF_RULE": {
+      "student": "Neither is half: a cone is 1/3 and a ball 2/3 of the can.",
+      "teacher": "Guesses one half."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "cylinders-cones-spheres/t1/001",
+      "tier": 1,
+      "prompt": "A cylinder's base area is 6π, height 10. Volume?",
+      "choices": [
+        "360π",
+        "60π",
+        "16π",
+        "6π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        null,
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 6π × 10 = 60π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/002",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 5. Its volume?",
+      "choices": [
+        "9π",
+        "10π",
+        "4π",
+        "20π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 5 = 20π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/003",
+      "tier": 1,
+      "prompt": "Tank: diameter 8, height 2. How much does it hold?",
+      "choices": [
+        "18π",
+        "128π",
+        "32π",
+        "16π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "DIAMETER_AS_RADIUS",
+        null,
+        "LATERAL_AREA"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Volume = π × 4 × 4 × 2 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/004",
+      "tier": 1,
+      "prompt": "Can: base area 4π, height 4. Its volume?",
+      "choices": [
+        "64π",
+        "8π",
+        "4π",
+        "16π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = base area × height = 4π × 4 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/005",
+      "tier": 1,
+      "prompt": "Tank: base area 8π, height 4. How much does it hold?",
+      "choices": [
+        "12π",
+        "8π",
+        "256π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        "AREA_AS_RADIUS",
+        null
+      ],
+      "explanation": "Volume = base area × height = 8π × 4 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/006",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, radius 2, height 8. Volume?",
+      "choices": [
+        "12π",
+        "16π",
+        "4π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 8 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/007",
+      "tier": 1,
+      "prompt": "Can: base area 6π, height 8. Its volume?",
+      "choices": [
+        "48π",
+        "6π",
+        "14π",
+        "288π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 6π × 8 = 48π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/008",
+      "tier": 1,
+      "prompt": "Tank: base area 2π, height 5. How much does it hold?",
+      "choices": [
+        "10π",
+        "20π",
+        "7π",
+        "2π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 2π × 5 = 10π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/009",
+      "tier": 1,
+      "prompt": "A drum has diameter 4 and height 4. Volume?",
+      "choices": [
+        "8π",
+        "32π",
+        "64π",
+        "16π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "HALVED_AFTER_SQUARE",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 4 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/010",
+      "tier": 1,
+      "prompt": "A drum has radius 1 and height 8. Volume?",
+      "choices": [
+        "8π",
+        "9π",
+        "16π",
+        "π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_HEIGHT",
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 8 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/011",
+      "tier": 1,
+      "prompt": "Silo: radius 1, height 5. What is its volume?",
+      "choices": [
+        "10π",
+        "π",
+        "5π",
+        "6π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 5 = 5π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/012",
+      "tier": 1,
+      "prompt": "A can has radius 1 and height 3. Its volume?",
+      "choices": [
+        "6π",
+        "π",
+        "4π",
+        "3π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/013",
+      "tier": 1,
+      "prompt": "Cylinder volume = base area × ?",
+      "choices": [
+        "Radius",
+        "Circumference",
+        "Height",
+        "Diameter"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORMULA_MIX",
+        "FORMULA_MIX",
+        null,
+        "FORMULA_MIX"
+      ],
+      "explanation": "Stack the circular base up the whole cylinder: volume = base area × height."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/014",
+      "tier": 1,
+      "prompt": "Tank: diameter 6, height 6. How much does it hold?",
+      "choices": [
+        "9π",
+        "54π",
+        "108π",
+        "18π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 6 = 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/015",
+      "tier": 1,
+      "prompt": "Tank: diameter 2, height 9. How much does it hold?",
+      "choices": [
+        "18π",
+        "9π",
+        "36π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        null,
+        "DIAMETER_AS_RADIUS",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 9 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/016",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 4, height 6. Volume?",
+      "choices": [
+        "48π",
+        "10π",
+        "24π",
+        "96π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 6 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/017",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 2. Its volume?",
+      "choices": [
+        "9π",
+        "4π",
+        "6π",
+        "8π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 2 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/018",
+      "tier": 1,
+      "prompt": "Silo: radius 3, height 5. What is its volume?",
+      "choices": [
+        "15π",
+        "45π",
+        "14π",
+        "30π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 5 = 45π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/019",
+      "tier": 1,
+      "prompt": "A cylinder's base is a circle. Its area is?",
+      "choices": [
+        "π × r × r",
+        "π × d × d",
+        "π × r",
+        "2 × π × r"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIAMETER_AS_RADIUS",
+        "RADIUS_NOT_SQUARED",
+        "CIRCUMFERENCE_FOR_AREA"
+      ],
+      "explanation": "A circle's area is π × r × r. 2 × π × r measures around the edge."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/020",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, radius 4, height 2. Volume?",
+      "choices": [
+        "32π",
+        "8π",
+        "18π",
+        "16π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 4 × 4 × 2 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/021",
+      "tier": 1,
+      "prompt": "Can: base area 8π, height 10. Its volume?",
+      "choices": [
+        "640π",
+        "18π",
+        "80π",
+        "8π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 10 = 80π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/022",
+      "tier": 1,
+      "prompt": "Tank: base area 10π, height 8. How much does it hold?",
+      "choices": [
+        "10π",
+        "18π",
+        "80π",
+        "800π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        null,
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 10π × 8 = 80π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/023",
+      "tier": 1,
+      "prompt": "Silo: radius 4, height 1. What is its volume?",
+      "choices": [
+        "16π",
+        "4π",
+        "17π",
+        "8π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 4 × 4 × 1 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/024",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 10. Its volume?",
+      "choices": [
+        "20π",
+        "14π",
+        "4π",
+        "40π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 10 = 40π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/025",
+      "tier": 1,
+      "prompt": "Can: base area 8π, height 5. Its volume?",
+      "choices": [
+        "8π",
+        "320π",
+        "40π",
+        "13π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        "AREA_AS_RADIUS",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 5 = 40π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/026",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, diameter 10, height 1. Volume?",
+      "choices": [
+        "25π",
+        "50π",
+        "10π",
+        "5π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_AFTER_SQUARE",
+        "LATERAL_AREA",
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Volume = π × 5 × 5 × 1 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/027",
+      "tier": 1,
+      "prompt": "Cylinder: radius 3, height 6. Volume?",
+      "choices": [
+        "18π",
+        "54π",
+        "15π",
+        "9π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 6 = 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/028",
+      "tier": 1,
+      "prompt": "A cylinder's base area is 7π, height 2. Volume?",
+      "choices": [
+        "9π",
+        "7π",
+        "14π",
+        "98π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null,
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 7π × 2 = 14π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/029",
+      "tier": 1,
+      "prompt": "Silo: diameter 4, height 7. What is its volume?",
+      "choices": [
+        "28π",
+        "14π",
+        "4π",
+        "112π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 7 = 28π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/030",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, diameter 2, height 5. Volume?",
+      "choices": [
+        "π",
+        "5π",
+        "10π",
+        "6π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 5 = 5π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/031",
+      "tier": 1,
+      "prompt": "Tank: diameter 6, height 1. How much does it hold?",
+      "choices": [
+        "3π",
+        "9π",
+        "18π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 1 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/032",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 2, height 8. Volume?",
+      "choices": [
+        "16π",
+        "9π",
+        "8π",
+        "π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 8 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/033",
+      "tier": 1,
+      "prompt": "Tank: base area 8π, height 8. How much does it hold?",
+      "choices": [
+        "64π",
+        "16π",
+        "512π",
+        "8π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_HEIGHT",
+        "AREA_AS_RADIUS",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 8 = 64π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/034",
+      "tier": 1,
+      "prompt": "Silo: radius 3, height 7. What is its volume?",
+      "choices": [
+        "42π",
+        "16π",
+        "21π",
+        "63π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 7 = 63π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/035",
+      "tier": 1,
+      "prompt": "Same base area; B is taller. Which cylinder holds more?",
+      "choices": [
+        "Same",
+        "B (taller)",
+        "A (shorter)",
+        "Can't tell"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_BASE_SAME_VOLUME",
+        null,
+        "SHORTER_HOLDS_MORE",
+        "CANT_TELL"
+      ],
+      "explanation": "Volume = base area × height. Same base, so the taller cylinder holds more."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/036",
+      "tier": 1,
+      "prompt": "Tank: radius 3, height 4. How much does it hold?",
+      "choices": [
+        "13π",
+        "36π",
+        "9π",
+        "24π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 4 = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/037",
+      "tier": 1,
+      "prompt": "A drum has diameter 6 and height 2. Volume?",
+      "choices": [
+        "72π",
+        "9π",
+        "6π",
+        "18π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "FORGOT_HEIGHT",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 2 = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/038",
+      "tier": 1,
+      "prompt": "A drum has diameter 6 and height 7. Volume?",
+      "choices": [
+        "63π",
+        "126π",
+        "42π",
+        "252π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_AFTER_SQUARE",
+        "LATERAL_AREA",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 7 = 63π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/039",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 4, height 5. Volume?",
+      "choices": [
+        "10π",
+        "20π",
+        "4π",
+        "40π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "FORGOT_HEIGHT",
+        "HALVED_AFTER_SQUARE"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 5 = 20π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/040",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 6, height 9. Volume?",
+      "choices": [
+        "27π",
+        "18π",
+        "81π",
+        "324π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 9 = 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/001",
+      "tier": 2,
+      "prompt": "Same base and height: cylinder 6π. The cone?",
+      "choices": [
+        "18π",
+        "6π",
+        "2π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "SAME_AS_CYLINDER",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/002",
+      "tier": 2,
+      "prompt": "Traffic cone: radius 5, height 6. Volume?",
+      "choices": [
+        "50π",
+        "150π",
+        "10π",
+        "450π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_THIRD",
+        "NO_SQUARE",
+        "TIMES_THREE"
+      ],
+      "explanation": "Cylinder: 150π. A cone is one third: 150π ÷ 3 = 50π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/003",
+      "tier": 2,
+      "prompt": "A cone has diameter 10 and height 6. Its volume?",
+      "choices": [
+        "200π",
+        "50π",
+        "450π",
+        "75π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        null,
+        "TIMES_THREE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Cylinder: 150π. A cone is one third: 150π ÷ 3 = 50π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/004",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 6, height 3. Volume?",
+      "choices": [
+        "27π",
+        "9π",
+        "81π",
+        "36π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 27π. A cone is one third: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/005",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 6, height 8. Volume?",
+      "choices": [
+        "36π",
+        "24π",
+        "8π",
+        "96π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        null,
+        "NO_SQUARE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 72π. A cone is one third: 72π ÷ 3 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/006",
+      "tier": 2,
+      "prompt": "Party hat (a cone): diameter 6, height 6. Volume?",
+      "choices": [
+        "54π",
+        "18π",
+        "162π",
+        "72π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 54π. A cone is one third: 54π ÷ 3 = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/007",
+      "tier": 2,
+      "prompt": "Cone and cylinder, same base and height. Cone is what part?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "1/3",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPHERE_FOR_CONE",
+        "HALF_FOR_THIRD",
+        null,
+        "TIMES_THREE"
+      ],
+      "explanation": "Same base and height: the cone is one third of the cylinder."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/008",
+      "tier": 2,
+      "prompt": "Same base and height: cone 7π. The cylinder?",
+      "choices": [
+        "14π",
+        "(7/3)π",
+        "10π",
+        "21π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 7π × 3 = 21π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/009",
+      "tier": 2,
+      "prompt": "Cone: diameter 2, height 6. Volume?",
+      "choices": [
+        "3π",
+        "18π",
+        "8π",
+        "2π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Cylinder: 6π. A cone is one third: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/010",
+      "tier": 2,
+      "prompt": "Cone 8π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "8π",
+        "16π",
+        "(8/3)π",
+        "24π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_CONE",
+        "HALF_FOR_THIRD",
+        "DIVIDED_BY_THREE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 8π × 3 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/011",
+      "tier": 2,
+      "prompt": "A cone-shaped cup: radius 3, height 3. Volume?",
+      "choices": [
+        "9π",
+        "3π",
+        "81π",
+        "27π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE",
+        "NO_THIRD"
+      ],
+      "explanation": "Cylinder: 27π. A cone is one third: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/012",
+      "tier": 2,
+      "prompt": "A cone has radius 3 and height 10. Its volume?",
+      "choices": [
+        "270π",
+        "90π",
+        "45π",
+        "30π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "NO_THIRD",
+        "HALF_FOR_THIRD",
+        null
+      ],
+      "explanation": "Cylinder: 90π. A cone is one third: 90π ÷ 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/013",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 6, height 5. Volume?",
+      "choices": [
+        "135π",
+        "5π",
+        "45π",
+        "15π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "NO_SQUARE",
+        "NO_THIRD",
+        null
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 45π. A cone is one third: 45π ÷ 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/014",
+      "tier": 2,
+      "prompt": "Cone: radius 2, height 9. Volume?",
+      "choices": [
+        "12π",
+        "108π",
+        "18π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "HALF_FOR_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/015",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 3, height 4. Volume?",
+      "choices": [
+        "36π",
+        "12π",
+        "108π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/016",
+      "tier": 2,
+      "prompt": "Cone 9π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "9π",
+        "18π",
+        "27π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_CONE",
+        "HALF_FOR_THIRD",
+        null,
+        "DIVIDED_BY_THREE"
+      ],
+      "explanation": "Three cones fill the cylinder: 9π × 3 = 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/017",
+      "tier": 2,
+      "prompt": "Same base and height: cone 4π. The cylinder?",
+      "choices": [
+        "8π",
+        "7π",
+        "12π",
+        "4π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "ADDED_THREE",
+        null,
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 4π × 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/018",
+      "tier": 2,
+      "prompt": "Cone 3π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "9π",
+        "π",
+        "6π",
+        "3π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 3π × 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/019",
+      "tier": 2,
+      "prompt": "Same base and height: how many cones fill one cylinder?",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "HALF_FOR_THIRD",
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of the cylinder with the same base and height: 3 cones fill it."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/020",
+      "tier": 2,
+      "prompt": "A cone has diameter 8 and height 3. Its volume?",
+      "choices": [
+        "144π",
+        "16π",
+        "48π",
+        "24π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Cylinder: 48π. A cone is one third: 48π ÷ 3 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/021",
+      "tier": 2,
+      "prompt": "A cone has radius 3 and height 7. Its volume?",
+      "choices": [
+        "189π",
+        "21π",
+        "63π",
+        "7π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 63π. A cone is one third: 63π ÷ 3 = 21π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/022",
+      "tier": 2,
+      "prompt": "Cone 2π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "(2/3)π",
+        "5π",
+        "4π",
+        "6π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        "HALF_FOR_THIRD",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 2π × 3 = 6π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/023",
+      "tier": 2,
+      "prompt": "A cylinder holds 18π. A cone with its base and height holds?",
+      "choices": [
+        "6π",
+        "18π",
+        "54π",
+        "9π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_AS_CYLINDER",
+        "TIMES_THREE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 18π ÷ 3 = 6π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/024",
+      "tier": 2,
+      "prompt": "A cone-shaped cup: diameter 6, height 9. Volume?",
+      "choices": [
+        "108π",
+        "81π",
+        "27π",
+        "243π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "NO_THIRD",
+        null,
+        "TIMES_THREE"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 81π. A cone is one third: 81π ÷ 3 = 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/025",
+      "tier": 2,
+      "prompt": "Cylinder 12π; cone with the same base and height. Cone?",
+      "choices": [
+        "4π",
+        "36π",
+        "12π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "SAME_AS_CYLINDER",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 12π ÷ 3 = 4π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/026",
+      "tier": 2,
+      "prompt": "Traffic cone: radius 1, height 9. Volume?",
+      "choices": [
+        "3π",
+        "27π",
+        "4π",
+        "9π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "ARITH",
+        "NO_THIRD"
+      ],
+      "explanation": "Cylinder: 9π. A cone is one third: 9π ÷ 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/027",
+      "tier": 2,
+      "prompt": "Same base and height: cone 5π. The cylinder?",
+      "choices": [
+        "8π",
+        "10π",
+        "5π",
+        "15π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_THREE",
+        "HALF_FOR_THIRD",
+        "SAME_AS_CONE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 5π × 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/028",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 4, height 6. Volume?",
+      "choices": [
+        "4π",
+        "24π",
+        "72π",
+        "8π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "NO_THIRD",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 24π. A cone is one third: 24π ÷ 3 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/029",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 4, height 9. Volume?",
+      "choices": [
+        "36π",
+        "48π",
+        "108π",
+        "12π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_THIRD",
+        "DIAMETER_AS_RADIUS",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/030",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 5, height 3. Volume?",
+      "choices": [
+        "225π",
+        "25π",
+        "75π",
+        "5π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 75π. A cone is one third: 75π ÷ 3 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/031",
+      "tier": 2,
+      "prompt": "A cone has diameter 6 and height 10. Its volume?",
+      "choices": [
+        "120π",
+        "270π",
+        "30π",
+        "45π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "TIMES_THREE",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 90π. A cone is one third: 90π ÷ 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/032",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 10, height 3. Volume?",
+      "choices": [
+        "25π",
+        "5π",
+        "225π",
+        "75π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE",
+        "NO_THIRD"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Cylinder: 75π. A cone is one third: 75π ÷ 3 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/033",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 1, height 6. Volume?",
+      "choices": [
+        "6π",
+        "18π",
+        "2π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_THIRD",
+        "TIMES_THREE",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Cylinder: 6π. A cone is one third: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/034",
+      "tier": 2,
+      "prompt": "Cone: radius 4, height 6. Volume?",
+      "choices": [
+        "32π",
+        "288π",
+        "8π",
+        "48π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "NO_SQUARE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Cylinder: 96π. A cone is one third: 96π ÷ 3 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/035",
+      "tier": 2,
+      "prompt": "A cylinder holds 9π. A cone with its base and height holds?",
+      "choices": [
+        "27π",
+        "4π",
+        "3π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "ARITH",
+        null,
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of its cylinder: 9π ÷ 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/036",
+      "tier": 2,
+      "prompt": "Same base and height: cone 10π. The cylinder?",
+      "choices": [
+        "20π",
+        "13π",
+        "30π",
+        "10π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "ADDED_THREE",
+        null,
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 10π × 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/037",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 3, height 5. Volume?",
+      "choices": [
+        "45π",
+        "15π",
+        "5π",
+        "135π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE"
+      ],
+      "explanation": "Cylinder: 45π. A cone is one third: 45π ÷ 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/038",
+      "tier": 2,
+      "prompt": "Same base and height: cylinder 27π. The cone?",
+      "choices": [
+        "9π",
+        "10π",
+        "27π",
+        "81π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SAME_AS_CYLINDER",
+        "TIMES_THREE"
+      ],
+      "explanation": "A cone is one third of its cylinder: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/039",
+      "tier": 2,
+      "prompt": "Cylinder 30π; cone with the same base and height. Cone?",
+      "choices": [
+        "90π",
+        "15π",
+        "10π",
+        "30π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "HALF_FOR_THIRD",
+        null,
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of its cylinder: 30π ÷ 3 = 10π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/040",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 4, height 3. Volume?",
+      "choices": [
+        "6π",
+        "36π",
+        "2π",
+        "4π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "TIMES_THREE",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 12π. A cone is one third: 12π ÷ 3 = 4π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/001",
+      "tier": 3,
+      "prompt": "Planet (a sphere) with radius 1. Volume?",
+      "choices": [
+        "4π",
+        "(4/3)π",
+        "(2/3)π",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        null,
+        "HEMI_FORMULA",
+        "NO_FOUR_THIRDS"
+      ],
+      "explanation": "Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/002",
+      "tier": 3,
+      "prompt": "A ball has diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "12",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/003",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 1. Volume?",
+      "choices": [
+        "π",
+        "(4/3)π",
+        "(1/2)π",
+        "(2/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        "ARITH",
+        null
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/004",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): radius 3. Volume, using 3 for π?",
+      "choices": [
+        "54",
+        "81",
+        "18",
+        "108"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/005",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "16",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/006",
+      "tier": 3,
+      "prompt": "A ball has diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "24",
+        "96",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/007",
+      "tier": 3,
+      "prompt": "Half a ball, radius 2. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "8",
+        "24",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED",
+        "NO_TWO_THIRDS",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/008",
+      "tier": 3,
+      "prompt": "A ball has radius 2. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "96",
+        "24",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/009",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 1. Volume, using 3 for π?",
+      "choices": [
+        "1",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/010",
+      "tier": 3,
+      "prompt": "A bowl is a half sphere with radius 3. Volume?",
+      "choices": [
+        "27π",
+        "6π",
+        "36π",
+        "18π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/011",
+      "tier": 3,
+      "prompt": "Sphere: radius 2. Volume, using 3 for π?",
+      "choices": [
+        "96",
+        "24",
+        "32",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/012",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "24",
+        "16",
+        "32",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/013",
+      "tier": 3,
+      "prompt": "Half a ball, radius 1. Its volume?",
+      "choices": [
+        "(2/3)π",
+        "π",
+        "(1/2)π",
+        "(4/3)π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "ARITH",
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/014",
+      "tier": 3,
+      "prompt": "A bowl is a half sphere with radius 1. Volume?",
+      "choices": [
+        "(4/3)π",
+        "(2/3)π",
+        "(1/2)π",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        null,
+        "ARITH",
+        "NO_TWO_THIRDS"
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/015",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 6. Its volume?",
+      "choices": [
+        "27π",
+        "18π",
+        "36π",
+        "144π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/016",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "16",
+        "3",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "DIAMETER_AS_RADIUS",
+        "NO_TWO_THIRDS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/017",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 2. Volume?",
+      "choices": [
+        "(4/3)π",
+        "π",
+        "(2/3)π",
+        "(16/3)π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/018",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "8",
+        "128",
+        "32",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/019",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 6. Volume, using 3 for π?",
+      "choices": [
+        "54",
+        "81",
+        "18",
+        "432"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. (2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/020",
+      "tier": 3,
+      "prompt": "Marble with radius 2. Volume, using 3 for π?",
+      "choices": [
+        "24",
+        "32",
+        "96",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        null,
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/021",
+      "tier": 3,
+      "prompt": "Sphere: radius 3. Volume?",
+      "choices": [
+        "12π",
+        "108π",
+        "36π",
+        "18π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "FOUR_NOT_THIRD",
+        null,
+        "HEMI_FORMULA"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/022",
+      "tier": 3,
+      "prompt": "Sphere: radius 1. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "12",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        null,
+        "ARITH"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/023",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 3. Volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "27π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/024",
+      "tier": 3,
+      "prompt": "Marble with diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "96",
+        "16",
+        "256"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/025",
+      "tier": 3,
+      "prompt": "Marble with radius 1. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/026",
+      "tier": 3,
+      "prompt": "Marble with diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "12",
+        "32",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/027",
+      "tier": 3,
+      "prompt": "Planet (a sphere) with radius 3. Volume?",
+      "choices": [
+        "18π",
+        "108π",
+        "36π",
+        "12π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/028",
+      "tier": 3,
+      "prompt": "Marble with radius 3. What is its volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "12π",
+        "108π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        null,
+        "SQUARED_NOT_CUBED",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/029",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): radius 1. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/030",
+      "tier": 3,
+      "prompt": "A globe has diameter 2. Volume?",
+      "choices": [
+        "(32/3)π",
+        "4π",
+        "(2/3)π",
+        "(4/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "FOUR_NOT_THIRD",
+        "HEMI_FORMULA",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/031",
+      "tier": 3,
+      "prompt": "A ball has radius 1. Its volume?",
+      "choices": [
+        "π",
+        "(4/3)π",
+        "(2/3)π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        null,
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/032",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 2. Volume, using 3 for π?",
+      "choices": [
+        "8",
+        "24",
+        "32",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/033",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 6. Volume, using 3 for π?",
+      "choices": [
+        "18",
+        "54",
+        "81",
+        "432"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        null,
+        "NO_TWO_THIRDS",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. (2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/034",
+      "tier": 3,
+      "prompt": "Sphere: diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "96",
+        "24",
+        "32",
+        "256"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/035",
+      "tier": 3,
+      "prompt": "Sphere: diameter 2. Volume?",
+      "choices": [
+        "(2/3)π",
+        "4π",
+        "π",
+        "(4/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/036",
+      "tier": 3,
+      "prompt": "A ball has diameter 6. Its volume?",
+      "choices": [
+        "12π",
+        "18π",
+        "36π",
+        "288π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "HEMI_FORMULA",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/037",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 2. Its volume?",
+      "choices": [
+        "(4/3)π",
+        "(2/3)π",
+        "π",
+        "(16/3)π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        null,
+        "NO_TWO_THIRDS",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/038",
+      "tier": 3,
+      "prompt": "Half a ball, radius 3. Volume, using 3 for π?",
+      "choices": [
+        "81",
+        "108",
+        "54",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/039",
+      "tier": 3,
+      "prompt": "Sphere: diameter 6. Volume?",
+      "choices": [
+        "12π",
+        "36π",
+        "288π",
+        "108π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        null,
+        "DIAMETER_AS_RADIUS",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/040",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 6. Volume?",
+      "choices": [
+        "18π",
+        "144π",
+        "36π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIAMETER_AS_RADIUS",
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/001",
+      "tier": 4,
+      "prompt": "A ball has volume 36π. Its diameter?",
+      "choices": [
+        "3",
+        "36",
+        "27",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RADIUS_FOR_DIAMETER",
+        "COEFFICIENT_AS_RADIUS",
+        "STOPPED_AT_CUBE",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, so r = 3. Diameter = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/002",
+      "tier": 4,
+      "prompt": "Cone: radius 2, height 9. Volume, using 3 for π?",
+      "choices": [
+        "18",
+        "12",
+        "108",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "LEFT_OUT_PI",
+        "NO_THIRD",
+        null
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 2 × 2 × 9 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/003",
+      "tier": 4,
+      "prompt": "Marble with volume (4/3)π. What is its diameter?",
+      "choices": [
+        "3",
+        "4/3",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "COEFFICIENT_AS_RADIUS",
+        "RADIUS_FOR_DIAMETER",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/004",
+      "tier": 4,
+      "prompt": "A cone has radius 1 and height 9. Volume, using 3 for π?",
+      "choices": [
+        "27",
+        "10",
+        "9",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_THIRD",
+        "ARITH",
+        null,
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 1 × 1 × 9 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/005",
+      "tier": 4,
+      "prompt": "Marble with volume (4/3)π. What is its radius?",
+      "choices": [
+        "4/3",
+        "2",
+        "1/3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS",
+        "DIVIDED_NOT_ROOTED",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/006",
+      "tier": 4,
+      "prompt": "Tank holds 36π, height 9. What is the radius?",
+      "choices": [
+        "3",
+        "4",
+        "9",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "STOPPED_AT_SQUARE",
+        "HEIGHT_FOR_RADIUS",
+        null
+      ],
+      "explanation": "36 ÷ 9 = 4 = r × r, so r = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/007",
+      "tier": 4,
+      "prompt": "A bowl (half sphere) holds (2/3)π. Its radius?",
+      "choices": [
+        "2",
+        "2/3",
+        "1",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "DIVIDED_NOT_ROOTED"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/008",
+      "tier": 4,
+      "prompt": "A can has radius 1 and height 6. Volume, using 3 for π?",
+      "choices": [
+        "36",
+        "18",
+        "6",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LATERAL_AREA",
+        null,
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 6 = 18."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/009",
+      "tier": 4,
+      "prompt": "Cone-shaped cup: volume 12π, radius 2. How tall?",
+      "choices": [
+        "9",
+        "3",
+        "18",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_THIRD",
+        "NO_SQUARE",
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 12 ÷ 4 × 3 = 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/010",
+      "tier": 4,
+      "prompt": "Drum: volume 63π, height 7. Find the radius.",
+      "choices": [
+        "6",
+        "7",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "HEIGHT_FOR_RADIUS",
+        "STOPPED_AT_SQUARE",
+        null
+      ],
+      "explanation": "63 ÷ 7 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/011",
+      "tier": 4,
+      "prompt": "Cylinder volume 20π, radius 2. Height?",
+      "choices": [
+        "5",
+        "20",
+        "2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_AS_DIAMETER",
+        "RADIUS_FOR_HEIGHT",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 20 ÷ (2 × 2) = 20 ÷ 4 = 5."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/012",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 9. Volume, using 3 for π?",
+      "choices": [
+        "27",
+        "54",
+        "9",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LATERAL_AREA",
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 9 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/013",
+      "tier": 4,
+      "prompt": "Cylinder: radius 2, height 3. Volume, using 3 for π?",
+      "choices": [
+        "36",
+        "18",
+        "12",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 2 × 2 × 3 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/014",
+      "tier": 4,
+      "prompt": "A ball has volume (4/3)π. Its diameter?",
+      "choices": [
+        "4/3",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "RADIUS_FOR_DIAMETER",
+        "ARITH"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/015",
+      "tier": 4,
+      "prompt": "Cylinder volume 27π, radius 3. Height?",
+      "choices": [
+        "12",
+        "9",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE",
+        "ARITH",
+        null
+      ],
+      "explanation": "C = π × r × r × h, so h = 27 ÷ (3 × 3) = 27 ÷ 9 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/016",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 2. Volume, using 3 for π?",
+      "choices": [
+        "9",
+        "2",
+        "6",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "LEFT_OUT_PI",
+        null,
+        "LATERAL_AREA"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 2 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/017",
+      "tier": 4,
+      "prompt": "A bowl (half sphere) holds 18π. Its diameter?",
+      "choices": [
+        "18",
+        "6",
+        "3",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "RADIUS_FOR_DIAMETER",
+        "STOPPED_AT_CUBE"
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, so r = 3. Diameter = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/018",
+      "tier": 4,
+      "prompt": "Tank holds 40π, height 10. What is the radius?",
+      "choices": [
+        "2",
+        "3",
+        "10",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "HEIGHT_FOR_RADIUS",
+        "STOPPED_AT_SQUARE"
+      ],
+      "explanation": "40 ÷ 10 = 4 = r × r, so r = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/019",
+      "tier": 4,
+      "prompt": "A can has radius 1 and height 4. Volume, using 3 for π?",
+      "choices": [
+        "12",
+        "4",
+        "24",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEFT_OUT_PI",
+        "LATERAL_AREA",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 4 = 12."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/020",
+      "tier": 4,
+      "prompt": "A cone holds 27π and has radius 3. Its height?",
+      "choices": [
+        "3",
+        "1",
+        "9",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        "DIVIDED_NOT_MULTIPLIED",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 27 ÷ 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/021",
+      "tier": 4,
+      "prompt": "Tank holds 90π, radius 3. How tall is it?",
+      "choices": [
+        "10",
+        "3",
+        "40",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 90 ÷ (3 × 3) = 90 ÷ 9 = 10."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/022",
+      "tier": 4,
+      "prompt": "Cylinder volume 54π, radius 3. Height?",
+      "choices": [
+        "24",
+        "3",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RADIUS_AS_DIAMETER",
+        "RADIUS_FOR_HEIGHT",
+        null,
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 54 ÷ (3 × 3) = 54 ÷ 9 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/023",
+      "tier": 4,
+      "prompt": "A can holds 24π and has radius 2. Its height?",
+      "choices": [
+        "6",
+        "2",
+        "24",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 24 ÷ (2 × 2) = 24 ÷ 4 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/024",
+      "tier": 4,
+      "prompt": "A cone has radius 1 and height 3. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "9",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_THIRD",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 1 × 1 × 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/025",
+      "tier": 4,
+      "prompt": "Cone volume 8π, radius 2. Height?",
+      "choices": [
+        "6",
+        "2/3",
+        "2",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_NOT_MULTIPLIED",
+        "FORGOT_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 8 ÷ 4 × 3 = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/026",
+      "tier": 4,
+      "prompt": "A cone holds 9π and has radius 3. Its height?",
+      "choices": [
+        "1",
+        "9",
+        "3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        "NO_SQUARE",
+        null,
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 9 ÷ 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/027",
+      "tier": 4,
+      "prompt": "Dome (half a sphere) with volume 18π. Radius?",
+      "choices": [
+        "18",
+        "6",
+        "27",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS",
+        "STOPPED_AT_CUBE",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, and 3 × 3 × 3 = 27, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/028",
+      "tier": 4,
+      "prompt": "Hemisphere volume (2/3)π. Diameter?",
+      "choices": [
+        "1",
+        "2",
+        "2/3",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADIUS_FOR_DIAMETER",
+        null,
+        "COEFFICIENT_AS_RADIUS",
+        "ARITH"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/029",
+      "tier": 4,
+      "prompt": "Drum: volume 90π, height 10. Find the radius.",
+      "choices": [
+        "6",
+        "10",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "HEIGHT_FOR_RADIUS",
+        null,
+        "STOPPED_AT_SQUARE"
+      ],
+      "explanation": "90 ÷ 10 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/030",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 3. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "18",
+        "9",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEFT_OUT_PI",
+        "LATERAL_AREA",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/031",
+      "tier": 4,
+      "prompt": "Hemisphere volume (2/3)π. Radius?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/032",
+      "tier": 4,
+      "prompt": "A cone holds 18π and has radius 3. Its height?",
+      "choices": [
+        "2",
+        "6",
+        "18",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        null,
+        "NO_SQUARE",
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/033",
+      "tier": 4,
+      "prompt": "A cone has radius 2 and height 3. Volume, using 3 for π?",
+      "choices": [
+        "12",
+        "6",
+        "36",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "NO_THIRD",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 2 × 2 × 3 = 12."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/034",
+      "tier": 4,
+      "prompt": "Drum: volume 81π, height 9. Find the radius.",
+      "choices": [
+        "4",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "STOPPED_AT_SQUARE",
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "81 ÷ 9 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/035",
+      "tier": 4,
+      "prompt": "Marble with volume 36π. What is its radius?",
+      "choices": [
+        "9",
+        "3",
+        "36",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        null,
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, and 3 × 3 × 3 = 27, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/036",
+      "tier": 4,
+      "prompt": "Tank holds 36π, height 4. What is the radius?",
+      "choices": [
+        "9",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_AT_SQUARE",
+        "DIAMETER_FOR_RADIUS",
+        null,
+        "HEIGHT_FOR_RADIUS"
+      ],
+      "explanation": "36 ÷ 4 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/037",
+      "tier": 4,
+      "prompt": "A cone has radius 3 and height 4. Volume, using 3 for π?",
+      "choices": [
+        "108",
+        "36",
+        "37",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "ARITH",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 3 × 3 × 4 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/038",
+      "tier": 4,
+      "prompt": "Sphere volume (4/3)π. Radius?",
+      "choices": [
+        "1/3",
+        "2",
+        "4/3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        "DIAMETER_FOR_RADIUS",
+        "COEFFICIENT_AS_RADIUS",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/039",
+      "tier": 4,
+      "prompt": "A cone holds 8π and has radius 2. Its height?",
+      "choices": [
+        "2/3",
+        "6",
+        "2",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_NOT_MULTIPLIED",
+        null,
+        "FORGOT_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 8 ÷ 4 × 3 = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/040",
+      "tier": 4,
+      "prompt": "Drum: volume 16π, radius 2. Find the height.",
+      "choices": [
+        "8",
+        "2",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_SQUARE",
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        null
+      ],
+      "explanation": "C = π × r × r × h, so h = 16 ÷ (2 × 2) = 16 ÷ 4 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/001",
+      "tier": 5,
+      "prompt": "Triple the radius of a sphere. New volume is ? times as big.",
+      "choices": [
+        "28",
+        "27",
+        "3",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 3 × 3 × 3 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/002",
+      "tier": 5,
+      "prompt": "Halve the radius of a cone. New volume is ? times as big.",
+      "choices": [
+        "1/3",
+        "1/4",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/003",
+      "tier": 5,
+      "prompt": "Cylinder volume 12π. Halve the radius. New volume?",
+      "choices": [
+        "3π",
+        "4π",
+        "(3/2)π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Volume changes by 1/4 times: 12 ÷ 4 = 3, so 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/004",
+      "tier": 5,
+      "prompt": "A can holds 9π. Its radius is tripled. New volume?",
+      "choices": [
+        "243π",
+        "27π",
+        "54π",
+        "81π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Volume changes by 9 times: 9 × 3 × 3 = 81, so 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/005",
+      "tier": 5,
+      "prompt": "Cone volume 10π. Triple the radius. New volume?",
+      "choices": [
+        "60π",
+        "30π",
+        "90π",
+        "270π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BY_EXPONENT",
+        "LINEAR_SCALE",
+        null,
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Volume changes by 9 times: 10 × 3 × 3 = 90, so 90π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/006",
+      "tier": 5,
+      "prompt": "Triple a cylinder's radius. Volume times?",
+      "choices": [
+        "9",
+        "3",
+        "6",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/007",
+      "tier": 5,
+      "prompt": "A can's height is doubled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "4",
+        "8",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        null
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 2 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/008",
+      "tier": 5,
+      "prompt": "A can's height is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/2",
+        "1/8",
+        "1/4",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 1/2 = 1/2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/009",
+      "tier": 5,
+      "prompt": "A cone's height is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "1/8",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 1/2 = 1/2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/010",
+      "tier": 5,
+      "prompt": "Triple the height of a cone. New volume is ? times as big.",
+      "choices": [
+        "9",
+        "4",
+        "3",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARE_FOR_LINEAR",
+        "ARITH",
+        null,
+        "CUBE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/011",
+      "tier": 5,
+      "prompt": "Double a cone's height. Volume times?",
+      "choices": [
+        "3",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        null,
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 2 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/012",
+      "tier": 5,
+      "prompt": "A can holds 21 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "63",
+        "7",
+        "15",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "CONE_FOR_SPHERE",
+        "ARITH",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 21 ÷ 3 × 2 = 7 × 2 = 14."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/013",
+      "tier": 5,
+      "prompt": "A cone's height is tripled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "9",
+        "27",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/014",
+      "tier": 5,
+      "prompt": "A cone fits a can exactly. The cone is what part of the can?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1/2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SPHERE_FOR_CONE",
+        "HALF_RULE",
+        "TIMES_THREE"
+      ],
+      "explanation": "A cone with the can's base and height is 1/3 of the can (a ball would be 2/3)."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/015",
+      "tier": 5,
+      "prompt": "A can holds 9 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "6",
+        "3",
+        "27",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONE_FOR_SPHERE",
+        "TIMES_THREE",
+        "ARITH"
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 9 ÷ 3 × 2 = 3 × 2 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/016",
+      "tier": 5,
+      "prompt": "A ball holds 3π. Its radius is tripled. New volume?",
+      "choices": [
+        "82π",
+        "27π",
+        "81π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SQUARE_FOR_CUBE",
+        null,
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Volume changes by 27 times: 3 × 3 × 3 × 3 = 81, so 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/017",
+      "tier": 5,
+      "prompt": "A can holds 18 cups. A cone with its base and height holds?",
+      "choices": [
+        "12",
+        "54",
+        "9",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPHERE_FOR_CONE",
+        "TIMES_THREE",
+        "HALF_RULE",
+        null
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 18 ÷ 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/018",
+      "tier": 5,
+      "prompt": "A can holds 21 cups. A cone with its base and height holds?",
+      "choices": [
+        "8",
+        "7",
+        "63",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE"
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 21 ÷ 3 = 7."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/019",
+      "tier": 5,
+      "prompt": "A cone's radius is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/8",
+        "1/2",
+        "1/4",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/020",
+      "tier": 5,
+      "prompt": "Same base and height: a cone is what part of the cylinder?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "3",
+        "2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_RULE",
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE"
+      ],
+      "explanation": "Three cones fill a cylinder with the same base and height: each is 1/3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/021",
+      "tier": 5,
+      "prompt": "Cylinder volume 7π. Double the height. New volume?",
+      "choices": [
+        "14π",
+        "15π",
+        "56π",
+        "28π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Volume changes by 2 times: 7 × 2 = 14, so 14π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/022",
+      "tier": 5,
+      "prompt": "A can holds 27 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "9",
+        "19",
+        "81",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONE_FOR_SPHERE",
+        "ARITH",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 27 ÷ 3 × 2 = 9 × 2 = 18."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/023",
+      "tier": 5,
+      "prompt": "Halve a cylinder's radius and height. Volume times?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/8",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice and height once: three scaled lengths, so multiply by 1/2 × 1/2 × 1/2 = 1/8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/024",
+      "tier": 5,
+      "prompt": "A cone holds 3π. Its radius is tripled. New volume?",
+      "choices": [
+        "81π",
+        "9π",
+        "18π",
+        "27π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Volume changes by 9 times: 3 × 3 × 3 = 27, so 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/025",
+      "tier": 5,
+      "prompt": "A can's radius is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/3",
+        "1/4",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/026",
+      "tier": 5,
+      "prompt": "Sphere volume 2π. Triple the radius. New volume?",
+      "choices": [
+        "55π",
+        "54π",
+        "6π",
+        "18π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Volume changes by 27 times: 2 × 3 × 3 × 3 = 54, so 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/027",
+      "tier": 5,
+      "prompt": "A can holds 6 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "2",
+        "18",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONE_FOR_SPHERE",
+        "TIMES_THREE",
+        "HALF_RULE",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 6 ÷ 3 × 2 = 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/028",
+      "tier": 5,
+      "prompt": "A can holds 24 cups. A cone with its base and height holds?",
+      "choices": [
+        "12",
+        "72",
+        "16",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_RULE",
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE",
+        null
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 24 ÷ 3 = 8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/029",
+      "tier": 5,
+      "prompt": "Double a cylinder's radius. Volume times?",
+      "choices": [
+        "5",
+        "4",
+        "2",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/030",
+      "tier": 5,
+      "prompt": "Halve a sphere's radius. Volume times?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "1/8",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LINEAR_SCALE",
+        null,
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 1/2 × 1/2 × 1/2 = 1/8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/031",
+      "tier": 5,
+      "prompt": "A can's height is tripled. Its volume is multiplied by?",
+      "choices": [
+        "27",
+        "3",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBE_FOR_LINEAR",
+        null,
+        "ARITH",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/032",
+      "tier": 5,
+      "prompt": "Double a cone's radius. Volume times?",
+      "choices": [
+        "2",
+        "4",
+        "5",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        null,
+        "ARITH",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/033",
+      "tier": 5,
+      "prompt": "Cone volume 9π. Double the height. New volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "72π",
+        "19π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Volume changes by 2 times: 9 × 2 = 18, so 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/034",
+      "tier": 5,
+      "prompt": "Double a sphere's radius. Volume times?",
+      "choices": [
+        "6",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BY_EXPONENT",
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE",
+        null
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 2 × 2 × 2 = 8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/035",
+      "tier": 5,
+      "prompt": "A ball's radius is tripled. Its volume is multiplied by?",
+      "choices": [
+        "9",
+        "27",
+        "28",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_FOR_CUBE",
+        null,
+        "ARITH",
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 3 × 3 × 3 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/036",
+      "tier": 5,
+      "prompt": "A cone's radius is tripled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "27",
+        "6",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/037",
+      "tier": 5,
+      "prompt": "A cone holds 3π. Its height is tripled. New volume?",
+      "choices": [
+        "81π",
+        "10π",
+        "9π",
+        "27π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CUBE_FOR_LINEAR",
+        "ARITH",
+        null,
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Volume changes by 3 times: 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/038",
+      "tier": 5,
+      "prompt": "A cone holds 4π. Its radius is doubled. New volume?",
+      "choices": [
+        "32π",
+        "16π",
+        "8π",
+        "17π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        null,
+        "LINEAR_SCALE",
+        "ARITH"
+      ],
+      "explanation": "Volume changes by 4 times: 4 × 2 × 2 = 16, so 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/039",
+      "tier": 5,
+      "prompt": "A can's radius is doubled. Its volume is multiplied by?",
+      "choices": [
+        "2",
+        "8",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/040",
+      "tier": 5,
+      "prompt": "A ball fits a can exactly. The ball is what part of the can?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_RULE",
+        "CONE_FOR_SPHERE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "A ball that just fits a can fills 2/3 of it (a cone would fill 1/3)."
+    }
+  ],
+  "render_profile": "unicode"
+};
 window.FNM_CARTRIDGES["data-statistics"] = {
   "protocol": "fnm-cart/1",
   "id": "data-statistics",
@@ -23508,6 +27547,3957 @@ window.FNM_CARTRIDGES["equations-inequalities"] = {
         "BOUNDARY"
       ],
       "explanation": "Try 8: 8 × 8 = 64, and 64 > 48 is true. 8 × 6 = 48, and 48 > 48 is false."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["exponent-rules"] = {
+  "protocol": "fnm-cart/1",
+  "id": "exponent-rules",
+  "version": "1.0.0",
+  "title": "Integer Exponents",
+  "subtitle": "Product, Quotient, Power, Zero, Negative",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.A.1"
+  ],
+  "seed": 20261031,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Exponents. Numeric bases 2-10 only (no letters; a missing exponent is a ?). Every exponent in a prompt, a step, a choice or an answer is an integer of size 12 or less, and every exponent step is a signed sum or difference or a times-table product of size 12 or less. Answers stay in power form (2^7) except where a value is asked for: then only a power of 10, 1, the base, or a power of size 100 or less, or 1 over one of these (1/8, 1/100). A negative exponent is written ^−3.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Zero & Negative Powers",
+      "description": "Anything to the 0 power is 1. A negative exponent means a reciprocal."
+    },
+    {
+      "tier": 2,
+      "name": "Product Rule",
+      "description": "Same base, multiply: add the exponents."
+    },
+    {
+      "tier": 3,
+      "name": "Quotient Rule",
+      "description": "Same base, divide: subtract the exponents."
+    },
+    {
+      "tier": 4,
+      "name": "Power of a Power",
+      "description": "Raise a power to a power: multiply. Raise a product: each factor gets it."
+    },
+    {
+      "tier": 5,
+      "name": "Mixed Rules to a Value",
+      "description": "Use two rules in a row, then find the value."
+    }
+  ],
+  "misconceptions": {
+    "ZERO_IS_ZERO": {
+      "student": "A 0 exponent doesn't make 0. b² ÷ b² = 1, and that is b⁰.",
+      "teacher": "Reads b⁰ as 0 (zero exponent means zero)."
+    },
+    "ZERO_KEEPS_BASE": {
+      "student": "b⁰ isn't b. Dividing b^n by b^n gives 1, so b⁰ = 1.",
+      "teacher": "Reads b⁰ as b (no multiplications means the base is left alone)."
+    },
+    "NEG_VALUE": {
+      "student": "A negative exponent doesn't make a negative number. It flips: 2⁻³ = 1/8.",
+      "teacher": "Treats b^−n as −(b^n)."
+    },
+    "NEG_TIMES": {
+      "student": "An exponent counts copies of the base, it isn't a factor. 2⁻³ is 1/(2 × 2 × 2).",
+      "teacher": "Reads b^−n as −(b × n): multiplies base and exponent and keeps the sign."
+    },
+    "NEG_FRACTION": {
+      "student": "The minus tells you to flip, not to go negative. 2⁻³ = 1/8, a positive.",
+      "teacher": "Flips b^−n correctly but keeps a negative sign: −1/b^n."
+    },
+    "IGNORE_SIGN": {
+      "student": "The minus matters: 2⁻³ is 1/8, not 8. It flips the power.",
+      "teacher": "Drops the sign of the exponent: b^−n = b^n."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "An exponent is repeated multiplication, not base × exponent.",
+      "teacher": "Computes b^n as b × n."
+    },
+    "RECIP_TIMES": {
+      "student": "Flip the power, don't flip the product. 2⁻³ = 1/(2 × 2 × 2) = 1/8.",
+      "teacher": "Takes the reciprocal of b × n instead of b^n."
+    },
+    "SWAP_BASE_EXP": {
+      "student": "Base and exponent have different jobs. Check which number is the base.",
+      "teacher": "Swaps the base and the exponent."
+    },
+    "MULT_EXPONENTS": {
+      "student": "Multiplying same-base powers adds the exponents: b^m × b^n = b^(m+n).",
+      "teacher": "Multiplies the exponents in a product rule step."
+    },
+    "MULT_BASES": {
+      "student": "Keep the base the same and add the exponents. The base doesn't change.",
+      "teacher": "Multiplies the bases as well as adding the exponents."
+    },
+    "ADD_BASES": {
+      "student": "Keep the base the same and add the exponents. Don't add the bases.",
+      "teacher": "Adds the bases (b + b = 2b) as well as the exponents in a product."
+    },
+    "MULT_BOTH": {
+      "student": "Keep the base. Same base: add the exponents. Nothing else changes.",
+      "teacher": "Multiplies both the bases and the exponents."
+    },
+    "SUB_EXPONENTS": {
+      "student": "Multiplying powers adds exponents. Subtracting is for dividing.",
+      "teacher": "Subtracts the exponents in a product."
+    },
+    "SKIPS_FACTOR": {
+      "student": "Use every factor. Add all three exponents.",
+      "teacher": "Adds only two of the three exponents."
+    },
+    "SIGN_SLIP": {
+      "student": "Careful with the minus signs. Add or subtract the signed exponents.",
+      "teacher": "Drops a negative sign from an exponent, or flips the sign of the result."
+    },
+    "ADD_GIVEN": {
+      "student": "Subtract to find the missing exponent. Added they overshoot.",
+      "teacher": "Adds the exponents given instead of undoing the rule with the opposite operation."
+    },
+    "COPY_TOTAL": {
+      "student": "The total exponent is the sum (or difference), not the missing one.",
+      "teacher": "Gives the exponent of the result as the missing exponent."
+    },
+    "MULT_GIVEN": {
+      "student": "Same base: exponents add, so undo it by subtracting, not by multiplying.",
+      "teacher": "Multiplies the two exponents given."
+    },
+    "DIVIDE_EXPONENTS": {
+      "student": "Dividing same-base powers subtracts exponents: b^m ÷ b^n = b^(m−n).",
+      "teacher": "Divides the exponents in a quotient rule step."
+    },
+    "ADD_EXPONENTS": {
+      "student": "Dividing powers subtracts exponents. Adding is for multiplying.",
+      "teacher": "Adds the exponents in a quotient."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative exponent adds: 3 − (−2) = 5.",
+      "teacher": "Adds the exponents in a quotient with a negative divisor exponent: m + n instead of m − n."
+    },
+    "DIVIDE_BASES": {
+      "student": "The base stays. Don't divide it: b ÷ b isn't the answer, subtract exponents.",
+      "teacher": "Divides the bases to get 1 as the new base."
+    },
+    "FLIPPED_SUB": {
+      "student": "Top exponent minus bottom exponent, in that order. Check the sign.",
+      "teacher": "Subtracts the exponents in the wrong order."
+    },
+    "ADD_FOR_POWER": {
+      "student": "A power of a power multiplies the exponents: (b^m)^n = b^(mn).",
+      "teacher": "Adds the exponents in a power of a power."
+    },
+    "DROP_OUTER": {
+      "student": "Use both exponents. The outer one multiplies the inner one.",
+      "teacher": "Keeps only the inner exponent in a power of a power."
+    },
+    "DROP_INNER": {
+      "student": "Use both exponents. The inner one is multiplied by the outer one.",
+      "teacher": "Keeps only the outer exponent in a power of a power."
+    },
+    "FIRST_FACTOR_ONLY": {
+      "student": "The exponent goes on every factor inside the parentheses.",
+      "teacher": "Applies the exponent to only one factor of a product."
+    },
+    "SUM_FOR_PRODUCT": {
+      "student": "A product to a power is a product of powers: (ab)^n = a^n × b^n.",
+      "teacher": "Replaces the product of powers with a sum."
+    },
+    "SUM_BASES": {
+      "student": "The parentheses hold a product, not a sum. Raise each factor.",
+      "teacher": "Adds the bases inside the parentheses instead of keeping them as factors."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "exponent-rules/t1/001",
+      "tier": 1,
+      "prompt": "5⁻² = ?",
+      "choices": [
+        "10",
+        "−25",
+        "1/25",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "5⁻² = 1/5² = 1/25. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/002",
+      "tier": 1,
+      "prompt": "2⁻⁶",
+      "choices": [
+        "1/64",
+        "12",
+        "1/12",
+        "−12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "RECIP_TIMES",
+        "NEG_TIMES"
+      ],
+      "explanation": "2⁻⁶ = 1/2⁶ = 1/64. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/003",
+      "tier": 1,
+      "prompt": "Which equals 1/9?",
+      "choices": [
+        "9⁻¹",
+        "−(9⁻¹)",
+        "9¹",
+        "−(9¹)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "9⁻¹ = 1/9¹ = 1/9. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/004",
+      "tier": 1,
+      "prompt": "Which equals 1/8?",
+      "choices": [
+        "2³",
+        "−(2⁻³)",
+        "3⁻²",
+        "2⁻³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "SWAP_BASE_EXP",
+        null
+      ],
+      "explanation": "2⁻³ = 1/2³ = 1/8. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/005",
+      "tier": 1,
+      "prompt": "3⁻² = ?",
+      "choices": [
+        "1/6",
+        "1/9",
+        "−1/9",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RECIP_TIMES",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻² = 1/3² = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/006",
+      "tier": 1,
+      "prompt": "Simplify 3⁻¹",
+      "choices": [
+        "1/3",
+        "3",
+        "−3",
+        "−1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "3⁻¹ = 1/3¹ = 1/3. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/007",
+      "tier": 1,
+      "prompt": "2⁻² = ?",
+      "choices": [
+        "4",
+        "−4",
+        "−1/4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        null
+      ],
+      "explanation": "2⁻² = 1/2² = 1/4. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/008",
+      "tier": 1,
+      "prompt": "What is 7⁰?",
+      "choices": [
+        "1",
+        "0",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "7² ÷ 7² = 1, and by the quotient rule it is 7⁰. So 7⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/009",
+      "tier": 1,
+      "prompt": "5⁰ = ?",
+      "choices": [
+        "5",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        "ZERO_IS_ZERO",
+        null
+      ],
+      "explanation": "5² ÷ 5² = 1, and by the quotient rule it is 5⁰. So 5⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/010",
+      "tier": 1,
+      "prompt": "8⁻¹ = ?",
+      "choices": [
+        "−1/8",
+        "8",
+        "1/8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "8⁻¹ = 1/8¹ = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/011",
+      "tier": 1,
+      "prompt": "Simplify 3⁻⁴",
+      "choices": [
+        "81",
+        "−12",
+        "1/81",
+        "−81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻⁴ = 1/3⁴ = 1/81. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/012",
+      "tier": 1,
+      "prompt": "7⁻¹ = ?",
+      "choices": [
+        "−1/7",
+        "7",
+        "−7",
+        "1/7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null
+      ],
+      "explanation": "7⁻¹ = 1/7¹ = 1/7. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/013",
+      "tier": 1,
+      "prompt": "2⁻³ = ?",
+      "choices": [
+        "8",
+        "1/8",
+        "−8",
+        "−1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "2⁻³ = 1/2³ = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/014",
+      "tier": 1,
+      "prompt": "6⁻¹ = ?",
+      "choices": [
+        "6",
+        "1/6",
+        "−1/6",
+        "−6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES"
+      ],
+      "explanation": "6⁻¹ = 1/6¹ = 1/6. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/015",
+      "tier": 1,
+      "prompt": "Which equals 1/4?",
+      "choices": [
+        "2⁻²",
+        "2²",
+        "−(2⁻²)",
+        "−(2²)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "2⁻² = 1/2² = 1/4. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/016",
+      "tier": 1,
+      "prompt": "3⁻²",
+      "choices": [
+        "9",
+        "−6",
+        "1/9",
+        "−9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻² = 1/3² = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/017",
+      "tier": 1,
+      "prompt": "Which equals 1/81?",
+      "choices": [
+        "−(3⁻⁴)",
+        "4⁻³",
+        "−(3⁴)",
+        "3⁻⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "SWAP_BASE_EXP",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "3⁻⁴ = 1/3⁴ = 1/81. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/018",
+      "tier": 1,
+      "prompt": "Which equals 1/1000?",
+      "choices": [
+        "3⁻¹⁰",
+        "10⁻³",
+        "10³",
+        "−(10⁻³)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_BASE_EXP",
+        null,
+        "IGNORE_SIGN",
+        "NEG_FRACTION"
+      ],
+      "explanation": "10⁻³ = 1/10³ = 1/1000. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/019",
+      "tier": 1,
+      "prompt": "Which equals 1/7?",
+      "choices": [
+        "7¹",
+        "−(7⁻¹)",
+        "−(7¹)",
+        "7⁻¹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "7⁻¹ = 1/7¹ = 1/7. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/020",
+      "tier": 1,
+      "prompt": "Which equals 1/3?",
+      "choices": [
+        "3¹",
+        "3⁻¹",
+        "−(3⁻¹)",
+        "−(3¹)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻¹ = 1/3¹ = 1/3. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/021",
+      "tier": 1,
+      "prompt": "Which equals 1/6?",
+      "choices": [
+        "6⁻¹",
+        "−(6⁻¹)",
+        "−(6¹)",
+        "6¹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6⁻¹ = 1/6¹ = 1/6. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/022",
+      "tier": 1,
+      "prompt": "Value of 3⁻³",
+      "choices": [
+        "−9",
+        "9",
+        "1/27",
+        "−27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_TIMES",
+        "TIMES_FOR_POWER",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻³ = 1/3³ = 1/27. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/023",
+      "tier": 1,
+      "prompt": "What is 5⁰?",
+      "choices": [
+        "0",
+        "1",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_IS_ZERO",
+        null,
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "5² ÷ 5² = 1, and by the quotient rule it is 5⁰. So 5⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/024",
+      "tier": 1,
+      "prompt": "Simplify 2⁻⁴",
+      "choices": [
+        "−16",
+        "16",
+        "1/8",
+        "1/16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        "RECIP_TIMES",
+        null
+      ],
+      "explanation": "2⁻⁴ = 1/2⁴ = 1/16. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/025",
+      "tier": 1,
+      "prompt": "Value of 8⁻¹",
+      "choices": [
+        "8",
+        "−1/8",
+        "1/8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_FRACTION",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "8⁻¹ = 1/8¹ = 1/8. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/026",
+      "tier": 1,
+      "prompt": "9⁻¹ = ?",
+      "choices": [
+        "−9",
+        "9",
+        "1/9",
+        "−1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "9⁻¹ = 1/9¹ = 1/9. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/027",
+      "tier": 1,
+      "prompt": "Which equals 1/16?",
+      "choices": [
+        "−(2⁻⁴)",
+        "2⁴",
+        "−(2⁴)",
+        "2⁻⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "2⁻⁴ = 1/2⁴ = 1/16. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/028",
+      "tier": 1,
+      "prompt": "9⁰",
+      "choices": [
+        "1",
+        "0",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "9² ÷ 9² = 1, and by the quotient rule it is 9⁰. So 9⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/029",
+      "tier": 1,
+      "prompt": "What is 2⁰?",
+      "choices": [
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "2² ÷ 2² = 1, and by the quotient rule it is 2⁰. So 2⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/030",
+      "tier": 1,
+      "prompt": "7⁻²",
+      "choices": [
+        "1/49",
+        "−14",
+        "49",
+        "−49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "7⁻² = 1/7² = 1/49. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/031",
+      "tier": 1,
+      "prompt": "2⁰",
+      "choices": [
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "2² ÷ 2² = 1, and by the quotient rule it is 2⁰. So 2⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/032",
+      "tier": 1,
+      "prompt": "Which equals 1/36?",
+      "choices": [
+        "2⁻⁶",
+        "6⁻²",
+        "−(6⁻²)",
+        "6²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_BASE_EXP",
+        null,
+        "NEG_FRACTION",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6⁻² = 1/6² = 1/36. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/033",
+      "tier": 1,
+      "prompt": "Which equals 1/32?",
+      "choices": [
+        "2⁵",
+        "5⁻²",
+        "−(2⁵)",
+        "2⁻⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "SWAP_BASE_EXP",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "2⁻⁵ = 1/2⁵ = 1/32. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/034",
+      "tier": 1,
+      "prompt": "9⁻² = ?",
+      "choices": [
+        "1/81",
+        "−18",
+        "−1/81",
+        "−81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "9⁻² = 1/9² = 1/81. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/035",
+      "tier": 1,
+      "prompt": "What is 6⁰?",
+      "choices": [
+        "6",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_KEEPS_BASE",
+        "ZERO_IS_ZERO",
+        null
+      ],
+      "explanation": "6² ÷ 6² = 1, and by the quotient rule it is 6⁰. So 6⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/036",
+      "tier": 1,
+      "prompt": "Which equals 1/27?",
+      "choices": [
+        "−(3⁻³)",
+        "3⁻³",
+        "3³",
+        "−(3³)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_FRACTION",
+        null,
+        "IGNORE_SIGN",
+        "NEG_VALUE"
+      ],
+      "explanation": "3⁻³ = 1/3³ = 1/27. The minus flips the power, it does not make it negative."
+    },
+    {
+      "id": "exponent-rules/t1/037",
+      "tier": 1,
+      "prompt": "3⁰",
+      "choices": [
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "3² ÷ 3² = 1, and by the quotient rule it is 3⁰. So 3⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t1/038",
+      "tier": 1,
+      "prompt": "6⁻²",
+      "choices": [
+        "−12",
+        "1/36",
+        "−36",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_TIMES",
+        null,
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "6⁻² = 1/6² = 1/36. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/039",
+      "tier": 1,
+      "prompt": "4⁻³ = ?",
+      "choices": [
+        "12",
+        "−64",
+        "1/64",
+        "−1/64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "NEG_VALUE",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "4⁻³ = 1/4³ = 1/64. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t1/040",
+      "tier": 1,
+      "prompt": "2⁻¹",
+      "choices": [
+        "1/2",
+        "2",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "NEG_TIMES",
+        "NEG_FRACTION"
+      ],
+      "explanation": "2⁻¹ = 1/2¹ = 1/2. A minus in the exponent flips the power."
+    },
+    {
+      "id": "exponent-rules/t2/001",
+      "tier": 2,
+      "prompt": "4⁻² × 4² × 4³",
+      "choices": [
+        "4⁻⁷",
+        "4³",
+        "4⁷",
+        "4⁻¹²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "SIGN_SLIP",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: −2 + 2 + 3 = 3. So 4³."
+    },
+    {
+      "id": "exponent-rules/t2/002",
+      "tier": 2,
+      "prompt": "10² × 10⁶",
+      "choices": [
+        "100⁸",
+        "100¹²",
+        "10⁻⁴",
+        "10⁸"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BASES",
+        "MULT_BOTH",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 2 + 6 = 8. So 10⁸."
+    },
+    {
+      "id": "exponent-rules/t2/003",
+      "tier": 2,
+      "prompt": "5⁴ × 5²",
+      "choices": [
+        "25⁸",
+        "10⁶",
+        "25⁶",
+        "5⁶"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BOTH",
+        "ADD_BASES",
+        "MULT_BASES",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 4 + 2 = 6. So 5⁶."
+    },
+    {
+      "id": "exponent-rules/t2/004",
+      "tier": 2,
+      "prompt": "7⁻⁶ × 7⁴",
+      "choices": [
+        "49⁻²",
+        "7¹⁰",
+        "7⁻¹⁰",
+        "7⁻²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BASES",
+        "SIGN_SLIP",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add the exponents: −6 + 4 = −2. So 7⁻²."
+    },
+    {
+      "id": "exponent-rules/t2/005",
+      "tier": 2,
+      "prompt": "2⁻⁴ × 2³",
+      "choices": [
+        "2⁷",
+        "2⁻¹²",
+        "2⁻¹",
+        "4⁻¹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "MULT_EXPONENTS",
+        null,
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −4 + 3 = −1. So 2⁻¹."
+    },
+    {
+      "id": "exponent-rules/t2/006",
+      "tier": 2,
+      "prompt": "3⁸ × 3⁻⁵",
+      "choices": [
+        "3³",
+        "9³",
+        "6³",
+        "3⁴"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_BASES",
+        "ADD_BASES",
+        "ARITH"
+      ],
+      "explanation": "Same base, add the exponents: 8 + (−5) = 3. So 3³."
+    },
+    {
+      "id": "exponent-rules/t2/007",
+      "tier": 2,
+      "prompt": "2⁴ × 2³ × 2³",
+      "choices": [
+        "2¹⁰",
+        "2⁻²",
+        "2¹¹",
+        "2⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_EXPONENTS",
+        "ARITH",
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 4 + 3 + 3 = 10. So 2¹⁰."
+    },
+    {
+      "id": "exponent-rules/t2/008",
+      "tier": 2,
+      "prompt": "5⁴ × 5⁴ × 5³",
+      "choices": [
+        "5¹²",
+        "5¹¹",
+        "5⁻³",
+        "5⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUB_EXPONENTS",
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 4 + 4 + 3 = 11. So 5¹¹."
+    },
+    {
+      "id": "exponent-rules/t2/009",
+      "tier": 2,
+      "prompt": "10² × 10^? = 10⁹",
+      "choices": [
+        "7",
+        "11",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents add: 2 + ? = 9, so ? = 9 − 2 = 7."
+    },
+    {
+      "id": "exponent-rules/t2/010",
+      "tier": 2,
+      "prompt": "2³ × 2^? = 2⁻¹",
+      "choices": [
+        "−4",
+        "−1",
+        "2",
+        "−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "MULT_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = −1, so ? = −1 − 3 = −4."
+    },
+    {
+      "id": "exponent-rules/t2/011",
+      "tier": 2,
+      "prompt": "5⁻⁹ × 5²",
+      "choices": [
+        "5¹¹",
+        "10⁻⁷",
+        "5⁻⁷",
+        "25⁻⁷"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ADD_BASES",
+        null,
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −9 + 2 = −7. So 5⁻⁷."
+    },
+    {
+      "id": "exponent-rules/t2/012",
+      "tier": 2,
+      "prompt": "2³ × 2^? = 2⁵",
+      "choices": [
+        "8",
+        "5",
+        "3",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH",
+        null
+      ],
+      "explanation": "Exponents add: 3 + ? = 5, so ? = 5 − 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t2/013",
+      "tier": 2,
+      "prompt": "3⁻² × 3⁻⁴",
+      "choices": [
+        "9⁻⁶",
+        "3⁸",
+        "3⁻⁶",
+        "9⁸"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "MULT_EXPONENTS",
+        null,
+        "MULT_BOTH"
+      ],
+      "explanation": "Same base, add the exponents: −2 + (−4) = −6. So 3⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t2/014",
+      "tier": 2,
+      "prompt": "5⁻⁵ × 5⁻²",
+      "choices": [
+        "5¹⁰",
+        "25⁻⁷",
+        "25¹⁰",
+        "5⁻⁷"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        "MULT_BASES",
+        "MULT_BOTH",
+        null
+      ],
+      "explanation": "Same base, add the exponents: −5 + (−2) = −7. So 5⁻⁷."
+    },
+    {
+      "id": "exponent-rules/t2/015",
+      "tier": 2,
+      "prompt": "4⁴ × 4³",
+      "choices": [
+        "16¹²",
+        "16⁷",
+        "4⁷",
+        "4¹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BOTH",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 4 + 3 = 7. So 4⁷."
+    },
+    {
+      "id": "exponent-rules/t2/016",
+      "tier": 2,
+      "prompt": "7³ × 7²",
+      "choices": [
+        "49⁵",
+        "7⁵",
+        "49⁶",
+        "7¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "MULT_BOTH",
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 3 + 2 = 5. So 7⁵."
+    },
+    {
+      "id": "exponent-rules/t2/017",
+      "tier": 2,
+      "prompt": "2³ × 2⁴",
+      "choices": [
+        "2¹²",
+        "2⁷",
+        "2⁻¹",
+        "4⁷"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SUB_EXPONENTS",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 3 + 4 = 7. So 2⁷."
+    },
+    {
+      "id": "exponent-rules/t2/018",
+      "tier": 2,
+      "prompt": "2⁵ × 2⁻² × 2⁴",
+      "choices": [
+        "2¹¹",
+        "2³",
+        "2⁸",
+        "2⁷"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SKIPS_FACTOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 5 + (−2) + 4 = 7. So 2⁷."
+    },
+    {
+      "id": "exponent-rules/t2/019",
+      "tier": 2,
+      "prompt": "10² × 10² × 10⁻³",
+      "choices": [
+        "10¹",
+        "10⁷",
+        "10⁴",
+        "10⁻¹²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "SKIPS_FACTOR",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 2 + (−3) = 1. So 10¹."
+    },
+    {
+      "id": "exponent-rules/t2/020",
+      "tier": 2,
+      "prompt": "8⁵ × 8⁻⁶ × 8⁴",
+      "choices": [
+        "8⁴",
+        "8⁷",
+        "8⁻¹",
+        "8³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUB_EXPONENTS",
+        "SKIPS_FACTOR",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 5 + (−6) + 4 = 3. So 8³."
+    },
+    {
+      "id": "exponent-rules/t2/021",
+      "tier": 2,
+      "prompt": "4⁷ × 4²",
+      "choices": [
+        "16⁹",
+        "8⁹",
+        "4⁹",
+        "4⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "ADD_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 7 + 2 = 9. So 4⁹."
+    },
+    {
+      "id": "exponent-rules/t2/022",
+      "tier": 2,
+      "prompt": "7² × 7⁻³",
+      "choices": [
+        "7⁻⁶",
+        "7⁻¹",
+        "7⁵",
+        "49⁻¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SUB_EXPONENTS",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 2 + (−3) = −1. So 7⁻¹."
+    },
+    {
+      "id": "exponent-rules/t2/023",
+      "tier": 2,
+      "prompt": "9² × 9⁴ × 9⁴",
+      "choices": [
+        "9⁻⁶",
+        "9¹⁰",
+        "9⁶",
+        "9¹¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "SKIPS_FACTOR",
+        "ARITH"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 4 + 4 = 10. So 9¹⁰."
+    },
+    {
+      "id": "exponent-rules/t2/024",
+      "tier": 2,
+      "prompt": "5² × 5³ × 5⁻⁶",
+      "choices": [
+        "5⁰",
+        "5¹¹",
+        "5⁻¹",
+        "5⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        null,
+        "SKIPS_FACTOR"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 3 + (−6) = −1. So 5⁻¹."
+    },
+    {
+      "id": "exponent-rules/t2/025",
+      "tier": 2,
+      "prompt": "2⁻⁵ × 2⁻³",
+      "choices": [
+        "4⁻⁸",
+        "2⁻²",
+        "2⁻⁸",
+        "2⁸"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BASES",
+        "SUB_EXPONENTS",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Same base, add the exponents: −5 + (−3) = −8. So 2⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t2/026",
+      "tier": 2,
+      "prompt": "6² × 6⁴",
+      "choices": [
+        "6⁻²",
+        "6⁶",
+        "36⁶",
+        "6⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "MULT_BASES",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 2 + 4 = 6. So 6⁶."
+    },
+    {
+      "id": "exponent-rules/t2/027",
+      "tier": 2,
+      "prompt": "3⁴ × 3^? = 3⁸",
+      "choices": [
+        "8",
+        "5",
+        "12",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "ARITH",
+        "ADD_GIVEN",
+        null
+      ],
+      "explanation": "Exponents add: 4 + ? = 8, so ? = 8 − 4 = 4."
+    },
+    {
+      "id": "exponent-rules/t2/028",
+      "tier": 2,
+      "prompt": "4⁻² × 4⁶",
+      "choices": [
+        "16⁴",
+        "4⁴",
+        "16⁻¹²",
+        "4⁻¹²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "MULT_BOTH",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: −2 + 6 = 4. So 4⁴."
+    },
+    {
+      "id": "exponent-rules/t2/029",
+      "tier": 2,
+      "prompt": "8⁻³ × 8⁹",
+      "choices": [
+        "64⁶",
+        "8⁶",
+        "8⁻¹²",
+        "8⁷"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS",
+        "ARITH"
+      ],
+      "explanation": "Same base, add the exponents: −3 + 9 = 6. So 8⁶."
+    },
+    {
+      "id": "exponent-rules/t2/030",
+      "tier": 2,
+      "prompt": "5³ × 5⁴ × 5³",
+      "choices": [
+        "5⁷",
+        "5¹¹",
+        "5⁻⁴",
+        "5¹⁰"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SKIPS_FACTOR",
+        "ARITH",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, add all the exponents: 3 + 4 + 3 = 10. So 5¹⁰."
+    },
+    {
+      "id": "exponent-rules/t2/031",
+      "tier": 2,
+      "prompt": "6³ × 6^? = 6⁵",
+      "choices": [
+        "2",
+        "3",
+        "5",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COPY_TOTAL",
+        "ADD_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = 5, so ? = 5 − 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t2/032",
+      "tier": 2,
+      "prompt": "9⁴ × 9^? = 9⁷",
+      "choices": [
+        "3",
+        "11",
+        "7",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents add: 4 + ? = 7, so ? = 7 − 4 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/033",
+      "tier": 2,
+      "prompt": "4² × 4⁶ × 4⁻²",
+      "choices": [
+        "4⁶",
+        "4⁸",
+        "4¹⁰",
+        "4⁻²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SKIPS_FACTOR",
+        "SIGN_SLIP",
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add all the exponents: 2 + 6 + (−2) = 6. So 4⁶."
+    },
+    {
+      "id": "exponent-rules/t2/034",
+      "tier": 2,
+      "prompt": "9⁻² × 9⁻⁴",
+      "choices": [
+        "9²",
+        "9⁻⁶",
+        "81⁸",
+        "81⁻⁶"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        null,
+        "MULT_BOTH",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: −2 + (−4) = −6. So 9⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t2/035",
+      "tier": 2,
+      "prompt": "4³ × 4^? = 4⁶",
+      "choices": [
+        "6",
+        "4",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "ARITH",
+        null,
+        "ADD_GIVEN"
+      ],
+      "explanation": "Exponents add: 3 + ? = 6, so ? = 6 − 3 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/036",
+      "tier": 2,
+      "prompt": "2³ × 2⁷",
+      "choices": [
+        "2⁻⁴",
+        "2¹¹",
+        "4¹⁰",
+        "2¹⁰"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        "ARITH",
+        "MULT_BASES",
+        null
+      ],
+      "explanation": "Same base, add the exponents: 3 + 7 = 10. So 2¹⁰."
+    },
+    {
+      "id": "exponent-rules/t2/037",
+      "tier": 2,
+      "prompt": "7⁻³ × 7⁸",
+      "choices": [
+        "7¹¹",
+        "49⁵",
+        "7⁵",
+        "7⁻¹¹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: −3 + 8 = 5. So 7⁵."
+    },
+    {
+      "id": "exponent-rules/t2/038",
+      "tier": 2,
+      "prompt": "3⁷ × 3⁵",
+      "choices": [
+        "6¹²",
+        "9¹²",
+        "3¹²",
+        "3²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_BASES",
+        "MULT_BASES",
+        null,
+        "SUB_EXPONENTS"
+      ],
+      "explanation": "Same base, add the exponents: 7 + 5 = 12. So 3¹²."
+    },
+    {
+      "id": "exponent-rules/t2/039",
+      "tier": 2,
+      "prompt": "6² × 6^? = 6⁵",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "MULT_GIVEN"
+      ],
+      "explanation": "Exponents add: 2 + ? = 5, so ? = 5 − 2 = 3."
+    },
+    {
+      "id": "exponent-rules/t2/040",
+      "tier": 2,
+      "prompt": "10⁶ × 10³",
+      "choices": [
+        "10⁹",
+        "10³",
+        "10¹⁰",
+        "100⁹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_EXPONENTS",
+        "ARITH",
+        "MULT_BASES"
+      ],
+      "explanation": "Same base, add the exponents: 6 + 3 = 9. So 10⁹."
+    },
+    {
+      "id": "exponent-rules/t3/001",
+      "tier": 3,
+      "prompt": "4⁻⁶ ÷ 4⁶",
+      "choices": [
+        "4⁻¹²",
+        "4¹²",
+        "4⁰",
+        "4⁻¹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 6 = −12. So 4⁻¹²."
+    },
+    {
+      "id": "exponent-rules/t3/002",
+      "tier": 3,
+      "prompt": "6² ÷ 6⁵",
+      "choices": [
+        "6⁻³",
+        "6³",
+        "6⁻²",
+        "6⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "ARITH",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 5 = −3. So 6⁻³."
+    },
+    {
+      "id": "exponent-rules/t3/003",
+      "tier": 3,
+      "prompt": "2³ ÷ 2⁹",
+      "choices": [
+        "2⁶",
+        "2¹²",
+        "2⁻⁵",
+        "2⁻⁶"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − 9 = −6. So 2⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t3/004",
+      "tier": 3,
+      "prompt": "10⁻² ÷ 10⁶",
+      "choices": [
+        "10⁸",
+        "1⁻⁸",
+        "10⁻⁴",
+        "10⁻⁸"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "DIVIDE_BASES",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −2 − 6 = −8. So 10⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t3/005",
+      "tier": 3,
+      "prompt": "2⁷ ÷ 2¹²",
+      "choices": [
+        "2⁻⁴",
+        "2⁻⁵",
+        "2⁵",
+        "1⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "FLIPPED_SUB",
+        "DIVIDE_BASES"
+      ],
+      "explanation": "Same base, subtract the exponents: 7 − 12 = −5. So 2⁻⁵."
+    },
+    {
+      "id": "exponent-rules/t3/006",
+      "tier": 3,
+      "prompt": "7⁸ ÷ 7^? = 7⁵",
+      "choices": [
+        "5",
+        "−3",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COPY_TOTAL",
+        "FLIPPED_SUB",
+        "ARITH",
+        null
+      ],
+      "explanation": "Exponents subtract: 8 − ? = 5, so ? = 8 − 5 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/007",
+      "tier": 3,
+      "prompt": "9⁻⁴ ÷ 9⁻²",
+      "choices": [
+        "9²",
+        "9⁻¹",
+        "9⁻²",
+        "9⁻⁶"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        "ARITH",
+        null,
+        "SUB_NEG"
+      ],
+      "explanation": "Same base, subtract the exponents: −4 − (−2) = −2. So 9⁻²."
+    },
+    {
+      "id": "exponent-rules/t3/008",
+      "tier": 3,
+      "prompt": "9⁵ ÷ 9³",
+      "choices": [
+        "9⁸",
+        "9⁻²",
+        "9²",
+        "9³"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 5 − 3 = 2. So 9²."
+    },
+    {
+      "id": "exponent-rules/t3/009",
+      "tier": 3,
+      "prompt": "4² ÷ 4⁹",
+      "choices": [
+        "1⁻⁷",
+        "4⁷",
+        "4⁻⁷",
+        "4¹¹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null,
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 9 = −7. So 4⁻⁷."
+    },
+    {
+      "id": "exponent-rules/t3/010",
+      "tier": 3,
+      "prompt": "6³ ÷ 6⁻⁷",
+      "choices": [
+        "6⁻⁴",
+        "6¹¹",
+        "6¹⁰",
+        "6⁻¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        null,
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − (−7) = 10. So 6¹⁰."
+    },
+    {
+      "id": "exponent-rules/t3/011",
+      "tier": 3,
+      "prompt": "4² ÷ 4⁻³",
+      "choices": [
+        "4⁶",
+        "4⁵",
+        "4⁻¹",
+        "4⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUB_NEG",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − (−3) = 5. So 4⁵."
+    },
+    {
+      "id": "exponent-rules/t3/012",
+      "tier": 3,
+      "prompt": "2⁶ ÷ 2⁴",
+      "choices": [
+        "2¹⁰",
+        "2²",
+        "2³",
+        "2⁻²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 4 = 2. So 2²."
+    },
+    {
+      "id": "exponent-rules/t3/013",
+      "tier": 3,
+      "prompt": "9⁹ ÷ 9^? = 9⁵",
+      "choices": [
+        "4",
+        "3",
+        "−4",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FLIPPED_SUB",
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 9 − ? = 5, so ? = 9 − 5 = 4."
+    },
+    {
+      "id": "exponent-rules/t3/014",
+      "tier": 3,
+      "prompt": "4² ÷ 4¹⁰",
+      "choices": [
+        "4⁻⁸",
+        "1⁻⁸",
+        "4⁸",
+        "4¹²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 2 − 10 = −8. So 4⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t3/015",
+      "tier": 3,
+      "prompt": "5⁻⁶ ÷ 5³",
+      "choices": [
+        "5⁻²",
+        "1⁻⁹",
+        "5⁹",
+        "5⁻⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 3 = −9. So 5⁻⁹."
+    },
+    {
+      "id": "exponent-rules/t3/016",
+      "tier": 3,
+      "prompt": "5¹¹ ÷ 5^? = 5⁹",
+      "choices": [
+        "−2",
+        "9",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "COPY_TOTAL",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Exponents subtract: 11 − ? = 9, so ? = 11 − 9 = 2."
+    },
+    {
+      "id": "exponent-rules/t3/017",
+      "tier": 3,
+      "prompt": "2⁹ ÷ 2^? = 2⁶",
+      "choices": [
+        "−3",
+        "3",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "COPY_TOTAL",
+        "ARITH"
+      ],
+      "explanation": "Exponents subtract: 9 − ? = 6, so ? = 9 − 6 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/018",
+      "tier": 3,
+      "prompt": "4⁶ ÷ 4⁵",
+      "choices": [
+        "4⁻¹",
+        "4²",
+        "4¹¹",
+        "4¹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        "ADD_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 5 = 1. So 4¹."
+    },
+    {
+      "id": "exponent-rules/t3/019",
+      "tier": 3,
+      "prompt": "8³ ÷ 8²",
+      "choices": [
+        "8¹",
+        "8⁵",
+        "8²",
+        "8⁻¹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS",
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 3 − 2 = 1. So 8¹."
+    },
+    {
+      "id": "exponent-rules/t3/020",
+      "tier": 3,
+      "prompt": "4⁻⁸ ÷ 4⁻⁴",
+      "choices": [
+        "4⁻⁴",
+        "4²",
+        "4⁻¹²",
+        "4⁴"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_EXPONENTS",
+        "SUB_NEG",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: −8 − (−4) = −4. So 4⁻⁴."
+    },
+    {
+      "id": "exponent-rules/t3/021",
+      "tier": 3,
+      "prompt": "4¹² ÷ 4^? = 4¹⁰",
+      "choices": [
+        "3",
+        "2",
+        "10",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COPY_TOTAL",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Exponents subtract: 12 − ? = 10, so ? = 12 − 10 = 2."
+    },
+    {
+      "id": "exponent-rules/t3/022",
+      "tier": 3,
+      "prompt": "5⁴ ÷ 5⁻³",
+      "choices": [
+        "5⁷",
+        "5¹",
+        "5⁻⁷",
+        "5⁸"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − (−3) = 7. So 5⁷."
+    },
+    {
+      "id": "exponent-rules/t3/023",
+      "tier": 3,
+      "prompt": "9⁷ ÷ 9¹¹",
+      "choices": [
+        "1⁻⁴",
+        "9⁴",
+        "9⁻⁴",
+        "9⁻³"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 7 − 11 = −4. So 9⁻⁴."
+    },
+    {
+      "id": "exponent-rules/t3/024",
+      "tier": 3,
+      "prompt": "5⁴ ÷ 5³",
+      "choices": [
+        "5⁷",
+        "5⁻¹",
+        "5²",
+        "5¹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 3 = 1. So 5¹."
+    },
+    {
+      "id": "exponent-rules/t3/025",
+      "tier": 3,
+      "prompt": "9⁴ ÷ 9⁶",
+      "choices": [
+        "9²",
+        "9¹⁰",
+        "9⁻¹",
+        "9⁻²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 6 = −2. So 9⁻²."
+    },
+    {
+      "id": "exponent-rules/t3/026",
+      "tier": 3,
+      "prompt": "3¹² ÷ 3^? = 3⁷",
+      "choices": [
+        "−5",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 12 − ? = 7, so ? = 12 − 7 = 5."
+    },
+    {
+      "id": "exponent-rules/t3/027",
+      "tier": 3,
+      "prompt": "6⁴ ÷ 6²",
+      "choices": [
+        "6⁶",
+        "6²",
+        "1²",
+        "6⁻²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "DIVIDE_BASES",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 2 = 2. So 6²."
+    },
+    {
+      "id": "exponent-rules/t3/028",
+      "tier": 3,
+      "prompt": "4⁻³ ÷ 4³",
+      "choices": [
+        "4⁰",
+        "4⁻¹",
+        "4⁶",
+        "4⁻⁶"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "DIVIDE_EXPONENTS",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −3 − 3 = −6. So 4⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t3/029",
+      "tier": 3,
+      "prompt": "5⁶ ÷ 5³",
+      "choices": [
+        "5³",
+        "5⁹",
+        "5²",
+        "5⁻³"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS",
+        "DIVIDE_EXPONENTS",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 6 − 3 = 3. So 5³."
+    },
+    {
+      "id": "exponent-rules/t3/030",
+      "tier": 3,
+      "prompt": "9⁵ ÷ 9⁻⁴",
+      "choices": [
+        "9⁻⁹",
+        "9¹",
+        "9⁹",
+        "9¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 5 − (−4) = 9. So 9⁹."
+    },
+    {
+      "id": "exponent-rules/t3/031",
+      "tier": 3,
+      "prompt": "10⁸ ÷ 10^? = 10⁵",
+      "choices": [
+        "−3",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "ARITH",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Exponents subtract: 8 − ? = 5, so ? = 8 − 5 = 3."
+    },
+    {
+      "id": "exponent-rules/t3/032",
+      "tier": 3,
+      "prompt": "3⁹ ÷ 3³",
+      "choices": [
+        "3¹²",
+        "3⁻⁶",
+        "3⁶",
+        "3³"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_SUB",
+        null,
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: 9 − 3 = 6. So 3⁶."
+    },
+    {
+      "id": "exponent-rules/t3/033",
+      "tier": 3,
+      "prompt": "6⁹ ÷ 6²",
+      "choices": [
+        "6¹¹",
+        "6⁷",
+        "6⁻⁷",
+        "6⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "Same base, subtract the exponents: 9 − 2 = 7. So 6⁷."
+    },
+    {
+      "id": "exponent-rules/t3/034",
+      "tier": 3,
+      "prompt": "6⁻⁵ ÷ 6⁻³",
+      "choices": [
+        "6²",
+        "6⁻²",
+        "1⁻²",
+        "6⁻⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "DIVIDE_BASES",
+        "SUB_NEG"
+      ],
+      "explanation": "Same base, subtract the exponents: −5 − (−3) = −2. So 6⁻²."
+    },
+    {
+      "id": "exponent-rules/t3/035",
+      "tier": 3,
+      "prompt": "2⁴ ÷ 2⁶",
+      "choices": [
+        "2¹⁰",
+        "2⁻²",
+        "2⁻¹",
+        "2²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "ARITH",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 6 = −2. So 2⁻²."
+    },
+    {
+      "id": "exponent-rules/t3/036",
+      "tier": 3,
+      "prompt": "6⁻⁶ ÷ 6⁻⁴",
+      "choices": [
+        "6⁻¹",
+        "6²",
+        "6⁻¹⁰",
+        "6⁻²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_SUB",
+        "SUB_NEG",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − (−4) = −2. So 6⁻²."
+    },
+    {
+      "id": "exponent-rules/t3/037",
+      "tier": 3,
+      "prompt": "6⁶ ÷ 6^? = 6²",
+      "choices": [
+        "4",
+        "2",
+        "8",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Exponents subtract: 6 − ? = 2, so ? = 6 − 2 = 4."
+    },
+    {
+      "id": "exponent-rules/t3/038",
+      "tier": 3,
+      "prompt": "6⁻⁵ ÷ 6⁷",
+      "choices": [
+        "6⁻¹²",
+        "6¹²",
+        "6⁻²",
+        "6²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "SIGN_SLIP",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "Same base, subtract the exponents: −5 − 7 = −12. So 6⁻¹²."
+    },
+    {
+      "id": "exponent-rules/t3/039",
+      "tier": 3,
+      "prompt": "10⁻⁶ ÷ 10²",
+      "choices": [
+        "10⁸",
+        "10⁻⁸",
+        "10⁻⁴",
+        "10⁴"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "ADD_EXPONENTS",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Same base, subtract the exponents: −6 − 2 = −8. So 10⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t3/040",
+      "tier": 3,
+      "prompt": "4⁴ ÷ 4²",
+      "choices": [
+        "1²",
+        "4⁻²",
+        "4⁶",
+        "4²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_BASES",
+        "FLIPPED_SUB",
+        "ADD_EXPONENTS",
+        null
+      ],
+      "explanation": "Same base, subtract the exponents: 4 − 2 = 2. So 4²."
+    },
+    {
+      "id": "exponent-rules/t4/001",
+      "tier": 4,
+      "prompt": "(7⁵)⁻²",
+      "choices": [
+        "7⁵",
+        "7³",
+        "7⁻¹⁰",
+        "7¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 5 × (−2) = −10. So 7⁻¹⁰."
+    },
+    {
+      "id": "exponent-rules/t4/002",
+      "tier": 4,
+      "prompt": "(5²)⁵",
+      "choices": [
+        "5⁵",
+        "5⁷",
+        "5¹⁰",
+        "5²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null,
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 5 = 10. So 5¹⁰."
+    },
+    {
+      "id": "exponent-rules/t4/003",
+      "tier": 4,
+      "prompt": "(4³)³",
+      "choices": [
+        "4⁶",
+        "4¹⁰",
+        "4³",
+        "4⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "ARITH",
+        "DROP_OUTER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 3 = 9. So 4⁹."
+    },
+    {
+      "id": "exponent-rules/t4/004",
+      "tier": 4,
+      "prompt": "(4²)⁶",
+      "choices": [
+        "4⁶",
+        "4¹²",
+        "4²",
+        "4⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "DROP_OUTER",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 6 = 12. So 4¹²."
+    },
+    {
+      "id": "exponent-rules/t4/005",
+      "tier": 4,
+      "prompt": "(6⁶)²",
+      "choices": [
+        "6¹²",
+        "6⁸",
+        "6⁶",
+        "6²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_POWER",
+        "DROP_OUTER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 6 × 2 = 12. So 6¹²."
+    },
+    {
+      "id": "exponent-rules/t4/006",
+      "tier": 4,
+      "prompt": "(3 × 4)⁵",
+      "choices": [
+        "(3 + 4)⁵",
+        "3⁵ + 4⁵",
+        "3 × 4 × 5",
+        "3⁵ × 4⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUM_BASES",
+        "SUM_FOR_PRODUCT",
+        "TIMES_FOR_POWER",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (3 × 4)⁵ = 3⁵ × 4⁵."
+    },
+    {
+      "id": "exponent-rules/t4/007",
+      "tier": 4,
+      "prompt": "(3⁴)^? = 3⁸",
+      "choices": [
+        "4",
+        "12",
+        "8",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "ADD_GIVEN",
+        "COPY_TOTAL",
+        null
+      ],
+      "explanation": "Power of a power multiplies: 4 × ? = 8, so ? = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/008",
+      "tier": 4,
+      "prompt": "(5⁴)^? = 5¹²",
+      "choices": [
+        "3",
+        "12",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ARITH",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 4 × ? = 12, so ? = 12 ÷ 4 = 3."
+    },
+    {
+      "id": "exponent-rules/t4/009",
+      "tier": 4,
+      "prompt": "(2 × 6)²",
+      "choices": [
+        "2² + 6²",
+        "(2 + 6)²",
+        "2² × 6²",
+        "2 × 6 × 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_FOR_PRODUCT",
+        "SUM_BASES",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 6)² = 2² × 6²."
+    },
+    {
+      "id": "exponent-rules/t4/010",
+      "tier": 4,
+      "prompt": "(8²)^? = 8⁴",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_GIVEN",
+        "COPY_TOTAL"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 4, so ? = 4 ÷ 2 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/011",
+      "tier": 4,
+      "prompt": "(4⁻³)²",
+      "choices": [
+        "4²",
+        "4⁻⁶",
+        "4⁶",
+        "4⁻³"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "SIGN_SLIP",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × 2 = −6. So 4⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t4/012",
+      "tier": 4,
+      "prompt": "(3⁻³)⁻³",
+      "choices": [
+        "3⁻³",
+        "3⁻⁶",
+        "3⁻⁹",
+        "3⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × (−3) = 9. So 3⁹."
+    },
+    {
+      "id": "exponent-rules/t4/013",
+      "tier": 4,
+      "prompt": "(2⁻⁴)²",
+      "choices": [
+        "2⁻⁴",
+        "2²",
+        "2⁻⁸",
+        "2⁻²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        null,
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −4 × 2 = −8. So 2⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t4/014",
+      "tier": 4,
+      "prompt": "(4²)⁻³",
+      "choices": [
+        "4²",
+        "4⁻⁶",
+        "4⁻³",
+        "4⁶"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "DROP_INNER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−3) = −6. So 4⁻⁶."
+    },
+    {
+      "id": "exponent-rules/t4/015",
+      "tier": 4,
+      "prompt": "(2⁴)⁻²",
+      "choices": [
+        "2⁴",
+        "2⁻²",
+        "2⁸",
+        "2⁻⁸"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 4 × (−2) = −8. So 2⁻⁸."
+    },
+    {
+      "id": "exponent-rules/t4/016",
+      "tier": 4,
+      "prompt": "(8²)⁻²",
+      "choices": [
+        "8⁴",
+        "8⁻⁴",
+        "8²",
+        "8⁻²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "DROP_OUTER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−2) = −4. So 8⁻⁴."
+    },
+    {
+      "id": "exponent-rules/t4/017",
+      "tier": 4,
+      "prompt": "(8²)⁻⁵",
+      "choices": [
+        "8⁻⁵",
+        "8⁻³",
+        "8⁻¹⁰",
+        "8¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × (−5) = −10. So 8⁻¹⁰."
+    },
+    {
+      "id": "exponent-rules/t4/018",
+      "tier": 4,
+      "prompt": "(2 × 9)⁵",
+      "choices": [
+        "2 × 9 × 5",
+        "2 × 9⁵",
+        "2⁵ + 9⁵",
+        "2⁵ × 9⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "FIRST_FACTOR_ONLY",
+        "SUM_FOR_PRODUCT",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 9)⁵ = 2⁵ × 9⁵."
+    },
+    {
+      "id": "exponent-rules/t4/019",
+      "tier": 4,
+      "prompt": "(8 × 9)⁴",
+      "choices": [
+        "8 × 9⁴",
+        "8⁴ × 9",
+        "8⁴ × 9⁴",
+        "8 × 9 × 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "FIRST_FACTOR_ONLY",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (8 × 9)⁴ = 8⁴ × 9⁴."
+    },
+    {
+      "id": "exponent-rules/t4/020",
+      "tier": 4,
+      "prompt": "(7⁻³)⁻³",
+      "choices": [
+        "7⁻³",
+        "7⁹",
+        "7⁻⁶",
+        "7⁻⁹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × (−3) = 9. So 7⁹."
+    },
+    {
+      "id": "exponent-rules/t4/021",
+      "tier": 4,
+      "prompt": "(4³)⁴",
+      "choices": [
+        "4³",
+        "4¹²",
+        "4⁷",
+        "4⁴"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 4 = 12. So 4¹²."
+    },
+    {
+      "id": "exponent-rules/t4/022",
+      "tier": 4,
+      "prompt": "(4³)^? = 4⁶",
+      "choices": [
+        "2",
+        "6",
+        "9",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 3 × ? = 6, so ? = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/023",
+      "tier": 4,
+      "prompt": "(8 × 10)⁵",
+      "choices": [
+        "8⁵ × 10⁵",
+        "8 × 10 × 5",
+        "(8 + 10)⁵",
+        "8 × 10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "SUM_BASES",
+        "FIRST_FACTOR_ONLY"
+      ],
+      "explanation": "The exponent goes on each factor: (8 × 10)⁵ = 8⁵ × 10⁵."
+    },
+    {
+      "id": "exponent-rules/t4/024",
+      "tier": 4,
+      "prompt": "(8²)^? = 8¹⁰",
+      "choices": [
+        "5",
+        "10",
+        "12",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COPY_TOTAL",
+        "ADD_GIVEN",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 10, so ? = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "exponent-rules/t4/025",
+      "tier": 4,
+      "prompt": "(7⁴)²",
+      "choices": [
+        "7⁴",
+        "7⁸",
+        "7⁶",
+        "7²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 4 × 2 = 8. So 7⁸."
+    },
+    {
+      "id": "exponent-rules/t4/026",
+      "tier": 4,
+      "prompt": "(2⁻³)⁴",
+      "choices": [
+        "2⁻¹²",
+        "2⁻³",
+        "2¹",
+        "2⁴"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_OUTER",
+        "ADD_FOR_POWER",
+        "DROP_INNER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −3 × 4 = −12. So 2⁻¹²."
+    },
+    {
+      "id": "exponent-rules/t4/027",
+      "tier": 4,
+      "prompt": "(5 × 7)⁴",
+      "choices": [
+        "5 × 7⁴",
+        "(5 + 7)⁴",
+        "5 × 7 × 4",
+        "5⁴ × 7⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "SUM_BASES",
+        "TIMES_FOR_POWER",
+        null
+      ],
+      "explanation": "The exponent goes on each factor: (5 × 7)⁴ = 5⁴ × 7⁴."
+    },
+    {
+      "id": "exponent-rules/t4/028",
+      "tier": 4,
+      "prompt": "(9³)²",
+      "choices": [
+        "9²",
+        "9⁶",
+        "9⁵",
+        "9³"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROP_INNER",
+        null,
+        "ADD_FOR_POWER",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 2 = 6. So 9⁶."
+    },
+    {
+      "id": "exponent-rules/t4/029",
+      "tier": 4,
+      "prompt": "(4²)⁴",
+      "choices": [
+        "4²",
+        "4⁴",
+        "4⁶",
+        "4⁸"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_OUTER",
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 2 × 4 = 8. So 4⁸."
+    },
+    {
+      "id": "exponent-rules/t4/030",
+      "tier": 4,
+      "prompt": "(4 × 10)²",
+      "choices": [
+        "4² + 10²",
+        "4² × 10²",
+        "(4 + 10)²",
+        "4 × 10 × 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUM_FOR_PRODUCT",
+        null,
+        "SUM_BASES",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "The exponent goes on each factor: (4 × 10)² = 4² × 10²."
+    },
+    {
+      "id": "exponent-rules/t4/031",
+      "tier": 4,
+      "prompt": "(4³)²",
+      "choices": [
+        "4⁶",
+        "4²",
+        "4⁵",
+        "4³"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_INNER",
+        "ADD_FOR_POWER",
+        "DROP_OUTER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 2 = 6. So 4⁶."
+    },
+    {
+      "id": "exponent-rules/t4/032",
+      "tier": 4,
+      "prompt": "(6 × 8)²",
+      "choices": [
+        "(6 + 8)²",
+        "6 × 8 × 2",
+        "6² × 8²",
+        "6² + 8²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUM_BASES",
+        "TIMES_FOR_POWER",
+        null,
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (6 × 8)² = 6² × 8²."
+    },
+    {
+      "id": "exponent-rules/t4/033",
+      "tier": 4,
+      "prompt": "(2²)^? = 2⁶",
+      "choices": [
+        "8",
+        "4",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "ADD_FOR_POWER",
+        "COPY_TOTAL",
+        null
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 6, so ? = 6 ÷ 2 = 3."
+    },
+    {
+      "id": "exponent-rules/t4/034",
+      "tier": 4,
+      "prompt": "(2 × 3)⁵",
+      "choices": [
+        "2⁵ × 3⁵",
+        "(2 + 3)⁵",
+        "2⁵ × 3",
+        "2⁵ + 3⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUM_BASES",
+        "FIRST_FACTOR_ONLY",
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (2 × 3)⁵ = 2⁵ × 3⁵."
+    },
+    {
+      "id": "exponent-rules/t4/035",
+      "tier": 4,
+      "prompt": "(3³)^? = 3⁶",
+      "choices": [
+        "9",
+        "3",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_GIVEN",
+        "ADD_FOR_POWER",
+        null,
+        "COPY_TOTAL"
+      ],
+      "explanation": "Power of a power multiplies: 3 × ? = 6, so ? = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "exponent-rules/t4/036",
+      "tier": 4,
+      "prompt": "(3⁻⁵)²",
+      "choices": [
+        "3⁻¹⁰",
+        "3⁻⁵",
+        "3²",
+        "3¹⁰"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_OUTER",
+        "DROP_INNER",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −5 × 2 = −10. So 3⁻¹⁰."
+    },
+    {
+      "id": "exponent-rules/t4/037",
+      "tier": 4,
+      "prompt": "(8³)³",
+      "choices": [
+        "8¹⁰",
+        "8⁶",
+        "8³",
+        "8⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_FOR_POWER",
+        "DROP_INNER",
+        null
+      ],
+      "explanation": "Power of a power: multiply the exponents, 3 × 3 = 9. So 8⁹."
+    },
+    {
+      "id": "exponent-rules/t4/038",
+      "tier": 4,
+      "prompt": "(6 × 7)⁵",
+      "choices": [
+        "6⁵ × 7",
+        "(6 + 7)⁵",
+        "6⁵ × 7⁵",
+        "6⁵ + 7⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_FACTOR_ONLY",
+        "SUM_BASES",
+        null,
+        "SUM_FOR_PRODUCT"
+      ],
+      "explanation": "The exponent goes on each factor: (6 × 7)⁵ = 6⁵ × 7⁵."
+    },
+    {
+      "id": "exponent-rules/t4/039",
+      "tier": 4,
+      "prompt": "(4⁻²)⁶",
+      "choices": [
+        "4¹²",
+        "4⁻²",
+        "4⁻¹²",
+        "4⁴"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "DROP_OUTER",
+        null,
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "Power of a power: multiply the exponents, −2 × 6 = −12. So 4⁻¹²."
+    },
+    {
+      "id": "exponent-rules/t4/040",
+      "tier": 4,
+      "prompt": "(2²)^? = 2¹⁰",
+      "choices": [
+        "5",
+        "8",
+        "10",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_FOR_POWER",
+        "COPY_TOTAL",
+        "ADD_GIVEN"
+      ],
+      "explanation": "Power of a power multiplies: 2 × ? = 10, so ? = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "exponent-rules/t5/001",
+      "tier": 5,
+      "prompt": "(4⁻³)⁻² ÷ 4⁶",
+      "choices": [
+        "0",
+        "1/4",
+        "1",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_IS_ZERO",
+        "ARITH",
+        null,
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "−3 × (−2) = 6; then 6 − 6 = 0. So 4⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t5/002",
+      "tier": 5,
+      "prompt": "5⁵ × 5⁻⁵ ÷ 5⁻²",
+      "choices": [
+        "10",
+        "25",
+        "1/25",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "FLIPPED_SUB",
+        "ARITH"
+      ],
+      "explanation": "5 + (−5) = 0; then 0 − (−2) = 2. So 5² = 25."
+    },
+    {
+      "id": "exponent-rules/t5/003",
+      "tier": 5,
+      "prompt": "10³ × 10⁻³",
+      "choices": [
+        "1000000",
+        "10",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_EXPONENTS",
+        "ZERO_KEEPS_BASE",
+        null,
+        "ZERO_IS_ZERO"
+      ],
+      "explanation": "Add the exponents: 3 + (−3) = 0. So 10⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t5/004",
+      "tier": 5,
+      "prompt": "(10³)² ÷ 10²",
+      "choices": [
+        "1000",
+        "40",
+        "1/10000",
+        "10000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_FOR_POWER",
+        "TIMES_FOR_POWER",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "3 × 2 = 6; then 6 − 2 = 4. So 10⁴ = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/005",
+      "tier": 5,
+      "prompt": "9⁶ ÷ 9⁷",
+      "choices": [
+        "9",
+        "−9",
+        "1/9",
+        "−1/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        "NEG_VALUE",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "Subtract the exponents: 6 − 7 = −1. So 9⁻¹ = 1/9."
+    },
+    {
+      "id": "exponent-rules/t5/006",
+      "tier": 5,
+      "prompt": "5⁻⁴ × 5⁻² ÷ 5⁻⁴",
+      "choices": [
+        "1/25",
+        "−1/25",
+        "25",
+        "−10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "SUB_EXPONENTS",
+        "NEG_TIMES"
+      ],
+      "explanation": "−4 + (−2) = −6; then −6 − (−4) = −2. So 5⁻² = 1/25."
+    },
+    {
+      "id": "exponent-rules/t5/007",
+      "tier": 5,
+      "prompt": "10⁻⁶ ÷ 10⁻⁵",
+      "choices": [
+        "1/10",
+        "−10",
+        "−1/10",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "FLIPPED_SUB"
+      ],
+      "explanation": "Subtract the exponents: −6 − (−5) = −1. So 10⁻¹ = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/008",
+      "tier": 5,
+      "prompt": "2³ × 2⁻²",
+      "choices": [
+        "1/64",
+        "2",
+        "32",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Add the exponents: 3 + (−2) = 1. So 2¹ = 2."
+    },
+    {
+      "id": "exponent-rules/t5/009",
+      "tier": 5,
+      "prompt": "(3⁻²)⁻² ÷ 3⁷",
+      "choices": [
+        "1/27",
+        "−1/27",
+        "−9",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "−2 × (−2) = 4; then 4 − 7 = −3. So 3⁻³ = 1/27."
+    },
+    {
+      "id": "exponent-rules/t5/010",
+      "tier": 5,
+      "prompt": "5³ × 5⁻⁷ ÷ 5⁻³",
+      "choices": [
+        "−5",
+        "−1/5",
+        "5",
+        "1/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "FLIPPED_SUB",
+        null
+      ],
+      "explanation": "3 + (−7) = −4; then −4 − (−3) = −1. So 5⁻¹ = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/011",
+      "tier": 5,
+      "prompt": "(10³)⁻³ × 10⁸",
+      "choices": [
+        "1/10",
+        "−1/10",
+        "−10",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "3 × (−3) = −9; then −9 + 8 = −1. So 10⁻¹ = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/012",
+      "tier": 5,
+      "prompt": "(10⁻²)⁻² × 10²",
+      "choices": [
+        "60",
+        "1000000",
+        "100",
+        "1/100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "SUB_EXPONENTS",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "−2 × (−2) = 4; then 4 + 2 = 6. So 10⁶ = 1000000."
+    },
+    {
+      "id": "exponent-rules/t5/013",
+      "tier": 5,
+      "prompt": "5⁵ ÷ 5⁷",
+      "choices": [
+        "25",
+        "−10",
+        "−25",
+        "1/25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "Subtract the exponents: 5 − 7 = −2. So 5⁻² = 1/25."
+    },
+    {
+      "id": "exponent-rules/t5/014",
+      "tier": 5,
+      "prompt": "2⁻⁴ ÷ 2⁻²",
+      "choices": [
+        "1/64",
+        "−1/4",
+        "−4",
+        "1/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "NEG_FRACTION",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "Subtract the exponents: −4 − (−2) = −2. So 2⁻² = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/015",
+      "tier": 5,
+      "prompt": "(2⁻²)² × 2⁻²",
+      "choices": [
+        "1/64",
+        "64",
+        "−12",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_TIMES",
+        "ADD_FOR_POWER"
+      ],
+      "explanation": "−2 × 2 = −4; then −4 + (−2) = −6. So 2⁻⁶ = 1/64."
+    },
+    {
+      "id": "exponent-rules/t5/016",
+      "tier": 5,
+      "prompt": "(9⁻²)³ ÷ 9⁻⁴",
+      "choices": [
+        "−18",
+        "−1/81",
+        "81",
+        "1/81"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_TIMES",
+        "NEG_FRACTION",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "−2 × 3 = −6; then −6 − (−4) = −2. So 9⁻² = 1/81."
+    },
+    {
+      "id": "exponent-rules/t5/017",
+      "tier": 5,
+      "prompt": "2⁻⁷ ÷ 2⁻²",
+      "choices": [
+        "−32",
+        "32",
+        "−1/32",
+        "1/32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "SIGN_SLIP",
+        "NEG_FRACTION",
+        null
+      ],
+      "explanation": "Subtract the exponents: −7 − (−2) = −5. So 2⁻⁵ = 1/32."
+    },
+    {
+      "id": "exponent-rules/t5/018",
+      "tier": 5,
+      "prompt": "5² × 5⁻³",
+      "choices": [
+        "5",
+        "1/5",
+        "−5",
+        "−1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_VALUE",
+        "NEG_FRACTION"
+      ],
+      "explanation": "Add the exponents: 2 + (−3) = −1. So 5⁻¹ = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/019",
+      "tier": 5,
+      "prompt": "(4⁴)⁻² ÷ 4⁻⁷",
+      "choices": [
+        "1/4",
+        "−4",
+        "4",
+        "−1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_VALUE",
+        "FLIPPED_SUB",
+        "NEG_FRACTION"
+      ],
+      "explanation": "4 × (−2) = −8; then −8 − (−7) = −1. So 4⁻¹ = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/020",
+      "tier": 5,
+      "prompt": "(5²)⁻³ × 5⁵",
+      "choices": [
+        "5",
+        "1/5",
+        "−1/5",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION",
+        "NEG_VALUE"
+      ],
+      "explanation": "2 × (−3) = −6; then −6 + 5 = −1. So 5⁻¹ = 1/5."
+    },
+    {
+      "id": "exponent-rules/t5/021",
+      "tier": 5,
+      "prompt": "(10⁴)³ ÷ 10⁸",
+      "choices": [
+        "10000",
+        "1/10000",
+        "1/10",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_SUB",
+        "ADD_FOR_POWER",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "4 × 3 = 12; then 12 − 8 = 4. So 10⁴ = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/022",
+      "tier": 5,
+      "prompt": "6⁻⁵ ÷ 6² ÷ 6⁻⁵",
+      "choices": [
+        "36",
+        "−1/36",
+        "−12",
+        "1/36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        null
+      ],
+      "explanation": "−5 − 2 = −7; then −7 − (−5) = −2. So 6⁻² = 1/36."
+    },
+    {
+      "id": "exponent-rules/t5/023",
+      "tier": 5,
+      "prompt": "(3³)⁻² × 3⁵",
+      "choices": [
+        "3",
+        "−1/3",
+        "1/3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "3 × (−2) = −6; then −6 + 5 = −1. So 3⁻¹ = 1/3."
+    },
+    {
+      "id": "exponent-rules/t5/024",
+      "tier": 5,
+      "prompt": "3⁻⁵ ÷ 3⁻⁵",
+      "choices": [
+        "1/3",
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "Subtract the exponents: −5 − (−5) = 0. So 3⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t5/025",
+      "tier": 5,
+      "prompt": "10⁻⁴ ÷ 10⁵ ÷ 10⁻⁸",
+      "choices": [
+        "−10",
+        "−1/10",
+        "1/10",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "NEG_FRACTION",
+        null,
+        "IGNORE_SIGN"
+      ],
+      "explanation": "−4 − 5 = −9; then −9 − (−8) = −1. So 10⁻¹ = 1/10."
+    },
+    {
+      "id": "exponent-rules/t5/026",
+      "tier": 5,
+      "prompt": "10⁸ ÷ 10⁴ ÷ 10⁸",
+      "choices": [
+        "−10000",
+        "−1/10000",
+        "10000",
+        "1/10000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_VALUE",
+        "NEG_FRACTION",
+        "IGNORE_SIGN",
+        null
+      ],
+      "explanation": "8 − 4 = 4; then 4 − 8 = −4. So 10⁻⁴ = 1/10000."
+    },
+    {
+      "id": "exponent-rules/t5/027",
+      "tier": 5,
+      "prompt": "10⁶ × 10⁶ ÷ 10⁸",
+      "choices": [
+        "1/10000",
+        "10000",
+        "40",
+        "100000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "TIMES_FOR_POWER",
+        "ARITH"
+      ],
+      "explanation": "6 + 6 = 12; then 12 − 8 = 4. So 10⁴ = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/028",
+      "tier": 5,
+      "prompt": "2³ × 2⁻⁸ ÷ 2⁻³",
+      "choices": [
+        "4",
+        "−1/4",
+        "1/4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_SIGN",
+        "NEG_FRACTION",
+        null,
+        "NEG_VALUE"
+      ],
+      "explanation": "3 + (−8) = −5; then −5 − (−3) = −2. So 2⁻² = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/029",
+      "tier": 5,
+      "prompt": "(7²)² ÷ 7²",
+      "choices": [
+        "7",
+        "1/49",
+        "49",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_SUB",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "2 × 2 = 4; then 4 − 2 = 2. So 7² = 49."
+    },
+    {
+      "id": "exponent-rules/t5/030",
+      "tier": 5,
+      "prompt": "6⁷ × 6⁻² ÷ 6³",
+      "choices": [
+        "1/36",
+        "36",
+        "6",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_SUB",
+        null,
+        "ARITH",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "7 + (−2) = 5; then 5 − 3 = 2. So 6² = 36."
+    },
+    {
+      "id": "exponent-rules/t5/031",
+      "tier": 5,
+      "prompt": "3² ÷ 3⁻² ÷ 3²",
+      "choices": [
+        "1/9",
+        "27",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        null,
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "2 − (−2) = 4; then 4 − 2 = 2. So 3² = 9."
+    },
+    {
+      "id": "exponent-rules/t5/032",
+      "tier": 5,
+      "prompt": "10⁻⁴ ÷ 10⁻² ÷ 10⁻⁶",
+      "choices": [
+        "100000",
+        "10000",
+        "1/10000",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "−4 − (−2) = −2; then −2 − (−6) = 4. So 10⁴ = 10000."
+    },
+    {
+      "id": "exponent-rules/t5/033",
+      "tier": 5,
+      "prompt": "(10⁻²)⁻³ ÷ 10⁸",
+      "choices": [
+        "1/100",
+        "100",
+        "−100",
+        "−20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IGNORE_SIGN",
+        "NEG_VALUE",
+        "NEG_TIMES"
+      ],
+      "explanation": "−2 × (−3) = 6; then 6 − 8 = −2. So 10⁻² = 1/100."
+    },
+    {
+      "id": "exponent-rules/t5/034",
+      "tier": 5,
+      "prompt": "9⁻⁵ ÷ 9⁻³",
+      "choices": [
+        "−1/81",
+        "81",
+        "1/81",
+        "−18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "FLIPPED_SUB",
+        null,
+        "NEG_TIMES"
+      ],
+      "explanation": "Subtract the exponents: −5 − (−3) = −2. So 9⁻² = 1/81."
+    },
+    {
+      "id": "exponent-rules/t5/035",
+      "tier": 5,
+      "prompt": "5⁻⁶ ÷ 5⁻⁴ ÷ 5⁻²",
+      "choices": [
+        "1",
+        "0",
+        "1/5",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ARITH",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "−6 − (−4) = −2; then −2 − (−2) = 0. So 5⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t5/036",
+      "tier": 5,
+      "prompt": "(4²)⁻³ ÷ 4⁻⁵",
+      "choices": [
+        "−4",
+        "4",
+        "1/4",
+        "−1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_VALUE",
+        "IGNORE_SIGN",
+        null,
+        "NEG_FRACTION"
+      ],
+      "explanation": "2 × (−3) = −6; then −6 − (−5) = −1. So 4⁻¹ = 1/4."
+    },
+    {
+      "id": "exponent-rules/t5/037",
+      "tier": 5,
+      "prompt": "6⁻² × 6⁻³ ÷ 6⁻³",
+      "choices": [
+        "−1/36",
+        "−12",
+        "−36",
+        "1/36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_FRACTION",
+        "NEG_TIMES",
+        "NEG_VALUE",
+        null
+      ],
+      "explanation": "−2 + (−3) = −5; then −5 − (−3) = −2. So 6⁻² = 1/36."
+    },
+    {
+      "id": "exponent-rules/t5/038",
+      "tier": 5,
+      "prompt": "2⁻⁵ × 2⁵",
+      "choices": [
+        "1/2",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE"
+      ],
+      "explanation": "Add the exponents: −5 + 5 = 0. So 2⁰ = 1."
+    },
+    {
+      "id": "exponent-rules/t5/039",
+      "tier": 5,
+      "prompt": "3⁸ × 3² ÷ 3⁷",
+      "choices": [
+        "9",
+        "1/27",
+        "1/3",
+        "27"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        "FLIPPED_SUB",
+        "SUB_EXPONENTS",
+        null
+      ],
+      "explanation": "8 + 2 = 10; then 10 − 7 = 3. So 3³ = 27."
+    },
+    {
+      "id": "exponent-rules/t5/040",
+      "tier": 5,
+      "prompt": "2³ × 2⁻⁸",
+      "choices": [
+        "1/32",
+        "−10",
+        "−32",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_TIMES",
+        "NEG_VALUE",
+        "IGNORE_SIGN"
+      ],
+      "explanation": "Add the exponents: 3 + (−8) = −5. So 2⁻⁵ = 1/32."
     }
   ],
   "render_profile": "unicode"
@@ -39187,6 +47177,3977 @@ window.FNM_CARTRIDGES["integer-ops"] = {
   ],
   "render_profile": "unicode"
 };
+window.FNM_CARTRIDGES["linear-equations"] = {
+  "protocol": "fnm-cart/1",
+  "id": "linear-equations",
+  "version": "1.0.0",
+  "title": "Linear Equations",
+  "subtitle": "Both Sides, Solution Count & Systems",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.C.7.A",
+    "CCSS.MATH.CONTENT.8.EE.C.7.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.A",
+    "CCSS.MATH.CONTENT.8.EE.C.8.B",
+    "CCSS.MATH.CONTENT.8.EE.C.8.C"
+  ],
+  "seed": 20261034,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL 4a and 4b (coordinates and lines), grade 8. One variable letter per equation, written ax + b = cx + d or with one group p(x + t); every coefficient of size 1-10 (p 2-6). Constants: when any literal is negative, every constant (and every distributed product p times t) has size at most 12, otherwise at most 20. After collecting terms the x coefficient has size 2-10 and the number side is the times-table product of it and the solution (size at most 100). Solutions are integers of size 1-10, never 0 (x = 0 is only ever a distractor); T3 counts are one, none or infinite, and the one-solution equations also have a nonzero integer solution of size at most 10. T4: fractions 1/2, 1/3, 1/4, 1/5 written (1/k)x or x/k and decimals 0.5, 0.25, 0.2, 0.1, every x a times-table multiple so the solution is an integer of size at most 40 and the collected number side is a whole number of size at most 10; both-sided coefficient pairs (1, 1/2), (1/2, 1/4), (0.5, 1), (0.5, 0.25). T5: lines y = mx + b with m of size 1-6 and b of size at most 12; sum-or-difference systems have coefficients 1-2, an integer solution of size 1-8 with x not equal to y, constants of size at most 20 (at most 12 if one is negative), solved by adding the two equations only; crossing lines meet at integer coordinates of size at most 10.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Both Sides",
+      "description": "x on both sides: collect the x terms, then the numbers."
+    },
+    {
+      "tier": 2,
+      "name": "Distribute, Solve",
+      "description": "Distribute first, then solve with x on both sides."
+    },
+    {
+      "tier": 3,
+      "name": "One, None, Infinite",
+      "description": "Decide how many solutions an equation has."
+    },
+    {
+      "tier": 4,
+      "name": "Fractions & Decimals",
+      "description": "Solve equations with 1/2 or 0.5 coefficients."
+    },
+    {
+      "tier": 5,
+      "name": "Systems",
+      "description": "Two lines at once: how many points, and where."
+    }
+  ],
+  "misconceptions": {
+    "SAME_SIGN_MOVE": {
+      "student": "To move 3x across the = sign, subtract 3x from both sides. Don't add it.",
+      "teacher": "Moves a variable term across the equals sign without changing its sign: 5x + 2 = 3x + 10 becomes 8x = 8."
+    },
+    "CONST_SIGN": {
+      "student": "Undo + 2 by subtracting 2 from both sides. Undo − 2 by adding 2.",
+      "teacher": "Moves a constant across the equals sign without changing its sign (adds instead of subtracts)."
+    },
+    "ONE_STEP": {
+      "student": "Stopped early: 2x = 8 still has to be divided by 2.",
+      "teacher": "Stops at the collected equation (ax = k) and reports k as the answer."
+    },
+    "SIGN_SLIP": {
+      "student": "Right size, wrong sign. Put your x back in to check.",
+      "teacher": "Subtracts the x terms the wrong way round and answers with the opposite sign."
+    },
+    "PARTIAL_DIST": {
+      "student": "Multiply the outside number by EVERY term inside: 3(x + 2) = 3x + 6.",
+      "teacher": "Distributes only to the variable: 3(x + 2) becomes 3x + 2."
+    },
+    "SIGN_INSIDE": {
+      "student": "3(x − 2) = 3x − 6. The minus sign stays with the 2.",
+      "teacher": "Loses the negative inside the parentheses when distributing: 3(x − 2) becomes 3x + 6."
+    },
+    "DROP_LIKE_TERM": {
+      "student": "Don't lose the extra x. Count every x term after distributing.",
+      "teacher": "Drops the loose x term when collecting like terms after distributing."
+    },
+    "CANCEL_IS_ZERO": {
+      "student": "When the x terms cancel, there is no x left to be 0. Look at the numbers.",
+      "teacher": "Reads an equation whose variable terms cancel as x = 0."
+    },
+    "ALWAYS_ONE": {
+      "student": "Not every equation has one answer. If the x terms cancel, check the numbers.",
+      "teacher": "Assumes every linear equation has exactly one solution."
+    },
+    "NONE_FOR_IDENTITY": {
+      "student": "If both sides come out equal (6 = 6), it is true for EVERY x.",
+      "teacher": "Reads a true statement with no variable left (an identity) as no solution."
+    },
+    "INFINITE_FOR_FALSE": {
+      "student": "If the x terms cancel and the numbers differ (4 = 7), it is never true.",
+      "teacher": "Reads a false statement with no variable left (a contradiction) as infinitely many solutions."
+    },
+    "ONE_IS_MANY": {
+      "student": "x on both sides does not mean many answers. Collect x and get one value.",
+      "teacher": "Believes variables on both sides produce infinitely many solutions."
+    },
+    "ONE_IS_NONE": {
+      "student": "x on both sides can still be solved: collect the x terms and divide.",
+      "teacher": "Believes variables on both sides mean the equation cannot be solved."
+    },
+    "ZERO_GUESS": {
+      "student": "Try x = 0 in the equation: the sides don't match. Solve it instead.",
+      "teacher": "Guesses x = 0 instead of counting solutions."
+    },
+    "CONST_FOR_COEFF": {
+      "student": "Match like with like: x terms with x terms, numbers with numbers.",
+      "teacher": "Puts a constant where the coefficient belongs (or the reverse) when matching two sides."
+    },
+    "SIGN_PICK": {
+      "student": "Right size, wrong sign. The two sides must match exactly, sign included.",
+      "teacher": "Matches the size of the number on the other side but flips its sign."
+    },
+    "DIVIDE_FOR_MULT": {
+      "student": "(1/2)x = 4 means x is 2 times bigger: multiply by 2, don't divide.",
+      "teacher": "Divides by the denominator to undo a fractional coefficient instead of multiplying."
+    },
+    "FORGOT_LAST_STEP": {
+      "student": "Stopped early: you still have to undo the fraction or decimal on x.",
+      "teacher": "Stops at the collected equation and answers with the number side."
+    },
+    "ONE_TERM_CLEARED": {
+      "student": "To clear a fraction, multiply EVERY term on both sides, not just one.",
+      "teacher": "Multiplies only the fractional term (or one side) by the denominator."
+    },
+    "DEC_WRONG_WAY": {
+      "student": "0.5x = 3 means x is 2 times bigger. Divide by 0.5, which doubles.",
+      "teacher": "Multiplies by the decimal coefficient instead of dividing by it."
+    },
+    "DEC_AS_FRAC": {
+      "student": "0.5 is 1/2, not 1/5. Read a decimal as a part of one whole.",
+      "teacher": "Reads the digit after the decimal point as the denominator: 0.5 as 1/5."
+    },
+    "PARALLEL_ONE": {
+      "student": "Same slope, different start: parallel lines never meet.",
+      "teacher": "Thinks two lines with the same slope still cross once."
+    },
+    "SAME_SLOPE_SAME_LINE": {
+      "student": "Same slope but different starts are different lines. They never touch.",
+      "teacher": "Reads two parallel lines as the same line, with infinitely many shared points."
+    },
+    "TWO_LINES_TWO": {
+      "student": "A solution is a point on BOTH lines. Two lines don't mean two solutions.",
+      "teacher": "Counts one solution per line."
+    },
+    "STOPPED_AT_SUM": {
+      "student": "After adding the equations, divide: 3x = 15 means x = 5.",
+      "teacher": "Reports the added constants without dividing by the combined coefficient."
+    },
+    "GAVE_OTHER": {
+      "student": "Check which variable the question asks for.",
+      "teacher": "Solves correctly but reports the other variable."
+    },
+    "SWAPPED_XY": {
+      "student": "Points are written (x, y): x first, then y.",
+      "teacher": "Reverses the coordinates of the solution point."
+    },
+    "READ_CONSTANT": {
+      "student": "x − y = 4 does not say y is 4. Solve for both variables.",
+      "teacher": "Reads a constant from an equation as the value of a variable."
+    },
+    "INTERCEPT_AS_MEET": {
+      "student": "The y-intercept is where a line crosses the y-axis, not where the lines meet.",
+      "teacher": "Gives the y-intercept of a line as the intersection point."
+    },
+    "DROPPED_SLOPE": {
+      "student": "Put x into the WHOLE rule: y = 3x + 4 uses 3 times x.",
+      "teacher": "Finds y by substituting x without the slope multiplier."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "linear-equations/t1/001",
+      "tier": 1,
+      "prompt": "Solve: 6m = m + 20",
+      "choices": [
+        "5",
+        "−4",
+        "20",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect m: 5m = 20. Divide by 5: m = 4."
+    },
+    {
+      "id": "linear-equations/t1/002",
+      "tier": 1,
+      "prompt": "Solve: 9t + 2 = 5t + 18",
+      "choices": [
+        "4",
+        "−4",
+        "5",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect t: 4t = 16. Divide by 4: t = 4."
+    },
+    {
+      "id": "linear-equations/t1/003",
+      "tier": 1,
+      "prompt": "Solve: 6m = 4m + 8",
+      "choices": [
+        "8",
+        "−4",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect m: 2m = 8. Divide by 2: m = 4."
+    },
+    {
+      "id": "linear-equations/t1/004",
+      "tier": 1,
+      "prompt": "Solve: 5y + 1 = 2y + 16",
+      "choices": [
+        "5",
+        "−5",
+        "7",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 3y = 15. Divide by 3: y = 5."
+    },
+    {
+      "id": "linear-equations/t1/005",
+      "tier": 1,
+      "prompt": "Solve: 4t + 12 = 7t + 9",
+      "choices": [
+        "−3",
+        "1",
+        "−1",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect t: 3 = 3t. Divide by 3: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/006",
+      "tier": 1,
+      "prompt": "Solve: 3m + 5 = 10m − 9",
+      "choices": [
+        "−14",
+        "5",
+        "2",
+        "−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "ARITH",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect m: 14 = 7m. Divide by 7: m = 2."
+    },
+    {
+      "id": "linear-equations/t1/007",
+      "tier": 1,
+      "prompt": "Solve: m + 1 = 7m − 5",
+      "choices": [
+        "−6",
+        "4",
+        "−1",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect m: 6 = 6m. Divide by 6: m = 1."
+    },
+    {
+      "id": "linear-equations/t1/008",
+      "tier": 1,
+      "prompt": "Solve: 7t + 13 = t + 19",
+      "choices": [
+        "1",
+        "−2",
+        "6",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect t: 6t = 6. Divide by 6: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/009",
+      "tier": 1,
+      "prompt": "Solve: 2w − 12 = 6w",
+      "choices": [
+        "−6",
+        "3",
+        "12",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: −12 = 4w. Divide by 4: w = −3."
+    },
+    {
+      "id": "linear-equations/t1/010",
+      "tier": 1,
+      "prompt": "Solve: 4n + 14 = 7n + 8",
+      "choices": [
+        "2",
+        "−2",
+        "3",
+        "−6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect n: 6 = 3n. Divide by 3: n = 2."
+    },
+    {
+      "id": "linear-equations/t1/011",
+      "tier": 1,
+      "prompt": "Solve: 6w + 9 = 9w",
+      "choices": [
+        "−3",
+        "−9",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Collect w: 9 = 3w. Divide by 3: w = 3."
+    },
+    {
+      "id": "linear-equations/t1/012",
+      "tier": 1,
+      "prompt": "Solve: 7n + 4 = 10n − 11",
+      "choices": [
+        "5",
+        "−15",
+        "3",
+        "−5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 15 = 3n. Divide by 3: n = 5."
+    },
+    {
+      "id": "linear-equations/t1/013",
+      "tier": 1,
+      "prompt": "Solve: 7w + 12 = 3w + 20",
+      "choices": [
+        "−2",
+        "2",
+        "8",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect w: 4w = 8. Divide by 4: w = 2."
+    },
+    {
+      "id": "linear-equations/t1/014",
+      "tier": 1,
+      "prompt": "Solve: 6k = 10k + 20",
+      "choices": [
+        "−5",
+        "20",
+        "5",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect k: −20 = 4k. Divide by 4: k = −5."
+    },
+    {
+      "id": "linear-equations/t1/015",
+      "tier": 1,
+      "prompt": "Solve: 9x − 6 = 3x + 6",
+      "choices": [
+        "12",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "CONST_SIGN",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect x: 6x = 12. Divide by 6: x = 2."
+    },
+    {
+      "id": "linear-equations/t1/016",
+      "tier": 1,
+      "prompt": "Solve: 9n − 5 = 3n + 7",
+      "choices": [
+        "−2",
+        "1",
+        "12",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect n: 6n = 12. Divide by 6: n = 2."
+    },
+    {
+      "id": "linear-equations/t1/017",
+      "tier": 1,
+      "prompt": "Solve: 9t + 9 = 5t + 17",
+      "choices": [
+        "−2",
+        "2",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 4t = 8. Divide by 4: t = 2."
+    },
+    {
+      "id": "linear-equations/t1/018",
+      "tier": 1,
+      "prompt": "Solve: 8y + 2 = 10y",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 2 = 2y. Divide by 2: y = 1."
+    },
+    {
+      "id": "linear-equations/t1/019",
+      "tier": 1,
+      "prompt": "Solve: 6x − 4 = 4x + 10",
+      "choices": [
+        "7",
+        "3",
+        "14",
+        "−7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ONE_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect x: 2x = 14. Divide by 2: x = 7."
+    },
+    {
+      "id": "linear-equations/t1/020",
+      "tier": 1,
+      "prompt": "Solve: 9w + 1 = 7w + 3",
+      "choices": [
+        "−1",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: 2w = 2. Divide by 2: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/021",
+      "tier": 1,
+      "prompt": "Solve: 8n = n + 7",
+      "choices": [
+        "1",
+        "7",
+        "4",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 7n = 7. Divide by 7: n = 1."
+    },
+    {
+      "id": "linear-equations/t1/022",
+      "tier": 1,
+      "prompt": "Solve: 3x + 15 = 7x + 3",
+      "choices": [
+        "−12",
+        "−3",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect x: 12 = 4x. Divide by 4: x = 3."
+    },
+    {
+      "id": "linear-equations/t1/023",
+      "tier": 1,
+      "prompt": "Solve: 4w + 14 = 8w + 10",
+      "choices": [
+        "−4",
+        "−1",
+        "1",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_STEP",
+        "SIGN_SLIP",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect w: 4 = 4w. Divide by 4: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/024",
+      "tier": 1,
+      "prompt": "Solve: 3k = k + 2",
+      "choices": [
+        "−1",
+        "2",
+        "−2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect k: 2k = 2. Divide by 2: k = 1."
+    },
+    {
+      "id": "linear-equations/t1/025",
+      "tier": 1,
+      "prompt": "Solve: 8n − 7 = 6n + 1",
+      "choices": [
+        "−4",
+        "4",
+        "8",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect n: 2n = 8. Divide by 2: n = 4."
+    },
+    {
+      "id": "linear-equations/t1/026",
+      "tier": 1,
+      "prompt": "Solve: 2x + 15 = 5x",
+      "choices": [
+        "−5",
+        "−15",
+        "5",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_STEP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Collect x: 15 = 3x. Divide by 3: x = 5."
+    },
+    {
+      "id": "linear-equations/t1/027",
+      "tier": 1,
+      "prompt": "Solve: 3n + 8 = n − 12",
+      "choices": [
+        "10",
+        "−20",
+        "−10",
+        "−5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect n: 2n = −20. Divide by 2: n = −10."
+    },
+    {
+      "id": "linear-equations/t1/028",
+      "tier": 1,
+      "prompt": "Solve: 7t − 3 = 4t",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 3t = 3. Divide by 3: t = 1."
+    },
+    {
+      "id": "linear-equations/t1/029",
+      "tier": 1,
+      "prompt": "Solve: 9x + 1 = 5x + 17",
+      "choices": [
+        "4",
+        "16",
+        "7",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_STEP",
+        "ARITH",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect x: 4x = 16. Divide by 4: x = 4."
+    },
+    {
+      "id": "linear-equations/t1/030",
+      "tier": 1,
+      "prompt": "Solve: 4x + 3 = 7x",
+      "choices": [
+        "2",
+        "−1",
+        "1",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP"
+      ],
+      "explanation": "Collect x: 3 = 3x. Divide by 3: x = 1."
+    },
+    {
+      "id": "linear-equations/t1/031",
+      "tier": 1,
+      "prompt": "Solve: 9k + 16 = k",
+      "choices": [
+        "−16",
+        "−2",
+        "2",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Collect k: 8k = −16. Divide by 8: k = −2."
+    },
+    {
+      "id": "linear-equations/t1/032",
+      "tier": 1,
+      "prompt": "Solve: 6w = 8w − 2",
+      "choices": [
+        "3",
+        "1",
+        "−1",
+        "−2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect w: 2 = 2w. Divide by 2: w = 1."
+    },
+    {
+      "id": "linear-equations/t1/033",
+      "tier": 1,
+      "prompt": "Solve: 7t + 8 = t + 2",
+      "choices": [
+        "1",
+        "−1",
+        "−6",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "ONE_STEP",
+        "ARITH"
+      ],
+      "explanation": "Collect t: 6t = −6. Divide by 6: t = −1."
+    },
+    {
+      "id": "linear-equations/t1/034",
+      "tier": 1,
+      "prompt": "Solve: 10m = 6m + 4",
+      "choices": [
+        "−1",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ONE_STEP",
+        "ARITH",
+        null
+      ],
+      "explanation": "Collect m: 4m = 4. Divide by 4: m = 1."
+    },
+    {
+      "id": "linear-equations/t1/035",
+      "tier": 1,
+      "prompt": "Solve: 8y = 3y + 15",
+      "choices": [
+        "3",
+        "2",
+        "−3",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SIGN_SLIP",
+        "ONE_STEP"
+      ],
+      "explanation": "Collect y: 5y = 15. Divide by 5: y = 3."
+    },
+    {
+      "id": "linear-equations/t1/036",
+      "tier": 1,
+      "prompt": "Solve: 5n + 1 = 3n + 9",
+      "choices": [
+        "5",
+        "8",
+        "4",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect n: 2n = 8. Divide by 2: n = 4."
+    },
+    {
+      "id": "linear-equations/t1/037",
+      "tier": 1,
+      "prompt": "Solve: 2w + 11 = 4w − 7",
+      "choices": [
+        "−2",
+        "−3",
+        "−18",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null
+      ],
+      "explanation": "Collect w: 18 = 2w. Divide by 2: w = 9."
+    },
+    {
+      "id": "linear-equations/t1/038",
+      "tier": 1,
+      "prompt": "Solve: 3x + 10 = x − 6",
+      "choices": [
+        "8",
+        "−4",
+        "−8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "SAME_SIGN_MOVE",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect x: 2x = −16. Divide by 2: x = −8."
+    },
+    {
+      "id": "linear-equations/t1/039",
+      "tier": 1,
+      "prompt": "Solve: 6m − 8 = 2m",
+      "choices": [
+        "1",
+        "8",
+        "2",
+        "−2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        "ONE_STEP",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect m: 4m = 8. Divide by 4: m = 2."
+    },
+    {
+      "id": "linear-equations/t1/040",
+      "tier": 1,
+      "prompt": "Solve: 7n + 13 = 9n + 3",
+      "choices": [
+        "−10",
+        "5",
+        "−8",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_STEP",
+        null,
+        "CONST_SIGN",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect n: 10 = 2n. Divide by 2: n = 5."
+    },
+    {
+      "id": "linear-equations/t2/001",
+      "tier": 2,
+      "prompt": "Solve: 3(m + 3) = 9m − 9",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3m + 9 = 9m − 9. Collect: 18 = 6m. m = 3."
+    },
+    {
+      "id": "linear-equations/t2/002",
+      "tier": 2,
+      "prompt": "Solve: 3(w + 6) = 5w",
+      "choices": [
+        "−9",
+        "9",
+        "10",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "ARITH",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3w + 18 = 5w. Collect: 18 = 2w. w = 9."
+    },
+    {
+      "id": "linear-equations/t2/003",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 4) = m + 4",
+      "choices": [
+        "−4",
+        "0",
+        "−2",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "ARITH",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5m + 20 = m + 4. Collect: 4m = −16. m = −4."
+    },
+    {
+      "id": "linear-equations/t2/004",
+      "tier": 2,
+      "prompt": "Solve: 2(k + 1) + 3k = 3k + 6",
+      "choices": [
+        "−4",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "ARITH",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Distribute: 5k + 2 = 3k + 6. Collect: 2k = 4. k = 2."
+    },
+    {
+      "id": "linear-equations/t2/005",
+      "tier": 2,
+      "prompt": "Solve: 9n + 12 = 5(n + 4)",
+      "choices": [
+        "2",
+        "4",
+        "−2",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5n + 20 = 9n + 12. Collect: 8 = 4n. n = 2."
+    },
+    {
+      "id": "linear-equations/t2/006",
+      "tier": 2,
+      "prompt": "Solve: 3(t − 2) = 7t − 10",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "PARTIAL_DIST",
+        null,
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 3t − 6 = 7t − 10. Collect: 4 = 4t. t = 1."
+    },
+    {
+      "id": "linear-equations/t2/007",
+      "tier": 2,
+      "prompt": "Solve: 2(y − 6) + 3y = 7y",
+      "choices": [
+        "1",
+        "−3",
+        "−6",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        "PARTIAL_DIST",
+        null,
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 5y − 12 = 7y. Collect: −12 = 2y. y = −6."
+    },
+    {
+      "id": "linear-equations/t2/008",
+      "tier": 2,
+      "prompt": "Solve: 3(x + 4) + 2x = 8x − 3",
+      "choices": [
+        "−3",
+        "5",
+        "3",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "DROP_LIKE_TERM",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5x + 12 = 8x − 3. Collect: 15 = 3x. x = 5."
+    },
+    {
+      "id": "linear-equations/t2/009",
+      "tier": 2,
+      "prompt": "Solve: 2(x + 3) + 3x = 3x + 14",
+      "choices": [
+        "1",
+        "4",
+        "−8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "DROP_LIKE_TERM",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5x + 6 = 3x + 14. Collect: 2x = 8. x = 4."
+    },
+    {
+      "id": "linear-equations/t2/010",
+      "tier": 2,
+      "prompt": "Solve: 5y − 11 = 3(y + 1)",
+      "choices": [
+        "6",
+        "7",
+        "10",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "ARITH",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3y + 3 = 5y − 11. Collect: 14 = 2y. y = 7."
+    },
+    {
+      "id": "linear-equations/t2/011",
+      "tier": 2,
+      "prompt": "Solve: 2(n + 4) + n = 5n − 10",
+      "choices": [
+        "6",
+        "7",
+        "9",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "PARTIAL_DIST",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3n + 8 = 5n − 10. Collect: 18 = 2n. n = 9."
+    },
+    {
+      "id": "linear-equations/t2/012",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 4) + 2m = 9m + 6",
+      "choices": [
+        "7",
+        "9",
+        "−1",
+        "−13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 7m + 20 = 9m + 6. Collect: 14 = 2m. m = 7."
+    },
+    {
+      "id": "linear-equations/t2/013",
+      "tier": 2,
+      "prompt": "Solve: 2(y + 3) = 5y + 3",
+      "choices": [
+        "0",
+        "−3",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 2y + 6 = 5y + 3. Collect: 3 = 3y. y = 1."
+    },
+    {
+      "id": "linear-equations/t2/014",
+      "tier": 2,
+      "prompt": "Solve: 5k + 9 = 3(k + 5)",
+      "choices": [
+        "3",
+        "−2",
+        "−12",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3k + 15 = 5k + 9. Collect: 6 = 2k. k = 3."
+    },
+    {
+      "id": "linear-equations/t2/015",
+      "tier": 2,
+      "prompt": "Solve: 4(w + 5) + 3w = 9w + 4",
+      "choices": [
+        "8",
+        "−12",
+        "7",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ARITH",
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Distribute: 7w + 20 = 9w + 4. Collect: 16 = 2w. w = 8."
+    },
+    {
+      "id": "linear-equations/t2/016",
+      "tier": 2,
+      "prompt": "Solve: 5w − 7 = 3(w + 3)",
+      "choices": [
+        "−2",
+        "8",
+        "5",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3w + 9 = 5w − 7. Collect: 16 = 2w. w = 8."
+    },
+    {
+      "id": "linear-equations/t2/017",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 3) + m = 15",
+      "choices": [
+        "7",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ARITH",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3m + 6 = 15. Collect: 3m = 9. m = 3."
+    },
+    {
+      "id": "linear-equations/t2/018",
+      "tier": 2,
+      "prompt": "Solve: 3w + 5 = 5(w + 3)",
+      "choices": [
+        "−3",
+        "10",
+        "1",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 5w + 15 = 3w + 5. Collect: 2w = −10. w = −5."
+    },
+    {
+      "id": "linear-equations/t2/019",
+      "tier": 2,
+      "prompt": "Solve: 3(y + 6) = 5y + 14",
+      "choices": [
+        "−4",
+        "3",
+        "−16",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "ARITH",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Distribute: 3y + 18 = 5y + 14. Collect: 4 = 2y. y = 2."
+    },
+    {
+      "id": "linear-equations/t2/020",
+      "tier": 2,
+      "prompt": "Solve: 5(w + 4) + 3w = 10w + 10",
+      "choices": [
+        "5",
+        "−15",
+        "2",
+        "−3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "DROP_LIKE_TERM",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 8w + 20 = 10w + 10. Collect: 10 = 2w. w = 5."
+    },
+    {
+      "id": "linear-equations/t2/021",
+      "tier": 2,
+      "prompt": "Solve: 6(m + 2) = 4m + 16",
+      "choices": [
+        "3",
+        "2",
+        "14",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "CONST_SIGN",
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 6m + 12 = 4m + 16. Collect: 2m = 4. m = 2."
+    },
+    {
+      "id": "linear-equations/t2/022",
+      "tier": 2,
+      "prompt": "Solve: 3(y + 5) = 8y",
+      "choices": [
+        "5",
+        "−3",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        null,
+        "PARTIAL_DIST"
+      ],
+      "explanation": "Distribute: 3y + 15 = 8y. Collect: 15 = 5y. y = 3."
+    },
+    {
+      "id": "linear-equations/t2/023",
+      "tier": 2,
+      "prompt": "Solve: 6(x − 2) + 3x = 5x",
+      "choices": [
+        "12",
+        "−3",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROP_LIKE_TERM",
+        "SIGN_INSIDE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Distribute: 9x − 12 = 5x. Collect: 4x = 12. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/024",
+      "tier": 2,
+      "prompt": "Solve: 5(x + 2) = 3x",
+      "choices": [
+        "5",
+        "−1",
+        "−4",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 5x + 10 = 3x. Collect: 2x = −10. x = −5."
+    },
+    {
+      "id": "linear-equations/t2/025",
+      "tier": 2,
+      "prompt": "Solve: 6t − 12 = 3(t − 1)",
+      "choices": [
+        "−1",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "SIGN_INSIDE",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 3t − 3 = 6t − 12. Collect: 9 = 3t. t = 3."
+    },
+    {
+      "id": "linear-equations/t2/026",
+      "tier": 2,
+      "prompt": "Solve: 3(m + 2) = 5m − 10",
+      "choices": [
+        "8",
+        "6",
+        "−2",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "SAME_SIGN_MOVE",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 3m + 6 = 5m − 10. Collect: 16 = 2m. m = 8."
+    },
+    {
+      "id": "linear-equations/t2/027",
+      "tier": 2,
+      "prompt": "Solve: 2(x + 3) + 2x = 2x + 12",
+      "choices": [
+        "5",
+        "1",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SAME_SIGN_MOVE",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 4x + 6 = 2x + 12. Collect: 2x = 6. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/028",
+      "tier": 2,
+      "prompt": "Solve: 4(n − 1) = 8n + 8",
+      "choices": [
+        "1",
+        "−3",
+        "−1",
+        "−5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIGN_MOVE",
+        null,
+        "SIGN_INSIDE",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 4n − 4 = 8n + 8. Collect: −12 = 4n. n = −3."
+    },
+    {
+      "id": "linear-equations/t2/029",
+      "tier": 2,
+      "prompt": "Solve: 2(y − 2) + 3y = 7y − 10",
+      "choices": [
+        "3",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_INSIDE",
+        "PARTIAL_DIST",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5y − 4 = 7y − 10. Collect: 6 = 2y. y = 3."
+    },
+    {
+      "id": "linear-equations/t2/030",
+      "tier": 2,
+      "prompt": "Solve: 5k + 3 = 3(k + 5)",
+      "choices": [
+        "1",
+        "−9",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 3k + 15 = 5k + 3. Collect: 12 = 2k. k = 6."
+    },
+    {
+      "id": "linear-equations/t2/031",
+      "tier": 2,
+      "prompt": "Solve: x + 9 = 3(x + 1)",
+      "choices": [
+        "6",
+        "1",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ARITH",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 3x + 3 = x + 9. Collect: 2x = 6. x = 3."
+    },
+    {
+      "id": "linear-equations/t2/032",
+      "tier": 2,
+      "prompt": "Solve: 5(x + 3) + x = 9x",
+      "choices": [
+        "−5",
+        "1",
+        "5",
+        "−1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Distribute: 6x + 15 = 9x. Collect: 15 = 3x. x = 5."
+    },
+    {
+      "id": "linear-equations/t2/033",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 4) + 2m = 12",
+      "choices": [
+        "1",
+        "2",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROP_LIKE_TERM",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 4m + 8 = 12. Collect: 4m = 4. m = 1."
+    },
+    {
+      "id": "linear-equations/t2/034",
+      "tier": 2,
+      "prompt": "Solve: 5(t + 3) = 3t + 13",
+      "choices": [
+        "5",
+        "−1",
+        "14",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        null,
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Distribute: 5t + 15 = 3t + 13. Collect: 2t = −2. t = −1."
+    },
+    {
+      "id": "linear-equations/t2/035",
+      "tier": 2,
+      "prompt": "Solve: 4(m − 2) = 2m + 6",
+      "choices": [
+        "7",
+        "4",
+        "9",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_DIST",
+        "ARITH",
+        "SIGN_INSIDE"
+      ],
+      "explanation": "Distribute: 4m − 8 = 2m + 6. Collect: 2m = 14. m = 7."
+    },
+    {
+      "id": "linear-equations/t2/036",
+      "tier": 2,
+      "prompt": "Solve: 5(m + 2) = 3m + 20",
+      "choices": [
+        "9",
+        "15",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 5m + 10 = 3m + 20. Collect: 2m = 10. m = 5."
+    },
+    {
+      "id": "linear-equations/t2/037",
+      "tier": 2,
+      "prompt": "Solve: 5(t + 2) = 9t − 6",
+      "choices": [
+        "7",
+        "4",
+        "2",
+        "−1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "PARTIAL_DIST",
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5t + 10 = 9t − 6. Collect: 16 = 4t. t = 4."
+    },
+    {
+      "id": "linear-equations/t2/038",
+      "tier": 2,
+      "prompt": "Solve: 2(w + 6) = 5w",
+      "choices": [
+        "6",
+        "−4",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "CONST_SIGN",
+        "PARTIAL_DIST",
+        null
+      ],
+      "explanation": "Distribute: 2w + 12 = 5w. Collect: 12 = 3w. w = 4."
+    },
+    {
+      "id": "linear-equations/t2/039",
+      "tier": 2,
+      "prompt": "Solve: 2(m + 6) + 2m = 7m + 9",
+      "choices": [
+        "−1",
+        "−7",
+        "−2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_DIST",
+        "CONST_SIGN",
+        "ARITH",
+        null
+      ],
+      "explanation": "Distribute: 4m + 12 = 7m + 9. Collect: 3 = 3m. m = 1."
+    },
+    {
+      "id": "linear-equations/t2/040",
+      "tier": 2,
+      "prompt": "Solve: 2(t + 3) + 3t = 3t + 8",
+      "choices": [
+        "−1",
+        "−2",
+        "1",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DROP_LIKE_TERM",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Distribute: 5t + 6 = 3t + 8. Collect: 2t = 2. t = 1."
+    },
+    {
+      "id": "linear-equations/t3/001",
+      "tier": 3,
+      "prompt": "2(m + 5) = 8m − 8. How many solutions?",
+      "choices": [
+        "m = 0",
+        "None",
+        "One",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        null,
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect m: −6m = −18, so m = 3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/002",
+      "tier": 3,
+      "prompt": "4(x + 3) = 6x + 2. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        null,
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect x: −2x = −10, so x = 5. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/003",
+      "tier": 3,
+      "prompt": "8x + 2 = kx + 2. Infinite solutions when k is?",
+      "choices": [
+        "−8",
+        "9",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_PICK",
+        "ARITH",
+        null,
+        "CONST_FOR_COEFF"
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 8."
+    },
+    {
+      "id": "linear-equations/t3/004",
+      "tier": 3,
+      "prompt": "7x + 4 = 7x + k. Infinite solutions when k is?",
+      "choices": [
+        "4",
+        "6",
+        "7",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CONST_FOR_COEFF",
+        "SIGN_PICK"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 4. Then both sides are 7x + 4."
+    },
+    {
+      "id": "linear-equations/t3/005",
+      "tier": 3,
+      "prompt": "9y − 3 = 5y − 3 + 4y. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "y = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 9y − 3. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/006",
+      "tier": 3,
+      "prompt": "7x + 15 = 8x + 13. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "x = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect x: −x = −2, so x = 2. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/007",
+      "tier": 3,
+      "prompt": "2m + 4 = 2(m + 2). How many solutions?",
+      "choices": [
+        "m = 0",
+        "One",
+        "Infinite",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 2m + 4. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/008",
+      "tier": 3,
+      "prompt": "9n + 12 = 9n − 7. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "n = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 9n + 12, right is 9n − 7. The n terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/009",
+      "tier": 3,
+      "prompt": "6(n + 1) = 4n + 16. How many solutions?",
+      "choices": [
+        "None",
+        "Infinite",
+        "One",
+        "n = 0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        "ONE_IS_MANY",
+        null,
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect n: 2n = 10, so n = 5. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/010",
+      "tier": 3,
+      "prompt": "2(y + 6) = 4y + 18. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect y: −2y = 6, so y = −3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/011",
+      "tier": 3,
+      "prompt": "2(x + 1) = 4x − 4. How many solutions?",
+      "choices": [
+        "Infinite",
+        "One",
+        "None",
+        "x = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        null,
+        "ONE_IS_NONE",
+        "ZERO_GUESS"
+      ],
+      "explanation": "Collect x: −2x = −6, so x = 3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/012",
+      "tier": 3,
+      "prompt": "2(k − 4) = 2k − 8. How many solutions?",
+      "choices": [
+        "One",
+        "k = 0",
+        "Infinite",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null,
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 2k − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/013",
+      "tier": 3,
+      "prompt": "3x + 5 = kx + 5. Infinite solutions when k is?",
+      "choices": [
+        "5",
+        "3",
+        "2",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        null,
+        "ARITH",
+        "SIGN_PICK"
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 3."
+    },
+    {
+      "id": "linear-equations/t3/014",
+      "tier": 3,
+      "prompt": "5y − 6 = 2y − 6 + 3y. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Both sides simplify to 5y − 6. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/015",
+      "tier": 3,
+      "prompt": "8t + 3 = 4t − 1. How many solutions?",
+      "choices": [
+        "One",
+        "t = 0",
+        "None",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect t: 4t = −4, so t = −1. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/016",
+      "tier": 3,
+      "prompt": "5(k + 2) = 8k + 4. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "k = 0",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_MANY",
+        "ZERO_GUESS",
+        "ONE_IS_NONE"
+      ],
+      "explanation": "Collect k: −3k = −6, so k = 2. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/017",
+      "tier": 3,
+      "prompt": "3(t + 1) = 3t + 7. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "t = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 3t + 3, right is 3t + 7. The t terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/018",
+      "tier": 3,
+      "prompt": "4n + 7 = 4n − 4. How many solutions?",
+      "choices": [
+        "n = 0",
+        "One",
+        "Infinite",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        "INFINITE_FOR_FALSE",
+        null
+      ],
+      "explanation": "Left is 4n + 7, right is 4n − 4. The n terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/019",
+      "tier": 3,
+      "prompt": "5x + 9 = kx + 3. No solution when k is?",
+      "choices": [
+        "3",
+        "−5",
+        "9",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        null
+      ],
+      "explanation": "No solution needs the same x term on both sides but different numbers: k = 5."
+    },
+    {
+      "id": "linear-equations/t3/020",
+      "tier": 3,
+      "prompt": "y + 11 = 2y + 14. How many solutions?",
+      "choices": [
+        "Infinite",
+        "y = 0",
+        "None",
+        "One"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_IS_MANY",
+        "ZERO_GUESS",
+        "ONE_IS_NONE",
+        null
+      ],
+      "explanation": "Collect y: −y = 3, so y = −3. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/021",
+      "tier": 3,
+      "prompt": "6m + 9 = 5m + 9 + m. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "m = 0",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "CANCEL_IS_ZERO",
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Both sides simplify to 6m + 9. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/022",
+      "tier": 3,
+      "prompt": "2x − 5 = 2x + 2. How many solutions?",
+      "choices": [
+        "One",
+        "x = 0",
+        "None",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null,
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 2x − 5, right is 2x + 2. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/023",
+      "tier": 3,
+      "prompt": "5m − 2 = 3m − 2 + 2m. How many solutions?",
+      "choices": [
+        "m = 0",
+        "One",
+        "None",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "ALWAYS_ONE",
+        "NONE_FOR_IDENTITY",
+        null
+      ],
+      "explanation": "Both sides simplify to 5m − 2. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/024",
+      "tier": 3,
+      "prompt": "7t + 9 = 3t + 9 + 4t. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "t = 0",
+        "Infinite"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Both sides simplify to 7t + 9. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/025",
+      "tier": 3,
+      "prompt": "4m + 12 = m − 1 + 3m. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "m = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 4m + 12, right is 4m − 1. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/026",
+      "tier": 3,
+      "prompt": "6w − 2 = 5w − 2 + w. How many solutions?",
+      "choices": [
+        "w = 0",
+        "None",
+        "Infinite",
+        "One"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "NONE_FOR_IDENTITY",
+        null,
+        "ALWAYS_ONE"
+      ],
+      "explanation": "Both sides simplify to 6w − 2. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/027",
+      "tier": 3,
+      "prompt": "4x − 8 = 4(x − 2). How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONE_FOR_IDENTITY",
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 4x − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/028",
+      "tier": 3,
+      "prompt": "7x + 6 = 3x + 4 + 4x. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "One",
+        "x = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INFINITE_FOR_FALSE",
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Left is 7x + 6, right is 7x + 4. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/029",
+      "tier": 3,
+      "prompt": "3(m + 1) = 3m + 5. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "m = 0",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 3m + 3, right is 3m + 5. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/030",
+      "tier": 3,
+      "prompt": "6x + 4 = kx + 8. No solution when k is?",
+      "choices": [
+        "4",
+        "8",
+        "6",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "CONST_FOR_COEFF",
+        null,
+        "SIGN_PICK"
+      ],
+      "explanation": "No solution needs the same x term on both sides but different numbers: k = 6."
+    },
+    {
+      "id": "linear-equations/t3/031",
+      "tier": 3,
+      "prompt": "6x + 3 = 6x + k. Infinite solutions when k is?",
+      "choices": [
+        "3",
+        "6",
+        "−3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_FOR_COEFF",
+        "SIGN_PICK",
+        "ARITH"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 3. Then both sides are 6x + 3."
+    },
+    {
+      "id": "linear-equations/t3/032",
+      "tier": 3,
+      "prompt": "5x + 8 = 5x + k. Infinite solutions when k is?",
+      "choices": [
+        "6",
+        "−8",
+        "8",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIGN_PICK",
+        null,
+        "CONST_FOR_COEFF"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 8. Then both sides are 5x + 8."
+    },
+    {
+      "id": "linear-equations/t3/033",
+      "tier": 3,
+      "prompt": "3(x + 1) = 3x + 2. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "x = 0",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        "INFINITE_FOR_FALSE",
+        "CANCEL_IS_ZERO",
+        null
+      ],
+      "explanation": "Left is 3x + 3, right is 3x + 2. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/034",
+      "tier": 3,
+      "prompt": "3(y + 6) = 5y. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "y = 0",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        null,
+        "ZERO_GUESS",
+        "ONE_IS_MANY"
+      ],
+      "explanation": "Collect y: −2y = −18, so y = 9. Exactly one solution."
+    },
+    {
+      "id": "linear-equations/t3/035",
+      "tier": 3,
+      "prompt": "6x + 2 = 6x + k. Infinite solutions when k is?",
+      "choices": [
+        "2",
+        "−2",
+        "6",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        "ARITH"
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 2. Then both sides are 6x + 2."
+    },
+    {
+      "id": "linear-equations/t3/036",
+      "tier": 3,
+      "prompt": "2x + 4 = 2x + k. Infinite solutions when k is?",
+      "choices": [
+        "−4",
+        "2",
+        "5",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_PICK",
+        "CONST_FOR_COEFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same x term, so the numbers must match too: k = 4. Then both sides are 2x + 4."
+    },
+    {
+      "id": "linear-equations/t3/037",
+      "tier": 3,
+      "prompt": "6y − 8 = 2y − 8 + 4y. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "y = 0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ALWAYS_ONE",
+        null,
+        "NONE_FOR_IDENTITY",
+        "CANCEL_IS_ZERO"
+      ],
+      "explanation": "Both sides simplify to 6y − 8. Always true, so infinitely many solutions."
+    },
+    {
+      "id": "linear-equations/t3/038",
+      "tier": 3,
+      "prompt": "4x + 6 = kx + 6. Infinite solutions when k is?",
+      "choices": [
+        "6",
+        "2",
+        "−4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_FOR_COEFF",
+        "ARITH",
+        "SIGN_PICK",
+        null
+      ],
+      "explanation": "Infinite needs identical sides, so the x terms match: k = 4."
+    },
+    {
+      "id": "linear-equations/t3/039",
+      "tier": 3,
+      "prompt": "6m + 2 = 4m − 6 + 2m. How many solutions?",
+      "choices": [
+        "m = 0",
+        "Infinite",
+        "One",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE",
+        "ALWAYS_ONE",
+        null
+      ],
+      "explanation": "Left is 6m + 2, right is 6m − 6. The m terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t3/040",
+      "tier": 3,
+      "prompt": "4x + 19 = 4(x + 4). How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "x = 0",
+        "Infinite"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALWAYS_ONE",
+        "CANCEL_IS_ZERO",
+        "INFINITE_FOR_FALSE"
+      ],
+      "explanation": "Left is 4x + 19, right is 4x + 16. The x terms match, the numbers don't: no solution."
+    },
+    {
+      "id": "linear-equations/t4/001",
+      "tier": 4,
+      "prompt": "Solve: 0.2x − 10 = −3",
+      "choices": [
+        "−65",
+        "35",
+        "7",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP",
+        "DEC_AS_FRAC"
+      ],
+      "explanation": "Collect: 0.2x = 7, so x = 7 ÷ 0.2 = 35."
+    },
+    {
+      "id": "linear-equations/t4/002",
+      "tier": 4,
+      "prompt": "Solve: x/4 + 9 = x/2 + 7",
+      "choices": [
+        "−2",
+        "−64",
+        "8",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 2 = x/4, so x = 2 ÷ 1/4 = 8."
+    },
+    {
+      "id": "linear-equations/t4/003",
+      "tier": 4,
+      "prompt": "Solve: 0.5x − 10 = −5",
+      "choices": [
+        "−30",
+        "5",
+        "10",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null,
+        "DEC_AS_FRAC"
+      ],
+      "explanation": "Collect: 0.5x = 5, so x = 5 ÷ 0.5 = 10."
+    },
+    {
+      "id": "linear-equations/t4/004",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 6 = 16",
+      "choices": [
+        "5",
+        "44",
+        "10",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DEC_WRONG_WAY",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 10, so x = 10 ÷ 0.5 = 20."
+    },
+    {
+      "id": "linear-equations/t4/005",
+      "tier": 4,
+      "prompt": "Solve: 0.2x − 8 = −5",
+      "choices": [
+        "15",
+        "6",
+        "−65",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DEC_AS_FRAC",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.2x = 3, so x = 3 ÷ 0.2 = 15."
+    },
+    {
+      "id": "linear-equations/t4/006",
+      "tier": 4,
+      "prompt": "Solve: 0.5m + 9 = m + 7",
+      "choices": [
+        "4",
+        "−32",
+        "−2",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 2 = 0.5m, so m = 2 ÷ 0.5 = 4."
+    },
+    {
+      "id": "linear-equations/t4/007",
+      "tier": 4,
+      "prompt": "Solve: x/5 + 8 = 3",
+      "choices": [
+        "−5",
+        "−25",
+        "−1",
+        "55"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "DIVIDE_FOR_MULT",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: x/5 = −5, so x = −5 ÷ 1/5 = −25."
+    },
+    {
+      "id": "linear-equations/t4/008",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 5 = 0.25x + 6",
+      "choices": [
+        "44",
+        "1",
+        "4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: 0.25x = 1, so x = 1 ÷ 0.25 = 4."
+    },
+    {
+      "id": "linear-equations/t4/009",
+      "tier": 4,
+      "prompt": "Solve: x/5 + 3 = 8",
+      "choices": [
+        "25",
+        "5",
+        "−7",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_LAST_STEP",
+        "ONE_TERM_CLEARED",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: x/5 = 5, so x = 5 ÷ 1/5 = 25."
+    },
+    {
+      "id": "linear-equations/t4/010",
+      "tier": 4,
+      "prompt": "Solve: w + 4 = (1/2)w − 4",
+      "choices": [
+        "16",
+        "0",
+        "−16",
+        "−8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)w = −8, so w = −8 ÷ 1/2 = −16."
+    },
+    {
+      "id": "linear-equations/t4/011",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 9 = 10",
+      "choices": [
+        "5",
+        "1",
+        "38",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DEC_AS_FRAC",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 1, so x = 1 ÷ 0.5 = 2."
+    },
+    {
+      "id": "linear-equations/t4/012",
+      "tier": 4,
+      "prompt": "Solve: (1/4)x − 2 = 3",
+      "choices": [
+        "4",
+        "11",
+        "5",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "ONE_TERM_CLEARED",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: (1/4)x = 5, so x = 5 ÷ 1/4 = 20."
+    },
+    {
+      "id": "linear-equations/t4/013",
+      "tier": 4,
+      "prompt": "Solve: x/2 − 6 = x − 8",
+      "choices": [
+        "4",
+        "1",
+        "−4",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDE_FOR_MULT",
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 2 = x/2, so x = 2 ÷ 1/2 = 4."
+    },
+    {
+      "id": "linear-equations/t4/014",
+      "tier": 4,
+      "prompt": "Solve: 0.1x − 4 = 0",
+      "choices": [
+        "39",
+        "40",
+        "4",
+        "−40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DEC_AS_FRAC",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.1x = 4, so x = 4 ÷ 0.1 = 40."
+    },
+    {
+      "id": "linear-equations/t4/015",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 4 = 0.25x + 14",
+      "choices": [
+        "72",
+        "−40",
+        "10",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: 0.25x = 10, so x = 10 ÷ 0.25 = 40."
+    },
+    {
+      "id": "linear-equations/t4/016",
+      "tier": 4,
+      "prompt": "Solve: y − 2 = y/2 + 8",
+      "choices": [
+        "10",
+        "20",
+        "12",
+        "−20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "CONST_SIGN",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Collect: y/2 = 10, so y = 10 ÷ 1/2 = 20."
+    },
+    {
+      "id": "linear-equations/t4/017",
+      "tier": 4,
+      "prompt": "Solve: w + 9 = 0.5w + 14",
+      "choices": [
+        "−10",
+        "46",
+        "10",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "CONST_SIGN",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.5w = 5, so w = 5 ÷ 0.5 = 10."
+    },
+    {
+      "id": "linear-equations/t4/018",
+      "tier": 4,
+      "prompt": "Solve: t/2 + 6 = 13",
+      "choices": [
+        "1",
+        "38",
+        "7",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        null
+      ],
+      "explanation": "Collect: t/2 = 7, so t = 7 ÷ 1/2 = 14."
+    },
+    {
+      "id": "linear-equations/t4/019",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 8 = (1/4)x + 15",
+      "choices": [
+        "92",
+        "7",
+        "−28",
+        "28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: (1/4)x = 7, so x = 7 ÷ 1/4 = 28."
+    },
+    {
+      "id": "linear-equations/t4/020",
+      "tier": 4,
+      "prompt": "Solve: 0.25x − 8 = 0.5x − 12",
+      "choices": [
+        "−4",
+        "80",
+        "16",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null,
+        "DEC_WRONG_WAY"
+      ],
+      "explanation": "Collect: 4 = 0.25x, so x = 4 ÷ 0.25 = 16."
+    },
+    {
+      "id": "linear-equations/t4/021",
+      "tier": 4,
+      "prompt": "Solve: (1/3)x − 3 = 6",
+      "choices": [
+        "27",
+        "9",
+        "15",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "ONE_TERM_CLEARED",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: (1/3)x = 9, so x = 9 ÷ 1/3 = 27."
+    },
+    {
+      "id": "linear-equations/t4/022",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 2 = x − 8",
+      "choices": [
+        "12",
+        "5",
+        "20",
+        "−10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 10 = 0.5x, so x = 10 ÷ 0.5 = 20."
+    },
+    {
+      "id": "linear-equations/t4/023",
+      "tier": 4,
+      "prompt": "Solve: y + 3 = y/2 + 6",
+      "choices": [
+        "3",
+        "18",
+        "−6",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: y/2 = 3, so y = 3 ÷ 1/2 = 6."
+    },
+    {
+      "id": "linear-equations/t4/024",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 6 = x − 3",
+      "choices": [
+        "−18",
+        "−9",
+        "18",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        null,
+        "SAME_SIGN_MOVE"
+      ],
+      "explanation": "Collect: 9 = (1/2)x, so x = 9 ÷ 1/2 = 18."
+    },
+    {
+      "id": "linear-equations/t4/025",
+      "tier": 4,
+      "prompt": "Solve: x − 6 = 0.5x − 3",
+      "choices": [
+        "6",
+        "2",
+        "−6",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIGN_MOVE",
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.5x = 3, so x = 3 ÷ 0.5 = 6."
+    },
+    {
+      "id": "linear-equations/t4/026",
+      "tier": 4,
+      "prompt": "Solve: x/2 + 5 = x/4 + 15",
+      "choices": [
+        "−40",
+        "10",
+        "80",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: x/4 = 10, so x = 10 ÷ 1/4 = 40."
+    },
+    {
+      "id": "linear-equations/t4/027",
+      "tier": 4,
+      "prompt": "Solve: 0.25x − 8 = −1",
+      "choices": [
+        "7",
+        "26",
+        "28",
+        "−36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        "ARITH",
+        null,
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.25x = 7, so x = 7 ÷ 0.25 = 28."
+    },
+    {
+      "id": "linear-equations/t4/028",
+      "tier": 4,
+      "prompt": "Solve: n − 7 = 0.5n − 12",
+      "choices": [
+        "−5",
+        "−10",
+        "10",
+        "−38"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_LAST_STEP",
+        null,
+        "SIGN_SLIP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.5n = −5, so n = −5 ÷ 0.5 = −10."
+    },
+    {
+      "id": "linear-equations/t4/029",
+      "tier": 4,
+      "prompt": "Solve: 0.5m + 3 = 11",
+      "choices": [
+        "16",
+        "4",
+        "8",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DEC_WRONG_WAY",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 0.5m = 8, so m = 8 ÷ 0.5 = 16."
+    },
+    {
+      "id": "linear-equations/t4/030",
+      "tier": 4,
+      "prompt": "Solve: x − 9 = 0.5x − 1",
+      "choices": [
+        "−20",
+        "4",
+        "−16",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Collect: 0.5x = 8, so x = 8 ÷ 0.5 = 16."
+    },
+    {
+      "id": "linear-equations/t4/031",
+      "tier": 4,
+      "prompt": "Solve: 0.25m − 9 = −3",
+      "choices": [
+        "24",
+        "6",
+        "−48",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        "ARITH"
+      ],
+      "explanation": "Collect: 0.25m = 6, so m = 6 ÷ 0.25 = 24."
+    },
+    {
+      "id": "linear-equations/t4/032",
+      "tier": 4,
+      "prompt": "Solve: x + 6 = x/2 + 8",
+      "choices": [
+        "−4",
+        "4",
+        "1",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "DIVIDE_FOR_MULT",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: x/2 = 2, so x = 2 ÷ 1/2 = 4."
+    },
+    {
+      "id": "linear-equations/t4/033",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 3 = 8",
+      "choices": [
+        "2",
+        "10",
+        "22",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)x = 5, so x = 5 ÷ 1/2 = 10."
+    },
+    {
+      "id": "linear-equations/t4/034",
+      "tier": 4,
+      "prompt": "Solve: 0.25x + 9 = 13",
+      "choices": [
+        "88",
+        "1",
+        "16",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONST_SIGN",
+        "DEC_WRONG_WAY",
+        null,
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: 0.25x = 4, so x = 4 ÷ 0.25 = 16."
+    },
+    {
+      "id": "linear-equations/t4/035",
+      "tier": 4,
+      "prompt": "Solve: n/2 + 7 = 17",
+      "choices": [
+        "20",
+        "48",
+        "10",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP",
+        "DIVIDE_FOR_MULT"
+      ],
+      "explanation": "Collect: n/2 = 10, so n = 10 ÷ 1/2 = 20."
+    },
+    {
+      "id": "linear-equations/t4/036",
+      "tier": 4,
+      "prompt": "Solve: 0.5x + 6 = x + 5",
+      "choices": [
+        "2",
+        "−2",
+        "−1",
+        "−22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN"
+      ],
+      "explanation": "Collect: 1 = 0.5x, so x = 1 ÷ 0.5 = 2."
+    },
+    {
+      "id": "linear-equations/t4/037",
+      "tier": 4,
+      "prompt": "Solve: (1/4)x + 7 = 0",
+      "choices": [
+        "−26",
+        "−28",
+        "28",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/4)x = −7, so x = −7 ÷ 1/4 = −28."
+    },
+    {
+      "id": "linear-equations/t4/038",
+      "tier": 4,
+      "prompt": "Solve: (1/2)x + 9 = 18",
+      "choices": [
+        "0",
+        "18",
+        "54",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/2)x = 9, so x = 9 ÷ 1/2 = 18."
+    },
+    {
+      "id": "linear-equations/t4/039",
+      "tier": 4,
+      "prompt": "Solve: (1/3)x + 5 = 12",
+      "choices": [
+        "−3",
+        "21",
+        "51",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_TERM_CLEARED",
+        null,
+        "CONST_SIGN",
+        "FORGOT_LAST_STEP"
+      ],
+      "explanation": "Collect: (1/3)x = 7, so x = 7 ÷ 1/3 = 21."
+    },
+    {
+      "id": "linear-equations/t4/040",
+      "tier": 4,
+      "prompt": "Solve: x/2 + 5 = x + 2",
+      "choices": [
+        "−6",
+        "−3",
+        "−14",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "FORGOT_LAST_STEP",
+        "CONST_SIGN",
+        null
+      ],
+      "explanation": "Collect: 3 = x/2, so x = 3 ÷ 1/2 = 6."
+    },
+    {
+      "id": "linear-equations/t5/001",
+      "tier": 5,
+      "prompt": "y = −6x − 1 and y = −6x + 6. How many solutions?",
+      "choices": [
+        "None",
+        "Two",
+        "Infinite",
+        "One"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TWO_LINES_TWO",
+        "SAME_SLOPE_SAME_LINE",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Both lines have slope −6 but start at −1 and 6: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/002",
+      "tier": 5,
+      "prompt": "x + y = 10 and x − y = −6. Find y.",
+      "choices": [
+        "2",
+        "4",
+        "8",
+        "−6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 2x = 4, so x = 2. Put it back: y = 8."
+    },
+    {
+      "id": "linear-equations/t5/003",
+      "tier": 5,
+      "prompt": "y = 5x + 4 and y = −x + 10. Where do they meet?",
+      "choices": [
+        "(1, 5)",
+        "(1, 9)",
+        "(9, 1)",
+        "(0, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        null,
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: 5x + 4 = −x + 10, so x = 1. Then y = 9."
+    },
+    {
+      "id": "linear-equations/t5/004",
+      "tier": 5,
+      "prompt": "x + y = 9 and y − x = −1. Find x.",
+      "choices": [
+        "−1",
+        "8",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        null,
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 2y = 8, so y = 4. Put it back: x = 5."
+    },
+    {
+      "id": "linear-equations/t5/005",
+      "tier": 5,
+      "prompt": "y = 6x + 10 and y − 6x = −1. How many solutions?",
+      "choices": [
+        "Infinite",
+        "Two",
+        "One",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_SLOPE_SAME_LINE",
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE",
+        null
+      ],
+      "explanation": "Both lines have slope 6 but start at 10 and −1: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/006",
+      "tier": 5,
+      "prompt": "y = 3x − 3 and y = −2x + 7. Where do they meet?",
+      "choices": [
+        "(2, −1)",
+        "(0, −3)",
+        "(0, 7)",
+        "(2, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        "INTERCEPT_AS_MEET",
+        null
+      ],
+      "explanation": "Set equal: 3x − 3 = −2x + 7, so x = 2. Then y = 3."
+    },
+    {
+      "id": "linear-equations/t5/007",
+      "tier": 5,
+      "prompt": "y = 6x − 4 and y − 6x = 0. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "Two",
+        "One"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SLOPE_SAME_LINE",
+        null,
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Both lines have slope 6 but start at −4 and 0: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/008",
+      "tier": 5,
+      "prompt": "y = 2x + 4 and y = −5x − 10. Where do they meet?",
+      "choices": [
+        "(−2, 2)",
+        "(−2, 0)",
+        "(0, −10)",
+        "(0, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        null,
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: 2x + 4 = −5x − 10, so x = −2. Then y = 0."
+    },
+    {
+      "id": "linear-equations/t5/009",
+      "tier": 5,
+      "prompt": "x + y = 6 and 2x − y = 6. Find (x, y).",
+      "choices": [
+        "(4, 2)",
+        "(12, 2)",
+        "(2, 4)",
+        "(4, 6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3x = 12, so x = 4. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/010",
+      "tier": 5,
+      "prompt": "y = 4x − 2 and y − 4x = 5. How many solutions?",
+      "choices": [
+        "Two",
+        "None",
+        "One",
+        "Infinite"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TWO_LINES_TWO",
+        null,
+        "PARALLEL_ONE",
+        "SAME_SLOPE_SAME_LINE"
+      ],
+      "explanation": "Both lines have slope 4 but start at −2 and 5: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/011",
+      "tier": 5,
+      "prompt": "y = −2x − 11 and y = 5x − 3. How many solutions?",
+      "choices": [
+        "One",
+        "Two",
+        "Infinite",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TWO_LINES_TWO",
+        "ONE_IS_MANY",
+        "ONE_IS_NONE"
+      ],
+      "explanation": "The slopes −2 and 5 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/012",
+      "tier": 5,
+      "prompt": "x + 2y = 19 and y − x = 5. Find x.",
+      "choices": [
+        "8",
+        "24",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3y = 24, so y = 8. Put it back: x = 3."
+    },
+    {
+      "id": "linear-equations/t5/013",
+      "tier": 5,
+      "prompt": "x + y = 12 and x − y = −4. Find (x, y).",
+      "choices": [
+        "(4, 8)",
+        "(8, 8)",
+        "(8, 4)",
+        "(4, −4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 2x = 8, so x = 4. Put it back: y = 8."
+    },
+    {
+      "id": "linear-equations/t5/014",
+      "tier": 5,
+      "prompt": "x + y = 4 and 2x − y = 5. Find x.",
+      "choices": [
+        "3",
+        "9",
+        "5",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 3x = 9, so x = 3."
+    },
+    {
+      "id": "linear-equations/t5/015",
+      "tier": 5,
+      "prompt": "y = 3x + 7 and y = 5x + 5. Where do they meet?",
+      "choices": [
+        "(10, 1)",
+        "(0, 5)",
+        "(1, 10)",
+        "(0, 7)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET",
+        null,
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: 3x + 7 = 5x + 5, so x = 1. Then y = 10."
+    },
+    {
+      "id": "linear-equations/t5/016",
+      "tier": 5,
+      "prompt": "y = x and y = −x + 2. Where do they meet?",
+      "choices": [
+        "(1, 1)",
+        "(2, 1)",
+        "(0, 0)",
+        "(0, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "INTERCEPT_AS_MEET",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: x = −x + 2, so x = 1. Then y = 1."
+    },
+    {
+      "id": "linear-equations/t5/017",
+      "tier": 5,
+      "prompt": "y = −x − 7 and y = −3x − 9. Where do they meet?",
+      "choices": [
+        "(0, −9)",
+        "(−1, −6)",
+        "(−6, −1)",
+        "(0, −7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        null,
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET"
+      ],
+      "explanation": "Set equal: −x − 7 = −3x − 9, so x = −1. Then y = −6."
+    },
+    {
+      "id": "linear-equations/t5/018",
+      "tier": 5,
+      "prompt": "x + 2y = 8 and 2y − x = −4. Find (x, y).",
+      "choices": [
+        "(6, 4)",
+        "(1, 6)",
+        "(6, −4)",
+        "(6, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 4y = 4, so y = 1. Put it back: x = 6."
+    },
+    {
+      "id": "linear-equations/t5/019",
+      "tier": 5,
+      "prompt": "y − 6x = −8 and y = 6x − 8. How many solutions?",
+      "choices": [
+        "One",
+        "None",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        "NONE_FOR_IDENTITY",
+        null,
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "Rearranged, both are y = 6x − 8: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/020",
+      "tier": 5,
+      "prompt": "y = −4x + 7 and y + 4x = 7. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "Two",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        null,
+        "TWO_LINES_TWO",
+        "NONE_FOR_IDENTITY"
+      ],
+      "explanation": "Rearranged, both are y = −4x + 7: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/021",
+      "tier": 5,
+      "prompt": "x + y = 13 and x − y = 1. Find x.",
+      "choices": [
+        "1",
+        "14",
+        "6",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        "GAVE_OTHER",
+        null
+      ],
+      "explanation": "Add the equations: 2x = 14, so x = 7."
+    },
+    {
+      "id": "linear-equations/t5/022",
+      "tier": 5,
+      "prompt": "x + 2y = 7 and 2y − x = 5. Find (x, y).",
+      "choices": [
+        "(1, 5)",
+        "(3, 1)",
+        "(1, 12)",
+        "(1, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "SWAPPED_XY",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 4y = 12, so y = 3. Put it back: x = 1."
+    },
+    {
+      "id": "linear-equations/t5/023",
+      "tier": 5,
+      "prompt": "2x + y = 6 and 2x − y = −2. Find (x, y).",
+      "choices": [
+        "(1, −2)",
+        "(1, 4)",
+        "(4, 1)",
+        "(4, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "READ_CONSTANT",
+        null,
+        "SWAPPED_XY",
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 4x = 4, so x = 1. Put it back: y = 4."
+    },
+    {
+      "id": "linear-equations/t5/024",
+      "tier": 5,
+      "prompt": "2x + y = 6 and x − y = −3. Find x.",
+      "choices": [
+        "4",
+        "3",
+        "−3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 3x = 3, so x = 1."
+    },
+    {
+      "id": "linear-equations/t5/025",
+      "tier": 5,
+      "prompt": "2x + 2y = 10 and x − 2y = −1. Find y.",
+      "choices": [
+        "−1",
+        "9",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM",
+        null,
+        "GAVE_OTHER"
+      ],
+      "explanation": "Add the equations: 3x = 9, so x = 3. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/026",
+      "tier": 5,
+      "prompt": "y = 2x − 3 and y = 3x − 9. Where do they meet?",
+      "choices": [
+        "(0, −9)",
+        "(6, 9)",
+        "(0, −3)",
+        "(6, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        null,
+        "INTERCEPT_AS_MEET",
+        "DROPPED_SLOPE"
+      ],
+      "explanation": "Set equal: 2x − 3 = 3x − 9, so x = 6. Then y = 9."
+    },
+    {
+      "id": "linear-equations/t5/027",
+      "tier": 5,
+      "prompt": "x + y = 8 and x − y = 4. Find y.",
+      "choices": [
+        "6",
+        "12",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_OTHER",
+        "STOPPED_AT_SUM",
+        "READ_CONSTANT",
+        null
+      ],
+      "explanation": "Add the equations: 2x = 12, so x = 6. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/028",
+      "tier": 5,
+      "prompt": "y = 5x − 6 and y = −2x + 9. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        null,
+        "ONE_IS_MANY",
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "The slopes 5 and −2 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/029",
+      "tier": 5,
+      "prompt": "y + 6x = −3 and y = −6x − 3. How many solutions?",
+      "choices": [
+        "None",
+        "Infinite",
+        "Two",
+        "One"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        null,
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Rearranged, both are y = −6x − 3: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/030",
+      "tier": 5,
+      "prompt": "y = −2x and y = 2x − 4. Where do they meet?",
+      "choices": [
+        "(1, −2)",
+        "(1, 1)",
+        "(0, 0)",
+        "(−2, 1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: −2x = 2x − 4, so x = 1. Then y = −2."
+    },
+    {
+      "id": "linear-equations/t5/031",
+      "tier": 5,
+      "prompt": "y = x + 6 and y = 4x. Where do they meet?",
+      "choices": [
+        "(0, 0)",
+        "(8, 2)",
+        "(0, 6)",
+        "(2, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERCEPT_AS_MEET",
+        "SWAPPED_XY",
+        "INTERCEPT_AS_MEET",
+        null
+      ],
+      "explanation": "Set equal: x + 6 = 4x, so x = 2. Then y = 8."
+    },
+    {
+      "id": "linear-equations/t5/032",
+      "tier": 5,
+      "prompt": "y = −6x + 4 and y = −3x − 5. How many solutions?",
+      "choices": [
+        "Two",
+        "Infinite",
+        "None",
+        "One"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TWO_LINES_TWO",
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        null
+      ],
+      "explanation": "The slopes −6 and −3 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/033",
+      "tier": 5,
+      "prompt": "y = 4x + 12 and y = −2x − 5. How many solutions?",
+      "choices": [
+        "None",
+        "Two",
+        "One",
+        "Infinite"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_IS_NONE",
+        "TWO_LINES_TWO",
+        null,
+        "ONE_IS_MANY"
+      ],
+      "explanation": "The slopes 4 and −2 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/034",
+      "tier": 5,
+      "prompt": "y − 2x = 11 and y = 2x + 11. How many solutions?",
+      "choices": [
+        "Infinite",
+        "None",
+        "Two",
+        "One"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONE_FOR_IDENTITY",
+        "TWO_LINES_TWO",
+        "PARALLEL_ONE"
+      ],
+      "explanation": "Rearranged, both are y = 2x + 11: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/035",
+      "tier": 5,
+      "prompt": "y = −3x + 6 and y = 4x − 8. Where do they meet?",
+      "choices": [
+        "(2, 8)",
+        "(0, 6)",
+        "(2, 0)",
+        "(0, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DROPPED_SLOPE",
+        "INTERCEPT_AS_MEET",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "Set equal: −3x + 6 = 4x − 8, so x = 2. Then y = 0."
+    },
+    {
+      "id": "linear-equations/t5/036",
+      "tier": 5,
+      "prompt": "y = 2x − 3 and y = −6x. How many solutions?",
+      "choices": [
+        "One",
+        "Infinite",
+        "None",
+        "Two"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_IS_MANY",
+        "ONE_IS_NONE",
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "The slopes 2 and −6 differ, so the lines cross exactly once."
+    },
+    {
+      "id": "linear-equations/t5/037",
+      "tier": 5,
+      "prompt": "2x + 2y = 14 and x − 2y = 1. Find y.",
+      "choices": [
+        "15",
+        "5",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_AT_SUM",
+        "GAVE_OTHER",
+        null,
+        "READ_CONSTANT"
+      ],
+      "explanation": "Add the equations: 3x = 15, so x = 5. Put it back: y = 2."
+    },
+    {
+      "id": "linear-equations/t5/038",
+      "tier": 5,
+      "prompt": "y = 6x + 5 and y − 6x = −9. How many solutions?",
+      "choices": [
+        "One",
+        "Two",
+        "Infinite",
+        "None"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARALLEL_ONE",
+        "TWO_LINES_TWO",
+        "SAME_SLOPE_SAME_LINE",
+        null
+      ],
+      "explanation": "Both lines have slope 6 but start at 5 and −9: parallel, no shared point."
+    },
+    {
+      "id": "linear-equations/t5/039",
+      "tier": 5,
+      "prompt": "y + x = 3 and y = −x + 3. How many solutions?",
+      "choices": [
+        "None",
+        "One",
+        "Infinite",
+        "Two"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NONE_FOR_IDENTITY",
+        "PARALLEL_ONE",
+        null,
+        "TWO_LINES_TWO"
+      ],
+      "explanation": "Rearranged, both are y = −x + 3: the same line, infinitely many points."
+    },
+    {
+      "id": "linear-equations/t5/040",
+      "tier": 5,
+      "prompt": "x + y = 10 and 2y − x = −4. Find y.",
+      "choices": [
+        "2",
+        "8",
+        "−4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_OTHER",
+        "READ_CONSTANT",
+        "STOPPED_AT_SUM"
+      ],
+      "explanation": "Add the equations: 3y = 6, so y = 2."
+    }
+  ],
+  "render_profile": "unicode"
+};
 window.FNM_CARTRIDGES["linear-expressions"] = {
   "protocol": "fnm-cart/1",
   "id": "linear-expressions",
@@ -43139,6 +55100,3783 @@ window.FNM_CARTRIDGES["linear-expressions"] = {
         "PLACE_VALUE"
       ],
       "explanation": "0.4n = n − 0.6n, and 0.6 is 60%, so n dropped by 60%."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["linear-functions"] = {
+  "protocol": "fnm-cart/1",
+  "id": "linear-functions",
+  "version": "1.0.0",
+  "title": "Functions & Slope",
+  "subtitle": "Rate of Change, Start Value, y = mx + b",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.B.5",
+    "CCSS.MATH.CONTENT.8.EE.B.6",
+    "CCSS.MATH.CONTENT.8.F.A.1",
+    "CCSS.MATH.CONTENT.8.F.A.2",
+    "CCSS.MATH.CONTENT.8.F.A.3",
+    "CCSS.MATH.CONTENT.8.F.B.4",
+    "CCSS.MATH.CONTENT.8.F.B.5"
+  ],
+  "seed": 20261035,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Coordinates and lines. Coordinates in a prompt are integers of size <= 10; every table value, input and output is an integer of size <= 20 (tables have 3 rows; T1 pairs use 0-9). Slopes and rates: an integer of size 2-10, or a simplest fraction a/b with a, b <= 5 and a/b != 1; rise and run each of size <= 10 (run >= 2) and the division exact or a times-table fact (rise = g*a, run = g*b). Every y = mx + b has m and b nonzero integers of size <= 10 (T1 rule evaluation: m 2-5, input 1-6, output 1-20). Unit rate k 2-5 with x*k <= 10; compared rates are integers 2-9. Equations use only x to the first power except the not-linear examples (x^2, x^3, 2^x). No f(x), no graphs, no domain and range. Wrong choices may be any size <= 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Is It a Function?",
+      "description": "One input, one output: spot functions, then plug in a rule."
+    },
+    {
+      "tier": 2,
+      "name": "Slope & Rate of Change",
+      "description": "Rise over run from points, tables and stories."
+    },
+    {
+      "tier": 3,
+      "name": "Start Value & y = mx + b",
+      "description": "Read the slope and the start; write the equation."
+    },
+    {
+      "tier": 4,
+      "name": "Proportional & Compare",
+      "description": "Unit rates through the origin; which rate is greater?"
+    },
+    {
+      "tier": 5,
+      "name": "Linear or Not?",
+      "description": "Lines, curves, rising and falling, steady steps."
+    }
+  ],
+  "misconceptions": {
+    "REPEAT_OUTPUT": {
+      "student": "Outputs may repeat. Only one input with two outputs breaks it.",
+      "teacher": "Says a repeated output means not a function (reads the rule backwards)."
+    },
+    "REPEAT_INPUT_OK": {
+      "student": "One input can't have two outputs. That's what breaks a function.",
+      "teacher": "Accepts an input that is paired with two different outputs as a function."
+    },
+    "INPUT_OUTPUT_SWAP": {
+      "student": "Inputs go in, outputs come out. The input is x, the output is y.",
+      "teacher": "Swaps input and output: tests the second number for repeats, or solves for x instead of y."
+    },
+    "PLUGGED_WRONG": {
+      "student": "Do the steps in the order the rule says, one at a time.",
+      "teacher": "Applies the rule's steps in the wrong order, or puts the constant inside the product."
+    },
+    "ADDED_PARTS": {
+      "student": "Multiply where it says multiply. Don't just add every number.",
+      "teacher": "Adds slope, input and constant instead of multiplying the input by the slope."
+    },
+    "STOPPED_EARLY": {
+      "student": "Finish both steps of the rule: multiply, then add or subtract.",
+      "teacher": "Does only the first step of a two-step rule."
+    },
+    "RUN_OVER_RISE": {
+      "student": "Slope is rise over run: the up-down change goes on top.",
+      "teacher": "Divides run by rise, the reciprocal of the slope."
+    },
+    "SIGN_SLIP": {
+      "student": "Check the sign: going down as x goes up means a negative slope.",
+      "teacher": "Right size, wrong sign on a slope or rate of change."
+    },
+    "RISE_ONLY": {
+      "student": "Divide by the run too. Slope is the rise over the run.",
+      "teacher": "Reports the change in y and never divides by the change in x."
+    },
+    "START_AS_RATE": {
+      "student": "The first y is where it starts. The rate is the change per step.",
+      "teacher": "Reads the first y value in a table or story as the rate of change."
+    },
+    "TOTAL_CHANGE": {
+      "student": "Rate is the change for 1 step of x, not across the whole table.",
+      "teacher": "Uses the change from the first to the last row instead of the change per unit of x."
+    },
+    "ADDED_RISE_RUN": {
+      "student": "Slope divides rise by run. Adding them doesn't give a rate.",
+      "teacher": "Adds rise and run instead of dividing."
+    },
+    "SLOPE_AS_START": {
+      "student": "The number with x is the slope. The start is the lone number.",
+      "teacher": "Reports the coefficient of x as the initial value (or its absolute value, or m + b)."
+    },
+    "START_AS_SLOPE": {
+      "student": "The slope is the number multiplying x, not the one added.",
+      "teacher": "Reports the constant term as the slope."
+    },
+    "VALUE_AT_1": {
+      "student": "Start means x = 0, not x = 1. Back up one step to find it.",
+      "teacher": "Uses y at x = 1 (or the first table value) as the initial value."
+    },
+    "SIGN_DROPPED": {
+      "student": "Keep the minus sign. It belongs to the number after it.",
+      "teacher": "Drops a negative sign on the slope or the start value."
+    },
+    "SWAPPED_MB": {
+      "student": "The slope goes with x. The start is the number you add.",
+      "teacher": "Swaps m and b in y = mx + b."
+    },
+    "NO_START": {
+      "student": "Include the starting amount: y = rate × x + start.",
+      "teacher": "Writes y = mx and leaves out the initial value."
+    },
+    "LAST_VALUE": {
+      "student": "The start is y at x = 0, not the last y in the table.",
+      "teacher": "Uses the last table value as the initial value."
+    },
+    "BIGGER_TOTAL": {
+      "student": "Compare rates, not totals: divide each total by its time.",
+      "teacher": "Picks the case with the bigger headline number instead of the bigger rate."
+    },
+    "INVERTED_RATE": {
+      "student": "Rate is amount per 1 unit: divide the amount by the units.",
+      "teacher": "Divides the units by the amount (or x by y), the reciprocal of the rate."
+    },
+    "START_NOT_RATE": {
+      "student": "Speed is the slope, the number with x. A big start isn't speed.",
+      "teacher": "Compares starting amounts (the constants) instead of the rates of change."
+    },
+    "DIFFERENCE": {
+      "student": "Unit rate is y ÷ x, not y − x.",
+      "teacher": "Subtracts y − x to get the rate."
+    },
+    "TOTAL_AS_RATE": {
+      "student": "Unit rate is for 1 x, so divide y by x.",
+      "teacher": "Reports y itself as the unit rate."
+    },
+    "HAS_START": {
+      "student": "Proportional lines have no added number: y = kx exactly.",
+      "teacher": "Treats y = kx + c as proportional (ignores the constant)."
+    },
+    "ADDS_NOT_MULTIPLIES": {
+      "student": "Proportional means y = kx (multiply), not y = x + k.",
+      "teacher": "Treats a constant difference (y = x + k) as proportional."
+    },
+    "STEADY_MEANS_PROP": {
+      "student": "Steady steps aren't enough. y ÷ x must match in every row.",
+      "teacher": "Calls a table proportional because y rises by equal steps (ignores the ratio)."
+    },
+    "NEEDS_ZERO_ROW": {
+      "student": "No x = 0 row needed. Check that y ÷ x is the same each row.",
+      "teacher": "Says a table with constant ratio is not proportional because it lacks (0, 0)."
+    },
+    "CONSTANT_NOT_LINEAR": {
+      "student": "Adding a number still makes a line: y = mx + b is linear.",
+      "teacher": "Says y = mx + b (b nonzero) is not linear."
+    },
+    "MINUS_NOT_LINEAR": {
+      "student": "A minus sign still makes a line. It slopes down or shifts.",
+      "teacher": "Says an equation with subtraction or a negative slope is not linear."
+    },
+    "EXPONENT_IGNORED": {
+      "student": "A power of x (x², 2^x) bends the graph. Linear is x to the 1st.",
+      "teacher": "Ignores the exponent and calls a squared, cubed or exponential rule linear."
+    },
+    "CONSTANT_SIGN_DECIDES": {
+      "student": "The number multiplying x sets the direction, not the added one.",
+      "teacher": "Decides rising or falling from the sign of the constant term."
+    },
+    "SLOPE_SIGN_IGNORED": {
+      "student": "Slope sign: positive y rises, negative falls, zero stays put.",
+      "teacher": "Picks a direction that disagrees with the sign of the slope."
+    },
+    "CONSTANT_RATE_MEANS_SAME": {
+      "student": "A steady rate still moves y. It stays put only if the slope is 0.",
+      "teacher": "Reads a constant rate of change as y staying the same."
+    },
+    "EQUAL_STEPS_MISSED": {
+      "student": "Uneven x steps are fine. Check that y changes at a steady rate.",
+      "teacher": "Says a table with uneven x gaps is not linear (compares y steps only)."
+    },
+    "DECREASING_NOT_LINEAR": {
+      "student": "Going down steadily is still a line, with a negative slope.",
+      "teacher": "Says a steadily decreasing table is not linear."
+    },
+    "LOOKS_GROWING": {
+      "student": "Going up isn't enough. The steps in y must match the steps in x.",
+      "teacher": "Calls any increasing table linear without checking for a constant rate."
+    },
+    "SAME_NOT_CHECKED": {
+      "student": "Work out both rates. They differ, so one is greater.",
+      "teacher": "Says the two are the same without comparing the rates."
+    },
+    "RATE_NOT_COMPARED": {
+      "student": "Work out both rates. Here they match, so it's a tie.",
+      "teacher": "Picks one line when the rates are equal (compares something else)."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "linear-functions/t1/001",
+      "tier": 1,
+      "prompt": "y = 3x + 5. If x = 2, what is y?",
+      "choices": [
+        "11",
+        "10",
+        "21",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "3 × 2 + 5 = 11."
+    },
+    {
+      "id": "linear-functions/t1/002",
+      "tier": 1,
+      "prompt": "y = 5x − 2. Input 3. Output?",
+      "choices": [
+        "5",
+        "6",
+        "13",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        "ADDED_PARTS",
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "5 × 3 − 2 = 13."
+    },
+    {
+      "id": "linear-functions/t1/003",
+      "tier": 1,
+      "prompt": "y = 2x − 6. If x = 4, what is y?",
+      "choices": [
+        "5",
+        "2",
+        "0",
+        "−4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "ADDED_PARTS",
+        "PLUGGED_WRONG"
+      ],
+      "explanation": "2 × 4 − 6 = 2."
+    },
+    {
+      "id": "linear-functions/t1/004",
+      "tier": 1,
+      "prompt": "Input: a movie. Output: an actor in it. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "A movie has many actors. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/005",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 5), (0, 8), (2, 8), (7, 9)?",
+      "choices": [
+        "2",
+        "7",
+        "None",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "ARITH",
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "Input 0 goes to 5 and 8: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/006",
+      "tier": 1,
+      "prompt": "Rule: add 7, then multiply by 2. Input 2. Output?",
+      "choices": [
+        "18",
+        "11",
+        "17",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLUGGED_WRONG",
+        "ARITH",
+        "STOPPED_EARLY"
+      ],
+      "explanation": "2 + 7 = 9, then 9 × 2 = 18."
+    },
+    {
+      "id": "linear-functions/t1/007",
+      "tier": 1,
+      "prompt": "Which of these is a function?",
+      "choices": [
+        "(7, 7), (7, 8)",
+        "(8, 1), (8, 9)",
+        "(0, 2), (5, 2)",
+        "(2, 6), (2, 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK",
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "Each input in (0, 2), (5, 2) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/008",
+      "tier": 1,
+      "prompt": "y = 2x + 3. Input 6. Output?",
+      "choices": [
+        "18",
+        "15",
+        "11",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS",
+        "ARITH"
+      ],
+      "explanation": "2 × 6 + 3 = 15."
+    },
+    {
+      "id": "linear-functions/t1/009",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (5, 4), (7, 6), (8, 4), (8, 6)?",
+      "choices": [
+        "None",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Input 8 goes to 4 and 6: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/010",
+      "tier": 1,
+      "prompt": "y = 4x − 3. Input 3. Output?",
+      "choices": [
+        "9",
+        "11",
+        "0",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "PLUGGED_WRONG",
+        "ADDED_PARTS"
+      ],
+      "explanation": "4 × 3 − 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/011",
+      "tier": 1,
+      "prompt": "Pairs (7, 9), (8, 4), (9, 9). Is it a function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/012",
+      "tier": 1,
+      "prompt": "y = 4x − 1. Input 3. Output?",
+      "choices": [
+        "1",
+        "8",
+        "11",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS"
+      ],
+      "explanation": "4 × 3 − 1 = 11."
+    },
+    {
+      "id": "linear-functions/t1/013",
+      "tier": 1,
+      "prompt": "Input: a book. Output: its page count. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each book has one page count. Outputs may repeat."
+    },
+    {
+      "id": "linear-functions/t1/014",
+      "tier": 1,
+      "prompt": "y = 2x − 3. Input 6. Output?",
+      "choices": [
+        "5",
+        "9",
+        "6",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_PARTS",
+        null,
+        "PLUGGED_WRONG",
+        "ARITH"
+      ],
+      "explanation": "2 × 6 − 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/015",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 3. Input 3. Output?",
+      "choices": [
+        "6",
+        "8",
+        "12",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        null
+      ],
+      "explanation": "3 × 2 = 6, then 6 + 3 = 9."
+    },
+    {
+      "id": "linear-functions/t1/016",
+      "tier": 1,
+      "prompt": "Which of these is NOT a function?",
+      "choices": [
+        "(2, 6), (3, 6)",
+        "(7, 9), (8, 9)",
+        "(3, 4), (3, 9)",
+        "(4, 9), (8, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Input 3 has two outputs, 4 and 9. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/017",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 1), (3, 1), (4, 2), (7, 2)?",
+      "choices": [
+        "None",
+        "4",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Every input appears once, so each has one output. None has two."
+    },
+    {
+      "id": "linear-functions/t1/018",
+      "tier": 1,
+      "prompt": "Pairs (5, 2), (5, 3), (9, 2). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "Input 5 has two outputs, 2 and 3, so it is not a function."
+    },
+    {
+      "id": "linear-functions/t1/019",
+      "tier": 1,
+      "prompt": "Input: a store. Output: an item it sells. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A store sells many items. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/020",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 6), (0, 7), (1, 3), (9, 7)?",
+      "choices": [
+        "1",
+        "0",
+        "9",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Input 0 goes to 6 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/021",
+      "tier": 1,
+      "prompt": "Pick the set that is NOT a function.",
+      "choices": [
+        "(0, 8), (7, 8)",
+        "(1, 5), (6, 5)",
+        "(3, 6), (9, 8)",
+        "(5, 6), (5, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "ARITH",
+        null
+      ],
+      "explanation": "Input 5 has two outputs, 6 and 8. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/022",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (0, 4), (1, 6), (6, 6), (9, 4)?",
+      "choices": [
+        "None",
+        "6",
+        "9",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Every input appears once, so each has one output. None has two."
+    },
+    {
+      "id": "linear-functions/t1/023",
+      "tier": 1,
+      "prompt": "Input: a student. Output: a class they take. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "A student takes many classes. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/024",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (3, 2), (5, 6), (5, 7), (9, 6)?",
+      "choices": [
+        "None",
+        "3",
+        "5",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "ARITH",
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Input 5 goes to 6 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/025",
+      "tier": 1,
+      "prompt": "Which pairs are NOT a function?",
+      "choices": [
+        "(6, 5), (8, 5)",
+        "(4, 4), (4, 5)",
+        "(3, 3), (9, 3)",
+        "(3, 4), (6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null,
+        "REPEAT_OUTPUT",
+        "ARITH"
+      ],
+      "explanation": "Input 4 has two outputs, 4 and 5. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/026",
+      "tier": 1,
+      "prompt": "y = 2x − 2. Input 5. Output?",
+      "choices": [
+        "10",
+        "6",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "PLUGGED_WRONG",
+        "ADDED_PARTS",
+        null
+      ],
+      "explanation": "2 × 5 − 2 = 8."
+    },
+    {
+      "id": "linear-functions/t1/027",
+      "tier": 1,
+      "prompt": "Input: a state. Output: a city in it. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A state has many cities. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/028",
+      "tier": 1,
+      "prompt": "Which input has two outputs: (4, 3), (4, 7), (5, 3), (8, 9)?",
+      "choices": [
+        "4",
+        "5",
+        "None",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT",
+        "REPEAT_INPUT_OK",
+        "ARITH"
+      ],
+      "explanation": "Input 4 goes to 3 and 7: two outputs."
+    },
+    {
+      "id": "linear-functions/t1/029",
+      "tier": 1,
+      "prompt": "Pairs (2, 5), (3, 1), (3, 4). Is it a function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INPUT_OUTPUT_SWAP"
+      ],
+      "explanation": "Input 3 has two outputs, 1 and 4, so it is not a function."
+    },
+    {
+      "id": "linear-functions/t1/030",
+      "tier": 1,
+      "prompt": "Input: a team. Output: a player on it. Function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        null
+      ],
+      "explanation": "A team has many players. One input, many outputs."
+    },
+    {
+      "id": "linear-functions/t1/031",
+      "tier": 1,
+      "prompt": "Pairs (2, 9), (5, 5), (6, 5), (7, 3). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/032",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 9. Input 1. Output?",
+      "choices": [
+        "20",
+        "11",
+        "12",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLUGGED_WRONG",
+        null,
+        "ADDED_PARTS",
+        "STOPPED_EARLY"
+      ],
+      "explanation": "1 × 2 = 2, then 2 + 9 = 11."
+    },
+    {
+      "id": "linear-functions/t1/033",
+      "tier": 1,
+      "prompt": "Which set is NOT a function?",
+      "choices": [
+        "(3, 8), (7, 2)",
+        "(5, 3), (6, 3)",
+        "(2, 1), (3, 1)",
+        "(3, 4), (3, 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "REPEAT_OUTPUT",
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Input 3 has two outputs, 4 and 5. A function gives one output per input."
+    },
+    {
+      "id": "linear-functions/t1/034",
+      "tier": 1,
+      "prompt": "y = 3x − 2. Input 2. Output?",
+      "choices": [
+        "3",
+        "0",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_PARTS",
+        "PLUGGED_WRONG",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 × 2 − 2 = 4."
+    },
+    {
+      "id": "linear-functions/t1/035",
+      "tier": 1,
+      "prompt": "Which set of pairs is a function?",
+      "choices": [
+        "(4, 4), (4, 5)",
+        "(4, 3), (9, 4)",
+        "(0, 6), (0, 7)",
+        "(9, 2), (9, 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Each input in (4, 3), (9, 4) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/036",
+      "tier": 1,
+      "prompt": "Pick the set that is a function.",
+      "choices": [
+        "(5, 1), (5, 9)",
+        "(0, 5), (0, 6)",
+        "(4, 9), (7, 5)",
+        "(3, 8), (3, 9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "INPUT_OUTPUT_SWAP",
+        null,
+        "REPEAT_INPUT_OK"
+      ],
+      "explanation": "Each input in (4, 9), (7, 5) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/037",
+      "tier": 1,
+      "prompt": "Input: a student. Output: their math teacher. Function?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_OUTPUT",
+        null
+      ],
+      "explanation": "Each student has one math teacher. Outputs may repeat."
+    },
+    {
+      "id": "linear-functions/t1/038",
+      "tier": 1,
+      "prompt": "Pairs (1, 2), (2, 7), (6, 2), (8, 1). Is it a function?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_OUTPUT"
+      ],
+      "explanation": "Each input appears once, so each has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/039",
+      "tier": 1,
+      "prompt": "Which set IS a function?",
+      "choices": [
+        "(5, 3), (5, 6)",
+        "(2, 2), (2, 4)",
+        "(9, 5), (9, 7)",
+        "(7, 3), (9, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REPEAT_INPUT_OK",
+        "REPEAT_INPUT_OK",
+        "INPUT_OUTPUT_SWAP",
+        null
+      ],
+      "explanation": "Each input in (7, 3), (9, 2) has one output. A repeated output is fine."
+    },
+    {
+      "id": "linear-functions/t1/040",
+      "tier": 1,
+      "prompt": "Rule: multiply by 2, then add 1. Input 3. Output?",
+      "choices": [
+        "7",
+        "9",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_PARTS",
+        "PLUGGED_WRONG"
+      ],
+      "explanation": "3 × 2 = 6, then 6 + 1 = 7."
+    },
+    {
+      "id": "linear-functions/t2/001",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 10, 8, 6. Rate of change?",
+      "choices": [
+        "−4",
+        "2",
+        "−2",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_CHANGE",
+        "SIGN_SLIP",
+        null,
+        "START_AS_RATE"
+      ],
+      "explanation": "From x = 3 to 4, y goes 10 to 8: −2 ÷ 1 = −2 per 1."
+    },
+    {
+      "id": "linear-functions/t2/002",
+      "tier": 2,
+      "prompt": "Slope through (−3, −4) and (−5, −10)?",
+      "choices": [
+        "−3",
+        "−6",
+        "1/3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise (−10) − (−4) = −6, run (−5) − (−3) = −2. −6 ÷ −2 = 3."
+    },
+    {
+      "id": "linear-functions/t2/003",
+      "tier": 2,
+      "prompt": "Stairs rise 2 in over a run of 6 in. Slope?",
+      "choices": [
+        "3",
+        "1/3",
+        "8",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "ADDED_RISE_RUN",
+        "RISE_ONLY"
+      ],
+      "explanation": "Slope = rise ÷ run = 2 ÷ 6 = 1/3."
+    },
+    {
+      "id": "linear-functions/t2/004",
+      "tier": 2,
+      "prompt": "A candle: 16 in at hour 3, 4 at hour 6. Change per hour?",
+      "choices": [
+        "−4",
+        "16",
+        "4",
+        "−1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "y goes 16 to 4 in 3 hours: −12 ÷ 3 = −4 per hour."
+    },
+    {
+      "id": "linear-functions/t2/005",
+      "tier": 2,
+      "prompt": "A plant: 14 in at week 1, 20 at week 3. Change per week?",
+      "choices": [
+        "14",
+        "6",
+        "3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "y goes 14 to 20 in 2 weeks: 6 ÷ 2 = 3 per week."
+    },
+    {
+      "id": "linear-functions/t2/006",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (5, 2)?",
+      "choices": [
+        "5/2",
+        "−2/5",
+        "2",
+        "2/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        null
+      ],
+      "explanation": "Rise 2 − 0 = 2, run 5 − 0 = 5. 2 ÷ 5 = 2/5."
+    },
+    {
+      "id": "linear-functions/t2/007",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 6, 9, 12. Rate of change?",
+      "choices": [
+        "4",
+        "3",
+        "6",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 0 to 1, y goes 6 to 9: 3 ÷ 1 = 3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/008",
+      "tier": 2,
+      "prompt": "Slope through (4, 1) and (7, −3)?",
+      "choices": [
+        "−4/3",
+        "−4",
+        "4/3",
+        "−3/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−3) − 1 = −4, run 7 − 4 = 3. −4 ÷ 3 = −4/3."
+    },
+    {
+      "id": "linear-functions/t2/009",
+      "tier": 2,
+      "prompt": "x: 2, 3, 4. y: 18, 14, 10. Rate of change?",
+      "choices": [
+        "18",
+        "−8",
+        "4",
+        "−4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "From x = 2 to 3, y goes 18 to 14: −4 ÷ 1 = −4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/010",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 9, 12, 15. Rate of change?",
+      "choices": [
+        "9",
+        "6",
+        "3",
+        "−3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 0 to 1, y goes 9 to 12: 3 ÷ 1 = 3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/011",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (3, −9)?",
+      "choices": [
+        "3",
+        "−3",
+        "−1/3",
+        "−9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−9) − 0 = −9, run 3 − 0 = 3. −9 ÷ 3 = −3."
+    },
+    {
+      "id": "linear-functions/t2/012",
+      "tier": 2,
+      "prompt": "Stairs rise 1 in over a run of 5 in. Slope?",
+      "choices": [
+        "1/5",
+        "5",
+        "1",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 1 ÷ 5 = 1/5."
+    },
+    {
+      "id": "linear-functions/t2/013",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 8, 5, 2. Rate of change?",
+      "choices": [
+        "3",
+        "−6",
+        "−3",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "TOTAL_CHANGE",
+        null,
+        "START_AS_RATE"
+      ],
+      "explanation": "From x = 0 to 1, y goes 8 to 5: −3 ÷ 1 = −3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/014",
+      "tier": 2,
+      "prompt": "Slope through (−1, −1) and (1, −5)?",
+      "choices": [
+        "−4",
+        "−2",
+        "2",
+        "−1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−5) − (−1) = −4, run 1 − (−1) = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t2/015",
+      "tier": 2,
+      "prompt": "Slope through (5, −1) and (7, 7)?",
+      "choices": [
+        "−4",
+        "8",
+        "1/4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise 7 − (−1) = 8, run 7 − 5 = 2. 8 ÷ 2 = 4."
+    },
+    {
+      "id": "linear-functions/t2/016",
+      "tier": 2,
+      "prompt": "Slope through (4, −5) and (6, −9)?",
+      "choices": [
+        "−2",
+        "−1/2",
+        "2",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "SIGN_SLIP",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−9) − (−5) = −4, run 6 − 4 = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t2/017",
+      "tier": 2,
+      "prompt": "x: 0, 1, 2. y: 3, 7, 11. Rate of change?",
+      "choices": [
+        "−4",
+        "4",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_SLIP",
+        null,
+        "START_AS_RATE",
+        "TOTAL_CHANGE"
+      ],
+      "explanation": "From x = 0 to 1, y goes 3 to 7: 4 ÷ 1 = 4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/018",
+      "tier": 2,
+      "prompt": "A tank: 7 gal at min 1, 15 at min 5. Change per min?",
+      "choices": [
+        "2",
+        "7",
+        "8",
+        "−2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "RISE_ONLY",
+        "SIGN_SLIP"
+      ],
+      "explanation": "y goes 7 to 15 in 4 mins: 8 ÷ 4 = 2 per min."
+    },
+    {
+      "id": "linear-functions/t2/019",
+      "tier": 2,
+      "prompt": "Slope through (−1, −2) and (8, 1)?",
+      "choices": [
+        "3",
+        "1/4",
+        "1/3",
+        "−1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "ARITH",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Rise 1 − (−2) = 3, run 8 − (−1) = 9. 3 ÷ 9 = 1/3."
+    },
+    {
+      "id": "linear-functions/t2/020",
+      "tier": 2,
+      "prompt": "A pup: 7 lb at month 1, 19 at month 5. Change per month?",
+      "choices": [
+        "1/3",
+        "7",
+        "−3",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "y goes 7 to 19 in 4 months: 12 ÷ 4 = 3 per month."
+    },
+    {
+      "id": "linear-functions/t2/021",
+      "tier": 2,
+      "prompt": "A pool: 18 gal at min 1, 6 at min 5. Change per min?",
+      "choices": [
+        "−3",
+        "−12",
+        "3",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "START_AS_RATE"
+      ],
+      "explanation": "y goes 18 to 6 in 4 mins: −12 ÷ 4 = −3 per min."
+    },
+    {
+      "id": "linear-functions/t2/022",
+      "tier": 2,
+      "prompt": "A slide rises 4 ft over a run of 5 ft. Slope?",
+      "choices": [
+        "5/4",
+        "4/5",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 4 ÷ 5 = 4/5."
+    },
+    {
+      "id": "linear-functions/t2/023",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 16, 14, 12. Rate of change?",
+      "choices": [
+        "2",
+        "−4",
+        "16",
+        "−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "TOTAL_CHANGE",
+        "START_AS_RATE",
+        null
+      ],
+      "explanation": "From x = 3 to 4, y goes 16 to 14: −2 ÷ 1 = −2 per 1."
+    },
+    {
+      "id": "linear-functions/t2/024",
+      "tier": 2,
+      "prompt": "Slope through (5, −4) and (−1, 5)?",
+      "choices": [
+        "9",
+        "3/2",
+        "−3/2",
+        "−2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise 5 − (−4) = 9, run (−1) − 5 = −6. 9 ÷ −6 = −3/2."
+    },
+    {
+      "id": "linear-functions/t2/025",
+      "tier": 2,
+      "prompt": "A snowman: 12 in at hour 2, 6 at hour 5. Change per hour?",
+      "choices": [
+        "12",
+        "−6",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "RISE_ONLY",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "y goes 12 to 6 in 3 hours: −6 ÷ 3 = −2 per hour."
+    },
+    {
+      "id": "linear-functions/t2/026",
+      "tier": 2,
+      "prompt": "A slide rises 2 ft over a run of 10 ft. Slope?",
+      "choices": [
+        "5",
+        "1/5",
+        "2",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 2 ÷ 10 = 1/5."
+    },
+    {
+      "id": "linear-functions/t2/027",
+      "tier": 2,
+      "prompt": "A snowman: 19 in at hour 0, 9 at hour 2. Change per hour?",
+      "choices": [
+        "−5",
+        "−10",
+        "5",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "START_AS_RATE"
+      ],
+      "explanation": "y goes 19 to 9 in 2 hours: −10 ÷ 2 = −5 per hour."
+    },
+    {
+      "id": "linear-functions/t2/028",
+      "tier": 2,
+      "prompt": "Slope through (0, −1) and (2, 9)?",
+      "choices": [
+        "−5",
+        "1/5",
+        "10",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        null
+      ],
+      "explanation": "Rise 9 − (−1) = 10, run 2 − 0 = 2. 10 ÷ 2 = 5."
+    },
+    {
+      "id": "linear-functions/t2/029",
+      "tier": 2,
+      "prompt": "Slope through (2, 4) and (−1, 10)?",
+      "choices": [
+        "−1/2",
+        "−2",
+        "2",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "SIGN_SLIP",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise 10 − 4 = 6, run (−1) − 2 = −3. 6 ÷ −3 = −2."
+    },
+    {
+      "id": "linear-functions/t2/030",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (2, 4)?",
+      "choices": [
+        "−2",
+        "1/2",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise 4 − 0 = 4, run 2 − 0 = 2. 4 ÷ 2 = 2."
+    },
+    {
+      "id": "linear-functions/t2/031",
+      "tier": 2,
+      "prompt": "Slope through (3, 0) and (5, −6)?",
+      "choices": [
+        "−6",
+        "3",
+        "−1/3",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "Rise (−6) − 0 = −6, run 5 − 3 = 2. −6 ÷ 2 = −3."
+    },
+    {
+      "id": "linear-functions/t2/032",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 15, 12, 9. Rate of change?",
+      "choices": [
+        "−3",
+        "15",
+        "3",
+        "−6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_RATE",
+        "SIGN_SLIP",
+        "TOTAL_CHANGE"
+      ],
+      "explanation": "From x = 3 to 4, y goes 15 to 12: −3 ÷ 1 = −3 per 1."
+    },
+    {
+      "id": "linear-functions/t2/033",
+      "tier": 2,
+      "prompt": "x: 3, 4, 5. y: 9, 13, 17. Rate of change?",
+      "choices": [
+        "9",
+        "8",
+        "4",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_RATE",
+        "TOTAL_CHANGE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "From x = 3 to 4, y goes 9 to 13: 4 ÷ 1 = 4 per 1."
+    },
+    {
+      "id": "linear-functions/t2/034",
+      "tier": 2,
+      "prompt": "Slope through (0, 0) and (4, 8)?",
+      "choices": [
+        "8",
+        "2",
+        "−2",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RISE_ONLY",
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise 8 − 0 = 8, run 4 − 0 = 4. 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t2/035",
+      "tier": 2,
+      "prompt": "Slope through (−2, 1) and (−6, −7)?",
+      "choices": [
+        "2",
+        "−2",
+        "1/2",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        "RISE_ONLY"
+      ],
+      "explanation": "Rise (−7) − 1 = −8, run (−6) − (−2) = −4. −8 ÷ −4 = 2."
+    },
+    {
+      "id": "linear-functions/t2/036",
+      "tier": 2,
+      "prompt": "A tree: 5 ft at year 2, 13 at year 6. Change per year?",
+      "choices": [
+        "8",
+        "−2",
+        "1/2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RISE_ONLY",
+        "SIGN_SLIP",
+        "RUN_OVER_RISE",
+        null
+      ],
+      "explanation": "y goes 5 to 13 in 4 years: 8 ÷ 4 = 2 per year."
+    },
+    {
+      "id": "linear-functions/t2/037",
+      "tier": 2,
+      "prompt": "Slope through (−1, 1) and (1, 6)?",
+      "choices": [
+        "2/5",
+        "5/2",
+        "5",
+        "−5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        null,
+        "RISE_ONLY",
+        "SIGN_SLIP"
+      ],
+      "explanation": "Rise 6 − 1 = 5, run 1 − (−1) = 2. 5 ÷ 2 = 5/2."
+    },
+    {
+      "id": "linear-functions/t2/038",
+      "tier": 2,
+      "prompt": "A hill rises 4 m over a run of 5 m. Slope?",
+      "choices": [
+        "5/4",
+        "4",
+        "9",
+        "4/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN",
+        null
+      ],
+      "explanation": "Slope = rise ÷ run = 4 ÷ 5 = 4/5."
+    },
+    {
+      "id": "linear-functions/t2/039",
+      "tier": 2,
+      "prompt": "A roof rises 10 ft over a run of 8 ft. Slope?",
+      "choices": [
+        "5/4",
+        "4/5",
+        "10",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RUN_OVER_RISE",
+        "RISE_ONLY",
+        "ADDED_RISE_RUN"
+      ],
+      "explanation": "Slope = rise ÷ run = 10 ÷ 8 = 5/4."
+    },
+    {
+      "id": "linear-functions/t2/040",
+      "tier": 2,
+      "prompt": "Slope through (2, −5) and (4, −9)?",
+      "choices": [
+        "2",
+        "−4",
+        "−2",
+        "−1/2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "RISE_ONLY",
+        null,
+        "RUN_OVER_RISE"
+      ],
+      "explanation": "Rise (−9) − (−5) = −4, run 4 − 2 = 2. −4 ÷ 2 = −2."
+    },
+    {
+      "id": "linear-functions/t3/001",
+      "tier": 3,
+      "prompt": "Tank: 8 gal, gains 3 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = 3x + 8",
+        "y = 3x",
+        "y = 8x + 3",
+        "y = 2x + 8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "SWAPPED_MB",
+        "ARITH"
+      ],
+      "explanation": "Start 8 is the added number; 3 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/002",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −3, 1, 5. Equation?",
+      "choices": [
+        "y = 4x + 1",
+        "y = 4x − 3",
+        "y = 4x + 5",
+        "y = 4x + 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SIGN_DROPPED"
+      ],
+      "explanation": "y at x = 0 is −3, the start. Each step adds 4: y = 4x − 3."
+    },
+    {
+      "id": "linear-functions/t3/003",
+      "tier": 3,
+      "prompt": "y = 5 + 2x. Value of y when x = 0?",
+      "choices": [
+        "3",
+        "2",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SLOPE_AS_START",
+        null,
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = 5. The start is the lone number, 5."
+    },
+    {
+      "id": "linear-functions/t3/004",
+      "tier": 3,
+      "prompt": "Rate of change of y = 8x − 4?",
+      "choices": [
+        "4",
+        "7",
+        "−4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: 8."
+    },
+    {
+      "id": "linear-functions/t3/005",
+      "tier": 3,
+      "prompt": "Slope 1, initial value 9. Equation?",
+      "choices": [
+        "y = 9x + 1",
+        "y = x",
+        "y = x + 11",
+        "y = x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "NO_START",
+        "ARITH",
+        null
+      ],
+      "explanation": "y = mx + b with m = 1 and b = 9: y = x + 9."
+    },
+    {
+      "id": "linear-functions/t3/006",
+      "tier": 3,
+      "prompt": "A jar has $4. Add $6 a week. Total y after x weeks?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 6x",
+        "y = 6x + 2",
+        "y = 4x + 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 4 is the added number; 6 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/007",
+      "tier": 3,
+      "prompt": "y = 3 − 2x. Initial value?",
+      "choices": [
+        "−2",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        null,
+        "SLOPE_AS_START",
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = 3. The start is the lone number, 3."
+    },
+    {
+      "id": "linear-functions/t3/008",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 2, 7, 12. Equation?",
+      "choices": [
+        "y = 2x + 5",
+        "y = 5x + 12",
+        "y = 5x + 2",
+        "y = 5x + 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "LAST_VALUE",
+        null,
+        "VALUE_AT_1"
+      ],
+      "explanation": "y at x = 0 is 2, the start. Each step adds 5: y = 5x + 2."
+    },
+    {
+      "id": "linear-functions/t3/009",
+      "tier": 3,
+      "prompt": "Rate of change of y = 3x − 6?",
+      "choices": [
+        "−6",
+        "1",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "The number multiplying x is the slope: 3."
+    },
+    {
+      "id": "linear-functions/t3/010",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 9, 13, 17. Equation?",
+      "choices": [
+        "y = 4x + 13",
+        "y = 4x + 9",
+        "y = 4x + 17",
+        "y = 9x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 9, the start. Each step adds 4: y = 4x + 9."
+    },
+    {
+      "id": "linear-functions/t3/011",
+      "tier": 3,
+      "prompt": "Rate of change of y = 4x + 2?",
+      "choices": [
+        "2",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: 4."
+    },
+    {
+      "id": "linear-functions/t3/012",
+      "tier": 3,
+      "prompt": "y = −8x − 9. Initial value?",
+      "choices": [
+        "−9",
+        "9",
+        "−17",
+        "−8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = −9. The start is the lone number, −9."
+    },
+    {
+      "id": "linear-functions/t3/013",
+      "tier": 3,
+      "prompt": "You have $2. Spend $7 a day. Money y after x days?",
+      "choices": [
+        "y = 7x + 2",
+        "y = −7x + 2",
+        "y = −7x",
+        "y = −2x + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        null,
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 2 is the added number; 7 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/014",
+      "tier": 3,
+      "prompt": "Rate of change of y = −8x + 6?",
+      "choices": [
+        "−10",
+        "6",
+        "8",
+        "−8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "START_AS_SLOPE",
+        "SIGN_DROPPED",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −8."
+    },
+    {
+      "id": "linear-functions/t3/015",
+      "tier": 3,
+      "prompt": "Rate of change of y = 5 − 9x?",
+      "choices": [
+        "−9",
+        "−7",
+        "9",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SIGN_DROPPED",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "The number multiplying x is the slope: −9."
+    },
+    {
+      "id": "linear-functions/t3/016",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 2, −1, −4. Equation?",
+      "choices": [
+        "y = 3x + 2",
+        "y = −3x − 1",
+        "y = −3x + 2",
+        "y = 2x − 3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 2, the start. Each step adds −3: y = −3x + 2."
+    },
+    {
+      "id": "linear-functions/t3/017",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 6, 1, −4. Equation?",
+      "choices": [
+        "y = −5x + 1",
+        "y = 5x + 6",
+        "y = −5x + 6",
+        "y = 6x − 5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_AT_1",
+        "SIGN_DROPPED",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 6, the start. Each step adds −5: y = −5x + 6."
+    },
+    {
+      "id": "linear-functions/t3/018",
+      "tier": 3,
+      "prompt": "A taxi charges $9 plus $5 a mile. Cost y for x miles?",
+      "choices": [
+        "y = 9x + 5",
+        "y = 4x + 9",
+        "y = 5x",
+        "y = 5x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "Start 9 is the added number; 5 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/019",
+      "tier": 3,
+      "prompt": "Slope 5, initial value 5. Equation?",
+      "choices": [
+        "y = 5x + 7",
+        "y = 5x + 5",
+        "y = 5x",
+        "y = 5x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y = mx + b with m = 5 and b = 5: y = 5x + 5."
+    },
+    {
+      "id": "linear-functions/t3/020",
+      "tier": 3,
+      "prompt": "Tank: 8 gal, loses 5 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = −5x + 8",
+        "y = 5x + 8",
+        "y = −5x",
+        "y = −8x + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 8 is the added number; 5 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/021",
+      "tier": 3,
+      "prompt": "Slope 2, initial value 8. Equation?",
+      "choices": [
+        "y = 2x + 10",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 8x + 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y = mx + b with m = 2 and b = 8: y = 2x + 8."
+    },
+    {
+      "id": "linear-functions/t3/022",
+      "tier": 3,
+      "prompt": "A gym costs $5 to join, $6 a month. Cost y for x months?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 5x + 6",
+        "y = 6x + 5",
+        "y = 6x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SWAPPED_MB",
+        null,
+        "NO_START"
+      ],
+      "explanation": "Start 5 is the added number; 6 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/023",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 9, 5, 1. Equation?",
+      "choices": [
+        "y = 4x + 9",
+        "y = 9x − 4",
+        "y = −4x + 1",
+        "y = −4x + 9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "SWAPPED_MB",
+        "LAST_VALUE",
+        null
+      ],
+      "explanation": "y at x = 0 is 9, the start. Each step adds −4: y = −4x + 9."
+    },
+    {
+      "id": "linear-functions/t3/024",
+      "tier": 3,
+      "prompt": "y = 9x + 1. Starting value?",
+      "choices": [
+        "1",
+        "10",
+        "0",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "VALUE_AT_1",
+        "ARITH",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 1. The start is the lone number, 1."
+    },
+    {
+      "id": "linear-functions/t3/025",
+      "tier": 3,
+      "prompt": "y = 3x − 7. Initial value?",
+      "choices": [
+        "−7",
+        "7",
+        "3",
+        "−4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "SLOPE_AS_START",
+        "VALUE_AT_1"
+      ],
+      "explanation": "At x = 0, y = −7. The start is the lone number, −7."
+    },
+    {
+      "id": "linear-functions/t3/026",
+      "tier": 3,
+      "prompt": "A gym costs $5 to join, $8 a month. Cost y for x months?",
+      "choices": [
+        "y = 7x + 5",
+        "y = 8x",
+        "y = 8x + 5",
+        "y = 5x + 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 5 is the added number; 8 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/027",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −2, 2, 6. Equation?",
+      "choices": [
+        "y = 4x + 2",
+        "y = 4x − 2",
+        "y = 4x + 6",
+        "y = −2x + 4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "LAST_VALUE",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is −2, the start. Each step adds 4: y = 4x − 2."
+    },
+    {
+      "id": "linear-functions/t3/028",
+      "tier": 3,
+      "prompt": "Slope 6, initial value 2. Equation?",
+      "choices": [
+        "y = 6x + 4",
+        "y = 6x",
+        "y = 2x + 6",
+        "y = 6x + 2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        "SWAPPED_MB",
+        null
+      ],
+      "explanation": "y = mx + b with m = 6 and b = 2: y = 6x + 2."
+    },
+    {
+      "id": "linear-functions/t3/029",
+      "tier": 3,
+      "prompt": "A taxi charges $3 plus $4 a mile. Cost y for x miles?",
+      "choices": [
+        "y = 4x + 3",
+        "y = 4x",
+        "y = 4x + 1",
+        "y = 3x + 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 3 is the added number; 4 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/030",
+      "tier": 3,
+      "prompt": "y = 4 − 5x. Initial value?",
+      "choices": [
+        "−1",
+        "−5",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "VALUE_AT_1",
+        "SLOPE_AS_START",
+        null,
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 4. The start is the lone number, 4."
+    },
+    {
+      "id": "linear-functions/t3/031",
+      "tier": 3,
+      "prompt": "y = 3 + 2x. Initial value?",
+      "choices": [
+        "5",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "VALUE_AT_1",
+        null,
+        "ARITH",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "At x = 0, y = 3. The start is the lone number, 3."
+    },
+    {
+      "id": "linear-functions/t3/032",
+      "tier": 3,
+      "prompt": "y = 3x − 3. Starting value?",
+      "choices": [
+        "3",
+        "0",
+        "−1",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "VALUE_AT_1",
+        "ARITH",
+        null
+      ],
+      "explanation": "At x = 0, y = −3. The start is the lone number, −3."
+    },
+    {
+      "id": "linear-functions/t3/033",
+      "tier": 3,
+      "prompt": "Slope −5, initial value 9. Equation?",
+      "choices": [
+        "y = −5x",
+        "y = −5x + 9",
+        "y = 5x + 9",
+        "y = 9x − 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_START",
+        null,
+        "SIGN_DROPPED",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y = mx + b with m = −5 and b = 9: y = −5x + 9."
+    },
+    {
+      "id": "linear-functions/t3/034",
+      "tier": 3,
+      "prompt": "Slope of y = x − 5?",
+      "choices": [
+        "1",
+        "5",
+        "−5",
+        "−1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "START_AS_SLOPE",
+        "ARITH"
+      ],
+      "explanation": "The number multiplying x is the slope: 1."
+    },
+    {
+      "id": "linear-functions/t3/035",
+      "tier": 3,
+      "prompt": "Slope of y = −3x + 6?",
+      "choices": [
+        "3",
+        "−1",
+        "6",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "ARITH",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −3."
+    },
+    {
+      "id": "linear-functions/t3/036",
+      "tier": 3,
+      "prompt": "Tank: 6 gal, gains 8 gal a min. Gallons y after x min?",
+      "choices": [
+        "y = 8x + 5",
+        "y = 8x",
+        "y = 8x + 6",
+        "y = 6x + 8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        null,
+        "SWAPPED_MB"
+      ],
+      "explanation": "Start 6 is the added number; 8 per x is the slope."
+    },
+    {
+      "id": "linear-functions/t3/037",
+      "tier": 3,
+      "prompt": "A 10 in candle burns 8 in an hour. Height y after x hours?",
+      "choices": [
+        "y = −10x + 8",
+        "y = −8x",
+        "y = −8x + 10",
+        "y = 8x + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_MB",
+        "NO_START",
+        null,
+        "SIGN_DROPPED"
+      ],
+      "explanation": "Start 10 is the added number; 8 per x is the slope (going down, so negative)."
+    },
+    {
+      "id": "linear-functions/t3/038",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: 7, 10, 13. Equation?",
+      "choices": [
+        "y = 3x + 13",
+        "y = 3x + 7",
+        "y = 3x + 10",
+        "y = 7x + 3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LAST_VALUE",
+        null,
+        "VALUE_AT_1",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is 7, the start. Each step adds 3: y = 3x + 7."
+    },
+    {
+      "id": "linear-functions/t3/039",
+      "tier": 3,
+      "prompt": "Rate of change of y = −6 − 3x?",
+      "choices": [
+        "3",
+        "−6",
+        "6",
+        "−3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "START_AS_SLOPE",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "The number multiplying x is the slope: −3."
+    },
+    {
+      "id": "linear-functions/t3/040",
+      "tier": 3,
+      "prompt": "x: 0, 1, 2. y: −4, −1, 2. Equation?",
+      "choices": [
+        "y = 3x − 4",
+        "y = 3x + 4",
+        "y = 3x − 1",
+        "y = −4x + 3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "VALUE_AT_1",
+        "SWAPPED_MB"
+      ],
+      "explanation": "y at x = 0 is −4, the start. Each step adds 3: y = 3x − 4."
+    },
+    {
+      "id": "linear-functions/t4/001",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 6x + 7, y = x + 9, y = 9x?",
+      "choices": [
+        "y = x + 9",
+        "y = 6x + 7",
+        "y = 9x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/002",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (5, 10). B: y = 2x. Steeper?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both have slope 2 (10 ÷ 5 = 2). Same."
+    },
+    {
+      "id": "linear-functions/t4/003",
+      "tier": 4,
+      "prompt": "A: 12 pages in 4 minutes. B: p = 6m. Which is faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NOT_CHECKED",
+        "BIGGER_TOTAL"
+      ],
+      "explanation": "B goes 6 per minute. A: 12 ÷ 4 = 3 per minute. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/004",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 2x + 6, y = 4x, y = x + 7?",
+      "choices": [
+        "y = x + 7",
+        "y = 2x + 6",
+        "y = 4x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 4x."
+    },
+    {
+      "id": "linear-functions/t4/005",
+      "tier": 4,
+      "prompt": "A: 35 pages in 5 minutes. B: p = 2m. Which is faster?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_RATE",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 2 per minute. A: 35 ÷ 5 = 7 per minute. A is faster."
+    },
+    {
+      "id": "linear-functions/t4/006",
+      "tier": 4,
+      "prompt": "y = kx, and (2, 8) is on it. Unit rate?",
+      "choices": [
+        "4",
+        "1/4",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_RATE",
+        "DIFFERENCE",
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 2 = 4."
+    },
+    {
+      "id": "linear-functions/t4/007",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (2, 4). Unit rate?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        null,
+        "ARITH",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 4 ÷ 2 = 2."
+    },
+    {
+      "id": "linear-functions/t4/008",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 2, y = 8x, y = 6x + 5?",
+      "choices": [
+        "y = x + 2",
+        "y = 8x",
+        "y = 6x + 5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        null,
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 8x."
+    },
+    {
+      "id": "linear-functions/t4/009",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 6, y = 9x, y = 9x − 6?",
+      "choices": [
+        "y = 9x − 6",
+        "y = x + 6",
+        "y = 9x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HAS_START",
+        "ADDS_NOT_MULTIPLIES",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/010",
+      "tier": 4,
+      "prompt": "y = kx, and (4, 8) is on it. Unit rate?",
+      "choices": [
+        "8",
+        "4",
+        "1/2",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        "DIFFERENCE",
+        "INVERTED_RATE",
+        null
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t4/011",
+      "tier": 4,
+      "prompt": "y = kx, and (3, 6) is on it. Unit rate?",
+      "choices": [
+        "3",
+        "1/2",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED_RATE",
+        null,
+        "TOTAL_AS_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 6 ÷ 3 = 2."
+    },
+    {
+      "id": "linear-functions/t4/012",
+      "tier": 4,
+      "prompt": "Which is proportional: y = x + 9, y = 3x, y = 4x − 1?",
+      "choices": [
+        "y = 3x",
+        "y = x + 9",
+        "y = 4x − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 3x."
+    },
+    {
+      "id": "linear-functions/t4/013",
+      "tier": 4,
+      "prompt": "A: 24 miles in 3 hours. B: d = 8t. Which is faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 8 per hour (24 ÷ 3 = 8). Same."
+    },
+    {
+      "id": "linear-functions/t4/014",
+      "tier": 4,
+      "prompt": "x: 1, 2, 3. y: 5, 10, 15. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 5 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/015",
+      "tier": 4,
+      "prompt": "A: p = 4m. B: 12 pages in 3 minutes. Which is faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 4 per minute (12 ÷ 3 = 4). Same."
+    },
+    {
+      "id": "linear-functions/t4/016",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 2, 6, 10. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 2 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/017",
+      "tier": 4,
+      "prompt": "x: 1, 2, 3. y: 2, 4, 6. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 2 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/018",
+      "tier": 4,
+      "prompt": "x: 1, 2, 4. y: 5, 10, 20. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 5 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/019",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 9x, y = 6x + 6, y = x + 4?",
+      "choices": [
+        "y = 9x",
+        "y = x + 4",
+        "y = 6x + 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 9x."
+    },
+    {
+      "id": "linear-functions/t4/020",
+      "tier": 4,
+      "prompt": "y = kx, and (2, 10) is on it. Unit rate?",
+      "choices": [
+        "10",
+        "5",
+        "8",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_RATE",
+        null,
+        "DIFFERENCE",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 10 ÷ 2 = 5."
+    },
+    {
+      "id": "linear-functions/t4/021",
+      "tier": 4,
+      "prompt": "A: 32 cans in 4 hours. B: c = 3h. Which is faster?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "INVERTED_RATE",
+        null
+      ],
+      "explanation": "B goes 3 per hour. A: 32 ÷ 4 = 8 per hour. A is faster."
+    },
+    {
+      "id": "linear-functions/t4/022",
+      "tier": 4,
+      "prompt": "A: g = 9m. B: 45 gallons in 5 minutes. Which is faster?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATE_NOT_COMPARED",
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both go 9 per minute (45 ÷ 5 = 9). Same."
+    },
+    {
+      "id": "linear-functions/t4/023",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (4, 8). Unit rate?",
+      "choices": [
+        "1/2",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_RATE",
+        "TOTAL_AS_RATE",
+        null,
+        "DIFFERENCE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 8 ÷ 4 = 2."
+    },
+    {
+      "id": "linear-functions/t4/024",
+      "tier": 4,
+      "prompt": "x: 0, 1, 2. y: 1, 3, 5. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "STEADY_MEANS_PROP"
+      ],
+      "explanation": "At x = 0, y is 1, not 0. A proportional line passes through (0, 0)."
+    },
+    {
+      "id": "linear-functions/t4/025",
+      "tier": 4,
+      "prompt": "A: y = 8x + 4. B: y = 5x + 6. Which grows faster?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "Growth speed is the slope: 8 beats 5. The bigger start (6) does not matter."
+    },
+    {
+      "id": "linear-functions/t4/026",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 4, 12, 20. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 4 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/027",
+      "tier": 4,
+      "prompt": "x: 2, 3, 5. y: 8, 12, 20. Proportional?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_ZERO_ROW"
+      ],
+      "explanation": "y ÷ x is 4 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/028",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (3, 6). B: y = 3x. Steeper?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        null,
+        "BIGGER_TOTAL"
+      ],
+      "explanation": "B has slope 3. A: 6 ÷ 3 = 2. B is steeper."
+    },
+    {
+      "id": "linear-functions/t4/029",
+      "tier": 4,
+      "prompt": "x: 1, 3, 5. y: 3, 9, 15. Proportional?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_ZERO_ROW",
+        null
+      ],
+      "explanation": "y ÷ x is 3 in every row, so it is proportional."
+    },
+    {
+      "id": "linear-functions/t4/030",
+      "tier": 4,
+      "prompt": "A: y = 3x + 4. B: y = 5x + 2. Which grows faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "Growth speed is the slope: 5 beats 3. The bigger start (4) does not matter."
+    },
+    {
+      "id": "linear-functions/t4/031",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 8x − 7, y = 2x, y = x + 6?",
+      "choices": [
+        "y = x + 6",
+        "y = 2x",
+        "y = 8x − 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        null,
+        "HAS_START"
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 2x."
+    },
+    {
+      "id": "linear-functions/t4/032",
+      "tier": 4,
+      "prompt": "A: 6 cans in 3 hours. B: c = 5h. Which is faster?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BIGGER_TOTAL",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 5 per hour. A: 6 ÷ 3 = 2 per hour. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/033",
+      "tier": 4,
+      "prompt": "A: y = 3x. B: line through (0, 0) and (3, 6). Steeper?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "BIGGER_TOTAL",
+        null
+      ],
+      "explanation": "A has slope 3. B: 6 ÷ 3 = 2. A is steeper."
+    },
+    {
+      "id": "linear-functions/t4/034",
+      "tier": 4,
+      "prompt": "A: y = 2x. B: line through (0, 0) and (2, 10). Steeper?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_NOT_CHECKED",
+        "INVERTED_RATE"
+      ],
+      "explanation": "A has slope 2. B: 10 ÷ 2 = 5. B is steeper."
+    },
+    {
+      "id": "linear-functions/t4/035",
+      "tier": 4,
+      "prompt": "A: y = 9x + 8. B: y = 9x + 9. Which grows faster?",
+      "choices": [
+        "A",
+        "Same",
+        "B"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        null,
+        "START_NOT_RATE"
+      ],
+      "explanation": "Both have slope 9, so they grow equally fast. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t4/036",
+      "tier": 4,
+      "prompt": "Which is proportional: y = 5x, y = x + 3, y = 6x − 6?",
+      "choices": [
+        "y = x + 3",
+        "y = 6x − 6",
+        "y = 5x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDS_NOT_MULTIPLIES",
+        "HAS_START",
+        null
+      ],
+      "explanation": "Proportional means y = kx with no added number: y = 5x."
+    },
+    {
+      "id": "linear-functions/t4/037",
+      "tier": 4,
+      "prompt": "A: 12 miles in 4 hours. B: d = 5t. Which is faster?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BIGGER_TOTAL",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B goes 5 per hour. A: 12 ÷ 4 = 3 per hour. B is faster."
+    },
+    {
+      "id": "linear-functions/t4/038",
+      "tier": 4,
+      "prompt": "A: line through (0, 0) and (2, 10). B: y = 3x. Steeper?",
+      "choices": [
+        "B",
+        "A",
+        "Same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_RATE",
+        null,
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B has slope 3. A: 10 ÷ 2 = 5. A is steeper."
+    },
+    {
+      "id": "linear-functions/t4/039",
+      "tier": 4,
+      "prompt": "A line through (0, 0) and (2, 6). Unit rate?",
+      "choices": [
+        "3",
+        "4",
+        "6",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE",
+        "TOTAL_AS_RATE",
+        "INVERTED_RATE"
+      ],
+      "explanation": "Unit rate = y ÷ x = 6 ÷ 2 = 3."
+    },
+    {
+      "id": "linear-functions/t4/040",
+      "tier": 4,
+      "prompt": "A: y = 4x. B: y = 4x + 3. Which grows faster?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RATE_NOT_COMPARED",
+        "START_NOT_RATE",
+        null
+      ],
+      "explanation": "Both have slope 4, so they grow equally fast. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/001",
+      "tier": 5,
+      "prompt": "y = −2 + 4x. As x grows, y?",
+      "choices": [
+        "Stays same",
+        "Increases",
+        "Decreases"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_RATE_MEANS_SAME",
+        null,
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope 4 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/002",
+      "tier": 5,
+      "prompt": "y = x + 5. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Stays same",
+        "Increases"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_SIGN_IGNORED",
+        "CONSTANT_RATE_MEANS_SAME",
+        null
+      ],
+      "explanation": "The slope 1 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/003",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6x + 5, y = x³, y = −1 − 4x?",
+      "choices": [
+        "y = x³",
+        "y = −1 − 4x",
+        "y = −6x + 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x³ has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/004",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x² + 3, y = 4x + 7, y = 2 + 4x?",
+      "choices": [
+        "y = 4x + 7",
+        "y = x² + 3",
+        "y = 2 + 4x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_NOT_LINEAR",
+        null,
+        "CONSTANT_NOT_LINEAR"
+      ],
+      "explanation": "y = x² + 3 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/005",
+      "tier": 5,
+      "prompt": "y = 5. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_SIGN_IGNORED",
+        "SLOPE_SIGN_IGNORED",
+        null
+      ],
+      "explanation": "No x in the rule: the slope is 0, so y stays 5."
+    },
+    {
+      "id": "linear-functions/t5/006",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 5, 10, 15. B: y = 5x + 4. Greater rate?",
+      "choices": [
+        "Same",
+        "B",
+        "A"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RATE_NOT_COMPARED",
+        "START_NOT_RATE"
+      ],
+      "explanation": "Both rise 5 per step. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/007",
+      "tier": 5,
+      "prompt": "y = 2x − 7. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        null,
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/008",
+      "tier": 5,
+      "prompt": "Is y = 2^x + 1 linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = 2^x + 1 has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/009",
+      "tier": 5,
+      "prompt": "y = x − 9. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Decreases",
+        "Stays same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_SIGN_DECIDES",
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 1 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/010",
+      "tier": 5,
+      "prompt": "Which is linear: y = x³ + 4, y = x² − 2, y = −1 + 2x?",
+      "choices": [
+        "y = x² − 2",
+        "y = x³ + 4",
+        "y = −1 + 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −1 + 2x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/011",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6x − 4, y = −2x − 4, y = x³ + 1?",
+      "choices": [
+        "y = −6x − 4",
+        "y = −2x − 4",
+        "y = x³ + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = x³ + 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/012",
+      "tier": 5,
+      "prompt": "x: 1, 2, 4. y: 2, 5, 12. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LOOKS_GROWING"
+      ],
+      "explanation": "The rate changes (3, then 7/2) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/013",
+      "tier": 5,
+      "prompt": "Which is linear: y = x² + 5, y = 4x + 8, y = x³ − 1?",
+      "choices": [
+        "y = x² + 5",
+        "y = 4x + 8",
+        "y = x³ − 1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = 4x + 8 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/014",
+      "tier": 5,
+      "prompt": "x: 2, 3, 5. y: 11, 14, 20. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_STEPS_MISSED"
+      ],
+      "explanation": "y changes 3 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/015",
+      "tier": 5,
+      "prompt": "y = 2x + 4. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Stays same",
+        "Decreases"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_RATE_MEANS_SAME",
+        "SLOPE_SIGN_IGNORED"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/016",
+      "tier": 5,
+      "prompt": "Is y = x² + 2 linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = x² + 2 has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/017",
+      "tier": 5,
+      "prompt": "Which is linear: y = −3 + 5x, y = 2^x − 2, y = 2^x + 3?",
+      "choices": [
+        "y = 2^x + 3",
+        "y = −3 + 5x",
+        "y = 2^x − 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = −3 + 5x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/018",
+      "tier": 5,
+      "prompt": "y = −9 + 3x. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Stays same",
+        "Increases"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        "CONSTANT_RATE_MEANS_SAME",
+        null
+      ],
+      "explanation": "The slope 3 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/019",
+      "tier": 5,
+      "prompt": "Is y = 6x + 6 linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = 6x + 6 fits y = mx + b: x only to the first power, so it is a line."
+    },
+    {
+      "id": "linear-functions/t5/020",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 3, 9, 15. B: y = 4x + 7. Greater rate?",
+      "choices": [
+        "A",
+        "B",
+        "Same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED"
+      ],
+      "explanation": "B has rate 4. A rises 6 per step. A is greater."
+    },
+    {
+      "id": "linear-functions/t5/021",
+      "tier": 5,
+      "prompt": "x: 1, 2, 3. y: 4, 5, 8. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LOOKS_GROWING"
+      ],
+      "explanation": "The rate changes (1, then 3) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/022",
+      "tier": 5,
+      "prompt": "y = −3 + 5x. As x grows, y?",
+      "choices": [
+        "Decreases",
+        "Increases",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_SIGN_DECIDES",
+        null,
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 5 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/023",
+      "tier": 5,
+      "prompt": "Which is linear: y = 6 − 6x, y = x² + 2, y = x² + 5?",
+      "choices": [
+        "y = x² + 5",
+        "y = x² + 2",
+        "y = 6 − 6x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = 6 − 6x is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/024",
+      "tier": 5,
+      "prompt": "Is y = x² linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXPONENT_IGNORED"
+      ],
+      "explanation": "y = x² has x raised to a power (or as an exponent), so its graph curves."
+    },
+    {
+      "id": "linear-functions/t5/025",
+      "tier": 5,
+      "prompt": "y = 2x − 1. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Stays same",
+        "Decreases"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSTANT_RATE_MEANS_SAME",
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope 2 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/026",
+      "tier": 5,
+      "prompt": "Is y = −6x + 2 linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null
+      ],
+      "explanation": "y = −6x + 2 fits y = mx + b: x only to the first power, so it is a line."
+    },
+    {
+      "id": "linear-functions/t5/027",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x² − 1, y = −5x − 1, y = −2x + 7?",
+      "choices": [
+        "y = −5x − 1",
+        "y = x² − 1",
+        "y = −2x + 7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x² − 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/028",
+      "tier": 5,
+      "prompt": "A: y = 3x + 9. B: x: 0, 1, 2; y: 2, 5, 8. Greater rate?",
+      "choices": [
+        "Same",
+        "A",
+        "B"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_NOT_RATE",
+        "RATE_NOT_COMPARED"
+      ],
+      "explanation": "Both rise 3 per step. Only the starts differ. Same."
+    },
+    {
+      "id": "linear-functions/t5/029",
+      "tier": 5,
+      "prompt": "Which is linear: y = x³, y = 2^x − 1, y = −2x − 6?",
+      "choices": [
+        "y = 2^x − 1",
+        "y = x³",
+        "y = −2x − 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −2x − 6 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/030",
+      "tier": 5,
+      "prompt": "Which is linear: y = 2^x − 3, y = −4x + 1, y = 2^x + 1?",
+      "choices": [
+        "y = 2^x + 1",
+        "y = 2^x − 3",
+        "y = −4x + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENT_IGNORED",
+        "EXPONENT_IGNORED",
+        null
+      ],
+      "explanation": "y = −4x + 1 is y = mx + b: a line. The others have x squared, cubed or as an exponent."
+    },
+    {
+      "id": "linear-functions/t5/031",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −6 + x, y = −2 + x, y = x³ + 5?",
+      "choices": [
+        "y = −2 + x",
+        "y = x³ + 5",
+        "y = −6 + x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x³ + 5 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/032",
+      "tier": 5,
+      "prompt": "x: 2, 4, 6. y: 1, 5, 7. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LOOKS_GROWING",
+        null
+      ],
+      "explanation": "The rate changes (2, then 1) instead of staying steady, so it is not linear."
+    },
+    {
+      "id": "linear-functions/t5/033",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = −4x + 6, y = x² + 1, y = 5x − 4?",
+      "choices": [
+        "y = x² + 1",
+        "y = −4x + 6",
+        "y = 5x − 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MINUS_NOT_LINEAR",
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x² + 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/034",
+      "tier": 5,
+      "prompt": "y = −5x + 4. As x grows, y?",
+      "choices": [
+        "Stays same",
+        "Decreases",
+        "Increases"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSTANT_RATE_MEANS_SAME",
+        null,
+        "CONSTANT_SIGN_DECIDES"
+      ],
+      "explanation": "The slope −5 is negative, so y goes down as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/035",
+      "tier": 5,
+      "prompt": "x: 2, 4, 6. y: 4, 2, 0. Linear?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECREASING_NOT_LINEAR"
+      ],
+      "explanation": "y changes −1 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/036",
+      "tier": 5,
+      "prompt": "x: 1, 2, 4. y: 7, 9, 13. Linear?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_STEPS_MISSED",
+        null
+      ],
+      "explanation": "y changes 2 per 1 of x every time: a steady rate, so it is linear."
+    },
+    {
+      "id": "linear-functions/t5/037",
+      "tier": 5,
+      "prompt": "A: y = 3x + 8. B: x: 0, 1, 2; y: 1, 7, 13. Greater rate?",
+      "choices": [
+        "Same",
+        "A",
+        "B"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_NOT_CHECKED",
+        "START_NOT_RATE",
+        null
+      ],
+      "explanation": "A has rate 3. B rises 6 per step. B is greater."
+    },
+    {
+      "id": "linear-functions/t5/038",
+      "tier": 5,
+      "prompt": "y = 4x + 2. As x grows, y?",
+      "choices": [
+        "Increases",
+        "Decreases",
+        "Stays same"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_SIGN_IGNORED",
+        "CONSTANT_RATE_MEANS_SAME"
+      ],
+      "explanation": "The slope 4 is positive, so y goes up as x goes up."
+    },
+    {
+      "id": "linear-functions/t5/039",
+      "tier": 5,
+      "prompt": "Which is NOT linear: y = x² − 1, y = −5 − 2x, y = 2x − 6?",
+      "choices": [
+        "y = 2x − 6",
+        "y = x² − 1",
+        "y = −5 − 2x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MINUS_NOT_LINEAR",
+        null,
+        "MINUS_NOT_LINEAR"
+      ],
+      "explanation": "y = x² − 1 has a power of x, so its graph curves. The others are lines."
+    },
+    {
+      "id": "linear-functions/t5/040",
+      "tier": 5,
+      "prompt": "A: x: 0, 1, 2; y: 1, 7, 13. B: y = 3x + 9. Greater rate?",
+      "choices": [
+        "B",
+        "Same",
+        "A"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NOT_RATE",
+        "SAME_NOT_CHECKED",
+        null
+      ],
+      "explanation": "B has rate 3. A rises 6 per step. A is greater."
     }
   ],
   "render_profile": "unicode"
@@ -58948,6 +74686,3823 @@ window.FNM_CARTRIDGES["proportional-relationships"] = {
   ],
   "render_profile": "unicode"
 };
+window.FNM_CARTRIDGES["pythagorean-theorem"] = {
+  "protocol": "fnm-cart/1",
+  "id": "pythagorean-theorem",
+  "version": "1.0.0",
+  "title": "Pythagorean Theorem",
+  "subtitle": "Right Triangles, Distance & 3D",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.B.6",
+    "CCSS.MATH.CONTENT.8.G.B.7",
+    "CCSS.MATH.CONTENT.8.G.B.8"
+  ],
+  "seed": 20261036,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Pythagorean (grade 8). Sides 1-10; every square 100 or less and every sum or difference of two squares (box diagonal: three) 100 or less. Whole answers come only from 3-4-5 and 6-8-10 (box diagonals 1-2-2 -> 3, 2-4-4 -> 6, 2-3-6 -> 7, 1-4-8 -> 9, 4-4-7 -> 9); every other length is an unsimplified √n, n 2-99 and not a perfect square. Coordinates of size 10 or less. Wrong choices up to 999. A root is compared with a whole number only when they differ by 0.3 or more.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Find the Hypotenuse",
+      "description": "Legs given: square, add, take the root."
+    },
+    {
+      "tier": 2,
+      "name": "Find a Leg",
+      "description": "Hypotenuse and one leg given: subtract the squares."
+    },
+    {
+      "tier": 3,
+      "name": "Is It a Right Triangle?",
+      "description": "Test a² + b² = c² and spot the hypotenuse."
+    },
+    {
+      "tier": 4,
+      "name": "Distance on the Plane",
+      "description": "Make a right triangle from two points."
+    },
+    {
+      "tier": 5,
+      "name": "Stories & 3D",
+      "description": "Ladders, ramps, walks and box diagonals."
+    }
+  ],
+  "misconceptions": {
+    "ADDED_LEGS": {
+      "student": "Adding the legs is the walk around, not the shortcut. Use a² + b² = c².",
+      "teacher": "Hypotenuse taken as a + b (the sum of the legs)."
+    },
+    "NO_ROOT": {
+      "student": "That is c², the square. Take the square root to get c.",
+      "teacher": "Stops at a² + b² (or c² − a²) and forgets the final square root."
+    },
+    "ROOT_OF_LEG_SUM": {
+      "student": "Square each side first: a² + b². Not a + b.",
+      "teacher": "Takes the root of the plain sum of the sides, skipping the squares."
+    },
+    "DOUBLED_FOR_SQUARE": {
+      "student": "Squaring a side is a × a, not 2 × a.",
+      "teacher": "Squares by doubling: a² read as 2a."
+    },
+    "ADDED_SQUARES": {
+      "student": "Finding a leg, you subtract: c² − a². The hypotenuse is the big one.",
+      "teacher": "Adds the squares when a leg is missing, treating the known leg as if the hypotenuse were unknown."
+    },
+    "SUBTRACTED_SIDES": {
+      "student": "Subtract the squares, not the sides: c² − a².",
+      "teacher": "Finds the leg as c − a (plain difference of the sides)."
+    },
+    "ROOT_OF_DIFF": {
+      "student": "Square the sides first, then subtract and take the root.",
+      "teacher": "Takes the root of c − a, skipping the squares."
+    },
+    "ADD_SIDES": {
+      "student": "Test squares, not sides: a² + b² = c², not a + b = c.",
+      "teacher": "Checks the converse with a + b = c instead of a² + b² = c²."
+    },
+    "ORDER_AS_GIVEN": {
+      "student": "The hypotenuse is the longest side, whatever order they are listed in.",
+      "teacher": "Treats the last-listed (or first-two-listed) sides as the legs without finding the longest."
+    },
+    "CONSECUTIVE": {
+      "student": "Only special sets work. 3, 4, 5 does; 4, 5, 6 does not. Test a² + b².",
+      "teacher": "Generalises 3-4-5 to any three consecutive numbers."
+    },
+    "CLOSE_ENOUGH": {
+      "student": "Close is not equal. a² + b² must equal c² exactly.",
+      "teacher": "Accepts a² + b² within a point or two of c²."
+    },
+    "ANY_TRIANGLE": {
+      "student": "Sides can make a triangle with no right angle. Test the squares.",
+      "teacher": "Believes any three lengths that form a triangle make a right triangle."
+    },
+    "LEG_AS_LONGEST": {
+      "student": "A root can be the longest side. Compare the squares to see.",
+      "teacher": "Picks a leg as the hypotenuse because the radical looks smaller than a whole number."
+    },
+    "TAXICAB": {
+      "student": "Distance is the straight line, not across then up. Use a² + b² = c².",
+      "teacher": "Adds the horizontal and vertical gaps (taxicab distance)."
+    },
+    "ONE_LEG": {
+      "student": "Distance needs both gaps, across and up, squared and added.",
+      "teacher": "Uses only the horizontal gap as the distance."
+    },
+    "NEG_DIFF": {
+      "student": "Across zero the gap adds up: from −2 to 3 is 5, not 1.",
+      "teacher": "Subtracts sizes of coordinates on opposite sides of zero instead of adding them."
+    },
+    "ADDED_ALL": {
+      "student": "Square each edge, add the squares, then take the root.",
+      "teacher": "Box diagonal taken as a + b + c."
+    },
+    "FACE_ONLY": {
+      "student": "A box diagonal uses all three edges, not just one face.",
+      "teacher": "Gives a face diagonal (two edges) for the space diagonal."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "pythagorean-theorem/t1/001",
+      "tier": 1,
+      "prompt": "Legs 3 and 4. Hypotenuse?",
+      "choices": [
+        "5",
+        "7",
+        "√7",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/002",
+      "tier": 1,
+      "prompt": "Right triangle, legs 8 and 6. Longest side?",
+      "choices": [
+        "100",
+        "14",
+        "√28",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "8² + 6² = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/003",
+      "tier": 1,
+      "prompt": "A right triangle has legs 1 and 2. Hypotenuse?",
+      "choices": [
+        "√6",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 2² = 1 + 4 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/004",
+      "tier": 1,
+      "prompt": "Right triangle, legs 9 and 3. Longest side?",
+      "choices": [
+        "√90",
+        "√24",
+        "90",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "9² + 3² = 81 + 9 = 90, so c = √90."
+    },
+    {
+      "id": "pythagorean-theorem/t1/005",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 8. Longest side?",
+      "choices": [
+        "65",
+        "9",
+        "√18",
+        "√65"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "1² + 8² = 1 + 64 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/006",
+      "tier": 1,
+      "prompt": "Legs 3 and 1. Hypotenuse?",
+      "choices": [
+        "√8",
+        "√10",
+        "4",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "3² + 1² = 9 + 1 = 10, so c = √10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/007",
+      "tier": 1,
+      "prompt": "Right triangle, legs 7 and 3. Longest side?",
+      "choices": [
+        "58",
+        "√10",
+        "√58",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7² + 3² = 49 + 9 = 58, so c = √58."
+    },
+    {
+      "id": "pythagorean-theorem/t1/008",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 4. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/009",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 6. Hypotenuse?",
+      "choices": [
+        "√45",
+        "9",
+        "45",
+        "√18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "3² + 6² = 9 + 36 = 45, so c = √45."
+    },
+    {
+      "id": "pythagorean-theorem/t1/010",
+      "tier": 1,
+      "prompt": "A right triangle has legs 7 and 4. Hypotenuse?",
+      "choices": [
+        "√22",
+        "√65",
+        "11",
+        "65"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "7² + 4² = 49 + 16 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/011",
+      "tier": 1,
+      "prompt": "Right triangle, legs 3 and 4. Longest side?",
+      "choices": [
+        "25",
+        "5",
+        "√14",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/012",
+      "tier": 1,
+      "prompt": "Legs 8 and 6. Hypotenuse?",
+      "choices": [
+        "10",
+        "√28",
+        "100",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8² + 6² = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/013",
+      "tier": 1,
+      "prompt": "Legs 5 and 6. Hypotenuse?",
+      "choices": [
+        "√11",
+        "61",
+        "11",
+        "√61"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "5² + 6² = 25 + 36 = 61, so c = √61."
+    },
+    {
+      "id": "pythagorean-theorem/t1/014",
+      "tier": 1,
+      "prompt": "Legs 6 and 2. Hypotenuse?",
+      "choices": [
+        "8",
+        "4",
+        "√40",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "6² + 2² = 36 + 4 = 40, so c = √40."
+    },
+    {
+      "id": "pythagorean-theorem/t1/015",
+      "tier": 1,
+      "prompt": "A right triangle has legs 5 and 2. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "29",
+        "√29"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "5² + 2² = 25 + 4 = 29, so c = √29."
+    },
+    {
+      "id": "pythagorean-theorem/t1/016",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 3. Hypotenuse?",
+      "choices": [
+        "√11",
+        "√73",
+        "73",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8² + 3² = 64 + 9 = 73, so c = √73."
+    },
+    {
+      "id": "pythagorean-theorem/t1/017",
+      "tier": 1,
+      "prompt": "A right triangle has legs 6 and 7. Hypotenuse?",
+      "choices": [
+        "13",
+        "85",
+        "√26",
+        "√85"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "6² + 7² = 36 + 49 = 85, so c = √85."
+    },
+    {
+      "id": "pythagorean-theorem/t1/018",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 6. Hypotenuse?",
+      "choices": [
+        "√28",
+        "100",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "8² + 6² = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/019",
+      "tier": 1,
+      "prompt": "Legs 1 and 6. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "√37",
+        "37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 6² = 1 + 36 = 37, so c = √37."
+    },
+    {
+      "id": "pythagorean-theorem/t1/020",
+      "tier": 1,
+      "prompt": "Legs 1 and 2 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√6",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 2² = 1 + 4 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/021",
+      "tier": 1,
+      "prompt": "Legs 2 and 8 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√68",
+        "√10",
+        "68",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "2² + 8² = 4 + 64 = 68, so c = √68."
+    },
+    {
+      "id": "pythagorean-theorem/t1/022",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 1. Hypotenuse?",
+      "choices": [
+        "65",
+        "√65",
+        "3",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8² + 1² = 64 + 1 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/023",
+      "tier": 1,
+      "prompt": "A right triangle has legs 5 and 8. Hypotenuse?",
+      "choices": [
+        "89",
+        "√26",
+        "13",
+        "√89"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "5² + 8² = 25 + 64 = 89, so c = √89."
+    },
+    {
+      "id": "pythagorean-theorem/t1/024",
+      "tier": 1,
+      "prompt": "Legs 8 and 5 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "89",
+        "13",
+        "√89",
+        "√26"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "8² + 5² = 64 + 25 = 89, so c = √89."
+    },
+    {
+      "id": "pythagorean-theorem/t1/025",
+      "tier": 1,
+      "prompt": "Legs 7 and 2. Hypotenuse?",
+      "choices": [
+        "9",
+        "√18",
+        "53",
+        "√53"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "7² + 2² = 49 + 4 = 53, so c = √53."
+    },
+    {
+      "id": "pythagorean-theorem/t1/026",
+      "tier": 1,
+      "prompt": "Legs 4 and 3. Hypotenuse?",
+      "choices": [
+        "√7",
+        "5",
+        "25",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4² + 3² = 16 + 9 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/027",
+      "tier": 1,
+      "prompt": "Right triangle, legs 2 and 3. Longest side?",
+      "choices": [
+        "13",
+        "5",
+        "√10",
+        "√13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "2² + 3² = 4 + 9 = 13, so c = √13."
+    },
+    {
+      "id": "pythagorean-theorem/t1/028",
+      "tier": 1,
+      "prompt": "Right triangle, legs 5 and 2. Longest side?",
+      "choices": [
+        "7",
+        "√29",
+        "29",
+        "√7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "5² + 2² = 25 + 4 = 29, so c = √29."
+    },
+    {
+      "id": "pythagorean-theorem/t1/029",
+      "tier": 1,
+      "prompt": "Legs 2 and 2. Hypotenuse?",
+      "choices": [
+        "8",
+        "4",
+        "2",
+        "√8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        null
+      ],
+      "explanation": "2² + 2² = 4 + 4 = 8, so c = √8."
+    },
+    {
+      "id": "pythagorean-theorem/t1/030",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 5. Longest side?",
+      "choices": [
+        "√26",
+        "√12",
+        "26",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "1² + 5² = 1 + 25 = 26, so c = √26."
+    },
+    {
+      "id": "pythagorean-theorem/t1/031",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 8. Hypotenuse?",
+      "choices": [
+        "√73",
+        "√11",
+        "11",
+        "73"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "3² + 8² = 9 + 64 = 73, so c = √73."
+    },
+    {
+      "id": "pythagorean-theorem/t1/032",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 4. Longest side?",
+      "choices": [
+        "√10",
+        "5",
+        "√17",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 4² = 1 + 16 = 17, so c = √17."
+    },
+    {
+      "id": "pythagorean-theorem/t1/033",
+      "tier": 1,
+      "prompt": "Legs 7 and 1 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√50",
+        "8",
+        "50",
+        "√8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "7² + 1² = 49 + 1 = 50, so c = √50."
+    },
+    {
+      "id": "pythagorean-theorem/t1/034",
+      "tier": 1,
+      "prompt": "Right triangle, legs 2 and 1. Longest side?",
+      "choices": [
+        "√5",
+        "√3",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "2² + 1² = 4 + 1 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/035",
+      "tier": 1,
+      "prompt": "A right triangle has legs 1 and 9. Hypotenuse?",
+      "choices": [
+        "10",
+        "82",
+        "√82",
+        "√20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "1² + 9² = 1 + 81 = 82, so c = √82."
+    },
+    {
+      "id": "pythagorean-theorem/t1/036",
+      "tier": 1,
+      "prompt": "A right triangle has legs 9 and 1. Hypotenuse?",
+      "choices": [
+        "82",
+        "10",
+        "√82",
+        "√20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "9² + 1² = 81 + 1 = 82, so c = √82."
+    },
+    {
+      "id": "pythagorean-theorem/t1/037",
+      "tier": 1,
+      "prompt": "A right triangle has legs 4 and 3. Hypotenuse?",
+      "choices": [
+        "5",
+        "√14",
+        "25",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4² + 3² = 16 + 9 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/038",
+      "tier": 1,
+      "prompt": "Legs 1 and 8 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "65",
+        "9",
+        "√65",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "1² + 8² = 1 + 64 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/039",
+      "tier": 1,
+      "prompt": "A right triangle has legs 4 and 5. Hypotenuse?",
+      "choices": [
+        "9",
+        "√41",
+        "3",
+        "41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "4² + 5² = 16 + 25 = 41, so c = √41."
+    },
+    {
+      "id": "pythagorean-theorem/t1/040",
+      "tier": 1,
+      "prompt": "A right triangle has legs 7 and 2. Hypotenuse?",
+      "choices": [
+        "53",
+        "√18",
+        "√53",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7² + 2² = 49 + 4 = 53, so c = √53."
+    },
+    {
+      "id": "pythagorean-theorem/t2/001",
+      "tier": 2,
+      "prompt": "Hypotenuse 7 and a leg of 1. How long is the other leg?",
+      "choices": [
+        "48",
+        "√50",
+        "√48",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7² − 1² = 49 − 1 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/002",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 9. Other leg?",
+      "choices": [
+        "19",
+        "√19",
+        "√181",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10² − 9² = 100 − 81 = 19, so the leg is √19."
+    },
+    {
+      "id": "pythagorean-theorem/t2/003",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 8, a leg 6. Other leg?",
+      "choices": [
+        "√2",
+        "28",
+        "10",
+        "√28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "8² − 6² = 64 − 36 = 28, so the leg is √28."
+    },
+    {
+      "id": "pythagorean-theorem/t2/004",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 4, leg 3. Other leg?",
+      "choices": [
+        "√7",
+        "1",
+        "7",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "4² − 3² = 16 − 9 = 7, so the leg is √7."
+    },
+    {
+      "id": "pythagorean-theorem/t2/005",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 8. Other leg?",
+      "choices": [
+        "√145",
+        "17",
+        "√17",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        null,
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "9² − 8² = 81 − 64 = 17, so the leg is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t2/006",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 7. How long is the other leg?",
+      "choices": [
+        "√3",
+        "√149",
+        "√51",
+        "51"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "10² − 7² = 100 − 49 = 51, so the leg is √51."
+    },
+    {
+      "id": "pythagorean-theorem/t2/007",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 7. Other leg?",
+      "choices": [
+        "√32",
+        "2",
+        "32",
+        "√130"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "9² − 7² = 81 − 49 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/008",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 5, a leg 4. Other leg?",
+      "choices": [
+        "9",
+        "1",
+        "3",
+        "√41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5² − 4² = 25 − 16 = 9, so the leg is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t2/009",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 9, leg 8. Other leg?",
+      "choices": [
+        "√145",
+        "√17",
+        "1",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "9² − 8² = 81 − 64 = 17, so the leg is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t2/010",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 8. Other leg?",
+      "choices": [
+        "√164",
+        "36",
+        "√2",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null
+      ],
+      "explanation": "10² − 8² = 100 − 64 = 36, so the leg is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t2/011",
+      "tier": 2,
+      "prompt": "Hypotenuse 5, one leg 3. Other leg?",
+      "choices": [
+        "4",
+        "√2",
+        "16",
+        "√34"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5² − 3² = 25 − 9 = 16, so the leg is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t2/012",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 3. Other leg?",
+      "choices": [
+        "72",
+        "√6",
+        "√90",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9² − 3² = 81 − 9 = 72, so the leg is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t2/013",
+      "tier": 2,
+      "prompt": "Hypotenuse 5 and a leg of 3. How long is the other leg?",
+      "choices": [
+        "√34",
+        "16",
+        "4",
+        "√2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "5² − 3² = 25 − 9 = 16, so the leg is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t2/014",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 6. Other leg?",
+      "choices": [
+        "64",
+        "√136",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10² − 6² = 100 − 36 = 64, so the leg is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/015",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 7, a leg 6. Other leg?",
+      "choices": [
+        "1",
+        "13",
+        "√13",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "7² − 6² = 49 − 36 = 13, so the leg is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t2/016",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 3. How long is the other leg?",
+      "choices": [
+        "7",
+        "91",
+        "√109",
+        "√91"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "10² − 3² = 100 − 9 = 91, so the leg is √91."
+    },
+    {
+      "id": "pythagorean-theorem/t2/017",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 2. Other leg?",
+      "choices": [
+        "6",
+        "√60",
+        "√68",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "8² − 2² = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/018",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 4, a leg 1. Other leg?",
+      "choices": [
+        "√15",
+        "15",
+        "√3",
+        "√17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "4² − 1² = 16 − 1 = 15, so the leg is √15."
+    },
+    {
+      "id": "pythagorean-theorem/t2/019",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 3, leg 1. Other leg?",
+      "choices": [
+        "√2",
+        "√8",
+        "√10",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "3² − 1² = 9 − 1 = 8, so the leg is √8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/020",
+      "tier": 2,
+      "prompt": "Hypotenuse 10, one leg 4. Other leg?",
+      "choices": [
+        "6",
+        "√84",
+        "84",
+        "√116"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10² − 4² = 100 − 16 = 84, so the leg is √84."
+    },
+    {
+      "id": "pythagorean-theorem/t2/021",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 6, leg 2. Other leg?",
+      "choices": [
+        "√40",
+        "32",
+        "4",
+        "√32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        null
+      ],
+      "explanation": "6² − 2² = 36 − 4 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/022",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 8, a leg 2. Other leg?",
+      "choices": [
+        "√60",
+        "60",
+        "6",
+        "√68"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "8² − 2² = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/023",
+      "tier": 2,
+      "prompt": "Hypotenuse 10, one leg 6. Other leg?",
+      "choices": [
+        "8",
+        "2",
+        "√136",
+        "64"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "10² − 6² = 100 − 36 = 64, so the leg is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/024",
+      "tier": 2,
+      "prompt": "Hypotenuse 6, one leg 1. Other leg?",
+      "choices": [
+        "√35",
+        "5",
+        "35",
+        "√37"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "6² − 1² = 36 − 1 = 35, so the leg is √35."
+    },
+    {
+      "id": "pythagorean-theorem/t2/025",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 4. How long is the other leg?",
+      "choices": [
+        "65",
+        "√97",
+        "√65",
+        "√5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "9² − 4² = 81 − 16 = 65, so the leg is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t2/026",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 8. Other leg?",
+      "choices": [
+        "2",
+        "36",
+        "√164",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "10² − 8² = 100 − 64 = 36, so the leg is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t2/027",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 1. How long is the other leg?",
+      "choices": [
+        "√80",
+        "√82",
+        "80",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "9² − 1² = 81 − 1 = 80, so the leg is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t2/028",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 7. How long is the other leg?",
+      "choices": [
+        "32",
+        "2",
+        "√130",
+        "√32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9² − 7² = 81 − 49 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/029",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 2. Other leg?",
+      "choices": [
+        "77",
+        "√7",
+        "√85",
+        "√77"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9² − 2² = 81 − 4 = 77, so the leg is √77."
+    },
+    {
+      "id": "pythagorean-theorem/t2/030",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 6, a leg 1. Other leg?",
+      "choices": [
+        "√35",
+        "√37",
+        "35",
+        "√5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "6² − 1² = 36 − 1 = 35, so the leg is √35."
+    },
+    {
+      "id": "pythagorean-theorem/t2/031",
+      "tier": 2,
+      "prompt": "Hypotenuse 8 and a leg of 2. How long is the other leg?",
+      "choices": [
+        "60",
+        "√60",
+        "6",
+        "√68"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "8² − 2² = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/032",
+      "tier": 2,
+      "prompt": "Hypotenuse 7, one leg 3. Other leg?",
+      "choices": [
+        "√40",
+        "40",
+        "√58",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7² − 3² = 49 − 9 = 40, so the leg is √40."
+    },
+    {
+      "id": "pythagorean-theorem/t2/033",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 9, leg 5. Other leg?",
+      "choices": [
+        "√106",
+        "√56",
+        "4",
+        "56"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "9² − 5² = 81 − 25 = 56, so the leg is √56."
+    },
+    {
+      "id": "pythagorean-theorem/t2/034",
+      "tier": 2,
+      "prompt": "Hypotenuse 5, one leg 4. Other leg?",
+      "choices": [
+        "9",
+        "3",
+        "√41",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "5² − 4² = 25 − 16 = 9, so the leg is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t2/035",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 9. How long is the other leg?",
+      "choices": [
+        "1",
+        "19",
+        "√19",
+        "√181"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10² − 9² = 100 − 81 = 19, so the leg is √19."
+    },
+    {
+      "id": "pythagorean-theorem/t2/036",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 7, leg 1. Other leg?",
+      "choices": [
+        "48",
+        "√48",
+        "√50",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7² − 1² = 49 − 1 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/037",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 4. Other leg?",
+      "choices": [
+        "√80",
+        "√48",
+        "48",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "8² − 4² = 64 − 16 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/038",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 7. Other leg?",
+      "choices": [
+        "1",
+        "15",
+        "√113",
+        "√15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "8² − 7² = 64 − 49 = 15, so the leg is √15."
+    },
+    {
+      "id": "pythagorean-theorem/t2/039",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 1. Other leg?",
+      "choices": [
+        "9",
+        "99",
+        "√99",
+        "√101"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10² − 1² = 100 − 1 = 99, so the leg is √99."
+    },
+    {
+      "id": "pythagorean-theorem/t2/040",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 5. Other leg?",
+      "choices": [
+        "√125",
+        "75",
+        "√5",
+        "√75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null
+      ],
+      "explanation": "10² − 5² = 100 − 25 = 75, so the leg is √75."
+    },
+    {
+      "id": "pythagorean-theorem/t3/001",
+      "tier": 3,
+      "prompt": "A triangle has sides 3, 8 and 8. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        null
+      ],
+      "explanation": "3² + 8² = 73, but 8² = 64. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/002",
+      "tier": 3,
+      "prompt": "Right triangle, sides 5, √34, 3. Hypotenuse?",
+      "choices": [
+        "3",
+        "5",
+        "√34"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "5² = 25, but 3² + 5² = 34. So √34 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/003",
+      "tier": 3,
+      "prompt": "Right triangle, sides 5, 6, √61. Hypotenuse?",
+      "choices": [
+        "6",
+        "5",
+        "√61"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "6² = 36, but 5² + 6² = 61. So √61 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/004",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 4 and 7. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "4² + 4² = 32, but 7² = 49. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/005",
+      "tier": 3,
+      "prompt": "Sides 4, 3, 5. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25 = 5². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/006",
+      "tier": 3,
+      "prompt": "Sides 3, 4, 4. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        null
+      ],
+      "explanation": "3² + 4² = 25, but 4² = 16. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/007",
+      "tier": 3,
+      "prompt": "Right triangle, sides 2, 3, √13. Hypotenuse?",
+      "choices": [
+        "√13",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "3² = 9, but 2² + 3² = 13. So √13 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/008",
+      "tier": 3,
+      "prompt": "A triangle has sides 6, 8 and 10. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES"
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/009",
+      "tier": 3,
+      "prompt": "Right triangle, sides 7, √74, 5. Hypotenuse?",
+      "choices": [
+        "5",
+        "7",
+        "√74"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "7² = 49, but 5² + 7² = 74. So √74 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/010",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 8 and 9. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "5² + 8² = 89, but 9² = 81. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/011",
+      "tier": 3,
+      "prompt": "Sides 5, 4, 3. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25 = 5². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/012",
+      "tier": 3,
+      "prompt": "A triangle has sides 3, 4 and 5. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25 = 5². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/013",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 5 and 3. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25 = 5². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/014",
+      "tier": 3,
+      "prompt": "Right triangle, sides 9, 3, √90. Hypotenuse?",
+      "choices": [
+        "√90",
+        "9",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "9² = 81, but 3² + 9² = 90. So √90 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/015",
+      "tier": 3,
+      "prompt": "A triangle has sides 10, 8 and 6. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/016",
+      "tier": 3,
+      "prompt": "Which set is a right triangle's sides?",
+      "choices": [
+        "7, 7, 10",
+        "6, 8, 10",
+        "4, 9, 9",
+        "6, 7, 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null,
+        "ANY_TRIANGLE",
+        "CONSECUTIVE"
+      ],
+      "explanation": "6² + 8² = 100 = 10². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/017",
+      "tier": 3,
+      "prompt": "Right triangle, sides √29, 2, 5. Hypotenuse?",
+      "choices": [
+        "√29",
+        "5",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "5² = 25, but 2² + 5² = 29. So √29 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/018",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 8 and 8. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "5² + 8² = 89, but 8² = 64. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/019",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 3 and 5. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25 = 5². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/020",
+      "tier": 3,
+      "prompt": "Right triangle, sides 8, √89, 5. Hypotenuse?",
+      "choices": [
+        "5",
+        "√89",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8² = 64, but 5² + 8² = 89. So √89 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/021",
+      "tier": 3,
+      "prompt": "A triangle has sides 8, 10 and 6. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_AS_GIVEN",
+        null
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/022",
+      "tier": 3,
+      "prompt": "A triangle has sides 1, 4 and 4. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "1² + 4² = 17, but 4² = 16. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/023",
+      "tier": 3,
+      "prompt": "Which side lengths form a right triangle?",
+      "choices": [
+        "2, 7, 7",
+        "5, 6, 7",
+        "3, 4, 5",
+        "1, 7, 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CONSECUTIVE",
+        null,
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "3² + 4² = 25 = 5². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/024",
+      "tier": 3,
+      "prompt": "Sides 6, 10, 8. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_AS_GIVEN",
+        null
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/025",
+      "tier": 3,
+      "prompt": "Which sides make a right corner?",
+      "choices": [
+        "5, 5, 9",
+        "1, 8, 8",
+        "5, 6, 7",
+        "6, 8, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        "CONSECUTIVE",
+        null
+      ],
+      "explanation": "6² + 8² = 100 = 10². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/026",
+      "tier": 3,
+      "prompt": "Which set of sides has a right angle?",
+      "choices": [
+        "2, 3, 4",
+        "3, 4, 5",
+        "5, 7, 10",
+        "4, 7, 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSECUTIVE",
+        null,
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "3² + 4² = 25 = 5². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/027",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 6 and 7. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSECUTIVE"
+      ],
+      "explanation": "5² + 6² = 61, but 7² = 49. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/028",
+      "tier": 3,
+      "prompt": "Which lengths fit a right triangle?",
+      "choices": [
+        "5, 6, 7",
+        "6, 6, 7",
+        "5, 5, 7",
+        "3, 4, 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONSECUTIVE",
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "3² + 4² = 25 = 5². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/029",
+      "tier": 3,
+      "prompt": "A carpenter needs a square corner. Which sides?",
+      "choices": [
+        "3, 5, 7",
+        "7, 7, 10",
+        "6, 8, 10",
+        "2, 3, 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        null,
+        "CONSECUTIVE"
+      ],
+      "explanation": "6² + 8² = 100 = 10². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/030",
+      "tier": 3,
+      "prompt": "Right triangle, sides √45, 3, 6. Hypotenuse?",
+      "choices": [
+        "√45",
+        "6",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "6² = 36, but 3² + 6² = 45. So √45 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/031",
+      "tier": 3,
+      "prompt": "Which three sides make a right triangle?",
+      "choices": [
+        "6, 8, 10",
+        "1, 9, 9",
+        "4, 6, 6",
+        "2, 3, 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH",
+        "ANY_TRIANGLE",
+        "CONSECUTIVE"
+      ],
+      "explanation": "6² + 8² = 100 = 10². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/032",
+      "tier": 3,
+      "prompt": "Sides 1, 5, 5. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "1² + 5² = 26, but 5² = 25. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/033",
+      "tier": 3,
+      "prompt": "Right triangle, sides 4, 5, √41. Hypotenuse?",
+      "choices": [
+        "5",
+        "√41",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "5² = 25, but 4² + 5² = 41. So √41 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/034",
+      "tier": 3,
+      "prompt": "Which sides make a right triangle?",
+      "choices": [
+        "6, 8, 10",
+        "3, 5, 6",
+        "6, 7, 8",
+        "2, 5, 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH",
+        "CONSECUTIVE",
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "6² + 8² = 100 = 10². The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/035",
+      "tier": 3,
+      "prompt": "Sides 6, 8, 10. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100 = 10². Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/036",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 5 and 6. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSECUTIVE",
+        null
+      ],
+      "explanation": "4² + 5² = 41, but 6² = 36. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/037",
+      "tier": 3,
+      "prompt": "Right triangle, sides √80, 4, 8. Hypotenuse?",
+      "choices": [
+        "8",
+        "√80",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8² = 64, but 4² + 8² = 80. So √80 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/038",
+      "tier": 3,
+      "prompt": "A triangle has sides 1, 5 and 5. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "1² + 5² = 26, but 5² = 25. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/039",
+      "tier": 3,
+      "prompt": "Right triangle, sides √89, 8, 5. Hypotenuse?",
+      "choices": [
+        "8",
+        "√89",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8² = 64, but 5² + 8² = 89. So √89 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/040",
+      "tier": 3,
+      "prompt": "Right triangle, sides 7, 6, √85. Hypotenuse?",
+      "choices": [
+        "6",
+        "7",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "7² = 49, but 6² + 7² = 85. So √85 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t4/001",
+      "tier": 4,
+      "prompt": "How far is (−1, −9) from (−9, −10)?",
+      "choices": [
+        "9",
+        "8",
+        "√65",
+        "65"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 8, up 1: 8² + 1² = 65, so the distance is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t4/002",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (8, 2)?",
+      "choices": [
+        "10",
+        "√68",
+        "8",
+        "68"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "ONE_LEG",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 8, up 2: 8² + 2² = 68, so the distance is √68."
+    },
+    {
+      "id": "pythagorean-theorem/t4/003",
+      "tier": 4,
+      "prompt": "Distance from (−5, −9) to (−1, −3)?",
+      "choices": [
+        "4",
+        "52",
+        "10",
+        "√52"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 4, up 6: 4² + 6² = 52, so the distance is √52."
+    },
+    {
+      "id": "pythagorean-theorem/t4/004",
+      "tier": 4,
+      "prompt": "How far is (4, −1) from the origin?",
+      "choices": [
+        "17",
+        "4",
+        "√17",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ONE_LEG",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 4, up 1: 4² + 1² = 17, so the distance is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t4/005",
+      "tier": 4,
+      "prompt": "Distance from (−7, 1) to (1, −1)?",
+      "choices": [
+        "10",
+        "√68",
+        "68",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 2: 8² + 2² = 68, so the distance is √68."
+    },
+    {
+      "id": "pythagorean-theorem/t4/006",
+      "tier": 4,
+      "prompt": "How far is (3, −2) from (−5, 1)?",
+      "choices": [
+        "73",
+        "√73",
+        "11",
+        "√5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "TAXICAB",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 3: 8² + 3² = 73, so the distance is √73."
+    },
+    {
+      "id": "pythagorean-theorem/t4/007",
+      "tier": 4,
+      "prompt": "Distance from (1, −3) to (7, −5)?",
+      "choices": [
+        "6",
+        "40",
+        "8",
+        "√40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 6, up 2: 6² + 2² = 40, so the distance is √40."
+    },
+    {
+      "id": "pythagorean-theorem/t4/008",
+      "tier": 4,
+      "prompt": "Points A(1, 1) and B(−6, −6). Length of AB?",
+      "choices": [
+        "14",
+        "98",
+        "√98",
+        "√50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        null,
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 7, up 7: 7² + 7² = 98, so the distance is √98."
+    },
+    {
+      "id": "pythagorean-theorem/t4/009",
+      "tier": 4,
+      "prompt": "Distance from (0, 1) to (9, 4)?",
+      "choices": [
+        "√90",
+        "90",
+        "12",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 9, up 3: 9² + 3² = 90, so the distance is √90."
+    },
+    {
+      "id": "pythagorean-theorem/t4/010",
+      "tier": 4,
+      "prompt": "How far is (3, −3) from (−1, 0)?",
+      "choices": [
+        "7",
+        "5",
+        "√13",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NEG_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4² + 3² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/011",
+      "tier": 4,
+      "prompt": "Points A(0, 2) and B(−3, 5). Length of AB?",
+      "choices": [
+        "3",
+        "√18",
+        "18",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "NO_ROOT",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 3: 3² + 3² = 18, so the distance is √18."
+    },
+    {
+      "id": "pythagorean-theorem/t4/012",
+      "tier": 4,
+      "prompt": "Distance from (0, 9) to (8, 3)?",
+      "choices": [
+        "10",
+        "14",
+        "100",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 8, up 6: 8² + 6² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/013",
+      "tier": 4,
+      "prompt": "How far is (−1, 3) from (2, −1)?",
+      "choices": [
+        "5",
+        "25",
+        "√5",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "NEG_DIFF",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 4: 3² + 4² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/014",
+      "tier": 4,
+      "prompt": "Points A(−2, −1) and B(−6, −4). Length of AB?",
+      "choices": [
+        "4",
+        "25",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 4, up 3: 4² + 3² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/015",
+      "tier": 4,
+      "prompt": "Distance from (10, −7) to (6, −4)?",
+      "choices": [
+        "7",
+        "4",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4² + 3² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/016",
+      "tier": 4,
+      "prompt": "How far is (6, −7) from (3, −3)?",
+      "choices": [
+        "5",
+        "25",
+        "3",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ONE_LEG",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 4: 3² + 4² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/017",
+      "tier": 4,
+      "prompt": "Distance from (1, −10) to (9, −4)?",
+      "choices": [
+        "14",
+        "100",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 8, up 6: 8² + 6² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/018",
+      "tier": 4,
+      "prompt": "Points A(−2, −5) and B(0, −2). Length of AB?",
+      "choices": [
+        "√13",
+        "13",
+        "2",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ONE_LEG",
+        "TAXICAB"
+      ],
+      "explanation": "Across 2, up 3: 2² + 3² = 13, so the distance is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t4/019",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (−4, 5)?",
+      "choices": [
+        "√41",
+        "9",
+        "41",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 4, up 5: 4² + 5² = 41, so the distance is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t4/020",
+      "tier": 4,
+      "prompt": "How far is (−1, 9) from (−6, 6)?",
+      "choices": [
+        "5",
+        "√34",
+        "34",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "NO_ROOT",
+        "TAXICAB"
+      ],
+      "explanation": "Across 5, up 3: 5² + 3² = 34, so the distance is √34."
+    },
+    {
+      "id": "pythagorean-theorem/t4/021",
+      "tier": 4,
+      "prompt": "How far is (−7, 1) from (1, 7)?",
+      "choices": [
+        "10",
+        "100",
+        "14",
+        "√72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 6: 8² + 6² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/022",
+      "tier": 4,
+      "prompt": "Distance from (6, −1) to (7, 1)?",
+      "choices": [
+        "1",
+        "5",
+        "3",
+        "√5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DIFF",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 1, up 2: 1² + 2² = 5, so the distance is √5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/023",
+      "tier": 4,
+      "prompt": "Points A(1, 2) and B(−3, −3). Length of AB?",
+      "choices": [
+        "9",
+        "41",
+        "√5",
+        "√41"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "NEG_DIFF",
+        null
+      ],
+      "explanation": "Across 4, up 5: 4² + 5² = 41, so the distance is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t4/024",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (4, −8)?",
+      "choices": [
+        "4",
+        "12",
+        "80",
+        "√80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "TAXICAB",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "Across 4, up 8: 4² + 8² = 80, so the distance is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t4/025",
+      "tier": 4,
+      "prompt": "Distance from (4, 6) to (7, 4)?",
+      "choices": [
+        "√13",
+        "3",
+        "5",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_LEG",
+        "TAXICAB",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 2: 3² + 2² = 13, so the distance is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t4/026",
+      "tier": 4,
+      "prompt": "Distance from (7, −2) to (4, 2)?",
+      "choices": [
+        "7",
+        "3",
+        "25",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NEG_DIFF",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "Across 3, up 4: 3² + 4² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/027",
+      "tier": 4,
+      "prompt": "How far is (−10, −10) from (−4, −4)?",
+      "choices": [
+        "72",
+        "12",
+        "6",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 6, up 6: 6² + 6² = 72, so the distance is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t4/028",
+      "tier": 4,
+      "prompt": "Distance from (3, −2) to (2, 2)?",
+      "choices": [
+        "5",
+        "√17",
+        "17",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 1, up 4: 1² + 4² = 17, so the distance is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t4/029",
+      "tier": 4,
+      "prompt": "Distance from (9, 9) to (1, 3)?",
+      "choices": [
+        "14",
+        "100",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 8, up 6: 8² + 6² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/030",
+      "tier": 4,
+      "prompt": "Distance from (3, −2) to (6, 2)?",
+      "choices": [
+        "7",
+        "3",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "NEG_DIFF",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 4: 3² + 4² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/031",
+      "tier": 4,
+      "prompt": "Distance from (7, 3) to (2, −4)?",
+      "choices": [
+        "√26",
+        "74",
+        "√74",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_DIFF",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 5, up 7: 5² + 7² = 74, so the distance is √74."
+    },
+    {
+      "id": "pythagorean-theorem/t4/032",
+      "tier": 4,
+      "prompt": "How far is (4, −9) from (10, −1)?",
+      "choices": [
+        "10",
+        "100",
+        "14",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 6, up 8: 6² + 8² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/033",
+      "tier": 4,
+      "prompt": "How far is (8, 6) from (5, 10)?",
+      "choices": [
+        "7",
+        "3",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 4: 3² + 4² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/034",
+      "tier": 4,
+      "prompt": "How far is (−1, 1) from (−7, 9)?",
+      "choices": [
+        "14",
+        "100",
+        "6",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 6, up 8: 6² + 8² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/035",
+      "tier": 4,
+      "prompt": "How far is (0, 2) from (8, 8)?",
+      "choices": [
+        "8",
+        "100",
+        "10",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 8, up 6: 8² + 6² = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/036",
+      "tier": 4,
+      "prompt": "How far is (7, 3) from the origin?",
+      "choices": [
+        "7",
+        "√58",
+        "10",
+        "58"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "TAXICAB",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 7, up 3: 7² + 3² = 58, so the distance is √58."
+    },
+    {
+      "id": "pythagorean-theorem/t4/037",
+      "tier": 4,
+      "prompt": "How far is (2, 0) from (−2, 8)?",
+      "choices": [
+        "√80",
+        "12",
+        "80",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 4, up 8: 4² + 8² = 80, so the distance is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t4/038",
+      "tier": 4,
+      "prompt": "How far is (−10, 10) from (−4, 4)?",
+      "choices": [
+        "72",
+        "12",
+        "√72",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "TAXICAB",
+        null,
+        "ONE_LEG"
+      ],
+      "explanation": "Across 6, up 6: 6² + 6² = 72, so the distance is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t4/039",
+      "tier": 4,
+      "prompt": "How far is (−1, 10) from (3, 7)?",
+      "choices": [
+        "7",
+        "5",
+        "√13",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NEG_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4² + 3² = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/040",
+      "tier": 4,
+      "prompt": "How far is (−2, 5) from the origin?",
+      "choices": [
+        "29",
+        "√29",
+        "7",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 2, up 5: 2² + 5² = 29, so the distance is √29."
+    },
+    {
+      "id": "pythagorean-theorem/t5/001",
+      "tier": 5,
+      "prompt": "A field is 3 m by 4 m. Corner to corner distance?",
+      "choices": [
+        "5",
+        "7",
+        "25",
+        "√7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/002",
+      "tier": 5,
+      "prompt": "A 5 m slide is 3 m tall. How far out does it reach?",
+      "choices": [
+        "√34",
+        "2",
+        "4",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "5² − 3² = 25 − 9 = 16, so it is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t5/003",
+      "tier": 5,
+      "prompt": "A panel is 1 ft wide and 2 ft tall. Diagonal length?",
+      "choices": [
+        "√3",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 2² = 1 + 4 = 5, so it is √5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/004",
+      "tier": 5,
+      "prompt": "A 10 m wire runs from a pole's top to 6 m out. Pole height?",
+      "choices": [
+        "√136",
+        "4",
+        "8",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "10² − 6² = 100 − 36 = 64, so it is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t5/005",
+      "tier": 5,
+      "prompt": "A box is 6 by 7 by 3. Longest diagonal inside?",
+      "choices": [
+        "94",
+        "16",
+        "√94",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_ALL",
+        null,
+        "FACE_ONLY"
+      ],
+      "explanation": "6² + 7² + 3² = 36 + 49 + 9 = 94, so the diagonal is √94."
+    },
+    {
+      "id": "pythagorean-theorem/t5/006",
+      "tier": 5,
+      "prompt": "Box 4 by 4 by 7. Longest diagonal?",
+      "choices": [
+        "15",
+        "√32",
+        "81",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "4² + 4² + 7² = 16 + 16 + 49 = 81, so the diagonal is 9."
+    },
+    {
+      "id": "pythagorean-theorem/t5/007",
+      "tier": 5,
+      "prompt": "A panel is 8 m wide and 1 m tall. Diagonal length?",
+      "choices": [
+        "65",
+        "√65",
+        "9",
+        "√18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "8² + 1² = 64 + 1 = 65, so it is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t5/008",
+      "tier": 5,
+      "prompt": "A 7 ft ladder, base 6 ft from the wall. How high?",
+      "choices": [
+        "√13",
+        "√85",
+        "13",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "7² − 6² = 49 − 36 = 13, so it is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t5/009",
+      "tier": 5,
+      "prompt": "A square has side 4 ft. How long is its diagonal?",
+      "choices": [
+        "√32",
+        "√8",
+        "32",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4² + 4² = 16 + 16 = 32, so it is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t5/010",
+      "tier": 5,
+      "prompt": "Box 4 by 2 by 4. Longest diagonal?",
+      "choices": [
+        "6",
+        "36",
+        "√20",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "FACE_ONLY",
+        "ADDED_ALL"
+      ],
+      "explanation": "4² + 2² + 4² = 16 + 4 + 16 = 36, so the diagonal is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t5/011",
+      "tier": 5,
+      "prompt": "A field is 2 yd by 3 yd. Corner to corner distance?",
+      "choices": [
+        "√13",
+        "√10",
+        "5",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "2² + 3² = 4 + 9 = 13, so it is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t5/012",
+      "tier": 5,
+      "prompt": "An 8 by 1 by 4 cm crate. Longest diagonal?",
+      "choices": [
+        "9",
+        "√65",
+        "13",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "8² + 1² + 4² = 64 + 1 + 16 = 81, so the diagonal is 9."
+    },
+    {
+      "id": "pythagorean-theorem/t5/013",
+      "tier": 5,
+      "prompt": "A box is 5 by 6 by 5. Longest diagonal inside?",
+      "choices": [
+        "√86",
+        "√61",
+        "16",
+        "86"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "5² + 6² + 5² = 25 + 36 + 25 = 86, so the diagonal is √86."
+    },
+    {
+      "id": "pythagorean-theorem/t5/014",
+      "tier": 5,
+      "prompt": "A boat sails 7 km east, then 4 km south. Distance from dock?",
+      "choices": [
+        "√11",
+        "11",
+        "65",
+        "√65"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "7² + 4² = 49 + 16 = 65, so it is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t5/015",
+      "tier": 5,
+      "prompt": "A 5 m ladder reaches 1 m up. How far out is its base?",
+      "choices": [
+        "4",
+        "24",
+        "√26",
+        "√24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "5² − 1² = 25 − 1 = 24, so it is √24."
+    },
+    {
+      "id": "pythagorean-theorem/t5/016",
+      "tier": 5,
+      "prompt": "A box is 1 by 1 by 8. Longest diagonal inside?",
+      "choices": [
+        "√2",
+        "√66",
+        "66",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACE_ONLY",
+        null,
+        "NO_ROOT",
+        "ADDED_ALL"
+      ],
+      "explanation": "1² + 1² + 8² = 1 + 1 + 64 = 66, so the diagonal is √66."
+    },
+    {
+      "id": "pythagorean-theorem/t5/017",
+      "tier": 5,
+      "prompt": "Box 3 by 5 by 6. Longest diagonal?",
+      "choices": [
+        "√34",
+        "70",
+        "14",
+        "√70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACE_ONLY",
+        "NO_ROOT",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "3² + 5² + 6² = 9 + 25 + 36 = 70, so the diagonal is √70."
+    },
+    {
+      "id": "pythagorean-theorem/t5/018",
+      "tier": 5,
+      "prompt": "A panel is 6 ft wide and 4 ft tall. Diagonal length?",
+      "choices": [
+        "52",
+        "√52",
+        "10",
+        "√20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "6² + 4² = 36 + 16 = 52, so it is √52."
+    },
+    {
+      "id": "pythagorean-theorem/t5/019",
+      "tier": 5,
+      "prompt": "A 9 m ladder, base 5 m from the wall. How high?",
+      "choices": [
+        "56",
+        "√106",
+        "√56",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "9² − 5² = 81 − 25 = 56, so it is √56."
+    },
+    {
+      "id": "pythagorean-theorem/t5/020",
+      "tier": 5,
+      "prompt": "Box 1 by 1 by 8. Longest diagonal?",
+      "choices": [
+        "√66",
+        "√2",
+        "10",
+        "66"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 1² + 8² = 1 + 1 + 64 = 66, so the diagonal is √66."
+    },
+    {
+      "id": "pythagorean-theorem/t5/021",
+      "tier": 5,
+      "prompt": "A square has side 6 cm. How long is its diagonal?",
+      "choices": [
+        "72",
+        "√12",
+        "12",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "6² + 6² = 36 + 36 = 72, so it is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t5/022",
+      "tier": 5,
+      "prompt": "A 4 ft ladder reaches 2 ft up. How far out is its base?",
+      "choices": [
+        "√20",
+        "√2",
+        "√12",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "4² − 2² = 16 − 4 = 12, so it is √12."
+    },
+    {
+      "id": "pythagorean-theorem/t5/023",
+      "tier": 5,
+      "prompt": "A 5 ft ladder, base 4 ft from the wall. How high?",
+      "choices": [
+        "9",
+        "3",
+        "1",
+        "√41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5² − 4² = 25 − 16 = 9, so it is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t5/024",
+      "tier": 5,
+      "prompt": "A box is 6 by 3 by 4. Longest diagonal inside?",
+      "choices": [
+        "13",
+        "√45",
+        "√61",
+        "61"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "6² + 3² + 4² = 36 + 9 + 16 = 61, so the diagonal is √61."
+    },
+    {
+      "id": "pythagorean-theorem/t5/025",
+      "tier": 5,
+      "prompt": "A ramp rises 4 m over 3 m of ground. Ramp length?",
+      "choices": [
+        "25",
+        "√7",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "4² + 3² = 16 + 9 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/026",
+      "tier": 5,
+      "prompt": "Walk 7 km north, then 2 km east. How far from the start?",
+      "choices": [
+        "9",
+        "√53",
+        "√18",
+        "53"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT"
+      ],
+      "explanation": "7² + 2² = 49 + 4 = 53, so it is √53."
+    },
+    {
+      "id": "pythagorean-theorem/t5/027",
+      "tier": 5,
+      "prompt": "A 4 by 4 by 2 m crate. Longest diagonal?",
+      "choices": [
+        "10",
+        "√32",
+        "6",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "4² + 4² + 2² = 16 + 16 + 4 = 36, so the diagonal is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t5/028",
+      "tier": 5,
+      "prompt": "A 6 ft wire runs from a pole's top to 2 ft out. Pole height?",
+      "choices": [
+        "√40",
+        "√32",
+        "4",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "6² − 2² = 36 − 4 = 32, so it is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t5/029",
+      "tier": 5,
+      "prompt": "A sign is 4 m wide and 3 m tall. Diagonal length?",
+      "choices": [
+        "25",
+        "7",
+        "5",
+        "√14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "4² + 3² = 16 + 9 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/030",
+      "tier": 5,
+      "prompt": "A square has side 2 cm. How long is its diagonal?",
+      "choices": [
+        "√8",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "2² + 2² = 4 + 4 = 8, so it is √8."
+    },
+    {
+      "id": "pythagorean-theorem/t5/031",
+      "tier": 5,
+      "prompt": "Box 6 by 2 by 1. Longest diagonal?",
+      "choices": [
+        "9",
+        "41",
+        "√40",
+        "√41"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_ROOT",
+        "FACE_ONLY",
+        null
+      ],
+      "explanation": "6² + 2² + 1² = 36 + 4 + 1 = 41, so the diagonal is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t5/032",
+      "tier": 5,
+      "prompt": "A ramp rises 1 ft over 6 ft of ground. Ramp length?",
+      "choices": [
+        "7",
+        "√37",
+        "√14",
+        "37"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT"
+      ],
+      "explanation": "1² + 6² = 1 + 36 = 37, so it is √37."
+    },
+    {
+      "id": "pythagorean-theorem/t5/033",
+      "tier": 5,
+      "prompt": "Walk 6 mi north, then 8 mi east. How far from the start?",
+      "choices": [
+        "100",
+        "14",
+        "√14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        null
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100, so it is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t5/034",
+      "tier": 5,
+      "prompt": "A rectangle is 7 m wide and 6 m tall. Diagonal length?",
+      "choices": [
+        "85",
+        "√26",
+        "√85",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7² + 6² = 49 + 36 = 85, so it is √85."
+    },
+    {
+      "id": "pythagorean-theorem/t5/035",
+      "tier": 5,
+      "prompt": "A 10 m slide is 5 m tall. How far out does it reach?",
+      "choices": [
+        "√125",
+        "√75",
+        "75",
+        "√5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10² − 5² = 100 − 25 = 75, so it is √75."
+    },
+    {
+      "id": "pythagorean-theorem/t5/036",
+      "tier": 5,
+      "prompt": "A square has side 3 m. How long is its diagonal?",
+      "choices": [
+        "√6",
+        "18",
+        "√18",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "3² + 3² = 9 + 9 = 18, so it is √18."
+    },
+    {
+      "id": "pythagorean-theorem/t5/037",
+      "tier": 5,
+      "prompt": "Walk 6 m north, then 8 m east. How far from the start?",
+      "choices": [
+        "100",
+        "√14",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "6² + 8² = 36 + 64 = 100, so it is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t5/038",
+      "tier": 5,
+      "prompt": "A TV screen is 3 in by 4 in. How long is its diagonal?",
+      "choices": [
+        "5",
+        "7",
+        "√7",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "3² + 4² = 9 + 16 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/039",
+      "tier": 5,
+      "prompt": "A 5 m ladder reaches 4 m up. How far out is its base?",
+      "choices": [
+        "√41",
+        "3",
+        "1",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "5² − 4² = 25 − 16 = 9, so it is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t5/040",
+      "tier": 5,
+      "prompt": "A box is 2 by 3 by 6. Longest diagonal inside?",
+      "choices": [
+        "11",
+        "49",
+        "√13",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_ROOT",
+        "FACE_ONLY",
+        null
+      ],
+      "explanation": "2² + 3² + 6² = 4 + 9 + 36 = 49, so the diagonal is 7."
+    }
+  ],
+  "render_profile": "unicode"
+};
 window.FNM_CARTRIDGES["rational-numbers"] = {
   "protocol": "fnm-cart/1",
   "id": "rational-numbers",
@@ -70717,6 +90272,19631 @@ window.FNM_CARTRIDGES["ratios-rates"] = {
         "FACTOR_ONLY"
       ],
       "explanation": "8 + 2 = 10 parts. 80 ÷ 10 = 8 per part. Apples: 8 × 8 = 64."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["roots-irrationals"] = {
+  "protocol": "fnm-cart/1",
+  "id": "roots-irrationals",
+  "version": "1.0.0",
+  "title": "Roots & Irrational Numbers",
+  "subtitle": "Square Roots, Cube Roots & Estimates",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.NS.A.1",
+    "CCSS.MATH.CONTENT.8.NS.A.2",
+    "CCSS.MATH.CONTENT.8.EE.A.2"
+  ],
+  "seed": 20261033,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Roots. Square roots only of the perfect squares 4-100 and cube roots only of 1, 8, 27, 64 (cube roots are written in words, 'Cube root of 27'); a side or edge comes from an area or volume of that kind. An irrational number is an unsimplified √n (n 2-99, not a perfect square) or π; no radical is simplified, added or multiplied. Repeating decimals have 1 or 2 repeating digits (0.777..., 0.1818..., or one digit after a non-repeating one: 0.1666...) and a fraction in simplest form with numerator and denominator 1-12 (ninths, elevenths, sixths); terminating decimals convert to fractions with denominator 2-10. The 10x − x step shows x with 1 or 2 repeating digits and an answer 1-90. Estimates name the whole numbers around √n (n 2-99) or the nearest whole number (the decimal part of √n is under 0.3 or over 0.7) or k.5 for √(k(k+1)) with k 2-9. Any two values compared differ by at least 0.3; an ordering has 3 values. Wrong choices: whatever a misreading gives, up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Square & Cube Roots",
+      "description": "Square roots of perfect squares and cube roots of 1, 8, 27, 64."
+    },
+    {
+      "tier": 2,
+      "name": "Rational or Irrational?",
+      "description": "Which numbers are fractions, and which never end or repeat."
+    },
+    {
+      "tier": 3,
+      "name": "Repeating Decimals",
+      "description": "Turn repeating and ending decimals into fractions."
+    },
+    {
+      "tier": 4,
+      "name": "Estimate Square Roots",
+      "description": "Place a square root between whole numbers."
+    },
+    {
+      "tier": 5,
+      "name": "Compare & Order Roots",
+      "description": "Compare and order roots, whole numbers and π."
+    }
+  ],
+  "misconceptions": {
+    "HALVED": {
+      "student": "A square root is not half. Ask: what times itself makes the number?",
+      "teacher": "Divides by 2 instead of taking the root (√49 = 24.5)."
+    },
+    "DOUBLED": {
+      "student": "Not double. √49 asks what number times itself makes 49.",
+      "teacher": "Doubles the root instead of squaring or rooting (√49 = 14)."
+    },
+    "NOT_ROOTED": {
+      "student": "That is the number itself. The root times itself makes that number.",
+      "teacher": "Gives the number back without taking the root."
+    },
+    "THIRD_FOR_CUBE": {
+      "student": "A cube root is not dividing by 3. Find a number used 3 times in a product.",
+      "teacher": "Divides by 3 for a cube root (cube root of 27 = 9)."
+    },
+    "TRIPLED": {
+      "student": "A cube root is not times 3. 3 × 3 × 3 makes 27, so the root is 3.",
+      "teacher": "Multiplies the root by 3 instead of cubing or rooting."
+    },
+    "SQUARE_ROOT_FOR_CUBE": {
+      "student": "That is the square root. A cube root uses the number three times.",
+      "teacher": "Takes the square root where a cube root was asked (cube root of 64 = 8)."
+    },
+    "POSITIVE_ONLY": {
+      "student": "Both signs square to the same number. Check the sign the question asks for.",
+      "teacher": "Ignores the negative solution, or ignores the sign condition."
+    },
+    "AREA_OVER_4": {
+      "student": "Side × side = area. Dividing by 4 would find a side only for a perimeter.",
+      "teacher": "Divides the area by 4 (perimeter thinking) instead of taking the root."
+    },
+    "PERIMETER_FOR_SIDE": {
+      "student": "That is the perimeter. The side is the root of the area.",
+      "teacher": "Gives 4 × side (perimeter) where the side was asked."
+    },
+    "ROOT_IS_IRRATIONAL": {
+      "student": "A root sign does not make it irrational. √36 = 6 is a whole number.",
+      "teacher": "Calls every square root irrational, even of a perfect square."
+    },
+    "ROOT_IS_RATIONAL": {
+      "student": "√7 is not a whole number or a fraction. It never ends or repeats.",
+      "teacher": "Thinks the root of a non-square is rational."
+    },
+    "REPEAT_IS_IRRATIONAL": {
+      "student": "A repeating decimal is a fraction (0.333... = 1/3), so it is rational.",
+      "teacher": "Thinks a decimal that goes on forever must be irrational."
+    },
+    "NONWHOLE_IS_IRRATIONAL": {
+      "student": "Fractions and ending decimals are rational. Irrational means no fraction fits.",
+      "teacher": "Thinks any number that is not a whole number is irrational."
+    },
+    "PI_IS_RATIONAL": {
+      "student": "π never ends and never repeats, so it is irrational. 3.14 is only close.",
+      "teacher": "Treats π as exactly 3.14 or 22/7."
+    },
+    "OVER_TEN": {
+      "student": "Repeating digits are not tenths. Use 9 for one repeating digit.",
+      "teacher": "Writes the repeating digit over 10."
+    },
+    "ROUNDED_UP": {
+      "student": "Rounding changes the value. 0.666... is exactly 6/9, not 7/10.",
+      "teacher": "Rounds the repeating decimal up, then writes it over 10."
+    },
+    "OVER_HUNDRED": {
+      "student": "Two repeating digits go over 99, not 100.",
+      "teacher": "Uses the digits over 100 for a repeating decimal."
+    },
+    "NINTHS_ONLY": {
+      "student": "Two repeating digits go over 99. That reduces to elevenths.",
+      "teacher": "Treats a two-digit repeat like a one-digit repeat (ninths)."
+    },
+    "NINE_FOR_TERMINATING": {
+      "student": "9s are for repeating decimals. An ending decimal uses 10, 100 or 1000.",
+      "teacher": "Uses a denominator of 9, 99 or 999 for a decimal that ends."
+    },
+    "DIGIT_AS_DENOM": {
+      "student": "0.4 means 4 tenths. The digits go on top, not on the bottom.",
+      "teacher": "Puts the digits in the denominator (0.4 = 1/4)."
+    },
+    "PLACE_VALUE_SLIP": {
+      "student": "Count decimal places: 1 is tenths, 2 hundredths, 3 thousandths.",
+      "teacher": "Uses the wrong place value for the denominator."
+    },
+    "TIMES_ONLY": {
+      "student": "That is only 10x or 100x. Subtract x so the repeating tails cancel.",
+      "teacher": "Multiplies by 10 or 100 but forgets to subtract x."
+    },
+    "NINES_ONLY": {
+      "student": "The 9 is how many x you have. The answer is the difference of the numbers.",
+      "teacher": "Gives the coefficient of x (9 or 99) instead of the difference."
+    },
+    "TRUNCATED_REPEAT": {
+      "student": "Cut-off digits lose value. 4.444... − 0.444... is exactly 4.",
+      "teacher": "Multiplies the truncated decimal (9 × 0.4) instead of subtracting."
+    },
+    "DECIMAL_SLIP": {
+      "student": "Line up the decimal points. The repeating tails cancel, leaving a whole number.",
+      "teacher": "Misplaces the decimal point after subtracting."
+    },
+    "SQUARES_NOT_ROOTS": {
+      "student": "Those are the squares around the number. The root is between their roots.",
+      "teacher": "Names the perfect squares on each side instead of their roots."
+    },
+    "NEXT_SQUARE_DOWN": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step below the correct pair."
+    },
+    "NEXT_SQUARE_UP": {
+      "student": "Square both numbers. The radicand must sit between those two squares.",
+      "teacher": "Uses the pair of whole numbers one step above the correct pair."
+    },
+    "NEAREST_SQUARE_NOT_ROOT": {
+      "student": "That is the nearest square. Its root is the whole number you want.",
+      "teacher": "Gives the nearest perfect square instead of its square root."
+    },
+    "ROUNDED_WRONG": {
+      "student": "Which perfect square is closer? Its root is the nearest whole number.",
+      "teacher": "Picks the far whole number when rounding a root."
+    },
+    "RADICAND_AS_VALUE": {
+      "student": "A root is much smaller than the number under it. Judge √50 by 7 × 7.",
+      "teacher": "Compares the number under the root sign, not the root's value."
+    },
+    "ROOT_ALWAYS_SMALL": {
+      "student": "A root is not always the smaller one. Estimate it between two whole numbers.",
+      "teacher": "Assumes any √ expression is smaller than the other number."
+    },
+    "ORDER_REVERSED": {
+      "student": "Re-read which way the list should run, least to greatest or the other way.",
+      "teacher": "Orders the list in the opposite direction."
+    },
+    "GIVEN_ORDER": {
+      "student": "The list is not in order yet. Estimate each root, then sort.",
+      "teacher": "Keeps the order the numbers were written in."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "π² is π times π, about 3 × 3, not 2 × π.",
+      "teacher": "Multiplies by the exponent (2 × π) instead of squaring."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "roots-irrationals/t1/001",
+      "tier": 1,
+      "prompt": "A square has area 81. Side?",
+      "choices": [
+        "36",
+        "9",
+        "40.5",
+        "81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        null,
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Side × side = area. 9 × 9 = 81, so the side is 9."
+    },
+    {
+      "id": "roots-irrationals/t1/002",
+      "tier": 1,
+      "prompt": "√100 = ?",
+      "choices": [
+        "10",
+        "50",
+        "20",
+        "100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "DOUBLED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "10 × 10 = 100, so √100 = 10."
+    },
+    {
+      "id": "roots-irrationals/t1/003",
+      "tier": 1,
+      "prompt": "A cube has volume 27. Edge?",
+      "choices": [
+        "9",
+        "3",
+        "13.5",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "THIRD_FOR_CUBE",
+        null,
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Edge × edge × edge = volume. 3 × 3 × 3 = 27, so the edge is 3."
+    },
+    {
+      "id": "roots-irrationals/t1/004",
+      "tier": 1,
+      "prompt": "A square has area 25. Side?",
+      "choices": [
+        "20",
+        "5",
+        "6.25",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        null,
+        "AREA_OVER_4",
+        "NOT_ROOTED"
+      ],
+      "explanation": "Side × side = area. 5 × 5 = 25, so the side is 5."
+    },
+    {
+      "id": "roots-irrationals/t1/005",
+      "tier": 1,
+      "prompt": "Cube root of 27?",
+      "choices": [
+        "3",
+        "27",
+        "13.5",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "HALVED",
+        "TRIPLED"
+      ],
+      "explanation": "3 × 3 × 3 = 27, so the cube root of 27 is 3."
+    },
+    {
+      "id": "roots-irrationals/t1/006",
+      "tier": 1,
+      "prompt": "x² = 4 and x > 0. x?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 = 4, and x is positive, so x = 2."
+    },
+    {
+      "id": "roots-irrationals/t1/007",
+      "tier": 1,
+      "prompt": "A cube has volume 64. Edge?",
+      "choices": [
+        "64",
+        "4",
+        "32",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_ROOTED",
+        null,
+        "HALVED",
+        "SQUARE_ROOT_FOR_CUBE"
+      ],
+      "explanation": "Edge × edge × edge = volume. 4 × 4 × 4 = 64, so the edge is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/008",
+      "tier": 1,
+      "prompt": "A cube has volume 8. Edge?",
+      "choices": [
+        "8",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_ROOTED",
+        null,
+        "TRIPLED",
+        "HALVED"
+      ],
+      "explanation": "Edge × edge × edge = volume. 2 × 2 × 2 = 8, so the edge is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/009",
+      "tier": 1,
+      "prompt": "All solutions of x² = 64?",
+      "choices": [
+        "8 or −8",
+        "64 or −64",
+        "8",
+        "32 or −32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64 and (−8) × (−8) = 64. Both 8 and −8 work."
+    },
+    {
+      "id": "roots-irrationals/t1/010",
+      "tier": 1,
+      "prompt": "All solutions of x² = 4?",
+      "choices": [
+        "2",
+        "4 or −4",
+        "1 or −1",
+        "2 or −2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 × 2 = 4 and (−2) × (−2) = 4. Both 2 and −2 work."
+    },
+    {
+      "id": "roots-irrationals/t1/011",
+      "tier": 1,
+      "prompt": "All solutions of x² = 81?",
+      "choices": [
+        "9",
+        "40.5 or −40.5",
+        "9 or −9",
+        "81 or −81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "9 × 9 = 81 and (−9) × (−9) = 81. Both 9 and −9 work."
+    },
+    {
+      "id": "roots-irrationals/t1/012",
+      "tier": 1,
+      "prompt": "x² = 16 and x > 0. x?",
+      "choices": [
+        "3",
+        "16",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "4 × 4 = 16, and x is positive, so x = 4."
+    },
+    {
+      "id": "roots-irrationals/t1/013",
+      "tier": 1,
+      "prompt": "x² = 81 and x > 0. x?",
+      "choices": [
+        "40.5",
+        "81",
+        "9",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "DOUBLED"
+      ],
+      "explanation": "9 × 9 = 81, and x is positive, so x = 9."
+    },
+    {
+      "id": "roots-irrationals/t1/014",
+      "tier": 1,
+      "prompt": "x³ = 64. x?",
+      "choices": [
+        "32",
+        "12",
+        "4",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "TRIPLED",
+        null,
+        "SQUARE_ROOT_FOR_CUBE"
+      ],
+      "explanation": "4 × 4 × 4 = 64, so the cube root of 64 is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/015",
+      "tier": 1,
+      "prompt": "A square has area 49. Side?",
+      "choices": [
+        "7",
+        "24.5",
+        "28",
+        "12.25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "PERIMETER_FOR_SIDE",
+        "AREA_OVER_4"
+      ],
+      "explanation": "Side × side = area. 7 × 7 = 49, so the side is 7."
+    },
+    {
+      "id": "roots-irrationals/t1/016",
+      "tier": 1,
+      "prompt": "All solutions of x² = 49?",
+      "choices": [
+        "7",
+        "49 or −49",
+        "24.5 or −24.5",
+        "7 or −7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "7 × 7 = 49 and (−7) × (−7) = 49. Both 7 and −7 work."
+    },
+    {
+      "id": "roots-irrationals/t1/017",
+      "tier": 1,
+      "prompt": "x² = 49 and x < 0. x?",
+      "choices": [
+        "−24.5",
+        "−49",
+        "7",
+        "−7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null
+      ],
+      "explanation": "7 × 7 = 49 and (−7) × (−7) = 49. x is negative, so x = −7."
+    },
+    {
+      "id": "roots-irrationals/t1/018",
+      "tier": 1,
+      "prompt": "√64 = ?",
+      "choices": [
+        "8",
+        "64",
+        "16",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_ROOTED",
+        "DOUBLED",
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64, so √64 = 8."
+    },
+    {
+      "id": "roots-irrationals/t1/019",
+      "tier": 1,
+      "prompt": "x² = 49 and x > 0. x?",
+      "choices": [
+        "7",
+        "14",
+        "24.5",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "7 × 7 = 49, and x is positive, so x = 7."
+    },
+    {
+      "id": "roots-irrationals/t1/020",
+      "tier": 1,
+      "prompt": "√9 = ?",
+      "choices": [
+        "6",
+        "4.5",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED",
+        null
+      ],
+      "explanation": "3 × 3 = 9, so √9 = 3."
+    },
+    {
+      "id": "roots-irrationals/t1/021",
+      "tier": 1,
+      "prompt": "x² = 16 and x < 0. x?",
+      "choices": [
+        "4",
+        "−8",
+        "−4",
+        "−16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "4 × 4 = 16 and (−4) × (−4) = 16. x is negative, so x = −4."
+    },
+    {
+      "id": "roots-irrationals/t1/022",
+      "tier": 1,
+      "prompt": "A square has area 4. Side?",
+      "choices": [
+        "8",
+        "4",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        "NOT_ROOTED",
+        "AREA_OVER_4",
+        null
+      ],
+      "explanation": "Side × side = area. 2 × 2 = 4, so the side is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/023",
+      "tier": 1,
+      "prompt": "√81 = ?",
+      "choices": [
+        "18",
+        "40.5",
+        "9",
+        "81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED",
+        "HALVED",
+        null,
+        "NOT_ROOTED"
+      ],
+      "explanation": "9 × 9 = 81, so √81 = 9."
+    },
+    {
+      "id": "roots-irrationals/t1/024",
+      "tier": 1,
+      "prompt": "√16 = ?",
+      "choices": [
+        "8",
+        "2",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "ARITH",
+        "NOT_ROOTED",
+        null
+      ],
+      "explanation": "4 × 4 = 16, so √16 = 4."
+    },
+    {
+      "id": "roots-irrationals/t1/025",
+      "tier": 1,
+      "prompt": "A square has area 64. Side?",
+      "choices": [
+        "32",
+        "8",
+        "64",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NOT_ROOTED",
+        "AREA_OVER_4"
+      ],
+      "explanation": "Side × side = area. 8 × 8 = 64, so the side is 8."
+    },
+    {
+      "id": "roots-irrationals/t1/026",
+      "tier": 1,
+      "prompt": "A square has area 16. Side?",
+      "choices": [
+        "16",
+        "5",
+        "8",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PERIMETER_FOR_SIDE",
+        "ARITH",
+        "HALVED",
+        null
+      ],
+      "explanation": "Side × side = area. 4 × 4 = 16, so the side is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/027",
+      "tier": 1,
+      "prompt": "x² = 64 and x < 0. x?",
+      "choices": [
+        "−64",
+        "8",
+        "−8",
+        "−32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null,
+        "HALVED"
+      ],
+      "explanation": "8 × 8 = 64 and (−8) × (−8) = 64. x is negative, so x = −8."
+    },
+    {
+      "id": "roots-irrationals/t1/028",
+      "tier": 1,
+      "prompt": "x² = 25 and x < 0. x?",
+      "choices": [
+        "−5",
+        "5",
+        "−12.5",
+        "−25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "POSITIVE_ONLY",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "5 × 5 = 25 and (−5) × (−5) = 25. x is negative, so x = −5."
+    },
+    {
+      "id": "roots-irrationals/t1/029",
+      "tier": 1,
+      "prompt": "x³ = 1. x?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0.5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TRIPLED",
+        null,
+        "ARITH",
+        "HALVED"
+      ],
+      "explanation": "1 × 1 × 1 = 1, so the cube root of 1 is 1."
+    },
+    {
+      "id": "roots-irrationals/t1/030",
+      "tier": 1,
+      "prompt": "Cube root of 8?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TRIPLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 × 2 = 8, so the cube root of 8 is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/031",
+      "tier": 1,
+      "prompt": "x² = 36 and x > 0. x?",
+      "choices": [
+        "18",
+        "6",
+        "36",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NOT_ROOTED",
+        "DOUBLED"
+      ],
+      "explanation": "6 × 6 = 36, and x is positive, so x = 6."
+    },
+    {
+      "id": "roots-irrationals/t1/032",
+      "tier": 1,
+      "prompt": "x² = 25 and x > 0. x?",
+      "choices": [
+        "5",
+        "10",
+        "12.5",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "5 × 5 = 25, and x is positive, so x = 5."
+    },
+    {
+      "id": "roots-irrationals/t1/033",
+      "tier": 1,
+      "prompt": "x³ = 8. x?",
+      "choices": [
+        "2",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TRIPLED",
+        "HALVED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "2 × 2 × 2 = 8, so the cube root of 8 is 2."
+    },
+    {
+      "id": "roots-irrationals/t1/034",
+      "tier": 1,
+      "prompt": "Cube root of 64?",
+      "choices": [
+        "8",
+        "4",
+        "12",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_ROOT_FOR_CUBE",
+        null,
+        "TRIPLED",
+        "NOT_ROOTED"
+      ],
+      "explanation": "4 × 4 × 4 = 64, so the cube root of 64 is 4."
+    },
+    {
+      "id": "roots-irrationals/t1/035",
+      "tier": 1,
+      "prompt": "All solutions of x² = 100?",
+      "choices": [
+        "100 or −100",
+        "10",
+        "10 or −10",
+        "50 or −50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "POSITIVE_ONLY",
+        null,
+        "HALVED"
+      ],
+      "explanation": "10 × 10 = 100 and (−10) × (−10) = 100. Both 10 and −10 work."
+    },
+    {
+      "id": "roots-irrationals/t1/036",
+      "tier": 1,
+      "prompt": "√4 = ?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NOT_ROOTED",
+        "ARITH"
+      ],
+      "explanation": "2 × 2 = 4, so √4 = 2."
+    },
+    {
+      "id": "roots-irrationals/t1/037",
+      "tier": 1,
+      "prompt": "x² = 4 and x < 0. x?",
+      "choices": [
+        "−4",
+        "−3",
+        "2",
+        "−2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NOT_ROOTED",
+        "ARITH",
+        "POSITIVE_ONLY",
+        null
+      ],
+      "explanation": "2 × 2 = 4 and (−2) × (−2) = 4. x is negative, so x = −2."
+    },
+    {
+      "id": "roots-irrationals/t1/038",
+      "tier": 1,
+      "prompt": "x² = 100 and x < 0. x?",
+      "choices": [
+        "−50",
+        "−100",
+        "−10",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "POSITIVE_ONLY"
+      ],
+      "explanation": "10 × 10 = 100 and (−10) × (−10) = 100. x is negative, so x = −10."
+    },
+    {
+      "id": "roots-irrationals/t1/039",
+      "tier": 1,
+      "prompt": "All solutions of x² = 16?",
+      "choices": [
+        "4",
+        "16 or −16",
+        "8 or −8",
+        "4 or −4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "POSITIVE_ONLY",
+        "NOT_ROOTED",
+        "HALVED",
+        null
+      ],
+      "explanation": "4 × 4 = 16 and (−4) × (−4) = 16. Both 4 and −4 work."
+    },
+    {
+      "id": "roots-irrationals/t1/040",
+      "tier": 1,
+      "prompt": "√25 = ?",
+      "choices": [
+        "12.5",
+        "25",
+        "5",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NOT_ROOTED",
+        null,
+        "DOUBLED"
+      ],
+      "explanation": "5 × 5 = 25, so √25 = 5."
+    },
+    {
+      "id": "roots-irrationals/t2/001",
+      "tier": 2,
+      "prompt": "0.5 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "0.5 ends, so it is a fraction (1/2): rational."
+    },
+    {
+      "id": "roots-irrationals/t2/002",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.333..., √16, π, 7/9?",
+      "choices": [
+        "7/9",
+        "π",
+        "√16",
+        "0.333..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/003",
+      "tier": 2,
+      "prompt": "√4 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "√4 = 2, a whole number, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/004",
+      "tier": 2,
+      "prompt": "Which is rational: 0.777..., √19, √38, √40?",
+      "choices": [
+        "0.777...",
+        "√40",
+        "√38",
+        "√19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "0.777... repeats, so it is the fraction 7/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/005",
+      "tier": 2,
+      "prompt": "Which is irrational: π, √9, 1/6, 0.8333...?",
+      "choices": [
+        "1/6",
+        "π",
+        "0.8333...",
+        "√9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "REPEAT_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/006",
+      "tier": 2,
+      "prompt": "√64 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "√64 = 8, a whole number, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/007",
+      "tier": 2,
+      "prompt": "√38 is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "38 is not a perfect square, so √38 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/008",
+      "tier": 2,
+      "prompt": "Which is rational: √8, √23, √35, √64?",
+      "choices": [
+        "√8",
+        "√23",
+        "√64",
+        "√35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√64 = 8, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/009",
+      "tier": 2,
+      "prompt": "Which is rational: √30, √18, √19, 0.555...?",
+      "choices": [
+        "√18",
+        "0.555...",
+        "√30",
+        "√19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "0.555... repeats, so it is the fraction 5/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/010",
+      "tier": 2,
+      "prompt": "A square has area 18. Its side is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "Side = √18. 18 is not a perfect square, so the side is irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/011",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.777..., π, √9, 4/11?",
+      "choices": [
+        "√9",
+        "0.777...",
+        "π",
+        "4/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/012",
+      "tier": 2,
+      "prompt": "Which is rational: 1.5, √6, √30, π?",
+      "choices": [
+        "1.5",
+        "√30",
+        "π",
+        "√6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "1.5 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/013",
+      "tier": 2,
+      "prompt": "Which is rational: π, √21, √31, 0.25?",
+      "choices": [
+        "√21",
+        "0.25",
+        "√31",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "0.25 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/014",
+      "tier": 2,
+      "prompt": "A circle has diameter 1. Circumference?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "Circumference = π × diameter = π, which never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/015",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.777..., 3/7, √64, √21?",
+      "choices": [
+        "√64",
+        "√21",
+        "3/7",
+        "0.777..."
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "21 is not a perfect square, so √21 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/016",
+      "tier": 2,
+      "prompt": "0.333... is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "A repeating decimal is a fraction (1/3), so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/017",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.4545..., √6, √9, 1.25?",
+      "choices": [
+        "√6",
+        "√9",
+        "1.25",
+        "0.4545..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "6 is not a perfect square, so √6 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/018",
+      "tier": 2,
+      "prompt": "Which is rational: π, √10, √36, √18?",
+      "choices": [
+        "π",
+        "√18",
+        "√36",
+        "√10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√36 = 6, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/019",
+      "tier": 2,
+      "prompt": "Which is irrational: √29, 5/12, 0.4545..., √81?",
+      "choices": [
+        "√29",
+        "√81",
+        "0.4545...",
+        "5/12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "29 is not a perfect square, so √29 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/020",
+      "tier": 2,
+      "prompt": "Which is rational: π, √32, √21, 0.777...?",
+      "choices": [
+        "√21",
+        "√32",
+        "π",
+        "0.777..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.777... repeats, so it is the fraction 7/9: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/021",
+      "tier": 2,
+      "prompt": "Which is rational: 0.75, π, √8, √2?",
+      "choices": [
+        "√2",
+        "√8",
+        "π",
+        "0.75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.75 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/022",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.6, √25, 0.1818..., √31?",
+      "choices": [
+        "√25",
+        "0.1818...",
+        "√31",
+        "0.6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "31 is not a perfect square, so √31 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/023",
+      "tier": 2,
+      "prompt": "Which is irrational: 1/6, √13, 0.1818..., √36?",
+      "choices": [
+        "√36",
+        "0.1818...",
+        "1/6",
+        "√13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "13 is not a perfect square, so √13 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/024",
+      "tier": 2,
+      "prompt": "Which is irrational: √35, √9, 1/6, 0.4545...?",
+      "choices": [
+        "√9",
+        "1/6",
+        "0.4545...",
+        "√35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        null
+      ],
+      "explanation": "35 is not a perfect square, so √35 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/025",
+      "tier": 2,
+      "prompt": "π is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        null
+      ],
+      "explanation": "π never ends and never repeats, so it is irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/026",
+      "tier": 2,
+      "prompt": "3/7 is?",
+      "choices": [
+        "Rational",
+        "Irrational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL"
+      ],
+      "explanation": "3/7 is a fraction of whole numbers, so it is rational."
+    },
+    {
+      "id": "roots-irrationals/t2/027",
+      "tier": 2,
+      "prompt": "Which is rational: √33, √7, 0.2727..., √2?",
+      "choices": [
+        "√7",
+        "√2",
+        "√33",
+        "0.2727..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.2727... repeats, so it is the fraction 3/11: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/028",
+      "tier": 2,
+      "prompt": "Which is irrational: 0.4545..., √38, √64, 1.5?",
+      "choices": [
+        "√38",
+        "1.5",
+        "0.4545...",
+        "√64"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "38 is not a perfect square, so √38 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/029",
+      "tier": 2,
+      "prompt": "Which is rational: √34, √27, √18, 0.333...?",
+      "choices": [
+        "√34",
+        "√27",
+        "√18",
+        "0.333..."
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "0.333... repeats, so it is the fraction 1/3: rational. The others are not."
+    },
+    {
+      "id": "roots-irrationals/t2/030",
+      "tier": 2,
+      "prompt": "Which is irrational: √7, 3/7, 0.777..., √49?",
+      "choices": [
+        "√7",
+        "√49",
+        "3/7",
+        "0.777..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "7 is not a perfect square, so √7 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/031",
+      "tier": 2,
+      "prompt": "√92 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "92 is not a perfect square, so √92 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/032",
+      "tier": 2,
+      "prompt": "Which is rational: √32, √49, π, √29?",
+      "choices": [
+        "√29",
+        "π",
+        "√49",
+        "√32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_IS_RATIONAL",
+        "PI_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√49 = 7, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/033",
+      "tier": 2,
+      "prompt": "Which is rational: 1.25, √8, √21, π?",
+      "choices": [
+        "π",
+        "√8",
+        "√21",
+        "1.25"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null
+      ],
+      "explanation": "1.25 is a fraction or ends: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/034",
+      "tier": 2,
+      "prompt": "√85 is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "85 is not a perfect square, so √85 never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/035",
+      "tier": 2,
+      "prompt": "Which is irrational: 4/11, √24, 0.2727..., √49?",
+      "choices": [
+        "0.2727...",
+        "√24",
+        "4/11",
+        "√49"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REPEAT_IS_IRRATIONAL",
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "24 is not a perfect square, so √24 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/036",
+      "tier": 2,
+      "prompt": "Which is irrational: 1.5, 0.777..., π, √64?",
+      "choices": [
+        "π",
+        "1.5",
+        "√64",
+        "0.777..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NONWHOLE_IS_IRRATIONAL",
+        "ROOT_IS_IRRATIONAL",
+        "REPEAT_IS_IRRATIONAL"
+      ],
+      "explanation": "π never ends or repeats: irrational. The others are fractions or whole numbers."
+    },
+    {
+      "id": "roots-irrationals/t2/037",
+      "tier": 2,
+      "prompt": "A circle has radius 1. Its area is?",
+      "choices": [
+        "Irrational",
+        "Rational"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PI_IS_RATIONAL"
+      ],
+      "explanation": "Area = π × 1 × 1 = π, which never ends or repeats: irrational."
+    },
+    {
+      "id": "roots-irrationals/t2/038",
+      "tier": 2,
+      "prompt": "Which is rational: √17, √19, π, √49?",
+      "choices": [
+        "π",
+        "√49",
+        "√17",
+        "√19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL",
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√49 = 7, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t2/039",
+      "tier": 2,
+      "prompt": "Which is irrational: √49, 2.4, 0.777..., √11?",
+      "choices": [
+        "0.777...",
+        "2.4",
+        "√11",
+        "√49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REPEAT_IS_IRRATIONAL",
+        "NONWHOLE_IS_IRRATIONAL",
+        null,
+        "ROOT_IS_IRRATIONAL"
+      ],
+      "explanation": "11 is not a perfect square, so √11 is irrational. The others are rational."
+    },
+    {
+      "id": "roots-irrationals/t2/040",
+      "tier": 2,
+      "prompt": "Which is rational: π, √35, √34, √64?",
+      "choices": [
+        "π",
+        "√34",
+        "√64",
+        "√35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PI_IS_RATIONAL",
+        "ROOT_IS_RATIONAL",
+        null,
+        "ROOT_IS_RATIONAL"
+      ],
+      "explanation": "√64 = 8, a whole number: rational. The others never end or repeat."
+    },
+    {
+      "id": "roots-irrationals/t3/001",
+      "tier": 3,
+      "prompt": "x = 0.888... Then 10x − x = ?",
+      "choices": [
+        "7.2",
+        "8.888...",
+        "0.8",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TRUNCATED_REPEAT",
+        "TIMES_ONLY",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "10x = 8.888... and x = 0.888.... Subtract: 9x = 8, so 10x − x = 8."
+    },
+    {
+      "id": "roots-irrationals/t3/002",
+      "tier": 3,
+      "prompt": "0.444... as a fraction?",
+      "choices": [
+        "4/11",
+        "4/9",
+        "1/2",
+        "2/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROUNDED_UP",
+        "OVER_TEN"
+      ],
+      "explanation": "One digit repeats, so 0.444... = 4/9."
+    },
+    {
+      "id": "roots-irrationals/t3/003",
+      "tier": 3,
+      "prompt": "x = 0.9090... Then 100x − x = ?",
+      "choices": [
+        "90",
+        "99",
+        "90.9090...",
+        "89.1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NINES_ONLY",
+        "TIMES_ONLY",
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "100x = 90.9090... and x = 0.9090.... Subtract: 99x = 90, so 100x − x = 90."
+    },
+    {
+      "id": "roots-irrationals/t3/004",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.9090...?",
+      "choices": [
+        "10/11",
+        "8/11",
+        "9/11",
+        "9/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.9090... = 90/99 = 10/11."
+    },
+    {
+      "id": "roots-irrationals/t3/005",
+      "tier": 3,
+      "prompt": "0.1666... as a fraction?",
+      "choices": [
+        "17/100",
+        "1/6",
+        "1/7",
+        "4/25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_UP",
+        null,
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.1666... = 1/6."
+    },
+    {
+      "id": "roots-irrationals/t3/006",
+      "tier": 3,
+      "prompt": "x = 0.333... Then 10x − x = ?",
+      "choices": [
+        "9",
+        "0.3",
+        "3",
+        "3.333..."
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NINES_ONLY",
+        "DECIMAL_SLIP",
+        null,
+        "TIMES_ONLY"
+      ],
+      "explanation": "10x = 3.333... and x = 0.333.... Subtract: 9x = 3, so 10x − x = 3."
+    },
+    {
+      "id": "roots-irrationals/t3/007",
+      "tier": 3,
+      "prompt": "x = 0.0909... Then 100x − x = ?",
+      "choices": [
+        "0.09",
+        "8.91",
+        "99",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "NINES_ONLY",
+        null
+      ],
+      "explanation": "100x = 9.0909... and x = 0.0909.... Subtract: 99x = 9, so 100x − x = 9."
+    },
+    {
+      "id": "roots-irrationals/t3/008",
+      "tier": 3,
+      "prompt": "0.666... as a fraction?",
+      "choices": [
+        "2/3",
+        "3/5",
+        "5/9",
+        "7/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OVER_TEN",
+        "ARITH",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.666... = 6/9 = 2/3."
+    },
+    {
+      "id": "roots-irrationals/t3/009",
+      "tier": 3,
+      "prompt": "0.9090... as a fraction?",
+      "choices": [
+        "10/11",
+        "8/11",
+        "9/11",
+        "9/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.9090... = 90/99 = 10/11."
+    },
+    {
+      "id": "roots-irrationals/t3/010",
+      "tier": 3,
+      "prompt": "0.6363... as a fraction?",
+      "choices": [
+        "7/9",
+        "5/11",
+        "63/100",
+        "7/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "ARITH",
+        "OVER_HUNDRED",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.6363... = 63/99 = 7/11."
+    },
+    {
+      "id": "roots-irrationals/t3/011",
+      "tier": 3,
+      "prompt": "0.555... as a fraction?",
+      "choices": [
+        "3/5",
+        "1/2",
+        "5/8",
+        "5/9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "OVER_TEN",
+        "ARITH",
+        null
+      ],
+      "explanation": "One digit repeats, so 0.555... = 5/9."
+    },
+    {
+      "id": "roots-irrationals/t3/012",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.4545...?",
+      "choices": [
+        "9/20",
+        "5/9",
+        "5/11",
+        "7/11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        "NINTHS_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.4545... = 45/99 = 5/11."
+    },
+    {
+      "id": "roots-irrationals/t3/013",
+      "tier": 3,
+      "prompt": "0.3636... as a fraction?",
+      "choices": [
+        "2/11",
+        "4/9",
+        "4/11",
+        "9/25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "NINTHS_ONLY",
+        null,
+        "OVER_HUNDRED"
+      ],
+      "explanation": "Two digits repeat: 0.3636... = 36/99 = 4/11."
+    },
+    {
+      "id": "roots-irrationals/t3/014",
+      "tier": 3,
+      "prompt": "0.1 as a fraction?",
+      "choices": [
+        "1/10",
+        "1",
+        "1/9",
+        "1/100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIGIT_AS_DENOM",
+        "NINE_FOR_TERMINATING",
+        "PLACE_VALUE_SLIP"
+      ],
+      "explanation": "0.1 = 1/10."
+    },
+    {
+      "id": "roots-irrationals/t3/015",
+      "tier": 3,
+      "prompt": "x = 0.777... Then 10x − x = ?",
+      "choices": [
+        "7.777...",
+        "7",
+        "0.7",
+        "6.3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_ONLY",
+        null,
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "10x = 7.777... and x = 0.777.... Subtract: 9x = 7, so 10x − x = 7."
+    },
+    {
+      "id": "roots-irrationals/t3/016",
+      "tier": 3,
+      "prompt": "0.7272... as a fraction?",
+      "choices": [
+        "18/25",
+        "8/11",
+        "8/9",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.7272... = 72/99 = 8/11."
+    },
+    {
+      "id": "roots-irrationals/t3/017",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.333...?",
+      "choices": [
+        "3/10",
+        "1/3",
+        "2/5",
+        "4/9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_TEN",
+        null,
+        "ROUNDED_UP",
+        "ARITH"
+      ],
+      "explanation": "One digit repeats, so 0.333... = 3/9 = 1/3."
+    },
+    {
+      "id": "roots-irrationals/t3/018",
+      "tier": 3,
+      "prompt": "x = 0.6363... Then 100x − x = ?",
+      "choices": [
+        "63.6363...",
+        "99",
+        "63",
+        "62.37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_ONLY",
+        "NINES_ONLY",
+        null,
+        "TRUNCATED_REPEAT"
+      ],
+      "explanation": "100x = 63.6363... and x = 0.6363.... Subtract: 99x = 63, so 100x − x = 63."
+    },
+    {
+      "id": "roots-irrationals/t3/019",
+      "tier": 3,
+      "prompt": "0.375 as a fraction?",
+      "choices": [
+        "1/375",
+        "15/4",
+        "125/333",
+        "3/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIGIT_AS_DENOM",
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        null
+      ],
+      "explanation": "0.375 = 375/1000 = 3/8."
+    },
+    {
+      "id": "roots-irrationals/t3/020",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.8181...?",
+      "choices": [
+        "9/11",
+        "9/10",
+        "81/100",
+        "3/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "OVER_HUNDRED",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.8181... = 81/99 = 9/11."
+    },
+    {
+      "id": "roots-irrationals/t3/021",
+      "tier": 3,
+      "prompt": "0.875 as a fraction?",
+      "choices": [
+        "7/8",
+        "35/4",
+        "875/999",
+        "1/875"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.875 = 875/1000 = 7/8."
+    },
+    {
+      "id": "roots-irrationals/t3/022",
+      "tier": 3,
+      "prompt": "0.1818... as a fraction?",
+      "choices": [
+        "2/9",
+        "3/11",
+        "9/50",
+        "2/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "ARITH",
+        "OVER_HUNDRED",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.1818... = 18/99 = 2/11."
+    },
+    {
+      "id": "roots-irrationals/t3/023",
+      "tier": 3,
+      "prompt": "0.2 as a fraction?",
+      "choices": [
+        "1/5",
+        "1/50",
+        "2/9",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PLACE_VALUE_SLIP",
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.2 = 2/10 = 1/5."
+    },
+    {
+      "id": "roots-irrationals/t3/024",
+      "tier": 3,
+      "prompt": "x = 0.2727... Then 100x − x = ?",
+      "choices": [
+        "27",
+        "0.27",
+        "26.73",
+        "27.2727..."
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "TIMES_ONLY"
+      ],
+      "explanation": "100x = 27.2727... and x = 0.2727.... Subtract: 99x = 27, so 100x − x = 27."
+    },
+    {
+      "id": "roots-irrationals/t3/025",
+      "tier": 3,
+      "prompt": "x = 0.222... Then 10x − x = ?",
+      "choices": [
+        "9",
+        "2.222...",
+        "2",
+        "0.2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NINES_ONLY",
+        "TIMES_ONLY",
+        null,
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10x = 2.222... and x = 0.222.... Subtract: 9x = 2, so 10x − x = 2."
+    },
+    {
+      "id": "roots-irrationals/t3/026",
+      "tier": 3,
+      "prompt": "x = 0.8181... Then 100x − x = ?",
+      "choices": [
+        "0.81",
+        "80.19",
+        "99",
+        "81"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "TRUNCATED_REPEAT",
+        "NINES_ONLY",
+        null
+      ],
+      "explanation": "100x = 81.8181... and x = 0.8181.... Subtract: 99x = 81, so 100x − x = 81."
+    },
+    {
+      "id": "roots-irrationals/t3/027",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.8333...?",
+      "choices": [
+        "21/25",
+        "5/6",
+        "83/100",
+        "5/7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_UP",
+        null,
+        "OVER_HUNDRED",
+        "ARITH"
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.8333... = 5/6."
+    },
+    {
+      "id": "roots-irrationals/t3/028",
+      "tier": 3,
+      "prompt": "0.777... as a fraction?",
+      "choices": [
+        "7/9",
+        "7/10",
+        "5/9",
+        "4/5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OVER_TEN",
+        "ARITH",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.777... = 7/9."
+    },
+    {
+      "id": "roots-irrationals/t3/029",
+      "tier": 3,
+      "prompt": "0.5 as a fraction?",
+      "choices": [
+        "1/20",
+        "1/2",
+        "5/9",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        null,
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.5 = 5/10 = 1/2."
+    },
+    {
+      "id": "roots-irrationals/t3/030",
+      "tier": 3,
+      "prompt": "0.4 as a fraction?",
+      "choices": [
+        "1/25",
+        "1/4",
+        "2/5",
+        "4/9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        "DIGIT_AS_DENOM",
+        null,
+        "NINE_FOR_TERMINATING"
+      ],
+      "explanation": "0.4 = 4/10 = 2/5."
+    },
+    {
+      "id": "roots-irrationals/t3/031",
+      "tier": 3,
+      "prompt": "0.5454... as a fraction?",
+      "choices": [
+        "5/11",
+        "27/50",
+        "6/11",
+        "2/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY"
+      ],
+      "explanation": "Two digits repeat: 0.5454... = 54/99 = 6/11."
+    },
+    {
+      "id": "roots-irrationals/t3/032",
+      "tier": 3,
+      "prompt": "0.125 as a fraction?",
+      "choices": [
+        "1/125",
+        "125/999",
+        "1/8",
+        "5/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGIT_AS_DENOM",
+        "NINE_FOR_TERMINATING",
+        null,
+        "PLACE_VALUE_SLIP"
+      ],
+      "explanation": "0.125 = 125/1000 = 1/8."
+    },
+    {
+      "id": "roots-irrationals/t3/033",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.1818...?",
+      "choices": [
+        "2/9",
+        "9/50",
+        "1/5",
+        "2/11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NINTHS_ONLY",
+        "OVER_HUNDRED",
+        "ARITH",
+        null
+      ],
+      "explanation": "Two digits repeat: 0.1818... = 18/99 = 2/11."
+    },
+    {
+      "id": "roots-irrationals/t3/034",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.444...?",
+      "choices": [
+        "1/2",
+        "4/11",
+        "4/9",
+        "2/5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "ARITH",
+        null,
+        "OVER_TEN"
+      ],
+      "explanation": "One digit repeats, so 0.444... = 4/9."
+    },
+    {
+      "id": "roots-irrationals/t3/035",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.777...?",
+      "choices": [
+        "5/9",
+        "7/9",
+        "7/10",
+        "4/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OVER_TEN",
+        "ROUNDED_UP"
+      ],
+      "explanation": "One digit repeats, so 0.777... = 7/9."
+    },
+    {
+      "id": "roots-irrationals/t3/036",
+      "tier": 3,
+      "prompt": "0.625 as a fraction?",
+      "choices": [
+        "25/4",
+        "5/8",
+        "625/999",
+        "1/625"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PLACE_VALUE_SLIP",
+        null,
+        "NINE_FOR_TERMINATING",
+        "DIGIT_AS_DENOM"
+      ],
+      "explanation": "0.625 = 625/1000 = 5/8."
+    },
+    {
+      "id": "roots-irrationals/t3/037",
+      "tier": 3,
+      "prompt": "Which fraction equals 0.7272...?",
+      "choices": [
+        "18/25",
+        "8/11",
+        "8/9",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        null,
+        "NINTHS_ONLY",
+        "ARITH"
+      ],
+      "explanation": "Two digits repeat: 0.7272... = 72/99 = 8/11."
+    },
+    {
+      "id": "roots-irrationals/t3/038",
+      "tier": 3,
+      "prompt": "x = 0.1818... Then 100x − x = ?",
+      "choices": [
+        "0.18",
+        "99",
+        "18",
+        "18.1818..."
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "NINES_ONLY",
+        null,
+        "TIMES_ONLY"
+      ],
+      "explanation": "100x = 18.1818... and x = 0.1818.... Subtract: 99x = 18, so 100x − x = 18."
+    },
+    {
+      "id": "roots-irrationals/t3/039",
+      "tier": 3,
+      "prompt": "0.8333... as a fraction?",
+      "choices": [
+        "83/100",
+        "1/5",
+        "21/25",
+        "5/6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OVER_HUNDRED",
+        "ARITH",
+        "ROUNDED_UP",
+        null
+      ],
+      "explanation": "1/6 = 0.1666... and 5/6 = 0.8333...; 0.8333... = 5/6."
+    },
+    {
+      "id": "roots-irrationals/t3/040",
+      "tier": 3,
+      "prompt": "0.333... as a fraction?",
+      "choices": [
+        "2/5",
+        "3/10",
+        "3/8",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_UP",
+        "OVER_TEN",
+        "ARITH",
+        null
+      ],
+      "explanation": "One digit repeats, so 0.333... = 3/9 = 1/3."
+    },
+    {
+      "id": "roots-irrationals/t4/001",
+      "tier": 4,
+      "prompt": "√56 is about?",
+      "choices": [
+        "49",
+        "7.5",
+        "28",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "56 is halfway between 7² = 49 and 8² = 64, so √56 is about 7.5."
+    },
+    {
+      "id": "roots-irrationals/t4/002",
+      "tier": 4,
+      "prompt": "√30 is between which two whole numbers?",
+      "choices": [
+        "15 and 16",
+        "4 and 5",
+        "25 and 36",
+        "5 and 6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS",
+        null
+      ],
+      "explanation": "5² = 25 and 6² = 36. 30 is between, so √30 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t4/003",
+      "tier": 4,
+      "prompt": "√58 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "8 and 9",
+        "49 and 64",
+        "6 and 7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "7² = 49 and 8² = 64. 58 is between, so √58 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t4/004",
+      "tier": 4,
+      "prompt": "Nearest whole number to √95?",
+      "choices": [
+        "9",
+        "10",
+        "47.5",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        null,
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "95 is close to 100 = 10 × 10, so √95 is about 10."
+    },
+    {
+      "id": "roots-irrationals/t4/005",
+      "tier": 4,
+      "prompt": "√76 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "8 and 9",
+        "7 and 8",
+        "64 and 81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8² = 64 and 9² = 81. 76 is between, so √76 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/006",
+      "tier": 4,
+      "prompt": "Square area 47. Side is between which whole numbers?",
+      "choices": [
+        "36 and 49",
+        "6 and 7",
+        "7 and 8",
+        "5 and 6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "6² = 36 and 7² = 49. 47 is between, so √47 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/007",
+      "tier": 4,
+      "prompt": "Square area 79. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "9 and 10",
+        "39 and 40",
+        "64 and 81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8² = 64 and 9² = 81. 79 is between, so √79 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/008",
+      "tier": 4,
+      "prompt": "Nearest whole number to √33?",
+      "choices": [
+        "16.5",
+        "6",
+        "36",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "ROUNDED_WRONG"
+      ],
+      "explanation": "33 is close to 36 = 6 × 6, so √33 is about 6."
+    },
+    {
+      "id": "roots-irrationals/t4/009",
+      "tier": 4,
+      "prompt": "Square area 99. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "10 and 11",
+        "81 and 100",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        null
+      ],
+      "explanation": "9² = 81 and 10² = 100. 99 is between, so √99 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/010",
+      "tier": 4,
+      "prompt": "√42 is about?",
+      "choices": [
+        "36",
+        "6.5",
+        "49",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED"
+      ],
+      "explanation": "42 is halfway between 6² = 36 and 7² = 49, so √42 is about 6.5."
+    },
+    {
+      "id": "roots-irrationals/t4/011",
+      "tier": 4,
+      "prompt": "Square area 92. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "81 and 100",
+        "46 and 47",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS",
+        "HALVED",
+        null
+      ],
+      "explanation": "9² = 81 and 10² = 100. 92 is between, so √92 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/012",
+      "tier": 4,
+      "prompt": "√43 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "21 and 22",
+        "6 and 7",
+        "5 and 6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "6² = 36 and 7² = 49. 43 is between, so √43 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/013",
+      "tier": 4,
+      "prompt": "√44 is between which two whole numbers?",
+      "choices": [
+        "36 and 49",
+        "6 and 7",
+        "5 and 6",
+        "22 and 23"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "HALVED"
+      ],
+      "explanation": "6² = 36 and 7² = 49. 44 is between, so √44 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t4/014",
+      "tier": 4,
+      "prompt": "Nearest whole number to √5?",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 is close to 4 = 2 × 2, so √5 is about 2."
+    },
+    {
+      "id": "roots-irrationals/t4/015",
+      "tier": 4,
+      "prompt": "√30 is about?",
+      "choices": [
+        "15",
+        "36",
+        "25",
+        "5.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "30 is halfway between 5² = 25 and 6² = 36, so √30 is about 5.5."
+    },
+    {
+      "id": "roots-irrationals/t4/016",
+      "tier": 4,
+      "prompt": "Nearest whole number to √53?",
+      "choices": [
+        "26.5",
+        "8",
+        "49",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "53 is close to 49 = 7 × 7, so √53 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/017",
+      "tier": 4,
+      "prompt": "√93 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "46 and 47",
+        "8 and 9",
+        "81 and 100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "9² = 81 and 10² = 100. 93 is between, so √93 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/018",
+      "tier": 4,
+      "prompt": "√67 is between which two whole numbers?",
+      "choices": [
+        "8 and 9",
+        "7 and 8",
+        "9 and 10",
+        "33 and 34"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "8² = 64 and 9² = 81. 67 is between, so √67 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/019",
+      "tier": 4,
+      "prompt": "√12 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "4 and 5",
+        "3 and 4",
+        "6 and 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        null,
+        "HALVED"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 12 is between, so √12 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/020",
+      "tier": 4,
+      "prompt": "Nearest whole number to √17?",
+      "choices": [
+        "8.5",
+        "5",
+        "4",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "ROUNDED_WRONG",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "17 is close to 16 = 4 × 4, so √17 is about 4."
+    },
+    {
+      "id": "roots-irrationals/t4/021",
+      "tier": 4,
+      "prompt": "Nearest whole number to √97?",
+      "choices": [
+        "48.5",
+        "100",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null,
+        "ROUNDED_WRONG"
+      ],
+      "explanation": "97 is close to 100 = 10 × 10, so √97 is about 10."
+    },
+    {
+      "id": "roots-irrationals/t4/022",
+      "tier": 4,
+      "prompt": "√8 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "4 and 9",
+        "2 and 3",
+        "1 and 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "2² = 4 and 3² = 9. 8 is between, so √8 is between 2 and 3."
+    },
+    {
+      "id": "roots-irrationals/t4/023",
+      "tier": 4,
+      "prompt": "√92 is between which two whole numbers?",
+      "choices": [
+        "9 and 10",
+        "81 and 100",
+        "10 and 11",
+        "46 and 47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "9² = 81 and 10² = 100. 92 is between, so √92 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/024",
+      "tier": 4,
+      "prompt": "√26 is between which two whole numbers?",
+      "choices": [
+        "5 and 6",
+        "4 and 5",
+        "6 and 7",
+        "13 and 14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "5² = 25 and 6² = 36. 26 is between, so √26 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t4/025",
+      "tier": 4,
+      "prompt": "Nearest whole number to √45?",
+      "choices": [
+        "7",
+        "22.5",
+        "6",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "ROUNDED_WRONG",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "45 is close to 49 = 7 × 7, so √45 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/026",
+      "tier": 4,
+      "prompt": "√11 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "5 and 6",
+        "2 and 3",
+        "4 and 5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 11 is between, so √11 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/027",
+      "tier": 4,
+      "prompt": "√3 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "0 and 1",
+        "1 and 2",
+        "1 and 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "1² = 1 and 2² = 4. 3 is between, so √3 is between 1 and 2."
+    },
+    {
+      "id": "roots-irrationals/t4/028",
+      "tier": 4,
+      "prompt": "Square area 82. Side is between which whole numbers?",
+      "choices": [
+        "41 and 42",
+        "81 and 100",
+        "8 and 9",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_DOWN",
+        null
+      ],
+      "explanation": "9² = 81 and 10² = 100. 82 is between, so √82 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/029",
+      "tier": 4,
+      "prompt": "√83 is between which two whole numbers?",
+      "choices": [
+        "10 and 11",
+        "81 and 100",
+        "41 and 42",
+        "9 and 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "SQUARES_NOT_ROOTS",
+        "HALVED",
+        null
+      ],
+      "explanation": "9² = 81 and 10² = 100. 83 is between, so √83 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/030",
+      "tier": 4,
+      "prompt": "√90 is about?",
+      "choices": [
+        "9.5",
+        "100",
+        "45",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "90 is halfway between 9² = 81 and 10² = 100, so √90 is about 9.5."
+    },
+    {
+      "id": "roots-irrationals/t4/031",
+      "tier": 4,
+      "prompt": "Square area 89. Side is between which whole numbers?",
+      "choices": [
+        "8 and 9",
+        "44 and 45",
+        "9 and 10",
+        "81 and 100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "HALVED",
+        null,
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "9² = 81 and 10² = 100. 89 is between, so √89 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/032",
+      "tier": 4,
+      "prompt": "Nearest whole number to √48?",
+      "choices": [
+        "6",
+        "7",
+        "49",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROUNDED_WRONG",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED"
+      ],
+      "explanation": "48 is close to 49 = 7 × 7, so √48 is about 7."
+    },
+    {
+      "id": "roots-irrationals/t4/033",
+      "tier": 4,
+      "prompt": "√20 is about?",
+      "choices": [
+        "16",
+        "10",
+        "4.5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEAREST_SQUARE_NOT_ROOT",
+        "HALVED",
+        null,
+        "NEAREST_SQUARE_NOT_ROOT"
+      ],
+      "explanation": "20 is halfway between 4² = 16 and 5² = 25, so √20 is about 4.5."
+    },
+    {
+      "id": "roots-irrationals/t4/034",
+      "tier": 4,
+      "prompt": "√65 is between which two whole numbers?",
+      "choices": [
+        "7 and 8",
+        "8 and 9",
+        "32 and 33",
+        "64 and 81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        null,
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "8² = 64 and 9² = 81. 65 is between, so √65 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t4/035",
+      "tier": 4,
+      "prompt": "√72 is about?",
+      "choices": [
+        "36",
+        "64",
+        "81",
+        "8.5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALVED",
+        "NEAREST_SQUARE_NOT_ROOT",
+        "NEAREST_SQUARE_NOT_ROOT",
+        null
+      ],
+      "explanation": "72 is halfway between 8² = 64 and 9² = 81, so √72 is about 8.5."
+    },
+    {
+      "id": "roots-irrationals/t4/036",
+      "tier": 4,
+      "prompt": "√10 is between which two whole numbers?",
+      "choices": [
+        "3 and 4",
+        "4 and 5",
+        "5 and 6",
+        "9 and 16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        "SQUARES_NOT_ROOTS"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 10 is between, so √10 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t4/037",
+      "tier": 4,
+      "prompt": "√55 is between which two whole numbers?",
+      "choices": [
+        "6 and 7",
+        "8 and 9",
+        "7 and 8",
+        "27 and 28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        null,
+        "HALVED"
+      ],
+      "explanation": "7² = 49 and 8² = 64. 55 is between, so √55 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t4/038",
+      "tier": 4,
+      "prompt": "√98 is between which two whole numbers?",
+      "choices": [
+        "49 and 50",
+        "10 and 11",
+        "9 and 10",
+        "8 and 9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED",
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "9² = 81 and 10² = 100. 98 is between, so √98 is between 9 and 10."
+    },
+    {
+      "id": "roots-irrationals/t4/039",
+      "tier": 4,
+      "prompt": "√23 is between which two whole numbers?",
+      "choices": [
+        "16 and 25",
+        "5 and 6",
+        "11 and 12",
+        "4 and 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARES_NOT_ROOTS",
+        "NEXT_SQUARE_UP",
+        "HALVED",
+        null
+      ],
+      "explanation": "4² = 16 and 5² = 25. 23 is between, so √23 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t4/040",
+      "tier": 4,
+      "prompt": "√14 is between which two whole numbers?",
+      "choices": [
+        "2 and 3",
+        "3 and 4",
+        "4 and 5",
+        "7 and 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_DOWN",
+        null,
+        "NEXT_SQUARE_UP",
+        "HALVED"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 14 is between, so √14 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/001",
+      "tier": 5,
+      "prompt": "Least: √11, 6, √18?",
+      "choices": [
+        "√11",
+        "6",
+        "√18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ARITH"
+      ],
+      "explanation": "√11 is between 3 and 4; √18 is between 4 and 5. Both are below 6; √11 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/002",
+      "tier": 5,
+      "prompt": "Smaller: √31 or 10?",
+      "choices": [
+        "10",
+        "√31"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√31 is between 5 and 6, so √31 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/003",
+      "tier": 5,
+      "prompt": "Smaller: √17 or 5?",
+      "choices": [
+        "5",
+        "√17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√17 is between 4 and 5, so √17 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/004",
+      "tier": 5,
+      "prompt": "Least: 7, √37, √33?",
+      "choices": [
+        "√33",
+        "√37",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√33 is between 5 and 6; √37 is between 6 and 7. Both are below 7; √33 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/005",
+      "tier": 5,
+      "prompt": "Least to greatest: 4, 10, √43",
+      "choices": [
+        "10, √43, 4",
+        "√43, 4, 10",
+        "4, √43, 10",
+        "4, 10, √43"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        null,
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√43 is between 6 and 7. Sorted least to greatest: 4, √43, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/006",
+      "tier": 5,
+      "prompt": "π² is about?",
+      "choices": [
+        "6",
+        "10",
+        "3",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_FOR_POWER",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "π is about 3.14. π² = π × π, a bit under 10."
+    },
+    {
+      "id": "roots-irrationals/t5/007",
+      "tier": 5,
+      "prompt": "Which is between 8 and 9?",
+      "choices": [
+        "√91",
+        "√72",
+        "√56",
+        "√8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "8² = 64 and 9² = 81. 72 is between them, so √72 is between 8 and 9."
+    },
+    {
+      "id": "roots-irrationals/t5/008",
+      "tier": 5,
+      "prompt": "Greater: √32 or 7?",
+      "choices": [
+        "√32",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√32 is between 5 and 6, so 7 is the greater."
+    },
+    {
+      "id": "roots-irrationals/t5/009",
+      "tier": 5,
+      "prompt": "Greatest to least: √14, 10, 3",
+      "choices": [
+        "10, 3, √14",
+        "3, √14, 10",
+        "√14, 10, 3",
+        "10, √14, 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ORDER_REVERSED",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√14 is between 3 and 4. Sorted greatest to least: 10, √14, 3."
+    },
+    {
+      "id": "roots-irrationals/t5/010",
+      "tier": 5,
+      "prompt": "Least to greatest: 10, √14, 9",
+      "choices": [
+        "10, 9, √14",
+        "10, √14, 9",
+        "9, 10, √14",
+        "√14, 9, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "GIVEN_ORDER",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√14 is between 3 and 4. Sorted least to greatest: √14, 9, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/011",
+      "tier": 5,
+      "prompt": "Greatest: √30, √14, 6.5?",
+      "choices": [
+        "6.5",
+        "√14",
+        "√30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√30 is between 5 and 6; √14 is between 3 and 4. Both are below 6.5, so 6.5 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/012",
+      "tier": 5,
+      "prompt": "Smaller: √15 or 10?",
+      "choices": [
+        "√15",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√15 is between 3 and 4, so √15 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/013",
+      "tier": 5,
+      "prompt": "Least to greatest: 5, 2, √13",
+      "choices": [
+        "√13, 2, 5",
+        "5, 2, √13",
+        "2, √13, 5",
+        "2, 5, √13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√13 is between 3 and 4. Sorted least to greatest: 2, √13, 5."
+    },
+    {
+      "id": "roots-irrationals/t5/014",
+      "tier": 5,
+      "prompt": "Least to greatest: 8, 10, √58",
+      "choices": [
+        "8, √58, 10",
+        "10, 8, √58",
+        "8, 10, √58",
+        "√58, 8, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ORDER_REVERSED",
+        "GIVEN_ORDER",
+        null
+      ],
+      "explanation": "√58 is between 7 and 8. Sorted least to greatest: √58, 8, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/015",
+      "tier": 5,
+      "prompt": "Which is between 5 and 6?",
+      "choices": [
+        "√44",
+        "√22",
+        "√29",
+        "√5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "5² = 25 and 6² = 36. 29 is between them, so √29 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t5/016",
+      "tier": 5,
+      "prompt": "Which is between 4 and 5?",
+      "choices": [
+        "√31",
+        "√13",
+        "√21",
+        "√4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "4² = 16 and 5² = 25. 21 is between them, so √21 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t5/017",
+      "tier": 5,
+      "prompt": "Greatest: √22, √27, 6?",
+      "choices": [
+        "√22",
+        "√27",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√22 is between 4 and 5; √27 is between 5 and 6. Both are below 6, so 6 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/018",
+      "tier": 5,
+      "prompt": "Least to greatest: 8, √30, 5",
+      "choices": [
+        "8, √30, 5",
+        "√30, 5, 8",
+        "5, 8, √30",
+        "5, √30, 8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        "RADICAND_AS_VALUE",
+        null
+      ],
+      "explanation": "√30 is between 5 and 6. Sorted least to greatest: 5, √30, 8."
+    },
+    {
+      "id": "roots-irrationals/t5/019",
+      "tier": 5,
+      "prompt": "Greatest to least: 7, 10, √39",
+      "choices": [
+        "√39, 7, 10",
+        "10, 7, √39",
+        "√39, 10, 7",
+        "7, 10, √39"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        null,
+        "RADICAND_AS_VALUE",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√39 is between 6 and 7. Sorted greatest to least: 10, 7, √39."
+    },
+    {
+      "id": "roots-irrationals/t5/020",
+      "tier": 5,
+      "prompt": "Smaller: √70 or 5.5?",
+      "choices": [
+        "5.5",
+        "√70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√70 is between 8 and 9, so 5.5 is the smaller."
+    },
+    {
+      "id": "roots-irrationals/t5/021",
+      "tier": 5,
+      "prompt": "Which number lies between 4 and 5?",
+      "choices": [
+        "√19",
+        "√13",
+        "√32",
+        "√4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "4² = 16 and 5² = 25. 19 is between them, so √19 is between 4 and 5."
+    },
+    {
+      "id": "roots-irrationals/t5/022",
+      "tier": 5,
+      "prompt": "Which is between 3 and 4?",
+      "choices": [
+        "√20",
+        "√11",
+        "√7",
+        "√3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 11 is between them, so √11 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/023",
+      "tier": 5,
+      "prompt": "Greatest: 5.5, √20, √17?",
+      "choices": [
+        "√17",
+        "5.5",
+        "√20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√17 is between 4 and 5; √20 is between 4 and 5. Both are below 5.5, so 5.5 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/024",
+      "tier": 5,
+      "prompt": "Greatest: 6, √66, √7?",
+      "choices": [
+        "√7",
+        "√66",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√66 is between 8 and 9, above 6; √7 is between 2 and 3, below it. √66 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/025",
+      "tier": 5,
+      "prompt": "Greatest to least: √13, 3, 5",
+      "choices": [
+        "3, √13, 5",
+        "5, 3, √13",
+        "√13, 3, 5",
+        "5, √13, 3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER",
+        null
+      ],
+      "explanation": "√13 is between 3 and 4. Sorted greatest to least: 5, √13, 3."
+    },
+    {
+      "id": "roots-irrationals/t5/026",
+      "tier": 5,
+      "prompt": "Least to greatest: 7, 5, √19",
+      "choices": [
+        "√19, 5, 7",
+        "5, 7, √19",
+        "5, √19, 7",
+        "7, 5, √19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ARITH",
+        "ORDER_REVERSED"
+      ],
+      "explanation": "√19 is between 4 and 5. Sorted least to greatest: √19, 5, 7."
+    },
+    {
+      "id": "roots-irrationals/t5/027",
+      "tier": 5,
+      "prompt": "Which is between 6 and 7?",
+      "choices": [
+        "√44",
+        "√54",
+        "√29",
+        "√6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEXT_SQUARE_UP",
+        "NEXT_SQUARE_DOWN",
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "6² = 36 and 7² = 49. 44 is between them, so √44 is between 6 and 7."
+    },
+    {
+      "id": "roots-irrationals/t5/028",
+      "tier": 5,
+      "prompt": "Which number lies between 3 and 4?",
+      "choices": [
+        "√3",
+        "√6",
+        "√12",
+        "√22"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        null,
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "3² = 9 and 4² = 16. 12 is between them, so √12 is between 3 and 4."
+    },
+    {
+      "id": "roots-irrationals/t5/029",
+      "tier": 5,
+      "prompt": "Least: √78, √44, π?",
+      "choices": [
+        "√78",
+        "√44",
+        "π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ROOT_ALWAYS_SMALL",
+        null
+      ],
+      "explanation": "√44 is between 6 and 7; √78 is between 8 and 9. Both are above π, so π is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/030",
+      "tier": 5,
+      "prompt": "Least to greatest: √51, 10, 2",
+      "choices": [
+        "√51, 2, 10",
+        "10, √51, 2",
+        "2, √51, 10",
+        "2, 10, √51"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ORDER_REVERSED",
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√51 is between 7 and 8. Sorted least to greatest: 2, √51, 10."
+    },
+    {
+      "id": "roots-irrationals/t5/031",
+      "tier": 5,
+      "prompt": "Greater: √21 or 9.5?",
+      "choices": [
+        "9.5",
+        "√21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√21 is between 4 and 5, so 9.5 is the greater."
+    },
+    {
+      "id": "roots-irrationals/t5/032",
+      "tier": 5,
+      "prompt": "Least to greatest: √15, 6, √10",
+      "choices": [
+        "√10, √15, 6",
+        "6, √10, √15",
+        "6, √15, √10",
+        "√15, 6, √10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "ORDER_REVERSED",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√15 is between 3 and 4; √10 is between 3 and 4. Sorted least to greatest: √10, √15, 6."
+    },
+    {
+      "id": "roots-irrationals/t5/033",
+      "tier": 5,
+      "prompt": "Greatest: √78, π, √2?",
+      "choices": [
+        "π",
+        "√2",
+        "√78"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_ALWAYS_SMALL",
+        "ARITH",
+        null
+      ],
+      "explanation": "√78 is between 8 and 9, above π; √2 is between 1 and 2, below it. √78 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/034",
+      "tier": 5,
+      "prompt": "Which is between 7 and 8?",
+      "choices": [
+        "√73",
+        "√56",
+        "√7",
+        "√43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEXT_SQUARE_UP",
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN"
+      ],
+      "explanation": "7² = 49 and 8² = 64. 56 is between them, so √56 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t5/035",
+      "tier": 5,
+      "prompt": "Least: √95, √84, 7?",
+      "choices": [
+        "√95",
+        "7",
+        "√84"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ROOT_ALWAYS_SMALL"
+      ],
+      "explanation": "√95 is between 9 and 10; √84 is between 9 and 10. Both are above 7, so 7 is the least."
+    },
+    {
+      "id": "roots-irrationals/t5/036",
+      "tier": 5,
+      "prompt": "Which number lies between 5 and 6?",
+      "choices": [
+        "√30",
+        "√5",
+        "√20",
+        "√42"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "5² = 25 and 6² = 36. 30 is between them, so √30 is between 5 and 6."
+    },
+    {
+      "id": "roots-irrationals/t5/037",
+      "tier": 5,
+      "prompt": "Greatest: π, √2, √66?",
+      "choices": [
+        "√66",
+        "π",
+        "√2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_ALWAYS_SMALL",
+        "ARITH"
+      ],
+      "explanation": "√66 is between 8 and 9, above π; √2 is between 1 and 2, below it. √66 is the greatest."
+    },
+    {
+      "id": "roots-irrationals/t5/038",
+      "tier": 5,
+      "prompt": "Which number lies between 7 and 8?",
+      "choices": [
+        "√58",
+        "√7",
+        "√42",
+        "√75"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE",
+        "NEXT_SQUARE_DOWN",
+        "NEXT_SQUARE_UP"
+      ],
+      "explanation": "7² = 49 and 8² = 64. 58 is between them, so √58 is between 7 and 8."
+    },
+    {
+      "id": "roots-irrationals/t5/039",
+      "tier": 5,
+      "prompt": "Least to greatest: 9, 4, √43",
+      "choices": [
+        "9, √43, 4",
+        "4, √43, 9",
+        "√43, 4, 9",
+        "9, 4, √43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_REVERSED",
+        null,
+        "ROOT_ALWAYS_SMALL",
+        "GIVEN_ORDER"
+      ],
+      "explanation": "√43 is between 6 and 7. Sorted least to greatest: 4, √43, 9."
+    },
+    {
+      "id": "roots-irrationals/t5/040",
+      "tier": 5,
+      "prompt": "Greater: √47 or 9?",
+      "choices": [
+        "9",
+        "√47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADICAND_AS_VALUE"
+      ],
+      "explanation": "√47 is between 6 and 7, so 9 is the greater."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["scatter-two-way"] = {
+  "protocol": "fnm-cart/1",
+  "id": "scatter-two-way",
+  "version": "1.0.0",
+  "title": "Scatter Plots & Two-Way Tables",
+  "subtitle": "Association, Lines of Fit, Frequencies",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.SP.A.1",
+    "CCSS.MATH.CONTENT.8.SP.A.2",
+    "CCSS.MATH.CONTENT.8.SP.A.3",
+    "CCSS.MATH.CONTENT.8.SP.A.4"
+  ],
+  "seed": 20261040,
+  "items_per_tier": 40,
+  "bounds": "Two-way tables and Coordinates and lines (PROTOCOL 4b, grade 8). Point lists: 3-5 integer points, each coordinate 0-20 (x = 1..5 in steps of 1; an outlier item has 4-5 points, the odd one at least 7 off the line). Lines of fit y = mx + b: m 1-10 (or -1 to -5), b 0-20, x 1-10, every prediction a whole number 0-100, every product a times-table fact (m x); an inverse item has m 2-10, a whole x 2-10. Two-way tables: 2-by-2, each cell 0-20 (here 2-14), grand total <= 60; every sum is a +/- fact. Relative frequencies: a count over its row or column total (total <= 20), simplest form, denominator 2-12, or a 4b percent (10-90 in tens, 25, 75); every division a times-table fact. Choices never equal in value; Boys/Girls/Same: exactly one is true.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Association",
+      "description": "Does one thing rise or fall with the other? Positive, negative or none."
+    },
+    {
+      "tier": 2,
+      "name": "Outliers & Lines of Fit",
+      "description": "Spot the point that breaks the pattern and pick the line that fits."
+    },
+    {
+      "tier": 3,
+      "name": "Use a Line of Fit",
+      "description": "Predict with y = mx + b and read what the slope and the start mean."
+    },
+    {
+      "tier": 4,
+      "name": "Two-Way Table Counts",
+      "description": "Read counts in a 2-by-2 table: totals, only-one-group and missing cells."
+    },
+    {
+      "tier": 5,
+      "name": "Relative Frequency",
+      "description": "Compare parts to their own whole: fractions and percents of a row or column."
+    }
+  ],
+  "misconceptions": {
+    "REVERSED": {
+      "student": "Positive: both go the same way. Negative: one up, one down.",
+      "teacher": "Swaps positive and negative association."
+    },
+    "BOTH_DOWN_NEGATIVE": {
+      "student": "Both falling together is still positive. Same direction = positive.",
+      "teacher": "Calls two variables that fall together a negative association."
+    },
+    "FIRST_VARIABLE": {
+      "student": "Look at both. One rises while the other falls: negative.",
+      "teacher": "Judges the association from the first variable's direction only."
+    },
+    "DOWN_IS_NONE": {
+      "student": "A downhill pattern is still a pattern: negative, not none.",
+      "teacher": "Treats a falling pattern as no association."
+    },
+    "CAUSE_FOR_LINK": {
+      "student": "Association is a pattern, not a cause. They can move together anyway.",
+      "teacher": "Needs one variable to cause the other before calling it an association."
+    },
+    "MISSES_PATTERN": {
+      "student": "Rising together is a pattern. That is a positive association.",
+      "teacher": "Fails to see a clear rising pattern and answers none."
+    },
+    "PATTERN_FROM_NOISE": {
+      "student": "Up and down with no trend means no association.",
+      "teacher": "Reads a trend into points that zigzag with no overall direction."
+    },
+    "LARGEST_X_OUTLIER": {
+      "student": "An outlier is off the pattern, not just the far-right point.",
+      "teacher": "Picks the point with the largest x as the outlier."
+    },
+    "HIGHEST_Y_OUTLIER": {
+      "student": "The highest point can sit on the pattern. Find the one that breaks it.",
+      "teacher": "Picks the point with the largest y as the outlier."
+    },
+    "ANY_POINT": {
+      "student": "That point fits the pattern. The outlier is the one that does not.",
+      "teacher": "Picks a point that sits on the trend as the outlier."
+    },
+    "START_AS_SLOPE": {
+      "student": "The number with x is the slope. The added number is the start.",
+      "teacher": "Swaps the slope and the start (y-intercept)."
+    },
+    "NO_START": {
+      "student": "Do not forget the start: add b after you multiply by x.",
+      "teacher": "Uses only the slope part m times x and drops the start."
+    },
+    "SLOPE_FROM_ONE_POINT": {
+      "student": "One point's y over x is not the slope. Use the change from point to point.",
+      "teacher": "Takes y divided by x of one point as the slope and ignores the start."
+    },
+    "ADDED_ALL": {
+      "student": "The slope multiplies x. Do not add the numbers.",
+      "teacher": "Adds the numbers in the rule instead of multiplying the slope by x."
+    },
+    "ADDED_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not add them.",
+      "teacher": "Adds the slope and the start when asked for one of them."
+    },
+    "SLOPE_AS_START": {
+      "student": "The start is the number added on, not the number with x.",
+      "teacher": "Gives the slope when asked for the start value."
+    },
+    "MULT_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not multiply them.",
+      "teacher": "Multiplies the slope and the start."
+    },
+    "STOPPED_EARLY": {
+      "student": "You took away the start. Now divide by the slope to get x.",
+      "teacher": "Subtracts the start but never divides by the slope."
+    },
+    "IGNORE_START": {
+      "student": "Take away the start first, then divide by the slope.",
+      "teacher": "Divides y by the slope without subtracting the start."
+    },
+    "ADD_START": {
+      "student": "The start was added to make y. Take it away, do not add it again.",
+      "teacher": "Adds the start instead of subtracting it when solving for x."
+    },
+    "WRONG_ROW": {
+      "student": "Add only the cells for the group you are asked about.",
+      "teacher": "Adds along the wrong line of the table (a row for a column, or the reverse)."
+    },
+    "GRAND_TOTAL": {
+      "student": "That's everyone. Add only the cells that match the question.",
+      "teacher": "Gives the grand total of the table instead of one row or column total."
+    },
+    "ONE_CELL": {
+      "student": "One cell is not a total. Add the whole row or column.",
+      "teacher": "Reports a single cell instead of adding its row or column."
+    },
+    "LEFT_OUT_CELL": {
+      "student": "Count all four cells for everyone.",
+      "teacher": "Leaves one cell out of the grand total."
+    },
+    "ADDED_FOR_ONLY": {
+      "student": "The group already includes the overlap. Take it away to get 'only'.",
+      "teacher": "Adds the overlap instead of subtracting it to get 'only'."
+    },
+    "WHOLE_FOR_ONLY": {
+      "student": "That counts the overlap too. Only means without the overlap.",
+      "teacher": "Gives the whole group as 'only' without removing the overlap."
+    },
+    "ONLY_IS_BOTH": {
+      "student": "The overlap does both. Only means the rest of the group.",
+      "teacher": "Gives the overlap count as the 'only' count."
+    },
+    "ADDED_FOR_MISSING": {
+      "student": "The part plus the missing part makes the total. Subtract.",
+      "teacher": "Adds the known part to the total instead of subtracting."
+    },
+    "GIVEN_CELL": {
+      "student": "That's the cell you were given. Take it from the total.",
+      "teacher": "Repeats the known cell as the missing one."
+    },
+    "TOTAL_AS_MISSING": {
+      "student": "That's the whole column. Take away the part you know.",
+      "teacher": "Gives the given total as the missing cell."
+    },
+    "PART_TO_PART": {
+      "student": "Compare the part to the whole group, not to the other part.",
+      "teacher": "Divides one part by the other part instead of by the total."
+    },
+    "OTHER_PART": {
+      "student": "That's the other category. Use the category you were asked for.",
+      "teacher": "Takes the fraction of the other category over the total."
+    },
+    "WHOLE_OVER_PART": {
+      "student": "The part goes on top and the whole on the bottom.",
+      "teacher": "Flips the fraction: whole over part."
+    },
+    "WRONG_TOTAL": {
+      "student": "Divide by the group's own total, not by the whole column.",
+      "teacher": "Divides by the total of the other margin (the whole column)."
+    },
+    "GRAND_DENOMINATOR": {
+      "student": "Divide by the group's own total, not by everyone.",
+      "teacher": "Divides by the grand total instead of the group's total."
+    },
+    "COUNT_AS_PERCENT": {
+      "student": "Percent means out of 100. Turn the fraction into hundredths.",
+      "teacher": "Writes the count as the percent."
+    },
+    "COUNT_NOT_RATE": {
+      "student": "Bigger count isn't bigger rate. Compare each part to its own whole.",
+      "teacher": "Compares the counts instead of the fractions."
+    },
+    "NOT_COMPARED": {
+      "student": "Turn each group into a fraction of its own total, then compare.",
+      "teacher": "Chooses without comparing the two fractions."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "scatter-two-way/t1/001",
+      "tier": 1,
+      "prompt": "Points (1, 9), (2, 20), (3, 11), (4, 12). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/002",
+      "tier": 1,
+      "prompt": "Points (1, 11), (2, 8), (3, 7), (4, 3). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/003",
+      "tier": 1,
+      "prompt": "Altitude falls, air temperature rises. Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/004",
+      "tier": 1,
+      "prompt": "Backpack color and reading speed. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/005",
+      "tier": 1,
+      "prompt": "Car age rises, car value falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/006",
+      "tier": 1,
+      "prompt": "Altitude rises, air temperature falls. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "FIRST_VARIABLE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/007",
+      "tier": 1,
+      "prompt": "Hours worked fall, pay falls. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_DOWN_NEGATIVE",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/008",
+      "tier": 1,
+      "prompt": "Points (1, 9), (2, 8), (3, 3). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/009",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 3), (3, 2), (4, 1). Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/010",
+      "tier": 1,
+      "prompt": "Temperature rises, cocoa sales fall. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/011",
+      "tier": 1,
+      "prompt": "Study time falls, test scores fall. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        null,
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/012",
+      "tier": 1,
+      "prompt": "Points (1, 12), (2, 2), (3, 11), (4, 9). Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/013",
+      "tier": 1,
+      "prompt": "Hours worked rise, pay rises. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/014",
+      "tier": 1,
+      "prompt": "Hair length and math grade. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/015",
+      "tier": 1,
+      "prompt": "Points (1, 7), (2, 8), (3, 11). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/016",
+      "tier": 1,
+      "prompt": "Car speed rises, trip time falls. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FIRST_VARIABLE",
+        null,
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/017",
+      "tier": 1,
+      "prompt": "Rainfall falls, umbrella sales fall. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        "MISSES_PATTERN",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/018",
+      "tier": 1,
+      "prompt": "Absences rise, grades fall. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "FIRST_VARIABLE",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/019",
+      "tier": 1,
+      "prompt": "Seat number and lunch cost. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/020",
+      "tier": 1,
+      "prompt": "Pizza size falls, price falls. Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "BOTH_DOWN_NEGATIVE",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/021",
+      "tier": 1,
+      "prompt": "Points (1, 12), (2, 9), (3, 5). Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/022",
+      "tier": 1,
+      "prompt": "Practice time falls, shots made fall. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "BOTH_DOWN_NEGATIVE"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/023",
+      "tier": 1,
+      "prompt": "Screen time falls, sleep time rises. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/024",
+      "tier": 1,
+      "prompt": "Tree height falls, trunk width falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        null,
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/025",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 9), (3, 13), (4, 15). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/026",
+      "tier": 1,
+      "prompt": "Eye color and free throws made. Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/027",
+      "tier": 1,
+      "prompt": "Burn time rises, candle height falls. Association?",
+      "choices": [
+        "Negative",
+        "Positive",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FIRST_VARIABLE",
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/028",
+      "tier": 1,
+      "prompt": "Points (1, 5), (2, 9), (3, 13). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED",
+        "MISSES_PATTERN",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/029",
+      "tier": 1,
+      "prompt": "Ice cream sales fall, sunburns fall. Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_DOWN_NEGATIVE",
+        "CAUSE_FOR_LINK",
+        null
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/030",
+      "tier": 1,
+      "prompt": "Temperature falls, cocoa sales rise. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED",
+        null,
+        "DOWN_IS_NONE"
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/031",
+      "tier": 1,
+      "prompt": "Shoe size and favorite color. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/032",
+      "tier": 1,
+      "prompt": "Points (1, 4), (2, 6), (3, 11). Association?",
+      "choices": [
+        "None",
+        "Negative",
+        "Positive"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        "REVERSED",
+        null
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/033",
+      "tier": 1,
+      "prompt": "Absences fall, grades rise. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOWN_IS_NONE",
+        "REVERSED",
+        null
+      ],
+      "explanation": "One goes up while the other goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/034",
+      "tier": 1,
+      "prompt": "Practice time rises, shots made rise. Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED",
+        "MISSES_PATTERN"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/035",
+      "tier": 1,
+      "prompt": "Phone number and shoe size. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "Knowing one tells you nothing about the other: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/036",
+      "tier": 1,
+      "prompt": "Points (1, 1), (2, 12), (3, 3), (4, 8), (5, 3). Association?",
+      "choices": [
+        "Positive",
+        "Negative",
+        "None"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        "PATTERN_FROM_NOISE",
+        null
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t1/037",
+      "tier": 1,
+      "prompt": "Points (1, 3), (2, 6), (3, 8). Association?",
+      "choices": [
+        "Positive",
+        "None",
+        "Negative"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSES_PATTERN",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes up: a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/038",
+      "tier": 1,
+      "prompt": "Points (1, 18), (2, 13), (3, 10), (4, 6). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOWN_IS_NONE",
+        "REVERSED"
+      ],
+      "explanation": "As x goes up, y goes down: a negative association."
+    },
+    {
+      "id": "scatter-two-way/t1/039",
+      "tier": 1,
+      "prompt": "Puppy age rises, puppy weight rises. Association?",
+      "choices": [
+        "None",
+        "Positive",
+        "Negative"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSES_PATTERN",
+        null,
+        "REVERSED"
+      ],
+      "explanation": "Both go up together (or both go down): a positive association."
+    },
+    {
+      "id": "scatter-two-way/t1/040",
+      "tier": 1,
+      "prompt": "Points (1, 6), (2, 17), (3, 8), (4, 9). Association?",
+      "choices": [
+        "Negative",
+        "None",
+        "Positive"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PATTERN_FROM_NOISE",
+        null,
+        "PATTERN_FROM_NOISE"
+      ],
+      "explanation": "The y values jump up and down with no trend: no association."
+    },
+    {
+      "id": "scatter-two-way/t2/001",
+      "tier": 2,
+      "prompt": "Which line fits (2, 13), (3, 15), (4, 17)?",
+      "choices": [
+        "y = 2x",
+        "y = 2x + 10",
+        "y = 2x + 9",
+        "y = 9x + 2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "ARITH",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 9: y = 2x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/002",
+      "tier": 2,
+      "prompt": "Which line fits (1, 8), (2, 5), (3, 2)?",
+      "choices": [
+        "y = −3x + 12",
+        "y = −3x + 11",
+        "y = −3x",
+        "y = 8x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_START",
+        "SLOPE_FROM_ONE_POINT"
+      ],
+      "explanation": "y falls 3 for each step in x, and at x = 0 it is 11: y = −3x + 11."
+    },
+    {
+      "id": "scatter-two-way/t2/003",
+      "tier": 2,
+      "prompt": "Points (3, 5), (4, 14), (5, 7), (6, 8), (7, 9). Outlier?",
+      "choices": [
+        "(3, 5)",
+        "(4, 14)",
+        "(7, 9)",
+        "(6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 14) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/004",
+      "tier": 2,
+      "prompt": "Which line fits (2, 2), (3, 1), (4, 0)?",
+      "choices": [
+        "y = x",
+        "y = −x",
+        "y = 4x − 1",
+        "y = −x + 4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "y falls 1 for each step in x, and at x = 0 it is 4: y = −x + 4."
+    },
+    {
+      "id": "scatter-two-way/t2/005",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 14), (3, 16), (4, 18)?",
+      "choices": [
+        "y = 2x + 10",
+        "y = 10x + 2",
+        "y = 7x",
+        "y = 2x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 10: y = 2x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/006",
+      "tier": 2,
+      "prompt": "Points (5, 10), (6, 9), (7, 8), (8, 7), (9, 15). Outlier?",
+      "choices": [
+        "(6, 9)",
+        "(5, 10)",
+        "(8, 7)",
+        "(9, 15)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (9, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/007",
+      "tier": 2,
+      "prompt": "Points (4, 1), (5, 12), (6, 13), (7, 14). Outlier?",
+      "choices": [
+        "(5, 12)",
+        "(6, 13)",
+        "(7, 14)",
+        "(4, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null
+      ],
+      "explanation": "The others follow one line. (4, 1) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/008",
+      "tier": 2,
+      "prompt": "Points (2, 3), (3, 4), (4, 5), (5, 6), (6, 17). Outlier?",
+      "choices": [
+        "(5, 6)",
+        "(6, 17)",
+        "(3, 4)",
+        "(2, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "ANY_POINT",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 17) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/009",
+      "tier": 2,
+      "prompt": "Points (2, 14), (3, 20), (4, 10), (5, 8). Outlier?",
+      "choices": [
+        "(2, 14)",
+        "(4, 10)",
+        "(5, 8)",
+        "(3, 20)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null
+      ],
+      "explanation": "The others follow one line. (3, 20) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/010",
+      "tier": 2,
+      "prompt": "Points (2, 7), (3, 9), (4, 19), (5, 13). Outlier?",
+      "choices": [
+        "(2, 7)",
+        "(3, 9)",
+        "(4, 19)",
+        "(5, 13)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 19) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/011",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 13), (2, 16), (3, 19)?",
+      "choices": [
+        "y = 10x + 3",
+        "y = 13x",
+        "y = 3x + 10",
+        "y = 3x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "SLOPE_FROM_ONE_POINT",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 3 for each step in x, and at x = 0 it is 10: y = 3x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/012",
+      "tier": 2,
+      "prompt": "Points (2, 7), (3, 5), (4, 3), (5, 1), (6, 9). Outlier?",
+      "choices": [
+        "(6, 9)",
+        "(4, 3)",
+        "(2, 7)",
+        "(3, 5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 9) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/013",
+      "tier": 2,
+      "prompt": "Which line fits (1, 15), (2, 16), (3, 17)?",
+      "choices": [
+        "y = 15x",
+        "y = x + 15",
+        "y = x",
+        "y = x + 14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 14: y = x + 14."
+    },
+    {
+      "id": "scatter-two-way/t2/014",
+      "tier": 2,
+      "prompt": "Which line fits (2, 11), (3, 13), (4, 15)?",
+      "choices": [
+        "y = 2x + 7",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 7x + 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 7: y = 2x + 7."
+    },
+    {
+      "id": "scatter-two-way/t2/015",
+      "tier": 2,
+      "prompt": "Points (2, 15), (3, 8), (4, 9), (5, 10). Outlier?",
+      "choices": [
+        "(4, 9)",
+        "(2, 15)",
+        "(3, 8)",
+        "(5, 10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (2, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/016",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 6), (2, 4), (3, 2)?",
+      "choices": [
+        "y = −2x + 8",
+        "y = 6x",
+        "y = −2x",
+        "y = 8x − 2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 8: y = −2x + 8."
+    },
+    {
+      "id": "scatter-two-way/t2/017",
+      "tier": 2,
+      "prompt": "Which line fits (1, 14), (2, 16), (3, 18)?",
+      "choices": [
+        "y = 14x",
+        "y = 2x + 13",
+        "y = 2x + 12",
+        "y = 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 12: y = 2x + 12."
+    },
+    {
+      "id": "scatter-two-way/t2/018",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 6), (3, 3), (4, 0)?",
+      "choices": [
+        "y = −3x + 12",
+        "y = 3x",
+        "y = −3x + 13",
+        "y = −3x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START"
+      ],
+      "explanation": "y falls 3 for each step in x, and at x = 0 it is 12: y = −3x + 12."
+    },
+    {
+      "id": "scatter-two-way/t2/019",
+      "tier": 2,
+      "prompt": "Which line fits (1, 7), (2, 9), (3, 11)?",
+      "choices": [
+        "y = 7x",
+        "y = 5x + 2",
+        "y = 2x + 5",
+        "y = 2x"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "START_AS_SLOPE",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 5: y = 2x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/020",
+      "tier": 2,
+      "prompt": "Which line fits (1, 7), (2, 8), (3, 9)?",
+      "choices": [
+        "y = 6x + 1",
+        "y = x + 6",
+        "y = x",
+        "y = 7x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "SLOPE_FROM_ONE_POINT"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 6: y = x + 6."
+    },
+    {
+      "id": "scatter-two-way/t2/021",
+      "tier": 2,
+      "prompt": "Points (4, 8), (5, 10), (6, 2), (7, 14), (8, 16). Outlier?",
+      "choices": [
+        "(4, 8)",
+        "(8, 16)",
+        "(6, 2)",
+        "(7, 14)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        null,
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (6, 2) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/022",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 3), (3, 2), (4, 1)?",
+      "choices": [
+        "y = −x + 5",
+        "y = −x",
+        "y = −x + 6",
+        "y = 5x − 1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_START",
+        "ARITH",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y falls 1 for each step in x, and at x = 0 it is 5: y = −x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/023",
+      "tier": 2,
+      "prompt": "Plot (2, 18), (3, 10), (4, 12), (5, 14). Outlier?",
+      "choices": [
+        "(2, 18)",
+        "(4, 12)",
+        "(5, 14)",
+        "(3, 10)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (2, 18) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/024",
+      "tier": 2,
+      "prompt": "Points (5, 9), (6, 8), (7, 18), (8, 6), (9, 5). Outlier?",
+      "choices": [
+        "(5, 9)",
+        "(9, 5)",
+        "(6, 8)",
+        "(7, 18)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (7, 18) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/025",
+      "tier": 2,
+      "prompt": "Points (3, 17), (4, 9), (5, 15), (6, 14), (7, 13). Outlier?",
+      "choices": [
+        "(7, 13)",
+        "(3, 17)",
+        "(4, 9)",
+        "(5, 15)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "HIGHEST_Y_OUTLIER",
+        null,
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 9) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/026",
+      "tier": 2,
+      "prompt": "Points (1, 4), (2, 7), (3, 10), (4, 3), (5, 16). Outlier?",
+      "choices": [
+        "(4, 3)",
+        "(1, 4)",
+        "(3, 10)",
+        "(5, 16)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_POINT",
+        "ANY_POINT",
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/027",
+      "tier": 2,
+      "prompt": "Line of fit for (1, 12), (2, 10), (3, 8)?",
+      "choices": [
+        "y = 12x",
+        "y = −2x + 15",
+        "y = −2x",
+        "y = −2x + 14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 14: y = −2x + 14."
+    },
+    {
+      "id": "scatter-two-way/t2/028",
+      "tier": 2,
+      "prompt": "Which line fits (2, 12), (3, 14), (4, 16)?",
+      "choices": [
+        "y = 6x",
+        "y = 2x + 8",
+        "y = 2x",
+        "y = 8x + 2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        null,
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 2 for each step in x, and at x = 0 it is 8: y = 2x + 8."
+    },
+    {
+      "id": "scatter-two-way/t2/029",
+      "tier": 2,
+      "prompt": "Points (3, 11), (4, 13), (5, 3), (6, 17), (7, 19). Outlier?",
+      "choices": [
+        "(7, 19)",
+        "(4, 13)",
+        "(6, 17)",
+        "(5, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (5, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/030",
+      "tier": 2,
+      "prompt": "Plot (3, 4), (4, 2), (5, 0), (6, 7). Outlier?",
+      "choices": [
+        "(5, 0)",
+        "(3, 4)",
+        "(4, 2)",
+        "(6, 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (6, 7) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/031",
+      "tier": 2,
+      "prompt": "Which line fits (1, 10), (2, 15), (3, 20)?",
+      "choices": [
+        "y = 5x + 6",
+        "y = 5x + 5",
+        "y = 10x",
+        "y = 5x"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START"
+      ],
+      "explanation": "y rises 5 for each step in x, and at x = 0 it is 5: y = 5x + 5."
+    },
+    {
+      "id": "scatter-two-way/t2/032",
+      "tier": 2,
+      "prompt": "Points (1, 12), (2, 14), (3, 7), (4, 18), (5, 20). Outlier?",
+      "choices": [
+        "(5, 20)",
+        "(1, 12)",
+        "(2, 14)",
+        "(3, 7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT",
+        "ANY_POINT",
+        null
+      ],
+      "explanation": "The others follow one line. (3, 7) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/033",
+      "tier": 2,
+      "prompt": "Which line fits (2, 5), (3, 3), (4, 1)?",
+      "choices": [
+        "y = 9x − 2",
+        "y = −2x + 9",
+        "y = −2x",
+        "y = −2x + 10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y falls 2 for each step in x, and at x = 0 it is 9: y = −2x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/034",
+      "tier": 2,
+      "prompt": "Line of fit for (2, 11), (3, 12), (4, 13)?",
+      "choices": [
+        "y = 9x + 1",
+        "y = x",
+        "y = x + 9",
+        "y = x + 10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "NO_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 9: y = x + 9."
+    },
+    {
+      "id": "scatter-two-way/t2/035",
+      "tier": 2,
+      "prompt": "Which line fits (1, 11), (2, 12), (3, 13)?",
+      "choices": [
+        "y = 11x",
+        "y = x",
+        "y = x + 10",
+        "y = 10x + 1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_FROM_ONE_POINT",
+        "NO_START",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y rises 1 for each step in x, and at x = 0 it is 10: y = x + 10."
+    },
+    {
+      "id": "scatter-two-way/t2/036",
+      "tier": 2,
+      "prompt": "Points (5, 17), (6, 6), (7, 5), (8, 4), (9, 3). Outlier?",
+      "choices": [
+        "(7, 5)",
+        "(5, 17)",
+        "(9, 3)",
+        "(8, 4)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (5, 17) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/037",
+      "tier": 2,
+      "prompt": "Points (4, 3), (5, 14), (6, 13), (7, 12). Outlier?",
+      "choices": [
+        "(4, 3)",
+        "(7, 12)",
+        "(5, 14)",
+        "(6, 13)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LARGEST_X_OUTLIER",
+        "HIGHEST_Y_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (4, 3) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/038",
+      "tier": 2,
+      "prompt": "Points (2, 11), (3, 2), (4, 7), (5, 5), (6, 3). Outlier?",
+      "choices": [
+        "(2, 11)",
+        "(3, 2)",
+        "(6, 3)",
+        "(4, 7)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HIGHEST_Y_OUTLIER",
+        null,
+        "LARGEST_X_OUTLIER",
+        "ANY_POINT"
+      ],
+      "explanation": "The others follow one line. (3, 2) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/039",
+      "tier": 2,
+      "prompt": "Points (3, 9), (4, 15), (5, 5), (6, 3), (7, 1). Outlier?",
+      "choices": [
+        "(6, 3)",
+        "(5, 5)",
+        "(4, 15)",
+        "(7, 1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_POINT",
+        "ANY_POINT",
+        null,
+        "LARGEST_X_OUTLIER"
+      ],
+      "explanation": "The others follow one line. (4, 15) is far off that pattern."
+    },
+    {
+      "id": "scatter-two-way/t2/040",
+      "tier": 2,
+      "prompt": "Which line fits (1, 8), (2, 13), (3, 18)?",
+      "choices": [
+        "y = 5x + 3",
+        "y = 8x",
+        "y = 3x + 5",
+        "y = 5x"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SLOPE_FROM_ONE_POINT",
+        "START_AS_SLOPE",
+        "NO_START"
+      ],
+      "explanation": "y rises 5 for each step in x, and at x = 0 it is 3: y = 5x + 3."
+    },
+    {
+      "id": "scatter-two-way/t3/001",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 7. For which x is y = 35?",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "28"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_START",
+        "IGNORE_START",
+        null,
+        "STOPPED_EARLY"
+      ],
+      "explanation": "35 − 7 = 28, then 28 ÷ 7 = 4."
+    },
+    {
+      "id": "scatter-two-way/t3/002",
+      "tier": 3,
+      "prompt": "Miles y = 7x + 11 (x hours). Miles at the start?",
+      "choices": [
+        "77 mi",
+        "18 mi",
+        "11 mi",
+        "7 mi"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START",
+        null,
+        "SLOPE_AS_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 11 = 11."
+    },
+    {
+      "id": "scatter-two-way/t3/003",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 16. For which x is y = 96?",
+      "choices": [
+        "14",
+        "80",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_START",
+        "STOPPED_EARLY",
+        "IGNORE_START",
+        null
+      ],
+      "explanation": "96 − 16 = 80, then 80 ÷ 8 = 10."
+    },
+    {
+      "id": "scatter-two-way/t3/004",
+      "tier": 3,
+      "prompt": "Miles y = 9x + 7 (x hours). Miles per hour?",
+      "choices": [
+        "63 mi",
+        "7 mi",
+        "16 mi",
+        "9 mi"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START",
+        null
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 9."
+    },
+    {
+      "id": "scatter-two-way/t3/005",
+      "tier": 3,
+      "prompt": "Cost y = 5x + 19 (x hours). Cost per hour?",
+      "choices": [
+        "$5",
+        "$95",
+        "$24",
+        "$19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 5."
+    },
+    {
+      "id": "scatter-two-way/t3/006",
+      "tier": 3,
+      "prompt": "Miles y = 5x + 6 (x hours). Miles per hour?",
+      "choices": [
+        "5 mi",
+        "6 mi",
+        "30 mi",
+        "11 mi"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 5."
+    },
+    {
+      "id": "scatter-two-way/t3/007",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 16. Predict y at x = 9.",
+      "choices": [
+        "33",
+        "89",
+        "72",
+        "88"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "ARITH",
+        "NO_START",
+        null
+      ],
+      "explanation": "y = 8 × 9 + 16 = 72 + 16 = 88."
+    },
+    {
+      "id": "scatter-two-way/t3/008",
+      "tier": 3,
+      "prompt": "Miles y = 6x + 20 (x hours). Miles per hour?",
+      "choices": [
+        "120 mi",
+        "6 mi",
+        "20 mi",
+        "26 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 6."
+    },
+    {
+      "id": "scatter-two-way/t3/009",
+      "tier": 3,
+      "prompt": "Line of fit y = 6x + 9. For which x is y = 51?",
+      "choices": [
+        "7",
+        "8",
+        "42",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "STOPPED_EARLY",
+        "ADD_START"
+      ],
+      "explanation": "51 − 9 = 42, then 42 ÷ 6 = 7."
+    },
+    {
+      "id": "scatter-two-way/t3/010",
+      "tier": 3,
+      "prompt": "Miles y = 3x + 3 (x hours). Miles after 7 hours?",
+      "choices": [
+        "24 mi",
+        "13 mi",
+        "25 mi",
+        "21 mi"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "ARITH",
+        "NO_START"
+      ],
+      "explanation": "3 × 7 + 3 = 21 + 3 = 24."
+    },
+    {
+      "id": "scatter-two-way/t3/011",
+      "tier": 3,
+      "prompt": "Savings y = 7x + 19 (x weeks). Savings at the start?",
+      "choices": [
+        "$133",
+        "$19",
+        "$7",
+        "$26"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 19 = 19."
+    },
+    {
+      "id": "scatter-two-way/t3/012",
+      "tier": 3,
+      "prompt": "Miles y = 2x + 4 (x hours). Miles after 9 hours?",
+      "choices": [
+        "38 mi",
+        "22 mi",
+        "15 mi",
+        "18 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "ADDED_ALL",
+        "NO_START"
+      ],
+      "explanation": "2 × 9 + 4 = 18 + 4 = 22."
+    },
+    {
+      "id": "scatter-two-way/t3/013",
+      "tier": 3,
+      "prompt": "Savings y = 3x + 4 (x weeks). Saved per week?",
+      "choices": [
+        "$7",
+        "$12",
+        "$4",
+        "$3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SLOPE_START",
+        "MULT_SLOPE_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 3."
+    },
+    {
+      "id": "scatter-two-way/t3/014",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 17. Predict y at x = 2.",
+      "choices": [
+        "33",
+        "15",
+        "−2",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "y = −1 × 2 + 17 = −2 + 17 = 15."
+    },
+    {
+      "id": "scatter-two-way/t3/015",
+      "tier": 3,
+      "prompt": "Height y = 2x + 13 (x weeks). Height at week 8?",
+      "choices": [
+        "29 cm",
+        "30 cm",
+        "16 cm",
+        "23 cm"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "2 × 8 + 13 = 16 + 13 = 29."
+    },
+    {
+      "id": "scatter-two-way/t3/016",
+      "tier": 3,
+      "prompt": "Line of fit y = 10x + 3. Predict y at x = 5.",
+      "choices": [
+        "25",
+        "50",
+        "53",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        "NO_START",
+        null,
+        "ADDED_ALL"
+      ],
+      "explanation": "y = 10 × 5 + 3 = 50 + 3 = 53."
+    },
+    {
+      "id": "scatter-two-way/t3/017",
+      "tier": 3,
+      "prompt": "Miles y = 7x + 3 (x hours). Miles at the start?",
+      "choices": [
+        "7 mi",
+        "3 mi",
+        "21 mi",
+        "10 mi"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 3 = 3."
+    },
+    {
+      "id": "scatter-two-way/t3/018",
+      "tier": 3,
+      "prompt": "Line of fit y = −5x + 19. Predict y at x = 2.",
+      "choices": [
+        "−10",
+        "33",
+        "16",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_START",
+        "START_AS_SLOPE",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "y = −5 × 2 + 19 = −10 + 19 = 9."
+    },
+    {
+      "id": "scatter-two-way/t3/019",
+      "tier": 3,
+      "prompt": "Savings y = 7x + 16 (x weeks). Savings at the start?",
+      "choices": [
+        "$23",
+        "$16",
+        "$112",
+        "$7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SLOPE_START",
+        null,
+        "MULT_SLOPE_START",
+        "SLOPE_AS_START"
+      ],
+      "explanation": "The start is y when x = 0: 7 × 0 + 16 = 16."
+    },
+    {
+      "id": "scatter-two-way/t3/020",
+      "tier": 3,
+      "prompt": "Line of fit y = 8x + 20. For which x is y = 44?",
+      "choices": [
+        "24",
+        "8",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADD_START",
+        "ARITH",
+        null
+      ],
+      "explanation": "44 − 20 = 24, then 24 ÷ 8 = 3."
+    },
+    {
+      "id": "scatter-two-way/t3/021",
+      "tier": 3,
+      "prompt": "Savings y = 5x + 7 (x weeks). Savings after 6 weeks?",
+      "choices": [
+        "$30",
+        "$18",
+        "$37",
+        "$47"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "ADDED_ALL",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "5 × 6 + 7 = 30 + 7 = 37."
+    },
+    {
+      "id": "scatter-two-way/t3/022",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 2. Predict y at x = 7.",
+      "choices": [
+        "12",
+        "21",
+        "17",
+        "23"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_START",
+        "START_AS_SLOPE",
+        null
+      ],
+      "explanation": "y = 3 × 7 + 2 = 21 + 2 = 23."
+    },
+    {
+      "id": "scatter-two-way/t3/023",
+      "tier": 3,
+      "prompt": "Height y = 6x + 8 (x weeks). Growth per week?",
+      "choices": [
+        "8 cm",
+        "6 cm",
+        "48 cm",
+        "14 cm"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_AS_SLOPE",
+        null,
+        "MULT_SLOPE_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 6."
+    },
+    {
+      "id": "scatter-two-way/t3/024",
+      "tier": 3,
+      "prompt": "Savings y = 10x + 13 (x weeks). Savings at the start?",
+      "choices": [
+        "$10",
+        "$23",
+        "$13",
+        "$130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START",
+        null,
+        "MULT_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 10 × 0 + 13 = 13."
+    },
+    {
+      "id": "scatter-two-way/t3/025",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 10. Predict y at x = 8.",
+      "choices": [
+        "17",
+        "−8",
+        "2",
+        "79"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_START",
+        null,
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y = −1 × 8 + 10 = −8 + 10 = 2."
+    },
+    {
+      "id": "scatter-two-way/t3/026",
+      "tier": 3,
+      "prompt": "Height y = 8x + 11 (x weeks). Height at week 10?",
+      "choices": [
+        "92 cm",
+        "80 cm",
+        "29 cm",
+        "91 cm"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_START",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "8 × 10 + 11 = 80 + 11 = 91."
+    },
+    {
+      "id": "scatter-two-way/t3/027",
+      "tier": 3,
+      "prompt": "Line of fit y = 5x + 5. Predict y at x = 10.",
+      "choices": [
+        "55",
+        "20",
+        "50",
+        "56"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "NO_START",
+        "ARITH"
+      ],
+      "explanation": "y = 5 × 10 + 5 = 50 + 5 = 55."
+    },
+    {
+      "id": "scatter-two-way/t3/028",
+      "tier": 3,
+      "prompt": "Line of fit y = 10x + 2. Predict y at x = 4.",
+      "choices": [
+        "42",
+        "16",
+        "40",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ALL",
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "y = 10 × 4 + 2 = 40 + 2 = 42."
+    },
+    {
+      "id": "scatter-two-way/t3/029",
+      "tier": 3,
+      "prompt": "Cost y = 9x + 5 (x hours). Cost at 0 hours?",
+      "choices": [
+        "$45",
+        "$5",
+        "$9",
+        "$14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_SLOPE_START",
+        null,
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START"
+      ],
+      "explanation": "The start is y when x = 0: 9 × 0 + 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t3/030",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 3. Predict y at x = 5.",
+      "choices": [
+        "15",
+        "11",
+        "19",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_START",
+        "ADDED_ALL",
+        "ARITH",
+        null
+      ],
+      "explanation": "y = 3 × 5 + 3 = 15 + 3 = 18."
+    },
+    {
+      "id": "scatter-two-way/t3/031",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 14. Predict y at x = 3.",
+      "choices": [
+        "35",
+        "49",
+        "24",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "ADDED_ALL",
+        "NO_START"
+      ],
+      "explanation": "y = 7 × 3 + 14 = 21 + 14 = 35."
+    },
+    {
+      "id": "scatter-two-way/t3/032",
+      "tier": 3,
+      "prompt": "Line of fit y = 3x + 15. For which x is y = 42?",
+      "choices": [
+        "19",
+        "14",
+        "27",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_START",
+        "IGNORE_START",
+        "STOPPED_EARLY",
+        null
+      ],
+      "explanation": "42 − 15 = 27, then 27 ÷ 3 = 9."
+    },
+    {
+      "id": "scatter-two-way/t3/033",
+      "tier": 3,
+      "prompt": "Line of fit y = −x + 18. Predict y at x = 3.",
+      "choices": [
+        "−3",
+        "53",
+        "15",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_START",
+        "START_AS_SLOPE",
+        null,
+        "ADDED_ALL"
+      ],
+      "explanation": "y = −1 × 3 + 18 = −3 + 18 = 15."
+    },
+    {
+      "id": "scatter-two-way/t3/034",
+      "tier": 3,
+      "prompt": "Line of fit y = 6x + 3. For which x is y = 51?",
+      "choices": [
+        "48",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_EARLY",
+        "ADD_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "51 − 3 = 48, then 48 ÷ 6 = 8."
+    },
+    {
+      "id": "scatter-two-way/t3/035",
+      "tier": 3,
+      "prompt": "Line of fit y = 7x + 15. Predict y at x = 2.",
+      "choices": [
+        "24",
+        "37",
+        "29",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "START_AS_SLOPE",
+        null,
+        "NO_START"
+      ],
+      "explanation": "y = 7 × 2 + 15 = 14 + 15 = 29."
+    },
+    {
+      "id": "scatter-two-way/t3/036",
+      "tier": 3,
+      "prompt": "Savings y = 3x + 1 (x weeks). Saved per week?",
+      "choices": [
+        "$3",
+        "$1",
+        "$4",
+        "$2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "ADDED_SLOPE_START",
+        "ARITH"
+      ],
+      "explanation": "In y = mx + b the slope is the number with x: 3."
+    },
+    {
+      "id": "scatter-two-way/t3/037",
+      "tier": 3,
+      "prompt": "Cost y = 10x + 15 (x hours). Cost for 2 hours?",
+      "choices": [
+        "$20",
+        "$35",
+        "$27",
+        "$40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_START",
+        null,
+        "ADDED_ALL",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "10 × 2 + 15 = 20 + 15 = 35."
+    },
+    {
+      "id": "scatter-two-way/t3/038",
+      "tier": 3,
+      "prompt": "Miles y = 3x + 1 (x hours). Miles at the start?",
+      "choices": [
+        "3 mi",
+        "4 mi",
+        "1 mi",
+        "2 mi"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLOPE_AS_START",
+        "ADDED_SLOPE_START",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The start is y when x = 0: 3 × 0 + 1 = 1."
+    },
+    {
+      "id": "scatter-two-way/t3/039",
+      "tier": 3,
+      "prompt": "Height y = 9x + 20 (x weeks). Height at week 3?",
+      "choices": [
+        "47 cm",
+        "69 cm",
+        "27 cm",
+        "32 cm"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_AS_SLOPE",
+        "NO_START",
+        "ADDED_ALL"
+      ],
+      "explanation": "9 × 3 + 20 = 27 + 20 = 47."
+    },
+    {
+      "id": "scatter-two-way/t3/040",
+      "tier": 3,
+      "prompt": "Height y = 8x + 2 (x weeks). Height at week 5?",
+      "choices": [
+        "15 cm",
+        "42 cm",
+        "40 cm",
+        "18 cm"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ALL",
+        null,
+        "NO_START",
+        "START_AS_SLOPE"
+      ],
+      "explanation": "8 × 5 + 2 = 40 + 2 = 42."
+    },
+    {
+      "id": "scatter-two-way/t4/001",
+      "tier": 4,
+      "prompt": "Boys: 2 bus, 13 walk. Girls: 2 bus, 5 walk. How many in all?",
+      "choices": [
+        "22",
+        "4",
+        "15",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "WRONG_ROW",
+        "LEFT_OUT_CELL"
+      ],
+      "explanation": "2 + 13 + 2 + 5 = 22."
+    },
+    {
+      "id": "scatter-two-way/t4/002",
+      "tier": 4,
+      "prompt": "Passers: 9 in all, 5 are boys. How many are girls?",
+      "choices": [
+        "4",
+        "9",
+        "14",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 9. 9 − 5 = 4."
+    },
+    {
+      "id": "scatter-two-way/t4/003",
+      "tier": 4,
+      "prompt": "Pizza fans: 11 in all, 8 are kids. How many are adults?",
+      "choices": [
+        "11",
+        "19",
+        "3",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        null,
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 11. 11 − 8 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/004",
+      "tier": 4,
+      "prompt": "Boys: 8 bus, 3 walk. Girls: 10 bus, 7 walk. Total bus?",
+      "choices": [
+        "18",
+        "28",
+        "8",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "bus: 8 + 10 = 18."
+    },
+    {
+      "id": "scatter-two-way/t4/005",
+      "tier": 4,
+      "prompt": "Boys: 11 yes, 3 no. Girls: 9 yes, 4 no. How many in all?",
+      "choices": [
+        "27",
+        "14",
+        "24",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "LEFT_OUT_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "11 + 3 + 9 + 4 = 27."
+    },
+    {
+      "id": "scatter-two-way/t4/006",
+      "tier": 4,
+      "prompt": "Boys: 5 bus, 4 walk. Girls: 3 bus, 3 walk. How many in all?",
+      "choices": [
+        "12",
+        "8",
+        "15",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "5 + 4 + 3 + 3 = 15."
+    },
+    {
+      "id": "scatter-two-way/t4/007",
+      "tier": 4,
+      "prompt": "Boys: 3 pass, 9 fail. Girls: 7 pass, 5 fail. Total pass?",
+      "choices": [
+        "24",
+        "10",
+        "3",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "pass: 3 + 7 = 10."
+    },
+    {
+      "id": "scatter-two-way/t4/008",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 13 walk. Girls: 3 bus, 10 walk. Total boys?",
+      "choices": [
+        "13",
+        "26",
+        "39",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_CELL",
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW"
+      ],
+      "explanation": "Boys: 13 + 13 = 26."
+    },
+    {
+      "id": "scatter-two-way/t4/009",
+      "tier": 4,
+      "prompt": "Tea drinkers: 12 in all, 7 are kids. How many are adults?",
+      "choices": [
+        "7",
+        "19",
+        "5",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null,
+        "TOTAL_AS_MISSING"
+      ],
+      "explanation": "The two groups make 12. 12 − 7 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/010",
+      "tier": 4,
+      "prompt": "Boys: 11 pass, 3 fail. Girls: 9 pass, 13 fail. Total boys?",
+      "choices": [
+        "14",
+        "20",
+        "36",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL"
+      ],
+      "explanation": "Boys: 11 + 3 = 14."
+    },
+    {
+      "id": "scatter-two-way/t4/011",
+      "tier": 4,
+      "prompt": "Boys: 9 yes, 3 no. Girls: 7 yes, 2 no. Total girls?",
+      "choices": [
+        "21",
+        "7",
+        "9",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "Girls: 7 + 2 = 9."
+    },
+    {
+      "id": "scatter-two-way/t4/012",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 13 walk. Girls: 7 bus, 3 walk. Total bus?",
+      "choices": [
+        "20",
+        "36",
+        "26",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "bus: 13 + 7 = 20."
+    },
+    {
+      "id": "scatter-two-way/t4/013",
+      "tier": 4,
+      "prompt": "8 kids like pizza; 5 of them like tacos. Pizza only?",
+      "choices": [
+        "8",
+        "13",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        null
+      ],
+      "explanation": "The 5 who do both are inside the 8. Only: 8 − 5 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/014",
+      "tier": 4,
+      "prompt": "Boys: 6 bus, 7 walk. Girls: 10 bus, 10 walk. Total bus?",
+      "choices": [
+        "33",
+        "16",
+        "13",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "bus: 6 + 10 = 16."
+    },
+    {
+      "id": "scatter-two-way/t4/015",
+      "tier": 4,
+      "prompt": "Boys: 14 yes, 10 no. Girls: 13 yes, 12 no. Total boys?",
+      "choices": [
+        "49",
+        "14",
+        "24",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null,
+        "WRONG_ROW"
+      ],
+      "explanation": "Boys: 14 + 10 = 24."
+    },
+    {
+      "id": "scatter-two-way/t4/016",
+      "tier": 4,
+      "prompt": "Cats: 5 big, 7 small. Dogs: 7 big, 2 small. How many in all?",
+      "choices": [
+        "16",
+        "9",
+        "12",
+        "21"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        "WRONG_ROW",
+        null
+      ],
+      "explanation": "5 + 7 + 7 + 2 = 21."
+    },
+    {
+      "id": "scatter-two-way/t4/017",
+      "tier": 4,
+      "prompt": "Bus riders: 15 in all, 12 are boys. How many are girls?",
+      "choices": [
+        "15",
+        "3",
+        "27",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        null,
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 15. 15 − 12 = 3."
+    },
+    {
+      "id": "scatter-two-way/t4/018",
+      "tier": 4,
+      "prompt": "Kids: 11 tea, 8 juice. Adults: 9 tea, 14 juice. Total kids?",
+      "choices": [
+        "42",
+        "19",
+        "20",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "WRONG_ROW",
+        "ONE_CELL"
+      ],
+      "explanation": "Kids: 11 + 8 = 19."
+    },
+    {
+      "id": "scatter-two-way/t4/019",
+      "tier": 4,
+      "prompt": "Kids: 3 tea, 9 juice. Adults: 6 tea, 10 juice. Total kids?",
+      "choices": [
+        "28",
+        "9",
+        "12",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "WRONG_ROW",
+        null,
+        "ONE_CELL"
+      ],
+      "explanation": "Kids: 3 + 9 = 12."
+    },
+    {
+      "id": "scatter-two-way/t4/020",
+      "tier": 4,
+      "prompt": "19 kids have a dog; 3 of them have a cat. Dog only?",
+      "choices": [
+        "3",
+        "22",
+        "19",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_IS_BOTH",
+        "ADDED_FOR_ONLY",
+        "WHOLE_FOR_ONLY",
+        null
+      ],
+      "explanation": "The 3 who do both are inside the 19. Only: 19 − 3 = 16."
+    },
+    {
+      "id": "scatter-two-way/t4/021",
+      "tier": 4,
+      "prompt": "16 kids ride a bus; 3 of them ride a bike. Bus only?",
+      "choices": [
+        "19",
+        "3",
+        "16",
+        "13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        "WHOLE_FOR_ONLY",
+        null
+      ],
+      "explanation": "The 3 who do both are inside the 16. Only: 16 − 3 = 13."
+    },
+    {
+      "id": "scatter-two-way/t4/022",
+      "tier": 4,
+      "prompt": "Boys: 3 bus, 5 walk. Girls: 8 bus, 10 walk. Total bus?",
+      "choices": [
+        "3",
+        "11",
+        "26",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_CELL",
+        null,
+        "GRAND_TOTAL",
+        "WRONG_ROW"
+      ],
+      "explanation": "bus: 3 + 8 = 11."
+    },
+    {
+      "id": "scatter-two-way/t4/023",
+      "tier": 4,
+      "prompt": "10 kids take art; 2 of them take band. Art only?",
+      "choices": [
+        "10",
+        "12",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        null,
+        "ONLY_IS_BOTH"
+      ],
+      "explanation": "The 2 who do both are inside the 10. Only: 10 − 2 = 8."
+    },
+    {
+      "id": "scatter-two-way/t4/024",
+      "tier": 4,
+      "prompt": "Pizza fans: 10 in all, 6 are kids. How many are adults?",
+      "choices": [
+        "4",
+        "10",
+        "16",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING",
+        "GIVEN_CELL"
+      ],
+      "explanation": "The two groups make 10. 10 − 6 = 4."
+    },
+    {
+      "id": "scatter-two-way/t4/025",
+      "tier": 4,
+      "prompt": "Boys: 6 pass, 9 fail. Girls: 3 pass, 5 fail. Total girls?",
+      "choices": [
+        "9",
+        "23",
+        "8",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL"
+      ],
+      "explanation": "Girls: 3 + 5 = 8."
+    },
+    {
+      "id": "scatter-two-way/t4/026",
+      "tier": 4,
+      "prompt": "Boys: 3 yes, 11 no. Girls: 3 yes, 3 no. Total yes?",
+      "choices": [
+        "20",
+        "3",
+        "14",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        "WRONG_ROW",
+        null
+      ],
+      "explanation": "yes: 3 + 3 = 6."
+    },
+    {
+      "id": "scatter-two-way/t4/027",
+      "tier": 4,
+      "prompt": "Boys: 12 yes, 9 no. Girls: 5 yes, 10 no. How many in all?",
+      "choices": [
+        "36",
+        "24",
+        "17",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEFT_OUT_CELL",
+        "WRONG_ROW",
+        "WRONG_ROW"
+      ],
+      "explanation": "12 + 9 + 5 + 10 = 36."
+    },
+    {
+      "id": "scatter-two-way/t4/028",
+      "tier": 4,
+      "prompt": "Boys: 8 pass, 6 fail. Girls: 14 pass, 10 fail. Total pass?",
+      "choices": [
+        "14",
+        "8",
+        "38",
+        "22"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "ONE_CELL",
+        "GRAND_TOTAL",
+        null
+      ],
+      "explanation": "pass: 8 + 14 = 22."
+    },
+    {
+      "id": "scatter-two-way/t4/029",
+      "tier": 4,
+      "prompt": "Cats: 4 big, 8 small. Dogs: 3 big, 4 small. How many in all?",
+      "choices": [
+        "19",
+        "7",
+        "12",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_ROW",
+        "WRONG_ROW",
+        "LEFT_OUT_CELL"
+      ],
+      "explanation": "4 + 8 + 3 + 4 = 19."
+    },
+    {
+      "id": "scatter-two-way/t4/030",
+      "tier": 4,
+      "prompt": "16 kids ride a bus; 11 of them ride a bike. Bus only?",
+      "choices": [
+        "5",
+        "16",
+        "11",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_FOR_ONLY",
+        "ONLY_IS_BOTH",
+        "ADDED_FOR_ONLY"
+      ],
+      "explanation": "The 11 who do both are inside the 16. Only: 16 − 11 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/031",
+      "tier": 4,
+      "prompt": "Cats: 6 big, 4 small. Dogs: 12 big, 13 small. Total dogs?",
+      "choices": [
+        "35",
+        "25",
+        "12",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GRAND_TOTAL",
+        null,
+        "ONE_CELL",
+        "WRONG_ROW"
+      ],
+      "explanation": "Dogs: 12 + 13 = 25."
+    },
+    {
+      "id": "scatter-two-way/t4/032",
+      "tier": 4,
+      "prompt": "Tea drinkers: 17 in all, 12 are kids. How many are adults?",
+      "choices": [
+        "12",
+        "29",
+        "5",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null,
+        "TOTAL_AS_MISSING"
+      ],
+      "explanation": "The two groups make 17. 17 − 12 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/033",
+      "tier": 4,
+      "prompt": "Cats: 13 big, 12 small. Dogs: 11 big, 6 small. Total big?",
+      "choices": [
+        "25",
+        "42",
+        "13",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null
+      ],
+      "explanation": "big: 13 + 11 = 24."
+    },
+    {
+      "id": "scatter-two-way/t4/034",
+      "tier": 4,
+      "prompt": "Bus riders: 19 in all, 2 are boys. How many are girls?",
+      "choices": [
+        "19",
+        "2",
+        "21",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TOTAL_AS_MISSING",
+        "GIVEN_CELL",
+        "ADDED_FOR_MISSING",
+        null
+      ],
+      "explanation": "The two groups make 19. 19 − 2 = 17."
+    },
+    {
+      "id": "scatter-two-way/t4/035",
+      "tier": 4,
+      "prompt": "10 kids take art; 5 of them take band. Art only?",
+      "choices": [
+        "10",
+        "15",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The 5 who do both are inside the 10. Only: 10 − 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/036",
+      "tier": 4,
+      "prompt": "9 kids ride a bus; 3 of them ride a bike. Bus only?",
+      "choices": [
+        "3",
+        "6",
+        "9",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONLY_IS_BOTH",
+        null,
+        "WHOLE_FOR_ONLY",
+        "ADDED_FOR_ONLY"
+      ],
+      "explanation": "The 3 who do both are inside the 9. Only: 9 − 3 = 6."
+    },
+    {
+      "id": "scatter-two-way/t4/037",
+      "tier": 4,
+      "prompt": "Bus riders: 10 in all, 5 are boys. How many are girls?",
+      "choices": [
+        "6",
+        "5",
+        "10",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "TOTAL_AS_MISSING",
+        "ADDED_FOR_MISSING"
+      ],
+      "explanation": "The two groups make 10. 10 − 5 = 5."
+    },
+    {
+      "id": "scatter-two-way/t4/038",
+      "tier": 4,
+      "prompt": "Cats: 9 big, 9 small. Dogs: 6 big, 13 small. Total cats?",
+      "choices": [
+        "15",
+        "37",
+        "9",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "GRAND_TOTAL",
+        "ONE_CELL",
+        null
+      ],
+      "explanation": "Cats: 9 + 9 = 18."
+    },
+    {
+      "id": "scatter-two-way/t4/039",
+      "tier": 4,
+      "prompt": "13 kids take art; 6 of them take band. Art only?",
+      "choices": [
+        "19",
+        "7",
+        "13",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_FOR_ONLY",
+        null,
+        "WHOLE_FOR_ONLY",
+        "ONLY_IS_BOTH"
+      ],
+      "explanation": "The 6 who do both are inside the 13. Only: 13 − 6 = 7."
+    },
+    {
+      "id": "scatter-two-way/t4/040",
+      "tier": 4,
+      "prompt": "Boys: 13 bus, 7 walk. Girls: 6 bus, 13 walk. Total bus?",
+      "choices": [
+        "20",
+        "13",
+        "39",
+        "19"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_ROW",
+        "ONE_CELL",
+        "GRAND_TOTAL",
+        null
+      ],
+      "explanation": "bus: 13 + 6 = 19."
+    },
+    {
+      "id": "scatter-two-way/t5/001",
+      "tier": 5,
+      "prompt": "Boys: 6 bus, 9 walk. Fraction of boys taking the bus?",
+      "choices": [
+        "2/3",
+        "2/5",
+        "3/5",
+        "5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "PART_TO_PART",
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "6 of 15 boys: 6/15 = 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/002",
+      "tier": 5,
+      "prompt": "Kids: 3 pizza, 1 taco. Fraction of kids picking pizza?",
+      "choices": [
+        "4/3",
+        "3",
+        "3/4",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "PART_TO_PART",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "3 of 4 kids: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/003",
+      "tier": 5,
+      "prompt": "Boys: 6 of 8 pass. Girls: 8 of 20. Who is more likely?",
+      "choices": [
+        "Girls",
+        "Same",
+        "Boys"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Boys 6/8 = 3/4, Girls 8/20 = 2/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/004",
+      "tier": 5,
+      "prompt": "Teens: 5 of 6 say yes. Parents: 6 of 10. Who is more likely?",
+      "choices": [
+        "Same",
+        "Teens",
+        "Parents"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Teens 5/6, Parents 6/10 = 3/5. Teens has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/005",
+      "tier": 5,
+      "prompt": "Tea drinkers: 3 kids, 2 adults. Fraction that are kids?",
+      "choices": [
+        "3/5",
+        "2/5",
+        "3/2",
+        "5/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "3 kids out of 5 in all: 3/5."
+    },
+    {
+      "id": "scatter-two-way/t5/006",
+      "tier": 5,
+      "prompt": "Men: 2 of 10 say yes. Women: 3 of 15. Who is more likely?",
+      "choices": [
+        "Men",
+        "Same",
+        "Women"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 2/10 = 1/5, Women 3/15 = 1/5. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/007",
+      "tier": 5,
+      "prompt": "Boys: 1 bus, 4 walk. Percent of boys taking the bus?",
+      "choices": [
+        "30%",
+        "20%",
+        "80%",
+        "1%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "OTHER_PART",
+        "COUNT_AS_PERCENT"
+      ],
+      "explanation": "1 out of 5 = 1/5 = 20/100 = 20%."
+    },
+    {
+      "id": "scatter-two-way/t5/008",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 4 no. All: 16 yes. Fraction of boys saying yes?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "1/8",
+        "1/3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "2 of 6 boys: 2/6 = 1/3."
+    },
+    {
+      "id": "scatter-two-way/t5/009",
+      "tier": 5,
+      "prompt": "Kids: 2 pizza, 3 tacos. Fraction of kids picking pizza?",
+      "choices": [
+        "3/5",
+        "2/5",
+        "2/3",
+        "5/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "PART_TO_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "2 of 5 kids: 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/010",
+      "tier": 5,
+      "prompt": "Kids: 3 of 4 say yes. Adults: 12 of 16. Who is more likely?",
+      "choices": [
+        "Kids",
+        "Same",
+        "Adults"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Kids 3/4, Adults 12/16 = 3/4. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/011",
+      "tier": 5,
+      "prompt": "Boys: 3 of 4 vote yes. Girls: 6 of 15. Who is more likely?",
+      "choices": [
+        "Boys",
+        "Same",
+        "Girls"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Boys 3/4, Girls 6/15 = 2/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/012",
+      "tier": 5,
+      "prompt": "Men: 5 of 6 pass. Women: 6 of 10. Who is more likely?",
+      "choices": [
+        "Men",
+        "Same",
+        "Women"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 5/6, Women 6/10 = 3/5. Men has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/013",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 9 no. All: 17 yes. Fraction of boys saying yes?",
+      "choices": [
+        "6/17",
+        "2/5",
+        "2/3",
+        "3/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_TOTAL",
+        null,
+        "PART_TO_PART",
+        "OTHER_PART"
+      ],
+      "explanation": "6 of 15 boys: 6/15 = 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/014",
+      "tier": 5,
+      "prompt": "Boys: 5 yes, 3 no. 26 in all. Fraction of boys saying yes?",
+      "choices": [
+        "5/3",
+        "5/26",
+        "5/8",
+        "3/8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PART_TO_PART",
+        "GRAND_DENOMINATOR",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "5 of 8 boys: 5/8."
+    },
+    {
+      "id": "scatter-two-way/t5/015",
+      "tier": 5,
+      "prompt": "Boys: 3 of 6 pass. Girls: 4 of 20. Who is more likely?",
+      "choices": [
+        "Girls",
+        "Same",
+        "Boys"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Boys 3/6 = 1/2, Girls 4/20 = 1/5. Boys has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/016",
+      "tier": 5,
+      "prompt": "Boys: 1 yes, 11 no. 17 in all. Fraction of boys saying yes?",
+      "choices": [
+        "1/12",
+        "1/11",
+        "1/17",
+        "11/12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "GRAND_DENOMINATOR",
+        "OTHER_PART"
+      ],
+      "explanation": "1 of 12 boys: 1/12."
+    },
+    {
+      "id": "scatter-two-way/t5/017",
+      "tier": 5,
+      "prompt": "Kids: 3 of 12 win. Adults: 2 of 4. Who is more likely?",
+      "choices": [
+        "Adults",
+        "Same",
+        "Kids"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Kids 3/12 = 1/4, Adults 2/4 = 1/2. Adults has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/018",
+      "tier": 5,
+      "prompt": "Teens: 12 of 15 pass. Parents: 4 of 5. Who is more likely?",
+      "choices": [
+        "Parents",
+        "Same",
+        "Teens"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NOT_COMPARED",
+        null,
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Teens 12/15 = 4/5, Parents 4/5. Equal rates."
+    },
+    {
+      "id": "scatter-two-way/t5/019",
+      "tier": 5,
+      "prompt": "Boys: 6 bus, 2 walk. Percent of boys taking the bus?",
+      "choices": [
+        "6%",
+        "75%",
+        "25%",
+        "85%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNT_AS_PERCENT",
+        null,
+        "OTHER_PART",
+        "ARITH"
+      ],
+      "explanation": "6 out of 8 = 6/8 = 75/100 = 75%."
+    },
+    {
+      "id": "scatter-two-way/t5/020",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 2 no. All: 11 yes. Fraction of boys saying yes?",
+      "choices": [
+        "1/4",
+        "6/11",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "WRONG_TOTAL",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "6 of 8 boys: 6/8 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/021",
+      "tier": 5,
+      "prompt": "Boys: 3 yes, 1 no. 17 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/17",
+        "3",
+        "1/4",
+        "3/4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GRAND_DENOMINATOR",
+        "PART_TO_PART",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "3 of 4 boys: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/022",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 3 no. 21 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/5",
+        "2/21",
+        "2/3",
+        "2/5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "GRAND_DENOMINATOR",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "2 of 5 boys: 2/5."
+    },
+    {
+      "id": "scatter-two-way/t5/023",
+      "tier": 5,
+      "prompt": "Boys: 6 yes, 2 no. 16 in all. Fraction of boys saying yes?",
+      "choices": [
+        "3/8",
+        "1/4",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GRAND_DENOMINATOR",
+        "OTHER_PART",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "6 of 8 boys: 6/8 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/024",
+      "tier": 5,
+      "prompt": "Pizza fans: 10 kids, 5 adults. Fraction that are kids?",
+      "choices": [
+        "3/2",
+        "2/3",
+        "1/3",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        null,
+        "OTHER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "10 kids out of 15 in all: 10/15 = 2/3."
+    },
+    {
+      "id": "scatter-two-way/t5/025",
+      "tier": 5,
+      "prompt": "Boys: 1 pass, 5 fail. Fraction of boys who passed?",
+      "choices": [
+        "5/6",
+        "1/5",
+        "1/6",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_PART",
+        "PART_TO_PART",
+        null,
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "1 of 6 boys: 1/6."
+    },
+    {
+      "id": "scatter-two-way/t5/026",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 1 juice. Fraction of kids picking tea?",
+      "choices": [
+        "4/3",
+        "1/4",
+        "3/4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "OTHER_PART",
+        null,
+        "PART_TO_PART"
+      ],
+      "explanation": "3 of 4 kids: 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/027",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 7 juice. Percent of kids picking tea?",
+      "choices": [
+        "3%",
+        "40%",
+        "70%",
+        "30%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNT_AS_PERCENT",
+        "ARITH",
+        "OTHER_PART",
+        null
+      ],
+      "explanation": "3 out of 10 = 3/10 = 30/100 = 30%."
+    },
+    {
+      "id": "scatter-two-way/t5/028",
+      "tier": 5,
+      "prompt": "Kids: 3 tea, 7 juice. Fraction of kids picking tea?",
+      "choices": [
+        "10/3",
+        "7/10",
+        "3/7",
+        "3/10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_OVER_PART",
+        "OTHER_PART",
+        "PART_TO_PART",
+        null
+      ],
+      "explanation": "3 of 10 kids: 3/10."
+    },
+    {
+      "id": "scatter-two-way/t5/029",
+      "tier": 5,
+      "prompt": "Kids: 2 tea, 3 juice. Percent of kids picking tea?",
+      "choices": [
+        "60%",
+        "40%",
+        "2%",
+        "50%"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "OTHER_PART",
+        null,
+        "COUNT_AS_PERCENT",
+        "ARITH"
+      ],
+      "explanation": "2 out of 5 = 2/5 = 40/100 = 40%."
+    },
+    {
+      "id": "scatter-two-way/t5/030",
+      "tier": 5,
+      "prompt": "Kids: 5 pizza, 15 tacos. Percent of kids picking pizza?",
+      "choices": [
+        "35%",
+        "5%",
+        "25%",
+        "75%"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COUNT_AS_PERCENT",
+        null,
+        "OTHER_PART"
+      ],
+      "explanation": "5 out of 20 = 5/20 = 25/100 = 25%."
+    },
+    {
+      "id": "scatter-two-way/t5/031",
+      "tier": 5,
+      "prompt": "Teens: 3 of 15 walk. Parents: 2 of 3. Who is more likely?",
+      "choices": [
+        "Teens",
+        "Same",
+        "Parents"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Teens 3/15 = 1/5, Parents 2/3. Parents has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/032",
+      "tier": 5,
+      "prompt": "Teens: 6 of 15 say yes. Parents: 3 of 4. Who is more likely?",
+      "choices": [
+        "Teens",
+        "Same",
+        "Parents"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNT_NOT_RATE",
+        "NOT_COMPARED",
+        null
+      ],
+      "explanation": "Teens 6/15 = 2/5, Parents 3/4. Parents has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/033",
+      "tier": 5,
+      "prompt": "Boys: 2 pass, 8 fail. Percent of boys who passed?",
+      "choices": [
+        "80%",
+        "2%",
+        "30%",
+        "20%"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "OTHER_PART",
+        "COUNT_AS_PERCENT",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 out of 10 = 2/10 = 20/100 = 20%."
+    },
+    {
+      "id": "scatter-two-way/t5/034",
+      "tier": 5,
+      "prompt": "Winners: 9 boys, 3 girls. Fraction that are boys?",
+      "choices": [
+        "3/4",
+        "3",
+        "1/4",
+        "4/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PART_TO_PART",
+        "OTHER_PART",
+        "WHOLE_OVER_PART"
+      ],
+      "explanation": "9 boys out of 12 in all: 9/12 = 3/4."
+    },
+    {
+      "id": "scatter-two-way/t5/035",
+      "tier": 5,
+      "prompt": "Bus riders: 1 boy, 3 girls. Fraction that are boys?",
+      "choices": [
+        "1/4",
+        "3/4",
+        "4",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "1 boys out of 4 in all: 1/4."
+    },
+    {
+      "id": "scatter-two-way/t5/036",
+      "tier": 5,
+      "prompt": "Men: 8 of 20 walk. Women: 4 of 5. Who is more likely?",
+      "choices": [
+        "Women",
+        "Same",
+        "Men"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOT_COMPARED",
+        "COUNT_NOT_RATE"
+      ],
+      "explanation": "Men 8/20 = 2/5, Women 4/5. Women has the greater share."
+    },
+    {
+      "id": "scatter-two-way/t5/037",
+      "tier": 5,
+      "prompt": "Boys: 2 yes, 14 no. All: 7 yes. Fraction of boys saying yes?",
+      "choices": [
+        "1/8",
+        "7/8",
+        "1/7",
+        "2/7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "PART_TO_PART",
+        "WRONG_TOTAL"
+      ],
+      "explanation": "2 of 16 boys: 2/16 = 1/8."
+    },
+    {
+      "id": "scatter-two-way/t5/038",
+      "tier": 5,
+      "prompt": "Pizza fans: 1 kid, 7 adults. Fraction that are kids?",
+      "choices": [
+        "1/8",
+        "7/8",
+        "8",
+        "1/7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "1 kids out of 8 in all: 1/8."
+    },
+    {
+      "id": "scatter-two-way/t5/039",
+      "tier": 5,
+      "prompt": "Boys: 7 yes, 1 no. All: 13 yes. Fraction of boys saying yes?",
+      "choices": [
+        "7",
+        "1/8",
+        "7/13",
+        "7/8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PART_TO_PART",
+        "OTHER_PART",
+        "WRONG_TOTAL",
+        null
+      ],
+      "explanation": "7 of 8 boys: 7/8."
+    },
+    {
+      "id": "scatter-two-way/t5/040",
+      "tier": 5,
+      "prompt": "Boys: 12 bus, 3 walk. Fraction of boys taking the bus?",
+      "choices": [
+        "4/5",
+        "1/5",
+        "5/4",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "OTHER_PART",
+        "WHOLE_OVER_PART",
+        "PART_TO_PART"
+      ],
+      "explanation": "12 of 15 boys: 12/15 = 4/5."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["scientific-notation"] = {
+  "protocol": "fnm-cart/1",
+  "id": "scientific-notation",
+  "version": "1.0.0",
+  "title": "Scientific Notation",
+  "subtitle": "Powers of 10, Huge & Tiny Numbers",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.EE.A.3",
+    "CCSS.MATH.CONTENT.8.EE.A.4"
+  ],
+  "seed": 20261032,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b scientific notation. Every coefficient in a prompt is one digit (2-9) or d.d (1.1-9.5, no zero inside), so at most 2 non-zero digits; every answer coefficient is 1 to 9.5 (a sum like 3 + 0.2 stays under 9.5). Every exponent in a prompt, a step or an answer has size 12 or less (a wrong choice may pass it). A power of 10 is place value, so its size is free inside that range: standard forms are 14 characters or fewer, with commas on whole numbers (3,000,000,000) and plain decimals (0.000000003). Every coefficient × is a times-table fact of two digits 2-9 and every ÷ one of a times-table fact or 2 ÷ 4 = 0.5, renormalised by one place (5 × 4 = 20 is 2 × 10^1; 2 ÷ 4 = 0.5 is 5 × 10^−1). A + joins equal exponents, or exponents one apart (3 + 0.2). A 'how many times' answer is a power of 10 up to 10^5, or a times-table ratio 2-4 (or 2-9 in tier 5's coefficients) times a power of 10 up to 10^3.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Powers of 10",
+      "description": "Read 10 to a power as a number, and a number as a power of 10."
+    },
+    {
+      "tier": 2,
+      "name": "Write in Sci. Notation",
+      "description": "One digit before the point, times a power of 10."
+    },
+    {
+      "tier": 3,
+      "name": "Read in Standard Form",
+      "description": "Turn scientific notation back into an ordinary number."
+    },
+    {
+      "tier": 4,
+      "name": "Compare & How Many Times",
+      "description": "Compare sizes and say how many times bigger."
+    },
+    {
+      "tier": 5,
+      "name": "Multiply, Divide & Add",
+      "description": "Calculate with scientific notation and fix the coefficient."
+    }
+  ],
+  "misconceptions": {
+    "ONE_ZERO_SHORT": {
+      "student": "Count every zero: 10,000,000 is a 1 and 7 zeros, so 10⁷.",
+      "teacher": "Counts one zero too few when naming a big power of 10 (or writing it out)."
+    },
+    "ONE_PLACE_SHORT": {
+      "student": "Count every place the point moves, including the last one.",
+      "teacher": "Moves the point one place too few: exponent one closer to 0."
+    },
+    "ONE_PLACE_OVER": {
+      "student": "Count only the places the point moves, not one more.",
+      "teacher": "Moves the point one place too many: exponent one farther from 0."
+    },
+    "ZEROS_PLUS_ONE": {
+      "student": "10⁴ has four zeros: a 1 and then 4 zeros. Count the zeros, not the digits.",
+      "teacher": "Counts the 1 as part of the exponent (or the digits instead of the zeros): 10⁴ = 100,000."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "An exponent says how many 10s you multiply, not 10 times the exponent.",
+      "teacher": "Reads 10^n as 10 × n: 10⁴ = 40."
+    },
+    "DIGITS_SIDE_BY_SIDE": {
+      "student": "10⁴ is 10 × 10 × 10 × 10, not the digits 10 and 4 side by side.",
+      "teacher": "Writes the base and the exponent next to each other: 10⁴ = 104."
+    },
+    "ZERO_IS_ZERO": {
+      "student": "Any number to the power 0 is 1, not 0.",
+      "teacher": "Treats a zero exponent as zero: 10⁰ = 0."
+    },
+    "ZERO_KEEPS_BASE": {
+      "student": "10⁰ is 1: no tens are multiplied at all.",
+      "teacher": "Thinks a zero exponent leaves the base alone: 10⁰ = 10."
+    },
+    "NEG_IS_NEGATIVE": {
+      "student": "A negative exponent gives a small number, not a negative one. 10⁻³ = 0.001.",
+      "teacher": "Makes the value negative: 10⁻³ = −1,000."
+    },
+    "NEG_IGNORED": {
+      "student": "The minus in 10⁻³ means divide by 10 three times: 0.001, not 1,000.",
+      "teacher": "Ignores the negative sign of the exponent: 10⁻³ = 1,000."
+    },
+    "DECIMAL_SLIP": {
+      "student": "Count the places: 0.001 puts the 1 in the 3rd place after the point.",
+      "teacher": "Off by one place in a decimal: zeros after the point counted as the exponent, or the reverse."
+    },
+    "SIGN_DROPPED": {
+      "student": "A number smaller than 1 has a negative power: 0.001 = 10⁻³.",
+      "teacher": "Drops the negative sign when naming a small number as a power of 10."
+    },
+    "COUNTED_ALL_DIGITS": {
+      "student": "Count how far the point moves, not how many digits there are.",
+      "teacher": "Uses the number of digits as the exponent: 4,000,000 = 4 × 10⁷."
+    },
+    "SIGN_FLIP": {
+      "student": "Big numbers get a positive power, small ones a negative power.",
+      "teacher": "Wrong sign on the exponent: 5 × 10⁻⁴ read as 5 × 10⁴, or the reverse."
+    },
+    "COUNTED_ZEROS": {
+      "student": "The point moves past every digit up to the first one, not only past the zeros.",
+      "teacher": "Counts zeros instead of places moved: 0.0005 = 5 × 10⁻³, 32,000 = 3.2 × 10³."
+    },
+    "COEF_NOT_1_TO_10": {
+      "student": "The front number must be at least 1 and less than 10: 3.5, not 35.",
+      "teacher": "Accepts a coefficient of 10 or more as scientific notation."
+    },
+    "COEF_BELOW_1": {
+      "student": "The front number must be at least 1: 3.5 × 10⁴, not 0.35 × 10⁴.",
+      "teacher": "Accepts a coefficient below 1 as scientific notation."
+    },
+    "ADDED_NOT_TIMES": {
+      "student": "Scientific notation multiplies by a power of 10; it does not add one.",
+      "teacher": "Uses + between the coefficient and the power of 10."
+    },
+    "BASE_EXP_SWAP": {
+      "student": "The base must be 10, and the exponent counts the places the point moved.",
+      "teacher": "Swaps the base and the exponent: 3.5 × 4¹⁰ instead of 3.5 × 10⁴."
+    },
+    "EXTRA_ZERO": {
+      "student": "10⁵ moves the point 5 places, no more. Count the places carefully.",
+      "teacher": "Moves the decimal point one place too far."
+    },
+    "APPENDED_ZEROS": {
+      "student": "The point moves; you do not just add zeros after the decimal.",
+      "teacher": "Writes the coefficient with the zeros tacked on: 2.5 × 10³ = 2.5000."
+    },
+    "EXPONENT_DIFF": {
+      "student": "The powers differ by 2, so it is 10² times, which is 100 times.",
+      "teacher": "Answers with the difference of the exponents instead of the power of 10 it makes."
+    },
+    "DIVIDED_WRONG_WAY": {
+      "student": "Bigger divided by smaller: the answer is over 1, not a fraction.",
+      "teacher": "Divides smaller by bigger and gets a fraction below 1."
+    },
+    "ONE_ZERO_OFF": {
+      "student": "Subtract the powers carefully: 10⁸ ÷ 10⁶ has 2 zeros, not 1 or 3.",
+      "teacher": "Off by one power of 10 when comparing sizes."
+    },
+    "SUBTRACTED": {
+      "student": "How many times means divide: 8 ÷ 2 = 4, not 8 − 2.",
+      "teacher": "Subtracts the coefficients instead of dividing."
+    },
+    "MULTIPLIED_COEFS": {
+      "student": "How many times means divide: 8 ÷ 2 = 4, not 8 × 2.",
+      "teacher": "Multiplies the coefficients instead of dividing."
+    },
+    "COEF_RATIO_ONLY": {
+      "student": "Do the powers too: 6 × 10⁸ is 3 × 100 times 2 × 10⁶.",
+      "teacher": "Divides the coefficients and forgets the power of 10 that is left."
+    },
+    "COEF_FIRST": {
+      "student": "Compare the powers of 10 first. A bigger power wins, whatever the front number.",
+      "teacher": "Compares the coefficients and ignores the exponents."
+    },
+    "NEG_EXP_BIGGER": {
+      "student": "10⁻² is bigger than 10⁻⁴: with negative powers, the one nearer 0 is bigger.",
+      "teacher": "Treats a larger negative exponent as a larger number."
+    },
+    "MULT_EXPONENTS": {
+      "student": "10³ × 10⁵ = 10⁸. When you multiply powers, add the exponents.",
+      "teacher": "Multiplies the exponents instead of adding them."
+    },
+    "ADD_COEFS": {
+      "student": "Multiply the front numbers: 2 × 4 = 8, not 2 + 4.",
+      "teacher": "Adds the coefficients when multiplying."
+    },
+    "NO_CARRY": {
+      "student": "If the front number reaches 10 or more, fix it and raise the power by 1.",
+      "teacher": "Normalises the coefficient but forgets to adjust the exponent."
+    },
+    "EXPONENTS_SUBTRACTED": {
+      "student": "When you multiply powers of 10, add the exponents.",
+      "teacher": "Subtracts the exponents when multiplying."
+    },
+    "ADD_EXPONENTS": {
+      "student": "When you divide powers of 10, subtract the exponents.",
+      "teacher": "Adds the exponents when dividing."
+    },
+    "DIVIDE_EXPONENTS": {
+      "student": "10⁹ ÷ 10³ = 10⁶. Subtract the exponents; do not divide them.",
+      "teacher": "Divides the exponents instead of subtracting them."
+    },
+    "SUB_COEFS": {
+      "student": "Divide the front numbers: 6 ÷ 2 = 3, not 6 − 2.",
+      "teacher": "Subtracts the coefficients when dividing."
+    },
+    "FLIPPED_EXPONENTS": {
+      "student": "Top power minus bottom power, in that order.",
+      "teacher": "Subtracts the exponents the wrong way round when dividing."
+    },
+    "ADD_EXPONENTS_ON_SUM": {
+      "student": "Adding keeps the power of 10: 3 + 2 ten-thousands = 5 ten-thousands.",
+      "teacher": "Adds the exponents when adding two numbers in scientific notation."
+    },
+    "MULT_FOR_ADD": {
+      "student": "This is a sum: add the front numbers, keep the same power of 10.",
+      "teacher": "Treats + as ×: multiplies the coefficients and adds the exponents."
+    },
+    "IGNORE_GAP": {
+      "student": "Different powers: 2 × 10³ is only 0.2 × 10⁴. Match the powers first.",
+      "teacher": "Adds the coefficients without matching the powers of 10."
+    },
+    "KEPT_SMALLER_POWER": {
+      "student": "Match the powers first. Rewrite 2 × 10³ as 0.2 × 10⁴, then add.",
+      "teacher": "Adds the coefficients as if both used the smaller power of 10."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "scientific-notation/t1/001",
+      "tier": 1,
+      "prompt": "10⁷ = ?",
+      "choices": [
+        "1,000,000",
+        "10,000,000",
+        "70",
+        "107"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        null,
+        "TIMES_FOR_POWER",
+        "DIGITS_SIDE_BY_SIDE"
+      ],
+      "explanation": "10⁷ is a 1 followed by 7 zeros: 10,000,000."
+    },
+    {
+      "id": "scientific-notation/t1/002",
+      "tier": 1,
+      "prompt": "100,000 is 10 to what power?",
+      "choices": [
+        "5",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_ZERO_SHORT",
+        "ZEROS_PLUS_ONE"
+      ],
+      "explanation": "100,000 is a 1 followed by 5 zeros, so it is 10⁵."
+    },
+    {
+      "id": "scientific-notation/t1/003",
+      "tier": 1,
+      "prompt": "0.0001 is 10 to what power?",
+      "choices": [
+        "4",
+        "−4",
+        "−5",
+        "−3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        null,
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "In 0.0001 the 1 is 4 places right of the point, so it is 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t1/004",
+      "tier": 1,
+      "prompt": "10⁴ = ?",
+      "choices": [
+        "100,000",
+        "1,000",
+        "10,000",
+        "104"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZEROS_PLUS_ONE",
+        "ONE_ZERO_SHORT",
+        null,
+        "DIGITS_SIDE_BY_SIDE"
+      ],
+      "explanation": "10⁴ is a 1 followed by 4 zeros: 10,000."
+    },
+    {
+      "id": "scientific-notation/t1/005",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.01?",
+      "choices": [
+        "10⁻²",
+        "10⁻³",
+        "10⁻¹",
+        "10²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED"
+      ],
+      "explanation": "In 0.01 the 1 is 2 places right of the point, so it is 10⁻²."
+    },
+    {
+      "id": "scientific-notation/t1/006",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 1,000,000?",
+      "choices": [
+        "10⁶",
+        "10⁷",
+        "10⁸",
+        "10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZEROS_PLUS_ONE",
+        "ARITH",
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "1,000,000 is a 1 followed by 6 zeros, so it is 10⁶."
+    },
+    {
+      "id": "scientific-notation/t1/007",
+      "tier": 1,
+      "prompt": "10³ = ?",
+      "choices": [
+        "100",
+        "1,000",
+        "10,000",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        null,
+        "ZEROS_PLUS_ONE",
+        "TIMES_FOR_POWER"
+      ],
+      "explanation": "10³ is a 1 followed by 3 zeros: 1,000."
+    },
+    {
+      "id": "scientific-notation/t1/008",
+      "tier": 1,
+      "prompt": "10⁻⁸ = ?",
+      "choices": [
+        "0.00000001",
+        "100,000,000",
+        "0.000000001",
+        "−100,000,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_IGNORED",
+        "DECIMAL_SLIP",
+        "NEG_IS_NEGATIVE"
+      ],
+      "explanation": "10⁻⁸ = 1/100,000,000 = 0.00000001: the 1 is 8 places right of the point."
+    },
+    {
+      "id": "scientific-notation/t1/009",
+      "tier": 1,
+      "prompt": "0.000001 is 10 to what power?",
+      "choices": [
+        "−6",
+        "−7",
+        "−5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED"
+      ],
+      "explanation": "In 0.000001 the 1 is 6 places right of the point, so it is 10⁻⁶."
+    },
+    {
+      "id": "scientific-notation/t1/010",
+      "tier": 1,
+      "prompt": "100,000,000 is 10 to what power?",
+      "choices": [
+        "9",
+        "7",
+        "8",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZEROS_PLUS_ONE",
+        "ONE_ZERO_SHORT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "100,000,000 is a 1 followed by 8 zeros, so it is 10⁸."
+    },
+    {
+      "id": "scientific-notation/t1/011",
+      "tier": 1,
+      "prompt": "100 is 10 to what power?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZEROS_PLUS_ONE",
+        null,
+        "ARITH",
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "100 is a 1 followed by 2 zeros, so it is 10²."
+    },
+    {
+      "id": "scientific-notation/t1/012",
+      "tier": 1,
+      "prompt": "Standard form of 10¹?",
+      "choices": [
+        "1",
+        "101",
+        "100",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        "DIGITS_SIDE_BY_SIDE",
+        "ZEROS_PLUS_ONE",
+        null
+      ],
+      "explanation": "10¹ is a 1 followed by 1 zero: 10."
+    },
+    {
+      "id": "scientific-notation/t1/013",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 10?",
+      "choices": [
+        "10³",
+        "10¹",
+        "10²",
+        "10⁰"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZEROS_PLUS_ONE",
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "10 is a 1 followed by 1 zero, so it is 10¹."
+    },
+    {
+      "id": "scientific-notation/t1/014",
+      "tier": 1,
+      "prompt": "0.001 is 10 to what power?",
+      "choices": [
+        "−2",
+        "3",
+        "−3",
+        "−4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED",
+        null,
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "In 0.001 the 1 is 3 places right of the point, so it is 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t1/015",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.0001?",
+      "choices": [
+        "10⁻⁴",
+        "10⁻⁵",
+        "10⁴",
+        "10⁻³"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_PLACE_OVER",
+        "SIGN_DROPPED",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "In 0.0001 the 1 is 4 places right of the point, so it is 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t1/016",
+      "tier": 1,
+      "prompt": "Which equals 10⁻⁴?",
+      "choices": [
+        "0.00001",
+        "0.001",
+        "−10,000",
+        "0.0001"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "ONE_PLACE_SHORT",
+        "NEG_IS_NEGATIVE",
+        null
+      ],
+      "explanation": "10⁻⁴ = 1/10,000 = 0.0001: the 1 is 4 places right of the point."
+    },
+    {
+      "id": "scientific-notation/t1/017",
+      "tier": 1,
+      "prompt": "0.01 is 10 to what power?",
+      "choices": [
+        "−2",
+        "−3",
+        "−1",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED"
+      ],
+      "explanation": "In 0.01 the 1 is 2 places right of the point, so it is 10⁻²."
+    },
+    {
+      "id": "scientific-notation/t1/018",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 1,000,000,000?",
+      "choices": [
+        "10¹¹",
+        "10⁹",
+        "10¹⁰",
+        "10⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ZEROS_PLUS_ONE",
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "1,000,000,000 is a 1 followed by 9 zeros, so it is 10⁹."
+    },
+    {
+      "id": "scientific-notation/t1/019",
+      "tier": 1,
+      "prompt": "1,000,000 is 10 to what power?",
+      "choices": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        "ZEROS_PLUS_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "1,000,000 is a 1 followed by 6 zeros, so it is 10⁶."
+    },
+    {
+      "id": "scientific-notation/t1/020",
+      "tier": 1,
+      "prompt": "10⁻¹ = ?",
+      "choices": [
+        "0.01",
+        "0.1",
+        "−10",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        null,
+        "NEG_IS_NEGATIVE",
+        "NEG_IGNORED"
+      ],
+      "explanation": "10⁻¹ = 1/10 = 0.1: the 1 is 1 place right of the point."
+    },
+    {
+      "id": "scientific-notation/t1/021",
+      "tier": 1,
+      "prompt": "0.00000001 is 10 to what power?",
+      "choices": [
+        "8",
+        "−8",
+        "−9",
+        "−7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        null,
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "In 0.00000001 the 1 is 8 places right of the point, so it is 10⁻⁸."
+    },
+    {
+      "id": "scientific-notation/t1/022",
+      "tier": 1,
+      "prompt": "10² = ?",
+      "choices": [
+        "10",
+        "1,000",
+        "100",
+        "102"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        "ZEROS_PLUS_ONE",
+        null,
+        "DIGITS_SIDE_BY_SIDE"
+      ],
+      "explanation": "10² is a 1 followed by 2 zeros: 100."
+    },
+    {
+      "id": "scientific-notation/t1/023",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.1?",
+      "choices": [
+        "10¹",
+        "10⁻²",
+        "10⁰",
+        "10⁻¹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "In 0.1 the 1 is 1 place right of the point, so it is 10⁻¹."
+    },
+    {
+      "id": "scientific-notation/t1/024",
+      "tier": 1,
+      "prompt": "10,000,000 is 10 to what power?",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_ZERO_SHORT",
+        "ZEROS_PLUS_ONE",
+        null
+      ],
+      "explanation": "10,000,000 is a 1 followed by 7 zeros, so it is 10⁷."
+    },
+    {
+      "id": "scientific-notation/t1/025",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.0000001?",
+      "choices": [
+        "10⁻⁷",
+        "10⁷",
+        "10⁻⁶",
+        "10⁻⁸"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_DROPPED",
+        "DECIMAL_SLIP",
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "In 0.0000001 the 1 is 7 places right of the point, so it is 10⁻⁷."
+    },
+    {
+      "id": "scientific-notation/t1/026",
+      "tier": 1,
+      "prompt": "Standard form of 10⁻⁷?",
+      "choices": [
+        "0.000001",
+        "0.0000001",
+        "0.00000001",
+        "−10,000,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_PLACE_SHORT",
+        null,
+        "DECIMAL_SLIP",
+        "NEG_IS_NEGATIVE"
+      ],
+      "explanation": "10⁻⁷ = 1/10,000,000 = 0.0000001: the 1 is 7 places right of the point."
+    },
+    {
+      "id": "scientific-notation/t1/027",
+      "tier": 1,
+      "prompt": "Standard form of 10⁹?",
+      "choices": [
+        "1,000,000,000",
+        "90",
+        "100,000,000",
+        "109"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_FOR_POWER",
+        "ONE_ZERO_SHORT",
+        "DIGITS_SIDE_BY_SIDE"
+      ],
+      "explanation": "10⁹ is a 1 followed by 9 zeros: 1,000,000,000."
+    },
+    {
+      "id": "scientific-notation/t1/028",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 1,000?",
+      "choices": [
+        "10⁴",
+        "10³",
+        "10⁵",
+        "10²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ZEROS_PLUS_ONE",
+        null,
+        "ARITH",
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "1,000 is a 1 followed by 3 zeros, so it is 10³."
+    },
+    {
+      "id": "scientific-notation/t1/029",
+      "tier": 1,
+      "prompt": "Standard form of 10⁶?",
+      "choices": [
+        "106",
+        "10,000,000",
+        "1,000,000",
+        "100,000"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIGITS_SIDE_BY_SIDE",
+        "ZEROS_PLUS_ONE",
+        null,
+        "ONE_ZERO_SHORT"
+      ],
+      "explanation": "10⁶ is a 1 followed by 6 zeros: 1,000,000."
+    },
+    {
+      "id": "scientific-notation/t1/030",
+      "tier": 1,
+      "prompt": "10,000 is 10 to what power?",
+      "choices": [
+        "3",
+        "6",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        "ARITH",
+        null,
+        "ZEROS_PLUS_ONE"
+      ],
+      "explanation": "10,000 is a 1 followed by 4 zeros, so it is 10⁴."
+    },
+    {
+      "id": "scientific-notation/t1/031",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.000001?",
+      "choices": [
+        "10⁶",
+        "10⁻⁷",
+        "10⁻⁵",
+        "10⁻⁶"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_DROPPED",
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "In 0.000001 the 1 is 6 places right of the point, so it is 10⁻⁶."
+    },
+    {
+      "id": "scientific-notation/t1/032",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.00000001?",
+      "choices": [
+        "10⁻⁷",
+        "10⁻⁹",
+        "10⁸",
+        "10⁻⁸"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "ONE_PLACE_OVER",
+        "SIGN_DROPPED",
+        null
+      ],
+      "explanation": "In 0.00000001 the 1 is 8 places right of the point, so it is 10⁻⁸."
+    },
+    {
+      "id": "scientific-notation/t1/033",
+      "tier": 1,
+      "prompt": "1,000,000,000 is 10 to what power?",
+      "choices": [
+        "8",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_ZERO_SHORT",
+        "ARITH",
+        "ZEROS_PLUS_ONE",
+        null
+      ],
+      "explanation": "1,000,000,000 is a 1 followed by 9 zeros, so it is 10⁹."
+    },
+    {
+      "id": "scientific-notation/t1/034",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 0.001?",
+      "choices": [
+        "10⁻²",
+        "10³",
+        "10⁻³",
+        "10⁻⁴"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED",
+        null,
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "In 0.001 the 1 is 3 places right of the point, so it is 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t1/035",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 10,000?",
+      "choices": [
+        "10⁶",
+        "10³",
+        "10⁴",
+        "10⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_ZERO_SHORT",
+        null,
+        "ZEROS_PLUS_ONE"
+      ],
+      "explanation": "10,000 is a 1 followed by 4 zeros, so it is 10⁴."
+    },
+    {
+      "id": "scientific-notation/t1/036",
+      "tier": 1,
+      "prompt": "Which power of 10 equals 100,000,000?",
+      "choices": [
+        "10⁹",
+        "10⁷",
+        "10⁸",
+        "10¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ZEROS_PLUS_ONE",
+        "ONE_ZERO_SHORT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "100,000,000 is a 1 followed by 8 zeros, so it is 10⁸."
+    },
+    {
+      "id": "scientific-notation/t1/037",
+      "tier": 1,
+      "prompt": "Standard form of 10⁵?",
+      "choices": [
+        "105",
+        "1,000,000",
+        "50",
+        "100,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIGITS_SIDE_BY_SIDE",
+        "ZEROS_PLUS_ONE",
+        "TIMES_FOR_POWER",
+        null
+      ],
+      "explanation": "10⁵ is a 1 followed by 5 zeros: 100,000."
+    },
+    {
+      "id": "scientific-notation/t1/038",
+      "tier": 1,
+      "prompt": "Standard form of 10⁻²?",
+      "choices": [
+        "0.1",
+        "0.001",
+        "0.01",
+        "−100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_PLACE_SHORT",
+        "DECIMAL_SLIP",
+        null,
+        "NEG_IS_NEGATIVE"
+      ],
+      "explanation": "10⁻² = 1/100 = 0.01: the 1 is 2 places right of the point."
+    },
+    {
+      "id": "scientific-notation/t1/039",
+      "tier": 1,
+      "prompt": "10⁰ = ?",
+      "choices": [
+        "1",
+        "0",
+        "10",
+        "0.1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ZERO_IS_ZERO",
+        "ZERO_KEEPS_BASE",
+        "ARITH"
+      ],
+      "explanation": "Any number to the power 0 is 1, so 10⁰ = 1."
+    },
+    {
+      "id": "scientific-notation/t1/040",
+      "tier": 1,
+      "prompt": "0.00001 is 10 to what power?",
+      "choices": [
+        "−6",
+        "−4",
+        "5",
+        "−5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_PLACE_OVER",
+        "DECIMAL_SLIP",
+        "SIGN_DROPPED",
+        null
+      ],
+      "explanation": "In 0.00001 the 1 is 5 places right of the point, so it is 10⁻⁵."
+    },
+    {
+      "id": "scientific-notation/t2/001",
+      "tier": 2,
+      "prompt": "Write 4,000 in scientific notation.",
+      "choices": [
+        "4 × 10⁻³",
+        "4 × 10⁴",
+        "4 × 10²",
+        "4 × 10³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        "ONE_PLACE_SHORT",
+        null
+      ],
+      "explanation": "The point moves 3 places left to make 4, so 4,000 = 4 × 10³."
+    },
+    {
+      "id": "scientific-notation/t2/002",
+      "tier": 2,
+      "prompt": "Write 0.0055 in scientific notation.",
+      "choices": [
+        "5.5 × 10³",
+        "5.5 × 10⁻²",
+        "5.5 × 10⁻⁴",
+        "5.5 × 10⁻³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        "COUNTED_ALL_DIGITS",
+        null
+      ],
+      "explanation": "The point moves 3 places right to make 5.5, so 0.0055 = 5.5 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t2/003",
+      "tier": 2,
+      "prompt": "Write 0.0000004 in scientific notation.",
+      "choices": [
+        "4 × 10⁷",
+        "4 × 10⁻⁶",
+        "4 × 10⁻⁷",
+        "4 × 10⁻⁸"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        null,
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "The point moves 7 places right to make 4, so 0.0000004 = 4 × 10⁻⁷."
+    },
+    {
+      "id": "scientific-notation/t2/004",
+      "tier": 2,
+      "prompt": "Write 43,000 in scientific notation.",
+      "choices": [
+        "4.3 × 10⁴",
+        "4.3 × 10⁻⁴",
+        "4.3 × 10³",
+        "4.3 × 10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 4 places left to make 4.3, so 43,000 = 4.3 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t2/005",
+      "tier": 2,
+      "prompt": "Write 55,000 in scientific notation.",
+      "choices": [
+        "5.5 × 10⁻⁴",
+        "5.5 × 10⁵",
+        "5.5 × 10⁴",
+        "5.5 × 10³"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        null,
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 4 places left to make 5.5, so 55,000 = 5.5 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t2/006",
+      "tier": 2,
+      "prompt": "Write 0.00000065 in scientific notation.",
+      "choices": [
+        "6.5 × 10⁻⁷",
+        "6.5 × 10⁻⁸",
+        "6.5 × 10⁷",
+        "6.5 × 10⁻⁶"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 7 places right to make 6.5, so 0.00000065 = 6.5 × 10⁻⁷."
+    },
+    {
+      "id": "scientific-notation/t2/007",
+      "tier": 2,
+      "prompt": "Write 410,000 in scientific notation.",
+      "choices": [
+        "4.1 × 10⁶",
+        "4.1 × 10⁵",
+        "4.1 × 10⁴",
+        "4.1 × 10⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        null,
+        "COUNTED_ZEROS",
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 5 places left to make 4.1, so 410,000 = 4.1 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t2/008",
+      "tier": 2,
+      "prompt": "Write 300,000 in scientific notation.",
+      "choices": [
+        "3 × 10⁵",
+        "3 × 10⁻⁵",
+        "3 × 10⁶",
+        "3 × 10⁴"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        "ONE_PLACE_SHORT"
+      ],
+      "explanation": "The point moves 5 places left to make 3, so 300,000 = 3 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t2/009",
+      "tier": 2,
+      "prompt": "3,000 = 3 × 10^?",
+      "choices": [
+        "−3",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "ONE_PLACE_SHORT",
+        null,
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 3 places left to make 3, so the power is 3."
+    },
+    {
+      "id": "scientific-notation/t2/010",
+      "tier": 2,
+      "prompt": "Write 50,000,000,000 in scientific notation.",
+      "choices": [
+        "5 × 10¹¹",
+        "5 × 10⁹",
+        "5 × 10⁻¹⁰",
+        "5 × 10¹⁰"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "ONE_PLACE_SHORT",
+        "SIGN_FLIP",
+        null
+      ],
+      "explanation": "The point moves 10 places left to make 5, so 50,000,000,000 = 5 × 10¹⁰."
+    },
+    {
+      "id": "scientific-notation/t2/011",
+      "tier": 2,
+      "prompt": "0.0055 = 5.5 × 10^?",
+      "choices": [
+        "−2",
+        "−3",
+        "−4",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTED_ZEROS",
+        null,
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 3 places right to make 5.5, so the power is −3."
+    },
+    {
+      "id": "scientific-notation/t2/012",
+      "tier": 2,
+      "prompt": "Write 300,000,000 in scientific notation.",
+      "choices": [
+        "3 × 10⁹",
+        "3 × 10⁷",
+        "3 × 10⁸",
+        "3 × 10⁻⁸"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "ONE_PLACE_SHORT",
+        null,
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 8 places left to make 3, so 300,000,000 = 3 × 10⁸."
+    },
+    {
+      "id": "scientific-notation/t2/013",
+      "tier": 2,
+      "prompt": "Write 0.000002 in scientific notation.",
+      "choices": [
+        "2 × 10⁻⁶",
+        "2 × 10⁶",
+        "2 × 10⁻⁵",
+        "2 × 10⁻⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "The point moves 6 places right to make 2, so 0.000002 = 2 × 10⁻⁶."
+    },
+    {
+      "id": "scientific-notation/t2/014",
+      "tier": 2,
+      "prompt": "Which number is in scientific notation?",
+      "choices": [
+        "1.8 × 10⁷",
+        "1.8 + 10⁷",
+        "0.18 × 10⁷",
+        "18 × 10⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_NOT_TIMES",
+        "COEF_BELOW_1",
+        "COEF_NOT_1_TO_10"
+      ],
+      "explanation": "One digit before the point, times a power of 10: 1.8 × 10⁷. The others break that rule."
+    },
+    {
+      "id": "scientific-notation/t2/015",
+      "tier": 2,
+      "prompt": "Write 58,000,000 in scientific notation.",
+      "choices": [
+        "5.8 × 10⁻⁷",
+        "5.8 × 10⁷",
+        "5.8 × 10⁶",
+        "5.8 × 10⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ZEROS",
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 7 places left to make 5.8, so 58,000,000 = 5.8 × 10⁷."
+    },
+    {
+      "id": "scientific-notation/t2/016",
+      "tier": 2,
+      "prompt": "Write 58,000,000,000 in scientific notation.",
+      "choices": [
+        "5.8 × 10⁹",
+        "5.8 × 10¹⁰",
+        "5.8 × 10⁻¹⁰",
+        "5.8 × 10¹¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTED_ZEROS",
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 10 places left to make 5.8, so 58,000,000,000 = 5.8 × 10¹⁰."
+    },
+    {
+      "id": "scientific-notation/t2/017",
+      "tier": 2,
+      "prompt": "Which is in scientific notation?",
+      "choices": [
+        "74 × 10⁶",
+        "7.4 × 10⁶",
+        "7.4 × 6¹⁰",
+        "7.4 + 10⁶"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_NOT_1_TO_10",
+        null,
+        "BASE_EXP_SWAP",
+        "ADDED_NOT_TIMES"
+      ],
+      "explanation": "One digit before the point, times a power of 10: 7.4 × 10⁶. The others break that rule."
+    },
+    {
+      "id": "scientific-notation/t2/018",
+      "tier": 2,
+      "prompt": "Write 400,000 in scientific notation.",
+      "choices": [
+        "4 × 10⁻⁵",
+        "4 × 10⁶",
+        "4 × 10⁵",
+        "4 × 10⁴"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        null,
+        "ONE_PLACE_SHORT"
+      ],
+      "explanation": "The point moves 5 places left to make 4, so 400,000 = 4 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t2/019",
+      "tier": 2,
+      "prompt": "Write 700,000 in scientific notation.",
+      "choices": [
+        "7 × 10⁴",
+        "7 × 10⁶",
+        "7 × 10⁻⁵",
+        "7 × 10⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_PLACE_SHORT",
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP",
+        null
+      ],
+      "explanation": "The point moves 5 places left to make 7, so 700,000 = 7 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t2/020",
+      "tier": 2,
+      "prompt": "Write 0.000000009 in scientific notation.",
+      "choices": [
+        "9 × 10⁻⁹",
+        "9 × 10⁹",
+        "9 × 10⁻¹⁰",
+        "9 × 10⁻⁸"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "ONE_PLACE_OVER",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 9 places right to make 9, so 0.000000009 = 9 × 10⁻⁹."
+    },
+    {
+      "id": "scientific-notation/t2/021",
+      "tier": 2,
+      "prompt": "Write 0.00000008 in scientific notation.",
+      "choices": [
+        "8 × 10⁻⁸",
+        "8 × 10⁸",
+        "8 × 10⁻⁹",
+        "8 × 10⁻⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "ONE_PLACE_OVER",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 8 places right to make 8, so 0.00000008 = 8 × 10⁻⁸."
+    },
+    {
+      "id": "scientific-notation/t2/022",
+      "tier": 2,
+      "prompt": "Which one is in scientific notation?",
+      "choices": [
+        "5.3 + 10⁹",
+        "53 × 10⁹",
+        "0.53 × 10⁹",
+        "5.3 × 10⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_TIMES",
+        "COEF_NOT_1_TO_10",
+        "COEF_BELOW_1",
+        null
+      ],
+      "explanation": "One digit before the point, times a power of 10: 5.3 × 10⁹. The others break that rule."
+    },
+    {
+      "id": "scientific-notation/t2/023",
+      "tier": 2,
+      "prompt": "280,000,000 = 2.8 × 10^?",
+      "choices": [
+        "7",
+        "−8",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ZEROS",
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        null
+      ],
+      "explanation": "The point moves 8 places left to make 2.8, so the power is 8."
+    },
+    {
+      "id": "scientific-notation/t2/024",
+      "tier": 2,
+      "prompt": "Write 0.000000005 in scientific notation.",
+      "choices": [
+        "5 × 10⁻⁸",
+        "5 × 10⁹",
+        "5 × 10⁻⁹",
+        "5 × 10⁻¹⁰"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTED_ZEROS",
+        "SIGN_FLIP",
+        null,
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "The point moves 9 places right to make 5, so 0.000000005 = 5 × 10⁻⁹."
+    },
+    {
+      "id": "scientific-notation/t2/025",
+      "tier": 2,
+      "prompt": "Write 0.09 in scientific notation.",
+      "choices": [
+        "9 × 10⁻³",
+        "9 × 10⁻¹",
+        "9 × 10²",
+        "9 × 10⁻²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_PLACE_OVER",
+        "COUNTED_ZEROS",
+        "SIGN_FLIP",
+        null
+      ],
+      "explanation": "The point moves 2 places right to make 9, so 0.09 = 9 × 10⁻²."
+    },
+    {
+      "id": "scientific-notation/t2/026",
+      "tier": 2,
+      "prompt": "Write 82,000,000,000 in scientific notation.",
+      "choices": [
+        "8.2 × 10¹¹",
+        "8.2 × 10⁻¹⁰",
+        "8.2 × 10⁹",
+        "8.2 × 10¹⁰"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        null
+      ],
+      "explanation": "The point moves 10 places left to make 8.2, so 82,000,000,000 = 8.2 × 10¹⁰."
+    },
+    {
+      "id": "scientific-notation/t2/027",
+      "tier": 2,
+      "prompt": "Write 3,700,000,000 in scientific notation.",
+      "choices": [
+        "3.7 × 10¹⁰",
+        "3.7 × 10⁸",
+        "3.7 × 10⁹",
+        "3.7 × 10⁻⁹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "COUNTED_ZEROS",
+        null,
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 9 places left to make 3.7, so 3,700,000,000 = 3.7 × 10⁹."
+    },
+    {
+      "id": "scientific-notation/t2/028",
+      "tier": 2,
+      "prompt": "Write 5,000,000 in scientific notation.",
+      "choices": [
+        "5 × 10⁻⁶",
+        "5 × 10⁶",
+        "5 × 10⁵",
+        "5 × 10⁷"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "ONE_PLACE_SHORT",
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 6 places left to make 5, so 5,000,000 = 5 × 10⁶."
+    },
+    {
+      "id": "scientific-notation/t2/029",
+      "tier": 2,
+      "prompt": "Write 0.009 in scientific notation.",
+      "choices": [
+        "9 × 10⁻⁴",
+        "9 × 10³",
+        "9 × 10⁻²",
+        "9 × 10⁻³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_PLACE_OVER",
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        null
+      ],
+      "explanation": "The point moves 3 places right to make 9, so 0.009 = 9 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t2/030",
+      "tier": 2,
+      "prompt": "Write 0.00000069 in scientific notation.",
+      "choices": [
+        "6.9 × 10⁻⁶",
+        "6.9 × 10⁷",
+        "6.9 × 10⁻⁸",
+        "6.9 × 10⁻⁷"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COUNTED_ZEROS",
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        null
+      ],
+      "explanation": "The point moves 7 places right to make 6.9, so 0.00000069 = 6.9 × 10⁻⁷."
+    },
+    {
+      "id": "scientific-notation/t2/031",
+      "tier": 2,
+      "prompt": "0.00000019 = 1.9 × 10^?",
+      "choices": [
+        "7",
+        "−7",
+        "−8",
+        "−6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ALL_DIGITS",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 7 places right to make 1.9, so the power is −7."
+    },
+    {
+      "id": "scientific-notation/t2/032",
+      "tier": 2,
+      "prompt": "Write 0.0000083 in scientific notation.",
+      "choices": [
+        "8.3 × 10⁶",
+        "8.3 × 10⁻⁶",
+        "8.3 × 10⁻⁷",
+        "8.3 × 10⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ALL_DIGITS",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 6 places right to make 8.3, so 0.0000083 = 8.3 × 10⁻⁶."
+    },
+    {
+      "id": "scientific-notation/t2/033",
+      "tier": 2,
+      "prompt": "Write 60,000 in scientific notation.",
+      "choices": [
+        "6 × 10⁴",
+        "6 × 10⁵",
+        "6 × 10³",
+        "6 × 10⁻⁴"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COUNTED_ALL_DIGITS",
+        "ONE_PLACE_SHORT",
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 4 places left to make 6, so 60,000 = 6 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t2/034",
+      "tier": 2,
+      "prompt": "910,000 = 9.1 × 10^?",
+      "choices": [
+        "−5",
+        "6",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        null,
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 5 places left to make 9.1, so the power is 5."
+    },
+    {
+      "id": "scientific-notation/t2/035",
+      "tier": 2,
+      "prompt": "Write 7,800,000 in scientific notation.",
+      "choices": [
+        "7.8 × 10⁶",
+        "7.8 × 10⁻⁶",
+        "7.8 × 10⁷",
+        "7.8 × 10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ALL_DIGITS",
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 6 places left to make 7.8, so 7,800,000 = 7.8 × 10⁶."
+    },
+    {
+      "id": "scientific-notation/t2/036",
+      "tier": 2,
+      "prompt": "Write 0.0011 in scientific notation.",
+      "choices": [
+        "1.1 × 10⁻⁴",
+        "1.1 × 10³",
+        "1.1 × 10⁻³",
+        "1.1 × 10⁻²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 3 places right to make 1.1, so 0.0011 = 1.1 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t2/037",
+      "tier": 2,
+      "prompt": "240,000,000 = 2.4 × 10^?",
+      "choices": [
+        "8",
+        "−8",
+        "7",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIGN_FLIP",
+        "COUNTED_ZEROS",
+        "COUNTED_ALL_DIGITS"
+      ],
+      "explanation": "The point moves 8 places left to make 2.4, so the power is 8."
+    },
+    {
+      "id": "scientific-notation/t2/038",
+      "tier": 2,
+      "prompt": "Write 0.00000006 in scientific notation.",
+      "choices": [
+        "6 × 10⁸",
+        "6 × 10⁻⁸",
+        "6 × 10⁻⁷",
+        "6 × 10⁻⁹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ZEROS",
+        "ONE_PLACE_OVER"
+      ],
+      "explanation": "The point moves 8 places right to make 6, so 0.00000006 = 6 × 10⁻⁸."
+    },
+    {
+      "id": "scientific-notation/t2/039",
+      "tier": 2,
+      "prompt": "Write 800,000,000 in scientific notation.",
+      "choices": [
+        "8 × 10⁹",
+        "8 × 10⁸",
+        "8 × 10⁷",
+        "8 × 10⁻⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        null,
+        "ONE_PLACE_SHORT",
+        "SIGN_FLIP"
+      ],
+      "explanation": "The point moves 8 places left to make 8, so 800,000,000 = 8 × 10⁸."
+    },
+    {
+      "id": "scientific-notation/t2/040",
+      "tier": 2,
+      "prompt": "Write 0.0000000059 in scientific notation.",
+      "choices": [
+        "5.9 × 10⁻¹⁰",
+        "5.9 × 10⁹",
+        "5.9 × 10⁻⁹",
+        "5.9 × 10⁻⁸"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COUNTED_ALL_DIGITS",
+        "SIGN_FLIP",
+        null,
+        "COUNTED_ZEROS"
+      ],
+      "explanation": "The point moves 9 places right to make 5.9, so 0.0000000059 = 5.9 × 10⁻⁹."
+    },
+    {
+      "id": "scientific-notation/t3/001",
+      "tier": 3,
+      "prompt": "Which equals 9 × 10⁻⁵?",
+      "choices": [
+        "0.0009",
+        "0.000009",
+        "900,000",
+        "0.00009"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        "SIGN_FLIP",
+        null
+      ],
+      "explanation": "10⁻⁵ moves the point 5 places left: 9 × 10⁻⁵ = 0.00009."
+    },
+    {
+      "id": "scientific-notation/t3/002",
+      "tier": 3,
+      "prompt": "Standard form of 5 × 10⁸?",
+      "choices": [
+        "0.00000005",
+        "50,000,000",
+        "500,000,000",
+        "5,000,000,000"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁸ moves the point 8 places right: 5 × 10⁸ = 500,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/003",
+      "tier": 3,
+      "prompt": "Which equals 3.1 × 10⁻⁴?",
+      "choices": [
+        "0.000031",
+        "0.00031",
+        "31,000",
+        "0.0031"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        null,
+        "SIGN_FLIP",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10⁻⁴ moves the point 4 places left: 3.1 × 10⁻⁴ = 0.00031."
+    },
+    {
+      "id": "scientific-notation/t3/004",
+      "tier": 3,
+      "prompt": "Which equals 1.8 × 10⁷?",
+      "choices": [
+        "1,800,000",
+        "1.80000000",
+        "180,000,000",
+        "18,000,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "APPENDED_ZEROS",
+        "EXTRA_ZERO",
+        null
+      ],
+      "explanation": "10⁷ moves the point 7 places right: 1.8 × 10⁷ = 18,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/005",
+      "tier": 3,
+      "prompt": "Which equals 3 × 10³?",
+      "choices": [
+        "0.003",
+        "30,000",
+        "3,000",
+        "300"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "EXTRA_ZERO",
+        null,
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10³ moves the point 3 places right: 3 × 10³ = 3,000."
+    },
+    {
+      "id": "scientific-notation/t3/006",
+      "tier": 3,
+      "prompt": "Standard form of 3.9 × 10⁵?",
+      "choices": [
+        "39,000",
+        "3.900000",
+        "390,000",
+        "0.000039"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "APPENDED_ZEROS",
+        null,
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁵ moves the point 5 places right: 3.9 × 10⁵ = 390,000."
+    },
+    {
+      "id": "scientific-notation/t3/007",
+      "tier": 3,
+      "prompt": "Standard form of 7 × 10⁵?",
+      "choices": [
+        "70,000",
+        "0.00007",
+        "7,000,000",
+        "700,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "SIGN_FLIP",
+        "EXTRA_ZERO",
+        null
+      ],
+      "explanation": "10⁵ moves the point 5 places right: 7 × 10⁵ = 700,000."
+    },
+    {
+      "id": "scientific-notation/t3/008",
+      "tier": 3,
+      "prompt": "Standard form of 7.3 × 10⁷?",
+      "choices": [
+        "7.30000000",
+        "0.00000073",
+        "73,000,000",
+        "730,000,000"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "APPENDED_ZEROS",
+        "SIGN_FLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁷ moves the point 7 places right: 7.3 × 10⁷ = 73,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/009",
+      "tier": 3,
+      "prompt": "A calculator shows 2E4. Value?",
+      "choices": [
+        "200,000",
+        "20,000",
+        "0.0002",
+        "2,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        null,
+        "SIGN_FLIP",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "E4 means × 10⁴: 2E4 = 2 × 10⁴ = 20,000."
+    },
+    {
+      "id": "scientific-notation/t3/010",
+      "tier": 3,
+      "prompt": "Standard form of 2.6 × 10²?",
+      "choices": [
+        "260",
+        "2.600",
+        "26",
+        "2,600"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "APPENDED_ZEROS",
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10² moves the point 2 places right: 2.6 × 10² = 260."
+    },
+    {
+      "id": "scientific-notation/t3/011",
+      "tier": 3,
+      "prompt": "Standard form of 7 × 10²?",
+      "choices": [
+        "700",
+        "70",
+        "7,000",
+        "0.07"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10² moves the point 2 places right: 7 × 10² = 700."
+    },
+    {
+      "id": "scientific-notation/t3/012",
+      "tier": 3,
+      "prompt": "Which equals 5 × 10⁶?",
+      "choices": [
+        "0.000005",
+        "5,000,000",
+        "500,000",
+        "50,000,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁶ moves the point 6 places right: 5 × 10⁶ = 5,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/013",
+      "tier": 3,
+      "prompt": "Standard form of 8 × 10⁻⁷?",
+      "choices": [
+        "0.000008",
+        "0.00000008",
+        "80,000,000",
+        "0.0000008"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        "SIGN_FLIP",
+        null
+      ],
+      "explanation": "10⁻⁷ moves the point 7 places left: 8 × 10⁻⁷ = 0.0000008."
+    },
+    {
+      "id": "scientific-notation/t3/014",
+      "tier": 3,
+      "prompt": "Which equals 3.4 × 10⁻⁹?",
+      "choices": [
+        "0.00000000034",
+        "0.0000000034",
+        "3,400,000,000",
+        "0.000000034"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        null,
+        "SIGN_FLIP",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10⁻⁹ moves the point 9 places left: 3.4 × 10⁻⁹ = 0.0000000034."
+    },
+    {
+      "id": "scientific-notation/t3/015",
+      "tier": 3,
+      "prompt": "Which equals 2 × 10⁵?",
+      "choices": [
+        "0.00002",
+        "20,000",
+        "2,000,000",
+        "200,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        null
+      ],
+      "explanation": "10⁵ moves the point 5 places right: 2 × 10⁵ = 200,000."
+    },
+    {
+      "id": "scientific-notation/t3/016",
+      "tier": 3,
+      "prompt": "8.9 × 10³ in standard form?",
+      "choices": [
+        "8.9000",
+        "8,900",
+        "89,000",
+        "890"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "APPENDED_ZEROS",
+        null,
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10³ moves the point 3 places right: 8.9 × 10³ = 8,900."
+    },
+    {
+      "id": "scientific-notation/t3/017",
+      "tier": 3,
+      "prompt": "Calculator screen: 2E6. Value?",
+      "choices": [
+        "20,000,000",
+        "200,000",
+        "2,000,000",
+        "0.000002"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        null,
+        "SIGN_FLIP"
+      ],
+      "explanation": "E6 means × 10⁶: 2E6 = 2 × 10⁶ = 2,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/018",
+      "tier": 3,
+      "prompt": "A calculator shows 2E−6. Value?",
+      "choices": [
+        "2,000,000",
+        "0.000002",
+        "0.0000002",
+        "0.00002"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIGN_FLIP",
+        null,
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "E−6 means × 10⁻⁶: 2E−6 = 2 × 10⁻⁶ = 0.000002."
+    },
+    {
+      "id": "scientific-notation/t3/019",
+      "tier": 3,
+      "prompt": "Which equals 5.6 × 10⁻²?",
+      "choices": [
+        "0.056",
+        "0.56",
+        "0.0056",
+        "560"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁻² moves the point 2 places left: 5.6 × 10⁻² = 0.056."
+    },
+    {
+      "id": "scientific-notation/t3/020",
+      "tier": 3,
+      "prompt": "Standard form of 6 × 10⁻⁷?",
+      "choices": [
+        "0.000006",
+        "60,000,000",
+        "0.0000006",
+        "0.00000006"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "SIGN_FLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁻⁷ moves the point 7 places left: 6 × 10⁻⁷ = 0.0000006."
+    },
+    {
+      "id": "scientific-notation/t3/021",
+      "tier": 3,
+      "prompt": "Standard form of 3 × 10⁻⁴?",
+      "choices": [
+        "0.00003",
+        "0.0003",
+        "30,000",
+        "0.003"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        null,
+        "SIGN_FLIP",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "10⁻⁴ moves the point 4 places left: 3 × 10⁻⁴ = 0.0003."
+    },
+    {
+      "id": "scientific-notation/t3/022",
+      "tier": 3,
+      "prompt": "6 × 10⁴ in standard form?",
+      "choices": [
+        "60,000",
+        "6,000",
+        "600,000",
+        "0.0006"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁴ moves the point 4 places right: 6 × 10⁴ = 60,000."
+    },
+    {
+      "id": "scientific-notation/t3/023",
+      "tier": 3,
+      "prompt": "Standard form of 7 × 10⁻³?",
+      "choices": [
+        "0.007",
+        "0.0007",
+        "0.07",
+        "7,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁻³ moves the point 3 places left: 7 × 10⁻³ = 0.007."
+    },
+    {
+      "id": "scientific-notation/t3/024",
+      "tier": 3,
+      "prompt": "Calculator screen: 8.4E−4. Value?",
+      "choices": [
+        "84,000",
+        "0.000084",
+        "0.0084",
+        "0.00084"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "E−4 means × 10⁻⁴: 8.4E−4 = 8.4 × 10⁻⁴ = 0.00084."
+    },
+    {
+      "id": "scientific-notation/t3/025",
+      "tier": 3,
+      "prompt": "Standard form of 9 × 10⁴?",
+      "choices": [
+        "9,000",
+        "90,000",
+        "0.0009",
+        "900,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        null,
+        "SIGN_FLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁴ moves the point 4 places right: 9 × 10⁴ = 90,000."
+    },
+    {
+      "id": "scientific-notation/t3/026",
+      "tier": 3,
+      "prompt": "Calculator screen: 8.1E8. Value?",
+      "choices": [
+        "8.100000000",
+        "0.000000081",
+        "81,000,000",
+        "810,000,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "APPENDED_ZEROS",
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "E8 means × 10⁸: 8.1E8 = 8.1 × 10⁸ = 810,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/027",
+      "tier": 3,
+      "prompt": "8.1 × 10⁴ in standard form?",
+      "choices": [
+        "8.10000",
+        "8,100",
+        "810,000",
+        "81,000"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "APPENDED_ZEROS",
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        null
+      ],
+      "explanation": "10⁴ moves the point 4 places right: 8.1 × 10⁴ = 81,000."
+    },
+    {
+      "id": "scientific-notation/t3/028",
+      "tier": 3,
+      "prompt": "Which equals 9 × 10⁻⁶?",
+      "choices": [
+        "9,000,000",
+        "0.00009",
+        "0.000009",
+        "0.0000009"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁻⁶ moves the point 6 places left: 9 × 10⁻⁶ = 0.000009."
+    },
+    {
+      "id": "scientific-notation/t3/029",
+      "tier": 3,
+      "prompt": "Standard form of 9 × 10²?",
+      "choices": [
+        "90",
+        "900",
+        "0.09",
+        "9,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        null,
+        "SIGN_FLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10² moves the point 2 places right: 9 × 10² = 900."
+    },
+    {
+      "id": "scientific-notation/t3/030",
+      "tier": 3,
+      "prompt": "2.7 × 10⁻⁶ in standard form?",
+      "choices": [
+        "2,700,000",
+        "0.00000027",
+        "0.000027",
+        "0.0000027"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "10⁻⁶ moves the point 6 places left: 2.7 × 10⁻⁶ = 0.0000027."
+    },
+    {
+      "id": "scientific-notation/t3/031",
+      "tier": 3,
+      "prompt": "Standard form of 3 × 10⁻⁶?",
+      "choices": [
+        "0.000003",
+        "0.0000003",
+        "0.00003",
+        "3,000,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁻⁶ moves the point 6 places left: 3 × 10⁻⁶ = 0.000003."
+    },
+    {
+      "id": "scientific-notation/t3/032",
+      "tier": 3,
+      "prompt": "Calculator screen: 2.7E−5. Value?",
+      "choices": [
+        "0.000027",
+        "0.00027",
+        "270,000",
+        "0.0000027"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "SIGN_FLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "E−5 means × 10⁻⁵: 2.7E−5 = 2.7 × 10⁻⁵ = 0.000027."
+    },
+    {
+      "id": "scientific-notation/t3/033",
+      "tier": 3,
+      "prompt": "Standard form of 5 × 10⁻⁹?",
+      "choices": [
+        "0.000000005",
+        "0.00000005",
+        "5,000,000,000",
+        "0.0000000005"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DECIMAL_SLIP",
+        "SIGN_FLIP",
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁻⁹ moves the point 9 places left: 5 × 10⁻⁹ = 0.000000005."
+    },
+    {
+      "id": "scientific-notation/t3/034",
+      "tier": 3,
+      "prompt": "Standard form of 3.3 × 10⁻²?",
+      "choices": [
+        "0.33",
+        "330",
+        "0.033",
+        "0.0033"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "SIGN_FLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "10⁻² moves the point 2 places left: 3.3 × 10⁻² = 0.033."
+    },
+    {
+      "id": "scientific-notation/t3/035",
+      "tier": 3,
+      "prompt": "8 × 10⁸ in standard form?",
+      "choices": [
+        "800,000,000",
+        "8,000,000,000",
+        "80,000,000",
+        "0.00000008"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_ZERO",
+        "DECIMAL_SLIP",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁸ moves the point 8 places right: 8 × 10⁸ = 800,000,000."
+    },
+    {
+      "id": "scientific-notation/t3/036",
+      "tier": 3,
+      "prompt": "4 × 10⁻⁴ in standard form?",
+      "choices": [
+        "0.00004",
+        "40,000",
+        "0.004",
+        "0.0004"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        null
+      ],
+      "explanation": "10⁻⁴ moves the point 4 places left: 4 × 10⁻⁴ = 0.0004."
+    },
+    {
+      "id": "scientific-notation/t3/037",
+      "tier": 3,
+      "prompt": "Which equals 4 × 10⁻⁸?",
+      "choices": [
+        "0.000000004",
+        "0.00000004",
+        "0.0000004",
+        "400,000,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXTRA_ZERO",
+        null,
+        "DECIMAL_SLIP",
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁻⁸ moves the point 8 places left: 4 × 10⁻⁸ = 0.00000004."
+    },
+    {
+      "id": "scientific-notation/t3/038",
+      "tier": 3,
+      "prompt": "A calculator shows 7E−7. Value?",
+      "choices": [
+        "70,000,000",
+        "0.000007",
+        "0.0000007",
+        "0.00000007"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SIGN_FLIP",
+        "DECIMAL_SLIP",
+        null,
+        "EXTRA_ZERO"
+      ],
+      "explanation": "E−7 means × 10⁻⁷: 7E−7 = 7 × 10⁻⁷ = 0.0000007."
+    },
+    {
+      "id": "scientific-notation/t3/039",
+      "tier": 3,
+      "prompt": "Standard form of 9.3 × 10⁻⁸?",
+      "choices": [
+        "0.00000093",
+        "0.0000000093",
+        "0.000000093",
+        "930,000,000"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DECIMAL_SLIP",
+        "EXTRA_ZERO",
+        null,
+        "SIGN_FLIP"
+      ],
+      "explanation": "10⁻⁸ moves the point 8 places left: 9.3 × 10⁻⁸ = 0.000000093."
+    },
+    {
+      "id": "scientific-notation/t3/040",
+      "tier": 3,
+      "prompt": "Calculator screen: 2.1E5. Value?",
+      "choices": [
+        "210,000",
+        "2,100,000",
+        "0.000021",
+        "21,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXTRA_ZERO",
+        "SIGN_FLIP",
+        "DECIMAL_SLIP"
+      ],
+      "explanation": "E5 means × 10⁵: 2.1E5 = 2.1 × 10⁵ = 210,000."
+    },
+    {
+      "id": "scientific-notation/t4/001",
+      "tier": 4,
+      "prompt": "6 × 10³ is how many times 6 × 10²?",
+      "choices": [
+        "10",
+        "1",
+        "100",
+        "1/10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXPONENT_DIFF",
+        "ONE_ZERO_OFF",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "The coefficients match and the powers differ by 1, so it is 10¹ = 10 times."
+    },
+    {
+      "id": "scientific-notation/t4/002",
+      "tier": 4,
+      "prompt": "6 × 10⁴ is how many times 6 × 10²?",
+      "choices": [
+        "10",
+        "1/100",
+        "2",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_ZERO_OFF",
+        "DIVIDED_WRONG_WAY",
+        "EXPONENT_DIFF",
+        null
+      ],
+      "explanation": "The coefficients match and the powers differ by 2, so it is 10² = 100 times."
+    },
+    {
+      "id": "scientific-notation/t4/003",
+      "tier": 4,
+      "prompt": "5 × 10⁵ is how many times 5 × 10¹?",
+      "choices": [
+        "1/10,000",
+        "10,000",
+        "1,000",
+        "100,000"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        null,
+        "ONE_ZERO_OFF",
+        "ONE_ZERO_OFF"
+      ],
+      "explanation": "The coefficients match and the powers differ by 4, so it is 10⁴ = 10,000 times."
+    },
+    {
+      "id": "scientific-notation/t4/004",
+      "tier": 4,
+      "prompt": "Which is less than 8 × 10¹?",
+      "choices": [
+        "9 × 10¹",
+        "9 × 10⁴",
+        "3 × 10⁰",
+        "2 × 10²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "COEF_FIRST",
+        null,
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 3 × 10⁰ has a smaller power, so it is less than 8 × 10¹."
+    },
+    {
+      "id": "scientific-notation/t4/005",
+      "tier": 4,
+      "prompt": "8 × 10⁸ is how many times 4 × 10⁵?",
+      "choices": [
+        "2,000",
+        "3",
+        "2",
+        "1/2,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXPONENT_DIFF",
+        "COEF_RATIO_ONLY",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "8 ÷ 4 = 2, and the powers differ by 3: 2 × 1,000 = 2,000."
+    },
+    {
+      "id": "scientific-notation/t4/006",
+      "tier": 4,
+      "prompt": "Smaller: 5 × 10⁻⁷ or 4 × 10⁻⁶?",
+      "choices": [
+        "5 × 10⁻⁷",
+        "4 × 10⁻⁶"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_EXP_BIGGER"
+      ],
+      "explanation": "Compare the powers of 10 first: 5 × 10⁻⁷ is the smaller number."
+    },
+    {
+      "id": "scientific-notation/t4/007",
+      "tier": 4,
+      "prompt": "8 × 10⁻³ is how many times 4 × 10⁻³?",
+      "choices": [
+        "32",
+        "2",
+        "1/2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED_COEFS",
+        null,
+        "DIVIDED_WRONG_WAY",
+        "SUBTRACTED"
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "scientific-notation/t4/008",
+      "tier": 4,
+      "prompt": "3 × 10⁵ is how many times 3 × 10⁴?",
+      "choices": [
+        "100",
+        "1",
+        "10",
+        "1/10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_ZERO_OFF",
+        "EXPONENT_DIFF",
+        null,
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "The coefficients match and the powers differ by 1, so it is 10¹ = 10 times."
+    },
+    {
+      "id": "scientific-notation/t4/009",
+      "tier": 4,
+      "prompt": "9 × 10⁻⁸ is how many times 3 × 10⁻⁸?",
+      "choices": [
+        "3",
+        "27",
+        "6",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED_COEFS",
+        "SUBTRACTED",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 9 ÷ 3 = 3."
+    },
+    {
+      "id": "scientific-notation/t4/010",
+      "tier": 4,
+      "prompt": "Smaller: 9 × 10⁻⁷ or 8 × 10⁻³?",
+      "choices": [
+        "9 × 10⁻⁷",
+        "8 × 10⁻³"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_EXP_BIGGER"
+      ],
+      "explanation": "Compare the powers of 10 first: 9 × 10⁻⁷ is the smaller number."
+    },
+    {
+      "id": "scientific-notation/t4/011",
+      "tier": 4,
+      "prompt": "9 × 10⁶ is how many times 9 × 10⁵?",
+      "choices": [
+        "1/10",
+        "10",
+        "100",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        null,
+        "ONE_ZERO_OFF",
+        "EXPONENT_DIFF"
+      ],
+      "explanation": "The coefficients match and the powers differ by 1, so it is 10¹ = 10 times."
+    },
+    {
+      "id": "scientific-notation/t4/012",
+      "tier": 4,
+      "prompt": "4 × 10⁷ is how many times 2 × 10⁵?",
+      "choices": [
+        "2,000",
+        "1/200",
+        "2",
+        "200"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "DIVIDED_WRONG_WAY",
+        "EXPONENT_DIFF",
+        null
+      ],
+      "explanation": "4 ÷ 2 = 2, and the powers differ by 2: 2 × 100 = 200."
+    },
+    {
+      "id": "scientific-notation/t4/013",
+      "tier": 4,
+      "prompt": "Larger: 9 × 10⁻⁵ or 6 × 10¹?",
+      "choices": [
+        "9 × 10⁻⁵",
+        "6 × 10¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 6 × 10¹ is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/014",
+      "tier": 4,
+      "prompt": "8 × 10¹ is how many times 8 × 10⁻¹?",
+      "choices": [
+        "1,000",
+        "10",
+        "1/100",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_ZERO_OFF",
+        "ONE_ZERO_OFF",
+        "DIVIDED_WRONG_WAY",
+        null
+      ],
+      "explanation": "The coefficients match and the powers differ by 2, so it is 10² = 100 times."
+    },
+    {
+      "id": "scientific-notation/t4/015",
+      "tier": 4,
+      "prompt": "6 × 10⁻² is how many times 3 × 10⁻²?",
+      "choices": [
+        "1/2",
+        "3",
+        "2",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        "SUBTRACTED",
+        null,
+        "MULTIPLIED_COEFS"
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "scientific-notation/t4/016",
+      "tier": 4,
+      "prompt": "Larger: 5 × 10⁻² or 8 × 10⁻³?",
+      "choices": [
+        "8 × 10⁻³",
+        "5 × 10⁻²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEG_EXP_BIGGER",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 5 × 10⁻² is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/017",
+      "tier": 4,
+      "prompt": "Larger: 4 × 10⁻² or 7 × 10⁻⁶?",
+      "choices": [
+        "4 × 10⁻²",
+        "7 × 10⁻⁶"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEG_EXP_BIGGER"
+      ],
+      "explanation": "Compare the powers of 10 first: 4 × 10⁻² is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/018",
+      "tier": 4,
+      "prompt": "8 × 10⁻³ is how many times 4 × 10⁻⁴?",
+      "choices": [
+        "2",
+        "1/20",
+        "20",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COEF_RATIO_ONLY",
+        "DIVIDED_WRONG_WAY",
+        null,
+        "EXPONENT_DIFF"
+      ],
+      "explanation": "8 ÷ 4 = 2, and the powers differ by 1: 2 × 10 = 20."
+    },
+    {
+      "id": "scientific-notation/t4/019",
+      "tier": 4,
+      "prompt": "Smaller: 6 × 10³ or 3 × 10⁷?",
+      "choices": [
+        "6 × 10³",
+        "3 × 10⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 6 × 10³ is the smaller number."
+    },
+    {
+      "id": "scientific-notation/t4/020",
+      "tier": 4,
+      "prompt": "2 × 10⁸ is how many times 2 × 10⁵?",
+      "choices": [
+        "100",
+        "1/1,000",
+        "1,000",
+        "10,000"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_ZERO_OFF",
+        "DIVIDED_WRONG_WAY",
+        null,
+        "ONE_ZERO_OFF"
+      ],
+      "explanation": "The coefficients match and the powers differ by 3, so it is 10³ = 1,000 times."
+    },
+    {
+      "id": "scientific-notation/t4/021",
+      "tier": 4,
+      "prompt": "Larger: 4 × 10⁶ or 6 × 10²?",
+      "choices": [
+        "4 × 10⁶",
+        "6 × 10²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 4 × 10⁶ is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/022",
+      "tier": 4,
+      "prompt": "6 × 10⁻¹ is how many times 3 × 10⁻¹?",
+      "choices": [
+        "18",
+        "2",
+        "3",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED_COEFS",
+        null,
+        "SUBTRACTED",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "scientific-notation/t4/023",
+      "tier": 4,
+      "prompt": "8 × 10⁻⁶ is how many times 2 × 10⁻⁶?",
+      "choices": [
+        "6",
+        "16",
+        "1/4",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "MULTIPLIED_COEFS",
+        "DIVIDED_WRONG_WAY",
+        null
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 8 ÷ 2 = 4."
+    },
+    {
+      "id": "scientific-notation/t4/024",
+      "tier": 4,
+      "prompt": "8 × 10⁻¹ is how many times 4 × 10⁻¹?",
+      "choices": [
+        "1/2",
+        "4",
+        "2",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        "SUBTRACTED",
+        null,
+        "MULTIPLIED_COEFS"
+      ],
+      "explanation": "Same power of 10, so divide the coefficients: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "scientific-notation/t4/025",
+      "tier": 4,
+      "prompt": "9 × 10⁻³ is how many times 3 × 10⁻⁴?",
+      "choices": [
+        "1/30",
+        "30",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        null,
+        "EXPONENT_DIFF",
+        "COEF_RATIO_ONLY"
+      ],
+      "explanation": "9 ÷ 3 = 3, and the powers differ by 1: 3 × 10 = 30."
+    },
+    {
+      "id": "scientific-notation/t4/026",
+      "tier": 4,
+      "prompt": "Larger: 9 × 10⁵ or 6 × 10⁷?",
+      "choices": [
+        "6 × 10⁷",
+        "9 × 10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 6 × 10⁷ is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/027",
+      "tier": 4,
+      "prompt": "Which is greater than 6 × 10⁻³?",
+      "choices": [
+        "5 × 10⁻²",
+        "5 × 10⁻³",
+        "2 × 10⁻⁴",
+        "7 × 10⁻⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COEF_FIRST",
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 5 × 10⁻² has a bigger power, so it is greater than 6 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t4/028",
+      "tier": 4,
+      "prompt": "Which is greater than 4 × 10⁷?",
+      "choices": [
+        "1 × 10⁷",
+        "5 × 10⁵",
+        "2 × 10⁴",
+        "7 × 10⁹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "COEF_FIRST",
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 7 × 10⁹ has a bigger power, so it is greater than 4 × 10⁷."
+    },
+    {
+      "id": "scientific-notation/t4/029",
+      "tier": 4,
+      "prompt": "8 × 10⁷ is how many times 2 × 10⁵?",
+      "choices": [
+        "4",
+        "400",
+        "1/400",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_RATIO_ONLY",
+        null,
+        "DIVIDED_WRONG_WAY",
+        "EXPONENT_DIFF"
+      ],
+      "explanation": "8 ÷ 2 = 4, and the powers differ by 2: 4 × 100 = 400."
+    },
+    {
+      "id": "scientific-notation/t4/030",
+      "tier": 4,
+      "prompt": "6 × 10⁻³ is how many times 6 × 10⁻⁶?",
+      "choices": [
+        "1,000",
+        "10,000",
+        "3",
+        "1/1,000"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_ZERO_OFF",
+        "EXPONENT_DIFF",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "The coefficients match and the powers differ by 3, so it is 10³ = 1,000 times."
+    },
+    {
+      "id": "scientific-notation/t4/031",
+      "tier": 4,
+      "prompt": "6 × 10⁻³ is how many times 2 × 10⁻⁴?",
+      "choices": [
+        "1",
+        "1/30",
+        "3",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXPONENT_DIFF",
+        "DIVIDED_WRONG_WAY",
+        "COEF_RATIO_ONLY",
+        null
+      ],
+      "explanation": "6 ÷ 2 = 3, and the powers differ by 1: 3 × 10 = 30."
+    },
+    {
+      "id": "scientific-notation/t4/032",
+      "tier": 4,
+      "prompt": "Which is less than 4 × 10⁻³?",
+      "choices": [
+        "2 × 10⁻¹",
+        "9 × 10⁻²",
+        "8 × 10⁻³",
+        "4 × 10⁻⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEF_FIRST",
+        "COEF_FIRST",
+        "ARITH",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 4 × 10⁻⁵ has a smaller power, so it is less than 4 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t4/033",
+      "tier": 4,
+      "prompt": "Smaller: 7 × 10⁵ or 8 × 10²?",
+      "choices": [
+        "7 × 10⁵",
+        "8 × 10²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 8 × 10² is the smaller number."
+    },
+    {
+      "id": "scientific-notation/t4/034",
+      "tier": 4,
+      "prompt": "Which is greater than 8 × 10⁻⁴?",
+      "choices": [
+        "9 × 10⁻⁷",
+        "4 × 10⁻³",
+        "6 × 10⁻⁴",
+        "4 × 10⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null,
+        "ARITH",
+        "COEF_FIRST"
+      ],
+      "explanation": "Compare the powers of 10 first: 4 × 10⁻³ has a bigger power, so it is greater than 8 × 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t4/035",
+      "tier": 4,
+      "prompt": "Larger: 4 × 10⁻¹ or 3 × 10¹?",
+      "choices": [
+        "4 × 10⁻¹",
+        "3 × 10¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 3 × 10¹ is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/036",
+      "tier": 4,
+      "prompt": "Larger: 9 × 10³ or 8 × 10⁷?",
+      "choices": [
+        "9 × 10³",
+        "8 × 10⁷"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 8 × 10⁷ is the larger number."
+    },
+    {
+      "id": "scientific-notation/t4/037",
+      "tier": 4,
+      "prompt": "9 × 10⁻⁵ is how many times 3 × 10⁻⁶?",
+      "choices": [
+        "1/30",
+        "3",
+        "30",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_WRONG_WAY",
+        "COEF_RATIO_ONLY",
+        null,
+        "EXPONENT_DIFF"
+      ],
+      "explanation": "9 ÷ 3 = 3, and the powers differ by 1: 3 × 10 = 30."
+    },
+    {
+      "id": "scientific-notation/t4/038",
+      "tier": 4,
+      "prompt": "Smaller: 6 × 10⁶ or 8 × 10¹?",
+      "choices": [
+        "6 × 10⁶",
+        "8 × 10¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEF_FIRST",
+        null
+      ],
+      "explanation": "Compare the powers of 10 first: 8 × 10¹ is the smaller number."
+    },
+    {
+      "id": "scientific-notation/t4/039",
+      "tier": 4,
+      "prompt": "Which is greater than 4 × 10⁻¹?",
+      "choices": [
+        "9 × 10⁰",
+        "9 × 10⁻²",
+        "7 × 10⁻⁴",
+        "3 × 10⁻¹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COEF_FIRST",
+        "COEF_FIRST",
+        "ARITH"
+      ],
+      "explanation": "Compare the powers of 10 first: 9 × 10⁰ has a bigger power, so it is greater than 4 × 10⁻¹."
+    },
+    {
+      "id": "scientific-notation/t4/040",
+      "tier": 4,
+      "prompt": "2 × 10⁴ is how many times 2 × 10²?",
+      "choices": [
+        "100",
+        "10",
+        "1,000",
+        "1/100"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_ZERO_OFF",
+        "ONE_ZERO_OFF",
+        "DIVIDED_WRONG_WAY"
+      ],
+      "explanation": "The coefficients match and the powers differ by 2, so it is 10² = 100 times."
+    },
+    {
+      "id": "scientific-notation/t5/001",
+      "tier": 5,
+      "prompt": "(3 × 10²) × (3 × 10⁴)",
+      "choices": [
+        "9 × 10⁶",
+        "9 × 10⁸",
+        "6 × 10⁶",
+        "9 × 10⁻²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_EXPONENTS",
+        "ADD_COEFS",
+        "EXPONENTS_SUBTRACTED"
+      ],
+      "explanation": "3 × 3 = 9; the powers add: 2 + 4 = 6. So 9 × 10⁶."
+    },
+    {
+      "id": "scientific-notation/t5/002",
+      "tier": 5,
+      "prompt": "(5 × 10²) + (7 × 10²)",
+      "choices": [
+        "1.2 × 10⁵",
+        "3.5 × 10³",
+        "1.2 × 10²",
+        "1.2 × 10³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_EXPONENTS_ON_SUM",
+        "MULT_FOR_ADD",
+        "NO_CARRY",
+        null
+      ],
+      "explanation": "Same power, so add the coefficients: 5 + 7 = 12 = 1.2 × 10¹. So 1.2 × 10³."
+    },
+    {
+      "id": "scientific-notation/t5/003",
+      "tier": 5,
+      "prompt": "(2 × 10²) × (3 × 10³)",
+      "choices": [
+        "6 × 10⁶",
+        "5 × 10⁵",
+        "6 × 10⁻¹",
+        "6 × 10⁵"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        "ADD_COEFS",
+        "EXPONENTS_SUBTRACTED",
+        null
+      ],
+      "explanation": "2 × 3 = 6; the powers add: 2 + 3 = 5. So 6 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t5/004",
+      "tier": 5,
+      "prompt": "(3 × 10²) ÷ (6 × 10⁻³)",
+      "choices": [
+        "5 × 10⁵",
+        "5 × 10⁻²",
+        "5 × 10⁻⁶",
+        "5 × 10⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_CARRY",
+        "ADD_EXPONENTS",
+        "FLIPPED_EXPONENTS",
+        null
+      ],
+      "explanation": "3 ÷ 6 = 0.5 = 5 × 10⁻¹; the powers subtract: 2 − (−3) = 5. So 5 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t5/005",
+      "tier": 5,
+      "prompt": "(8 × 10⁻¹) × (3 × 10⁻¹)",
+      "choices": [
+        "2.4 × 10¹",
+        "2.4 × 10⁻¹",
+        "2.4 × 10⁻²",
+        "2.4 × 10²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENTS_SUBTRACTED",
+        null,
+        "NO_CARRY",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "8 × 3 = 24 = 2.4 × 10¹; the powers add: (−1) + (−1) = −2. So 2.4 × 10⁻¹."
+    },
+    {
+      "id": "scientific-notation/t5/006",
+      "tier": 5,
+      "prompt": "(4 × 10¹) × (2 × 10²)",
+      "choices": [
+        "8 × 10⁻¹",
+        "8 × 10³",
+        "6 × 10³",
+        "8 × 10²"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EXPONENTS_SUBTRACTED",
+        null,
+        "ADD_COEFS",
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "4 × 2 = 8; the powers add: 1 + 2 = 3. So 8 × 10³."
+    },
+    {
+      "id": "scientific-notation/t5/007",
+      "tier": 5,
+      "prompt": "(6 × 10⁻²) ÷ (3 × 10²)",
+      "choices": [
+        "2 × 10⁻¹",
+        "2 × 10⁰",
+        "3 × 10⁻⁴",
+        "2 × 10⁻⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        "ADD_EXPONENTS",
+        "SUB_COEFS",
+        null
+      ],
+      "explanation": "6 ÷ 3 = 2; the powers subtract: (−2) − 2 = −4. So 2 × 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t5/008",
+      "tier": 5,
+      "prompt": "(6 × 10⁻⁶) ÷ (2 × 10⁻¹)",
+      "choices": [
+        "3 × 10⁶",
+        "3 × 10⁻⁵",
+        "4 × 10⁻⁵",
+        "3 × 10⁻⁷"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDE_EXPONENTS",
+        null,
+        "SUB_COEFS",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "6 ÷ 2 = 3; the powers subtract: (−6) − (−1) = −5. So 3 × 10⁻⁵."
+    },
+    {
+      "id": "scientific-notation/t5/009",
+      "tier": 5,
+      "prompt": "(9 × 10³) × (3 × 10⁻²)",
+      "choices": [
+        "2.7 × 10¹",
+        "2.7 × 10⁶",
+        "2.7 × 10²",
+        "2.7 × 10⁻⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_CARRY",
+        "EXPONENTS_SUBTRACTED",
+        null,
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "9 × 3 = 27 = 2.7 × 10¹; the powers add: 3 + (−2) = 1. So 2.7 × 10²."
+    },
+    {
+      "id": "scientific-notation/t5/010",
+      "tier": 5,
+      "prompt": "(7 × 10⁻³) + (7 × 10⁻³)",
+      "choices": [
+        "1.4 × 10⁻³",
+        "1.4 × 10⁻²",
+        "4.9 × 10⁻²",
+        "1.4 × 10⁻⁵"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_CARRY",
+        null,
+        "MULT_FOR_ADD",
+        "ADD_EXPONENTS_ON_SUM"
+      ],
+      "explanation": "Same power, so add the coefficients: 7 + 7 = 14 = 1.4 × 10¹. So 1.4 × 10⁻²."
+    },
+    {
+      "id": "scientific-notation/t5/011",
+      "tier": 5,
+      "prompt": "(4 × 10⁻⁴) × (2 × 10⁻³)",
+      "choices": [
+        "8 × 10⁻⁷",
+        "8 × 10⁻¹",
+        "8 × 10¹²",
+        "6 × 10⁻⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EXPONENTS_SUBTRACTED",
+        "MULT_EXPONENTS",
+        "ADD_COEFS"
+      ],
+      "explanation": "4 × 2 = 8; the powers add: (−4) + (−3) = −7. So 8 × 10⁻⁷."
+    },
+    {
+      "id": "scientific-notation/t5/012",
+      "tier": 5,
+      "prompt": "(6 × 10⁴) + (3 × 10⁵)",
+      "choices": [
+        "3.6 × 10⁵",
+        "9 × 10⁴",
+        "9 × 10⁵",
+        "9 × 10⁹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "KEPT_SMALLER_POWER",
+        "IGNORE_GAP",
+        "ADD_EXPONENTS_ON_SUM"
+      ],
+      "explanation": "Match the powers: 6 × 10⁴ = 0.6 × 10⁵. Add: 3 + 0.6 = 3.6."
+    },
+    {
+      "id": "scientific-notation/t5/013",
+      "tier": 5,
+      "prompt": "(6 × 10²) × (8 × 10³)",
+      "choices": [
+        "4.8 × 10⁶",
+        "4.8 × 10⁷",
+        "4.8 × 10⁰",
+        "4.8 × 10⁵"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULT_EXPONENTS",
+        "EXPONENTS_SUBTRACTED",
+        "NO_CARRY"
+      ],
+      "explanation": "6 × 8 = 48 = 4.8 × 10¹; the powers add: 2 + 3 = 5. So 4.8 × 10⁶."
+    },
+    {
+      "id": "scientific-notation/t5/014",
+      "tier": 5,
+      "prompt": "(6 × 10⁻¹) × (9 × 10⁻⁴)",
+      "choices": [
+        "5.4 × 10⁴",
+        "5.4 × 10⁻⁵",
+        "5.4 × 10⁻⁴",
+        "5.4 × 10⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EXPONENTS_SUBTRACTED",
+        "NO_CARRY",
+        null,
+        "MULT_EXPONENTS"
+      ],
+      "explanation": "6 × 9 = 54 = 5.4 × 10¹; the powers add: (−1) + (−4) = −5. So 5.4 × 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t5/015",
+      "tier": 5,
+      "prompt": "(7 × 10⁻²) × (4 × 10⁻⁵)",
+      "choices": [
+        "2.8 × 10⁴",
+        "2.8 × 10⁻⁷",
+        "2.8 × 10¹¹",
+        "2.8 × 10⁻⁶"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EXPONENTS_SUBTRACTED",
+        "NO_CARRY",
+        "MULT_EXPONENTS",
+        null
+      ],
+      "explanation": "7 × 4 = 28 = 2.8 × 10¹; the powers add: (−2) + (−5) = −7. So 2.8 × 10⁻⁶."
+    },
+    {
+      "id": "scientific-notation/t5/016",
+      "tier": 5,
+      "prompt": "(8 × 10⁻¹) ÷ (2 × 10⁻²)",
+      "choices": [
+        "4 × 10⁻¹",
+        "6 × 10¹",
+        "4 × 10¹",
+        "4 × 10⁻³"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIPPED_EXPONENTS",
+        "SUB_COEFS",
+        null,
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "8 ÷ 2 = 4; the powers subtract: (−1) − (−2) = 1. So 4 × 10¹."
+    },
+    {
+      "id": "scientific-notation/t5/017",
+      "tier": 5,
+      "prompt": "(4 × 10⁻⁴) ÷ (8 × 10⁶)",
+      "choices": [
+        "5 × 10⁻¹¹",
+        "5 × 10⁹",
+        "5 × 10¹",
+        "5 × 10⁻¹⁰"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FLIPPED_EXPONENTS",
+        "ADD_EXPONENTS",
+        "NO_CARRY"
+      ],
+      "explanation": "4 ÷ 8 = 0.5 = 5 × 10⁻¹; the powers subtract: (−4) − 6 = −10. So 5 × 10⁻¹¹."
+    },
+    {
+      "id": "scientific-notation/t5/018",
+      "tier": 5,
+      "prompt": "(5 × 10⁻³) + (4 × 10⁻³)",
+      "choices": [
+        "2 × 10⁻²",
+        "9 × 10⁻⁶",
+        "9 × 10⁻²",
+        "9 × 10⁻³"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_FOR_ADD",
+        "ADD_EXPONENTS_ON_SUM",
+        "ARITH",
+        null
+      ],
+      "explanation": "Same power, so add the coefficients: 5 + 4 = 9. So 9 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t5/019",
+      "tier": 5,
+      "prompt": "(9 × 10⁻⁶) ÷ (3 × 10⁻¹)",
+      "choices": [
+        "6 × 10⁻⁵",
+        "3 × 10⁻⁷",
+        "3 × 10⁻⁵",
+        "3 × 10⁶"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_COEFS",
+        "ADD_EXPONENTS",
+        null,
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "9 ÷ 3 = 3; the powers subtract: (−6) − (−1) = −5. So 3 × 10⁻⁵."
+    },
+    {
+      "id": "scientific-notation/t5/020",
+      "tier": 5,
+      "prompt": "(4 × 10⁴) × (4 × 10²)",
+      "choices": [
+        "1.6 × 10⁷",
+        "1.6 × 10⁶",
+        "1.6 × 10⁹",
+        "1.6 × 10³"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_CARRY",
+        "MULT_EXPONENTS",
+        "EXPONENTS_SUBTRACTED"
+      ],
+      "explanation": "4 × 4 = 16 = 1.6 × 10¹; the powers add: 4 + 2 = 6. So 1.6 × 10⁷."
+    },
+    {
+      "id": "scientific-notation/t5/021",
+      "tier": 5,
+      "prompt": "(4 × 10⁵) + (5 × 10⁵)",
+      "choices": [
+        "9 × 10⁵",
+        "9 × 10¹⁰",
+        "9 × 10⁶",
+        "2 × 10⁶"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS_ON_SUM",
+        "ARITH",
+        "MULT_FOR_ADD"
+      ],
+      "explanation": "Same power, so add the coefficients: 4 + 5 = 9. So 9 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t5/022",
+      "tier": 5,
+      "prompt": "(3 × 10⁴) + (5 × 10⁴)",
+      "choices": [
+        "1.5 × 10⁵",
+        "8 × 10⁸",
+        "8 × 10⁴",
+        "8 × 10⁵"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_FOR_ADD",
+        "ADD_EXPONENTS_ON_SUM",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Same power, so add the coefficients: 3 + 5 = 8. So 8 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t5/023",
+      "tier": 5,
+      "prompt": "(2 × 10⁻²) × (2 × 10⁻²)",
+      "choices": [
+        "4 × 10⁻³",
+        "4 × 10⁰",
+        "4 × 10⁴",
+        "4 × 10⁻⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "EXPONENTS_SUBTRACTED",
+        "MULT_EXPONENTS",
+        null
+      ],
+      "explanation": "2 × 2 = 4; the powers add: (−2) + (−2) = −4. So 4 × 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t5/024",
+      "tier": 5,
+      "prompt": "(3 × 10⁵) ÷ (6 × 10¹)",
+      "choices": [
+        "5 × 10⁵",
+        "5 × 10⁻⁵",
+        "5 × 10³",
+        "5 × 10⁴"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        "FLIPPED_EXPONENTS",
+        null,
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "3 ÷ 6 = 0.5 = 5 × 10⁻¹; the powers subtract: 5 − 1 = 4. So 5 × 10³."
+    },
+    {
+      "id": "scientific-notation/t5/025",
+      "tier": 5,
+      "prompt": "(5 × 10¹) + (7 × 10²)",
+      "choices": [
+        "1.2 × 10²",
+        "1.2 × 10⁴",
+        "1.2 × 10³",
+        "7.5 × 10²"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "KEPT_SMALLER_POWER",
+        "ADD_EXPONENTS_ON_SUM",
+        "IGNORE_GAP",
+        null
+      ],
+      "explanation": "Match the powers: 5 × 10¹ = 0.5 × 10². Add: 7 + 0.5 = 7.5."
+    },
+    {
+      "id": "scientific-notation/t5/026",
+      "tier": 5,
+      "prompt": "(4 × 10⁻⁵) + (9 × 10⁻⁵)",
+      "choices": [
+        "3.6 × 10⁻⁴",
+        "1.3 × 10⁻⁵",
+        "1.3 × 10⁻⁴",
+        "1.3 × 10⁻⁹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_FOR_ADD",
+        "NO_CARRY",
+        null,
+        "ADD_EXPONENTS_ON_SUM"
+      ],
+      "explanation": "Same power, so add the coefficients: 4 + 9 = 13 = 1.3 × 10¹. So 1.3 × 10⁻⁴."
+    },
+    {
+      "id": "scientific-notation/t5/027",
+      "tier": 5,
+      "prompt": "(2 × 10⁵) + (8 × 10⁶)",
+      "choices": [
+        "1 × 10⁷",
+        "1 × 10¹²",
+        "8.2 × 10⁶",
+        "1 × 10⁶"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "IGNORE_GAP",
+        "ADD_EXPONENTS_ON_SUM",
+        null,
+        "KEPT_SMALLER_POWER"
+      ],
+      "explanation": "Match the powers: 2 × 10⁵ = 0.2 × 10⁶. Add: 8 + 0.2 = 8.2."
+    },
+    {
+      "id": "scientific-notation/t5/028",
+      "tier": 5,
+      "prompt": "(8 × 10⁴) ÷ (2 × 10⁻⁵)",
+      "choices": [
+        "6 × 10⁹",
+        "4 × 10⁹",
+        "4 × 10⁻⁹",
+        "4 × 10⁻¹"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_COEFS",
+        null,
+        "FLIPPED_EXPONENTS",
+        "ADD_EXPONENTS"
+      ],
+      "explanation": "8 ÷ 2 = 4; the powers subtract: 4 − (−5) = 9. So 4 × 10⁹."
+    },
+    {
+      "id": "scientific-notation/t5/029",
+      "tier": 5,
+      "prompt": "(3 × 10²) × (7 × 10¹)",
+      "choices": [
+        "2.1 × 10⁵",
+        "2.1 × 10³",
+        "2.1 × 10²",
+        "2.1 × 10⁴"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MULT_EXPONENTS",
+        "EXPONENTS_SUBTRACTED",
+        null
+      ],
+      "explanation": "3 × 7 = 21 = 2.1 × 10¹; the powers add: 2 + 1 = 3. So 2.1 × 10⁴."
+    },
+    {
+      "id": "scientific-notation/t5/030",
+      "tier": 5,
+      "prompt": "(8 × 10¹) ÷ (4 × 10⁻¹)",
+      "choices": [
+        "4 × 10²",
+        "2 × 10⁻¹",
+        "2 × 10²",
+        "2 × 10⁻²"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_COEFS",
+        "DIVIDE_EXPONENTS",
+        null,
+        "FLIPPED_EXPONENTS"
+      ],
+      "explanation": "8 ÷ 4 = 2; the powers subtract: 1 − (−1) = 2. So 2 × 10²."
+    },
+    {
+      "id": "scientific-notation/t5/031",
+      "tier": 5,
+      "prompt": "(4 × 10⁵) + (4 × 10⁵)",
+      "choices": [
+        "8 × 10¹⁰",
+        "8 × 10⁵",
+        "8 × 10⁶",
+        "1.6 × 10⁶"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS_ON_SUM",
+        null,
+        "ARITH",
+        "MULT_FOR_ADD"
+      ],
+      "explanation": "Same power, so add the coefficients: 4 + 4 = 8. So 8 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t5/032",
+      "tier": 5,
+      "prompt": "(9 × 10⁻⁴) ÷ (3 × 10⁻¹)",
+      "choices": [
+        "3 × 10³",
+        "3 × 10⁻³",
+        "3 × 10⁻⁵",
+        "6 × 10⁻³"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIPPED_EXPONENTS",
+        null,
+        "ADD_EXPONENTS",
+        "SUB_COEFS"
+      ],
+      "explanation": "9 ÷ 3 = 3; the powers subtract: (−4) − (−1) = −3. So 3 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t5/033",
+      "tier": 5,
+      "prompt": "(4 × 10⁴) ÷ (2 × 10³)",
+      "choices": [
+        "2 × 10²",
+        "2 × 10⁻¹",
+        "2 × 10⁷",
+        "2 × 10¹"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FLIPPED_EXPONENTS",
+        "ADD_EXPONENTS",
+        null
+      ],
+      "explanation": "4 ÷ 2 = 2; the powers subtract: 4 − 3 = 1. So 2 × 10¹."
+    },
+    {
+      "id": "scientific-notation/t5/034",
+      "tier": 5,
+      "prompt": "(8 × 10²) + (8 × 10¹)",
+      "choices": [
+        "1.6 × 10²",
+        "8.8 × 10²",
+        "1.6 × 10³",
+        "1.6 × 10⁴"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "KEPT_SMALLER_POWER",
+        null,
+        "IGNORE_GAP",
+        "ADD_EXPONENTS_ON_SUM"
+      ],
+      "explanation": "Match the powers: 8 × 10¹ = 0.8 × 10². Add: 8 + 0.8 = 8.8."
+    },
+    {
+      "id": "scientific-notation/t5/035",
+      "tier": 5,
+      "prompt": "(8 × 10²) × (2 × 10⁶)",
+      "choices": [
+        "1.6 × 10¹³",
+        "1.6 × 10⁹",
+        "1.6 × 10⁻³",
+        "1.6 × 10⁸"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        null,
+        "EXPONENTS_SUBTRACTED",
+        "NO_CARRY"
+      ],
+      "explanation": "8 × 2 = 16 = 1.6 × 10¹; the powers add: 2 + 6 = 8. So 1.6 × 10⁹."
+    },
+    {
+      "id": "scientific-notation/t5/036",
+      "tier": 5,
+      "prompt": "(6 × 10⁻³) ÷ (3 × 10⁻²)",
+      "choices": [
+        "2 × 10⁻¹",
+        "2 × 10⁻⁵",
+        "2 × 10¹",
+        "3 × 10⁻¹"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_EXPONENTS",
+        "FLIPPED_EXPONENTS",
+        "SUB_COEFS"
+      ],
+      "explanation": "6 ÷ 3 = 2; the powers subtract: (−3) − (−2) = −1. So 2 × 10⁻¹."
+    },
+    {
+      "id": "scientific-notation/t5/037",
+      "tier": 5,
+      "prompt": "(4 × 10⁶) ÷ (2 × 10¹)",
+      "choices": [
+        "2 × 10⁷",
+        "2 × 10⁵",
+        "2 × 10⁻⁵",
+        "2 × 10⁶"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_EXPONENTS",
+        null,
+        "FLIPPED_EXPONENTS",
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "4 ÷ 2 = 2; the powers subtract: 6 − 1 = 5. So 2 × 10⁵."
+    },
+    {
+      "id": "scientific-notation/t5/038",
+      "tier": 5,
+      "prompt": "(2 × 10⁻⁴) + (9 × 10⁻⁴)",
+      "choices": [
+        "1.1 × 10⁻³",
+        "1.1 × 10⁻⁴",
+        "1.8 × 10⁻³",
+        "1.1 × 10⁻⁷"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_CARRY",
+        "MULT_FOR_ADD",
+        "ADD_EXPONENTS_ON_SUM"
+      ],
+      "explanation": "Same power, so add the coefficients: 2 + 9 = 11 = 1.1 × 10¹. So 1.1 × 10⁻³."
+    },
+    {
+      "id": "scientific-notation/t5/039",
+      "tier": 5,
+      "prompt": "(9 × 10²) × (5 × 10⁻³)",
+      "choices": [
+        "4.5 × 10⁻⁵",
+        "4.5 × 10⁶",
+        "4.5 × 10⁰",
+        "4.5 × 10⁻¹"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_EXPONENTS",
+        "EXPONENTS_SUBTRACTED",
+        null,
+        "NO_CARRY"
+      ],
+      "explanation": "9 × 5 = 45 = 4.5 × 10¹; the powers add: 2 + (−3) = −1. So 4.5 × 10⁰."
+    },
+    {
+      "id": "scientific-notation/t5/040",
+      "tier": 5,
+      "prompt": "(8 × 10²) ÷ (2 × 10⁻¹)",
+      "choices": [
+        "4 × 10³",
+        "6 × 10³",
+        "4 × 10⁻³",
+        "4 × 10⁻²"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_COEFS",
+        "FLIPPED_EXPONENTS",
+        "DIVIDE_EXPONENTS"
+      ],
+      "explanation": "8 ÷ 2 = 4; the powers subtract: 2 − (−1) = 3. So 4 × 10³."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["transformations"] = {
+  "protocol": "fnm-cart/1",
+  "id": "transformations",
+  "version": "1.0.0",
+  "title": "Transformations",
+  "subtitle": "Slide, Flip, Turn & Dilate Points",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.A.1.A",
+    "CCSS.MATH.CONTENT.8.G.A.1.B",
+    "CCSS.MATH.CONTENT.8.G.A.2",
+    "CCSS.MATH.CONTENT.8.G.A.3",
+    "CCSS.MATH.CONTENT.8.G.A.4"
+  ],
+  "seed": 20261037,
+  "items_per_tier": 40,
+  "bounds": "Coordinates and transformations (PROTOCOL 4b, grade 8). Every point is an integer pair of size 10 or less before every move and after every rigid move; slides are 1-10 per axis (1-9 when both axes move); turns are 90 degrees (CW or CCW) and 180 degrees about (0, 0); flips are over the x-axis and the y-axis; dilations are about (0, 0) by scale factor 2, 3, 4, 5 or 1/2, 1/3, 1/4, only on coordinates that divide, so every image is an integer pair of size 20 or less and every product or quotient is a times-table fact (both values 10 or less). Side lengths are 2-10 before and 2-20 after a dilation; angles are multiples of 10 from 10 to 180. Rules are written (x + a, y - b) with a, b of size 10 or less. A distractor may leave these bounds (it is a wrong answer), but a right answer and every step to it stay inside.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Slides",
+      "description": "Slide points left, right, up and down, read a slide off two points, and write its rule."
+    },
+    {
+      "tier": 2,
+      "name": "Flips",
+      "description": "Reflect points over the x-axis and the y-axis. A flip changes one sign."
+    },
+    {
+      "tier": 3,
+      "name": "Turns",
+      "description": "Turn points 90 or 180 degrees about (0, 0). CW is clockwise, CCW is counterclockwise."
+    },
+    {
+      "tier": 4,
+      "name": "Dilations",
+      "description": "Dilate from (0, 0): multiply both coordinates by the scale factor."
+    },
+    {
+      "tier": 5,
+      "name": "Move Sequences",
+      "description": "Do two moves in order, and tell congruent from similar."
+    }
+  ],
+  "misconceptions": {
+    "REVERSED_DIRECTION": {
+      "student": "Right and up add. Left and down subtract. Yours went the opposite way.",
+      "teacher": "Moves the opposite way on every axis involved (adds for left or down, subtracts for right or up)."
+    },
+    "HALF_REVERSED": {
+      "student": "One of your directions is backwards. Right and up add; left and down subtract.",
+      "teacher": "Applies the correct amount on both axes but reverses the direction on one of them."
+    },
+    "SWAPPED_AMOUNTS": {
+      "student": "Left or right changes x, up or down changes y. Match each amount to its axis.",
+      "teacher": "Swaps the two amounts between the axes (the horizontal amount goes to y and the vertical to x)."
+    },
+    "ONE_AXIS": {
+      "student": "A slide that goes two ways changes both x and y. Do both parts.",
+      "teacher": "Applies only one of the two parts of the slide."
+    },
+    "WRONG_AXIS": {
+      "student": "Left and right change x. Up and down change y.",
+      "teacher": "Applies a horizontal slide to y (or a vertical slide to x)."
+    },
+    "IMAGE_AS_ANSWER": {
+      "student": "That is where the first point went. Use the same slide on the new point.",
+      "teacher": "Gives the image of the example point instead of applying the slide to the asked point."
+    },
+    "ADDED_COORDS": {
+      "student": "Find the slide first (end minus start), then add it to the new point.",
+      "teacher": "Adds the example image's coordinates to the asked point instead of finding the slide."
+    },
+    "SIZE_CHANGES": {
+      "student": "Slides, flips and turns keep every length the same. Nothing doubles.",
+      "teacher": "Thinks a rigid motion scales a length (doubles or halves it)."
+    },
+    "LENGTH_CHANGES": {
+      "student": "Moving a shape does not change its length. The distance moved is not added.",
+      "teacher": "Adds or subtracts the distance moved from the length."
+    },
+    "ANGLE_CHANGES": {
+      "student": "Slides, flips and turns keep every angle exactly the same.",
+      "teacher": "Believes a rigid motion changes an angle (supplement, complement or doubled)."
+    },
+    "FLIP_SUPPLEMENT": {
+      "student": "A flip reverses direction but keeps the angle the same size.",
+      "teacher": "Replaces an angle by its supplement (180 minus the angle) after a reflection."
+    },
+    "REFLECTION_NEGATES": {
+      "student": "A flip turns the picture around, but an angle's size is never negative.",
+      "teacher": "Thinks a reflection makes the angle measure negative."
+    },
+    "WRONG_MIRROR": {
+      "student": "Over the x-axis only y changes sign. Over the y-axis only x does.",
+      "teacher": "Reflects over the other axis."
+    },
+    "BOTH_SIGNS": {
+      "student": "A flip over one axis changes just one sign. Both signs is a 180 turn.",
+      "teacher": "Negates both coordinates (a half turn) for a reflection."
+    },
+    "SWAPPED_XY": {
+      "student": "Swapping x and y is a flip over a slanted line, not over an axis.",
+      "teacher": "Swaps the coordinates (reflection over y = x) instead of changing a sign."
+    },
+    "IMAGE_AS_START": {
+      "student": "That is the image. Flip it back over the same axis to find the start.",
+      "teacher": "Gives the image itself when asked for the start point (does not undo the reflection)."
+    },
+    "TURN_FOR_FLIP": {
+      "student": "A 180 turn changes both signs. A flip over one axis changes only one.",
+      "teacher": "Picks a half turn for a reflection (checks one coordinate only)."
+    },
+    "SLIDE_FOR_FLIP": {
+      "student": "A slide moves every point the same way. A flip changes a sign.",
+      "teacher": "Picks a slide by the coordinate's size for a reflection."
+    },
+    "NOT_ON_AXIS": {
+      "student": "Only a point ON the axis stays put. Check that the other coordinate is 0.",
+      "teacher": "Picks a point that is not on the axis (it moves when reflected)."
+    },
+    "NOTHING_CHANGES": {
+      "student": "A flip moves every point off the axis to the other side. A sign changes.",
+      "teacher": "Believes a reflection changes no coordinate's sign."
+    },
+    "WRONG_TURN": {
+      "student": "CCW is against the clock hands, CW is with them. Check your direction.",
+      "teacher": "Turns the right amount in the opposite direction."
+    },
+    "SWAP_ONLY": {
+      "student": "A 90 turn swaps x and y AND changes one sign. Swapping alone is a flip.",
+      "teacher": "Swaps the coordinates without a sign change (a reflection over y = x)."
+    },
+    "REFLECTED_INSTEAD": {
+      "student": "Changing one sign is a flip, not a turn. A turn also swaps x and y.",
+      "teacher": "Negates one coordinate (a reflection) when a rotation was asked."
+    },
+    "HALF_FOR_QUARTER": {
+      "student": "180 changes both signs. A 90 turn swaps x and y too.",
+      "teacher": "Uses a half turn for a quarter turn."
+    },
+    "QUARTER_FOR_HALF": {
+      "student": "A 180 turn keeps x and y where they are and changes both signs.",
+      "teacher": "Uses a quarter turn for a half turn."
+    },
+    "ADDED_FACTOR": {
+      "student": "Scale factor multiplies. Multiply each coordinate by it.",
+      "teacher": "Adds the scale factor instead of multiplying by it."
+    },
+    "ONE_COORD": {
+      "student": "A dilation scales both x and y, not just one.",
+      "teacher": "Scales only one coordinate."
+    },
+    "INVERTED_FACTOR": {
+      "student": "A factor below 1 shrinks (divide by the bottom). Above 1 it grows.",
+      "teacher": "Uses the reciprocal of the scale factor (enlarges for a shrink, or the reverse)."
+    },
+    "SUBTRACTED_DENOM": {
+      "student": "Scale factor 1/2 means half, not take away 2.",
+      "teacher": "Subtracts the denominator instead of dividing by it."
+    },
+    "DIFFERENCE": {
+      "student": "Scale factor is new over old (a ratio), not new minus old.",
+      "teacher": "Subtracts the lengths or coordinates to get the scale factor."
+    },
+    "IMAGE_AS_FACTOR": {
+      "student": "The scale factor is new divided by old, not the new number itself.",
+      "teacher": "Gives the new length or coordinate as the scale factor."
+    },
+    "SAME_SIZE": {
+      "student": "A dilation changes size. Slides, flips and turns do not.",
+      "teacher": "Believes a dilation keeps the size (treats it as rigid)."
+    },
+    "AREA_FACTOR": {
+      "student": "Lengths grow by the factor itself. The factor squared is for area.",
+      "teacher": "Multiplies the length by the square of the scale factor."
+    },
+    "ANGLES_SCALE": {
+      "student": "A dilation scales lengths, never angles. An angle stays the same.",
+      "teacher": "Multiplies or divides an angle by the scale factor."
+    },
+    "CENTER_MOVES": {
+      "student": "The center of a dilation stays put. (0, 0) times anything is (0, 0).",
+      "teacher": "Moves the center of dilation (adds the factor to the origin)."
+    },
+    "GROW_SHRINK_SWAP": {
+      "student": "Factor above 1 grows the figure. Factor below 1 shrinks it.",
+      "teacher": "Mixes up which scale factors enlarge and which shrink."
+    },
+    "ORDER_SWAP": {
+      "student": "Do the moves in the order given. Slide then flip is not flip then slide.",
+      "teacher": "Applies the two moves in the reverse order."
+    },
+    "ONLY_FIRST": {
+      "student": "There is a second move. Do both, in order.",
+      "teacher": "Stops after the first move."
+    },
+    "ONLY_SECOND": {
+      "student": "The first move changes the point too. Do both, in order.",
+      "teacher": "Applies only the second move to the starting point."
+    },
+    "RIGID_CHANGES_SIZE": {
+      "student": "Slides, flips and turns keep size. Only a dilation changes it.",
+      "teacher": "Thinks a slide, flip or turn can change a shape's size."
+    },
+    "DILATION_CONGRUENT": {
+      "student": "Congruent means the same size. A dilation changes size, so not congruent.",
+      "teacher": "Calls the image of a dilation congruent."
+    },
+    "NEEDS_SAME_SIZE": {
+      "student": "Similar means the same shape at any size. A dilation keeps the shape.",
+      "teacher": "Thinks similar figures must also be the same size, so answers Neither."
+    },
+    "COMPOSE_WRONG": {
+      "student": "Multiply the two scale factors to see the overall change in size.",
+      "teacher": "Judges two dilations in a row without multiplying their factors."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "transformations/t1/001",
+      "tier": 1,
+      "prompt": "(3, −6) moves 3 down. New point?",
+      "choices": [
+        "(6, −6)",
+        "(3, −3)",
+        "(0, −6)",
+        "(3, −9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (3, −6) goes to (3, −9)."
+    },
+    {
+      "id": "transformations/t1/002",
+      "tier": 1,
+      "prompt": "A 60 degree angle slides 4 right. New angle?",
+      "choices": [
+        "70",
+        "120",
+        "60",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 60 degree angle is still 60 degrees."
+    },
+    {
+      "id": "transformations/t1/003",
+      "tier": 1,
+      "prompt": "Slide rule (x + 4, y + 6). Where does (−2, −4) go?",
+      "choices": [
+        "(2, −4)",
+        "(−6, −10)",
+        "(2, 2)",
+        "(4, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        null,
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "(x + 4, y + 6) adds 4 to x and 6 to y: (−2, −4) goes to (2, 2)."
+    },
+    {
+      "id": "transformations/t1/004",
+      "tier": 1,
+      "prompt": "Slide rule (x − 9, y − 9). Where does (9, 2) go?",
+      "choices": [
+        "(18, −7)",
+        "(9, −7)",
+        "(18, 11)",
+        "(0, −7)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "(x − 9, y − 9) adds −9 to x and −9 to y: (9, 2) goes to (0, −7)."
+    },
+    {
+      "id": "transformations/t1/005",
+      "tier": 1,
+      "prompt": "(−10, −4) moves to (−10, 4). The slide?",
+      "choices": [
+        "8 down",
+        "8 left",
+        "8 up",
+        "8 right"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "End minus start: x changes by 0, y by 8. That is 8 up."
+    },
+    {
+      "id": "transformations/t1/006",
+      "tier": 1,
+      "prompt": "(7, −8) moves to (7, −2). The slide?",
+      "choices": [
+        "6 right",
+        "6 left",
+        "6 up",
+        "6 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null,
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "End minus start: x changes by 0, y by 6. That is 6 up."
+    },
+    {
+      "id": "transformations/t1/007",
+      "tier": 1,
+      "prompt": "Rule (x + 8, y − 8) is applied to (−4, 5). Image?",
+      "choices": [
+        "(−4, −3)",
+        "(4, 5)",
+        "(4, −3)",
+        "(4, 13)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_AXIS",
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED"
+      ],
+      "explanation": "(x + 8, y − 8) adds 8 to x and −8 to y: (−4, 5) goes to (4, −3)."
+    },
+    {
+      "id": "transformations/t1/008",
+      "tier": 1,
+      "prompt": "Which rule slides (7, 4) to (1, 4)?",
+      "choices": [
+        "(x + 6, y)",
+        "(x, y + 6)",
+        "(x, y − 6)",
+        "(x − 6, y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "x goes 7 to 1 and y goes 4 to 4, so the rule is (x − 6, y)."
+    },
+    {
+      "id": "transformations/t1/009",
+      "tier": 1,
+      "prompt": "A slide takes (−3, −2) to (4, 0). Where does (−5, −5) go?",
+      "choices": [
+        "(−1, −5)",
+        "(−12, −7)",
+        "(2, −3)",
+        "(−3, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_COORDS",
+        "REVERSED_DIRECTION",
+        null,
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "The slide is 7 in x and 2 in y. Apply it to (−5, −5): (2, −3)."
+    },
+    {
+      "id": "transformations/t1/010",
+      "tier": 1,
+      "prompt": "A segment of length 8 slides 4 up. New length?",
+      "choices": [
+        "8",
+        "16",
+        "4",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t1/011",
+      "tier": 1,
+      "prompt": "A slide takes (−6, −5) to (−7, −2). Where does (−1, −10) go?",
+      "choices": [
+        "(−8, −12)",
+        "(−2, −7)",
+        "(−7, −2)",
+        "(0, −13)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_COORDS",
+        null,
+        "IMAGE_AS_ANSWER",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "The slide is −1 in x and 3 in y. Apply it to (−1, −10): (−2, −7)."
+    },
+    {
+      "id": "transformations/t1/012",
+      "tier": 1,
+      "prompt": "(2, −3) slides 3 up and 1 right. New point?",
+      "choices": [
+        "(3, 0)",
+        "(3, −3)",
+        "(1, 0)",
+        "(5, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (2, −3) goes to (3, 0)."
+    },
+    {
+      "id": "transformations/t1/013",
+      "tier": 1,
+      "prompt": "(−5, 2) shifts 9 right and 5 up. New point?",
+      "choices": [
+        "(4, 7)",
+        "(4, 2)",
+        "(4, −3)",
+        "(−5, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−5, 2) goes to (4, 7)."
+    },
+    {
+      "id": "transformations/t1/014",
+      "tier": 1,
+      "prompt": "(6, 1) moves to (9, 1). The slide?",
+      "choices": [
+        "3 down",
+        "3 up",
+        "3 left",
+        "3 right"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "End minus start: x changes by 3, y by 0. That is 3 right."
+    },
+    {
+      "id": "transformations/t1/015",
+      "tier": 1,
+      "prompt": "(−1, 8) shifts 2 up and 3 right. New point?",
+      "choices": [
+        "(−1, 10)",
+        "(−4, 6)",
+        "(2, 6)",
+        "(2, 10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        "HALF_REVERSED",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (−1, 8) goes to (2, 10)."
+    },
+    {
+      "id": "transformations/t1/016",
+      "tier": 1,
+      "prompt": "(9, −2) moves 8 left. Image?",
+      "choices": [
+        "(9, −10)",
+        "(1, −2)",
+        "(9, 6)",
+        "(17, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "Right and up add, left and down subtract: (9, −2) goes to (1, −2)."
+    },
+    {
+      "id": "transformations/t1/017",
+      "tier": 1,
+      "prompt": "(8, −6) moves to (−2, −6). The slide?",
+      "choices": [
+        "10 up",
+        "10 down",
+        "10 right",
+        "10 left"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "End minus start: x changes by −10, y by 0. That is 10 left."
+    },
+    {
+      "id": "transformations/t1/018",
+      "tier": 1,
+      "prompt": "(−8, −2) moves to (−6, −2). The slide?",
+      "choices": [
+        "2 left",
+        "2 up",
+        "2 down",
+        "2 right"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        null
+      ],
+      "explanation": "End minus start: x changes by 2, y by 0. That is 2 right."
+    },
+    {
+      "id": "transformations/t1/019",
+      "tier": 1,
+      "prompt": "A segment of length 8 slides 5 down. New length?",
+      "choices": [
+        "16",
+        "4",
+        "3",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES",
+        null
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t1/020",
+      "tier": 1,
+      "prompt": "A slide takes (−2, 4) to (4, 6). Where does (−8, 7) go?",
+      "choices": [
+        "(4, 6)",
+        "(−14, 5)",
+        "(−6, 13)",
+        "(−2, 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "IMAGE_AS_ANSWER",
+        "REVERSED_DIRECTION",
+        "SWAPPED_AMOUNTS",
+        null
+      ],
+      "explanation": "The slide is 6 in x and 2 in y. Apply it to (−8, 7): (−2, 9)."
+    },
+    {
+      "id": "transformations/t1/021",
+      "tier": 1,
+      "prompt": "A segment of length 7 slides 2 left. New length?",
+      "choices": [
+        "14",
+        "7",
+        "9",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        null,
+        "LENGTH_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t1/022",
+      "tier": 1,
+      "prompt": "(−4, −2) shifts 7 down. New point?",
+      "choices": [
+        "(3, −2)",
+        "(−11, −2)",
+        "(−4, 5)",
+        "(−4, −9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_AXIS",
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        null
+      ],
+      "explanation": "Right and up add, left and down subtract: (−4, −2) goes to (−4, −9)."
+    },
+    {
+      "id": "transformations/t1/023",
+      "tier": 1,
+      "prompt": "Which rule slides (−1, −2) to (7, 2)?",
+      "choices": [
+        "(x + 8, y)",
+        "(x + 8, y + 4)",
+        "(x − 8, y + 4)",
+        "(x + 4, y + 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "x goes −1 to 7 and y goes −2 to 2, so the rule is (x + 8, y + 4)."
+    },
+    {
+      "id": "transformations/t1/024",
+      "tier": 1,
+      "prompt": "(7, 7) moves to (10, 6). The slide?",
+      "choices": [
+        "3 right 1 up",
+        "3 left 1 up",
+        "3 right 1 down",
+        "1 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "REVERSED_DIRECTION",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "End minus start: x changes by 3, y by −1. That is 3 right 1 down."
+    },
+    {
+      "id": "transformations/t1/025",
+      "tier": 1,
+      "prompt": "(1, 7) moves to (0, 9). The slide?",
+      "choices": [
+        "1 left 2 up",
+        "1 right 2 up",
+        "1 left 2 down",
+        "1 left"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "End minus start: x changes by −1, y by 2. That is 1 left 2 up."
+    },
+    {
+      "id": "transformations/t1/026",
+      "tier": 1,
+      "prompt": "Rule (x + 6, y + 1) is applied to (−6, 8). Image?",
+      "choices": [
+        "(0, 8)",
+        "(0, 9)",
+        "(−12, 7)",
+        "(−5, 14)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "REVERSED_DIRECTION",
+        "SWAPPED_AMOUNTS"
+      ],
+      "explanation": "(x + 6, y + 1) adds 6 to x and 1 to y: (−6, 8) goes to (0, 9)."
+    },
+    {
+      "id": "transformations/t1/027",
+      "tier": 1,
+      "prompt": "(−2, −6) moves to (−9, −4). The slide?",
+      "choices": [
+        "7 left",
+        "7 left 2 up",
+        "7 right 2 up",
+        "7 right 2 down"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_AXIS",
+        null,
+        "HALF_REVERSED",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "End minus start: x changes by −7, y by 2. That is 7 left 2 up."
+    },
+    {
+      "id": "transformations/t1/028",
+      "tier": 1,
+      "prompt": "A slide takes (−9, −6) to (−5, −2). Where does (−5, 4) go?",
+      "choices": [
+        "(−1, 8)",
+        "(−9, 0)",
+        "(−10, 2)",
+        "(−5, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REVERSED_DIRECTION",
+        "ADDED_COORDS",
+        "IMAGE_AS_ANSWER"
+      ],
+      "explanation": "The slide is 4 in x and 4 in y. Apply it to (−5, 4): (−1, 8)."
+    },
+    {
+      "id": "transformations/t1/029",
+      "tier": 1,
+      "prompt": "Slide rule (x + 3, y + 5). Where does (−4, −6) go?",
+      "choices": [
+        "(−1, −1)",
+        "(−1, −11)",
+        "(1, −3)",
+        "(−7, −11)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "(x + 3, y + 5) adds 3 to x and 5 to y: (−4, −6) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t1/030",
+      "tier": 1,
+      "prompt": "A slide takes (10, −2) to (7, 1). Where does (−2, −5) go?",
+      "choices": [
+        "(5, −4)",
+        "(−5, −2)",
+        "(1, −8)",
+        "(7, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_COORDS",
+        null,
+        "REVERSED_DIRECTION",
+        "IMAGE_AS_ANSWER"
+      ],
+      "explanation": "The slide is −3 in x and 3 in y. Apply it to (−2, −5): (−5, −2)."
+    },
+    {
+      "id": "transformations/t1/031",
+      "tier": 1,
+      "prompt": "(3, 6) slides 6 right and 3 up. Image?",
+      "choices": [
+        "(−3, 3)",
+        "(9, 3)",
+        "(9, 9)",
+        "(9, 6)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "HALF_REVERSED",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (3, 6) goes to (9, 9)."
+    },
+    {
+      "id": "transformations/t1/032",
+      "tier": 1,
+      "prompt": "Rule (x − 2, y + 6) is applied to (8, −8). Image?",
+      "choices": [
+        "(6, −14)",
+        "(6, −8)",
+        "(6, −2)",
+        "(8, −2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_REVERSED",
+        "ONE_AXIS",
+        null,
+        "ONE_AXIS"
+      ],
+      "explanation": "(x − 2, y + 6) adds −2 to x and 6 to y: (8, −8) goes to (6, −2)."
+    },
+    {
+      "id": "transformations/t1/033",
+      "tier": 1,
+      "prompt": "(7, 2) shifts 7 down. New point?",
+      "choices": [
+        "(7, 9)",
+        "(7, −5)",
+        "(0, 2)",
+        "(14, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        null,
+        "WRONG_AXIS",
+        "WRONG_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (7, 2) goes to (7, −5)."
+    },
+    {
+      "id": "transformations/t1/034",
+      "tier": 1,
+      "prompt": "A segment of length 5 slides 7 up. New length?",
+      "choices": [
+        "6",
+        "5",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SIZE_CHANGES",
+        "LENGTH_CHANGES"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 5."
+    },
+    {
+      "id": "transformations/t1/035",
+      "tier": 1,
+      "prompt": "(−9, 1) slides 2 right and 9 down. Image?",
+      "choices": [
+        "(−7, −8)",
+        "(−7, 1)",
+        "(−11, 10)",
+        "(−9, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_AXIS",
+        "REVERSED_DIRECTION",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−9, 1) goes to (−7, −8)."
+    },
+    {
+      "id": "transformations/t1/036",
+      "tier": 1,
+      "prompt": "Which rule slides (−9, 2) to (−3, 2)?",
+      "choices": [
+        "(x + 6, y)",
+        "(x, y + 6)",
+        "(x − 6, y)",
+        "(x, y − 6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_AXIS",
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS"
+      ],
+      "explanation": "x goes −9 to −3 and y goes 2 to 2, so the rule is (x + 6, y)."
+    },
+    {
+      "id": "transformations/t1/037",
+      "tier": 1,
+      "prompt": "(−4, 5) shifts 3 right and 4 up. Image?",
+      "choices": [
+        "(−1, 9)",
+        "(0, 8)",
+        "(−1, 1)",
+        "(−4, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_AMOUNTS",
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "Right and up add, left and down subtract: (−4, 5) goes to (−1, 9)."
+    },
+    {
+      "id": "transformations/t1/038",
+      "tier": 1,
+      "prompt": "(−7, −9) moves to (−8, −9). The slide?",
+      "choices": [
+        "1 right",
+        "1 up",
+        "1 left",
+        "1 down"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "WRONG_AXIS",
+        null,
+        "WRONG_AXIS"
+      ],
+      "explanation": "End minus start: x changes by −1, y by 0. That is 1 left."
+    },
+    {
+      "id": "transformations/t1/039",
+      "tier": 1,
+      "prompt": "Which rule slides (3, 6) to (10, −1)?",
+      "choices": [
+        "(x − 7, y − 7)",
+        "(x + 7, y − 7)",
+        "(x + 7, y + 7)",
+        "(x + 7, y)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_REVERSED",
+        null,
+        "HALF_REVERSED",
+        "ONE_AXIS"
+      ],
+      "explanation": "x goes 3 to 10 and y goes 6 to −1, so the rule is (x + 7, y − 7)."
+    },
+    {
+      "id": "transformations/t1/040",
+      "tier": 1,
+      "prompt": "(1, 2) moves 6 down and 9 left. New point?",
+      "choices": [
+        "(−8, −4)",
+        "(10, −4)",
+        "(−5, −7)",
+        "(10, 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_REVERSED",
+        "SWAPPED_AMOUNTS",
+        "REVERSED_DIRECTION"
+      ],
+      "explanation": "Right and up add, left and down subtract: (1, 2) goes to (−8, −4)."
+    },
+    {
+      "id": "transformations/t2/001",
+      "tier": 2,
+      "prompt": "(7, −9) reflected over the x-axis?",
+      "choices": [
+        "(−9, 7)",
+        "(−7, 9)",
+        "(7, 9)",
+        "(−7, −9)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "BOTH_SIGNS",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (7, −9) goes to (7, 9)."
+    },
+    {
+      "id": "transformations/t2/002",
+      "tier": 2,
+      "prompt": "A 30 degree angle is flipped. New angle?",
+      "choices": [
+        "−30",
+        "60",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTION_NEGATES",
+        "ANGLE_CHANGES",
+        "FLIP_SUPPLEMENT",
+        null
+      ],
+      "explanation": "Rigid moves keep every angle. A 30 degree angle is still 30 degrees."
+    },
+    {
+      "id": "transformations/t2/003",
+      "tier": 2,
+      "prompt": "(−10, 8) reflected over the y-axis?",
+      "choices": [
+        "(8, −10)",
+        "(−10, −8)",
+        "(10, −8)",
+        "(10, 8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−10, 8) goes to (10, 8)."
+    },
+    {
+      "id": "transformations/t2/004",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−8, −3). Start point?",
+      "choices": [
+        "(8, −3)",
+        "(3, −8)",
+        "(−8, −3)",
+        "(−8, 3)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "IMAGE_AS_START",
+        null
+      ],
+      "explanation": "A flip undoes itself: flip (−8, −3) over the x-axis to get (−8, 3)."
+    },
+    {
+      "id": "transformations/t2/005",
+      "tier": 2,
+      "prompt": "A segment of length 7 is flipped. New length?",
+      "choices": [
+        "7",
+        "14",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SIZE_CHANGES",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t2/006",
+      "tier": 2,
+      "prompt": "Reflect over the x-axis: (x, y) becomes?",
+      "choices": [
+        "(−x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(x, −y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "Over the x-axis only the y sign changes: (x, −y)."
+    },
+    {
+      "id": "transformations/t2/007",
+      "tier": 2,
+      "prompt": "A 40 degree angle is flipped. New angle?",
+      "choices": [
+        "140",
+        "40",
+        "50",
+        "−40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FLIP_SUPPLEMENT",
+        null,
+        "ANGLE_CHANGES",
+        "REFLECTION_NEGATES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 40 degree angle is still 40 degrees."
+    },
+    {
+      "id": "transformations/t2/008",
+      "tier": 2,
+      "prompt": "A segment of length 8 is reflected. New length?",
+      "choices": [
+        "16",
+        "8",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SIZE_CHANGES",
+        null,
+        "SIZE_CHANGES",
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 8."
+    },
+    {
+      "id": "transformations/t2/009",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−9, −1). Start point?",
+      "choices": [
+        "(−9, 1)",
+        "(−9, −1)",
+        "(9, 1)",
+        "(1, −9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "IMAGE_AS_START",
+        "WRONG_MIRROR",
+        "SWAPPED_XY"
+      ],
+      "explanation": "A flip undoes itself: flip (−9, −1) over the x-axis to get (−9, 1)."
+    },
+    {
+      "id": "transformations/t2/010",
+      "tier": 2,
+      "prompt": "(−1, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(1, 0)",
+        "(0, −1)",
+        "(−1, 0)",
+        "(0, 1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        null,
+        "SWAPPED_XY"
+      ],
+      "explanation": "(−1, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/011",
+      "tier": 2,
+      "prompt": "Which move takes (−5, −10) to (−5, 10)?",
+      "choices": [
+        "Over y-axis",
+        "Slide 10 up",
+        "Over x-axis",
+        "Turn 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP",
+        null,
+        "TURN_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/012",
+      "tier": 2,
+      "prompt": "Reflect over the y-axis: (x, y) becomes?",
+      "choices": [
+        "(x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(−x, −y)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only the x sign changes: (−x, y)."
+    },
+    {
+      "id": "transformations/t2/013",
+      "tier": 2,
+      "prompt": "(5, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(0, −5)",
+        "(0, 5)",
+        "(5, 0)",
+        "(−5, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "(5, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/014",
+      "tier": 2,
+      "prompt": "(−6, −2) reflected over the y-axis?",
+      "choices": [
+        "(−2, −6)",
+        "(−6, 2)",
+        "(6, 2)",
+        "(6, −2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−6, −2) goes to (6, −2)."
+    },
+    {
+      "id": "transformations/t2/015",
+      "tier": 2,
+      "prompt": "Which move takes (5, −1) to (5, 1)?",
+      "choices": [
+        "Over x-axis",
+        "Turn 180",
+        "Over y-axis",
+        "Slide 1 up"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TURN_FOR_FLIP",
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/016",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (−7, 10). Start point?",
+      "choices": [
+        "(−10, −7)",
+        "(−7, −10)",
+        "(7, 10)",
+        "(7, −10)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "A flip undoes itself: flip (−7, 10) over the x-axis to get (−7, −10)."
+    },
+    {
+      "id": "transformations/t2/017",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (10, 5). Start point?",
+      "choices": [
+        "(5, −10)",
+        "(10, 5)",
+        "(10, −5)",
+        "(−10, 5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "IMAGE_AS_START",
+        "BOTH_SIGNS",
+        null
+      ],
+      "explanation": "A flip undoes itself: flip (10, 5) over the y-axis to get (−10, 5)."
+    },
+    {
+      "id": "transformations/t2/018",
+      "tier": 2,
+      "prompt": "Which move takes (3, 5) to (−3, 5)?",
+      "choices": [
+        "Slide 3 left",
+        "Turn 180",
+        "Over y-axis",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "TURN_FOR_FLIP",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/019",
+      "tier": 2,
+      "prompt": "(−7, 1) reflected over the y-axis?",
+      "choices": [
+        "(−7, −1)",
+        "(7, 1)",
+        "(1, −7)",
+        "(7, −1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (−7, 1) goes to (7, 1)."
+    },
+    {
+      "id": "transformations/t2/020",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (8, −3). Start point?",
+      "choices": [
+        "(−8, −3)",
+        "(8, 3)",
+        "(−3, −8)",
+        "(8, −3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "IMAGE_AS_START"
+      ],
+      "explanation": "A flip undoes itself: flip (8, −3) over the y-axis to get (−8, −3)."
+    },
+    {
+      "id": "transformations/t2/021",
+      "tier": 2,
+      "prompt": "(10, 2) reflected over the y-axis?",
+      "choices": [
+        "(−10, −2)",
+        "(2, 10)",
+        "(10, −2)",
+        "(−10, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "BOTH_SIGNS",
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "Over the y-axis only x changes sign: (10, 2) goes to (−10, 2)."
+    },
+    {
+      "id": "transformations/t2/022",
+      "tier": 2,
+      "prompt": "(−10, −8) reflected over the x-axis?",
+      "choices": [
+        "(−10, 8)",
+        "(10, −8)",
+        "(−8, −10)",
+        "(10, 8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (−10, −8) goes to (−10, 8)."
+    },
+    {
+      "id": "transformations/t2/023",
+      "tier": 2,
+      "prompt": "(1, −6) reflected over the y-axis?",
+      "choices": [
+        "(1, 6)",
+        "(−1, −6)",
+        "(−1, 6)",
+        "(−6, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "BOTH_SIGNS",
+        "SWAPPED_XY"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (1, −6) goes to (−1, −6)."
+    },
+    {
+      "id": "transformations/t2/024",
+      "tier": 2,
+      "prompt": "A flip over the x-axis gives (4, 2). Start point?",
+      "choices": [
+        "(4, 2)",
+        "(4, −2)",
+        "(−4, −2)",
+        "(−4, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_START",
+        null,
+        "WRONG_MIRROR",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "A flip undoes itself: flip (4, 2) over the x-axis to get (4, −2)."
+    },
+    {
+      "id": "transformations/t2/025",
+      "tier": 2,
+      "prompt": "A flip over the y-axis gives (10, 3). Start point?",
+      "choices": [
+        "(−10, 3)",
+        "(3, −10)",
+        "(−10, −3)",
+        "(10, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "IMAGE_AS_START"
+      ],
+      "explanation": "A flip undoes itself: flip (10, 3) over the y-axis to get (−10, 3)."
+    },
+    {
+      "id": "transformations/t2/026",
+      "tier": 2,
+      "prompt": "Reflect over the y-axis. Which coordinate changes sign?",
+      "choices": [
+        "x",
+        "Neither",
+        "Both",
+        "y"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NOTHING_CHANGES",
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "The axis is a mirror: distance along it stays, the other coordinate (x) changes sign."
+    },
+    {
+      "id": "transformations/t2/027",
+      "tier": 2,
+      "prompt": "(8, 9) reflected over the y-axis?",
+      "choices": [
+        "(9, 8)",
+        "(−8, 9)",
+        "(−8, −9)",
+        "(8, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "BOTH_SIGNS",
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (8, 9) goes to (−8, 9)."
+    },
+    {
+      "id": "transformations/t2/028",
+      "tier": 2,
+      "prompt": "(3, −4) maps to (3, 4). Which move?",
+      "choices": [
+        "Slide 4 up",
+        "Over y-axis",
+        "Turn 180",
+        "Over x-axis"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "WRONG_MIRROR",
+        "TURN_FOR_FLIP",
+        null
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/029",
+      "tier": 2,
+      "prompt": "(5, 1) reflected over the y-axis?",
+      "choices": [
+        "(−5, 1)",
+        "(5, −1)",
+        "(1, 5)",
+        "(−5, −1)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_MIRROR",
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (5, 1) goes to (−5, 1)."
+    },
+    {
+      "id": "transformations/t2/030",
+      "tier": 2,
+      "prompt": "(6, −3) maps to (−6, −3). Which move?",
+      "choices": [
+        "Slide 6 left",
+        "Over x-axis",
+        "Turn 180",
+        "Over y-axis"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "WRONG_MIRROR",
+        "TURN_FOR_FLIP",
+        null
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/031",
+      "tier": 2,
+      "prompt": "(9, 0) is reflected over the x-axis. Image?",
+      "choices": [
+        "(0, 9)",
+        "(9, 0)",
+        "(0, −9)",
+        "(−9, 0)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAPPED_XY",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "(9, 0) is on the x-axis, so a flip over it leaves the point where it is."
+    },
+    {
+      "id": "transformations/t2/032",
+      "tier": 2,
+      "prompt": "Which move takes (−3, −1) to (3, −1)?",
+      "choices": [
+        "Over y-axis",
+        "Turn 180",
+        "Over x-axis",
+        "Slide 3 right"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TURN_FOR_FLIP",
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP"
+      ],
+      "explanation": "Only x changes sign, so it is a flip over the y-axis."
+    },
+    {
+      "id": "transformations/t2/033",
+      "tier": 2,
+      "prompt": "Reflect over the x-axis. Which coordinate changes sign?",
+      "choices": [
+        "x",
+        "Both",
+        "Neither",
+        "y"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "BOTH_SIGNS",
+        "NOTHING_CHANGES",
+        null
+      ],
+      "explanation": "The axis is a mirror: distance along it stays, the other coordinate (y) changes sign."
+    },
+    {
+      "id": "transformations/t2/034",
+      "tier": 2,
+      "prompt": "(10, 5) maps to (10, −5). Which move?",
+      "choices": [
+        "Over y-axis",
+        "Slide 5 down",
+        "Over x-axis",
+        "Turn 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        "SLIDE_FOR_FLIP",
+        null,
+        "TURN_FOR_FLIP"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/035",
+      "tier": 2,
+      "prompt": "Which move takes (−6, 9) to (−6, −9)?",
+      "choices": [
+        "Slide 9 down",
+        "Turn 180",
+        "Over x-axis",
+        "Over y-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SLIDE_FOR_FLIP",
+        "TURN_FOR_FLIP",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "Only y changes sign, so it is a flip over the x-axis."
+    },
+    {
+      "id": "transformations/t2/036",
+      "tier": 2,
+      "prompt": "(9, −2) flipped over the y-axis?",
+      "choices": [
+        "(−2, 9)",
+        "(9, 2)",
+        "(−9, −2)",
+        "(−9, 2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        null,
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (9, −2) goes to (−9, −2)."
+    },
+    {
+      "id": "transformations/t2/037",
+      "tier": 2,
+      "prompt": "(10, −3) reflected over the y-axis?",
+      "choices": [
+        "(10, 3)",
+        "(−10, −3)",
+        "(−3, 10)",
+        "(−10, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "SWAPPED_XY",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the y-axis only x changes sign: (10, −3) goes to (−10, −3)."
+    },
+    {
+      "id": "transformations/t2/038",
+      "tier": 2,
+      "prompt": "Which point stays put when reflected over the y-axis?",
+      "choices": [
+        "(−1, 0)",
+        "(0, −1)",
+        "(1, −1)",
+        "(−1, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "NOT_ON_AXIS",
+        "NOT_ON_AXIS"
+      ],
+      "explanation": "A point on the y-axis (x = 0) is its own mirror image. (0, −1) stays put."
+    },
+    {
+      "id": "transformations/t2/039",
+      "tier": 2,
+      "prompt": "(−7, −4) reflected over the x-axis?",
+      "choices": [
+        "(−7, 4)",
+        "(−4, −7)",
+        "(7, −4)",
+        "(7, 4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAPPED_XY",
+        "WRONG_MIRROR",
+        "BOTH_SIGNS"
+      ],
+      "explanation": "Over the x-axis only y changes sign: (−7, −4) goes to (−7, 4)."
+    },
+    {
+      "id": "transformations/t2/040",
+      "tier": 2,
+      "prompt": "Which point stays put when flipped over the x-axis?",
+      "choices": [
+        "(−2, −2)",
+        "(−2, 2)",
+        "(−2, 0)",
+        "(0, −2)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NOT_ON_AXIS",
+        "NOT_ON_AXIS",
+        null,
+        "WRONG_MIRROR"
+      ],
+      "explanation": "A point on the x-axis (y = 0) is its own mirror image. (−2, 0) stays put."
+    },
+    {
+      "id": "transformations/t3/001",
+      "tier": 3,
+      "prompt": "(4, −9) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−4, −9)",
+        "(4, 9)",
+        "(−4, 9)",
+        "(−9, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        null,
+        "SWAP_ONLY"
+      ],
+      "explanation": "A half turn changes both signs: (4, −9) goes to (−4, 9)."
+    },
+    {
+      "id": "transformations/t3/002",
+      "tier": 3,
+      "prompt": "(10, 10) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(10, 10)",
+        "(−10, 10)",
+        "(10, −10)",
+        "(−10, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (10, 10) goes to (−10, −10)."
+    },
+    {
+      "id": "transformations/t3/003",
+      "tier": 3,
+      "prompt": "A segment of length 7 is rotated. New length?",
+      "choices": [
+        "8",
+        "14",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SIZE_CHANGES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 7."
+    },
+    {
+      "id": "transformations/t3/004",
+      "tier": 3,
+      "prompt": "Turning (x, y) 180 degrees gives?",
+      "choices": [
+        "(−x, −y)",
+        "(y, x)",
+        "(y, −x)",
+        "(−y, x)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn negates both. (3, 1) goes to (−3, −1)."
+    },
+    {
+      "id": "transformations/t3/005",
+      "tier": 3,
+      "prompt": "(4, 5) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(5, −4)",
+        "(−4, −5)",
+        "(−5, 4)",
+        "(5, 4)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        null,
+        "SWAP_ONLY"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (4, 5) goes to (−5, 4)."
+    },
+    {
+      "id": "transformations/t3/006",
+      "tier": 3,
+      "prompt": "(−5, 5) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−5, −5)",
+        "(6, −5)",
+        "(5, −5)",
+        "(5, 5)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "ARITH",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−5, 5) goes to (5, −5)."
+    },
+    {
+      "id": "transformations/t3/007",
+      "tier": 3,
+      "prompt": "(9, 8) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(8, −9)",
+        "(−9, −8)",
+        "(−8, 9)",
+        "(9, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (9, 8) goes to (8, −9)."
+    },
+    {
+      "id": "transformations/t3/008",
+      "tier": 3,
+      "prompt": "Rule for a 90 degree clockwise turn about (0, 0)?",
+      "choices": [
+        "(y, x)",
+        "(−y, x)",
+        "(−x, y)",
+        "(y, −x)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "Clockwise: swap, then negate the new y. (3, 1) goes to (1, −3)."
+    },
+    {
+      "id": "transformations/t3/009",
+      "tier": 3,
+      "prompt": "(10, −9) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−9, 10)",
+        "(−9, −10)",
+        "(9, 10)",
+        "(10, 9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SWAP_ONLY",
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (10, −9) goes to (−9, −10)."
+    },
+    {
+      "id": "transformations/t3/010",
+      "tier": 3,
+      "prompt": "A segment of length 3 turns 90 degrees. New length?",
+      "choices": [
+        "4",
+        "6",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SIZE_CHANGES",
+        "ARITH",
+        null
+      ],
+      "explanation": "Slides, flips and turns keep every length. The segment is still 3."
+    },
+    {
+      "id": "transformations/t3/011",
+      "tier": 3,
+      "prompt": "(−9, −8) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(9, 8)",
+        "(−8, 9)",
+        "(8, −9)",
+        "(9, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−9, −8) goes to (8, −9)."
+    },
+    {
+      "id": "transformations/t3/012",
+      "tier": 3,
+      "prompt": "A 40 degree angle turns 180 degrees. New angle?",
+      "choices": [
+        "80",
+        "40",
+        "140",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 40 degree angle is still 40 degrees."
+    },
+    {
+      "id": "transformations/t3/013",
+      "tier": 3,
+      "prompt": "About (0, 0), (−10, −4) maps to (10, 4). Which move?",
+      "choices": [
+        "90 CCW",
+        "90 CW",
+        "180 turn",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(−10, −4) to (10, 4): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/014",
+      "tier": 3,
+      "prompt": "(−3, −10) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−3, 10)",
+        "(−10, −3)",
+        "(−10, 3)",
+        "(3, 10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (−3, −10) goes to (3, 10)."
+    },
+    {
+      "id": "transformations/t3/015",
+      "tier": 3,
+      "prompt": "About (0, 0), (3, 10) maps to (−3, −10). Which move?",
+      "choices": [
+        "Over y-axis",
+        "90 CCW",
+        "90 CW",
+        "180 turn"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "(3, 10) to (−3, −10): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/016",
+      "tier": 3,
+      "prompt": "(1, −2) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−1, 2)",
+        "(−2, −1)",
+        "(2, 1)",
+        "(−2, 1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "WRONG_TURN",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (1, −2) goes to (−2, −1)."
+    },
+    {
+      "id": "transformations/t3/017",
+      "tier": 3,
+      "prompt": "A 10 degree angle turns 90 degrees. New angle?",
+      "choices": [
+        "170",
+        "10",
+        "20",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        null,
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 10 degree angle is still 10 degrees."
+    },
+    {
+      "id": "transformations/t3/018",
+      "tier": 3,
+      "prompt": "(−10, 10) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(10, 10)",
+        "(11, 10)",
+        "(10, −10)",
+        "(−10, −10)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (−10, 10) goes to (10, 10)."
+    },
+    {
+      "id": "transformations/t3/019",
+      "tier": 3,
+      "prompt": "About (0, 0), (8, −5) maps to (−5, −8). Which move?",
+      "choices": [
+        "180 turn",
+        "90 CW",
+        "Over y-axis",
+        "Over x-axis"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(8, −5) to (−5, −8): 90 CW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/020",
+      "tier": 3,
+      "prompt": "About (0, 0), (−7, −1) maps to (1, −7). Which move?",
+      "choices": [
+        "180 turn",
+        "Over x-axis",
+        "90 CW",
+        "90 CCW"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        "WRONG_TURN",
+        null
+      ],
+      "explanation": "(−7, −1) to (1, −7): 90 CCW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/021",
+      "tier": 3,
+      "prompt": "About (0, 0), (−3, −10) maps to (3, 10). Which move?",
+      "choices": [
+        "Over y-axis",
+        "90 CCW",
+        "180 turn",
+        "Over x-axis"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        null,
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(−3, −10) to (3, 10): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/022",
+      "tier": 3,
+      "prompt": "About (0, 0), (6, −3) maps to (−6, 3). Which move?",
+      "choices": [
+        "Over y-axis",
+        "180 turn",
+        "Over x-axis",
+        "90 CW"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        null,
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "(6, −3) to (−6, 3): 180 turn (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/023",
+      "tier": 3,
+      "prompt": "Turning (x, y) 90 degrees counterclockwise gives?",
+      "choices": [
+        "(−x, y)",
+        "(x, −y)",
+        "(−y, x)",
+        "(−x, −y)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        null,
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: swap, then negate the new x. (3, 1) goes to (−1, 3)."
+    },
+    {
+      "id": "transformations/t3/024",
+      "tier": 3,
+      "prompt": "(−6, −6) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(6, −6)",
+        "(−6, 6)",
+        "(6, 6)",
+        "(−6, −6)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−6, −6) goes to (6, −6)."
+    },
+    {
+      "id": "transformations/t3/025",
+      "tier": 3,
+      "prompt": "Rule for a 180 degree turn about (0, 0)?",
+      "choices": [
+        "(x, −y)",
+        "(y, x)",
+        "(−x, y)",
+        "(−x, −y)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "A half turn negates both. (3, 1) goes to (−3, −1)."
+    },
+    {
+      "id": "transformations/t3/026",
+      "tier": 3,
+      "prompt": "(−2, 0) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(1, −2)",
+        "(0, −2)",
+        "(2, 0)",
+        "(0, 2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "HALF_FOR_QUARTER",
+        "WRONG_TURN"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−2, 0) goes to (0, −2)."
+    },
+    {
+      "id": "transformations/t3/027",
+      "tier": 3,
+      "prompt": "(7, 8) turns 180 degrees about the origin?",
+      "choices": [
+        "(−7, 8)",
+        "(7, −8)",
+        "(8, −7)",
+        "(−7, −8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REFLECTED_INSTEAD",
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        null
+      ],
+      "explanation": "A half turn changes both signs: (7, 8) goes to (−7, −8)."
+    },
+    {
+      "id": "transformations/t3/028",
+      "tier": 3,
+      "prompt": "(7, −6) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−6, −7)",
+        "(6, 7)",
+        "(7, 6)",
+        "(−6, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        "SWAP_ONLY"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (7, −6) goes to (−6, −7)."
+    },
+    {
+      "id": "transformations/t3/029",
+      "tier": 3,
+      "prompt": "(10, −4) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−4, 10)",
+        "(−10, 4)",
+        "(10, 4)",
+        "(−4, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (10, −4) goes to (−4, −10)."
+    },
+    {
+      "id": "transformations/t3/030",
+      "tier": 3,
+      "prompt": "(−4, −3) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(3, −4)",
+        "(−3, −4)",
+        "(−3, 4)",
+        "(4, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−4, −3) goes to (3, −4)."
+    },
+    {
+      "id": "transformations/t3/031",
+      "tier": 3,
+      "prompt": "(5, 8) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(8, −5)",
+        "(−8, 5)",
+        "(5, −8)",
+        "(−5, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (5, 8) goes to (8, −5)."
+    },
+    {
+      "id": "transformations/t3/032",
+      "tier": 3,
+      "prompt": "About (0, 0), (6, 3) maps to (3, −6). Which move?",
+      "choices": [
+        "90 CCW",
+        "180 turn",
+        "Over y-axis",
+        "90 CW"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WRONG_TURN",
+        "HALF_FOR_QUARTER",
+        "REFLECTED_INSTEAD",
+        null
+      ],
+      "explanation": "(6, 3) to (3, −6): 90 CW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/033",
+      "tier": 3,
+      "prompt": "About (0, 0), (7, −6) maps to (6, 7). Which move?",
+      "choices": [
+        "180 turn",
+        "90 CCW",
+        "90 CW",
+        "Over x-axis"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "WRONG_TURN",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "(7, −6) to (6, 7): 90 CCW (CW is clockwise, CCW is counterclockwise)."
+    },
+    {
+      "id": "transformations/t3/034",
+      "tier": 3,
+      "prompt": "A 30 degree angle is rotated. New angle?",
+      "choices": [
+        "150",
+        "60",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "ANGLE_CHANGES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep every angle. A 30 degree angle is still 30 degrees."
+    },
+    {
+      "id": "transformations/t3/035",
+      "tier": 3,
+      "prompt": "(−7, 5) turns 90 degrees counterclockwise about (0, 0)?",
+      "choices": [
+        "(−5, −7)",
+        "(5, −7)",
+        "(7, 5)",
+        "(7, −5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        "HALF_FOR_QUARTER"
+      ],
+      "explanation": "Counterclockwise: (x, y) becomes (−y, x). (−7, 5) goes to (−5, −7)."
+    },
+    {
+      "id": "transformations/t3/036",
+      "tier": 3,
+      "prompt": "A 130 degree angle is rotated. New angle?",
+      "choices": [
+        "140",
+        "130",
+        "120",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Rigid moves keep every angle. A 130 degree angle is still 130 degrees."
+    },
+    {
+      "id": "transformations/t3/037",
+      "tier": 3,
+      "prompt": "(8, 6) turns 90 degrees clockwise about (0, 0)?",
+      "choices": [
+        "(−8, −6)",
+        "(6, −8)",
+        "(6, 8)",
+        "(−6, 8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        null,
+        "SWAP_ONLY",
+        "WRONG_TURN"
+      ],
+      "explanation": "Clockwise: (x, y) becomes (y, −x). (8, 6) goes to (6, −8)."
+    },
+    {
+      "id": "transformations/t3/038",
+      "tier": 3,
+      "prompt": "(−10, 2) turns 180 degrees about the origin?",
+      "choices": [
+        "(10, −2)",
+        "(−10, −2)",
+        "(−2, −10)",
+        "(10, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "REFLECTED_INSTEAD",
+        "QUARTER_FOR_HALF",
+        "REFLECTED_INSTEAD"
+      ],
+      "explanation": "A half turn changes both signs: (−10, 2) goes to (10, −2)."
+    },
+    {
+      "id": "transformations/t3/039",
+      "tier": 3,
+      "prompt": "(−7, 7) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(7, −7)",
+        "(−7, −7)",
+        "(8, −7)",
+        "(7, 7)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "QUARTER_FOR_HALF",
+        "ARITH",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−7, 7) goes to (7, −7)."
+    },
+    {
+      "id": "transformations/t3/040",
+      "tier": 3,
+      "prompt": "(−8, −9) turns 180 degrees about (0, 0)?",
+      "choices": [
+        "(−9, −8)",
+        "(8, −9)",
+        "(8, 9)",
+        "(9, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SWAP_ONLY",
+        "REFLECTED_INSTEAD",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "A half turn changes both signs: (−8, −9) goes to (8, 9)."
+    },
+    {
+      "id": "transformations/t4/001",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 6. Scale factor?",
+      "choices": [
+        "2",
+        "3",
+        "6",
+        "1/2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIFFERENCE",
+        "IMAGE_AS_FACTOR",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 6/3 = 2."
+    },
+    {
+      "id": "transformations/t4/002",
+      "tier": 4,
+      "prompt": "(−4, 4) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(−20, 20)",
+        "(−4, 20)",
+        "(−20, 4)",
+        "(1, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 5: (−4, 4) goes to (−20, 20)."
+    },
+    {
+      "id": "transformations/t4/003",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 12. Scale factor?",
+      "choices": [
+        "12",
+        "4",
+        "9",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_FACTOR",
+        null,
+        "DIFFERENCE",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 12/3 = 4."
+    },
+    {
+      "id": "transformations/t4/004",
+      "tier": 4,
+      "prompt": "(−8, 4) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(−8, 1)",
+        "(−32, 16)",
+        "(−2, 4)",
+        "(−2, 1)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_COORD",
+        "INVERTED_FACTOR",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply by 1/4, which means divide by 4: (−8, 4) goes to (−2, 1)."
+    },
+    {
+      "id": "transformations/t4/005",
+      "tier": 4,
+      "prompt": "(1, −1) dilates to (4, −4) about (0, 0). Factor?",
+      "choices": [
+        "4",
+        "1/4",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INVERTED_FACTOR",
+        "DIFFERENCE",
+        "ARITH"
+      ],
+      "explanation": "Scale factor = image / start: 4/1 = 4."
+    },
+    {
+      "id": "transformations/t4/006",
+      "tier": 4,
+      "prompt": "A side of 3 becomes 15. Scale factor?",
+      "choices": [
+        "12",
+        "5",
+        "15",
+        "1/5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIFFERENCE",
+        null,
+        "IMAGE_AS_FACTOR",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 15/3 = 5."
+    },
+    {
+      "id": "transformations/t4/007",
+      "tier": 4,
+      "prompt": "(−3, 4) dilates to (−9, 12) about (0, 0). Factor?",
+      "choices": [
+        "1/3",
+        "6",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "DIFFERENCE",
+        null,
+        "IMAGE_AS_FACTOR"
+      ],
+      "explanation": "Scale factor = image / start: −9/−3 = 3."
+    },
+    {
+      "id": "transformations/t4/008",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 1/4. The image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor below 1 makes the image smaller."
+    },
+    {
+      "id": "transformations/t4/009",
+      "tier": 4,
+      "prompt": "(−4, 6) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−12, 18)",
+        "(−12, 6)",
+        "(−4, 18)",
+        "(−1, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−4, 6) goes to (−12, 18)."
+    },
+    {
+      "id": "transformations/t4/010",
+      "tier": 4,
+      "prompt": "(3, −6) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(1, −2)",
+        "(1, −6)",
+        "(9, −18)",
+        "(3, −2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "INVERTED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (3, −6) goes to (1, −2)."
+    },
+    {
+      "id": "transformations/t4/011",
+      "tier": 4,
+      "prompt": "Scale factor 1/3. A 60 degree angle becomes?",
+      "choices": [
+        "120",
+        "180",
+        "20",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "INVERTED_FACTOR",
+        "ANGLES_SCALE",
+        null
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 60 degrees."
+    },
+    {
+      "id": "transformations/t4/012",
+      "tier": 4,
+      "prompt": "(−8, 6) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(−16, 12)",
+        "(−10, 4)",
+        "(−4, 3)",
+        "(−8, 3)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "SUBTRACTED_DENOM",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (−8, 6) goes to (−4, 3)."
+    },
+    {
+      "id": "transformations/t4/013",
+      "tier": 4,
+      "prompt": "With scale factor 3, the image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        null,
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/014",
+      "tier": 4,
+      "prompt": "A segment of 10 becomes 20. Scale factor?",
+      "choices": [
+        "10",
+        "1/2",
+        "20",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIFFERENCE",
+        "INVERTED_FACTOR",
+        "IMAGE_AS_FACTOR",
+        null
+      ],
+      "explanation": "Scale factor = new length / old length = 20/10 = 2."
+    },
+    {
+      "id": "transformations/t4/015",
+      "tier": 4,
+      "prompt": "(−3, −3) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−9, −3)",
+        "(−3, −9)",
+        "(−9, −9)",
+        "(0, 0)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_COORD",
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−3, −3) goes to (−9, −9)."
+    },
+    {
+      "id": "transformations/t4/016",
+      "tier": 4,
+      "prompt": "(3, −3) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(9, −3)",
+        "(9, −9)",
+        "(6, 0)",
+        "(3, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 3: (3, −3) goes to (9, −9)."
+    },
+    {
+      "id": "transformations/t4/017",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A leg of 18 becomes?",
+      "choices": [
+        "16",
+        "36",
+        "18",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: 18 becomes 9."
+    },
+    {
+      "id": "transformations/t4/018",
+      "tier": 4,
+      "prompt": "(−6, −6) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(−12, −12)",
+        "(−3, −3)",
+        "(−6, −3)",
+        "(−8, −8)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD",
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (−6, −6) goes to (−3, −3)."
+    },
+    {
+      "id": "transformations/t4/019",
+      "tier": 4,
+      "prompt": "(2, 4) dilated by scale factor 1/2 from (0, 0)?",
+      "choices": [
+        "(1, 2)",
+        "(0, 2)",
+        "(4, 8)",
+        "(1, 4)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: (2, 4) goes to (1, 2)."
+    },
+    {
+      "id": "transformations/t4/020",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A 160 degree angle becomes?",
+      "choices": [
+        "158",
+        "320",
+        "20",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        "ANGLE_CHANGES",
+        null
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 160 degrees."
+    },
+    {
+      "id": "transformations/t4/021",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 1/3. The image is?",
+      "choices": [
+        "Smaller",
+        "Larger",
+        "Same size"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE"
+      ],
+      "explanation": "A factor below 1 makes the image smaller."
+    },
+    {
+      "id": "transformations/t4/022",
+      "tier": 4,
+      "prompt": "(4, 4) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(20, 20)",
+        "(20, 4)",
+        "(4, 20)",
+        "(9, 9)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_COORD",
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 5: (4, 4) goes to (20, 20)."
+    },
+    {
+      "id": "transformations/t4/023",
+      "tier": 4,
+      "prompt": "(4, −2) dilated by scale factor 5 from (0, 0)?",
+      "choices": [
+        "(9, 3)",
+        "(20, −2)",
+        "(4, −10)",
+        "(20, −10)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONE_COORD",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply both coordinates by 5: (4, −2) goes to (20, −10)."
+    },
+    {
+      "id": "transformations/t4/024",
+      "tier": 4,
+      "prompt": "(−3, −6) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(−9, −18)",
+        "(−1, −2)",
+        "(−3, −2)",
+        "(−6, −9)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD",
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (−3, −6) goes to (−1, −2)."
+    },
+    {
+      "id": "transformations/t4/025",
+      "tier": 4,
+      "prompt": "Scale factor 5. A leg of 3 becomes?",
+      "choices": [
+        "15",
+        "75",
+        "8",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_FACTOR",
+        "ADDED_FACTOR",
+        "SAME_SIZE"
+      ],
+      "explanation": "Lengths grow by the scale factor: 3 x 5 = 15."
+    },
+    {
+      "id": "transformations/t4/026",
+      "tier": 4,
+      "prompt": "A segment of 4 becomes 8. Scale factor?",
+      "choices": [
+        "8",
+        "2",
+        "4",
+        "1/2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "IMAGE_AS_FACTOR",
+        null,
+        "DIFFERENCE",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "Scale factor = new length / old length = 8/4 = 2."
+    },
+    {
+      "id": "transformations/t4/027",
+      "tier": 4,
+      "prompt": "A segment of 3 becomes 9. Scale factor?",
+      "choices": [
+        "1/3",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        null,
+        "IMAGE_AS_FACTOR",
+        "DIFFERENCE"
+      ],
+      "explanation": "Scale factor = new length / old length = 9/3 = 3."
+    },
+    {
+      "id": "transformations/t4/028",
+      "tier": 4,
+      "prompt": "(−3, −3) dilated by scale factor 1/3 from (0, 0)?",
+      "choices": [
+        "(−6, −6)",
+        "(−9, −9)",
+        "(−1, −1)",
+        "(−3, −1)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply by 1/3, which means divide by 3: (−3, −3) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t4/029",
+      "tier": 4,
+      "prompt": "(1, −2) dilated by scale factor 4 from (0, 0)?",
+      "choices": [
+        "(5, 2)",
+        "(1, −8)",
+        "(4, −2)",
+        "(4, −8)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONE_COORD",
+        "ONE_COORD",
+        null
+      ],
+      "explanation": "Multiply both coordinates by 4: (1, −2) goes to (4, −8)."
+    },
+    {
+      "id": "transformations/t4/030",
+      "tier": 4,
+      "prompt": "A dilation has scale factor 5. The image is?",
+      "choices": [
+        "Smaller",
+        "Same size",
+        "Larger"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/031",
+      "tier": 4,
+      "prompt": "(10, −10) dilated by scale factor 2 from (0, 0)?",
+      "choices": [
+        "(20, −10)",
+        "(20, −20)",
+        "(12, −8)",
+        "(10, −20)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ADDED_FACTOR",
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 2: (10, −10) goes to (20, −20)."
+    },
+    {
+      "id": "transformations/t4/032",
+      "tier": 4,
+      "prompt": "With scale factor 4, the image is?",
+      "choices": [
+        "Same size",
+        "Larger",
+        "Smaller"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/033",
+      "tier": 4,
+      "prompt": "(0, 0) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(4, 4)",
+        "(4, 0)",
+        "(−4, −4)",
+        "(0, 0)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CENTER_MOVES",
+        "CENTER_MOVES",
+        "CENTER_MOVES",
+        null
+      ],
+      "explanation": "The center of a dilation stays put. 0 x any factor is 0, so (0, 0) stays (0, 0)."
+    },
+    {
+      "id": "transformations/t4/034",
+      "tier": 4,
+      "prompt": "Scale factor 2. A segment of 9 becomes?",
+      "choices": [
+        "18",
+        "9",
+        "36",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIZE",
+        "AREA_FACTOR",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Lengths grow by the scale factor: 9 x 2 = 18."
+    },
+    {
+      "id": "transformations/t4/035",
+      "tier": 4,
+      "prompt": "(2, 2) dilated by scale factor 4 from (0, 0)?",
+      "choices": [
+        "(8, 2)",
+        "(6, 6)",
+        "(8, 8)",
+        "(2, 8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_COORD",
+        "ADDED_FACTOR",
+        null,
+        "ONE_COORD"
+      ],
+      "explanation": "Multiply both coordinates by 4: (2, 2) goes to (8, 8)."
+    },
+    {
+      "id": "transformations/t4/036",
+      "tier": 4,
+      "prompt": "(−4, −4) dilated by scale factor 1/4 from (0, 0)?",
+      "choices": [
+        "(−16, −16)",
+        "(−4, −1)",
+        "(−1, −1)",
+        "(−8, −8)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "ONE_COORD",
+        null,
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/4, which means divide by 4: (−4, −4) goes to (−1, −1)."
+    },
+    {
+      "id": "transformations/t4/037",
+      "tier": 4,
+      "prompt": "Scale factor 3 makes the figure?",
+      "choices": [
+        "Smaller",
+        "Same size",
+        "Larger"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "SAME_SIZE",
+        null
+      ],
+      "explanation": "A factor above 1 makes the image larger."
+    },
+    {
+      "id": "transformations/t4/038",
+      "tier": 4,
+      "prompt": "(−3, −5) dilated by scale factor 3 from (0, 0)?",
+      "choices": [
+        "(−9, −5)",
+        "(−9, −15)",
+        "(−3, −15)",
+        "(0, −2)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_COORD",
+        null,
+        "ONE_COORD",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "Multiply both coordinates by 3: (−3, −5) goes to (−9, −15)."
+    },
+    {
+      "id": "transformations/t4/039",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A 120 degree angle becomes?",
+      "choices": [
+        "118",
+        "240",
+        "120",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_DENOM",
+        "INVERTED_FACTOR",
+        null,
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "A dilation changes lengths but never angles. The angle stays 120 degrees."
+    },
+    {
+      "id": "transformations/t4/040",
+      "tier": 4,
+      "prompt": "Scale factor 1/2. A segment of 16 becomes?",
+      "choices": [
+        "16",
+        "32",
+        "8",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_SIZE",
+        "INVERTED_FACTOR",
+        null,
+        "SUBTRACTED_DENOM"
+      ],
+      "explanation": "Multiply by 1/2, which means divide by 2: 16 becomes 8."
+    },
+    {
+      "id": "transformations/t5/001",
+      "tier": 5,
+      "prompt": "(−2, 1): slide 1 down, then dilate by 4?",
+      "choices": [
+        "(−8, 0)",
+        "(2, 4)",
+        "(−2, 0)",
+        "(−8, 3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_FACTOR",
+        "ONLY_FIRST",
+        "ORDER_SWAP"
+      ],
+      "explanation": "slide 1 down: (−2, 0); then dilate by 4: (−8, 0)."
+    },
+    {
+      "id": "transformations/t5/002",
+      "tier": 5,
+      "prompt": "A 140 degree angle is flipped, then turned. New angle?",
+      "choices": [
+        "40",
+        "150",
+        "140",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FLIP_SUPPLEMENT",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep angles, however many you do. Still 140 degrees."
+    },
+    {
+      "id": "transformations/t5/003",
+      "tier": 5,
+      "prompt": "(2, −8): flip over the x-axis, then slide 5 left?",
+      "choices": [
+        "(−3, 8)",
+        "(2, 8)",
+        "(−7, −8)",
+        "(−3, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        "ONLY_SECOND"
+      ],
+      "explanation": "flip over the x-axis: (2, 8); then slide 5 left: (−3, 8)."
+    },
+    {
+      "id": "transformations/t5/004",
+      "tier": 5,
+      "prompt": "Dilate by 1/3, then turn it. The image is?",
+      "choices": [
+        "Neither",
+        "Congruent",
+        "Similar"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT",
+        null
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/005",
+      "tier": 5,
+      "prompt": "A 20 degree angle is flipped, then dilated by 4. New angle?",
+      "choices": [
+        "20",
+        "80",
+        "24",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANGLES_SCALE",
+        "ADDED_FACTOR",
+        "ANGLE_CHANGES"
+      ],
+      "explanation": "Flips, slides, turns and dilations all keep angles. Still 20 degrees."
+    },
+    {
+      "id": "transformations/t5/006",
+      "tier": 5,
+      "prompt": "Dilate by 1/2, then by 2. Its size?",
+      "choices": [
+        "Gets smaller",
+        "Stays same",
+        "Gets bigger"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMPOSE_WRONG",
+        null,
+        "COMPOSE_WRONG"
+      ],
+      "explanation": "Multiply the factors: 1/2 x 2 = 1, so the size stays the same."
+    },
+    {
+      "id": "transformations/t5/007",
+      "tier": 5,
+      "prompt": "(−8, 6): dilate by 1/2, then slide 3 up?",
+      "choices": [
+        "(−4, 0)",
+        "(−8, 9)",
+        "(−4, 3)",
+        "(−4, 6)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "REVERSED_DIRECTION",
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        null
+      ],
+      "explanation": "dilate by 1/2: (−4, 3); then slide 3 up: (−4, 6)."
+    },
+    {
+      "id": "transformations/t5/008",
+      "tier": 5,
+      "prompt": "(1, 6): turn 180 degrees, then slide 4 up?",
+      "choices": [
+        "(1, 10)",
+        "(−1, −6)",
+        "(−1, −10)",
+        "(−1, −2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "ORDER_SWAP",
+        null
+      ],
+      "explanation": "turn 180 degrees: (−1, −6); then slide 4 up: (−1, −2)."
+    },
+    {
+      "id": "transformations/t5/009",
+      "tier": 5,
+      "prompt": "Which scale factor shrinks a figure?",
+      "choices": [
+        "3",
+        "5",
+        "1/2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        "GROW_SHRINK_SWAP",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor below 1 shrinks a figure. 1/2 is below 1."
+    },
+    {
+      "id": "transformations/t5/010",
+      "tier": 5,
+      "prompt": "(3, 6): flip over the y-axis, then turn 180 degrees?",
+      "choices": [
+        "(−6, −3)",
+        "(3, −6)",
+        "(−3, −6)",
+        "(−3, 6)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        null,
+        "ONLY_SECOND",
+        "ONLY_FIRST"
+      ],
+      "explanation": "flip over the y-axis: (−3, 6); then turn 180 degrees: (3, −6)."
+    },
+    {
+      "id": "transformations/t5/011",
+      "tier": 5,
+      "prompt": "A side of 3 is flipped, then dilated by 5. New length?",
+      "choices": [
+        "3",
+        "15",
+        "75",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "AREA_FACTOR",
+        "ADDED_FACTOR"
+      ],
+      "explanation": "The flip keeps length 3; the dilation multiplies by 5. New length 15."
+    },
+    {
+      "id": "transformations/t5/012",
+      "tier": 5,
+      "prompt": "Which move can change a shape's size?",
+      "choices": [
+        "Slide",
+        "Flip",
+        "Dilation",
+        "Turn"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE",
+        null,
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/013",
+      "tier": 5,
+      "prompt": "(3, 5): dilate by 2, then slide 1 down?",
+      "choices": [
+        "(6, 8)",
+        "(6, 11)",
+        "(5, 6)",
+        "(6, 9)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ORDER_SWAP",
+        "REVERSED_DIRECTION",
+        "ADDED_FACTOR",
+        null
+      ],
+      "explanation": "dilate by 2: (6, 10); then slide 1 down: (6, 9)."
+    },
+    {
+      "id": "transformations/t5/014",
+      "tier": 5,
+      "prompt": "Which factor makes a shape larger?",
+      "choices": [
+        "1/2",
+        "2",
+        "1/3",
+        "1/4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROW_SHRINK_SWAP",
+        null,
+        "GROW_SHRINK_SWAP",
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "A factor above 1 enlarges a figure. 2 is above 1."
+    },
+    {
+      "id": "transformations/t5/015",
+      "tier": 5,
+      "prompt": "(1, 9): turn 180 degrees, then slide 1 down?",
+      "choices": [
+        "(−1, −10)",
+        "(−1, −9)",
+        "(−9, 0)",
+        "(−1, −8)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "QUARTER_FOR_HALF",
+        "ORDER_SWAP"
+      ],
+      "explanation": "turn 180 degrees: (−1, −9); then slide 1 down: (−1, −10)."
+    },
+    {
+      "id": "transformations/t5/016",
+      "tier": 5,
+      "prompt": "Which scale factor keeps the size the same?",
+      "choices": [
+        "1/2",
+        "1",
+        "4",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "SAME_SIZE",
+        "SAME_SIZE"
+      ],
+      "explanation": "Scale factor 1 multiplies every length by 1, so the size stays the same."
+    },
+    {
+      "id": "transformations/t5/017",
+      "tier": 5,
+      "prompt": "A side of 4 is flipped, then dilated by 1/2. New length?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "ARITH",
+        "INVERTED_FACTOR"
+      ],
+      "explanation": "The flip keeps length 4; the dilation multiplies by 1/2. New length 2."
+    },
+    {
+      "id": "transformations/t5/018",
+      "tier": 5,
+      "prompt": "(−2, 3): slide 1 left, then flip over the y-axis?",
+      "choices": [
+        "(−3, −3)",
+        "(3, 3)",
+        "(1, 3)",
+        "(−3, 3)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WRONG_MIRROR",
+        null,
+        "ORDER_SWAP",
+        "ONLY_FIRST"
+      ],
+      "explanation": "slide 1 left: (−3, 3); then flip over the y-axis: (3, 3)."
+    },
+    {
+      "id": "transformations/t5/019",
+      "tier": 5,
+      "prompt": "(−10, 2): flip over the x-axis, then flip over the y-axis?",
+      "choices": [
+        "(10, −2)",
+        "(−10, −2)",
+        "(−10, 2)",
+        "(10, 2)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        "ONLY_SECOND"
+      ],
+      "explanation": "flip over the x-axis: (−10, −2); then flip over the y-axis: (10, −2)."
+    },
+    {
+      "id": "transformations/t5/020",
+      "tier": 5,
+      "prompt": "(−10, 8): dilate by 1/2, then turn 180 degrees?",
+      "choices": [
+        "(20, −16)",
+        "(−4, −5)",
+        "(10, −8)",
+        "(5, −4)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INVERTED_FACTOR",
+        "QUARTER_FOR_HALF",
+        "ONLY_SECOND",
+        null
+      ],
+      "explanation": "dilate by 1/2: (−5, 4); then turn 180 degrees: (5, −4)."
+    },
+    {
+      "id": "transformations/t5/021",
+      "tier": 5,
+      "prompt": "(−5, −5): flip over the x-axis, then dilate by 4?",
+      "choices": [
+        "(−1, 9)",
+        "(−5, 5)",
+        "(20, −20)",
+        "(−20, 20)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "ONLY_FIRST",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "flip over the x-axis: (−5, 5); then dilate by 4: (−20, 20)."
+    },
+    {
+      "id": "transformations/t5/022",
+      "tier": 5,
+      "prompt": "(−3, 6): turn 90 CCW, then turn 180 degrees?",
+      "choices": [
+        "(−3, 6)",
+        "(−6, −3)",
+        "(6, 3)",
+        "(3, −6)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "ONLY_FIRST",
+        null,
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "turn 90 CCW: (−6, −3); then turn 180 degrees: (6, 3)."
+    },
+    {
+      "id": "transformations/t5/023",
+      "tier": 5,
+      "prompt": "A 30 degree angle is turned, then flipped. New angle?",
+      "choices": [
+        "60",
+        "150",
+        "30",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANGLE_CHANGES",
+        "FLIP_SUPPLEMENT",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Rigid moves keep angles, however many you do. Still 30 degrees."
+    },
+    {
+      "id": "transformations/t5/024",
+      "tier": 5,
+      "prompt": "Which move can make a shape bigger?",
+      "choices": [
+        "Flip",
+        "Dilation",
+        "Turn",
+        "Slide"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RIGID_CHANGES_SIZE",
+        null,
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/025",
+      "tier": 5,
+      "prompt": "A side of 3 is slid, then dilated by 5. New length?",
+      "choices": [
+        "8",
+        "3",
+        "75",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_FACTOR",
+        "SAME_SIZE",
+        "AREA_FACTOR",
+        null
+      ],
+      "explanation": "The slide keeps length 3; the dilation multiplies by 5. New length 15."
+    },
+    {
+      "id": "transformations/t5/026",
+      "tier": 5,
+      "prompt": "Dilate by 3, then by 1/2. Its size?",
+      "choices": [
+        "Gets smaller",
+        "Gets bigger",
+        "Stays same"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMPOSE_WRONG",
+        null,
+        "COMPOSE_WRONG"
+      ],
+      "explanation": "Multiply the factors: 3 x 1/2 = 3/2, so the size gets bigger."
+    },
+    {
+      "id": "transformations/t5/027",
+      "tier": 5,
+      "prompt": "Dilate by 5, then turn it. The image is?",
+      "choices": [
+        "Similar",
+        "Congruent",
+        "Neither"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DILATION_CONGRUENT",
+        "NEEDS_SAME_SIZE"
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/028",
+      "tier": 5,
+      "prompt": "Dilate by 3, then flip it. Its size?",
+      "choices": [
+        "Gets bigger",
+        "Stays same",
+        "Gets smaller"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_SIZE",
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "Only the dilation changes size, and a factor above 1 makes it bigger."
+    },
+    {
+      "id": "transformations/t5/029",
+      "tier": 5,
+      "prompt": "Which move is NOT rigid?",
+      "choices": [
+        "Dilation",
+        "Flip",
+        "Turn",
+        "Slide"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE",
+        "RIGID_CHANGES_SIZE"
+      ],
+      "explanation": "Slides, flips and turns are rigid: size stays. Only a dilation changes size."
+    },
+    {
+      "id": "transformations/t5/030",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 3. Its size?",
+      "choices": [
+        "Stays same",
+        "Gets bigger",
+        "Gets smaller"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_SIZE",
+        null,
+        "GROW_SHRINK_SWAP"
+      ],
+      "explanation": "Only the dilation changes size, and a factor above 1 makes it bigger."
+    },
+    {
+      "id": "transformations/t5/031",
+      "tier": 5,
+      "prompt": "(−5, −5): turn 90 CCW, then turn 180 degrees?",
+      "choices": [
+        "(5, 5)",
+        "(−5, −5)",
+        "(−5, 5)",
+        "(5, −5)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "HALF_FOR_QUARTER",
+        null,
+        "ONLY_FIRST"
+      ],
+      "explanation": "turn 90 CCW: (5, −5); then turn 180 degrees: (−5, 5)."
+    },
+    {
+      "id": "transformations/t5/032",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 1/3. The image is?",
+      "choices": [
+        "Similar",
+        "Neither",
+        "Congruent"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT"
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/033",
+      "tier": 5,
+      "prompt": "(4, 10): turn 90 CCW, then dilate by 1/2?",
+      "choices": [
+        "(2, 5)",
+        "(−10, 4)",
+        "(−20, 8)",
+        "(−5, 2)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "INVERTED_FACTOR",
+        null
+      ],
+      "explanation": "turn 90 CCW: (−10, 4); then dilate by 1/2: (−5, 2)."
+    },
+    {
+      "id": "transformations/t5/034",
+      "tier": 5,
+      "prompt": "(−5, −10): flip over the y-axis, then turn 90 CCW?",
+      "choices": [
+        "(−5, 10)",
+        "(−10, −5)",
+        "(10, 5)",
+        "(5, −10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_QUARTER",
+        "ORDER_SWAP",
+        null,
+        "ONLY_FIRST"
+      ],
+      "explanation": "flip over the y-axis: (5, −10); then turn 90 CCW: (10, 5)."
+    },
+    {
+      "id": "transformations/t5/035",
+      "tier": 5,
+      "prompt": "(−3, −3): slide 7 left, then flip over the y-axis?",
+      "choices": [
+        "(10, −3)",
+        "(3, −3)",
+        "(−10, −3)",
+        "(−4, −3)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_SECOND",
+        "ONLY_FIRST",
+        "ORDER_SWAP"
+      ],
+      "explanation": "slide 7 left: (−10, −3); then flip over the y-axis: (10, −3)."
+    },
+    {
+      "id": "transformations/t5/036",
+      "tier": 5,
+      "prompt": "Turn it, then dilate by 1/2. The image is?",
+      "choices": [
+        "Neither",
+        "Congruent",
+        "Similar"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEEDS_SAME_SIZE",
+        "DILATION_CONGRUENT",
+        null
+      ],
+      "explanation": "Same shape, new size: the image is similar to the start. Congruent needs the same size."
+    },
+    {
+      "id": "transformations/t5/037",
+      "tier": 5,
+      "prompt": "(−10, 6): slide 3 up, then turn 90 CCW?",
+      "choices": [
+        "(−6, −7)",
+        "(−3, −10)",
+        "(−9, −10)",
+        "(−6, −10)"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ORDER_SWAP",
+        "REVERSED_DIRECTION",
+        null,
+        "ONLY_SECOND"
+      ],
+      "explanation": "slide 3 up: (−10, 9); then turn 90 CCW: (−9, −10)."
+    },
+    {
+      "id": "transformations/t5/038",
+      "tier": 5,
+      "prompt": "(8, 5): flip over the y-axis, then turn 180 degrees?",
+      "choices": [
+        "(−5, −8)",
+        "(−8, −5)",
+        "(−8, 5)",
+        "(8, −5)"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "QUARTER_FOR_HALF",
+        "ONLY_SECOND",
+        "WRONG_MIRROR",
+        null
+      ],
+      "explanation": "flip over the y-axis: (−8, 5); then turn 180 degrees: (8, −5)."
+    },
+    {
+      "id": "transformations/t5/039",
+      "tier": 5,
+      "prompt": "(1, −8): turn 180 degrees, then flip over the x-axis?",
+      "choices": [
+        "(−1, 8)",
+        "(−1, −8)",
+        "(1, 8)",
+        "(8, −1)"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONLY_FIRST",
+        null,
+        "ONLY_SECOND",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "turn 180 degrees: (−1, 8); then flip over the x-axis: (−1, −8)."
+    },
+    {
+      "id": "transformations/t5/040",
+      "tier": 5,
+      "prompt": "(5, 8): flip over the x-axis, then turn 180 degrees?",
+      "choices": [
+        "(−5, 8)",
+        "(5, −8)",
+        "(−5, −8)",
+        "(8, 5)"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONLY_FIRST",
+        "ONLY_SECOND",
+        "QUARTER_FOR_HALF"
+      ],
+      "explanation": "flip over the x-axis: (5, −8); then turn 180 degrees: (−5, 8)."
+    }
+  ],
+  "render_profile": "unicode"
+};
+window.FNM_CARTRIDGES["triangles-parallel-lines"] = {
+  "protocol": "fnm-cart/1",
+  "id": "triangles-parallel-lines",
+  "version": "1.0.0",
+  "title": "Triangles & Parallel Lines",
+  "subtitle": "Angle Sum, Exterior Angles, Transversals",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.A.5"
+  ],
+  "seed": 20261038,
+  "items_per_tier": 40,
+  "bounds": "Angles in tens. Every given, unknown and answer angle is a multiple of 10 from 10 to 170 degrees (an x is 10 to 90, a tens quotient). Every + and − on angles is a tens fact (180 − 70 is 18 − 7): operands and results 1-18 tens. Every × and ÷ is a times-table fact in tens: coefficients 2-9, a divisor 2-9 into 18 tens or less (6x = 180 is 18 ÷ 6), a quotient 1-9 tens. Totals: a triangle is 180, a right triangle's other two add to 90, an exterior angle equals the sum of its two remote angles (at most 170), parallel-line pairs are equal (corresponding, alternate; vertical angles of crossing lines) or add to 180 (same-side, or neighbors on a line). Isosceles base angles come from an even-tens top angle ((180 − 40) ÷ 2 is 14 ÷ 2). Similar triangles are told by two angles each; the third is 180 minus their tens sum. No 360, no half-angles, no trigonometry. Choices are plain numbers (or Equal, Add to 180, Add to 90, Yes, No); wrong choices are whatever a misreading gives (45, 98, 330), up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Triangle Angle Sum",
+      "description": "The three angles of a triangle add to 180. Find the missing one, even in right and isosceles triangles."
+    },
+    {
+      "tier": 2,
+      "name": "Exterior Angles",
+      "description": "An exterior angle equals the sum of the two remote angles, the inside angles far from it."
+    },
+    {
+      "tier": 3,
+      "name": "Transversal Angles",
+      "description": "Parallel lines cut by a line: corresponding and alternate angles are equal, same-side angles and neighbors on a line add to 180."
+    },
+    {
+      "tier": 4,
+      "name": "Equal or Add to 180?",
+      "description": "Decide for each pair of angles on parallel lines: equal, or adding to 180. Then tell if lines are parallel."
+    },
+    {
+      "tier": 5,
+      "name": "Solve for x & Similar",
+      "description": "Angle equations with x in triangles and parallel lines, then similar triangles told by two angles."
+    }
+  ],
+  "misconceptions": {
+    "USED_360": {
+      "student": "A triangle's angles add to 180, and so does a straight line. 360 is a full turn.",
+      "teacher": "Subtracts from 360 (a full turn) instead of 180 or 90."
+    },
+    "FORGOT_ONE": {
+      "student": "Use every piece you are given. Don't leave one out.",
+      "teacher": "Takes away only one of the given angles, or skips the +number on x."
+    },
+    "ADDED_ANGLES": {
+      "student": "The missing angle is what is left of the total. Subtract, don't add.",
+      "teacher": "Adds the angles (or the angle and the total) instead of subtracting from the total."
+    },
+    "USED_90": {
+      "student": "90 is only for a right angle. Here the total is 180.",
+      "teacher": "Uses 90 as the total (a complement) for a triangle or for supplementary angles."
+    },
+    "FORGOT_RIGHT": {
+      "student": "A right triangle already has a 90 angle. The other two add to 90.",
+      "teacher": "Subtracts only the given angle from 180 and forgets the right angle."
+    },
+    "NO_HALF": {
+      "student": "Two base angles share what is left. Split it in half.",
+      "teacher": "Gives 180 minus the top angle as one base angle, without halving it."
+    },
+    "HALF_TOP": {
+      "student": "Base angles come from what is left of 180, not from half the top angle.",
+      "teacher": "Halves the top angle instead of halving 180 minus the top angle."
+    },
+    "SAME_AS_TOP": {
+      "student": "Only the two base angles are equal. The top angle is different.",
+      "teacher": "Gives the top angle as each base angle."
+    },
+    "NO_DOUBLE": {
+      "student": "There are two base angles. Add both before you subtract from 180.",
+      "teacher": "Subtracts one base angle from 180 instead of both."
+    },
+    "SAME_AS_BASE": {
+      "student": "The top angle is what is left after both base angles, not a copy of one.",
+      "teacher": "Gives a base angle as the top angle."
+    },
+    "SPLIT_IN_TWO": {
+      "student": "A triangle has three angles. Split 180 three ways, not two.",
+      "teacher": "Divides 180 by 2 instead of 3 for an equilateral triangle."
+    },
+    "INTERIOR_FOR_EXTERIOR": {
+      "student": "An exterior angle makes a straight line with its inside angle. Not the same.",
+      "teacher": "Gives the inside angle (180 minus the exterior) where the exterior is wanted, or the reverse."
+    },
+    "ONE_REMOTE": {
+      "student": "The exterior angle is both remote angles added together, not just one.",
+      "teacher": "Gives one remote angle instead of the sum of both."
+    },
+    "ADDED_NOT_SUB": {
+      "student": "The exterior angle is the SUM of the remotes. To find one remote, subtract.",
+      "teacher": "Adds the exterior and the known remote angle instead of subtracting."
+    },
+    "EQUAL_REMOTES": {
+      "student": "The two remote angles need not be equal. Subtract to find the other.",
+      "teacher": "Assumes the unknown remote angle equals the given one."
+    },
+    "SAME_AS_EXT": {
+      "student": "The exterior angle and its inside neighbor make a straight line: 180.",
+      "teacher": "Gives the exterior angle itself as the inside angle next to it."
+    },
+    "SUPP_FOR_EQUAL": {
+      "student": "Alternate, corresponding and vertical angles are equal. Don't subtract.",
+      "teacher": "Treats an equal pair as supplementary: gives 180 minus the angle."
+    },
+    "COMP_FOR_EQUAL": {
+      "student": "These angles are equal. 90 minus the angle is for a corner, not this.",
+      "teacher": "Treats an equal pair as complementary: gives 90 minus the angle (or its distance from 90)."
+    },
+    "EQUAL_FOR_SUPP": {
+      "student": "A pair that adds to 180 is not an equal pair.",
+      "teacher": "Treats a same-side (supplementary) pair as equal."
+    },
+    "GAVE_ANGLE": {
+      "student": "Check what is asked: you want x, not the size of an angle.",
+      "teacher": "Answers with an angle's size when the question asks for x."
+    },
+    "NO_DIVIDE": {
+      "student": "You stopped early. Divide by the number in front of x.",
+      "teacher": "Gets the total for the x terms and forgets to divide by the coefficient."
+    },
+    "MULTIPLIED_NOT_DIVIDED": {
+      "student": "2x means 2 times x. To undo it, divide by 2.",
+      "teacher": "Multiplies by the coefficient of x instead of dividing."
+    },
+    "SPLIT_EVENLY": {
+      "student": "The angles are not all equal. Add the x parts, then divide by that.",
+      "teacher": "Splits the total evenly (by the number of angles) instead of by the sum of the coefficients."
+    },
+    "USED_180": {
+      "student": "Use the right total. Here the angles do not add to 180.",
+      "teacher": "Uses 180 as the total for the x terms where the total is 90 or the exterior angle."
+    },
+    "SIGN_SLIP": {
+      "student": "A + number on one side becomes minus when it moves to the other side.",
+      "teacher": "Moves a +number across the equals sign without changing its sign."
+    },
+    "GAVE_X": {
+      "student": "x is not the angle. Multiply x by the number in front to get the angle.",
+      "teacher": "Stops at the value of x when the question asks for an angle."
+    },
+    "OTHER_ANGLE": {
+      "student": "Re-read the question: it asks for the largest angle.",
+      "teacher": "Finds x correctly but answers with the wrong angle (not the largest)."
+    },
+    "NEEDS_SAME_LISTED": {
+      "student": "Find each third angle. Same three angles means similar, however they are listed.",
+      "teacher": "Says No because the two listed angles differ, without finding the third angles."
+    },
+    "ONE_ANGLE_ENOUGH": {
+      "student": "Similar needs all three angles to match. One shared angle is not enough.",
+      "teacher": "Says Yes because the triangles share one listed angle."
+    },
+    "ALL_TRIANGLES_ALIKE": {
+      "student": "Every triangle adds to 180, but similar needs the same three angles.",
+      "teacher": "Says Yes because both triangles' angles add to 180."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "triangles-parallel-lines/t1/001",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 70 degrees. Third angle?",
+      "choices": [
+        "80",
+        "70",
+        "100",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        null,
+        "USED_90"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 70 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/002",
+      "tier": 1,
+      "prompt": "Triangle angles: 30 and 120 degrees. Third angle?",
+      "choices": [
+        "60",
+        "30",
+        "150",
+        "210"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 120 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/003",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 20 degrees. Each base angle?",
+      "choices": [
+        "20",
+        "10",
+        "80",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "HALF_TOP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 20) ÷ 2 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/004",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 50 degree angles. The third?",
+      "choices": [
+        "130",
+        "50",
+        "70",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_DOUBLE",
+        "SAME_AS_BASE",
+        "ARITH",
+        null
+      ],
+      "explanation": "The two base angles make 50 + 50 = 100. Top angle: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/005",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 10. Its third angle?",
+      "choices": [
+        "80",
+        "100",
+        "260",
+        "170"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_ANGLES",
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 10 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/006",
+      "tier": 1,
+      "prompt": "Triangle angles: 40 and 80 degrees. Third angle?",
+      "choices": [
+        "120",
+        "30",
+        "240",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 80 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/007",
+      "tier": 1,
+      "prompt": "A triangle has angles 50 and 70 degrees. Third angle?",
+      "choices": [
+        "60",
+        "30",
+        "130",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FORGOT_ONE",
+        "ADDED_ANGLES"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 70 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/008",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 50 and 80. The third?",
+      "choices": [
+        "230",
+        "100",
+        "50",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 80 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/009",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 110 degrees. Third angle?",
+      "choices": [
+        "50",
+        "40",
+        "60",
+        "120"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ADDED_ANGLES"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 110 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/010",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 80. Its third angle?",
+      "choices": [
+        "170",
+        "10",
+        "190",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 80 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/011",
+      "tier": 1,
+      "prompt": "Triangle angles: 50 and 60 degrees. Third angle?",
+      "choices": [
+        "250",
+        "110",
+        "70",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ADDED_ANGLES",
+        null,
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 50 − 60 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/012",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 60. Its third angle?",
+      "choices": [
+        "30",
+        "120",
+        "10",
+        "210"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_RIGHT",
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 60 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/013",
+      "tier": 1,
+      "prompt": "Triangle angles: 30 and 50 degrees. Third angle?",
+      "choices": [
+        "80",
+        "100",
+        "10",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_90",
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 50 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/014",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 30. Its third angle?",
+      "choices": [
+        "60",
+        "240",
+        "50",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 30 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/015",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 120 degrees. Third angle?",
+      "choices": [
+        "30",
+        "170",
+        "20",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ARITH",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 120 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/016",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 80 degrees. Each base angle?",
+      "choices": [
+        "80",
+        "100",
+        "70",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "NO_HALF",
+        "ARITH",
+        null
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 80) ÷ 2 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/017",
+      "tier": 1,
+      "prompt": "A triangle has angles 10 and 10 degrees. Third angle?",
+      "choices": [
+        "170",
+        "20",
+        "160",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null,
+        "USED_90"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 10 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/018",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 40 and 70. The third?",
+      "choices": [
+        "110",
+        "70",
+        "140",
+        "250"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_ONE",
+        null,
+        "FORGOT_ONE",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 70 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/019",
+      "tier": 1,
+      "prompt": "An equilateral triangle has three equal angles. Each?",
+      "choices": [
+        "30",
+        "90",
+        "120",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SPLIT_IN_TWO",
+        "USED_360",
+        null
+      ],
+      "explanation": "All three angles are equal and add to 180: 180 ÷ 3 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/020",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 140. Each base angle?",
+      "choices": [
+        "40",
+        "20",
+        "140",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_HALF",
+        null,
+        "SAME_AS_TOP",
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 140) ÷ 2 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/021",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 120. Each base angle?",
+      "choices": [
+        "120",
+        "60",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_TOP",
+        "NO_HALF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 120) ÷ 2 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/022",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 40 and 100. The third?",
+      "choices": [
+        "40",
+        "20",
+        "140",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "FORGOT_ONE",
+        "FORGOT_ONE"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 40 − 100 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/023",
+      "tier": 1,
+      "prompt": "Isosceles triangle, base angles 40 degrees each. Top angle?",
+      "choices": [
+        "110",
+        "130",
+        "140",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "NO_DOUBLE",
+        null
+      ],
+      "explanation": "The two base angles make 40 + 40 = 80. Top angle: 180 − 80 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/024",
+      "tier": 1,
+      "prompt": "A triangle has angles 30 and 100 degrees. Third angle?",
+      "choices": [
+        "230",
+        "80",
+        "130",
+        "50"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 30 − 100 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/025",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 20. Its third angle?",
+      "choices": [
+        "110",
+        "250",
+        "70",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "USED_360",
+        null,
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 20 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/026",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 40 degrees. Each base angle?",
+      "choices": [
+        "140",
+        "40",
+        "70",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_HALF",
+        "SAME_AS_TOP",
+        null,
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 40) ÷ 2 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/027",
+      "tier": 1,
+      "prompt": "Right triangle with an angle of 70 degrees. Third angle?",
+      "choices": [
+        "20",
+        "110",
+        "160",
+        "200"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_RIGHT",
+        "ADDED_ANGLES",
+        "USED_360"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 70 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/028",
+      "tier": 1,
+      "prompt": "Isosceles triangle, top angle 100 degrees. Each base angle?",
+      "choices": [
+        "40",
+        "80",
+        "30",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_HALF",
+        "ARITH",
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 100) ÷ 2 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/029",
+      "tier": 1,
+      "prompt": "An isosceles triangle has top angle 160. Each base angle?",
+      "choices": [
+        "10",
+        "20",
+        "160",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_HALF",
+        "SAME_AS_TOP",
+        "HALF_TOP"
+      ],
+      "explanation": "Base angles are equal and all three add to 180: (180 − 160) ÷ 2 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/030",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 80 degree angles. The third?",
+      "choices": [
+        "160",
+        "20",
+        "100",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "NO_DOUBLE",
+        "SAME_AS_BASE"
+      ],
+      "explanation": "The two base angles make 80 + 80 = 160. Top angle: 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/031",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 30 degree angles. The third?",
+      "choices": [
+        "110",
+        "60",
+        "30",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADDED_ANGLES",
+        "SAME_AS_BASE",
+        null
+      ],
+      "explanation": "The two base angles make 30 + 30 = 60. Top angle: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/032",
+      "tier": 1,
+      "prompt": "Each angle of an equilateral triangle, in degrees?",
+      "choices": [
+        "60",
+        "80",
+        "120",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "SPLIT_IN_TWO"
+      ],
+      "explanation": "All three angles are equal and add to 180: 180 ÷ 3 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/033",
+      "tier": 1,
+      "prompt": "Triangle angles: 10 and 60 degrees. Third angle?",
+      "choices": [
+        "70",
+        "110",
+        "20",
+        "290"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 60 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/034",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 20 degree angles. The third?",
+      "choices": [
+        "40",
+        "140",
+        "110",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "ARITH",
+        "SAME_AS_BASE"
+      ],
+      "explanation": "The two base angles make 20 + 20 = 40. Top angle: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/035",
+      "tier": 1,
+      "prompt": "A right triangle has an angle of 40. Its third angle?",
+      "choices": [
+        "50",
+        "30",
+        "130",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED_ANGLES",
+        "ARITH"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 40 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/036",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 70 degree angles. The third?",
+      "choices": [
+        "70",
+        "140",
+        "40",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_BASE",
+        "ADDED_ANGLES",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The two base angles make 70 + 70 = 140. Top angle: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/037",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 10 and 100. The third?",
+      "choices": [
+        "110",
+        "60",
+        "40",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 10 − 100 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/038",
+      "tier": 1,
+      "prompt": "Right triangle with an angle of 50 degrees. Third angle?",
+      "choices": [
+        "140",
+        "40",
+        "220",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_ANGLES",
+        null,
+        "USED_360",
+        "FORGOT_RIGHT"
+      ],
+      "explanation": "A right triangle has a 90 angle, so the other two add to 90: 90 − 50 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/039",
+      "tier": 1,
+      "prompt": "An isosceles triangle has two 10 degree angles. The third?",
+      "choices": [
+        "10",
+        "160",
+        "20",
+        "150"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_AS_BASE",
+        null,
+        "ADDED_ANGLES",
+        "ARITH"
+      ],
+      "explanation": "The two base angles make 10 + 10 = 20. Top angle: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t1/040",
+      "tier": 1,
+      "prompt": "Two angles of a triangle are 70 and 80. The third?",
+      "choices": [
+        "10",
+        "100",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "FORGOT_ONE",
+        "ADDED_ANGLES",
+        null
+      ],
+      "explanation": "A triangle's angles add to 180: 180 − 70 − 80 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/001",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Remote angles: 30 and x. x?",
+      "choices": [
+        "130",
+        "70",
+        "90",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        null,
+        "ARITH",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 30 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/002",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Remote angles: 30 and x. x?",
+      "choices": [
+        "200",
+        "150",
+        "170",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 170 − 30 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/003",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 130. Inside angle next to it?",
+      "choices": [
+        "50",
+        "40",
+        "20",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/004",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 80. Inside angle next to it?",
+      "choices": [
+        "80",
+        "130",
+        "280",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 80 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/005",
+      "tier": 2,
+      "prompt": "Exterior angle is 120. Remote angles: 20 and x. x?",
+      "choices": [
+        "20",
+        "60",
+        "100",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ARITH"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 120 − 20 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/006",
+      "tier": 2,
+      "prompt": "Exterior angle is 150. Remote angles: 100 and x. x?",
+      "choices": [
+        "30",
+        "50",
+        "250",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ADDED_NOT_SUB",
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 150 − 100 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/007",
+      "tier": 2,
+      "prompt": "Exterior angle 100, one remote angle 40. The other?",
+      "choices": [
+        "60",
+        "30",
+        "40",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 40 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/008",
+      "tier": 2,
+      "prompt": "Exterior angle 100, one remote angle 90. The other?",
+      "choices": [
+        "90",
+        "190",
+        "10",
+        "80"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "ADDED_NOT_SUB",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 90 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/009",
+      "tier": 2,
+      "prompt": "Exterior angle is 110. Its adjacent inside angle?",
+      "choices": [
+        "40",
+        "70",
+        "60",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_90"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/010",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 140 degrees. Exterior angle?",
+      "choices": [
+        "190",
+        "10",
+        "170",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ONE_REMOTE"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 140 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/011",
+      "tier": 2,
+      "prompt": "Exterior angle is 140. Remote angles: 40 and x. x?",
+      "choices": [
+        "100",
+        "40",
+        "180",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_REMOTES",
+        "ADDED_NOT_SUB",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 140 − 40 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/012",
+      "tier": 2,
+      "prompt": "Exterior angle is 50. Remote angles: 20 and x. x?",
+      "choices": [
+        "30",
+        "130",
+        "70",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB",
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 50 − 20 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/013",
+      "tier": 2,
+      "prompt": "Remote angles are 20 and 130 degrees. Exterior angle?",
+      "choices": [
+        "20",
+        "150",
+        "210",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_REMOTE",
+        null,
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 130 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/014",
+      "tier": 2,
+      "prompt": "Exterior angle is 140. Remote angles: 30 and x. x?",
+      "choices": [
+        "30",
+        "40",
+        "80",
+        "110"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 140 − 30 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/015",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 50. Inside angle next to it?",
+      "choices": [
+        "160",
+        "310",
+        "140",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "ARITH",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 50 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/016",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Its adjacent inside angle?",
+      "choices": [
+        "80",
+        "260",
+        "100",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SAME_AS_EXT",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/017",
+      "tier": 2,
+      "prompt": "Remote angles are 20 and 30 degrees. Exterior angle?",
+      "choices": [
+        "30",
+        "20",
+        "50",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 30 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/018",
+      "tier": 2,
+      "prompt": "Exterior angle is 40. Its adjacent inside angle?",
+      "choices": [
+        "40",
+        "130",
+        "50",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        "ARITH",
+        "USED_90",
+        null
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/019",
+      "tier": 2,
+      "prompt": "Remote angles are 70 and 90 degrees. Exterior angle?",
+      "choices": [
+        "90",
+        "160",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_REMOTE",
+        null,
+        "ONE_REMOTE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 70 + 90 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/020",
+      "tier": 2,
+      "prompt": "Exterior angle is 60. Its adjacent inside angle?",
+      "choices": [
+        "30",
+        "100",
+        "120",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "ARITH",
+        null,
+        "SAME_AS_EXT"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/021",
+      "tier": 2,
+      "prompt": "Exterior angle 120, one remote angle 90. The other?",
+      "choices": [
+        "210",
+        "60",
+        "90",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_NOT_SUB",
+        "INTERIOR_FOR_EXTERIOR",
+        "EQUAL_REMOTES",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 120 − 90 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/022",
+      "tier": 2,
+      "prompt": "Remote angles are 50 and 100 degrees. Exterior angle?",
+      "choices": [
+        "30",
+        "150",
+        "100",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        null,
+        "ONE_REMOTE",
+        "ONE_REMOTE"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 50 + 100 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/023",
+      "tier": 2,
+      "prompt": "Remote angles are 10 and 120 degrees. Exterior angle?",
+      "choices": [
+        "230",
+        "140",
+        "160",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 10 + 120 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/024",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Remote angles: 60 and x. x?",
+      "choices": [
+        "60",
+        "110",
+        "10",
+        "230"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_REMOTES",
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 170 − 60 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/025",
+      "tier": 2,
+      "prompt": "Triangle angles 30 and 70. Exterior angle at the third?",
+      "choices": [
+        "120",
+        "110",
+        "260",
+        "100"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 70 = 100."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/026",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 110 degrees. Exterior angle?",
+      "choices": [
+        "140",
+        "110",
+        "30",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 110 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/027",
+      "tier": 2,
+      "prompt": "Triangle angles 20 and 20. Exterior angle at the third?",
+      "choices": [
+        "40",
+        "140",
+        "20",
+        "320"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "INTERIOR_FOR_EXTERIOR",
+        "ONE_REMOTE",
+        "USED_360"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 20 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/028",
+      "tier": 2,
+      "prompt": "Remote angles are 30 and 100 degrees. Exterior angle?",
+      "choices": [
+        "230",
+        "100",
+        "130",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ONE_REMOTE",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 30 + 100 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/029",
+      "tier": 2,
+      "prompt": "Exterior angle is 130. Remote angles: 40 and x. x?",
+      "choices": [
+        "50",
+        "60",
+        "40",
+        "90"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        "EQUAL_REMOTES",
+        null
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 130 − 40 = 90."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/030",
+      "tier": 2,
+      "prompt": "Exterior angle 70, one remote angle 30. The other?",
+      "choices": [
+        "50",
+        "40",
+        "100",
+        "110"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADDED_NOT_SUB",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 70 − 30 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/031",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 10. Inside angle next to it?",
+      "choices": [
+        "170",
+        "10",
+        "350",
+        "180"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_AS_EXT",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/032",
+      "tier": 2,
+      "prompt": "Exterior angle is 100. Remote angles: 60 and x. x?",
+      "choices": [
+        "40",
+        "60",
+        "80",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_REMOTES",
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 100 − 60 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/033",
+      "tier": 2,
+      "prompt": "Exterior angle is 40. Remote angles: 10 and x. x?",
+      "choices": [
+        "140",
+        "40",
+        "30",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH",
+        null,
+        "ADDED_NOT_SUB"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 40 − 10 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/034",
+      "tier": 2,
+      "prompt": "Remote angles are 60 and 60 degrees. Exterior angle?",
+      "choices": [
+        "120",
+        "240",
+        "60",
+        "130"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "INTERIOR_FOR_EXTERIOR",
+        "ARITH"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 60 + 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/035",
+      "tier": 2,
+      "prompt": "Exterior angle is 170. Its adjacent inside angle?",
+      "choices": [
+        "170",
+        "10",
+        "80",
+        "190"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_AS_EXT",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/036",
+      "tier": 2,
+      "prompt": "Triangle angles 20 and 150. Exterior angle at the third?",
+      "choices": [
+        "20",
+        "190",
+        "170",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_REMOTE",
+        "USED_360",
+        null,
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 20 + 150 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/037",
+      "tier": 2,
+      "prompt": "Exterior angle is 130. Remote angles: 100 and x. x?",
+      "choices": [
+        "50",
+        "230",
+        "30",
+        "100"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ADDED_NOT_SUB",
+        null,
+        "EQUAL_REMOTES"
+      ],
+      "explanation": "The exterior angle is the sum of the remote angles: 130 − 100 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/038",
+      "tier": 2,
+      "prompt": "Remote angles are 10 and 100 degrees. Exterior angle?",
+      "choices": [
+        "140",
+        "100",
+        "110",
+        "250"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_REMOTE",
+        null,
+        "USED_360"
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 10 + 100 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/039",
+      "tier": 2,
+      "prompt": "Remote angles are 40 and 120 degrees. Exterior angle?",
+      "choices": [
+        "20",
+        "40",
+        "120",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "INTERIOR_FOR_EXTERIOR",
+        "ONE_REMOTE",
+        "ONE_REMOTE",
+        null
+      ],
+      "explanation": "An exterior angle equals the two remote angles added: 40 + 120 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t2/040",
+      "tier": 2,
+      "prompt": "A triangle's exterior angle is 20. Inside angle next to it?",
+      "choices": [
+        "180",
+        "160",
+        "170",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "The exterior angle and the inside angle next to it make a line: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/001",
+      "tier": 3,
+      "prompt": "Parallel lines cut by a line: corresponding angles are?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/002",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 80. Its corresponding angle?",
+      "choices": [
+        "110",
+        "100",
+        "80",
+        "280"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 80 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/003",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 130. The angle next to it?",
+      "choices": [
+        "40",
+        "230",
+        "50",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/004",
+      "tier": 3,
+      "prompt": "50 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "140",
+        "310",
+        "130",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 50 = 130."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/005",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 20. Its corresponding angle?",
+      "choices": [
+        "20",
+        "340",
+        "160",
+        "70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/006",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 50. Its corresponding angle?",
+      "choices": [
+        "80",
+        "130",
+        "50",
+        "310"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 50 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/007",
+      "tier": 3,
+      "prompt": "Lines cross. One angle is 70 degrees. Its vertical angle?",
+      "choices": [
+        "290",
+        "70",
+        "90",
+        "110"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/008",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 140. Other?",
+      "choices": [
+        "40",
+        "220",
+        "50",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "USED_90",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/009",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate interior pair: one is 140. Other?",
+      "choices": [
+        "220",
+        "140",
+        "170",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/010",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 60. Its corresponding angle?",
+      "choices": [
+        "60",
+        "40",
+        "30",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 60 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/011",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate interior pair: one is 20. Other?",
+      "choices": [
+        "160",
+        "20",
+        "70",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        null,
+        "COMP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/012",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 30. Its alternate interior angle?",
+      "choices": [
+        "150",
+        "60",
+        "330",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/013",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 120. Its same-side interior angle?",
+      "choices": [
+        "240",
+        "120",
+        "30",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/014",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 140. The angle next to it?",
+      "choices": [
+        "40",
+        "140",
+        "50",
+        "220"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/015",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 150. Other?",
+      "choices": [
+        "150",
+        "170",
+        "210",
+        "180"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/016",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 10. Its corresponding angle?",
+      "choices": [
+        "350",
+        "80",
+        "10",
+        "170"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 10 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/017",
+      "tier": 3,
+      "prompt": "Parallel lines: alternate exterior angles are always?",
+      "choices": [
+        "Add to 90",
+        "Add to 180",
+        "Equal"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/018",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 10. Its same-side interior angle?",
+      "choices": [
+        "10",
+        "80",
+        "350",
+        "170"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/019",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 100. Its alternate exterior angle?",
+      "choices": [
+        "260",
+        "110",
+        "100",
+        "130"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 100 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/020",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 70. Its alternate exterior angle?",
+      "choices": [
+        "20",
+        "40",
+        "290",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/021",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 110. Its alternate interior angle?",
+      "choices": [
+        "250",
+        "110",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 110 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/022",
+      "tier": 3,
+      "prompt": "Parallel lines: corresponding angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/023",
+      "tier": 3,
+      "prompt": "Parallel lines: alternate exterior angles are?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/024",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 70. Its alternate interior angle?",
+      "choices": [
+        "20",
+        "110",
+        "290",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        "USED_360",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/025",
+      "tier": 3,
+      "prompt": "Vertical angles: one is 130 degrees. The other?",
+      "choices": [
+        "130",
+        "230",
+        "140",
+        "160"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 130 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/026",
+      "tier": 3,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 140. Other?",
+      "choices": [
+        "160",
+        "220",
+        "40",
+        "140"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/027",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 130. Other?",
+      "choices": [
+        "120",
+        "50",
+        "40",
+        "130"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 130 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/028",
+      "tier": 3,
+      "prompt": "Lines cross. One angle is 40 degrees. Its vertical angle?",
+      "choices": [
+        "10",
+        "20",
+        "320",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "USED_360",
+        null
+      ],
+      "explanation": "Vertical angles are always equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/029",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 70. Other?",
+      "choices": [
+        "70",
+        "110",
+        "290",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_360",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 70 = 110."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/030",
+      "tier": 3,
+      "prompt": "40 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "140",
+        "50",
+        "40",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/031",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 150. Other?",
+      "choices": [
+        "20",
+        "30",
+        "10",
+        "210"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/032",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 30. Other?",
+      "choices": [
+        "150",
+        "330",
+        "30",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/033",
+      "tier": 3,
+      "prompt": "Two lines cross. One angle is 30. The angle next to it?",
+      "choices": [
+        "30",
+        "150",
+        "60",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_90",
+        "ARITH"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 30 = 150."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/034",
+      "tier": 3,
+      "prompt": "Parallel lines. Corresponding pair: one is 40. Other?",
+      "choices": [
+        "40",
+        "50",
+        "140",
+        "320"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/035",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 160. Its corresponding angle?",
+      "choices": [
+        "200",
+        "160",
+        "70",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/036",
+      "tier": 3,
+      "prompt": "60 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "150",
+        "300",
+        "120",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        null,
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 60 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/037",
+      "tier": 3,
+      "prompt": "An angle is 160 degrees. The angle next to it on a line?",
+      "choices": [
+        "70",
+        "200",
+        "20",
+        "160"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Angles next to each other on a line add to 180: 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/038",
+      "tier": 3,
+      "prompt": "Parallel lines. Angle 100. Its alternate interior angle?",
+      "choices": [
+        "70",
+        "100",
+        "10",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "COMP_FOR_EQUAL",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 100 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/039",
+      "tier": 3,
+      "prompt": "Parallel lines. Same-side interior pair: one is 100. Other?",
+      "choices": [
+        "80",
+        "100",
+        "90",
+        "260"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP",
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 100 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t3/040",
+      "tier": 3,
+      "prompt": "Parallel lines. An angle is 70. Its corresponding angle?",
+      "choices": [
+        "80",
+        "290",
+        "110",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 70 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/001",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 30 and 150. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "30 + 150 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/002",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 170. Its same-side interior angle?",
+      "choices": [
+        "80",
+        "170",
+        "10",
+        "190"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/003",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 40. Its alternate exterior angle?",
+      "choices": [
+        "320",
+        "140",
+        "30",
+        "40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 40 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/004",
+      "tier": 4,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 120. Other?",
+      "choices": [
+        "240",
+        "60",
+        "120",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null,
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 120 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/005",
+      "tier": 4,
+      "prompt": "Same-side interior: 120 and 60. Are the lines parallel?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "120 + 60 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/006",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 160. Its alternate interior angle?",
+      "choices": [
+        "70",
+        "200",
+        "20",
+        "160"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        "USED_360",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/007",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side exterior pair: one is 110. Other?",
+      "choices": [
+        "110",
+        "20",
+        "70",
+        "250"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/008",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 170. Its same-side exterior angle?",
+      "choices": [
+        "10",
+        "190",
+        "170",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "EQUAL_FOR_SUPP",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/009",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side interior angles are always?",
+      "choices": [
+        "Add to 90",
+        "Add to 180",
+        "Equal"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_90",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/010",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side exterior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/011",
+      "tier": 4,
+      "prompt": "Parallel lines. Alternate exterior pair: one is 30. Other?",
+      "choices": [
+        "30",
+        "150",
+        "60",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make alternate exterior angles equal, so it is also 30 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/012",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 150. Its corresponding angle?",
+      "choices": [
+        "30",
+        "60",
+        "150",
+        "210"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL",
+        null,
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/013",
+      "tier": 4,
+      "prompt": "Parallel lines. Corresponding pair: one is 140. Other?",
+      "choices": [
+        "50",
+        "140",
+        "170",
+        "220"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "ARITH",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/014",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 60. Its corresponding angle?",
+      "choices": [
+        "50",
+        "40",
+        "30",
+        "60"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 60 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/015",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 140. Its alternate interior angle?",
+      "choices": [
+        "140",
+        "150",
+        "40",
+        "220"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 140 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/016",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 40 and 40. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "40 + 40 = 80, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/017",
+      "tier": 4,
+      "prompt": "In parallel lines, alternate interior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/018",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 110. Its same-side interior angle?",
+      "choices": [
+        "110",
+        "250",
+        "100",
+        "70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_360",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 110 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/019",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 100 and 80. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "100 + 80 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/020",
+      "tier": 4,
+      "prompt": "In parallel lines, same-side interior angles are?",
+      "choices": [
+        "Add to 90",
+        "Equal",
+        "Add to 180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_90",
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/021",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 130. Its same-side exterior angle?",
+      "choices": [
+        "230",
+        "30",
+        "50",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "ARITH",
+        null,
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/022",
+      "tier": 4,
+      "prompt": "20 and x are same-side exterior angles of parallel lines. x?",
+      "choices": [
+        "170",
+        "160",
+        "340",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/023",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side interior pair: one is 130. Other?",
+      "choices": [
+        "50",
+        "40",
+        "20",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 130 = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/024",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 20 and 20. Lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "20 + 20 = 40, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/025",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side exterior pair: one is 150. Other?",
+      "choices": [
+        "20",
+        "60",
+        "10",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "USED_90",
+        "ARITH",
+        null
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 150 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/026",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 20. Its corresponding angle?",
+      "choices": [
+        "20",
+        "340",
+        "10",
+        "70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "ARITH",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 20 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/027",
+      "tier": 4,
+      "prompt": "Parallel lines: same-side exterior angles are always?",
+      "choices": [
+        "Add to 180",
+        "Add to 90",
+        "Equal"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/028",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 10. Its same-side interior angle?",
+      "choices": [
+        "180",
+        "170",
+        "10",
+        "350"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "EQUAL_FOR_SUPP",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 10 = 170."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/029",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 40. Its same-side exterior angle?",
+      "choices": [
+        "320",
+        "140",
+        "40",
+        "160"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "EQUAL_FOR_SUPP",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 40 = 140."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/030",
+      "tier": 4,
+      "prompt": "20 and x are same-side interior angles of parallel lines. x?",
+      "choices": [
+        "20",
+        "160",
+        "70",
+        "340"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null,
+        "USED_90",
+        "USED_360"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 20 = 160."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/031",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 140. Its same-side exterior angle?",
+      "choices": [
+        "220",
+        "50",
+        "40",
+        "140"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_360",
+        "USED_90",
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Parallel lines: same-side exterior angles add to 180: 180 − 140 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/032",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 150. Its alternate interior angle?",
+      "choices": [
+        "60",
+        "150",
+        "210",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COMP_FOR_EQUAL",
+        null,
+        "USED_360",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal, so it is also 150 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/033",
+      "tier": 4,
+      "prompt": "Same-side interior angles are 20 and 70. Lines parallel?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_90"
+      ],
+      "explanation": "20 + 70 = 90, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/034",
+      "tier": 4,
+      "prompt": "Same-side interior: 30 and 30. Are the lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        null
+      ],
+      "explanation": "30 + 30 = 60, not 180, so the lines are not parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/035",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 120. Its corresponding angle?",
+      "choices": [
+        "120",
+        "150",
+        "240",
+        "140"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "USED_360",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 120 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/036",
+      "tier": 4,
+      "prompt": "Parallel lines: alternate interior angles are always?",
+      "choices": [
+        "Equal",
+        "Add to 180",
+        "Add to 90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUPP_FOR_EQUAL",
+        "COMP_FOR_EQUAL"
+      ],
+      "explanation": "Parallel lines make alternate interior angles equal."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/037",
+      "tier": 4,
+      "prompt": "Parallel lines. An angle is 110. Its corresponding angle?",
+      "choices": [
+        "70",
+        "90",
+        "20",
+        "110"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "ARITH",
+        "COMP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 110 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/038",
+      "tier": 4,
+      "prompt": "Parallel lines. Same-side interior pair: one is 120. Other?",
+      "choices": [
+        "60",
+        "50",
+        "40",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "USED_90"
+      ],
+      "explanation": "Parallel lines: same-side interior angles add to 180: 180 − 120 = 60."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/039",
+      "tier": 4,
+      "prompt": "Parallel lines. Angle 160. Its corresponding angle?",
+      "choices": [
+        "200",
+        "160",
+        "170",
+        "180"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Parallel lines make corresponding angles equal, so it is also 160 degrees."
+    },
+    {
+      "id": "triangles-parallel-lines/t4/040",
+      "tier": 4,
+      "prompt": "Same-side interior: 10 and 170. Are the lines parallel?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "10 + 170 = 180, so the same-side angles are supplementary: parallel."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/001",
+      "tier": 5,
+      "prompt": "Triangle A has 10 and 30. B has 10 and 140. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_LISTED"
+      ],
+      "explanation": "A: 10, 30, 140. B: 10, 30, 140. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/002",
+      "tier": 5,
+      "prompt": "Triangle A: 40 and 80. Triangle B: 10 and 160. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALL_TRIANGLES_ALIKE"
+      ],
+      "explanation": "A: 40, 60, 80. B: 10, 10, 160. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/003",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 3x + 20 and 80. x?",
+      "choices": [
+        "60",
+        "10",
+        "40",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_DIVIDE",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "Corresponding angles are equal: 3x + 20 = 80, 3x = 60, x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/004",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles x + 30 and 140. x?",
+      "choices": [
+        "40",
+        "110",
+        "70",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_ONE",
+        "EQUAL_FOR_SUPP",
+        "SIGN_SLIP",
+        null
+      ],
+      "explanation": "Same-side angles add to 180: x + 30 + 140 = 180, x = 180 − 170 = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/005",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 120, remote angles 3x and x. x?",
+      "choices": [
+        "30",
+        "10",
+        "20",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: 3x + x = 4x = 120, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/006",
+      "tier": 5,
+      "prompt": "A triangle has angles x, 3x and 2x. x?",
+      "choices": [
+        "90",
+        "60",
+        "180",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Angles add to 180: x + 3x + 2x = 6x = 180, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/007",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles x + 40 and 70. x?",
+      "choices": [
+        "110",
+        "50",
+        "70",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SIGN_SLIP",
+        "ARITH",
+        "SUPP_FOR_EQUAL",
+        null
+      ],
+      "explanation": "Alternate interior angles are equal: x + 40 = 70, so x = 70 − 40 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/008",
+      "tier": 5,
+      "prompt": "Triangle angles x, 6x and 2x degrees. x?",
+      "choices": [
+        "20",
+        "40",
+        "60",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_360",
+        "SPLIT_EVENLY",
+        "GAVE_ANGLE"
+      ],
+      "explanation": "Angles add to 180: x + 6x + 2x = 9x = 180, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/009",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 5x + 30 and 130. x?",
+      "choices": [
+        "10",
+        "20",
+        "4",
+        "100"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUPP_FOR_EQUAL",
+        "NO_DIVIDE"
+      ],
+      "explanation": "Corresponding angles are equal: 5x + 30 = 130, 5x = 100, x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/010",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 3x + 20 and 70. x?",
+      "choices": [
+        "90",
+        "30",
+        "20",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_DIVIDE",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "Same-side angles add to 180: 3x + 20 + 70 = 180, 3x = 90, x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/011",
+      "tier": 5,
+      "prompt": "Triangle angles 4x, 3x and 2x. Largest angle?",
+      "choices": [
+        "70",
+        "80",
+        "20",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GAVE_X",
+        "OTHER_ANGLE"
+      ],
+      "explanation": "4x + 3x + 2x = 9x = 180, x = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/012",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 3x and 30. x?",
+      "choices": [
+        "10",
+        "20",
+        "50",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "EQUAL_FOR_SUPP",
+        "USED_90",
+        null,
+        "NO_DIVIDE"
+      ],
+      "explanation": "Same-side angles add to 180: 3x = 180 − 30 = 150, x = 50."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/013",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side exterior angles x + 40 and 120. x?",
+      "choices": [
+        "20",
+        "10",
+        "80",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "EQUAL_FOR_SUPP",
+        "FORGOT_ONE"
+      ],
+      "explanation": "Same-side angles add to 180: x + 40 + 120 = 180, x = 180 − 160 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/014",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate exterior angles 6x and 120. x?",
+      "choices": [
+        "10",
+        "120",
+        "20",
+        "720"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        "NO_DIVIDE",
+        null,
+        "MULTIPLIED_NOT_DIVIDED"
+      ],
+      "explanation": "Alternate exterior angles are equal: 6x = 120, so x = 120 ÷ 6 = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/015",
+      "tier": 5,
+      "prompt": "Exterior angle is 150. Remote angles are x and 4x. x?",
+      "choices": [
+        "36",
+        "120",
+        "30",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "USED_180",
+        "GAVE_ANGLE",
+        null,
+        "NO_DIVIDE"
+      ],
+      "explanation": "Exterior = remote angles added: x + 4x = 5x = 150, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/016",
+      "tier": 5,
+      "prompt": "Triangle A: 50 and 50. Triangle B: 20 and 50. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ANGLE_ENOUGH",
+        null
+      ],
+      "explanation": "A: 50, 50, 80. B: 20, 50, 110. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/017",
+      "tier": 5,
+      "prompt": "Parallel lines: corresponding angles 2x and 140. x?",
+      "choices": [
+        "60",
+        "70",
+        "140",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_DIVIDE",
+        "SUPP_FOR_EQUAL"
+      ],
+      "explanation": "Corresponding angles are equal: 2x = 140, so x = 140 ÷ 2 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/018",
+      "tier": 5,
+      "prompt": "A right triangle has angles 90, 2x and x. x?",
+      "choices": [
+        "30",
+        "45",
+        "20",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SPLIT_EVENLY",
+        "ARITH",
+        "USED_180"
+      ],
+      "explanation": "The other two angles add to 90: 2x + x = 3x = 90, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/019",
+      "tier": 5,
+      "prompt": "Right triangle: 90, 4x and 5x. x?",
+      "choices": [
+        "10",
+        "20",
+        "50",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_180",
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "The other two angles add to 90: 4x + 5x = 9x = 90, so x = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/020",
+      "tier": 5,
+      "prompt": "A triangle has angles 3x, 2x and x. x?",
+      "choices": [
+        "90",
+        "60",
+        "20",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        "SPLIT_EVENLY",
+        "ARITH",
+        null
+      ],
+      "explanation": "Angles add to 180: 3x + 2x + x = 6x = 180, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/021",
+      "tier": 5,
+      "prompt": "A triangle has angles 3x, 5x and x. x?",
+      "choices": [
+        "40",
+        "20",
+        "180",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "USED_360",
+        null,
+        "NO_DIVIDE",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "Angles add to 180: 3x + 5x + x = 9x = 180, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/022",
+      "tier": 5,
+      "prompt": "Triangle A: 30 and 40. Triangle B: 40 and 130. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_ANGLE_ENOUGH",
+        null
+      ],
+      "explanation": "A: 30, 40, 110. B: 10, 40, 130. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/023",
+      "tier": 5,
+      "prompt": "Right triangle: 90, 5x and 4x. x?",
+      "choices": [
+        "10",
+        "50",
+        "20",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_ANGLE",
+        "USED_180",
+        "SPLIT_EVENLY"
+      ],
+      "explanation": "The other two angles add to 90: 5x + 4x = 9x = 90, so x = 10."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/024",
+      "tier": 5,
+      "prompt": "Triangle angles 2x, 3x and x. Largest angle?",
+      "choices": [
+        "60",
+        "30",
+        "90",
+        "70"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "GAVE_X",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2x + 3x + x = 6x = 180, x = 30. Largest: 3 × 30 = 90."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/025",
+      "tier": 5,
+      "prompt": "Triangle A: 80 and 90. Triangle B: 10 and 90. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 10, 80, 90. B: 10, 80, 90. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/026",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 120, remote angles x and 5x. x?",
+      "choices": [
+        "20",
+        "100",
+        "30",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GAVE_ANGLE",
+        "USED_180",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: x + 5x = 6x = 120, so x = 20."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/027",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles x + 60 and 130. x?",
+      "choices": [
+        "50",
+        "130",
+        "70",
+        "190"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GAVE_ANGLE",
+        null,
+        "SIGN_SLIP"
+      ],
+      "explanation": "Alternate interior angles are equal: x + 60 = 130, so x = 130 − 60 = 70."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/028",
+      "tier": 5,
+      "prompt": "Triangle A: 60 and 70. Triangle B: 70 and 100. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_ANGLE_ENOUGH"
+      ],
+      "explanation": "A: 50, 60, 70. B: 10, 70, 100. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/029",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate exterior angles x + 90 and 130. x?",
+      "choices": [
+        "130",
+        "40",
+        "220",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GAVE_ANGLE",
+        null,
+        "SIGN_SLIP",
+        "ARITH"
+      ],
+      "explanation": "Alternate exterior angles are equal: x + 90 = 130, so x = 130 − 90 = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/030",
+      "tier": 5,
+      "prompt": "Triangle angles 2x, 6x and x. Largest angle?",
+      "choices": [
+        "240",
+        "60",
+        "40",
+        "120"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_360",
+        "SPLIT_EVENLY",
+        "OTHER_ANGLE",
+        null
+      ],
+      "explanation": "2x + 6x + x = 9x = 180, x = 20. Largest: 6 × 20 = 120."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/031",
+      "tier": 5,
+      "prompt": "Triangle A has 40 and 110. B has 50 and 90. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ALL_TRIANGLES_ALIKE"
+      ],
+      "explanation": "A: 30, 40, 110. B: 40, 50, 90. Different angles, so not similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/032",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side interior angles 4x and 60. x?",
+      "choices": [
+        "40",
+        "30",
+        "120",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_DIVIDE",
+        "EQUAL_FOR_SUPP"
+      ],
+      "explanation": "Same-side angles add to 180: 4x = 180 − 60 = 120, x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/033",
+      "tier": 5,
+      "prompt": "A right triangle has angles 90, x and 2x. x?",
+      "choices": [
+        "45",
+        "90",
+        "30",
+        "60"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPLIT_EVENLY",
+        "NO_DIVIDE",
+        null,
+        "USED_180"
+      ],
+      "explanation": "The other two angles add to 90: x + 2x = 3x = 90, so x = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/034",
+      "tier": 5,
+      "prompt": "Parallel lines: alternate interior angles 2x and 60. x?",
+      "choices": [
+        "60",
+        "30",
+        "120",
+        "40"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUPP_FOR_EQUAL",
+        null,
+        "MULTIPLIED_NOT_DIVIDED",
+        "ARITH"
+      ],
+      "explanation": "Alternate interior angles are equal: 2x = 60, so x = 60 ÷ 2 = 30."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/035",
+      "tier": 5,
+      "prompt": "Triangle A: 10 and 40. Triangle B: 40 and 130. Similar?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NEEDS_SAME_LISTED"
+      ],
+      "explanation": "A: 10, 40, 130. B: 10, 40, 130. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/036",
+      "tier": 5,
+      "prompt": "Triangle A: 30 and 50. Triangle B: 30 and 100. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 30, 50, 100. B: 30, 50, 100. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/037",
+      "tier": 5,
+      "prompt": "Triangle A has 10 and 140. B has 10 and 30. Similar?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NEEDS_SAME_LISTED",
+        null
+      ],
+      "explanation": "A: 10, 30, 140. B: 10, 30, 140. The same three angles, so similar."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/038",
+      "tier": 5,
+      "prompt": "Triangle: exterior angle 160, remote angles 3x and x. x?",
+      "choices": [
+        "40",
+        "45",
+        "160",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "USED_180",
+        "NO_DIVIDE",
+        "INTERIOR_FOR_EXTERIOR"
+      ],
+      "explanation": "Exterior = remote angles added: 3x + x = 4x = 160, so x = 40."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/039",
+      "tier": 5,
+      "prompt": "Triangle angles 4x, 2x and 3x. Largest angle?",
+      "choices": [
+        "60",
+        "160",
+        "80",
+        "90"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "OTHER_ANGLE",
+        "USED_360",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4x + 2x + 3x = 9x = 180, x = 20. Largest: 4 × 20 = 80."
+    },
+    {
+      "id": "triangles-parallel-lines/t5/040",
+      "tier": 5,
+      "prompt": "Parallel lines: same-side exterior angles 5x and 30. x?",
+      "choices": [
+        "12",
+        "50",
+        "150",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "USED_90",
+        "ARITH",
+        "NO_DIVIDE",
+        null
+      ],
+      "explanation": "Same-side angles add to 180: 5x = 180 − 30 = 150, x = 30."
     }
   ],
   "render_profile": "unicode"

@@ -1,0 +1,141 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "exponent-rules",
+  "version": "1.0.0",
+  "title": "Integer Exponents",
+  "subtitle": "Product, Quotient, Power, Zero, Negative",
+  "grade": "8",
+  "standards": ["CCSS.MATH.CONTENT.8.EE.A.1"],
+  "seed": 20261031,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Exponents. Numeric bases 2-10 only (no letters; a missing exponent is a ?). Every exponent in a prompt, a step, a choice or an answer is an integer of size 12 or less, and every exponent step is a signed sum or difference or a times-table product of size 12 or less. Answers stay in power form (2^7) except where a value is asked for: then only a power of 10, 1, the base, or a power of size 100 or less, or 1 over one of these (1/8, 1/100). A negative exponent is written ^−3.",
+  "tiers": [
+    { "tier": 1, "name": "Zero & Negative Powers", "description": "Anything to the 0 power is 1. A negative exponent means a reciprocal." },
+    { "tier": 2, "name": "Product Rule", "description": "Same base, multiply: add the exponents." },
+    { "tier": 3, "name": "Quotient Rule", "description": "Same base, divide: subtract the exponents." },
+    { "tier": 4, "name": "Power of a Power", "description": "Raise a power to a power: multiply. Raise a product: each factor gets it." },
+    { "tier": 5, "name": "Mixed Rules to a Value", "description": "Use two rules in a row, then find the value." }
+  ],
+  "misconceptions": {
+    "ZERO_IS_ZERO": {
+      "student": "A 0 exponent doesn't make 0. b^2 ÷ b^2 = 1, and that is b^0.",
+      "teacher": "Reads b^0 as 0 (zero exponent means zero)."
+    },
+    "ZERO_KEEPS_BASE": {
+      "student": "b^0 isn't b. Dividing b^n by b^n gives 1, so b^0 = 1.",
+      "teacher": "Reads b^0 as b (no multiplications means the base is left alone)."
+    },
+    "NEG_VALUE": {
+      "student": "A negative exponent doesn't make a negative number. It flips: 2^−3 = 1/8.",
+      "teacher": "Treats b^−n as −(b^n)."
+    },
+    "NEG_TIMES": {
+      "student": "An exponent counts copies of the base, it isn't a factor. 2^−3 is 1/(2 × 2 × 2).",
+      "teacher": "Reads b^−n as −(b × n): multiplies base and exponent and keeps the sign."
+    },
+    "NEG_FRACTION": {
+      "student": "The minus tells you to flip, not to go negative. 2^−3 = 1/8, a positive.",
+      "teacher": "Flips b^−n correctly but keeps a negative sign: −1/b^n."
+    },
+    "IGNORE_SIGN": {
+      "student": "The minus matters: 2^−3 is 1/8, not 8. It flips the power.",
+      "teacher": "Drops the sign of the exponent: b^−n = b^n."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "An exponent is repeated multiplication, not base × exponent.",
+      "teacher": "Computes b^n as b × n."
+    },
+    "RECIP_TIMES": {
+      "student": "Flip the power, don't flip the product. 2^−3 = 1/(2 × 2 × 2) = 1/8.",
+      "teacher": "Takes the reciprocal of b × n instead of b^n."
+    },
+    "SWAP_BASE_EXP": {
+      "student": "Base and exponent have different jobs. Check which number is the base.",
+      "teacher": "Swaps the base and the exponent."
+    },
+    "MULT_EXPONENTS": {
+      "student": "Multiplying same-base powers adds the exponents: b^m × b^n = b^(m+n).",
+      "teacher": "Multiplies the exponents in a product rule step."
+    },
+    "MULT_BASES": {
+      "student": "Keep the base the same and add the exponents. The base doesn't change.",
+      "teacher": "Multiplies the bases as well as adding the exponents."
+    },
+    "ADD_BASES": {
+      "student": "Keep the base the same and add the exponents. Don't add the bases.",
+      "teacher": "Adds the bases (b + b = 2b) as well as the exponents in a product."
+    },
+    "MULT_BOTH": {
+      "student": "Keep the base. Same base: add the exponents. Nothing else changes.",
+      "teacher": "Multiplies both the bases and the exponents."
+    },
+    "SUB_EXPONENTS": {
+      "student": "Multiplying powers adds exponents. Subtracting is for dividing.",
+      "teacher": "Subtracts the exponents in a product."
+    },
+    "SKIPS_FACTOR": {
+      "student": "Use every factor. Add all three exponents.",
+      "teacher": "Adds only two of the three exponents."
+    },
+    "SIGN_SLIP": {
+      "student": "Careful with the minus signs. Add or subtract the signed exponents.",
+      "teacher": "Drops a negative sign from an exponent, or flips the sign of the result."
+    },
+    "ADD_GIVEN": {
+      "student": "Subtract to find the missing exponent. Added they overshoot.",
+      "teacher": "Adds the exponents given instead of undoing the rule with the opposite operation."
+    },
+    "COPY_TOTAL": {
+      "student": "The total exponent is the sum (or difference), not the missing one.",
+      "teacher": "Gives the exponent of the result as the missing exponent."
+    },
+    "MULT_GIVEN": {
+      "student": "Same base: exponents add, so undo it by subtracting, not by multiplying.",
+      "teacher": "Multiplies the two exponents given."
+    },
+    "DIVIDE_EXPONENTS": {
+      "student": "Dividing same-base powers subtracts exponents: b^m ÷ b^n = b^(m−n).",
+      "teacher": "Divides the exponents in a quotient rule step."
+    },
+    "ADD_EXPONENTS": {
+      "student": "Dividing powers subtracts exponents. Adding is for multiplying.",
+      "teacher": "Adds the exponents in a quotient."
+    },
+    "SUB_NEG": {
+      "student": "Subtracting a negative exponent adds: 3 − (−2) = 5.",
+      "teacher": "Adds the exponents in a quotient with a negative divisor exponent: m + n instead of m − n."
+    },
+    "DIVIDE_BASES": {
+      "student": "The base stays. Don't divide it: b ÷ b isn't the answer, subtract exponents.",
+      "teacher": "Divides the bases to get 1 as the new base."
+    },
+    "FLIPPED_SUB": {
+      "student": "Top exponent minus bottom exponent, in that order. Check the sign.",
+      "teacher": "Subtracts the exponents in the wrong order."
+    },
+    "ADD_FOR_POWER": {
+      "student": "A power of a power multiplies the exponents: (b^m)^n = b^(mn).",
+      "teacher": "Adds the exponents in a power of a power."
+    },
+    "DROP_OUTER": {
+      "student": "Use both exponents. The outer one multiplies the inner one.",
+      "teacher": "Keeps only the inner exponent in a power of a power."
+    },
+    "DROP_INNER": {
+      "student": "Use both exponents. The inner one is multiplied by the outer one.",
+      "teacher": "Keeps only the outer exponent in a power of a power."
+    },
+    "FIRST_FACTOR_ONLY": {
+      "student": "The exponent goes on every factor inside the parentheses.",
+      "teacher": "Applies the exponent to only one factor of a product."
+    },
+    "SUM_FOR_PRODUCT": {
+      "student": "A product to a power is a product of powers: (ab)^n = a^n × b^n.",
+      "teacher": "Replaces the product of powers with a sum."
+    },
+    "SUM_BASES": {
+      "student": "The parentheses hold a product, not a sum. Raise each factor.",
+      "teacher": "Adds the bases inside the parentheses instead of keeping them as factors."
+    }
+  }
+}

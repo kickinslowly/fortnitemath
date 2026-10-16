@@ -1,0 +1,185 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "scientific-notation",
+  "version": "1.0.0",
+  "title": "Scientific Notation",
+  "subtitle": "Powers of 10, Huge & Tiny Numbers",
+  "grade": "8",
+  "standards": ["CCSS.MATH.CONTENT.8.EE.A.3", "CCSS.MATH.CONTENT.8.EE.A.4"],
+  "seed": 20261032,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b scientific notation. Every coefficient in a prompt is one digit (2-9) or d.d (1.1-9.5, no zero inside), so at most 2 non-zero digits; every answer coefficient is 1 to 9.5 (a sum like 3 + 0.2 stays under 9.5). Every exponent in a prompt, a step or an answer has size 12 or less (a wrong choice may pass it). A power of 10 is place value, so its size is free inside that range: standard forms are 14 characters or fewer, with commas on whole numbers (3,000,000,000) and plain decimals (0.000000003). Every coefficient × is a times-table fact of two digits 2-9 and every ÷ one of a times-table fact or 2 ÷ 4 = 0.5, renormalised by one place (5 × 4 = 20 is 2 × 10^1; 2 ÷ 4 = 0.5 is 5 × 10^−1). A + joins equal exponents, or exponents one apart (3 + 0.2). A 'how many times' answer is a power of 10 up to 10^5, or a times-table ratio 2-4 (or 2-9 in tier 5's coefficients) times a power of 10 up to 10^3.",
+  "tiers": [
+    { "tier": 1, "name": "Powers of 10", "description": "Read 10 to a power as a number, and a number as a power of 10." },
+    { "tier": 2, "name": "Write in Sci. Notation", "description": "One digit before the point, times a power of 10." },
+    { "tier": 3, "name": "Read in Standard Form", "description": "Turn scientific notation back into an ordinary number." },
+    { "tier": 4, "name": "Compare & How Many Times", "description": "Compare sizes and say how many times bigger." },
+    { "tier": 5, "name": "Multiply, Divide & Add", "description": "Calculate with scientific notation and fix the coefficient." }
+  ],
+  "misconceptions": {
+    "ONE_ZERO_SHORT": {
+      "student": "Count every zero: 10,000,000 is a 1 and 7 zeros, so 10^7.",
+      "teacher": "Counts one zero too few when naming a big power of 10 (or writing it out)."
+    },
+    "ONE_PLACE_SHORT": {
+      "student": "Count every place the point moves, including the last one.",
+      "teacher": "Moves the point one place too few: exponent one closer to 0."
+    },
+    "ONE_PLACE_OVER": {
+      "student": "Count only the places the point moves, not one more.",
+      "teacher": "Moves the point one place too many: exponent one farther from 0."
+    },
+    "ZEROS_PLUS_ONE": {
+      "student": "10^4 has four zeros: a 1 and then 4 zeros. Count the zeros, not the digits.",
+      "teacher": "Counts the 1 as part of the exponent (or the digits instead of the zeros): 10^4 = 100,000."
+    },
+    "TIMES_FOR_POWER": {
+      "student": "An exponent says how many 10s you multiply, not 10 times the exponent.",
+      "teacher": "Reads 10^n as 10 × n: 10^4 = 40."
+    },
+    "DIGITS_SIDE_BY_SIDE": {
+      "student": "10^4 is 10 × 10 × 10 × 10, not the digits 10 and 4 side by side.",
+      "teacher": "Writes the base and the exponent next to each other: 10^4 = 104."
+    },
+    "ZERO_IS_ZERO": {
+      "student": "Any number to the power 0 is 1, not 0.",
+      "teacher": "Treats a zero exponent as zero: 10^0 = 0."
+    },
+    "ZERO_KEEPS_BASE": {
+      "student": "10^0 is 1: no tens are multiplied at all.",
+      "teacher": "Thinks a zero exponent leaves the base alone: 10^0 = 10."
+    },
+    "NEG_IS_NEGATIVE": {
+      "student": "A negative exponent gives a small number, not a negative one. 10^−3 = 0.001.",
+      "teacher": "Makes the value negative: 10^−3 = −1,000."
+    },
+    "NEG_IGNORED": {
+      "student": "The minus in 10^−3 means divide by 10 three times: 0.001, not 1,000.",
+      "teacher": "Ignores the negative sign of the exponent: 10^−3 = 1,000."
+    },
+    "DECIMAL_SLIP": {
+      "student": "Count the places: 0.001 puts the 1 in the 3rd place after the point.",
+      "teacher": "Off by one place in a decimal: zeros after the point counted as the exponent, or the reverse."
+    },
+    "SIGN_DROPPED": {
+      "student": "A number smaller than 1 has a negative power: 0.001 = 10^−3.",
+      "teacher": "Drops the negative sign when naming a small number as a power of 10."
+    },
+    "COUNTED_ALL_DIGITS": {
+      "student": "Count how far the point moves, not how many digits there are.",
+      "teacher": "Uses the number of digits as the exponent: 4,000,000 = 4 × 10^7."
+    },
+    "SIGN_FLIP": {
+      "student": "Big numbers get a positive power, small ones a negative power.",
+      "teacher": "Wrong sign on the exponent: 5 × 10^−4 read as 5 × 10^4, or the reverse."
+    },
+    "COUNTED_ZEROS": {
+      "student": "The point moves past every digit up to the first one, not only past the zeros.",
+      "teacher": "Counts zeros instead of places moved: 0.0005 = 5 × 10^−3, 32,000 = 3.2 × 10^3."
+    },
+    "COEF_NOT_1_TO_10": {
+      "student": "The front number must be at least 1 and less than 10: 3.5, not 35.",
+      "teacher": "Accepts a coefficient of 10 or more as scientific notation."
+    },
+    "COEF_BELOW_1": {
+      "student": "The front number must be at least 1: 3.5 × 10^4, not 0.35 × 10^4.",
+      "teacher": "Accepts a coefficient below 1 as scientific notation."
+    },
+    "ADDED_NOT_TIMES": {
+      "student": "Scientific notation multiplies by a power of 10; it does not add one.",
+      "teacher": "Uses + between the coefficient and the power of 10."
+    },
+    "BASE_EXP_SWAP": {
+      "student": "The base must be 10, and the exponent counts the places the point moved.",
+      "teacher": "Swaps the base and the exponent: 3.5 × 4^10 instead of 3.5 × 10^4."
+    },
+    "EXTRA_ZERO": {
+      "student": "10^5 moves the point 5 places, no more. Count the places carefully.",
+      "teacher": "Moves the decimal point one place too far."
+    },
+    "APPENDED_ZEROS": {
+      "student": "The point moves; you do not just add zeros after the decimal.",
+      "teacher": "Writes the coefficient with the zeros tacked on: 2.5 × 10^3 = 2.5000."
+    },
+    "EXPONENT_DIFF": {
+      "student": "The powers differ by 2, so it is 10^2 times, which is 100 times.",
+      "teacher": "Answers with the difference of the exponents instead of the power of 10 it makes."
+    },
+    "DIVIDED_WRONG_WAY": {
+      "student": "Bigger divided by smaller: the answer is over 1, not a fraction.",
+      "teacher": "Divides smaller by bigger and gets a fraction below 1."
+    },
+    "ONE_ZERO_OFF": {
+      "student": "Subtract the powers carefully: 10^8 ÷ 10^6 has 2 zeros, not 1 or 3.",
+      "teacher": "Off by one power of 10 when comparing sizes."
+    },
+    "SUBTRACTED": {
+      "student": "How many times means divide: 8 ÷ 2 = 4, not 8 − 2.",
+      "teacher": "Subtracts the coefficients instead of dividing."
+    },
+    "MULTIPLIED_COEFS": {
+      "student": "How many times means divide: 8 ÷ 2 = 4, not 8 × 2.",
+      "teacher": "Multiplies the coefficients instead of dividing."
+    },
+    "COEF_RATIO_ONLY": {
+      "student": "Do the powers too: 6 × 10^8 is 3 × 100 times 2 × 10^6.",
+      "teacher": "Divides the coefficients and forgets the power of 10 that is left."
+    },
+    "COEF_FIRST": {
+      "student": "Compare the powers of 10 first. A bigger power wins, whatever the front number.",
+      "teacher": "Compares the coefficients and ignores the exponents."
+    },
+    "NEG_EXP_BIGGER": {
+      "student": "10^−2 is bigger than 10^−4: with negative powers, the one nearer 0 is bigger.",
+      "teacher": "Treats a larger negative exponent as a larger number."
+    },
+    "MULT_EXPONENTS": {
+      "student": "10^3 × 10^5 = 10^8. When you multiply powers, add the exponents.",
+      "teacher": "Multiplies the exponents instead of adding them."
+    },
+    "ADD_COEFS": {
+      "student": "Multiply the front numbers: 2 × 4 = 8, not 2 + 4.",
+      "teacher": "Adds the coefficients when multiplying."
+    },
+    "NO_CARRY": {
+      "student": "If the front number reaches 10 or more, fix it and raise the power by 1.",
+      "teacher": "Normalises the coefficient but forgets to adjust the exponent."
+    },
+    "EXPONENTS_SUBTRACTED": {
+      "student": "When you multiply powers of 10, add the exponents.",
+      "teacher": "Subtracts the exponents when multiplying."
+    },
+    "ADD_EXPONENTS": {
+      "student": "When you divide powers of 10, subtract the exponents.",
+      "teacher": "Adds the exponents when dividing."
+    },
+    "DIVIDE_EXPONENTS": {
+      "student": "10^9 ÷ 10^3 = 10^6. Subtract the exponents; do not divide them.",
+      "teacher": "Divides the exponents instead of subtracting them."
+    },
+    "SUB_COEFS": {
+      "student": "Divide the front numbers: 6 ÷ 2 = 3, not 6 − 2.",
+      "teacher": "Subtracts the coefficients when dividing."
+    },
+    "FLIPPED_EXPONENTS": {
+      "student": "Top power minus bottom power, in that order.",
+      "teacher": "Subtracts the exponents the wrong way round when dividing."
+    },
+    "ADD_EXPONENTS_ON_SUM": {
+      "student": "Adding keeps the power of 10: 3 + 2 ten-thousands = 5 ten-thousands.",
+      "teacher": "Adds the exponents when adding two numbers in scientific notation."
+    },
+    "MULT_FOR_ADD": {
+      "student": "This is a sum: add the front numbers, keep the same power of 10.",
+      "teacher": "Treats + as ×: multiplies the coefficients and adds the exponents."
+    },
+    "IGNORE_GAP": {
+      "student": "Different powers: 2 × 10^3 is only 0.2 × 10^4. Match the powers first.",
+      "teacher": "Adds the coefficients without matching the powers of 10."
+    },
+    "KEPT_SMALLER_POWER": {
+      "student": "Match the powers first. Rewrite 2 × 10^3 as 0.2 × 10^4, then add.",
+      "teacher": "Adds the coefficients as if both used the smaller power of 10."
+    }
+  }
+}

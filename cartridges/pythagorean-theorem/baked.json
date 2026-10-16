@@ -1,0 +1,3816 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "pythagorean-theorem",
+  "version": "1.0.0",
+  "title": "Pythagorean Theorem",
+  "subtitle": "Right Triangles, Distance & 3D",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.B.6",
+    "CCSS.MATH.CONTENT.8.G.B.7",
+    "CCSS.MATH.CONTENT.8.G.B.8"
+  ],
+  "seed": 20261036,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Pythagorean (grade 8). Sides 1-10; every square 100 or less and every sum or difference of two squares (box diagonal: three) 100 or less. Whole answers come only from 3-4-5 and 6-8-10 (box diagonals 1-2-2 -> 3, 2-4-4 -> 6, 2-3-6 -> 7, 1-4-8 -> 9, 4-4-7 -> 9); every other length is an unsimplified √n, n 2-99 and not a perfect square. Coordinates of size 10 or less. Wrong choices up to 999. A root is compared with a whole number only when they differ by 0.3 or more.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Find the Hypotenuse",
+      "description": "Legs given: square, add, take the root."
+    },
+    {
+      "tier": 2,
+      "name": "Find a Leg",
+      "description": "Hypotenuse and one leg given: subtract the squares."
+    },
+    {
+      "tier": 3,
+      "name": "Is It a Right Triangle?",
+      "description": "Test a^2 + b^2 = c^2 and spot the hypotenuse."
+    },
+    {
+      "tier": 4,
+      "name": "Distance on the Plane",
+      "description": "Make a right triangle from two points."
+    },
+    {
+      "tier": 5,
+      "name": "Stories & 3D",
+      "description": "Ladders, ramps, walks and box diagonals."
+    }
+  ],
+  "misconceptions": {
+    "ADDED_LEGS": {
+      "student": "Adding the legs is the walk around, not the shortcut. Use a^2 + b^2 = c^2.",
+      "teacher": "Hypotenuse taken as a + b (the sum of the legs)."
+    },
+    "NO_ROOT": {
+      "student": "That is c^2, the square. Take the square root to get c.",
+      "teacher": "Stops at a^2 + b^2 (or c^2 − a^2) and forgets the final square root."
+    },
+    "ROOT_OF_LEG_SUM": {
+      "student": "Square each side first: a^2 + b^2. Not a + b.",
+      "teacher": "Takes the root of the plain sum of the sides, skipping the squares."
+    },
+    "DOUBLED_FOR_SQUARE": {
+      "student": "Squaring a side is a × a, not 2 × a.",
+      "teacher": "Squares by doubling: a^2 read as 2a."
+    },
+    "ADDED_SQUARES": {
+      "student": "Finding a leg, you subtract: c^2 − a^2. The hypotenuse is the big one.",
+      "teacher": "Adds the squares when a leg is missing, treating the known leg as if the hypotenuse were unknown."
+    },
+    "SUBTRACTED_SIDES": {
+      "student": "Subtract the squares, not the sides: c^2 − a^2.",
+      "teacher": "Finds the leg as c − a (plain difference of the sides)."
+    },
+    "ROOT_OF_DIFF": {
+      "student": "Square the sides first, then subtract and take the root.",
+      "teacher": "Takes the root of c − a, skipping the squares."
+    },
+    "ADD_SIDES": {
+      "student": "Test squares, not sides: a^2 + b^2 = c^2, not a + b = c.",
+      "teacher": "Checks the converse with a + b = c instead of a^2 + b^2 = c^2."
+    },
+    "ORDER_AS_GIVEN": {
+      "student": "The hypotenuse is the longest side, whatever order they are listed in.",
+      "teacher": "Treats the last-listed (or first-two-listed) sides as the legs without finding the longest."
+    },
+    "CONSECUTIVE": {
+      "student": "Only special sets work. 3, 4, 5 does; 4, 5, 6 does not. Test a^2 + b^2.",
+      "teacher": "Generalises 3-4-5 to any three consecutive numbers."
+    },
+    "CLOSE_ENOUGH": {
+      "student": "Close is not equal. a^2 + b^2 must equal c^2 exactly.",
+      "teacher": "Accepts a^2 + b^2 within a point or two of c^2."
+    },
+    "ANY_TRIANGLE": {
+      "student": "Sides can make a triangle with no right angle. Test the squares.",
+      "teacher": "Believes any three lengths that form a triangle make a right triangle."
+    },
+    "LEG_AS_LONGEST": {
+      "student": "A root can be the longest side. Compare the squares to see.",
+      "teacher": "Picks a leg as the hypotenuse because the radical looks smaller than a whole number."
+    },
+    "TAXICAB": {
+      "student": "Distance is the straight line, not across then up. Use a^2 + b^2 = c^2.",
+      "teacher": "Adds the horizontal and vertical gaps (taxicab distance)."
+    },
+    "ONE_LEG": {
+      "student": "Distance needs both gaps, across and up, squared and added.",
+      "teacher": "Uses only the horizontal gap as the distance."
+    },
+    "NEG_DIFF": {
+      "student": "Across zero the gap adds up: from −2 to 3 is 5, not 1.",
+      "teacher": "Subtracts sizes of coordinates on opposite sides of zero instead of adding them."
+    },
+    "ADDED_ALL": {
+      "student": "Square each edge, add the squares, then take the root.",
+      "teacher": "Box diagonal taken as a + b + c."
+    },
+    "FACE_ONLY": {
+      "student": "A box diagonal uses all three edges, not just one face.",
+      "teacher": "Gives a face diagonal (two edges) for the space diagonal."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "pythagorean-theorem/t1/001",
+      "tier": 1,
+      "prompt": "Legs 3 and 4. Hypotenuse?",
+      "choices": [
+        "5",
+        "7",
+        "√7",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/002",
+      "tier": 1,
+      "prompt": "Right triangle, legs 8 and 6. Longest side?",
+      "choices": [
+        "100",
+        "14",
+        "√28",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "8^2 + 6^2 = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/003",
+      "tier": 1,
+      "prompt": "A right triangle has legs 1 and 2. Hypotenuse?",
+      "choices": [
+        "√6",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 2^2 = 1 + 4 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/004",
+      "tier": 1,
+      "prompt": "Right triangle, legs 9 and 3. Longest side?",
+      "choices": [
+        "√90",
+        "√24",
+        "90",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "9^2 + 3^2 = 81 + 9 = 90, so c = √90."
+    },
+    {
+      "id": "pythagorean-theorem/t1/005",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 8. Longest side?",
+      "choices": [
+        "65",
+        "9",
+        "√18",
+        "√65"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "1^2 + 8^2 = 1 + 64 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/006",
+      "tier": 1,
+      "prompt": "Legs 3 and 1. Hypotenuse?",
+      "choices": [
+        "√8",
+        "√10",
+        "4",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 + 1^2 = 9 + 1 = 10, so c = √10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/007",
+      "tier": 1,
+      "prompt": "Right triangle, legs 7 and 3. Longest side?",
+      "choices": [
+        "58",
+        "√10",
+        "√58",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7^2 + 3^2 = 49 + 9 = 58, so c = √58."
+    },
+    {
+      "id": "pythagorean-theorem/t1/008",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 4. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/009",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 6. Hypotenuse?",
+      "choices": [
+        "√45",
+        "9",
+        "45",
+        "√18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "3^2 + 6^2 = 9 + 36 = 45, so c = √45."
+    },
+    {
+      "id": "pythagorean-theorem/t1/010",
+      "tier": 1,
+      "prompt": "A right triangle has legs 7 and 4. Hypotenuse?",
+      "choices": [
+        "√22",
+        "√65",
+        "11",
+        "65"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "7^2 + 4^2 = 49 + 16 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/011",
+      "tier": 1,
+      "prompt": "Right triangle, legs 3 and 4. Longest side?",
+      "choices": [
+        "25",
+        "5",
+        "√14",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/012",
+      "tier": 1,
+      "prompt": "Legs 8 and 6. Hypotenuse?",
+      "choices": [
+        "10",
+        "√28",
+        "100",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8^2 + 6^2 = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/013",
+      "tier": 1,
+      "prompt": "Legs 5 and 6. Hypotenuse?",
+      "choices": [
+        "√11",
+        "61",
+        "11",
+        "√61"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "5^2 + 6^2 = 25 + 36 = 61, so c = √61."
+    },
+    {
+      "id": "pythagorean-theorem/t1/014",
+      "tier": 1,
+      "prompt": "Legs 6 and 2. Hypotenuse?",
+      "choices": [
+        "8",
+        "4",
+        "√40",
+        "40"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "6^2 + 2^2 = 36 + 4 = 40, so c = √40."
+    },
+    {
+      "id": "pythagorean-theorem/t1/015",
+      "tier": 1,
+      "prompt": "A right triangle has legs 5 and 2. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "29",
+        "√29"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "5^2 + 2^2 = 25 + 4 = 29, so c = √29."
+    },
+    {
+      "id": "pythagorean-theorem/t1/016",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 3. Hypotenuse?",
+      "choices": [
+        "√11",
+        "√73",
+        "73",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8^2 + 3^2 = 64 + 9 = 73, so c = √73."
+    },
+    {
+      "id": "pythagorean-theorem/t1/017",
+      "tier": 1,
+      "prompt": "A right triangle has legs 6 and 7. Hypotenuse?",
+      "choices": [
+        "13",
+        "85",
+        "√26",
+        "√85"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "6^2 + 7^2 = 36 + 49 = 85, so c = √85."
+    },
+    {
+      "id": "pythagorean-theorem/t1/018",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 6. Hypotenuse?",
+      "choices": [
+        "√28",
+        "100",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "8^2 + 6^2 = 64 + 36 = 100, so c = 10."
+    },
+    {
+      "id": "pythagorean-theorem/t1/019",
+      "tier": 1,
+      "prompt": "Legs 1 and 6. Hypotenuse?",
+      "choices": [
+        "√7",
+        "7",
+        "√37",
+        "37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 6^2 = 1 + 36 = 37, so c = √37."
+    },
+    {
+      "id": "pythagorean-theorem/t1/020",
+      "tier": 1,
+      "prompt": "Legs 1 and 2 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√6",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 2^2 = 1 + 4 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/021",
+      "tier": 1,
+      "prompt": "Legs 2 and 8 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√68",
+        "√10",
+        "68",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "2^2 + 8^2 = 4 + 64 = 68, so c = √68."
+    },
+    {
+      "id": "pythagorean-theorem/t1/022",
+      "tier": 1,
+      "prompt": "A right triangle has legs 8 and 1. Hypotenuse?",
+      "choices": [
+        "65",
+        "√65",
+        "3",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS"
+      ],
+      "explanation": "8^2 + 1^2 = 64 + 1 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/023",
+      "tier": 1,
+      "prompt": "A right triangle has legs 5 and 8. Hypotenuse?",
+      "choices": [
+        "89",
+        "√26",
+        "13",
+        "√89"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "5^2 + 8^2 = 25 + 64 = 89, so c = √89."
+    },
+    {
+      "id": "pythagorean-theorem/t1/024",
+      "tier": 1,
+      "prompt": "Legs 8 and 5 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "89",
+        "13",
+        "√89",
+        "√26"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "8^2 + 5^2 = 64 + 25 = 89, so c = √89."
+    },
+    {
+      "id": "pythagorean-theorem/t1/025",
+      "tier": 1,
+      "prompt": "Legs 7 and 2. Hypotenuse?",
+      "choices": [
+        "9",
+        "√18",
+        "53",
+        "√53"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "7^2 + 2^2 = 49 + 4 = 53, so c = √53."
+    },
+    {
+      "id": "pythagorean-theorem/t1/026",
+      "tier": 1,
+      "prompt": "Legs 4 and 3. Hypotenuse?",
+      "choices": [
+        "√7",
+        "5",
+        "25",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4^2 + 3^2 = 16 + 9 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/027",
+      "tier": 1,
+      "prompt": "Right triangle, legs 2 and 3. Longest side?",
+      "choices": [
+        "13",
+        "5",
+        "√10",
+        "√13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE",
+        null
+      ],
+      "explanation": "2^2 + 3^2 = 4 + 9 = 13, so c = √13."
+    },
+    {
+      "id": "pythagorean-theorem/t1/028",
+      "tier": 1,
+      "prompt": "Right triangle, legs 5 and 2. Longest side?",
+      "choices": [
+        "7",
+        "√29",
+        "29",
+        "√7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "5^2 + 2^2 = 25 + 4 = 29, so c = √29."
+    },
+    {
+      "id": "pythagorean-theorem/t1/029",
+      "tier": 1,
+      "prompt": "Legs 2 and 2. Hypotenuse?",
+      "choices": [
+        "8",
+        "4",
+        "2",
+        "√8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        null
+      ],
+      "explanation": "2^2 + 2^2 = 4 + 4 = 8, so c = √8."
+    },
+    {
+      "id": "pythagorean-theorem/t1/030",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 5. Longest side?",
+      "choices": [
+        "√26",
+        "√12",
+        "26",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "1^2 + 5^2 = 1 + 25 = 26, so c = √26."
+    },
+    {
+      "id": "pythagorean-theorem/t1/031",
+      "tier": 1,
+      "prompt": "A right triangle has legs 3 and 8. Hypotenuse?",
+      "choices": [
+        "√73",
+        "√11",
+        "11",
+        "73"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 + 8^2 = 9 + 64 = 73, so c = √73."
+    },
+    {
+      "id": "pythagorean-theorem/t1/032",
+      "tier": 1,
+      "prompt": "Right triangle, legs 1 and 4. Longest side?",
+      "choices": [
+        "√10",
+        "5",
+        "√17",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 4^2 = 1 + 16 = 17, so c = √17."
+    },
+    {
+      "id": "pythagorean-theorem/t1/033",
+      "tier": 1,
+      "prompt": "Legs 7 and 1 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "√50",
+        "8",
+        "50",
+        "√8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "7^2 + 1^2 = 49 + 1 = 50, so c = √50."
+    },
+    {
+      "id": "pythagorean-theorem/t1/034",
+      "tier": 1,
+      "prompt": "Right triangle, legs 2 and 1. Longest side?",
+      "choices": [
+        "√5",
+        "√3",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "2^2 + 1^2 = 4 + 1 = 5, so c = √5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/035",
+      "tier": 1,
+      "prompt": "A right triangle has legs 1 and 9. Hypotenuse?",
+      "choices": [
+        "10",
+        "82",
+        "√82",
+        "√20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "1^2 + 9^2 = 1 + 81 = 82, so c = √82."
+    },
+    {
+      "id": "pythagorean-theorem/t1/036",
+      "tier": 1,
+      "prompt": "A right triangle has legs 9 and 1. Hypotenuse?",
+      "choices": [
+        "82",
+        "10",
+        "√82",
+        "√20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "9^2 + 1^2 = 81 + 1 = 82, so c = √82."
+    },
+    {
+      "id": "pythagorean-theorem/t1/037",
+      "tier": 1,
+      "prompt": "A right triangle has legs 4 and 3. Hypotenuse?",
+      "choices": [
+        "5",
+        "√14",
+        "25",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4^2 + 3^2 = 16 + 9 = 25, so c = 5."
+    },
+    {
+      "id": "pythagorean-theorem/t1/038",
+      "tier": 1,
+      "prompt": "Legs 1 and 8 meet at a right angle. Hypotenuse?",
+      "choices": [
+        "65",
+        "9",
+        "√65",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "1^2 + 8^2 = 1 + 64 = 65, so c = √65."
+    },
+    {
+      "id": "pythagorean-theorem/t1/039",
+      "tier": 1,
+      "prompt": "A right triangle has legs 4 and 5. Hypotenuse?",
+      "choices": [
+        "9",
+        "√41",
+        "3",
+        "41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "4^2 + 5^2 = 16 + 25 = 41, so c = √41."
+    },
+    {
+      "id": "pythagorean-theorem/t1/040",
+      "tier": 1,
+      "prompt": "A right triangle has legs 7 and 2. Hypotenuse?",
+      "choices": [
+        "53",
+        "√18",
+        "√53",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7^2 + 2^2 = 49 + 4 = 53, so c = √53."
+    },
+    {
+      "id": "pythagorean-theorem/t2/001",
+      "tier": 2,
+      "prompt": "Hypotenuse 7 and a leg of 1. How long is the other leg?",
+      "choices": [
+        "48",
+        "√50",
+        "√48",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7^2 − 1^2 = 49 − 1 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/002",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 9. Other leg?",
+      "choices": [
+        "19",
+        "√19",
+        "√181",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10^2 − 9^2 = 100 − 81 = 19, so the leg is √19."
+    },
+    {
+      "id": "pythagorean-theorem/t2/003",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 8, a leg 6. Other leg?",
+      "choices": [
+        "√2",
+        "28",
+        "10",
+        "√28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "8^2 − 6^2 = 64 − 36 = 28, so the leg is √28."
+    },
+    {
+      "id": "pythagorean-theorem/t2/004",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 4, leg 3. Other leg?",
+      "choices": [
+        "√7",
+        "1",
+        "7",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "4^2 − 3^2 = 16 − 9 = 7, so the leg is √7."
+    },
+    {
+      "id": "pythagorean-theorem/t2/005",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 8. Other leg?",
+      "choices": [
+        "√145",
+        "17",
+        "√17",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        null,
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "9^2 − 8^2 = 81 − 64 = 17, so the leg is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t2/006",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 7. How long is the other leg?",
+      "choices": [
+        "√3",
+        "√149",
+        "√51",
+        "51"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "10^2 − 7^2 = 100 − 49 = 51, so the leg is √51."
+    },
+    {
+      "id": "pythagorean-theorem/t2/007",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 7. Other leg?",
+      "choices": [
+        "√32",
+        "2",
+        "32",
+        "√130"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "9^2 − 7^2 = 81 − 49 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/008",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 5, a leg 4. Other leg?",
+      "choices": [
+        "9",
+        "1",
+        "3",
+        "√41"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5^2 − 4^2 = 25 − 16 = 9, so the leg is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t2/009",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 9, leg 8. Other leg?",
+      "choices": [
+        "√145",
+        "√17",
+        "1",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "9^2 − 8^2 = 81 − 64 = 17, so the leg is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t2/010",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 8. Other leg?",
+      "choices": [
+        "√164",
+        "36",
+        "√2",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null
+      ],
+      "explanation": "10^2 − 8^2 = 100 − 64 = 36, so the leg is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t2/011",
+      "tier": 2,
+      "prompt": "Hypotenuse 5, one leg 3. Other leg?",
+      "choices": [
+        "4",
+        "√2",
+        "16",
+        "√34"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5^2 − 3^2 = 25 − 9 = 16, so the leg is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t2/012",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 3. Other leg?",
+      "choices": [
+        "72",
+        "√6",
+        "√90",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9^2 − 3^2 = 81 − 9 = 72, so the leg is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t2/013",
+      "tier": 2,
+      "prompt": "Hypotenuse 5 and a leg of 3. How long is the other leg?",
+      "choices": [
+        "√34",
+        "16",
+        "4",
+        "√2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "5^2 − 3^2 = 25 − 9 = 16, so the leg is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t2/014",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 6. Other leg?",
+      "choices": [
+        "64",
+        "√136",
+        "8",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10^2 − 6^2 = 100 − 36 = 64, so the leg is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/015",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 7, a leg 6. Other leg?",
+      "choices": [
+        "1",
+        "13",
+        "√13",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "7^2 − 6^2 = 49 − 36 = 13, so the leg is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t2/016",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 3. How long is the other leg?",
+      "choices": [
+        "7",
+        "91",
+        "√109",
+        "√91"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "10^2 − 3^2 = 100 − 9 = 91, so the leg is √91."
+    },
+    {
+      "id": "pythagorean-theorem/t2/017",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 2. Other leg?",
+      "choices": [
+        "6",
+        "√60",
+        "√68",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "8^2 − 2^2 = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/018",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 4, a leg 1. Other leg?",
+      "choices": [
+        "√15",
+        "15",
+        "√3",
+        "√17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "4^2 − 1^2 = 16 − 1 = 15, so the leg is √15."
+    },
+    {
+      "id": "pythagorean-theorem/t2/019",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 3, leg 1. Other leg?",
+      "choices": [
+        "√2",
+        "√8",
+        "√10",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 − 1^2 = 9 − 1 = 8, so the leg is √8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/020",
+      "tier": 2,
+      "prompt": "Hypotenuse 10, one leg 4. Other leg?",
+      "choices": [
+        "6",
+        "√84",
+        "84",
+        "√116"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10^2 − 4^2 = 100 − 16 = 84, so the leg is √84."
+    },
+    {
+      "id": "pythagorean-theorem/t2/021",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 6, leg 2. Other leg?",
+      "choices": [
+        "√40",
+        "32",
+        "4",
+        "√32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        null
+      ],
+      "explanation": "6^2 − 2^2 = 36 − 4 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/022",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 8, a leg 2. Other leg?",
+      "choices": [
+        "√60",
+        "60",
+        "6",
+        "√68"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "8^2 − 2^2 = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/023",
+      "tier": 2,
+      "prompt": "Hypotenuse 10, one leg 6. Other leg?",
+      "choices": [
+        "8",
+        "2",
+        "√136",
+        "64"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        "NO_ROOT"
+      ],
+      "explanation": "10^2 − 6^2 = 100 − 36 = 64, so the leg is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t2/024",
+      "tier": 2,
+      "prompt": "Hypotenuse 6, one leg 1. Other leg?",
+      "choices": [
+        "√35",
+        "5",
+        "35",
+        "√37"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "6^2 − 1^2 = 36 − 1 = 35, so the leg is √35."
+    },
+    {
+      "id": "pythagorean-theorem/t2/025",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 4. How long is the other leg?",
+      "choices": [
+        "65",
+        "√97",
+        "√65",
+        "√5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "9^2 − 4^2 = 81 − 16 = 65, so the leg is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t2/026",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 8. Other leg?",
+      "choices": [
+        "2",
+        "36",
+        "√164",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "10^2 − 8^2 = 100 − 64 = 36, so the leg is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t2/027",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 1. How long is the other leg?",
+      "choices": [
+        "√80",
+        "√82",
+        "80",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "9^2 − 1^2 = 81 − 1 = 80, so the leg is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t2/028",
+      "tier": 2,
+      "prompt": "Hypotenuse 9 and a leg of 7. How long is the other leg?",
+      "choices": [
+        "32",
+        "2",
+        "√130",
+        "√32"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9^2 − 7^2 = 81 − 49 = 32, so the leg is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t2/029",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 9, a leg 2. Other leg?",
+      "choices": [
+        "77",
+        "√7",
+        "√85",
+        "√77"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "9^2 − 2^2 = 81 − 4 = 77, so the leg is √77."
+    },
+    {
+      "id": "pythagorean-theorem/t2/030",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 6, a leg 1. Other leg?",
+      "choices": [
+        "√35",
+        "√37",
+        "35",
+        "√5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "6^2 − 1^2 = 36 − 1 = 35, so the leg is √35."
+    },
+    {
+      "id": "pythagorean-theorem/t2/031",
+      "tier": 2,
+      "prompt": "Hypotenuse 8 and a leg of 2. How long is the other leg?",
+      "choices": [
+        "60",
+        "√60",
+        "6",
+        "√68"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "SUBTRACTED_SIDES",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "8^2 − 2^2 = 64 − 4 = 60, so the leg is √60."
+    },
+    {
+      "id": "pythagorean-theorem/t2/032",
+      "tier": 2,
+      "prompt": "Hypotenuse 7, one leg 3. Other leg?",
+      "choices": [
+        "√40",
+        "40",
+        "√58",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7^2 − 3^2 = 49 − 9 = 40, so the leg is √40."
+    },
+    {
+      "id": "pythagorean-theorem/t2/033",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 9, leg 5. Other leg?",
+      "choices": [
+        "√106",
+        "√56",
+        "4",
+        "56"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "9^2 − 5^2 = 81 − 25 = 56, so the leg is √56."
+    },
+    {
+      "id": "pythagorean-theorem/t2/034",
+      "tier": 2,
+      "prompt": "Hypotenuse 5, one leg 4. Other leg?",
+      "choices": [
+        "9",
+        "3",
+        "√41",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "5^2 − 4^2 = 25 − 16 = 9, so the leg is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t2/035",
+      "tier": 2,
+      "prompt": "Hypotenuse 10 and a leg of 9. How long is the other leg?",
+      "choices": [
+        "1",
+        "19",
+        "√19",
+        "√181"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10^2 − 9^2 = 100 − 81 = 19, so the leg is √19."
+    },
+    {
+      "id": "pythagorean-theorem/t2/036",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 7, leg 1. Other leg?",
+      "choices": [
+        "48",
+        "√48",
+        "√50",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES"
+      ],
+      "explanation": "7^2 − 1^2 = 49 − 1 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/037",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 4. Other leg?",
+      "choices": [
+        "√80",
+        "√48",
+        "48",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "8^2 − 4^2 = 64 − 16 = 48, so the leg is √48."
+    },
+    {
+      "id": "pythagorean-theorem/t2/038",
+      "tier": 2,
+      "prompt": "Hypotenuse 8, one leg 7. Other leg?",
+      "choices": [
+        "1",
+        "15",
+        "√113",
+        "√15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_DIFF",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "8^2 − 7^2 = 64 − 49 = 15, so the leg is √15."
+    },
+    {
+      "id": "pythagorean-theorem/t2/039",
+      "tier": 2,
+      "prompt": "Right triangle, longest side 10, leg 1. Other leg?",
+      "choices": [
+        "9",
+        "99",
+        "√99",
+        "√101"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        null,
+        "ADDED_SQUARES"
+      ],
+      "explanation": "10^2 − 1^2 = 100 − 1 = 99, so the leg is √99."
+    },
+    {
+      "id": "pythagorean-theorem/t2/040",
+      "tier": 2,
+      "prompt": "A right triangle: hypotenuse 10, a leg 5. Other leg?",
+      "choices": [
+        "√125",
+        "75",
+        "√5",
+        "√75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF",
+        null
+      ],
+      "explanation": "10^2 − 5^2 = 100 − 25 = 75, so the leg is √75."
+    },
+    {
+      "id": "pythagorean-theorem/t3/001",
+      "tier": 3,
+      "prompt": "A triangle has sides 3, 8 and 8. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        null
+      ],
+      "explanation": "3^2 + 8^2 = 73, but 8^2 = 64. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/002",
+      "tier": 3,
+      "prompt": "Right triangle, sides 5, √34, 3. Hypotenuse?",
+      "choices": [
+        "3",
+        "5",
+        "√34"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "5^2 = 25, but 3^2 + 5^2 = 34. So √34 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/003",
+      "tier": 3,
+      "prompt": "Right triangle, sides 5, 6, √61. Hypotenuse?",
+      "choices": [
+        "6",
+        "5",
+        "√61"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "6^2 = 36, but 5^2 + 6^2 = 61. So √61 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/004",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 4 and 7. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "4^2 + 4^2 = 32, but 7^2 = 49. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/005",
+      "tier": 3,
+      "prompt": "Sides 4, 3, 5. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25 = 5^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/006",
+      "tier": 3,
+      "prompt": "Sides 3, 4, 4. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        null
+      ],
+      "explanation": "3^2 + 4^2 = 25, but 4^2 = 16. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/007",
+      "tier": 3,
+      "prompt": "Right triangle, sides 2, 3, √13. Hypotenuse?",
+      "choices": [
+        "√13",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "3^2 = 9, but 2^2 + 3^2 = 13. So √13 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/008",
+      "tier": 3,
+      "prompt": "A triangle has sides 6, 8 and 10. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SIDES"
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100 = 10^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/009",
+      "tier": 3,
+      "prompt": "Right triangle, sides 7, √74, 5. Hypotenuse?",
+      "choices": [
+        "5",
+        "7",
+        "√74"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "7^2 = 49, but 5^2 + 7^2 = 74. So √74 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/010",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 8 and 9. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "5^2 + 8^2 = 89, but 9^2 = 81. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/011",
+      "tier": 3,
+      "prompt": "Sides 5, 4, 3. Right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25 = 5^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/012",
+      "tier": 3,
+      "prompt": "A triangle has sides 3, 4 and 5. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25 = 5^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/013",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 5 and 3. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25 = 5^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/014",
+      "tier": 3,
+      "prompt": "Right triangle, sides 9, 3, √90. Hypotenuse?",
+      "choices": [
+        "√90",
+        "9",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "9^2 = 81, but 3^2 + 9^2 = 90. So √90 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/015",
+      "tier": 3,
+      "prompt": "A triangle has sides 10, 8 and 6. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ORDER_AS_GIVEN"
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100 = 10^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/016",
+      "tier": 3,
+      "prompt": "Which set is a right triangle's sides?",
+      "choices": [
+        "7, 7, 10",
+        "6, 8, 10",
+        "4, 9, 9",
+        "6, 7, 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null,
+        "ANY_TRIANGLE",
+        "CONSECUTIVE"
+      ],
+      "explanation": "6^2 + 8^2 = 100 = 10^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/017",
+      "tier": 3,
+      "prompt": "Right triangle, sides √29, 2, 5. Hypotenuse?",
+      "choices": [
+        "√29",
+        "5",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "5^2 = 25, but 2^2 + 5^2 = 29. So √29 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/018",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 8 and 8. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "5^2 + 8^2 = 89, but 8^2 = 64. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/019",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 3 and 5. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25 = 5^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/020",
+      "tier": 3,
+      "prompt": "Right triangle, sides 8, √89, 5. Hypotenuse?",
+      "choices": [
+        "5",
+        "√89",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8^2 = 64, but 5^2 + 8^2 = 89. So √89 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/021",
+      "tier": 3,
+      "prompt": "A triangle has sides 8, 10 and 6. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_AS_GIVEN",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100 = 10^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/022",
+      "tier": 3,
+      "prompt": "A triangle has sides 1, 4 and 4. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "1^2 + 4^2 = 17, but 4^2 = 16. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/023",
+      "tier": 3,
+      "prompt": "Which side lengths form a right triangle?",
+      "choices": [
+        "2, 7, 7",
+        "5, 6, 7",
+        "3, 4, 5",
+        "1, 7, 7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CONSECUTIVE",
+        null,
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "3^2 + 4^2 = 25 = 5^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/024",
+      "tier": 3,
+      "prompt": "Sides 6, 10, 8. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ORDER_AS_GIVEN",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100 = 10^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/025",
+      "tier": 3,
+      "prompt": "Which sides make a right corner?",
+      "choices": [
+        "5, 5, 9",
+        "1, 8, 8",
+        "5, 6, 7",
+        "6, 8, 10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        "CONSECUTIVE",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 100 = 10^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/026",
+      "tier": 3,
+      "prompt": "Which set of sides has a right angle?",
+      "choices": [
+        "2, 3, 4",
+        "3, 4, 5",
+        "5, 7, 10",
+        "4, 7, 8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSECUTIVE",
+        null,
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "3^2 + 4^2 = 25 = 5^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/027",
+      "tier": 3,
+      "prompt": "A triangle has sides 5, 6 and 7. Is it a right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONSECUTIVE"
+      ],
+      "explanation": "5^2 + 6^2 = 61, but 7^2 = 49. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/028",
+      "tier": 3,
+      "prompt": "Which lengths fit a right triangle?",
+      "choices": [
+        "5, 6, 7",
+        "6, 6, 7",
+        "5, 5, 7",
+        "3, 4, 5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONSECUTIVE",
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "3^2 + 4^2 = 25 = 5^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/029",
+      "tier": 3,
+      "prompt": "A carpenter needs a square corner. Which sides?",
+      "choices": [
+        "3, 5, 7",
+        "7, 7, 10",
+        "6, 8, 10",
+        "2, 3, 4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ANY_TRIANGLE",
+        "CLOSE_ENOUGH",
+        null,
+        "CONSECUTIVE"
+      ],
+      "explanation": "6^2 + 8^2 = 100 = 10^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/030",
+      "tier": 3,
+      "prompt": "Right triangle, sides √45, 3, 6. Hypotenuse?",
+      "choices": [
+        "√45",
+        "6",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "6^2 = 36, but 3^2 + 6^2 = 45. So √45 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/031",
+      "tier": 3,
+      "prompt": "Which three sides make a right triangle?",
+      "choices": [
+        "6, 8, 10",
+        "1, 9, 9",
+        "4, 6, 6",
+        "2, 3, 4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH",
+        "ANY_TRIANGLE",
+        "CONSECUTIVE"
+      ],
+      "explanation": "6^2 + 8^2 = 100 = 10^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/032",
+      "tier": 3,
+      "prompt": "Sides 1, 5, 5. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH"
+      ],
+      "explanation": "1^2 + 5^2 = 26, but 5^2 = 25. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/033",
+      "tier": 3,
+      "prompt": "Right triangle, sides 4, 5, √41. Hypotenuse?",
+      "choices": [
+        "5",
+        "√41",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "5^2 = 25, but 4^2 + 5^2 = 41. So √41 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/034",
+      "tier": 3,
+      "prompt": "Which sides make a right triangle?",
+      "choices": [
+        "6, 8, 10",
+        "3, 5, 6",
+        "6, 7, 8",
+        "2, 5, 6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CLOSE_ENOUGH",
+        "CONSECUTIVE",
+        "ANY_TRIANGLE"
+      ],
+      "explanation": "6^2 + 8^2 = 100 = 10^2. The other sets fail the test."
+    },
+    {
+      "id": "pythagorean-theorem/t3/035",
+      "tier": 3,
+      "prompt": "Sides 6, 8, 10. Right triangle?",
+      "choices": [
+        "No",
+        "Yes"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SIDES",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100 = 10^2. Yes."
+    },
+    {
+      "id": "pythagorean-theorem/t3/036",
+      "tier": 3,
+      "prompt": "A triangle has sides 4, 5 and 6. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CONSECUTIVE",
+        null
+      ],
+      "explanation": "4^2 + 5^2 = 41, but 6^2 = 36. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/037",
+      "tier": 3,
+      "prompt": "Right triangle, sides √80, 4, 8. Hypotenuse?",
+      "choices": [
+        "8",
+        "√80",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8^2 = 64, but 4^2 + 8^2 = 80. So √80 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/038",
+      "tier": 3,
+      "prompt": "A triangle has sides 1, 5 and 5. Is it a right triangle?",
+      "choices": [
+        "Yes",
+        "No"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CLOSE_ENOUGH",
+        null
+      ],
+      "explanation": "1^2 + 5^2 = 26, but 5^2 = 25. Not equal, so no."
+    },
+    {
+      "id": "pythagorean-theorem/t3/039",
+      "tier": 3,
+      "prompt": "Right triangle, sides √89, 8, 5. Hypotenuse?",
+      "choices": [
+        "8",
+        "√89",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        null,
+        "LEG_AS_LONGEST"
+      ],
+      "explanation": "8^2 = 64, but 5^2 + 8^2 = 89. So √89 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t3/040",
+      "tier": 3,
+      "prompt": "Right triangle, sides 7, 6, √85. Hypotenuse?",
+      "choices": [
+        "6",
+        "7",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEG_AS_LONGEST",
+        "LEG_AS_LONGEST",
+        null
+      ],
+      "explanation": "7^2 = 49, but 6^2 + 7^2 = 85. So √85 is longer: the hypotenuse."
+    },
+    {
+      "id": "pythagorean-theorem/t4/001",
+      "tier": 4,
+      "prompt": "How far is (−1, −9) from (−9, −10)?",
+      "choices": [
+        "9",
+        "8",
+        "√65",
+        "65"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 8, up 1: 8^2 + 1^2 = 65, so the distance is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t4/002",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (8, 2)?",
+      "choices": [
+        "10",
+        "√68",
+        "8",
+        "68"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "ONE_LEG",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 8, up 2: 8^2 + 2^2 = 68, so the distance is √68."
+    },
+    {
+      "id": "pythagorean-theorem/t4/003",
+      "tier": 4,
+      "prompt": "Distance from (−5, −9) to (−1, −3)?",
+      "choices": [
+        "4",
+        "52",
+        "10",
+        "√52"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 4, up 6: 4^2 + 6^2 = 52, so the distance is √52."
+    },
+    {
+      "id": "pythagorean-theorem/t4/004",
+      "tier": 4,
+      "prompt": "How far is (4, −1) from the origin?",
+      "choices": [
+        "17",
+        "4",
+        "√17",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ONE_LEG",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 4, up 1: 4^2 + 1^2 = 17, so the distance is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t4/005",
+      "tier": 4,
+      "prompt": "Distance from (−7, 1) to (1, −1)?",
+      "choices": [
+        "10",
+        "√68",
+        "68",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 2: 8^2 + 2^2 = 68, so the distance is √68."
+    },
+    {
+      "id": "pythagorean-theorem/t4/006",
+      "tier": 4,
+      "prompt": "How far is (3, −2) from (−5, 1)?",
+      "choices": [
+        "73",
+        "√73",
+        "11",
+        "√5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "TAXICAB",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 3: 8^2 + 3^2 = 73, so the distance is √73."
+    },
+    {
+      "id": "pythagorean-theorem/t4/007",
+      "tier": 4,
+      "prompt": "Distance from (1, −3) to (7, −5)?",
+      "choices": [
+        "6",
+        "40",
+        "8",
+        "√40"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 6, up 2: 6^2 + 2^2 = 40, so the distance is √40."
+    },
+    {
+      "id": "pythagorean-theorem/t4/008",
+      "tier": 4,
+      "prompt": "Points A(1, 1) and B(−6, −6). Length of AB?",
+      "choices": [
+        "14",
+        "98",
+        "√98",
+        "√50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        null,
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 7, up 7: 7^2 + 7^2 = 98, so the distance is √98."
+    },
+    {
+      "id": "pythagorean-theorem/t4/009",
+      "tier": 4,
+      "prompt": "Distance from (0, 1) to (9, 4)?",
+      "choices": [
+        "√90",
+        "90",
+        "12",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 9, up 3: 9^2 + 3^2 = 90, so the distance is √90."
+    },
+    {
+      "id": "pythagorean-theorem/t4/010",
+      "tier": 4,
+      "prompt": "How far is (3, −3) from (−1, 0)?",
+      "choices": [
+        "7",
+        "5",
+        "√13",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NEG_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4^2 + 3^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/011",
+      "tier": 4,
+      "prompt": "Points A(0, 2) and B(−3, 5). Length of AB?",
+      "choices": [
+        "3",
+        "√18",
+        "18",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "NO_ROOT",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 3: 3^2 + 3^2 = 18, so the distance is √18."
+    },
+    {
+      "id": "pythagorean-theorem/t4/012",
+      "tier": 4,
+      "prompt": "Distance from (0, 9) to (8, 3)?",
+      "choices": [
+        "10",
+        "14",
+        "100",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 8, up 6: 8^2 + 6^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/013",
+      "tier": 4,
+      "prompt": "How far is (−1, 3) from (2, −1)?",
+      "choices": [
+        "5",
+        "25",
+        "√5",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "NEG_DIFF",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 4: 3^2 + 4^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/014",
+      "tier": 4,
+      "prompt": "Points A(−2, −1) and B(−6, −4). Length of AB?",
+      "choices": [
+        "4",
+        "25",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 4, up 3: 4^2 + 3^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/015",
+      "tier": 4,
+      "prompt": "Distance from (10, −7) to (6, −4)?",
+      "choices": [
+        "7",
+        "4",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4^2 + 3^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/016",
+      "tier": 4,
+      "prompt": "How far is (6, −7) from (3, −3)?",
+      "choices": [
+        "5",
+        "25",
+        "3",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ONE_LEG",
+        "TAXICAB"
+      ],
+      "explanation": "Across 3, up 4: 3^2 + 4^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/017",
+      "tier": 4,
+      "prompt": "Distance from (1, −10) to (9, −4)?",
+      "choices": [
+        "14",
+        "100",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 8, up 6: 8^2 + 6^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/018",
+      "tier": 4,
+      "prompt": "Points A(−2, −5) and B(0, −2). Length of AB?",
+      "choices": [
+        "√13",
+        "13",
+        "2",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "ONE_LEG",
+        "TAXICAB"
+      ],
+      "explanation": "Across 2, up 3: 2^2 + 3^2 = 13, so the distance is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t4/019",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (−4, 5)?",
+      "choices": [
+        "√41",
+        "9",
+        "41",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 4, up 5: 4^2 + 5^2 = 41, so the distance is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t4/020",
+      "tier": 4,
+      "prompt": "How far is (−1, 9) from (−6, 6)?",
+      "choices": [
+        "5",
+        "√34",
+        "34",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "NO_ROOT",
+        "TAXICAB"
+      ],
+      "explanation": "Across 5, up 3: 5^2 + 3^2 = 34, so the distance is √34."
+    },
+    {
+      "id": "pythagorean-theorem/t4/021",
+      "tier": 4,
+      "prompt": "How far is (−7, 1) from (1, 7)?",
+      "choices": [
+        "10",
+        "100",
+        "14",
+        "√72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 8, up 6: 8^2 + 6^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/022",
+      "tier": 4,
+      "prompt": "Distance from (6, −1) to (7, 1)?",
+      "choices": [
+        "1",
+        "5",
+        "3",
+        "√5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NEG_DIFF",
+        "NO_ROOT",
+        "TAXICAB",
+        null
+      ],
+      "explanation": "Across 1, up 2: 1^2 + 2^2 = 5, so the distance is √5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/023",
+      "tier": 4,
+      "prompt": "Points A(1, 2) and B(−3, −3). Length of AB?",
+      "choices": [
+        "9",
+        "41",
+        "√5",
+        "√41"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "NEG_DIFF",
+        null
+      ],
+      "explanation": "Across 4, up 5: 4^2 + 5^2 = 41, so the distance is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t4/024",
+      "tier": 4,
+      "prompt": "Distance from (0, 0) to (4, −8)?",
+      "choices": [
+        "4",
+        "12",
+        "80",
+        "√80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_LEG",
+        "TAXICAB",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "Across 4, up 8: 4^2 + 8^2 = 80, so the distance is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t4/025",
+      "tier": 4,
+      "prompt": "Distance from (4, 6) to (7, 4)?",
+      "choices": [
+        "√13",
+        "3",
+        "5",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_LEG",
+        "TAXICAB",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 2: 3^2 + 2^2 = 13, so the distance is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t4/026",
+      "tier": 4,
+      "prompt": "Distance from (7, −2) to (4, 2)?",
+      "choices": [
+        "7",
+        "3",
+        "25",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NEG_DIFF",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "Across 3, up 4: 3^2 + 4^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/027",
+      "tier": 4,
+      "prompt": "How far is (−10, −10) from (−4, −4)?",
+      "choices": [
+        "72",
+        "12",
+        "6",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 6, up 6: 6^2 + 6^2 = 72, so the distance is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t4/028",
+      "tier": 4,
+      "prompt": "Distance from (3, −2) to (2, 2)?",
+      "choices": [
+        "5",
+        "√17",
+        "17",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 1, up 4: 1^2 + 4^2 = 17, so the distance is √17."
+    },
+    {
+      "id": "pythagorean-theorem/t4/029",
+      "tier": 4,
+      "prompt": "Distance from (9, 9) to (1, 3)?",
+      "choices": [
+        "14",
+        "100",
+        "8",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 8, up 6: 8^2 + 6^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/030",
+      "tier": 4,
+      "prompt": "Distance from (3, −2) to (6, 2)?",
+      "choices": [
+        "7",
+        "3",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "NEG_DIFF",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 4: 3^2 + 4^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/031",
+      "tier": 4,
+      "prompt": "Distance from (7, 3) to (2, −4)?",
+      "choices": [
+        "√26",
+        "74",
+        "√74",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NEG_DIFF",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 5, up 7: 5^2 + 7^2 = 74, so the distance is √74."
+    },
+    {
+      "id": "pythagorean-theorem/t4/032",
+      "tier": 4,
+      "prompt": "How far is (4, −9) from (10, −1)?",
+      "choices": [
+        "10",
+        "100",
+        "14",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 6, up 8: 6^2 + 8^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/033",
+      "tier": 4,
+      "prompt": "How far is (8, 6) from (5, 10)?",
+      "choices": [
+        "7",
+        "3",
+        "5",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TAXICAB",
+        "ONE_LEG",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "Across 3, up 4: 3^2 + 4^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/034",
+      "tier": 4,
+      "prompt": "How far is (−1, 1) from (−7, 9)?",
+      "choices": [
+        "14",
+        "100",
+        "6",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TAXICAB",
+        "NO_ROOT",
+        "ONE_LEG",
+        null
+      ],
+      "explanation": "Across 6, up 8: 6^2 + 8^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/035",
+      "tier": 4,
+      "prompt": "How far is (0, 2) from (8, 8)?",
+      "choices": [
+        "8",
+        "100",
+        "10",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_LEG",
+        "NO_ROOT",
+        null,
+        "TAXICAB"
+      ],
+      "explanation": "Across 8, up 6: 8^2 + 6^2 = 100, so the distance is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t4/036",
+      "tier": 4,
+      "prompt": "How far is (7, 3) from the origin?",
+      "choices": [
+        "7",
+        "√58",
+        "10",
+        "58"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_LEG",
+        null,
+        "TAXICAB",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 7, up 3: 7^2 + 3^2 = 58, so the distance is √58."
+    },
+    {
+      "id": "pythagorean-theorem/t4/037",
+      "tier": 4,
+      "prompt": "How far is (2, 0) from (−2, 8)?",
+      "choices": [
+        "√80",
+        "12",
+        "80",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TAXICAB",
+        "NO_ROOT",
+        "NEG_DIFF"
+      ],
+      "explanation": "Across 4, up 8: 4^2 + 8^2 = 80, so the distance is √80."
+    },
+    {
+      "id": "pythagorean-theorem/t4/038",
+      "tier": 4,
+      "prompt": "How far is (−10, 10) from (−4, 4)?",
+      "choices": [
+        "72",
+        "12",
+        "√72",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "TAXICAB",
+        null,
+        "ONE_LEG"
+      ],
+      "explanation": "Across 6, up 6: 6^2 + 6^2 = 72, so the distance is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t4/039",
+      "tier": 4,
+      "prompt": "How far is (−1, 10) from (3, 7)?",
+      "choices": [
+        "7",
+        "5",
+        "√13",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TAXICAB",
+        null,
+        "NEG_DIFF",
+        "NO_ROOT"
+      ],
+      "explanation": "Across 4, up 3: 4^2 + 3^2 = 25, so the distance is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t4/040",
+      "tier": 4,
+      "prompt": "How far is (−2, 5) from the origin?",
+      "choices": [
+        "29",
+        "√29",
+        "7",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "TAXICAB",
+        "ONE_LEG"
+      ],
+      "explanation": "Across 2, up 5: 2^2 + 5^2 = 29, so the distance is √29."
+    },
+    {
+      "id": "pythagorean-theorem/t5/001",
+      "tier": 5,
+      "prompt": "A field is 3 m by 4 m. Corner to corner distance?",
+      "choices": [
+        "5",
+        "7",
+        "25",
+        "√7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/002",
+      "tier": 5,
+      "prompt": "A 5 m slide is 3 m tall. How far out does it reach?",
+      "choices": [
+        "√34",
+        "2",
+        "4",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "5^2 − 3^2 = 25 − 9 = 16, so it is 4."
+    },
+    {
+      "id": "pythagorean-theorem/t5/003",
+      "tier": 5,
+      "prompt": "A panel is 1 ft wide and 2 ft tall. Diagonal length?",
+      "choices": [
+        "√3",
+        "√5",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        null,
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 2^2 = 1 + 4 = 5, so it is √5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/004",
+      "tier": 5,
+      "prompt": "A 10 m wire runs from a pole's top to 6 m out. Pole height?",
+      "choices": [
+        "√136",
+        "4",
+        "8",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "SUBTRACTED_SIDES",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "10^2 − 6^2 = 100 − 36 = 64, so it is 8."
+    },
+    {
+      "id": "pythagorean-theorem/t5/005",
+      "tier": 5,
+      "prompt": "A box is 6 by 7 by 3. Longest diagonal inside?",
+      "choices": [
+        "94",
+        "16",
+        "√94",
+        "√85"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_ALL",
+        null,
+        "FACE_ONLY"
+      ],
+      "explanation": "6^2 + 7^2 + 3^2 = 36 + 49 + 9 = 94, so the diagonal is √94."
+    },
+    {
+      "id": "pythagorean-theorem/t5/006",
+      "tier": 5,
+      "prompt": "Box 4 by 4 by 7. Longest diagonal?",
+      "choices": [
+        "15",
+        "√32",
+        "81",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "4^2 + 4^2 + 7^2 = 16 + 16 + 49 = 81, so the diagonal is 9."
+    },
+    {
+      "id": "pythagorean-theorem/t5/007",
+      "tier": 5,
+      "prompt": "A panel is 8 m wide and 1 m tall. Diagonal length?",
+      "choices": [
+        "65",
+        "√65",
+        "9",
+        "√18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "8^2 + 1^2 = 64 + 1 = 65, so it is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t5/008",
+      "tier": 5,
+      "prompt": "A 7 ft ladder, base 6 ft from the wall. How high?",
+      "choices": [
+        "√13",
+        "√85",
+        "13",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_SQUARES",
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "7^2 − 6^2 = 49 − 36 = 13, so it is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t5/009",
+      "tier": 5,
+      "prompt": "A square has side 4 ft. How long is its diagonal?",
+      "choices": [
+        "√32",
+        "√8",
+        "32",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        "ADDED_LEGS"
+      ],
+      "explanation": "4^2 + 4^2 = 16 + 16 = 32, so it is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t5/010",
+      "tier": 5,
+      "prompt": "Box 4 by 2 by 4. Longest diagonal?",
+      "choices": [
+        "6",
+        "36",
+        "√20",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_ROOT",
+        "FACE_ONLY",
+        "ADDED_ALL"
+      ],
+      "explanation": "4^2 + 2^2 + 4^2 = 16 + 4 + 16 = 36, so the diagonal is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t5/011",
+      "tier": 5,
+      "prompt": "A field is 2 yd by 3 yd. Corner to corner distance?",
+      "choices": [
+        "√13",
+        "√10",
+        "5",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "2^2 + 3^2 = 4 + 9 = 13, so it is √13."
+    },
+    {
+      "id": "pythagorean-theorem/t5/012",
+      "tier": 5,
+      "prompt": "An 8 by 1 by 4 cm crate. Longest diagonal?",
+      "choices": [
+        "9",
+        "√65",
+        "13",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "8^2 + 1^2 + 4^2 = 64 + 1 + 16 = 81, so the diagonal is 9."
+    },
+    {
+      "id": "pythagorean-theorem/t5/013",
+      "tier": 5,
+      "prompt": "A box is 5 by 6 by 5. Longest diagonal inside?",
+      "choices": [
+        "√86",
+        "√61",
+        "16",
+        "86"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "5^2 + 6^2 + 5^2 = 25 + 36 + 25 = 86, so the diagonal is √86."
+    },
+    {
+      "id": "pythagorean-theorem/t5/014",
+      "tier": 5,
+      "prompt": "A boat sails 7 km east, then 4 km south. Distance from dock?",
+      "choices": [
+        "√11",
+        "11",
+        "65",
+        "√65"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT",
+        null
+      ],
+      "explanation": "7^2 + 4^2 = 49 + 16 = 65, so it is √65."
+    },
+    {
+      "id": "pythagorean-theorem/t5/015",
+      "tier": 5,
+      "prompt": "A 5 m ladder reaches 1 m up. How far out is its base?",
+      "choices": [
+        "4",
+        "24",
+        "√26",
+        "√24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED_SIDES",
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null
+      ],
+      "explanation": "5^2 − 1^2 = 25 − 1 = 24, so it is √24."
+    },
+    {
+      "id": "pythagorean-theorem/t5/016",
+      "tier": 5,
+      "prompt": "A box is 1 by 1 by 8. Longest diagonal inside?",
+      "choices": [
+        "√2",
+        "√66",
+        "66",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FACE_ONLY",
+        null,
+        "NO_ROOT",
+        "ADDED_ALL"
+      ],
+      "explanation": "1^2 + 1^2 + 8^2 = 1 + 1 + 64 = 66, so the diagonal is √66."
+    },
+    {
+      "id": "pythagorean-theorem/t5/017",
+      "tier": 5,
+      "prompt": "Box 3 by 5 by 6. Longest diagonal?",
+      "choices": [
+        "√34",
+        "70",
+        "14",
+        "√70"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FACE_ONLY",
+        "NO_ROOT",
+        "ADDED_ALL",
+        null
+      ],
+      "explanation": "3^2 + 5^2 + 6^2 = 9 + 25 + 36 = 70, so the diagonal is √70."
+    },
+    {
+      "id": "pythagorean-theorem/t5/018",
+      "tier": 5,
+      "prompt": "A panel is 6 ft wide and 4 ft tall. Diagonal length?",
+      "choices": [
+        "52",
+        "√52",
+        "10",
+        "√20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS",
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "6^2 + 4^2 = 36 + 16 = 52, so it is √52."
+    },
+    {
+      "id": "pythagorean-theorem/t5/019",
+      "tier": 5,
+      "prompt": "A 9 m ladder, base 5 m from the wall. How high?",
+      "choices": [
+        "56",
+        "√106",
+        "√56",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_SQUARES",
+        null,
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "9^2 − 5^2 = 81 − 25 = 56, so it is √56."
+    },
+    {
+      "id": "pythagorean-theorem/t5/020",
+      "tier": 5,
+      "prompt": "Box 1 by 1 by 8. Longest diagonal?",
+      "choices": [
+        "√66",
+        "√2",
+        "10",
+        "66"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FACE_ONLY",
+        "ADDED_ALL",
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 1^2 + 8^2 = 1 + 1 + 64 = 66, so the diagonal is √66."
+    },
+    {
+      "id": "pythagorean-theorem/t5/021",
+      "tier": 5,
+      "prompt": "A square has side 6 cm. How long is its diagonal?",
+      "choices": [
+        "72",
+        "√12",
+        "12",
+        "√72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "6^2 + 6^2 = 36 + 36 = 72, so it is √72."
+    },
+    {
+      "id": "pythagorean-theorem/t5/022",
+      "tier": 5,
+      "prompt": "A 4 ft ladder reaches 2 ft up. How far out is its base?",
+      "choices": [
+        "√20",
+        "√2",
+        "√12",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        "ROOT_OF_DIFF",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "4^2 − 2^2 = 16 − 4 = 12, so it is √12."
+    },
+    {
+      "id": "pythagorean-theorem/t5/023",
+      "tier": 5,
+      "prompt": "A 5 ft ladder, base 4 ft from the wall. How high?",
+      "choices": [
+        "9",
+        "3",
+        "1",
+        "√41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_ROOT",
+        null,
+        "ROOT_OF_DIFF",
+        "ADDED_SQUARES"
+      ],
+      "explanation": "5^2 − 4^2 = 25 − 16 = 9, so it is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t5/024",
+      "tier": 5,
+      "prompt": "A box is 6 by 3 by 4. Longest diagonal inside?",
+      "choices": [
+        "13",
+        "√45",
+        "√61",
+        "61"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "6^2 + 3^2 + 4^2 = 36 + 9 + 16 = 61, so the diagonal is √61."
+    },
+    {
+      "id": "pythagorean-theorem/t5/025",
+      "tier": 5,
+      "prompt": "A ramp rises 4 m over 3 m of ground. Ramp length?",
+      "choices": [
+        "25",
+        "√7",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "4^2 + 3^2 = 16 + 9 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/026",
+      "tier": 5,
+      "prompt": "Walk 7 km north, then 2 km east. How far from the start?",
+      "choices": [
+        "9",
+        "√53",
+        "√18",
+        "53"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT"
+      ],
+      "explanation": "7^2 + 2^2 = 49 + 4 = 53, so it is √53."
+    },
+    {
+      "id": "pythagorean-theorem/t5/027",
+      "tier": 5,
+      "prompt": "A 4 by 4 by 2 m crate. Longest diagonal?",
+      "choices": [
+        "10",
+        "√32",
+        "6",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_ALL",
+        "FACE_ONLY",
+        null,
+        "NO_ROOT"
+      ],
+      "explanation": "4^2 + 4^2 + 2^2 = 16 + 16 + 4 = 36, so the diagonal is 6."
+    },
+    {
+      "id": "pythagorean-theorem/t5/028",
+      "tier": 5,
+      "prompt": "A 6 ft wire runs from a pole's top to 2 ft out. Pole height?",
+      "choices": [
+        "√40",
+        "√32",
+        "4",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "6^2 − 2^2 = 36 − 4 = 32, so it is √32."
+    },
+    {
+      "id": "pythagorean-theorem/t5/029",
+      "tier": 5,
+      "prompt": "A sign is 4 m wide and 3 m tall. Diagonal length?",
+      "choices": [
+        "25",
+        "7",
+        "5",
+        "√14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE"
+      ],
+      "explanation": "4^2 + 3^2 = 16 + 9 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/030",
+      "tier": 5,
+      "prompt": "A square has side 2 cm. How long is its diagonal?",
+      "choices": [
+        "√8",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        "NO_ROOT"
+      ],
+      "explanation": "2^2 + 2^2 = 4 + 4 = 8, so it is √8."
+    },
+    {
+      "id": "pythagorean-theorem/t5/031",
+      "tier": 5,
+      "prompt": "Box 6 by 2 by 1. Longest diagonal?",
+      "choices": [
+        "9",
+        "41",
+        "√40",
+        "√41"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_ROOT",
+        "FACE_ONLY",
+        null
+      ],
+      "explanation": "6^2 + 2^2 + 1^2 = 36 + 4 + 1 = 41, so the diagonal is √41."
+    },
+    {
+      "id": "pythagorean-theorem/t5/032",
+      "tier": 5,
+      "prompt": "A ramp rises 1 ft over 6 ft of ground. Ramp length?",
+      "choices": [
+        "7",
+        "√37",
+        "√14",
+        "37"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_LEGS",
+        null,
+        "DOUBLED_FOR_SQUARE",
+        "NO_ROOT"
+      ],
+      "explanation": "1^2 + 6^2 = 1 + 36 = 37, so it is √37."
+    },
+    {
+      "id": "pythagorean-theorem/t5/033",
+      "tier": 5,
+      "prompt": "Walk 6 mi north, then 8 mi east. How far from the start?",
+      "choices": [
+        "100",
+        "14",
+        "√14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100, so it is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t5/034",
+      "tier": 5,
+      "prompt": "A rectangle is 7 m wide and 6 m tall. Diagonal length?",
+      "choices": [
+        "85",
+        "√26",
+        "√85",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_ROOT",
+        "DOUBLED_FOR_SQUARE",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "7^2 + 6^2 = 49 + 36 = 85, so it is √85."
+    },
+    {
+      "id": "pythagorean-theorem/t5/035",
+      "tier": 5,
+      "prompt": "A 10 m slide is 5 m tall. How far out does it reach?",
+      "choices": [
+        "√125",
+        "√75",
+        "75",
+        "√5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "NO_ROOT",
+        "ROOT_OF_DIFF"
+      ],
+      "explanation": "10^2 − 5^2 = 100 − 25 = 75, so it is √75."
+    },
+    {
+      "id": "pythagorean-theorem/t5/036",
+      "tier": 5,
+      "prompt": "A square has side 3 m. How long is its diagonal?",
+      "choices": [
+        "√6",
+        "18",
+        "√18",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT",
+        null,
+        "ADDED_LEGS"
+      ],
+      "explanation": "3^2 + 3^2 = 9 + 9 = 18, so it is √18."
+    },
+    {
+      "id": "pythagorean-theorem/t5/037",
+      "tier": 5,
+      "prompt": "Walk 6 m north, then 8 m east. How far from the start?",
+      "choices": [
+        "100",
+        "√14",
+        "14",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_ROOT",
+        "ROOT_OF_LEG_SUM",
+        "ADDED_LEGS",
+        null
+      ],
+      "explanation": "6^2 + 8^2 = 36 + 64 = 100, so it is 10."
+    },
+    {
+      "id": "pythagorean-theorem/t5/038",
+      "tier": 5,
+      "prompt": "A TV screen is 3 in by 4 in. How long is its diagonal?",
+      "choices": [
+        "5",
+        "7",
+        "√7",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_LEGS",
+        "ROOT_OF_LEG_SUM",
+        "NO_ROOT"
+      ],
+      "explanation": "3^2 + 4^2 = 9 + 16 = 25, so it is 5."
+    },
+    {
+      "id": "pythagorean-theorem/t5/039",
+      "tier": 5,
+      "prompt": "A 5 m ladder reaches 4 m up. How far out is its base?",
+      "choices": [
+        "√41",
+        "3",
+        "1",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_SQUARES",
+        null,
+        "SUBTRACTED_SIDES",
+        "NO_ROOT"
+      ],
+      "explanation": "5^2 − 4^2 = 25 − 16 = 9, so it is 3."
+    },
+    {
+      "id": "pythagorean-theorem/t5/040",
+      "tier": 5,
+      "prompt": "A box is 2 by 3 by 6. Longest diagonal inside?",
+      "choices": [
+        "11",
+        "49",
+        "√13",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_ALL",
+        "NO_ROOT",
+        "FACE_ONLY",
+        null
+      ],
+      "explanation": "2^2 + 3^2 + 6^2 = 4 + 9 + 36 = 49, so the diagonal is 7."
+    }
+  ]
+}

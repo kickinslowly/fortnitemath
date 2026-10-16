@@ -1,0 +1,235 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "cylinders-cones-spheres",
+  "version": "1.0.0",
+  "title": "Cylinders, Cones & Spheres",
+  "subtitle": "Volume in Terms of π",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.C.9"
+  ],
+  "seed": 20261039,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b π volumes. Radii 1-5 (a sphere's or hemisphere's only 1 or 3, or 2 in 'using 3 for π'), diameters 2-10 and even, heights 1-10. Every π coefficient is a whole number 1-100 reached through times-table steps in some order (2 × 5 × 5 is 10 × 5; 9 ÷ 3 × 4 is 3 × 4): each × has both factors 1-10, each ÷ divisor and quotient 2-10, every value 100 or less. Exceptions: (4/3)π and (2/3)π for a radius-1 sphere or hemisphere; halving a diameter (÷ 2, quotient 1-5); square roots of 4 and 9 and cube roots of 1 and 27. 'Using 3 for π' answers are whole numbers 1-100 (the 3 cancels the thirds). Scale questions use factors 2, 3 and 1/2 on a radius or height. Wrong choices up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Cylinders",
+      "description": "Volume = base area × height: π × r × r × h. Square the radius."
+    },
+    {
+      "tier": 2,
+      "name": "Cones",
+      "description": "A cone is one third of the cylinder with the same base and height."
+    },
+    {
+      "tier": 3,
+      "name": "Spheres",
+      "description": "Sphere: (4/3) × π × r × r × r. A hemisphere is half of that."
+    },
+    {
+      "tier": 4,
+      "name": "Work Backward & Estimate",
+      "description": "Find a height or radius from the volume. Use 3 for π."
+    },
+    {
+      "tier": 5,
+      "name": "Compare & Scale",
+      "description": "Double a length and the volume changes by 2, 4 or 8 times."
+    }
+  ],
+  "misconceptions": {
+    "NO_SQUARE": {
+      "student": "The radius is used twice: π × r × r. Multiply it by itself first.",
+      "teacher": "Uses r where r × r belongs (forgets to square the radius)."
+    },
+    "LATERAL_AREA": {
+      "student": "Doubling r is not squaring it. The base area is π × r × r.",
+      "teacher": "Doubles the radius instead of squaring it (the 2πr of the edge)."
+    },
+    "FORGOT_HEIGHT": {
+      "student": "Volume stacks the base up the whole height. Multiply by the height.",
+      "teacher": "Gives the base area and leaves out the height."
+    },
+    "ADDED_HEIGHT": {
+      "student": "Multiply the base area by the height. Do not add them.",
+      "teacher": "Adds the height to the base instead of multiplying."
+    },
+    "DIAMETER_AS_RADIUS": {
+      "student": "Halve the diameter first: the formula wants the radius.",
+      "teacher": "Puts the diameter into the formula where the radius belongs."
+    },
+    "HALVED_AFTER_SQUARE": {
+      "student": "Halve the diameter first, then square it. Not the other way.",
+      "teacher": "Squares the diameter and then halves once (gets 2 × r × r)."
+    },
+    "AREA_AS_RADIUS": {
+      "student": "The base area is already the π part. Do not square it again.",
+      "teacher": "Treats the base area number as a radius and squares it."
+    },
+    "FORMULA_MIX": {
+      "student": "Volume is base area times height: the layers stack up.",
+      "teacher": "Names the wrong measure in the volume formula."
+    },
+    "CIRCUMFERENCE_FOR_AREA": {
+      "student": "Around the edge is 2πr. The area inside is π × r × r.",
+      "teacher": "Gives a circumference formula for the base area."
+    },
+    "RADIUS_NOT_SQUARED": {
+      "student": "Area needs r twice: π × r × r, not just π × r.",
+      "teacher": "Writes the circle area as π × r (one r)."
+    },
+    "SAME_BASE_SAME_VOLUME": {
+      "student": "Same base, but a taller cylinder stacks more layers.",
+      "teacher": "Thinks equal bases mean equal volumes and ignores height."
+    },
+    "SHORTER_HOLDS_MORE": {
+      "student": "Taller means more layers of the same base: more volume.",
+      "teacher": "Picks the shorter cylinder."
+    },
+    "CANT_TELL": {
+      "student": "Same base area, so the height decides: taller holds more.",
+      "teacher": "Thinks the heights are needed to compare."
+    },
+    "NO_THIRD": {
+      "student": "A cone is only one third of its cylinder. Divide by 3.",
+      "teacher": "Gives the cylinder's volume for the cone (no 1/3)."
+    },
+    "HALF_FOR_THIRD": {
+      "student": "A cone is one third of its cylinder, not one half.",
+      "teacher": "Uses 1/2 (or 2 times) where 1/3 (or 3 times) belongs."
+    },
+    "TIMES_THREE": {
+      "student": "A cone is a third of the cylinder: divide by 3, do not multiply.",
+      "teacher": "Multiplies by 3 where the 1/3 belongs."
+    },
+    "SAME_AS_CYLINDER": {
+      "student": "A cone is smaller than its cylinder: one third of it.",
+      "teacher": "Says the cone and the cylinder hold the same."
+    },
+    "SAME_AS_CONE": {
+      "student": "Three cones fill the cylinder, so it is 3 times the cone.",
+      "teacher": "Says the cylinder holds the same as the cone."
+    },
+    "DIVIDED_BY_THREE": {
+      "student": "The cylinder is 3 times the cone: multiply by 3.",
+      "teacher": "Divides by 3 where the cylinder needs 3 times the cone."
+    },
+    "ADDED_THREE": {
+      "student": "Three cones fill the cylinder: multiply by 3, do not add 3.",
+      "teacher": "Adds 3 instead of multiplying by 3."
+    },
+    "NO_FOUR_THIRDS": {
+      "student": "A sphere is (4/3) × π × r × r × r. Keep the 4/3.",
+      "teacher": "Leaves the 4/3 out (or the 2/3 for a hemisphere)."
+    },
+    "SQUARED_NOT_CUBED": {
+      "student": "A sphere uses the radius three times: r × r × r.",
+      "teacher": "Squares the radius where the formula cubes it."
+    },
+    "FOUR_NOT_THIRD": {
+      "student": "It is four thirds, (4/3), not 4.",
+      "teacher": "Uses 4 where 4/3 belongs (forgets the ÷ 3)."
+    },
+    "HEMI_FORMULA": {
+      "student": "A whole sphere is (4/3) × π × r × r × r. Half of it is (2/3).",
+      "teacher": "Uses the half-sphere formula for a whole sphere."
+    },
+    "WHOLE_FOR_HALF": {
+      "student": "A hemisphere is half a sphere. Halve the sphere's volume.",
+      "teacher": "Gives the whole sphere for a hemisphere."
+    },
+    "NO_TWO_THIRDS": {
+      "student": "A hemisphere is (2/3) × π × r × r × r. Keep the 2/3.",
+      "teacher": "Leaves the 2/3 out of the hemisphere formula."
+    },
+    "FORGOT_SQUARE": {
+      "student": "Volume is π × r × r × h. Divide by r × r, not just r.",
+      "teacher": "Divides by r once instead of r × r."
+    },
+    "RADIUS_AS_DIAMETER": {
+      "student": "The radius is the number given. Do not halve it again.",
+      "teacher": "Treats the given radius as a diameter and halves it."
+    },
+    "STOPPED_AT_SQUARE": {
+      "student": "You found r × r. What number times itself gives that?",
+      "teacher": "Stops at r × r and does not take the square root."
+    },
+    "DIAMETER_FOR_RADIUS": {
+      "student": "That is the diameter. The radius is half of it.",
+      "teacher": "Answers with the diameter where the radius is asked."
+    },
+    "RADIUS_FOR_HEIGHT": {
+      "student": "That is the radius you were given. Divide the volume by r × r.",
+      "teacher": "Gives back the radius where the height is asked."
+    },
+    "HEIGHT_FOR_RADIUS": {
+      "student": "That is the height you were given. Find r from r × r.",
+      "teacher": "Gives back the height where the radius is asked."
+    },
+    "FORGOT_THIRD": {
+      "student": "A cone has the 1/3: V = (1/3) × π × r × r × h. Use it.",
+      "teacher": "Solves with the cylinder formula (no 1/3)."
+    },
+    "DIVIDED_NOT_MULTIPLIED": {
+      "student": "Undo the 1/3 by multiplying by 3, not dividing.",
+      "teacher": "Divides by 3 where undoing the 1/3 needs × 3."
+    },
+    "STOPPED_AT_CUBE": {
+      "student": "You found r × r × r. Which number cubed gives that?",
+      "teacher": "Stops at r × r × r and does not take the cube root."
+    },
+    "DIVIDED_NOT_ROOTED": {
+      "student": "A cube root is not ÷ 3. Which number times itself 3 times?",
+      "teacher": "Divides by 3 instead of taking the cube root."
+    },
+    "COEFFICIENT_AS_RADIUS": {
+      "student": "That is the volume's number, not the radius. Undo the formula.",
+      "teacher": "Reads the volume's coefficient as the radius."
+    },
+    "RADIUS_FOR_DIAMETER": {
+      "student": "The diameter is twice the radius: all the way across.",
+      "teacher": "Answers with the radius where the diameter is asked."
+    },
+    "LEFT_OUT_PI": {
+      "student": "Using 3 for π, put the 3 in where π would go.",
+      "teacher": "Leaves out the 3 that replaces π."
+    },
+    "LINEAR_SCALE": {
+      "student": "Count how many times that length is in the formula.",
+      "teacher": "Scales the volume by the plain factor, ignoring repeats."
+    },
+    "SQUARE_FOR_CUBE": {
+      "student": "A sphere's radius appears three times: use the factor 3 times.",
+      "teacher": "Squares the scale factor where it should be cubed."
+    },
+    "CUBE_FOR_SQUARE": {
+      "student": "The radius appears twice (r × r): use the factor twice.",
+      "teacher": "Cubes the scale factor where it should be squared."
+    },
+    "SQUARE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Squares the factor for a length used once."
+    },
+    "CUBE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Cubes the factor for a length used once."
+    },
+    "MULT_BY_EXPONENT": {
+      "student": "Repeat the multiplying: 2 × 2 × 2, not 2 × 3.",
+      "teacher": "Multiplies the factor by the count instead of repeating it."
+    },
+    "SPHERE_FOR_CONE": {
+      "student": "A ball is 2/3 of its can. The cone is 1/3.",
+      "teacher": "Gives the ball's share for the cone."
+    },
+    "CONE_FOR_SPHERE": {
+      "student": "The cone is 1/3 of the can. The ball is 2/3.",
+      "teacher": "Gives the cone's share for the ball."
+    },
+    "HALF_RULE": {
+      "student": "Neither is half: a cone is 1/3 and a ball 2/3 of the can.",
+      "teacher": "Guesses one half."
+    }
+  }
+}

@@ -1,0 +1,4038 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "cylinders-cones-spheres",
+  "version": "1.0.0",
+  "title": "Cylinders, Cones & Spheres",
+  "subtitle": "Volume in Terms of π",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.G.C.9"
+  ],
+  "seed": 20261039,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b π volumes. Radii 1-5 (a sphere's or hemisphere's only 1 or 3, or 2 in 'using 3 for π'), diameters 2-10 and even, heights 1-10. Every π coefficient is a whole number 1-100 reached through times-table steps in some order (2 × 5 × 5 is 10 × 5; 9 ÷ 3 × 4 is 3 × 4): each × has both factors 1-10, each ÷ divisor and quotient 2-10, every value 100 or less. Exceptions: (4/3)π and (2/3)π for a radius-1 sphere or hemisphere; halving a diameter (÷ 2, quotient 1-5); square roots of 4 and 9 and cube roots of 1 and 27. 'Using 3 for π' answers are whole numbers 1-100 (the 3 cancels the thirds). Scale questions use factors 2, 3 and 1/2 on a radius or height. Wrong choices up to 999.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Cylinders",
+      "description": "Volume = base area × height: π × r × r × h. Square the radius."
+    },
+    {
+      "tier": 2,
+      "name": "Cones",
+      "description": "A cone is one third of the cylinder with the same base and height."
+    },
+    {
+      "tier": 3,
+      "name": "Spheres",
+      "description": "Sphere: (4/3) × π × r × r × r. A hemisphere is half of that."
+    },
+    {
+      "tier": 4,
+      "name": "Work Backward & Estimate",
+      "description": "Find a height or radius from the volume. Use 3 for π."
+    },
+    {
+      "tier": 5,
+      "name": "Compare & Scale",
+      "description": "Double a length and the volume changes by 2, 4 or 8 times."
+    }
+  ],
+  "misconceptions": {
+    "NO_SQUARE": {
+      "student": "The radius is used twice: π × r × r. Multiply it by itself first.",
+      "teacher": "Uses r where r × r belongs (forgets to square the radius)."
+    },
+    "LATERAL_AREA": {
+      "student": "Doubling r is not squaring it. The base area is π × r × r.",
+      "teacher": "Doubles the radius instead of squaring it (the 2πr of the edge)."
+    },
+    "FORGOT_HEIGHT": {
+      "student": "Volume stacks the base up the whole height. Multiply by the height.",
+      "teacher": "Gives the base area and leaves out the height."
+    },
+    "ADDED_HEIGHT": {
+      "student": "Multiply the base area by the height. Do not add them.",
+      "teacher": "Adds the height to the base instead of multiplying."
+    },
+    "DIAMETER_AS_RADIUS": {
+      "student": "Halve the diameter first: the formula wants the radius.",
+      "teacher": "Puts the diameter into the formula where the radius belongs."
+    },
+    "HALVED_AFTER_SQUARE": {
+      "student": "Halve the diameter first, then square it. Not the other way.",
+      "teacher": "Squares the diameter and then halves once (gets 2 × r × r)."
+    },
+    "AREA_AS_RADIUS": {
+      "student": "The base area is already the π part. Do not square it again.",
+      "teacher": "Treats the base area number as a radius and squares it."
+    },
+    "FORMULA_MIX": {
+      "student": "Volume is base area times height: the layers stack up.",
+      "teacher": "Names the wrong measure in the volume formula."
+    },
+    "CIRCUMFERENCE_FOR_AREA": {
+      "student": "Around the edge is 2πr. The area inside is π × r × r.",
+      "teacher": "Gives a circumference formula for the base area."
+    },
+    "RADIUS_NOT_SQUARED": {
+      "student": "Area needs r twice: π × r × r, not just π × r.",
+      "teacher": "Writes the circle area as π × r (one r)."
+    },
+    "SAME_BASE_SAME_VOLUME": {
+      "student": "Same base, but a taller cylinder stacks more layers.",
+      "teacher": "Thinks equal bases mean equal volumes and ignores height."
+    },
+    "SHORTER_HOLDS_MORE": {
+      "student": "Taller means more layers of the same base: more volume.",
+      "teacher": "Picks the shorter cylinder."
+    },
+    "CANT_TELL": {
+      "student": "Same base area, so the height decides: taller holds more.",
+      "teacher": "Thinks the heights are needed to compare."
+    },
+    "NO_THIRD": {
+      "student": "A cone is only one third of its cylinder. Divide by 3.",
+      "teacher": "Gives the cylinder's volume for the cone (no 1/3)."
+    },
+    "HALF_FOR_THIRD": {
+      "student": "A cone is one third of its cylinder, not one half.",
+      "teacher": "Uses 1/2 (or 2 times) where 1/3 (or 3 times) belongs."
+    },
+    "TIMES_THREE": {
+      "student": "A cone is a third of the cylinder: divide by 3, do not multiply.",
+      "teacher": "Multiplies by 3 where the 1/3 belongs."
+    },
+    "SAME_AS_CYLINDER": {
+      "student": "A cone is smaller than its cylinder: one third of it.",
+      "teacher": "Says the cone and the cylinder hold the same."
+    },
+    "SAME_AS_CONE": {
+      "student": "Three cones fill the cylinder, so it is 3 times the cone.",
+      "teacher": "Says the cylinder holds the same as the cone."
+    },
+    "DIVIDED_BY_THREE": {
+      "student": "The cylinder is 3 times the cone: multiply by 3.",
+      "teacher": "Divides by 3 where the cylinder needs 3 times the cone."
+    },
+    "ADDED_THREE": {
+      "student": "Three cones fill the cylinder: multiply by 3, do not add 3.",
+      "teacher": "Adds 3 instead of multiplying by 3."
+    },
+    "NO_FOUR_THIRDS": {
+      "student": "A sphere is (4/3) × π × r × r × r. Keep the 4/3.",
+      "teacher": "Leaves the 4/3 out (or the 2/3 for a hemisphere)."
+    },
+    "SQUARED_NOT_CUBED": {
+      "student": "A sphere uses the radius three times: r × r × r.",
+      "teacher": "Squares the radius where the formula cubes it."
+    },
+    "FOUR_NOT_THIRD": {
+      "student": "It is four thirds, (4/3), not 4.",
+      "teacher": "Uses 4 where 4/3 belongs (forgets the ÷ 3)."
+    },
+    "HEMI_FORMULA": {
+      "student": "A whole sphere is (4/3) × π × r × r × r. Half of it is (2/3).",
+      "teacher": "Uses the half-sphere formula for a whole sphere."
+    },
+    "WHOLE_FOR_HALF": {
+      "student": "A hemisphere is half a sphere. Halve the sphere's volume.",
+      "teacher": "Gives the whole sphere for a hemisphere."
+    },
+    "NO_TWO_THIRDS": {
+      "student": "A hemisphere is (2/3) × π × r × r × r. Keep the 2/3.",
+      "teacher": "Leaves the 2/3 out of the hemisphere formula."
+    },
+    "FORGOT_SQUARE": {
+      "student": "Volume is π × r × r × h. Divide by r × r, not just r.",
+      "teacher": "Divides by r once instead of r × r."
+    },
+    "RADIUS_AS_DIAMETER": {
+      "student": "The radius is the number given. Do not halve it again.",
+      "teacher": "Treats the given radius as a diameter and halves it."
+    },
+    "STOPPED_AT_SQUARE": {
+      "student": "You found r × r. What number times itself gives that?",
+      "teacher": "Stops at r × r and does not take the square root."
+    },
+    "DIAMETER_FOR_RADIUS": {
+      "student": "That is the diameter. The radius is half of it.",
+      "teacher": "Answers with the diameter where the radius is asked."
+    },
+    "RADIUS_FOR_HEIGHT": {
+      "student": "That is the radius you were given. Divide the volume by r × r.",
+      "teacher": "Gives back the radius where the height is asked."
+    },
+    "HEIGHT_FOR_RADIUS": {
+      "student": "That is the height you were given. Find r from r × r.",
+      "teacher": "Gives back the height where the radius is asked."
+    },
+    "FORGOT_THIRD": {
+      "student": "A cone has the 1/3: V = (1/3) × π × r × r × h. Use it.",
+      "teacher": "Solves with the cylinder formula (no 1/3)."
+    },
+    "DIVIDED_NOT_MULTIPLIED": {
+      "student": "Undo the 1/3 by multiplying by 3, not dividing.",
+      "teacher": "Divides by 3 where undoing the 1/3 needs × 3."
+    },
+    "STOPPED_AT_CUBE": {
+      "student": "You found r × r × r. Which number cubed gives that?",
+      "teacher": "Stops at r × r × r and does not take the cube root."
+    },
+    "DIVIDED_NOT_ROOTED": {
+      "student": "A cube root is not ÷ 3. Which number times itself 3 times?",
+      "teacher": "Divides by 3 instead of taking the cube root."
+    },
+    "COEFFICIENT_AS_RADIUS": {
+      "student": "That is the volume's number, not the radius. Undo the formula.",
+      "teacher": "Reads the volume's coefficient as the radius."
+    },
+    "RADIUS_FOR_DIAMETER": {
+      "student": "The diameter is twice the radius: all the way across.",
+      "teacher": "Answers with the radius where the diameter is asked."
+    },
+    "LEFT_OUT_PI": {
+      "student": "Using 3 for π, put the 3 in where π would go.",
+      "teacher": "Leaves out the 3 that replaces π."
+    },
+    "LINEAR_SCALE": {
+      "student": "Count how many times that length is in the formula.",
+      "teacher": "Scales the volume by the plain factor, ignoring repeats."
+    },
+    "SQUARE_FOR_CUBE": {
+      "student": "A sphere's radius appears three times: use the factor 3 times.",
+      "teacher": "Squares the scale factor where it should be cubed."
+    },
+    "CUBE_FOR_SQUARE": {
+      "student": "The radius appears twice (r × r): use the factor twice.",
+      "teacher": "Cubes the scale factor where it should be squared."
+    },
+    "SQUARE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Squares the factor for a length used once."
+    },
+    "CUBE_FOR_LINEAR": {
+      "student": "Height appears once, so volume scales by just the factor.",
+      "teacher": "Cubes the factor for a length used once."
+    },
+    "MULT_BY_EXPONENT": {
+      "student": "Repeat the multiplying: 2 × 2 × 2, not 2 × 3.",
+      "teacher": "Multiplies the factor by the count instead of repeating it."
+    },
+    "SPHERE_FOR_CONE": {
+      "student": "A ball is 2/3 of its can. The cone is 1/3.",
+      "teacher": "Gives the ball's share for the cone."
+    },
+    "CONE_FOR_SPHERE": {
+      "student": "The cone is 1/3 of the can. The ball is 2/3.",
+      "teacher": "Gives the cone's share for the ball."
+    },
+    "HALF_RULE": {
+      "student": "Neither is half: a cone is 1/3 and a ball 2/3 of the can.",
+      "teacher": "Guesses one half."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "cylinders-cones-spheres/t1/001",
+      "tier": 1,
+      "prompt": "A cylinder's base area is 6π, height 10. Volume?",
+      "choices": [
+        "360π",
+        "60π",
+        "16π",
+        "6π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        null,
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 6π × 10 = 60π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/002",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 5. Its volume?",
+      "choices": [
+        "9π",
+        "10π",
+        "4π",
+        "20π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 5 = 20π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/003",
+      "tier": 1,
+      "prompt": "Tank: diameter 8, height 2. How much does it hold?",
+      "choices": [
+        "18π",
+        "128π",
+        "32π",
+        "16π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "DIAMETER_AS_RADIUS",
+        null,
+        "LATERAL_AREA"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Volume = π × 4 × 4 × 2 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/004",
+      "tier": 1,
+      "prompt": "Can: base area 4π, height 4. Its volume?",
+      "choices": [
+        "64π",
+        "8π",
+        "4π",
+        "16π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = base area × height = 4π × 4 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/005",
+      "tier": 1,
+      "prompt": "Tank: base area 8π, height 4. How much does it hold?",
+      "choices": [
+        "12π",
+        "8π",
+        "256π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        "AREA_AS_RADIUS",
+        null
+      ],
+      "explanation": "Volume = base area × height = 8π × 4 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/006",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, radius 2, height 8. Volume?",
+      "choices": [
+        "12π",
+        "16π",
+        "4π",
+        "32π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 8 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/007",
+      "tier": 1,
+      "prompt": "Can: base area 6π, height 8. Its volume?",
+      "choices": [
+        "48π",
+        "6π",
+        "14π",
+        "288π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 6π × 8 = 48π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/008",
+      "tier": 1,
+      "prompt": "Tank: base area 2π, height 5. How much does it hold?",
+      "choices": [
+        "10π",
+        "20π",
+        "7π",
+        "2π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 2π × 5 = 10π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/009",
+      "tier": 1,
+      "prompt": "A drum has diameter 4 and height 4. Volume?",
+      "choices": [
+        "8π",
+        "32π",
+        "64π",
+        "16π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "HALVED_AFTER_SQUARE",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 4 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/010",
+      "tier": 1,
+      "prompt": "A drum has radius 1 and height 8. Volume?",
+      "choices": [
+        "8π",
+        "9π",
+        "16π",
+        "π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_HEIGHT",
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 8 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/011",
+      "tier": 1,
+      "prompt": "Silo: radius 1, height 5. What is its volume?",
+      "choices": [
+        "10π",
+        "π",
+        "5π",
+        "6π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 5 = 5π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/012",
+      "tier": 1,
+      "prompt": "A can has radius 1 and height 3. Its volume?",
+      "choices": [
+        "6π",
+        "π",
+        "4π",
+        "3π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 1 × 1 × 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/013",
+      "tier": 1,
+      "prompt": "Cylinder volume = base area × ?",
+      "choices": [
+        "Radius",
+        "Circumference",
+        "Height",
+        "Diameter"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORMULA_MIX",
+        "FORMULA_MIX",
+        null,
+        "FORMULA_MIX"
+      ],
+      "explanation": "Stack the circular base up the whole cylinder: volume = base area × height."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/014",
+      "tier": 1,
+      "prompt": "Tank: diameter 6, height 6. How much does it hold?",
+      "choices": [
+        "9π",
+        "54π",
+        "108π",
+        "18π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 6 = 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/015",
+      "tier": 1,
+      "prompt": "Tank: diameter 2, height 9. How much does it hold?",
+      "choices": [
+        "18π",
+        "9π",
+        "36π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        null,
+        "DIAMETER_AS_RADIUS",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 9 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/016",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 4, height 6. Volume?",
+      "choices": [
+        "48π",
+        "10π",
+        "24π",
+        "96π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 6 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/017",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 2. Its volume?",
+      "choices": [
+        "9π",
+        "4π",
+        "6π",
+        "8π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 2 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/018",
+      "tier": 1,
+      "prompt": "Silo: radius 3, height 5. What is its volume?",
+      "choices": [
+        "15π",
+        "45π",
+        "14π",
+        "30π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 5 = 45π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/019",
+      "tier": 1,
+      "prompt": "A cylinder's base is a circle. Its area is?",
+      "choices": [
+        "π × r × r",
+        "π × d × d",
+        "π × r",
+        "2 × π × r"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIAMETER_AS_RADIUS",
+        "RADIUS_NOT_SQUARED",
+        "CIRCUMFERENCE_FOR_AREA"
+      ],
+      "explanation": "A circle's area is π × r × r. 2 × π × r measures around the edge."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/020",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, radius 4, height 2. Volume?",
+      "choices": [
+        "32π",
+        "8π",
+        "18π",
+        "16π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 4 × 4 × 2 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/021",
+      "tier": 1,
+      "prompt": "Can: base area 8π, height 10. Its volume?",
+      "choices": [
+        "640π",
+        "18π",
+        "80π",
+        "8π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "AREA_AS_RADIUS",
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 10 = 80π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/022",
+      "tier": 1,
+      "prompt": "Tank: base area 10π, height 8. How much does it hold?",
+      "choices": [
+        "10π",
+        "18π",
+        "80π",
+        "800π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        "ADDED_HEIGHT",
+        null,
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 10π × 8 = 80π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/023",
+      "tier": 1,
+      "prompt": "Silo: radius 4, height 1. What is its volume?",
+      "choices": [
+        "16π",
+        "4π",
+        "17π",
+        "8π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 4 × 4 × 1 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/024",
+      "tier": 1,
+      "prompt": "A can has radius 2 and height 10. Its volume?",
+      "choices": [
+        "20π",
+        "14π",
+        "4π",
+        "40π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 2 × 2 × 10 = 40π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/025",
+      "tier": 1,
+      "prompt": "Can: base area 8π, height 5. Its volume?",
+      "choices": [
+        "8π",
+        "320π",
+        "40π",
+        "13π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        "AREA_AS_RADIUS",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 5 = 40π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/026",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, diameter 10, height 1. Volume?",
+      "choices": [
+        "25π",
+        "50π",
+        "10π",
+        "5π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_AFTER_SQUARE",
+        "LATERAL_AREA",
+        "NO_SQUARE"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Volume = π × 5 × 5 × 1 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/027",
+      "tier": 1,
+      "prompt": "Cylinder: radius 3, height 6. Volume?",
+      "choices": [
+        "18π",
+        "54π",
+        "15π",
+        "9π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 6 = 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/028",
+      "tier": 1,
+      "prompt": "A cylinder's base area is 7π, height 2. Volume?",
+      "choices": [
+        "9π",
+        "7π",
+        "14π",
+        "98π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "FORGOT_HEIGHT",
+        null,
+        "AREA_AS_RADIUS"
+      ],
+      "explanation": "Volume = base area × height = 7π × 2 = 14π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/029",
+      "tier": 1,
+      "prompt": "Silo: diameter 4, height 7. What is its volume?",
+      "choices": [
+        "28π",
+        "14π",
+        "4π",
+        "112π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "FORGOT_HEIGHT",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 7 = 28π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/030",
+      "tier": 1,
+      "prompt": "A jar is a cylinder, diameter 2, height 5. Volume?",
+      "choices": [
+        "π",
+        "5π",
+        "10π",
+        "6π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_HEIGHT",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 5 = 5π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/031",
+      "tier": 1,
+      "prompt": "Tank: diameter 6, height 1. How much does it hold?",
+      "choices": [
+        "3π",
+        "9π",
+        "18π",
+        "10π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 1 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/032",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 2, height 8. Volume?",
+      "choices": [
+        "16π",
+        "9π",
+        "8π",
+        "π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALVED_AFTER_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = π × 1 × 1 × 8 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/033",
+      "tier": 1,
+      "prompt": "Tank: base area 8π, height 8. How much does it hold?",
+      "choices": [
+        "64π",
+        "16π",
+        "512π",
+        "8π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED_HEIGHT",
+        "AREA_AS_RADIUS",
+        "FORGOT_HEIGHT"
+      ],
+      "explanation": "Volume = base area × height = 8π × 8 = 64π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/034",
+      "tier": 1,
+      "prompt": "Silo: radius 3, height 7. What is its volume?",
+      "choices": [
+        "42π",
+        "16π",
+        "21π",
+        "63π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LATERAL_AREA",
+        "ADDED_HEIGHT",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 7 = 63π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/035",
+      "tier": 1,
+      "prompt": "Same base area; B is taller. Which cylinder holds more?",
+      "choices": [
+        "Same",
+        "B (taller)",
+        "A (shorter)",
+        "Can't tell"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SAME_BASE_SAME_VOLUME",
+        null,
+        "SHORTER_HOLDS_MORE",
+        "CANT_TELL"
+      ],
+      "explanation": "Volume = base area × height. Same base, so the taller cylinder holds more."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/036",
+      "tier": 1,
+      "prompt": "Tank: radius 3, height 4. How much does it hold?",
+      "choices": [
+        "13π",
+        "36π",
+        "9π",
+        "24π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        null,
+        "FORGOT_HEIGHT",
+        "LATERAL_AREA"
+      ],
+      "explanation": "Volume = π × r × r × h = π × 3 × 3 × 4 = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/037",
+      "tier": 1,
+      "prompt": "A drum has diameter 6 and height 2. Volume?",
+      "choices": [
+        "72π",
+        "9π",
+        "6π",
+        "18π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "FORGOT_HEIGHT",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 2 = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/038",
+      "tier": 1,
+      "prompt": "A drum has diameter 6 and height 7. Volume?",
+      "choices": [
+        "63π",
+        "126π",
+        "42π",
+        "252π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALVED_AFTER_SQUARE",
+        "LATERAL_AREA",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 7 = 63π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/039",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 4, height 5. Volume?",
+      "choices": [
+        "10π",
+        "20π",
+        "4π",
+        "40π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_SQUARE",
+        null,
+        "FORGOT_HEIGHT",
+        "HALVED_AFTER_SQUARE"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Volume = π × 2 × 2 × 5 = 20π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t1/040",
+      "tier": 1,
+      "prompt": "Cylinder: diameter 6, height 9. Volume?",
+      "choices": [
+        "27π",
+        "18π",
+        "81π",
+        "324π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_SQUARE",
+        "ADDED_HEIGHT",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = π × 3 × 3 × 9 = 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/001",
+      "tier": 2,
+      "prompt": "Same base and height: cylinder 6π. The cone?",
+      "choices": [
+        "18π",
+        "6π",
+        "2π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "SAME_AS_CYLINDER",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/002",
+      "tier": 2,
+      "prompt": "Traffic cone: radius 5, height 6. Volume?",
+      "choices": [
+        "50π",
+        "150π",
+        "10π",
+        "450π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_THIRD",
+        "NO_SQUARE",
+        "TIMES_THREE"
+      ],
+      "explanation": "Cylinder: 150π. A cone is one third: 150π ÷ 3 = 50π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/003",
+      "tier": 2,
+      "prompt": "A cone has diameter 10 and height 6. Its volume?",
+      "choices": [
+        "200π",
+        "50π",
+        "450π",
+        "75π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        null,
+        "TIMES_THREE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Cylinder: 150π. A cone is one third: 150π ÷ 3 = 50π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/004",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 6, height 3. Volume?",
+      "choices": [
+        "27π",
+        "9π",
+        "81π",
+        "36π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 27π. A cone is one third: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/005",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 6, height 8. Volume?",
+      "choices": [
+        "36π",
+        "24π",
+        "8π",
+        "96π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        null,
+        "NO_SQUARE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 72π. A cone is one third: 72π ÷ 3 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/006",
+      "tier": 2,
+      "prompt": "Party hat (a cone): diameter 6, height 6. Volume?",
+      "choices": [
+        "54π",
+        "18π",
+        "162π",
+        "72π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 54π. A cone is one third: 54π ÷ 3 = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/007",
+      "tier": 2,
+      "prompt": "Cone and cylinder, same base and height. Cone is what part?",
+      "choices": [
+        "2/3",
+        "1/2",
+        "1/3",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SPHERE_FOR_CONE",
+        "HALF_FOR_THIRD",
+        null,
+        "TIMES_THREE"
+      ],
+      "explanation": "Same base and height: the cone is one third of the cylinder."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/008",
+      "tier": 2,
+      "prompt": "Same base and height: cone 7π. The cylinder?",
+      "choices": [
+        "14π",
+        "(7/3)π",
+        "10π",
+        "21π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 7π × 3 = 21π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/009",
+      "tier": 2,
+      "prompt": "Cone: diameter 2, height 6. Volume?",
+      "choices": [
+        "3π",
+        "18π",
+        "8π",
+        "2π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "TIMES_THREE",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Cylinder: 6π. A cone is one third: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/010",
+      "tier": 2,
+      "prompt": "Cone 8π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "8π",
+        "16π",
+        "(8/3)π",
+        "24π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SAME_AS_CONE",
+        "HALF_FOR_THIRD",
+        "DIVIDED_BY_THREE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 8π × 3 = 24π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/011",
+      "tier": 2,
+      "prompt": "A cone-shaped cup: radius 3, height 3. Volume?",
+      "choices": [
+        "9π",
+        "3π",
+        "81π",
+        "27π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE",
+        "NO_THIRD"
+      ],
+      "explanation": "Cylinder: 27π. A cone is one third: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/012",
+      "tier": 2,
+      "prompt": "A cone has radius 3 and height 10. Its volume?",
+      "choices": [
+        "270π",
+        "90π",
+        "45π",
+        "30π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "NO_THIRD",
+        "HALF_FOR_THIRD",
+        null
+      ],
+      "explanation": "Cylinder: 90π. A cone is one third: 90π ÷ 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/013",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 6, height 5. Volume?",
+      "choices": [
+        "135π",
+        "5π",
+        "45π",
+        "15π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "NO_SQUARE",
+        "NO_THIRD",
+        null
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 45π. A cone is one third: 45π ÷ 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/014",
+      "tier": 2,
+      "prompt": "Cone: radius 2, height 9. Volume?",
+      "choices": [
+        "12π",
+        "108π",
+        "18π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "HALF_FOR_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/015",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 3, height 4. Volume?",
+      "choices": [
+        "36π",
+        "12π",
+        "108π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "TIMES_THREE",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/016",
+      "tier": 2,
+      "prompt": "Cone 9π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "9π",
+        "18π",
+        "27π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SAME_AS_CONE",
+        "HALF_FOR_THIRD",
+        null,
+        "DIVIDED_BY_THREE"
+      ],
+      "explanation": "Three cones fill the cylinder: 9π × 3 = 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/017",
+      "tier": 2,
+      "prompt": "Same base and height: cone 4π. The cylinder?",
+      "choices": [
+        "8π",
+        "7π",
+        "12π",
+        "4π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "ADDED_THREE",
+        null,
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 4π × 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/018",
+      "tier": 2,
+      "prompt": "Cone 3π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "9π",
+        "π",
+        "6π",
+        "3π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 3π × 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/019",
+      "tier": 2,
+      "prompt": "Same base and height: how many cones fill one cylinder?",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "HALF_FOR_THIRD",
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of the cylinder with the same base and height: 3 cones fill it."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/020",
+      "tier": 2,
+      "prompt": "A cone has diameter 8 and height 3. Its volume?",
+      "choices": [
+        "144π",
+        "16π",
+        "48π",
+        "24π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 8 ÷ 2 = 4. Cylinder: 48π. A cone is one third: 48π ÷ 3 = 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/021",
+      "tier": 2,
+      "prompt": "A cone has radius 3 and height 7. Its volume?",
+      "choices": [
+        "189π",
+        "21π",
+        "63π",
+        "7π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 63π. A cone is one third: 63π ÷ 3 = 21π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/022",
+      "tier": 2,
+      "prompt": "Cone 2π; cylinder with the same base and height. Cylinder?",
+      "choices": [
+        "(2/3)π",
+        "5π",
+        "4π",
+        "6π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_BY_THREE",
+        "ADDED_THREE",
+        "HALF_FOR_THIRD",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 2π × 3 = 6π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/023",
+      "tier": 2,
+      "prompt": "A cylinder holds 18π. A cone with its base and height holds?",
+      "choices": [
+        "6π",
+        "18π",
+        "54π",
+        "9π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SAME_AS_CYLINDER",
+        "TIMES_THREE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 18π ÷ 3 = 6π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/024",
+      "tier": 2,
+      "prompt": "A cone-shaped cup: diameter 6, height 9. Volume?",
+      "choices": [
+        "108π",
+        "81π",
+        "27π",
+        "243π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "NO_THIRD",
+        null,
+        "TIMES_THREE"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 81π. A cone is one third: 81π ÷ 3 = 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/025",
+      "tier": 2,
+      "prompt": "Cylinder 12π; cone with the same base and height. Cone?",
+      "choices": [
+        "4π",
+        "36π",
+        "12π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "SAME_AS_CYLINDER",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "A cone is one third of its cylinder: 12π ÷ 3 = 4π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/026",
+      "tier": 2,
+      "prompt": "Traffic cone: radius 1, height 9. Volume?",
+      "choices": [
+        "3π",
+        "27π",
+        "4π",
+        "9π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "ARITH",
+        "NO_THIRD"
+      ],
+      "explanation": "Cylinder: 9π. A cone is one third: 9π ÷ 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/027",
+      "tier": 2,
+      "prompt": "Same base and height: cone 5π. The cylinder?",
+      "choices": [
+        "8π",
+        "10π",
+        "5π",
+        "15π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED_THREE",
+        "HALF_FOR_THIRD",
+        "SAME_AS_CONE",
+        null
+      ],
+      "explanation": "Three cones fill the cylinder: 5π × 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/028",
+      "tier": 2,
+      "prompt": "Traffic cone: diameter 4, height 6. Volume?",
+      "choices": [
+        "4π",
+        "24π",
+        "72π",
+        "8π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "NO_THIRD",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 24π. A cone is one third: 24π ÷ 3 = 8π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/029",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 4, height 9. Volume?",
+      "choices": [
+        "36π",
+        "48π",
+        "108π",
+        "12π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_THIRD",
+        "DIAMETER_AS_RADIUS",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 36π. A cone is one third: 36π ÷ 3 = 12π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/030",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 5, height 3. Volume?",
+      "choices": [
+        "225π",
+        "25π",
+        "75π",
+        "5π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TIMES_THREE",
+        null,
+        "NO_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "Cylinder: 75π. A cone is one third: 75π ÷ 3 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/031",
+      "tier": 2,
+      "prompt": "A cone has diameter 6 and height 10. Its volume?",
+      "choices": [
+        "120π",
+        "270π",
+        "30π",
+        "45π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "TIMES_THREE",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Cylinder: 90π. A cone is one third: 90π ÷ 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/032",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 10, height 3. Volume?",
+      "choices": [
+        "25π",
+        "5π",
+        "225π",
+        "75π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE",
+        "NO_THIRD"
+      ],
+      "explanation": "Radius = 10 ÷ 2 = 5. Cylinder: 75π. A cone is one third: 75π ÷ 3 = 25π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/033",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 1, height 6. Volume?",
+      "choices": [
+        "6π",
+        "18π",
+        "2π",
+        "3π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_THIRD",
+        "TIMES_THREE",
+        null,
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Cylinder: 6π. A cone is one third: 6π ÷ 3 = 2π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/034",
+      "tier": 2,
+      "prompt": "Cone: radius 4, height 6. Volume?",
+      "choices": [
+        "32π",
+        "288π",
+        "8π",
+        "48π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TIMES_THREE",
+        "NO_SQUARE",
+        "HALF_FOR_THIRD"
+      ],
+      "explanation": "Cylinder: 96π. A cone is one third: 96π ÷ 3 = 32π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/035",
+      "tier": 2,
+      "prompt": "A cylinder holds 9π. A cone with its base and height holds?",
+      "choices": [
+        "27π",
+        "4π",
+        "3π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "ARITH",
+        null,
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of its cylinder: 9π ÷ 3 = 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/036",
+      "tier": 2,
+      "prompt": "Same base and height: cone 10π. The cylinder?",
+      "choices": [
+        "20π",
+        "13π",
+        "30π",
+        "10π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "ADDED_THREE",
+        null,
+        "SAME_AS_CONE"
+      ],
+      "explanation": "Three cones fill the cylinder: 10π × 3 = 30π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/037",
+      "tier": 2,
+      "prompt": "Party hat (a cone): radius 3, height 5. Volume?",
+      "choices": [
+        "45π",
+        "15π",
+        "5π",
+        "135π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "NO_SQUARE",
+        "TIMES_THREE"
+      ],
+      "explanation": "Cylinder: 45π. A cone is one third: 45π ÷ 3 = 15π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/038",
+      "tier": 2,
+      "prompt": "Same base and height: cylinder 27π. The cone?",
+      "choices": [
+        "9π",
+        "10π",
+        "27π",
+        "81π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SAME_AS_CYLINDER",
+        "TIMES_THREE"
+      ],
+      "explanation": "A cone is one third of its cylinder: 27π ÷ 3 = 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/039",
+      "tier": 2,
+      "prompt": "Cylinder 30π; cone with the same base and height. Cone?",
+      "choices": [
+        "90π",
+        "15π",
+        "10π",
+        "30π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TIMES_THREE",
+        "HALF_FOR_THIRD",
+        null,
+        "SAME_AS_CYLINDER"
+      ],
+      "explanation": "A cone is one third of its cylinder: 30π ÷ 3 = 10π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t2/040",
+      "tier": 2,
+      "prompt": "Ice cream cone: diameter 4, height 3. Volume?",
+      "choices": [
+        "6π",
+        "36π",
+        "2π",
+        "4π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_FOR_THIRD",
+        "TIMES_THREE",
+        "NO_SQUARE",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. Cylinder: 12π. A cone is one third: 12π ÷ 3 = 4π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/001",
+      "tier": 3,
+      "prompt": "Planet (a sphere) with radius 1. Volume?",
+      "choices": [
+        "4π",
+        "(4/3)π",
+        "(2/3)π",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        null,
+        "HEMI_FORMULA",
+        "NO_FOUR_THIRDS"
+      ],
+      "explanation": "Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/002",
+      "tier": 3,
+      "prompt": "A ball has diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "12",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/003",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 1. Volume?",
+      "choices": [
+        "π",
+        "(4/3)π",
+        "(1/2)π",
+        "(2/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        "ARITH",
+        null
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/004",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): radius 3. Volume, using 3 for π?",
+      "choices": [
+        "54",
+        "81",
+        "18",
+        "108"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/005",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "16",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/006",
+      "tier": 3,
+      "prompt": "A ball has diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "24",
+        "96",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/007",
+      "tier": 3,
+      "prompt": "Half a ball, radius 2. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "8",
+        "24",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED",
+        "NO_TWO_THIRDS",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/008",
+      "tier": 3,
+      "prompt": "A ball has radius 2. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "96",
+        "24",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/009",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 1. Volume, using 3 for π?",
+      "choices": [
+        "1",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/010",
+      "tier": 3,
+      "prompt": "A bowl is a half sphere with radius 3. Volume?",
+      "choices": [
+        "27π",
+        "6π",
+        "36π",
+        "18π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/011",
+      "tier": 3,
+      "prompt": "Sphere: radius 2. Volume, using 3 for π?",
+      "choices": [
+        "96",
+        "24",
+        "32",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/012",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "24",
+        "16",
+        "32",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/013",
+      "tier": 3,
+      "prompt": "Half a ball, radius 1. Its volume?",
+      "choices": [
+        "(2/3)π",
+        "π",
+        "(1/2)π",
+        "(4/3)π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "ARITH",
+        "WHOLE_FOR_HALF"
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/014",
+      "tier": 3,
+      "prompt": "A bowl is a half sphere with radius 1. Volume?",
+      "choices": [
+        "(4/3)π",
+        "(2/3)π",
+        "(1/2)π",
+        "π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        null,
+        "ARITH",
+        "NO_TWO_THIRDS"
+      ],
+      "explanation": "A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/015",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 6. Its volume?",
+      "choices": [
+        "27π",
+        "18π",
+        "36π",
+        "144π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        null,
+        "WHOLE_FOR_HALF",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/016",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "16",
+        "3",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "DIAMETER_AS_RADIUS",
+        "NO_TWO_THIRDS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/017",
+      "tier": 3,
+      "prompt": "Hemisphere: diameter 2. Volume?",
+      "choices": [
+        "(4/3)π",
+        "π",
+        "(2/3)π",
+        "(16/3)π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/018",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "8",
+        "128",
+        "32",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/019",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 6. Volume, using 3 for π?",
+      "choices": [
+        "54",
+        "81",
+        "18",
+        "432"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. (2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/020",
+      "tier": 3,
+      "prompt": "Marble with radius 2. Volume, using 3 for π?",
+      "choices": [
+        "24",
+        "32",
+        "96",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        null,
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/021",
+      "tier": 3,
+      "prompt": "Sphere: radius 3. Volume?",
+      "choices": [
+        "12π",
+        "108π",
+        "36π",
+        "18π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "FOUR_NOT_THIRD",
+        null,
+        "HEMI_FORMULA"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/022",
+      "tier": 3,
+      "prompt": "Sphere: radius 1. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "12",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        null,
+        "ARITH"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/023",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 3. Volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "27π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/024",
+      "tier": 3,
+      "prompt": "Marble with diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "32",
+        "96",
+        "16",
+        "256"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FOUR_NOT_THIRD",
+        "SQUARED_NOT_CUBED",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/025",
+      "tier": 3,
+      "prompt": "Marble with radius 1. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "(4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/026",
+      "tier": 3,
+      "prompt": "Marble with diameter 2. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "12",
+        "32",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        "FOUR_NOT_THIRD",
+        "DIAMETER_AS_RADIUS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. (4/3) × 3 = 4, then 4 × 1 × 1 × 1 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/027",
+      "tier": 3,
+      "prompt": "Planet (a sphere) with radius 3. Volume?",
+      "choices": [
+        "18π",
+        "108π",
+        "36π",
+        "12π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/028",
+      "tier": 3,
+      "prompt": "Marble with radius 3. What is its volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "12π",
+        "108π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        null,
+        "SQUARED_NOT_CUBED",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/029",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): radius 1. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        "NO_TWO_THIRDS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 1 × 1 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/030",
+      "tier": 3,
+      "prompt": "A globe has diameter 2. Volume?",
+      "choices": [
+        "(32/3)π",
+        "4π",
+        "(2/3)π",
+        "(4/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_AS_RADIUS",
+        "FOUR_NOT_THIRD",
+        "HEMI_FORMULA",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/031",
+      "tier": 3,
+      "prompt": "A ball has radius 1. Its volume?",
+      "choices": [
+        "π",
+        "(4/3)π",
+        "(2/3)π",
+        "4π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_FOUR_THIRDS",
+        null,
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/032",
+      "tier": 3,
+      "prompt": "Hemisphere: radius 2. Volume, using 3 for π?",
+      "choices": [
+        "8",
+        "24",
+        "32",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 2 × 2 × 2 = 16."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/033",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 6. Volume, using 3 for π?",
+      "choices": [
+        "18",
+        "54",
+        "81",
+        "432"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        null,
+        "NO_TWO_THIRDS",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. (2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/034",
+      "tier": 3,
+      "prompt": "Sphere: diameter 4. Volume, using 3 for π?",
+      "choices": [
+        "96",
+        "24",
+        "32",
+        "256"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 4 ÷ 2 = 2. (4/3) × 3 = 4, then 4 × 2 × 2 × 2 = 32."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/035",
+      "tier": 3,
+      "prompt": "Sphere: diameter 2. Volume?",
+      "choices": [
+        "(2/3)π",
+        "4π",
+        "π",
+        "(4/3)π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HEMI_FORMULA",
+        "FOUR_NOT_THIRD",
+        "NO_FOUR_THIRDS",
+        null
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. Volume = (4/3) × π × 1 × 1 × 1 = (4/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/036",
+      "tier": 3,
+      "prompt": "A ball has diameter 6. Its volume?",
+      "choices": [
+        "12π",
+        "18π",
+        "36π",
+        "288π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        "HEMI_FORMULA",
+        null,
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/037",
+      "tier": 3,
+      "prompt": "Half a ball, diameter 2. Its volume?",
+      "choices": [
+        "(4/3)π",
+        "(2/3)π",
+        "π",
+        "(16/3)π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "WHOLE_FOR_HALF",
+        null,
+        "NO_TWO_THIRDS",
+        "DIAMETER_AS_RADIUS"
+      ],
+      "explanation": "Radius = 2 ÷ 2 = 1. A hemisphere is half a sphere: (2/3) × π × 1 × 1 × 1 = (2/3)π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/038",
+      "tier": 3,
+      "prompt": "Half a ball, radius 3. Volume, using 3 for π?",
+      "choices": [
+        "81",
+        "108",
+        "54",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_TWO_THIRDS",
+        "WHOLE_FOR_HALF",
+        null,
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "(2/3) × 3 = 2, then 2 × 3 × 3 × 3 = 54."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/039",
+      "tier": 3,
+      "prompt": "Sphere: diameter 6. Volume?",
+      "choices": [
+        "12π",
+        "36π",
+        "288π",
+        "108π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARED_NOT_CUBED",
+        null,
+        "DIAMETER_AS_RADIUS",
+        "FOUR_NOT_THIRD"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Volume = (4/3) × π × 3 × 3 × 3 = (4/3) × 27π = 36π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t3/040",
+      "tier": 3,
+      "prompt": "Dome (half a sphere): diameter 6. Volume?",
+      "choices": [
+        "18π",
+        "144π",
+        "36π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIAMETER_AS_RADIUS",
+        "WHOLE_FOR_HALF",
+        "SQUARED_NOT_CUBED"
+      ],
+      "explanation": "Radius = 6 ÷ 2 = 3. Half a sphere: (2/3) × π × 3 × 3 × 3 = (2/3) × 27π = 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/001",
+      "tier": 4,
+      "prompt": "A ball has volume 36π. Its diameter?",
+      "choices": [
+        "3",
+        "36",
+        "27",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RADIUS_FOR_DIAMETER",
+        "COEFFICIENT_AS_RADIUS",
+        "STOPPED_AT_CUBE",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, so r = 3. Diameter = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/002",
+      "tier": 4,
+      "prompt": "Cone: radius 2, height 9. Volume, using 3 for π?",
+      "choices": [
+        "18",
+        "12",
+        "108",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "NO_SQUARE",
+        "LEFT_OUT_PI",
+        "NO_THIRD",
+        null
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 2 × 2 × 9 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/003",
+      "tier": 4,
+      "prompt": "Marble with volume (4/3)π. What is its diameter?",
+      "choices": [
+        "3",
+        "4/3",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "COEFFICIENT_AS_RADIUS",
+        "RADIUS_FOR_DIAMETER",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/004",
+      "tier": 4,
+      "prompt": "A cone has radius 1 and height 9. Volume, using 3 for π?",
+      "choices": [
+        "27",
+        "10",
+        "9",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "NO_THIRD",
+        "ARITH",
+        null,
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 1 × 1 × 9 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/005",
+      "tier": 4,
+      "prompt": "Marble with volume (4/3)π. What is its radius?",
+      "choices": [
+        "4/3",
+        "2",
+        "1/3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS",
+        "DIVIDED_NOT_ROOTED",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/006",
+      "tier": 4,
+      "prompt": "Tank holds 36π, height 9. What is the radius?",
+      "choices": [
+        "3",
+        "4",
+        "9",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "STOPPED_AT_SQUARE",
+        "HEIGHT_FOR_RADIUS",
+        null
+      ],
+      "explanation": "36 ÷ 9 = 4 = r × r, so r = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/007",
+      "tier": 4,
+      "prompt": "A bowl (half sphere) holds (2/3)π. Its radius?",
+      "choices": [
+        "2",
+        "2/3",
+        "1",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "DIVIDED_NOT_ROOTED"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/008",
+      "tier": 4,
+      "prompt": "A can has radius 1 and height 6. Volume, using 3 for π?",
+      "choices": [
+        "36",
+        "18",
+        "6",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LATERAL_AREA",
+        null,
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 6 = 18."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/009",
+      "tier": 4,
+      "prompt": "Cone-shaped cup: volume 12π, radius 2. How tall?",
+      "choices": [
+        "9",
+        "3",
+        "18",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_THIRD",
+        "NO_SQUARE",
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 12 ÷ 4 × 3 = 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/010",
+      "tier": 4,
+      "prompt": "Drum: volume 63π, height 7. Find the radius.",
+      "choices": [
+        "6",
+        "7",
+        "9",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "HEIGHT_FOR_RADIUS",
+        "STOPPED_AT_SQUARE",
+        null
+      ],
+      "explanation": "63 ÷ 7 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/011",
+      "tier": 4,
+      "prompt": "Cylinder volume 20π, radius 2. Height?",
+      "choices": [
+        "5",
+        "20",
+        "2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_AS_DIAMETER",
+        "RADIUS_FOR_HEIGHT",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 20 ÷ (2 × 2) = 20 ÷ 4 = 5."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/012",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 9. Volume, using 3 for π?",
+      "choices": [
+        "27",
+        "54",
+        "9",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LATERAL_AREA",
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 9 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/013",
+      "tier": 4,
+      "prompt": "Cylinder: radius 2, height 3. Volume, using 3 for π?",
+      "choices": [
+        "36",
+        "18",
+        "12",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "LEFT_OUT_PI",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 2 × 2 × 3 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/014",
+      "tier": 4,
+      "prompt": "A ball has volume (4/3)π. Its diameter?",
+      "choices": [
+        "4/3",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "RADIUS_FOR_DIAMETER",
+        "ARITH"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/015",
+      "tier": 4,
+      "prompt": "Cylinder volume 27π, radius 3. Height?",
+      "choices": [
+        "12",
+        "9",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE",
+        "ARITH",
+        null
+      ],
+      "explanation": "C = π × r × r × h, so h = 27 ÷ (3 × 3) = 27 ÷ 9 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/016",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 2. Volume, using 3 for π?",
+      "choices": [
+        "9",
+        "2",
+        "6",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED_HEIGHT",
+        "LEFT_OUT_PI",
+        null,
+        "LATERAL_AREA"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 2 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/017",
+      "tier": 4,
+      "prompt": "A bowl (half sphere) holds 18π. Its diameter?",
+      "choices": [
+        "18",
+        "6",
+        "3",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "RADIUS_FOR_DIAMETER",
+        "STOPPED_AT_CUBE"
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, so r = 3. Diameter = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/018",
+      "tier": 4,
+      "prompt": "Tank holds 40π, height 10. What is the radius?",
+      "choices": [
+        "2",
+        "3",
+        "10",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "HEIGHT_FOR_RADIUS",
+        "STOPPED_AT_SQUARE"
+      ],
+      "explanation": "40 ÷ 10 = 4 = r × r, so r = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/019",
+      "tier": 4,
+      "prompt": "A can has radius 1 and height 4. Volume, using 3 for π?",
+      "choices": [
+        "12",
+        "4",
+        "24",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LEFT_OUT_PI",
+        "LATERAL_AREA",
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 4 = 12."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/020",
+      "tier": 4,
+      "prompt": "A cone holds 27π and has radius 3. Its height?",
+      "choices": [
+        "3",
+        "1",
+        "9",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        "DIVIDED_NOT_MULTIPLIED",
+        null,
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 27 ÷ 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/021",
+      "tier": 4,
+      "prompt": "Tank holds 90π, radius 3. How tall is it?",
+      "choices": [
+        "10",
+        "3",
+        "40",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 90 ÷ (3 × 3) = 90 ÷ 9 = 10."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/022",
+      "tier": 4,
+      "prompt": "Cylinder volume 54π, radius 3. Height?",
+      "choices": [
+        "24",
+        "3",
+        "6",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "RADIUS_AS_DIAMETER",
+        "RADIUS_FOR_HEIGHT",
+        null,
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 54 ÷ (3 × 3) = 54 ÷ 9 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/023",
+      "tier": 4,
+      "prompt": "A can holds 24π and has radius 2. Its height?",
+      "choices": [
+        "6",
+        "2",
+        "24",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        "FORGOT_SQUARE"
+      ],
+      "explanation": "C = π × r × r × h, so h = 24 ÷ (2 × 2) = 24 ÷ 4 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/024",
+      "tier": 4,
+      "prompt": "A cone has radius 1 and height 3. Volume, using 3 for π?",
+      "choices": [
+        "4",
+        "3",
+        "9",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "NO_THIRD",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 1 × 1 × 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/025",
+      "tier": 4,
+      "prompt": "Cone volume 8π, radius 2. Height?",
+      "choices": [
+        "6",
+        "2/3",
+        "2",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIVIDED_NOT_MULTIPLIED",
+        "FORGOT_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 8 ÷ 4 × 3 = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/026",
+      "tier": 4,
+      "prompt": "A cone holds 9π and has radius 3. Its height?",
+      "choices": [
+        "1",
+        "9",
+        "3",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        "NO_SQUARE",
+        null,
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 9 ÷ 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/027",
+      "tier": 4,
+      "prompt": "Dome (half a sphere) with volume 18π. Radius?",
+      "choices": [
+        "18",
+        "6",
+        "27",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS",
+        "STOPPED_AT_CUBE",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, and 3 × 3 × 3 = 27, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/028",
+      "tier": 4,
+      "prompt": "Hemisphere volume (2/3)π. Diameter?",
+      "choices": [
+        "1",
+        "2",
+        "2/3",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "RADIUS_FOR_DIAMETER",
+        null,
+        "COEFFICIENT_AS_RADIUS",
+        "ARITH"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, so r = 1. Diameter = 2 × 1 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/029",
+      "tier": 4,
+      "prompt": "Drum: volume 90π, height 10. Find the radius.",
+      "choices": [
+        "6",
+        "10",
+        "3",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIAMETER_FOR_RADIUS",
+        "HEIGHT_FOR_RADIUS",
+        null,
+        "STOPPED_AT_SQUARE"
+      ],
+      "explanation": "90 ÷ 10 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/030",
+      "tier": 4,
+      "prompt": "Cylinder: radius 1, height 3. Volume, using 3 for π?",
+      "choices": [
+        "3",
+        "18",
+        "9",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LEFT_OUT_PI",
+        "LATERAL_AREA",
+        null,
+        "ADDED_HEIGHT"
+      ],
+      "explanation": "3 × r × r × h = 3 × 1 × 1 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/031",
+      "tier": 4,
+      "prompt": "Hemisphere volume (2/3)π. Radius?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        "COEFFICIENT_AS_RADIUS",
+        null,
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/032",
+      "tier": 4,
+      "prompt": "A cone holds 18π and has radius 3. Its height?",
+      "choices": [
+        "2",
+        "6",
+        "18",
+        "2/3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_THIRD",
+        null,
+        "NO_SQUARE",
+        "DIVIDED_NOT_MULTIPLIED"
+      ],
+      "explanation": "(1/3) × 3 × 3 = 3, so V = 3 × h. 18 ÷ 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/033",
+      "tier": 4,
+      "prompt": "A cone has radius 2 and height 3. Volume, using 3 for π?",
+      "choices": [
+        "12",
+        "6",
+        "36",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "NO_SQUARE",
+        "NO_THIRD",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 2 × 2 × 3 = 12."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/034",
+      "tier": 4,
+      "prompt": "Drum: volume 81π, height 9. Find the radius.",
+      "choices": [
+        "4",
+        "3",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "STOPPED_AT_SQUARE",
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "81 ÷ 9 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/035",
+      "tier": 4,
+      "prompt": "Marble with volume 36π. What is its radius?",
+      "choices": [
+        "9",
+        "3",
+        "36",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        null,
+        "COEFFICIENT_AS_RADIUS",
+        "DIAMETER_FOR_RADIUS"
+      ],
+      "explanation": "Undo the formula: r × r × r = 27, and 3 × 3 × 3 = 27, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/036",
+      "tier": 4,
+      "prompt": "Tank holds 36π, height 4. What is the radius?",
+      "choices": [
+        "9",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "STOPPED_AT_SQUARE",
+        "DIAMETER_FOR_RADIUS",
+        null,
+        "HEIGHT_FOR_RADIUS"
+      ],
+      "explanation": "36 ÷ 4 = 9 = r × r, so r = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/037",
+      "tier": 4,
+      "prompt": "A cone has radius 3 and height 4. Volume, using 3 for π?",
+      "choices": [
+        "108",
+        "36",
+        "37",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "NO_THIRD",
+        null,
+        "ARITH",
+        "LEFT_OUT_PI"
+      ],
+      "explanation": "(1/3) × 3 = 1, so volume = 3 × 3 × 4 = 36."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/038",
+      "tier": 4,
+      "prompt": "Sphere volume (4/3)π. Radius?",
+      "choices": [
+        "1/3",
+        "2",
+        "4/3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIVIDED_NOT_ROOTED",
+        "DIAMETER_FOR_RADIUS",
+        "COEFFICIENT_AS_RADIUS",
+        null
+      ],
+      "explanation": "Undo the formula: r × r × r = 1, and 1 × 1 × 1 = 1, so r = 1."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/039",
+      "tier": 4,
+      "prompt": "A cone holds 8π and has radius 2. Its height?",
+      "choices": [
+        "2/3",
+        "6",
+        "2",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIVIDED_NOT_MULTIPLIED",
+        null,
+        "FORGOT_THIRD",
+        "NO_SQUARE"
+      ],
+      "explanation": "(1/3) × 2 × 2 × h = V. So h = 8 ÷ 4 × 3 = 2 × 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t4/040",
+      "tier": 4,
+      "prompt": "Drum: volume 16π, radius 2. Find the height.",
+      "choices": [
+        "8",
+        "2",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_SQUARE",
+        "RADIUS_FOR_HEIGHT",
+        "RADIUS_AS_DIAMETER",
+        null
+      ],
+      "explanation": "C = π × r × r × h, so h = 16 ÷ (2 × 2) = 16 ÷ 4 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/001",
+      "tier": 5,
+      "prompt": "Triple the radius of a sphere. New volume is ? times as big.",
+      "choices": [
+        "28",
+        "27",
+        "3",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 3 × 3 × 3 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/002",
+      "tier": 5,
+      "prompt": "Halve the radius of a cone. New volume is ? times as big.",
+      "choices": [
+        "1/3",
+        "1/4",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/003",
+      "tier": 5,
+      "prompt": "Cylinder volume 12π. Halve the radius. New volume?",
+      "choices": [
+        "3π",
+        "4π",
+        "(3/2)π",
+        "6π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Volume changes by 1/4 times: 12 ÷ 4 = 3, so 3π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/004",
+      "tier": 5,
+      "prompt": "A can holds 9π. Its radius is tripled. New volume?",
+      "choices": [
+        "243π",
+        "27π",
+        "54π",
+        "81π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Volume changes by 9 times: 9 × 3 × 3 = 81, so 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/005",
+      "tier": 5,
+      "prompt": "Cone volume 10π. Triple the radius. New volume?",
+      "choices": [
+        "60π",
+        "30π",
+        "90π",
+        "270π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULT_BY_EXPONENT",
+        "LINEAR_SCALE",
+        null,
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Volume changes by 9 times: 10 × 3 × 3 = 90, so 90π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/006",
+      "tier": 5,
+      "prompt": "Triple a cylinder's radius. Volume times?",
+      "choices": [
+        "9",
+        "3",
+        "6",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/007",
+      "tier": 5,
+      "prompt": "A can's height is doubled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "4",
+        "8",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        null
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 2 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/008",
+      "tier": 5,
+      "prompt": "A can's height is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/2",
+        "1/8",
+        "1/4",
+        "1/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 1/2 = 1/2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/009",
+      "tier": 5,
+      "prompt": "A cone's height is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "1/8",
+        "1/4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 1/2 = 1/2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/010",
+      "tier": 5,
+      "prompt": "Triple the height of a cone. New volume is ? times as big.",
+      "choices": [
+        "9",
+        "4",
+        "3",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SQUARE_FOR_LINEAR",
+        "ARITH",
+        null,
+        "CUBE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/011",
+      "tier": 5,
+      "prompt": "Double a cone's height. Volume times?",
+      "choices": [
+        "3",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        null,
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 2 = 2."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/012",
+      "tier": 5,
+      "prompt": "A can holds 21 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "63",
+        "7",
+        "15",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TIMES_THREE",
+        "CONE_FOR_SPHERE",
+        "ARITH",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 21 ÷ 3 × 2 = 7 × 2 = 14."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/013",
+      "tier": 5,
+      "prompt": "A cone's height is tripled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "9",
+        "27",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/014",
+      "tier": 5,
+      "prompt": "A cone fits a can exactly. The cone is what part of the can?",
+      "choices": [
+        "1/3",
+        "2/3",
+        "1/2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SPHERE_FOR_CONE",
+        "HALF_RULE",
+        "TIMES_THREE"
+      ],
+      "explanation": "A cone with the can's base and height is 1/3 of the can (a ball would be 2/3)."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/015",
+      "tier": 5,
+      "prompt": "A can holds 9 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "6",
+        "3",
+        "27",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "CONE_FOR_SPHERE",
+        "TIMES_THREE",
+        "ARITH"
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 9 ÷ 3 × 2 = 3 × 2 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/016",
+      "tier": 5,
+      "prompt": "A ball holds 3π. Its radius is tripled. New volume?",
+      "choices": [
+        "82π",
+        "27π",
+        "81π",
+        "9π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SQUARE_FOR_CUBE",
+        null,
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Volume changes by 27 times: 3 × 3 × 3 × 3 = 81, so 81π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/017",
+      "tier": 5,
+      "prompt": "A can holds 18 cups. A cone with its base and height holds?",
+      "choices": [
+        "12",
+        "54",
+        "9",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SPHERE_FOR_CONE",
+        "TIMES_THREE",
+        "HALF_RULE",
+        null
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 18 ÷ 3 = 6."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/018",
+      "tier": 5,
+      "prompt": "A can holds 21 cups. A cone with its base and height holds?",
+      "choices": [
+        "8",
+        "7",
+        "63",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE"
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 21 ÷ 3 = 7."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/019",
+      "tier": 5,
+      "prompt": "A cone's radius is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/8",
+        "1/2",
+        "1/4",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/020",
+      "tier": 5,
+      "prompt": "Same base and height: a cone is what part of the cylinder?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "3",
+        "2/3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "HALF_RULE",
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE"
+      ],
+      "explanation": "Three cones fill a cylinder with the same base and height: each is 1/3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/021",
+      "tier": 5,
+      "prompt": "Cylinder volume 7π. Double the height. New volume?",
+      "choices": [
+        "14π",
+        "15π",
+        "56π",
+        "28π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "CUBE_FOR_LINEAR",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Volume changes by 2 times: 7 × 2 = 14, so 14π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/022",
+      "tier": 5,
+      "prompt": "A can holds 27 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "9",
+        "19",
+        "81",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONE_FOR_SPHERE",
+        "ARITH",
+        "TIMES_THREE",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 27 ÷ 3 × 2 = 9 × 2 = 18."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/023",
+      "tier": 5,
+      "prompt": "Halve a cylinder's radius and height. Volume times?",
+      "choices": [
+        "1/2",
+        "1/4",
+        "1/8",
+        "1/3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice and height once: three scaled lengths, so multiply by 1/2 × 1/2 × 1/2 = 1/8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/024",
+      "tier": 5,
+      "prompt": "A cone holds 3π. Its radius is tripled. New volume?",
+      "choices": [
+        "81π",
+        "9π",
+        "18π",
+        "27π"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        "LINEAR_SCALE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Volume changes by 9 times: 3 × 3 × 3 = 27, so 27π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/025",
+      "tier": 5,
+      "prompt": "A can's radius is halved. Its volume is multiplied by?",
+      "choices": [
+        "1/3",
+        "1/4",
+        "1/2",
+        "1/8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 1/2 × 1/2 = 1/4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/026",
+      "tier": 5,
+      "prompt": "Sphere volume 2π. Triple the radius. New volume?",
+      "choices": [
+        "55π",
+        "54π",
+        "6π",
+        "18π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Volume changes by 27 times: 2 × 3 × 3 × 3 = 54, so 54π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/027",
+      "tier": 5,
+      "prompt": "A can holds 6 cups. A ball just fits inside it. Ball holds?",
+      "choices": [
+        "2",
+        "18",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "CONE_FOR_SPHERE",
+        "TIMES_THREE",
+        "HALF_RULE",
+        null
+      ],
+      "explanation": "A ball that fits a can fills 2/3 of it: 6 ÷ 3 × 2 = 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/028",
+      "tier": 5,
+      "prompt": "A can holds 24 cups. A cone with its base and height holds?",
+      "choices": [
+        "12",
+        "72",
+        "16",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "HALF_RULE",
+        "TIMES_THREE",
+        "SPHERE_FOR_CONE",
+        null
+      ],
+      "explanation": "A cone with the can's base and height holds 1/3 of it: 24 ÷ 3 = 8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/029",
+      "tier": 5,
+      "prompt": "Double a cylinder's radius. Volume times?",
+      "choices": [
+        "5",
+        "4",
+        "2",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/030",
+      "tier": 5,
+      "prompt": "Halve a sphere's radius. Volume times?",
+      "choices": [
+        "1/3",
+        "1/2",
+        "1/8",
+        "1/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "LINEAR_SCALE",
+        null,
+        "SQUARE_FOR_CUBE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 1/2 × 1/2 × 1/2 = 1/8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/031",
+      "tier": 5,
+      "prompt": "A can's height is tripled. Its volume is multiplied by?",
+      "choices": [
+        "27",
+        "3",
+        "4",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBE_FOR_LINEAR",
+        null,
+        "ARITH",
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Height appears once in the formula, so multiply by 3 = 3."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/032",
+      "tier": 5,
+      "prompt": "Double a cone's radius. Volume times?",
+      "choices": [
+        "2",
+        "4",
+        "5",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        null,
+        "ARITH",
+        "CUBE_FOR_SQUARE"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/033",
+      "tier": 5,
+      "prompt": "Cone volume 9π. Double the height. New volume?",
+      "choices": [
+        "18π",
+        "36π",
+        "72π",
+        "19π"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SQUARE_FOR_LINEAR",
+        "CUBE_FOR_LINEAR",
+        "ARITH"
+      ],
+      "explanation": "Volume changes by 2 times: 9 × 2 = 18, so 18π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/034",
+      "tier": 5,
+      "prompt": "Double a sphere's radius. Volume times?",
+      "choices": [
+        "6",
+        "2",
+        "4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULT_BY_EXPONENT",
+        "LINEAR_SCALE",
+        "SQUARE_FOR_CUBE",
+        null
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 2 × 2 × 2 = 8."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/035",
+      "tier": 5,
+      "prompt": "A ball's radius is tripled. Its volume is multiplied by?",
+      "choices": [
+        "9",
+        "27",
+        "28",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SQUARE_FOR_CUBE",
+        null,
+        "ARITH",
+        "LINEAR_SCALE"
+      ],
+      "explanation": "Radius appears three times (r × r × r), so multiply by 3 × 3 × 3 = 27."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/036",
+      "tier": 5,
+      "prompt": "A cone's radius is tripled. Its volume is multiplied by?",
+      "choices": [
+        "3",
+        "27",
+        "6",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE",
+        "MULT_BY_EXPONENT",
+        null
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 3 × 3 = 9."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/037",
+      "tier": 5,
+      "prompt": "A cone holds 3π. Its height is tripled. New volume?",
+      "choices": [
+        "81π",
+        "10π",
+        "9π",
+        "27π"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "CUBE_FOR_LINEAR",
+        "ARITH",
+        null,
+        "SQUARE_FOR_LINEAR"
+      ],
+      "explanation": "Volume changes by 3 times: 3 × 3 = 9, so 9π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/038",
+      "tier": 5,
+      "prompt": "A cone holds 4π. Its radius is doubled. New volume?",
+      "choices": [
+        "32π",
+        "16π",
+        "8π",
+        "17π"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "CUBE_FOR_SQUARE",
+        null,
+        "LINEAR_SCALE",
+        "ARITH"
+      ],
+      "explanation": "Volume changes by 4 times: 4 × 2 × 2 = 16, so 16π."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/039",
+      "tier": 5,
+      "prompt": "A can's radius is doubled. Its volume is multiplied by?",
+      "choices": [
+        "2",
+        "8",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "LINEAR_SCALE",
+        "CUBE_FOR_SQUARE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "Radius appears twice (r × r), so multiply by 2 × 2 = 4."
+    },
+    {
+      "id": "cylinders-cones-spheres/t5/040",
+      "tier": 5,
+      "prompt": "A ball fits a can exactly. The ball is what part of the can?",
+      "choices": [
+        "1/2",
+        "1/3",
+        "2/3",
+        "3/4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "HALF_RULE",
+        "CONE_FOR_SPHERE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "A ball that just fits a can fills 2/3 of it (a cone would fill 1/3)."
+    }
+  ]
+}

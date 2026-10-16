@@ -1,0 +1,178 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "scatter-two-way",
+  "version": "1.0.0",
+  "title": "Scatter Plots & Two-Way Tables",
+  "subtitle": "Association, Lines of Fit, Frequencies",
+  "grade": "8",
+  "standards": [
+    "CCSS.MATH.CONTENT.8.SP.A.1",
+    "CCSS.MATH.CONTENT.8.SP.A.2",
+    "CCSS.MATH.CONTENT.8.SP.A.3",
+    "CCSS.MATH.CONTENT.8.SP.A.4"
+  ],
+  "seed": 20261040,
+  "items_per_tier": 40,
+  "bounds": "Two-way tables and Coordinates and lines (PROTOCOL 4b, grade 8). Point lists: 3-5 integer points, each coordinate 0-20 (x = 1..5 in steps of 1; an outlier item has 4-5 points, the odd one at least 7 off the line). Lines of fit y = mx + b: m 1-10 (or -1 to -5), b 0-20, x 1-10, every prediction a whole number 0-100, every product a times-table fact (m x); an inverse item has m 2-10, a whole x 2-10. Two-way tables: 2-by-2, each cell 0-20 (here 2-14), grand total <= 60; every sum is a +/- fact. Relative frequencies: a count over its row or column total (total <= 20), simplest form, denominator 2-12, or a 4b percent (10-90 in tens, 25, 75); every division a times-table fact. Choices never equal in value; Boys/Girls/Same: exactly one is true.",
+  "tiers": [
+    { "tier": 1, "name": "Association", "description": "Does one thing rise or fall with the other? Positive, negative or none." },
+    { "tier": 2, "name": "Outliers & Lines of Fit", "description": "Spot the point that breaks the pattern and pick the line that fits." },
+    { "tier": 3, "name": "Use a Line of Fit", "description": "Predict with y = mx + b and read what the slope and the start mean." },
+    { "tier": 4, "name": "Two-Way Table Counts", "description": "Read counts in a 2-by-2 table: totals, only-one-group and missing cells." },
+    { "tier": 5, "name": "Relative Frequency", "description": "Compare parts to their own whole: fractions and percents of a row or column." }
+  ],
+  "misconceptions": {
+    "REVERSED": {
+      "student": "Positive: both go the same way. Negative: one up, one down.",
+      "teacher": "Swaps positive and negative association."
+    },
+    "BOTH_DOWN_NEGATIVE": {
+      "student": "Both falling together is still positive. Same direction = positive.",
+      "teacher": "Calls two variables that fall together a negative association."
+    },
+    "FIRST_VARIABLE": {
+      "student": "Look at both. One rises while the other falls: negative.",
+      "teacher": "Judges the association from the first variable's direction only."
+    },
+    "DOWN_IS_NONE": {
+      "student": "A downhill pattern is still a pattern: negative, not none.",
+      "teacher": "Treats a falling pattern as no association."
+    },
+    "CAUSE_FOR_LINK": {
+      "student": "Association is a pattern, not a cause. They can move together anyway.",
+      "teacher": "Needs one variable to cause the other before calling it an association."
+    },
+    "MISSES_PATTERN": {
+      "student": "Rising together is a pattern. That is a positive association.",
+      "teacher": "Fails to see a clear rising pattern and answers none."
+    },
+    "PATTERN_FROM_NOISE": {
+      "student": "Up and down with no trend means no association.",
+      "teacher": "Reads a trend into points that zigzag with no overall direction."
+    },
+    "LARGEST_X_OUTLIER": {
+      "student": "An outlier is off the pattern, not just the far-right point.",
+      "teacher": "Picks the point with the largest x as the outlier."
+    },
+    "HIGHEST_Y_OUTLIER": {
+      "student": "The highest point can sit on the pattern. Find the one that breaks it.",
+      "teacher": "Picks the point with the largest y as the outlier."
+    },
+    "ANY_POINT": {
+      "student": "That point fits the pattern. The outlier is the one that does not.",
+      "teacher": "Picks a point that sits on the trend as the outlier."
+    },
+    "START_AS_SLOPE": {
+      "student": "The number with x is the slope. The added number is the start.",
+      "teacher": "Swaps the slope and the start (y-intercept)."
+    },
+    "NO_START": {
+      "student": "Do not forget the start: add b after you multiply by x.",
+      "teacher": "Uses only the slope part m times x and drops the start."
+    },
+    "SLOPE_FROM_ONE_POINT": {
+      "student": "One point's y over x is not the slope. Use the change from point to point.",
+      "teacher": "Takes y divided by x of one point as the slope and ignores the start."
+    },
+    "ADDED_ALL": {
+      "student": "The slope multiplies x. Do not add the numbers.",
+      "teacher": "Adds the numbers in the rule instead of multiplying the slope by x."
+    },
+    "ADDED_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not add them.",
+      "teacher": "Adds the slope and the start when asked for one of them."
+    },
+    "SLOPE_AS_START": {
+      "student": "The start is the number added on, not the number with x.",
+      "teacher": "Gives the slope when asked for the start value."
+    },
+    "MULT_SLOPE_START": {
+      "student": "Slope and start are two different numbers. Do not multiply them.",
+      "teacher": "Multiplies the slope and the start."
+    },
+    "STOPPED_EARLY": {
+      "student": "You took away the start. Now divide by the slope to get x.",
+      "teacher": "Subtracts the start but never divides by the slope."
+    },
+    "IGNORE_START": {
+      "student": "Take away the start first, then divide by the slope.",
+      "teacher": "Divides y by the slope without subtracting the start."
+    },
+    "ADD_START": {
+      "student": "The start was added to make y. Take it away, do not add it again.",
+      "teacher": "Adds the start instead of subtracting it when solving for x."
+    },
+    "WRONG_ROW": {
+      "student": "Add only the cells for the group you are asked about.",
+      "teacher": "Adds along the wrong line of the table (a row for a column, or the reverse)."
+    },
+    "GRAND_TOTAL": {
+      "student": "That's everyone. Add only the cells that match the question.",
+      "teacher": "Gives the grand total of the table instead of one row or column total."
+    },
+    "ONE_CELL": {
+      "student": "One cell is not a total. Add the whole row or column.",
+      "teacher": "Reports a single cell instead of adding its row or column."
+    },
+    "LEFT_OUT_CELL": {
+      "student": "Count all four cells for everyone.",
+      "teacher": "Leaves one cell out of the grand total."
+    },
+    "ADDED_FOR_ONLY": {
+      "student": "The group already includes the overlap. Take it away to get 'only'.",
+      "teacher": "Adds the overlap instead of subtracting it to get 'only'."
+    },
+    "WHOLE_FOR_ONLY": {
+      "student": "That counts the overlap too. Only means without the overlap.",
+      "teacher": "Gives the whole group as 'only' without removing the overlap."
+    },
+    "ONLY_IS_BOTH": {
+      "student": "The overlap does both. Only means the rest of the group.",
+      "teacher": "Gives the overlap count as the 'only' count."
+    },
+    "ADDED_FOR_MISSING": {
+      "student": "The part plus the missing part makes the total. Subtract.",
+      "teacher": "Adds the known part to the total instead of subtracting."
+    },
+    "GIVEN_CELL": {
+      "student": "That's the cell you were given. Take it from the total.",
+      "teacher": "Repeats the known cell as the missing one."
+    },
+    "TOTAL_AS_MISSING": {
+      "student": "That's the whole column. Take away the part you know.",
+      "teacher": "Gives the given total as the missing cell."
+    },
+    "PART_TO_PART": {
+      "student": "Compare the part to the whole group, not to the other part.",
+      "teacher": "Divides one part by the other part instead of by the total."
+    },
+    "OTHER_PART": {
+      "student": "That's the other category. Use the category you were asked for.",
+      "teacher": "Takes the fraction of the other category over the total."
+    },
+    "WHOLE_OVER_PART": {
+      "student": "The part goes on top and the whole on the bottom.",
+      "teacher": "Flips the fraction: whole over part."
+    },
+    "WRONG_TOTAL": {
+      "student": "Divide by the group's own total, not by the whole column.",
+      "teacher": "Divides by the total of the other margin (the whole column)."
+    },
+    "GRAND_DENOMINATOR": {
+      "student": "Divide by the group's own total, not by everyone.",
+      "teacher": "Divides by the grand total instead of the group's total."
+    },
+    "COUNT_AS_PERCENT": {
+      "student": "Percent means out of 100. Turn the fraction into hundredths.",
+      "teacher": "Writes the count as the percent."
+    },
+    "COUNT_NOT_RATE": {
+      "student": "Bigger count isn't bigger rate. Compare each part to its own whole.",
+      "teacher": "Compares the counts instead of the fractions."
+    },
+    "NOT_COMPARED": {
+      "student": "Turn each group into a fraction of its own total, then compare.",
+      "teacher": "Chooses without comparing the two fractions."
+    }
+  }
+}

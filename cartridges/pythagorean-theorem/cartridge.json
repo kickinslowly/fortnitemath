@@ -1,0 +1,93 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "pythagorean-theorem",
+  "version": "1.0.0",
+  "title": "Pythagorean Theorem",
+  "subtitle": "Right Triangles, Distance & 3D",
+  "grade": "8",
+  "standards": ["CCSS.MATH.CONTENT.8.G.B.6", "CCSS.MATH.CONTENT.8.G.B.7", "CCSS.MATH.CONTENT.8.G.B.8"],
+  "seed": 20261036,
+  "items_per_tier": 40,
+  "bounds": "PROTOCOL §4b Pythagorean (grade 8). Sides 1-10; every square 100 or less and every sum or difference of two squares (box diagonal: three) 100 or less. Whole answers come only from 3-4-5 and 6-8-10 (box diagonals 1-2-2 -> 3, 2-4-4 -> 6, 2-3-6 -> 7, 1-4-8 -> 9, 4-4-7 -> 9); every other length is an unsimplified √n, n 2-99 and not a perfect square. Coordinates of size 10 or less. Wrong choices up to 999. A root is compared with a whole number only when they differ by 0.3 or more.",
+  "tiers": [
+    { "tier": 1, "name": "Find the Hypotenuse", "description": "Legs given: square, add, take the root." },
+    { "tier": 2, "name": "Find a Leg", "description": "Hypotenuse and one leg given: subtract the squares." },
+    { "tier": 3, "name": "Is It a Right Triangle?", "description": "Test a^2 + b^2 = c^2 and spot the hypotenuse." },
+    { "tier": 4, "name": "Distance on the Plane", "description": "Make a right triangle from two points." },
+    { "tier": 5, "name": "Stories & 3D", "description": "Ladders, ramps, walks and box diagonals." }
+  ],
+  "misconceptions": {
+    "ADDED_LEGS": {
+      "student": "Adding the legs is the walk around, not the shortcut. Use a^2 + b^2 = c^2.",
+      "teacher": "Hypotenuse taken as a + b (the sum of the legs)."
+    },
+    "NO_ROOT": {
+      "student": "That is c^2, the square. Take the square root to get c.",
+      "teacher": "Stops at a^2 + b^2 (or c^2 − a^2) and forgets the final square root."
+    },
+    "ROOT_OF_LEG_SUM": {
+      "student": "Square each side first: a^2 + b^2. Not a + b.",
+      "teacher": "Takes the root of the plain sum of the sides, skipping the squares."
+    },
+    "DOUBLED_FOR_SQUARE": {
+      "student": "Squaring a side is a × a, not 2 × a.",
+      "teacher": "Squares by doubling: a^2 read as 2a."
+    },
+    "ADDED_SQUARES": {
+      "student": "Finding a leg, you subtract: c^2 − a^2. The hypotenuse is the big one.",
+      "teacher": "Adds the squares when a leg is missing, treating the known leg as if the hypotenuse were unknown."
+    },
+    "SUBTRACTED_SIDES": {
+      "student": "Subtract the squares, not the sides: c^2 − a^2.",
+      "teacher": "Finds the leg as c − a (plain difference of the sides)."
+    },
+    "ROOT_OF_DIFF": {
+      "student": "Square the sides first, then subtract and take the root.",
+      "teacher": "Takes the root of c − a, skipping the squares."
+    },
+    "ADD_SIDES": {
+      "student": "Test squares, not sides: a^2 + b^2 = c^2, not a + b = c.",
+      "teacher": "Checks the converse with a + b = c instead of a^2 + b^2 = c^2."
+    },
+    "ORDER_AS_GIVEN": {
+      "student": "The hypotenuse is the longest side, whatever order they are listed in.",
+      "teacher": "Treats the last-listed (or first-two-listed) sides as the legs without finding the longest."
+    },
+    "CONSECUTIVE": {
+      "student": "Only special sets work. 3, 4, 5 does; 4, 5, 6 does not. Test a^2 + b^2.",
+      "teacher": "Generalises 3-4-5 to any three consecutive numbers."
+    },
+    "CLOSE_ENOUGH": {
+      "student": "Close is not equal. a^2 + b^2 must equal c^2 exactly.",
+      "teacher": "Accepts a^2 + b^2 within a point or two of c^2."
+    },
+    "ANY_TRIANGLE": {
+      "student": "Sides can make a triangle with no right angle. Test the squares.",
+      "teacher": "Believes any three lengths that form a triangle make a right triangle."
+    },
+    "LEG_AS_LONGEST": {
+      "student": "A root can be the longest side. Compare the squares to see.",
+      "teacher": "Picks a leg as the hypotenuse because the radical looks smaller than a whole number."
+    },
+    "TAXICAB": {
+      "student": "Distance is the straight line, not across then up. Use a^2 + b^2 = c^2.",
+      "teacher": "Adds the horizontal and vertical gaps (taxicab distance)."
+    },
+    "ONE_LEG": {
+      "student": "Distance needs both gaps, across and up, squared and added.",
+      "teacher": "Uses only the horizontal gap as the distance."
+    },
+    "NEG_DIFF": {
+      "student": "Across zero the gap adds up: from −2 to 3 is 5, not 1.",
+      "teacher": "Subtracts sizes of coordinates on opposite sides of zero instead of adding them."
+    },
+    "ADDED_ALL": {
+      "student": "Square each edge, add the squares, then take the root.",
+      "teacher": "Box diagonal taken as a + b + c."
+    },
+    "FACE_ONLY": {
+      "student": "A box diagonal uses all three edges, not just one face.",
+      "teacher": "Gives a face diagonal (two edges) for the space diagonal."
+    }
+  }
+}
