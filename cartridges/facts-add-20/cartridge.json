@@ -1,0 +1,74 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-add-20",
+  "version": "1.0.0",
+  "title": "Addition to 20",
+  "subtitle": "Sums 11 to 20",
+  "grade": "Facts",
+  "picker_order": 2,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.OA.C.6",
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.OA.B.2"
+  ],
+  "seed": 20261052,
+  "items_per_tier": 24,
+  "bounds": "Facts bounds (PROTOCOL 4c, briefs/facts2): the whole run inside sums 11 to 20, easy to hard by tier. Prompt forms: R 'a + b = ?' (answer s), C 'a + ? = s' (answer b), S '? + b = s' (answer a); every number a non-negative integer. T1 R, a ten-plus number and no new ten (12 + 5). T2 R, a, b >= 2: doubles, neighbours (7 + 8) and the nines (9 + 6, one digit each). T3 R, both one digit. T4 C, a, b >= 2 (>= 12 with both one digit). T5 S (>= 12, >= 6 with both one digit) and C with both one digit. Prompts unique per tier, 24 per tier. Wrong choices: distinct non-negative integers <= 999, >= 2 near the answer (+-1, +-2, +-10), at most 1 far; answer rank among the 4 values 15-35% each per tier; answers >= 20 always have a wrong choice sharing the ones digit (+-10); the answer is never the only value of its parity.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Ten and more",
+      "description": "A ten plus ones: 12 + 5, no new ten."
+    },
+    {
+      "tier": 2,
+      "name": "Doubles and nines",
+      "description": "Doubles, near doubles and the nines: 8 + 8, 9 + 6."
+    },
+    {
+      "tier": 3,
+      "name": "Cross ten",
+      "description": "Two single digits that cross ten: 7 + 6."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "Find the second number: 7 + ? = 15."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "Find the first number: ? + 6 = 14."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Count again: start at the bigger number and count up.",
+      "teacher": "Counted on wrong: the sum is one more or one less than the true sum."
+    },
+    "SUBTRACTED": {
+      "student": "Plus means put together. Add the two numbers, don't take them apart.",
+      "teacher": "Subtracted the smaller addend from the larger instead of adding: 8 + 5 = 3."
+    },
+    "NO_CARRY": {
+      "student": "The ones made a new ten. Add that ten in with the tens.",
+      "teacher": "Dropped the regrouped ten when the ones summed to 10 or more: 38 + 47 = 75."
+    },
+    "TENS_SLIP": {
+      "student": "Check the tens place. Add the tens, then the ones.",
+      "teacher": "Tens digit of the sum is one too many or too few, with the ones right: 34 + 52 = 76 or 96."
+    },
+    "MISSING_ADDED": {
+      "student": "Don't add the two numbers you see. Find the missing one: subtract.",
+      "teacher": "Added the shown number and the total instead of subtracting: 7 + ? = 15 answered 22."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Add your answer to the shown number and check the total.",
+      "teacher": "Counted up wrong: the missing number is one more or one less than the true one."
+    },
+    "MISSING_TENS": {
+      "student": "Check the tens. Add your answer to the shown number: is it the total?",
+      "teacher": "Missing number is ten too many or too few: forgot the trade counting up across a ten, or a tens slip."
+    }
+  }
+}

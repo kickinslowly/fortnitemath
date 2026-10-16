@@ -571,7 +571,7 @@ fnm_boss_mode := class:
 
     # ------------------------------------------------ questions (BOSS_MODE.md section 2)
 
-    # The next question: a cartridge at random, the tier the level maps to (PROTOCOL 6 with Stage = level, 5 stages), a
+    # The next question: a grade at random, a cartridge of that grade at random, the tier the level maps to (PROTOCOL 6 with Stage = level, 5 stages), a
     # draw from the player's own deck for that cartridge and tier. Everything downstream reads State.Cartridge.
     DrawBmItem(State:fnm_player_state):void =
         Carts := Director.Cartridges
@@ -580,7 +580,10 @@ fnm_boss_mode := class:
         loop:
             if (Tries >= 8 or Carts.Length = 0) then break
             set Tries += 1
-            C := GetRandomInt(0, Carts.Length - 1)
+            # A grade first, then a skill in it: 20 Facts skills (2026-10-16) would otherwise be 41% of the questions.
+            Grades := Director.GradeList()
+            InGrade := if (Grade := Grades[GetRandomInt(0, Grades.Length - 1)]) then (for (K -> Each : Carts, Each.Grade = Grade) { K }) else array{}
+            C := if (Pick := InGrade[GetRandomInt(0, InGrade.Length - 1)]) then Pick else GetRandomInt(0, Carts.Length - 1)
             if (Chosen := Carts[C], Pools := Director.CartridgePools[C], Decks := State.BmDecks[C]):
                 Tier := FnmTierForStage(Max(State.Level, 1), FnmBmLevelCount(), Chosen.Tiers.Length, -1)
                 if (Pool := Pools[Tier - 1], Deck := Decks[Tier - 1]):

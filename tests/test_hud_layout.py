@@ -701,7 +701,8 @@ def test_grade_step_fits_1080p_with_every_grade_in_the_slot():
     src = ui_src()
     assert "Labels := for (Grade : Grades) { GradeLabel(Grade) }" in src
     assert 'GradeRows := if (Kind = fnm_pick.Grade, Cells.Length > GradeColumnAfter) then true else false' in src
-    assert "(if (Mod[K, 2] = 0) then true else false)" in src            # left, right, left, right: row by row
+    assert "Column := if (Across?, M := Mod[K, ColumnCount]) then M" in src  # left, right, left, right: row by row
+    assert "Across := if (GradeRows? or Grid?) then true else false" in src
     logo = desired_size("LogoArt")[1]
     pad = float(re.search(r"Widget := LogoArt\n\s+HorizontalAlignment := horizontal_alignment.Center\n\s+Padding := "
                           r"margin\{Bottom := ([\d.]+)\}", logo_slot()).group(1))
@@ -713,6 +714,46 @@ def test_grade_step_fits_1080p_with_every_grade_in_the_slot():
     # the disproof: one column of four grades does not fit (what the grid is for)
     height = PICKER_PANEL_PX["ShowGradeStep"] + (4 - 2) * GRADE_ROW_PX + logo + pad
     assert PICKER_CENTRE_Y - height / 2 < PICKER_TOP_MIN
+
+
+def skill_rows(skills):
+    """Rows the skill step draws for this many skills (fnm_ui.verse ShowPickerStep): one a row up to PickerColumnAfter,
+    two columns up to twice that, then PickerGridColumns to a row."""
+    src = ui_src()
+    after = int(re.search(r"PickerColumnAfter : int = (\d+)", src).group(1))
+    across = int(re.search(r"PickerGridColumns : int = (\d+)", src).group(1))
+    if skills <= after:
+        return skills
+    return (skills + 1) // 2 if skills <= 2 * after else -(-skills // across)
+
+
+def test_skill_step_fits_1080p_for_every_grade_and_facts_reads_one_operation_a_row():
+    """2026-10-16, Facts by range: 20 skills in two columns would be 10 rows, past the bottom of a 1080p screen. Past
+    2 * PickerColumnAfter the step goes PickerGridColumns to a row, so no grade's step is taller than the grade-6 step
+    PICKER_PANEL_PX measured (5 rows), and Facts' registry order (add, sub, mul, div, mix; ranges ascending) puts one
+    operation on each row."""
+    sys.path.insert(0, str(ROOT))
+    from fnm.emit import baked_cartridges, picker_order
+    src = ui_src()
+    assert 'Grid := if (Kind = fnm_pick.Skill, Cells.Length > 2 * PickerColumnAfter) then true else false' in src
+    assert "ColumnCount := if (Grid?) then PickerGridColumns else 2" in src
+    carts = picker_order(baked_cartridges())
+    per_grade = {}
+    for b in carts:
+        per_grade.setdefault(str(b.get("grade") or ""), []).append(b)
+    for grade, members in per_grade.items():
+        assert skill_rows(len(members)) <= 5, (grade, len(members))
+    facts = per_grade.get("Facts", [])
+    if len(facts) > 10:
+        across = int(re.search(r"PickerGridColumns : int = (\d+)", src).group(1))
+        rows = [facts[k:k + across] for k in range(0, len(facts), across)]
+        for row in rows:
+            ops = {b["id"].split("-")[1] for b in row}
+            assert len(ops) == 1, [b["id"] for b in row]                   # one operation a row
+            ranges = [int(b["id"].rsplit("-", 1)[1]) for b in row]
+            assert ranges == sorted(ranges), [b["id"] for b in row]       # ranges left to right
+    # the disproof: twenty skills in two columns would be ten rows
+    assert -(-20 // 2) > 5
 
 
 # ---------------------------------------------------------------- G10 H: the director's seam, the shield, the compact slate, the brag grid

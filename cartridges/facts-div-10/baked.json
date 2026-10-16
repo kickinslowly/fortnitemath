@@ -1,0 +1,2369 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-div-10",
+  "version": "1.0.0",
+  "title": "Divide by 1 to 10",
+  "subtitle": "Times tables to 10, backwards",
+  "grade": "Facts",
+  "picker_order": 14,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.B.6",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261064,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-10. T1 R: a or b in {0,1,2,5,10}. T2 R: facts of 3, 4, 9 (a, b both in {3,4,9} at least 8). T3 R: facts of 6, 7, 8 (a, b both in {6,7,8} at least 8). T4 C: a, b in {3,4,6,7,8,9} (at least 12) plus C with a, b 2-10. T5 S: a, b in {3,4,6,7,8,9} (at least 12) plus C on the same pairs. Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy: 0, 1, 2, 5, 10",
+      "description": "Divide by 1, 2, 5 and 10, and 0 divided by a number."
+    },
+    {
+      "tier": 2,
+      "name": "Facts with 3, 4, 9",
+      "description": "Divide by 3, 4 and 9 using the fact family."
+    },
+    {
+      "tier": 3,
+      "name": "Facts with 6, 7, 8",
+      "description": "Divide by 6, 7 and 8. Think: what times it makes this?"
+    },
+    {
+      "tier": 4,
+      "name": "Missing divisors",
+      "description": "Find the divisor: 42 ÷ ? = 7. Think 7 times what."
+    },
+    {
+      "tier": 5,
+      "name": "Missing dividends",
+      "description": "Find the start: ? ÷ 6 = 7. Multiply back: 6 × 7."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    },
+    "START_TENS": {
+      "student": "Right ones digit, wrong tens. Multiply the two numbers, then check the size.",
+      "teacher": "Missing dividend off by ten: right ones digit, tens place slipped."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-div-10/t1/001",
+      "tier": 1,
+      "prompt": "0 ÷ 10 = ?",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "0 ÷ 10 = 0: zero shared into groups of 10 leaves none, and 10 × 0 = 0."
+    },
+    {
+      "id": "facts-div-10/t1/002",
+      "tier": 1,
+      "prompt": "3 ÷ 1 = ?",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 ÷ 1 = 3: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/003",
+      "tier": 1,
+      "prompt": "100 ÷ 10 = ?",
+      "choices": [
+        "12",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "100 ÷ 10 = 10: take the zero off 100. Check: 10 × 10 = 100."
+    },
+    {
+      "id": "facts-div-10/t1/004",
+      "tier": 1,
+      "prompt": "6 ÷ 1 = ?",
+      "choices": [
+        "8",
+        "6",
+        "5",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 1 = 6: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/005",
+      "tier": 1,
+      "prompt": "30 ÷ 5 = ?",
+      "choices": [
+        "7",
+        "150",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "30 ÷ 5 = 6 because 5 × 6 = 30. Fives: half of 60 is 30."
+    },
+    {
+      "id": "facts-div-10/t1/006",
+      "tier": 1,
+      "prompt": "6 ÷ 2 = ?",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "6 ÷ 2 = 3: half of 6 is 3, because 3 + 3 = 6."
+    },
+    {
+      "id": "facts-div-10/t1/007",
+      "tier": 1,
+      "prompt": "90 ÷ 9 = ?",
+      "choices": [
+        "8",
+        "9",
+        "810",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "90 ÷ 9 = 10 because 9 × 10 = 90. Nines: 10 × 10 = 100, minus one 10 is 90."
+    },
+    {
+      "id": "facts-div-10/t1/008",
+      "tier": 1,
+      "prompt": "4 ÷ 2 = ?",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 2 = 2: half of 4 is 2, because 2 + 2 = 4."
+    },
+    {
+      "id": "facts-div-10/t1/009",
+      "tier": 1,
+      "prompt": "8 ÷ 1 = ?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "8 ÷ 1 = 8: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/010",
+      "tier": 1,
+      "prompt": "40 ÷ 10 = ?",
+      "choices": [
+        "6",
+        "30",
+        "5",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "40 ÷ 10 = 4: take the zero off 40. Check: 10 × 4 = 40."
+    },
+    {
+      "id": "facts-div-10/t1/011",
+      "tier": 1,
+      "prompt": "5 ÷ 5 = ?",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED"
+      ],
+      "explanation": "5 ÷ 5 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-10/t1/012",
+      "tier": 1,
+      "prompt": "0 ÷ 1 = ?",
+      "choices": [
+        "1",
+        "2",
+        "0",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0 ÷ 1 = 0: zero shared into groups of 1 leaves none, and 1 × 0 = 0."
+    },
+    {
+      "id": "facts-div-10/t1/013",
+      "tier": 1,
+      "prompt": "5 ÷ 1 = ?",
+      "choices": [
+        "4",
+        "6",
+        "5",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "5 ÷ 1 = 5: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/014",
+      "tier": 1,
+      "prompt": "70 ÷ 10 = ?",
+      "choices": [
+        "700",
+        "7",
+        "6",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "70 ÷ 10 = 7: take the zero off 70. Check: 10 × 7 = 70."
+    },
+    {
+      "id": "facts-div-10/t1/015",
+      "tier": 1,
+      "prompt": "20 ÷ 4 = ?",
+      "choices": [
+        "5",
+        "80",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "20 ÷ 4 = 5 because 4 × 5 = 20. Neighbour fact: 4 × 4 = 16, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t1/016",
+      "tier": 1,
+      "prompt": "60 ÷ 10 = ?",
+      "choices": [
+        "6",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "60 ÷ 10 = 6: take the zero off 60. Check: 10 × 6 = 60."
+    },
+    {
+      "id": "facts-div-10/t1/017",
+      "tier": 1,
+      "prompt": "6 ÷ 3 = ?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 3 = 2 because 3 × 2 = 6. Think: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-10/t1/018",
+      "tier": 1,
+      "prompt": "6 ÷ 6 = ?",
+      "choices": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 6 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-10/t1/019",
+      "tier": 1,
+      "prompt": "60 ÷ 6 = ?",
+      "choices": [
+        "10",
+        "11",
+        "8",
+        "54"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "60 ÷ 6 = 10 because 6 × 10 = 60. Neighbour fact: 6 × 9 = 54, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t1/020",
+      "tier": 1,
+      "prompt": "7 ÷ 1 = ?",
+      "choices": [
+        "4",
+        "7",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "7 ÷ 1 = 7: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/021",
+      "tier": 1,
+      "prompt": "20 ÷ 2 = ?",
+      "choices": [
+        "7",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "20 ÷ 2 = 10: half of 20 is 10, because 10 + 10 = 20."
+    },
+    {
+      "id": "facts-div-10/t1/022",
+      "tier": 1,
+      "prompt": "2 ÷ 1 = ?",
+      "choices": [
+        "1",
+        "4",
+        "0",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "2 ÷ 1 = 2: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-10/t1/023",
+      "tier": 1,
+      "prompt": "8 ÷ 8 = ?",
+      "choices": [
+        "0",
+        "64",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "8 ÷ 8 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-10/t1/024",
+      "tier": 1,
+      "prompt": "45 ÷ 9 = ?",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "45 ÷ 9 = 5 because 9 × 5 = 45. Nines: 10 × 5 = 50, minus one 5 is 45."
+    },
+    {
+      "id": "facts-div-10/t2/001",
+      "tier": 2,
+      "prompt": "63 ÷ 9 = ?",
+      "choices": [
+        "54",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "63 ÷ 9 = 7 because 9 × 7 = 63. Nines: 10 × 7 = 70, minus one 7 is 63."
+    },
+    {
+      "id": "facts-div-10/t2/002",
+      "tier": 2,
+      "prompt": "9 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 ÷ 3 = 3 because 3 × 3 = 9. Neighbour fact: 3 × 2 = 6, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t2/003",
+      "tier": 2,
+      "prompt": "21 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "6",
+        "8",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "21 ÷ 3 = 7 because 3 × 7 = 21. Neighbour fact: 3 × 6 = 18, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t2/004",
+      "tier": 2,
+      "prompt": "28 ÷ 7 = ?",
+      "choices": [
+        "3",
+        "6",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "28 ÷ 7 = 4 because 7 × 4 = 28. Neighbour fact: 7 × 3 = 21, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t2/005",
+      "tier": 2,
+      "prompt": "24 ÷ 4 = ?",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "24 ÷ 4 = 6 because 4 × 6 = 24. Neighbour fact: 4 × 5 = 20, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t2/006",
+      "tier": 2,
+      "prompt": "32 ÷ 4 = ?",
+      "choices": [
+        "10",
+        "8",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "32 ÷ 4 = 8 because 4 × 8 = 32. Neighbour fact: 4 × 7 = 28, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t2/007",
+      "tier": 2,
+      "prompt": "18 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "8",
+        "6",
+        "54"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "18 ÷ 3 = 6 because 3 × 6 = 18. Neighbour fact: 3 × 5 = 15, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t2/008",
+      "tier": 2,
+      "prompt": "16 ÷ 4 = ?",
+      "choices": [
+        "4",
+        "64",
+        "6",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "16 ÷ 4 = 4 because 4 × 4 = 16. Neighbour fact: 4 × 3 = 12, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t2/009",
+      "tier": 2,
+      "prompt": "36 ÷ 4 = ?",
+      "choices": [
+        "32",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "36 ÷ 4 = 9 because 4 × 9 = 36. Neighbour fact: 4 × 8 = 32, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t2/010",
+      "tier": 2,
+      "prompt": "24 ÷ 6 = ?",
+      "choices": [
+        "18",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "24 ÷ 6 = 4 because 6 × 4 = 24. Neighbour fact: 6 × 3 = 18, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t2/011",
+      "tier": 2,
+      "prompt": "54 ÷ 9 = ?",
+      "choices": [
+        "6",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "54 ÷ 9 = 6 because 9 × 6 = 54. Nines: 10 × 6 = 60, minus one 6 is 54."
+    },
+    {
+      "id": "facts-div-10/t2/012",
+      "tier": 2,
+      "prompt": "24 ÷ 8 = ?",
+      "choices": [
+        "16",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "24 ÷ 8 = 3 because 8 × 3 = 24. Neighbour fact: 8 × 2 = 16, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t2/013",
+      "tier": 2,
+      "prompt": "27 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "27 ÷ 3 = 9 because 3 × 9 = 27. Neighbour fact: 3 × 8 = 24, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t2/014",
+      "tier": 2,
+      "prompt": "36 ÷ 9 = ?",
+      "choices": [
+        "2",
+        "5",
+        "4",
+        "324"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "36 ÷ 9 = 4 because 9 × 4 = 36. Nines: 10 × 4 = 40, minus one 4 is 36."
+    },
+    {
+      "id": "facts-div-10/t2/015",
+      "tier": 2,
+      "prompt": "72 ÷ 9 = ?",
+      "choices": [
+        "9",
+        "8",
+        "6",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "72 ÷ 9 = 8 because 9 × 8 = 72. Nines: 10 × 8 = 80, minus one 8 is 72."
+    },
+    {
+      "id": "facts-div-10/t2/016",
+      "tier": 2,
+      "prompt": "21 ÷ 7 = ?",
+      "choices": [
+        "14",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "21 ÷ 7 = 3 because 7 × 3 = 21. Neighbour fact: 7 × 2 = 14, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t2/017",
+      "tier": 2,
+      "prompt": "54 ÷ 6 = ?",
+      "choices": [
+        "11",
+        "324",
+        "10",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "54 ÷ 6 = 9 because 6 × 9 = 54. Neighbour fact: 6 × 8 = 48, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t2/018",
+      "tier": 2,
+      "prompt": "81 ÷ 9 = ?",
+      "choices": [
+        "7",
+        "6",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "81 ÷ 9 = 9 because 9 × 9 = 81. Nines: 10 × 9 = 90, minus one 9 is 81."
+    },
+    {
+      "id": "facts-div-10/t2/019",
+      "tier": 2,
+      "prompt": "12 ÷ 3 = ?",
+      "choices": [
+        "4",
+        "36",
+        "3",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 3 = 4 because 3 × 4 = 12. Neighbour fact: 3 × 3 = 9, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t2/020",
+      "tier": 2,
+      "prompt": "27 ÷ 9 = ?",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "27 ÷ 9 = 3 because 9 × 3 = 27. Nines: 10 × 3 = 30, minus one 3 is 27."
+    },
+    {
+      "id": "facts-div-10/t2/021",
+      "tier": 2,
+      "prompt": "18 ÷ 6 = ?",
+      "choices": [
+        "3",
+        "2",
+        "12",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED",
+        "GROUP_OFF"
+      ],
+      "explanation": "18 ÷ 6 = 3 because 6 × 3 = 18. Neighbour fact: 6 × 2 = 12, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t2/022",
+      "tier": 2,
+      "prompt": "63 ÷ 7 = ?",
+      "choices": [
+        "7",
+        "6",
+        "8",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "63 ÷ 7 = 9 because 7 × 9 = 63. Neighbour fact: 7 × 8 = 56, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t2/023",
+      "tier": 2,
+      "prompt": "12 ÷ 4 = ?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 4 = 3 because 4 × 3 = 12. Neighbour fact: 4 × 2 = 8, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t2/024",
+      "tier": 2,
+      "prompt": "32 ÷ 8 = ?",
+      "choices": [
+        "24",
+        "3",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "32 ÷ 8 = 4 because 8 × 4 = 32. Neighbour fact: 8 × 3 = 24, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/001",
+      "tier": 3,
+      "prompt": "49 ÷ 7 = ?",
+      "choices": [
+        "9",
+        "8",
+        "343",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "49 ÷ 7 = 7 because 7 × 7 = 49. Neighbour fact: 7 × 6 = 42, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/002",
+      "tier": 3,
+      "prompt": "64 ÷ 8 = ?",
+      "choices": [
+        "8",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "64 ÷ 8 = 8 because 8 × 8 = 64. Neighbour fact: 8 × 7 = 56, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/003",
+      "tier": 3,
+      "prompt": "24 ÷ 8 = ?",
+      "choices": [
+        "16",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "24 ÷ 8 = 3 because 8 × 3 = 24. Neighbour fact: 8 × 2 = 16, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/004",
+      "tier": 3,
+      "prompt": "21 ÷ 3 = ?",
+      "choices": [
+        "63",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "21 ÷ 3 = 7 because 3 × 7 = 21. Neighbour fact: 3 × 6 = 18, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t3/005",
+      "tier": 3,
+      "prompt": "32 ÷ 4 = ?",
+      "choices": [
+        "10",
+        "8",
+        "6",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "32 ÷ 4 = 8 because 4 × 8 = 32. Neighbour fact: 4 × 7 = 28, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t3/006",
+      "tier": 3,
+      "prompt": "21 ÷ 7 = ?",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "21 ÷ 7 = 3 because 7 × 3 = 21. Neighbour fact: 7 × 2 = 14, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/007",
+      "tier": 3,
+      "prompt": "42 ÷ 7 = ?",
+      "choices": [
+        "8",
+        "7",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "42 ÷ 7 = 6 because 7 × 6 = 42. Neighbour fact: 7 × 5 = 35, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/008",
+      "tier": 3,
+      "prompt": "28 ÷ 4 = ?",
+      "choices": [
+        "6",
+        "24",
+        "7",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "28 ÷ 4 = 7 because 4 × 7 = 28. Neighbour fact: 4 × 6 = 24, plus one more 4."
+    },
+    {
+      "id": "facts-div-10/t3/009",
+      "tier": 3,
+      "prompt": "72 ÷ 9 = ?",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "63"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "72 ÷ 9 = 8 because 9 × 8 = 72. Nines: 10 × 8 = 80, minus one 8 is 72."
+    },
+    {
+      "id": "facts-div-10/t3/010",
+      "tier": 3,
+      "prompt": "56 ÷ 8 = ?",
+      "choices": [
+        "6",
+        "48",
+        "7",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "56 ÷ 8 = 7 because 8 × 7 = 56. Neighbour fact: 8 × 6 = 48, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/011",
+      "tier": 3,
+      "prompt": "18 ÷ 3 = ?",
+      "choices": [
+        "6",
+        "7",
+        "15",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED",
+        "GROUP_OFF"
+      ],
+      "explanation": "18 ÷ 3 = 6 because 3 × 6 = 18. Neighbour fact: 3 × 5 = 15, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t3/012",
+      "tier": 3,
+      "prompt": "28 ÷ 7 = ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "28 ÷ 7 = 4 because 7 × 4 = 28. Neighbour fact: 7 × 3 = 21, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/013",
+      "tier": 3,
+      "prompt": "32 ÷ 8 = ?",
+      "choices": [
+        "256",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "32 ÷ 8 = 4 because 8 × 4 = 32. Neighbour fact: 8 × 3 = 24, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/014",
+      "tier": 3,
+      "prompt": "72 ÷ 8 = ?",
+      "choices": [
+        "7",
+        "9",
+        "10",
+        "64"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "72 ÷ 8 = 9 because 8 × 9 = 72. Neighbour fact: 8 × 8 = 64, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/015",
+      "tier": 3,
+      "prompt": "56 ÷ 7 = ?",
+      "choices": [
+        "8",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "56 ÷ 7 = 8 because 7 × 8 = 56. Neighbour fact: 7 × 7 = 49, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/016",
+      "tier": 3,
+      "prompt": "54 ÷ 9 = ?",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "54 ÷ 9 = 6 because 9 × 6 = 54. Nines: 10 × 6 = 60, minus one 6 is 54."
+    },
+    {
+      "id": "facts-div-10/t3/017",
+      "tier": 3,
+      "prompt": "42 ÷ 6 = ?",
+      "choices": [
+        "6",
+        "7",
+        "4",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "42 ÷ 6 = 7 because 6 × 7 = 42. Neighbour fact: 6 × 6 = 36, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t3/018",
+      "tier": 3,
+      "prompt": "54 ÷ 6 = ?",
+      "choices": [
+        "48",
+        "9",
+        "11",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "54 ÷ 6 = 9 because 6 × 9 = 54. Neighbour fact: 6 × 8 = 48, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t3/019",
+      "tier": 3,
+      "prompt": "24 ÷ 3 = ?",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "72"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "24 ÷ 3 = 8 because 3 × 8 = 24. Neighbour fact: 3 × 7 = 21, plus one more 3."
+    },
+    {
+      "id": "facts-div-10/t3/020",
+      "tier": 3,
+      "prompt": "48 ÷ 6 = ?",
+      "choices": [
+        "6",
+        "288",
+        "7",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "48 ÷ 6 = 8 because 6 × 8 = 48. Neighbour fact: 6 × 7 = 42, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t3/021",
+      "tier": 3,
+      "prompt": "48 ÷ 8 = ?",
+      "choices": [
+        "3",
+        "6",
+        "5",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "48 ÷ 8 = 6 because 8 × 6 = 48. Neighbour fact: 8 × 5 = 40, plus one more 8."
+    },
+    {
+      "id": "facts-div-10/t3/022",
+      "tier": 3,
+      "prompt": "63 ÷ 9 = ?",
+      "choices": [
+        "567",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "63 ÷ 9 = 7 because 9 × 7 = 63. Nines: 10 × 7 = 70, minus one 7 is 63."
+    },
+    {
+      "id": "facts-div-10/t3/023",
+      "tier": 3,
+      "prompt": "63 ÷ 7 = ?",
+      "choices": [
+        "9",
+        "441",
+        "10",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "63 ÷ 7 = 9 because 7 × 9 = 63. Neighbour fact: 7 × 8 = 56, plus one more 7."
+    },
+    {
+      "id": "facts-div-10/t3/024",
+      "tier": 3,
+      "prompt": "36 ÷ 6 = ?",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "36 ÷ 6 = 6 because 6 × 6 = 36. Neighbour fact: 6 × 5 = 30, plus one more 6."
+    },
+    {
+      "id": "facts-div-10/t4/001",
+      "tier": 4,
+      "prompt": "63 ÷ ? = 7",
+      "choices": [
+        "9",
+        "8",
+        "10",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "63 ÷ ? = 7: 7 × 9 = 63, so ? = 9. Ask: what times 7 makes 63?"
+    },
+    {
+      "id": "facts-div-10/t4/002",
+      "tier": 4,
+      "prompt": "56 ÷ ? = 8",
+      "choices": [
+        "9",
+        "48",
+        "8",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "56 ÷ ? = 8: 8 × 7 = 56, so ? = 7. Ask: what times 8 makes 56?"
+    },
+    {
+      "id": "facts-div-10/t4/003",
+      "tier": 4,
+      "prompt": "32 ÷ ? = 4",
+      "choices": [
+        "7",
+        "6",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "32 ÷ ? = 4: 4 × 8 = 32, so ? = 8. Ask: what times 4 makes 32?"
+    },
+    {
+      "id": "facts-div-10/t4/004",
+      "tier": 4,
+      "prompt": "30 ÷ ? = 10",
+      "choices": [
+        "5",
+        "300",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_MULTIPLIED",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "30 ÷ ? = 10: 10 × 3 = 30, so ? = 3. Ask: what times 10 makes 30?"
+    },
+    {
+      "id": "facts-div-10/t4/005",
+      "tier": 4,
+      "prompt": "36 ÷ ? = 4",
+      "choices": [
+        "144",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "36 ÷ ? = 4: 4 × 9 = 36, so ? = 9. Ask: what times 4 makes 36?"
+    },
+    {
+      "id": "facts-div-10/t4/006",
+      "tier": 4,
+      "prompt": "35 ÷ ? = 5",
+      "choices": [
+        "8",
+        "30",
+        "7",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "35 ÷ ? = 5: 5 × 7 = 35, so ? = 7. Ask: what times 5 makes 35?"
+    },
+    {
+      "id": "facts-div-10/t4/007",
+      "tier": 4,
+      "prompt": "32 ÷ ? = 8",
+      "choices": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "32 ÷ ? = 8: 8 × 4 = 32, so ? = 4. Ask: what times 8 makes 32?"
+    },
+    {
+      "id": "facts-div-10/t4/008",
+      "tier": 4,
+      "prompt": "36 ÷ ? = 6",
+      "choices": [
+        "216",
+        "7",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "36 ÷ ? = 6: 6 × 6 = 36, so ? = 6. A square fact: 6 times itself makes 36."
+    },
+    {
+      "id": "facts-div-10/t4/009",
+      "tier": 4,
+      "prompt": "30 ÷ ? = 3",
+      "choices": [
+        "11",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "30 ÷ ? = 3: 3 × 10 = 30, so ? = 10. Ask: what times 3 makes 30?"
+    },
+    {
+      "id": "facts-div-10/t4/010",
+      "tier": 4,
+      "prompt": "48 ÷ ? = 8",
+      "choices": [
+        "8",
+        "7",
+        "384",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null
+      ],
+      "explanation": "48 ÷ ? = 8: 8 × 6 = 48, so ? = 6. Ask: what times 8 makes 48?"
+    },
+    {
+      "id": "facts-div-10/t4/011",
+      "tier": 4,
+      "prompt": "64 ÷ ? = 8",
+      "choices": [
+        "56",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "64 ÷ ? = 8: 8 × 8 = 64, so ? = 8. A square fact: 8 times itself makes 64."
+    },
+    {
+      "id": "facts-div-10/t4/012",
+      "tier": 4,
+      "prompt": "16 ÷ ? = 4",
+      "choices": [
+        "3",
+        "5",
+        "64",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null
+      ],
+      "explanation": "16 ÷ ? = 4: 4 × 4 = 16, so ? = 4. A square fact: 4 times itself makes 16."
+    },
+    {
+      "id": "facts-div-10/t4/013",
+      "tier": 4,
+      "prompt": "48 ÷ ? = 6",
+      "choices": [
+        "9",
+        "8",
+        "288",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "48 ÷ ? = 6: 6 × 8 = 48, so ? = 8. Ask: what times 6 makes 48?"
+    },
+    {
+      "id": "facts-div-10/t4/014",
+      "tier": 4,
+      "prompt": "70 ÷ ? = 7",
+      "choices": [
+        "9",
+        "8",
+        "7",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "70 ÷ ? = 7: 7 × 10 = 70, so ? = 10. Ask: what times 7 makes 70?"
+    },
+    {
+      "id": "facts-div-10/t4/015",
+      "tier": 4,
+      "prompt": "72 ÷ ? = 9",
+      "choices": [
+        "7",
+        "648",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "72 ÷ ? = 9: 9 × 8 = 72, so ? = 8. Ask: what times 9 makes 72?"
+    },
+    {
+      "id": "facts-div-10/t4/016",
+      "tier": 4,
+      "prompt": "24 ÷ ? = 8",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "24 ÷ ? = 8: 8 × 3 = 24, so ? = 3. Ask: what times 8 makes 24?"
+    },
+    {
+      "id": "facts-div-10/t4/017",
+      "tier": 4,
+      "prompt": "45 ÷ ? = 9",
+      "choices": [
+        "5",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "45 ÷ ? = 9: 9 × 5 = 45, so ? = 5. Ask: what times 9 makes 45?"
+    },
+    {
+      "id": "facts-div-10/t4/018",
+      "tier": 4,
+      "prompt": "42 ÷ ? = 7",
+      "choices": [
+        "5",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "42 ÷ ? = 7: 7 × 6 = 42, so ? = 6. Ask: what times 7 makes 42?"
+    },
+    {
+      "id": "facts-div-10/t4/019",
+      "tier": 4,
+      "prompt": "45 ÷ ? = 5",
+      "choices": [
+        "10",
+        "7",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "45 ÷ ? = 5: 5 × 9 = 45, so ? = 9. Ask: what times 5 makes 45?"
+    },
+    {
+      "id": "facts-div-10/t4/020",
+      "tier": 4,
+      "prompt": "81 ÷ ? = 9",
+      "choices": [
+        "9",
+        "11",
+        "729",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "81 ÷ ? = 9: 9 × 9 = 81, so ? = 9. A square fact: 9 times itself makes 81."
+    },
+    {
+      "id": "facts-div-10/t4/021",
+      "tier": 4,
+      "prompt": "24 ÷ ? = 6",
+      "choices": [
+        "5",
+        "4",
+        "144",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_MULTIPLIED",
+        "ARITH"
+      ],
+      "explanation": "24 ÷ ? = 6: 6 × 4 = 24, so ? = 4. Ask: what times 6 makes 24?"
+    },
+    {
+      "id": "facts-div-10/t4/022",
+      "tier": 4,
+      "prompt": "12 ÷ ? = 6",
+      "choices": [
+        "1",
+        "2",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 ÷ ? = 6: 6 × 2 = 12, so ? = 2. Ask: what times 6 makes 12?"
+    },
+    {
+      "id": "facts-div-10/t4/023",
+      "tier": 4,
+      "prompt": "63 ÷ ? = 9",
+      "choices": [
+        "5",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "63 ÷ ? = 9: 9 × 7 = 63, so ? = 7. Ask: what times 9 makes 63?"
+    },
+    {
+      "id": "facts-div-10/t4/024",
+      "tier": 4,
+      "prompt": "15 ÷ ? = 5",
+      "choices": [
+        "3",
+        "10",
+        "4",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "15 ÷ ? = 5: 5 × 3 = 15, so ? = 3. Ask: what times 5 makes 15?"
+    },
+    {
+      "id": "facts-div-10/t5/001",
+      "tier": 5,
+      "prompt": "21 ÷ ? = 3",
+      "choices": [
+        "18",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "21 ÷ ? = 3: 3 × 7 = 21, so ? = 7. Ask: what times 3 makes 21?"
+    },
+    {
+      "id": "facts-div-10/t5/002",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 4",
+      "choices": [
+        "12",
+        "16",
+        "15",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 3 = 4: 3 × 4 = 12, so ? = 12. Undo dividing by multiplying: 3 × 4."
+    },
+    {
+      "id": "facts-div-10/t5/003",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 7",
+      "choices": [
+        "21",
+        "14",
+        "10",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "START_ADDED",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 3 = 7: 3 × 7 = 21, so ? = 21. Undo dividing by multiplying: 3 × 7."
+    },
+    {
+      "id": "facts-div-10/t5/004",
+      "tier": 5,
+      "prompt": "? ÷ 8 = 3",
+      "choices": [
+        "16",
+        "24",
+        "32",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "START_GROUP_OFF",
+        "START_ADDED"
+      ],
+      "explanation": "? ÷ 8 = 3: 8 × 3 = 24, so ? = 24. Undo dividing by multiplying: 8 × 3."
+    },
+    {
+      "id": "facts-div-10/t5/005",
+      "tier": 5,
+      "prompt": "? ÷ 8 = 4",
+      "choices": [
+        "28",
+        "32",
+        "24",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "START_GROUP_OFF",
+        "START_ADDED"
+      ],
+      "explanation": "? ÷ 8 = 4: 8 × 4 = 32, so ? = 32. Undo dividing by multiplying: 8 × 4."
+    },
+    {
+      "id": "facts-div-10/t5/006",
+      "tier": 5,
+      "prompt": "27 ÷ ? = 9",
+      "choices": [
+        "2",
+        "4",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "27 ÷ ? = 9: 9 × 3 = 27, so ? = 3. Ask: what times 9 makes 27?"
+    },
+    {
+      "id": "facts-div-10/t5/007",
+      "tier": 5,
+      "prompt": "? ÷ 9 = 6",
+      "choices": [
+        "60",
+        "15",
+        "63",
+        "54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "START_ADDED",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 9 = 6: 9 × 6 = 54, so ? = 54. Nines: 10 × 6 = 60, minus one 6 is 54."
+    },
+    {
+      "id": "facts-div-10/t5/008",
+      "tier": 5,
+      "prompt": "? ÷ 6 = 3",
+      "choices": [
+        "24",
+        "18",
+        "20",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 6 = 3: 6 × 3 = 18, so ? = 18. Undo dividing by multiplying: 6 × 3."
+    },
+    {
+      "id": "facts-div-10/t5/009",
+      "tier": 5,
+      "prompt": "? ÷ 7 = 4",
+      "choices": [
+        "35",
+        "29",
+        "28",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "ARITH",
+        null,
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 7 = 4: 7 × 4 = 28, so ? = 28. Undo dividing by multiplying: 7 × 4."
+    },
+    {
+      "id": "facts-div-10/t5/010",
+      "tier": 5,
+      "prompt": "63 ÷ ? = 7",
+      "choices": [
+        "9",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "63 ÷ ? = 7: 7 × 9 = 63, so ? = 9. Ask: what times 7 makes 63?"
+    },
+    {
+      "id": "facts-div-10/t5/011",
+      "tier": 5,
+      "prompt": "? ÷ 6 = 7",
+      "choices": [
+        "13",
+        "48",
+        "36",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_ADDED",
+        "START_GROUP_OFF",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 6 = 7: 6 × 7 = 42, so ? = 42. Undo dividing by multiplying: 6 × 7."
+    },
+    {
+      "id": "facts-div-10/t5/012",
+      "tier": 5,
+      "prompt": "48 ÷ ? = 6",
+      "choices": [
+        "8",
+        "288",
+        "9",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "48 ÷ ? = 6: 6 × 8 = 48, so ? = 8. Ask: what times 6 makes 48?"
+    },
+    {
+      "id": "facts-div-10/t5/013",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 8",
+      "choices": [
+        "28",
+        "32",
+        "36",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "START_GROUP_OFF",
+        "START_ADDED"
+      ],
+      "explanation": "? ÷ 4 = 8: 4 × 8 = 32, so ? = 32. Undo dividing by multiplying: 4 × 8."
+    },
+    {
+      "id": "facts-div-10/t5/014",
+      "tier": 5,
+      "prompt": "12 ÷ ? = 3",
+      "choices": [
+        "36",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 ÷ ? = 3: 3 × 4 = 12, so ? = 4. Ask: what times 3 makes 12?"
+    },
+    {
+      "id": "facts-div-10/t5/015",
+      "tier": 5,
+      "prompt": "? ÷ 6 = 6",
+      "choices": [
+        "30",
+        "35",
+        "12",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "ARITH",
+        "START_ADDED",
+        null
+      ],
+      "explanation": "? ÷ 6 = 6: 6 × 6 = 36, so ? = 36. Undo dividing by multiplying: 6 × 6."
+    },
+    {
+      "id": "facts-div-10/t5/016",
+      "tier": 5,
+      "prompt": "? ÷ 6 = 8",
+      "choices": [
+        "50",
+        "56",
+        "48",
+        "54"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 6 = 8: 6 × 8 = 48, so ? = 48. Undo dividing by multiplying: 6 × 8."
+    },
+    {
+      "id": "facts-div-10/t5/017",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 6",
+      "choices": [
+        "18",
+        "15",
+        "9",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_GROUP_OFF",
+        "START_ADDED",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 3 = 6: 3 × 6 = 18, so ? = 18. Undo dividing by multiplying: 3 × 6."
+    },
+    {
+      "id": "facts-div-10/t5/018",
+      "tier": 5,
+      "prompt": "? ÷ 7 = 6",
+      "choices": [
+        "42",
+        "48",
+        "49",
+        "43"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 7 = 6: 7 × 6 = 42, so ? = 42. Undo dividing by multiplying: 7 × 6."
+    },
+    {
+      "id": "facts-div-10/t5/019",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 3",
+      "choices": [
+        "6",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 3 = 3: 3 × 3 = 9, so ? = 9. Undo dividing by multiplying: 3 × 3."
+    },
+    {
+      "id": "facts-div-10/t5/020",
+      "tier": 5,
+      "prompt": "? ÷ 7 = 8",
+      "choices": [
+        "58",
+        "63",
+        "56",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "START_GROUP_OFF",
+        null,
+        "START_ADDED"
+      ],
+      "explanation": "? ÷ 7 = 8: 7 × 8 = 56, so ? = 56. Undo dividing by multiplying: 7 × 8."
+    },
+    {
+      "id": "facts-div-10/t5/021",
+      "tier": 5,
+      "prompt": "16 ÷ ? = 4",
+      "choices": [
+        "12",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "16 ÷ ? = 4: 4 × 4 = 16, so ? = 4. A square fact: 4 times itself makes 16."
+    },
+    {
+      "id": "facts-div-10/t5/022",
+      "tier": 5,
+      "prompt": "54 ÷ ? = 6",
+      "choices": [
+        "8",
+        "7",
+        "6",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "54 ÷ ? = 6: 6 × 9 = 54, so ? = 9. Ask: what times 6 makes 54?"
+    },
+    {
+      "id": "facts-div-10/t5/023",
+      "tier": 5,
+      "prompt": "28 ÷ ? = 4",
+      "choices": [
+        "8",
+        "112",
+        "7",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "28 ÷ ? = 4: 4 × 7 = 28, so ? = 7. Ask: what times 4 makes 28?"
+    },
+    {
+      "id": "facts-div-10/t5/024",
+      "tier": 5,
+      "prompt": "? ÷ 9 = 8",
+      "choices": [
+        "81",
+        "72",
+        "73",
+        "63"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "ARITH",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 9 = 8: 9 × 8 = 72, so ? = 72. Nines: 10 × 8 = 80, minus one 8 is 72."
+    }
+  ]
+}

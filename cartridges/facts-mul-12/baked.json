@@ -1,0 +1,2361 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mul-12",
+  "version": "1.0.0",
+  "title": "Times Tables to 12",
+  "subtitle": "Factors 0 to 12",
+  "grade": "Facts",
+  "picker_order": 11,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7",
+    "CCSS.MATH.CONTENT.4.NBT.B.5"
+  ],
+  "seed": 20261061,
+  "items_per_tier": 24,
+  "bounds": "Factors 0 to 12. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: the easy rows (0, 1, 2, 5, 10) and 11 times a digit, at least 8 with an 11 or 12 factor (117 prompts); T2 R: a 12 times 3, 4 or 9 (at least 6), 3-4-9 facts (at least 6), else a 3, 4 or 9 fact (33 prompts); T3 R: hard facts with an 11 or 12 (at least 8), 6-7-8 facts (at least 6), else a 6, 7 or 8 fact (37); T4 C: hard facts with an 11 or 12 (at least 6), 3-4-6-9 core facts (at least 8), else factors 2-12 (121); T5 S: hard facts with an 11 or 12 (at least 6), any hard fact with factors 3-12 (at least 6), plus C (at least 4 with an 11 or 12; 104 prompts in all). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far; with a factor of 11 or more and an answer of 20 or more, one wrong value shares the answer's ones digit. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy rows and 11s",
+      "description": "Times 0, 1, 2, 5, 10 and 11, including the 11 and 12 rows."
+    },
+    {
+      "tier": 2,
+      "name": "Times 3, 4, 9, 12",
+      "description": "Times 3, 4, 9 and 12. Split 12 into 10 and 2."
+    },
+    {
+      "tier": 3,
+      "name": "Times 6, 7, 8, 12",
+      "description": "Times 6, 7, 8 and 12. Split a factor, then add the parts."
+    },
+    {
+      "tier": 4,
+      "name": "Missing factors",
+      "description": "Missing factor: 12 × ? = 84. Ask what times 12 makes 84."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first factors",
+      "description": "First factor missing: ? × 12 = 84, or a missing second factor. Factors up to 12."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "DROPPED_CARRY": {
+      "student": "Keep the ten: 13 × 6 is 60 + 18, and the 18 has a ten to add in.",
+      "teacher": "Splits into tens and ones but loses the ten from the ones product: 13 × 6 = 60 + 8 = 68."
+    },
+    "TENS_SLIP": {
+      "student": "Check the tens place. Split into tens and ones, multiply each, add both.",
+      "teacher": "Right ones digit, tens place off by one ten (product plus or minus 10)."
+    },
+    "PARTIAL_PRODUCTS": {
+      "student": "Tens × tens plus ones × ones skips two parts. Split one number, multiply both.",
+      "teacher": "Multiplies tens by tens and ones by ones only: 13 × 14 = 100 + 12 = 112."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-mul-12/t1/001",
+      "tier": 1,
+      "prompt": "4 × 11 = ?",
+      "choices": [
+        "55",
+        "40",
+        "54",
+        "44"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "4 × 11 = 44: 10 × 4 = 40, plus one more 4 = 44."
+    },
+    {
+      "id": "facts-mul-12/t1/002",
+      "tier": 1,
+      "prompt": "11 × 6 = ?",
+      "choices": [
+        "55",
+        "60",
+        "66",
+        "56"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "11 × 6 = 66: 10 × 6 = 60, plus one more 6 = 66."
+    },
+    {
+      "id": "facts-mul-12/t1/003",
+      "tier": 1,
+      "prompt": "7 × 11 = ?",
+      "choices": [
+        "77",
+        "87",
+        "84",
+        "67"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "7 × 11 = 77: 10 × 7 = 70, plus one more 7 = 77."
+    },
+    {
+      "id": "facts-mul-12/t1/004",
+      "tier": 1,
+      "prompt": "11 × 7 = ?",
+      "choices": [
+        "66",
+        "88",
+        "77",
+        "67"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "11 × 7 = 77: 10 × 7 = 70, plus one more 7 = 77."
+    },
+    {
+      "id": "facts-mul-12/t1/005",
+      "tier": 1,
+      "prompt": "12 × 5 = ?",
+      "choices": [
+        "70",
+        "65",
+        "60",
+        "50"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null,
+        "DROPPED_CARRY"
+      ],
+      "explanation": "12 × 5 = 60: split 12 into 10 and 2. 50 + 10 = 60."
+    },
+    {
+      "id": "facts-mul-12/t1/006",
+      "tier": 1,
+      "prompt": "8 × 11 = ?",
+      "choices": [
+        "77",
+        "88",
+        "80",
+        "78"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "8 × 11 = 88: 10 × 8 = 80, plus one more 8 = 88."
+    },
+    {
+      "id": "facts-mul-12/t1/007",
+      "tier": 1,
+      "prompt": "12 × 1 = ?",
+      "choices": [
+        "2",
+        "0",
+        "13",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "12 × 1 = 12: one group of 12. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t1/008",
+      "tier": 1,
+      "prompt": "1 × 11 = ?",
+      "choices": [
+        "1",
+        "11",
+        "10",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 11 = 11: one group of 11. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t1/009",
+      "tier": 1,
+      "prompt": "1 × 6 = ?",
+      "choices": [
+        "7",
+        "12",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 × 6 = 6: one group of 6. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t1/010",
+      "tier": 1,
+      "prompt": "2 × 9 = ?",
+      "choices": [
+        "27",
+        "18",
+        "11",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 9 = 18: doubling. Double 9 is 9 + 9 = 18."
+    },
+    {
+      "id": "facts-mul-12/t1/011",
+      "tier": 1,
+      "prompt": "7 × 10 = ?",
+      "choices": [
+        "70",
+        "80",
+        "60",
+        "63"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "7 × 10 = 70: ten groups of 7, so put a zero after 7."
+    },
+    {
+      "id": "facts-mul-12/t1/012",
+      "tier": 1,
+      "prompt": "0 × 7 = ?",
+      "choices": [
+        "7",
+        "2",
+        "0",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "0 × 7 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-12/t1/013",
+      "tier": 1,
+      "prompt": "6 × 11 = ?",
+      "choices": [
+        "66",
+        "72",
+        "56",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "6 × 11 = 66: 10 × 6 = 60, plus one more 6 = 66."
+    },
+    {
+      "id": "facts-mul-12/t1/014",
+      "tier": 1,
+      "prompt": "6 × 0 = ?",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 0 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-12/t1/015",
+      "tier": 1,
+      "prompt": "0 × 1 = ?",
+      "choices": [
+        "0",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "0 × 1 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-12/t1/016",
+      "tier": 1,
+      "prompt": "1 × 4 = ?",
+      "choices": [
+        "3",
+        "1",
+        "0",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "1 × 4 = 4: one group of 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t1/017",
+      "tier": 1,
+      "prompt": "5 × 7 = ?",
+      "choices": [
+        "12",
+        "35",
+        "30",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 7 = 35: half of 7 × 10 = 70, and half of 70 is 35."
+    },
+    {
+      "id": "facts-mul-12/t1/018",
+      "tier": 1,
+      "prompt": "5 × 2 = ?",
+      "choices": [
+        "7",
+        "15",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "5 × 2 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-12/t1/019",
+      "tier": 1,
+      "prompt": "10 × 3 = ?",
+      "choices": [
+        "33",
+        "27",
+        "30",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "10 × 3 = 30: ten groups of 3, so put a zero after 3."
+    },
+    {
+      "id": "facts-mul-12/t1/020",
+      "tier": 1,
+      "prompt": "10 × 8 = ?",
+      "choices": [
+        "88",
+        "80",
+        "90",
+        "81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "10 × 8 = 80: ten groups of 8, so put a zero after 8."
+    },
+    {
+      "id": "facts-mul-12/t1/021",
+      "tier": 1,
+      "prompt": "10 × 1 = ?",
+      "choices": [
+        "10",
+        "9",
+        "8",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "10 × 1 = 10: one group of 10. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t1/022",
+      "tier": 1,
+      "prompt": "1 × 0 = ?",
+      "choices": [
+        "0",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 0 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-12/t1/023",
+      "tier": 1,
+      "prompt": "5 × 10 = ?",
+      "choices": [
+        "60",
+        "50",
+        "15",
+        "55"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 10 = 50: ten groups of 5, so put a zero after 5."
+    },
+    {
+      "id": "facts-mul-12/t1/024",
+      "tier": 1,
+      "prompt": "5 × 1 = ?",
+      "choices": [
+        "10",
+        "0",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "5 × 1 = 5: one group of 5. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-12/t2/001",
+      "tier": 2,
+      "prompt": "12 × 9 = ?",
+      "choices": [
+        "108",
+        "118",
+        "120",
+        "98"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "DROPPED_CARRY"
+      ],
+      "explanation": "12 × 9 = 108: split 12 into 10 and 2. 90 + 18 = 108."
+    },
+    {
+      "id": "facts-mul-12/t2/002",
+      "tier": 2,
+      "prompt": "3 × 12 = ?",
+      "choices": [
+        "39",
+        "26",
+        "36",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "3 × 12 = 36: split 12 into 10 and 2. 30 + 6 = 36."
+    },
+    {
+      "id": "facts-mul-12/t2/003",
+      "tier": 2,
+      "prompt": "12 × 4 = ?",
+      "choices": [
+        "58",
+        "60",
+        "48",
+        "52"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 × 4 = 48: split 12 into 10 and 2. 40 + 8 = 48."
+    },
+    {
+      "id": "facts-mul-12/t2/004",
+      "tier": 2,
+      "prompt": "4 × 12 = ?",
+      "choices": [
+        "38",
+        "36",
+        "48",
+        "44"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 12 = 48: split 12 into 10 and 2. 40 + 8 = 48."
+    },
+    {
+      "id": "facts-mul-12/t2/005",
+      "tier": 2,
+      "prompt": "9 × 12 = ?",
+      "choices": [
+        "21",
+        "98",
+        "99",
+        "108"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "DROPPED_CARRY",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "9 × 12 = 108: split 12 into 10 and 2. 90 + 18 = 108."
+    },
+    {
+      "id": "facts-mul-12/t2/006",
+      "tier": 2,
+      "prompt": "12 × 3 = ?",
+      "choices": [
+        "33",
+        "24",
+        "36",
+        "26"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "12 × 3 = 36: split 12 into 10 and 2. 30 + 6 = 36."
+    },
+    {
+      "id": "facts-mul-12/t2/007",
+      "tier": 2,
+      "prompt": "9 × 4 = ?",
+      "choices": [
+        "45",
+        "27",
+        "32",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "9 × 4 = 36: 10 × 4 = 40, minus one 4 = 36."
+    },
+    {
+      "id": "facts-mul-12/t2/008",
+      "tier": 2,
+      "prompt": "9 × 9 = ?",
+      "choices": [
+        "90",
+        "84",
+        "18",
+        "81"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "ADDED",
+        null
+      ],
+      "explanation": "9 × 9 = 81: 10 × 9 = 90, minus one 9 = 81."
+    },
+    {
+      "id": "facts-mul-12/t2/009",
+      "tier": 2,
+      "prompt": "4 × 3 = ?",
+      "choices": [
+        "16",
+        "12",
+        "7",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 3 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mul-12/t2/010",
+      "tier": 2,
+      "prompt": "3 × 9 = ?",
+      "choices": [
+        "27",
+        "30",
+        "36",
+        "28"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "3 × 9 = 27: 10 × 3 = 30, minus one 3 = 27."
+    },
+    {
+      "id": "facts-mul-12/t2/011",
+      "tier": 2,
+      "prompt": "4 × 4 = ?",
+      "choices": [
+        "8",
+        "16",
+        "20",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 4 = 16: double 4 is 8, double again is 16."
+    },
+    {
+      "id": "facts-mul-12/t2/012",
+      "tier": 2,
+      "prompt": "9 × 3 = ?",
+      "choices": [
+        "12",
+        "27",
+        "18",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 × 3 = 27: 10 × 3 = 30, minus one 3 = 27."
+    },
+    {
+      "id": "facts-mul-12/t2/013",
+      "tier": 2,
+      "prompt": "9 × 6 = ?",
+      "choices": [
+        "63",
+        "54",
+        "55",
+        "60"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 × 6 = 54: 10 × 6 = 60, minus one 6 = 54."
+    },
+    {
+      "id": "facts-mul-12/t2/014",
+      "tier": 2,
+      "prompt": "7 × 9 = ?",
+      "choices": [
+        "56",
+        "54",
+        "16",
+        "63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "7 × 9 = 63: 10 × 7 = 70, minus one 7 = 63."
+    },
+    {
+      "id": "facts-mul-12/t2/015",
+      "tier": 2,
+      "prompt": "9 × 8 = ?",
+      "choices": [
+        "72",
+        "17",
+        "63",
+        "80"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 × 8 = 72: 10 × 8 = 80, minus one 8 = 72."
+    },
+    {
+      "id": "facts-mul-12/t2/016",
+      "tier": 2,
+      "prompt": "8 × 3 = ?",
+      "choices": [
+        "16",
+        "32",
+        "24",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 3 = 24: 2 × 8 = 16, plus one more 8 = 24."
+    },
+    {
+      "id": "facts-mul-12/t2/017",
+      "tier": 2,
+      "prompt": "3 × 4 = ?",
+      "choices": [
+        "16",
+        "14",
+        "15",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "3 × 4 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mul-12/t2/018",
+      "tier": 2,
+      "prompt": "9 × 7 = ?",
+      "choices": [
+        "63",
+        "70",
+        "16",
+        "72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 × 7 = 63: 10 × 7 = 70, minus one 7 = 63."
+    },
+    {
+      "id": "facts-mul-12/t2/019",
+      "tier": 2,
+      "prompt": "8 × 4 = ?",
+      "choices": [
+        "32",
+        "33",
+        "36",
+        "40"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 4 = 32: double 8 is 16, double again is 32."
+    },
+    {
+      "id": "facts-mul-12/t2/020",
+      "tier": 2,
+      "prompt": "7 × 3 = ?",
+      "choices": [
+        "21",
+        "28",
+        "18",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "7 × 3 = 21: 2 × 7 = 14, plus one more 7 = 21."
+    },
+    {
+      "id": "facts-mul-12/t2/021",
+      "tier": 2,
+      "prompt": "7 × 4 = ?",
+      "choices": [
+        "35",
+        "28",
+        "30",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "7 × 4 = 28: double 7 is 14, double again is 28."
+    },
+    {
+      "id": "facts-mul-12/t2/022",
+      "tier": 2,
+      "prompt": "3 × 7 = ?",
+      "choices": [
+        "28",
+        "21",
+        "14",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 7 = 21: 2 × 7 = 14, plus one more 7 = 21."
+    },
+    {
+      "id": "facts-mul-12/t2/023",
+      "tier": 2,
+      "prompt": "4 × 6 = ?",
+      "choices": [
+        "20",
+        "10",
+        "18",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ADDED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "4 × 6 = 24: double 6 is 12, double again is 24."
+    },
+    {
+      "id": "facts-mul-12/t2/024",
+      "tier": 2,
+      "prompt": "4 × 7 = ?",
+      "choices": [
+        "11",
+        "24",
+        "28",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 7 = 28: double 7 is 14, double again is 28."
+    },
+    {
+      "id": "facts-mul-12/t3/001",
+      "tier": 3,
+      "prompt": "8 × 12 = ?",
+      "choices": [
+        "84",
+        "96",
+        "86",
+        "88"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "DROPPED_CARRY",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 12 = 96: split 12 into 10 and 2. 80 + 16 = 96."
+    },
+    {
+      "id": "facts-mul-12/t3/002",
+      "tier": 3,
+      "prompt": "7 × 12 = ?",
+      "choices": [
+        "84",
+        "94",
+        "74",
+        "72"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "DROPPED_CARRY",
+        "GROUP_OFF"
+      ],
+      "explanation": "7 × 12 = 84: split 12 into 10 and 2. 70 + 14 = 84."
+    },
+    {
+      "id": "facts-mul-12/t3/003",
+      "tier": 3,
+      "prompt": "11 × 12 = ?",
+      "choices": [
+        "143",
+        "142",
+        "144",
+        "132"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "11 × 12 = 132: split 12 into 10 and 2. 110 + 22 = 132."
+    },
+    {
+      "id": "facts-mul-12/t3/004",
+      "tier": 3,
+      "prompt": "12 × 7 = ?",
+      "choices": [
+        "94",
+        "19",
+        "84",
+        "96"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ADDED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 × 7 = 84: split 12 into 10 and 2. 70 + 14 = 84."
+    },
+    {
+      "id": "facts-mul-12/t3/005",
+      "tier": 3,
+      "prompt": "12 × 6 = ?",
+      "choices": [
+        "18",
+        "72",
+        "82",
+        "78"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF"
+      ],
+      "explanation": "12 × 6 = 72: split 12 into 10 and 2. 60 + 12 = 72."
+    },
+    {
+      "id": "facts-mul-12/t3/006",
+      "tier": 3,
+      "prompt": "12 × 12 = ?",
+      "choices": [
+        "144",
+        "104",
+        "134",
+        "154"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "PARTIAL_PRODUCTS",
+        "TENS_SLIP",
+        "TENS_SLIP"
+      ],
+      "explanation": "12 × 12 = 144: split 12 into 10 and 2. 120 + 24 = 144."
+    },
+    {
+      "id": "facts-mul-12/t3/007",
+      "tier": 3,
+      "prompt": "12 × 11 = ?",
+      "choices": [
+        "102",
+        "121",
+        "132",
+        "144"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "PARTIAL_PRODUCTS",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 × 11 = 132: split 12 into 10 and 2. 110 + 22 = 132."
+    },
+    {
+      "id": "facts-mul-12/t3/008",
+      "tier": 3,
+      "prompt": "11 × 11 = ?",
+      "choices": [
+        "101",
+        "110",
+        "111",
+        "121"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "PARTIAL_PRODUCTS",
+        "GROUP_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "11 × 11 = 121: 10 × 11 = 110, plus one more 11 = 121."
+    },
+    {
+      "id": "facts-mul-12/t3/009",
+      "tier": 3,
+      "prompt": "6 × 6 = ?",
+      "choices": [
+        "42",
+        "37",
+        "36",
+        "38"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "6 × 6 = 36: split 6 into 5 and 1. 5 × 6 = 30, 1 × 6 = 6, total 36."
+    },
+    {
+      "id": "facts-mul-12/t3/010",
+      "tier": 3,
+      "prompt": "6 × 7 = ?",
+      "choices": [
+        "35",
+        "48",
+        "36",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 7 = 42: 6 × 6 = 36, plus one more 6 = 42."
+    },
+    {
+      "id": "facts-mul-12/t3/011",
+      "tier": 3,
+      "prompt": "8 × 7 = ?",
+      "choices": [
+        "49",
+        "56",
+        "15",
+        "48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 7 = 56: 7 × 7 = 49, plus one more 7 = 56."
+    },
+    {
+      "id": "facts-mul-12/t3/012",
+      "tier": 3,
+      "prompt": "7 × 8 = ?",
+      "choices": [
+        "63",
+        "48",
+        "56",
+        "49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "7 × 8 = 56: 7 × 7 = 49, plus one more 7 = 56."
+    },
+    {
+      "id": "facts-mul-12/t3/013",
+      "tier": 3,
+      "prompt": "7 × 7 = ?",
+      "choices": [
+        "49",
+        "14",
+        "42",
+        "47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "7 × 7 = 49: split 7 into 5 and 2. 5 × 7 = 35, 2 × 7 = 14, total 49."
+    },
+    {
+      "id": "facts-mul-12/t3/014",
+      "tier": 3,
+      "prompt": "7 × 6 = ?",
+      "choices": [
+        "36",
+        "42",
+        "35",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "7 × 6 = 42: 6 × 6 = 36, plus one more 6 = 42."
+    },
+    {
+      "id": "facts-mul-12/t3/015",
+      "tier": 3,
+      "prompt": "6 × 8 = ?",
+      "choices": [
+        "49",
+        "54",
+        "56",
+        "48"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 8 = 48: split 6 into 5 and 1. 5 × 8 = 40, 1 × 8 = 8, total 48."
+    },
+    {
+      "id": "facts-mul-12/t3/016",
+      "tier": 3,
+      "prompt": "7 × 4 = ?",
+      "choices": [
+        "11",
+        "24",
+        "35",
+        "28"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "7 × 4 = 28: double 7 is 14, double again is 28."
+    },
+    {
+      "id": "facts-mul-12/t3/017",
+      "tier": 3,
+      "prompt": "8 × 6 = ?",
+      "choices": [
+        "48",
+        "54",
+        "56",
+        "49"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "8 × 6 = 48: split 6 into 5 and 1. 5 × 8 = 40, 1 × 8 = 8, total 48."
+    },
+    {
+      "id": "facts-mul-12/t3/018",
+      "tier": 3,
+      "prompt": "8 × 3 = ?",
+      "choices": [
+        "27",
+        "21",
+        "24",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 3 = 24: 2 × 8 = 16, plus one more 8 = 24."
+    },
+    {
+      "id": "facts-mul-12/t3/019",
+      "tier": 3,
+      "prompt": "4 × 6 = ?",
+      "choices": [
+        "24",
+        "20",
+        "28",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 6 = 24: double 6 is 12, double again is 24."
+    },
+    {
+      "id": "facts-mul-12/t3/020",
+      "tier": 3,
+      "prompt": "6 × 3 = ?",
+      "choices": [
+        "24",
+        "21",
+        "19",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "6 × 3 = 18: 2 × 6 = 12, plus one more 6 = 18."
+    },
+    {
+      "id": "facts-mul-12/t3/021",
+      "tier": 3,
+      "prompt": "3 × 7 = ?",
+      "choices": [
+        "24",
+        "21",
+        "28",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 7 = 21: 2 × 7 = 14, plus one more 7 = 21."
+    },
+    {
+      "id": "facts-mul-12/t3/022",
+      "tier": 3,
+      "prompt": "3 × 6 = ?",
+      "choices": [
+        "19",
+        "24",
+        "18",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 6 = 18: 2 × 6 = 12, plus one more 6 = 18."
+    },
+    {
+      "id": "facts-mul-12/t3/023",
+      "tier": 3,
+      "prompt": "8 × 9 = ?",
+      "choices": [
+        "72",
+        "64",
+        "80",
+        "81"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 × 9 = 72: 10 × 8 = 80, minus one 8 = 72."
+    },
+    {
+      "id": "facts-mul-12/t3/024",
+      "tier": 3,
+      "prompt": "9 × 7 = ?",
+      "choices": [
+        "54",
+        "63",
+        "56",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "9 × 7 = 63: 10 × 7 = 70, minus one 7 = 63."
+    },
+    {
+      "id": "facts-mul-12/t4/001",
+      "tier": 4,
+      "prompt": "12 × ? = 84",
+      "choices": [
+        "5",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 × ? = 84: 12 × 7 = 84, so ? = 7. Count by 12s up to 84, or divide: 84 ÷ 12 = 7."
+    },
+    {
+      "id": "facts-mul-12/t4/002",
+      "tier": 4,
+      "prompt": "12 × ? = 72",
+      "choices": [
+        "5",
+        "72",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "12 × ? = 72: 12 × 6 = 72, so ? = 6. Count by 12s up to 72, or divide: 72 ÷ 12 = 6."
+    },
+    {
+      "id": "facts-mul-12/t4/003",
+      "tier": 4,
+      "prompt": "4 × ? = 48",
+      "choices": [
+        "10",
+        "9",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 48: 4 × 12 = 48, so ? = 12. Count by 4s up to 48, or divide: 48 ÷ 4 = 12."
+    },
+    {
+      "id": "facts-mul-12/t4/004",
+      "tier": 4,
+      "prompt": "12 × ? = 96",
+      "choices": [
+        "96",
+        "10",
+        "8",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 × ? = 96: 12 × 8 = 96, so ? = 8. Count by 12s up to 96, or divide: 96 ÷ 12 = 8."
+    },
+    {
+      "id": "facts-mul-12/t4/005",
+      "tier": 4,
+      "prompt": "11 × ? = 121",
+      "choices": [
+        "9",
+        "8",
+        "11",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "11 × ? = 121: 11 × 11 = 121, so ? = 11. Count by 11s up to 121, or divide: 121 ÷ 11 = 11."
+    },
+    {
+      "id": "facts-mul-12/t4/006",
+      "tier": 4,
+      "prompt": "12 × ? = 36",
+      "choices": [
+        "2",
+        "0",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "12 × ? = 36: 12 × 3 = 36, so ? = 3. Count by 12s up to 36, or divide: 36 ÷ 12 = 3."
+    },
+    {
+      "id": "facts-mul-12/t4/007",
+      "tier": 4,
+      "prompt": "4 × ? = 32",
+      "choices": [
+        "8",
+        "9",
+        "32",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "ARITH"
+      ],
+      "explanation": "4 × ? = 32: 4 × 8 = 32, so ? = 8. Count by 4s up to 32, or divide: 32 ÷ 4 = 8."
+    },
+    {
+      "id": "facts-mul-12/t4/008",
+      "tier": 4,
+      "prompt": "9 × ? = 27",
+      "choices": [
+        "3",
+        "1",
+        "18",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "9 × ? = 27: 9 × 3 = 27, so ? = 3. Count by 9s up to 27, or divide: 27 ÷ 9 = 3."
+    },
+    {
+      "id": "facts-mul-12/t4/009",
+      "tier": 4,
+      "prompt": "9 × ? = 72",
+      "choices": [
+        "8",
+        "9",
+        "10",
+        "63"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "9 × ? = 72: 9 × 8 = 72, so ? = 8. Count by 9s up to 72, or divide: 72 ÷ 9 = 8."
+    },
+    {
+      "id": "facts-mul-12/t4/010",
+      "tier": 4,
+      "prompt": "4 × ? = 36",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "4 × ? = 36: 4 × 9 = 36, so ? = 9. Count by 4s up to 36, or divide: 36 ÷ 4 = 9."
+    },
+    {
+      "id": "facts-mul-12/t4/011",
+      "tier": 4,
+      "prompt": "4 × ? = 12",
+      "choices": [
+        "12",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 12: 4 × 3 = 12, so ? = 3. Count by 4s up to 12, or divide: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "facts-mul-12/t4/012",
+      "tier": 4,
+      "prompt": "3 × ? = 21",
+      "choices": [
+        "7",
+        "21",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_PRODUCT",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "3 × ? = 21: 3 × 7 = 21, so ? = 7. Count by 3s up to 21, or divide: 21 ÷ 3 = 7."
+    },
+    {
+      "id": "facts-mul-12/t4/013",
+      "tier": 4,
+      "prompt": "4 × ? = 24",
+      "choices": [
+        "5",
+        "4",
+        "20",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "4 × ? = 24: 4 × 6 = 24, so ? = 6. Count by 4s up to 24, or divide: 24 ÷ 4 = 6."
+    },
+    {
+      "id": "facts-mul-12/t4/014",
+      "tier": 4,
+      "prompt": "3 × ? = 18",
+      "choices": [
+        "6",
+        "4",
+        "5",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "3 × ? = 18: 3 × 6 = 18, so ? = 6. Count by 3s up to 18, or divide: 18 ÷ 3 = 6."
+    },
+    {
+      "id": "facts-mul-12/t4/015",
+      "tier": 4,
+      "prompt": "7 × ? = 42",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "35"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "7 × ? = 42: 7 × 6 = 42, so ? = 6. Count by 7s up to 42, or divide: 42 ÷ 7 = 6."
+    },
+    {
+      "id": "facts-mul-12/t4/016",
+      "tier": 4,
+      "prompt": "8 × ? = 80",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "8 × ? = 80: 8 × 10 = 80, so ? = 10. Count by 8s up to 80, or divide: 80 ÷ 8 = 10."
+    },
+    {
+      "id": "facts-mul-12/t4/017",
+      "tier": 4,
+      "prompt": "9 × ? = 99",
+      "choices": [
+        "90",
+        "13",
+        "11",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "9 × ? = 99: 9 × 11 = 99, so ? = 11. Count by 9s up to 99, or divide: 99 ÷ 9 = 11."
+    },
+    {
+      "id": "facts-mul-12/t4/018",
+      "tier": 4,
+      "prompt": "2 × ? = 18",
+      "choices": [
+        "18",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "2 × ? = 18: 2 × 9 = 18, so ? = 9. Half of 18 is 9."
+    },
+    {
+      "id": "facts-mul-12/t4/019",
+      "tier": 4,
+      "prompt": "9 × ? = 63",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "63"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "9 × ? = 63: 9 × 7 = 63, so ? = 7. Count by 9s up to 63, or divide: 63 ÷ 9 = 7."
+    },
+    {
+      "id": "facts-mul-12/t4/020",
+      "tier": 4,
+      "prompt": "3 × ? = 30",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3 × ? = 30: 3 × 10 = 30, so ? = 10. Count by 3s up to 30, or divide: 30 ÷ 3 = 10."
+    },
+    {
+      "id": "facts-mul-12/t4/021",
+      "tier": 4,
+      "prompt": "2 × ? = 4",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 4: 2 × 2 = 4, so ? = 2. Half of 4 is 2."
+    },
+    {
+      "id": "facts-mul-12/t4/022",
+      "tier": 4,
+      "prompt": "8 × ? = 64",
+      "choices": [
+        "7",
+        "56",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "8 × ? = 64: 8 × 8 = 64, so ? = 8. Count by 8s up to 64, or divide: 64 ÷ 8 = 8."
+    },
+    {
+      "id": "facts-mul-12/t4/023",
+      "tier": 4,
+      "prompt": "10 × ? = 60",
+      "choices": [
+        "6",
+        "5",
+        "7",
+        "60"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "10 × ? = 60: 10 × 6 = 60, so ? = 6. Drop the zero from 60: 6."
+    },
+    {
+      "id": "facts-mul-12/t4/024",
+      "tier": 4,
+      "prompt": "8 × ? = 56",
+      "choices": [
+        "8",
+        "48",
+        "9",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 × ? = 56: 8 × 7 = 56, so ? = 7. Count by 8s up to 56, or divide: 56 ÷ 8 = 7."
+    },
+    {
+      "id": "facts-mul-12/t5/001",
+      "tier": 5,
+      "prompt": "? × 7 = 84",
+      "choices": [
+        "84",
+        "11",
+        "13",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? × 7 = 84: 12 × 7 = 84, so ? = 12. Count by 7s up to 84, or divide: 84 ÷ 7 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/002",
+      "tier": 5,
+      "prompt": "? × 12 = 84",
+      "choices": [
+        "84",
+        "9",
+        "7",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 12 = 84: 7 × 12 = 84, so ? = 7. Count by 12s up to 84, or divide: 84 ÷ 12 = 7."
+    },
+    {
+      "id": "facts-mul-12/t5/003",
+      "tier": 5,
+      "prompt": "? × 4 = 48",
+      "choices": [
+        "10",
+        "11",
+        "9",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? × 4 = 48: 12 × 4 = 48, so ? = 12. Count by 4s up to 48, or divide: 48 ÷ 4 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/004",
+      "tier": 5,
+      "prompt": "? × 12 = 48",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "36"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "? × 12 = 48: 4 × 12 = 48, so ? = 4. Count by 12s up to 48, or divide: 48 ÷ 12 = 4."
+    },
+    {
+      "id": "facts-mul-12/t5/005",
+      "tier": 5,
+      "prompt": "? × 12 = 36",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 12 = 36: 3 × 12 = 36, so ? = 3. Count by 12s up to 36, or divide: 36 ÷ 12 = 3."
+    },
+    {
+      "id": "facts-mul-12/t5/006",
+      "tier": 5,
+      "prompt": "? × 12 = 72",
+      "choices": [
+        "7",
+        "60",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? × 12 = 72: 6 × 12 = 72, so ? = 6. Count by 12s up to 72, or divide: 72 ÷ 12 = 6."
+    },
+    {
+      "id": "facts-mul-12/t5/007",
+      "tier": 5,
+      "prompt": "12 × ? = 72",
+      "choices": [
+        "72",
+        "7",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "12 × ? = 72: 12 × 6 = 72, so ? = 6. Count by 12s up to 72, or divide: 72 ÷ 12 = 6."
+    },
+    {
+      "id": "facts-mul-12/t5/008",
+      "tier": 5,
+      "prompt": "12 × ? = 48",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "12 × ? = 48: 12 × 4 = 48, so ? = 4. Count by 12s up to 48, or divide: 48 ÷ 12 = 4."
+    },
+    {
+      "id": "facts-mul-12/t5/009",
+      "tier": 5,
+      "prompt": "11 × ? = 132",
+      "choices": [
+        "13",
+        "11",
+        "132",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        null
+      ],
+      "explanation": "11 × ? = 132: 11 × 12 = 132, so ? = 12. Count by 11s up to 132, or divide: 132 ÷ 11 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/010",
+      "tier": 5,
+      "prompt": "4 × ? = 48",
+      "choices": [
+        "12",
+        "13",
+        "48",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "ARITH"
+      ],
+      "explanation": "4 × ? = 48: 4 × 12 = 48, so ? = 12. Count by 4s up to 48, or divide: 48 ÷ 4 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/011",
+      "tier": 5,
+      "prompt": "? × 8 = 64",
+      "choices": [
+        "7",
+        "8",
+        "56",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 8 = 64: 8 × 8 = 64, so ? = 8. Count by 8s up to 64, or divide: 64 ÷ 8 = 8."
+    },
+    {
+      "id": "facts-mul-12/t5/012",
+      "tier": 5,
+      "prompt": "? × 8 = 56",
+      "choices": [
+        "6",
+        "7",
+        "5",
+        "48"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "? × 8 = 56: 7 × 8 = 56, so ? = 7. Count by 8s up to 56, or divide: 56 ÷ 8 = 7."
+    },
+    {
+      "id": "facts-mul-12/t5/013",
+      "tier": 5,
+      "prompt": "7 × ? = 84",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "7 × ? = 84: 7 × 12 = 84, so ? = 12. Count by 7s up to 84, or divide: 84 ÷ 7 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/014",
+      "tier": 5,
+      "prompt": "6 × ? = 36",
+      "choices": [
+        "8",
+        "7",
+        "6",
+        "30"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "6 × ? = 36: 6 × 6 = 36, so ? = 6. Count by 6s up to 36, or divide: 36 ÷ 6 = 6."
+    },
+    {
+      "id": "facts-mul-12/t5/015",
+      "tier": 5,
+      "prompt": "? × 6 = 18",
+      "choices": [
+        "3",
+        "2",
+        "0",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? × 6 = 18: 3 × 6 = 18, so ? = 3. Count by 6s up to 18, or divide: 18 ÷ 6 = 3."
+    },
+    {
+      "id": "facts-mul-12/t5/016",
+      "tier": 5,
+      "prompt": "? × 9 = 36",
+      "choices": [
+        "4",
+        "36",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 9 = 36: 4 × 9 = 36, so ? = 4. Count by 9s up to 36, or divide: 36 ÷ 9 = 4."
+    },
+    {
+      "id": "facts-mul-12/t5/017",
+      "tier": 5,
+      "prompt": "3 × ? = 27",
+      "choices": [
+        "27",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "3 × ? = 27: 3 × 9 = 27, so ? = 9. Count by 3s up to 27, or divide: 27 ÷ 3 = 9."
+    },
+    {
+      "id": "facts-mul-12/t5/018",
+      "tier": 5,
+      "prompt": "? × 12 = 132",
+      "choices": [
+        "12",
+        "11",
+        "132",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 12 = 132: 11 × 12 = 132, so ? = 11. Count by 12s up to 132, or divide: 132 ÷ 12 = 11."
+    },
+    {
+      "id": "facts-mul-12/t5/019",
+      "tier": 5,
+      "prompt": "9 × ? = 36",
+      "choices": [
+        "6",
+        "4",
+        "36",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "9 × ? = 36: 9 × 4 = 36, so ? = 4. Count by 9s up to 36, or divide: 36 ÷ 9 = 4."
+    },
+    {
+      "id": "facts-mul-12/t5/020",
+      "tier": 5,
+      "prompt": "? × 9 = 108",
+      "choices": [
+        "12",
+        "99",
+        "11",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? × 9 = 108: 12 × 9 = 108, so ? = 12. Count by 9s up to 108, or divide: 108 ÷ 9 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/021",
+      "tier": 5,
+      "prompt": "? × 3 = 36",
+      "choices": [
+        "11",
+        "9",
+        "12",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? × 3 = 36: 12 × 3 = 36, so ? = 12. Count by 3s up to 36, or divide: 36 ÷ 3 = 12."
+    },
+    {
+      "id": "facts-mul-12/t5/022",
+      "tier": 5,
+      "prompt": "8 × ? = 32",
+      "choices": [
+        "32",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "8 × ? = 32: 8 × 4 = 32, so ? = 4. Count by 8s up to 32, or divide: 32 ÷ 8 = 4."
+    },
+    {
+      "id": "facts-mul-12/t5/023",
+      "tier": 5,
+      "prompt": "? × 8 = 72",
+      "choices": [
+        "9",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? × 8 = 72: 9 × 8 = 72, so ? = 9. Count by 8s up to 72, or divide: 72 ÷ 8 = 9."
+    },
+    {
+      "id": "facts-mul-12/t5/024",
+      "tier": 5,
+      "prompt": "12 × ? = 96",
+      "choices": [
+        "6",
+        "7",
+        "96",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        null
+      ],
+      "explanation": "12 × ? = 96: 12 × 8 = 96, so ? = 8. Count by 12s up to 96, or divide: 96 ÷ 12 = 8."
+    }
+  ]
+}

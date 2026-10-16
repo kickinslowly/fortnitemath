@@ -421,95 +421,76 @@ relative frequencies in simplest form with denominators 2-12, or a §4b percent;
 ## Facts
 
 Aaron, 2026-10-15: "add new selection beside grade levels, called facts. categories, addition, subtraction,
-multiplication, division. and combo. each category should have levels of scaling math facts, for addition, up to 10
-ranging to up to 100. for multiplication, numbers up to 5 scaling up to numbers up to 15. subtraction and division
-mirroring their peers."
+multiplication, division. and combo." Rebuilt 2026-10-16 after his playtest read: "for addition it is only 1 cartridge
+worth of addition scaling from level 1 to level 10 ... numbers up to 100. but what i want is one cartridge to be
+addition up to 10, all the way through level 10, scaling from easy in that range to hard in that range. and another
+cartridge that does that for addition up to 20 ... maybe going 10, 20, 50, 100. then follow that pattern for
+subtraction, multiplication and division." His calls on the open points (2026-10-16): multiplication and division are
+**times tables to 5, 10, 12, 15**; levels 7-10 get hard with **missing numbers**; combo becomes **Mixed** per range.
 
-The picker's grade step gains a **Facts** button beside Grade 6 / 7 / 8 (manifest `"grade": "Facts"`, PROTOCOL §6b);
-its skill step lists the five categories in Aaron's order (`picker_order` 1-5). A category's **levels are its tiers**:
-a race climbs them station by station (10 stations: 1,1,2,2,...,5,5), so every addition run starts within 10 and ends
-within 100. Picking a level to stay on would need a third picker step; not built (Next block, 2026-10-15).
+So Facts is 20 cartridges, one per operation and range; a run stays inside its range and climbs easy to hard through
+the 5 tiers (stations 1-2 tier 1 ... 9-10 tier 5). The picker's Facts step shows them 4 to a row, one operation a row
+(`picker_order` 1-20; PROTOCOL §6b, `fnm_ui.verse` `PickerGridColumns`). Build: `briefs/facts2/` (TEAM.md, BRIEF.md).
+The 2026-10-15 set (`facts-addition` ... `facts-combo`, one cartridge per operation climbing every range) is gone.
 
-| Cartridge | Title — Subtitle | Standards (CCSS) | Seed | Items/tier |
+| Row | to 10 / tables to 5 | to 20 / to 10 | to 50 / to 12 | to 100 / to 15 |
 |---|---|---|---|---|
-| `facts-addition` | Addition Facts — Sums within 10, up to 100 | K.OA.A.5, 1.OA.C.6, 2.OA.B.2, 2.NBT.B.5 | 20261041 | 40 |
-| `facts-subtraction` | Subtraction Facts — Within 10, up to 100 | K.OA.A.5, 1.OA.C.6, 2.OA.B.2, 2.NBT.B.5 | 20261042 | 40 |
-| `facts-multiplication` | Multiplication Facts — Factors to 5, up to 15 | 3.OA.C.7, 4.NBT.B.5 | 20261043 | 24 |
-| `facts-division` | Division Facts — Divisors to 5, up to 15 | 3.OA.C.7, 4.NBT.B.6, 5.NBT.B.6 | 20261044 | 24 |
-| `facts-combo` | Combo Facts — + − × ÷ mixed, every level | all of the above | 20261045 | 40 |
+| Addition | `facts-add-10` | `facts-add-20` | `facts-add-50` | `facts-add-100` |
+| Subtraction | `facts-sub-10` | `facts-sub-20` | `facts-sub-50` | `facts-sub-100` |
+| Times tables | `facts-mul-5` | `facts-mul-10` | `facts-mul-12` | `facts-mul-15` |
+| Divide by | `facts-div-5` | `facts-div-10` | `facts-div-12` | `facts-div-15` |
+| Mixed | `facts-mix-10` | `facts-mix-20` | `facts-mix-50` | `facts-mix-100` |
 
-Multiplication and division keep 24 items a tier (PROTOCOL §5 rule 3's floor): "factors to 5" has only 25 distinct
-prompts. Grade is `"Facts"`; `picker_order` 1 addition, 2 subtraction, 3 multiplication, 4 division, 5 combo.
+Titles, subtitles, seeds and standards: `briefs/facts2/BRIEF.md` (last table). 24 items a tier (PROTOCOL §5 rule 3's
+floor; a run draws 2 a tier): the smallest ranges have only 25-50 facts, so tiers overlap there.
 
-Built 2026-10-15 (`briefs/facts/`): plan audited by a fresh agent first, then four Sonnet builders in parallel and combo
-after them; the lead re-checked all 840 items independently (answer, band, distinct values, ranks, ones digits): 0
-wrong. Every tier's answer ranks came out exactly even. Where a builder's manifest differs from the text below (near =
-within the larger factor for multiplication; ±3 as ARITH fill so a small answer can still be the largest), the
-manifest wins.
+### Prompt forms and tier ladder (PROTOCOL §4c)
 
-### Bounds (PROTOCOL §4c: Aaron's say-so replaces §4a for grade-Facts cartridges only)
+A fact is a pair (a, b) read in one of three forms: **R** result unknown (`7 + 8 = ?`), **C** the second number unknown
+(`7 + ? = 15`, `15 − ? = 9`, `6 × ? = 42`, `42 ÷ ? = 7`), **S** the first number unknown (`? + 8 = 15`, `? − 6 = 9`,
+`? × 7 = 42`, `? ÷ 6 = 7`). Subtraction reads the addition pairs backwards (`s − a = b`), division the
+multiplication pairs (`p ÷ a = b`). A missing number is never ambiguous: no 0 factor in a missing-factor prompt, no
+`0 ÷ ? = 0`, never ÷ 0.
 
-The facts ARE the content, so number size is the scaling axis here, the one place it is. Every number is a
-non-negative integer; every prompt is one operation, `a + b = ?`, `c − a = ?`, `a × b = ?`, `c ÷ a = ?` (U+2212 minus,
-`×`, `÷`); every answer is exact.
+Every cartridge climbs the same ladder: tiers 1-3 are R from the range's easiest to hardest facts, tier 4 is C,
+tier 5 is S (at least half) with C. The two smallest ranges (to 10, tables to 5) have too few R facts for three R
+tiers of 24, so their tier 3 brings in the first missing numbers (make ten; a missing factor beside a 2 or a 5).
+`briefs/facts2/pools.py` is the exact spec of every tier's pairs, forms and per-part floors (run it for the counts).
 
-| Tier | Addition: `a + b = s` | Subtraction: `s − a = b` | Multiplication: `a × b = p` | Division: `p ÷ a = b` |
-|---|---|---|---|---|
-| Rule | `s` in the tier's band | the addition fact read backwards: `s` in the band | `max(a, b)` in the band | the multiplication fact read backwards: divisor `a`, quotient `b` |
-| Tier names | "Within 10" … "Within 100" | "Within 10" … "Within 100" | "Up to 5 × 5" … "Up to 15 × 15" | "Up to 25 ÷ 5" … "Up to 225 ÷ 15" |
-| 1 | "Within 10": s 2-10, a, b ≥ 1 (45 prompts) | s 2-10, a, b ≥ 1 | "Up to 5 × 5": a, b 1-5 (25) | a, b 1-5 |
-| 2 | "Within 20": s 11-20, a, b ≥ 2, min(a, b) ≤ 9 (124); ≥ half are one digit + one digit crossing ten (8 + 5) | same pairs | "Up to 8 × 8": max 6-8, both 2-8 (33) | same pairs |
-| 3 | "Within 40": s 21-40, a, b ≥ 2 | same | "Up to 10 × 10": max 9-10, both 2-10 (32) | same |
-| 4 | "Within 70": s 41-70, a, b ≥ 2 | same | "Up to 12 × 12": max 11-12, both 2-12 (40) | same |
-| 5 | "Within 100": s 71-100, a, b ≥ 2 | same | "Up to 15 × 15": max 13-15, both 2-15 (75) | same |
+| Range | Tier 1 | Tier 2 | Tier 3 | Tier 4 | Tier 5 |
+|---|---|---|---|---|---|
+| + − to 10 | + − 0, 1, 2 | both 2+, sum ≤ 10 | both 3+, and make ten (C, S) | C, sums ≤ 10 | S + C, both 2+, sums 5-10 |
+| + − to 20 | a ten or teen + ones, no crossing | doubles, near doubles, nines | one digit + one digit across ten | C, sums 11-20 | S + C, sums 11-20 |
+| + − to 50 / 100 | a multiple of 10 + any | no regrouping (2+1 and 2+2 digits) | regrouping (2+1 and 2+2) | C, half regroup | S + C, half regroup |
+| × ÷ to 5 | 0, 1, 2, 5 | all 1-5 | 2-5, and C beside a 2 or 5 | C, 1-5 | S + C, 2-5 |
+| × ÷ to 10 | 0, 1, 2, 5, 10 | 3, 4, 9 | 6, 7, 8 | C, 2-10 (half from 3-9) | S + C, 3-9 without 5 |
+| × ÷ to 12 | easy rows and 11 × 1-9 | 3, 4, 9 and 12 × 3, 4, 9 | 6, 7, 8 and 12 × 6-8, 11-12 × 11-12 | C, a quarter with 11 or 12 | S + C, a quarter with 11 or 12 |
+| × ÷ to 15 | easy rows, half with 11-15 | 12-15 × 3, 4 | 12-15 × 6-9, teen × teen | C, half with 11-15 | S + C, half with 11-15 |
 
-- Tiers 3-5 (addition, subtraction): at least half the items regroup (addition: the ones make a ten; subtraction: the
-  ones of `s` are smaller than the ones of `a`), at least a quarter are two digits with one digit (`27 + 6`, `33 − 5`),
-  at most a quarter have a multiple of 10 as an operand.
-- Combo: each tier is 10 addition + 10 subtraction + 10 multiplication + 10 division items, each from that operation's
-  band at the same tier. Its tier names say both: "Within 10 & 5 × 5" … "Within 100 & 15 × 15" (≤ 24 chars). Built
-  after the other four pass audit, by copying their generators' rules (cartridges import nothing from each other), so
-  a prompt reads, misleads and explains the same in combo as in its own cartridge.
-- Wrong choices: non-negative integers ≤ 999, all four values distinct.
-- Each cartridge states these in its manifest `"bounds"` string; its tests assert them on `baked.json`.
+Sums: to 20 is 11-20, to 50 is 21-50, to 100 is 51-100 (a range drills what the range before it does not). Mixed at
+each range is 6 items a tier from each of add, sub (at that range) and mul, div (at the paired table), each from its
+own cartridge's tier, rules and text.
 
 ### Rules for every Facts cartridge (on top of PROTOCOL §5)
 
-- **Prompt** `7 × 8 = ?` (one operation, `= ?` at the end). Unique per tier: `3 × 7` and `7 × 3` are two prompts.
-- **4 choices**, the answer plus three wrong values. **At least two wrong values are near** (add/sub: ±1, ±2 or ±10;
-  multiply: one group off, `p ± a` or `p ± b`; divide: quotient ±1 or ±2): fluency is telling 56 from 54 and 63, not
-  56 from 15. At most one far value (the wrong operation) per item.
-- **No middle tell**: never `answer − 1, answer, answer + 1` every time. Across a tier the answer's rank by value among
-  its four choices is spread: EACH of the four ranks (smallest, 2nd, 3rd, largest) holds the answer in 15-35% of the
-  tier's items, so a kid can never rule out the biggest or the smallest. Assign a target rank round-robin per tier (like
-  answer positions) and pick near distractors to fit it; an item whose answer is too small for its target (1 + 1 = 2
-  cannot be the largest of four non-negative values) takes the next rank and the round-robin catches up.
-- **No ones-digit tell** (audit, 2026-10-15): ±1, ±2, one group off and quotient ±1 never share the answer's ones
-  digit, so at the upper levels a kid could answer `13 × 6` from `3 × 6 = 18` alone. Where the ones digit is not the
-  whole fact (addition and subtraction tiers 3-5; multiplication and division tiers 4-5), at least 75% of a tier's
-  items carry a wrong value with the answer's ones digit: addition `NO_CARRY` / `TENS_SLIP` (s ± 10), subtraction
-  `FORGOT_TRADE` / `TENS_SLIP` (b ± 10), multiplication `DROPPED_CARRY` (p − 10 when the ones product carries:
-  `13 × 6 = 60 + 18`, the ten of 18 lost → 68), `TENS_SLIP` (p ± 10 otherwise) or, for two two-digit factors,
-  `PARTIAL_PRODUCTS` (tens × tens + ones × ones: `13 × 14 → 100 + 12 = 112`), division `TENS_SLIP` (q ± 10). Test: the answer is the only choice with its ones digit in at most 25% of
-  those tiers' items.
-- **Misconception keys** (starting set; `student` text ≤ 80 chars, kind, names the right idea):
-  - Addition: `ONE_OFF` (s ± 1, counted on wrong), `SUBTRACTED` (|a − b|), `NO_CARRY` (s − 10 when the ones make a
-    ten: 38 + 47 → 75), `TENS_SLIP` (s ± 10 with no regroup), `ARITH` to fill.
-  - Subtraction: `ONE_OFF` (b ± 1), `ADDED` (s + a), `SMALLER_FROM_LARGER` (each place larger digit minus smaller:
-    `14 − 6 → 12`, `52 − 38 → 26`), `FORGOT_TRADE` (b + 10: traded a ten for ones but left the tens alone: `14 − 6 →
-    18`, `52 − 38 → 24`), `TENS_SLIP`, `ARITH`.
-  - Multiplication: `GROUP_OFF` (one group too many or too few: `a × (b ± 1)` or `(a ± 1) × b`), `ADDED` (a + b),
-    `DROPPED_CARRY`, `TENS_SLIP`, `PARTIAL_PRODUCTS` (tiers 4-5), `ARITH`.
-  - Division: `GROUP_OFF` (quotient ± 1), `SUBTRACTED` (p − a), `MULTIPLIED` (p × a, only when ≤ 999), `TENS_SLIP`
-    (tiers 4-5), `ARITH`.
-  - Combo: one catalog holding the four sets with an operation prefix (`ADD_ONE_OFF`, `SUB_ADDED`, `MUL_GROUP_OFF`,
-    `DIV_SUBTRACTED`, ...), each with its own cartridge's `student` text.
-  - When two keys give the same value, or a key gives the answer itself (`2 × 2`: ADDED is 4; `4 ÷ 2`: SUBTRACTED is 2;
-    `52 − 37`: SMALLER_FROM_LARGER and FORGOT_TRADE both 25), that candidate is dropped or kept once under the key
-    listed first above; every item's four values stay distinct.
-- **Explanations** (≤ 160) give the fact and one strategy a kid can reuse: doubles and near doubles (`6 + 7 = 13: double
-  6 is 12, one more`), make ten (`8 + 5: 8 + 2 = 10, 3 more = 13`), tens then ones (`38 + 47: 30 + 40 = 70, 8 + 7 = 15,
-  70 + 15 = 85`), think addition (`13 − 5 = 8 because 5 + 8 = 13`), count up or tens then ones for two-digit
-  subtraction, ×2 doubles, ×5 half of ×10, ×9 is ×10 minus a group, ×11 to ×15 split as 10 and the rest (`13 × 6: 60 +
-  18 = 78`), a neighbour fact (`7 × 8: 7 × 7 = 49, + 7 = 56`), and the fact family for division (`56 ÷ 7 = 8 because
-  7 × 8 = 56`).
+- **4 choices**, the answer plus three wrong values from modelled misconceptions (`ARITH` only to fill). **At least two
+  near, at most one far.** Near: add/sub within ±1, ±2 or ±10; when the answer is a product (× R, ÷ S) within the
+  larger factor (one group off); when it is a factor (× C/S, ÷ R/C) within ±2.
+- **No middle tell**: each of the four answer ranks by value holds the answer in 15-35% of a tier's items.
+- **No ones-digit tell** (audit, 2026-10-15): where the ones digit is not the whole fact (add/sub answers ≥ 20; × R and
+  ÷ S with a factor ≥ 11 and an answer ≥ 20), the answer is the only choice with its ones digit in ≤ 25% of those
+  items per tier; the ±10 keys (`NO_CARRY`, `TENS_SLIP`, `MISSING_TENS`, `START_TENS`, `DROPPED_CARRY`) exist for it.
+- **Misconception keys**: the R keys of the first build (addition `ONE_OFF`, `SUBTRACTED`, `NO_CARRY`, `TENS_SLIP`;
+  subtraction `ONE_OFF`, `ADDED`, `SMALLER_FROM_LARGER`, `FORGOT_TRADE`, `TENS_SLIP`; multiplication `GROUP_OFF`,
+  `ADDED`, `DROPPED_CARRY`, `TENS_SLIP`, `PARTIAL_PRODUCTS`; division `GROUP_OFF`, `SUBTRACTED`, `MULTIPLIED`,
+  `TENS_SLIP`) plus the missing-number keys: `MISSING_ADDED` (added the two numbers you can see), `MISSING_ONE_OFF`,
+  `MISSING_TENS`, `START_SUBTRACTED` (took away instead of adding back), `START_NO_CARRY`, `MISSING_SUBTRACTED`,
+  `MISSING_PRODUCT` (wrote the product in the box), `MISSING_MULTIPLIED`, `START_GROUP_OFF`, `START_ADDED`,
+  `START_TENS`. Mixed prefixes each with its operation (`ADD_`, `SUB_`, `MUL_`, `DIV_`). Exact values: BRIEF.md.
+- **Explanations** (≤ 160) give the whole fact and one reusable strategy (counting on, doubles, make ten, tens then
+  ones, think addition, ×5 half of ×10, ×9 is ×10 minus a group, 11-15 split as 10 and the rest, the fact family); a
+  missing-number item names the missing number and how to find it (`7 + ? = 15: 7 + 8 = 15, so ? = 8. Count up: 7 +
+  3 = 10, then 5 more.`).
+- One `generator.py` per operation, byte-identical in its four directories, the range read from the id; each
+  operation's test re-checks every baked item independently (regex parse, plain arithmetic), every pair against its
+  tier's pools, and the rules above, with a planted-bad-item disproof.

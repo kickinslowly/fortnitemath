@@ -1,0 +1,2346 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-add-10",
+  "version": "1.0.0",
+  "title": "Addition to 10",
+  "subtitle": "Sums up to 10",
+  "grade": "Facts",
+  "picker_order": 1,
+  "standards": [
+    "CCSS.MATH.CONTENT.K.OA.A.4",
+    "CCSS.MATH.CONTENT.K.OA.A.5",
+    "CCSS.MATH.CONTENT.1.OA.C.6",
+    "CCSS.MATH.CONTENT.1.OA.D.8"
+  ],
+  "seed": 20261051,
+  "items_per_tier": 24,
+  "bounds": "Facts bounds (PROTOCOL 4c, briefs/facts2): the whole run inside sums 1 to 10, easy to hard by tier. Prompt forms: R 'a + b = ?' (answer s), C 'a + ? = s' (answer b), S '? + b = s' (answer a); every number a non-negative integer. T1 R, a or b <= 2 (0 allowed). T2 R, a, b >= 2. T3 R with a, b >= 3 (>= 8) plus C and S on the ten pairs a + (10 - a) (>= 4 each). T4 C, a, b >= 1. T5 S (>= 12) and C, a, b >= 2 and sums 5 to 10. Prompts unique per tier, 24 per tier. Wrong choices: distinct non-negative integers <= 999, >= 2 near the answer (+-1, +-2, +-10), at most 1 far; answer rank among the 4 values 15-35% each per tier; answers >= 20 always have a wrong choice sharing the ones digit (+-10); the answer is never the only value of its parity.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Plus 0, 1, 2",
+      "description": "Adding 0, 1 or 2: the next number, or no change."
+    },
+    {
+      "tier": 2,
+      "name": "Sums to 10",
+      "description": "Every sum up to 10 with both numbers 2 or more."
+    },
+    {
+      "tier": 3,
+      "name": "Make ten",
+      "description": "Sums of 3 or more, and the pairs that make ten."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "Find the second number: 4 + ? = 9."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "Find the first number: ? + 3 = 8."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Count again: start at the bigger number and count up.",
+      "teacher": "Counted on wrong: the sum is one more or one less than the true sum."
+    },
+    "SUBTRACTED": {
+      "student": "Plus means put together. Add the two numbers, don't take them apart.",
+      "teacher": "Subtracted the smaller addend from the larger instead of adding: 8 + 5 = 3."
+    },
+    "MISSING_ADDED": {
+      "student": "Don't add the two numbers you see. Find the missing one: subtract.",
+      "teacher": "Added the shown number and the total instead of subtracting: 7 + ? = 15 answered 22."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Add your answer to the shown number and check the total.",
+      "teacher": "Counted up wrong: the missing number is one more or one less than the true one."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-add-10/t1/001",
+      "tier": 1,
+      "prompt": "7 + 2 = ?",
+      "choices": [
+        "9",
+        "5",
+        "7",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "7 + 2 = 9: start at 7 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t1/002",
+      "tier": 1,
+      "prompt": "5 + 0 = ?",
+      "choices": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "5 + 0 = 5: adding 0 changes nothing, so the answer is 5."
+    },
+    {
+      "id": "facts-add-10/t1/003",
+      "tier": 1,
+      "prompt": "1 + 6 = ?",
+      "choices": [
+        "5",
+        "3",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "1 + 6 = 7: adding 1 is just the next number after 6."
+    },
+    {
+      "id": "facts-add-10/t1/004",
+      "tier": 1,
+      "prompt": "2 + 1 = ?",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "2 + 1 = 3: adding 1 is just the next number after 2."
+    },
+    {
+      "id": "facts-add-10/t1/005",
+      "tier": 1,
+      "prompt": "7 + 1 = ?",
+      "choices": [
+        "9",
+        "8",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "7 + 1 = 8: adding 1 is just the next number after 7."
+    },
+    {
+      "id": "facts-add-10/t1/006",
+      "tier": 1,
+      "prompt": "1 + 4 = ?",
+      "choices": [
+        "6",
+        "3",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "1 + 4 = 5: adding 1 is just the next number after 4."
+    },
+    {
+      "id": "facts-add-10/t1/007",
+      "tier": 1,
+      "prompt": "1 + 0 = ?",
+      "choices": [
+        "0",
+        "1",
+        "5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "1 + 0 = 1: adding 0 changes nothing, so the answer is 1."
+    },
+    {
+      "id": "facts-add-10/t1/008",
+      "tier": 1,
+      "prompt": "5 + 2 = ?",
+      "choices": [
+        "7",
+        "8",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "5 + 2 = 7: start at 5 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t1/009",
+      "tier": 1,
+      "prompt": "5 + 1 = ?",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "5 + 1 = 6: adding 1 is just the next number after 5."
+    },
+    {
+      "id": "facts-add-10/t1/010",
+      "tier": 1,
+      "prompt": "1 + 2 = ?",
+      "choices": [
+        "2",
+        "6",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "1 + 2 = 3: adding 1 is just the next number after 2."
+    },
+    {
+      "id": "facts-add-10/t1/011",
+      "tier": 1,
+      "prompt": "1 + 1 = ?",
+      "choices": [
+        "1",
+        "0",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "1 + 1 = 2: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t1/012",
+      "tier": 1,
+      "prompt": "0 + 1 = ?",
+      "choices": [
+        "5",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "0 + 1 = 1: adding 0 changes nothing, so the answer is 1."
+    },
+    {
+      "id": "facts-add-10/t1/013",
+      "tier": 1,
+      "prompt": "3 + 1 = ?",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "3 + 1 = 4: adding 1 is just the next number after 3."
+    },
+    {
+      "id": "facts-add-10/t1/014",
+      "tier": 1,
+      "prompt": "6 + 0 = ?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "6 + 0 = 6: adding 0 changes nothing, so the answer is 6."
+    },
+    {
+      "id": "facts-add-10/t1/015",
+      "tier": 1,
+      "prompt": "2 + 4 = ?",
+      "choices": [
+        "8",
+        "2",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "2 + 4 = 6: start at 4 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t1/016",
+      "tier": 1,
+      "prompt": "6 + 1 = ?",
+      "choices": [
+        "6",
+        "3",
+        "7",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "6 + 1 = 7: adding 1 is just the next number after 6."
+    },
+    {
+      "id": "facts-add-10/t1/017",
+      "tier": 1,
+      "prompt": "1 + 7 = ?",
+      "choices": [
+        "11",
+        "8",
+        "9",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "1 + 7 = 8: adding 1 is just the next number after 7."
+    },
+    {
+      "id": "facts-add-10/t1/018",
+      "tier": 1,
+      "prompt": "0 + 10 = ?",
+      "choices": [
+        "10",
+        "8",
+        "11",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ONE_OFF"
+      ],
+      "explanation": "0 + 10 = 10: adding 0 changes nothing, so the answer is 10."
+    },
+    {
+      "id": "facts-add-10/t1/019",
+      "tier": 1,
+      "prompt": "0 + 4 = ?",
+      "choices": [
+        "6",
+        "4",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "0 + 4 = 4: adding 0 changes nothing, so the answer is 4."
+    },
+    {
+      "id": "facts-add-10/t1/020",
+      "tier": 1,
+      "prompt": "0 + 9 = ?",
+      "choices": [
+        "7",
+        "5",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "0 + 9 = 9: adding 0 changes nothing, so the answer is 9."
+    },
+    {
+      "id": "facts-add-10/t1/021",
+      "tier": 1,
+      "prompt": "3 + 0 = ?",
+      "choices": [
+        "5",
+        "3",
+        "7",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "3 + 0 = 3: adding 0 changes nothing, so the answer is 3."
+    },
+    {
+      "id": "facts-add-10/t1/022",
+      "tier": 1,
+      "prompt": "2 + 8 = ?",
+      "choices": [
+        "9",
+        "6",
+        "11",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "2 + 8 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t1/023",
+      "tier": 1,
+      "prompt": "0 + 2 = ?",
+      "choices": [
+        "4",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ONE_OFF"
+      ],
+      "explanation": "0 + 2 = 2: adding 0 changes nothing, so the answer is 2."
+    },
+    {
+      "id": "facts-add-10/t1/024",
+      "tier": 1,
+      "prompt": "2 + 5 = ?",
+      "choices": [
+        "8",
+        "3",
+        "9",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 + 5 = 7: start at 5 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/001",
+      "tier": 2,
+      "prompt": "3 + 5 = ?",
+      "choices": [
+        "12",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "3 + 5 = 8: start at 5 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t2/002",
+      "tier": 2,
+      "prompt": "3 + 4 = ?",
+      "choices": [
+        "5",
+        "8",
+        "7",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "3 + 4 = 7: double 3 is 6, one more is 7."
+    },
+    {
+      "id": "facts-add-10/t2/003",
+      "tier": 2,
+      "prompt": "3 + 6 = ?",
+      "choices": [
+        "3",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "3 + 6 = 9: start at 6 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t2/004",
+      "tier": 2,
+      "prompt": "5 + 5 = ?",
+      "choices": [
+        "8",
+        "9",
+        "0",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "5 + 5 = 10: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t2/005",
+      "tier": 2,
+      "prompt": "2 + 8 = ?",
+      "choices": [
+        "10",
+        "11",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "2 + 8 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t2/006",
+      "tier": 2,
+      "prompt": "7 + 2 = ?",
+      "choices": [
+        "5",
+        "10",
+        "9",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "7 + 2 = 9: start at 7 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/007",
+      "tier": 2,
+      "prompt": "3 + 2 = ?",
+      "choices": [
+        "5",
+        "9",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "3 + 2 = 5: double 2 is 4, one more is 5."
+    },
+    {
+      "id": "facts-add-10/t2/008",
+      "tier": 2,
+      "prompt": "7 + 3 = ?",
+      "choices": [
+        "4",
+        "10",
+        "8",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "7 + 3 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t2/009",
+      "tier": 2,
+      "prompt": "2 + 5 = ?",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "SUBTRACTED"
+      ],
+      "explanation": "2 + 5 = 7: start at 5 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/010",
+      "tier": 2,
+      "prompt": "8 + 2 = ?",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "8 + 2 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t2/011",
+      "tier": 2,
+      "prompt": "3 + 7 = ?",
+      "choices": [
+        "9",
+        "4",
+        "10",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 + 7 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t2/012",
+      "tier": 2,
+      "prompt": "4 + 3 = ?",
+      "choices": [
+        "1",
+        "6",
+        "9",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 + 3 = 7: double 3 is 6, one more is 7."
+    },
+    {
+      "id": "facts-add-10/t2/013",
+      "tier": 2,
+      "prompt": "4 + 4 = ?",
+      "choices": [
+        "9",
+        "8",
+        "10",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "SUBTRACTED"
+      ],
+      "explanation": "4 + 4 = 8: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t2/014",
+      "tier": 2,
+      "prompt": "2 + 2 = ?",
+      "choices": [
+        "4",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "2 + 2 = 4: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t2/015",
+      "tier": 2,
+      "prompt": "5 + 4 = ?",
+      "choices": [
+        "1",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_OFF",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "5 + 4 = 9: double 4 is 8, one more is 9."
+    },
+    {
+      "id": "facts-add-10/t2/016",
+      "tier": 2,
+      "prompt": "3 + 3 = ?",
+      "choices": [
+        "6",
+        "8",
+        "7",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "3 + 3 = 6: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t2/017",
+      "tier": 2,
+      "prompt": "5 + 2 = ?",
+      "choices": [
+        "9",
+        "6",
+        "3",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "5 + 2 = 7: start at 5 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/018",
+      "tier": 2,
+      "prompt": "6 + 3 = ?",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "6 + 3 = 9: start at 6 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t2/019",
+      "tier": 2,
+      "prompt": "4 + 2 = ?",
+      "choices": [
+        "6",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "4 + 2 = 6: start at 4 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/020",
+      "tier": 2,
+      "prompt": "2 + 3 = ?",
+      "choices": [
+        "1",
+        "7",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "2 + 3 = 5: double 2 is 4, one more is 5."
+    },
+    {
+      "id": "facts-add-10/t2/021",
+      "tier": 2,
+      "prompt": "4 + 6 = ?",
+      "choices": [
+        "10",
+        "2",
+        "12",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "4 + 6 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t2/022",
+      "tier": 2,
+      "prompt": "5 + 3 = ?",
+      "choices": [
+        "12",
+        "8",
+        "9",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 + 3 = 8: start at 5 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t2/023",
+      "tier": 2,
+      "prompt": "2 + 7 = ?",
+      "choices": [
+        "10",
+        "5",
+        "9",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + 7 = 9: start at 7 and count up 2."
+    },
+    {
+      "id": "facts-add-10/t2/024",
+      "tier": 2,
+      "prompt": "6 + 4 = ?",
+      "choices": [
+        "2",
+        "9",
+        "10",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "6 + 4 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t3/001",
+      "tier": 3,
+      "prompt": "5 + ? = 10",
+      "choices": [
+        "5",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 + ? = 10: 5 + 5 = 10, so ? = 5. Ten pairs: 5 and 5 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/002",
+      "tier": 3,
+      "prompt": "3 + 4 = ?",
+      "choices": [
+        "6",
+        "8",
+        "1",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "3 + 4 = 7: double 3 is 6, one more is 7."
+    },
+    {
+      "id": "facts-add-10/t3/003",
+      "tier": 3,
+      "prompt": "? + 9 = 10",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "19"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "? + 9 = 10: 1 + 9 = 10, so ? = 1. Ten pairs: 9 and 1 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/004",
+      "tier": 3,
+      "prompt": "5 + 3 = ?",
+      "choices": [
+        "6",
+        "2",
+        "8",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUBTRACTED",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "5 + 3 = 8: start at 5 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t3/005",
+      "tier": 3,
+      "prompt": "4 + ? = 10",
+      "choices": [
+        "6",
+        "14",
+        "8",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 + ? = 10: 4 + 6 = 10, so ? = 6. Ten pairs: 4 and 6 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/006",
+      "tier": 3,
+      "prompt": "? + 3 = 10",
+      "choices": [
+        "13",
+        "7",
+        "5",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 3 = 10: 7 + 3 = 10, so ? = 7. Ten pairs: 3 and 7 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/007",
+      "tier": 3,
+      "prompt": "? + 4 = 10",
+      "choices": [
+        "14",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? + 4 = 10: 6 + 4 = 10, so ? = 6. Ten pairs: 4 and 6 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/008",
+      "tier": 3,
+      "prompt": "6 + 3 = ?",
+      "choices": [
+        "7",
+        "9",
+        "3",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "SUBTRACTED",
+        "ONE_OFF"
+      ],
+      "explanation": "6 + 3 = 9: start at 6 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t3/009",
+      "tier": 3,
+      "prompt": "? + 6 = 10",
+      "choices": [
+        "16",
+        "2",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 6 = 10: 4 + 6 = 10, so ? = 4. Ten pairs: 6 and 4 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/010",
+      "tier": 3,
+      "prompt": "4 + 4 = ?",
+      "choices": [
+        "12",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4 + 4 = 8: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t3/011",
+      "tier": 3,
+      "prompt": "6 + ? = 10",
+      "choices": [
+        "16",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "6 + ? = 10: 6 + 4 = 10, so ? = 4. Ten pairs: 6 and 4 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/012",
+      "tier": 3,
+      "prompt": "3 + 7 = ?",
+      "choices": [
+        "9",
+        "4",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "3 + 7 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t3/013",
+      "tier": 3,
+      "prompt": "? + 7 = 10",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? + 7 = 10: 3 + 7 = 10, so ? = 3. Ten pairs: 7 and 3 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/014",
+      "tier": 3,
+      "prompt": "3 + 5 = ?",
+      "choices": [
+        "8",
+        "10",
+        "9",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "3 + 5 = 8: start at 5 and count up 3."
+    },
+    {
+      "id": "facts-add-10/t3/015",
+      "tier": 3,
+      "prompt": "7 + 3 = ?",
+      "choices": [
+        "10",
+        "9",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "7 + 3 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t3/016",
+      "tier": 3,
+      "prompt": "? + 5 = 10",
+      "choices": [
+        "15",
+        "5",
+        "4",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? + 5 = 10: 5 + 5 = 10, so ? = 5. Ten pairs: 5 and 5 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/017",
+      "tier": 3,
+      "prompt": "? + 8 = 10",
+      "choices": [
+        "2",
+        "1",
+        "18",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "ARITH"
+      ],
+      "explanation": "? + 8 = 10: 2 + 8 = 10, so ? = 2. Ten pairs: 8 and 2 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/018",
+      "tier": 3,
+      "prompt": "8 + ? = 10",
+      "choices": [
+        "1",
+        "2",
+        "18",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "ARITH"
+      ],
+      "explanation": "8 + ? = 10: 8 + 2 = 10, so ? = 2. Ten pairs: 8 and 2 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/019",
+      "tier": 3,
+      "prompt": "4 + 5 = ?",
+      "choices": [
+        "12",
+        "11",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "4 + 5 = 9: double 4 is 8, one more is 9."
+    },
+    {
+      "id": "facts-add-10/t3/020",
+      "tier": 3,
+      "prompt": "1 + ? = 10",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED"
+      ],
+      "explanation": "1 + ? = 10: 1 + 9 = 10, so ? = 9. Ten pairs: 1 and 9 make 10."
+    },
+    {
+      "id": "facts-add-10/t3/021",
+      "tier": 3,
+      "prompt": "5 + 5 = ?",
+      "choices": [
+        "10",
+        "9",
+        "6",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ARITH",
+        "SUBTRACTED"
+      ],
+      "explanation": "5 + 5 = 10: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-add-10/t3/022",
+      "tier": 3,
+      "prompt": "6 + 4 = ?",
+      "choices": [
+        "12",
+        "13",
+        "11",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "6 + 4 = 10: a pair that makes ten. Learn the ten pairs."
+    },
+    {
+      "id": "facts-add-10/t3/023",
+      "tier": 3,
+      "prompt": "5 + 4 = ?",
+      "choices": [
+        "10",
+        "11",
+        "1",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "5 + 4 = 9: double 4 is 8, one more is 9."
+    },
+    {
+      "id": "facts-add-10/t3/024",
+      "tier": 3,
+      "prompt": "4 + 3 = ?",
+      "choices": [
+        "8",
+        "1",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SUBTRACTED",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 + 3 = 7: double 3 is 6, one more is 7."
+    },
+    {
+      "id": "facts-add-10/t4/001",
+      "tier": 4,
+      "prompt": "4 + ? = 10",
+      "choices": [
+        "4",
+        "6",
+        "5",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "4 + ? = 10: 4 + 6 = 10, so ? = 6. Ten pairs: 4 and 6 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/002",
+      "tier": 4,
+      "prompt": "7 + ? = 10",
+      "choices": [
+        "2",
+        "0",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "7 + ? = 10: 7 + 3 = 10, so ? = 3. Ten pairs: 7 and 3 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/003",
+      "tier": 4,
+      "prompt": "2 + ? = 6",
+      "choices": [
+        "0",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + ? = 6: 2 + 4 = 6, so ? = 4. Subtract: 6 - 2 = 4."
+    },
+    {
+      "id": "facts-add-10/t4/004",
+      "tier": 4,
+      "prompt": "2 + ? = 3",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "2 + ? = 3: 2 + 1 = 3, so ? = 1. Subtract: 3 - 2 = 1."
+    },
+    {
+      "id": "facts-add-10/t4/005",
+      "tier": 4,
+      "prompt": "2 + ? = 10",
+      "choices": [
+        "7",
+        "12",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + ? = 10: 2 + 8 = 10, so ? = 8. Ten pairs: 2 and 8 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/006",
+      "tier": 4,
+      "prompt": "6 + ? = 7",
+      "choices": [
+        "1",
+        "13",
+        "3",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "6 + ? = 7: 6 + 1 = 7, so ? = 1. Subtract: 7 - 6 = 1."
+    },
+    {
+      "id": "facts-add-10/t4/007",
+      "tier": 4,
+      "prompt": "3 + ? = 7",
+      "choices": [
+        "4",
+        "5",
+        "2",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ADDED"
+      ],
+      "explanation": "3 + ? = 7: 3 + 4 = 7, so ? = 4. Subtract: 7 - 3 = 4."
+    },
+    {
+      "id": "facts-add-10/t4/008",
+      "tier": 4,
+      "prompt": "6 + ? = 8",
+      "choices": [
+        "14",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "6 + ? = 8: 6 + 2 = 8, so ? = 2. Subtract: 8 - 6 = 2."
+    },
+    {
+      "id": "facts-add-10/t4/009",
+      "tier": 4,
+      "prompt": "1 + ? = 9",
+      "choices": [
+        "8",
+        "10",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "1 + ? = 9: 1 + 8 = 9, so ? = 8. Subtract: 9 - 1 = 8."
+    },
+    {
+      "id": "facts-add-10/t4/010",
+      "tier": 4,
+      "prompt": "9 + ? = 10",
+      "choices": [
+        "1",
+        "19",
+        "0",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "9 + ? = 10: 9 + 1 = 10, so ? = 1. Ten pairs: 9 and 1 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/011",
+      "tier": 4,
+      "prompt": "3 + ? = 6",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "3 + ? = 6: 3 + 3 = 6, so ? = 3. Subtract: 6 - 3 = 3."
+    },
+    {
+      "id": "facts-add-10/t4/012",
+      "tier": 4,
+      "prompt": "1 + ? = 3",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "1 + ? = 3: 1 + 2 = 3, so ? = 2. Subtract: 3 - 1 = 2."
+    },
+    {
+      "id": "facts-add-10/t4/013",
+      "tier": 4,
+      "prompt": "1 + ? = 10",
+      "choices": [
+        "11",
+        "9",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "1 + ? = 10: 1 + 9 = 10, so ? = 9. Ten pairs: 1 and 9 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/014",
+      "tier": 4,
+      "prompt": "4 + ? = 9",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ADDED"
+      ],
+      "explanation": "4 + ? = 9: 4 + 5 = 9, so ? = 5. Subtract: 9 - 4 = 5."
+    },
+    {
+      "id": "facts-add-10/t4/015",
+      "tier": 4,
+      "prompt": "1 + ? = 5",
+      "choices": [
+        "5",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 + ? = 5: 1 + 4 = 5, so ? = 4. Subtract: 5 - 1 = 4."
+    },
+    {
+      "id": "facts-add-10/t4/016",
+      "tier": 4,
+      "prompt": "2 + ? = 4",
+      "choices": [
+        "3",
+        "1",
+        "6",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null
+      ],
+      "explanation": "2 + ? = 4: 2 + 2 = 4, so ? = 2. Subtract: 4 - 2 = 2."
+    },
+    {
+      "id": "facts-add-10/t4/017",
+      "tier": 4,
+      "prompt": "2 + ? = 9",
+      "choices": [
+        "8",
+        "11",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "2 + ? = 9: 2 + 7 = 9, so ? = 7. Subtract: 9 - 2 = 7."
+    },
+    {
+      "id": "facts-add-10/t4/018",
+      "tier": 4,
+      "prompt": "5 + ? = 8",
+      "choices": [
+        "2",
+        "0",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 + ? = 8: 5 + 3 = 8, so ? = 3. Subtract: 8 - 5 = 3."
+    },
+    {
+      "id": "facts-add-10/t4/019",
+      "tier": 4,
+      "prompt": "3 + ? = 10",
+      "choices": [
+        "3",
+        "7",
+        "5",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "3 + ? = 10: 3 + 7 = 10, so ? = 7. Ten pairs: 3 and 7 make 10."
+    },
+    {
+      "id": "facts-add-10/t4/020",
+      "tier": 4,
+      "prompt": "4 + ? = 8",
+      "choices": [
+        "12",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 + ? = 8: 4 + 4 = 8, so ? = 4. Subtract: 8 - 4 = 4."
+    },
+    {
+      "id": "facts-add-10/t4/021",
+      "tier": 4,
+      "prompt": "4 + ? = 6",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "4 + ? = 6: 4 + 2 = 6, so ? = 2. Subtract: 6 - 4 = 2."
+    },
+    {
+      "id": "facts-add-10/t4/022",
+      "tier": 4,
+      "prompt": "1 + ? = 8",
+      "choices": [
+        "9",
+        "8",
+        "7",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 + ? = 8: 1 + 7 = 8, so ? = 7. Subtract: 8 - 1 = 7."
+    },
+    {
+      "id": "facts-add-10/t4/023",
+      "tier": 4,
+      "prompt": "5 + ? = 6",
+      "choices": [
+        "2",
+        "11",
+        "4",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 + ? = 6: 5 + 1 = 6, so ? = 1. Subtract: 6 - 5 = 1."
+    },
+    {
+      "id": "facts-add-10/t4/024",
+      "tier": 4,
+      "prompt": "6 + ? = 10",
+      "choices": [
+        "4",
+        "16",
+        "5",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "6 + ? = 10: 6 + 4 = 10, so ? = 4. Ten pairs: 6 and 4 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/001",
+      "tier": 5,
+      "prompt": "2 + ? = 6",
+      "choices": [
+        "3",
+        "0",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + ? = 6: 2 + 4 = 6, so ? = 4. Subtract: 6 - 2 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/002",
+      "tier": 5,
+      "prompt": "? + 5 = 9",
+      "choices": [
+        "1",
+        "4",
+        "3",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? + 5 = 9: 4 + 5 = 9, so ? = 4. Subtract: 9 - 5 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/003",
+      "tier": 5,
+      "prompt": "? + 2 = 6",
+      "choices": [
+        "5",
+        "4",
+        "8",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "ARITH"
+      ],
+      "explanation": "? + 2 = 6: 4 + 2 = 6, so ? = 4. Subtract: 6 - 2 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/004",
+      "tier": 5,
+      "prompt": "? + 3 = 9",
+      "choices": [
+        "2",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 3 = 9: 6 + 3 = 9, so ? = 6. Subtract: 9 - 3 = 6."
+    },
+    {
+      "id": "facts-add-10/t5/005",
+      "tier": 5,
+      "prompt": "? + 3 = 7",
+      "choices": [
+        "4",
+        "6",
+        "5",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "? + 3 = 7: 4 + 3 = 7, so ? = 4. Subtract: 7 - 3 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/006",
+      "tier": 5,
+      "prompt": "? + 7 = 9",
+      "choices": [
+        "16",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 7 = 9: 2 + 7 = 9, so ? = 2. Subtract: 9 - 7 = 2."
+    },
+    {
+      "id": "facts-add-10/t5/007",
+      "tier": 5,
+      "prompt": "4 + ? = 8",
+      "choices": [
+        "4",
+        "2",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 + ? = 8: 4 + 4 = 8, so ? = 4. Subtract: 8 - 4 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/008",
+      "tier": 5,
+      "prompt": "? + 6 = 10",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? + 6 = 10: 4 + 6 = 10, so ? = 4. Ten pairs: 6 and 4 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/009",
+      "tier": 5,
+      "prompt": "4 + ? = 10",
+      "choices": [
+        "8",
+        "5",
+        "6",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED"
+      ],
+      "explanation": "4 + ? = 10: 4 + 6 = 10, so ? = 6. Ten pairs: 4 and 6 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/010",
+      "tier": 5,
+      "prompt": "? + 4 = 6",
+      "choices": [
+        "10",
+        "3",
+        "4",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? + 4 = 6: 2 + 4 = 6, so ? = 2. Subtract: 6 - 4 = 2."
+    },
+    {
+      "id": "facts-add-10/t5/011",
+      "tier": 5,
+      "prompt": "? + 2 = 5",
+      "choices": [
+        "4",
+        "5",
+        "7",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ADDED",
+        null
+      ],
+      "explanation": "? + 2 = 5: 3 + 2 = 5, so ? = 3. Subtract: 5 - 2 = 3."
+    },
+    {
+      "id": "facts-add-10/t5/012",
+      "tier": 5,
+      "prompt": "? + 2 = 9",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "? + 2 = 9: 7 + 2 = 9, so ? = 7. Subtract: 9 - 2 = 7."
+    },
+    {
+      "id": "facts-add-10/t5/013",
+      "tier": 5,
+      "prompt": "? + 4 = 8",
+      "choices": [
+        "12",
+        "3",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? + 4 = 8: 4 + 4 = 8, so ? = 4. Subtract: 8 - 4 = 4."
+    },
+    {
+      "id": "facts-add-10/t5/014",
+      "tier": 5,
+      "prompt": "? + 5 = 10",
+      "choices": [
+        "1",
+        "15",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? + 5 = 10: 5 + 5 = 10, so ? = 5. Ten pairs: 5 and 5 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/015",
+      "tier": 5,
+      "prompt": "? + 7 = 10",
+      "choices": [
+        "17",
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 7 = 10: 3 + 7 = 10, so ? = 3. Ten pairs: 7 and 3 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/016",
+      "tier": 5,
+      "prompt": "8 + ? = 10",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED"
+      ],
+      "explanation": "8 + ? = 10: 8 + 2 = 10, so ? = 2. Ten pairs: 8 and 2 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/017",
+      "tier": 5,
+      "prompt": "? + 3 = 5",
+      "choices": [
+        "8",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? + 3 = 5: 2 + 3 = 5, so ? = 2. Subtract: 5 - 3 = 2."
+    },
+    {
+      "id": "facts-add-10/t5/018",
+      "tier": 5,
+      "prompt": "? + 3 = 10",
+      "choices": [
+        "6",
+        "5",
+        "3",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "? + 3 = 10: 7 + 3 = 10, so ? = 7. Ten pairs: 3 and 7 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/019",
+      "tier": 5,
+      "prompt": "5 + ? = 7",
+      "choices": [
+        "2",
+        "1",
+        "12",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "ARITH"
+      ],
+      "explanation": "5 + ? = 7: 5 + 2 = 7, so ? = 2. Subtract: 7 - 5 = 2."
+    },
+    {
+      "id": "facts-add-10/t5/020",
+      "tier": 5,
+      "prompt": "2 + ? = 10",
+      "choices": [
+        "12",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 + ? = 10: 2 + 8 = 10, so ? = 8. Ten pairs: 2 and 8 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/021",
+      "tier": 5,
+      "prompt": "? + 2 = 10",
+      "choices": [
+        "7",
+        "8",
+        "12",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 2 = 10: 8 + 2 = 10, so ? = 8. Ten pairs: 2 and 8 make 10."
+    },
+    {
+      "id": "facts-add-10/t5/022",
+      "tier": 5,
+      "prompt": "5 + ? = 8",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 + ? = 8: 5 + 3 = 8, so ? = 3. Subtract: 8 - 5 = 3."
+    },
+    {
+      "id": "facts-add-10/t5/023",
+      "tier": 5,
+      "prompt": "6 + ? = 8",
+      "choices": [
+        "2",
+        "14",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ADDED",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "6 + ? = 8: 6 + 2 = 8, so ? = 2. Subtract: 8 - 6 = 2."
+    },
+    {
+      "id": "facts-add-10/t5/024",
+      "tier": 5,
+      "prompt": "? + 4 = 10",
+      "choices": [
+        "14",
+        "6",
+        "8",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 4 = 10: 6 + 4 = 10, so ? = 6. Ten pairs: 4 and 6 make 10."
+    }
+  ]
+}

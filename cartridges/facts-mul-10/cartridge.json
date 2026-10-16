@@ -1,0 +1,66 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mul-10",
+  "version": "1.0.0",
+  "title": "Times Tables to 10",
+  "subtitle": "Factors 0 to 10",
+  "grade": "Facts",
+  "picker_order": 10,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.B.5",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261060,
+  "items_per_tier": 24,
+  "bounds": "Factors 0 to 10. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: a fact with 0, 1, 2, 5 or 10 (85 prompts); T2 R: facts from 3, 4, 6, 7, 8, 9 with a 3, 4 or 9 (27; at least 8 with both factors in 3, 4, 9); T3 R: a 6, 7 or 8 (27; at least 8 with both in 6, 7, 8); T4 C: at least 12 from 3, 4, 6-9 on both factors, else any factors 2-10 (81 prompts); T5 S: at least 12 from 3, 4, 6-9 on both factors, plus C from the same (72). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Times 0, 1, 2, 5, 10",
+      "description": "Times 0, 1, 2, 5 and 10. Zero, itself, doubles, half of ten, add a zero."
+    },
+    {
+      "tier": 2,
+      "name": "Times 3, 4, 9",
+      "description": "Times 3, 4 and 9. Double for 4s, ten minus one for 9s."
+    },
+    {
+      "tier": 3,
+      "name": "Times 6, 7, 8",
+      "description": "Times 6, 7 and 8. Split a 6, 7 or 8 into 5 and the rest."
+    },
+    {
+      "tier": 4,
+      "name": "Missing factors",
+      "description": "Missing factor: 6 × ? = 42. Ask what times 6 makes 42."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first factors",
+      "description": "First factor missing: ? × 6 = 42, or a missing second factor. Facts with 3, 4, 6, 7, 8, 9."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    }
+  }
+}

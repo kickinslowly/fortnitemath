@@ -1,0 +1,186 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mix-100",
+  "version": "1.0.0",
+  "title": "Mixed to 100",
+  "subtitle": "+ − to 100, × ÷ to 15",
+  "grade": "Facts",
+  "picker_order": 20,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.NBT.C.4",
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.NBT.B.5",
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7",
+    "CCSS.MATH.CONTENT.4.NBT.B.5",
+    "CCSS.MATH.CONTENT.4.NBT.B.6"
+  ],
+  "seed": 20261070,
+  "items_per_tier": 24,
+  "bounds": "Mixed facts (PROTOCOL 4c, briefs/facts2): the whole run inside + and − to 100 and × and ÷ with factors to 15, easy to hard by tier. Each tier is 6 items from each of facts-add-100, facts-sub-100, facts-mul-15, facts-div-15 at the same tier: the same pools, forms, distractors, explanations and student text, every part's floor n scaled to ceil(n / 4), at most 2 zero-factor multiplication prompts a tier; 24 items per tier, prompts unique per tier, operations interleaved. Misconception keys carry their operation (ADD_, SUB_, MUL_, DIV_). Answer rank among the 4 values 15-35% each over the whole tier. [ADD] Facts bounds (PROTOCOL 4c, briefs/facts2): the whole run inside sums 51 to 100, easy to hard by tier. Prompt forms: R 'a + b = ?' (answer s), C 'a + ? = s' (answer b), S '? + b = s' (answer a); every number a non-negative integer. T1 R, an operand a non-zero multiple of ten. T2 R, no multiple of ten and the ones stay under ten: >= 8 with a one-digit operand, >= 8 with both two-digit. T3 the same with the ones making a ten. T4 C, a, b >= 2, no multiple of ten (>= 12 regrouping). T5 S (>= 12, >= 6 regrouping) and C (>= 6 regrouping), a, b >= 2, no multiple of ten. Prompts unique per tier, 24 per tier. Wrong choices: distinct non-negative integers <= 999, >= 2 near the answer (+-1, +-2, +-10), at most 1 far; answer rank among the 4 values 15-35% each per tier; answers >= 20 always have a wrong choice sharing the ones digit (+-10); the answer is never the only value of its parity. [SUB] Minuends 51-100, a and b at least 2 (T1 allows 1). T1 R with a multiple of 10 as a or b; T2 R no trade (the ones of s at least the ones of a), at least 8 with a one-digit part and 8 with both parts at least 10; T3 R with a trade, same two floors; T4 s − ? = b, at least 12 with a trade, no multiples of 10; T5 ? − a = b (at least 12, 6 with a trade) and s − ? = b (6 with a trade), no multiples of 10. Wrong choices: distinct non-negative integers up to 999, at least two within 1, 2 or 10 of the answer, at most one far; where the answer is 20 or more one wrong choice shares its ones digit; modelled misconceptions first, ARITH only to fill; each answer rank (smallest to largest of the four) holds the answer in 15-35% of a tier. [MUL] Factors 0 to 15. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: the easy rows (0, 1, 2, 5, 10) and 11 times a digit, at least 12 with a factor of 11 to 15 (147 prompts); T2 R: a factor of 11-15 times 3 or 4, not an easy fact (at least 12; 43 prompts with the 3-4-9 core); T3 R: a factor of 11-15 times 6-15, not an easy fact (at least 12), else a 6, 7 or 8 core fact (84); T4 C: hard facts with a factor of 11-15 (at least 12), else any hard fact with factors 3-15 (109); T5 S: hard facts with a factor of 11-15 (at least 8), any hard fact (at least 4), plus C (at least 4 with 11-15; 218 prompts in all). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far; with a factor of 11 or more and an answer of 20 or more, one wrong value shares the answer's ones digit. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier. [DIV] PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-15, the 11-15 rows are the point. T1 R: easy rows to 15, at least 12 with an 11-15. T2 R: 11-15 with 3 or 4 (at least 12). T3 R: 11-15 with 6-9 or 11-15 pairs (at least 12). T4 C: 3-15 facts with an 11-15 (at least 12). T5 S: 3-15 facts with an 11-15 (at least 8), any 3-15 fact (at least 4), plus C (4 with an 11-15). Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy facts",
+      "description": "A mix of + − × ÷: the easy facts from each operation."
+    },
+    {
+      "tier": 2,
+      "name": "Building facts",
+      "description": "A mix of + − × ÷: the next facts from each operation."
+    },
+    {
+      "tier": 3,
+      "name": "Harder facts",
+      "description": "A mix of + − × ÷: the hardest plain facts from each operation."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "A mix of + − × ÷, a number missing: 4 + ? = 9, 12 ÷ ? = 3."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "A mix of + − × ÷, often the first number missing: ? − 6 = 9."
+    }
+  ],
+  "misconceptions": {
+    "ADD_ONE_OFF": {
+      "student": "Off by one. Count again: start at the bigger number and count up.",
+      "teacher": "Counted on wrong: the sum is one more or one less than the true sum."
+    },
+    "ADD_SUBTRACTED": {
+      "student": "Plus means put together. Add the two numbers, don't take them apart.",
+      "teacher": "Subtracted the smaller addend from the larger instead of adding: 8 + 5 = 3."
+    },
+    "ADD_NO_CARRY": {
+      "student": "The ones made a new ten. Add that ten in with the tens.",
+      "teacher": "Dropped the regrouped ten when the ones summed to 10 or more: 38 + 47 = 75."
+    },
+    "ADD_TENS_SLIP": {
+      "student": "Check the tens place. Add the tens, then the ones.",
+      "teacher": "Tens digit of the sum is one too many or too few, with the ones right: 34 + 52 = 76 or 96."
+    },
+    "ADD_MISSING_ADDED": {
+      "student": "Don't add the two numbers you see. Find the missing one: subtract.",
+      "teacher": "Added the shown number and the total instead of subtracting: 7 + ? = 15 answered 22."
+    },
+    "ADD_MISSING_ONE_OFF": {
+      "student": "Off by one. Add your answer to the shown number and check the total.",
+      "teacher": "Counted up wrong: the missing number is one more or one less than the true one."
+    },
+    "ADD_MISSING_TENS": {
+      "student": "Check the tens. Add your answer to the shown number: is it the total?",
+      "teacher": "Missing number is ten too many or too few: forgot the trade counting up across a ten, or a tens slip."
+    },
+    "SUB_ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "SUB_ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "SUB_SMALLER_FROM_LARGER": {
+      "student": "Don't flip digits. If the top digit is smaller, trade a ten for 10 ones.",
+      "teacher": "In each place takes the smaller digit from the larger (14 - 6 gives 12; 52 - 38 gives 26) instead of regrouping."
+    },
+    "SUB_FORGOT_TRADE": {
+      "student": "You traded a ten for ones, so the tens digit has to drop by one.",
+      "teacher": "Regrouped the ones but left the tens unchanged: answer is 10 too big (14 - 6 gives 18; 52 - 38 gives 24)."
+    },
+    "SUB_TENS_SLIP": {
+      "student": "The tens are off by one ten. Check: answer + taken away = start.",
+      "teacher": "Right ones, tens digit one too high or too low: answer is the correct difference plus or minus 10."
+    },
+    "SUB_MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "SUB_MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "SUB_MISSING_TENS": {
+      "student": "Off by one ten. Put your number back in the problem and check it.",
+      "teacher": "Right ones, tens digit one too high or too low: the missing number plus or minus 10 (trade forgotten or tens slip)."
+    },
+    "SUB_START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    },
+    "MUL_GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "MUL_ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "MUL_DROPPED_CARRY": {
+      "student": "Keep the ten: 13 × 6 is 60 + 18, and the 18 has a ten to add in.",
+      "teacher": "Splits into tens and ones but loses the ten from the ones product: 13 × 6 = 60 + 8 = 68."
+    },
+    "MUL_TENS_SLIP": {
+      "student": "Check the tens place. Split into tens and ones, multiply each, add both.",
+      "teacher": "Right ones digit, tens place off by one ten (product plus or minus 10)."
+    },
+    "MUL_PARTIAL_PRODUCTS": {
+      "student": "Tens × tens plus ones × ones skips two parts. Split one number, multiply both.",
+      "teacher": "Multiplies tens by tens and ones by ones only: 13 × 14 = 100 + 12 = 112."
+    },
+    "MUL_MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MUL_MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MUL_MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    },
+    "DIV_GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "DIV_SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "DIV_MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "DIV_TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    },
+    "DIV_MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "DIV_MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "DIV_MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "DIV_START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "DIV_START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    },
+    "DIV_START_TENS": {
+      "student": "Right ones digit, wrong tens. Multiply the two numbers, then check the size.",
+      "teacher": "Missing dividend off by ten: right ones digit, tens place slipped."
+    }
+  }
+}

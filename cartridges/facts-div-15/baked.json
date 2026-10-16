@@ -1,0 +1,2369 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-div-15",
+  "version": "1.0.0",
+  "title": "Divide by 1 to 15",
+  "subtitle": "Times tables to 15, backwards",
+  "grade": "Facts",
+  "picker_order": 16,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7",
+    "CCSS.MATH.CONTENT.4.NBT.B.6"
+  ],
+  "seed": 20261066,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-15, the 11-15 rows are the point. T1 R: easy rows to 15, at least 12 with an 11-15. T2 R: 11-15 with 3 or 4 (at least 12). T3 R: 11-15 with 6-9 or 11-15 pairs (at least 12). T4 C: 3-15 facts with an 11-15 (at least 12). T5 S: 3-15 facts with an 11-15 (at least 8), any 3-15 fact (at least 4), plus C (4 with an 11-15). Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy rows to 15",
+      "description": "Divide by the easy rows, teens included."
+    },
+    {
+      "tier": 2,
+      "name": "Teens and 3s, 4s",
+      "description": "Divide the teens by 3s and 4s. Split into tens and ones."
+    },
+    {
+      "tier": 3,
+      "name": "Teens and 6 to 15",
+      "description": "Divide the teens by 6 and up. Split into tens and ones."
+    },
+    {
+      "tier": 4,
+      "name": "Missing divisors",
+      "description": "Find the divisor: 135 ÷ ? = 9. Think 9 times what."
+    },
+    {
+      "tier": 5,
+      "name": "Missing dividends",
+      "description": "Find the start: ? ÷ 15 = 7. Multiply back: 15 × 7."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    },
+    "START_TENS": {
+      "student": "Right ones digit, wrong tens. Multiply the two numbers, then check the size.",
+      "teacher": "Missing dividend off by ten: right ones digit, tens place slipped."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-div-15/t1/001",
+      "tier": 1,
+      "prompt": "8 ÷ 1 = ?",
+      "choices": [
+        "10",
+        "6",
+        "9",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "8 ÷ 1 = 8: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-15/t1/002",
+      "tier": 1,
+      "prompt": "150 ÷ 10 = ?",
+      "choices": [
+        "5",
+        "14",
+        "15",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "150 ÷ 10 = 15: take the zero off 150. Check: 10 × 15 = 150."
+    },
+    {
+      "id": "facts-div-15/t1/003",
+      "tier": 1,
+      "prompt": "33 ÷ 3 = ?",
+      "choices": [
+        "11",
+        "10",
+        "12",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "33 ÷ 3 = 11 because 3 × 11 = 33. Split 11 as 10 and 1: 30 + 3 = 33."
+    },
+    {
+      "id": "facts-div-15/t1/004",
+      "tier": 1,
+      "prompt": "0 ÷ 12 = ?",
+      "choices": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "0 ÷ 12 = 0: zero shared into groups of 12 leaves none, and 12 × 0 = 0."
+    },
+    {
+      "id": "facts-div-15/t1/005",
+      "tier": 1,
+      "prompt": "12 ÷ 1 = ?",
+      "choices": [
+        "13",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 1 = 12: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-15/t1/006",
+      "tier": 1,
+      "prompt": "66 ÷ 6 = ?",
+      "choices": [
+        "12",
+        "11",
+        "13",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "66 ÷ 6 = 11 because 6 × 11 = 66. Split 11 as 10 and 1: 60 + 6 = 66."
+    },
+    {
+      "id": "facts-div-15/t1/007",
+      "tier": 1,
+      "prompt": "16 ÷ 8 = ?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "16 ÷ 8 = 2 because 8 × 2 = 16. Think: what times 8 makes 16?"
+    },
+    {
+      "id": "facts-div-15/t1/008",
+      "tier": 1,
+      "prompt": "4 ÷ 1 = ?",
+      "choices": [
+        "1",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 1 = 4: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-15/t1/009",
+      "tier": 1,
+      "prompt": "130 ÷ 10 = ?",
+      "choices": [
+        "13",
+        "3",
+        "11",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "130 ÷ 10 = 13: take the zero off 130. Check: 10 × 13 = 130."
+    },
+    {
+      "id": "facts-div-15/t1/010",
+      "tier": 1,
+      "prompt": "75 ÷ 5 = ?",
+      "choices": [
+        "13",
+        "375",
+        "14",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "75 ÷ 5 = 15 because 5 × 15 = 75. Fives: half of 150 is 75."
+    },
+    {
+      "id": "facts-div-15/t1/011",
+      "tier": 1,
+      "prompt": "0 ÷ 10 = ?",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "0 ÷ 10 = 0: zero shared into groups of 10 leaves none, and 10 × 0 = 0."
+    },
+    {
+      "id": "facts-div-15/t1/012",
+      "tier": 1,
+      "prompt": "70 ÷ 14 = ?",
+      "choices": [
+        "5",
+        "7",
+        "980",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "70 ÷ 14 = 5 because 14 × 5 = 70. Split 14 as 10 and 4: 50 + 20 = 70."
+    },
+    {
+      "id": "facts-div-15/t1/013",
+      "tier": 1,
+      "prompt": "99 ÷ 11 = ?",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "99 ÷ 11 = 9 because 11 × 9 = 99. Split 11 as 10 and 1: 90 + 9 = 99."
+    },
+    {
+      "id": "facts-div-15/t1/014",
+      "tier": 1,
+      "prompt": "77 ÷ 7 = ?",
+      "choices": [
+        "10",
+        "9",
+        "11",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "77 ÷ 7 = 11 because 7 × 11 = 77. Split 11 as 10 and 1: 70 + 7 = 77."
+    },
+    {
+      "id": "facts-div-15/t1/015",
+      "tier": 1,
+      "prompt": "15 ÷ 15 = ?",
+      "choices": [
+        "225",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "15 ÷ 15 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-15/t1/016",
+      "tier": 1,
+      "prompt": "0 ÷ 8 = ?",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "0 ÷ 8 = 0: zero shared into groups of 8 leaves none, and 8 × 0 = 0."
+    },
+    {
+      "id": "facts-div-15/t1/017",
+      "tier": 1,
+      "prompt": "12 ÷ 6 = ?",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 6 = 2 because 6 × 2 = 12. Think: what times 6 makes 12?"
+    },
+    {
+      "id": "facts-div-15/t1/018",
+      "tier": 1,
+      "prompt": "25 ÷ 5 = ?",
+      "choices": [
+        "5",
+        "125",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "25 ÷ 5 = 5 because 5 × 5 = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-div-15/t1/019",
+      "tier": 1,
+      "prompt": "110 ÷ 10 = ?",
+      "choices": [
+        "1",
+        "10",
+        "11",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "110 ÷ 10 = 11: take the zero off 110. Check: 10 × 11 = 110."
+    },
+    {
+      "id": "facts-div-15/t1/020",
+      "tier": 1,
+      "prompt": "80 ÷ 10 = ?",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "80 ÷ 10 = 8: take the zero off 80. Check: 10 × 8 = 80."
+    },
+    {
+      "id": "facts-div-15/t1/021",
+      "tier": 1,
+      "prompt": "0 ÷ 2 = ?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "0 ÷ 2 = 0: zero shared into groups of 2 leaves none, and 2 × 0 = 0."
+    },
+    {
+      "id": "facts-div-15/t1/022",
+      "tier": 1,
+      "prompt": "55 ÷ 5 = ?",
+      "choices": [
+        "275",
+        "12",
+        "9",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "55 ÷ 5 = 11 because 5 × 11 = 55. Fives: half of 110 is 55."
+    },
+    {
+      "id": "facts-div-15/t1/023",
+      "tier": 1,
+      "prompt": "12 ÷ 12 = ?",
+      "choices": [
+        "3",
+        "1",
+        "144",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 12 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-15/t1/024",
+      "tier": 1,
+      "prompt": "60 ÷ 12 = ?",
+      "choices": [
+        "48",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "60 ÷ 12 = 5 because 12 × 5 = 60. Split 12 as 10 and 2: 50 + 10 = 60."
+    },
+    {
+      "id": "facts-div-15/t2/001",
+      "tier": 2,
+      "prompt": "48 ÷ 4 = ?",
+      "choices": [
+        "13",
+        "12",
+        "192",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "48 ÷ 4 = 12 because 4 × 12 = 48. Split 12 as 10 and 2: 40 + 8 = 48."
+    },
+    {
+      "id": "facts-div-15/t2/002",
+      "tier": 2,
+      "prompt": "48 ÷ 12 = ?",
+      "choices": [
+        "5",
+        "576",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "48 ÷ 12 = 4 because 12 × 4 = 48. Split 12 as 10 and 2: 40 + 8 = 48."
+    },
+    {
+      "id": "facts-div-15/t2/003",
+      "tier": 2,
+      "prompt": "60 ÷ 15 = ?",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "45"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "60 ÷ 15 = 4 because 15 × 4 = 60. Split 15 as 10 and 5: 40 + 20 = 60."
+    },
+    {
+      "id": "facts-div-15/t2/004",
+      "tier": 2,
+      "prompt": "28 ÷ 7 = ?",
+      "choices": [
+        "6",
+        "5",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "28 ÷ 7 = 4 because 7 × 4 = 28. Neighbour fact: 7 × 3 = 21, plus one more 7."
+    },
+    {
+      "id": "facts-div-15/t2/005",
+      "tier": 2,
+      "prompt": "42 ÷ 14 = ?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "42 ÷ 14 = 3 because 14 × 3 = 42. Split 14 as 10 and 4: 30 + 12 = 42."
+    },
+    {
+      "id": "facts-div-15/t2/006",
+      "tier": 2,
+      "prompt": "32 ÷ 8 = ?",
+      "choices": [
+        "5",
+        "24",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "32 ÷ 8 = 4 because 8 × 4 = 32. Neighbour fact: 8 × 3 = 24, plus one more 8."
+    },
+    {
+      "id": "facts-div-15/t2/007",
+      "tier": 2,
+      "prompt": "36 ÷ 3 = ?",
+      "choices": [
+        "11",
+        "10",
+        "12",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "36 ÷ 3 = 12 because 3 × 12 = 36. Split 12 as 10 and 2: 30 + 6 = 36."
+    },
+    {
+      "id": "facts-div-15/t2/008",
+      "tier": 2,
+      "prompt": "45 ÷ 15 = ?",
+      "choices": [
+        "2",
+        "30",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "45 ÷ 15 = 3 because 15 × 3 = 45. Split 15 as 10 and 5: 30 + 15 = 45."
+    },
+    {
+      "id": "facts-div-15/t2/009",
+      "tier": 2,
+      "prompt": "24 ÷ 8 = ?",
+      "choices": [
+        "5",
+        "3",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "24 ÷ 8 = 3 because 8 × 3 = 24. Neighbour fact: 8 × 2 = 16, plus one more 8."
+    },
+    {
+      "id": "facts-div-15/t2/010",
+      "tier": 2,
+      "prompt": "18 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "4",
+        "54",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "18 ÷ 3 = 6 because 3 × 6 = 18. Neighbour fact: 3 × 5 = 15, plus one more 3."
+    },
+    {
+      "id": "facts-div-15/t2/011",
+      "tier": 2,
+      "prompt": "54 ÷ 6 = ?",
+      "choices": [
+        "8",
+        "11",
+        "7",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "54 ÷ 6 = 9 because 6 × 9 = 54. Neighbour fact: 6 × 8 = 48, plus one more 6."
+    },
+    {
+      "id": "facts-div-15/t2/012",
+      "tier": 2,
+      "prompt": "81 ÷ 9 = ?",
+      "choices": [
+        "6",
+        "8",
+        "9",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "81 ÷ 9 = 9 because 9 × 9 = 81. Nines: 10 × 9 = 90, minus one 9 is 81."
+    },
+    {
+      "id": "facts-div-15/t2/013",
+      "tier": 2,
+      "prompt": "12 ÷ 4 = ?",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "12 ÷ 4 = 3 because 4 × 3 = 12. Neighbour fact: 4 × 2 = 8, plus one more 4."
+    },
+    {
+      "id": "facts-div-15/t2/014",
+      "tier": 2,
+      "prompt": "21 ÷ 7 = ?",
+      "choices": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "21 ÷ 7 = 3 because 7 × 3 = 21. Neighbour fact: 7 × 2 = 14, plus one more 7."
+    },
+    {
+      "id": "facts-div-15/t2/015",
+      "tier": 2,
+      "prompt": "36 ÷ 9 = ?",
+      "choices": [
+        "27",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "36 ÷ 9 = 4 because 9 × 4 = 36. Nines: 10 × 4 = 40, minus one 4 is 36."
+    },
+    {
+      "id": "facts-div-15/t2/016",
+      "tier": 2,
+      "prompt": "56 ÷ 14 = ?",
+      "choices": [
+        "784",
+        "6",
+        "5",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "56 ÷ 14 = 4 because 14 × 4 = 56. Split 14 as 10 and 4: 40 + 16 = 56."
+    },
+    {
+      "id": "facts-div-15/t2/017",
+      "tier": 2,
+      "prompt": "54 ÷ 9 = ?",
+      "choices": [
+        "6",
+        "5",
+        "45",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED",
+        "GROUP_OFF"
+      ],
+      "explanation": "54 ÷ 9 = 6 because 9 × 6 = 54. Nines: 10 × 6 = 60, minus one 6 is 54."
+    },
+    {
+      "id": "facts-div-15/t2/018",
+      "tier": 2,
+      "prompt": "32 ÷ 4 = ?",
+      "choices": [
+        "8",
+        "7",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "32 ÷ 4 = 8 because 4 × 8 = 32. Neighbour fact: 4 × 7 = 28, plus one more 4."
+    },
+    {
+      "id": "facts-div-15/t2/019",
+      "tier": 2,
+      "prompt": "52 ÷ 4 = ?",
+      "choices": [
+        "11",
+        "13",
+        "12",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "52 ÷ 4 = 13 because 4 × 13 = 52. Split 13 as 10 and 3: 40 + 12 = 52."
+    },
+    {
+      "id": "facts-div-15/t2/020",
+      "tier": 2,
+      "prompt": "45 ÷ 3 = ?",
+      "choices": [
+        "17",
+        "16",
+        "42",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "45 ÷ 3 = 15 because 3 × 15 = 45. Split 15 as 10 and 5: 30 + 15 = 45."
+    },
+    {
+      "id": "facts-div-15/t2/021",
+      "tier": 2,
+      "prompt": "39 ÷ 13 = ?",
+      "choices": [
+        "1",
+        "26",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "39 ÷ 13 = 3 because 13 × 3 = 39. Split 13 as 10 and 3: 30 + 9 = 39."
+    },
+    {
+      "id": "facts-div-15/t2/022",
+      "tier": 2,
+      "prompt": "52 ÷ 13 = ?",
+      "choices": [
+        "39",
+        "3",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "52 ÷ 13 = 4 because 13 × 4 = 52. Split 13 as 10 and 3: 40 + 12 = 52."
+    },
+    {
+      "id": "facts-div-15/t2/023",
+      "tier": 2,
+      "prompt": "36 ÷ 12 = ?",
+      "choices": [
+        "2",
+        "3",
+        "24",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "SUBTRACTED",
+        "GROUP_OFF"
+      ],
+      "explanation": "36 ÷ 12 = 3 because 12 × 3 = 36. Split 12 as 10 and 2: 30 + 6 = 36."
+    },
+    {
+      "id": "facts-div-15/t2/024",
+      "tier": 2,
+      "prompt": "60 ÷ 4 = ?",
+      "choices": [
+        "15",
+        "14",
+        "13",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "60 ÷ 4 = 15 because 4 × 15 = 60. Split 15 as 10 and 5: 40 + 20 = 60."
+    },
+    {
+      "id": "facts-div-15/t3/001",
+      "tier": 3,
+      "prompt": "105 ÷ 7 = ?",
+      "choices": [
+        "15",
+        "16",
+        "735",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "105 ÷ 7 = 15 because 7 × 15 = 105. Split 15 as 10 and 5: 70 + 35 = 105."
+    },
+    {
+      "id": "facts-div-15/t3/002",
+      "tier": 3,
+      "prompt": "108 ÷ 9 = ?",
+      "choices": [
+        "12",
+        "13",
+        "14",
+        "99"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "108 ÷ 9 = 12 because 9 × 12 = 108. Split 12 as 10 and 2: 90 + 18 = 108."
+    },
+    {
+      "id": "facts-div-15/t3/003",
+      "tier": 3,
+      "prompt": "84 ÷ 7 = ?",
+      "choices": [
+        "14",
+        "13",
+        "77",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "84 ÷ 7 = 12 because 7 × 12 = 84. Split 12 as 10 and 2: 70 + 14 = 84."
+    },
+    {
+      "id": "facts-div-15/t3/004",
+      "tier": 3,
+      "prompt": "143 ÷ 13 = ?",
+      "choices": [
+        "10",
+        "9",
+        "11",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "143 ÷ 13 = 11 because 13 × 11 = 143. Split 11 as 10 and 1: 130 + 13 = 143."
+    },
+    {
+      "id": "facts-div-15/t3/005",
+      "tier": 3,
+      "prompt": "180 ÷ 15 = ?",
+      "choices": [
+        "12",
+        "165",
+        "13",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "180 ÷ 15 = 12 because 15 × 12 = 180. Split 12 as 10 and 2: 150 + 30 = 180."
+    },
+    {
+      "id": "facts-div-15/t3/006",
+      "tier": 3,
+      "prompt": "72 ÷ 6 = ?",
+      "choices": [
+        "10",
+        "13",
+        "2",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "72 ÷ 6 = 12 because 6 × 12 = 72. Split 12 as 10 and 2: 60 + 12 = 72."
+    },
+    {
+      "id": "facts-div-15/t3/007",
+      "tier": 3,
+      "prompt": "63 ÷ 7 = ?",
+      "choices": [
+        "441",
+        "7",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "63 ÷ 7 = 9 because 7 × 9 = 63. Neighbour fact: 7 × 8 = 56, plus one more 7."
+    },
+    {
+      "id": "facts-div-15/t3/008",
+      "tier": 3,
+      "prompt": "143 ÷ 11 = ?",
+      "choices": [
+        "12",
+        "11",
+        "13",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "143 ÷ 11 = 13 because 11 × 13 = 143. Split 13 as 10 and 3: 110 + 33 = 143."
+    },
+    {
+      "id": "facts-div-15/t3/009",
+      "tier": 3,
+      "prompt": "156 ÷ 13 = ?",
+      "choices": [
+        "10",
+        "12",
+        "11",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "156 ÷ 13 = 12 because 13 × 12 = 156. Split 12 as 10 and 2: 130 + 26 = 156."
+    },
+    {
+      "id": "facts-div-15/t3/010",
+      "tier": 3,
+      "prompt": "21 ÷ 7 = ?",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "SUBTRACTED"
+      ],
+      "explanation": "21 ÷ 7 = 3 because 7 × 3 = 21. Neighbour fact: 7 × 2 = 14, plus one more 7."
+    },
+    {
+      "id": "facts-div-15/t3/011",
+      "tier": 3,
+      "prompt": "182 ÷ 13 = ?",
+      "choices": [
+        "16",
+        "12",
+        "14",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "182 ÷ 13 = 14 because 13 × 14 = 182. Split 14 as 10 and 4: 130 + 52 = 182."
+    },
+    {
+      "id": "facts-div-15/t3/012",
+      "tier": 3,
+      "prompt": "120 ÷ 8 = ?",
+      "choices": [
+        "17",
+        "14",
+        "16",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "120 ÷ 8 = 15 because 8 × 15 = 120. Split 15 as 10 and 5: 80 + 40 = 120."
+    },
+    {
+      "id": "facts-div-15/t3/013",
+      "tier": 3,
+      "prompt": "210 ÷ 14 = ?",
+      "choices": [
+        "25",
+        "13",
+        "17",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "210 ÷ 14 = 15 because 14 × 15 = 210. Split 15 as 10 and 5: 140 + 70 = 210."
+    },
+    {
+      "id": "facts-div-15/t3/014",
+      "tier": 3,
+      "prompt": "195 ÷ 13 = ?",
+      "choices": [
+        "15",
+        "5",
+        "17",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "195 ÷ 13 = 15 because 13 × 15 = 195. Split 15 as 10 and 5: 130 + 65 = 195."
+    },
+    {
+      "id": "facts-div-15/t3/015",
+      "tier": 3,
+      "prompt": "105 ÷ 15 = ?",
+      "choices": [
+        "90",
+        "7",
+        "5",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "105 ÷ 15 = 7 because 15 × 7 = 105. Split 15 as 10 and 5: 70 + 35 = 105."
+    },
+    {
+      "id": "facts-div-15/t3/016",
+      "tier": 3,
+      "prompt": "84 ÷ 14 = ?",
+      "choices": [
+        "6",
+        "5",
+        "3",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "84 ÷ 14 = 6 because 14 × 6 = 84. Split 14 as 10 and 4: 60 + 24 = 84."
+    },
+    {
+      "id": "facts-div-15/t3/017",
+      "tier": 3,
+      "prompt": "154 ÷ 14 = ?",
+      "choices": [
+        "9",
+        "8",
+        "10",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "154 ÷ 14 = 11 because 14 × 11 = 154. Split 11 as 10 and 1: 140 + 14 = 154."
+    },
+    {
+      "id": "facts-div-15/t3/018",
+      "tier": 3,
+      "prompt": "78 ÷ 6 = ?",
+      "choices": [
+        "14",
+        "13",
+        "468",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "78 ÷ 6 = 13 because 6 × 13 = 78. Split 13 as 10 and 3: 60 + 18 = 78."
+    },
+    {
+      "id": "facts-div-15/t3/019",
+      "tier": 3,
+      "prompt": "117 ÷ 13 = ?",
+      "choices": [
+        "11",
+        "9",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "117 ÷ 13 = 9 because 13 × 9 = 117. Split 13 as 10 and 3: 90 + 27 = 117."
+    },
+    {
+      "id": "facts-div-15/t3/020",
+      "tier": 3,
+      "prompt": "210 ÷ 15 = ?",
+      "choices": [
+        "16",
+        "13",
+        "24",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "210 ÷ 15 = 14 because 15 × 14 = 210. Split 14 as 10 and 4: 150 + 60 = 210."
+    },
+    {
+      "id": "facts-div-15/t3/021",
+      "tier": 3,
+      "prompt": "28 ÷ 7 = ?",
+      "choices": [
+        "2",
+        "4",
+        "1",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "28 ÷ 7 = 4 because 7 × 4 = 28. Neighbour fact: 7 × 3 = 21, plus one more 7."
+    },
+    {
+      "id": "facts-div-15/t3/022",
+      "tier": 3,
+      "prompt": "168 ÷ 14 = ?",
+      "choices": [
+        "10",
+        "13",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "168 ÷ 14 = 12 because 14 × 12 = 168. Split 12 as 10 and 2: 140 + 28 = 168."
+    },
+    {
+      "id": "facts-div-15/t3/023",
+      "tier": 3,
+      "prompt": "144 ÷ 12 = ?",
+      "choices": [
+        "12",
+        "2",
+        "10",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "144 ÷ 12 = 12 because 12 × 12 = 144. Split 12 as 10 and 2: 120 + 24 = 144."
+    },
+    {
+      "id": "facts-div-15/t3/024",
+      "tier": 3,
+      "prompt": "98 ÷ 14 = ?",
+      "choices": [
+        "84",
+        "9",
+        "7",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "98 ÷ 14 = 7 because 14 × 7 = 98. Split 14 as 10 and 4: 70 + 28 = 98."
+    },
+    {
+      "id": "facts-div-15/t4/001",
+      "tier": 4,
+      "prompt": "108 ÷ ? = 12",
+      "choices": [
+        "96",
+        "9",
+        "8",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "108 ÷ ? = 12: 12 × 9 = 108, so ? = 9. Split 12 as 10 and 2: 90 + 18 = 108."
+    },
+    {
+      "id": "facts-div-15/t4/002",
+      "tier": 4,
+      "prompt": "112 ÷ ? = 14",
+      "choices": [
+        "9",
+        "10",
+        "98",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "112 ÷ ? = 14: 14 × 8 = 112, so ? = 8. Split 14 as 10 and 4: 80 + 32 = 112."
+    },
+    {
+      "id": "facts-div-15/t4/003",
+      "tier": 4,
+      "prompt": "132 ÷ ? = 12",
+      "choices": [
+        "8",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "132 ÷ ? = 12: 12 × 11 = 132, so ? = 11. Split 12 as 10 and 2: 110 + 22 = 132."
+    },
+    {
+      "id": "facts-div-15/t4/004",
+      "tier": 4,
+      "prompt": "135 ÷ ? = 15",
+      "choices": [
+        "9",
+        "8",
+        "10",
+        "120"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "135 ÷ ? = 15: 15 × 9 = 135, so ? = 9. Split 15 as 10 and 5: 90 + 45 = 135."
+    },
+    {
+      "id": "facts-div-15/t4/005",
+      "tier": 4,
+      "prompt": "154 ÷ ? = 14",
+      "choices": [
+        "13",
+        "12",
+        "10",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "154 ÷ ? = 14: 14 × 11 = 154, so ? = 11. Split 14 as 10 and 4: 110 + 44 = 154."
+    },
+    {
+      "id": "facts-div-15/t4/006",
+      "tier": 4,
+      "prompt": "117 ÷ ? = 9",
+      "choices": [
+        "108",
+        "12",
+        "13",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "117 ÷ ? = 9: 9 × 13 = 117, so ? = 13. Split 13 as 10 and 3: 90 + 27 = 117."
+    },
+    {
+      "id": "facts-div-15/t4/007",
+      "tier": 4,
+      "prompt": "91 ÷ ? = 7",
+      "choices": [
+        "84",
+        "12",
+        "13",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "91 ÷ ? = 7: 7 × 13 = 91, so ? = 13. Split 13 as 10 and 3: 70 + 21 = 91."
+    },
+    {
+      "id": "facts-div-15/t4/008",
+      "tier": 4,
+      "prompt": "36 ÷ ? = 4",
+      "choices": [
+        "9",
+        "10",
+        "32",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "36 ÷ ? = 4: 4 × 9 = 36, so ? = 9. Ask: what times 4 makes 36?"
+    },
+    {
+      "id": "facts-div-15/t4/009",
+      "tier": 4,
+      "prompt": "84 ÷ ? = 12",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "72"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "84 ÷ ? = 12: 12 × 7 = 84, so ? = 7. Split 12 as 10 and 2: 70 + 14 = 84."
+    },
+    {
+      "id": "facts-div-15/t4/010",
+      "tier": 4,
+      "prompt": "39 ÷ ? = 13",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "39 ÷ ? = 13: 13 × 3 = 39, so ? = 3. Split 13 as 10 and 3: 30 + 9 = 39."
+    },
+    {
+      "id": "facts-div-15/t4/011",
+      "tier": 4,
+      "prompt": "81 ÷ ? = 9",
+      "choices": [
+        "11",
+        "729",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_MULTIPLIED",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "81 ÷ ? = 9: 9 × 9 = 81, so ? = 9. A square fact: 9 times itself makes 81."
+    },
+    {
+      "id": "facts-div-15/t4/012",
+      "tier": 4,
+      "prompt": "132 ÷ ? = 11",
+      "choices": [
+        "9",
+        "10",
+        "12",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "132 ÷ ? = 11: 11 × 12 = 132, so ? = 12. Split 12 as 10 and 2: 110 + 22 = 132."
+    },
+    {
+      "id": "facts-div-15/t4/013",
+      "tier": 4,
+      "prompt": "90 ÷ ? = 15",
+      "choices": [
+        "4",
+        "5",
+        "3",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "90 ÷ ? = 15: 15 × 6 = 90, so ? = 6. Split 15 as 10 and 5: 60 + 30 = 90."
+    },
+    {
+      "id": "facts-div-15/t4/014",
+      "tier": 4,
+      "prompt": "45 ÷ ? = 3",
+      "choices": [
+        "14",
+        "12",
+        "16",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "45 ÷ ? = 3: 3 × 15 = 45, so ? = 15. Split 15 as 10 and 5: 30 + 15 = 45."
+    },
+    {
+      "id": "facts-div-15/t4/015",
+      "tier": 4,
+      "prompt": "120 ÷ ? = 8",
+      "choices": [
+        "14",
+        "15",
+        "13",
+        "960"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "120 ÷ ? = 8: 8 × 15 = 120, so ? = 15. Split 15 as 10 and 5: 80 + 40 = 120."
+    },
+    {
+      "id": "facts-div-15/t4/016",
+      "tier": 4,
+      "prompt": "126 ÷ ? = 9",
+      "choices": [
+        "12",
+        "13",
+        "14",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "126 ÷ ? = 9: 9 × 14 = 126, so ? = 14. Split 14 as 10 and 4: 90 + 36 = 126."
+    },
+    {
+      "id": "facts-div-15/t4/017",
+      "tier": 4,
+      "prompt": "91 ÷ ? = 13",
+      "choices": [
+        "7",
+        "9",
+        "8",
+        "78"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "91 ÷ ? = 13: 13 × 7 = 91, so ? = 7. Split 13 as 10 and 3: 70 + 21 = 91."
+    },
+    {
+      "id": "facts-div-15/t4/018",
+      "tier": 4,
+      "prompt": "165 ÷ ? = 11",
+      "choices": [
+        "13",
+        "14",
+        "12",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "165 ÷ ? = 11: 11 × 15 = 165, so ? = 15. Split 15 as 10 and 5: 110 + 55 = 165."
+    },
+    {
+      "id": "facts-div-15/t4/019",
+      "tier": 4,
+      "prompt": "78 ÷ ? = 13",
+      "choices": [
+        "65",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "78 ÷ ? = 13: 13 × 6 = 78, so ? = 6. Split 13 as 10 and 3: 60 + 18 = 78."
+    },
+    {
+      "id": "facts-div-15/t4/020",
+      "tier": 4,
+      "prompt": "168 ÷ ? = 12",
+      "choices": [
+        "13",
+        "14",
+        "11",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "168 ÷ ? = 12: 12 × 14 = 168, so ? = 14. Split 14 as 10 and 4: 120 + 48 = 168."
+    },
+    {
+      "id": "facts-div-15/t4/021",
+      "tier": 4,
+      "prompt": "143 ÷ ? = 13",
+      "choices": [
+        "13",
+        "11",
+        "12",
+        "130"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "143 ÷ ? = 13: 13 × 11 = 143, so ? = 11. Split 13 as 10 and 3: 110 + 33 = 143."
+    },
+    {
+      "id": "facts-div-15/t4/022",
+      "tier": 4,
+      "prompt": "48 ÷ ? = 6",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "288"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "48 ÷ ? = 6: 6 × 8 = 48, so ? = 8. Ask: what times 6 makes 48?"
+    },
+    {
+      "id": "facts-div-15/t4/023",
+      "tier": 4,
+      "prompt": "195 ÷ ? = 13",
+      "choices": [
+        "15",
+        "13",
+        "12",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "195 ÷ ? = 13: 13 × 15 = 195, so ? = 15. Split 15 as 10 and 5: 130 + 65 = 195."
+    },
+    {
+      "id": "facts-div-15/t4/024",
+      "tier": 4,
+      "prompt": "54 ÷ ? = 9",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "54 ÷ ? = 9: 9 × 6 = 54, so ? = 6. Ask: what times 9 makes 54?"
+    },
+    {
+      "id": "facts-div-15/t5/001",
+      "tier": 5,
+      "prompt": "? ÷ 13 = 12",
+      "choices": [
+        "166",
+        "156",
+        "143",
+        "169"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_TENS",
+        null,
+        "START_GROUP_OFF",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 13 = 12: 13 × 12 = 156, so ? = 156. Split 12 as 10 and 2: 130 + 26 = 156."
+    },
+    {
+      "id": "facts-div-15/t5/002",
+      "tier": 5,
+      "prompt": "24 ÷ ? = 4",
+      "choices": [
+        "4",
+        "3",
+        "5",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "24 ÷ ? = 4: 4 × 6 = 24, so ? = 6. Ask: what times 4 makes 24?"
+    },
+    {
+      "id": "facts-div-15/t5/003",
+      "tier": 5,
+      "prompt": "? ÷ 15 = 13",
+      "choices": [
+        "210",
+        "205",
+        "195",
+        "196"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "START_TENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? ÷ 15 = 13: 15 × 13 = 195, so ? = 195. Split 13 as 10 and 3: 150 + 45 = 195."
+    },
+    {
+      "id": "facts-div-15/t5/004",
+      "tier": 5,
+      "prompt": "210 ÷ ? = 15",
+      "choices": [
+        "195",
+        "14",
+        "13",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "210 ÷ ? = 15: 15 × 14 = 210, so ? = 14. Split 15 as 10 and 5: 140 + 70 = 210."
+    },
+    {
+      "id": "facts-div-15/t5/005",
+      "tier": 5,
+      "prompt": "42 ÷ ? = 3",
+      "choices": [
+        "14",
+        "39",
+        "12",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "42 ÷ ? = 3: 3 × 14 = 42, so ? = 14. Split 14 as 10 and 4: 30 + 12 = 42."
+    },
+    {
+      "id": "facts-div-15/t5/006",
+      "tier": 5,
+      "prompt": "72 ÷ ? = 9",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "648"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "72 ÷ ? = 9: 9 × 8 = 72, so ? = 8. Ask: what times 9 makes 72?"
+    },
+    {
+      "id": "facts-div-15/t5/007",
+      "tier": 5,
+      "prompt": "? ÷ 15 = 14",
+      "choices": [
+        "200",
+        "210",
+        "29",
+        "195"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_TENS",
+        null,
+        "START_ADDED",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 15 = 14: 15 × 14 = 210, so ? = 210. Split 14 as 10 and 4: 150 + 60 = 210."
+    },
+    {
+      "id": "facts-div-15/t5/008",
+      "tier": 5,
+      "prompt": "? ÷ 11 = 14",
+      "choices": [
+        "143",
+        "165",
+        "154",
+        "164"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "START_GROUP_OFF",
+        null,
+        "START_TENS"
+      ],
+      "explanation": "? ÷ 11 = 14: 11 × 14 = 154, so ? = 154. Split 14 as 10 and 4: 110 + 44 = 154."
+    },
+    {
+      "id": "facts-div-15/t5/009",
+      "tier": 5,
+      "prompt": "54 ÷ ? = 6",
+      "choices": [
+        "48",
+        "11",
+        "9",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "54 ÷ ? = 6: 6 × 9 = 54, so ? = 9. Ask: what times 6 makes 54?"
+    },
+    {
+      "id": "facts-div-15/t5/010",
+      "tier": 5,
+      "prompt": "? ÷ 9 = 15",
+      "choices": [
+        "135",
+        "24",
+        "145",
+        "144"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_ADDED",
+        "START_TENS",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 9 = 15: 9 × 15 = 135, so ? = 135. Split 15 as 10 and 5: 90 + 45 = 135."
+    },
+    {
+      "id": "facts-div-15/t5/011",
+      "tier": 5,
+      "prompt": "? ÷ 13 = 13",
+      "choices": [
+        "159",
+        "156",
+        "26",
+        "169"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_TENS",
+        "START_GROUP_OFF",
+        "START_ADDED",
+        null
+      ],
+      "explanation": "? ÷ 13 = 13: 13 × 13 = 169, so ? = 169. Split 13 as 10 and 3: 130 + 39 = 169."
+    },
+    {
+      "id": "facts-div-15/t5/012",
+      "tier": 5,
+      "prompt": "168 ÷ ? = 14",
+      "choices": [
+        "11",
+        "12",
+        "13",
+        "154"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "168 ÷ ? = 14: 14 × 12 = 168, so ? = 12. Split 14 as 10 and 4: 120 + 48 = 168."
+    },
+    {
+      "id": "facts-div-15/t5/013",
+      "tier": 5,
+      "prompt": "? ÷ 11 = 11",
+      "choices": [
+        "121",
+        "111",
+        "22",
+        "131"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_TENS",
+        "START_ADDED",
+        "START_TENS"
+      ],
+      "explanation": "? ÷ 11 = 11: 11 × 11 = 121, so ? = 121. Split 11 as 10 and 1: 110 + 11 = 121."
+    },
+    {
+      "id": "facts-div-15/t5/014",
+      "tier": 5,
+      "prompt": "27 ÷ ? = 9",
+      "choices": [
+        "1",
+        "2",
+        "0",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "27 ÷ ? = 9: 9 × 3 = 27, so ? = 3. Ask: what times 9 makes 27?"
+    },
+    {
+      "id": "facts-div-15/t5/015",
+      "tier": 5,
+      "prompt": "? ÷ 15 = 11",
+      "choices": [
+        "175",
+        "155",
+        "165",
+        "150"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_TENS",
+        "START_TENS",
+        null,
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 15 = 11: 15 × 11 = 165, so ? = 165. Split 11 as 10 and 1: 150 + 15 = 165."
+    },
+    {
+      "id": "facts-div-15/t5/016",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 12",
+      "choices": [
+        "58",
+        "38",
+        "52",
+        "48"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_TENS",
+        "START_TENS",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 4 = 12: 4 × 12 = 48, so ? = 48. Split 12 as 10 and 2: 40 + 8 = 48."
+    },
+    {
+      "id": "facts-div-15/t5/017",
+      "tier": 5,
+      "prompt": "225 ÷ ? = 15",
+      "choices": [
+        "210",
+        "15",
+        "17",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "225 ÷ ? = 15: 15 × 15 = 225, so ? = 15. A square fact: 15 times itself makes 225."
+    },
+    {
+      "id": "facts-div-15/t5/018",
+      "tier": 5,
+      "prompt": "27 ÷ ? = 3",
+      "choices": [
+        "9",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "27 ÷ ? = 3: 3 × 9 = 27, so ? = 9. Ask: what times 3 makes 27?"
+    },
+    {
+      "id": "facts-div-15/t5/019",
+      "tier": 5,
+      "prompt": "? ÷ 15 = 4",
+      "choices": [
+        "60",
+        "75",
+        "61",
+        "70"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_GROUP_OFF",
+        "ARITH",
+        "START_TENS"
+      ],
+      "explanation": "? ÷ 15 = 4: 15 × 4 = 60, so ? = 60. Split 15 as 10 and 5: 40 + 20 = 60."
+    },
+    {
+      "id": "facts-div-15/t5/020",
+      "tier": 5,
+      "prompt": "? ÷ 7 = 7",
+      "choices": [
+        "14",
+        "56",
+        "42",
+        "49"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_ADDED",
+        "START_GROUP_OFF",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 7 = 7: 7 × 7 = 49, so ? = 49. Undo dividing by multiplying: 7 × 7."
+    },
+    {
+      "id": "facts-div-15/t5/021",
+      "tier": 5,
+      "prompt": "? ÷ 12 = 6",
+      "choices": [
+        "84",
+        "62",
+        "60",
+        "72"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "START_TENS",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 12 = 6: 12 × 6 = 72, so ? = 72. Split 12 as 10 and 2: 60 + 12 = 72."
+    },
+    {
+      "id": "facts-div-15/t5/022",
+      "tier": 5,
+      "prompt": "105 ÷ ? = 7",
+      "choices": [
+        "16",
+        "17",
+        "15",
+        "735"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "105 ÷ ? = 7: 7 × 15 = 105, so ? = 15. Split 15 as 10 and 5: 70 + 35 = 105."
+    },
+    {
+      "id": "facts-div-15/t5/023",
+      "tier": 5,
+      "prompt": "? ÷ 9 = 14",
+      "choices": [
+        "116",
+        "126",
+        "117",
+        "136"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_TENS",
+        null,
+        "START_GROUP_OFF",
+        "START_TENS"
+      ],
+      "explanation": "? ÷ 9 = 14: 9 × 14 = 126, so ? = 126. Split 14 as 10 and 4: 90 + 36 = 126."
+    },
+    {
+      "id": "facts-div-15/t5/024",
+      "tier": 5,
+      "prompt": "42 ÷ ? = 14",
+      "choices": [
+        "3",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "42 ÷ ? = 14: 14 × 3 = 42, so ? = 3. Split 14 as 10 and 4: 30 + 12 = 42."
+    }
+  ]
+}

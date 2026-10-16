@@ -149,22 +149,20 @@ non-integer *is* the concept. They keep §4a's spirit by these rules, stated in 
 
 Like §4a, each such cartridge's tests assert its bounds against `baked.json`.
 
-### 4c. Facts (Aaron, 2026-10-15: "levels of scaling math facts")
+### 4c. Facts (Aaron, 2026-10-15: "levels of scaling math facts"; by range 2026-10-16)
 
 Cartridges with `"grade": "Facts"` drill the arithmetic facts themselves, so for them number size IS the difficulty
-axis and §4a's sizes do not apply (Aaron's say-so, 2026-10-15). One operation per prompt (`7 × 8 = ?`); every number a
-non-negative integer; every answer exact. Tier bands (`cartridges/LIBRARY.md` "Facts" has the full table):
+axis and §4a's sizes do not apply (Aaron's say-so, 2026-10-15). Each is one operation at one range, and a run stays
+inside it (2026-10-16: "addition up to 10, all the way through level 10, scaling from easy in that range to hard in
+that range"): addition and subtraction to 10, 20, 50, 100 (sums or minuends 1-10, 11-20, 21-50, 51-100); times tables
+to 5, 10, 12, 15 (factors 0 to N, products ≤ 225); division those tables backwards (divisor 1 to N); mixed, the four
+at paired ranges. One operation per prompt, every number a non-negative integer, every answer exact. A prompt has one
+unknown, written `?`: the result (`7 × 8 = ?`) on tiers 1-3, a missing number (`7 + ? = 15`, `? ÷ 6 = 7`) on tiers
+4-5 (and some of tier 3 in the two smallest ranges); a missing number is never ambiguous (no `0 × ? = 0`, no
+`0 ÷ ? = 0`, never ÷ 0). Per-tier pools: `cartridges/LIBRARY.md` "Facts" and `briefs/facts2/pools.py`.
 
-| Operation | Tier 1 → 5 |
-|---|---|
-| Addition | sum within 10, 20, 40, 70, 100 (each tier's sums above the tier before's cap) |
-| Subtraction | the addition facts read backwards (minuend in the addition band) |
-| Multiplication | larger factor up to 5, 8, 10, 12, 15 (above the tier before's cap); product ≤ 225 |
-| Division | the multiplication facts read backwards (divisor and quotient as the factors) |
-| Combo | the four above at the same tier, a quarter each |
-
-Wrong choices are non-negative integers ≤ 999, all distinct. Each cartridge's `bounds` string states its bands and its
-tests assert them against `baked.json`.
+Wrong choices are non-negative integers ≤ 999, all distinct. Each cartridge's `bounds` string states its range, forms
+and pools, and its tests assert them against `baked.json`.
 
 ## 5. Validation rules (`fnm validate`, hard failures)
 

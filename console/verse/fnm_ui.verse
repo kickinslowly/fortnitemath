@@ -338,6 +338,10 @@ fnm_hud := class:
     # grade in one column, Facts (2026-10-15), would run the logo off the top of a 1080p screen (~85 px a grade over
     # the 797 px measured with two). One row of four was rejected: the BOSS BATTLE cell fills the panel's width.
     GradeColumnAfter : int = 3
+    # A skill step with more than 2 * PickerColumnAfter buttons shows them this many to a row, read row by row: Facts'
+    # 20 range skills as 5 rows (add, subtract, multiply, divide, mixed) of 4 ranges. Four, not five: five ~18-character
+    # titles at the stock button size would run past a 1080p screen; five rows are the grade-6 step's measured height.
+    PickerGridColumns : int = 4
     # Under the finish board, on their own root, shown with the board: CLOSE (the board stays until the player closes
     # it; Aaron 2026-10-05: "x it and enjoy themself in the victory area") and NEW SKILL (more than one skill only).
     # (Their text is set in Attach: a localized call can't initialise a field.)
@@ -1686,20 +1690,23 @@ fnm_hud := class:
             set Cells += array{MakeCell(Button, if (Caption := Captions[K]) then Caption else "")}
         # More than PickerColumnAfter buttons go in two columns (left column first, top to bottom): ten skills in one
         # column ran off a 1080p screen. More than GradeColumnAfter grades go in the same two columns read row by row
-        # (left, right, left, right), so the grades still read in order across.
+        # (left, right, left, right), so the grades still read in order across. More than 2 * PickerColumnAfter skills
+        # (Facts by range, 2026-10-16: 20) go PickerGridColumns to a row, read row by row: one operation a row.
         GradeRows := if (Kind = fnm_pick.Grade, Cells.Length > GradeColumnAfter) then true else false
+        Grid := if (Kind = fnm_pick.Skill, Cells.Length > 2 * PickerColumnAfter) then true else false
         if (Cells.Length > PickerColumnAfter or GradeRows?):
-            Left : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
-            Right : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
+            ColumnCount := if (Grid?) then PickerGridColumns else 2
+            Stacks := for (C := 1..ColumnCount) { stack_box{Orientation := orientation.Vertical, Slots := array{}} }
             for (K -> Cell : Cells):
                 Slot := stack_box_slot{Widget := Cell, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}}
-                ToLeft := if (GradeRows?) then (if (Mod[K, 2] = 0) then true else false) else (if (2 * K < Cells.Length) then true else false)
-                if (ToLeft?) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
+                Across := if (GradeRows? or Grid?) then true else false
+                Column := if (Across?, M := Mod[K, ColumnCount]) then M else if (2 * K < Cells.Length) then 0 else 1
+                if (Stack := Stacks[Column]) then Stack.AddWidget(Slot)
+            Last := Stacks.Length - 1
             Columns : stack_box = stack_box:
                 Orientation := orientation.Horizontal
-                Slots := array:
-                    stack_box_slot{Widget := Left, VerticalAlignment := vertical_alignment.Top, Padding := margin{Right := 12.0}}
-                    stack_box_slot{Widget := Right, VerticalAlignment := vertical_alignment.Top, Padding := margin{Left := 12.0}}
+                Slots := for (C -> Stack : Stacks):
+                    stack_box_slot{Widget := Stack, VerticalAlignment := vertical_alignment.Top, Padding := margin{Left := (if (C > 0) then 12.0 else 0.0), Right := (if (C < Last) then 12.0 else 0.0)}}
             PickerButtons.AddWidget(stack_box_slot{Widget := Columns, HorizontalAlignment := horizontal_alignment.Center})
             set Made += array{Columns}
         else:

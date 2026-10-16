@@ -1,0 +1,85 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-sub-100",
+  "version": "1.0.0",
+  "title": "Subtraction to 100",
+  "subtitle": "Take away from 51 to 100",
+  "grade": "Facts",
+  "picker_order": 8,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.NBT.B.5"
+  ],
+  "seed": 20261058,
+  "items_per_tier": 24,
+  "bounds": "Minuends 51-100, a and b at least 2 (T1 allows 1). T1 R with a multiple of 10 as a or b; T2 R no trade (the ones of s at least the ones of a), at least 8 with a one-digit part and 8 with both parts at least 10; T3 R with a trade, same two floors; T4 s − ? = b, at least 12 with a trade, no multiples of 10; T5 ? − a = b (at least 12, 6 with a trade) and s − ? = b (6 with a trade), no multiples of 10. Wrong choices: distinct non-negative integers up to 999, at least two within 1, 2 or 10 of the answer, at most one far; where the answer is 20 or more one wrong choice shares its ones digit; modelled misconceptions first, ARITH only to fill; each answer rank (smallest to largest of the four) holds the answer in 15-35% of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Tens and ones",
+      "description": "Tens and ones: 90 − 40, 77 − 7."
+    },
+    {
+      "tier": 2,
+      "name": "No trading",
+      "description": "Take away with no trading: 87 − 43."
+    },
+    {
+      "tier": 3,
+      "name": "Trading a ten",
+      "description": "Trade a ten: 82 − 37. Count up to check."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "The taken-away number is hidden: 82 − ? = 45."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "The start is hidden: ? − 37 = 45. Add back."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "SMALLER_FROM_LARGER": {
+      "student": "Don't flip digits. If the top digit is smaller, trade a ten for 10 ones.",
+      "teacher": "In each place takes the smaller digit from the larger (14 - 6 gives 12; 52 - 38 gives 26) instead of regrouping."
+    },
+    "FORGOT_TRADE": {
+      "student": "You traded a ten for ones, so the tens digit has to drop by one.",
+      "teacher": "Regrouped the ones but left the tens unchanged: answer is 10 too big (14 - 6 gives 18; 52 - 38 gives 24)."
+    },
+    "TENS_SLIP": {
+      "student": "The tens are off by one ten. Check: answer + taken away = start.",
+      "teacher": "Right ones, tens digit one too high or too low: answer is the correct difference plus or minus 10."
+    },
+    "MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "MISSING_TENS": {
+      "student": "Off by one ten. Put your number back in the problem and check it.",
+      "teacher": "Right ones, tens digit one too high or too low: the missing number plus or minus 10 (trade forgotten or tens slip)."
+    },
+    "START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    },
+    "START_NO_CARRY": {
+      "student": "Adding back, the ones made a ten: carry it. Check: start − taken = left.",
+      "teacher": "? - a = b: added the ones but dropped the carried ten, so the start is 10 too small."
+    }
+  }
+}

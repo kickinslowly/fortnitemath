@@ -1,0 +1,78 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mul-12",
+  "version": "1.0.0",
+  "title": "Times Tables to 12",
+  "subtitle": "Factors 0 to 12",
+  "grade": "Facts",
+  "picker_order": 11,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7",
+    "CCSS.MATH.CONTENT.4.NBT.B.5"
+  ],
+  "seed": 20261061,
+  "items_per_tier": 24,
+  "bounds": "Factors 0 to 12. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: the easy rows (0, 1, 2, 5, 10) and 11 times a digit, at least 8 with an 11 or 12 factor (117 prompts); T2 R: a 12 times 3, 4 or 9 (at least 6), 3-4-9 facts (at least 6), else a 3, 4 or 9 fact (33 prompts); T3 R: hard facts with an 11 or 12 (at least 8), 6-7-8 facts (at least 6), else a 6, 7 or 8 fact (37); T4 C: hard facts with an 11 or 12 (at least 6), 3-4-6-9 core facts (at least 8), else factors 2-12 (121); T5 S: hard facts with an 11 or 12 (at least 6), any hard fact with factors 3-12 (at least 6), plus C (at least 4 with an 11 or 12; 104 prompts in all). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far; with a factor of 11 or more and an answer of 20 or more, one wrong value shares the answer's ones digit. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy rows and 11s",
+      "description": "Times 0, 1, 2, 5, 10 and 11, including the 11 and 12 rows."
+    },
+    {
+      "tier": 2,
+      "name": "Times 3, 4, 9, 12",
+      "description": "Times 3, 4, 9 and 12. Split 12 into 10 and 2."
+    },
+    {
+      "tier": 3,
+      "name": "Times 6, 7, 8, 12",
+      "description": "Times 6, 7, 8 and 12. Split a factor, then add the parts."
+    },
+    {
+      "tier": 4,
+      "name": "Missing factors",
+      "description": "Missing factor: 12 × ? = 84. Ask what times 12 makes 84."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first factors",
+      "description": "First factor missing: ? × 12 = 84, or a missing second factor. Factors up to 12."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "DROPPED_CARRY": {
+      "student": "Keep the ten: 13 × 6 is 60 + 18, and the 18 has a ten to add in.",
+      "teacher": "Splits into tens and ones but loses the ten from the ones product: 13 × 6 = 60 + 8 = 68."
+    },
+    "TENS_SLIP": {
+      "student": "Check the tens place. Split into tens and ones, multiply each, add both.",
+      "teacher": "Right ones digit, tens place off by one ten (product plus or minus 10)."
+    },
+    "PARTIAL_PRODUCTS": {
+      "student": "Tens × tens plus ones × ones skips two parts. Split one number, multiply both.",
+      "teacher": "Multiplies tens by tens and ones by ones only: 13 × 14 = 100 + 12 = 112."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    }
+  }
+}

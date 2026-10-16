@@ -246,9 +246,9 @@ test('home groups cartridges by grade: real carts.js gives Grade 6, 7, 8, then F
   expect(byGrade.flat().length, 'real carts.js holds only grade 6, 7, 8 and Facts cartridges').toBe(carts.length);
   expect(await homeSequence(page), 'home sequence: each grade heading, then its cards, grades ascending, Facts last')
     .toEqual(grades.flatMap((G, i) => [`H:${label(G)}|${G}`, ...byGrade[i]]));
-  // Aaron's order inside Facts (2026-10-15)
-  expect(byGrade[3]).toEqual(['facts-addition', 'facts-subtraction', 'facts-multiplication', 'facts-division', 'facts-combo']
-    .map((k) => `C:${k}`));
+  // Aaron's order inside Facts (2026-10-16): one operation a row, ranges ascending
+  const ranges = { add: [10, 20, 50, 100], sub: [10, 20, 50, 100], mul: [5, 10, 12, 15], div: [5, 10, 12, 15], mix: [10, 20, 50, 100] };
+  expect(byGrade[3]).toEqual(Object.entries(ranges).flatMap(([op, rs]) => rs.map((r) => `C:facts-${op}-${r}`)));
 });
 
 test('home grade order: numeric grades by number, then word grades, no grade last as Other', async ({ page }) => {

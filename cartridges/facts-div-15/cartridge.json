@@ -1,0 +1,86 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-div-15",
+  "version": "1.0.0",
+  "title": "Divide by 1 to 15",
+  "subtitle": "Times tables to 15, backwards",
+  "grade": "Facts",
+  "picker_order": 16,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7",
+    "CCSS.MATH.CONTENT.4.NBT.B.6"
+  ],
+  "seed": 20261066,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-15, the 11-15 rows are the point. T1 R: easy rows to 15, at least 12 with an 11-15. T2 R: 11-15 with 3 or 4 (at least 12). T3 R: 11-15 with 6-9 or 11-15 pairs (at least 12). T4 C: 3-15 facts with an 11-15 (at least 12). T5 S: 3-15 facts with an 11-15 (at least 8), any 3-15 fact (at least 4), plus C (4 with an 11-15). Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy rows to 15",
+      "description": "Divide by the easy rows, teens included."
+    },
+    {
+      "tier": 2,
+      "name": "Teens and 3s, 4s",
+      "description": "Divide the teens by 3s and 4s. Split into tens and ones."
+    },
+    {
+      "tier": 3,
+      "name": "Teens and 6 to 15",
+      "description": "Divide the teens by 6 and up. Split into tens and ones."
+    },
+    {
+      "tier": 4,
+      "name": "Missing divisors",
+      "description": "Find the divisor: 135 ÷ ? = 9. Think 9 times what."
+    },
+    {
+      "tier": 5,
+      "name": "Missing dividends",
+      "description": "Find the start: ? ÷ 15 = 7. Multiply back: 15 × 7."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    },
+    "START_TENS": {
+      "student": "Right ones digit, wrong tens. Multiply the two numbers, then check the size.",
+      "teacher": "Missing dividend off by ten: right ones digit, tens place slipped."
+    }
+  }
+}

@@ -1,0 +1,2370 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-sub-20",
+  "version": "1.0.0",
+  "title": "Subtraction to 20",
+  "subtitle": "Take away from 11 to 20",
+  "grade": "Facts",
+  "picker_order": 6,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.OA.B.4",
+    "CCSS.MATH.CONTENT.1.OA.C.6",
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.OA.B.2"
+  ],
+  "seed": 20261056,
+  "items_per_tier": 24,
+  "bounds": "Minuends 11-20, a and b at least 1. T1 R with one of s, a, b at least 10 and no trade (13 − 3, 17 − 4); T2 R doubles, near doubles and nines (a, b at least 2); T3 R, a and b both one digit; T4 s − ? = b, a and b 2 or more, at least 12 with both one digit; T5 ? − a = b, a and b 2 or more (at least 12; at least 6 with both one digit) plus s − ? = b one digit. Wrong choices: distinct non-negative integers up to 999, at least two within 1, 2 or 10 of the answer, at most one far; where the answer is 20 or more one wrong choice shares its ones digit; modelled misconceptions first, ARITH only to fill; each answer rank (smallest to largest of the four) holds the answer in 15-35% of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Teens, no trading",
+      "description": "Teens with no trading: 17 − 4."
+    },
+    {
+      "tier": 2,
+      "name": "Doubles and nines",
+      "description": "Doubles and nines: 16 − 8, 15 − 9."
+    },
+    {
+      "tier": 3,
+      "name": "Back across ten",
+      "description": "Back across ten: 14 − 6. Go to ten first."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "The taken-away number is hidden: 15 − ? = 8."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "The start is hidden: ? − 6 = 9. Add back."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "SMALLER_FROM_LARGER": {
+      "student": "Don't flip digits. If the top digit is smaller, trade a ten for 10 ones.",
+      "teacher": "In each place takes the smaller digit from the larger (14 - 6 gives 12; 52 - 38 gives 26) instead of regrouping."
+    },
+    "FORGOT_TRADE": {
+      "student": "You traded a ten for ones, so the tens digit has to drop by one.",
+      "teacher": "Regrouped the ones but left the tens unchanged: answer is 10 too big (14 - 6 gives 18; 52 - 38 gives 24)."
+    },
+    "TENS_SLIP": {
+      "student": "The tens are off by one ten. Check: answer + taken away = start.",
+      "teacher": "Right ones, tens digit one too high or too low: answer is the correct difference plus or minus 10."
+    },
+    "MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "MISSING_TENS": {
+      "student": "Off by one ten. Put your number back in the problem and check it.",
+      "teacher": "Right ones, tens digit one too high or too low: the missing number plus or minus 10 (trade forgotten or tens slip)."
+    },
+    "START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    },
+    "START_NO_CARRY": {
+      "student": "Adding back, the ones made a ten: carry it. Check: start − taken = left.",
+      "teacher": "? - a = b: added the ones but dropped the carried ten, so the start is 10 too small."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-sub-20/t1/001",
+      "tier": 1,
+      "prompt": "19 − 1 = ?",
+      "choices": [
+        "18",
+        "17",
+        "8",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ARITH"
+      ],
+      "explanation": "19 − 1 = 18: count back 1 from 19. Check: 18 + 1 = 19."
+    },
+    {
+      "id": "facts-sub-20/t1/002",
+      "tier": 1,
+      "prompt": "16 − 2 = ?",
+      "choices": [
+        "4",
+        "13",
+        "14",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        null,
+        "ADDED"
+      ],
+      "explanation": "16 − 2 = 14: count back 2 from 16. Check: 14 + 2 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/003",
+      "tier": 1,
+      "prompt": "19 − 18 = ?",
+      "choices": [
+        "11",
+        "1",
+        "2",
+        "37"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "19 − 18 = 1 because 18 + 1 = 19."
+    },
+    {
+      "id": "facts-sub-20/t1/004",
+      "tier": 1,
+      "prompt": "12 − 11 = ?",
+      "choices": [
+        "1",
+        "23",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "ONE_OFF",
+        "ONE_OFF"
+      ],
+      "explanation": "12 − 11 = 1 because 11 + 1 = 12."
+    },
+    {
+      "id": "facts-sub-20/t1/005",
+      "tier": 1,
+      "prompt": "18 − 12 = ?",
+      "choices": [
+        "4",
+        "6",
+        "3",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "18 − 12 = 6 because 12 + 6 = 18."
+    },
+    {
+      "id": "facts-sub-20/t1/006",
+      "tier": 1,
+      "prompt": "16 − 11 = ?",
+      "choices": [
+        "27",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "16 − 11 = 5 because 11 + 5 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/007",
+      "tier": 1,
+      "prompt": "15 − 2 = ?",
+      "choices": [
+        "3",
+        "13",
+        "23",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "TENS_SLIP",
+        "ONE_OFF"
+      ],
+      "explanation": "15 − 2 = 13: count back 2 from 15. Check: 13 + 2 = 15."
+    },
+    {
+      "id": "facts-sub-20/t1/008",
+      "tier": 1,
+      "prompt": "14 − 1 = ?",
+      "choices": [
+        "12",
+        "13",
+        "10",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "TENS_SLIP"
+      ],
+      "explanation": "14 − 1 = 13: count back 1 from 14. Check: 13 + 1 = 14."
+    },
+    {
+      "id": "facts-sub-20/t1/009",
+      "tier": 1,
+      "prompt": "15 − 1 = ?",
+      "choices": [
+        "13",
+        "15",
+        "14",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "15 − 1 = 14: count back 1 from 15. Check: 14 + 1 = 15."
+    },
+    {
+      "id": "facts-sub-20/t1/010",
+      "tier": 1,
+      "prompt": "16 − 15 = ?",
+      "choices": [
+        "11",
+        "31",
+        "1",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ADDED",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "16 − 15 = 1 because 15 + 1 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/011",
+      "tier": 1,
+      "prompt": "17 − 6 = ?",
+      "choices": [
+        "10",
+        "1",
+        "8",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ARITH",
+        null
+      ],
+      "explanation": "17 − 6 = 11 because 6 + 11 = 17."
+    },
+    {
+      "id": "facts-sub-20/t1/012",
+      "tier": 1,
+      "prompt": "14 − 13 = ?",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "14 − 13 = 1 because 13 + 1 = 14."
+    },
+    {
+      "id": "facts-sub-20/t1/013",
+      "tier": 1,
+      "prompt": "16 − 13 = ?",
+      "choices": [
+        "4",
+        "13",
+        "29",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED",
+        null
+      ],
+      "explanation": "16 − 13 = 3 because 13 + 3 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/014",
+      "tier": 1,
+      "prompt": "14 − 10 = ?",
+      "choices": [
+        "3",
+        "4",
+        "14",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "14 − 10 = 4 because 10 + 4 = 14."
+    },
+    {
+      "id": "facts-sub-20/t1/015",
+      "tier": 1,
+      "prompt": "18 − 17 = ?",
+      "choices": [
+        "11",
+        "2",
+        "35",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "18 − 17 = 1 because 17 + 1 = 18."
+    },
+    {
+      "id": "facts-sub-20/t1/016",
+      "tier": 1,
+      "prompt": "12 − 2 = ?",
+      "choices": [
+        "9",
+        "14",
+        "0",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "12 − 2 = 10: count back 2 from 12. Check: 10 + 2 = 12."
+    },
+    {
+      "id": "facts-sub-20/t1/017",
+      "tier": 1,
+      "prompt": "13 − 1 = ?",
+      "choices": [
+        "12",
+        "13",
+        "22",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "13 − 1 = 12: count back 1 from 13. Check: 12 + 1 = 13."
+    },
+    {
+      "id": "facts-sub-20/t1/018",
+      "tier": 1,
+      "prompt": "18 − 10 = ?",
+      "choices": [
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "18 − 10 = 8 because 10 + 8 = 18."
+    },
+    {
+      "id": "facts-sub-20/t1/019",
+      "tier": 1,
+      "prompt": "18 − 8 = ?",
+      "choices": [
+        "10",
+        "11",
+        "9",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "18 − 8 = 10 because 8 + 10 = 18."
+    },
+    {
+      "id": "facts-sub-20/t1/020",
+      "tier": 1,
+      "prompt": "19 − 13 = ?",
+      "choices": [
+        "5",
+        "16",
+        "6",
+        "32"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "19 − 13 = 6 because 13 + 6 = 19."
+    },
+    {
+      "id": "facts-sub-20/t1/021",
+      "tier": 1,
+      "prompt": "17 − 10 = ?",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "17 − 10 = 7 because 10 + 7 = 17."
+    },
+    {
+      "id": "facts-sub-20/t1/022",
+      "tier": 1,
+      "prompt": "16 − 4 = ?",
+      "choices": [
+        "20",
+        "22",
+        "12",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "16 − 4 = 12 because 4 + 12 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/023",
+      "tier": 1,
+      "prompt": "16 − 10 = ?",
+      "choices": [
+        "6",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "16 − 10 = 6 because 10 + 6 = 16."
+    },
+    {
+      "id": "facts-sub-20/t1/024",
+      "tier": 1,
+      "prompt": "13 − 10 = ?",
+      "choices": [
+        "3",
+        "2",
+        "23",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ADDED",
+        "ONE_OFF"
+      ],
+      "explanation": "13 − 10 = 3 because 10 + 3 = 13."
+    },
+    {
+      "id": "facts-sub-20/t2/001",
+      "tier": 2,
+      "prompt": "17 − 8 = ?",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "17 − 8: take 7 to get 10, then take 1 more: 9. Check: 8 + 9 = 17."
+    },
+    {
+      "id": "facts-sub-20/t2/002",
+      "tier": 2,
+      "prompt": "13 − 9 = ?",
+      "choices": [
+        "5",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "13 − 9: take 3 to get 10, then take 6 more: 4. Check: 9 + 4 = 13."
+    },
+    {
+      "id": "facts-sub-20/t2/003",
+      "tier": 2,
+      "prompt": "11 − 9 = ?",
+      "choices": [
+        "3",
+        "18",
+        "12",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "SMALLER_FROM_LARGER",
+        "FORGOT_TRADE",
+        null
+      ],
+      "explanation": "11 − 9: take 1 to get 10, then take 8 more: 2. Check: 9 + 2 = 11."
+    },
+    {
+      "id": "facts-sub-20/t2/004",
+      "tier": 2,
+      "prompt": "12 − 9 = ?",
+      "choices": [
+        "2",
+        "13",
+        "21",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "FORGOT_TRADE",
+        "ADDED",
+        null
+      ],
+      "explanation": "12 − 9: take 2 to get 10, then take 7 more: 3. Check: 9 + 3 = 12."
+    },
+    {
+      "id": "facts-sub-20/t2/005",
+      "tier": 2,
+      "prompt": "11 − 6 = ?",
+      "choices": [
+        "4",
+        "17",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "ARITH",
+        null
+      ],
+      "explanation": "11 − 6: take 1 to get 10, then take 5 more: 5. Check: 6 + 5 = 11."
+    },
+    {
+      "id": "facts-sub-20/t2/006",
+      "tier": 2,
+      "prompt": "14 − 9 = ?",
+      "choices": [
+        "5",
+        "4",
+        "15",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SMALLER_FROM_LARGER",
+        "ADDED"
+      ],
+      "explanation": "14 − 9: take 4 to get 10, then take 5 more: 5. Check: 9 + 5 = 14."
+    },
+    {
+      "id": "facts-sub-20/t2/007",
+      "tier": 2,
+      "prompt": "11 − 2 = ?",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "11 − 2 = 9: count back 2 from 11. Check: 9 + 2 = 11."
+    },
+    {
+      "id": "facts-sub-20/t2/008",
+      "tier": 2,
+      "prompt": "12 − 6 = ?",
+      "choices": [
+        "18",
+        "6",
+        "7",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ONE_OFF",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "12 − 6 = 6 because double 6 is 12."
+    },
+    {
+      "id": "facts-sub-20/t2/009",
+      "tier": 2,
+      "prompt": "19 − 10 = ?",
+      "choices": [
+        "8",
+        "9",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "19 − 10 = 9 because 10 + 9 = 19."
+    },
+    {
+      "id": "facts-sub-20/t2/010",
+      "tier": 2,
+      "prompt": "15 − 6 = ?",
+      "choices": [
+        "9",
+        "10",
+        "21",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ADDED",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "15 − 6: take 5 to get 10, then take 1 more: 9. Check: 6 + 9 = 15."
+    },
+    {
+      "id": "facts-sub-20/t2/011",
+      "tier": 2,
+      "prompt": "16 − 9 = ?",
+      "choices": [
+        "17",
+        "7",
+        "4",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "16 − 9: take 6 to get 10, then take 3 more: 7. Check: 9 + 7 = 16."
+    },
+    {
+      "id": "facts-sub-20/t2/012",
+      "tier": 2,
+      "prompt": "15 − 8 = ?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "17"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ONE_OFF",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "15 − 8: take 5 to get 10, then take 3 more: 7. Check: 8 + 7 = 15."
+    },
+    {
+      "id": "facts-sub-20/t2/013",
+      "tier": 2,
+      "prompt": "18 − 9 = ?",
+      "choices": [
+        "19",
+        "9",
+        "8",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        null,
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "18 − 9 = 9 because double 9 is 18."
+    },
+    {
+      "id": "facts-sub-20/t2/014",
+      "tier": 2,
+      "prompt": "15 − 7 = ?",
+      "choices": [
+        "8",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "15 − 7: take 5 to get 10, then take 2 more: 8. Check: 7 + 8 = 15."
+    },
+    {
+      "id": "facts-sub-20/t2/015",
+      "tier": 2,
+      "prompt": "14 − 5 = ?",
+      "choices": [
+        "10",
+        "8",
+        "7",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "14 − 5: take 4 to get 10, then take 1 more: 9. Check: 5 + 9 = 14."
+    },
+    {
+      "id": "facts-sub-20/t2/016",
+      "tier": 2,
+      "prompt": "15 − 9 = ?",
+      "choices": [
+        "7",
+        "24",
+        "16",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "FORGOT_TRADE",
+        null
+      ],
+      "explanation": "15 − 9: take 5 to get 10, then take 4 more: 6. Check: 9 + 6 = 15."
+    },
+    {
+      "id": "facts-sub-20/t2/017",
+      "tier": 2,
+      "prompt": "14 − 7 = ?",
+      "choices": [
+        "7",
+        "6",
+        "8",
+        "21"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "14 − 7 = 7 because double 7 is 14."
+    },
+    {
+      "id": "facts-sub-20/t2/018",
+      "tier": 2,
+      "prompt": "13 − 6 = ?",
+      "choices": [
+        "4",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "13 − 6: take 3 to get 10, then take 3 more: 7. Check: 6 + 7 = 13."
+    },
+    {
+      "id": "facts-sub-20/t2/019",
+      "tier": 2,
+      "prompt": "20 − 10 = ?",
+      "choices": [
+        "0",
+        "11",
+        "10",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "20 − 10 = 10 because double 10 is 20."
+    },
+    {
+      "id": "facts-sub-20/t2/020",
+      "tier": 2,
+      "prompt": "19 − 9 = ?",
+      "choices": [
+        "28",
+        "11",
+        "20",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "ONE_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "19 − 9 = 10 because 9 + 10 = 19."
+    },
+    {
+      "id": "facts-sub-20/t2/021",
+      "tier": 2,
+      "prompt": "17 − 9 = ?",
+      "choices": [
+        "7",
+        "6",
+        "8",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "17 − 9: take 7 to get 10, then take 2 more: 8. Check: 9 + 8 = 17."
+    },
+    {
+      "id": "facts-sub-20/t2/022",
+      "tier": 2,
+      "prompt": "16 − 7 = ?",
+      "choices": [
+        "10",
+        "8",
+        "9",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        null,
+        "FORGOT_TRADE"
+      ],
+      "explanation": "16 − 7: take 6 to get 10, then take 1 more: 9. Check: 7 + 9 = 16."
+    },
+    {
+      "id": "facts-sub-20/t2/023",
+      "tier": 2,
+      "prompt": "12 − 3 = ?",
+      "choices": [
+        "10",
+        "9",
+        "15",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ADDED",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "12 − 3: take 2 to get 10, then take 1 more: 9. Check: 3 + 9 = 12."
+    },
+    {
+      "id": "facts-sub-20/t2/024",
+      "tier": 2,
+      "prompt": "13 − 4 = ?",
+      "choices": [
+        "9",
+        "8",
+        "7",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ARITH",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "13 − 4: take 3 to get 10, then take 1 more: 9. Check: 4 + 9 = 13."
+    },
+    {
+      "id": "facts-sub-20/t3/001",
+      "tier": 3,
+      "prompt": "14 − 6 = ?",
+      "choices": [
+        "7",
+        "6",
+        "5",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "14 − 6: take 4 to get 10, then take 2 more: 8. Check: 6 + 8 = 14."
+    },
+    {
+      "id": "facts-sub-20/t3/002",
+      "tier": 3,
+      "prompt": "12 − 9 = ?",
+      "choices": [
+        "1",
+        "2",
+        "21",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "12 − 9: take 2 to get 10, then take 7 more: 3. Check: 9 + 3 = 12."
+    },
+    {
+      "id": "facts-sub-20/t3/003",
+      "tier": 3,
+      "prompt": "11 − 4 = ?",
+      "choices": [
+        "7",
+        "6",
+        "15",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ADDED",
+        "ONE_OFF"
+      ],
+      "explanation": "11 − 4: take 1 to get 10, then take 3 more: 7. Check: 4 + 7 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/004",
+      "tier": 3,
+      "prompt": "14 − 7 = ?",
+      "choices": [
+        "13",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SMALLER_FROM_LARGER",
+        "ARITH",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "14 − 7 = 7 because double 7 is 14."
+    },
+    {
+      "id": "facts-sub-20/t3/005",
+      "tier": 3,
+      "prompt": "17 − 9 = ?",
+      "choices": [
+        "8",
+        "26",
+        "7",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "ONE_OFF",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "17 − 9: take 7 to get 10, then take 2 more: 8. Check: 9 + 8 = 17."
+    },
+    {
+      "id": "facts-sub-20/t3/006",
+      "tier": 3,
+      "prompt": "16 − 7 = ?",
+      "choices": [
+        "19",
+        "9",
+        "23",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        null,
+        "ADDED",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "16 − 7: take 6 to get 10, then take 1 more: 9. Check: 7 + 9 = 16."
+    },
+    {
+      "id": "facts-sub-20/t3/007",
+      "tier": 3,
+      "prompt": "13 − 8 = ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "13 − 8: take 3 to get 10, then take 5 more: 5. Check: 8 + 5 = 13."
+    },
+    {
+      "id": "facts-sub-20/t3/008",
+      "tier": 3,
+      "prompt": "12 − 7 = ?",
+      "choices": [
+        "3",
+        "19",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADDED",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "12 − 7: take 2 to get 10, then take 5 more: 5. Check: 7 + 5 = 12."
+    },
+    {
+      "id": "facts-sub-20/t3/009",
+      "tier": 3,
+      "prompt": "17 − 8 = ?",
+      "choices": [
+        "25",
+        "9",
+        "8",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ONE_OFF",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "17 − 8: take 7 to get 10, then take 1 more: 9. Check: 8 + 9 = 17."
+    },
+    {
+      "id": "facts-sub-20/t3/010",
+      "tier": 3,
+      "prompt": "11 − 3 = ?",
+      "choices": [
+        "5",
+        "7",
+        "8",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "11 − 3: take 1 to get 10, then take 2 more: 8. Check: 3 + 8 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/011",
+      "tier": 3,
+      "prompt": "13 − 9 = ?",
+      "choices": [
+        "5",
+        "4",
+        "14",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "FORGOT_TRADE",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "13 − 9: take 3 to get 10, then take 6 more: 4. Check: 9 + 4 = 13."
+    },
+    {
+      "id": "facts-sub-20/t3/012",
+      "tier": 3,
+      "prompt": "11 − 8 = ?",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "11 − 8: take 1 to get 10, then take 7 more: 3. Check: 8 + 3 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/013",
+      "tier": 3,
+      "prompt": "14 − 9 = ?",
+      "choices": [
+        "6",
+        "5",
+        "23",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "ADDED",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "14 − 9: take 4 to get 10, then take 5 more: 5. Check: 9 + 5 = 14."
+    },
+    {
+      "id": "facts-sub-20/t3/014",
+      "tier": 3,
+      "prompt": "13 − 7 = ?",
+      "choices": [
+        "6",
+        "7",
+        "5",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ONE_OFF",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "13 − 7: take 3 to get 10, then take 4 more: 6. Check: 7 + 6 = 13."
+    },
+    {
+      "id": "facts-sub-20/t3/015",
+      "tier": 3,
+      "prompt": "12 − 6 = ?",
+      "choices": [
+        "3",
+        "5",
+        "4",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "12 − 6 = 6 because double 6 is 12."
+    },
+    {
+      "id": "facts-sub-20/t3/016",
+      "tier": 3,
+      "prompt": "18 − 9 = ?",
+      "choices": [
+        "11",
+        "10",
+        "19",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_FROM_LARGER",
+        "ONE_OFF",
+        "FORGOT_TRADE",
+        null
+      ],
+      "explanation": "18 − 9 = 9 because double 9 is 18."
+    },
+    {
+      "id": "facts-sub-20/t3/017",
+      "tier": 3,
+      "prompt": "12 − 5 = ?",
+      "choices": [
+        "7",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "12 − 5: take 2 to get 10, then take 3 more: 7. Check: 5 + 7 = 12."
+    },
+    {
+      "id": "facts-sub-20/t3/018",
+      "tier": 3,
+      "prompt": "11 − 9 = ?",
+      "choices": [
+        "2",
+        "12",
+        "18",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_TRADE",
+        "SMALLER_FROM_LARGER",
+        "ONE_OFF"
+      ],
+      "explanation": "11 − 9: take 1 to get 10, then take 8 more: 2. Check: 9 + 2 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/019",
+      "tier": 3,
+      "prompt": "15 − 9 = ?",
+      "choices": [
+        "5",
+        "16",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "FORGOT_TRADE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "15 − 9: take 5 to get 10, then take 4 more: 6. Check: 9 + 6 = 15."
+    },
+    {
+      "id": "facts-sub-20/t3/020",
+      "tier": 3,
+      "prompt": "13 − 6 = ?",
+      "choices": [
+        "8",
+        "7",
+        "17",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "FORGOT_TRADE",
+        "ONE_OFF"
+      ],
+      "explanation": "13 − 6: take 3 to get 10, then take 3 more: 7. Check: 6 + 7 = 13."
+    },
+    {
+      "id": "facts-sub-20/t3/021",
+      "tier": 3,
+      "prompt": "11 − 7 = ?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "11 − 7: take 1 to get 10, then take 6 more: 4. Check: 7 + 4 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/022",
+      "tier": 3,
+      "prompt": "15 − 6 = ?",
+      "choices": [
+        "9",
+        "19",
+        "11",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "FORGOT_TRADE",
+        "SMALLER_FROM_LARGER",
+        "ONE_OFF"
+      ],
+      "explanation": "15 − 6: take 5 to get 10, then take 1 more: 9. Check: 6 + 9 = 15."
+    },
+    {
+      "id": "facts-sub-20/t3/023",
+      "tier": 3,
+      "prompt": "11 − 6 = ?",
+      "choices": [
+        "4",
+        "6",
+        "5",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        null,
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "11 − 6: take 1 to get 10, then take 5 more: 5. Check: 6 + 5 = 11."
+    },
+    {
+      "id": "facts-sub-20/t3/024",
+      "tier": 3,
+      "prompt": "14 − 8 = ?",
+      "choices": [
+        "5",
+        "16",
+        "6",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "FORGOT_TRADE",
+        null,
+        "ARITH"
+      ],
+      "explanation": "14 − 8: take 4 to get 10, then take 4 more: 6. Check: 8 + 6 = 14."
+    },
+    {
+      "id": "facts-sub-20/t4/001",
+      "tier": 4,
+      "prompt": "11 − ? = 9",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "11 − ? = 9: count up from 9 to 11, that is 2. So 11 − 2 = 9, ? = 2."
+    },
+    {
+      "id": "facts-sub-20/t4/002",
+      "tier": 4,
+      "prompt": "17 − ? = 8",
+      "choices": [
+        "10",
+        "9",
+        "19",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS",
+        "MISSING_ADDED"
+      ],
+      "explanation": "17 − ? = 8: 17 − 9 = 8, so ? = 9. Think addition: 8 + 9 = 17."
+    },
+    {
+      "id": "facts-sub-20/t4/003",
+      "tier": 4,
+      "prompt": "12 − ? = 6",
+      "choices": [
+        "5",
+        "3",
+        "4",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "12 − ? = 6: count up from 6 to 12, that is 6. So 12 − 6 = 6, ? = 6."
+    },
+    {
+      "id": "facts-sub-20/t4/004",
+      "tier": 4,
+      "prompt": "14 − ? = 5",
+      "choices": [
+        "9",
+        "10",
+        "8",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "14 − ? = 5: count up from 5 to 14, that is 9. So 14 − 9 = 5, ? = 9."
+    },
+    {
+      "id": "facts-sub-20/t4/005",
+      "tier": 4,
+      "prompt": "16 − ? = 13",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "16 − ? = 13: 16 − 3 = 13, so ? = 3. Think addition: 13 + 3 = 16."
+    },
+    {
+      "id": "facts-sub-20/t4/006",
+      "tier": 4,
+      "prompt": "18 − ? = 9",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "18 − ? = 9: count up from 9 to 18, that is 9. So 18 − 9 = 9, ? = 9."
+    },
+    {
+      "id": "facts-sub-20/t4/007",
+      "tier": 4,
+      "prompt": "13 − ? = 4",
+      "choices": [
+        "8",
+        "10",
+        "19",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "13 − ? = 4: 13 − 9 = 4, so ? = 9. Think addition: 4 + 9 = 13."
+    },
+    {
+      "id": "facts-sub-20/t4/008",
+      "tier": 4,
+      "prompt": "11 − ? = 5",
+      "choices": [
+        "16",
+        "8",
+        "6",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "11 − ? = 5: 11 − 6 = 5, so ? = 6. Think addition: 5 + 6 = 11."
+    },
+    {
+      "id": "facts-sub-20/t4/009",
+      "tier": 4,
+      "prompt": "20 − ? = 15",
+      "choices": [
+        "15",
+        "35",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "20 − ? = 15: 20 − 5 = 15, so ? = 5. Think addition: 15 + 5 = 20."
+    },
+    {
+      "id": "facts-sub-20/t4/010",
+      "tier": 4,
+      "prompt": "18 − ? = 5",
+      "choices": [
+        "3",
+        "13",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "18 − ? = 5: count up from 5 to 18, that is 13. So 18 − 13 = 5, ? = 13."
+    },
+    {
+      "id": "facts-sub-20/t4/011",
+      "tier": 4,
+      "prompt": "19 − ? = 13",
+      "choices": [
+        "5",
+        "6",
+        "32",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "MISSING_TENS"
+      ],
+      "explanation": "19 − ? = 13: 19 − 6 = 13, so ? = 6. Think addition: 13 + 6 = 19."
+    },
+    {
+      "id": "facts-sub-20/t4/012",
+      "tier": 4,
+      "prompt": "12 − ? = 9",
+      "choices": [
+        "1",
+        "2",
+        "13",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "12 − ? = 9: 12 − 3 = 9, so ? = 3. Think addition: 9 + 3 = 12."
+    },
+    {
+      "id": "facts-sub-20/t4/013",
+      "tier": 4,
+      "prompt": "16 − ? = 2",
+      "choices": [
+        "18",
+        "14",
+        "15",
+        "24"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "16 − ? = 2: 16 − 14 = 2, so ? = 14. Think addition: 2 + 14 = 16."
+    },
+    {
+      "id": "facts-sub-20/t4/014",
+      "tier": 4,
+      "prompt": "12 − ? = 3",
+      "choices": [
+        "19",
+        "9",
+        "6",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 − ? = 3: 12 − 9 = 3, so ? = 9. Think addition: 3 + 9 = 12."
+    },
+    {
+      "id": "facts-sub-20/t4/015",
+      "tier": 4,
+      "prompt": "20 − ? = 14",
+      "choices": [
+        "5",
+        "7",
+        "16",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "20 − ? = 14: 20 − 6 = 14, so ? = 6. Think addition: 14 + 6 = 20."
+    },
+    {
+      "id": "facts-sub-20/t4/016",
+      "tier": 4,
+      "prompt": "20 − ? = 9",
+      "choices": [
+        "9",
+        "10",
+        "11",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "20 − ? = 9: 20 − 11 = 9, so ? = 11. Think addition: 9 + 11 = 20."
+    },
+    {
+      "id": "facts-sub-20/t4/017",
+      "tier": 4,
+      "prompt": "20 − ? = 6",
+      "choices": [
+        "14",
+        "12",
+        "4",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "20 − ? = 6: 20 − 14 = 6, so ? = 14. Think addition: 6 + 14 = 20."
+    },
+    {
+      "id": "facts-sub-20/t4/018",
+      "tier": 4,
+      "prompt": "18 − ? = 7",
+      "choices": [
+        "11",
+        "21",
+        "1",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_TENS",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "18 − ? = 7: 18 − 11 = 7, so ? = 11. Think addition: 7 + 11 = 18."
+    },
+    {
+      "id": "facts-sub-20/t4/019",
+      "tier": 4,
+      "prompt": "12 − ? = 4",
+      "choices": [
+        "16",
+        "18",
+        "8",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 − ? = 4: 12 − 8 = 4, so ? = 8. Think addition: 4 + 8 = 12."
+    },
+    {
+      "id": "facts-sub-20/t4/020",
+      "tier": 4,
+      "prompt": "16 − ? = 8",
+      "choices": [
+        "24",
+        "7",
+        "8",
+        "18"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "16 − ? = 8: 16 − 8 = 8, so ? = 8. Think addition: 8 + 8 = 16."
+    },
+    {
+      "id": "facts-sub-20/t4/021",
+      "tier": 4,
+      "prompt": "18 − ? = 13",
+      "choices": [
+        "5",
+        "4",
+        "31",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "MISSING_TENS"
+      ],
+      "explanation": "18 − ? = 13: count up from 13 to 18, that is 5. So 18 − 5 = 13, ? = 5."
+    },
+    {
+      "id": "facts-sub-20/t4/022",
+      "tier": 4,
+      "prompt": "13 − ? = 7",
+      "choices": [
+        "7",
+        "20",
+        "16",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "13 − ? = 7: count up from 7 to 13, that is 6. So 13 − 6 = 7, ? = 6."
+    },
+    {
+      "id": "facts-sub-20/t4/023",
+      "tier": 4,
+      "prompt": "11 − ? = 4",
+      "choices": [
+        "7",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "11 − ? = 4: count up from 4 to 11, that is 7. So 11 − 7 = 4, ? = 7."
+    },
+    {
+      "id": "facts-sub-20/t4/024",
+      "tier": 4,
+      "prompt": "11 − ? = 7",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "14"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "11 − ? = 7: count up from 7 to 11, that is 4. So 11 − 4 = 7, ? = 4."
+    },
+    {
+      "id": "facts-sub-20/t5/001",
+      "tier": 5,
+      "prompt": "? − 5 = 7",
+      "choices": [
+        "2",
+        "12",
+        "11",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_SUBTRACTED",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? − 5 = 7: add back, 7 + 5 = 12, so ? = 12."
+    },
+    {
+      "id": "facts-sub-20/t5/002",
+      "tier": 5,
+      "prompt": "? − 8 = 3",
+      "choices": [
+        "21",
+        "10",
+        "12",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? − 8 = 3: undo the take away, 3 + 8 = 11, so ? = 11. Check: 11 − 8 = 3."
+    },
+    {
+      "id": "facts-sub-20/t5/003",
+      "tier": 5,
+      "prompt": "? − 2 = 10",
+      "choices": [
+        "12",
+        "15",
+        "13",
+        "22"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 2 = 10: undo the take away, 10 + 2 = 12, so ? = 12. Check: 12 − 2 = 10."
+    },
+    {
+      "id": "facts-sub-20/t5/004",
+      "tier": 5,
+      "prompt": "? − 6 = 5",
+      "choices": [
+        "10",
+        "1",
+        "11",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "START_SUBTRACTED",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 6 = 5: undo the take away, 5 + 6 = 11, so ? = 11. Check: 11 − 6 = 5."
+    },
+    {
+      "id": "facts-sub-20/t5/005",
+      "tier": 5,
+      "prompt": "? − 11 = 8",
+      "choices": [
+        "18",
+        "3",
+        "19",
+        "9"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "START_SUBTRACTED",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 11 = 8: undo the take away, 8 + 11 = 19, so ? = 19. Check: 19 − 11 = 8."
+    },
+    {
+      "id": "facts-sub-20/t5/006",
+      "tier": 5,
+      "prompt": "? − 9 = 5",
+      "choices": [
+        "24",
+        "14",
+        "13",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF",
+        "START_SUBTRACTED"
+      ],
+      "explanation": "? − 9 = 5: add back, 5 + 9 = 14, so ? = 14."
+    },
+    {
+      "id": "facts-sub-20/t5/007",
+      "tier": 5,
+      "prompt": "? − 13 = 2",
+      "choices": [
+        "14",
+        "15",
+        "16",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 13 = 2: add back, 2 + 13 = 15, so ? = 15."
+    },
+    {
+      "id": "facts-sub-20/t5/008",
+      "tier": 5,
+      "prompt": "? − 3 = 17",
+      "choices": [
+        "30",
+        "22",
+        "21",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? − 3 = 17: undo the take away, 17 + 3 = 20, so ? = 20. Check: 20 − 3 = 17."
+    },
+    {
+      "id": "facts-sub-20/t5/009",
+      "tier": 5,
+      "prompt": "? − 4 = 14",
+      "choices": [
+        "18",
+        "21",
+        "28",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 4 = 14: add back, 14 + 4 = 18, so ? = 18."
+    },
+    {
+      "id": "facts-sub-20/t5/010",
+      "tier": 5,
+      "prompt": "? − 4 = 8",
+      "choices": [
+        "11",
+        "12",
+        "4",
+        "22"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "START_SUBTRACTED",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 4 = 8: undo the take away, 8 + 4 = 12, so ? = 12. Check: 12 − 4 = 8."
+    },
+    {
+      "id": "facts-sub-20/t5/011",
+      "tier": 5,
+      "prompt": "? − 4 = 10",
+      "choices": [
+        "6",
+        "4",
+        "14",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_SUBTRACTED",
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 4 = 10: add back, 10 + 4 = 14, so ? = 14."
+    },
+    {
+      "id": "facts-sub-20/t5/012",
+      "tier": 5,
+      "prompt": "? − 2 = 9",
+      "choices": [
+        "21",
+        "1",
+        "11",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_TENS",
+        "START_NO_CARRY",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 2 = 9: add back, 9 + 2 = 11, so ? = 11."
+    },
+    {
+      "id": "facts-sub-20/t5/013",
+      "tier": 5,
+      "prompt": "? − 5 = 8",
+      "choices": [
+        "13",
+        "15",
+        "14",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 5 = 8: undo the take away, 8 + 5 = 13, so ? = 13. Check: 13 − 5 = 8."
+    },
+    {
+      "id": "facts-sub-20/t5/014",
+      "tier": 5,
+      "prompt": "15 − ? = 7",
+      "choices": [
+        "6",
+        "8",
+        "5",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "15 − ? = 7: 15 − 8 = 7, so ? = 8. Think addition: 7 + 8 = 15."
+    },
+    {
+      "id": "facts-sub-20/t5/015",
+      "tier": 5,
+      "prompt": "? − 9 = 8",
+      "choices": [
+        "27",
+        "16",
+        "18",
+        "17"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? − 9 = 8: add back, 8 + 9 = 17, so ? = 17."
+    },
+    {
+      "id": "facts-sub-20/t5/016",
+      "tier": 5,
+      "prompt": "? − 7 = 7",
+      "choices": [
+        "24",
+        "4",
+        "0",
+        "14"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "START_NO_CARRY",
+        "START_SUBTRACTED",
+        null
+      ],
+      "explanation": "? − 7 = 7: undo the take away, 7 + 7 = 14, so ? = 14. Check: 14 − 7 = 7."
+    },
+    {
+      "id": "facts-sub-20/t5/017",
+      "tier": 5,
+      "prompt": "12 − ? = 9",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "12 − ? = 9: count up from 9 to 12, that is 3. So 12 − 3 = 9, ? = 3."
+    },
+    {
+      "id": "facts-sub-20/t5/018",
+      "tier": 5,
+      "prompt": "? − 3 = 9",
+      "choices": [
+        "13",
+        "14",
+        "22",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "? − 3 = 9: add back, 9 + 3 = 12, so ? = 12."
+    },
+    {
+      "id": "facts-sub-20/t5/019",
+      "tier": 5,
+      "prompt": "? − 14 = 5",
+      "choices": [
+        "19",
+        "9",
+        "20",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 14 = 5: undo the take away, 5 + 14 = 19, so ? = 19. Check: 19 − 14 = 5."
+    },
+    {
+      "id": "facts-sub-20/t5/020",
+      "tier": 5,
+      "prompt": "? − 13 = 6",
+      "choices": [
+        "7",
+        "19",
+        "9",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_SUBTRACTED",
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 13 = 6: add back, 6 + 13 = 19, so ? = 19."
+    },
+    {
+      "id": "facts-sub-20/t5/021",
+      "tier": 5,
+      "prompt": "? − 15 = 2",
+      "choices": [
+        "17",
+        "20",
+        "27",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 15 = 2: undo the take away, 2 + 15 = 17, so ? = 17. Check: 17 − 15 = 2."
+    },
+    {
+      "id": "facts-sub-20/t5/022",
+      "tier": 5,
+      "prompt": "? − 3 = 14",
+      "choices": [
+        "17",
+        "7",
+        "18",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 3 = 14: add back, 14 + 3 = 17, so ? = 17."
+    },
+    {
+      "id": "facts-sub-20/t5/023",
+      "tier": 5,
+      "prompt": "? − 6 = 6",
+      "choices": [
+        "11",
+        "2",
+        "12",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "START_NO_CARRY",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 6 = 6: undo the take away, 6 + 6 = 12, so ? = 12. Check: 12 − 6 = 6."
+    },
+    {
+      "id": "facts-sub-20/t5/024",
+      "tier": 5,
+      "prompt": "? − 11 = 2",
+      "choices": [
+        "12",
+        "9",
+        "3",
+        "13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "START_SUBTRACTED",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "? − 11 = 2: undo the take away, 2 + 11 = 13, so ? = 13. Check: 13 − 11 = 2."
+    }
+  ]
+}

@@ -1,0 +1,2368 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-sub-100",
+  "version": "1.0.0",
+  "title": "Subtraction to 100",
+  "subtitle": "Take away from 51 to 100",
+  "grade": "Facts",
+  "picker_order": 8,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.NBT.B.5"
+  ],
+  "seed": 20261058,
+  "items_per_tier": 24,
+  "bounds": "Minuends 51-100, a and b at least 2 (T1 allows 1). T1 R with a multiple of 10 as a or b; T2 R no trade (the ones of s at least the ones of a), at least 8 with a one-digit part and 8 with both parts at least 10; T3 R with a trade, same two floors; T4 s − ? = b, at least 12 with a trade, no multiples of 10; T5 ? − a = b (at least 12, 6 with a trade) and s − ? = b (6 with a trade), no multiples of 10. Wrong choices: distinct non-negative integers up to 999, at least two within 1, 2 or 10 of the answer, at most one far; where the answer is 20 or more one wrong choice shares its ones digit; modelled misconceptions first, ARITH only to fill; each answer rank (smallest to largest of the four) holds the answer in 15-35% of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Tens and ones",
+      "description": "Tens and ones: 90 − 40, 77 − 7."
+    },
+    {
+      "tier": 2,
+      "name": "No trading",
+      "description": "Take away with no trading: 87 − 43."
+    },
+    {
+      "tier": 3,
+      "name": "Trading a ten",
+      "description": "Trade a ten: 82 − 37. Count up to check."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "The taken-away number is hidden: 82 − ? = 45."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "The start is hidden: ? − 37 = 45. Add back."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "SMALLER_FROM_LARGER": {
+      "student": "Don't flip digits. If the top digit is smaller, trade a ten for 10 ones.",
+      "teacher": "In each place takes the smaller digit from the larger (14 - 6 gives 12; 52 - 38 gives 26) instead of regrouping."
+    },
+    "FORGOT_TRADE": {
+      "student": "You traded a ten for ones, so the tens digit has to drop by one.",
+      "teacher": "Regrouped the ones but left the tens unchanged: answer is 10 too big (14 - 6 gives 18; 52 - 38 gives 24)."
+    },
+    "TENS_SLIP": {
+      "student": "The tens are off by one ten. Check: answer + taken away = start.",
+      "teacher": "Right ones, tens digit one too high or too low: answer is the correct difference plus or minus 10."
+    },
+    "MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "MISSING_TENS": {
+      "student": "Off by one ten. Put your number back in the problem and check it.",
+      "teacher": "Right ones, tens digit one too high or too low: the missing number plus or minus 10 (trade forgotten or tens slip)."
+    },
+    "START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    },
+    "START_NO_CARRY": {
+      "student": "Adding back, the ones made a ten: carry it. Check: start − taken = left.",
+      "teacher": "? - a = b: added the ones but dropped the carried ten, so the start is 10 too small."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-sub-100/t1/001",
+      "tier": 1,
+      "prompt": "96 − 66 = ?",
+      "choices": [
+        "29",
+        "20",
+        "30",
+        "31"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "96 − 66: 96 − 60 = 36, then 36 − 6 = 30."
+    },
+    {
+      "id": "facts-sub-100/t1/002",
+      "tier": 1,
+      "prompt": "79 − 39 = ?",
+      "choices": [
+        "30",
+        "50",
+        "40",
+        "118"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "79 − 39: 79 − 30 = 49, then 49 − 9 = 40."
+    },
+    {
+      "id": "facts-sub-100/t1/003",
+      "tier": 1,
+      "prompt": "64 − 30 = ?",
+      "choices": [
+        "35",
+        "94",
+        "44",
+        "34"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "64 − 30 = 34: 6 tens − 3 tens = 3 tens, plus 4."
+    },
+    {
+      "id": "facts-sub-100/t1/004",
+      "tier": 1,
+      "prompt": "88 − 20 = ?",
+      "choices": [
+        "65",
+        "58",
+        "68",
+        "67"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "88 − 20 = 68: 8 tens − 2 tens = 6 tens, plus 8."
+    },
+    {
+      "id": "facts-sub-100/t1/005",
+      "tier": 1,
+      "prompt": "89 − 49 = ?",
+      "choices": [
+        "50",
+        "40",
+        "138",
+        "41"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ADDED",
+        "ONE_OFF"
+      ],
+      "explanation": "89 − 49: 89 − 40 = 49, then 49 − 9 = 40."
+    },
+    {
+      "id": "facts-sub-100/t1/006",
+      "tier": 1,
+      "prompt": "77 − 70 = ?",
+      "choices": [
+        "6",
+        "17",
+        "7",
+        "147"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "77 − 70 = 7: 7 tens − 7 tens = 0 tens, plus 7."
+    },
+    {
+      "id": "facts-sub-100/t1/007",
+      "tier": 1,
+      "prompt": "95 − 20 = ?",
+      "choices": [
+        "85",
+        "74",
+        "65",
+        "75"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "95 − 20 = 75: 9 tens − 2 tens = 7 tens, plus 5."
+    },
+    {
+      "id": "facts-sub-100/t1/008",
+      "tier": 1,
+      "prompt": "66 − 6 = ?",
+      "choices": [
+        "57",
+        "60",
+        "59",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "66 − 6 = 60: the ones are 6 − 6 = 0, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t1/009",
+      "tier": 1,
+      "prompt": "74 − 60 = ?",
+      "choices": [
+        "13",
+        "14",
+        "24",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "TENS_SLIP",
+        "TENS_SLIP"
+      ],
+      "explanation": "74 − 60 = 14: 7 tens − 6 tens = 1 ten, plus 4."
+    },
+    {
+      "id": "facts-sub-100/t1/010",
+      "tier": 1,
+      "prompt": "89 − 59 = ?",
+      "choices": [
+        "148",
+        "40",
+        "31",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "89 − 59: 89 − 50 = 39, then 39 − 9 = 30."
+    },
+    {
+      "id": "facts-sub-100/t1/011",
+      "tier": 1,
+      "prompt": "98 − 40 = ?",
+      "choices": [
+        "48",
+        "58",
+        "57",
+        "55"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "98 − 40 = 58: 9 tens − 4 tens = 5 tens, plus 8."
+    },
+    {
+      "id": "facts-sub-100/t1/012",
+      "tier": 1,
+      "prompt": "93 − 33 = ?",
+      "choices": [
+        "126",
+        "60",
+        "50",
+        "70"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "TENS_SLIP",
+        "TENS_SLIP"
+      ],
+      "explanation": "93 − 33: 93 − 30 = 63, then 63 − 3 = 60."
+    },
+    {
+      "id": "facts-sub-100/t1/013",
+      "tier": 1,
+      "prompt": "87 − 77 = ?",
+      "choices": [
+        "10",
+        "9",
+        "20",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ONE_OFF"
+      ],
+      "explanation": "87 − 77: 87 − 70 = 17, then 17 − 7 = 10."
+    },
+    {
+      "id": "facts-sub-100/t1/014",
+      "tier": 1,
+      "prompt": "57 − 30 = ?",
+      "choices": [
+        "26",
+        "27",
+        "17",
+        "25"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "TENS_SLIP",
+        "ARITH"
+      ],
+      "explanation": "57 − 30 = 27: 5 tens − 3 tens = 2 tens, plus 7."
+    },
+    {
+      "id": "facts-sub-100/t1/015",
+      "tier": 1,
+      "prompt": "67 − 27 = ?",
+      "choices": [
+        "40",
+        "50",
+        "41",
+        "94"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "67 − 27: 67 − 20 = 47, then 47 − 7 = 40."
+    },
+    {
+      "id": "facts-sub-100/t1/016",
+      "tier": 1,
+      "prompt": "96 − 76 = ?",
+      "choices": [
+        "20",
+        "19",
+        "10",
+        "172"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "96 − 76: 96 − 70 = 26, then 26 − 6 = 20."
+    },
+    {
+      "id": "facts-sub-100/t1/017",
+      "tier": 1,
+      "prompt": "51 − 10 = ?",
+      "choices": [
+        "41",
+        "42",
+        "61",
+        "51"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "ADDED",
+        "TENS_SLIP"
+      ],
+      "explanation": "51 − 10 = 41: 5 tens − 1 ten = 4 tens, plus 1."
+    },
+    {
+      "id": "facts-sub-100/t1/018",
+      "tier": 1,
+      "prompt": "83 − 53 = ?",
+      "choices": [
+        "29",
+        "40",
+        "30",
+        "136"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "83 − 53: 83 − 50 = 33, then 33 − 3 = 30."
+    },
+    {
+      "id": "facts-sub-100/t1/019",
+      "tier": 1,
+      "prompt": "91 − 71 = ?",
+      "choices": [
+        "162",
+        "10",
+        "20",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "91 − 71: 91 − 70 = 21, then 21 − 1 = 20."
+    },
+    {
+      "id": "facts-sub-100/t1/020",
+      "tier": 1,
+      "prompt": "73 − 23 = ?",
+      "choices": [
+        "50",
+        "40",
+        "49",
+        "47"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "73 − 23: 73 − 20 = 53, then 53 − 3 = 50."
+    },
+    {
+      "id": "facts-sub-100/t1/021",
+      "tier": 1,
+      "prompt": "89 − 50 = ?",
+      "choices": [
+        "40",
+        "49",
+        "139",
+        "39"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED",
+        null
+      ],
+      "explanation": "89 − 50 = 39: 8 tens − 5 tens = 3 tens, plus 9."
+    },
+    {
+      "id": "facts-sub-100/t1/022",
+      "tier": 1,
+      "prompt": "96 − 90 = ?",
+      "choices": [
+        "5",
+        "7",
+        "3",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "96 − 90 = 6: 9 tens − 9 tens = 0 tens, plus 6."
+    },
+    {
+      "id": "facts-sub-100/t1/023",
+      "tier": 1,
+      "prompt": "78 − 38 = ?",
+      "choices": [
+        "40",
+        "116",
+        "30",
+        "50"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "TENS_SLIP",
+        "TENS_SLIP"
+      ],
+      "explanation": "78 − 38: 78 − 30 = 48, then 48 − 8 = 40."
+    },
+    {
+      "id": "facts-sub-100/t1/024",
+      "tier": 1,
+      "prompt": "93 − 13 = ?",
+      "choices": [
+        "79",
+        "77",
+        "70",
+        "80"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "93 − 13: 93 − 10 = 83, then 83 − 3 = 80."
+    },
+    {
+      "id": "facts-sub-100/t2/001",
+      "tier": 2,
+      "prompt": "75 − 4 = ?",
+      "choices": [
+        "68",
+        "61",
+        "70",
+        "71"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "TENS_SLIP",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "75 − 4 = 71: the ones are 5 − 4 = 1, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t2/002",
+      "tier": 2,
+      "prompt": "59 − 12 = ?",
+      "choices": [
+        "47",
+        "71",
+        "57",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "TENS_SLIP",
+        "ONE_OFF"
+      ],
+      "explanation": "59 − 12: 59 − 10 = 49, then 49 − 2 = 47."
+    },
+    {
+      "id": "facts-sub-100/t2/003",
+      "tier": 2,
+      "prompt": "98 − 96 = ?",
+      "choices": [
+        "1",
+        "0",
+        "194",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        "ADDED",
+        null
+      ],
+      "explanation": "98 − 96: 98 − 90 = 8, then 8 − 6 = 2."
+    },
+    {
+      "id": "facts-sub-100/t2/004",
+      "tier": 2,
+      "prompt": "96 − 13 = ?",
+      "choices": [
+        "93",
+        "82",
+        "109",
+        "83"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "96 − 13: 96 − 10 = 86, then 86 − 3 = 83."
+    },
+    {
+      "id": "facts-sub-100/t2/005",
+      "tier": 2,
+      "prompt": "98 − 93 = ?",
+      "choices": [
+        "5",
+        "4",
+        "15",
+        "191"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "98 − 93: 98 − 90 = 8, then 8 − 3 = 5."
+    },
+    {
+      "id": "facts-sub-100/t2/006",
+      "tier": 2,
+      "prompt": "97 − 35 = ?",
+      "choices": [
+        "52",
+        "62",
+        "60",
+        "61"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "97 − 35: 97 − 30 = 67, then 67 − 5 = 62."
+    },
+    {
+      "id": "facts-sub-100/t2/007",
+      "tier": 2,
+      "prompt": "56 − 45 = ?",
+      "choices": [
+        "11",
+        "1",
+        "10",
+        "101"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "56 − 45: 56 − 40 = 16, then 16 − 5 = 11."
+    },
+    {
+      "id": "facts-sub-100/t2/008",
+      "tier": 2,
+      "prompt": "75 − 31 = ?",
+      "choices": [
+        "45",
+        "44",
+        "54",
+        "106"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ONE_OFF",
+        null,
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "75 − 31: 75 − 30 = 45, then 45 − 1 = 44."
+    },
+    {
+      "id": "facts-sub-100/t2/009",
+      "tier": 2,
+      "prompt": "64 − 32 = ?",
+      "choices": [
+        "32",
+        "42",
+        "31",
+        "96"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "64 − 32: 64 − 30 = 34, then 34 − 2 = 32."
+    },
+    {
+      "id": "facts-sub-100/t2/010",
+      "tier": 2,
+      "prompt": "57 − 6 = ?",
+      "choices": [
+        "41",
+        "50",
+        "51",
+        "49"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "57 − 6 = 51: the ones are 7 − 6 = 1, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t2/011",
+      "tier": 2,
+      "prompt": "89 − 33 = ?",
+      "choices": [
+        "46",
+        "56",
+        "66",
+        "55"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "TENS_SLIP",
+        "ONE_OFF"
+      ],
+      "explanation": "89 − 33: 89 − 30 = 59, then 59 − 3 = 56."
+    },
+    {
+      "id": "facts-sub-100/t2/012",
+      "tier": 2,
+      "prompt": "88 − 35 = ?",
+      "choices": [
+        "54",
+        "123",
+        "63",
+        "53"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "88 − 35: 88 − 30 = 58, then 58 − 5 = 53."
+    },
+    {
+      "id": "facts-sub-100/t2/013",
+      "tier": 2,
+      "prompt": "77 − 56 = ?",
+      "choices": [
+        "21",
+        "133",
+        "22",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "77 − 56: 77 − 50 = 27, then 27 − 6 = 21."
+    },
+    {
+      "id": "facts-sub-100/t2/014",
+      "tier": 2,
+      "prompt": "66 − 54 = ?",
+      "choices": [
+        "120",
+        "22",
+        "12",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "66 − 54: 66 − 50 = 16, then 16 − 4 = 12."
+    },
+    {
+      "id": "facts-sub-100/t2/015",
+      "tier": 2,
+      "prompt": "76 − 2 = ?",
+      "choices": [
+        "72",
+        "73",
+        "74",
+        "64"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "76 − 2 = 74: the ones are 6 − 2 = 4, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t2/016",
+      "tier": 2,
+      "prompt": "88 − 82 = ?",
+      "choices": [
+        "3",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "88 − 82: 88 − 80 = 8, then 8 − 2 = 6."
+    },
+    {
+      "id": "facts-sub-100/t2/017",
+      "tier": 2,
+      "prompt": "89 − 18 = ?",
+      "choices": [
+        "107",
+        "61",
+        "71",
+        "81"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "89 − 18: 89 − 10 = 79, then 79 − 8 = 71."
+    },
+    {
+      "id": "facts-sub-100/t2/018",
+      "tier": 2,
+      "prompt": "66 − 45 = ?",
+      "choices": [
+        "21",
+        "20",
+        "11",
+        "111"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "ADDED"
+      ],
+      "explanation": "66 − 45: 66 − 40 = 26, then 26 − 5 = 21."
+    },
+    {
+      "id": "facts-sub-100/t2/019",
+      "tier": 2,
+      "prompt": "54 − 13 = ?",
+      "choices": [
+        "42",
+        "51",
+        "41",
+        "67"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "54 − 13: 54 − 10 = 44, then 44 − 3 = 41."
+    },
+    {
+      "id": "facts-sub-100/t2/020",
+      "tier": 2,
+      "prompt": "74 − 61 = ?",
+      "choices": [
+        "3",
+        "13",
+        "10",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "74 − 61: 74 − 60 = 14, then 14 − 1 = 13."
+    },
+    {
+      "id": "facts-sub-100/t2/021",
+      "tier": 2,
+      "prompt": "88 − 47 = ?",
+      "choices": [
+        "135",
+        "41",
+        "42",
+        "51"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "88 − 47: 88 − 40 = 48, then 48 − 7 = 41."
+    },
+    {
+      "id": "facts-sub-100/t2/022",
+      "tier": 2,
+      "prompt": "75 − 34 = ?",
+      "choices": [
+        "42",
+        "31",
+        "41",
+        "109"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ADDED"
+      ],
+      "explanation": "75 − 34: 75 − 30 = 45, then 45 − 4 = 41."
+    },
+    {
+      "id": "facts-sub-100/t2/023",
+      "tier": 2,
+      "prompt": "96 − 5 = ?",
+      "choices": [
+        "89",
+        "91",
+        "90",
+        "81"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "TENS_SLIP"
+      ],
+      "explanation": "96 − 5 = 91: the ones are 6 − 5 = 1, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t2/024",
+      "tier": 2,
+      "prompt": "97 − 4 = ?",
+      "choices": [
+        "103",
+        "83",
+        "92",
+        "93"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "TENS_SLIP",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "97 − 4 = 93: the ones are 7 − 4 = 3, the tens stay."
+    },
+    {
+      "id": "facts-sub-100/t3/001",
+      "tier": 3,
+      "prompt": "72 − 66 = ?",
+      "choices": [
+        "4",
+        "5",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ONE_OFF",
+        "ONE_OFF",
+        null
+      ],
+      "explanation": "72 − 66: count up from 66 to 72, 6 steps. Check: 66 + 6 = 72."
+    },
+    {
+      "id": "facts-sub-100/t3/002",
+      "tier": 3,
+      "prompt": "71 − 14 = ?",
+      "choices": [
+        "56",
+        "54",
+        "57",
+        "47"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "TENS_SLIP"
+      ],
+      "explanation": "71 − 14: 71 − 10 = 61, then 61 − 4 = 57."
+    },
+    {
+      "id": "facts-sub-100/t3/003",
+      "tier": 3,
+      "prompt": "96 − 29 = ?",
+      "choices": [
+        "68",
+        "125",
+        "67",
+        "77"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        null,
+        "FORGOT_TRADE"
+      ],
+      "explanation": "96 − 29: 96 − 20 = 76, then 76 − 9 = 67."
+    },
+    {
+      "id": "facts-sub-100/t3/004",
+      "tier": 3,
+      "prompt": "95 − 48 = ?",
+      "choices": [
+        "143",
+        "47",
+        "57",
+        "37"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "FORGOT_TRADE",
+        "TENS_SLIP"
+      ],
+      "explanation": "95 − 48: 95 − 40 = 55, then 55 − 8 = 47."
+    },
+    {
+      "id": "facts-sub-100/t3/005",
+      "tier": 3,
+      "prompt": "61 − 54 = ?",
+      "choices": [
+        "7",
+        "5",
+        "115",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADDED",
+        "ONE_OFF"
+      ],
+      "explanation": "61 − 54: 61 − 50 = 11, then 11 − 4 = 7."
+    },
+    {
+      "id": "facts-sub-100/t3/006",
+      "tier": 3,
+      "prompt": "71 − 35 = ?",
+      "choices": [
+        "36",
+        "106",
+        "46",
+        "35"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "FORGOT_TRADE",
+        "ONE_OFF"
+      ],
+      "explanation": "71 − 35: 71 − 30 = 41, then 41 − 5 = 36."
+    },
+    {
+      "id": "facts-sub-100/t3/007",
+      "tier": 3,
+      "prompt": "95 − 86 = ?",
+      "choices": [
+        "181",
+        "9",
+        "10",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "ONE_OFF",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "95 − 86: count up from 86 to 95, 9 steps. Check: 86 + 9 = 95."
+    },
+    {
+      "id": "facts-sub-100/t3/008",
+      "tier": 3,
+      "prompt": "100 − 57 = ?",
+      "choices": [
+        "33",
+        "43",
+        "40",
+        "42"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ARITH",
+        "ONE_OFF"
+      ],
+      "explanation": "100 − 57: 100 − 50 = 50, then 50 − 7 = 43."
+    },
+    {
+      "id": "facts-sub-100/t3/009",
+      "tier": 3,
+      "prompt": "70 − 61 = ?",
+      "choices": [
+        "8",
+        "7",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "70 − 61: count up from 61 to 70, 9 steps. Check: 61 + 9 = 70."
+    },
+    {
+      "id": "facts-sub-100/t3/010",
+      "tier": 3,
+      "prompt": "83 − 16 = ?",
+      "choices": [
+        "57",
+        "67",
+        "66",
+        "68"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "TENS_SLIP",
+        null,
+        "ONE_OFF",
+        "ONE_OFF"
+      ],
+      "explanation": "83 − 16: 83 − 10 = 73, then 73 − 6 = 67."
+    },
+    {
+      "id": "facts-sub-100/t3/011",
+      "tier": 3,
+      "prompt": "70 − 3 = ?",
+      "choices": [
+        "67",
+        "68",
+        "57",
+        "77"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "TENS_SLIP",
+        "FORGOT_TRADE"
+      ],
+      "explanation": "70 − 3 = 67: 10 − 3 = 7, so 60 + 7 = 67."
+    },
+    {
+      "id": "facts-sub-100/t3/012",
+      "tier": 3,
+      "prompt": "70 − 8 = ?",
+      "choices": [
+        "72",
+        "63",
+        "78",
+        "62"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        "ONE_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "70 − 8 = 62: 10 − 8 = 2, so 60 + 2 = 62."
+    },
+    {
+      "id": "facts-sub-100/t3/013",
+      "tier": 3,
+      "prompt": "83 − 59 = ?",
+      "choices": [
+        "34",
+        "142",
+        "24",
+        "25"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        "ADDED",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "83 − 59: 83 − 50 = 33, then 33 − 9 = 24."
+    },
+    {
+      "id": "facts-sub-100/t3/014",
+      "tier": 3,
+      "prompt": "61 − 57 = ?",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "61 − 57: 61 − 50 = 11, then 11 − 7 = 4."
+    },
+    {
+      "id": "facts-sub-100/t3/015",
+      "tier": 3,
+      "prompt": "52 − 44 = ?",
+      "choices": [
+        "7",
+        "96",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ADDED",
+        "ARITH",
+        null
+      ],
+      "explanation": "52 − 44: count up from 44 to 52, 8 steps. Check: 44 + 8 = 52."
+    },
+    {
+      "id": "facts-sub-100/t3/016",
+      "tier": 3,
+      "prompt": "92 − 63 = ?",
+      "choices": [
+        "29",
+        "19",
+        "155",
+        "31"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "TENS_SLIP",
+        "ADDED",
+        "SMALLER_FROM_LARGER"
+      ],
+      "explanation": "92 − 63: 92 − 60 = 32, then 32 − 3 = 29."
+    },
+    {
+      "id": "facts-sub-100/t3/017",
+      "tier": 3,
+      "prompt": "83 − 78 = ?",
+      "choices": [
+        "15",
+        "6",
+        "161",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SMALLER_FROM_LARGER",
+        "ONE_OFF",
+        "ADDED",
+        null
+      ],
+      "explanation": "83 − 78: count up from 78 to 83, 5 steps. Check: 78 + 5 = 83."
+    },
+    {
+      "id": "facts-sub-100/t3/018",
+      "tier": 3,
+      "prompt": "92 − 19 = ?",
+      "choices": [
+        "63",
+        "72",
+        "70",
+        "73"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "TENS_SLIP",
+        "ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "92 − 19: 92 − 10 = 82, then 82 − 9 = 73."
+    },
+    {
+      "id": "facts-sub-100/t3/019",
+      "tier": 3,
+      "prompt": "100 − 3 = ?",
+      "choices": [
+        "98",
+        "96",
+        "87",
+        "97"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ONE_OFF",
+        "ONE_OFF",
+        "TENS_SLIP",
+        null
+      ],
+      "explanation": "100 − 3 = 97: 10 − 3 = 7, so 90 + 7 = 97."
+    },
+    {
+      "id": "facts-sub-100/t3/020",
+      "tier": 3,
+      "prompt": "87 − 29 = ?",
+      "choices": [
+        "116",
+        "48",
+        "58",
+        "59"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "TENS_SLIP",
+        null,
+        "ONE_OFF"
+      ],
+      "explanation": "87 − 29: 87 − 20 = 67, then 67 − 9 = 58."
+    },
+    {
+      "id": "facts-sub-100/t3/021",
+      "tier": 3,
+      "prompt": "91 − 62 = ?",
+      "choices": [
+        "28",
+        "19",
+        "29",
+        "27"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ONE_OFF",
+        "TENS_SLIP",
+        null,
+        "ARITH"
+      ],
+      "explanation": "91 − 62: 91 − 60 = 31, then 31 − 2 = 29."
+    },
+    {
+      "id": "facts-sub-100/t3/022",
+      "tier": 3,
+      "prompt": "83 − 19 = ?",
+      "choices": [
+        "64",
+        "76",
+        "54",
+        "63"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SMALLER_FROM_LARGER",
+        "TENS_SLIP",
+        "ONE_OFF"
+      ],
+      "explanation": "83 − 19: 83 − 10 = 73, then 73 − 9 = 64."
+    },
+    {
+      "id": "facts-sub-100/t3/023",
+      "tier": 3,
+      "prompt": "80 − 67 = ?",
+      "choices": [
+        "23",
+        "13",
+        "14",
+        "147"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "FORGOT_TRADE",
+        null,
+        "ONE_OFF",
+        "ADDED"
+      ],
+      "explanation": "80 − 67: count up from 67 to 80, 13 steps. Check: 67 + 13 = 80."
+    },
+    {
+      "id": "facts-sub-100/t3/024",
+      "tier": 3,
+      "prompt": "67 − 58 = ?",
+      "choices": [
+        "9",
+        "8",
+        "11",
+        "125"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ONE_OFF",
+        "SMALLER_FROM_LARGER",
+        "ADDED"
+      ],
+      "explanation": "67 − 58: 67 − 50 = 17, then 17 − 8 = 9."
+    },
+    {
+      "id": "facts-sub-100/t4/001",
+      "tier": 4,
+      "prompt": "60 − ? = 2",
+      "choices": [
+        "58",
+        "59",
+        "48",
+        "57"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "60 − ? = 2: 60 − 58 = 2, so ? = 58. Think addition: 2 + 58 = 60."
+    },
+    {
+      "id": "facts-sub-100/t4/002",
+      "tier": 4,
+      "prompt": "60 − ? = 49",
+      "choices": [
+        "11",
+        "10",
+        "9",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_TENS"
+      ],
+      "explanation": "60 − ? = 49: count up from 49 to 60, that is 11. So 60 − 11 = 49, ? = 11."
+    },
+    {
+      "id": "facts-sub-100/t4/003",
+      "tier": 4,
+      "prompt": "76 − ? = 17",
+      "choices": [
+        "60",
+        "49",
+        "59",
+        "69"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "76 − ? = 17: 76 − 59 = 17, so ? = 59. Think addition: 17 + 59 = 76."
+    },
+    {
+      "id": "facts-sub-100/t4/004",
+      "tier": 4,
+      "prompt": "56 − ? = 38",
+      "choices": [
+        "8",
+        "28",
+        "17",
+        "18"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "56 − ? = 38: 56 − 18 = 38, so ? = 18. Think addition: 38 + 18 = 56."
+    },
+    {
+      "id": "facts-sub-100/t4/005",
+      "tier": 4,
+      "prompt": "74 − ? = 41",
+      "choices": [
+        "23",
+        "33",
+        "31",
+        "32"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "74 − ? = 41: 74 − 33 = 41, so ? = 33. Think addition: 41 + 33 = 74."
+    },
+    {
+      "id": "facts-sub-100/t4/006",
+      "tier": 4,
+      "prompt": "86 − ? = 3",
+      "choices": [
+        "83",
+        "82",
+        "93",
+        "89"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        "MISSING_ADDED"
+      ],
+      "explanation": "86 − ? = 3: 86 − 83 = 3, so ? = 83. Think addition: 3 + 83 = 86."
+    },
+    {
+      "id": "facts-sub-100/t4/007",
+      "tier": 4,
+      "prompt": "78 − ? = 64",
+      "choices": [
+        "142",
+        "15",
+        "14",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "78 − ? = 64: count up from 64 to 78, that is 14. So 78 − 14 = 64, ? = 14."
+    },
+    {
+      "id": "facts-sub-100/t4/008",
+      "tier": 4,
+      "prompt": "91 − ? = 89",
+      "choices": [
+        "3",
+        "12",
+        "2",
+        "180"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null,
+        "MISSING_ADDED"
+      ],
+      "explanation": "91 − ? = 89: count up from 89 to 91, that is 2. So 91 − 2 = 89, ? = 2."
+    },
+    {
+      "id": "facts-sub-100/t4/009",
+      "tier": 4,
+      "prompt": "90 − ? = 68",
+      "choices": [
+        "22",
+        "21",
+        "23",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "90 − ? = 68: 90 − 22 = 68, so ? = 22. Think addition: 68 + 22 = 90."
+    },
+    {
+      "id": "facts-sub-100/t4/010",
+      "tier": 4,
+      "prompt": "63 − ? = 9",
+      "choices": [
+        "52",
+        "44",
+        "53",
+        "54"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "63 − ? = 9: 63 − 54 = 9, so ? = 54. Think addition: 9 + 54 = 63."
+    },
+    {
+      "id": "facts-sub-100/t4/011",
+      "tier": 4,
+      "prompt": "86 − ? = 41",
+      "choices": [
+        "45",
+        "44",
+        "55",
+        "46"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "86 − ? = 41: 86 − 45 = 41, so ? = 45. Think addition: 41 + 45 = 86."
+    },
+    {
+      "id": "facts-sub-100/t4/012",
+      "tier": 4,
+      "prompt": "100 − ? = 42",
+      "choices": [
+        "68",
+        "58",
+        "142",
+        "59"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "100 − ? = 42: 100 − 58 = 42, so ? = 58. Think addition: 42 + 58 = 100."
+    },
+    {
+      "id": "facts-sub-100/t4/013",
+      "tier": 4,
+      "prompt": "94 − ? = 63",
+      "choices": [
+        "30",
+        "29",
+        "21",
+        "31"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "94 − ? = 63: 94 − 31 = 63, so ? = 31. Think addition: 63 + 31 = 94."
+    },
+    {
+      "id": "facts-sub-100/t4/014",
+      "tier": 4,
+      "prompt": "62 − ? = 15",
+      "choices": [
+        "46",
+        "77",
+        "47",
+        "37"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "62 − ? = 15: 62 − 47 = 15, so ? = 47. Think addition: 15 + 47 = 62."
+    },
+    {
+      "id": "facts-sub-100/t4/015",
+      "tier": 4,
+      "prompt": "94 − ? = 29",
+      "choices": [
+        "75",
+        "65",
+        "123",
+        "66"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "94 − ? = 29: 94 − 65 = 29, so ? = 65. Think addition: 29 + 65 = 94."
+    },
+    {
+      "id": "facts-sub-100/t4/016",
+      "tier": 4,
+      "prompt": "54 − ? = 25",
+      "choices": [
+        "28",
+        "29",
+        "79",
+        "30"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "54 − ? = 25: 54 − 29 = 25, so ? = 29. Think addition: 25 + 29 = 54."
+    },
+    {
+      "id": "facts-sub-100/t4/017",
+      "tier": 4,
+      "prompt": "67 − ? = 49",
+      "choices": [
+        "19",
+        "18",
+        "116",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED",
+        "MISSING_TENS"
+      ],
+      "explanation": "67 − ? = 49: count up from 49 to 67, that is 18. So 67 − 18 = 49, ? = 18."
+    },
+    {
+      "id": "facts-sub-100/t4/018",
+      "tier": 4,
+      "prompt": "94 − ? = 67",
+      "choices": [
+        "27",
+        "24",
+        "26",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "94 − ? = 67: 94 − 27 = 67, so ? = 27. Think addition: 67 + 27 = 94."
+    },
+    {
+      "id": "facts-sub-100/t4/019",
+      "tier": 4,
+      "prompt": "68 − ? = 6",
+      "choices": [
+        "61",
+        "72",
+        "62",
+        "52"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "68 − ? = 6: 68 − 62 = 6, so ? = 62. Think addition: 6 + 62 = 68."
+    },
+    {
+      "id": "facts-sub-100/t4/020",
+      "tier": 4,
+      "prompt": "59 − ? = 24",
+      "choices": [
+        "25",
+        "83",
+        "45",
+        "35"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ADDED",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "59 − ? = 24: 59 − 35 = 24, so ? = 35. Think addition: 24 + 35 = 59."
+    },
+    {
+      "id": "facts-sub-100/t4/021",
+      "tier": 4,
+      "prompt": "98 − ? = 71",
+      "choices": [
+        "17",
+        "28",
+        "26",
+        "27"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "98 − ? = 71: 98 − 27 = 71, so ? = 27. Think addition: 71 + 27 = 98."
+    },
+    {
+      "id": "facts-sub-100/t4/022",
+      "tier": 4,
+      "prompt": "56 − ? = 31",
+      "choices": [
+        "23",
+        "15",
+        "25",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "56 − ? = 31: 56 − 25 = 31, so ? = 25. Think addition: 31 + 25 = 56."
+    },
+    {
+      "id": "facts-sub-100/t4/023",
+      "tier": 4,
+      "prompt": "94 − ? = 56",
+      "choices": [
+        "150",
+        "38",
+        "48",
+        "39"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ADDED",
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "94 − ? = 56: 94 − 38 = 56, so ? = 38. Think addition: 56 + 38 = 94."
+    },
+    {
+      "id": "facts-sub-100/t4/024",
+      "tier": 4,
+      "prompt": "89 − ? = 67",
+      "choices": [
+        "156",
+        "23",
+        "12",
+        "22"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "89 − ? = 67: 89 − 22 = 67, so ? = 22. Think addition: 67 + 22 = 89."
+    },
+    {
+      "id": "facts-sub-100/t5/001",
+      "tier": 5,
+      "prompt": "51 − ? = 38",
+      "choices": [
+        "12",
+        "89",
+        "23",
+        "13"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "51 − ? = 38: count up from 38 to 51, that is 13. So 51 − 13 = 38, ? = 13."
+    },
+    {
+      "id": "facts-sub-100/t5/002",
+      "tier": 5,
+      "prompt": "60 − ? = 18",
+      "choices": [
+        "32",
+        "40",
+        "41",
+        "42"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "60 − ? = 18: 60 − 42 = 18, so ? = 42. Think addition: 18 + 42 = 60."
+    },
+    {
+      "id": "facts-sub-100/t5/003",
+      "tier": 5,
+      "prompt": "90 − ? = 3",
+      "choices": [
+        "93",
+        "88",
+        "87",
+        "97"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ADDED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "90 − ? = 3: 90 − 87 = 3, so ? = 87. Think addition: 3 + 87 = 90."
+    },
+    {
+      "id": "facts-sub-100/t5/004",
+      "tier": 5,
+      "prompt": "? − 28 = 35",
+      "choices": [
+        "62",
+        "73",
+        "7",
+        "63"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        "START_SUBTRACTED",
+        null
+      ],
+      "explanation": "? − 28 = 35: undo the take away, 35 + 28 = 63, so ? = 63. Check: 63 − 28 = 35."
+    },
+    {
+      "id": "facts-sub-100/t5/005",
+      "tier": 5,
+      "prompt": "? − 11 = 89",
+      "choices": [
+        "102",
+        "110",
+        "100",
+        "101"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 11 = 89: add back, 89 + 11 = 100, so ? = 100."
+    },
+    {
+      "id": "facts-sub-100/t5/006",
+      "tier": 5,
+      "prompt": "? − 47 = 34",
+      "choices": [
+        "82",
+        "81",
+        "91",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 47 = 34: add back, 34 + 47 = 81, so ? = 81."
+    },
+    {
+      "id": "facts-sub-100/t5/007",
+      "tier": 5,
+      "prompt": "? − 56 = 29",
+      "choices": [
+        "75",
+        "27",
+        "84",
+        "85"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_NO_CARRY",
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? − 56 = 29: add back, 29 + 56 = 85, so ? = 85."
+    },
+    {
+      "id": "facts-sub-100/t5/008",
+      "tier": 5,
+      "prompt": "99 − ? = 14",
+      "choices": [
+        "85",
+        "84",
+        "75",
+        "113"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        "MISSING_ADDED"
+      ],
+      "explanation": "99 − ? = 14: 99 − 85 = 14, so ? = 85. Think addition: 14 + 85 = 99."
+    },
+    {
+      "id": "facts-sub-100/t5/009",
+      "tier": 5,
+      "prompt": "90 − ? = 69",
+      "choices": [
+        "22",
+        "159",
+        "21",
+        "31"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "90 − ? = 69: 90 − 21 = 69, so ? = 21. Think addition: 69 + 21 = 90."
+    },
+    {
+      "id": "facts-sub-100/t5/010",
+      "tier": 5,
+      "prompt": "? − 23 = 29",
+      "choices": [
+        "42",
+        "52",
+        "6",
+        "51"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_NO_CARRY",
+        null,
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 23 = 29: undo the take away, 29 + 23 = 52, so ? = 52. Check: 52 − 23 = 29."
+    },
+    {
+      "id": "facts-sub-100/t5/011",
+      "tier": 5,
+      "prompt": "? − 9 = 68",
+      "choices": [
+        "77",
+        "87",
+        "78",
+        "59"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "START_SUBTRACTED"
+      ],
+      "explanation": "? − 9 = 68: undo the take away, 68 + 9 = 77, so ? = 77. Check: 77 − 9 = 68."
+    },
+    {
+      "id": "facts-sub-100/t5/012",
+      "tier": 5,
+      "prompt": "91 − ? = 47",
+      "choices": [
+        "44",
+        "34",
+        "43",
+        "45"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "91 − ? = 47: 91 − 44 = 47, so ? = 44. Think addition: 47 + 44 = 91."
+    },
+    {
+      "id": "facts-sub-100/t5/013",
+      "tier": 5,
+      "prompt": "? − 71 = 19",
+      "choices": [
+        "100",
+        "90",
+        "52",
+        "91"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_TENS",
+        null,
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 71 = 19: add back, 19 + 71 = 90, so ? = 90."
+    },
+    {
+      "id": "facts-sub-100/t5/014",
+      "tier": 5,
+      "prompt": "? − 66 = 18",
+      "choices": [
+        "87",
+        "85",
+        "94",
+        "84"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS",
+        null
+      ],
+      "explanation": "? − 66 = 18: add back, 18 + 66 = 84, so ? = 84."
+    },
+    {
+      "id": "facts-sub-100/t5/015",
+      "tier": 5,
+      "prompt": "? − 18 = 33",
+      "choices": [
+        "51",
+        "15",
+        "50",
+        "61"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 18 = 33: add back, 33 + 18 = 51, so ? = 51."
+    },
+    {
+      "id": "facts-sub-100/t5/016",
+      "tier": 5,
+      "prompt": "70 − ? = 26",
+      "choices": [
+        "34",
+        "43",
+        "42",
+        "44"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "70 − ? = 26: 70 − 44 = 26, so ? = 44. Think addition: 26 + 44 = 70."
+    },
+    {
+      "id": "facts-sub-100/t5/017",
+      "tier": 5,
+      "prompt": "? − 65 = 6",
+      "choices": [
+        "61",
+        "81",
+        "71",
+        "72"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_NO_CARRY",
+        "MISSING_TENS",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 65 = 6: add back, 6 + 65 = 71, so ? = 71."
+    },
+    {
+      "id": "facts-sub-100/t5/018",
+      "tier": 5,
+      "prompt": "? − 26 = 67",
+      "choices": [
+        "92",
+        "93",
+        "94",
+        "83"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "START_NO_CARRY"
+      ],
+      "explanation": "? − 26 = 67: undo the take away, 67 + 26 = 93, so ? = 93. Check: 93 − 26 = 67."
+    },
+    {
+      "id": "facts-sub-100/t5/019",
+      "tier": 5,
+      "prompt": "? − 86 = 6",
+      "choices": [
+        "80",
+        "92",
+        "82",
+        "91"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_SUBTRACTED",
+        null,
+        "START_NO_CARRY",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 86 = 6: add back, 6 + 86 = 92, so ? = 92."
+    },
+    {
+      "id": "facts-sub-100/t5/020",
+      "tier": 5,
+      "prompt": "95 − ? = 77",
+      "choices": [
+        "18",
+        "28",
+        "19",
+        "172"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        "MISSING_ADDED"
+      ],
+      "explanation": "95 − ? = 77: 95 − 18 = 77, so ? = 18. Think addition: 77 + 18 = 95."
+    },
+    {
+      "id": "facts-sub-100/t5/021",
+      "tier": 5,
+      "prompt": "80 − ? = 46",
+      "choices": [
+        "44",
+        "35",
+        "34",
+        "126"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_TENS",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ADDED"
+      ],
+      "explanation": "80 − ? = 46: 80 − 34 = 46, so ? = 34. Think addition: 46 + 34 = 80."
+    },
+    {
+      "id": "facts-sub-100/t5/022",
+      "tier": 5,
+      "prompt": "? − 26 = 68",
+      "choices": [
+        "93",
+        "94",
+        "104",
+        "95"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? − 26 = 68: add back, 68 + 26 = 94, so ? = 94."
+    },
+    {
+      "id": "facts-sub-100/t5/023",
+      "tier": 5,
+      "prompt": "80 − ? = 63",
+      "choices": [
+        "17",
+        "16",
+        "15",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_TENS"
+      ],
+      "explanation": "80 − ? = 63: count up from 63 to 80, that is 17. So 80 − 17 = 63, ? = 17."
+    },
+    {
+      "id": "facts-sub-100/t5/024",
+      "tier": 5,
+      "prompt": "? − 18 = 77",
+      "choices": [
+        "59",
+        "94",
+        "95",
+        "105"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_TENS"
+      ],
+      "explanation": "? − 18 = 77: undo the take away, 77 + 18 = 95, so ? = 95. Check: 95 − 18 = 77."
+    }
+  ]
+}

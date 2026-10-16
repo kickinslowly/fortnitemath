@@ -1,0 +1,2369 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-div-5",
+  "version": "1.0.0",
+  "title": "Divide by 1 to 5",
+  "subtitle": "Times tables to 5, backwards",
+  "grade": "Facts",
+  "picker_order": 13,
+  "standards": [
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.B.6",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261063,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-5. T1 R: a or b in {0,1,2,5}. T2 R: a, b 1-5. T3 R: a, b 2-5 (at least 12) plus C with divisor 2 or 5 (at least 8). T4 C: a, b 1-5. T5 S: a, b 2-5 (at least 12) plus C: a, b 2-5. Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy: 0, 1, 2, 5",
+      "description": "Divide by 1, 2 or 5, and 0 divided by a number."
+    },
+    {
+      "tier": 2,
+      "name": "All to 25 ÷ 5",
+      "description": "Every table to 5 backwards: how many fit?"
+    },
+    {
+      "tier": 3,
+      "name": "Facts with 2 to 5",
+      "description": "Divide by 2 to 5. Think: what times it makes this?"
+    },
+    {
+      "tier": 4,
+      "name": "Missing divisors",
+      "description": "Find the divisor: 12 ÷ ? = 4. Think 4 times what."
+    },
+    {
+      "tier": 5,
+      "name": "Missing dividends",
+      "description": "Find the start: ? ÷ 3 = 4. Multiply back: 3 × 4."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    },
+    "START_TENS": {
+      "student": "Right ones digit, wrong tens. Multiply the two numbers, then check the size.",
+      "teacher": "Missing dividend off by ten: right ones digit, tens place slipped."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-div-5/t1/001",
+      "tier": 1,
+      "prompt": "3 ÷ 1 = ?",
+      "choices": [
+        "1",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 ÷ 1 = 3: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t1/002",
+      "tier": 1,
+      "prompt": "4 ÷ 1 = ?",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 1 = 4: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t1/003",
+      "tier": 1,
+      "prompt": "10 ÷ 2 = ?",
+      "choices": [
+        "6",
+        "5",
+        "20",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "10 ÷ 2 = 5: half of 10 is 5, because 5 + 5 = 10."
+    },
+    {
+      "id": "facts-div-5/t1/004",
+      "tier": 1,
+      "prompt": "8 ÷ 4 = ?",
+      "choices": [
+        "0",
+        "32",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "8 ÷ 4 = 2 because 4 × 2 = 8. Think: what times 4 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t1/005",
+      "tier": 1,
+      "prompt": "15 ÷ 5 = ?",
+      "choices": [
+        "3",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "15 ÷ 5 = 3 because 5 × 3 = 15. Fives: half of 30 is 15."
+    },
+    {
+      "id": "facts-div-5/t1/006",
+      "tier": 1,
+      "prompt": "8 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "2",
+        "16",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "8 ÷ 2 = 4: half of 8 is 4, because 4 + 4 = 8."
+    },
+    {
+      "id": "facts-div-5/t1/007",
+      "tier": 1,
+      "prompt": "0 ÷ 1 = ?",
+      "choices": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "0 ÷ 1 = 0: zero shared into groups of 1 leaves none, and 1 × 0 = 0."
+    },
+    {
+      "id": "facts-div-5/t1/008",
+      "tier": 1,
+      "prompt": "4 ÷ 2 = ?",
+      "choices": [
+        "0",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "4 ÷ 2 = 2: half of 4 is 2, because 2 + 2 = 4."
+    },
+    {
+      "id": "facts-div-5/t1/009",
+      "tier": 1,
+      "prompt": "2 ÷ 1 = ?",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 ÷ 1 = 2: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t1/010",
+      "tier": 1,
+      "prompt": "4 ÷ 4 = ?",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED"
+      ],
+      "explanation": "4 ÷ 4 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t1/011",
+      "tier": 1,
+      "prompt": "1 ÷ 1 = ?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "1 ÷ 1 = 1: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t1/012",
+      "tier": 1,
+      "prompt": "0 ÷ 5 = ?",
+      "choices": [
+        "3",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "0 ÷ 5 = 0: zero shared into groups of 5 leaves none, and 5 × 0 = 0."
+    },
+    {
+      "id": "facts-div-5/t1/013",
+      "tier": 1,
+      "prompt": "6 ÷ 2 = ?",
+      "choices": [
+        "2",
+        "0",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "6 ÷ 2 = 3: half of 6 is 3, because 3 + 3 = 6."
+    },
+    {
+      "id": "facts-div-5/t1/014",
+      "tier": 1,
+      "prompt": "2 ÷ 2 = ?",
+      "choices": [
+        "4",
+        "3",
+        "0",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "2 ÷ 2 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t1/015",
+      "tier": 1,
+      "prompt": "15 ÷ 3 = ?",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "15 ÷ 3 = 5 because 3 × 5 = 15. Neighbour fact: 3 × 4 = 12, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t1/016",
+      "tier": 1,
+      "prompt": "3 ÷ 3 = ?",
+      "choices": [
+        "0",
+        "3",
+        "9",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "3 ÷ 3 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t1/017",
+      "tier": 1,
+      "prompt": "5 ÷ 5 = ?",
+      "choices": [
+        "2",
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 ÷ 5 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t1/018",
+      "tier": 1,
+      "prompt": "6 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "2",
+        "0",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "MULTIPLIED"
+      ],
+      "explanation": "6 ÷ 3 = 2 because 3 × 2 = 6. Think: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t1/019",
+      "tier": 1,
+      "prompt": "25 ÷ 5 = ?",
+      "choices": [
+        "5",
+        "2",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "25 ÷ 5 = 5 because 5 × 5 = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-div-5/t1/020",
+      "tier": 1,
+      "prompt": "0 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "2",
+        "0",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "0 ÷ 2 = 0: zero shared into groups of 2 leaves none, and 2 × 0 = 0."
+    },
+    {
+      "id": "facts-div-5/t1/021",
+      "tier": 1,
+      "prompt": "0 ÷ 3 = ?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "0 ÷ 3 = 0: zero shared into groups of 3 leaves none, and 3 × 0 = 0."
+    },
+    {
+      "id": "facts-div-5/t1/022",
+      "tier": 1,
+      "prompt": "20 ÷ 4 = ?",
+      "choices": [
+        "5",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "20 ÷ 4 = 5 because 4 × 5 = 20. Neighbour fact: 4 × 4 = 16, plus one more 4."
+    },
+    {
+      "id": "facts-div-5/t1/023",
+      "tier": 1,
+      "prompt": "10 ÷ 5 = ?",
+      "choices": [
+        "0",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "10 ÷ 5 = 2 because 5 × 2 = 10. Fives: half of 20 is 10."
+    },
+    {
+      "id": "facts-div-5/t1/024",
+      "tier": 1,
+      "prompt": "20 ÷ 5 = ?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "20 ÷ 5 = 4 because 5 × 4 = 20. Fives: half of 40 is 20."
+    },
+    {
+      "id": "facts-div-5/t2/001",
+      "tier": 2,
+      "prompt": "8 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "8 ÷ 2 = 4: half of 8 is 4, because 4 + 4 = 8."
+    },
+    {
+      "id": "facts-div-5/t2/002",
+      "tier": 2,
+      "prompt": "5 ÷ 1 = ?",
+      "choices": [
+        "5",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 ÷ 1 = 5: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t2/003",
+      "tier": 2,
+      "prompt": "10 ÷ 2 = ?",
+      "choices": [
+        "20",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "10 ÷ 2 = 5: half of 10 is 5, because 5 + 5 = 10."
+    },
+    {
+      "id": "facts-div-5/t2/004",
+      "tier": 2,
+      "prompt": "6 ÷ 3 = ?",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 3 = 2 because 3 × 2 = 6. Think: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t2/005",
+      "tier": 2,
+      "prompt": "15 ÷ 5 = ?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "15 ÷ 5 = 3 because 5 × 3 = 15. Fives: half of 30 is 15."
+    },
+    {
+      "id": "facts-div-5/t2/006",
+      "tier": 2,
+      "prompt": "2 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null
+      ],
+      "explanation": "2 ÷ 2 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t2/007",
+      "tier": 2,
+      "prompt": "10 ÷ 5 = ?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "10 ÷ 5 = 2 because 5 × 2 = 10. Fives: half of 20 is 10."
+    },
+    {
+      "id": "facts-div-5/t2/008",
+      "tier": 2,
+      "prompt": "12 ÷ 4 = ?",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 4 = 3 because 4 × 3 = 12. Neighbour fact: 4 × 2 = 8, plus one more 4."
+    },
+    {
+      "id": "facts-div-5/t2/009",
+      "tier": 2,
+      "prompt": "6 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "12",
+        "5",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 2 = 3: half of 6 is 3, because 3 + 3 = 6."
+    },
+    {
+      "id": "facts-div-5/t2/010",
+      "tier": 2,
+      "prompt": "16 ÷ 4 = ?",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "16 ÷ 4 = 4 because 4 × 4 = 16. Neighbour fact: 4 × 3 = 12, plus one more 4."
+    },
+    {
+      "id": "facts-div-5/t2/011",
+      "tier": 2,
+      "prompt": "4 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "8",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 2 = 2: half of 4 is 2, because 2 + 2 = 4."
+    },
+    {
+      "id": "facts-div-5/t2/012",
+      "tier": 2,
+      "prompt": "3 ÷ 3 = ?",
+      "choices": [
+        "2",
+        "1",
+        "9",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 ÷ 3 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t2/013",
+      "tier": 2,
+      "prompt": "4 ÷ 1 = ?",
+      "choices": [
+        "2",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 1 = 4: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t2/014",
+      "tier": 2,
+      "prompt": "20 ÷ 4 = ?",
+      "choices": [
+        "7",
+        "3",
+        "16",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null
+      ],
+      "explanation": "20 ÷ 4 = 5 because 4 × 5 = 20. Neighbour fact: 4 × 4 = 16, plus one more 4."
+    },
+    {
+      "id": "facts-div-5/t2/015",
+      "tier": 2,
+      "prompt": "12 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "9",
+        "4",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "SUBTRACTED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 3 = 4 because 3 × 4 = 12. Neighbour fact: 3 × 3 = 9, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t2/016",
+      "tier": 2,
+      "prompt": "3 ÷ 1 = ?",
+      "choices": [
+        "1",
+        "3",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 ÷ 1 = 3: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t2/017",
+      "tier": 2,
+      "prompt": "20 ÷ 5 = ?",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "20 ÷ 5 = 4 because 5 × 4 = 20. Fives: half of 40 is 20."
+    },
+    {
+      "id": "facts-div-5/t2/018",
+      "tier": 2,
+      "prompt": "25 ÷ 5 = ?",
+      "choices": [
+        "5",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "25 ÷ 5 = 5 because 5 × 5 = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-div-5/t2/019",
+      "tier": 2,
+      "prompt": "9 ÷ 3 = ?",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "9 ÷ 3 = 3 because 3 × 3 = 9. Neighbour fact: 3 × 2 = 6, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t2/020",
+      "tier": 2,
+      "prompt": "1 ÷ 1 = ?",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "1 ÷ 1 = 1: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t2/021",
+      "tier": 2,
+      "prompt": "5 ÷ 5 = ?",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 ÷ 5 = 1: any number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t2/022",
+      "tier": 2,
+      "prompt": "2 ÷ 1 = ?",
+      "choices": [
+        "3",
+        "2",
+        "5",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 ÷ 1 = 2: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t2/023",
+      "tier": 2,
+      "prompt": "15 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "6",
+        "5",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "SUBTRACTED"
+      ],
+      "explanation": "15 ÷ 3 = 5 because 3 × 5 = 15. Neighbour fact: 3 × 4 = 12, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t2/024",
+      "tier": 2,
+      "prompt": "8 ÷ 4 = ?",
+      "choices": [
+        "2",
+        "4",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 ÷ 4 = 2 because 4 × 2 = 8. Think: what times 4 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t3/001",
+      "tier": 3,
+      "prompt": "6 ÷ 2 = ?",
+      "choices": [
+        "3",
+        "4",
+        "12",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 2 = 3: half of 6 is 3, because 3 + 3 = 6."
+    },
+    {
+      "id": "facts-div-5/t3/002",
+      "tier": 3,
+      "prompt": "4 ÷ ? = 2",
+      "choices": [
+        "4",
+        "8",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_MULTIPLIED",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 ÷ ? = 2: 2 × 2 = 4, so ? = 2. A square fact: 2 times itself makes 4."
+    },
+    {
+      "id": "facts-div-5/t3/003",
+      "tier": 3,
+      "prompt": "6 ÷ ? = 3",
+      "choices": [
+        "2",
+        "3",
+        "18",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "6 ÷ ? = 3: 3 × 2 = 6, so ? = 2. Ask: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t3/004",
+      "tier": 3,
+      "prompt": "5 ÷ ? = 1",
+      "choices": [
+        "2",
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "5 ÷ ? = 1: 1 × 5 = 5, so ? = 5. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t3/005",
+      "tier": 3,
+      "prompt": "8 ÷ ? = 4",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "8 ÷ ? = 4: 4 × 2 = 8, so ? = 2. Ask: what times 4 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t3/006",
+      "tier": 3,
+      "prompt": "2 ÷ ? = 1",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "2 ÷ ? = 1: 1 × 2 = 2, so ? = 2. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t3/007",
+      "tier": 3,
+      "prompt": "10 ÷ ? = 2",
+      "choices": [
+        "5",
+        "20",
+        "4",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "10 ÷ ? = 2: 2 × 5 = 10, so ? = 5. Ask: what times 2 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t3/008",
+      "tier": 3,
+      "prompt": "15 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "15 ÷ 3 = 5 because 3 × 5 = 15. Neighbour fact: 3 × 4 = 12, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t3/009",
+      "tier": 3,
+      "prompt": "6 ÷ 3 = ?",
+      "choices": [
+        "2",
+        "4",
+        "18",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "MULTIPLIED",
+        "GROUP_OFF"
+      ],
+      "explanation": "6 ÷ 3 = 2 because 3 × 2 = 6. Think: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t3/010",
+      "tier": 3,
+      "prompt": "25 ÷ ? = 5",
+      "choices": [
+        "2",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "25 ÷ ? = 5: 5 × 5 = 25, so ? = 5. A square fact: 5 times itself makes 25."
+    },
+    {
+      "id": "facts-div-5/t3/011",
+      "tier": 3,
+      "prompt": "12 ÷ 3 = ?",
+      "choices": [
+        "1",
+        "2",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 3 = 4 because 3 × 4 = 12. Neighbour fact: 3 × 3 = 9, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t3/012",
+      "tier": 3,
+      "prompt": "20 ÷ 4 = ?",
+      "choices": [
+        "16",
+        "6",
+        "7",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUBTRACTED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "20 ÷ 4 = 5 because 4 × 5 = 20. Neighbour fact: 4 × 4 = 16, plus one more 4."
+    },
+    {
+      "id": "facts-div-5/t3/013",
+      "tier": 3,
+      "prompt": "10 ÷ 5 = ?",
+      "choices": [
+        "4",
+        "2",
+        "0",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "10 ÷ 5 = 2 because 5 × 2 = 10. Fives: half of 20 is 10."
+    },
+    {
+      "id": "facts-div-5/t3/014",
+      "tier": 3,
+      "prompt": "10 ÷ ? = 5",
+      "choices": [
+        "4",
+        "2",
+        "5",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "10 ÷ ? = 5: 5 × 2 = 10, so ? = 2. Ask: what times 5 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t3/015",
+      "tier": 3,
+      "prompt": "15 ÷ ? = 3",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "15 ÷ ? = 3: 3 × 5 = 15, so ? = 5. Ask: what times 3 makes 15?"
+    },
+    {
+      "id": "facts-div-5/t3/016",
+      "tier": 3,
+      "prompt": "8 ÷ 2 = ?",
+      "choices": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 ÷ 2 = 4: half of 8 is 4, because 4 + 4 = 8."
+    },
+    {
+      "id": "facts-div-5/t3/017",
+      "tier": 3,
+      "prompt": "20 ÷ 5 = ?",
+      "choices": [
+        "100",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MULTIPLIED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "20 ÷ 5 = 4 because 5 × 4 = 20. Fives: half of 40 is 20."
+    },
+    {
+      "id": "facts-div-5/t3/018",
+      "tier": 3,
+      "prompt": "15 ÷ 5 = ?",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "75"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "15 ÷ 5 = 3 because 5 × 3 = 15. Fives: half of 30 is 15."
+    },
+    {
+      "id": "facts-div-5/t3/019",
+      "tier": 3,
+      "prompt": "20 ÷ ? = 4",
+      "choices": [
+        "6",
+        "4",
+        "8",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "20 ÷ ? = 4: 4 × 5 = 20, so ? = 5. Ask: what times 4 makes 20?"
+    },
+    {
+      "id": "facts-div-5/t3/020",
+      "tier": 3,
+      "prompt": "8 ÷ 4 = ?",
+      "choices": [
+        "1",
+        "2",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "8 ÷ 4 = 2 because 4 × 2 = 8. Think: what times 4 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t3/021",
+      "tier": 3,
+      "prompt": "9 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "2",
+        "0",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "9 ÷ 3 = 3 because 3 × 3 = 9. Neighbour fact: 3 × 2 = 6, plus one more 3."
+    },
+    {
+      "id": "facts-div-5/t3/022",
+      "tier": 3,
+      "prompt": "4 ÷ 2 = ?",
+      "choices": [
+        "1",
+        "4",
+        "2",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "MULTIPLIED"
+      ],
+      "explanation": "4 ÷ 2 = 2: half of 4 is 2, because 2 + 2 = 4."
+    },
+    {
+      "id": "facts-div-5/t3/023",
+      "tier": 3,
+      "prompt": "25 ÷ 5 = ?",
+      "choices": [
+        "125",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "25 ÷ 5 = 5 because 5 × 5 = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-div-5/t3/024",
+      "tier": 3,
+      "prompt": "10 ÷ 2 = ?",
+      "choices": [
+        "20",
+        "4",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MULTIPLIED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "10 ÷ 2 = 5: half of 10 is 5, because 5 + 5 = 10."
+    },
+    {
+      "id": "facts-div-5/t4/001",
+      "tier": 4,
+      "prompt": "10 ÷ ? = 5",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "10 ÷ ? = 5: 5 × 2 = 10, so ? = 2. Ask: what times 5 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t4/002",
+      "tier": 4,
+      "prompt": "2 ÷ ? = 1",
+      "choices": [
+        "2",
+        "4",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "2 ÷ ? = 1: 1 × 2 = 2, so ? = 2. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t4/003",
+      "tier": 4,
+      "prompt": "4 ÷ ? = 2",
+      "choices": [
+        "0",
+        "3",
+        "1",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "4 ÷ ? = 2: 2 × 2 = 4, so ? = 2. A square fact: 2 times itself makes 4."
+    },
+    {
+      "id": "facts-div-5/t4/004",
+      "tier": 4,
+      "prompt": "4 ÷ ? = 1",
+      "choices": [
+        "2",
+        "3",
+        "1",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 ÷ ? = 1: 1 × 4 = 4, so ? = 4. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t4/005",
+      "tier": 4,
+      "prompt": "15 ÷ ? = 3",
+      "choices": [
+        "2",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "15 ÷ ? = 3: 3 × 5 = 15, so ? = 5. Ask: what times 3 makes 15?"
+    },
+    {
+      "id": "facts-div-5/t4/006",
+      "tier": 4,
+      "prompt": "5 ÷ ? = 5",
+      "choices": [
+        "2",
+        "25",
+        "1",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "5 ÷ ? = 5: 5 × 1 = 5, so ? = 1. Dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t4/007",
+      "tier": 4,
+      "prompt": "25 ÷ ? = 5",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "25 ÷ ? = 5: 5 × 5 = 25, so ? = 5. A square fact: 5 times itself makes 25."
+    },
+    {
+      "id": "facts-div-5/t4/008",
+      "tier": 4,
+      "prompt": "3 ÷ ? = 1",
+      "choices": [
+        "4",
+        "0",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "3 ÷ ? = 1: 1 × 3 = 3, so ? = 3. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t4/009",
+      "tier": 4,
+      "prompt": "9 ÷ ? = 3",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "9 ÷ ? = 3: 3 × 3 = 9, so ? = 3. A square fact: 3 times itself makes 9."
+    },
+    {
+      "id": "facts-div-5/t4/010",
+      "tier": 4,
+      "prompt": "4 ÷ ? = 4",
+      "choices": [
+        "16",
+        "1",
+        "0",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 ÷ ? = 4: 4 × 1 = 4, so ? = 1. Dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t4/011",
+      "tier": 4,
+      "prompt": "15 ÷ ? = 5",
+      "choices": [
+        "4",
+        "3",
+        "5",
+        "75"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "15 ÷ ? = 5: 5 × 3 = 15, so ? = 3. Ask: what times 5 makes 15?"
+    },
+    {
+      "id": "facts-div-5/t4/012",
+      "tier": 4,
+      "prompt": "8 ÷ ? = 2",
+      "choices": [
+        "2",
+        "1",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "8 ÷ ? = 2: 2 × 4 = 8, so ? = 4. Ask: what times 2 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t4/013",
+      "tier": 4,
+      "prompt": "20 ÷ ? = 5",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "20 ÷ ? = 5: 5 × 4 = 20, so ? = 4. Ask: what times 5 makes 20?"
+    },
+    {
+      "id": "facts-div-5/t4/014",
+      "tier": 4,
+      "prompt": "12 ÷ ? = 3",
+      "choices": [
+        "4",
+        "9",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "12 ÷ ? = 3: 3 × 4 = 12, so ? = 4. Ask: what times 3 makes 12?"
+    },
+    {
+      "id": "facts-div-5/t4/015",
+      "tier": 4,
+      "prompt": "12 ÷ ? = 4",
+      "choices": [
+        "3",
+        "8",
+        "5",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_SUBTRACTED",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "12 ÷ ? = 4: 4 × 3 = 12, so ? = 3. Ask: what times 4 makes 12?"
+    },
+    {
+      "id": "facts-div-5/t4/016",
+      "tier": 4,
+      "prompt": "5 ÷ ? = 1",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "5 ÷ ? = 1: 1 × 5 = 5, so ? = 5. A number divided by itself is 1."
+    },
+    {
+      "id": "facts-div-5/t4/017",
+      "tier": 4,
+      "prompt": "10 ÷ ? = 2",
+      "choices": [
+        "2",
+        "5",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "10 ÷ ? = 2: 2 × 5 = 10, so ? = 5. Ask: what times 2 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t4/018",
+      "tier": 4,
+      "prompt": "2 ÷ ? = 2",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "2 ÷ ? = 2: 2 × 1 = 2, so ? = 1. Dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t4/019",
+      "tier": 4,
+      "prompt": "3 ÷ ? = 3",
+      "choices": [
+        "3",
+        "2",
+        "9",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED",
+        null
+      ],
+      "explanation": "3 ÷ ? = 3: 3 × 1 = 3, so ? = 1. Dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t4/020",
+      "tier": 4,
+      "prompt": "16 ÷ ? = 4",
+      "choices": [
+        "2",
+        "3",
+        "5",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "16 ÷ ? = 4: 4 × 4 = 16, so ? = 4. A square fact: 4 times itself makes 16."
+    },
+    {
+      "id": "facts-div-5/t4/021",
+      "tier": 4,
+      "prompt": "1 ÷ ? = 1",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "1 ÷ ? = 1: 1 × 1 = 1, so ? = 1. Dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-div-5/t4/022",
+      "tier": 4,
+      "prompt": "20 ÷ ? = 4",
+      "choices": [
+        "7",
+        "5",
+        "6",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "20 ÷ ? = 4: 4 × 5 = 20, so ? = 5. Ask: what times 4 makes 20?"
+    },
+    {
+      "id": "facts-div-5/t4/023",
+      "tier": 4,
+      "prompt": "8 ÷ ? = 4",
+      "choices": [
+        "2",
+        "1",
+        "0",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "8 ÷ ? = 4: 4 × 2 = 8, so ? = 2. Ask: what times 4 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t4/024",
+      "tier": 4,
+      "prompt": "6 ÷ ? = 3",
+      "choices": [
+        "18",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "6 ÷ ? = 3: 3 × 2 = 6, so ? = 2. Ask: what times 3 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t5/001",
+      "tier": 5,
+      "prompt": "10 ÷ ? = 5",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "50"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "10 ÷ ? = 5: 5 × 2 = 10, so ? = 2. Ask: what times 5 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t5/002",
+      "tier": 5,
+      "prompt": "? ÷ 5 = 5",
+      "choices": [
+        "25",
+        "24",
+        "20",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "START_GROUP_OFF",
+        "START_ADDED"
+      ],
+      "explanation": "? ÷ 5 = 5: 5 × 5 = 25, so ? = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-div-5/t5/003",
+      "tier": 5,
+      "prompt": "? ÷ 2 = 2",
+      "choices": [
+        "2",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "START_GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? ÷ 2 = 2: 2 × 2 = 4, so ? = 4. Undo halving by doubling: 2 + 2 = 4."
+    },
+    {
+      "id": "facts-div-5/t5/004",
+      "tier": 5,
+      "prompt": "? ÷ 2 = 4",
+      "choices": [
+        "10",
+        "8",
+        "12",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "ARITH",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 2 = 4: 2 × 4 = 8, so ? = 8. Undo halving by doubling: 4 + 4 = 8."
+    },
+    {
+      "id": "facts-div-5/t5/005",
+      "tier": 5,
+      "prompt": "8 ÷ ? = 2",
+      "choices": [
+        "6",
+        "3",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_SUBTRACTED",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "8 ÷ ? = 2: 2 × 4 = 8, so ? = 4. Ask: what times 2 makes 8?"
+    },
+    {
+      "id": "facts-div-5/t5/006",
+      "tier": 5,
+      "prompt": "20 ÷ ? = 5",
+      "choices": [
+        "5",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "20 ÷ ? = 5: 5 × 4 = 20, so ? = 4. Ask: what times 5 makes 20?"
+    },
+    {
+      "id": "facts-div-5/t5/007",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 5",
+      "choices": [
+        "15",
+        "18",
+        "20",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_GROUP_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 3 = 5: 3 × 5 = 15, so ? = 15. Undo dividing by multiplying: 3 × 5."
+    },
+    {
+      "id": "facts-div-5/t5/008",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 3",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_GROUP_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 3 = 3: 3 × 3 = 9, so ? = 9. Undo dividing by multiplying: 3 × 3."
+    },
+    {
+      "id": "facts-div-5/t5/009",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 5",
+      "choices": [
+        "20",
+        "9",
+        "19",
+        "16"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_ADDED",
+        "ARITH",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 4 = 5: 4 × 5 = 20, so ? = 20. Undo dividing by multiplying: 4 × 5."
+    },
+    {
+      "id": "facts-div-5/t5/010",
+      "tier": 5,
+      "prompt": "25 ÷ ? = 5",
+      "choices": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "25 ÷ ? = 5: 5 × 5 = 25, so ? = 5. A square fact: 5 times itself makes 25."
+    },
+    {
+      "id": "facts-div-5/t5/011",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 4",
+      "choices": [
+        "18",
+        "17",
+        "20",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 4 = 4: 4 × 4 = 16, so ? = 16. Undo dividing by multiplying: 4 × 4."
+    },
+    {
+      "id": "facts-div-5/t5/012",
+      "tier": 5,
+      "prompt": "20 ÷ ? = 4",
+      "choices": [
+        "3",
+        "7",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "20 ÷ ? = 4: 4 × 5 = 20, so ? = 5. Ask: what times 4 makes 20?"
+    },
+    {
+      "id": "facts-div-5/t5/013",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 2",
+      "choices": [
+        "3",
+        "6",
+        "5",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        null,
+        "START_ADDED",
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 3 = 2: 3 × 2 = 6, so ? = 6. Undo dividing by multiplying: 3 × 2."
+    },
+    {
+      "id": "facts-div-5/t5/014",
+      "tier": 5,
+      "prompt": "10 ÷ ? = 2",
+      "choices": [
+        "20",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "10 ÷ ? = 2: 2 × 5 = 10, so ? = 5. Ask: what times 2 makes 10?"
+    },
+    {
+      "id": "facts-div-5/t5/015",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 3",
+      "choices": [
+        "7",
+        "16",
+        "12",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_ADDED",
+        "START_GROUP_OFF",
+        null,
+        "START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 4 = 3: 4 × 3 = 12, so ? = 12. Undo dividing by multiplying: 4 × 3."
+    },
+    {
+      "id": "facts-div-5/t5/016",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 2",
+      "choices": [
+        "8",
+        "6",
+        "4",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "START_ADDED",
+        "START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 4 = 2: 4 × 2 = 8, so ? = 8. Undo dividing by multiplying: 4 × 2."
+    },
+    {
+      "id": "facts-div-5/t5/017",
+      "tier": 5,
+      "prompt": "15 ÷ ? = 3",
+      "choices": [
+        "4",
+        "6",
+        "5",
+        "45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_MULTIPLIED"
+      ],
+      "explanation": "15 ÷ ? = 3: 3 × 5 = 15, so ? = 5. Ask: what times 3 makes 15?"
+    },
+    {
+      "id": "facts-div-5/t5/018",
+      "tier": 5,
+      "prompt": "9 ÷ ? = 3",
+      "choices": [
+        "0",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "9 ÷ ? = 3: 3 × 3 = 9, so ? = 3. A square fact: 3 times itself makes 9."
+    },
+    {
+      "id": "facts-div-5/t5/019",
+      "tier": 5,
+      "prompt": "4 ÷ ? = 2",
+      "choices": [
+        "4",
+        "2",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 ÷ ? = 2: 2 × 2 = 4, so ? = 2. A square fact: 2 times itself makes 4."
+    },
+    {
+      "id": "facts-div-5/t5/020",
+      "tier": 5,
+      "prompt": "? ÷ 5 = 2",
+      "choices": [
+        "5",
+        "15",
+        "10",
+        "11"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "START_GROUP_OFF",
+        "START_GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? ÷ 5 = 2: 5 × 2 = 10, so ? = 10. Fives: half of 20 is 10."
+    },
+    {
+      "id": "facts-div-5/t5/021",
+      "tier": 5,
+      "prompt": "? ÷ 2 = 5",
+      "choices": [
+        "10",
+        "15",
+        "12",
+        "11"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 2 = 5: 2 × 5 = 10, so ? = 10. Undo halving by doubling: 5 + 5 = 10."
+    },
+    {
+      "id": "facts-div-5/t5/022",
+      "tier": 5,
+      "prompt": "6 ÷ ? = 2",
+      "choices": [
+        "12",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_MULTIPLIED",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "6 ÷ ? = 2: 2 × 3 = 6, so ? = 3. Ask: what times 2 makes 6?"
+    },
+    {
+      "id": "facts-div-5/t5/023",
+      "tier": 5,
+      "prompt": "? ÷ 5 = 3",
+      "choices": [
+        "14",
+        "8",
+        "10",
+        "15"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "START_ADDED",
+        "START_GROUP_OFF",
+        null
+      ],
+      "explanation": "? ÷ 5 = 3: 5 × 3 = 15, so ? = 15. Fives: half of 30 is 15."
+    },
+    {
+      "id": "facts-div-5/t5/024",
+      "tier": 5,
+      "prompt": "? ÷ 3 = 4",
+      "choices": [
+        "14",
+        "12",
+        "15",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 3 = 4: 3 × 4 = 12, so ? = 12. Undo dividing by multiplying: 3 × 4."
+    }
+  ]
+}

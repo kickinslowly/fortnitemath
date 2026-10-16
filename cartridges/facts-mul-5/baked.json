@@ -1,0 +1,2349 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mul-5",
+  "version": "1.0.0",
+  "title": "Times Tables to 5",
+  "subtitle": "Factors 0 to 5",
+  "grade": "Facts",
+  "picker_order": 9,
+  "standards": [
+    "CCSS.MATH.CONTENT.2.OA.C.4",
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261059,
+  "items_per_tier": 24,
+  "bounds": "Factors 0 to 5. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: a fact with a 0, 1, 2 or 5 (32 prompts); T2 R: both factors 1-5 (25); T3 R: both 2-5 (at least 12 items) and C with 2 or 5 as the first factor, factors 1-5 (at least 8; 26 prompts in all); T4 C: factors 1-5 (25); T5 S: both 2-5 (at least 12 items) and C: both 2-5 (32 prompts in all). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Times 0, 1, 2, 5",
+      "description": "Facts with 0, 1, 2 or 5. Zero groups make nothing; double for 2s."
+    },
+    {
+      "tier": 2,
+      "name": "All to 5 × 5",
+      "description": "Every fact with factors 1 to 5. Use doubles and count by 5s."
+    },
+    {
+      "tier": 3,
+      "name": "Times 2 to 5",
+      "description": "Facts with factors 2 to 5, plus a missing factor in the 2s and 5s."
+    },
+    {
+      "tier": 4,
+      "name": "Missing factors",
+      "description": "Missing factor: 3 × ? = 12. Ask what times 3 makes 12."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first factors",
+      "description": "First factor missing: ? × 4 = 12, or a missing second factor. Factors 2 to 5."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-mul-5/t1/001",
+      "tier": 1,
+      "prompt": "4 × 1 = ?",
+      "choices": [
+        "8",
+        "0",
+        "4",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 1 = 4: one group of 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/002",
+      "tier": 1,
+      "prompt": "2 × 5 = ?",
+      "choices": [
+        "5",
+        "8",
+        "10",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ADDED"
+      ],
+      "explanation": "2 × 5 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t1/003",
+      "tier": 1,
+      "prompt": "0 × 4 = ?",
+      "choices": [
+        "4",
+        "2",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "0 × 4 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/004",
+      "tier": 1,
+      "prompt": "2 × 4 = ?",
+      "choices": [
+        "12",
+        "6",
+        "8",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 4 = 8: doubling. Double 4 is 4 + 4 = 8."
+    },
+    {
+      "id": "facts-mul-5/t1/005",
+      "tier": 1,
+      "prompt": "3 × 2 = ?",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "3 × 2 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t1/006",
+      "tier": 1,
+      "prompt": "3 × 1 = ?",
+      "choices": [
+        "2",
+        "6",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 1 = 3: one group of 3. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/007",
+      "tier": 1,
+      "prompt": "3 × 5 = ?",
+      "choices": [
+        "15",
+        "8",
+        "12",
+        "18"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 5 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t1/008",
+      "tier": 1,
+      "prompt": "0 × 5 = ?",
+      "choices": [
+        "2",
+        "0",
+        "1",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "0 × 5 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/009",
+      "tier": 1,
+      "prompt": "2 × 1 = ?",
+      "choices": [
+        "1",
+        "4",
+        "2",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 1 = 2: one group of 2. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/010",
+      "tier": 1,
+      "prompt": "5 × 5 = ?",
+      "choices": [
+        "10",
+        "25",
+        "30",
+        "28"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × 5 = 25: half of 5 × 10 = 50, and half of 50 is 25."
+    },
+    {
+      "id": "facts-mul-5/t1/011",
+      "tier": 1,
+      "prompt": "5 × 2 = ?",
+      "choices": [
+        "10",
+        "8",
+        "12",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 2 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t1/012",
+      "tier": 1,
+      "prompt": "2 × 3 = ?",
+      "choices": [
+        "9",
+        "6",
+        "8",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "2 × 3 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t1/013",
+      "tier": 1,
+      "prompt": "5 × 4 = ?",
+      "choices": [
+        "24",
+        "20",
+        "15",
+        "16"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 4 = 20: double 5 is 10, double again is 20."
+    },
+    {
+      "id": "facts-mul-5/t1/014",
+      "tier": 1,
+      "prompt": "5 × 0 = ?",
+      "choices": [
+        "5",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 × 0 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/015",
+      "tier": 1,
+      "prompt": "0 × 2 = ?",
+      "choices": [
+        "0",
+        "1",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "0 × 2 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/016",
+      "tier": 1,
+      "prompt": "1 × 5 = ?",
+      "choices": [
+        "2",
+        "0",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "1 × 5 = 5: one group of 5. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/017",
+      "tier": 1,
+      "prompt": "1 × 4 = ?",
+      "choices": [
+        "4",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 4 = 4: one group of 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/018",
+      "tier": 1,
+      "prompt": "1 × 3 = ?",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 3 = 3: one group of 3. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/019",
+      "tier": 1,
+      "prompt": "0 × 0 = ?",
+      "choices": [
+        "0",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "0 × 0 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/020",
+      "tier": 1,
+      "prompt": "0 × 3 = ?",
+      "choices": [
+        "2",
+        "1",
+        "3",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "0 × 3 = 0: no groups, or groups of nothing, make 0. Anything times 0 is 0."
+    },
+    {
+      "id": "facts-mul-5/t1/021",
+      "tier": 1,
+      "prompt": "5 × 3 = ?",
+      "choices": [
+        "8",
+        "15",
+        "12",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 3 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t1/022",
+      "tier": 1,
+      "prompt": "1 × 2 = ?",
+      "choices": [
+        "4",
+        "1",
+        "3",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "1 × 2 = 2: one group of 2. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t1/023",
+      "tier": 1,
+      "prompt": "2 × 2 = ?",
+      "choices": [
+        "1",
+        "4",
+        "3",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 2 = 4: doubling. Double 2 is 2 + 2 = 4."
+    },
+    {
+      "id": "facts-mul-5/t1/024",
+      "tier": 1,
+      "prompt": "4 × 5 = ?",
+      "choices": [
+        "16",
+        "25",
+        "20",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 5 = 20: double 5 is 10, double again is 20."
+    },
+    {
+      "id": "facts-mul-5/t2/001",
+      "tier": 2,
+      "prompt": "5 × 4 = ?",
+      "choices": [
+        "24",
+        "22",
+        "25",
+        "20"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "5 × 4 = 20: double 5 is 10, double again is 20."
+    },
+    {
+      "id": "facts-mul-5/t2/002",
+      "tier": 2,
+      "prompt": "1 × 1 = ?",
+      "choices": [
+        "4",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "1 × 1 = 1: one group of 1. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/003",
+      "tier": 2,
+      "prompt": "1 × 2 = ?",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 2 = 2: one group of 2. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/004",
+      "tier": 2,
+      "prompt": "3 × 5 = ?",
+      "choices": [
+        "15",
+        "12",
+        "10",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "3 × 5 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t2/005",
+      "tier": 2,
+      "prompt": "2 × 2 = ?",
+      "choices": [
+        "7",
+        "6",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 × 2 = 4: doubling. Double 2 is 2 + 2 = 4."
+    },
+    {
+      "id": "facts-mul-5/t2/006",
+      "tier": 2,
+      "prompt": "5 × 2 = ?",
+      "choices": [
+        "10",
+        "15",
+        "12",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "5 × 2 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t2/007",
+      "tier": 2,
+      "prompt": "2 × 5 = ?",
+      "choices": [
+        "15",
+        "12",
+        "10",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "ADDED"
+      ],
+      "explanation": "2 × 5 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t2/008",
+      "tier": 2,
+      "prompt": "4 × 2 = ?",
+      "choices": [
+        "12",
+        "10",
+        "11",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "4 × 2 = 8: doubling. Double 4 is 4 + 4 = 8."
+    },
+    {
+      "id": "facts-mul-5/t2/009",
+      "tier": 2,
+      "prompt": "1 × 3 = ?",
+      "choices": [
+        "3",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "1 × 3 = 3: one group of 3. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/010",
+      "tier": 2,
+      "prompt": "4 × 3 = ?",
+      "choices": [
+        "8",
+        "7",
+        "16",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ADDED",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "4 × 3 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mul-5/t2/011",
+      "tier": 2,
+      "prompt": "5 × 1 = ?",
+      "choices": [
+        "4",
+        "5",
+        "0",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × 1 = 5: one group of 5. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/012",
+      "tier": 2,
+      "prompt": "2 × 4 = ?",
+      "choices": [
+        "7",
+        "6",
+        "4",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "2 × 4 = 8: doubling. Double 4 is 4 + 4 = 8."
+    },
+    {
+      "id": "facts-mul-5/t2/013",
+      "tier": 2,
+      "prompt": "2 × 3 = ?",
+      "choices": [
+        "5",
+        "4",
+        "6",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 3 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t2/014",
+      "tier": 2,
+      "prompt": "3 × 4 = ?",
+      "choices": [
+        "7",
+        "16",
+        "15",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "3 × 4 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mul-5/t2/015",
+      "tier": 2,
+      "prompt": "5 × 3 = ?",
+      "choices": [
+        "18",
+        "15",
+        "8",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 3 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t2/016",
+      "tier": 2,
+      "prompt": "3 × 3 = ?",
+      "choices": [
+        "8",
+        "12",
+        "9",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 3 = 9: 2 × 3 = 6, plus one more 3 = 9."
+    },
+    {
+      "id": "facts-mul-5/t2/017",
+      "tier": 2,
+      "prompt": "4 × 1 = ?",
+      "choices": [
+        "8",
+        "4",
+        "3",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 1 = 4: one group of 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/018",
+      "tier": 2,
+      "prompt": "3 × 1 = ?",
+      "choices": [
+        "0",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 1 = 3: one group of 3. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/019",
+      "tier": 2,
+      "prompt": "5 × 5 = ?",
+      "choices": [
+        "25",
+        "10",
+        "30",
+        "27"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × 5 = 25: half of 5 × 10 = 50, and half of 50 is 25."
+    },
+    {
+      "id": "facts-mul-5/t2/020",
+      "tier": 2,
+      "prompt": "2 × 1 = ?",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 1 = 2: one group of 2. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/021",
+      "tier": 2,
+      "prompt": "4 × 4 = ?",
+      "choices": [
+        "16",
+        "8",
+        "14",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "4 × 4 = 16: double 4 is 8, double again is 16."
+    },
+    {
+      "id": "facts-mul-5/t2/022",
+      "tier": 2,
+      "prompt": "1 × 5 = ?",
+      "choices": [
+        "5",
+        "6",
+        "10",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "1 × 5 = 5: one group of 5. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/023",
+      "tier": 2,
+      "prompt": "1 × 4 = ?",
+      "choices": [
+        "5",
+        "4",
+        "8",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "1 × 4 = 4: one group of 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t2/024",
+      "tier": 2,
+      "prompt": "3 × 2 = ?",
+      "choices": [
+        "5",
+        "6",
+        "9",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADDED",
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 2 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t3/001",
+      "tier": 3,
+      "prompt": "5 × 5 = ?",
+      "choices": [
+        "25",
+        "10",
+        "22",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADDED",
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 5 = 25: half of 5 × 10 = 50, and half of 50 is 25."
+    },
+    {
+      "id": "facts-mul-5/t3/002",
+      "tier": 3,
+      "prompt": "3 × 5 = ?",
+      "choices": [
+        "15",
+        "12",
+        "18",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 5 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t3/003",
+      "tier": 3,
+      "prompt": "3 × 3 = ?",
+      "choices": [
+        "12",
+        "9",
+        "10",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3 × 3 = 9: 2 × 3 = 6, plus one more 3 = 9."
+    },
+    {
+      "id": "facts-mul-5/t3/004",
+      "tier": 3,
+      "prompt": "5 × 3 = ?",
+      "choices": [
+        "8",
+        "10",
+        "15",
+        "12"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADDED",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 3 = 15: 2 × 5 = 10, plus one more 5 = 15."
+    },
+    {
+      "id": "facts-mul-5/t3/005",
+      "tier": 3,
+      "prompt": "2 × 4 = ?",
+      "choices": [
+        "8",
+        "4",
+        "6",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 4 = 8: doubling. Double 4 is 4 + 4 = 8."
+    },
+    {
+      "id": "facts-mul-5/t3/006",
+      "tier": 3,
+      "prompt": "4 × 4 = ?",
+      "choices": [
+        "8",
+        "18",
+        "20",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADDED",
+        "ARITH",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "4 × 4 = 16: double 4 is 8, double again is 16."
+    },
+    {
+      "id": "facts-mul-5/t3/007",
+      "tier": 3,
+      "prompt": "2 × 2 = ?",
+      "choices": [
+        "5",
+        "4",
+        "7",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ARITH",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 2 = 4: doubling. Double 2 is 2 + 2 = 4."
+    },
+    {
+      "id": "facts-mul-5/t3/008",
+      "tier": 3,
+      "prompt": "2 × 3 = ?",
+      "choices": [
+        "6",
+        "3",
+        "9",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF"
+      ],
+      "explanation": "2 × 3 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t3/009",
+      "tier": 3,
+      "prompt": "3 × 2 = ?",
+      "choices": [
+        "9",
+        "4",
+        "6",
+        "3"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "3 × 2 = 6: doubling. Double 3 is 3 + 3 = 6."
+    },
+    {
+      "id": "facts-mul-5/t3/010",
+      "tier": 3,
+      "prompt": "2 × 5 = ?",
+      "choices": [
+        "15",
+        "10",
+        "8",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "2 × 5 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t3/011",
+      "tier": 3,
+      "prompt": "3 × 4 = ?",
+      "choices": [
+        "12",
+        "8",
+        "9",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "ADDED"
+      ],
+      "explanation": "3 × 4 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mul-5/t3/012",
+      "tier": 3,
+      "prompt": "4 × 2 = ?",
+      "choices": [
+        "12",
+        "6",
+        "10",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "GROUP_OFF",
+        "GROUP_OFF",
+        "GROUP_OFF",
+        null
+      ],
+      "explanation": "4 × 2 = 8: doubling. Double 4 is 4 + 4 = 8."
+    },
+    {
+      "id": "facts-mul-5/t3/013",
+      "tier": 3,
+      "prompt": "5 × ? = 25",
+      "choices": [
+        "4",
+        "25",
+        "6",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "5 × ? = 25: 5 × 5 = 25, so ? = 5. Count by 5s to 25: 5 jumps."
+    },
+    {
+      "id": "facts-mul-5/t3/014",
+      "tier": 3,
+      "prompt": "5 × ? = 15",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × ? = 15: 5 × 3 = 15, so ? = 3. Count by 5s to 15: 3 jumps."
+    },
+    {
+      "id": "facts-mul-5/t3/015",
+      "tier": 3,
+      "prompt": "2 × ? = 8",
+      "choices": [
+        "3",
+        "2",
+        "6",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "2 × ? = 8: 2 × 4 = 8, so ? = 4. Half of 8 is 4."
+    },
+    {
+      "id": "facts-mul-5/t3/016",
+      "tier": 3,
+      "prompt": "5 × ? = 20",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "5 × ? = 20: 5 × 4 = 20, so ? = 4. Count by 5s to 20: 4 jumps."
+    },
+    {
+      "id": "facts-mul-5/t3/017",
+      "tier": 3,
+      "prompt": "2 × ? = 4",
+      "choices": [
+        "4",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 4: 2 × 2 = 4, so ? = 2. Half of 4 is 2."
+    },
+    {
+      "id": "facts-mul-5/t3/018",
+      "tier": 3,
+      "prompt": "2 × ? = 10",
+      "choices": [
+        "6",
+        "8",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 10: 2 × 5 = 10, so ? = 5. Half of 10 is 5."
+    },
+    {
+      "id": "facts-mul-5/t3/019",
+      "tier": 3,
+      "prompt": "5 × ? = 5",
+      "choices": [
+        "5",
+        "2",
+        "0",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "5 × ? = 5: 5 × 1 = 5, so ? = 1. Count by 5s to 5: 1 jumps."
+    },
+    {
+      "id": "facts-mul-5/t3/020",
+      "tier": 3,
+      "prompt": "5 × ? = 10",
+      "choices": [
+        "3",
+        "4",
+        "10",
+        "2"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_PRODUCT",
+        null
+      ],
+      "explanation": "5 × ? = 10: 5 × 2 = 10, so ? = 2. Count by 5s to 10: 2 jumps."
+    },
+    {
+      "id": "facts-mul-5/t3/021",
+      "tier": 3,
+      "prompt": "2 × ? = 2",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 2: 2 × 1 = 2, so ? = 1. Half of 2 is 1."
+    },
+    {
+      "id": "facts-mul-5/t3/022",
+      "tier": 3,
+      "prompt": "5 × 2 = ?",
+      "choices": [
+        "5",
+        "10",
+        "7",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "GROUP_OFF",
+        null,
+        "ADDED",
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 2 = 10: doubling. Double 5 is 5 + 5 = 10."
+    },
+    {
+      "id": "facts-mul-5/t3/023",
+      "tier": 3,
+      "prompt": "2 × ? = 6",
+      "choices": [
+        "6",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "2 × ? = 6: 2 × 3 = 6, so ? = 3. Half of 6 is 3."
+    },
+    {
+      "id": "facts-mul-5/t3/024",
+      "tier": 3,
+      "prompt": "5 × 4 = ?",
+      "choices": [
+        "16",
+        "9",
+        "20",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "GROUP_OFF",
+        "ADDED",
+        null,
+        "GROUP_OFF"
+      ],
+      "explanation": "5 × 4 = 20: double 5 is 10, double again is 20."
+    },
+    {
+      "id": "facts-mul-5/t4/001",
+      "tier": 4,
+      "prompt": "4 × ? = 20",
+      "choices": [
+        "6",
+        "7",
+        "5",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "4 × ? = 20: 4 × 5 = 20, so ? = 5. Count by 4s up to 20, or divide: 20 ÷ 4 = 5."
+    },
+    {
+      "id": "facts-mul-5/t4/002",
+      "tier": 4,
+      "prompt": "5 × ? = 25",
+      "choices": [
+        "4",
+        "25",
+        "3",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "ARITH",
+        null
+      ],
+      "explanation": "5 × ? = 25: 5 × 5 = 25, so ? = 5. Count by 5s to 25: 5 jumps."
+    },
+    {
+      "id": "facts-mul-5/t4/003",
+      "tier": 4,
+      "prompt": "2 × ? = 4",
+      "choices": [
+        "2",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "2 × ? = 4: 2 × 2 = 4, so ? = 2. Half of 4 is 2."
+    },
+    {
+      "id": "facts-mul-5/t4/004",
+      "tier": 4,
+      "prompt": "3 × ? = 3",
+      "choices": [
+        "1",
+        "0",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "3 × ? = 3: 3 × 1 = 3, so ? = 1. Count by 3s up to 3, or divide: 3 ÷ 3 = 1."
+    },
+    {
+      "id": "facts-mul-5/t4/005",
+      "tier": 4,
+      "prompt": "4 × ? = 16",
+      "choices": [
+        "2",
+        "1",
+        "3",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "4 × ? = 16: 4 × 4 = 16, so ? = 4. Count by 4s up to 16, or divide: 16 ÷ 4 = 4."
+    },
+    {
+      "id": "facts-mul-5/t4/006",
+      "tier": 4,
+      "prompt": "1 × ? = 4",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "1"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "1 × ? = 4: 1 × 4 = 4, so ? = 4. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t4/007",
+      "tier": 4,
+      "prompt": "2 × ? = 2",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "2 × ? = 2: 2 × 1 = 2, so ? = 1. Half of 2 is 1."
+    },
+    {
+      "id": "facts-mul-5/t4/008",
+      "tier": 4,
+      "prompt": "5 × ? = 15",
+      "choices": [
+        "15",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "5 × ? = 15: 5 × 3 = 15, so ? = 3. Count by 5s to 15: 3 jumps."
+    },
+    {
+      "id": "facts-mul-5/t4/009",
+      "tier": 4,
+      "prompt": "4 × ? = 4",
+      "choices": [
+        "4",
+        "0",
+        "1",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 4: 4 × 1 = 4, so ? = 1. Count by 4s up to 4, or divide: 4 ÷ 4 = 1."
+    },
+    {
+      "id": "facts-mul-5/t4/010",
+      "tier": 4,
+      "prompt": "4 × ? = 8",
+      "choices": [
+        "2",
+        "8",
+        "0",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_PRODUCT",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 8: 4 × 2 = 8, so ? = 2. Count by 4s up to 8, or divide: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "facts-mul-5/t4/011",
+      "tier": 4,
+      "prompt": "4 × ? = 12",
+      "choices": [
+        "12",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 12: 4 × 3 = 12, so ? = 3. Count by 4s up to 12, or divide: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "facts-mul-5/t4/012",
+      "tier": 4,
+      "prompt": "1 × ? = 1",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "1 × ? = 1: 1 × 1 = 1, so ? = 1. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t4/013",
+      "tier": 4,
+      "prompt": "1 × ? = 3",
+      "choices": [
+        "1",
+        "0",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "1 × ? = 3: 1 × 3 = 3, so ? = 3. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t4/014",
+      "tier": 4,
+      "prompt": "5 × ? = 20",
+      "choices": [
+        "5",
+        "4",
+        "3",
+        "20"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "5 × ? = 20: 5 × 4 = 20, so ? = 4. Count by 5s to 20: 4 jumps."
+    },
+    {
+      "id": "facts-mul-5/t4/015",
+      "tier": 4,
+      "prompt": "1 × ? = 2",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "1 × ? = 2: 1 × 2 = 2, so ? = 2. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t4/016",
+      "tier": 4,
+      "prompt": "2 × ? = 8",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 8: 2 × 4 = 8, so ? = 4. Half of 8 is 4."
+    },
+    {
+      "id": "facts-mul-5/t4/017",
+      "tier": 4,
+      "prompt": "3 × ? = 9",
+      "choices": [
+        "0",
+        "1",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "3 × ? = 9: 3 × 3 = 9, so ? = 3. Count by 3s up to 9, or divide: 9 ÷ 3 = 3."
+    },
+    {
+      "id": "facts-mul-5/t4/018",
+      "tier": 4,
+      "prompt": "2 × ? = 6",
+      "choices": [
+        "1",
+        "2",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        null
+      ],
+      "explanation": "2 × ? = 6: 2 × 3 = 6, so ? = 3. Half of 6 is 3."
+    },
+    {
+      "id": "facts-mul-5/t4/019",
+      "tier": 4,
+      "prompt": "2 × ? = 10",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "2 × ? = 10: 2 × 5 = 10, so ? = 5. Half of 10 is 5."
+    },
+    {
+      "id": "facts-mul-5/t4/020",
+      "tier": 4,
+      "prompt": "3 × ? = 12",
+      "choices": [
+        "3",
+        "4",
+        "1",
+        "2"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "3 × ? = 12: 3 × 4 = 12, so ? = 4. Count by 3s up to 12, or divide: 12 ÷ 3 = 4."
+    },
+    {
+      "id": "facts-mul-5/t4/021",
+      "tier": 4,
+      "prompt": "3 × ? = 6",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "3 × ? = 6: 3 × 2 = 6, so ? = 2. Count by 3s up to 6, or divide: 6 ÷ 3 = 2."
+    },
+    {
+      "id": "facts-mul-5/t4/022",
+      "tier": 4,
+      "prompt": "1 × ? = 5",
+      "choices": [
+        "6",
+        "5",
+        "2",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "1 × ? = 5: 1 × 5 = 5, so ? = 5. Any number times 1 is itself."
+    },
+    {
+      "id": "facts-mul-5/t4/023",
+      "tier": 4,
+      "prompt": "5 × ? = 5",
+      "choices": [
+        "5",
+        "3",
+        "2",
+        "1"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "ARITH",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "5 × ? = 5: 5 × 1 = 5, so ? = 1. Count by 5s to 5: 1 jumps."
+    },
+    {
+      "id": "facts-mul-5/t4/024",
+      "tier": 4,
+      "prompt": "5 × ? = 10",
+      "choices": [
+        "2",
+        "3",
+        "4",
+        "10"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "5 × ? = 10: 5 × 2 = 10, so ? = 2. Count by 5s to 10: 2 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/001",
+      "tier": 5,
+      "prompt": "? × 5 = 10",
+      "choices": [
+        "2",
+        "1",
+        "5",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "ARITH"
+      ],
+      "explanation": "? × 5 = 10: 2 × 5 = 10, so ? = 2. Count by 5s to 10: 2 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/002",
+      "tier": 5,
+      "prompt": "? × 2 = 8",
+      "choices": [
+        "3",
+        "5",
+        "4",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "? × 2 = 8: 4 × 2 = 8, so ? = 4. Half of 8 is 4."
+    },
+    {
+      "id": "facts-mul-5/t5/003",
+      "tier": 5,
+      "prompt": "? × 4 = 16",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? × 4 = 16: 4 × 4 = 16, so ? = 4. Count by 4s up to 16, or divide: 16 ÷ 4 = 4."
+    },
+    {
+      "id": "facts-mul-5/t5/004",
+      "tier": 5,
+      "prompt": "? × 3 = 15",
+      "choices": [
+        "15",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? × 3 = 15: 5 × 3 = 15, so ? = 5. Count by 3s up to 15, or divide: 15 ÷ 3 = 5."
+    },
+    {
+      "id": "facts-mul-5/t5/005",
+      "tier": 5,
+      "prompt": "? × 2 = 10",
+      "choices": [
+        "5",
+        "4",
+        "10",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 2 = 10: 5 × 2 = 10, so ? = 5. Half of 10 is 5."
+    },
+    {
+      "id": "facts-mul-5/t5/006",
+      "tier": 5,
+      "prompt": "? × 2 = 4",
+      "choices": [
+        "4",
+        "2",
+        "5",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 2 = 4: 2 × 2 = 4, so ? = 2. Half of 4 is 2."
+    },
+    {
+      "id": "facts-mul-5/t5/007",
+      "tier": 5,
+      "prompt": "? × 4 = 12",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED"
+      ],
+      "explanation": "? × 4 = 12: 3 × 4 = 12, so ? = 3. Count by 4s up to 12, or divide: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "facts-mul-5/t5/008",
+      "tier": 5,
+      "prompt": "? × 4 = 20",
+      "choices": [
+        "6",
+        "7",
+        "16",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "? × 4 = 20: 5 × 4 = 20, so ? = 5. Count by 4s up to 20, or divide: 20 ÷ 4 = 5."
+    },
+    {
+      "id": "facts-mul-5/t5/009",
+      "tier": 5,
+      "prompt": "? × 5 = 20",
+      "choices": [
+        "3",
+        "5",
+        "20",
+        "4"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        null
+      ],
+      "explanation": "? × 5 = 20: 4 × 5 = 20, so ? = 4. Count by 5s to 20: 4 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/010",
+      "tier": 5,
+      "prompt": "? × 4 = 8",
+      "choices": [
+        "1",
+        "2",
+        "8",
+        "3"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 4 = 8: 2 × 4 = 8, so ? = 2. Count by 4s up to 8, or divide: 8 ÷ 4 = 2."
+    },
+    {
+      "id": "facts-mul-5/t5/011",
+      "tier": 5,
+      "prompt": "? × 2 = 6",
+      "choices": [
+        "2",
+        "1",
+        "0",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "? × 2 = 6: 3 × 2 = 6, so ? = 3. Half of 6 is 3."
+    },
+    {
+      "id": "facts-mul-5/t5/012",
+      "tier": 5,
+      "prompt": "? × 5 = 15",
+      "choices": [
+        "3",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "? × 5 = 15: 3 × 5 = 15, so ? = 3. Count by 5s to 15: 3 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/013",
+      "tier": 5,
+      "prompt": "5 × ? = 15",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × ? = 15: 5 × 3 = 15, so ? = 3. Count by 5s to 15: 3 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/014",
+      "tier": 5,
+      "prompt": "2 × ? = 6",
+      "choices": [
+        "4",
+        "6",
+        "3",
+        "2"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "2 × ? = 6: 2 × 3 = 6, so ? = 3. Half of 6 is 3."
+    },
+    {
+      "id": "facts-mul-5/t5/015",
+      "tier": 5,
+      "prompt": "5 × ? = 20",
+      "choices": [
+        "3",
+        "2",
+        "4",
+        "20"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "5 × ? = 20: 5 × 4 = 20, so ? = 4. Count by 5s to 20: 4 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/016",
+      "tier": 5,
+      "prompt": "5 × ? = 10",
+      "choices": [
+        "10",
+        "2",
+        "1",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × ? = 10: 5 × 2 = 10, so ? = 2. Count by 5s to 10: 2 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/017",
+      "tier": 5,
+      "prompt": "? × 3 = 9",
+      "choices": [
+        "9",
+        "4",
+        "5",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? × 3 = 9: 3 × 3 = 9, so ? = 3. Count by 3s up to 9, or divide: 9 ÷ 3 = 3."
+    },
+    {
+      "id": "facts-mul-5/t5/018",
+      "tier": 5,
+      "prompt": "2 × ? = 4",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "2 × ? = 4: 2 × 2 = 4, so ? = 2. Half of 4 is 2."
+    },
+    {
+      "id": "facts-mul-5/t5/019",
+      "tier": 5,
+      "prompt": "2 × ? = 10",
+      "choices": [
+        "5",
+        "4",
+        "2",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "2 × ? = 10: 2 × 5 = 10, so ? = 5. Half of 10 is 5."
+    },
+    {
+      "id": "facts-mul-5/t5/020",
+      "tier": 5,
+      "prompt": "? × 5 = 25",
+      "choices": [
+        "25",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? × 5 = 25: 5 × 5 = 25, so ? = 5. Count by 5s to 25: 5 jumps."
+    },
+    {
+      "id": "facts-mul-5/t5/021",
+      "tier": 5,
+      "prompt": "3 × ? = 15",
+      "choices": [
+        "3",
+        "15",
+        "4",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MISSING_PRODUCT",
+        "MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "3 × ? = 15: 3 × 5 = 15, so ? = 5. Count by 3s up to 15, or divide: 15 ÷ 3 = 5."
+    },
+    {
+      "id": "facts-mul-5/t5/022",
+      "tier": 5,
+      "prompt": "? × 3 = 12",
+      "choices": [
+        "12",
+        "6",
+        "4",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_PRODUCT",
+        "ARITH",
+        null,
+        "MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 3 = 12: 4 × 3 = 12, so ? = 4. Count by 3s up to 12, or divide: 12 ÷ 3 = 4."
+    },
+    {
+      "id": "facts-mul-5/t5/023",
+      "tier": 5,
+      "prompt": "4 × ? = 12",
+      "choices": [
+        "2",
+        "0",
+        "3",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MISSING_ONE_OFF",
+        "ARITH",
+        null,
+        "ARITH"
+      ],
+      "explanation": "4 × ? = 12: 4 × 3 = 12, so ? = 3. Count by 4s up to 12, or divide: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "facts-mul-5/t5/024",
+      "tier": 5,
+      "prompt": "2 × ? = 8",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "8"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MISSING_ONE_OFF",
+        "MISSING_SUBTRACTED",
+        "MISSING_PRODUCT"
+      ],
+      "explanation": "2 × ? = 8: 2 × 4 = 8, so ? = 4. Half of 8 is 4."
+    }
+  ]
+}

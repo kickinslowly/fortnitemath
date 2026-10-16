@@ -100,7 +100,7 @@ def test_slot_tags_list_has_six():
 
 
 SHIP_DEFAULTS = ("DebugAutoBoss : logic = false", "DebugBossLevel : int = 0", "DebugBossHold : float = 0.0", "DebugAutoRightAnswers : logic = false",
-                 "DebugAutoPick : int = -1", "DebugPickerSeconds : float = 0.0", "DebugAutoWrongAnswers : int = 0", "BmRespawnSeconds : float = 4.0",
+                 "DebugAutoPick : int = -1", "DebugPickerSeconds : float = 0.0", "DebugPickerGrade : int = -1", "DebugAutoWrongAnswers : int = 0", "BmRespawnSeconds : float = 4.0",
                  "BmSummonSeconds : float = 5.0", "NukeSeconds : float = 2.5", "BossBoardKey : int = 9999")
 
 

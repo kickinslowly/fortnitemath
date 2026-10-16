@@ -39,10 +39,24 @@
   cartridges, before combo): the 2x2 grade grid (panel y ~90-886), a Multiplication Facts auto-run 5 x 1 to 14 x 10 +
   arena to GOLD 1:34.9 (and run 2, 1:31.7). NOT seen: the Facts skill step (five buttons, "Facts - step 2 of 2"), combo in
   play, and the emulator e2e at 34 (the combo play run and `npm run e2e` were killed by Claude Code's low-memory reaper)
-  - [ ] Aaron: levels climb within one run (every addition run ends within 100). Want a PICK YOUR LEVEL step that keeps
-    all 10 stations on one level instead? (a third picker step + per-level bests: a director change, PROTOCOL §6)
-  - [ ] Boss mode draws from every cartridge, so Facts items are now 5 of its 34 skills: keep, or leave Facts out?
-  - [ ] Island memory at 34 cartridges (Aaron's Launch Memory Calculation; last read 35,635 at 19)
+  - [x] Aaron: levels climb within one run (every addition run ends within 100). Answered 2026-10-16 by the range
+    rebuild below (one cartridge per range, the run stays in it)
+  - [ ] Boss mode draws from every cartridge: since 2026-10-16 a grade first, then a skill (Facts = 1 grade of 4, 25%
+    of questions; 20 skills drawn flat would have been 41%). Keep, or leave Facts out?
+  - [ ] Island memory at 49 cartridges, slot 3.70 MB (Aaron's Launch Memory Calculation; last read 35,635 at 19)
+- [x] Facts by range (Aaron, 2026-10-16: "one cartridge to be addition up to 10, all the way through level 10, scaling
+  from easy in that range to hard in that range ... 10, 20, 50, 100. then follow that pattern for subtraction,
+  multiplication and division"; his picks: tables to 5/10/12/15, missing numbers at levels 7-10, Mixed per range).
+  20 cartridges replace the 5: facts-{add,sub}-{10,20,50,100}, facts-{mul,div}-{5,10,12,15}, facts-mix-{10,20,50,100},
+  24 items a tier (2,400 items). Spec `briefs/facts2/pools.py` (every tier's pairs and forms, counts checked),
+  LIBRARY.md "Facts", PROTOCOL §4c. Opus lead + 5 Sonnet builders, 3 fix rounds (subtraction's across-ten wording read
+  like adding; division's student texts quoted one fixed example and squares said "divided by itself is 1"; addition
+  restated the fact as its count-up). Lead re-checked all 2,400 items with its own checker against pools.py: 0 wrong.
+  HUD: a skill step past 10 buttons goes 4 to a row (`PickerGridColumns`), Facts = 5 rows (one operation each) x 4
+  ranges; seen in play inside 1080p, edge to edge (~30 px each side). Seen in play: Times Tables to 10, station 7
+  "Missing factors" `7 × ? = 56`. New hook `DebugPickerGrade`. Slot 49 cartridges, 3.70 MB, BuildAll clean,
+  25,325 tests, emulator e2e 17/17 (a full run of every cartridge). Unverified: the grid on a non-16:9 screen (no room
+  left at 1080p width), a Facts run to the finish, Mixed in play
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.

@@ -1,0 +1,2450 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mix-20",
+  "version": "1.0.0",
+  "title": "Mixed to 20",
+  "subtitle": "+ − to 20, × ÷ to 10",
+  "grade": "Facts",
+  "picker_order": 18,
+  "standards": [
+    "CCSS.MATH.CONTENT.1.OA.B.4",
+    "CCSS.MATH.CONTENT.1.OA.C.6",
+    "CCSS.MATH.CONTENT.1.OA.D.8",
+    "CCSS.MATH.CONTENT.2.OA.B.2",
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.B.5",
+    "CCSS.MATH.CONTENT.3.OA.B.6",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261068,
+  "items_per_tier": 24,
+  "bounds": "Mixed facts (PROTOCOL 4c, briefs/facts2): the whole run inside + and − to 20 and × and ÷ with factors to 10, easy to hard by tier. Each tier is 6 items from each of facts-add-20, facts-sub-20, facts-mul-10, facts-div-10 at the same tier: the same pools, forms, distractors, explanations and student text, every part's floor n scaled to ceil(n / 4), at most 2 zero-factor multiplication prompts a tier; 24 items per tier, prompts unique per tier, operations interleaved. Misconception keys carry their operation (ADD_, SUB_, MUL_, DIV_). Answer rank among the 4 values 15-35% each over the whole tier. [ADD] Facts bounds (PROTOCOL 4c, briefs/facts2): the whole run inside sums 11 to 20, easy to hard by tier. Prompt forms: R 'a + b = ?' (answer s), C 'a + ? = s' (answer b), S '? + b = s' (answer a); every number a non-negative integer. T1 R, a ten-plus number and no new ten (12 + 5). T2 R, a, b >= 2: doubles, neighbours (7 + 8) and the nines (9 + 6, one digit each). T3 R, both one digit. T4 C, a, b >= 2 (>= 12 with both one digit). T5 S (>= 12, >= 6 with both one digit) and C with both one digit. Prompts unique per tier, 24 per tier. Wrong choices: distinct non-negative integers <= 999, >= 2 near the answer (+-1, +-2, +-10), at most 1 far; answer rank among the 4 values 15-35% each per tier; answers >= 20 always have a wrong choice sharing the ones digit (+-10); the answer is never the only value of its parity. [SUB] Minuends 11-20, a and b at least 1. T1 R with one of s, a, b at least 10 and no trade (13 − 3, 17 − 4); T2 R doubles, near doubles and nines (a, b at least 2); T3 R, a and b both one digit; T4 s − ? = b, a and b 2 or more, at least 12 with both one digit; T5 ? − a = b, a and b 2 or more (at least 12; at least 6 with both one digit) plus s − ? = b one digit. Wrong choices: distinct non-negative integers up to 999, at least two within 1, 2 or 10 of the answer, at most one far; where the answer is 20 or more one wrong choice shares its ones digit; modelled misconceptions first, ARITH only to fill; each answer rank (smallest to largest of the four) holds the answer in 15-35% of a tier. [MUL] Factors 0 to 10. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: a fact with 0, 1, 2, 5 or 10 (85 prompts); T2 R: facts from 3, 4, 6, 7, 8, 9 with a 3, 4 or 9 (27; at least 8 with both factors in 3, 4, 9); T3 R: a 6, 7 or 8 (27; at least 8 with both in 6, 7, 8); T4 C: at least 12 from 3, 4, 6-9 on both factors, else any factors 2-10 (81 prompts); T5 S: at least 12 from 3, 4, 6-9 on both factors, plus C from the same (72). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier. [DIV] PROTOCOL 4c, facts range cartridge. Forms: R is p ÷ a = ? (answer the quotient), C is p ÷ ? = b (answer the divisor), S is ? ÷ a = b (answer the dividend); p = a × b, the times table read backwards, never ÷ 0, no 0 ÷ ? = 0. Divisors and quotients 0-10. T1 R: a or b in {0,1,2,5,10}. T2 R: facts of 3, 4, 9 (a, b both in {3,4,9} at least 8). T3 R: facts of 6, 7, 8 (a, b both in {6,7,8} at least 8). T4 C: a, b in {3,4,6,7,8,9} (at least 12) plus C with a, b 2-10. T5 S: a, b in {3,4,6,7,8,9} (at least 12) plus C on the same pairs. Wrong choices: distinct non-negative integers up to 999, at least 2 near and at most 1 far. R: near within 2 of the quotient (GROUP_OFF q+-1, +-2), far SUBTRACTED p-a, MULTIPLIED p×a, TENS_SLIP q+-10. C: near within 2 of the divisor (MISSING_ONE_OFF a+-1, ARITH +-2), far MISSING_SUBTRACTED p-b, MISSING_MULTIPLIED p×b. S: near within the larger factor of the dividend (START_GROUP_OFF p+-a, START_ADDED a+b, START_TENS p+-10 when a factor is 11 or more, with a twin ones digit when p is 20 or more). The answer's rank among the four values is spread 15-35% per tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Easy facts",
+      "description": "A mix of + − × ÷: the easy facts from each operation."
+    },
+    {
+      "tier": 2,
+      "name": "Building facts",
+      "description": "A mix of + − × ÷: the next facts from each operation."
+    },
+    {
+      "tier": 3,
+      "name": "Harder facts",
+      "description": "A mix of + − × ÷: the hardest plain facts from each operation."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "A mix of + − × ÷, a number missing: 4 + ? = 9, 12 ÷ ? = 3."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "A mix of + − × ÷, often the first number missing: ? − 6 = 9."
+    }
+  ],
+  "misconceptions": {
+    "ADD_ONE_OFF": {
+      "student": "Off by one. Count again: start at the bigger number and count up.",
+      "teacher": "Counted on wrong: the sum is one more or one less than the true sum."
+    },
+    "ADD_SUBTRACTED": {
+      "student": "Plus means put together. Add the two numbers, don't take them apart.",
+      "teacher": "Subtracted the smaller addend from the larger instead of adding: 8 + 5 = 3."
+    },
+    "ADD_NO_CARRY": {
+      "student": "The ones made a new ten. Add that ten in with the tens.",
+      "teacher": "Dropped the regrouped ten when the ones summed to 10 or more: 38 + 47 = 75."
+    },
+    "ADD_TENS_SLIP": {
+      "student": "Check the tens place. Add the tens, then the ones.",
+      "teacher": "Tens digit of the sum is one too many or too few, with the ones right: 34 + 52 = 76 or 96."
+    },
+    "ADD_MISSING_ADDED": {
+      "student": "Don't add the two numbers you see. Find the missing one: subtract.",
+      "teacher": "Added the shown number and the total instead of subtracting: 7 + ? = 15 answered 22."
+    },
+    "ADD_MISSING_ONE_OFF": {
+      "student": "Off by one. Add your answer to the shown number and check the total.",
+      "teacher": "Counted up wrong: the missing number is one more or one less than the true one."
+    },
+    "ADD_MISSING_TENS": {
+      "student": "Check the tens. Add your answer to the shown number: is it the total?",
+      "teacher": "Missing number is ten too many or too few: forgot the trade counting up across a ten, or a tens slip."
+    },
+    "SUB_ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "SUB_ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "SUB_SMALLER_FROM_LARGER": {
+      "student": "Don't flip digits. If the top digit is smaller, trade a ten for 10 ones.",
+      "teacher": "In each place takes the smaller digit from the larger (14 - 6 gives 12; 52 - 38 gives 26) instead of regrouping."
+    },
+    "SUB_FORGOT_TRADE": {
+      "student": "You traded a ten for ones, so the tens digit has to drop by one.",
+      "teacher": "Regrouped the ones but left the tens unchanged: answer is 10 too big (14 - 6 gives 18; 52 - 38 gives 24)."
+    },
+    "SUB_TENS_SLIP": {
+      "student": "The tens are off by one ten. Check: answer + taken away = start.",
+      "teacher": "Right ones, tens digit one too high or too low: answer is the correct difference plus or minus 10."
+    },
+    "SUB_MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "SUB_MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "SUB_MISSING_TENS": {
+      "student": "Off by one ten. Put your number back in the problem and check it.",
+      "teacher": "Right ones, tens digit one too high or too low: the missing number plus or minus 10 (trade forgotten or tens slip)."
+    },
+    "SUB_START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    },
+    "MUL_GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "MUL_ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "MUL_MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MUL_MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MUL_MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    },
+    "DIV_GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "DIV_SUBTRACTED": {
+      "student": "Divide, don't subtract. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "DIV_MULTIPLIED": {
+      "student": "Divide, don't multiply. Ask how many of the divisor fit in the dividend.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "DIV_MISSING_ONE_OFF": {
+      "student": "One off. Try your number in the problem: does the division work out?",
+      "teacher": "Missing divisor off by one: stopped a fact early or late in the table."
+    },
+    "DIV_MISSING_SUBTRACTED": {
+      "student": "Don't subtract. Ask: what times the answer shown makes the dividend?",
+      "teacher": "Subtracts (p − b) to find the missing divisor instead of asking what times b makes p."
+    },
+    "DIV_MISSING_MULTIPLIED": {
+      "student": "Too big. Divide the dividend by your number: is it the answer shown?",
+      "teacher": "Multiplies (p × b) to find the missing divisor instead of dividing or asking what times b makes p."
+    },
+    "DIV_START_GROUP_OFF": {
+      "student": "One group off. Multiply the two numbers you see, no more, no less.",
+      "teacher": "Missing dividend off by one divisor (a × (b +- 1)): counted one group too many or too few."
+    },
+    "DIV_START_ADDED": {
+      "student": "Don't add. To undo dividing, multiply the two numbers you see.",
+      "teacher": "Adds the divisor and quotient (a + b) to find the missing dividend instead of multiplying back."
+    }
+  },
+  "baked_with": "fnm/0.2.0",
+  "items": [
+    {
+      "id": "facts-mix-20/t1/001",
+      "tier": 1,
+      "prompt": "6 + 10 = ?",
+      "choices": [
+        "15",
+        "4",
+        "16",
+        "26"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_ONE_OFF",
+        "ADD_SUBTRACTED",
+        null,
+        "ADD_TENS_SLIP"
+      ],
+      "explanation": "6 + 10 = 16: a ten and 6 more is 16."
+    },
+    {
+      "id": "facts-mix-20/t1/002",
+      "tier": 1,
+      "prompt": "19 − 4 = ?",
+      "choices": [
+        "15",
+        "5",
+        "14",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_TENS_SLIP",
+        "SUB_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "19 − 4 = 15 because 4 + 15 = 19."
+    },
+    {
+      "id": "facts-mix-20/t1/003",
+      "tier": 1,
+      "prompt": "5 × 8 = ?",
+      "choices": [
+        "48",
+        "40",
+        "45",
+        "43"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "5 × 8 = 40: half of 8 × 10 = 80, and half of 80 is 40."
+    },
+    {
+      "id": "facts-mix-20/t1/004",
+      "tier": 1,
+      "prompt": "25 ÷ 5 = ?",
+      "choices": [
+        "5",
+        "20",
+        "7",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIV_SUBTRACTED",
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "25 ÷ 5 = 5 because 5 × 5 = 25. Fives: half of 50 is 25."
+    },
+    {
+      "id": "facts-mix-20/t1/005",
+      "tier": 1,
+      "prompt": "30 ÷ 10 = ?",
+      "choices": [
+        "300",
+        "2",
+        "1",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_MULTIPLIED",
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        null
+      ],
+      "explanation": "30 ÷ 10 = 3: take the zero off 30. Check: 10 × 3 = 30."
+    },
+    {
+      "id": "facts-mix-20/t1/006",
+      "tier": 1,
+      "prompt": "10 × 10 = ?",
+      "choices": [
+        "100",
+        "20",
+        "99",
+        "90"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_ADDED",
+        "ARITH",
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "10 × 10 = 100: ten groups of 10, so put a zero after 10."
+    },
+    {
+      "id": "facts-mix-20/t1/007",
+      "tier": 1,
+      "prompt": "9 × 10 = ?",
+      "choices": [
+        "80",
+        "81",
+        "19",
+        "90"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        "MUL_ADDED",
+        null
+      ],
+      "explanation": "9 × 10 = 90: ten groups of 9, so put a zero after 9."
+    },
+    {
+      "id": "facts-mix-20/t1/008",
+      "tier": 1,
+      "prompt": "6 × 5 = ?",
+      "choices": [
+        "24",
+        "11",
+        "25",
+        "30"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_ADDED",
+        "MUL_GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 5 = 30: half of 6 × 10 = 60, and half of 60 is 30."
+    },
+    {
+      "id": "facts-mix-20/t1/009",
+      "tier": 1,
+      "prompt": "12 ÷ 6 = ?",
+      "choices": [
+        "3",
+        "0",
+        "2",
+        "1"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 6 = 2 because 6 × 2 = 12. Think: what times 6 makes 12?"
+    },
+    {
+      "id": "facts-mix-20/t1/010",
+      "tier": 1,
+      "prompt": "19 − 13 = ?",
+      "choices": [
+        "32",
+        "5",
+        "6",
+        "16"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_ADDED",
+        "SUB_ONE_OFF",
+        null,
+        "SUB_TENS_SLIP"
+      ],
+      "explanation": "19 − 13 = 6 because 13 + 6 = 19."
+    },
+    {
+      "id": "facts-mix-20/t1/011",
+      "tier": 1,
+      "prompt": "10 + 6 = ?",
+      "choices": [
+        "20",
+        "26",
+        "17",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_TENS_SLIP",
+        "ADD_ONE_OFF",
+        null
+      ],
+      "explanation": "10 + 6 = 16: a ten and 6 more is 16."
+    },
+    {
+      "id": "facts-mix-20/t1/012",
+      "tier": 1,
+      "prompt": "3 + 13 = ?",
+      "choices": [
+        "16",
+        "26",
+        "19",
+        "17"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_TENS_SLIP",
+        "ARITH",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "3 + 13 = 16: ones first, 3 + 3 = 6, and the ten makes 16."
+    },
+    {
+      "id": "facts-mix-20/t1/013",
+      "tier": 1,
+      "prompt": "17 − 3 = ?",
+      "choices": [
+        "13",
+        "14",
+        "24",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        null,
+        "SUB_TENS_SLIP",
+        "SUB_TENS_SLIP"
+      ],
+      "explanation": "17 − 3 = 14 because 3 + 14 = 17."
+    },
+    {
+      "id": "facts-mix-20/t1/014",
+      "tier": 1,
+      "prompt": "2 × 9 = ?",
+      "choices": [
+        "18",
+        "27",
+        "16",
+        "20"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "2 × 9 = 18: doubling. Double 9 is 9 + 9 = 18."
+    },
+    {
+      "id": "facts-mix-20/t1/015",
+      "tier": 1,
+      "prompt": "90 ÷ 10 = ?",
+      "choices": [
+        "8",
+        "9",
+        "10",
+        "80"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF",
+        "DIV_SUBTRACTED"
+      ],
+      "explanation": "90 ÷ 10 = 9: take the zero off 90. Check: 10 × 9 = 90."
+    },
+    {
+      "id": "facts-mix-20/t1/016",
+      "tier": 1,
+      "prompt": "14 − 3 = ?",
+      "choices": [
+        "10",
+        "11",
+        "1",
+        "9"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        null,
+        "SUB_TENS_SLIP",
+        "ARITH"
+      ],
+      "explanation": "14 − 3 = 11 because 3 + 11 = 14."
+    },
+    {
+      "id": "facts-mix-20/t1/017",
+      "tier": 1,
+      "prompt": "11 + 5 = ?",
+      "choices": [
+        "26",
+        "17",
+        "20",
+        "16"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_TENS_SLIP",
+        "ADD_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "11 + 5 = 16: ones first, 1 + 5 = 6, and the ten makes 16."
+    },
+    {
+      "id": "facts-mix-20/t1/018",
+      "tier": 1,
+      "prompt": "4 ÷ 1 = ?",
+      "choices": [
+        "3",
+        "4",
+        "7",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        null,
+        "ARITH",
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "4 ÷ 1 = 4: dividing by 1 changes nothing."
+    },
+    {
+      "id": "facts-mix-20/t1/019",
+      "tier": 1,
+      "prompt": "14 − 1 = ?",
+      "choices": [
+        "23",
+        "13",
+        "15",
+        "12"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_TENS_SLIP",
+        null,
+        "SUB_ADDED",
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "14 − 1 = 13: count back 1 from 14. Check: 13 + 1 = 14."
+    },
+    {
+      "id": "facts-mix-20/t1/020",
+      "tier": 1,
+      "prompt": "14 − 13 = ?",
+      "choices": [
+        "2",
+        "11",
+        "1",
+        "0"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        "SUB_TENS_SLIP",
+        null,
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "14 − 13 = 1 because 13 + 1 = 14."
+    },
+    {
+      "id": "facts-mix-20/t1/021",
+      "tier": 1,
+      "prompt": "12 + 4 = ?",
+      "choices": [
+        "6",
+        "17",
+        "16",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_TENS_SLIP",
+        "ADD_ONE_OFF",
+        null,
+        "ADD_SUBTRACTED"
+      ],
+      "explanation": "12 + 4 = 16: ones first, 2 + 4 = 6, and the ten makes 16."
+    },
+    {
+      "id": "facts-mix-20/t1/022",
+      "tier": 1,
+      "prompt": "11 + 8 = ?",
+      "choices": [
+        "19",
+        "18",
+        "9",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_ONE_OFF",
+        "ADD_TENS_SLIP",
+        "ADD_SUBTRACTED"
+      ],
+      "explanation": "11 + 8 = 19: ones first, 1 + 8 = 9, and the ten makes 19."
+    },
+    {
+      "id": "facts-mix-20/t1/023",
+      "tier": 1,
+      "prompt": "0 ÷ 5 = ?",
+      "choices": [
+        "2",
+        "3",
+        "1",
+        "0"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "ARITH",
+        "DIV_GROUP_OFF",
+        null
+      ],
+      "explanation": "0 ÷ 5 = 0: zero shared into groups of 5 leaves none, and 5 × 0 = 0."
+    },
+    {
+      "id": "facts-mix-20/t1/024",
+      "tier": 1,
+      "prompt": "6 × 10 = ?",
+      "choices": [
+        "16",
+        "66",
+        "60",
+        "54"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_ADDED",
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "6 × 10 = 60: ten groups of 6, so put a zero after 6."
+    },
+    {
+      "id": "facts-mix-20/t2/001",
+      "tier": 2,
+      "prompt": "18 ÷ 3 = ?",
+      "choices": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "18 ÷ 3 = 6 because 3 × 6 = 18. Neighbour fact: 3 × 5 = 15, plus one more 3."
+    },
+    {
+      "id": "facts-mix-20/t2/002",
+      "tier": 2,
+      "prompt": "13 − 4 = ?",
+      "choices": [
+        "19",
+        "10",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_FORGOT_TRADE",
+        "SUB_ONE_OFF",
+        "SUB_SMALLER_FROM_LARGER",
+        null
+      ],
+      "explanation": "13 − 4: take 3 to get 10, then take 1 more: 9. Check: 4 + 9 = 13."
+    },
+    {
+      "id": "facts-mix-20/t2/003",
+      "tier": 2,
+      "prompt": "6 × 4 = ?",
+      "choices": [
+        "30",
+        "28",
+        "20",
+        "24"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 4 = 24: double 6 is 12, double again is 24."
+    },
+    {
+      "id": "facts-mix-20/t2/004",
+      "tier": 2,
+      "prompt": "4 × 4 = ?",
+      "choices": [
+        "16",
+        "13",
+        "8",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "MUL_ADDED",
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "4 × 4 = 16: double 4 is 8, double again is 16."
+    },
+    {
+      "id": "facts-mix-20/t2/005",
+      "tier": 2,
+      "prompt": "63 ÷ 9 = ?",
+      "choices": [
+        "7",
+        "567",
+        "8",
+        "9"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIV_MULTIPLIED",
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "63 ÷ 9 = 7 because 9 × 7 = 63. Nines: 10 × 7 = 70, minus one 7 is 63."
+    },
+    {
+      "id": "facts-mix-20/t2/006",
+      "tier": 2,
+      "prompt": "6 + 9 = ?",
+      "choices": [
+        "3",
+        "15",
+        "5",
+        "14"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SUBTRACTED",
+        null,
+        "ADD_NO_CARRY",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "6 + 9 = 15: 6 + 10 = 16, and 9 is one less than 10, so 15."
+    },
+    {
+      "id": "facts-mix-20/t2/007",
+      "tier": 2,
+      "prompt": "6 + 5 = ?",
+      "choices": [
+        "1",
+        "11",
+        "12",
+        "21"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_SUBTRACTED",
+        null,
+        "ADD_ONE_OFF",
+        "ADD_TENS_SLIP"
+      ],
+      "explanation": "6 + 5 = 11: double 5 is 10, one more is 11."
+    },
+    {
+      "id": "facts-mix-20/t2/008",
+      "tier": 2,
+      "prompt": "27 ÷ 9 = ?",
+      "choices": [
+        "18",
+        "5",
+        "4",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_SUBTRACTED",
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        null
+      ],
+      "explanation": "27 ÷ 9 = 3 because 9 × 3 = 27. Nines: 10 × 3 = 30, minus one 3 is 27."
+    },
+    {
+      "id": "facts-mix-20/t2/009",
+      "tier": 2,
+      "prompt": "81 ÷ 9 = ?",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "72"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_SUBTRACTED"
+      ],
+      "explanation": "81 ÷ 9 = 9 because 9 × 9 = 81. Nines: 10 × 9 = 90, minus one 9 is 81."
+    },
+    {
+      "id": "facts-mix-20/t2/010",
+      "tier": 2,
+      "prompt": "9 × 4 = ?",
+      "choices": [
+        "13",
+        "40",
+        "45",
+        "36"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_ADDED",
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null
+      ],
+      "explanation": "9 × 4 = 36: 10 × 4 = 40, minus one 4 = 36."
+    },
+    {
+      "id": "facts-mix-20/t2/011",
+      "tier": 2,
+      "prompt": "4 × 9 = ?",
+      "choices": [
+        "27",
+        "40",
+        "36",
+        "45"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "4 × 9 = 36: 10 × 4 = 40, minus one 4 = 36."
+    },
+    {
+      "id": "facts-mix-20/t2/012",
+      "tier": 2,
+      "prompt": "14 − 9 = ?",
+      "choices": [
+        "5",
+        "23",
+        "4",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_ADDED",
+        "SUB_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "14 − 9: take 4 to get 10, then take 5 more: 5. Check: 9 + 5 = 14."
+    },
+    {
+      "id": "facts-mix-20/t2/013",
+      "tier": 2,
+      "prompt": "9 + 7 = ?",
+      "choices": [
+        "26",
+        "16",
+        "6",
+        "15"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_TENS_SLIP",
+        null,
+        "ADD_NO_CARRY",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "9 + 7 = 16: 7 + 10 = 17, and 9 is one less than 10, so 16."
+    },
+    {
+      "id": "facts-mix-20/t2/014",
+      "tier": 2,
+      "prompt": "7 + 9 = ?",
+      "choices": [
+        "16",
+        "6",
+        "2",
+        "15"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_NO_CARRY",
+        "ADD_SUBTRACTED",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "7 + 9 = 16: 7 + 10 = 17, and 9 is one less than 10, so 16."
+    },
+    {
+      "id": "facts-mix-20/t2/015",
+      "tier": 2,
+      "prompt": "12 ÷ 3 = ?",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "6"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "12 ÷ 3 = 4 because 3 × 4 = 12. Neighbour fact: 3 × 3 = 9, plus one more 3."
+    },
+    {
+      "id": "facts-mix-20/t2/016",
+      "tier": 2,
+      "prompt": "7 + 7 = ?",
+      "choices": [
+        "14",
+        "24",
+        "4",
+        "13"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_TENS_SLIP",
+        "ADD_NO_CARRY",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "7 + 7 = 14: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-mix-20/t2/017",
+      "tier": 2,
+      "prompt": "13 − 6 = ?",
+      "choices": [
+        "8",
+        "17",
+        "7",
+        "19"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        "SUB_FORGOT_TRADE",
+        null,
+        "SUB_ADDED"
+      ],
+      "explanation": "13 − 6: take 3 to get 10, then take 3 more: 7. Check: 6 + 7 = 13."
+    },
+    {
+      "id": "facts-mix-20/t2/018",
+      "tier": 2,
+      "prompt": "15 − 8 = ?",
+      "choices": [
+        "13",
+        "7",
+        "17",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_SMALLER_FROM_LARGER",
+        null,
+        "SUB_FORGOT_TRADE",
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "15 − 8: take 5 to get 10, then take 3 more: 7. Check: 8 + 7 = 15."
+    },
+    {
+      "id": "facts-mix-20/t2/019",
+      "tier": 2,
+      "prompt": "3 × 7 = ?",
+      "choices": [
+        "14",
+        "18",
+        "21",
+        "10"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_ADDED"
+      ],
+      "explanation": "3 × 7 = 21: 2 × 7 = 14, plus one more 7 = 21."
+    },
+    {
+      "id": "facts-mix-20/t2/020",
+      "tier": 2,
+      "prompt": "9 ÷ 3 = ?",
+      "choices": [
+        "2",
+        "27",
+        "3",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "DIV_MULTIPLIED",
+        null,
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "9 ÷ 3 = 3 because 3 × 3 = 9. Neighbour fact: 3 × 2 = 6, plus one more 3."
+    },
+    {
+      "id": "facts-mix-20/t2/021",
+      "tier": 2,
+      "prompt": "4 × 3 = ?",
+      "choices": [
+        "9",
+        "8",
+        "15",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null
+      ],
+      "explanation": "4 × 3 = 12: 2 × 4 = 8, plus one more 4 = 12."
+    },
+    {
+      "id": "facts-mix-20/t2/022",
+      "tier": 2,
+      "prompt": "14 − 5 = ?",
+      "choices": [
+        "10",
+        "19",
+        "11",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        "SUB_ADDED",
+        "SUB_SMALLER_FROM_LARGER",
+        null
+      ],
+      "explanation": "14 − 5: take 4 to get 10, then take 1 more: 9. Check: 5 + 9 = 14."
+    },
+    {
+      "id": "facts-mix-20/t2/023",
+      "tier": 2,
+      "prompt": "6 + 7 = ?",
+      "choices": [
+        "13",
+        "1",
+        "12",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SUBTRACTED",
+        "ADD_ONE_OFF",
+        "ADD_NO_CARRY"
+      ],
+      "explanation": "6 + 7 = 13: double 6 is 12, one more is 13."
+    },
+    {
+      "id": "facts-mix-20/t2/024",
+      "tier": 2,
+      "prompt": "15 − 7 = ?",
+      "choices": [
+        "7",
+        "8",
+        "9",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        null,
+        "SUB_ONE_OFF",
+        "SUB_FORGOT_TRADE"
+      ],
+      "explanation": "15 − 7: take 5 to get 10, then take 2 more: 8. Check: 7 + 8 = 15."
+    },
+    {
+      "id": "facts-mix-20/t3/001",
+      "tier": 3,
+      "prompt": "48 ÷ 8 = ?",
+      "choices": [
+        "3",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "48 ÷ 8 = 6 because 8 × 6 = 48. Neighbour fact: 8 × 5 = 40, plus one more 8."
+    },
+    {
+      "id": "facts-mix-20/t3/002",
+      "tier": 3,
+      "prompt": "7 × 8 = ?",
+      "choices": [
+        "64",
+        "63",
+        "56",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_ADDED"
+      ],
+      "explanation": "7 × 8 = 56: 7 × 7 = 49, plus one more 7 = 56."
+    },
+    {
+      "id": "facts-mix-20/t3/003",
+      "tier": 3,
+      "prompt": "13 − 8 = ?",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "5"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "SUB_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "13 − 8: take 3 to get 10, then take 5 more: 5. Check: 8 + 5 = 13."
+    },
+    {
+      "id": "facts-mix-20/t3/004",
+      "tier": 3,
+      "prompt": "63 ÷ 9 = ?",
+      "choices": [
+        "5",
+        "6",
+        "4",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "63 ÷ 9 = 7 because 9 × 7 = 63. Nines: 10 × 7 = 70, minus one 7 is 63."
+    },
+    {
+      "id": "facts-mix-20/t3/005",
+      "tier": 3,
+      "prompt": "7 + 7 = ?",
+      "choices": [
+        "14",
+        "18",
+        "15",
+        "24"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ADD_ONE_OFF",
+        "ADD_TENS_SLIP"
+      ],
+      "explanation": "7 + 7 = 14: a double. Doubles are worth knowing by heart."
+    },
+    {
+      "id": "facts-mix-20/t3/006",
+      "tier": 3,
+      "prompt": "12 − 9 = ?",
+      "choices": [
+        "3",
+        "1",
+        "17",
+        "2"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUB_SMALLER_FROM_LARGER",
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "12 − 9: take 2 to get 10, then take 7 more: 3. Check: 9 + 3 = 12."
+    },
+    {
+      "id": "facts-mix-20/t3/007",
+      "tier": 3,
+      "prompt": "7 + 9 = ?",
+      "choices": [
+        "20",
+        "26",
+        "16",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_TENS_SLIP",
+        null,
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "7 + 9 = 16: 7 + 10 = 17, and 9 is one less than 10, so 16."
+    },
+    {
+      "id": "facts-mix-20/t3/008",
+      "tier": 3,
+      "prompt": "24 ÷ 4 = ?",
+      "choices": [
+        "8",
+        "96",
+        "7",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        "DIV_MULTIPLIED",
+        "DIV_GROUP_OFF",
+        null
+      ],
+      "explanation": "24 ÷ 4 = 6 because 4 × 6 = 24. Neighbour fact: 4 × 5 = 20, plus one more 4."
+    },
+    {
+      "id": "facts-mix-20/t3/009",
+      "tier": 3,
+      "prompt": "8 + 5 = ?",
+      "choices": [
+        "13",
+        "3",
+        "23",
+        "14"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_SUBTRACTED",
+        "ADD_TENS_SLIP",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "8 + 5 = 13: 8 + 2 = 10, then 3 more is 13."
+    },
+    {
+      "id": "facts-mix-20/t3/010",
+      "tier": 3,
+      "prompt": "5 + 6 = ?",
+      "choices": [
+        "11",
+        "21",
+        "15",
+        "12"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_TENS_SLIP",
+        "ARITH",
+        "ADD_ONE_OFF"
+      ],
+      "explanation": "5 + 6 = 11: double 5 is 10, one more is 11."
+    },
+    {
+      "id": "facts-mix-20/t3/011",
+      "tier": 3,
+      "prompt": "6 × 8 = ?",
+      "choices": [
+        "54",
+        "51",
+        "56",
+        "48"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        "ARITH",
+        "MUL_GROUP_OFF",
+        null
+      ],
+      "explanation": "6 × 8 = 48: split 6 into 5 and 1. 5 × 8 = 40, 1 × 8 = 8, total 48."
+    },
+    {
+      "id": "facts-mix-20/t3/012",
+      "tier": 3,
+      "prompt": "7 × 6 = ?",
+      "choices": [
+        "48",
+        "42",
+        "49",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF",
+        "MUL_ADDED"
+      ],
+      "explanation": "7 × 6 = 42: 6 × 6 = 36, plus one more 6 = 42."
+    },
+    {
+      "id": "facts-mix-20/t3/013",
+      "tier": 3,
+      "prompt": "56 ÷ 8 = ?",
+      "choices": [
+        "48",
+        "6",
+        "5",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_SUBTRACTED",
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF",
+        null
+      ],
+      "explanation": "56 ÷ 8 = 7 because 8 × 7 = 56. Neighbour fact: 8 × 6 = 48, plus one more 8."
+    },
+    {
+      "id": "facts-mix-20/t3/014",
+      "tier": 3,
+      "prompt": "6 + 8 = ?",
+      "choices": [
+        "17",
+        "15",
+        "14",
+        "24"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ADD_ONE_OFF",
+        null,
+        "ADD_TENS_SLIP"
+      ],
+      "explanation": "6 + 8 = 14: 8 + 2 = 10, then 4 more is 14."
+    },
+    {
+      "id": "facts-mix-20/t3/015",
+      "tier": 3,
+      "prompt": "8 + 3 = ?",
+      "choices": [
+        "10",
+        "5",
+        "1",
+        "11"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_ONE_OFF",
+        "ADD_SUBTRACTED",
+        "ADD_NO_CARRY",
+        null
+      ],
+      "explanation": "8 + 3 = 11: 8 + 2 = 10, then 1 more is 11."
+    },
+    {
+      "id": "facts-mix-20/t3/016",
+      "tier": 3,
+      "prompt": "4 × 7 = ?",
+      "choices": [
+        "35",
+        "28",
+        "32",
+        "11"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF",
+        "MUL_ADDED"
+      ],
+      "explanation": "4 × 7 = 28: double 7 is 14, double again is 28."
+    },
+    {
+      "id": "facts-mix-20/t3/017",
+      "tier": 3,
+      "prompt": "12 − 8 = ?",
+      "choices": [
+        "4",
+        "2",
+        "16",
+        "3"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "SUB_SMALLER_FROM_LARGER",
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "12 − 8: take 2 to get 10, then take 6 more: 4. Check: 8 + 4 = 12."
+    },
+    {
+      "id": "facts-mix-20/t3/018",
+      "tier": 3,
+      "prompt": "7 × 3 = ?",
+      "choices": [
+        "28",
+        "21",
+        "24",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_GROUP_OFF",
+        null,
+        "MUL_GROUP_OFF",
+        "MUL_ADDED"
+      ],
+      "explanation": "7 × 3 = 21: 2 × 7 = 14, plus one more 7 = 21."
+    },
+    {
+      "id": "facts-mix-20/t3/019",
+      "tier": 3,
+      "prompt": "24 ÷ 3 = ?",
+      "choices": [
+        "7",
+        "8",
+        "6",
+        "10"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF",
+        "DIV_GROUP_OFF"
+      ],
+      "explanation": "24 ÷ 3 = 8 because 3 × 8 = 24. Neighbour fact: 3 × 7 = 21, plus one more 3."
+    },
+    {
+      "id": "facts-mix-20/t3/020",
+      "tier": 3,
+      "prompt": "18 − 9 = ?",
+      "choices": [
+        "9",
+        "8",
+        "27",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_ONE_OFF",
+        "SUB_ADDED",
+        "ARITH"
+      ],
+      "explanation": "18 − 9 = 9 because double 9 is 18."
+    },
+    {
+      "id": "facts-mix-20/t3/021",
+      "tier": 3,
+      "prompt": "14 − 8 = ?",
+      "choices": [
+        "5",
+        "22",
+        "6",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_ONE_OFF",
+        "SUB_ADDED",
+        null,
+        "SUB_ONE_OFF"
+      ],
+      "explanation": "14 − 8: take 4 to get 10, then take 4 more: 6. Check: 8 + 6 = 14."
+    },
+    {
+      "id": "facts-mix-20/t3/022",
+      "tier": 3,
+      "prompt": "12 − 4 = ?",
+      "choices": [
+        "6",
+        "7",
+        "8",
+        "5"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "SUB_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "12 − 4: take 2 to get 10, then take 2 more: 8. Check: 4 + 8 = 12."
+    },
+    {
+      "id": "facts-mix-20/t3/023",
+      "tier": 3,
+      "prompt": "6 × 4 = ?",
+      "choices": [
+        "10",
+        "24",
+        "20",
+        "18"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_ADDED",
+        null,
+        "MUL_GROUP_OFF",
+        "MUL_GROUP_OFF"
+      ],
+      "explanation": "6 × 4 = 24: double 6 is 12, double again is 24."
+    },
+    {
+      "id": "facts-mix-20/t3/024",
+      "tier": 3,
+      "prompt": "21 ÷ 3 = ?",
+      "choices": [
+        "5",
+        "7",
+        "6",
+        "63"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_GROUP_OFF",
+        null,
+        "DIV_GROUP_OFF",
+        "DIV_MULTIPLIED"
+      ],
+      "explanation": "21 ÷ 3 = 7 because 3 × 7 = 21. Neighbour fact: 3 × 6 = 18, plus one more 3."
+    },
+    {
+      "id": "facts-mix-20/t4/001",
+      "tier": 4,
+      "prompt": "14 + ? = 17",
+      "choices": [
+        "1",
+        "13",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "14 + ? = 17: 14 + 3 = 17, so ? = 3. Subtract: 17 - 14 = 3."
+    },
+    {
+      "id": "facts-mix-20/t4/002",
+      "tier": 4,
+      "prompt": "10 × ? = 20",
+      "choices": [
+        "3",
+        "2",
+        "20",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_MISSING_ONE_OFF",
+        null,
+        "MUL_MISSING_PRODUCT",
+        "ARITH"
+      ],
+      "explanation": "10 × ? = 20: 10 × 2 = 20, so ? = 2. Drop the zero from 20: 2."
+    },
+    {
+      "id": "facts-mix-20/t4/003",
+      "tier": 4,
+      "prompt": "19 − ? = 12",
+      "choices": [
+        "6",
+        "5",
+        "4",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_MISSING_ONE_OFF",
+        "ARITH",
+        "ARITH",
+        null
+      ],
+      "explanation": "19 − ? = 12: count up from 12 to 19, that is 7. So 19 − 7 = 12, ? = 7."
+    },
+    {
+      "id": "facts-mix-20/t4/004",
+      "tier": 4,
+      "prompt": "11 − ? = 2",
+      "choices": [
+        "19",
+        "10",
+        "9",
+        "13"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_MISSING_TENS",
+        "SUB_MISSING_ONE_OFF",
+        null,
+        "SUB_MISSING_ADDED"
+      ],
+      "explanation": "11 − ? = 2: count up from 2 to 11, that is 9. So 11 − 9 = 2, ? = 9."
+    },
+    {
+      "id": "facts-mix-20/t4/005",
+      "tier": 4,
+      "prompt": "4 × ? = 12",
+      "choices": [
+        "2",
+        "1",
+        "8",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_MISSING_ONE_OFF",
+        "ARITH",
+        "MUL_MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "4 × ? = 12: 4 × 3 = 12, so ? = 3. Count by 4s up to 12, or divide: 12 ÷ 4 = 3."
+    },
+    {
+      "id": "facts-mix-20/t4/006",
+      "tier": 4,
+      "prompt": "42 ÷ ? = 6",
+      "choices": [
+        "9",
+        "7",
+        "8",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "DIV_MISSING_ONE_OFF",
+        "DIV_MISSING_SUBTRACTED"
+      ],
+      "explanation": "42 ÷ ? = 6: 6 × 7 = 42, so ? = 7. Ask: what times 6 makes 42?"
+    },
+    {
+      "id": "facts-mix-20/t4/007",
+      "tier": 4,
+      "prompt": "12 − ? = 5",
+      "choices": [
+        "5",
+        "4",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "SUB_MISSING_ONE_OFF"
+      ],
+      "explanation": "12 − ? = 5: 12 − 7 = 5, so ? = 7. Think addition: 5 + 7 = 12."
+    },
+    {
+      "id": "facts-mix-20/t4/008",
+      "tier": 4,
+      "prompt": "6 + ? = 12",
+      "choices": [
+        "18",
+        "5",
+        "16",
+        "6"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_MISSING_ADDED",
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_TENS",
+        null
+      ],
+      "explanation": "6 + ? = 12: 6 + 6 = 12, so ? = 6. Count up: 6 + 4 = 10, then 2 more."
+    },
+    {
+      "id": "facts-mix-20/t4/009",
+      "tier": 4,
+      "prompt": "6 × ? = 48",
+      "choices": [
+        "8",
+        "9",
+        "10",
+        "48"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_MISSING_ONE_OFF",
+        "ARITH",
+        "MUL_MISSING_PRODUCT"
+      ],
+      "explanation": "6 × ? = 48: 6 × 8 = 48, so ? = 8. Count by 6s up to 48, or divide: 48 ÷ 6 = 8."
+    },
+    {
+      "id": "facts-mix-20/t4/010",
+      "tier": 4,
+      "prompt": "7 × ? = 56",
+      "choices": [
+        "8",
+        "56",
+        "6",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "MUL_MISSING_PRODUCT",
+        "ARITH",
+        "MUL_MISSING_ONE_OFF"
+      ],
+      "explanation": "7 × ? = 56: 7 × 8 = 56, so ? = 8. Count by 7s up to 56, or divide: 56 ÷ 7 = 8."
+    },
+    {
+      "id": "facts-mix-20/t4/011",
+      "tier": 4,
+      "prompt": "11 − ? = 3",
+      "choices": [
+        "9",
+        "8",
+        "18",
+        "7"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "SUB_MISSING_ONE_OFF",
+        null,
+        "SUB_MISSING_TENS",
+        "SUB_MISSING_ONE_OFF"
+      ],
+      "explanation": "11 − ? = 3: count up from 3 to 11, that is 8. So 11 − 8 = 3, ? = 8."
+    },
+    {
+      "id": "facts-mix-20/t4/012",
+      "tier": 4,
+      "prompt": "8 + ? = 12",
+      "choices": [
+        "3",
+        "4",
+        "2",
+        "0"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_MISSING_ONE_OFF",
+        null,
+        "ARITH",
+        "ARITH"
+      ],
+      "explanation": "8 + ? = 12: 8 + 4 = 12, so ? = 4. Count up: 8 + 2 = 10, then 2 more."
+    },
+    {
+      "id": "facts-mix-20/t4/013",
+      "tier": 4,
+      "prompt": "10 + ? = 20",
+      "choices": [
+        "10",
+        "9",
+        "0",
+        "30"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ADDED"
+      ],
+      "explanation": "10 + ? = 20: 10 + 10 = 20, so ? = 10. Count up by tens: add 1 ten to 10."
+    },
+    {
+      "id": "facts-mix-20/t4/014",
+      "tier": 4,
+      "prompt": "15 ÷ ? = 5",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIV_MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "15 ÷ ? = 5: 5 × 3 = 15, so ? = 3. Ask: what times 5 makes 15?"
+    },
+    {
+      "id": "facts-mix-20/t4/015",
+      "tier": 4,
+      "prompt": "8 + ? = 11",
+      "choices": [
+        "1",
+        "3",
+        "2",
+        "13"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_TENS"
+      ],
+      "explanation": "8 + ? = 11: 8 + 3 = 11, so ? = 3. Count up: 8 + 2 = 10, then 1 more."
+    },
+    {
+      "id": "facts-mix-20/t4/016",
+      "tier": 4,
+      "prompt": "8 × ? = 80",
+      "choices": [
+        "72",
+        "11",
+        "12",
+        "10"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_MISSING_SUBTRACTED",
+        "MUL_MISSING_ONE_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "8 × ? = 80: 8 × 10 = 80, so ? = 10. Count by 8s up to 80, or divide: 80 ÷ 8 = 10."
+    },
+    {
+      "id": "facts-mix-20/t4/017",
+      "tier": 4,
+      "prompt": "16 − ? = 9",
+      "choices": [
+        "17",
+        "8",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_MISSING_TENS",
+        "SUB_MISSING_ONE_OFF",
+        null,
+        "SUB_MISSING_ONE_OFF"
+      ],
+      "explanation": "16 − ? = 9: count up from 9 to 16, that is 7. So 16 − 7 = 9, ? = 7."
+    },
+    {
+      "id": "facts-mix-20/t4/018",
+      "tier": 4,
+      "prompt": "4 × ? = 28",
+      "choices": [
+        "5",
+        "28",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "MUL_MISSING_PRODUCT",
+        null,
+        "MUL_MISSING_ONE_OFF"
+      ],
+      "explanation": "4 × ? = 28: 4 × 7 = 28, so ? = 7. Count by 4s up to 28, or divide: 28 ÷ 4 = 7."
+    },
+    {
+      "id": "facts-mix-20/t4/019",
+      "tier": 4,
+      "prompt": "12 ÷ ? = 4",
+      "choices": [
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIV_MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "12 ÷ ? = 4: 4 × 3 = 12, so ? = 3. Ask: what times 4 makes 12?"
+    },
+    {
+      "id": "facts-mix-20/t4/020",
+      "tier": 4,
+      "prompt": "15 ÷ ? = 3",
+      "choices": [
+        "12",
+        "5",
+        "6",
+        "4"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_MISSING_SUBTRACTED",
+        null,
+        "DIV_MISSING_ONE_OFF",
+        "DIV_MISSING_ONE_OFF"
+      ],
+      "explanation": "15 ÷ ? = 3: 3 × 5 = 15, so ? = 5. Ask: what times 3 makes 15?"
+    },
+    {
+      "id": "facts-mix-20/t4/021",
+      "tier": 4,
+      "prompt": "17 − ? = 6",
+      "choices": [
+        "23",
+        "1",
+        "11",
+        "21"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_MISSING_ADDED",
+        "SUB_MISSING_TENS",
+        null,
+        "SUB_MISSING_TENS"
+      ],
+      "explanation": "17 − ? = 6: count up from 6 to 17, that is 11. So 17 − 11 = 6, ? = 11."
+    },
+    {
+      "id": "facts-mix-20/t4/022",
+      "tier": 4,
+      "prompt": "8 + ? = 17",
+      "choices": [
+        "25",
+        "19",
+        "8",
+        "9"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ADD_MISSING_ADDED",
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "8 + ? = 17: 8 + 9 = 17, so ? = 9. Count up: 8 + 2 = 10, then 7 more."
+    },
+    {
+      "id": "facts-mix-20/t4/023",
+      "tier": 4,
+      "prompt": "63 ÷ ? = 7",
+      "choices": [
+        "6",
+        "8",
+        "9",
+        "7"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "DIV_MISSING_ONE_OFF",
+        null,
+        "ARITH"
+      ],
+      "explanation": "63 ÷ ? = 7: 7 × 9 = 63, so ? = 9. Ask: what times 7 makes 63?"
+    },
+    {
+      "id": "facts-mix-20/t4/024",
+      "tier": 4,
+      "prompt": "48 ÷ ? = 8",
+      "choices": [
+        "6",
+        "8",
+        "40",
+        "7"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "DIV_MISSING_SUBTRACTED",
+        "DIV_MISSING_ONE_OFF"
+      ],
+      "explanation": "48 ÷ ? = 8: 8 × 6 = 48, so ? = 6. Ask: what times 8 makes 48?"
+    },
+    {
+      "id": "facts-mix-20/t5/001",
+      "tier": 5,
+      "prompt": "14 − ? = 7",
+      "choices": [
+        "5",
+        "4",
+        "7",
+        "6"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "SUB_MISSING_ONE_OFF"
+      ],
+      "explanation": "14 − ? = 7: count up from 7 to 14, that is 7. So 14 − 7 = 7, ? = 7."
+    },
+    {
+      "id": "facts-mix-20/t5/002",
+      "tier": 5,
+      "prompt": "? × 6 = 48",
+      "choices": [
+        "7",
+        "48",
+        "6",
+        "8"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_MISSING_ONE_OFF",
+        "MUL_MISSING_PRODUCT",
+        "ARITH",
+        null
+      ],
+      "explanation": "? × 6 = 48: 8 × 6 = 48, so ? = 8. Count by 6s up to 48, or divide: 48 ÷ 6 = 8."
+    },
+    {
+      "id": "facts-mix-20/t5/003",
+      "tier": 5,
+      "prompt": "? + 10 = 19",
+      "choices": [
+        "19",
+        "10",
+        "9",
+        "29"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ONE_OFF",
+        null,
+        "ADD_MISSING_ADDED"
+      ],
+      "explanation": "? + 10 = 19: 9 + 10 = 19, so ? = 9. Subtract: 19 - 10 = 9."
+    },
+    {
+      "id": "facts-mix-20/t5/004",
+      "tier": 5,
+      "prompt": "63 ÷ ? = 7",
+      "choices": [
+        "6",
+        "7",
+        "9",
+        "8"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        null,
+        "DIV_MISSING_ONE_OFF"
+      ],
+      "explanation": "63 ÷ ? = 7: 7 × 9 = 63, so ? = 9. Ask: what times 7 makes 63?"
+    },
+    {
+      "id": "facts-mix-20/t5/005",
+      "tier": 5,
+      "prompt": "? ÷ 8 = 7",
+      "choices": [
+        "15",
+        "55",
+        "56",
+        "48"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "DIV_START_ADDED",
+        "ARITH",
+        null,
+        "DIV_START_GROUP_OFF"
+      ],
+      "explanation": "? ÷ 8 = 7: 8 × 7 = 56, so ? = 56. Undo dividing by multiplying: 8 × 7."
+    },
+    {
+      "id": "facts-mix-20/t5/006",
+      "tier": 5,
+      "prompt": "? + 15 = 17",
+      "choices": [
+        "2",
+        "1",
+        "12",
+        "32"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ADDED"
+      ],
+      "explanation": "? + 15 = 17: 2 + 15 = 17, so ? = 2. Subtract: 17 - 15 = 2."
+    },
+    {
+      "id": "facts-mix-20/t5/007",
+      "tier": 5,
+      "prompt": "16 ÷ ? = 4",
+      "choices": [
+        "4",
+        "64",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "DIV_MISSING_MULTIPLIED",
+        "DIV_MISSING_ONE_OFF",
+        "ARITH"
+      ],
+      "explanation": "16 ÷ ? = 4: 4 × 4 = 16, so ? = 4. A square fact: 4 times itself makes 16."
+    },
+    {
+      "id": "facts-mix-20/t5/008",
+      "tier": 5,
+      "prompt": "? × 4 = 28",
+      "choices": [
+        "7",
+        "4",
+        "5",
+        "6"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ARITH",
+        "ARITH",
+        "MUL_MISSING_ONE_OFF"
+      ],
+      "explanation": "? × 4 = 28: 7 × 4 = 28, so ? = 7. Count by 4s up to 28, or divide: 28 ÷ 4 = 7."
+    },
+    {
+      "id": "facts-mix-20/t5/009",
+      "tier": 5,
+      "prompt": "28 ÷ ? = 7",
+      "choices": [
+        "21",
+        "4",
+        "6",
+        "5"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_MISSING_SUBTRACTED",
+        null,
+        "ARITH",
+        "DIV_MISSING_ONE_OFF"
+      ],
+      "explanation": "28 ÷ ? = 7: 7 × 4 = 28, so ? = 4. Ask: what times 7 makes 28?"
+    },
+    {
+      "id": "facts-mix-20/t5/010",
+      "tier": 5,
+      "prompt": "12 − ? = 9",
+      "choices": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "ARITH",
+        "SUB_MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "12 − ? = 9: 12 − 3 = 9, so ? = 3. Think addition: 9 + 3 = 12."
+    },
+    {
+      "id": "facts-mix-20/t5/011",
+      "tier": 5,
+      "prompt": "? ÷ 8 = 6",
+      "choices": [
+        "14",
+        "40",
+        "47",
+        "48"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "DIV_START_ADDED",
+        "DIV_START_GROUP_OFF",
+        "ARITH",
+        null
+      ],
+      "explanation": "? ÷ 8 = 6: 8 × 6 = 48, so ? = 48. Undo dividing by multiplying: 8 × 6."
+    },
+    {
+      "id": "facts-mix-20/t5/012",
+      "tier": 5,
+      "prompt": "? + 6 = 13",
+      "choices": [
+        "7",
+        "6",
+        "17",
+        "19"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ADDED"
+      ],
+      "explanation": "? + 6 = 13: 7 + 6 = 13, so ? = 7. Count up: 6 + 4 = 10, then 3 more."
+    },
+    {
+      "id": "facts-mix-20/t5/013",
+      "tier": 5,
+      "prompt": "8 × ? = 56",
+      "choices": [
+        "9",
+        "48",
+        "8",
+        "7"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "ARITH",
+        "MUL_MISSING_SUBTRACTED",
+        "MUL_MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "8 × ? = 56: 8 × 7 = 56, so ? = 7. Count by 8s up to 56, or divide: 56 ÷ 8 = 7."
+    },
+    {
+      "id": "facts-mix-20/t5/014",
+      "tier": 5,
+      "prompt": "? + 9 = 18",
+      "choices": [
+        "19",
+        "9",
+        "8",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ADD_MISSING_TENS",
+        null,
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_ADDED"
+      ],
+      "explanation": "? + 9 = 18: 9 + 9 = 18, so ? = 9. Count up: 9 + 1 = 10, then 8 more."
+    },
+    {
+      "id": "facts-mix-20/t5/015",
+      "tier": 5,
+      "prompt": "? − 12 = 2",
+      "choices": [
+        "15",
+        "24",
+        "14",
+        "17"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "SUB_MISSING_ONE_OFF",
+        "SUB_MISSING_TENS",
+        null,
+        "ARITH"
+      ],
+      "explanation": "? − 12 = 2: add back, 2 + 12 = 14, so ? = 14."
+    },
+    {
+      "id": "facts-mix-20/t5/016",
+      "tier": 5,
+      "prompt": "? + 15 = 20",
+      "choices": [
+        "4",
+        "35",
+        "5",
+        "15"
+      ],
+      "answer": 2,
+      "misconceptions": [
+        "ADD_MISSING_ONE_OFF",
+        "ADD_MISSING_ADDED",
+        null,
+        "ADD_MISSING_TENS"
+      ],
+      "explanation": "? + 15 = 20: 5 + 15 = 20, so ? = 5. 15 is 5 away from 20."
+    },
+    {
+      "id": "facts-mix-20/t5/017",
+      "tier": 5,
+      "prompt": "? × 9 = 36",
+      "choices": [
+        "2",
+        "4",
+        "3",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "MUL_MISSING_ONE_OFF",
+        "MUL_MISSING_SUBTRACTED"
+      ],
+      "explanation": "? × 9 = 36: 4 × 9 = 36, so ? = 4. Count by 9s up to 36, or divide: 36 ÷ 9 = 4."
+    },
+    {
+      "id": "facts-mix-20/t5/018",
+      "tier": 5,
+      "prompt": "? − 8 = 4",
+      "choices": [
+        "4",
+        "11",
+        "13",
+        "12"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "SUB_START_SUBTRACTED",
+        "SUB_MISSING_ONE_OFF",
+        "SUB_MISSING_ONE_OFF",
+        null
+      ],
+      "explanation": "? − 8 = 4: undo the take away, 4 + 8 = 12, so ? = 12. Check: 12 − 8 = 4."
+    },
+    {
+      "id": "facts-mix-20/t5/019",
+      "tier": 5,
+      "prompt": "? + 6 = 15",
+      "choices": [
+        "7",
+        "9",
+        "19",
+        "8"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "ARITH",
+        null,
+        "ADD_MISSING_TENS",
+        "ADD_MISSING_ONE_OFF"
+      ],
+      "explanation": "? + 6 = 15: 9 + 6 = 15, so ? = 9. Count up: 6 + 4 = 10, then 5 more."
+    },
+    {
+      "id": "facts-mix-20/t5/020",
+      "tier": 5,
+      "prompt": "? ÷ 4 = 7",
+      "choices": [
+        "24",
+        "28",
+        "32",
+        "27"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "DIV_START_GROUP_OFF",
+        null,
+        "DIV_START_GROUP_OFF",
+        "ARITH"
+      ],
+      "explanation": "? ÷ 4 = 7: 4 × 7 = 28, so ? = 28. Undo dividing by multiplying: 4 × 7."
+    },
+    {
+      "id": "facts-mix-20/t5/021",
+      "tier": 5,
+      "prompt": "6 × ? = 36",
+      "choices": [
+        "7",
+        "6",
+        "5",
+        "36"
+      ],
+      "answer": 1,
+      "misconceptions": [
+        "MUL_MISSING_ONE_OFF",
+        null,
+        "MUL_MISSING_ONE_OFF",
+        "MUL_MISSING_PRODUCT"
+      ],
+      "explanation": "6 × ? = 36: 6 × 6 = 36, so ? = 6. Count by 6s up to 36, or divide: 36 ÷ 6 = 6."
+    },
+    {
+      "id": "facts-mix-20/t5/022",
+      "tier": 5,
+      "prompt": "? − 9 = 6",
+      "choices": [
+        "15",
+        "3",
+        "14",
+        "25"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_START_SUBTRACTED",
+        "SUB_MISSING_ONE_OFF",
+        "SUB_MISSING_TENS"
+      ],
+      "explanation": "? − 9 = 6: add back, 6 + 9 = 15, so ? = 15."
+    },
+    {
+      "id": "facts-mix-20/t5/023",
+      "tier": 5,
+      "prompt": "? − 11 = 2",
+      "choices": [
+        "13",
+        "14",
+        "3",
+        "23"
+      ],
+      "answer": 0,
+      "misconceptions": [
+        null,
+        "SUB_MISSING_ONE_OFF",
+        "SUB_MISSING_TENS",
+        "SUB_MISSING_TENS"
+      ],
+      "explanation": "? − 11 = 2: add back, 2 + 11 = 13, so ? = 13."
+    },
+    {
+      "id": "facts-mix-20/t5/024",
+      "tier": 5,
+      "prompt": "? × 3 = 9",
+      "choices": [
+        "4",
+        "5",
+        "6",
+        "3"
+      ],
+      "answer": 3,
+      "misconceptions": [
+        "MUL_MISSING_ONE_OFF",
+        "ARITH",
+        "MUL_MISSING_SUBTRACTED",
+        null
+      ],
+      "explanation": "? × 3 = 9: 3 × 3 = 9, so ? = 3. Count by 3s up to 9, or divide: 9 ÷ 3 = 3."
+    }
+  ]
+}

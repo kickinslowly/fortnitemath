@@ -100,7 +100,8 @@ before UEFN work. Project-specific:
   Station hallways sit at different X and levels, so never assume x = 0 or z = 0 for a course actor.
   Ice hallways: `ICE_STATIONS` (needs the `ice` material: `python tools/import_art.py ice`).
 - Test hooks on the director (ship values 0 / false / -1): `DebugAutoPick` (pick cartridge N on join with no menu;
-  every other hook needs it or a real click; `DebugPickerSeconds` N shows the picker N s first, for its frames),
+  every other hook needs it or a real click; `DebugPickerSeconds` N shows the picker N s first, for its frames; `DebugPickerGrade` N shows grade N's skill step
+  in it instead of the grade step),
   `DebugAutoWrongAnswers`, `DebugAutoRightAnswers` (runs
   the whole course through the real triggers and barriers to the finish screen; starts on the FIRST pick only; waits
   `DebugEntranceSeconds` at the arena entry for the titan's entrance),

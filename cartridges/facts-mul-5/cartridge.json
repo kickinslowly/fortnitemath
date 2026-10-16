@@ -1,0 +1,66 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-mul-5",
+  "version": "1.0.0",
+  "title": "Times Tables to 5",
+  "subtitle": "Factors 0 to 5",
+  "grade": "Facts",
+  "picker_order": 9,
+  "standards": [
+    "CCSS.MATH.CONTENT.2.OA.C.4",
+    "CCSS.MATH.CONTENT.3.OA.A.4",
+    "CCSS.MATH.CONTENT.3.OA.C.7"
+  ],
+  "seed": 20261059,
+  "items_per_tier": 24,
+  "bounds": "Factors 0 to 5. Forms: R a × b = ?, C a × ? = p, S ? × b = p (a missing factor is never 0). T1 R: a fact with a 0, 1, 2 or 5 (32 prompts); T2 R: both factors 1-5 (25); T3 R: both 2-5 (at least 12 items) and C with 2 or 5 as the first factor, factors 1-5 (at least 8; 26 prompts in all); T4 C: factors 1-5 (25); T5 S: both 2-5 (at least 12 items) and C: both 2-5 (32 prompts in all). At most 6 prompts per tier with a 0 factor. Wrong choices are distinct non-negative whole numbers up to 999. R: at least two within the larger factor of the answer (at least 2), at most one far. C and S: at least two within 2 of the answer, at most one far. Answer ranks (smallest to largest of the four) each hold 15 to 35 percent of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Times 0, 1, 2, 5",
+      "description": "Facts with 0, 1, 2 or 5. Zero groups make nothing; double for 2s."
+    },
+    {
+      "tier": 2,
+      "name": "All to 5 × 5",
+      "description": "Every fact with factors 1 to 5. Use doubles and count by 5s."
+    },
+    {
+      "tier": 3,
+      "name": "Times 2 to 5",
+      "description": "Facts with factors 2 to 5, plus a missing factor in the 2s and 5s."
+    },
+    {
+      "tier": 4,
+      "name": "Missing factors",
+      "description": "Missing factor: 3 × ? = 12. Ask what times 3 makes 12."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first factors",
+      "description": "First factor missing: ? × 4 = 12, or a missing second factor. Factors 2 to 5."
+    }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Check it: multiply your number by the shown one. Does it make the total?",
+      "teacher": "Missing factor one too high or too low: counted the groups wrong, or never multiplied back to check."
+    },
+    "MISSING_SUBTRACTED": {
+      "student": "Not subtraction. Ask: this number times what makes the total?",
+      "teacher": "Subtracts the shown factor from the product (p − k) instead of dividing the product by it."
+    },
+    "MISSING_PRODUCT": {
+      "student": "The total is the product, not the missing factor. Multiply back to check.",
+      "teacher": "Writes the product as the missing factor: the number already given in the equation."
+    }
+  }
+}

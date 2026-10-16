@@ -1,0 +1,67 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-sub-10",
+  "version": "1.0.0",
+  "title": "Subtraction to 10",
+  "subtitle": "Take away from 10 or less",
+  "grade": "Facts",
+  "picker_order": 5,
+  "standards": [
+    "CCSS.MATH.CONTENT.K.OA.A.5",
+    "CCSS.MATH.CONTENT.1.OA.B.4",
+    "CCSS.MATH.CONTENT.1.OA.C.6",
+    "CCSS.MATH.CONTENT.1.OA.D.8"
+  ],
+  "seed": 20261055,
+  "items_per_tier": 24,
+  "bounds": "Sums within 10: s − a = b read as a + b = s backwards (pools.py), items are s − a = ?, s − ? = b, ? − a = b. T1 R, a or b at most 2 (s − 0 included); T2 R, a and b at least 2; T3 R with a and b at least 3 (at least 8) plus the make-ten facts as s − ? = b and ? − a = b (at least 4 each); T4 s − ? = b, a and b at least 1; T5 ? − a = b (at least 12) and s − ? = b with a and b at least 2 and s 5-10. Wrong choices: distinct non-negative integers, at least two within 1 or 2 of the answer, at most one far; no tens slips and no values 10 away within 10; modelled misconceptions first, ARITH only to fill; each answer rank holds the answer in 15-35% of a tier.",
+  "tiers": [
+    {
+      "tier": 1,
+      "name": "Minus 0, 1, 2",
+      "description": "Subtract 0, 1 or 2. Count back."
+    },
+    {
+      "tier": 2,
+      "name": "From 10 or less",
+      "description": "Take away from 10 or less. Think: what adds up?"
+    },
+    {
+      "tier": 3,
+      "name": "Ten take away",
+      "description": "Ten take away: 10 − 3, 10 − 7, and the missing part."
+    },
+    {
+      "tier": 4,
+      "name": "Missing numbers",
+      "description": "One part is hidden: 8 − ? = 5. Think addition."
+    },
+    {
+      "tier": 5,
+      "name": "Missing first numbers",
+      "description": "The start is hidden: ? − 3 = 4. Add back."
+    }
+  ],
+  "misconceptions": {
+    "ONE_OFF": {
+      "student": "Off by one. Check: answer + number taken away must equal the start.",
+      "teacher": "Counted back one step too many or too few: answer is the correct difference plus or minus 1."
+    },
+    "ADDED": {
+      "student": "Take away, don't add. Subtracting makes the number smaller.",
+      "teacher": "Added the two numbers (s + a) instead of subtracting."
+    },
+    "MISSING_ADDED": {
+      "student": "Add the missing part to what is left and you must get the start. Check it.",
+      "teacher": "s - ? = b: added the two numbers shown (s + b) instead of finding what was taken away."
+    },
+    "MISSING_ONE_OFF": {
+      "student": "Off by one. Put your number back in the problem and check it.",
+      "teacher": "Missing number is one too big or too small (the answer plus or minus 1); did not check by substituting."
+    },
+    "START_SUBTRACTED": {
+      "student": "The start is bigger than both numbers: add back what was taken away.",
+      "teacher": "? - a = b: took the two shown numbers apart (|b - a|) instead of adding back what was taken."
+    }
+  }
+}

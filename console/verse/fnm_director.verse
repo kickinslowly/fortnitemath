@@ -475,6 +475,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # then pick, so a headless session sees the picker with no click. 0 = pick at once (ship value).
     @editable
     DebugPickerSeconds : float = 0.0
+    # Test hook (2026-10-16, Facts by range): with DebugPickerSeconds, show GradeList()[N]'s skill step instead of the
+    # grade step, so a headless session can frame a grade's skill buttons (Facts' 4-wide grid) with no click. -1 = off.
+    @editable
+    DebugPickerGrade : int = -1
     # Test hook: drop every door trigger event, so only the position backstop (WatchDoors) answers doors. Pair with
     # DebugAutoRightAnswers to prove the backstop carries a whole run. false = ship value.
     @editable
@@ -1351,6 +1355,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             WithBoss := if (BossMode?) then true else false
             if (Grades.Length = 1, not WithBoss?, Only := Grades[0]):
                 ShowSkills(State, Only, false)
+            else if (DebugPickerGrade >= 0, Framed := Grades[DebugPickerGrade]):
+                ShowSkills(State, Framed, true)
             else:
                 State.Hud.ShowGradeStep(Grades, WithBoss)
             Print("FNM: picker shown: {Grades.Length} grades, {Cartridges.Length} skills")
