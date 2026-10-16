@@ -232,21 +232,26 @@ const homeSequence = (page) => page.evaluate(() =>
   [...document.querySelectorAll('[data-testid=grade-heading], [data-testid=cart-card]')].map((e) =>
     e.dataset.testid === 'grade-heading' ? `H:${e.textContent}|${e.dataset.grade}` : `C:${e.dataset.cart}`));
 
-test('home groups cartridges by grade: real carts.js gives Grade 6, then 7, then 8', async ({ page }) => {
+test('home groups cartridges by grade: real carts.js gives Grade 6, 7, 8, then Facts', async ({ page }) => {
   test.skip(!fs.existsSync(REAL), 'emulator/carts.js not generated yet');
   await page.goto(pageUrl());
-  // within a grade the home sorts cards by title (PROTOCOL 6b), not by id
+  // within a grade the home sorts cards by picker_order, then title (PROTOCOL 6b), not by id
   const carts = await page.evaluate(() => Object.entries(window.FNM_CARTRIDGES)
-    .sort(([, x], [, y]) => (x.title < y.title ? -1 : x.title > y.title ? 1 : 0)).map(([k, c]) => [k, String(c.grade)]));
-  const grades = ['6', '7', '8'];
+    .sort(([, x], [, y]) => ((x.picker_order || 0) - (y.picker_order || 0)) || (x.title < y.title ? -1 : x.title > y.title ? 1 : 0))
+    .map(([k, c]) => [k, String(c.grade)]));
+  const grades = ['6', '7', '8', 'Facts'];
+  const label = (G) => (G === 'Facts' ? 'Facts' : `Grade ${G}`);
   const byGrade = grades.map((G) => carts.filter(([, g]) => g === G).map(([k]) => `C:${k}`));
   for (const [i, cards] of byGrade.entries()) expect(cards.length, `grade ${grades[i]} has cartridges`).toBeGreaterThan(0);
-  expect(byGrade.flat().length, 'real carts.js holds only grade 6, 7 and 8 cartridges').toBe(carts.length);
-  expect(await homeSequence(page), 'home sequence: each grade heading, then its cards, grades ascending')
-    .toEqual(grades.flatMap((G, i) => [`H:Grade ${G}|${G}`, ...byGrade[i]]));
+  expect(byGrade.flat().length, 'real carts.js holds only grade 6, 7, 8 and Facts cartridges').toBe(carts.length);
+  expect(await homeSequence(page), 'home sequence: each grade heading, then its cards, grades ascending, Facts last')
+    .toEqual(grades.flatMap((G, i) => [`H:${label(G)}|${G}`, ...byGrade[i]]));
+  // Aaron's order inside Facts (2026-10-15)
+  expect(byGrade[3]).toEqual(['facts-addition', 'facts-subtraction', 'facts-multiplication', 'facts-division', 'facts-combo']
+    .map((k) => `C:${k}`));
 });
 
-test('home grade order: numeric when all grades are numbers, string otherwise, no grade last as Other', async ({ page }) => {
+test('home grade order: numeric grades by number, then word grades, no grade last as Other', async ({ page }) => {
   const mk = (id, title, grade) => {
     const c = { protocol: 'fnm-cart/1', id, version: '0.0.0', title, subtitle: 's', standards: [],
       tiers: [{ tier: 1, name: 't', description: '' }], misconceptions: {},
@@ -262,14 +267,17 @@ test('home grade order: numeric when all grades are numbers, string otherwise, n
   await load({ a: mk('a', 'Zeta', '10'), b: mk('b', 'Beta', '8'), c: mk('c', 'Alpha', '8'), d: mk('d', 'Nada'), e: mk('e', 'Mid', '9') });
   expect(await homeSequence(page), 'numeric grade order').toEqual(
     ['H:Grade 8|8', 'C:c', 'C:b', 'H:Grade 9|9', 'C:e', 'H:Grade 10|10', 'C:a', 'H:Other|', 'C:d']);
-  // one unnumbered grade switches every grade to string order; Other still last
+  // a word grade goes after every numeric grade, which stay numeric (before 2026-10-15 one word switched them all to
+  // string order); a word grade is labelled by the word; picker_order beats title inside a grade; Other still last
   const p2 = await page.context().newPage();
+  const ordered = (c, n) => Object.assign(c, { picker_order: n });
   await p2.addInitScript((cs) => { window.FNM_CARTRIDGES = cs; },
-    { a: mk('a', 'A', '10'), b: mk('b', 'B', '8'), k: mk('k', 'K', 'K'), n: mk('n', 'N', '') });
+    { a: mk('a', 'A', '10'), b: mk('b', 'B', '8'), k: ordered(mk('k', 'Alpha', 'Facts'), 2), j: ordered(mk('j', 'Zulu', 'Facts'), 1),
+      n: mk('n', 'N', '') });
   await p2.goto(pageUrl('?carts=nope.js'));
-  expect(await homeSequence(p2), 'string grade order with an unnumbered grade').toEqual(
-    ['H:Grade 10|10', 'C:a', 'H:Grade 8|8', 'C:b', 'H:Grade K|K', 'C:k', 'H:Other|', 'C:n']);
-  await expect(p2.getByTestId('cart-card')).toHaveCount(4);
+  expect(await homeSequence(p2), 'numbers, then words, with an unnumbered grade').toEqual(
+    ['H:Grade 8|8', 'C:b', 'H:Grade 10|10', 'C:a', 'H:Facts|Facts', 'C:j', 'C:k', 'H:Other|', 'C:n']);
+  await expect(p2.getByTestId('cart-card')).toHaveCount(5);
 });
 
 test('finish screen: Play again starts a new run of the same cartridge at stage 1, same settings', async ({ page }) => {

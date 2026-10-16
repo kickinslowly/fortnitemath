@@ -334,6 +334,10 @@ fnm_hud := class:
     PickerButtons : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
     # A step with more buttons than this shows them in two columns.
     PickerColumnAfter : int = 5
+    # The grade step with more grades than this shows them two to a row (Grade 6 | Grade 7, Grade 8 | Facts): a fourth
+    # grade in one column, Facts (2026-10-15), would run the logo off the top of a 1080p screen (~85 px a grade over
+    # the 797 px measured with two). One row of four was rejected: the BOSS BATTLE cell fills the panel's width.
+    GradeColumnAfter : int = 3
     # Under the finish board, on their own root, shown with the board: CLOSE (the board stays until the player closes
     # it; Aaron 2026-10-05: "x it and enjoy themself in the victory area") and NEW SKILL (more than one skill only).
     # (Their text is set in Attach: a localized call can't initialise a field.)
@@ -1631,11 +1635,11 @@ fnm_hud := class:
         if (Owner := MaybeOwner?, Player = Owner, Listener := MaybeListener?):
             Listener.OnPickerChoice(Player, Kind, Index)
 
-    # Grade step: one loud button per grade, labelled "Grade G", in the order given (the director's grade order). With
-    # WithBoss, the BOSS BATTLE button and its caption come first (BOSS_MODE.md section 1); focus stays on the first
-    # grade button.
+    # Grade step: one loud button per grade, labelled by GradeLabel, in the order given (the director's grade order).
+    # With WithBoss, the BOSS BATTLE button and its caption come first (BOSS_MODE.md section 1); focus stays on the
+    # first grade button.
     ShowGradeStep(Grades:[]string, WithBoss:logic):void =
-        Labels := for (Grade : Grades) { "Grade {Grade}" }
+        Labels := for (Grade : Grades) { GradeLabel(Grade) }
         Indices := for (K -> Grade : Grades) { K }
         var Lead : []widget = array{}
         if (WithBoss?):
@@ -1653,7 +1657,15 @@ fnm_hud := class:
     ShowSkillStep(Grade:string, Titles:[]string, Subtitles:[]string, Indices:[]int, WithBack:logic):void =
         PickerHeading.SetText(FnmText("PICK YOUR SKILL"))
         LogoArt.SetVisibility(widget_visibility.Collapsed)
-        ShowPickerStep(if (WithBack?) then "Grade {Grade}  -  step 2 of 2" else "Grade {Grade}", Titles, Subtitles, fnm_pick.Skill, Indices, WithBack, array{})
+        ShowPickerStep(if (WithBack?) then "{GradeLabel(Grade)}  -  step 2 of 2" else GradeLabel(Grade), Titles, Subtitles, fnm_pick.Skill, Indices, WithBack, array{})
+
+    # PROTOCOL 6b: a numeric grade reads "Grade 7", a word grade reads as itself ("Facts"). Verse has no string-to-int
+    # parse, so a grade is numeric when every character is a digit.
+    GradeLabel(Grade:string):string =
+        var Digits : int = 0
+        for (C : Grade, D : "0123456789", C = D):
+            set Digits += 1
+        if (Grade.Length > 0, Digits = Grade.Length) then "Grade {Grade}" else Grade
 
     # Replaces the picker's buttons with this step's (Captions[K], when present and not empty, goes under button K),
     # puts the picker on screen if it isn't, and focuses the first button (so a gamepad or keyboard can press it too).
@@ -1673,13 +1685,16 @@ fnm_hud := class:
             set Buttons += array{Button}
             set Cells += array{MakeCell(Button, if (Caption := Captions[K]) then Caption else "")}
         # More than PickerColumnAfter buttons go in two columns (left column first, top to bottom): ten skills in one
-        # column ran off a 1080p screen.
-        if (Cells.Length > PickerColumnAfter):
+        # column ran off a 1080p screen. More than GradeColumnAfter grades go in the same two columns read row by row
+        # (left, right, left, right), so the grades still read in order across.
+        GradeRows := if (Kind = fnm_pick.Grade, Cells.Length > GradeColumnAfter) then true else false
+        if (Cells.Length > PickerColumnAfter or GradeRows?):
             Left : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
             Right : stack_box = stack_box{Orientation := orientation.Vertical, Slots := array{}}
             for (K -> Cell : Cells):
                 Slot := stack_box_slot{Widget := Cell, HorizontalAlignment := horizontal_alignment.Fill, Padding := margin{Top := 10.0}}
-                if (2 * K < Cells.Length) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
+                ToLeft := if (GradeRows?) then (if (Mod[K, 2] = 0) then true else false) else (if (2 * K < Cells.Length) then true else false)
+                if (ToLeft?) then Left.AddWidget(Slot) else Right.AddWidget(Slot)
             Columns : stack_box = stack_box:
                 Orientation := orientation.Horizontal
                 Slots := array:

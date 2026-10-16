@@ -1,0 +1,42 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-multiplication",
+  "version": "1.0.0",
+  "title": "Multiplication Facts",
+  "subtitle": "Factors to 5, up to 15",
+  "grade": "Facts",
+  "picker_order": 3,
+  "standards": ["CCSS.MATH.CONTENT.3.OA.C.7", "CCSS.MATH.CONTENT.4.NBT.B.5"],
+  "seed": 20261043,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL §4c (Facts: number size is the difficulty axis). Prompt a × b = ? with whole numbers, exact. Tier bands by larger factor: T1 both 1-5 (25 prompts); T2 larger 6-8, both 2-8 (33); T3 larger 9-10, both 2-10 (32); T4 larger 11-12, both 2-12 (40); T5 larger 13-15, both 2-15 (75); product at most 225. Wrong choices are distinct non-negative whole numbers up to 999, at least two within the larger factor of the answer (one group off, or the answer plus or minus 10 on tiers 4-5), at most one far; on tiers 4-5 every item holds a wrong value with the answer's ones digit.",
+  "tiers": [
+    { "tier": 1, "name": "Up to 5 × 5", "description": "Multiplication facts with both factors from 1 to 5." },
+    { "tier": 2, "name": "Up to 8 × 8", "description": "Facts with a factor of 6, 7 or 8. Use doubles and 5s." },
+    { "tier": 3, "name": "Up to 10 × 10", "description": "The full times table through 10 × 10, 9s and 10s included." },
+    { "tier": 4, "name": "Up to 12 × 12", "description": "Facts with 11 and 12. Split into tens and ones." },
+    { "tier": 5, "name": "Up to 15 × 15", "description": "Facts with 13, 14 and 15. Split a factor, then add the parts." }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "One group too many or too few. Count the groups, then the size of each.",
+      "teacher": "Off by one group: a × (b + 1), a × (b − 1), (a + 1) × b or (a − 1) × b."
+    },
+    "ADDED": {
+      "student": "× means equal groups, not +. 4 × 3 is 4 groups of 3, which is 12.",
+      "teacher": "Adds the factors instead of multiplying: 4 × 3 = 7."
+    },
+    "DROPPED_CARRY": {
+      "student": "Keep the ten: 13 × 6 is 60 + 18, and the 18 has a ten to add in.",
+      "teacher": "Splits into tens and ones but loses the ten from the ones product: 13 × 6 = 60 + 8 = 68."
+    },
+    "TENS_SLIP": {
+      "student": "Check the tens place. Split into tens and ones, multiply each, add both.",
+      "teacher": "Right ones digit, tens place off by one ten (product plus or minus 10)."
+    },
+    "PARTIAL_PRODUCTS": {
+      "student": "Tens × tens plus ones × ones skips two parts. Split one number, multiply both.",
+      "teacher": "Multiplies tens by tens and ones by ones only: 13 × 14 = 100 + 12 = 112."
+    }
+  }
+}

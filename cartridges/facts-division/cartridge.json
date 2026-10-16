@@ -1,0 +1,38 @@
+{
+  "protocol": "fnm-cart/1",
+  "id": "facts-division",
+  "version": "1.0.0",
+  "title": "Division Facts",
+  "subtitle": "Divisors to 5, up to 15",
+  "grade": "Facts",
+  "picker_order": 4,
+  "standards": ["CCSS.MATH.CONTENT.3.OA.C.7", "CCSS.MATH.CONTENT.4.NBT.B.6", "CCSS.MATH.CONTENT.5.NBT.B.6"],
+  "seed": 20261044,
+  "items_per_tier": 24,
+  "bounds": "PROTOCOL 4c, multiplication facts read backwards: p ÷ a = b with divisor a and quotient b both in the tier's band, p = a × b. T1 a,b 1-5; T2 max(a,b) 6-8, both 2-8; T3 max 9-10, both 2-10; T4 max 11-12, both 2-12; T5 max 13-15, both 2-15. Wrong choices: distinct non-negative integers up to 999.",
+  "tiers": [
+    { "tier": 1, "name": "Up to 25 ÷ 5", "description": "Divide by 1 to 5: the times-table facts read backwards." },
+    { "tier": 2, "name": "Up to 64 ÷ 8", "description": "Divide by 2 to 8. Think: what times the divisor makes it?" },
+    { "tier": 3, "name": "Up to 100 ÷ 10", "description": "Divide by 2 to 10. Use the fact family." },
+    { "tier": 4, "name": "Up to 144 ÷ 12", "description": "Divide by 2 to 12. Split into tens and the rest." },
+    { "tier": 5, "name": "Up to 225 ÷ 15", "description": "Divide by 2 to 15. Multiply back to check." }
+  ],
+  "misconceptions": {
+    "GROUP_OFF": {
+      "student": "Close: a group or two off. Multiply your answer by the divisor to check.",
+      "teacher": "Quotient off by one or two: counted a group or two too many or too few."
+    },
+    "SUBTRACTED": {
+      "student": "Divide, don't subtract. 20 ÷ 5 asks how many 5s fit in 20.",
+      "teacher": "Subtracts the divisor from the dividend (p − a) instead of dividing."
+    },
+    "MULTIPLIED": {
+      "student": "Divide, don't multiply. 20 ÷ 5 asks how many 5s fit in 20.",
+      "teacher": "Multiplies dividend and divisor (p × a) instead of dividing."
+    },
+    "TENS_SLIP": {
+      "student": "Right ones digit, wrong tens. Multiply back to check the size.",
+      "teacher": "Quotient off by ten: right ones digit, tens place slipped."
+    }
+  }
+}

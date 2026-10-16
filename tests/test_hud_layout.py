@@ -680,6 +680,41 @@ def test_logo_sits_over_the_grade_heading_and_the_picker_fits_1080p():
     assert size[0] <= 575
 
 
+# Each grade row past the two measured in PICKER_PANEL_PX adds one loud button and its 10 px gap: ~85 px, read off the
+# 503 px two-grade panel (heading, step line, BOSS BATTLE cell, two buttons). An ESTIMATE, not a measurement.
+GRADE_ROW_PX = 85
+
+
+def grade_rows(grades):
+    """Rows the grade step draws for this many grades (fnm_ui.verse ShowPickerStep): one a row up to GradeColumnAfter,
+    then two a row."""
+    after = int(re.search(r"GradeColumnAfter : int = (\d+)", ui_src()).group(1))
+    return grades if grades <= after else (grades + 1) // 2
+
+
+def test_grade_step_fits_1080p_with_every_grade_in_the_slot():
+    """2026-10-15, Facts: a fourth grade button in one column put the grade step's top at ~-2 px. Past GradeColumnAfter
+    the grades go two to a row, read across (Grade 6 | Grade 7, Grade 8 | Facts), so the step fits however many grades
+    the slot holds, up to six."""
+    sys.path.insert(0, str(ROOT))
+    from fnm.emit import baked_cartridges
+    src = ui_src()
+    assert "Labels := for (Grade : Grades) { GradeLabel(Grade) }" in src
+    assert 'GradeRows := if (Kind = fnm_pick.Grade, Cells.Length > GradeColumnAfter) then true else false' in src
+    assert "(if (Mod[K, 2] = 0) then true else false)" in src            # left, right, left, right: row by row
+    logo = desired_size("LogoArt")[1]
+    pad = float(re.search(r"Widget := LogoArt\n\s+HorizontalAlignment := horizontal_alignment.Center\n\s+Padding := "
+                          r"margin\{Bottom := ([\d.]+)\}", logo_slot()).group(1))
+    in_slot = len({str(b.get("grade") or "") for b in baked_cartridges()})
+    for grades in sorted({in_slot, 2, 3, 4, 5, 6}):
+        height = PICKER_PANEL_PX["ShowGradeStep"] + (grade_rows(grades) - 2) * GRADE_ROW_PX + logo + pad
+        top, bottom = PICKER_CENTRE_Y - height / 2, PICKER_CENTRE_Y + height / 2
+        assert top >= PICKER_TOP_MIN and bottom <= PICKER_BOTTOM_MAX, (grades, top, bottom)
+    # the disproof: one column of four grades does not fit (what the grid is for)
+    height = PICKER_PANEL_PX["ShowGradeStep"] + (4 - 2) * GRADE_ROW_PX + logo + pad
+    assert PICKER_CENTRE_Y - height / 2 < PICKER_TOP_MIN
+
+
 # ---------------------------------------------------------------- G10 H: the director's seam, the shield, the compact slate, the brag grid
 
 def test_g10_seam_signatures_are_exactly_the_agreed_ones():

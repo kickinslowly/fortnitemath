@@ -70,6 +70,18 @@ def _dup_prompt(d):
     d["items"][1]["prompt"] = d["items"][0]["prompt"]
 
 
+def _long_grade(d):
+    d["grade"] = "Thirteen chrs"
+
+
+def _accent_grade(d):
+    d["grade"] = "Fäcts"
+
+
+def _str_order(d):
+    d["picker_order"] = "1"
+
+
 def _unbalanced(d):
     for it in d["items"]:
         if it["tier"] == 2 and it["answer"] != 0:
@@ -92,6 +104,9 @@ def _unbalanced(d):
     (_tier_gap, 2, "contiguously"),
     (_dup_prompt, 4, "duplicates"),
     (_unbalanced, 8, "position 0"),
+    (_long_grade, 6, "grade is 13 chars"),
+    (_accent_grade, 7, "'ä'"),
+    (_str_order, 10, "picker_order '1' must be an int"),
 ])
 def test_mutation_fails(tmp_repo, mutation, rule, needle):
     fails = _mutate(tmp_repo, mutation)

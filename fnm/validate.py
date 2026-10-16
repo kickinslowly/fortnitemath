@@ -11,7 +11,7 @@ from fnm.cart import ID_RE, ITEM_FIELDS, bake_bytes, cart_dir
 
 ALLOWED_EXTRA = set("×÷−≤≥≠√π")  # × ÷ − ≤ ≥ ≠ √ π
 LIMITS = {"prompt": 60, "choice": 14, "explanation": 160, "student": 80,
-          "tier name": 24, "title": 32, "subtitle": 40}
+          "tier name": 24, "title": 32, "subtitle": 40, "grade": 12}
 
 
 @dataclass
@@ -39,6 +39,7 @@ def display_strings(baked: dict):
     """(where, kind, text) for every display string in a baked cartridge."""
     yield "manifest", "title", baked.get("title", "")
     yield "manifest", "subtitle", baked.get("subtitle", "")
+    yield "manifest", "grade", baked.get("grade", "")  # picker button text since words like "Facts" (2026-10-15)
     for t in baked.get("tiers", []):
         w = f"tier {t.get('tier')}"
         yield w, "tier name", t.get("name", "")
@@ -143,6 +144,7 @@ def validate_baked(baked: dict, dir_name: str | None = None) -> list:
 
     lim("title", "manifest", baked.get("title"), "title")
     lim("subtitle", "manifest", baked.get("subtitle"), "subtitle")
+    lim("grade", "manifest", baked.get("grade"), "grade")
     for t in tiers:
         lim("tier name", f"tier {t.get('tier')}", t.get("name"), "tier name")
     for key, m in (baked.get("misconceptions") or {}).items():
@@ -175,6 +177,11 @@ def validate_baked(baked: dict, dir_name: str | None = None) -> list:
             if not lo <= cnt[pos] <= hi:
                 fail(8, f"tier {t}", f"{n}-choice items: answer at position {pos} in {cnt[pos]}/{m} "
                                      f"(allowed {lo:g}..{hi:g})")
+
+    # Rule 10 — optional manifest fields have their types (a string picker_order would break every map's sort)
+    po = baked.get("picker_order", 0)
+    if not isinstance(po, int) or isinstance(po, bool):
+        fail(10, "manifest", f"picker_order {po!r} must be an int")
     return F
 
 

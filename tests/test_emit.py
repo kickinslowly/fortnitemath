@@ -122,9 +122,22 @@ def test_registry_in_picker_order(baked):
     assert reg == "FnmCartridge_seven_a(), FnmCartridge_seven_b(), FnmCartridge_ten_a(), FnmCartridge_none_x()"
     assert src.count("():fnm_cartridge = fnm_cartridge{") == 4
     assert "cartridges: seven-a" in src.splitlines()[1] and "profile: unicode" in src.splitlines()[1]
-    # a non-numeric grade anywhere switches every grade to string order ("10" < "7" < "K")
+    # a word grade sorts after every numeric grade and leaves their numeric order alone (before 2026-10-15 one word
+    # grade switched every grade to string order, "10" < "7")
     carts[3]["grade"] = "K"
-    assert [b["grade"] for b in picker_order(carts)] == ["10", "7", "7", "K"]
+    assert [b["grade"] for b in picker_order(carts)] == ["7", "7", "10", "K"]
+
+
+def test_picker_order_field_orders_within_a_grade(baked):
+    # PROTOCOL 3 / 6b: picker_order (default 0) before title inside a grade; Facts after the numeric grades
+    carts = [_fake(baked, "f-combo", "Facts", "Combo Facts"), _fake(baked, "f-add", "Facts", "Addition Facts"),
+             _fake(baked, "f-sub", "Facts", "Subtraction Facts"), _fake(baked, "g8", "8", "Zulu"),
+             _fake(baked, "g6", "6", "Alpha")]
+    for b, n in zip(carts[:3], (5, 1, 2)):
+        b["picker_order"] = n
+    assert [b["id"] for b in picker_order(carts)] == ["g6", "g8", "f-add", "f-sub", "f-combo"]
+    del carts[2]["picker_order"]                     # no field = 0: first in its grade, ahead of 1
+    assert [b["id"] for b in picker_order(carts)] == ["g6", "g8", "f-sub", "f-add", "f-combo"]
 
 
 def test_lint_rejects_registry_mismatch(baked):

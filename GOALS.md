@@ -28,6 +28,21 @@
   render as superscripts (`10^−2` -> `10⁻²`, fnm/profiles.py). Lead hand-worked 400+ items, parent ~30: no wrong keys.
   Unverified: island memory at 29 cartridges (Aaron's Launch Memory Calculation), `⁻` in the HUD font in play (² ³ seen),
   long decimals / `(4/3)π` as door text in play, whether 8th graders know CW/CCW
+- [x] Facts (Aaron, 2026-10-15: "new selection beside grade levels, called facts"): a FACTS button beside Grade 6 / 7 / 8 and
+  five categories, facts-addition, -subtraction, -multiplication, -division, -combo (`cartridges/LIBRARY.md` "Facts",
+  `briefs/facts/`). Levels = the 5 tiers, climbed station by station: addition within 10, 20, 40, 70, 100; multiplication
+  up to 5x5, 8x8, 10x10, 12x12, 15x15; subtraction and division read those facts backwards; combo a quarter each.
+  PROTOCOL §4c (Aaron's bounds), §6b (numeric grades, then word grades; `picker_order`), §5 rules 6/10. Plan audited by a
+  fresh Opus agent before the build (found a ones-digit tell at the top levels, among others); 4 Sonnet builders, then
+  combo; lead re-checked all 840 items independently: 0 wrong. Grade step shows grades two to a row past three (one
+  column of four ran the logo off the top). Slot 34 cartridges, 3.02 MB, BuildAll clean, 24,467 tests. Seen in play (33
+  cartridges, before combo): the 2x2 grade grid (panel y ~90-886), a Multiplication Facts auto-run 5 x 1 to 14 x 10 +
+  arena to GOLD 1:34.9 (and run 2, 1:31.7). NOT seen: the Facts skill step (five buttons, "Facts - step 2 of 2"), combo in
+  play, and the emulator e2e at 34 (the combo play run and `npm run e2e` were killed by Claude Code's low-memory reaper)
+  - [ ] Aaron: levels climb within one run (every addition run ends within 100). Want a PICK YOUR LEVEL step that keeps
+    all 10 stations on one level instead? (a third picker step + per-level bests: a director change, PROTOCOL §6)
+  - [ ] Boss mode draws from every cartridge, so Facts items are now 5 of its 34 skills: keep, or leave Facts out?
+  - [ ] Island memory at 34 cartridges (Aaron's Launch Memory Calculation; last read 35,635 at 19)
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.

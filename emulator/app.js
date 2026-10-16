@@ -115,18 +115,23 @@
 
   function tierCount(cart) { return (cart.tiers || []).length; }
 
-  // §6b picker order: grades ascending — numeric when every present grade parses as a number,
-  // else string order — then title within a grade. Cartridges with no grade go last ("Other").
+  // §6b picker order: numeric grades ascending by number, then word grades ("Facts") in string order, then
+  // picker_order and title within a grade. Cartridges with no grade go last ("Other"). Mirrors fnm/emit.py picker_order.
   function gradeOf(cart) {
     var g = cart && cart.grade != null ? String(cart.grade).trim() : "";
     return g;
   }
-  function isNumeric(g) { return g !== "" && isFinite(Number(g)); }
-  function compareGrades(a, b, numeric) {
-    if (numeric) return Number(a) - Number(b);
+  function isNumeric(g) { return /^\d+$/.test(g); }
+  function compareGrades(a, b) {
+    var na = isNumeric(a), nb = isNumeric(b);
+    if (na && nb) return Number(a) - Number(b);
+    if (na !== nb) return na ? -1 : 1;
     return a < b ? -1 : a > b ? 1 : 0;
   }
+  // A numeric grade reads "Grade 7"; a word grade reads as itself ("Facts"), as on the map's picker.
+  function gradeLabel(g) { return isNumeric(g) ? "Grade " + g : g; }
   function titleOf(e) { return String((e.cart && e.cart.title) || e.key); }
+  function orderOf(e) { var n = e.cart && e.cart.picker_order; return typeof n === "number" ? n : 0; }
   function groupByGrade(list) {
     var byGrade = {}, grades = [], other = [];
     list.forEach(function (e) {
@@ -135,10 +140,13 @@
       if (!byGrade[g]) { byGrade[g] = []; grades.push(g); }
       byGrade[g].push(e);
     });
-    var numeric = grades.every(isNumeric);
-    grades.sort(function (a, b) { return compareGrades(a, b, numeric); });
-    var byTitle = function (x, y) { var a = titleOf(x), b = titleOf(y); return a < b ? -1 : a > b ? 1 : 0; };
-    var groups = grades.map(function (g) { return { grade: g, label: "Grade " + g, carts: byGrade[g].sort(byTitle) }; });
+    grades.sort(compareGrades);
+    var byTitle = function (x, y) {
+      var d = orderOf(x) - orderOf(y);
+      if (d) return d;
+      var a = titleOf(x), b = titleOf(y); return a < b ? -1 : a > b ? 1 : 0;
+    };
+    var groups = grades.map(function (g) { return { grade: g, label: gradeLabel(g), carts: byGrade[g].sort(byTitle) }; });
     if (other.length) groups.push({ grade: "", label: "Other", carts: other.sort(byTitle) });
     return groups;
   }
@@ -346,7 +354,7 @@
       }).join("");
       return '<article class="card" data-testid="cart-card" data-cart="' + esc(e.key) + '">' +
         '<div class="card-head">' +
-        (c.grade ? '<span class="grade">Gr ' + esc(c.grade) + '</span>' : '') +
+        (c.grade ? '<span class="grade">' + esc(isNumeric(gradeOf(c)) ? "Gr " + gradeOf(c) : gradeOf(c)) + '</span>' : '') +
         '<h2 class="card-title">' + r(c.title) + '</h2>' +
         '<p class="card-sub">' + r(c.subtitle || "") + '</p></div>' +
         '<div class="chips">' + stds + '</div>' +

@@ -76,15 +76,13 @@ def verse_function_name(cid: str) -> str:
 
 
 def picker_order(bakeds: list) -> list:
-    """PROTOCOL 6b order: grade ascending (numeric when every non-empty grade is a whole number, else as
-    strings; cartridges with no grade last), then title, then id. Mirrors emulator/app.js groupByGrade."""
-    grades = [str(b.get("grade") or "").strip() for b in bakeds]
-    numeric = all(re.fullmatch(r"\d+", g) for g in grades if g)
-
+    """PROTOCOL 6b order: numeric grades ascending by number, then word grades ("Facts") in string order, then
+    cartridges with no grade; within a grade `picker_order` (default 0), then title, then id. Mirrors
+    emulator/app.js groupByGrade."""
     def key(b):
         g = str(b.get("grade") or "").strip()
-        return (1 if g == "" else 0, int(g) if (g and numeric) else 0, "" if numeric else g,
-                str(b.get("title", "")), b["id"])
+        group = (2, 0, "") if g == "" else (0, int(g), "") if re.fullmatch(r"\d+", g) else (1, 0, g)
+        return (*group, int(b.get("picker_order", 0)), str(b.get("title", "")), b["id"])
 
     return sorted(bakeds, key=key)
 

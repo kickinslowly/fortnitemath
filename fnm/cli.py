@@ -31,7 +31,7 @@ def cmd_validate(cid, root, quiet=False) -> int:
         print(f"{cid}: {len(fails)} cartridge failure(s), {len(bad_maps)} invalid map(s)")
         return 1
     if not quiet:
-        print(f"{cid}: valid (rules 1-9); {len(maps.list_map_ids(root))} map profile(s) valid")
+        print(f"{cid}: valid (rules 1-10); {len(maps.list_map_ids(root))} map profile(s) valid")
     return 0
 
 

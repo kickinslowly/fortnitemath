@@ -70,7 +70,9 @@ Content comes from exactly one of:
 - `items.src.json` — a hand-authored list in the same shape. Topics written by hand.
 
 `id`: lowercase kebab-case, ≤ 40 chars, equals the directory name.
-`grade`: a short string (`"6"`, `"7"`); the skill picker groups cartridges by it (§6b).
+`grade`: a short string (`"6"`, `"7"`, or a word such as `"Facts"`); the skill picker groups cartridges by it (§6b).
+`picker_order` (optional int, default 0): the cartridge's place within its grade on the picker, lower first; ties by
+title (added 2026-10-15 for Facts, whose categories run addition, subtraction, multiplication, division, combo).
 Tiers: use 5 unless there is a reason not to — the starter map paints its hallway walls per tier for 5.
 
 ## 4. Item shape (in `baked.json`)
@@ -147,6 +149,23 @@ non-integer *is* the concept. They keep §4a's spirit by these rules, stated in 
 
 Like §4a, each such cartridge's tests assert its bounds against `baked.json`.
 
+### 4c. Facts (Aaron, 2026-10-15: "levels of scaling math facts")
+
+Cartridges with `"grade": "Facts"` drill the arithmetic facts themselves, so for them number size IS the difficulty
+axis and §4a's sizes do not apply (Aaron's say-so, 2026-10-15). One operation per prompt (`7 × 8 = ?`); every number a
+non-negative integer; every answer exact. Tier bands (`cartridges/LIBRARY.md` "Facts" has the full table):
+
+| Operation | Tier 1 → 5 |
+|---|---|
+| Addition | sum within 10, 20, 40, 70, 100 (each tier's sums above the tier before's cap) |
+| Subtraction | the addition facts read backwards (minuend in the addition band) |
+| Multiplication | larger factor up to 5, 8, 10, 12, 15 (above the tier before's cap); product ≤ 225 |
+| Division | the multiplication facts read backwards (divisor and quotient as the factors) |
+| Combo | the four above at the same tier, a quarter each |
+
+Wrong choices are non-negative integers ≤ 999, all distinct. Each cartridge's `bounds` string states its bands and its
+tests assert them against `baked.json`.
+
 ## 5. Validation rules (`fnm validate`, hard failures)
 
 1. `protocol` major matches the toolchain's (`fnm-cart/1`).
@@ -156,12 +175,14 @@ Like §4a, each such cartridge's tests assert its bounds against `baked.json`.
 5. 2–4 choices; choices unique after trimming; `answer` in range; `misconceptions` same length as
    `choices`, `null` exactly at `answer`, every non-null key is declared or `ARITH`.
 6. Length limits (display-driven): prompt ≤ 60 chars, each choice ≤ 14, explanation ≤ 160,
-   misconception `student` text ≤ 80, tier name ≤ 24, title ≤ 32, subtitle ≤ 40.
+   misconception `student` text ≤ 80, tier name ≤ 24, title ≤ 32, subtitle ≤ 40, grade ≤ 12 (a word grade is
+   button text, and so is under rule 7's charset).
 7. Charset: every display string uses only printable ASCII plus `× ÷ − ≤ ≥ ≠ √ π`.
    Exponents are written `^` (`3^2`, `(1 + 2)^3`); consoles render them (§7).
 8. Answer balance: per tier, for items with n choices, each position holds the answer in
    ≥ 0.5/n and ≤ 1.5/n of items. (Stops "it's always B".)
 9. Bake determinism: baking twice with the manifest seed yields byte-identical `baked.json`.
+10. Optional fields have their types: `picker_order` is an int.
 
 Cartridge-specific correctness (e.g. "is 11 actually the answer") is the generator's job, and each
 procedural cartridge ships a test that re-checks every baked answer by an independent method.
@@ -196,9 +217,11 @@ What happens after a wrong answer (retry, respawn, lose a life) is map design, n
 The slot holds every inserted cartridge (§7) and each **player** chooses one at run start — their own
 choice, so two players in the same hallway may be racing different skills through the same doors. Fortnite
 islands have no custom pre-game lobby, so the picker is in-game UI. A console MUST:
-- Before the first countdown, show a two-step picker: the grades present (`grade`, ascending, numeric when
-  every grade parses as a number), then that grade's cartridges, each showing its `title` and `subtitle`, in
-  registry order (§7). Skip the grade step when only one grade exists; skip the picker when only one cartridge exists.
+- Before the first countdown, show a two-step picker: the grades present (numeric grades ascending by number, then
+  word grades such as `Facts` in string order; a numeric grade is labelled `Grade 7`, a word grade by the word), then
+  that grade's cartridges, each showing its `title` and `subtitle`, in registry order (§7). Skip the grade step when
+  only one grade exists; skip the picker when only one cartridge exists. (Before 2026-10-15 one word grade switched
+  every grade to string order.)
 - Hold the player still while they pick; the race clock is not running.
 - Apply every per-player rule of §6 to the chosen cartridge: tier count, pools, decks, title.
 - Offer "change skill" on the finish board. A new run with the same skill needs no re-pick.
@@ -263,7 +286,7 @@ one function per baked cartridge plus the registry the console reads:
 ```verse
 FnmCartridge_order_of_ops_exponents():fnm_cartridge = fnm_cartridge{ ..., Grade := "6", ... }
 FnmCartridge_integer_ops():fnm_cartridge = fnm_cartridge{ ..., Grade := "7", ... }
-# Every inserted cartridge in picker order: grade ascending (numeric when every grade is a number), then title.
+# Every inserted cartridge in picker order: grade (numeric ascending, then words), then picker_order, then title.
 FnmCartridges():[]fnm_cartridge = array{FnmCartridge_order_of_ops_exponents(), FnmCartridge_integer_ops()}
 ```
 
@@ -332,4 +355,5 @@ needs the catalog. Ids stay in `baked.json` for later analytics.
 - ~~O3~~ Resolved: all Verse files sit flat in `<project>/Content/` (one module); no `<public>` needed.
 - O4 (2026-10-04): the all-cartridges slot is proven to **compile** at 12 cartridges × 200 items (862 KB, 2.4 s,
   disproof: a planted unknown identifier on line 2606 was reported). Cook and runtime memory are proven only at
-  the number of cartridges actually inserted; re-check in play after each insert past ~6.
+  the number of cartridges actually inserted; re-check in play after each insert past ~6. 2026-10-15: 34 cartridges
+  (3.02 MB, five of them Facts) compile clean; a session cooked and played 33 (2.93 MB); island memory not re-read since 19.
