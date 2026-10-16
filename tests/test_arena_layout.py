@@ -20,7 +20,7 @@ def _overlap(a, b):
 
 def test_pads_inside_the_hall_and_apart():
     half = 4 * c.DOOR_W / 2
-    pads = [_rect(x, y, c.PAD_SIZE, c.PAD_SIZE) for x, y in c.PAD_SPOTS]
+    pads = [_rect(x, y, c.RACE_PAD_SIZE, c.RACE_PAD_SIZE) for x, y in c.PAD_SPOTS]
     platform = _rect(0, c.PLATFORM_Y, c.PLATFORM_W, c.PLATFORM_D)
     assert len(pads) == 4
     for p in pads:
@@ -34,10 +34,66 @@ def test_pads_inside_the_hall_and_apart():
 
 
 def test_pad_letters_read_like_the_doors():
-    # +X is the player's left: A and C on the left, then B and D, the near row first (A B, then C D).
-    (ax, ay), (bx, by), (cx, cy), (dx, dy) = c.PAD_SPOTS
-    assert ax > bx and cx > dx
-    assert ay == by < cy == dy
+    """G10: ONE row, A B C D left to right in the same order as every station's doors (door_centres: A at +X, the
+    player's left when facing +Y), ~10 m in from the entry, evenly spaced, centred on the hall's centre line."""
+    xs = [x for x, _ in c.PAD_SPOTS]
+    ys = {y for _, y in c.PAD_SPOTS}
+    assert len(xs) == 4 and len(ys) == 1
+    assert xs == sorted(xs, reverse=True), xs                      # A has the largest x = leftmost
+    doors = c.door_centres(4)                                      # door A first
+    assert [x > 0 for x in xs] == [x > 0 for x in doors] == [True, True, False, False]
+    assert [x < y for x, y in zip(xs, xs[1:])] == [False] * 3
+    assert [round(a - b) for a, b in zip(xs, xs[1:])] == [c.RACE_PAD_PITCH] * 3
+    assert sum(xs) == 0
+    assert 800 <= ys.pop() - c.ENTRY_Y <= 1100                      # "about 10 m in from the entry"
+
+
+def test_pad_gap_keeps_a_neighbours_trigger_untouched():
+    """A trigger senses exactly its tile; a player's capsule (radius ~35 cm) at the edge of one pad must not reach the
+    next pad's trigger, so the gap between tiles is wider than a capsule's diameter. The auto-run's DebugPadOffset
+    (180 cm, a director constant) must still land on the tile."""
+    gap = c.RACE_PAD_PITCH - c.RACE_PAD_SIZE
+    assert gap >= 2 * 35 + 20
+    assert 180 <= c.RACE_PAD_SIZE / 2 - 10
+    # boss mode keeps its own pad size (build_bossmode places its pads with c.PAD_SIZE)
+    assert c.PAD_SIZE == 450
+
+
+def test_floating_letters_sit_over_their_pads_and_the_sign_stays_clear():
+    import build_race_boss as r
+    for (px, py), letter_xy in zip(c.PAD_SPOTS, [(x, y) for x, y in c.PAD_SPOTS]):
+        assert letter_xy == (px, py)                               # build_race_boss places letter i at PAD_SPOTS[i]
+    import inspect
+    assert "enumerate(c.PAD_SPOTS)" in inspect.getsource(r.build)
+    half = 4 * c.DOOR_W / 2
+    sign_y, sign_x = 600, half - 5                                 # the "BOSS ARENA" board on the left wall (arena())
+    for x, y in c.PAD_SPOTS:
+        pad = _rect(x, y, c.RACE_PAD_SIZE, c.RACE_PAD_SIZE)
+        assert not (pad[0] <= sign_x <= pad[1] and pad[2] <= sign_y + 400 and sign_y - 400 <= pad[3])
+    assert max(p[3] for p in (_rect(x, y, c.RACE_PAD_SIZE, c.RACE_PAD_SIZE) for x, y in c.PAD_SPOTS)) < c.ADDS_Y
+
+
+def test_the_titan_is_bigger_and_the_laser_is_baked_to_it():
+    import build_fx
+    import build_race_boss as r
+    assert 3.0 <= r.TITAN_SCALE <= 3.5
+    assert abs(r.laser_length() - build_fx.RACE_LENGTH) < 30
+    # fits the 6 x 4 m platform: the imported titan is ~1 m of footprint per scale unit at most
+    assert r.TITAN_SCALE * 100 <= min(c.PLATFORM_W, c.PLATFORM_D)
+
+
+def test_analytics_plan_matches_the_director_seam():
+    """TEAM.md seam: one device per station (10), one at the finish, one at the boss, tags fnm_analytics + the existing
+    station/finish/boss tag, all declared in fnm_tags.verse."""
+    import build_analytics as a
+    plan = a.plan()
+    assert len(plan) == 12 and len({p[1] for p in plan}) == 12
+    assert [p[2] for p in plan[:10]] == [f"fnm_station_{k:02d}" for k in range(1, 11)]
+    assert {p[2] for p in plan[10:]} == {"fnm_finish", "fnm_boss"}
+    tags = (ROOT / "console" / "verse" / "fnm_tags.verse").read_text(encoding="utf-8")
+    for p in plan:
+        assert f"{p[2]} := class(tag){{}}" in tags
+    assert a.TAG == "fnm_analytics_rig" and a.DEVICE.endswith("PID_Device_AnalyticDevice")
 
 
 def test_two_adds_and_no_guard_boss_from_the_course():

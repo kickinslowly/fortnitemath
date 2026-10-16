@@ -123,7 +123,17 @@ To pick another boss voice, pass it instead of `am_onyx` (`--boss-voice bm_georg
 **Boss hit timing (director):** `boss_hit` (the stock barrel explosion) at the pad, the counted line
 `HitVoiceDelaySeconds` (0.9 s) later (`FnmHitCue`: 4..1 hits to go get their own line, any other count "Direct hit!",
 nothing on the killing hit), then on the kill `boss_dead` and `boss_down` 1.0 s after it (`SoundAfter`, which plays even
-though the player has just finished).
+though the player has just finished). Since G10 the killing pad plays no `boss_hit` (it started on the same instant as
+`boss_dead`: the kill stacked the explosion, `boss_dead`, `boss_down` and the cannons' own sounds in one second), and a pad
+stepped on while no titan is up takes no answer at all (no sound but the notice).
+
+**G10 shield and strikes (no new cues: stock sounds already placed):** a shield earned at streak 3 rides the streak's own
+line (`streak3` at 0.9 s). A shield saving a wrong door plays `wrong` (it was wrong). A strike's warning on its target is
+`countdown1` (a stock timer tick; `guards_up` would say "Guards ahead!"), 1 s before it lands; at the landing the effect's
+`penalty_*` line follows 0.9 s later through `PenaltyLines` (the target is never in an arena, so no aww); a shield blocking
+it plays `correct_retry`. A LEADER BONUS plays nothing (the striker's streak line is at 0.9 s, the bonus at 1.0 s).
+Under `DebugStrikeSelf` the striker is the target, so the warning tick lands 0.1 s after their own streak line: a
+test-only overlap.
 
 **Commands:**
 

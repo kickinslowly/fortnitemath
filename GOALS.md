@@ -21,7 +21,13 @@
   percent-problems, rational-ops, linear-expressions, two-step-equations, angle-relationships, circles, probability (200
   items each; plan + "does not fit" table in LIBRARY.md; PROTOCOL §4b gained Angles + percent change). Inserted: slot 19
   cartridges. Seen in play: circles to the finish, π draws in the HUD font. Parent worked 80 samples, all right
-- [ ] Grade-8 library (unblocked 2026-10-14: memory at 19 cartridges is 35.6k of 100k; slot would reach ~2.4 MB)
+- [x] Grade-8 library (2026-10-14, G10 agent C: Opus lead + 10 Sonnet builders, 7 fix rounds): exponent-rules,
+  scientific-notation, roots-irrationals, linear-equations, linear-functions, pythagorean-theorem, transformations,
+  triangles-parallel-lines, cylinders-cones-spheres, scatter-two-way (200 items each; LIBRARY.md "Grade 8"; PROTOCOL §4b
+  grade-8 rows). Inserted: slot 29 cartridges, 2.66 MB, BuildAll clean; emulator e2e plays all 29. Negative exponents now
+  render as superscripts (`10^−2` -> `10⁻²`, fnm/profiles.py). Lead hand-worked 400+ items, parent ~30: no wrong keys.
+  Unverified: island memory at 29 cartridges (Aaron's Launch Memory Calculation), `⁻` in the HUD font in play (² ³ seen),
+  long decimals / `(4/3)π` as door text in play, whether 8th graders know CW/CCW
 
 ## G4 — Race course (Aaron, 2026-10-03)
 Replace the room-and-teleport loop with a race: long hallways ending in walls of real doors the player opens.
@@ -133,7 +139,7 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   over every floor piece, staircases sloped, flush with the wall tops; the course is a closed tube and the skip guard
   becomes the backstop. Yeet unchanged under it (18.4 m back, lands at the entry). Open: a real Shockwave jump against
   the glass, Aaron's call on how visible the glass should be (clear gallery glass now; tinted variants exist).
-- [ ] Aaron playtest of the 2026-10-04 evening build: Dizzy spin smoothness, the 2.0x boost, the finish board, guard
+- [x] (superseded 2026-10-14: Aaron played the full 2026-10-13 night build, G9 Now 10) Aaron playtest of the 2026-10-04 evening build: Dizzy spin smoothness, the 2.0x boost, the finish board, guard
   weapons at stations 3/5/7/9, identical doors. Claude's own composed play pass is also pending (held while Aaron
   was in Dota: play sessions take the foreground)
 - [x] Hostile guards (Aaron, 2026-10-04; seen in play at station 5): a guard spawner per hallway, 1,1,2,2,3,3,4,4,5,5
@@ -160,7 +166,7 @@ map's pool. Big red X / green CORRECT! flash. Later: obstacles, weapons, traps. 
   purple → gold, pistol → SMG → pump / combat / heavy shotgun → bolt + heavy sniper → grenade + rocket launcher
   (`WEAPONS`; the 48 ids the spawner accepts are listed in `build_guards.py`, `--probe` tests more). Five guards
   with legendary rocket launchers at station 10: balance is Aaron's call (guard count `GUARDS`, accuracy LOW)
-- [ ] Aaron playtest of the 2026-10-06 build: walk into the victory area while the board shows, then the podium;
+- [x] (superseded 2026-10-14: Aaron played the full 2026-10-13 night build, G9 Now 10) Aaron playtest of the 2026-10-06 build: walk into the victory area while the board shows, then the podium;
   is station 6 slippery enough now (and ONLY station 6); do the launcher stations play; the finish board's new
   position (top, 62% black) legible?
 - [x] Ice position poll PASSED 2026-10-13 (Q): `DebugStartStage 6`, 80 s standing: one "on ice", no "off ice"; disproof: an
@@ -386,18 +392,18 @@ question per player on the HUD and make it read as a sign.
 Spec: `BOSS_MODE.md` (decisions, arena, levels, devices, Verse architecture, cues, acceptance). Briefs: `briefs/bossmode/`
 (B0 tags+cues serial, then B1 Verse / B2 arena tool / B3 assets in parallel, then B4 integration + headless playtest). Fable
 plans and audits; Opus builds; Sonnet does B3.
-- [ ] 1. B0 tags + cue enum compiled in the project
-- [ ] 2. B1 `fnm_bossmode.verse` + director/HUD routing, `tests/test_bossmode.py`
-- [ ] 3. B2 `tools/build_bossmode.py` arena placed and captured; probe answers in LAYOUT.md
-- [ ] 4. B3 16 voice lines x 3 voices, `fnm_banner.png` / `fnm_nuke.png`, 19 CUES rows, AUDIO.md
-- [ ] 5. B4 headless run to VICTORY seen in frames; race regression; wavs imported; ship defaults restored
+- [x] 1. B0 tags + cue enum compiled in the project
+- [x] 2. B1 `fnm_bossmode.verse` + director/HUD routing, `tests/test_bossmode.py`
+- [x] 3. B2 `tools/build_bossmode.py` arena placed and captured; probe answers in LAYOUT.md
+- [x] 4. B3 16 voice lines x 3 voices, `fnm_banner.png` / `fnm_nuke.png`, 19 CUES rows, AUDIO.md
+- [x] 5. B4 headless run to VICTORY seen in frames; race regression; wavs imported; ship defaults restored
 - [ ] 6. Aaron playtest; then the open list in BOSS_MODE.md section 13 (jump chain, creature spawner, by ear)
-- [ ] 7. Colosseum pass (Aaron, 2026-10-09: "large, circular colloseum like, with pillars"): round 64 m arena, Coliseum-kit
+- [x] 7. Colosseum pass (Aaron, 2026-10-09: "large, circular colloseum like, with pillars"): round 64 m arena, Coliseum-kit
   podium with arch gates and the main gate (`build_bossmode.py`), stands / colonnade / pylons / tribune / statues
   (`build_colosseum.py`, own tag). Built and seen in editor captures; gate arches traced open (~320 x 380); headless
   auto-run to VICTORY 1:23.3, 16/16, guards and creatures up at all 4 gates. Unverified: a walked run (perch climbs at the
   new spots), frame rate with ~670 arena actors and 16 torch/brazier lights, island memory (GUI-only panel)
-- [ ] 8. Weapon chests + floating letters (Aaron, 2026-10-09: weapons not obvious, "maybe a chest with the weapon and
+- [x] 8. Weapon chests + floating letters (Aaron, 2026-10-09: weapons not obvious, "maybe a chest with the weapon and
   ammo inside"; pad boards "hard to see from certain angles"): `build_bossmode.py --dress` puts a gold chest with a hidden
   hold-E button on every perch (on only while lit; grants the level's weapon + ammo) and a giant 3D letter over each pad
   that turns to the nearest player. Seen in play 2026-10-10: OPEN WEAPON CHEST prompt, SMG + ammo granted, letters
@@ -495,8 +501,40 @@ the GAME MODE box/minimap; `GetLocalParty` in a published version; accolades `Te
   moderation; `maxPlayers` 16 -> ~30 (setting takes 1-100); then check a few kid accounts land on one server
 - [ ] Next: party HEAT (synced start, places, auto-requeue) tested with 4-8 kids; Shield/Strike; Redemption at the boss;
   medal v2 + brag card; arena pads in one row + bigger titan; host controls + misconception radar; accolades. Done since:
-  pillar of light + boost trail (wave 6 F), the volcano on the horizon (Titan Peak)
+  pillar of light + boost trail (wave 6 F), the volcano on the horizon (Titan Peak); Shield/Strike, Redemption, medal v2 +
+  brag card, arena pads in one row + bigger titan (G10). Still open: party HEAT, host controls + radar, accolades
 - [ ] Later: Trap Dex + Daily Mix; podium ceremony (hologram); team relay; grade-8 cartridges. Done since: Titan Peak pass +
   door arches, Volt as host (world + HUD reaction cards), custom music (Mint), crowd cheer at the podium, grade 7
 - [ ] Deadlines: Mint period ends 2026-10-21; Discover thumbnails + logo required to publish/update from 2026-10-22 (ready in
   `art/keyart/out`); the Meshy monthly pool (1,000, refilled 2026-10-14 02:37Z) expires 2026-11-14
+
+## G10 — The review's "Next" list, built without Aaron (2026-10-14/15; team in `briefs/g10/`)
+Aaron: "take care of anything you can do without me" + the walls still read "repetitive and wall papery".
+- [x] Redemption at the boss: missed stations' tiers come back as your arena pad questions; a first-try right pad
+  = REDEEMED! + half credit (seen). Medal v2: today's gates in half answers (GOLD 10/10, SILVER 70%; redeemed can reach
+  SILVER, never GOLD), FLAWLESS badge, next-goal line, time gates built OFF (`MedalTimeGates`; no par data). Brag grid
+  on the finish card (seen). Record inflation fixed: a lone finisher is not celebrated (seen)
+- [x] Shield at streak 3 (blocks your next penalty or an incoming strike; seen on a boss pad and on strikes) and Strike
+  at 5/10/15 (light in-place effect at the nearest racer ahead, warning, 20 s immunity, leader = +2 s boost; seen via
+  `DebugStrikeSelf`). UNVERIFIED: the targeting itself (needs 2 players), Mud/Dizzy/Lights Out as strikes, a shield on a
+  station's wrong door, the strike Freeze's wide camera (compiled after the last session)
+- [x] HUD: compact slate in the arena and at the retry hold (titan's head and lintel letters visible, seen); finish board
+  docked right so the world ALL-TIME board reads (seen); stable slate height; next-reward streak line
+- [x] Arena: pads in one A-B-C-D row (doors' order), titan 2.1 -> 3.0 (9 m), race laser rebuilt; small fixes (no DIRECT
+  HIT without a boss, one kill sound, "Final Stretch" not "Boss Level" at stations 9-10, boss-mode misses private)
+- [x] Floating pad letters 1.5 -> 1.0: the whole titan now reads between B and C from the entry (seen on 42.40)
+- [x] Analytics: an `analytics_device` per station + finish + boss kill, submitted by the director (seen in test mode).
+  The Creator Portal funnel is the par data medal time gates need, once a published version is played
+- [x] Walls (agent W): wave 1 placed 1,149 trim pieces (piers, plinths, caps, crenellated crests, 5 Mint trim
+  materials; `tools/build_wall_trim.py`, tag `fnm_wall_trim`); parent audit: wide panels between piers and the t3 frost
+  walls still repeat, straight-on walls untouched. Pass 2 (2026-10-15): 1,346 pieces, bays 3.8-6.8 m, every other bay a
+  panel in the tier's second stone, dressed baffles, calmer t3_wall maps, chunky painted trims (1,000 Mint, 0 Meshy; 24
+  new 1024 textures). Read by the parent in before/pass1/pass2 sheets. Still plain: the first ~9 m of each hallway (sign,
+  chalkboard, pads), station 6's own walls, vestibule walls. Unmeasured: island memory with 1,346 cubes + 24 textures
+- [x] Spare voices' welcome line says Doors of Doom (am_onyx, bm_george)
+- [x] UEFN updated 42.30 -> 42.40 on 2026-10-15 (release day killed sessions). Composed hooked run on 42.40 (exponent-rules,
+  2 wrong doors, DebugStrikeSelf): `6⁰` and `3⁻²` draw in the HUD font, retry hold compact + wide camera, REDEMPTION line
+  on the compact arena slate, shield earned and a strike blocked by it, brag grid 2 0 0 0 0 0 0 0 0 0 + boss, SILVER 9/10
+  with "GOLD needs 10/10 - you: 9/10", no false record, all 12 analytics events. Still unseen: the strike Freeze landing
+  (the shield ate it) and its wide camera
+- Later (needs Aaron or kids): HEAT mode (a product call), host controls + misconception radar, accolades

@@ -82,19 +82,21 @@ rerun it after a course rebuild.
 ```
    ═════════════════════   y+3000  gate barrier (fnm_boss_gate): opens per player at the kill, then a 10 m connector
    │                     │          to the unchanged finish hallway
-   │ ==L>  ┌─────┐  <R== │   y+2700  mega cannons L and R (scale 3), barrels on the titan's waist (lasers 5.0 m)
-   │       │  T  │       │   y+2600  boss platform, 6 x 4 m, 1 m high: the Magma Titan (T, 6.3 m) over the hidden Megabrute
-   │ [C]   └─────┘   [D] │   y+2200  answer pads C (left) and D (right), a floating letter over each
+   │ ==L>  ┌─────┐  <R== │   y+2700  mega cannons L and R (scale 3), barrels on the titan's waist (lasers 5.4 m)
+   │       │  T  │       │   y+2600  boss platform, 6 x 4 m, 1 m high: the Magma Titan (T, 9 m) over the hidden Megabrute
    │         a           │   y+1800  adds spawner (fnm_boss_adds): 2 guards with pistols on a wrong pad
-   │ [A]             [B] │   y+800   answer pads A (left) and B (right), a floating letter over each
+   │ [A] [B]   [C] [D]   │   y+1100  answer pads A B C D in ONE row, left to right, a floating letter over each
    │ S                   │   S = "BOSS ARENA" sign on the left wall
    │        E ↑          │   y+150   entry teleporter (fnm_boss + fnm_entry): arrival and retry point
    └──  ←connector 10──  ┘
 ```
 
-Each answer pad is a `PAD_SIZE` (4.5 m) square tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`)
+Each answer pad is a `RACE_PAD_SIZE` (4 m; `PAD_SIZE`, 4.5 m, is now boss mode's) square tile in its letter's colour (`M_fnm_wall_pad_a..d`, `tools/import_art.py`)
 with a hidden trigger sensing the whole tile, 1.5 m tall (`trigger_fit`; fnm_boss + fnm_door_a..d), and a floating 3D
-letter over it (build_race_boss; until 2026-10-11 a letter billboard). A is on the player's left, like door A, so the pads read A B / C D as the HUD lists the choices. Until
+letter over it (build_race_boss; until 2026-10-11 a letter billboard). A is on the player's left, like door A, so the pads read A B C D left to right in one row (G10, 2026-10-14; before it
+a 2 x 2 grid whose far row was out of the entry's view), centres at x +-260 and +-780 (`RACE_PAD_PITCH` 520, a 120 cm gap
+no capsule bridges) and y 1100, edges at +-980 of the hall's +-1106. `build_course.py --arena-pads` moves the tiles and
+triggers in place (never a full course rebuild); then rerun `build_race_boss.py` for the letters. Until
 2026-10-09 each pad sensed a 96 cm square 7 cm thick, 80 cm off the floor, in the middle of its tile (the 600 cm per unit
 scale assumption); `DebugAutoRightAnswers` now drops the player `DebugPadOffset` (180 cm) off the centre in x and y.
 A wrong pad brings the adds up to two (`SummonAdds`): it resets the adds spawner only when fewer than two are up, since a
@@ -113,16 +115,17 @@ reset refills its spawn limit and its timer then replaced every add a player kil
 - **The boss rig** (2026-10-11, `tools/build_race_boss.py`; what changed and why: BOSS_MODE.md §16). Positions are from
   the arena's centre line (+X left) and the start of its floor:
   - Megabrute creature spawner (`fnm_race_megaboss`) on the platform top at (0, 2600), hidden; four titan clips
-    (`fnm_race_titan` + `fnm_bm_slot_1..4`) with it at `TITAN_SCALE` 2.1 (2.4 put the head against the question panel in play), facing the entry. The beams aim at the waist,
-    `BEAM_AIM` 236 cm over the platform top.
+    (`fnm_race_titan` + `fnm_bm_slot_1..4`) with it at `TITAN_SCALE` 3.0 (G10; 9 m, was 2.1 = 6.3 m; the 2.4 of 2026-10-11 put the head against the question panel
+    in play, so G10 pairs the size with the HUD's compact slate), facing the entry. The beams aim at the waist,
+    `BEAM_AIM` 338 cm over the platform top.
   - Mega cannons (`FNM_CannonArt/SM_fnm_megacannon`) at (±780, 2700), `CANNON_SCALE` 3, barrels on the waist: footprint
     x 480..1080, y 2525..2875, so 1.8 m of lane beside the platform, 1 m behind the far pads, 26 cm off the wall, 17°
     off the view's centre from the entry. Cyan point lights at the coils and the muzzle. A beam marker per cannon
-    (`fnm_race_beam` + slot, the Alphabet "I", hidden in play) from the muzzle point to the waist: 5.0 m
-    (`build_fx.RACE_LENGTH`, NS_fnm_laser_race).
+    (`fnm_race_beam` + slot, the Alphabet "I", hidden in play) from the muzzle point to the waist: 5.4 m
+    (`build_fx.RACE_LENGTH` 540, NS_fnm_laser_race, rebuilt 2026-10-14).
   - Strike VFX (LightningBolt_03, scale 4; `fnm_cannon_strike`) and two explosive devices (no damage, medium knockback;
     `fnm_cannon_blast`) parked 6 m under the platform, moved to the boss's feet per hit.
-  - Floating letters (`fnm_race_letter` + slot 1..4) over the pads at 2.3 m, scale 1.5 (3 m tall): with the 40 cm bob
+  - Floating letters (`fnm_race_letter` + slot 1..4) over the pads at 2.3 m, scale 1.0 since G10 (2 m tall; 1.5 hid the 9 m titan between the inner B and C from the entry): with the 40 cm bob
     the top stays under the lid (5.8 m) and the bottom over a player's head.
   - On every right pad the director (`FireCannons`) fires three muzzle discharges and Niagara lasers per cannon, the
     impact at the waist, the strike and a blast at the feet, and knocks the Megabrute (pinned back on the platform after
@@ -372,6 +375,46 @@ mesh's width is its local Y). The opening (47% of the width between the pillars,
 244 x 460 cm against the door prop's ~190 x 250 white frame, so nothing is in the doorway; the keystone sits on the lintel
 band behind the 3D letter (the letter's front is 52 cm out, the arch's 40). Geometry is read from each station's Lintel and
 Door bounds. Tag `fnm_arches`, labels `FNM_Sxx_ArchA..D`, 40 actors; rerun after a course rebuild.
+
+### Wall trim (2026-10-14, G10, `tools/build_wall_trim.py`)
+Aaron (2026-10-13/14): the textured walls "feel repetitive and tiled too monotonously like wallpaper". Editor frames at eye
+height (stations 1, 3, 5, 6, 7, 9, a stair and a winding connector) showed why, and it was geometry, not texture: every wall
+is a dead-flat 6 m box with a ruler-straight top against the sky, and its texture paints depth (t2's cliff ledges, t3's
+snow-capped knobs, t1's carved panel) that repeats every 3.5-4 m on that flat plane. So real shapes now stand on the side
+walls of every station hallway and on every connector wall, all scaled engine cubes (one mesh) in the tier's surfaces:
+- **Pilasters** every 4.8-8.2 m in a station hallway (7.8-11.5 m in a connector), jittered: a pier 35-60 cm proud, a wider
+  base and a cap, in the tier's dressed stone (`M_fnm_tp_t<N>_trim`, `import_titanpeak.py --trim`: t1 pale grey ashlar with
+  a little ivy, t2 teal-grey brick, t3 lavender granite with snow in the joints, t4 ash-grey basalt, t5 charcoal slate). The
+  cap ends 25 cm under the wall top, 5 cm under the invisible lids' underside. Pier and base keep the walls' collision
+  (QueryOnly, FortStaticMesh); a base stands at most 72 cm proud, so a baffle's 9 m gap keeps 8.2 m and a 10 m connector
+  8.5 m.
+- **Plinth**: a 35-60 cm course of the same stone along each bay's foot, cut round pilaster bases and anything on the floor.
+- **Crest** on the wall top (on the wall's own footprint, at most 25 cm past its faces, no collision), in clusters with bare
+  stretches between: t1 BASE CAMP ruined merlons (some missing, some broken and tilted), t2 WATERFALL GORGE tumbled slate
+  blocks, t3 FROST RIDGE rocks and snow, t4 OBSIDIAN DESCENT tall leaning obsidian shards, t5 MAGMA CORE scorched rocks; a
+  taller **finial** stands over every pilaster to mark the bay. It is the only trim above the lids, and only over a wall.
+- Nothing stands where it touches play or other dressing: every piece is tested as an oriented box (15 cm margin) against the
+  doors, door wall, arches, door letters and lights, vestibule and pickup-row triggers (their real StepBox), barriers, pads,
+  guard spawners, slider containers (their whole travel), hurdles, baffles, speed plates, torches (their mesh and flame, not
+  the light's bounds), chalkboards, signs, banners, set pieces, the BASE CAMP gate, the ice station's dressing, the arena and
+  the finish; a pilaster slides along the wall to a free spot or is dropped. So the first ~9 m of a hallway (sign, chalkboard,
+  pickup pads) and the ice station (its snow and icicles) get few or none; the door walls, vestibules, stair walls (their tops
+  already step), the arena's and the finish's walls get none.
+- **Second pass (2026-10-15, the parent's audit of the first pass's frames).** An 8-10 m bay still showed two repeats of the
+  4 m tile, t3's purple/white blob wall dominated FROST RIDGE, the baffles (seen straight on from every entry) had nothing,
+  and the first trims were clean brick against painted cliffs. Now: hallway pilasters every 3.8-6.8 m; **panels**, a 2 cm skin
+  over every other bay (pier to pier, and from the hallway start or the door wall's corner to the nearest pier) in the tier's
+  second stone (`M_fnm_tp_t<N>_panel`: the wall's organic Mint layer, ivy, moss and ferns, glacier ice, pumice, scorched
+  strata, with the wall blended back in at 40 % and only a light macro variation: at the walls' 2.0 the ivy went magenta in
+  play), so neighbouring bays never repeat each other (it passes behind the torches
+  and is cut round signs and boards); the **baffles** get pilasters, plinth and panels on both faces, a crest, and a post with
+  a finial at the free end (not where a guard spawner stands near it); t2-t5 trims are painted chunky blocks in each tier's
+  cartoon-cliff style and `t3_wall` wears calmer violet slabs (`import_titanpeak.ART_MAP`: the same material instances, new
+  textures, so no actor was repainted); crest pieces are longer (fewer actors).
+1346 actors placed (156 pilasters x 3, 159 plinth pieces, 124 panels, 453 crest, 137 finials, 5 posts), tag `fnm_wall_trim`,
+labels `FNM_WT_<run>_<n>_<kind>`. Geometry is read from the course and the other builders' actors at run time: rerun after a course
+rebuild and after moving decor, pickups or set pieces. `--check` re-plans against the live level and compares (placed ==
+planned, materials held, no clash); `tests/test_wall_trim.py` checks the clearance on a snapshot (`--dump-scene`).
 
 ## Victory area (2026-10-05, `tools/build_finish.py`)
 The finish board stays up until the player clicks CLOSE (Aaron: "x it and enjoy themself in the victory area");

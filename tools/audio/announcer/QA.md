@@ -8,7 +8,7 @@ Limiter dB = how far the line's peak sat above -1 dBFS before the limiter (highe
 |---|---|---|---|---|---|---|
 | am_michael | 53 | 1.24 | 72.6 | -13.2 to -12.9 | 2.9 | 0 |
 | am_onyx | 53 | 1.31 | 76.9 | -13.2 to -12.9 | 2.5 | 0 |
-| bm_george | 53 | 1.43 | 83.8 | -13.2 to -11.9 | 0.1 | 0 |
+| bm_george | 53 | 1.43 | 84.1 | -13.2 to -11.9 | 0.2 | 0 |
 
 ## Recommendation: am_michael
 
@@ -120,7 +120,7 @@ Median -13.1 LUFS; spread -13.2 to -12.9.
 | penalty_yeet | Yeet! | 0.97 | 2 | -1.00 | -13.1 | 1.1 |  |
 | no_skip | No skipping! | 1.31 | 2 | -1.00 | -13.2 | 3.5 |  |
 | guards_up | Guards ahead! | 1.24 | 2 | -1.00 | -13.1 | 3.0 |  |
-| welcome | Welcome to Fortnite Math! | 2.10 | 4 | -1.00 | -13.2 | 2.4 |  |
+| welcome | Welcome to Doors of Doom! | 2.11 | 4 | -1.00 | -13.1 | 1.8 |  |
 | choose | Choose your grade and your skill. | 2.21 | 4 | -1.00 | -13.2 | 2.5 |  |
 | boss_fight | Boss fight! | 1.12 | 2 | -1.00 | -13.2 | 4.1 |  |
 | lifeline | Lifeline! | 1.22 | 2 | -1.00 | -13.1 | 3.6 |  |
@@ -180,7 +180,7 @@ Median -13.1 LUFS; spread -13.2 to -11.9.
 | penalty_yeet | Yeet! | 1.14 | 2 | -1.00 | -12.5 | 0.0 |  |
 | no_skip | No skipping! | 1.41 | 2 | -1.00 | -13.1 | 0.1 |  |
 | guards_up | Guards ahead! | 1.28 | 2 | -1.00 | -12.8 | 0.0 |  |
-| welcome | Welcome to Fortnite Math! | 2.19 | 4 | -1.00 | -12.9 | 0.0 |  |
+| welcome | Welcome to Doors of Doom! | 2.40 | 4 | -1.00 | -13.1 | 0.8 |  |
 | choose | Choose your grade and your skill. | 2.44 | 4 | -1.00 | -13.2 | 2.0 |  |
 | boss_fight | Boss fight! | 1.26 | 2 | -1.00 | -13.2 | 0.1 |  |
 | lifeline | Lifeline! | 1.22 | 2 | -1.00 | -13.2 | 0.0 |  |

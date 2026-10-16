@@ -109,7 +109,8 @@ def test_titan_scale_and_beam_aim_agree():
     3.5 m behind the entry, is lower in the view than boss mode's (whose head sits just under the question panel; at a
     matching angle the race titan's head touched the panel in play, 2026-10-11) but not much lower (it still reads as
     the boss)."""
-    assert r.BEAM_AIM == round(b.BEAM_AIM * r.TITAN_SCALE / b.TITAN_SCALE) == 236
+    assert r.BEAM_AIM == round(b.BEAM_AIM * r.TITAN_SCALE / b.TITAN_SCALE) == 338
+    assert r.TITAN_SCALE == 3.0
     height = 300 * r.TITAN_SCALE                       # the imported mesh is 3 m tall
     assert c.PLATFORM_H + 0.25 * height < r.aim()[2] < c.PLATFORM_H + 0.6 * height
     cam_back, cam_h = 350, 250
@@ -118,7 +119,10 @@ def test_titan_scale_and_beam_aim_agree():
         return math.degrees(math.atan2(head_z - cam_h, dist + cam_back))
     race = head_angle(c.PLATFORM_H + height, c.PLATFORM_Y - r.ENTRY[1])
     boss = head_angle(b.PLATFORM_H + 300 * b.TITAN_SCALE, b.PLATFORM_Y - b.ENTRY[1])
-    assert 0.7 * boss <= race <= 0.85 * boss, (race, boss)
+    # G10 (2026-10-14): scale 3.0 with the compact slate (SetCompact) clearing the head, so the race titan now looks a
+    # little TALLER than boss mode's from the entry (about 1.23x: 15.0 vs 12.2 deg), never more than 1.35x. Measured in play:
+    # with the full slate the head hid behind the panel (the reason for the compact one); the band is what we intend.
+    assert boss <= race <= 1.35 * boss, (race, boss)
     assert r.titan_yaw() == -90.0                      # faces the entry
 
 
@@ -468,3 +472,20 @@ def test_delayed_explanation_says_last_one():
     assert "ShowFeedback(FnmLastOne(Item)" in src("fnm_bossmode.verse")
     assert "ShowFeedback(FnmLastOne(Item)" not in src("fnm_director.verse")
     assert '"Correct!  " + Item.Explanation' not in src("fnm_director.verse")
+
+
+def test_inner_letters_leave_the_whole_titan_visible_from_the_entry():
+    """G10 (2026-10-14): with the pads in one row, the B and C floating letters stand dead centre of the entry view. At letter
+    scale 1.5 their inner edges closed on the 9 m titan (play frames arena_01 / arena_25: it showed only between them). From a
+    camera 3.5 m behind the entry, the gap between the two inner letters' edges (the letters turn to face the player, so
+    their full width counts) must be wider, as an angle, than the titan's silhouette with an arm raised (about 5 m across)."""
+    cam_back = 350
+    (bx, by), (cx, _) = c.PAD_SPOTS[1], c.PAD_SPOTS[2]
+    dist_letters = by - r.ENTRY[1] + cam_back
+    inner_half = bx - r.LETTER_W * r.LETTER_SCALE / 2                       # +x edge of the inner pair: the gap's half-width
+    gap = math.atan2(inner_half, dist_letters)
+    titan = math.atan2(250, c.PLATFORM_Y - r.ENTRY[1] + cam_back)           # half of a 5 m span
+    assert gap > titan, (math.degrees(gap), math.degrees(titan))
+    # disproof: the old 1.5 scale would have closed the gap
+    old = math.atan2(bx - r.LETTER_W * 1.5 / 2, dist_letters)
+    assert old < titan

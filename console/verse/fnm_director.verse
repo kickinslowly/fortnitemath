@@ -21,6 +21,15 @@
 # mode starts at that level, a Partial run), DebugBossHold (0.0: the boss auto-run waits that long before each pad),
 # DebugBossChest (0: after each summon, stand every fighter on that perch facing its weapon chest). DebugAutoWrongAnswers N
 # with DebugAutoRightAnswers: the auto-right run takes up to two wrong doors at each station of run 1 first, N in all.
+# DebugStrikeSelf (false: every strike a player earns is fired at that player, for a one-client test).
+# G10 (briefs/g10/D_director.md, 2026-10-14): only a first-try right answer earns anything. The streak line names the next
+# reward ("STREAK x2  -  1 more for a SHIELD"). A streak of 3 earns a SHIELD (it takes the next penalty: the player's own
+# wrong door or pad, or a strike); 5, 10 and 15 earn a STRIKE fired at the nearest racer ahead (a light in-place effect;
+# the leader's becomes a boost). Every station missed (right only after a miss) is queued for REDEMPTION: the arena asks
+# its tier first, and a first-try right pad there REDEEMS it (half credit). Medal v2 counts a redeemed station half
+# (FnmMedalHalves, today's gates; time gates behind MedalTimeGates), and the finish board adds the brag grid (fnm_hud
+# ShowBragGrid). A record is celebrated only against another player. Analytics devices (tag fnm_analytics) count each
+# station clear, the finish and the kill. The slate goes compact for a retry hold and in the arena hall.
 # BOSS BATTLE mode (BOSS_MODE.md, fnm_bossmode.verse): a player whose Mode is Boss plays in the fnm_bm arena; their pads,
 # perches, respawns and finish go to BossMode. Race code paths ignore them (StationOccupied, WatchDoors/Skip/Ice).
 # Doors: every showing of a question shuffles its choices (State.Order), so the right door moves; a position
@@ -101,6 +110,15 @@ fnm_recap := struct:
 
 # The finish board's record line: the record is the session's (fnm_director Boards lives in memory), so it says so (G9).
 FnmTodayRecord<localizes>(Time:string, Who:agent, Tail:string):message = "Today's record   {Time}  by {Who}{Tail}"
+
+# G10 feed lines (names are only ever in messages). Public: a strike landing and a shield blocking one. The target's own:
+# the warning. The striker's own: where the strike went. A shield saving a wrong door goes through MissFeed (the leader's
+# public, anyone else's private).
+FnmFeedStrike<localizes>(Striker:agent, Verb:string, Target:agent):message = "{Striker} {Verb} {Target}!"
+FnmFeedShieldBlock<localizes>(Target:agent, Striker:agent):message = "{Target}'s shield blocked {Striker}!"
+FnmFeedIncoming<localizes>(Striker:agent):message = "INCOMING STRIKE from {Striker}!"
+FnmFeedStrikeAway<localizes>(Target:agent):message = "Your STRIKE flies at {Target}!"
+FnmFeedShieldSaved<localizes>(Who:agent, Where:string):message = "{Who}'s shield saved them {Where}"
 
 # Flat (x, y) distance from A to B in metres with one decimal, for log lines.
 FnmMetres(A:vector3, B:vector3)<transacts>:string =
@@ -248,6 +266,28 @@ fnm_player_state := class:
     var BmDecks : [][][]int = array{}
     var TakenLevels : [int]logic = map{}
     var BossBest : float = -1.0
+    # G10 (briefs/g10/D_director.md). This run's mark per station (index stage - 1): FnmMarkFirstTry, FnmMarkRedeemed,
+    # FnmMarkMissed or FnmMarkUnreached (fnm_logic.verse), for the brag grid and the medal. REDEMPTION (R4): the stations
+    # this run missed, in station order, still waiting for their redemption question at the boss; the station the arena
+    # question on the slate was drawn for (0 = the arena's own hardest tier); how many were redeemed (half credit each).
+    var Marks : []int = array{}
+    var RedeemQueue : []int = array{}
+    var RedeemStage : int = 0
+    var Redeemed : int = 0
+    # True when this run ended at the titan's kill (the brag grid's boss tile).
+    var BossDowned : logic = false
+    # SHIELD (C2): at most one, earned at streak ShieldStreak; it blocks the next penalty (own wrong door or a strike).
+    var Shield : logic = false
+    # STRIKE (C3): no strike lands on this player before ImmuneUntil; Struck while a strike is aimed at them or holds them.
+    var ImmuneUntil : float = -100.0
+    var Struck : logic = false
+    # When the current boost ends (Boost), so a LEADER BONUS adds its seconds to what is left.
+    var BoostUntil : float = -1.0
+    # The compact slate (fnm_hud SetCompact): on for a wrong door's retry hold (RetryHold bumps per hold) and in the
+    # arena hall; Compact is what the HUD was last told.
+    var RetryHold : int = 0
+    var RetryHolding : logic = false
+    var Compact : logic = false
 
 # Binds one door to its station/door index, so a single callback signature can serve every door.
 fnm_door_handler := class:
@@ -706,6 +746,47 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # triggers in turn, so the log shows whether a pad trigger fires and grants ("pickup <kind> granted at pad N").
     @editable
     DebugPickupTest : logic = false
+    # G10 race rewards (briefs/g10/D_director.md, reviews/race-2026-10-13/sources/gamification.md 4-6). The first-try right
+    # answer is the only thing that earns anything: a first-try streak of ShieldStreak earns a SHIELD (hold at most one),
+    # of each StrikeStreaks value a STRIKE. StrikesOn: the host's switch (strikes off = no strike and no "for a STRIKE"
+    # line). A strike fires StrikeDelaySeconds after it is earned at the nearest racer ahead in strip order who can take
+    # one, lands StrikeWarnSeconds after their INCOMING STRIKE warning, and leaves them immune for StrikeImmuneSeconds. With
+    # nobody ahead to take it (the leader's, always) it is a LeaderBonusSeconds boost instead. Effects (in place, never a
+    # send-back, never the target's question, streak or credit): StrikeFreezeSeconds frozen, StrikeMudSeconds of mud,
+    # StrikeBlurSeconds of blur (no spin), StrikeDarkSeconds of lights out.
+    @editable
+    StrikesOn : logic = true
+    ShieldStreak : int = 3
+    StrikeStreaks : []int = array{5, 10, 15}
+    StrikeDelaySeconds : float = 1.0
+    StrikeWarnSeconds : float = 1.0
+    StrikeImmuneSeconds : float = 20.0
+    LeaderBonusSeconds : float = 2.0
+    StrikeFreezeSeconds : float = 2.5
+    StrikeMudSeconds : float = 4.0
+    StrikeBlurSeconds : float = 3.0
+    StrikeDarkSeconds : float = 1.5
+    var StrikeCursor : int = 0
+    # Test hook: every strike a player earns is fired at that player (the warning, the effect, the immunity, a shield's
+    # block), so one client sees every branch but the targeting. false = ship value.
+    @editable
+    DebugStrikeSelf : logic = false
+    # Medal v2 (gamification 6): accuracy gates, a redeemed station counting half (FnmMedalHalves); time gates behind
+    # MedalTimeGates (off: no par data yet), each missed gate dropping the medal one tier; a par of 0 = no gate.
+    @editable
+    MedalTimeGates : logic = false
+    @editable
+    GoldParSeconds : float = 0.0
+    @editable
+    SilverParSeconds : float = 0.0
+    # The island code the finish board's brag grid prints ("" = no code line; text only, never a QR).
+    @editable
+    IslandCode : string = ""
+    # Analytics (tools/build_analytics.py, S): per station (index stage - 1) the analytics_device tagged fnm_analytics +
+    # that station's tag, the finish's and the boss kill's. Missing devices are skipped.
+    var StationAnalytics : []?analytics_device = array{}
+    var FinishAnalytics : ?analytics_device = false
+    var BossAnalytics : ?analytics_device = false
 
     OnBegin<override>()<suspends>:void =
         set Cartridges = FnmCartridges()
@@ -758,7 +839,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set Letter.CanBeDamaged = false
             spawn{ FaceLetter(Letter, Letter.GetTransform().Translation, FnmBmSlotOf(Object) - 1, true) }
             set RaceLetters += 1
-        Print("FNM: cannons: {CannonFx.Length} muzzles, strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts, {Beams.Length} lasers, {RaceCoils.Length} coil crackles; race titan {RaceTitan.Found()} clips, {RaceLetters} letters")
+        Print("FNM: cannons: {CannonFx.Length} legacy muzzle vfx (0 expected: the muzzle discharge is Niagara), strike {FnmYesNo(if (StrikeFx?) then true else false)}, {BlastRig.Parts.Length} blasts, {Beams.Length} lasers, {RaceCoils.Length} coil crackles; race titan {RaceTitan.Found()} clips, {RaceLetters} letters")
         for (Object : FindCreativeObjectsWithTag(fnm_pickup), Trigger := trigger_device[Object]):
             Handler := fnm_pad_handler{Director := Self, Index := PadCount, Kind := ItemKind(Object)}
             Trigger.TriggeredEvent.Subscribe(Handler.OnTriggered)
@@ -845,6 +926,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
             spawn{ DoorWatch() }
             spawn{ RaceLoop() }
             SetUpVictoryArea()
+            BuildAnalytics()
             Playspace := GetPlayspace()
             Playspace.PlayerAddedEvent().Subscribe(OnPlayerAdded)
             Playspace.PlayerRemovedEvent().Subscribe(OnPlayerRemoved)
@@ -1029,6 +1111,30 @@ fnm_director := class(creative_device, fnm_picker_listener):
         for (MaybeSpawner : GuardSpawners, MaybeSpawner?):
             set Count += 1
         Count
+
+    # G10 analytics (TEAM.md seam with S, tools/build_analytics.py): the analytics_device tagged fnm_analytics + a station's
+    # tag per station, + fnm_finish for the finish, + fnm_boss for the titan's kill. Missing ones are simply not found.
+    BuildAnalytics():void =
+        StationTags := FnmStationTags()
+        set StationAnalytics = for (K -> Station : Stations):
+            var Found : ?analytics_device = false
+            if (StationTag := StationTags[K]):
+                for (Object : FindCreativeObjectsWithTag(StationTag), Object.GetTags().Has[fnm_analytics{}], Device := analytics_device[Object]):
+                    set Found = option{Device}
+            Found
+        for (Object : FindCreativeObjectsWithTag(fnm_analytics), Device := analytics_device[Object]):
+            if (Object.GetTags().Has[fnm_finish{}]) then set FinishAnalytics = option{Device}
+            else if (Object.GetTags().Has[fnm_boss{}]) then set BossAnalytics = option{Device}
+        var Count : int = 0
+        for (MaybeDevice : StationAnalytics, MaybeDevice?):
+            set Count += 1
+        Print("FNM: analytics: {Count} of {Stations.Length} stations, finish {FnmYesNo(if (FinishAnalytics?) then true else false)}, boss {FnmYesNo(if (BossAnalytics?) then true else false)}")
+
+    # Submits Player on an analytics device if there is one, logged with what it counts.
+    Analytics(MaybeDevice:?analytics_device, Player:player, What:string):void =
+        if (Device := MaybeDevice?):
+            Device.Submit(Player)
+            Print("FNM: analytics {What}")
 
     # Hallway boxes for the skip guard: each station from 2 m before its entry pad to the back of its vestibules,
     # as wide as its doors reach, then the finish hallway (FinishHallwayLength past its pad, as wide as the last
@@ -1228,6 +1334,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # there is only one grade and no boss mode.
     BeginPicking(State:fnm_player_state):void =
         set State.Picking = true
+        UpdateCompact(State)
         SetMusic(State.Player, 0)
         if (DebugAutoBoss?, BM := BossMode?):
             BM.Start(State)
@@ -1408,9 +1515,16 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set OverridePercent = Station.DifficultyOverride
         FnmTierForStage(Stage, Stations.Length, State.TierCount, OverridePercent)
 
-    # Draws the player's next item for their current stage (without replacement, per player).
+    # Draws the player's next item for their current stage (without replacement, per player). At the arena stage
+    # REDEMPTION (R4) comes first: while the run's RedeemQueue holds missed stations, the question is drawn from the head
+    # station's tier (RedeemStage, the slate's "REDEMPTION: STATION N" line); then the arena's hardest tier.
     DrawItem(State:fnm_player_state):void =
-        Tier := StationTier(State, State.Stage)
+        set State.RedeemStage = 0
+        var Tier : int = StationTier(State, State.Stage)
+        if (State.Mode = fnm_mode.Race, AtArena(State)?, Next := State.RedeemQueue[0]):
+            set State.RedeemStage = Next
+            set Tier = StationTier(State, Next)
+            Print("FNM: redemption question for station {Next} (tier {Tier}), {State.RedeemQueue.Length} queued")
         if (Pool := State.TierPools[Tier - 1], Deck := State.Decks[Tier - 1]):
             Draw := FnmDraw(Deck, Pool)
             if (set State.Decks[Tier - 1] = Draw.Rest) {}
@@ -1420,14 +1534,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.Order = Shuffle(for (Index := 0..Item.Choices.Length - 1) { Index })
 
     # The player's current item on the slate: its caption ("STATION 3/10  -  <tier>"; "FINAL BOSS" in the arena, whose
-    # hits are counted on the boss bar alone; plus "Only A, B, C this time" when the item has fewer choices than the doors),
-    # the prompt and the choices in this showing's order.
+    # hits are counted on the boss bar alone, or "REDEMPTION: STATION 3  -  <tier>" for a redemption question; plus "Only
+    # A, B, C this time" when the item has fewer choices than the doors), the prompt and the choices in this showing's order.
     ShowCurrent(State:fnm_player_state):void =
         set State.SlateSerial += 1
         if (Item := State.Cartridge.Items[State.CurrentItem]):
             StageCount := Stations.Length
             TierName := FnmTierName(State.Cartridge.Tiers, Item.Tier)
-            Caption := if (State.Mode = fnm_mode.Boss) then "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}" else if (State.Stage > StageCount) then "FINAL BOSS" else "STATION {State.Stage}/{StageCount}  -  {TierName}"
+            ArenaLine := if (State.RedeemStage > 0) then "REDEMPTION: STATION {State.RedeemStage}  -  {TierName}" else "FINAL BOSS"
+            Caption := if (State.Mode = fnm_mode.Boss) then "BOSS BATTLE  -  Level {State.Level}/{FnmBmLevelCount()}  -  {State.Cartridge.Title}" else if (State.Stage > StageCount) then ArenaLine else "STATION {State.Stage}/{StageCount}  -  {StationTierLabel(TierName)}"
             StageLine := Caption + OnlyLetters(State, Item)
             Shown := for (Choice : State.Order, Text := Item.Choices[Choice]) { Text }
             State.Hud.ShowQuestion(StageLine, Item.Prompt, Shown)
@@ -1444,6 +1559,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
             "  -  Only {Letters} this time"
         else:
             ""
+
+    # A station's tier name for its slate caption: a tier named for a boss ("Boss Level", the top tier of order-of-ops-exponents
+    # and integer-ops) reads "Final Stretch" at stations 9-10, where there is no boss (ux_critique P3); the arena keeps the name.
+    StationTierLabel(TierName:string)<transacts>:string =
+        if (FnmContains(TierName, "Boss")?) then "Final Stretch" else TierName
 
     # The baked choice behind door DoorIndex for this showing (-1 = no choice there).
     ChoiceAt(State:fnm_player_state, DoorIndex:int)<transacts>:int =
@@ -1511,6 +1631,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (StationIndex = Stations.Length, A := Arena?):
             HandlePad(State, A, DoorIndex)
             return
+        # A door answered ends the retry hold's compact slate (the recap card or the next lesson takes the slate).
+        EndRetryHold(State)
         if (Item := State.Cartridge.Items[State.CurrentItem], Station := Stations[StationIndex]):
             Choice := ChoiceAt(State, DoorIndex)
             if (Choice < 0):
@@ -1530,10 +1652,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     spawn{ Boost(State, Min(MaxBoostSeconds, BoostSeconds + StreakBonusSeconds * (State.Streak - 1) * 1.0)) }
                     for (Milestone : array{3, 5, 7, 10}, Milestone = State.Streak):
                         Broadcast(FnmFeedStreak(State.Player, Milestone), "is on a {Milestone} streak!")
+                    # G10: a SHIELD at streak 3, a STRIKE at 5, 10, 15 (named on the verdict: "3 IN A ROW!  +SHIELD").
+                    set Label += EarnRewards(State)
                 Sound(State.Player, if (State.MissedCurrent?) then fnm_cue.CorrectRetry else fnm_cue.Correct)
                 State.Hud.FlashVerdict(true, Label)
                 # Volt's card (picture only): fire when this answer makes a streak of 3 or more, else thumbs up.
                 State.Hud.ShowVolt(if (State.Streak >= 3) then fnm_volt.Fire else fnm_volt.Thumbs)
+                # The station's mark for the brag grid (a miss first queues it for REDEMPTION at the boss) and its analytics.
+                MarkStation(State, State.Stage, if (State.MissedCurrent?) then FnmMarkMissed else FnmMarkFirstTry)
+                Analytics(if (Device := StationAnalytics[StationIndex]) then Device else false, State.Player, "station {StationIndex + 1} cleared")
                 Pace := RecordSplit(State)
                 Solved := RecapOf(State, Item, DoorIndex, if (Pace = "") then "CORRECT!" else "CORRECT!  {Pace}")
                 AdvancePlayer(State, Station, DoorIndex, false)
@@ -1544,6 +1671,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.MissedCurrent = true
                 set State.Streak = 0
                 StopBoost(State)
+                # A held SHIELD takes this door's penalty, hold and clock charge instead (the streak and the first-try
+                # credit are gone, the door stays shut, the same question comes back with its letters reshuffled).
+                if (State.Shield?):
+                    ShieldSaved(State, Station, StationIndex + 1, FeedbackFor(Item, Choice))
+                    return
                 Kind := PickPenalty()
                 Past := FnmPenaltyPast(Kind)
                 MissFeed(State, FnmFeedPenalty(State.Player, Past, StationIndex + 1), "You got {Past} at station {StationIndex + 1}", "got {Past} at station {StationIndex + 1}")
@@ -1584,7 +1716,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # Back on the retry spot after a wrong door (or pad): the same question with its letters shuffled again on the slate,
     # the wrong choice's lesson under it for WrongFeedbackSeconds (ShowQuestion cleared it), and doors answer again.
+    # G10: the hold is a compact slate (fnm_hud SetCompact) for WrongFeedbackSeconds, so the wide camera shows the lintel
+    # letters over the doors; a door answered sooner ends it (HandleDoor, EndRetryHold).
     Retry(State:fnm_player_state, Lesson:string)<suspends>:void =
+        set State.RetryHold += 1
+        Hold := State.RetryHold
+        set State.RetryHolding = true
+        UpdateCompact(State)
         if (not State.Finished?, State.CurrentItem >= 0):
             Reshuffle(State)
             ShowCurrent(State)
@@ -1592,6 +1730,25 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.Busy = false
         Sleep(WrongFeedbackSeconds)
         State.Hud.ClearFeedbackIf(Generation)
+        if (State.RetryHold = Hold) then EndRetryHold(State)
+
+    # The retry hold is over (its time is up, or a door was answered): the slate goes back to full unless the arena keeps
+    # it compact.
+    EndRetryHold(State:fnm_player_state):void =
+        if (State.RetryHolding?):
+            set State.RetryHolding = false
+            UpdateCompact(State)
+
+    # The compact slate (fnm_hud SetCompact, H): question and choices only, smaller and higher, so the world behind reads.
+    # On during a race player's retry hold and in the arena hall (from ArenaArrival to the end of the run); off at the
+    # finish and in the picker. The HUD is told only on a change, logged.
+    UpdateCompact(State:fnm_player_state):void =
+        InArena := if (AtArena(State)?, State.ArenaArrived?) then true else false
+        Want := if (State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, (State.RetryHolding? or InArena?)) then true else false
+        if (Want <> State.Compact):
+            set State.Compact = Want
+            State.Hud.SetCompact(Want)
+            Print("FNM: compact slate {if (Want?) then "on" else "off"} (retry hold {FnmYesNo(State.RetryHolding)}, arena {FnmYesNo(InArena)})")
 
     # Door backstop (Aaron 2026-10-05: "sometimes I run through a door and correct or incorrect doesn't activate,
     # I run around that room a little and eventually it does"). A trigger fires only on ENTERING its zone, and an
@@ -2161,13 +2318,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # The mud and dizzy effects stop early, without switching anything off themselves, once a right answer bumps the
     # player's PenaltyEpoch past Epoch (Cleanse switches them off).
     Muddy(Player:player, Epoch:int)<suspends>:void =
+        MuddyFor(Player, Epoch, MudSeconds)
+
+    # The mud modulator on Player for Seconds (a wrong door's MudSeconds, a strike's StrikeMudSeconds).
+    MuddyFor(Player:player, Epoch:int, Seconds:float)<suspends>:void =
         if (Mud := MudDevice?):
             var Elapsed : float = 0.0
             loop:
                 if (EpochOf(Player) <> Epoch) then return
-                if (Elapsed >= MudSeconds) then break
+                if (Elapsed >= Seconds) then break
                 Mud.Activate(Player)
-                Wait := Min(MudReapplySeconds, MudSeconds - Elapsed)
+                Wait := Min(MudReapplySeconds, Seconds - Elapsed)
                 Sleep(Wait)
                 set Elapsed += Wait
             Mud.Deactivate(Player)
@@ -2206,13 +2367,17 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     # Dizzy blur: in for DizzyPulseSeconds, out for DizzyPulseSeconds, repeated for DizzySeconds; ends out.
     DizzyPulses(Player:player, Epoch:int)<suspends>:void =
+        BlurFor(Player, Epoch, DizzySeconds)
+
+    # The radial blur pulsing on Player for Seconds (a wrong door's DizzySeconds, a strike's StrikeBlurSeconds; no spin).
+    BlurFor(Player:player, Epoch:int, Seconds:float)<suspends>:void =
         if (Device := DizzyFx?):
             Pulse := Max(DizzyPulseSeconds, 0.1)
             var Elapsed : float = 0.0
             var Pulses : int = 0
             loop:
                 if (EpochOf(Player) <> Epoch) then return
-                if (Elapsed >= DizzySeconds) then break
+                if (Elapsed >= Seconds) then break
                 Device.BlendIn(Player)
                 Sleep(Pulse)
                 Device.BlendOut(Player)
@@ -2326,27 +2491,40 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var IslandRecord : logic = true
         if (Top := BoardFor(Skill)[0], Time >= Top.Time):
             set IslandRecord = false
+        # G10 (gamification 6, record inflation): the fastest time of the session is still the board's row 0, but it is
+        # celebrated (the record sound, "NEW!", the public feed line) only against someone: another player already on
+        # today's board for the skill, or other players present whose saved bests it beats. A lone first finisher was told
+        # "NEW!" and heard "NEW ISLAND RECORD!" at every session start.
+        Rival := HasRival(Skill, State.Player, Time)
+        Celebrate := if (IslandRecord?, Rival?, not State.Partial?) then true else false
         if (State.Partial?):
             set IslandRecord = false
             Print("FNM: partial run (debug start), not recorded")
         else:
             RecordResult(Skill, State.Player, Time, Splits)
         Board := BoardFor(Skill)
-        Medal := FnmMedal(State.FirstTryCorrect, Total)
+        # Medal v2 (G10, gamification 6): accuracy in half answers, a redeemed station counting half, today's gates
+        # (FnmMedalHalves); time gates only with MedalTimeGates (GateMedal).
+        Halves := 2 * State.FirstTryCorrect + State.Redeemed
+        Earned := FnmMedalHalves(Halves, Total)
+        Medal := GateMedal(Earned, Time)
+        Flawless := if (State.FirstTryCorrect >= Total) then true else false
         SetMusic(State.Player, 0)
-        spawn{ FinishSounds(State, FanfareDelay, if (NewBest?, HadBest?) then true else false, IslandRecord, Medal, if (State.FirstTryCorrect >= Total) then true else false) }
+        spawn{ FinishSounds(State, FanfareDelay, if (NewBest?, HadBest?) then true else false, Celebrate, Medal, if (State.FirstTryCorrect >= Total) then true else false) }
         MedalColor := if (Medal = "GOLD") then NamedColors.Gold else if (Medal = "SILVER") then NamedColors.Silver else NamedColors.Peru
         # The board is the only thing on screen besides the clock, which keeps the final time.
         State.Hud.SetClock(FnmClock(Time))
         State.Hud.SetTarget("")
         State.Hud.ClearDelta()
         State.Hud.SetStreak("")
+        State.Hud.SetShield(false)
         State.Hud.ClearQuestion()
         State.Hud.ClearVerdictNow()
+        UpdateCompact(State)
         BestTail := if (NewBest?, HadBest?) then "   NEW BEST!" else ""
         # The record is the session's (Boards lives in memory): "Today's record", so the first finisher of every session
         # is not told it is an island record (ux_critique B7).
-        RecordTail := if (IslandRecord?) then "   NEW!" else ""
+        RecordTail := if (Celebrate?) then "   NEW!" else ""
         RecordLine := if (Top := Board[0]) then FnmTodayRecord(FnmClock(Top.Time), Top.Who, RecordTail) else FnmText("Today's record   -")
         Rows := for (K -> Row : Board) { FnmRow(K + 1, Row.Who, FnmClock(Row.Time)) }
         var OwnRow : int = -1
@@ -2355,11 +2533,20 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.ShowResults("FINISH!", Medal, MedalColor, "Your time   {FnmClock(Time)}", "Your best   {FnmClock(State.BestTime)}{BestTail}",
             RecordLine, "{FnmMedalRule(State.FirstTryCorrect, Total)}  -  streak {State.BestStreak}",
             "TODAY'S TOP TIMES  -  {State.Cartridge.Title}", Rows, OwnRow)
+        # The brag grid under the medal line (fnm_hud, H): a tile per station, the boss tile, FLAWLESS, the next goal and
+        # the island code.
+        NextGoal := NextGoalLine(Medal, Halves, Total, Time)
+        BossMark := if (State.BossDowned?) then FnmMarkFirstTry else FnmMarkMissed
+        State.Hud.ShowBragGrid(State.Marks, BossMark, Flawless, NextGoal, IslandCode)
+        Print("FNM: brag grid {MarksCopy(State.Marks)} boss {BossMark}, flawless {FnmYesNo(Flawless)}, next goal \"{NextGoal}\", code \"{IslandCode}\"")
+        Print("FNM: medal {Medal} (accuracy {Earned}: {FnmHalvesCopy(Halves)}/{Total} = {State.FirstTryCorrect} first try + {State.Redeemed} redeemed x 0.5; time gates {FnmYesNo(MedalTimeGates)})")
         Print("FNM: finished run {State.Runs} in {FnmClock(Time)}, {Medal}, first try {State.FirstTryCorrect}/{Total}, best streak {State.BestStreak}, new best {FnmYesNo(NewBest)}, new record {FnmYesNo(IslandRecord)}, board {Board.Length} rows (size {BoardSize}) for {State.Cartridge.Id}")
-        # The public feed: the finish, then (on top) an island record.
+        Print("FNM: record celebrated {FnmYesNo(Celebrate)} (fastest today {FnmYesNo(IslandRecord)}, a rival {FnmYesNo(Rival)})")
+        Analytics(FinishAnalytics, State.Player, "finish")
+        # The public feed: the finish, then (on top) a record set against someone.
         # (The public finish line names no medal: fnm_hud FnmFeedFinish, G9.)
         Broadcast(FnmFeedFinish(State.Player, FnmClock(Time), Medal), "finished in {FnmClock(Time)}")
-        if (IslandRecord?):
+        if (Celebrate?):
             Broadcast(FnmFeedRecord(State.Player, FnmClock(Time)), "set today's record  {FnmClock(Time)}")
         if (UseEndGameDevice?):
             State.Hud.SetCountdown("")
@@ -2377,6 +2564,50 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 # the podium a moment later (PodiumLater).
                 State.Hud.SetCountdown("RACE AGAIN  or  NEW SKILL:  press E at the podium")
                 spawn{ HideResultsLater(State) }
+
+    # True when a finish in Time on skill Skill has someone to beat (FinishRun, before its own row goes on the board): another
+    # player already on today's board for the skill, or other players present with a saved best for it, every one of
+    # which Time beats.
+    HasRival(Skill:int, Who:player, Time:float):logic =
+        var OnBoard : logic = false
+        for (Row : BoardFor(Skill), Row.Who <> Who):
+            set OnBoard = true
+        var Saved : int = 0
+        var Beaten : logic = true
+        if (Cartridge := Cartridges[Skill]):
+            for (Each : GetPlayspace().GetPlayers(), Each <> Who, Best := FnmSavedBest[Each, Cartridge.Id]):
+                set Saved += 1
+                if (Time >= Best) then set Beaten = false
+        if (OnBoard?) then true
+        else if (Saved > 0, Beaten?) then true
+        else false
+
+    # Medal v2's time gates (gamification 6), only with MedalTimeGates: a GOLD slower than GoldParSeconds, or a SILVER
+    # slower than SilverParSeconds, drops one tier (once; a par of 0 = no gate). Off by default: no par data exists yet.
+    GateMedal(Medal:string, Time:float)<transacts>:string =
+        Par := if (Medal = "GOLD") then GoldParSeconds else if (Medal = "SILVER") then SilverParSeconds else 0.0
+        if (MedalTimeGates?, Par > 0.0, Time > Par) then FnmMedalDown(Medal) else Medal
+
+    # The brag grid's next-goal line: what the medal above needs and where the run stands ("GOLD needs 10/10  -  you:
+    # 8.5/10"; with time gates also the par: "GOLD needs 10/10 in 5:00.0  -  you: 10/10, 6:10.2"); at GOLD, "FLAWLESS
+    # needs 10/10 first try" unless it was; "" when nothing is above.
+    NextGoalLine(Medal:string, Halves:int, Total:int, Time:float)<transacts>:string =
+        Target := if (Medal = "BRONZE") then "SILVER" else if (Medal = "SILVER") then "GOLD" else ""
+        if (Target = ""):
+            if (Halves >= 2 * Total) then "" else "FLAWLESS needs {Total}/{Total} first try  -  you: {FnmHalvesCopy(Halves)}/{Total}"
+        else:
+            Par := if (Target = "GOLD") then GoldParSeconds else SilverParSeconds
+            Timed := if (MedalTimeGates?, Par > 0.0) then true else false
+            Needs := "{Target} needs {FnmHalvesCopy(FnmMedalNeeds(Target, Total))}/{Total}"
+            if (Timed?) then "{Needs} in {FnmClock(Par)}  -  you: {FnmHalvesCopy(Halves)}/{Total}, {FnmClock(Time)}"
+            else "{Needs}  -  you: {FnmHalvesCopy(Halves)}/{Total}"
+
+    # "0 0 2 1 0 3 ..." (the marks, for the log).
+    MarksCopy(Marks:[]int)<transacts>:string =
+        var Line : string = ""
+        for (K -> Mark : Marks):
+            set Line += if (K > 0) then " {Mark}" else "{Mark}"
+        Line
 
     # Hides the finish board ResultsSeconds after a finish, unless a new run or a skill change already did.
     HideResultsLater(State:fnm_player_state)<suspends>:void =
@@ -2622,6 +2853,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         set State.ClockPenalty = 0.0
         set State.WrongDoors = 0
         set State.Splits = array{}
+        NewRunMarks(State)
         State.Hud.ClearDelta()
         ChoosePace(State)
         State.Hud.SetStreak(StreakCopy(State, 0))
@@ -2671,17 +2903,53 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Shown >= 0) then State.Hud.ClearFeedbackIf(Shown)
         Print("FNM: tutorial done ({K} of {Steps.Length} captions shown)")
 
+    # A run starts (Countdown): every station not reached yet, no redemption queued, no shield held, no immunity, no
+    # strike pending on them.
+    NewRunMarks(State:fnm_player_state):void =
+        set State.Marks = for (Station : Stations) { FnmMarkUnreached }
+        set State.RedeemQueue = array{}
+        set State.RedeemStage = 0
+        set State.Redeemed = 0
+        set State.BossDowned = false
+        set State.Shield = false
+        set State.ImmuneUntil = -100.0
+        State.Hud.SetShield(false)
+
+    # Station Stage's mark for this run (FnmMark*); a right door after a miss also queues the station for REDEMPTION.
+    MarkStation(State:fnm_player_state, Stage:int, Mark:int):void =
+        if (set State.Marks[Stage - 1] = Mark) {}
+        if (Mark = FnmMarkMissed):
+            set State.RedeemQueue += array{Stage}
+            Print("FNM: station {Stage} missed (right after a miss): queued for redemption ({State.RedeemQueue.Length} queued)")
+
     # The tutorial goes on while the player is still on this run's station 1 and has not answered a door yet.
     TutorialOn(State:fnm_player_state, Generation:int)<transacts>:logic =
         if (PlayerStates[State.Player], State.RunGeneration = Generation, State.Stage = 1, State.Mode = fnm_mode.Race, not State.Finished?, not State.Picking?, not State.Busy?, not State.MissedCurrent?) then true else false
 
     # Streak line for the top panel: "" (no streak), "STREAK x3", "STREAK x3  -  SPEED BOOST 4s" or (streak 1)
     # "SPEED BOOST 3s". BoostLeft = whole seconds of boost left (0 = none running).
+    # G10 (C1, the goal gradient): with a streak the line also names the next reward, "STREAK x2  -  1 more for a SHIELD"
+    # (NextRewardCopy).
     StreakCopy(State:fnm_player_state, BoostLeft:int):string =
-        StreakPart := if (State.Streak >= 2) then "STREAK x{State.Streak}" else ""
+        Next := NextRewardCopy(State)
+        StreakPart := if (State.Streak >= 2, Next <> "") then "STREAK x{State.Streak}  -  {Next}" else if (State.Streak >= 2) then "STREAK x{State.Streak}" else ""
         if (BoostLeft <= 0) then StreakPart
         else if (StreakPart = "") then "SPEED BOOST {BoostLeft}s"
         else "{StreakPart}  -  SPEED BOOST {BoostLeft}s"
+
+    # The next reward the first-try streak earns: "1 more for a SHIELD" (streak ShieldStreak, when none is held), "2 more
+    # for a STRIKE" (each StrikeStreaks value, when StrikesOn); the nearest one; "" past the last.
+    NextRewardCopy(State:fnm_player_state)<transacts>:string =
+        var At : int = 0
+        var Name : string = ""
+        if (not State.Shield?, ShieldStreak > State.Streak):
+            set At = ShieldStreak
+            set Name = "SHIELD"
+        if (StrikesOn?):
+            for (Milestone : StrikeStreaks, Milestone > State.Streak, (At = 0 or Milestone < At)):
+                set At = Milestone
+                set Name = "STRIKE"
+        if (At > 0) then "{At - State.Streak} more for a {Name}" else ""
 
     # Speeds the player up (fnm_boost modulator) for Seconds; a newer boost or StopBoost ends this one. Ticks once a
     # second so the HUD counts the boost down, re-activating the modulator (3 s duration) every BoostReapplySeconds
@@ -2689,6 +2957,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
     Boost(State:fnm_player_state, Seconds:float)<suspends>:void =
         set State.BoostGeneration += 1
         Generation := State.BoostGeneration
+        set State.BoostUntil = GetSimulationElapsedTime() + Seconds
         if (Device := BoostDevice?):
             # Just after the right-door chime, so the two do not land on the same instant.
             # With a streak the voice line is the celebration; the 3.5 s boost whoosh would bury it.
@@ -2742,6 +3011,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
 
     StopBoost(State:fnm_player_state):void =
         set State.BoostGeneration += 1
+        set State.BoostUntil = -1.0
         if (Device := BoostDevice?):
             Device.Deactivate(State.Player)
         if (not State.Finished?):
@@ -2790,6 +3060,203 @@ fnm_director := class(creative_device, fnm_picker_listener):
         if (Finisher.IsActive[]):
             EndGameDevice.Activate(Finisher)
 
+    # ---------------------------------------------------------------- G10 rewards: SHIELD and STRIKE (gamification 4)
+
+    # A first-try right answer that makes the streak ShieldStreak earns a SHIELD (when none is held); one that makes it a
+    # StrikeStreaks value earns a STRIKE (StrikesOn), fired StrikeDelaySeconds later (StrikeLater). Returns the verdict's
+    # tail: "  +SHIELD", "  +STRIKE" or "".
+    EarnRewards(State:fnm_player_state):string =
+        var Tail : string = ""
+        if (State.Streak = ShieldStreak, not State.Shield?):
+            set State.Shield = true
+            State.Hud.SetShield(true)
+            set Tail = "  +SHIELD"
+            Print("FNM: shield earned at streak {State.Streak}")
+        if (StrikesOn?):
+            for (Milestone : StrikeStreaks, Milestone = State.Streak):
+                set Tail = "  +STRIKE"
+                Print("FNM: strike earned at streak {State.Streak}")
+                spawn{ StrikeLater(State, State.Streak) }
+        Tail
+
+    # A held SHIELD takes a wrong door's (or pad's) penalty: no penalty effect, no hold, no clock charge. The caller has
+    # already reset the streak and the first-try credit, and the door stays shut. The player goes to the retry spot (with
+    # the wide camera at a station) and the same question comes back reshuffled under "SHIELD SAVED YOU  -  still wrong:
+    # <that choice's feedback>". StationNumber names the station in the feed line (0 = the boss arena).
+    ShieldSaved(State:fnm_player_state, Station:fnm_station, StationNumber:int, Lesson:string)<suspends>:void =
+        set State.Shield = false
+        State.Hud.SetShield(false)
+        Sound(State.Player, fnm_cue.Wrong)
+        State.Hud.FlashVerdict(false, "SHIELD!")
+        Where := if (StationNumber > 0) then "at station {StationNumber}" else "at the boss"
+        MissFeed(State, FnmFeedShieldSaved(State.Player, Where), "Your SHIELD saved you {Where}", "a shield saved them {Where}")
+        Print("FNM: shield saved the player {Where}: no penalty, no hold, no clock charge (streak and first-try credit lost)")
+        SendToRetry(State.Player, Station)
+        if (Station.RetrySpot?):
+            spawn{ WideLook(State, RetryWideSeconds, WideMoveCm, "retry spot, shield") }
+        Retry(State, "SHIELD SAVED YOU  -  still wrong: {Lesson}")
+
+    # A STRIKE (C3), StrikeDelaySeconds after it was earned: aimed at the nearest racer ahead in strip order who can take
+    # one (StrikeTarget; DebugStrikeSelf: the striker), who is warned ("INCOMING STRIKE!" big, the striker's name in their
+    # feed) and struck StrikeWarnSeconds later (StrikeLand). With nobody ahead to take it, LeaderBonusSeconds of boost
+    # instead (LeaderBonus; the leader's always, so strikes only flow forward). Dropped if the striker's run ended.
+    StrikeLater(State:fnm_player_state, Streak:int)<suspends>:void =
+        Generation := State.RunGeneration
+        Sleep(StrikeDelaySeconds)
+        Live := if (PlayerStates[State.Player], State.RunGeneration = Generation, not State.Finished?, not State.Picking?) then true else false
+        if (not Live?):
+            Print("FNM: strike from streak {Streak} dropped (the striker's run ended)")
+            return
+        MaybeTarget := if (DebugStrikeSelf?) then option{State} else StrikeTarget(State)
+        if (Target := MaybeTarget?):
+            set Target.Struck = true
+            AtSelf := if (Target.Player = State.Player) then true else false
+            Print("FNM: strike from streak {Streak} aimed at {if (AtSelf?) then "the striker (DebugStrikeSelf)" else "the racer ahead"}; warning up, lands in {StrikeWarnSeconds} s")
+            # A stock timer tick (guards_up carries the announcer's "Guards ahead!"), with the big warning.
+            Sound(Target.Player, fnm_cue.Countdown1)
+            Target.Hud.FlashBig("INCOMING STRIKE!", NamedColors.Orange, StrikeWarnSeconds + 0.3)
+            Target.Hud.PushFeed(FnmFeedIncoming(State.Player))
+            if (not AtSelf?) then State.Hud.PushFeed(FnmFeedStrikeAway(Target.Player))
+            Sleep(StrikeWarnSeconds)
+            StrikeLand(State, Target)
+        else:
+            LeaderBonus(State, Streak)
+
+    # The nearest racer ahead of State in strip order (SortRace / RaceEntry, the order the rivals strip shows) who can take
+    # a strike now (StrikeOpen); false when there is none.
+    StrikeTarget(State:fnm_player_state):?fnm_player_state =
+        Now := GetSimulationElapsedTime()
+        Entries := SortRace(for (Each : GetPlayspace().GetPlayers()) { RaceEntry(Each, Now) })
+        var Mine : int = -1
+        for (K -> Entry : Entries, Entry.Who = State.Player):
+            set Mine = K
+        var Found : ?fnm_player_state = false
+        for (K -> Entry : Entries, K < Mine, Other := PlayerStates[Entry.Who], StrikeOpen(Other, Now)?):
+            set Found = option{Other}
+        Found
+
+    # Who can take a strike at Now: a race player racing (past GO, not picking, not finished), not at the arena stage,
+    # not answering a door or under a penalty (Busy), not in a door's vestibule, standing, not already struck or aimed
+    # at, and past their immunity.
+    StrikeOpen(Target:fnm_player_state, Now:float)<transacts>:logic =
+        if (Target.Mode = fnm_mode.Race, not Target.Picking?, not Target.Finished?, Target.StartTime >= 0.0, not AtArena(Target)?, not Target.Busy?, not Target.Struck?, Now >= Target.ImmuneUntil, not InVestibule(Target)?, Character := Target.Player.GetFortCharacter[], Character.IsActive[]) then true else false
+
+    # True while the player stands in one of their current station's door zones (DoorZoneAt: the whole vestibule).
+    InVestibule(State:fnm_player_state)<transacts>:logic =
+        if (Station := Stations[State.Stage - 1], Character := State.Player.GetFortCharacter[], DoorZoneAt(Station.Doors, Station.Passages, Character.GetTransform().Translation) >= 0) then true else false
+
+    # The strike's effect, from C3's light, in-place pool (penalty kinds, for their labels and voice lines), drawn when a
+    # strike lands (a shield's block draws none): random; under DebugStrikeSelf in turn (Freeze, Mud, Dizzy, Lights Out)
+    # so a test sees each.
+    PickStrike()<transacts>:fnm_penalty =
+        Pool := array{fnm_penalty.Freeze, fnm_penalty.Mud, fnm_penalty.Dizzy, fnm_penalty.Blackout}
+        Index := if (DebugStrikeSelf?) then Mod[StrikeCursor, Pool.Length] or 0 else GetRandomInt(0, Pool.Length - 1)
+        set StrikeCursor += 1
+        if (Kind := Pool[Index]) then Kind else fnm_penalty.Freeze
+
+    # The feed's verb for a strike: "<A> froze <B>!".
+    StrikeVerb(Kind:fnm_penalty)<transacts>:string =
+        if (Kind = fnm_penalty.Freeze) then "froze"
+        else if (Kind = fnm_penalty.Mud) then "muddied"
+        else if (Kind = fnm_penalty.Dizzy) then "dizzied"
+        else "blacked out"
+
+    # The strike lands: a held shield blocks it (the shield is spent, the public feed tells it); else the effect, the
+    # public feed line and StrikeImmuneSeconds of immunity. A real target that has meanwhile walked into a vestibule,
+    # answered a door, finished or reached the arena is missed (DebugStrikeSelf lands on the striker regardless, but
+    # never while they pick or after their finish).
+    StrikeLand(Striker:fnm_player_state, Target:fnm_player_state)<suspends>:void =
+        Now := GetSimulationElapsedTime()
+        set Target.Struck = false
+        Present := if (PlayerStates[Target.Player]) then true else false
+        Open := if (DebugStrikeSelf?, Present?, Target.Mode = fnm_mode.Race, not Target.Finished?, not Target.Picking?) then true else if (Present?, StrikeOpen(Target, Now)?) then true else false
+        if (not Open?):
+            Print("FNM: strike missed (the target was no longer open: finished, at a door, in the arena or gone)")
+            Striker.Hud.PushFeed(FnmText("Your STRIKE missed!"))
+            return
+        if (Target.Shield?):
+            set Target.Shield = false
+            Target.Hud.SetShield(false)
+            Sound(Target.Player, fnm_cue.CorrectRetry)
+            Target.Hud.FlashBig("SHIELD BLOCKED IT!", NamedColors.Aqua, 1.5)
+            Broadcast(FnmFeedShieldBlock(Target.Player, Striker.Player), "a shield blocked a strike")
+            Print("FNM: strike blocked by the target's shield (shield spent)")
+            return
+        Kind := PickStrike()
+        set Target.Struck = true
+        set Target.ImmuneUntil = Now + StrikeImmuneSeconds
+        Print("FNM: strike lands: {FnmPenaltyLabel(Kind)}, immune for {StrikeImmuneSeconds} s")
+        Broadcast(FnmFeedStrike(Striker.Player, StrikeVerb(Kind), Target.Player), "{StrikeVerb(Kind)} a racer with a strike")
+        Target.Hud.FlashBig(FnmPenaltyLabel(Kind), NamedColors.Orange, 1.5)
+        spawn{ PenaltyLines(Target.Player, StrikeCue(Kind)) }
+        StrikeEffect(Target, Kind)
+        set Target.Struck = false
+
+    # A strike's effect on Target, in place (never a send-back; the question, streak and credit untouched): Freeze
+    # StrikeFreezeSeconds in the ice cube (held, frost), Mud StrikeMudSeconds (the fnm_mud modulator and its screen), Dizzy
+    # StrikeBlurSeconds of radial blur with no spin, Lights Out StrikeDarkSeconds black (held). Mud and the blur stop at
+    # the target's next right answer (Cleanse), like a wrong door's.
+    StrikeEffect(Target:fnm_player_state, Kind:fnm_penalty)<suspends>:void =
+        Player := Target.Player
+        Began := GetSimulationElapsedTime()
+        if (Kind = fnm_penalty.Freeze):
+            if (Character := Player.GetFortCharacter[]):
+                Feet := Character.GetTransform().Translation - vector3{X := 0.0, Y := 0.0, Z := FeetDrop}
+                # The wide camera, as a wrong door's Freeze: the player's own camera sat inside the ice cube (a white
+                # screen, seen in play 2026-10-14); 9 m out they see themselves frozen.
+                WideCamera(Player, true)
+                Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                FxOn(Player, FrostFx)
+                Ice := IceRig.NextIndex()
+                Placed := IceRig.Place(Ice, Feet, 0.0)
+                Print("FNM: strike ice {Ice} placed={FnmYesNo(Placed)} at {Feet}")
+                Sleep(StrikeFreezeSeconds)
+                IceRig.Park(Ice)
+                FxOff(Player, FrostFx)
+                Character.ReleaseFromStasis()
+                WideCamera(Player, false)
+        else if (Kind = fnm_penalty.Mud):
+            Afflict(Player)
+            Epoch := EpochOf(Player)
+            spawn{ ScreenFx(Player, MudFx, StrikeMudSeconds, Epoch) }
+            MuddyFor(Player, Epoch, StrikeMudSeconds)
+        else if (Kind = fnm_penalty.Dizzy):
+            Afflict(Player)
+            Epoch := EpochOf(Player)
+            BlurFor(Player, Epoch, StrikeBlurSeconds)
+        else:
+            if (Character := Player.GetFortCharacter[]):
+                Character.PutInStasis(stasis_args{AllowTurning := false, AllowFalling := false, AllowEmotes := false})
+                Target.Hud.SetBlack(true)
+                Sleep(StrikeDarkSeconds)
+                Character.ReleaseFromStasis()
+                Target.Hud.SetBlack(false)
+        Print("FNM: strike effect {FnmPenaltyLabel(Kind)} over after {GetSimulationElapsedTime() - Began} s; immune until sim {Target.ImmuneUntil}")
+
+    # The penalty voice line a strike's effect plays (its PenaltyLines, as a wrong door's).
+    StrikeCue(Kind:fnm_penalty)<transacts>:fnm_cue =
+        if (Kind = fnm_penalty.Freeze) then fnm_cue.PenaltyFreeze
+        else if (Kind = fnm_penalty.Mud) then fnm_cue.PenaltyMud
+        else if (Kind = fnm_penalty.Dizzy) then fnm_cue.PenaltyDizzy
+        else fnm_cue.PenaltyBlackout
+
+    # No racer ahead could take the strike (always so for the leader): LeaderBonusSeconds added to the boost left, "LEADER
+    # BONUS" when the striker leads the racers.
+    LeaderBonus(State:fnm_player_state, Streak:int):void =
+        Now := GetSimulationElapsedTime()
+        Entries := SortRace(for (Each : GetPlayspace().GetPlayers()) { RaceEntry(Each, Now) })
+        var Leads : logic = false
+        var Seen : logic = false
+        for (Entry : Entries, Racing(Entry.Who)?):
+            if (not Seen?):
+                set Seen = true
+                if (Entry.Who = State.Player) then set Leads = true
+        Left := Max(0.0, State.BoostUntil - Now)
+        Whole := if (W := Round[LeaderBonusSeconds]) then W else 2
+        spawn{ Boost(State, Left + LeaderBonusSeconds) }
+        State.Hud.FlashBig(if (Leads?) then "LEADER BONUS!  +{Whole} s BOOST" else "NO TARGET  -  +{Whole} s BOOST", NamedColors.Gold, 1.5)
+        Print("FNM: strike from streak {Streak}: nobody ahead could take it (leader {FnmYesNo(Leads)}): boost +{LeaderBonusSeconds} s on {Left} s left")
+
     # ---------------------------------------------------------------- boss arena (G6 item 3)
 
     # A player reaches the arena stage (the last station's right door, or DebugStartStage): a hardest-tier question (on the
@@ -2810,6 +3277,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # bullets do nothing (RaceGunHint).
     ArenaArrival(State:fnm_player_state):void =
         set State.ArenaArrived = true
+        # G10: the compact slate from here to the end of the run, so the titan reads over it.
+        UpdateCompact(State)
         Sound(State.Player, fnm_cue.BossFight)
         # The titan's entrance (G9 D2): the jump-slam from its first frame and the roar as the slam lands, SlamLandsSeconds
         # (1.15) after boss_fight, past the 0.9 s mix rule. Not while it lies after a kill: the respawn's Arrive stands it up.
@@ -2832,6 +3301,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     ResetArena(State:fnm_player_state):void =
         set State.Hits = 0
         set State.ArenaArrived = false
+        set State.RetryHolding = false
+        UpdateCompact(State)
         if (A := Arena?, Gate := A.Gate?):
             Gate.RemoveFromIgnoreList(State.Player)
 
@@ -2843,6 +3314,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
             if (Choice < 0):
                 set State.Busy = false
                 FlashNotice(State, "No choice {FnmChoiceLetter(DoorIndex)} here")
+            else if (A.Boss?, not BossAlive?):
+                # No titan up yet (it rises as the first fighter reaches the arena stage, and BossRespawnSeconds after a
+                # kill): the pad takes no answer, right or wrong, and the question stays (G10; it used to say "DIRECT HIT!
+                # 5 TO GO", send the player back and burn the question for no damage, ux_critique P2).
+                set State.Busy = false
+                Print("FNM: pad {FnmChoiceLetter(DoorIndex)} held: no boss up yet (no answer taken)")
+                FlashNotice(State, "The titan is rising... step on your pad again when it stands!")
             else if (Choice = Item.Answer):
                 # The recap card, as at the stations (G9): the solved item, then the next question. It replaced the delayed
                 # "Last one:  <explanation>" line under the NEXT question (boss mode keeps that, FnmLastOne).
@@ -2857,6 +3335,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set State.MissedCurrent = true
                 set State.Streak = 0
                 StopBoost(State)
+                # A held SHIELD takes a wrong pad's penalty too; the titan still calls its adds (G10).
+                if (State.Shield?):
+                    SummonAdds(A)
+                    ShieldSaved(State, A.Station, 0, FeedbackFor(Item, Choice))
+                    return
                 Kind := PickPenalty()
                 Past := FnmPenaltyPast(Kind)
                 MissFeed(State, FnmFeedBossPenalty(State.Player, Past), "You got {Past} by the boss", "got {Past} by the boss")
@@ -2877,11 +3360,15 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # A right pad: one hit on the shared boss (BossDamage), DIRECT HIT! with the team's hits still to go on the HUD and
     # from the announcer (FnmHitCue), the cannons' show (FireCannons), the player back to the arena entry and the next
     # question. The kill itself comes through the boss spawner's EliminatedEvent (BossDown).
+    # G10: a redemption question answered right first try is REDEEMED! (its station half credit, Redeem); the killing hit
+    # plays no boss_hit (boss_dead and BOSS DOWN carry the kill: up to four sounds stacked there, REVIEW 4). Left stays -1
+    # when no boss is up (HandlePad holds such a pad, so it is only a safety net): no "N TO GO" then.
     BossHit(State:fnm_player_state, A:fnm_arena):void =
         Cleanse(State)
+        Redeemed := Redeem(State)
         set State.Hits += 1
         set LastHitter = option{State.Player}
-        var Left : int = BossHitsToKill
+        var Left : int = -1
         var Target : ?fort_character = false
         var Stood : vector3 = vector3{X := 0.0, Y := 0.0, Z := 0.0}
         if (BossAlive?, Agent := BossAgent?, Character := Agent.GetFortCharacter[]):
@@ -2897,8 +3384,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Print("FNM: boss hit {State.Hits} by the player (team {BossHitsTaken}/{BossHitsToKill}), damage {Amount}, health {BossPercent()}%")
         else:
             Print("FNM: boss hit {State.Hits} by the player, but no boss is up")
-        Sound(State.Player, fnm_cue.BossHit)
-        State.Hud.FlashVerdict(true, if (Left = 1) then "DIRECT HIT!  1 TO GO" else if (Left > 1) then "DIRECT HIT!  {Left} TO GO" else "DIRECT HIT!")
+        Head := if (Redeemed?) then "REDEEMED!" else if (Left < 0) then "CORRECT!" else "DIRECT HIT!"
+        if (Left > 0) then Sound(State.Player, fnm_cue.BossHit) else if (Left < 0) then Sound(State.Player, fnm_cue.Correct)
+        State.Hud.FlashVerdict(true, if (Left > 0) then "{Head}  {Left} TO GO" else Head)
         # Volt cheers a hit that leaves the titan standing; the killing hit gets the finish board instead.
         if (Left > 0):
             State.Hud.ShowVolt(fnm_volt.Thumbs)
@@ -2917,6 +3405,25 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # The next question is drawn here and shown by the caller after the recap card (HandlePad, Recap).
         if (not State.Finished?):
             DrawItem(State)
+
+    # REDEMPTION (R4, G10): a right pad on a redemption question (RedeemStage) takes its station off the queue. Right first
+    # try, the station is REDEEMED (its mark FnmMarkRedeemed, half credit in the medal); right only after a wrong pad, it
+    # stays missed (the first-try right answer is the only thing that earns anything). True when it was redeemed.
+    Redeem(State:fnm_player_state)<transacts>:logic =
+        Stage := State.RedeemStage
+        if (Stage <= 0):
+            false
+        else:
+            set State.RedeemQueue = for (Queued : State.RedeemQueue, Queued <> Stage) { Queued }
+            set State.RedeemStage = 0
+            if (State.MissedCurrent?):
+                Print("FNM: redemption station {Stage}: right after a wrong pad, not redeemed ({State.RedeemQueue.Length} still queued)")
+                false
+            else:
+                set State.Redeemed += 1
+                if (set State.Marks[Stage - 1] = FnmMarkRedeemed) {}
+                Print("FNM: REDEEMED station {Stage} ({State.Redeemed} redeemed this run, {State.RedeemQueue.Length} still queued)")
+                true
 
     # The damage of one hit: 1/BossHitsToKill of the boss's max health; the team's last hit whatever is left (gunfire may
     # have chipped it, a shield may have soaked some).
@@ -3050,6 +3557,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (Gate := A.Gate?):
                     Gate.AddToIgnoreList(State.Player)
                     Print("FNM: gate open for the player")
+                set State.BossDowned = true
+                Analytics(BossAnalytics, State.Player, "boss kill")
                 FinishRun(State, PodiumSeconds)
                 Sound(State.Player, fnm_cue.BossDead)
                 spawn{ SoundAfter(State.Player, fnm_cue.BossDown, BossDownVoiceDelaySeconds) }
@@ -3383,7 +3892,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Elapsed := if (State.StartTime >= 0.0) then RunClock(State, Now) else 0.0
             # The arena (stage Stations.Length + 1) ranks ahead of station 10 and reads BOSS (it said "station 10").
             Stage := Max(1, Min(State.Stage, Stations.Length + 1))
-            Tail := if (AtArena(State)?) then "BOSS" else "station {Min(Stage, Stations.Length)}"
+            # G10: a racer holding a SHIELD shows it on the strip.
+            Where := if (AtArena(State)?) then "BOSS" else "station {Min(Stage, Stations.Length)}"
+            Tail := if (State.Shield?) then "{Where}  +SHIELD" else Where
             return fnm_race_entry{Who := Who, Score := 1000000.0 + (Stations.Length + 1 - Stage) * 100000.0 + Min(Elapsed, 99999.0), Tail := Tail}
         fnm_race_entry{Who := Who, Score := 5000000.0, Tail := "lobby"}
 

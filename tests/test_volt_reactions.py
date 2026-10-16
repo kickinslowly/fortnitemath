@@ -182,6 +182,13 @@ def test_card_overlaps_nothing_the_hud_draws():
     rects = hud_rects()
     assert len(rects) >= 12
     for name, rect in rects.items():
+        if name == "finish board":
+            # G10 (H): the finish card docks to the right edge and covers this spot, so the two never draw together: ShowResults
+            # takes the card off and ShowVolt returns while the board is up (ResultsUp).
+            ui_text = ui()
+            assert "if (ResultsUp?):\n            return" in ui_text.split("    ShowVolt(Kind:fnm_volt):void =", 1)[1].split("var Name", 1)[0]
+            assert "HideVolt()" in ui_text.split("    ShowResults(", 1)[1].split("\n\n", 1)[0]
+            continue
         assert not overlap(card, rect, gap=4.0), (name, rect, card)           # the closest is the arena instruction: 7.9 px below
 
 

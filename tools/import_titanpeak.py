@@ -3,11 +3,12 @@ under FNM_TitanPeakArt, through UEFN MCP. Idempotent: an asset that exists is KE
 asset empties every reference to it, which is how the whole course lost its paint on 2026-10-13); materials and material
 instances are updated IN PLACE (parameters re-applied, a missing graph built), so a rerun is always safe.
 
-    python tools/import_titanpeak.py               # everything below, in this order: props, banners, arch, materials
+    python tools/import_titanpeak.py               # everything below, in this order: props, banners, arch, materials, trim
     python tools/import_titanpeak.py --props       # the gate, the podium and the six set pieces (T2 places them)
     python tools/import_titanpeak.py --banners     # the seven tier-name banners as textured quads (T2 places them)
     python tools/import_titanpeak.py --arch        # the door arch mesh + its five tier skins (tools/build_arches.py places it)
     python tools/import_titanpeak.py --materials   # the eleven tiling surfaces (tools/build_course.py paint wears them)
+    python tools/import_titanpeak.py --trim        # the five dressed-stone trim surfaces (tools/build_wall_trim.py wears them)
     python tools/import_titanpeak.py --check       # read-only: what exists, triangles, texture sizes, MI parameters
 
 What it makes (T2 and build_arches/build_course code against these names; <F> = /<mount>/FNM_TitanPeakArt):
@@ -91,9 +92,10 @@ TILE = {"t1_floor": 300.0, "t1_wall": 400.0, "t2_floor": 300.0, "t2_wall": 400.0
 # luminance of the base colours (2026-10-13): t1_floor 0.32, t1_wall 0.33, t2_floor 0.30, t2_wall 0.16, t3_floor 0.85 (snow),
 # t3_wall 0.36, t4_floor 0.035, t4_wall 0.019, t5_floor 0.11 (lava p95 0.50), t5_wall 0.05, forge_floor 0.07; the flat floors
 # that stopped the glare were Kd 0.03-0.10 (import_art WALL_COLOURS), so the pale floors are darkened most. t1_wall was 0.8
-# until the first play session (Hour19, 2026-10-13): the sun-lit hallway wall at station 1 read near-white yellow.
+# until the first play session (Hour19, 2026-10-13): the sun-lit hallway wall at station 1 read near-white yellow. t3_wall wears
+# the calmer t3_wall2 maps since 2026-10-15 (ART_MAP; mean 0.43, grey-lavender), tinted violet to keep FROST RIDGE purple (~0.24).
 TINT = {"t1_floor": (0.5, 0.5, 0.5), "t1_wall": (0.65, 0.65, 0.65), "t2_floor": (0.55, 0.55, 0.55), "t2_wall": (1.0, 1.0, 1.0),
-        "t3_floor": (0.3, 0.3, 0.3), "t3_wall": (0.75, 0.75, 0.75), "t4_floor": (1.0, 1.0, 1.0), "t4_wall": (1.0, 1.0, 1.0),
+        "t3_floor": (0.3, 0.3, 0.3), "t3_wall": (0.62, 0.52, 0.72), "t4_floor": (1.0, 1.0, 1.0), "t4_wall": (1.0, 1.0, 1.0),
         "t5_floor": (0.85, 0.85, 0.85), "t5_wall": (1.0, 1.0, 1.0), "forge_floor": (1.0, 1.0, 1.0)}
 NORMAL_STRENGTH = 1.0       # 0 = flat (the normal maps ignored), 1 = full
 # roughness = max(the map, this): the Mint roughness maps are glossy (t3_floor averages 0.03, t2_floor 0.22), which mirrors the
@@ -740,8 +742,24 @@ def layer_textures(f, key):
     return {**t, "pbase": pt["base"], "pnormal": pt["normal"], "prough": pt["rough"], "noise": noise_texture(f)}
 
 
+# A material instance can wear newer maps than its key's first folder (G10 W second pass, 2026-10-15): the instance keeps
+# its name, so every actor that wears it is untouched, and its texture parameters are pointed at new textures named after
+# the new folder (T_fnm_tp_<art>_*); the old textures stay (an existing asset is never deleted or re-imported). Falls back
+# to the key's own maps while the new folder is not on disk.
+ART_MAP = {"t3_wall": "t3_wall2",          # FROST RIDGE: calm violet slabs; the old snow-capped knobs repeated at 4 m (audit)
+       "t2_trim": "t2_trim2", "t3_trim": "t3_trim2", "t4_trim": "t4_trim2", "t5_trim": "t5_trim2"}   # painterly, not brick
+
+
+def art_key(key):
+    """The maps folder `key`'s instance wears (ART_MAP), or `key` itself while that folder has no maps."""
+    art = ART_MAP.get(key, key)
+    d = TP / "materials" / art
+    return art if art == key or (d.is_dir() and any(d.rglob("*base-color*.png"))) else key
+
+
 def surface_textures(f, key):
-    """{"base" | "normal" | "rough": texture object path} for a surface key, importing what is missing."""
+    """{"base" | "normal" | "rough": texture object path} for a surface key (through ART_MAP), importing what is missing."""
+    key = art_key(key)
     mp = maps(key)
     return {"base": import_texture(f, f"T_fnm_tp_{key}_base", mp["base"]),
             "normal": import_texture(f, f"T_fnm_tp_{key}_normal", mp["normal"],
@@ -767,6 +785,100 @@ def surfaces(only=None, rebuild=False):
         mi = instance(f, f"M_fnm_tp_{key}", master,
                       textures=[(name, t[k]) for name, k in TEXTURE_PARAMS.items()], scalars=scalars, vectors=vectors)
         print(f"surface {key}: {mi} " + ", ".join(f"{k} {v:g}" for k, v in scalars[:1] + scalars[4:]) + f", tint {TINT[key]}")
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+
+
+# ---------------------------------------------------------------- wall trim (G10 W: tools/build_wall_trim.py)
+# Dressed-stone masonry per tier (Mint, 2026-10-14, ids in meshy_tasks.json "mint_trim_materials", unzipped under
+# art/titanpeak/materials/<key>/) for the pilasters, plinths and crest blocks build_wall_trim.py stands along the walls: a stone
+# that contrasts with the tier's wall (t1 pale grey ashlar on the green carved wall, t2 teal-grey brick on blue slate, t3 lavender
+# granite with snow in the joints on the purple rock, t4 ash-grey basalt on black obsidian, t5 charcoal slate on red lava rock).
+# Instances of the same M_fnm_tp_surface master as the walls (no new shader): M_fnm_tp_<t1_trim .. t5_trim> in Surfaces/.
+TRIMS = ("t1_trim", "t2_trim", "t3_trim", "t4_trim", "t5_trim")
+# cm per repeat: t1's ashlar ~35 cm courses; the second pass's painterly blocks (ART_MAP: t2-t5) 50-75 cm, chunky like the cliffs
+TRIM_TILE = {"t1_trim": 340.0, "t2_trim": 250.0, "t3_trim": 300.0, "t4_trim": 240.0, "t5_trim": 300.0}
+# Mean linear luminance of the trim base colours against the tier's wall after its TINT. t1's ashlar (2026-10-14) 0.37 (wall
+# 0.21). The second pass's maps (2026-10-15): t2 0.18 (wall 0.16), t3 0.56 (wall, calmer t3_wall2 after its TINT, 0.24), t4 0.12
+# (0.02), t5 0.06 (0.05). Tinted to stand a little lighter than the wall without glaring at Hour19 (t4's grey basalt against
+# near-black obsidian most).
+TRIM_TINT = {"t1_trim": (0.62, 0.62, 0.6), "t2_trim": (0.95, 0.95, 0.95), "t3_trim": (0.5, 0.5, 0.52),
+             "t4_trim": (0.6, 0.6, 0.6), "t5_trim": (1.0, 1.0, 1.0)}
+# the tier's wall patch (ivy, moss) creeping onto the trim; 0 = none
+TRIM_PATCH = {"t1_trim": "t1_wall_patch", "t2_trim": "t2_wall_patch", "t3_trim": "t3_wall_patch", "t4_trim": "t4_wall_patch",
+              "t5_trim": "t5_wall_patch"}
+TRIM_COVERAGE = {"t1_trim": 0.18, "t2_trim": 0.12, "t3_trim": 0.0, "t4_trim": 0.0, "t5_trim": 0.0}
+
+
+def trim_knobs(key):
+    """(scalars, vectors) for M_fnm_tp_<key>: a pilaster or plinth is a small box, so less macro variation than a 30 m wall, a
+    grimy foot, a weathered top, no floor edge."""
+    scalars = [("TileSize", TRIM_TILE[key]), ("NormalStrength", NORMAL_STRENGTH), ("RoughnessMin", ROUGHNESS_MIN),
+               ("ActorOffset", ACTOR_OFFSET), ("VariationBlend", 1.2), ("VariationScale", 2.7), ("Jitter", 0.1),
+               ("GrimeStrength", 0.8), ("GrimeHeight", GRIME_HEIGHT), ("TopLight", 0.1), ("TopHeight", 25.0),
+               ("EdgeDark", 0.0), ("EdgeWidth", EDGE_WIDTH), ("MacroBlur", MACRO_BLUR), ("PatchTileSize", TRIM_TILE[key]),
+               ("PatchThreshold", patch_threshold(TRIM_COVERAGE[key])), ("PatchEdge", 0.08), ("PatchScale", PATCH_SCALE),
+               ("PatchFootBias", 0.2 if TRIM_COVERAGE[key] else 0.0), ("PatchFootHeight", PATCH_FOOT_HEIGHT),
+               ("PatchEdgeBias", 0.0)]
+    return scalars, [("Tint", TRIM_TINT[key]), ("GrimeTint", GRIME_TINT), ("PatchTint", PATCH_TINT[TRIM_PATCH[key][:-6]])]
+
+
+# Panels (G10 W second pass): build_wall_trim lays a 2 cm skin over every other bay between two pilasters so that neighbouring
+# bays never show the same repeat. Its stone is the tier's own second wall layer (the organic Mint "_patch": t1 ivy, t2 moss and
+# ferns, t3 glacier ice, t4 pumice, t5 scorched strata) as the base, with the wall's own maps blended back in as patches, so a
+# panel belongs to its wall: no new textures, no credits.
+PANELS = ("t1_panel", "t2_panel", "t3_panel", "t4_panel", "t5_panel")
+PANEL_OF = {k: f"{k[:2]}_wall" for k in PANELS}
+PANEL_COVERAGE = 0.4                                  # share of a panel where the wall's own stone shows through
+# The macro variation divides a blurred, turned read of the texture by its mean colour per channel: on a saturated organic map
+# (t1's ivy) the wall's VariationBlend 2.0 turned it into magenta and acid-yellow blotches (in play, Hour19, 2026-10-15, the
+# S02 funnel's ivy panel), so a panel keeps it small, with a light jitter, and is tinted down to the wall's value
+PANEL_VARIATION = 0.35
+PANEL_JITTER = 0.06
+PANEL_TINT = {"t1_panel": (0.55, 0.55, 0.55), "t2_panel": (0.9, 0.9, 0.9), "t3_panel": (0.5, 0.5, 0.55),
+              "t4_panel": (1.0, 1.0, 1.0), "t5_panel": (0.9, 0.9, 0.9)}
+
+
+def panel_knobs(key):
+    wall = PANEL_OF[key]
+    scalars = [("TileSize", PATCH_TILE[wall]), ("NormalStrength", NORMAL_STRENGTH), ("RoughnessMin", ROUGHNESS_MIN),
+               ("ActorOffset", ACTOR_OFFSET), ("VariationBlend", PANEL_VARIATION), ("VariationScale", VARIATION_SCALE[wall]),
+               ("Jitter", PANEL_JITTER), ("GrimeStrength", GRIME_STRENGTH[wall]), ("GrimeHeight", GRIME_HEIGHT),
+               ("TopLight", 0.0), ("TopHeight", TOP_HEIGHT), ("EdgeDark", 0.0), ("EdgeWidth", EDGE_WIDTH),
+               ("MacroBlur", MACRO_BLUR), ("PatchTileSize", TILE[wall]), ("PatchThreshold", patch_threshold(PANEL_COVERAGE)),
+               ("PatchEdge", PATCH_EDGE[wall]), ("PatchScale", PATCH_SCALE), ("PatchFootBias", 0.0),
+               ("PatchFootHeight", PATCH_FOOT_HEIGHT), ("PatchEdgeBias", 0.0)]
+    return scalars, [("Tint", PANEL_TINT[key]), ("GrimeTint", GRIME_TINT), ("PatchTint", TINT[wall])]
+
+
+def trims():
+    """M_fnm_tp_t1_trim .. t5_trim and M_fnm_tp_t1_panel .. t5_panel (instances of M_fnm_tp_surface, which must exist:
+    --materials). Kept and re-tuned in place like the surfaces; nothing is deleted."""
+    f = folder("Surfaces")
+    master = obj_path(f"{f}/M_fnm_tp_surface")
+    if not exists(master):
+        sys.exit("M_fnm_tp_surface missing: python tools/import_titanpeak.py --materials first")
+    have = surface_params(master)
+    noise = noise_texture(f)
+    for key in TRIMS:
+        t = surface_textures(f, key)
+        patch = TRIM_PATCH[key]
+        pt = surface_textures(f, patch) if TRIM_COVERAGE[key] and (TP / "materials" / patch).is_dir() else t
+        layers = {**t, "pbase": pt["base"], "pnormal": pt["normal"], "prough": pt["rough"], "noise": noise}
+        scalars, vectors = trim_knobs(key)
+        scalars = [(k, v) for k, v in scalars if k in have]
+        mi = instance(f, f"M_fnm_tp_{key}", master, textures=[(name, layers[k]) for name, k in TEXTURE_PARAMS.items()],
+                      scalars=scalars, vectors=vectors)
+        print(f"trim {key}: {mi} ({art_key(key)}) TileSize {TRIM_TILE[key]:g}, tint {TRIM_TINT[key]}, "
+              f"patch {patch if TRIM_COVERAGE[key] else '-'}")
+    for key in PANELS:
+        wall = PANEL_OF[key]
+        base, over = surface_textures(f, PATCHES[wall]), surface_textures(f, wall)
+        layers = {**base, "pbase": over["base"], "pnormal": over["normal"], "prough": over["rough"], "noise": noise}
+        scalars, vectors = panel_knobs(key)
+        scalars = [(k, v) for k, v in scalars if k in have]
+        mi = instance(f, f"M_fnm_tp_{key}", master, textures=[(name, layers[k]) for name, k in TEXTURE_PARAMS.items()],
+                      scalars=scalars, vectors=vectors)
+        print(f"panel {key}: {mi} = {PATCHES[wall]} with {art_key(wall)} in patches")
     u.call(ASSETS, "save_assets", {"asset_paths": []})
 
 
@@ -798,10 +910,10 @@ def check():
     for n in ARCH_TIERS:
         p = obj_path(f"{f}/Arch/M_fnm_tp_arch_t{n}")
         print(f"M_fnm_tp_arch_t{n}: {'ok' if exists(p) else 'MISSING'}")
-    for key in SURFACES:
+    for key in SURFACES + TRIMS:
         p = obj_path(f"{f}/Surfaces/M_fnm_tp_{key}")
         if not exists(p):
-            print(f"MISSING M_fnm_tp_{key}")
+            print(f"MISSING M_fnm_tp_{key}" + (" (python tools/import_titanpeak.py --trim)" if key in TRIMS else ""))
             continue
         tile = u.call(MI, "get_scalar_parameter", {"instance": ref(p), "name": "TileSize"})["returnValue"]
         tex = u.call(MI, "get_texture_parameter", {"instance": ref(p), "name": "BaseColor"})["returnValue"]
@@ -810,7 +922,7 @@ def check():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    for g in ("props", "banners", "arch", "materials"):
+    for g in ("props", "banners", "arch", "materials", "trim"):
         ap.add_argument(f"--{g}", action="store_true")
     ap.add_argument("--check", action="store_true", help="read-only report")
     ap.add_argument("--only", nargs="*", help="with --materials: just these surface keys")
@@ -819,7 +931,7 @@ def main():
     if a.check:
         check()
         return
-    everything = not (a.props or a.banners or a.arch or a.materials)
+    everything = not (a.props or a.banners or a.arch or a.materials or a.trim)
     if everything or a.props:
         props()
     if everything or a.banners:
@@ -828,6 +940,8 @@ def main():
         arch()
     if everything or a.materials:
         surfaces(a.only, a.rebuild_surface)
+    if everything or a.trim:
+        trims()
 
 
 if __name__ == "__main__":

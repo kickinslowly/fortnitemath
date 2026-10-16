@@ -19,6 +19,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
                                                 # add --flat to check against the flat colours)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
     python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
+    python tools/build_course.py --arena-pads   # move the arena's 4 pad tiles + triggers to PAD_SPOTS / RACE_PAD_SIZE in place, reads back
 
 After the last station's connector comes the BOSS ARENA (GOALS G6 item 3, maps/starter/LAYOUT.md "Boss arena"): four
 answer pads, the boss platform, an adds spawner, a gate barrier at the exit, then a short connector into the
@@ -185,9 +186,15 @@ ARENA_LEN = 3000
 PAD_SIZE = 450          # was 300; Aaron 2026-10-07 never found a pad
 PAD_H = 150
 PAD_TILE_T = 10
-# Pad centres, A..D, as (x from the arena's centre line, y from its start). +X is the player's LEFT (like door A), so
-# A and C sit on the left and the pads read A B / C D left to right, as the HUD lists the choices.
-PAD_SPOTS = [(700, 800), (-700, 800), (700, 2200), (-700, 2200)]
+# The race arena's pad tile and trigger size. PAD_SIZE above stays boss mode's (build_bossmode places its pads with it).
+# 4 m tiles at a 520 cm pitch leave a 120 cm gap, wider than a player's capsule, so standing on one pad never touches
+# the next one's trigger (G10, 2026-10-14).
+RACE_PAD_SIZE = 400
+RACE_PAD_PITCH = 520
+RACE_PAD_Y = 1100       # ~9.5 m in from the entry (ENTRY_Y 150)
+# Pad centres, A..D, as (x from the arena's centre line, y from its start): ONE row, A B C D left to right, like every
+# station's doors (door_centres: +X is the player's LEFT, A at +X). Edges at +-980 of the hall's +-1106.
+PAD_SPOTS = [(RACE_PAD_PITCH * (1.5 - i), RACE_PAD_Y) for i in range(4)]
 PLATFORM_W, PLATFORM_D, PLATFORM_H, PLATFORM_Y = 600, 400, 100, 2600
 ENTRY_Y = 150           # the entry teleporter (arrival and retry point), this far into the hall on its centre line
 ADDS_Y = 1800
@@ -570,9 +577,9 @@ def arena(ox, oy, oz, doors, project):
     for i, (dx, dy) in enumerate(PAD_SPOTS):
         letter = LETTERS[i]
         x, y = ox + dx, oy + dy
-        p = PAD_SIZE / 2
+        p = RACE_PAD_SIZE / 2
         box(f"FNM_Arena_Pad{letter}", x - p, x + p, y - p, y + p, oz + 2, oz + 2 + PAD_TILE_T)
-        tz, tsx, tsy, tsz = trigger_fit(oz + 2, PAD_SIZE, PAD_SIZE, PAD_H)
+        tz, tsx, tsy, tsz = trigger_fit(oz + 2, RACE_PAD_SIZE, RACE_PAD_SIZE, PAD_H)
         trig = device(TRIGGER, f"FNM_Arena_Trigger{letter}", x, y, tz, sx=tsx, sy=tsy, sz=tsz)
         props(trig, {"timesCanTrigger_Override": False, "triggerDelay": 0.0, "reset Delay": 0.0,
                      "visible in Game": False, "triggeredByVehicles": False, "triggeredByWater": False,
@@ -846,7 +853,7 @@ def triggers_only():
             fits.append((a, trigger_fit(xf(door)["location"]["z"], DOOR_W - WALL_T, TRIGGER_DEPTH, VEST_TRIGGER_H)))
         elif m := re.fullmatch(r"FNM_Arena_Trigger([A-D])", label):
             tile = by.get(f"FNM_Arena_Pad{m[1]}") or sys.exit(f"{label}: no FNM_Arena_Pad{m[1]}")
-            fits.append((a, trigger_fit(tile["bounds"]["min"]["z"], PAD_SIZE, PAD_SIZE, PAD_H)))
+            fits.append((a, trigger_fit(tile["bounds"]["min"]["z"], RACE_PAD_SIZE, RACE_PAD_SIZE, PAD_H)))
     if not fits:
         sys.exit("no FNM_Sxx_Trigger / FNM_Arena_Trigger actors: run the full build")
     for a, (z, sx, sy, sz) in fits:
@@ -863,6 +870,39 @@ def triggers_only():
     if bad:
         sys.exit("triggers not refit: " + "; ".join(bad))
     print(f"{len(fits)} triggers refit (transforms read back), e.g. {fits[0][0]['label']} z/scale {tuple(round(v, 3) for v in fits[0][1])}")
+
+
+def arena_pads():
+    """Move the arena's four pad tiles and triggers to PAD_SPOTS at RACE_PAD_SIZE in place (G10: one row), keeping their
+    tags, labels, paint and Verse tags. The arena's origin comes from FNM_Arena_Entry (on the centre line, ENTRY_Y in).
+    A tile keeps its height; a trigger is refit with trigger_fit from the tile's bottom. Reads every transform back."""
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})["returnValue"]
+    by = {a["label"]: a for a in found if isinstance(a, dict) and "label" in a}
+    xf = lambda a: u.call(ACTOR, "get_actor_transform", {"actor": ref(a["actorPath"])})["returnValue"]
+    entry = xf(by.get("FNM_Arena_Entry") or sys.exit("no FNM_Arena_Entry: run the full build"))["location"]
+    ox, oy = entry["x"], entry["y"] - ENTRY_Y
+    want = []
+    for letter, (dx, dy) in zip(LETTERS, PAD_SPOTS):
+        tile = by.get(f"FNM_Arena_Pad{letter}") or sys.exit(f"no FNM_Arena_Pad{letter}")
+        trig = by.get(f"FNM_Arena_Trigger{letter}") or sys.exit(f"no FNM_Arena_Trigger{letter}")
+        t = xf(tile)
+        z0 = tile["bounds"]["min"]["z"]
+        tz, tsx, tsy, tsz = trigger_fit(z0, RACE_PAD_SIZE, RACE_PAD_SIZE, PAD_H)
+        tt = xf(trig)
+        want.append((tile, (ox + dx, oy + dy, t["location"]["z"], RACE_PAD_SIZE / 100, RACE_PAD_SIZE / 100, t["scale"]["z"]), t["rotation"]["yaw"]))
+        want.append((trig, (ox + dx, oy + dy, tz, tsx, tsy, tsz), tt["rotation"]["yaw"]))
+    for a, v, yaw in want:
+        u.call(ACTOR, "set_actor_transform", {"actor": ref(a["actorPath"]), "xform": xform(*v, yaw=yaw)})
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    bad = []
+    for a, v, _ in want:
+        t = xf(a)
+        got = (t["location"]["x"], t["location"]["y"], t["location"]["z"], t["scale"]["x"], t["scale"]["y"], t["scale"]["z"])
+        if any(abs(g - w) > 0.01 * max(1.0, abs(w)) for g, w in zip(got, v)):
+            bad.append(f"{a['label']} {tuple(round(g, 2) for g in got)} != {tuple(round(w, 2) for w in v)}")
+    if bad:
+        sys.exit("arena pads not moved: " + "; ".join(bad))
+    print(f"4 pad tiles + triggers at y={oy + RACE_PAD_Y:.0f}, x={[round(ox + dx) for dx, _ in PAD_SPOTS]}, {RACE_PAD_SIZE} cm (read back)")
 
 
 def build(stations, doors, hall, arena_on=ARENA):
@@ -940,6 +980,7 @@ if __name__ == "__main__":
     ap.add_argument("--check-paint", action="store_true", help="read-only report of every door's and wall's / floor's paint")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     ap.add_argument("--triggers-only", action="store_true", help="only refit the vestibule and arena pad triggers in place (trigger_fit)")
+    ap.add_argument("--arena-pads", action="store_true", help="only move the arena's pad tiles + triggers to PAD_SPOTS in place")
     ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
     ap.add_argument("--flat", action="store_true", help="with --paint-only / --check-paint / a build: the old flat WALL_COLOURS "
                                                         "paint instead of the Titan Peak surfaces")
@@ -958,5 +999,7 @@ if __name__ == "__main__":
         ice_only()
     elif a.triggers_only:
         triggers_only()
+    elif a.arena_pads:
+        arena_pads()
     else:
         build(a.stations, a.doors, a.hall, not a.no_arena)

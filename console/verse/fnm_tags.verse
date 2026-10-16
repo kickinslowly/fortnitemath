@@ -54,6 +54,9 @@ fnm_race_megaboss := class(tag){}
 fnm_race_titan := class(tag){}
 fnm_race_beam := class(tag){}
 fnm_race_letter := class(tag){}
+# G10 analytics (tools/build_analytics.py): one analytics_device per station (+ that station's fnm_station_NN), one at the
+# finish (+ fnm_finish) and one at the boss kill (+ fnm_boss). The director Submits a player on each when they clear it.
+fnm_analytics := class(tag){}
 fnm_door_a := class(tag){}
 fnm_door_b := class(tag){}
 fnm_door_c := class(tag){}

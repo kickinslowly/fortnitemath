@@ -50,7 +50,11 @@ before UEFN work. Project-specific:
   `fnm_cannon_rig` actors; rerun after a course rebuild; needs `import_boss.py` and `import_cannon.py` once and
   `build_fx.py NS_fnm_laser_race`),
   `tools/build_lids.py` (invisible ceiling over every floor piece of the course, staircases as one sloped sheet; idempotent via
-  `fnm_lids`; rerun after a course rebuild), `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
+  `fnm_lids`; rerun after a course rebuild), `tools/build_wall_trim.py` (G10, against the wallpaper look: pilasters,
+  plinths, alternate-bay panels in the tier's second stone, a broken top edge per tier, dressed baffles; engine cubes in
+  the `import_titanpeak.py --trim` materials; idempotent via `fnm_wall_trim`, reads the course at run time, `--check`,
+  `--plan`, `--dump-scene` refreshes the test snapshot `tests/test_wall_trim_scene.json`; rerun after a course rebuild),
+  `tools/build_audio.py` (one audio player per sound cue, `CUES` table, idempotent
   via `fnm_audio`; library sounds pass validation only from `/Game/Sounds/Creative` (and `/CRD_SkilledInteractionDevice`), the project's own imported SoundWaves pass too; `console/AUDIO.md`; `--announcer am_michael` puts the
   imported voice lines on its `ANNOUNCER_CUES`, `--mint` the imported Mint music / SFX (`tools/make_mint_audio.py` makes the
   wavs from `art/audio/mint/*.mp3`; `tools/audio/mint/LISTEN.md`), plain rerun = all stock), `tools/import_art.py`
@@ -105,7 +109,11 @@ before UEFN work. Project-specific:
   `DebugVictoryTest` (when the finish board hides itself, `ResultsSeconds` after a finish, stands the player before NEW
   RACE; with `DebugAutoRightAnswers` it waits for a real E press instead of simulating one), `DebugPassageTest` (drops the player into station 1's right vestibule, then behind a wrong door), `DebugDoorTest`
   (stands them before door N), `DebugStartStage` (start at that station, to try its obstacles), `DebugSkipTest` (drops
-  the player at station 3 on stage 1: the skip guard must send them back). Drive them with
+  the player at station 3 on stage 1: the skip guard must send them back), `DebugStrikeSelf` (G10: every earned strike
+  fires at the player who earned it, so one client sees the warning, the effect, the immunity and a shield block). Not
+  hooks but ship settings: `StrikesOn` true, `MedalTimeGates` false (`GoldParSeconds` / `SilverParSeconds` 0: no par data
+  yet; the analytics devices collect it), `IslandCode` "" (the brag card's code line). `fnm_ui.verse`'s `FnmUiDebugBrag`,
+  `FnmUiDebugCompact`, `FnmUiDebugShield` ship false. Drive them with
   `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
 - BOSS BATTLE mode (spec `BOSS_MODE.md`, runtime `console/verse/fnm_bossmode.verse`): its own arena east of the course,
   built by `tools/build_bossmode.py` (idempotent via `fnm_bossmode`; Verse tags `fnm_bm_*`; does not depend on the course,
@@ -140,7 +148,11 @@ before UEFN work. Project-specific:
 - Boss arena (G6 item 3, LAYOUT.md "Boss arena"): stage `Stations.Length + 1`, found by tag `fnm_boss` (+ `fnm_boss_adds`,
   `fnm_boss_gate`), NOT a station (a station 11 would shift every tier); `DebugStartStage 11` starts in it,
   `DebugAutoRightAnswers` carries a run through it. Hall, pads and platform by `build_course.py` (pad colours:
-  `import_art.py pad_a pad_b pad_c pad_d`); the boss is boss mode's titan over a hidden Megabrute, with mega cannons,
+  `import_art.py pad_a pad_b pad_c pad_d`; since G10 the pads are one A-B-C-D row in the doors' order, `RACE_PAD_SIZE`,
+  boss mode keeps `PAD_SIZE`; `build_course.py --arena-pads` re-places tiles + triggers in place, then rerun
+  `build_race_boss.py` for the letters); `tools/build_analytics.py` places an `analytics_device` per station + finish +
+  boss kill (tag `fnm_analytics_rig`, Verse tags `fnm_analytics` + the station / `fnm_finish` / `fnm_boss` tag; the
+  director `Submit`s them; rerun after a course rebuild); the boss is boss mode's titan over a hidden Megabrute, with mega cannons,
   boss bar and floating letters (`build_race_boss.py`, tags `fnm_race_*`, BOSS_MODE.md §16). `NS_fnm_laser_race` is baked
   to those cannons (`build_fx.RACE_LENGTH`): rebuild it after moving them or rescaling that titan. Shared with boss mode in
   the director: `FaceLetter`, `ExplainDelaySeconds`, `MegabossHealth`, the leash constants.

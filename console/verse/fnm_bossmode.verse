@@ -691,7 +691,9 @@ fnm_boss_mode := class:
         Director.StopBoost(State)
         Kind := Director.PickPenalty()
         Past := FnmPenaltyPast(Kind)
-        Director.Broadcast(FnmFeedBmWrong(State.Player, Past), "got {Past}  -  BOSS: HA! WRONG!")
+        # G10: a miss goes to the victim alone (fnm_director MissFeed, as the race's since G9 Now 5); it named the player to
+        # every fighter's HUD.
+        Director.MissFeed(State, FnmFeedBmWrong(State.Player, Past), "You got {Past}  -  BOSS: HA! WRONG!", "got {Past}  -  BOSS: HA! WRONG!")
         Director.Sound(State.Player, fnm_cue.Wrong)
         State.Hud.FlashVerdict(false, FnmPenaltyLabel(Kind))
         State.Hud.ShowVolt(fnm_volt.Wag)

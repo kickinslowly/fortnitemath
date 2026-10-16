@@ -265,7 +265,7 @@ def sparks(s, name, loop, at, count, speed, life, size, color, away_from=(0, 0, 
 LENGTH = 1830.0                       # cm: muzzle to target along the system's local +X (Verse cannot pass it)
 # The race finale's laser (build_race_boss.laser_length(): its cannons' muzzle point to the titan's waist; a test ties
 # them within 30 cm). Rebuild NS_fnm_laser_race after moving those cannons or rescaling that titan.
-RACE_LENGTH = 498.0
+RACE_LENGTH = 540.0     # was 498 at titan scale 2.1; G10 scale 3.0 puts the waist at 438 cm (BEAM_AIM 338)
 IMPACT_TIME = 1.6                     # s: the impact's emitters and system all run once for this long
 HOLD_FADE = [(0, 1), (0.62, 1), (1, 0)]          # over a 0.8 s life: full for 0.5 s, gone at 0.8 s
 FLICKER = [(0, 1), (0.1, 0.4), (0.2, 1), (0.3, 0.5), (0.42, 1), (0.55, 0.3), (0.62, 0.9), (0.8, 0.3), (1, 0)]

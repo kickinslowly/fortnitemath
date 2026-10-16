@@ -766,8 +766,8 @@ boss returns `BossRespawnSeconds` later; a wrong pad brings the adds.
   again; a boss not up after 5 s gets Disable, Enable), pinned on the platform (`FnmPinBoss`, shared with boss mode), and
   given `MegabossHealth`. `fnm_race_boss_damage` heals every hit but a pad's (`RacePadHitting`), and a player's shot gets
   the gun hint. The leash puts it back on the platform 1.5 s after a knock. It carries no gun now; the adds still shoot.
-- **The titan** is a second `fnm_titan` (`RaceTitan`; `fnm_race_titan` + slot tags), the same four clips at scale 2.1
-  (6.3 m) facing the entry. It plays Arrive on each spawn, Hurt on a right pad, Taunt on a wrong pad and Fall at the kill,
+- **The titan** is a second `fnm_titan` (`RaceTitan`; `fnm_race_titan` + slot tags), the same four clips at scale 3.0
+  (9 m since G10, 2026-10-14; 2.1 = 6.3 m before) facing the entry. It plays Arrive on each spawn, Hurt on a right pad, Taunt on a wrong pad and Fall at the kill,
   with Reset once at OnBegin (rewinding the fall). The build's first scale, 2.4 (boss mode's head angle; the entry is
   24.5 m from the platform, 45 m in boss mode), put the head against the question panel's bottom edge in play; at 2.1 the
   horns are clear of it.
@@ -787,7 +787,7 @@ boss returns `BossRespawnSeconds` later; a wrong pad brings the adds.
   - `BossLine` and the slate's BOSS row are gone from the race.
 - **Explanation.** It shows `ExplainDelaySeconds` (2.5, now a director constant boss mode reads too) after a right pad.
   It is skipped if the player answered again, missed, finished or left meanwhile (log `arena explanation up`).
-- **Letters.** The floating 3D letters (`fnm_race_letter`) use boss mode's props and colours, at scale 1.5 and 2.3 m up
+- **Letters.** The floating 3D letters (`fnm_race_letter`) use boss mode's props and colours, at scale 1.0 (G10; 1.5 before, which hid the titan) and 2.3 m up
   rather than 1.8. Boss mode's size would fit under the 5.8 m lid only with its base at 1.75 m, inside a player standing on
   the pad. `FaceLetter` moved from boss mode to the director with a `Race` flag. Race letters turn to race players at the
   arena stage; boss mode's turn to boss-mode players, as before.

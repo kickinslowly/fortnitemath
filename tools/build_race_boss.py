@@ -51,9 +51,11 @@ OLD_COURSE_LABELS = re.compile(r"FNM_Arena_(Boss|Label[A-D])")
 
 # The titan. The hall is short: the entry is 24.5 m from the platform (45 m in boss mode, where scale 4, 12 m, put the
 # head just under the question panel). At 2.4 (7.2 m) its head touched the panel's bottom edge from the entry in play
-# (2026-10-11) and the explanation line covered it; 2.1 makes it 6.3 m on the 1 m platform, the head clear of the panel.
-# It stands taller than the 6 m walls (the lid is invisible).
-TITAN_SCALE = 2.1
+# (2026-10-11) and the explanation line covered it, so it was cut to 2.1 (6.3 m). G10 (2026-10-14, the review: "6.3 m,
+# boss mode's is 12 m") raises it to 3.0 (9 m on the 1 m platform) together with the compact slate (fnm_hud SetCompact,
+# smaller and higher, on at arena entry), so the head no longer has the panel to hide behind or under. It stands taller
+# than the 6 m walls (the lid is invisible).
+TITAN_SCALE = 3.0
 # The race titan's clips, slots 1..5: boss mode's first five (no scream: the race's wrong pad keeps the stomp). The jump-slam
 # (slot 5) is the entrance when a player walks into the arena (fnm_director ArenaArrival; G9 D2).
 RACE_TITAN_CLIPS = b.TITAN_CLIPS[:5]
@@ -73,7 +75,7 @@ MUZZLE_AHEAD = b.MUZZLE_AHEAD * CANNON_SCALE / b.CANNON_SCALE
 # The floating letters: boss mode's Alphabet props and colours (build_bossmode LETTER_*), smaller and lower. At boss mode's
 # scale 1.8 (3.6 m tall) the letter plus its 40 cm bob fits under the lid (5.8 m) only with its base at 1.75 m, inside a
 # player standing on the pad; at 1.5 (3 m) its base sits at 2.3 m, over their head, the bob included.
-LETTER_SCALE = 1.5
+LETTER_SCALE = 1.0
 LETTER_Z = 230
 LETTER_H, LETTER_W = 201.3, 206          # the Alphabet letter at scale 1 (build_bossmode LETTER_ASSET)
 LETTER_BOB = 40                          # fnm_director LetterBobCm

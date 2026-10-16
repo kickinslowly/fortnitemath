@@ -86,5 +86,21 @@
     "t4_wall_patch": "w178kp6sn6t5a0gsyr7n45kt298g90yw",
     "t5_floor_patch": "w17eg6g9cphk93tbax3wac6yp58g9hgm",
     "t5_wall_patch": "w17fmhxvj2282sdd6aqhbpjs058g8m19"
+  },
+  "mint_trim_materials": {
+    "note": "G10 W (2026-10-14): dressed-stone trim per tier for tools/build_wall_trim.py (pilasters, plinths, crests); ~100 Mint credits each (the balance read 200 reserved per start, 100 charged); tiling maps under art/titanpeak/materials/<key>/",
+    "t1_trim": "w173vv0fv3f76rh79917jbsfpx8gb22f",
+    "t2_trim": "w170yb1e730v6qzh3rm7zt7z0x8gb77w",
+    "t3_trim": "w17fvxcpbeda58xe786p78t0nn8gabqg",
+    "t4_trim": "w176j5jm1kvp0mmx7jz6a548xh8gb468",
+    "t5_trim": "w175rr5ywfetqxyj3fjxz87exd8gb2mb"
+  },
+  "mint_trim_materials_v2": {
+    "note": "G10 W second pass (2026-10-15, after the parent's audit): painterly trims for t2-t5 (the first pass's clean brick clashed with the painted cliffs) and a calmer FROST RIDGE wall (t3_wall's white blobs repeated at 4 m). ~100 Mint each; maps under art/titanpeak/materials/<key>/; import_titanpeak ART maps the existing material instances onto them",
+    "t3_wall2": "w170s2c810p4nht7cxwy6s6h5n8gamjf",
+    "t2_trim2": "w173e2sv25k4et4gxhxq2c61558gbac8",
+    "t3_trim2": "w17afp3ymezzewqf419gxptnc58gakcv",
+    "t4_trim2": "w173d6vcqysb6m7wza4e4725v18gbkn6",
+    "t5_trim2": "w1777jvw1q4sfczb9sfg1htxz58ga4wg"
   }
 }

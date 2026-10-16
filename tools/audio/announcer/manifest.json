@@ -1045,17 +1045,17 @@
         "limiting_db": 3.0
       },
       "welcome": {
-        "text": "Welcome to Fortnite Math!",
-        "spoken": "Welcome to Fortnite Math!",
+        "text": "Welcome to Doors of Doom!",
+        "spoken": "Welcome to Doors of Doom!",
         "lang": "en-us",
         "speed": 0.95,
         "tail": "std",
         "file": "am_onyx/welcome.wav",
-        "duration_s": 2.104,
+        "duration_s": 2.114,
         "cap_s": 4.0,
         "peak_dbfs": -1.0,
-        "lufs": -13.2,
-        "limiting_db": 2.4
+        "lufs": -13.1,
+        "limiting_db": 1.8
       },
       "choose": {
         "text": "Choose your grade and your skill.",
@@ -1736,17 +1736,17 @@
         "limiting_db": 0.0
       },
       "welcome": {
-        "text": "Welcome to Fortnite Math!",
-        "spoken": "Welcome to Fortnite Math!",
+        "text": "Welcome to Doors of Doom!",
+        "spoken": "Welcome to Doors of Doom!",
         "lang": "en-gb",
         "speed": 0.95,
         "tail": "std",
         "file": "bm_george/welcome.wav",
-        "duration_s": 2.185,
+        "duration_s": 2.404,
         "cap_s": 4.0,
         "peak_dbfs": -1.0,
-        "lufs": -12.9,
-        "limiting_db": 0.0
+        "lufs": -13.1,
+        "limiting_db": 0.8
       },
       "choose": {
         "text": "Choose your grade and your skill.",

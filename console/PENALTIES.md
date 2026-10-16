@@ -41,6 +41,31 @@ out of the guards' line of fire behind the door; Freeze and Spike under an orbit
 see-through. Only Yeet first moves the player (onto the retry spot), so the throw clears the door wall. Every penalty
 logs `FNM: wrong door <NAME>: ready on the retry spot <x,y,z> <t> s after the verdict`.
 
+## Shield and strikes (G10, 2026-10-14; `reviews/race-2026-10-13/sources/gamification.md` C2, C3)
+Only a first-try right answer earns anything. A first-try streak of 3 (`ShieldStreak`) earns a **SHIELD** (hold at most
+one; the HUD shows it beside the streak line, the strip adds `+SHIELD`). It takes the next penalty: the player's own wrong
+door or pad, or an incoming strike. On a wrong door the penalty, its hold and the +3 s are skipped, but the streak resets,
+the first-try credit is lost and the door stays shut: the player goes to the retry spot and the same question comes back
+reshuffled under "SHIELD SAVED YOU  -  still wrong: <that choice's feedback>" (`fnm_director.ShieldSaved`).
+
+A first-try streak of 5, 10 or 15 (`StrikeStreaks`) earns a **STRIKE**: 1 s later (`StrikeDelaySeconds`) it is aimed at the
+nearest racer ahead in strip order who can take one (racing, not in a vestibule, not answering a door or under a penalty,
+not at the arena, not finished, not immune: `StrikeOpen`), who sees "INCOMING STRIKE!" (their feed names the striker) and
+is struck 1 s later (`StrikeWarnSeconds`) by one effect of a light, in-place pool: Freeze 2.5 s (the ice cube, held, frost),
+Mud 4 s (the `fnm_mud` modulator: its speed is 0.5, not the 0.6 gamification C3 names, since a second modulator would be a
+scene change), Dizzy blur 3 s with no spin, Lights Out 1.5 s (black, held). Never a send-back; never their question, streak
+or credit; Mud and the blur end at their next right answer. 20 s immunity after a hit (`StrikeImmuneSeconds`); a shield
+blocks it (spent). Public feed: "<A> froze <B>!" / "<B>'s shield blocked <A>!". With nobody ahead who can take it (the
+leader's strike, always) it becomes +2 s of boost ("LEADER BONUS!"), so strikes only flow forward. `StrikesOn` is the host's
+switch; `DebugStrikeSelf` fires every strike at its own striker (one client sees the warning, the effect, the immunity and
+a shield's block; the targeting needs two players).
+Seen in play 2026-10-14 (one client, D's sessions s1/s2): the shield earned at streak 3 with its HUD badge and the strip's
+`+SHIELD`; a shield taking a wrong pad at the boss (no penalty, "SHIELD SAVED YOU  -  still wrong: ..."); the warning, a
+shield's block (twice) and a Freeze landing (frost, FROZEN!, the feed line, immune 20 s, over after 2.52 s); LEADER
+BONUS (+2 s on the boost left). Only reasoned so far: choosing a real target ahead (two players), a strike missing a target
+that stepped into a vestibule, Mud / Dizzy / Lights Out as strikes (their code is the wrong door's), a shield taking a
+station's (not the arena's) wrong door.
+
 Rigs: `console/verse/fnm_rig.verse` (runtime) + `tools/build_rigs.py` (places 4 sets, parked underground, tagged
 `fnm_ice` / `fnm_spike` / `fnm_yeet`, plus `fnm_penalty_cam` and the `fnm_loadout` trigger; ice and spears have collision off). Rerun the builder after changing a rig. Real Fortnite traps can't be
 rigs: a placed trap fails island validation as an illegal reference. Tried: the BR and Figment floor-spike item

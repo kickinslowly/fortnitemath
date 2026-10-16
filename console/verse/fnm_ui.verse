@@ -61,6 +61,13 @@ FnmUiGain : float = 0.259
 FnmUi(C:color):color = C * FnmUiGain
 FnmSrgb(R:float, G:float, B:float):color = MakeColorFromSRGB(R, G, B)
 
+# G10 H test hooks, ship value false for all three (the director is not edited to see the new widgets): FnmUiDebugBrag makes
+# ShowResults also call ShowBragGrid with sample data; FnmUiDebugCompact makes ShowQuestion turn the compact slate on;
+# FnmUiDebugShield draws the shield indicator from Attach.
+FnmUiDebugBrag : logic = false
+FnmUiDebugCompact : logic = false
+FnmUiDebugShield : logic = false
+
 # The answer tiles' colours, A..D, as plain sRGB triples (FnmSrgb, then FnmUi where they are set): white, blue, green, orange, the door
 # paint's four hues but four colours that stay apart on screen. tests/test_hud_layout.py pins them.
 FnmTileSrgb : []color = array:
@@ -118,6 +125,12 @@ fnm_hud := class:
     # The slate's caption row ("Station 1/10  -  Rectangles"), top left of the slate, then the prompt.
     StageText : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 22.0, DefaultJustification := text_justification.Left}
     PromptText : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 46.0, DefaultJustification := text_justification.Center}
+    # A prompt over PromptShortMax chars (the limit is 60, PROTOCOL 5 rule 6) is drawn in this smaller block instead, so it stays on ONE
+    # line: at 46 px a 60-char prompt wrapped to two lines and grew the slate ~58 px down over the lintel letters (GOALS G7 1a). The
+    # prompt row is an overlay with a PromptHeight spacer, so the slate is the same height whichever block shows.
+    PromptLong : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
+    PromptShortMax : int = 46
+    PromptHeight : float = 56.0
     # The slate's chalk texture (stretched; the 6 px rim round it is a color_block, so the frame stays crisp). 1180
     # wide (1192 with the rim, x 364-1556 at 1080p) clears Fortnite's GAME MODE box (ends x 356) and the minimap (from
     # x 1603). Measured 2026-10-13 at 1080p: the slate is ~305 px tall (bottom y ~345) with or without a recap card, because the
@@ -149,17 +162,61 @@ fnm_hud := class:
         color_block{DefaultColor := NamedColors.White * FnmUiGain, DefaultOpacity := 0.0}
     # Recap card (ShowRecap): the solved item's worked steps on the slate's band under the tiles, and the verdict
     # ("CORRECT!  -1.8 s") on the caption row, right.
-    RecapSteps : text_block = text_block{DefaultTextColor := MakeColorFromSRGB(0.82, 0.96, 0.82) * FnmUiGain, DefaultTextSize := 24.0, DefaultJustification := text_justification.Center}
+    RecapSteps : text_block = text_block{DefaultTextColor := MakeColorFromSRGB(0.82, 0.96, 0.82) * FnmUiGain, DefaultTextSize := 22.0, DefaultJustification := text_justification.Center}
     RecapVerdict : text_block = text_block{DefaultTextColor := NamedColors.Lime * FnmUiGain, DefaultTextSize := 28.0, DefaultJustification := text_justification.Right}
     # The band under the tiles (steps, feedback, streak, boss line) keeps at least this height, so the slate does not
     # jump between a bare question and a recap (ux_critique P2: it moved between ~225 and ~335 px).
-    BandHeight : float = 60.0
+    BandHeight : float = 76.0
     # The caption row's height: the station caption on the left, the recap's verdict on the right.
     CaptionHeight : float = 34.0
     var RecapGeneration : int = 0
     FeedbackText : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 28.0, DefaultJustification := text_justification.Center}
     # Streak and speed boost, big, at the bottom of the slate (Aaron 2026-10-04: the small left line went unnoticed).
-    StreakBig : text_block = text_block{DefaultTextColor := NamedColors.Orange * FnmUiGain, DefaultTextSize := 40.0, DefaultJustification := text_justification.Center}
+    StreakBig : text_block = text_block{DefaultTextColor := NamedColors.Orange * FnmUiGain, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
+    # The shield indicator beside the streak line (SetShield): the shield texture and its word, one badge, collapsed until on.
+    ShieldArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_shield, DefaultDesiredSize := vector2{X := 40.0, Y := 40.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    ShieldLabel : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 28.0, DefaultJustification := text_justification.Left}
+    var MaybeShield : ?widget = false
+    # The compact slate (SetCompact): question and choices only, 30 px prompt and 232 x 60 tiles with the letter and the value on one
+    # row, hung at Top 14 (the full slate is 40, ~305 px tall: it cut the titan at the neck in the arena and covered the top half of
+    # the lintel letters at the retry spot). It is its own widget; ShowQuestion / ShowRecap / SetBoss feed both slates, ShowSlates
+    # shows the one CompactOn picks. A recap on the compact slate lights the right tile only (no steps line, no verdict).
+    CompactSlateArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_slate, DefaultDesiredSize := vector2{X := 1000.0, Y := 130.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    CompactPrompt : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    # The station caption on the compact slate (ShowQuestion's StageLine: "STATION 3/10  -  Triangles", or a redemption question's
+    # "REDEMPTION: STATION 1  -  Warm-up", which D's arena shows only here), 20 px aqua above the prompt; "" collapses it.
+    CompactStage : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+    CompactBoss : text_block = text_block{DefaultTextColor := NamedColors.Red * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+    CompactArt : []texture_block = array:
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 232.0, Y := 60.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 232.0, Y := 60.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 232.0, Y := 60.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+        texture_block{DefaultImage := FNM_Art.T_fnm_tile, DefaultDesiredSize := vector2{X := 232.0, Y := 60.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    CompactLetter : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+    CompactValue : []text_block = array:
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+    CompactGlow : []color_block = array:
+        color_block{DefaultColor := NamedColors.White * FnmUiGain, DefaultOpacity := 0.0}
+        color_block{DefaultColor := NamedColors.White * FnmUiGain, DefaultOpacity := 0.0}
+        color_block{DefaultColor := NamedColors.White * FnmUiGain, DefaultOpacity := 0.0}
+        color_block{DefaultColor := NamedColors.White * FnmUiGain, DefaultOpacity := 0.0}
+    CompactWrap : float = 960.0
+    # The compact slate keeps the lesson line (ShowFeedback: the wrong-door lesson, SHIELD SAVED YOU) and the recap's worked steps
+    # (ShowRecap) under the tiles, so a kid never loses WHY they were wrong while the slate is compact (D's note 20:15).
+    CompactFeedback : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 24.0, DefaultJustification := text_justification.Center}
+    CompactSteps : text_block = text_block{DefaultTextColor := MakeColorFromSRGB(0.82, 0.96, 0.82) * FnmUiGain, DefaultTextSize := 22.0, DefaultJustification := text_justification.Center}
+    var CompactOn : logic = false
+    # True between ShowQuestion / ShowRecap and ClearQuestion: whether a slate (full or compact) should be on screen at all.
+    var HasQuestion : logic = false
+    var MaybeCompact : ?widget = false
+    var CompactBoxes : []overlay = array{}
     # Boss arena: the shared boss health bar and the viewer's own hits, the last line of the slate, shown only to a
     # player at the arena stage (fnm_director BossLoop refreshes it; collapsed otherwise, so nothing else moves).
     BossText : text_block = text_block{DefaultTextColor := NamedColors.Red * FnmUiGain, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
@@ -214,34 +271,39 @@ fnm_hud := class:
     # (FeedWrap + 40) starts at x 1480 or more. Both stay clear of the minimap (from x 1603) because the feed sits under it
     # (Top 358: below its player-count icons, y ~335, and 12 px under the slate's bottom edge at ~346). tests/test_hud_layout.py pins the numbers.
     FeedWrap : float = 380.0
-    ResultsWrap : float = 920.0
+    ResultsWrap : float = 640.0
+    # The finish board's rows past this many are not drawn (the viewer's own row takes the last slot when it ranks lower): the world
+    # ALL-TIME screen at the podium already lists the best times, and the card has to end above the hotbar (y ~905).
+    ResultsRowsShown : int = 2
+    # True while the finish board is up: the public feed collapses (the board repeats its lines) so the board can sit where the feed does.
+    var ResultsUp : logic = false
     # Finish board (centre screen, hidden until a finish): headline, medal, this run, personal best, today's record,
     # accuracy, the session's top times (one row per player) and the next-run countdown.
-    ResultsTitle : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 72.0, DefaultJustification := text_justification.Center}
-    ResultsMedal : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 52.0, DefaultJustification := text_justification.Center}
-    ResultsTime : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 44.0, DefaultJustification := text_justification.Center}
-    ResultsBest : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
-    ResultsRecord : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 36.0, DefaultJustification := text_justification.Center}
-    ResultsAccuracy : text_block = text_block{DefaultTextColor := NamedColors.LightGreen * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
-    ResultsBoardHead : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 34.0, DefaultJustification := text_justification.Center}
+    ResultsTitle : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 56.0, DefaultJustification := text_justification.Center}
+    ResultsMedal : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
+    ResultsTime : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
+    ResultsBest : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+    ResultsRecord : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 28.0, DefaultJustification := text_justification.Center}
+    ResultsAccuracy : text_block = text_block{DefaultTextColor := NamedColors.LightGreen * FnmUiGain, DefaultTextSize := 24.0, DefaultJustification := text_justification.Center}
+    ResultsBoardHead : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
     # Room for 5 top-time rows (the director's BoardSize); unused ones are collapsed.
     ResultsRows : []text_block = array:
-        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
-        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
-        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
-        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
-        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center}
-    ResultsCountdown : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 30.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+        text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 26.0, DefaultJustification := text_justification.Center}
+    ResultsCountdown : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 22.0, DefaultJustification := text_justification.Center}
     # The board's header row (Meshy art, tools/make_medal_art.py; 256 x 256 PNGs drawn square): Volt cheering at its left, the
     # headline and the "GOLD MEDAL" word stacked in the middle, the medal itself at its right (ShowResults swaps its texture to
     # the run's metal; Medal "" collapses it). They sit IN the row, never over the lines below, so nothing overlaps text: the
     # row is VoltArt 180 + HeaderGap + HeaderWrap + HeaderGap + MedalArt 160 = 888 <= ResultsWrap (tests/test_hud_layout.py). Volt is
     # 180, not 200: the board with its five time rows reaches y ~860, and the no-podium CLOSE / NEW SKILL buttons start at y 875.
     # The two texture sizes are the literals in their DefaultDesiredSize (a field initialiser cannot read another field).
-    HeaderWrap : float = 500.0
-    HeaderGap : float = 24.0
-    VoltArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_volt, DefaultDesiredSize := vector2{X := 180.0, Y := 180.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
-    MedalArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_medal_gold, DefaultDesiredSize := vector2{X := 160.0, Y := 160.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    HeaderWrap : float = 380.0
+    HeaderGap : float = 16.0
+    VoltArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_volt, DefaultDesiredSize := vector2{X := 90.0, Y := 90.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    MedalArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_medal_gold, DefaultDesiredSize := vector2{X := 90.0, Y := 90.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
     # Volt's reaction card (ShowVolt / HideVolt): ONE 180 x 180 picture (the size is the literal in DefaultDesiredSize: a field
     # initialiser cannot read another field), right edge 20 px in from the screen's right edge, top at y 480 (1080p): x 1720-1900,
     # y 480-660. That spot is clear of everything else this HUD draws: under the feed (it ends y ~466 with its three rows) and the
@@ -280,6 +342,23 @@ fnm_hud := class:
     # Boss mode's win board: PLAY AGAIN (fnm_pick.Again) in CLOSE's place, beside NEW SKILL.
     AgainButton : button_loud = button_loud{}
 
+    # The brag grid on the finish board (ShowBragGrid): BragMax tiles (one per station, the director allows 20), then the boss tile,
+    # a FLAWLESS badge, the next-goal line and the code line. The tile ring takes the mark's colour (FnmSrgb through FnmUi), the
+    # mark is the check / cross / redeem texture on it. Built in Attach; HideResults and the next ShowResults collapse it.
+    BragMax : int = 20
+    var BragArt : []texture_block = array{}
+    var BragMark : []texture_block = array{}
+    var BragCells : []widget = array{}
+    BragBossArt : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_cell, DefaultDesiredSize := vector2{X := 64.0, Y := 64.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    BragBossMark : texture_block = texture_block{DefaultImage := FNM_Art.T_fnm_check, DefaultDesiredSize := vector2{X := 45.0, Y := 45.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+    BragFlawless : text_block = text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 32.0, DefaultJustification := text_justification.Center, DefaultShadowOffset := option{vector2{X := 3.0, Y := 3.0}}, DefaultShadowColor := NamedColors.Black * FnmUiGain, DefaultShadowOpacity := 1.0}
+    BragGoal : text_block = text_block{DefaultTextColor := NamedColors.Aqua * FnmUiGain, DefaultTextSize := 28.0, DefaultJustification := text_justification.Center}
+    BragCode : text_block = text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 24.0, DefaultJustification := text_justification.Center}
+    # The FLAWLESS badge and the next-goal line share one row (the card has to end above the hotbar), the goal wraps at this width.
+    BragGoalWrap : float = 400.0
+    var MaybeBrag : ?widget = false
+    var MaybeFlawless : ?widget = false
+
     var MaybePlayerUI : ?player_ui = false
     # The boss-mode level banner (collapsed until ShowBanner) and the white flash's generation (a newer flash wins).
     var MaybeBanner : ?widget = false
@@ -317,6 +396,12 @@ fnm_hud := class:
     Attach(Player:player):void =
         if (PlayerUI := GetPlayerUI[Player]):
             set PromptText.WrapWidth = WrapAt
+            set PromptLong.WrapWidth = WrapAt
+            set CompactPrompt.WrapWidth = CompactWrap
+            set CompactFeedback.WrapWidth = CompactWrap
+            set CompactSteps.WrapWidth = CompactWrap
+            set BragGoal.WrapWidth = BragGoalWrap
+            set BragCode.WrapWidth = ResultsWrap
             set FeedbackText.WrapWidth = WrapAt
             set RecapSteps.WrapWidth = WrapAt
             for (Row : FeedRows):
@@ -340,19 +425,61 @@ fnm_hud := class:
             MedalArt.SetTint(FnmUi(NamedColors.White))
             VoltCard.SetTint(FnmUi(NamedColors.White))
             LogoArt.SetTint(FnmUi(NamedColors.White))
+            CompactSlateArt.SetTint(FnmUi(NamedColors.White))
+            ShieldArt.SetTint(FnmUi(NamedColors.White))
+            BragBossMark.SetTint(FnmUi(NamedColors.White))
+            BragBossArt.SetTint(FnmUi(NamedColors.White))
+            ShieldLabel.SetText(FnmText("SHIELD"))
+            PromptLong.SetVisibility(widget_visibility.Collapsed)
+            CompactBoss.SetVisibility(widget_visibility.Collapsed)
+            CompactStage.SetVisibility(widget_visibility.Collapsed)
+            CompactFeedback.SetVisibility(widget_visibility.Collapsed)
+            CompactSteps.SetVisibility(widget_visibility.Collapsed)
             # The answer tiles: the tile texture tinted with the tile's colour (its white ring takes the colour, the
             # dark interior stays near-black) under the letter and the choice, both in that colour.
             Tiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
+            CompactTiles : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
             var Tints : []color = array{}
             for (S : FnmTileSrgb):
                 set Tints += array{FnmSrgb(S.R, S.G, S.B)}
             set TileTints = Tints
-            for (K -> Art : TileArt, TileColor := Tints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K]):
+            for (K -> Art : TileArt, TileColor := Tints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K], CArt := CompactArt[K], CLetter := CompactLetter[K], CValue := CompactValue[K], CGlow := CompactGlow[K]):
                 Art.SetTint(FnmUi(TileColor))
                 Letter.SetTextColor(FnmUi(TileColor))
                 Value.SetTextColor(FnmUi(TileColor))
                 Glow.SetColor(FnmUi(TileColor))
                 Letter.SetText(FnmText(FnmChoiceLetter(K)))
+                CArt.SetTint(FnmUi(TileColor))
+                CLetter.SetTextColor(FnmUi(TileColor))
+                CValue.SetTextColor(FnmUi(TileColor))
+                CGlow.SetColor(FnmUi(TileColor))
+                CLetter.SetText(FnmText(FnmChoiceLetter(K)))
+                CBox : overlay = overlay:
+                    Slots := array:
+                        overlay_slot:
+                            Widget := CArt
+                            HorizontalAlignment := horizontal_alignment.Fill
+                            VerticalAlignment := vertical_alignment.Fill
+                        overlay_slot:
+                            Widget := CGlow
+                            HorizontalAlignment := horizontal_alignment.Fill
+                            VerticalAlignment := vertical_alignment.Fill
+                            Padding := margin{Left := 6.0, Top := 6.0, Right := 6.0, Bottom := 6.0}
+                        overlay_slot:
+                            Widget := stack_box:
+                                Orientation := orientation.Horizontal
+                                Slots := array:
+                                    stack_box_slot:
+                                        Widget := CLetter
+                                        VerticalAlignment := vertical_alignment.Center
+                                    stack_box_slot:
+                                        Widget := CValue
+                                        VerticalAlignment := vertical_alignment.Center
+                                        Padding := margin{Left := 12.0}
+                            HorizontalAlignment := horizontal_alignment.Center
+                            VerticalAlignment := vertical_alignment.Center
+                CompactTiles.AddWidget(stack_box_slot{Widget := CBox, Padding := margin{Left := 6.0, Right := 6.0}})
+                set CompactBoxes += array{CBox}
                 Box : overlay = overlay:
                     Slots := array:
                         overlay_slot:
@@ -379,6 +506,18 @@ fnm_hud := class:
                             VerticalAlignment := vertical_alignment.Center
                 Tiles.AddWidget(stack_box_slot{Widget := Box, Padding := margin{Left := 8.0, Right := 8.0}})
                 set TileBoxes += array{Box}
+            ShieldBadge : stack_box = stack_box:
+                Orientation := orientation.Horizontal
+                Slots := array:
+                    stack_box_slot:
+                        Widget := ShieldArt
+                        VerticalAlignment := vertical_alignment.Center
+                    stack_box_slot:
+                        Widget := ShieldLabel
+                        VerticalAlignment := vertical_alignment.Center
+                        Padding := margin{Left := 8.0, Right := 18.0}
+            ShieldBadge.SetVisibility(widget_visibility.Collapsed)
+            set MaybeShield = option{ShieldBadge}
             Lines : stack_box = stack_box:
                 Orientation := orientation.Vertical
                 Slots := array:
@@ -399,7 +538,18 @@ fnm_hud := class:
                                     VerticalAlignment := vertical_alignment.Center
                         HorizontalAlignment := horizontal_alignment.Fill
                     stack_box_slot:
-                        Widget := PromptText
+                        Widget := overlay:
+                            Slots := array:
+                                overlay_slot:
+                                    Widget := color_block{DefaultColor := NamedColors.Black * FnmUiGain, DefaultOpacity := 0.0, DefaultDesiredSize := vector2{X := 1.0, Y := PromptHeight}}
+                                overlay_slot:
+                                    Widget := PromptText
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    VerticalAlignment := vertical_alignment.Center
+                                overlay_slot:
+                                    Widget := PromptLong
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    VerticalAlignment := vertical_alignment.Center
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Top := 4.0}
                     stack_box_slot:
@@ -422,7 +572,15 @@ fnm_hud := class:
                                                 Widget := FeedbackText
                                                 HorizontalAlignment := horizontal_alignment.Center
                                             stack_box_slot:
-                                                Widget := StreakBig
+                                                Widget := stack_box:
+                                                    Orientation := orientation.Horizontal
+                                                    Slots := array:
+                                                        stack_box_slot:
+                                                            Widget := ShieldBadge
+                                                            VerticalAlignment := vertical_alignment.Center
+                                                        stack_box_slot:
+                                                            Widget := StreakBig
+                                                            VerticalAlignment := vertical_alignment.Center
                                                 HorizontalAlignment := horizontal_alignment.Center
                                                 Padding := margin{Top := 4.0}
                                             stack_box_slot:
@@ -451,6 +609,132 @@ fnm_hud := class:
                         Widget := Lines
                         HorizontalAlignment := horizontal_alignment.Center
                         Padding := margin{Left := 30.0, Top := 10.0, Right := 30.0, Bottom := 14.0}
+            # The compact slate: the same rim and chalk, the prompt over one row of four tiles, the boss line under them.
+            CompactLines : stack_box = stack_box:
+                Orientation := orientation.Vertical
+                Slots := array:
+                    stack_box_slot:
+                        Widget := CompactStage
+                        HorizontalAlignment := horizontal_alignment.Center
+                    stack_box_slot:
+                        Widget := CompactPrompt
+                        HorizontalAlignment := horizontal_alignment.Center
+                    stack_box_slot:
+                        Widget := CompactTiles
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 8.0}
+                    stack_box_slot:
+                        Widget := CompactSteps
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 4.0}
+                    stack_box_slot:
+                        Widget := CompactFeedback
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 2.0}
+                    stack_box_slot:
+                        Widget := CompactBoss
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 4.0}
+            CompactSlate : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := MakeColorFromSRGB(0.86, 0.82, 0.74) * FnmUiGain, DefaultOpacity := 0.95}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := CompactSlateArt
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                        Padding := margin{Left := 6.0, Top := 6.0, Right := 6.0, Bottom := 6.0}
+                    overlay_slot:
+                        Widget := CompactLines
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Left := 24.0, Top := 8.0, Right := 24.0, Bottom := 12.0}
+            # The brag grid: one cell per station (tile ring + mark, the station number under it), then the boss cell.
+            BragRow : stack_box = stack_box{Orientation := orientation.Horizontal, Slots := array{}}
+            for (K := 0..BragMax - 1):
+                Art := texture_block{DefaultImage := FNM_Art.T_fnm_cell, DefaultDesiredSize := vector2{X := 64.0, Y := 64.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+                Mark := texture_block{DefaultImage := FNM_Art.T_fnm_check, DefaultDesiredSize := vector2{X := 45.0, Y := 45.0}, DefaultHorizontalTiling := image_tiling.Stretch, DefaultVerticalTiling := image_tiling.Stretch}
+                Num := text_block{DefaultTextColor := NamedColors.White * FnmUiGain, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+                Num.SetText(FnmText("{K + 1}"))
+                Art.SetTint(FnmUi(NamedColors.White))
+                Mark.SetTint(FnmUi(NamedColors.White))
+                Cell : stack_box = stack_box:
+                    Orientation := orientation.Vertical
+                    Slots := array:
+                        stack_box_slot:
+                            Widget := overlay:
+                                Slots := array:
+                                    overlay_slot:
+                                        Widget := Art
+                                    overlay_slot:
+                                        Widget := Mark
+                                        HorizontalAlignment := horizontal_alignment.Center
+                                        VerticalAlignment := vertical_alignment.Center
+                            HorizontalAlignment := horizontal_alignment.Center
+                        stack_box_slot:
+                            Widget := Num
+                            HorizontalAlignment := horizontal_alignment.Center
+                BragRow.AddWidget(stack_box_slot{Widget := Cell, Padding := margin{Left := 3.0, Right := 3.0}})
+                set BragArt += array{Art}
+                set BragMark += array{Mark}
+                set BragCells += array{Cell}
+            BossNum := text_block{DefaultTextColor := NamedColors.Gold * FnmUiGain, DefaultTextSize := 20.0, DefaultJustification := text_justification.Center}
+            BossNum.SetText(FnmText("BOSS"))
+            BossCell : stack_box = stack_box:
+                Orientation := orientation.Vertical
+                Slots := array:
+                    stack_box_slot:
+                        Widget := overlay:
+                            Slots := array:
+                                overlay_slot:
+                                    Widget := BragBossArt
+                                overlay_slot:
+                                    Widget := BragBossMark
+                                    HorizontalAlignment := horizontal_alignment.Center
+                                    VerticalAlignment := vertical_alignment.Center
+                        HorizontalAlignment := horizontal_alignment.Center
+                    stack_box_slot:
+                        Widget := BossNum
+                        HorizontalAlignment := horizontal_alignment.Center
+            BragRow.AddWidget(stack_box_slot{Widget := BossCell, Padding := margin{Left := 22.0, Right := 3.0}})
+            FlawlessBadge : overlay = overlay:
+                Slots := array:
+                    overlay_slot:
+                        Widget := color_block{DefaultColor := MakeColorFromSRGB(1.0, 0.78, 0.1) * FnmUiGain, DefaultOpacity := 0.28}
+                        HorizontalAlignment := horizontal_alignment.Fill
+                        VerticalAlignment := vertical_alignment.Fill
+                    overlay_slot:
+                        Widget := BragFlawless
+                        HorizontalAlignment := horizontal_alignment.Center
+                        VerticalAlignment := vertical_alignment.Center
+                        Padding := margin{Left := 28.0, Top := 2.0, Right := 28.0, Bottom := 4.0}
+            BragBox : stack_box = stack_box:
+                Orientation := orientation.Vertical
+                Slots := array:
+                    stack_box_slot:
+                        Widget := BragRow
+                        HorizontalAlignment := horizontal_alignment.Center
+                    stack_box_slot:
+                        Widget := stack_box:
+                            Orientation := orientation.Horizontal
+                            Slots := array:
+                                stack_box_slot:
+                                    Widget := FlawlessBadge
+                                    VerticalAlignment := vertical_alignment.Center
+                                    Padding := margin{Right := 16.0}
+                                stack_box_slot:
+                                    Widget := BragGoal
+                                    VerticalAlignment := vertical_alignment.Center
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 8.0}
+                    stack_box_slot:
+                        Widget := BragCode
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 4.0}
+            BragBox.SetVisibility(widget_visibility.Collapsed)
+            set MaybeBrag = option{BragBox}
+            set MaybeFlawless = option{FlawlessBadge}
             # The tag: the skill's title and subtitle on a small dark backing.
             Tag : overlay = overlay:
                 Slots := array:
@@ -510,12 +794,16 @@ fnm_hud := class:
                         Widget := ResultsAccuracy
                         HorizontalAlignment := horizontal_alignment.Center
                     stack_box_slot:
+                        Widget := BragBox
+                        HorizontalAlignment := horizontal_alignment.Center
+                        Padding := margin{Top := 6.0}
+                    stack_box_slot:
                         Widget := ResultsBoardHead
                         HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Top := 18.0}
+                        Padding := margin{Top := 4.0}
             for (Row : ResultsRows):
                 ResultsLines.AddWidget(stack_box_slot{Widget := Row, HorizontalAlignment := horizontal_alignment.Center})
-            ResultsLines.AddWidget(stack_box_slot{Widget := ResultsCountdown, HorizontalAlignment := horizontal_alignment.Center, Padding := margin{Top := 18.0}})
+            ResultsLines.AddWidget(stack_box_slot{Widget := ResultsCountdown, HorizontalAlignment := horizontal_alignment.Center, Padding := margin{Top := 4.0}})
             # 0.88, not 0.62: at the podium the world ALL-TIME billboard sits right behind the header, and at 0.62 its text
             # read through FINISH! and the medal word (H2 frames, 2026-10-13).
             Results : overlay = overlay:
@@ -527,7 +815,7 @@ fnm_hud := class:
                     overlay_slot:
                         Widget := ResultsLines
                         HorizontalAlignment := horizontal_alignment.Center
-                        Padding := margin{Left := 40.0, Top := 28.0, Right := 40.0, Bottom := 28.0}
+                        Padding := margin{Left := 30.0, Top := 14.0, Right := 30.0, Bottom := 14.0}
             # Left panel: clock, target, pace delta, then the rivals strip.
             RivalsHead.SetText(FnmText("RACE"))
             LeftLines : stack_box = stack_box:
@@ -628,6 +916,13 @@ fnm_hud := class:
                         Alignment := vector2{X := 0.5, Y := 0.0}
                         Offsets := margin{Left := 0.0, Top := 40.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
+                    # The compact slate (SetCompact), higher and smaller than the slate: Top 14.
+                    canvas_slot:
+                        Widget := CompactSlate
+                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
+                        Alignment := vector2{X := 0.5, Y := 0.0}
+                        Offsets := margin{Left := 0.0, Top := 14.0, Right := 0.0, Bottom := 0.0}
+                        SizeToContent := true
                     # The tag, under Fortnite's GAME MODE box (ends near y 125) and above the clock panel (Top 230).
                     canvas_slot:
                         Widget := Tag
@@ -640,9 +935,9 @@ fnm_hud := class:
                     # centred board hid it). Before the verdict slot so GO! / a check draw on top.
                     canvas_slot:
                         Widget := Results
-                        Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.0}, Maximum := vector2{X := 0.5, Y := 0.0}}
-                        Alignment := vector2{X := 0.5, Y := 0.0}
-                        Offsets := margin{Left := 0.0, Top := 130.0, Right := 0.0, Bottom := 0.0}
+                        Anchors := anchors{Minimum := vector2{X := 1.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 0.0}}
+                        Alignment := vector2{X := 1.0, Y := 0.0}
+                        Offsets := margin{Left := -20.0, Top := 340.0, Right := 0.0, Bottom := 0.0}
                         SizeToContent := true
                     # Boss mode's MEGA NUKE flash: full screen, over the slate and the board, under the verdict.
                     canvas_slot:
@@ -738,6 +1033,8 @@ fnm_hud := class:
             BossBar.SetVisibility(widget_visibility.Collapsed)
             set MaybeBossBar = option{BossBar}
             set MaybeSlate = option{Slate}
+            CompactSlate.SetVisibility(widget_visibility.Collapsed)
+            set MaybeCompact = option{CompactSlate}
             set MaybeResults = option{Results}
             set MaybeFeed = option{Feed}
             SetRivals(array{}, -1)
@@ -746,6 +1043,8 @@ fnm_hud := class:
             set MaybePlayerUI = option{PlayerUI}
             set MaybeRoot = option{Root}
             set MaybeOwner = option{Player}
+            if (FnmUiDebugShield?):
+                SetShield(true)
             # The skill picker: like the finish board, centre screen on a darker panel. Built once, added on demand.
             PickerHeading.SetText(FnmText("PICK YOUR GRADE"))
             PickerPanel : overlay = overlay:
@@ -822,18 +1121,65 @@ fnm_hud := class:
     # Opens the slate on one question: the caption ("Station s/S - <tier name>"), the prompt, and Choices[K] on tile K
     # (in the order shown, so tile K is door K); tiles with no choice collapse. Clears feedback.
     ShowQuestion(StageLine:string, Prompt:string, Choices:[]string):void =
-        if (Slate := MaybeSlate?):
-            Slate.SetVisibility(widget_visibility.Visible)
         ClearRecap()
         StageText.SetText(FnmText(StageLine))
-        PromptText.SetText(FnmText(Prompt))
+        SetOrCollapse(CompactStage, StageLine)
+        SetPrompt(Prompt)
+        SetChoices(Choices)
+        ClearFeedbackNow()
+        set HasQuestion = true
+        if (FnmUiDebugCompact?):
+            set CompactOn = true
+        ShowSlates()
+
+    # The prompt on both slates; the full slate's prompt is PromptText, or the smaller PromptLong past PromptShortMax chars (one
+    # line either way, the other block collapsed).
+    SetPrompt(Prompt:string):void =
+        CompactPrompt.SetText(FnmText(Prompt))
+        if (Prompt.Length > PromptShortMax):
+            PromptText.SetText(FnmText(""))
+            PromptText.SetVisibility(widget_visibility.Collapsed)
+            PromptLong.SetText(FnmText(Prompt))
+            PromptLong.SetVisibility(widget_visibility.Visible)
+        else:
+            PromptLong.SetText(FnmText(""))
+            PromptLong.SetVisibility(widget_visibility.Collapsed)
+            PromptText.SetText(FnmText(Prompt))
+            PromptText.SetVisibility(widget_visibility.Visible)
+
+    # Choices[K] on tile K of both slates; tiles with no choice collapse.
+    SetChoices(Choices:[]string):void =
         for (K -> Box : TileBoxes):
             if (Value := TileValue[K], Choice := Choices[K]):
                 Value.SetText(FnmText(Choice))
                 Box.SetVisibility(widget_visibility.Visible)
             else:
                 Box.SetVisibility(widget_visibility.Collapsed)
-        ClearFeedbackNow()
+        for (K -> Box : CompactBoxes):
+            if (Value := CompactValue[K], Choice := Choices[K]):
+                Value.SetText(FnmText(Choice))
+                Box.SetVisibility(widget_visibility.Visible)
+            else:
+                Box.SetVisibility(widget_visibility.Collapsed)
+
+    # Puts the right slate on screen: none before a question or after ClearQuestion, the compact one in compact mode, else the full one.
+    ShowSlates():void =
+        if (Slate := MaybeSlate?, Compact := MaybeCompact?):
+            if (not HasQuestion?):
+                Slate.SetVisibility(widget_visibility.Collapsed)
+                Compact.SetVisibility(widget_visibility.Collapsed)
+            else if (CompactOn?):
+                Slate.SetVisibility(widget_visibility.Collapsed)
+                Compact.SetVisibility(widget_visibility.Visible)
+            else:
+                Slate.SetVisibility(widget_visibility.Visible)
+                Compact.SetVisibility(widget_visibility.Collapsed)
+
+    # Compact slate on / off (G10): the arena and the wrong-door retry hold turn it on so the world behind the slate reads. Takes
+    # effect at once on the question on screen, and stays for the next ones until turned off.
+    SetCompact(On:logic):void =
+        set CompactOn = On
+        ShowSlates()
 
     # The recap card: the SOLVED item stays on the slate with its right tile lit (Choices[RightIndex]) and the others
     # dimmed, Steps (the worked explanation) on the band under the tiles and Verdict ("CORRECT!  -1.8 s", green) on
@@ -842,26 +1188,28 @@ fnm_hud := class:
     ShowRecap(Prompt:string, Choices:[]string, RightIndex:int, Steps:string, Verdict:string):int =
         ClearRecap()
         ClearFeedbackNow()
-        if (Slate := MaybeSlate?):
-            Slate.SetVisibility(widget_visibility.Visible)
-        PromptText.SetText(FnmText(Prompt))
-        for (K -> Box : TileBoxes):
-            if (Value := TileValue[K], Choice := Choices[K]):
-                Value.SetText(FnmText(Choice))
-                Box.SetVisibility(widget_visibility.Visible)
-            else:
-                Box.SetVisibility(widget_visibility.Collapsed)
-        for (K -> Art : TileArt, TileColor := TileTints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K]):
+        set HasQuestion = true
+        SetPrompt(Prompt)
+        SetChoices(Choices)
+        ShowSlates()
+        for (K -> Art : TileArt, TileColor := TileTints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K], CArt := CompactArt[K], CLetter := CompactLetter[K], CValue := CompactValue[K], CGlow := CompactGlow[K]):
             if (K = RightIndex):
                 Glow.SetOpacity(0.7)
                 Letter.SetTextColor(FnmUi(NamedColors.White))
                 Value.SetTextColor(FnmUi(NamedColors.White))
+                CGlow.SetOpacity(0.7)
+                CLetter.SetTextColor(FnmUi(NamedColors.White))
+                CValue.SetTextColor(FnmUi(NamedColors.White))
             else:
                 Art.SetTint(FnmUi(Dimmed(TileColor, 0.3)))
                 Letter.SetTextColor(FnmUi(Dimmed(TileColor, 0.4)))
                 Value.SetTextColor(FnmUi(Dimmed(TileColor, 0.4)))
+                CArt.SetTint(FnmUi(Dimmed(TileColor, 0.3)))
+                CLetter.SetTextColor(FnmUi(Dimmed(TileColor, 0.4)))
+                CValue.SetTextColor(FnmUi(Dimmed(TileColor, 0.4)))
         SetOrCollapse(RecapSteps, Steps)
         SetOrCollapse(RecapVerdict, Verdict)
+        SetOrCollapse(CompactSteps, if (Steps = "") then Verdict else Steps)
         RecapGeneration
 
     # Takes the recap's steps and verdict off the slate and puts every tile back in its own colour, only if no newer
@@ -876,11 +1224,16 @@ fnm_hud := class:
         set RecapGeneration += 1
         SetOrCollapse(RecapSteps, "")
         SetOrCollapse(RecapVerdict, "")
-        for (K -> Art : TileArt, TileColor := TileTints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K]):
+        SetOrCollapse(CompactSteps, "")
+        for (K -> Art : TileArt, TileColor := TileTints[K], Letter := TileLetter[K], Value := TileValue[K], Glow := TileGlow[K], CArt := CompactArt[K], CLetter := CompactLetter[K], CValue := CompactValue[K], CGlow := CompactGlow[K]):
             Art.SetTint(FnmUi(TileColor))
             Letter.SetTextColor(FnmUi(TileColor))
             Value.SetTextColor(FnmUi(TileColor))
             Glow.SetOpacity(0.0)
+            CArt.SetTint(FnmUi(TileColor))
+            CLetter.SetTextColor(FnmUi(TileColor))
+            CValue.SetTextColor(FnmUi(TileColor))
+            CGlow.SetOpacity(0.0)
 
     Dimmed(Source:color, Factor:float):color =
         color{R := Source.R * Factor, G := Source.G * Factor, B := Source.B * Factor}
@@ -891,6 +1244,8 @@ fnm_hud := class:
         FeedbackText.SetVisibility(widget_visibility.Visible)
         FeedbackText.SetTextColor(FnmUi(TextColor))
         FeedbackText.SetText(FnmText(Message))
+        CompactFeedback.SetTextColor(FnmUi(TextColor))
+        SetOrCollapse(CompactFeedback, Message)
         FeedbackGeneration
 
     # Clears the feedback line only if nothing newer was shown since generation Generation.
@@ -902,6 +1257,7 @@ fnm_hud := class:
     ClearFeedbackNow():void =
         set FeedbackGeneration += 1
         SetOrCollapse(FeedbackText, "")
+        SetOrCollapse(CompactFeedback, "")
 
     # The verdict text, with its black backing (0.8 while there is text, 0 when the text is empty).
     SetVerdictText(Text:string):void =
@@ -983,12 +1339,74 @@ fnm_hud := class:
     SetStreak(Text:string):void =
         SetOrCollapse(StreakBig, Text)
 
+    # The shield indicator beside the streak line (G10): the shield texture and the word SHIELD while On (the player holds a
+    # shield), collapsed otherwise. Off by default.
+    SetShield(On:logic):void =
+        if (Shield := MaybeShield?):
+            Shield.SetVisibility(if (On?) then widget_visibility.Visible else widget_visibility.Collapsed)
+
+    # The brag grid under the finish board's medal line (G10; ShowResults' caller calls it right after ShowResults, HideResults and
+    # the next ShowResults take it off). Marks[K] is station K+1: 0 first-try right (green ring, check), 1 redeemed at the boss
+    # (amber ring, half disc), 2 missed (red ring, cross), 3 not reached (dim ring, empty). BossMark: 0 boss down (gold ring,
+    # check), 2 not down (red ring, cross), anything else dim. Flawless draws the FLAWLESS badge, NextGoal ("" = none) and Code
+    # ("" = none) are text lines. Up to BragMax stations; the tiles shrink past 10 and past 14 stations so the row stays under
+    # ResultsWrap.
+    ShowBragGrid(Marks:[]int, BossMark:int, Flawless:logic, NextGoal:string, Code:string):void =
+        Side := BragSide(Marks.Length)
+        # The goal line shares a row with the FLAWLESS badge; without the badge it has the whole card width (it wrapped at 400 px).
+        set BragGoal.WrapWidth = if (Flawless?) then BragGoalWrap else ResultsWrap
+        for (K -> Cell : BragCells, Art := BragArt[K], Mark := BragMark[K]):
+            if (State := Marks[K]):
+                Art.SetDesiredSize(vector2{X := Side, Y := Side})
+                Mark.SetDesiredSize(vector2{X := Side * 0.7, Y := Side * 0.7})
+                PaintBrag(Art, Mark, State, false)
+                Cell.SetVisibility(widget_visibility.Visible)
+            else:
+                Cell.SetVisibility(widget_visibility.Collapsed)
+        BragBossArt.SetDesiredSize(vector2{X := Side, Y := Side})
+        BragBossMark.SetDesiredSize(vector2{X := Side * 0.7, Y := Side * 0.7})
+        PaintBrag(BragBossArt, BragBossMark, BossMark, true)
+        if (Badge := MaybeFlawless?):
+            Badge.SetVisibility(if (Flawless?) then widget_visibility.Visible else widget_visibility.Collapsed)
+        BragFlawless.SetText(FnmText("FLAWLESS"))
+        SetOrCollapse(BragGoal, NextGoal)
+        SetOrCollapse(BragCode, if (Code = "") then "" else "Island code  {Code}")
+        if (Brag := MaybeBrag?):
+            Brag.SetVisibility(widget_visibility.Visible)
+
+    # The tile side for Count stations: the row (Count tiles + the boss tile, 6 px between, 22 px before the boss) fits ResultsWrap;
+    # 46 px at the usual 10 stations, down to 22 px at the director's 20.
+    BragSide(Count:int):float =
+        Cells := (Count + 1) * 1.0
+        Fit := (ResultsWrap - 22.0 - 6.0 * Cells) / Cells
+        if (Fit > 46.0) then 46.0 else if (Fit < 22.0) then 22.0 else Fit
+
+    # One brag tile: ring colour and mark picture for State (see ShowBragGrid); Boss swaps the first-try green for gold.
+    PaintBrag(Art:texture_block, Mark:texture_block, State:int, Boss:logic):void =
+        if (State = 0):
+            Art.SetTint(FnmUi(if (Boss?) then FnmSrgb(1.0, 0.78, 0.1) else FnmSrgb(0.2, 0.85, 0.25)))
+            Mark.SetImage(FNM_Art.T_fnm_check)
+            Mark.SetVisibility(widget_visibility.Visible)
+        else if (State = 1):
+            Art.SetTint(FnmUi(FnmSrgb(1.0, 0.72, 0.12)))
+            Mark.SetImage(FNM_Art.T_fnm_redeem)
+            Mark.SetVisibility(widget_visibility.Visible)
+        else if (State = 2):
+            Art.SetTint(FnmUi(FnmSrgb(0.95, 0.2, 0.15)))
+            Mark.SetImage(FNM_Art.T_fnm_cross)
+            Mark.SetVisibility(widget_visibility.Visible)
+        else:
+            Art.SetTint(FnmUi(FnmSrgb(0.3, 0.3, 0.34)))
+            Mark.SetVisibility(widget_visibility.Collapsed)
+
     # The boss line ("BOSS  ...  80%   -   your hits 1/5"); ClearBoss collapses it.
     SetBoss(Text:string):void =
         SetOrCollapse(BossText, Text)
+        SetOrCollapse(CompactBoss, Text)
 
     ClearBoss():void =
         SetOrCollapse(BossText, "")
+        SetOrCollapse(CompactBoss, "")
         if (Bar := MaybeBossBar?):
             Bar.SetVisibility(widget_visibility.Collapsed)
 
@@ -1070,7 +1488,7 @@ fnm_hud := class:
                 Block.SetText(FnmText(""))
                 Block.SetVisibility(widget_visibility.Collapsed)
         if (Feed := MaybeFeed?):
-            Feed.SetVisibility(if (FeedLines.Length > 0) then widget_visibility.Visible else widget_visibility.Collapsed)
+            Feed.SetVisibility(if (FeedLines.Length > 0, not ResultsUp?) then widget_visibility.Visible else widget_visibility.Collapsed)
 
     SetOrCollapse(Block:text_block, Text:string):void =
         Block.SetText(FnmText(Text))
@@ -1085,12 +1503,14 @@ fnm_hud := class:
     ClearQuestion():void =
         ClearRecap()
         StageText.SetText(FnmText(""))
-        PromptText.SetText(FnmText(""))
+        SetPrompt("")
         for (Value : TileValue):
             Value.SetText(FnmText(""))
+        for (Value : CompactValue):
+            Value.SetText(FnmText(""))
         ClearFeedbackNow()
-        if (Slate := MaybeSlate?):
-            Slate.SetVisibility(widget_visibility.Collapsed)
+        set HasQuestion = false
+        ShowSlates()
 
     # The finish board. Medal "GOLD" / "SILVER" / "BRONZE" shows that medal's picture and "<Medal> MEDAL"; "" collapses both
     # (the header's Volt stays). Rows: the session's top times, best first; OwnRow is the
@@ -1109,9 +1529,11 @@ fnm_hud := class:
         ResultsAccuracy.SetText(FnmText(AccuracyLine))
         ResultsBoardHead.SetText(FnmText(BoardHead))
         for (K -> Block : ResultsRows):
-            if (Row := Rows[K]):
+            # Slot K shows row K; the last shown slot shows the viewer's own row instead when it ranks below the rows shown.
+            Shown := if (K = ResultsRowsShown - 1, OwnRow >= ResultsRowsShown) then OwnRow else K
+            if (K < ResultsRowsShown, Row := Rows[Shown]):
                 Block.SetText(Row)
-                Block.SetTextColor(FnmUi(if (K = OwnRow) then NamedColors.Orange else NamedColors.White))
+                Block.SetTextColor(FnmUi(if (Shown = OwnRow) then NamedColors.Orange else NamedColors.White))
                 Block.SetVisibility(widget_visibility.Visible)
             else:
                 Block.SetText(FnmText(""))
@@ -1119,14 +1541,26 @@ fnm_hud := class:
         SetCountdown("")
         # The finish board has its own Volt (the header): a reaction card still up from the last answer goes.
         HideVolt()
+        # The brag grid belongs to ONE finish: the caller draws it after this call (ShowBragGrid), so a board without one (boss
+        # mode) never shows the last run's.
+        if (Brag := MaybeBrag?):
+            Brag.SetVisibility(widget_visibility.Collapsed)
         if (Results := MaybeResults?):
             Results.SetVisibility(widget_visibility.Visible)
+        set ResultsUp = true
+        DrawFeed()
+        if (FnmUiDebugBrag?):
+            ShowBragGrid(array{0, 0, 1, 0, 2, 0, 0, 3, 3, 3}, 0, true, "GOLD needs 9/10 - you: 8/10", "ABCD-1234-5678")
 
     # Volt's reaction card: the picture for Kind in the fixed spot (VoltCard) for VoltSeconds, picture only. A newer call swaps
     # the picture and restarts the timer; the director and boss mode pick the moment, this just draws it. Logs "FNM: volt <kind>"
     # so a play log proves the call happened.
     ShowVolt(Kind:fnm_volt):void =
         set VoltGeneration += 1
+        # The finish card docks to the same right edge (x 1180-1900, y 340-880) as Volt's reaction card (x 1720-1900, y 480-660), so
+        # no reaction draws while the board is up (ShowResults already took the last one off).
+        if (ResultsUp?):
+            return
         var Name : string = "go"
         if (Kind = fnm_volt.Thumbs):
             set Name = "thumbs"
@@ -1179,8 +1613,12 @@ fnm_hud := class:
         SetOrCollapse(ResultsCountdown, Text)
 
     HideResults():void =
+        if (Brag := MaybeBrag?):
+            Brag.SetVisibility(widget_visibility.Collapsed)
         if (Results := MaybeResults?):
             Results.SetVisibility(widget_visibility.Collapsed)
+        set ResultsUp = false
+        DrawFeed()
 
     # ---------------------------------------------------------------- skill picker (PROTOCOL 6b)
 

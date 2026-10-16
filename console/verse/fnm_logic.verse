@@ -127,3 +127,42 @@ FnmMedal(FirstTryCorrect:int, Total:int)<transacts>:string =
     if (FirstTryCorrect >= Total) then "GOLD"
     else if (FirstTryCorrect * 10 >= Total * 7) then "SILVER"
     else "BRONZE"
+
+# G10 (briefs/g10/D_director.md): a station's mark for the brag grid (fnm_hud ShowBragGrid): right first try, redeemed at
+# the boss (half credit), missed (right only after a miss), not reached this run.
+FnmMarkFirstTry : int = 0
+FnmMarkRedeemed : int = 1
+FnmMarkMissed : int = 2
+FnmMarkUnreached : int = 3
+
+# Medal v2 by accuracy in HALF answers (a first-try right answer is 2, a station redeemed at the boss 1), today's gates
+# kept (Aaron has played with them): GOLD every answer first try (2 x Total), SILVER 70% or more, else BRONZE. A redeemed
+# station can lift a run to SILVER, never to GOLD.
+FnmMedalHalves(Halves:int, Total:int)<transacts>:string =
+    if (Halves >= 2 * Total) then "GOLD"
+    else if (Halves * 10 >= Total * 14) then "SILVER"
+    else "BRONZE"
+
+# The accuracy gate a medal needs, in half answers (GOLD 2 x Total, SILVER ceil(70% of Total) answers: FnmMedalRule's
+# floor); 0 for BRONZE (a finish).
+FnmMedalNeeds(Medal:string, Total:int)<transacts>:int =
+    if (Medal = "GOLD") then 2 * Total
+    else if (Medal = "SILVER") then 2 * FnmDiv(Total * 7 + 9, 10)
+    else 0
+
+# Half answers as the board writes them: 17 -> "8.5", 16 -> "8".
+FnmHalvesCopy(Halves:int)<transacts>:string =
+    Whole := FnmDiv(Halves, 2)
+    if (Halves - 2 * Whole > 0) then "{Whole}.5" else "{Whole}"
+
+# The medal one tier down (a missed time gate): GOLD -> SILVER -> BRONZE, BRONZE stays.
+FnmMedalDown(Medal:string)<transacts>:string =
+    if (Medal = "GOLD") then "SILVER" else "BRONZE"
+
+# True when Part occurs in Text (case-sensitive).
+FnmContains(Text:string, Part:string)<transacts>:logic =
+    var Found : logic = false
+    if (Part.Length > 0):
+        for (I := 0..Text.Length - Part.Length, Piece := Text.Slice[I, I + Part.Length], Piece = Part):
+            set Found = true
+    Found

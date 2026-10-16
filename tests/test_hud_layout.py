@@ -55,6 +55,7 @@ def test_png_sizes_and_format():
     expected = {"fnm_slate.png": (1024, 256), "fnm_tile.png": (560, 240), "fnm_logo.png": (512, 284),
                 "fnm_check.png": (256, 256), "fnm_cross.png": (256, 256),
                 "fnm_banner.png": (1024, 256), "fnm_nuke.png": (256, 256),
+                "fnm_cell.png": (128, 128), "fnm_shield.png": (256, 256), "fnm_redeem.png": (256, 256),
                 "fnm_medal_gold.png": (256, 256), "fnm_medal_silver.png": (256, 256),
                 "fnm_medal_bronze.png": (256, 256), "fnm_volt.png": (256, 256),
                 **{f"fnm_volt_{k}.png": (256, 256) for k in ("wag", "thumbs", "fire", "shocked", "go", "think")}}
@@ -175,17 +176,37 @@ def test_recap_card_api():
 
 
 def test_slate_height_is_stable_between_question_and_recap():
-    """The caption row and the band under the tiles have fixed minimum heights (the verdict is taller than the
-    caption, the steps up to two lines), so the slate does not jump when a recap opens (it moved 225 <-> 335 px)."""
+    """The caption row, the prompt row and the band under the tiles have fixed minimum heights, so the slate does not jump when a
+    recap opens or a long prompt / the shield or streak line appears. Frames 2026-10-14 (H): a plain question and a recap
+    with one steps line, the shield and a streak line all measured a slate bottom of ~360 px (the old band of 60 grew it from
+    345 to 360)."""
     src = ui_src()
-    assert "CaptionHeight : float = 34.0" in src and "BandHeight : float = 60.0" in src
-    assert "Y := CaptionHeight" in src and "Y := BandHeight" in src
-    # two 24 px lines of steps (1.2 x line height) fit the band
-    assert 2 * 24 * 1.2 <= 60
-    # the steps, feedback, streak and boss lines all live in the band
+    assert "CaptionHeight : float = 34.0" in src and "BandHeight : float = 76.0" in src
+    assert "Y := CaptionHeight" in src and "Y := BandHeight" in src and "Y := PromptHeight" in src
+    # one 22 px steps line, then the streak / shield line (36 px text, 40 px shield art) fit the band
+    k = 1.2
+    assert k * text_size("RecapSteps") + 4 + max(k * text_size("StreakBig"), desired_size("ShieldArt")[1]) <= verse_float("BandHeight")
+    # the steps, feedback, streak (with the shield beside it) and boss lines all live in the band
     band = src.split("Y := BandHeight}}", 1)[1].split("Padding := margin{Top := 6.0}", 1)[0]
-    for widget in ("RecapSteps", "FeedbackText", "StreakBig", "BossText"):
+    for widget in ("RecapSteps", "FeedbackText", "ShieldBadge", "StreakBig", "BossText"):
         assert f"Widget := {widget}" in band, widget
+
+
+def test_a_long_prompt_stays_on_one_line_and_the_prompt_row_has_a_fixed_height():
+    """A prompt is up to 60 chars (PROTOCOL 5 rule 6). At 46 px a 60-char prompt wrapped to two lines and grew the slate ~58 px
+    over the lintel letters (GOALS G7 1a); past PromptShortMax chars it is drawn in the smaller PromptLong block, one line
+    either way, in a row held to PromptHeight by a spacer. 0.5 em per glyph is a loose width (measured 22 px/char at 46 px and
+    17 px/char at 36 px)."""
+    src = ui_src()
+    short = verse_float("PromptShortMax")
+    assert short * 0.5 * text_size("PromptText") <= verse_float("WrapAt")
+    assert 60 * 0.5 * text_size("PromptLong") <= verse_float("WrapAt")
+    assert text_size("PromptLong") < text_size("PromptText")
+    assert 1.2 * text_size("PromptText") <= verse_float("PromptHeight")
+    assert "if (Prompt.Length > PromptShortMax):" in src
+    prompt_row = src.split("Y := PromptHeight}}", 1)[1].split("Padding := margin{Top := 4.0}", 1)[0]
+    assert "Widget := PromptText" in prompt_row and "Widget := PromptLong" in prompt_row
+    assert "SetPrompt(Prompt)" in src and src.count("SetPrompt(") >= 4      # ShowQuestion, ShowRecap, ClearQuestion + the definition
 
 
 # ---------------------------------------------------------------- copy
@@ -243,12 +264,16 @@ def test_textures_are_tinted_back_down():
     texture_blocks (slate, banner, verdict, the finish board's Volt and medal, Volt's reaction card, the picker's logo) get the
     corrected white as their tint; the tiles take their own tint. Every texture_block in the file is one of these or a tile."""
     src = ui_src()
-    plain = {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard", "LogoArt"}
+    plain = {"SlateArt", "BannerArt", "VerdictImage", "VoltArt", "MedalArt", "VoltCard", "LogoArt",
+             "CompactSlateArt", "ShieldArt", "BragBossArt", "BragBossMark"}
     for art in plain:
         assert f"{art}.SetTint(FnmUi(NamedColors.White))" in src
     # no texture_block escapes the rule: a new one must be added here (and tinted) or it draws 3.86x too bright
     assert set(re.findall(r"^    (\w+) : texture_block = ", src, re.M)) == plain
     assert "    TileArt : []texture_block = array:" in src and "Art.SetTint(FnmUi(TileColor))" in src
+    # the compact tiles are tinted per tile, the brag tiles and marks per state (PaintBrag) or white when built in Attach
+    assert "    CompactArt : []texture_block = array:" in src and "CArt.SetTint(FnmUi(TileColor))" in src
+    assert "                Art.SetTint(FnmUi(NamedColors.White))" in src and "                Mark.SetTint(FnmUi(NamedColors.White))" in src
     # white stays white: 1.0 x 0.259 x 3.86 ~ 1.0
     assert abs(1.0 * 0.259 * 3.86 - 1.0) < 0.01
 
@@ -256,31 +281,53 @@ def test_textures_are_tinted_back_down():
 # ---------------------------------------------------------------- feed vs finish board (G9 H, follow-up 2)
 
 def verse_float(name):
-    return float(re.search(r"^    " + name + r" : float = ([\d.]+)$", ui_src(), re.M).group(1))
+    return float(re.search(r"^    " + name + r" : (?:float|int) = ([\d.]+)$", ui_src(), re.M).group(1))
 
 
-def test_feed_and_finish_board_never_overlap():
-    """Frame d3/f_135 (2026-10-13): the feed's record line ran from x 1370 into the finish board (right edge 1460). The board
-    is centred and its lines wrap at ResultsWrap (+ 2 x 40 px padding); the feed hangs 20 px in from the right edge and wraps
-    at FeedWrap (+ 2 x 20 px padding). The widest board and the widest feed panel must leave a gap, and the feed stays
-    under the minimap (x 1603+, to y ~335) and under the slate (bottom y ~346) at Top 358."""
+def test_finish_card_clears_the_minimap_the_world_board_and_the_hotbar():
+    """G10 H: the finish board is a card docked to the RIGHT edge under the minimap (it was centred, x 460-1460, y 130-860, and hid
+    the world ALL-TIME screen the player is stood in front of at the podium for its 10 s). Frames 2026-10-14: the card reads at
+    x 1210-1900, y 340-880 (one time row) and the world screen (x ~500-1330 in the arrival shot) stays readable. The public feed
+    hangs from the same corner (x 1480+, y 358+), so it collapses while the board is up (ResultsUp). The card must start under
+    the minimap (x 1603+, to y ~335), end above the hotbar (y ~910) even with every optional line on, and sit right of the
+    no-podium CLOSE / NEW SKILL buttons (centred, y 875)."""
     src = ui_src()
     screen = 1920
-    board_half = (verse_float("ResultsWrap") + 2 * 40) / 2
-    board_right = screen / 2 + board_half
-    feed_left = screen - 20 - (verse_float("FeedWrap") + 2 * 20)
-    assert feed_left - board_right >= 16, (board_right, feed_left)
-    # the paddings the arithmetic assumes
-    assert "Padding := margin{Left := 40.0, Top := 28.0, Right := 40.0, Bottom := 28.0}" in src
-    assert "Padding := margin{Left := 20.0, Top := 8.0, Right := 20.0, Bottom := 10.0}" in src
-    assert "Offsets := margin{Left := -20.0, Top := 358.0, Right := 0.0, Bottom := 0.0}" in src
-    # every board line and every feed row actually wraps at those widths
-    # (the headline and the medal word sit in the header row beside Volt and the medal: they wrap at HeaderWrap, below)
-    assert src.count("WrapWidth = ResultsWrap") == 7 and "set Row.WrapWidth = FeedWrap" in src
-    assert "set Row.WrapWidth = ResultsWrap" in src
+    slot = src.split("                        Widget := Results\n", 1)[1].split("SizeToContent", 1)[0]
+    assert "Anchors := anchors{Minimum := vector2{X := 1.0, Y := 0.0}, Maximum := vector2{X := 1.0, Y := 0.0}}" in slot
+    assert "Alignment := vector2{X := 1.0, Y := 0.0}" in slot
+    right = float(re.search(r"Offsets := margin\{Left := (-?[\d.]+), Top := ([\d.]+)", slot).group(1))
+    top = float(re.search(r"Offsets := margin\{Left := (-?[\d.]+), Top := ([\d.]+)", slot).group(2))
+    assert "Padding := margin{Left := 30.0, Top := 14.0, Right := 30.0, Bottom := 14.0}" in src
+    left_edge = screen + right - (verse_float("ResultsWrap") + 2 * 30)
+    assert left_edge >= 1150, left_edge                      # clear of the world screen's text (x ~800-1075) and the buttons
+    assert 960 + 235 <= left_edge                            # the buttons' row (CLOSE + NEW SKILL, ~470 px wide) ends left of the card
+    assert top >= 335 + 5                                    # under the minimap and its player-count row
+    # the height estimate (line height 1.24 x font size; calibrated: one row, no code line = 878 against 880 measured), with every
+    # optional line on and every row slot full
+    k = 1.24
+    header = max(desired_size("VoltArt")[1], k * (text_size("ResultsTitle") + text_size("ResultsMedal")), desired_size("MedalArt")[1])
+    lines = sum(k * text_size(f) for f in ("ResultsTime", "ResultsBest", "ResultsRecord", "ResultsAccuracy"))
+    brag = 6 + verse_float_expr("46.0") + k * 20 + 8 + max(k * text_size("BragFlawless") + 6, k * text_size("BragGoal")) + 4 + k * text_size("BragCode")
+    board = 4 + k * text_size("ResultsBoardHead") + int(verse_float("ResultsRowsShown")) * k * 26 + 4 + k * text_size("ResultsCountdown")
+    bottom = top + 14 + header + lines + brag + board + 14
+    assert bottom <= 915, bottom                             # the hotbar's top edge is y ~910; its first slot starts at x 1420
+    # the feed gives way to the board
+    assert "if (FeedLines.Length > 0, not ResultsUp?)" in src
+    assert "set ResultsUp = true" in src and "set ResultsUp = false" in src
+    # every board line wraps at ResultsWrap (the headline and the medal word sit in the header row: HeaderWrap; the brag goal beside the
+    # FLAWLESS badge: BragGoalWrap)
+    assert src.count("WrapWidth = ResultsWrap") == 8 and "set Row.WrapWidth = ResultsWrap" in src and "set Row.WrapWidth = FeedWrap" in src
     assert "set ResultsTitle.WrapWidth = HeaderWrap" in src and "set ResultsMedal.WrapWidth = HeaderWrap" in src
-    # the board still fits its widest agreed line (the accuracy line is ~917 px at 30 px)
-    assert verse_float("ResultsWrap") >= 917
+    assert "set BragGoal.WrapWidth = BragGoalWrap" in src
+    # the widest fixed line (the accuracy line, 24 px) fits: measured 570 px of 640 in play
+    assert len("9/10 first try - GOLD 10/10, SILVER 7+ - streak 9") * 0.52 * text_size("ResultsAccuracy") <= verse_float("ResultsWrap")
+    # only ResultsRowsShown rows are drawn; the viewer's own row takes the last slot when it ranks lower
+    assert "K < ResultsRowsShown" in src and "OwnRow >= ResultsRowsShown" in src
+
+
+def verse_float_expr(text):
+    return float(text)
 
 
 # ---------------------------------------------------------------- import_art textures(): keep what exists (G9 H, follow-up 3)
@@ -446,12 +493,11 @@ def text_size(field):
 def test_finish_board_header_holds_volt_and_the_medal_without_overlapping_text():
     """Volt (left) and the medal (right) are IN the header row with the headline over the medal word between them, so they
     cannot sit on a text line by construction; the row's width is VoltArt + gap + HeaderWrap + gap + MedalArt and must stay
-    inside ResultsWrap, the content width every other board line already fits (so the board is no wider than before and the
-    feed / minimap clearances in test_feed_and_finish_board_never_overlap still hold)."""
+    inside ResultsWrap, the content width every other card line fits (the card is 640 + 2 x 30 wide since G10)."""
     src = ui_src()
     volt, medal = desired_size("VoltArt"), desired_size("MedalArt")
     assert volt[0] == volt[1] and medal[0] == medal[1]            # square PNGs drawn square, never stretched
-    assert 180 <= volt[0] <= 220 and 150 <= medal[0] <= 180       # brief H2
+    assert 80 <= volt[0] <= 120 and 80 <= medal[0] <= 120         # G10: the docked card is narrower, the art smaller
     wrap, gap = verse_float("HeaderWrap"), verse_float("HeaderGap")
     assert volt[0] + gap + wrap + gap + medal[0] <= verse_float("ResultsWrap")
     # the words in the middle column fit their wrap (a loose 0.65 em per glyph: the widest are VICTORY! and SILVER MEDAL)
@@ -467,23 +513,15 @@ def test_finish_board_header_holds_volt_and_the_medal_without_overlapping_text()
         assert f"Widget := {widget}" not in lines, widget
 
 
-def test_finish_board_stays_above_the_finish_buttons():
-    """CLOSE / NEW SKILL (a map without a podium) hang from 0.81 of the screen height; the taller header (Volt) must not push
-    a board with all five time rows into them. Line height 1.24 x font size, calibrated on the 2026-10-13 play frame: a
-    one-row board with a 200 px Volt measured 592 px tall (y 130-722); the estimate for that board is 593. A 200 px Volt
-    with five rows came out at ~881, over the buttons' 875, hence 180."""
+def test_finish_board_does_not_reach_the_finish_buttons():
+    """CLOSE / NEW SKILL (a map without a podium) are centred and hang from 0.81 of the screen height (y 875); the docked card
+    (x >= 1200) sits to their right, so it cannot overlap them whatever its height (see
+    test_finish_card_clears_the_minimap_the_world_board_and_the_hotbar for the height)."""
     src = ui_src()
-    k = 1.24
-    header = max(desired_size("VoltArt")[1], k * (text_size("ResultsTitle") + text_size("ResultsMedal")), desired_size("MedalArt")[1])
-    body = k * sum(text_size(f) for f in ("ResultsTime", "ResultsBest", "ResultsRecord", "ResultsAccuracy", "ResultsBoardHead"))
-    body += 18 + 5 * k * 32 + k * text_size("ResultsCountdown") + 18          # board head's and countdown's top paddings, 5 rows
-    slot = src.split("                        Widget := Results\n", 1)[1].split("SizeToContent", 1)[0]
-    top = float(re.search(r"Offsets := margin\{Left := 0\.0, Top := ([\d.]+)", slot).group(1))
-    bottom = top + 28 + header + body + 28
     buttons_slot = src.split("                            Widget := stack_box:\n                                Orientation := orientation.Horizontal\n"
                              "                                Slots := array:\n                                    stack_box_slot{Widget := CloseButton", 1)[1]
-    buttons = float(re.search(r"Anchors := anchors\{Minimum := vector2\{X := 0\.5, Y := ([\d.]+)\}", buttons_slot).group(1)) * 1080
-    assert bottom <= buttons - 8, (bottom, buttons)
+    assert "Anchors := anchors{Minimum := vector2{X := 0.5, Y := 0.81}" in buttons_slot
+    assert "Alignment := vector2{X := 0.5, Y := 0.0}" in buttons_slot
 
 
 def test_show_results_picks_the_medal_texture_for_the_medal_word():
@@ -640,3 +678,111 @@ def test_logo_sits_over_the_grade_heading_and_the_picker_fits_1080p():
         assert top >= PICKER_TOP_MIN and bottom <= PICKER_BOTTOM_MAX, (step, top, bottom)
     # the logo is no wider than the grade step's widest line (the BOSS BATTLE caption, ~575 px), so the panel keeps its width
     assert size[0] <= 575
+
+
+# ---------------------------------------------------------------- G10 H: the director's seam, the shield, the compact slate, the brag grid
+
+def test_g10_seam_signatures_are_exactly_the_agreed_ones():
+    """briefs/g10/TEAM.md fixes these three names and parameter lists: the director calls them."""
+    src = ui_src()
+    for sig in ("SetShield(On:logic):void =", "ShowBragGrid(Marks:[]int, BossMark:int, Flawless:logic, NextGoal:string, Code:string):void =",
+                "SetCompact(On:logic):void ="):
+        assert "    " + sig in src, sig
+    # nothing an existing caller uses changed its signature
+    for sig in ("ShowQuestion(StageLine:string, Prompt:string, Choices:[]string):void =",
+                "ShowRecap(Prompt:string, Choices:[]string, RightIndex:int, Steps:string, Verdict:string):int =",
+                "ShowFeedback(Message:string, TextColor:color):int =", "SetStreak(Text:string):void =", "SetBoss(Text:string):void =",
+                "ClearBoss():void =", "ClearQuestion():void =", "HideResults():void =", "ShowFinishButtons(WithChange:logic, Again:logic):void =",
+                "ShowResults(Title:string, Medal:string, MedalColor:color, TimeLine:string, BestLine:string, RecordLine:message, "
+                "AccuracyLine:string, BoardHead:string, Rows:[]message, OwnRow:int):void ="):
+        assert "    " + sig in src, sig
+
+
+def test_g10_debug_constants_ship_false():
+    src = ui_src()
+    for name in ("FnmUiDebugBrag", "FnmUiDebugCompact", "FnmUiDebugShield"):
+        assert re.search(r"^" + name + r" : logic = false$", src, re.M), name
+
+
+def test_shield_indicator_sits_beside_the_streak_line_and_is_off_by_default():
+    src = ui_src()
+    assert "FNM_Art.T_fnm_shield" in src
+    # the badge and StreakBig share ONE horizontal row of the band, the badge first (left of the streak text)
+    row = src.split("Widget := ShieldBadge", 1)[1]
+    assert row.index("Widget := StreakBig") < 700
+    assert "ShieldBadge.SetVisibility(widget_visibility.Collapsed)" in src
+    body = src.split("    SetShield(On:logic):void =", 1)[1].split("\n\n", 1)[0]
+    assert "Shield.SetVisibility(if (On?) then widget_visibility.Visible else widget_visibility.Collapsed)" in body
+
+
+def test_compact_slate_is_smaller_and_higher_and_keeps_the_lesson_and_the_boss_line():
+    src = ui_src()
+    full = src.split("                        Widget := Slate\n", 1)[1].split("SizeToContent", 1)[0]
+    compact = src.split("                        Widget := CompactSlate\n", 1)[1].split("SizeToContent", 1)[0]
+    full_top = float(re.search(r"Top := ([\d.]+)", full).group(1))
+    compact_top = float(re.search(r"Top := ([\d.]+)", compact).group(1))
+    assert compact_top < full_top
+    # prompt + one tile row + (steps / lesson / boss lines): measured bottom y ~150 bare and ~170 with the lesson line
+    k = 1.24
+    height = compact_top + 6 + 8 + k * text_size("CompactStage") + k * text_size("CompactPrompt") + 8 + desired_size_array("CompactArt")[1] + 12 + 6
+    assert height <= 180, height          # the stage line is 20 px; the titan's horns top out at y ~175 in the arena shot, its neck far lower
+    assert "SetOrCollapse(CompactStage, StageLine)" in src
+    assert height + 2 * k * text_size("CompactFeedback") + k * text_size("CompactSteps") + k * text_size("CompactBoss") <= 300      # worst case, all four extra lines at once
+    # the four tiles and the longest lesson line fit the slate's width
+    tile_w = desired_size_array("CompactArt")[0]
+    assert 4 * (tile_w + 12) <= verse_float("CompactWrap") + 24 + 24
+    # a tile holds its letter and a 14-char choice side by side (0.52 em per glyph: the accuracy line measured 0.48-0.5, 12 px gap)
+    assert 0.6 * text_size_in("CompactLetter") + 12 + 14 * 0.52 * text_size_in("CompactValue") <= tile_w
+    # the lesson and the recap steps are mirrored onto it, so a kid still sees WHY (D's note, 2026-10-14 20:15)
+    for needle in ("SetOrCollapse(CompactFeedback, Message)", "SetOrCollapse(CompactFeedback, \"\")", "SetOrCollapse(CompactSteps, \"\")",
+                   "SetOrCollapse(CompactBoss, Text)", "SetOrCollapse(CompactBoss, \"\")"):
+        assert needle in src, needle
+    # exactly one of the two slates is shown for a question on screen; none otherwise
+    show = src.split("    ShowSlates():void =", 1)[1].split("\n\n", 1)[0]
+    assert "if (not HasQuestion?):" in show and "else if (CompactOn?):" in show
+    assert "set HasQuestion = false" in src and src.count("set HasQuestion = true") == 2
+
+
+def desired_size_array(name):
+    block = re.search(r"^    " + name + r" : \[\]texture_block = array:\n(.*?)\n    \w", ui_src(), re.M | re.S).group(1)
+    x, y = re.search(r"DefaultDesiredSize := vector2\{X := ([\d.]+), Y := ([\d.]+)\}", block).groups()
+    return float(x), float(y)
+
+
+def text_size_in(array_name):
+    block = re.search(r"^    " + array_name + r" : \[\]text_block = array:\n(.*?)\n    \w", ui_src(), re.M | re.S).group(1)
+    return float(re.search(r"DefaultTextSize := ([\d.]+)", block).group(1))
+
+
+def test_brag_grid_row_fits_the_card_for_every_station_count_and_maps_the_four_marks():
+    src = ui_src()
+    ws = verse_float("ResultsWrap")
+    for stations in (1, 10, 14, 20):                         # the director allows 20
+        cells = stations + 1
+        fit = (ws - 22.0 - 6.0 * cells) / cells
+        side = 46.0 if fit > 46.0 else 22.0 if fit < 22.0 else fit
+        assert cells * (side + 6.0) + 22.0 <= ws + 0.001 or side == 22.0, (stations, side)
+        assert side >= 22.0
+    assert "BragMax : int = 20" in src
+    assert "Fit := (ResultsWrap - 22.0 - 6.0 * Cells) / Cells" in src
+    paint = src.split("    PaintBrag(Art:texture_block", 1)[1].split("\n\n", 1)[0]
+    assert "if (State = 0):" in paint and "FNM_Art.T_fnm_check" in paint
+    assert "else if (State = 1):" in paint and "FNM_Art.T_fnm_redeem" in paint
+    assert "else if (State = 2):" in paint and "FNM_Art.T_fnm_cross" in paint
+    # every ring colour goes through FnmUi, and the boss tile is gold where a station is green
+    assert paint.count(".SetTint(FnmUi(") == 4 and "FnmSrgb(1.0, 0.78, 0.1)" in paint
+    show = src.split("    ShowBragGrid(", 1)[1].split("\n\n", 1)[0]
+    for needle in ("BragSide(Marks.Length)", "PaintBrag(BragBossArt, BragBossMark, BossMark, true)", "SetOrCollapse(BragGoal, NextGoal)",
+                   "\"Island code  {Code}\"", "Flawless?", "MaybeBrag?"):
+        assert needle in show, needle
+    # the grid belongs to ONE finish: ShowResults and HideResults take it off
+    assert src.split("    ShowResults(", 1)[1].split("\n\n", 1)[0].count("Brag.SetVisibility(widget_visibility.Collapsed)") == 1
+    assert src.split("    HideResults():void =", 1)[1].split("\n\n", 1)[0].count("Brag.SetVisibility(widget_visibility.Collapsed)") == 1
+
+
+def test_brag_art_is_drawn_deterministically_and_the_marks_are_distinct(tmp_path):
+    import numpy  # noqa: F401  (the new PNGs are drawn with it)
+    for out in ("a", "b"):
+        subprocess.run([sys.executable, str(ROOT / "tools" / "make_hud_art.py"), str(tmp_path / out)], check=True, capture_output=True)
+    for name in ("fnm_cell.png", "fnm_shield.png", "fnm_redeem.png"):
+        assert (tmp_path / "a" / name).read_bytes() == (tmp_path / "b" / name).read_bytes() == (ART / name).read_bytes(), name
