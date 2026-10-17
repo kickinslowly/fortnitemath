@@ -49,6 +49,7 @@ Layout: `maps/starter/LAYOUT.md`. To build by hand instead, per station:
 |---|---|---|
 | **Trigger** (`PID_Device_Trigger`, not the legacy one) | 2–4, one per door, in the vestibule just past the door | *Visible in Game* off, *Reset Delay* 0, unlimited triggers, vehicles/water/physics off |
 | **Barrier** (`PID_Device_Barrier`), optional | one per door, across the far end of its vestibule | *Invisible To Ignored Players* on, *Collide With Camera* off. Without barriers a right answer teleports to the next entry |
+| **Key Lock** (`PID_CP_Devices_KeyLock_V2`), optional | one per door, on the door prop (*Lockable Object* = that door) | *Initial Door Position* Closed, *Starts Locked* Unlocked (E still opens), *Visible During Game* off. The director shuts every door at a run start and the next station's doors as a player advances; without locks a door someone opened stays open for everyone |
 | **Teleporter** — station entry | 1 | *Teleporter Group* / *Target Group* = None (it is only a destination) |
 | Door labels A–D | per door | Static billboards. A is on the player's LEFT when facing the doors. |
 
@@ -68,6 +69,8 @@ panel add a **Verse Tag Markup** component and set its tags:
 | Station N entry teleporter | `fnm_station_NN` + `fnm_entry` |
 | Station N door trigger | `fnm_station_NN` + `fnm_door_a` / `_b` / `_c` / `_d` |
 | Station N door barrier | the same two tags as that door's trigger |
+| Station N door lock | the same two tags as that door's trigger |
+| Run-start loadout trigger (an Item Granter with *Clear Inventory* bound to it: pistol + ammo, bag wiped first) | `fnm_loadout_reset` (respawns use `fnm_loadout`, *Keep All*) |
 | Finish teleporter | `fnm_finish` |
 | Boss arena entry teleporter | `fnm_boss` + `fnm_entry` |
 | Boss arena answer-pad trigger | `fnm_boss` + `fnm_door_a` / `_b` / `_c` / `_d` |

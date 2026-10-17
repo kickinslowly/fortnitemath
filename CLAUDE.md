@@ -124,8 +124,10 @@ before UEFN work. Project-specific:
   fires at the player who earned it, so one client sees the warning, the effect, the immunity and a shield block). Not
   hooks but ship settings: `StrikesOn` true, `MedalTimeGates` false (`GoldParSeconds` / `SilverParSeconds` 0: no par data
   yet; the analytics devices collect it), `IslandCode` "" (the brag card's code line). `fnm_ui.verse`'s `FnmUiDebugBrag`,
-  `FnmUiDebugCompact`, `FnmUiDebugShield` ship false. Drive them with
-  `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
+  `FnmUiDebugCompact`, `FnmUiDebugShield` ship false. Set the director's hooks on the placed device with
+  `tools/hooks.py Name=value ...` (no Verse edit or BuildAll; `--ship` puts every hook back; no arguments reads them), then
+  drive the session with `tools/playtest.py --after "FNM: debug door" --keys W:0.8,E:0.3,W:2.5` (`W+SPACE:2` runs and jumps).
+  Put the hooks back to ship values before saving the level.
 - BOSS BATTLE mode (spec `BOSS_MODE.md`, runtime `console/verse/fnm_bossmode.verse`): its own arena east of the course,
   built by `tools/build_bossmode.py` (idempotent via `fnm_bossmode`; Verse tags `fnm_bm_*`; does not depend on the course,
   so no rerun after a course rebuild; `--boss` re-places only the platform, the hidden Megabrute, the Magma Titan and the cannon beams, BOSS_MODE.md §15/§15b; the titan's Meshy art needs `python tools/import_boss.py` once per UEFN project). It is a round colosseum: `tools/build_colosseum.py` (tag `fnm_bm_colosseum`) adds the

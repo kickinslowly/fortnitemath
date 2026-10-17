@@ -27,6 +27,9 @@ A right door opens that door's barrier for that player alone (`barrier_device.Ad
 barrier turns invisible to them), so they run on into the next hallway without stopping. It stays open for
 them; walking back through is harmless. A wrong door fires a random penalty from the director's pool, then
 puts them back at their hallway's entry. The finish hallway ends in a wall with a FINISH! board.
+The door props themselves are shared: one a player opened stays open for everyone, so each door carries an invisible,
+unlocked Key Lock (`build_course.py --locks-only`, 2026-10-16) and the director closes every door when a run starts and
+the next station's four doors as a player advances (G11).
 
 ## Connectors (2026-10-04)
 Aaron: "hallways sometimes up stairs, down stairs, winding to left, winding to right, sometimes straight", speed
