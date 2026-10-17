@@ -34,7 +34,10 @@ before UEFN work. Project-specific:
   `--keys` clicks the game forward — ask first if Aaron may
   be in another app), `tools/burst.py` (PrintWindow burst of N frames once a director line appears; the editor log can lag
   ~10 s, so `playtest.py --frames` fires late: start a burst on an early line and match frames to log times by file time),
-  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`), `tools/build_decor.py`
+  `tools/build_rigs.py` (penalty props and effect devices; idempotent via `fnm_rigs`; `--loadout-only` re-places only the two
+  loadout trigger + granter pairs: `fnm_loadout` (Keep All, Only if Not Owned: respawns) and `fnm_loadout_reset` (Clear
+  Inventory, Always: fired by the director's `ResetLoadout` at every run start, so a new run never carries the last run's
+  weapons; granter `grantBehavior` values: Clear Inventory | Clear Items | Clear Resources | Keep All)), `tools/build_decor.py`
   (station numbers, torches, chalkboards, plants, finish "100"; sky digits off since 2026-10-13 (`SKY_DIGITS`, the volcano owns
   the sky; `--remove-sky` clears placed ones); idempotent via `fnm_decor`, reads
   geometry from the course actors, rerun after a course rebuild), `tools/build_finish.py` (victory area: all-time screen
@@ -84,10 +87,17 @@ before UEFN work. Project-specific:
   arches, titanpeak and landmarks (`--on-podium`) after a course rebuild, `--doors-only` (swap the door
   props in place, repaint them with their letter textures; needs `python tools/import_art.py signs` once), `--triggers-only` (refit the vestibule and arena pad triggers in place with `trigger_fit`: a
   trigger senses only its StepBox, so never size one at 600 cm per unit scale; rerun after changing `TRIGGER_DEPTH`,
-  `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
+  `VEST_TRIGGER_H`, `PAD_SIZE` or `PAD_H`), `--locks-only` (a Key Lock device per door, `PID_CP_Devices_KeyLock_V2` bound to its door by
+  `lockableObject`, unlocked, closed at start, invisible: the director's `CloseAllDoors` / `CloseDoors` shut the doors at every
+  run start and for the station a player is sent on to, because a door prop someone opened stays open for everyone; the
+  catalog's `PID_CP_Devices_LockDevice` is the Conditional Button, not a door lock; PlaceDevice reports a Blueprint error for
+  the lock but the actor is placed; rerun after a course rebuild), `--ice-only` (re-apply the ice device's settings: `ICE_DEVICE` / `ICE_FEEL` / `ICE_COMMON`; writes
   one key per call, then saves — a combined write silently kept the old value, and only a save refreshes the device's
   options cache), `tools/build_island.py` (multiplayer island settings, extra spawn pads, `bCanBeDamaged` off on
-  gallery props; `--check` reports; `--time HourNN` sets the locked time of day), `tools/replace_mesh.py` (`--audit`: every
+  gallery props; `--check` reports; `--time HourNN` sets the locked time of day; `--settings` applies SETTINGS alone and saves: since 2026-10-16
+  `publishedIslandCodeDisplay` Off, because the published code watermark draws the creator name + code + version in the compass
+  slot, top centre, under the slate (seen on the Xbox, never in an editor session); write that enum alone, the legacy bool
+  flips it back), `tools/replace_mesh.py` (`--audit`: every
   project mesh's LOD0 vertices against UEFN's 30,000 cap, a validator Warning; `<mesh> <fbx>` swaps a placed mesh for a new FBX
   in place, keeping its actors, material and collision state), `tools/simplify_glb.py` (meshopt, `tools/meshopt/`, needs node:
   the Meshy importers run every GLB through it, a GLB over the cap is simplified to ~27k UE vertices first). Guard weapons per station: `WEAPONS` in `tools/build_guards.py` (the ids the

@@ -21,6 +21,9 @@ fnm_pp_dizzy := class(tag){}
 fnm_penalty_cam := class(tag){}
 # Hidden trigger bound to the starting-loadout item granter (tools/build_rigs.py).
 fnm_loadout := class(tag){}
+# Hidden trigger bound to the run-start granter (tools/build_rigs.py): the same pistol, but it CLEARS the inventory first,
+# so a new run (Pick, NEW RACE, boss mode Start) never carries the last run's weapons in. Respawns keep fnm_loadout.
+fnm_loadout_reset := class(tag){}
 # The movement modulator that speeds up a player after a first-try right answer (tools/build_rigs.py).
 fnm_boost := class(tag){}
 # Hallway obstacles (tools/build_course.py): shipping containers the director slides across the hallway, along

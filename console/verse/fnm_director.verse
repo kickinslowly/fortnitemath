@@ -141,6 +141,11 @@ fnm_station := class:
     # Where a punished player comes back (G9, RetrySpotFor): in front of the door wall, facing the doors. False = the
     # arrival spot of RetryTeleporter (the two arenas, whose pads stand in the open).
     RetrySpot : ?vector3 = false
+    # The lock device on each door prop (tools/build_course.py --locks-only; same station + door tags as the trigger), any
+    # order: a door a player opened stays open for everyone until something closes it, so the director closes them
+    # (CloseDoors) when a run starts and when a player is sent on to the station (Aaron 2026-10-16: "doors remained open
+    # from previous run"). Empty on a course without locks (the arenas, an older level).
+    Locks : []lock_device = array{}
 
 # One hallway's footprint for the skip guard (WatchSkip): world cm, Z at the entry pad.
 fnm_hallway := class:
@@ -443,6 +448,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # (0 = A), facing it, to check the real door opens (press E, walk in). -1 = off (ship value).
     @editable
     DebugDoorTest : int = -1
+    # Test hook, with DebugDoorTest: this many seconds after the drop, station 1's door locks Open() every door (frame:
+    # four doors standing open), and as many seconds later CloseAllDoors shuts them (frame: shut), to prove the locks are
+    # on their doors and a close lands. 0 = off (ship value).
+    @editable
+    DebugLockCycleSeconds : float = 0.0
     # Test hook: each joining player answers every station right, one every 6 s, by being dropped into the
     # right door's vestibule (the real trigger and barrier do the rest), for two runs, so the finish board
     # (and a second finish against a best time) can be checked without walking. false = off (ship value).
@@ -616,6 +626,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
     # Found by tag (tools/build_rigs.py): the wide camera for frozen/spiked players.
     var PenaltyCam : ?gameplay_camera_orbit_device = false
     var LoadoutTrigger : ?trigger_device = false
+    # The run-start granter's trigger (fnm_loadout_reset): clears the inventory, then the pistol (ResetLoadout).
+    var ResetTrigger : ?trigger_device = false
     var MudDevice : ?movement_modulator_device = false
     var BoostDevice : ?movement_modulator_device = false
     # The low-friction movement settings applied while a player stands in an fnm_ice_zone (icy hallways).
@@ -857,6 +869,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
             set PenaltyCam = option{Camera}
         for (Object : FindCreativeObjectsWithTag(fnm_loadout), Trigger := trigger_device[Object]):
             set LoadoutTrigger = option{Trigger}
+        for (Object : FindCreativeObjectsWithTag(fnm_loadout_reset), Trigger := trigger_device[Object]):
+            set ResetTrigger = option{Trigger}
         for (Object : FindCreativeObjectsWithTag(fnm_mud), Device := movement_modulator_device[Object]):
             set MudDevice = option{Device}
         for (Object : FindCreativeObjectsWithTag(fnm_boost), Device := movement_modulator_device[Object]):
@@ -884,7 +898,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         NewAudio := fnm_audio{Owner := Self}
         NewAudio.Build()
         set Audio = option{NewAudio}
-        Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}, mud {FnmYesNo(if (MudDevice?) then true else false)}")
+        Print("FNM: penalty camera {FnmYesNo(if (PenaltyCam?) then true else false)}, loadout trigger {FnmYesNo(if (LoadoutTrigger?) then true else false)}, reset trigger {FnmYesNo(if (ResetTrigger?) then true else false)}, mud {FnmYesNo(if (MudDevice?) then true else false)}")
         Print("FNM: screen fx frost {FnmYesNo(if (FrostFx?) then true else false)}, mud {FnmYesNo(if (MudFx?) then true else false)}, dizzy {FnmYesNo(if (DizzyFx?) then true else false)}; {Penalties.Length} penalties in the pool")
         if (Stations.Length = 0):
             Print("FNM: fnm_director found no stations: tag an entry teleporter fnm_station_01 + fnm_entry.")
@@ -946,12 +960,13 @@ fnm_director := class(creative_device, fnm_picker_listener):
         else if (ObjectTags.Has[fnm_door_d{}]) then 3
         else -1
 
-    # One station's tagged parts: its entry teleporter, its doors in A..D order (missing letters skipped)
-    # and each door's barrier (if any).
-    FindStationParts(StationTag:castable_subtype(tag)):tuple(?teleporter_device, []trigger_device, []?barrier_device) =
+    # One station's tagged parts: its entry teleporter, its doors in A..D order (missing letters skipped),
+    # each door's barrier (if any) and the door locks (any order).
+    FindStationParts(StationTag:castable_subtype(tag)):tuple(?teleporter_device, []trigger_device, []?barrier_device, []lock_device) =
         var Entry : ?teleporter_device = false
         var Triggers : []?trigger_device = array{false, false, false, false}
         var Barriers : []?barrier_device = array{false, false, false, false}
+        var Locks : []lock_device = array{}
         for (Object : FindCreativeObjectsWithTag(StationTag)):
             if (Teleporter := teleporter_device[Object]):
                 set Entry = option{Teleporter}
@@ -959,9 +974,11 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 if (set Triggers[DoorLetter(Object)] = option{Trigger}) {}
             else if (Barrier := barrier_device[Object]):
                 if (set Barriers[DoorLetter(Object)] = option{Barrier}) {}
+            else if (Lock := lock_device[Object]):
+                set Locks += array{Lock}
         Doors := for (MaybeDoor : Triggers, Door := MaybeDoor?) { Door }
         Passages := for (Letter -> MaybeDoor : Triggers, MaybeDoor?, Passage := Barriers[Letter]) { Passage }
-        (Entry, Doors, Passages)
+        (Entry, Doors, Passages, Locks)
 
     # Stations 1, 2, ... in order until the first station tag with no entry teleporter. A wrong answer
     # returns the player to their station's entry; a right answer sends them to the next entry (last
@@ -974,6 +991,7 @@ fnm_director := class(creative_device, fnm_picker_listener):
         var Entries : []teleporter_device = array{}
         var DoorSets : [][]trigger_device = array{}
         var PassageSets : [][]?barrier_device = array{}
+        var LockSets : [][]lock_device = array{}
         var Searching : logic = true
         for (StationTag : FnmStationTags()):
             Parts := FindStationParts(StationTag)
@@ -981,9 +999,10 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 set Entries = Entries + array{Entry}
                 set DoorSets = DoorSets + array{Parts(1)}
                 set PassageSets = PassageSets + array{Parts(2)}
+                set LockSets = LockSets + array{Parts(3)}
             else:
                 set Searching = false
-        for (K -> Entry : Entries, StationDoors := DoorSets[K], StationPassages := PassageSets[K]):
+        for (K -> Entry : Entries, StationDoors := DoorSets[K], StationPassages := PassageSets[K], StationLocks := LockSets[K]):
             var Next : teleporter_device = Entry
             if (Following := Entries[K + 1]):
                 set Next = Following
@@ -1002,8 +1021,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                     if (RetryFallback?) then set RetryAt = false
                 else:
                     Print("FNM: station {K + 1}: retry spot {Spot}, clear yes")
-            Print("FNM: station {K + 1}: {StationDoors.Length} doors, {CountPassages(StationPassages)} passages")
-            fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent, RetrySpot := RetryAt}
+            Print("FNM: station {K + 1}: {StationDoors.Length} doors, {CountPassages(StationPassages)} passages, {StationLocks.Length} door locks")
+            fnm_station{Doors := StationDoors, Passages := StationPassages, RetryTeleporter := Entry, NextTeleporter := Next, DifficultyOverride := OverridePercent, RetrySpot := RetryAt, Locks := StationLocks}
 
     # The boss arena from its tags: the entry and the four pads (fnm_boss, read like a station), the exit gate, the boss's
     # Megabrute creature spawner and the adds' guard spawner. No fnm_boss entry teleporter = no arena (another map):
@@ -1455,7 +1474,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
                 Print("FNM: debug start at stage {DebugStartStage}")
                 if (AtArena(State)?):
                     EnterArena(State, true)
-            GiveLoadout(State.Player)
+            ResetLoadout(State.Player)
+            CloseAllDoors(State.Player, "new skill")
             # The countdown holds them again; release the picker's hold first so the two never stack.
             if (Character := State.Player.GetFortCharacter[]):
                 Character.ReleaseFromStasis()
@@ -1911,6 +1931,9 @@ fnm_director := class(creative_device, fnm_picker_listener):
         # Every stage cleared refills health and shield (Aaron 2026-10-08: the station-10 guards wore him down; "every
         # time a player makes it through a stage they should have health and shield refreshed to full").
         RefreshVitals(State.Player, State.Stage)
+        # The station they are sent on to gets its doors shut again (a door someone opened stays open for everyone).
+        if (State.Stage <= Stations.Length, Ahead := StationFor(State.Stage)?):
+            CloseDoors(State.Player, Ahead, "station {State.Stage} ahead")
         if (AtArena(State)?):
             EnterArena(State, ShowNow)
         else if (State.Stage > Stations.Length):
@@ -2146,6 +2169,14 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Spot := ZoneCentre(Door) - vector3{X := 0.0, Y := 480.0, Z := 0.0}
             if (Character.TeleportTo[Spot, MakeRotationFromYawPitchRollDegrees(ArrivalYaw, 0.0, 0.0)]):
                 Print("FNM: debug door: in front of {FnmChoiceLetter(DebugDoorTest)} at {Spot}")
+            if (DebugLockCycleSeconds > 0.0):
+                Sleep(DebugLockCycleSeconds)
+                for (Lock : Station.Locks):
+                    Lock.Open(State.Player)
+                Print("FNM: debug lock opened {Station.Locks.Length} doors")
+                Sleep(DebugLockCycleSeconds)
+                CloseAllDoors(State.Player, "debug lock")
+                Print("FNM: debug lock closed")
             for (N := 1..12):
                 Sleep(1.0)
                 Print("FNM: debug pos y={Character.GetTransform().Translation.Y} stage={State.Stage}")
@@ -2435,6 +2466,40 @@ fnm_director := class(creative_device, fnm_picker_listener):
             Character.SetHealth(Character.GetMaxHealth())
             Character.SetShield(Character.GetMaxShield())
             Print("FNM: loadout: health {Character.GetHealth()}, shield {Character.GetShield()}")
+
+    # Shuts Station's doors (their lock devices' Close, which takes an agent: the player the run is for). A door prop a
+    # player opened stays open for everyone until it is closed, so a new run found the last run's doors standing open
+    # (Aaron 2026-10-16). Nothing happens on a station without locks.
+    CloseDoors(Player:player, Station:fnm_station, Why:string):void =
+        if (Station.Locks.Length > 0):
+            for (Lock : Station.Locks):
+                Lock.Close(Player)
+            Print("FNM: {Station.Locks.Length} doors closed ({Why})")
+
+    # Every station's doors shut for a run start (Pick, StartNewRun).
+    CloseAllDoors(Player:player, Why:string):void =
+        var Count : int = 0
+        for (Station : Stations):
+            for (Lock : Station.Locks):
+                Lock.Close(Player)
+                set Count += 1
+        Print("FNM: {Count} doors closed ({Why})")
+
+    # A fresh run's loadout (Pick, StartNewRun, boss mode Start): the fnm_loadout_reset granter CLEARS the inventory first
+    # (Clear Inventory), so nothing from the last run (guard drops, chest weapons, grenades) rides into the new one (Aaron
+    # 2026-10-16: "Player had weapons from previous run on new run"; a full bag also made the boss chests drop their weapon
+    # at the feet), then the pistol with its ammo, full health and shield. Respawns keep GiveLoadout (an eliminated player
+    # has dropped everything already). Without the reset rig (an older level) the plain loadout is the fallback.
+    ResetLoadout(Player:player):void =
+        if (Trigger := ResetTrigger?):
+            Trigger.Trigger(Player)
+            if (Character := Player.GetFortCharacter[]):
+                Character.SetHealth(Character.GetMaxHealth())
+                Character.SetShield(Character.GetMaxShield())
+            Print("FNM: inventory reset + loadout for the player")
+        else:
+            Print("FNM: no fnm_loadout_reset trigger (run tools/build_rigs.py --loadout-only): plain loadout, the last run's items stay")
+            GiveLoadout(Player)
 
     # Full health and full shield for Player, logged with the stage it was earned at.
     RefreshVitals(Player:player, Stage:int):void =
@@ -2842,7 +2907,8 @@ fnm_director := class(creative_device, fnm_picker_listener):
         State.Hud.SetClock(FnmClock(0.0))
         if (First := Stations[0]):
             SendTo(State.Player, First.RetryTeleporter)
-        GiveLoadout(State.Player)
+        ResetLoadout(State.Player)
+        CloseAllDoors(State.Player, "new run")
         Countdown(State)
 
     # 3, 2, 1, GO! with the player held still, then the race clock runs until they finish (or a new run starts).

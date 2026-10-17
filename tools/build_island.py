@@ -49,10 +49,18 @@ SETTINGS = {
     "joinInProgressBehavior": "SpawnImmediately",
     "environmentDamagePreset": "Off",
     "allowBuilding": "None",
+    # The published island code watermark draws "your name and published island code" in place of the compass, i.e. top
+    # centre (the property's own description), where the question slate hangs: on the Xbox it collided with the problem
+    # text (Aaron 2026-10-16; the editor's own sessions never show it). Off: the code stays on the island's visibility
+    # screen and, as text, on the finish card (director IslandCode). ECreativePublishedIslandCodeDisplay: Off |
+    # ShowWithWatermark | ShowWithoutWatermark. Write it ALONE: the legacy bShowIslandCodeWatermark reads true whatever is
+    # written to it, and writing it flips this enum back to ShowWithoutWatermark (2026-10-16); the enum survives a save.
+    "publishedIslandCodeDisplay": "Off",
 }
 # Read back for the report, beyond SETTINGS.
 REPORT = ["timeOfDayOverride", "maxPlayers", "bAllowFriendlyFire", "spawnLocation", "respawnTime", "spawnLimit", "spawnLimit_Override",
-          "roundTimeLimit", "roundTimeLimit_Override", "bForceStartAtMaxPlayers", "matchmaking_MaxPlayersPerSession"]
+          "roundTimeLimit", "roundTimeLimit_Override", "bForceStartAtMaxPlayers", "matchmaking_MaxPlayersPerSession",
+          "bShowIslandCodeWatermark", "dropAllItemsOverride"]
 # Prop hardening: skip devices, engine cubes (not damageable anyway), the Verse device and the item granter.
 SKIP_CLASSES = ("Device_", "FortStaticMeshActor", "VerseDevice", "BP_Creative_", "PersistentLevel.IslandSettings")
 PROP_TAGS = ("fnm_course", "fnm_decor", "fnm_finish_rig", "fnm_rigs")
@@ -160,9 +168,15 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true", help="report only, change nothing")
     ap.add_argument("--time", metavar="VALUE", help="only set Island Settings timeOfDayOverride (e.g. Hour17), or 'list' its values")
+    ap.add_argument("--settings", action="store_true", help="only apply SETTINGS (no pads, no prop pass), read them back, save")
     a = ap.parse_args()
     if a.time:
         time_of_day(a.time)
+        sys.exit(0)
+    if a.settings:
+        settings(a.check)
+        if not a.check:
+            u.call("editor_toolset.toolsets.asset.AssetTools", "save_assets", {"asset_paths": []})
         sys.exit(0)
     settings(a.check)
     pads(a.check)

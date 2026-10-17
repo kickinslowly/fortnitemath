@@ -11,6 +11,7 @@ TID_Figment_Floor_Spikes_Athena_R_T01) both fail island validation as illegal re
 Idempotent: every actor this script creates is tagged TAG; a run first deletes everything with TAG.
 
     python tools/build_rigs.py [--copies 4]
+    python tools/build_rigs.py --loadout-only    # replace just the two loadout trigger + granter pairs (LOADOUTS)
 """
 import argparse
 import json
@@ -102,8 +103,7 @@ def clear(tag):
 
 
 def build(copies):
-    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
-    project = next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
+    project = project_name()
     print("removed", clear(TAG), "old rig actors;", clear("fnm_test"), "test actors")
     for row, (label, asset, vtag, (sx, sy, sz), is_device, per_copy, values) in enumerate(RIGS):
         count = copies * per_copy if per_copy else 1
@@ -123,30 +123,71 @@ def build(copies):
     loadout(project)
 
 
+# The two loadout granters (loadout()), each bound to its own hidden trigger: (label, Verse tag, granter settings).
+# fnm_loadout: the pistol on a respawn, Keep All (an eliminated player has dropped everything already, island
+# dropAllItemsOverride ForceDrop) and Only if Not Owned. fnm_loadout_reset: the run-start grant (Pick, NEW RACE, BOSS
+# BATTLE start): "Clear Inventory" wipes the bag FIRST, so a new run never carries the last run's guard drops, chest
+# weapons and grenades (Aaron 2026-10-16: "Player had weapons from previous run on new run"; a full bag also made the
+# boss chests drop their weapon at the feet). E_Device_ItemGranter_GrantBehavior: Clear Inventory | Clear Items |
+# Clear Resources | Keep All; GrantCondition: Always | Only If Empty | Only If Space | Only If Initially Empty |
+# Only if Not Owned (read from the placed device's list_properties, 2026-10-16).
+LOADOUTS = [
+    ("Loadout", "fnm_loadout", {"grantBehavior": "Keep All", "grantCondition": "Only if Not Owned"}),
+    ("LoadoutReset", "fnm_loadout_reset", {"grantBehavior": "Clear Inventory", "grantCondition": "Always"}),
+]
+
+
 def loadout(project):
-    """Starting pistol. Verse can't find the legacy item granter by tag, wire it by @editable reference (MCP
-    rejects it), or reach the player's (non scene-graph) inventory, so: a hidden trigger tagged fnm_loadout
-    that Verse fires with the player as instigator, and the granter's Grant Item bound to that trigger."""
-    x, y, z = PARK[0], PARK[1] - PITCH * len(RIGS), PARK[2]
-    trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, z)})["returnValue"]["refPath"]
-    grant = u.call(DEV, "PlaceDevice", {"assetPath": ref(GRANTER), "transform": xform(x + PITCH, y, z)})["returnValue"]["refPath"]
-    for actor, label in ((trig, "FNM_Rig_LoadoutTrigger"), (grant, "FNM_Rig_LoadoutGranter")):
-        u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
-        u.call(ACTOR, "set_label", {"actor": ref(actor), "label": label})
-    verse_tags(trig, project, ["fnm_loadout"])
-    props_set(trig, {"visible in Game": False, "reset Delay": 0.0})
-    props_set(grant, {"grantBehavior": "Keep All", "grantCondition": "Only if Not Owned", "giveExtraAmmo": 1, "equipItemOnGrant": 1,
-                      "grantItem": {"eventSubscriptions": [{"object": {"refPath": trig},
-                                                            "eventDescriptor": {"memberParent": {"refPath": TRIGGER_CLASS},
-                                                                                "memberName": "OnTriggered"}}]}})
-    items = u.call("editor_toolset.toolsets.object.ObjectTools", "get_properties",
-                   {"instance": ref(grant), "properties": ["pickupItemList"]})["returnValue"]
-    item_list = json.loads(items)["pickupItemList"]["refPath"]
-    props_set(item_list, {"itemListData": [{"itemDefinition": {"refPath": PISTOL}, "itemQuantity": 1}]})
-    print("loadout granter + trigger placed")
+    """Starting pistol, twice (LOADOUTS). Verse can't find the legacy item granter by tag, wire it by @editable reference
+    (MCP rejects it), or reach the player's (non scene-graph) inventory, so: a hidden trigger tagged fnm_loadout /
+    fnm_loadout_reset that Verse fires with the player as instigator, and the granter's Grant Item bound to that trigger."""
+    for k, (label, vtag, settings) in enumerate(LOADOUTS):
+        x, y, z = PARK[0], PARK[1] - PITCH * (len(RIGS) + k), PARK[2]
+        trig = u.call(DEV, "PlaceDevice", {"assetPath": ref(TRIGGER), "transform": xform(x, y, z)})["returnValue"]["refPath"]
+        grant = u.call(DEV, "PlaceDevice", {"assetPath": ref(GRANTER), "transform": xform(x + PITCH, y, z)})["returnValue"]["refPath"]
+        for actor, suffix in ((trig, "Trigger"), (grant, "Granter")):
+            u.call(ACTOR, "add_tag", {"actor": ref(actor), "tag": TAG})
+            u.call(ACTOR, "set_label", {"actor": ref(actor), "label": f"FNM_Rig_{label}{suffix}"})
+        verse_tags(trig, project, [vtag])
+        props_set(trig, {"visible in Game": False, "reset Delay": 0.0})
+        props_set(grant, {**settings, "giveExtraAmmo": 1, "equipItemOnGrant": 1,
+                          "grantItem": {"eventSubscriptions": [{"object": {"refPath": trig},
+                                                                "eventDescriptor": {"memberParent": {"refPath": TRIGGER_CLASS},
+                                                                                    "memberName": "OnTriggered"}}]}})
+        items = u.call("editor_toolset.toolsets.object.ObjectTools", "get_properties",
+                       {"instance": ref(grant), "properties": ["pickupItemList"]})["returnValue"]
+        item_list = json.loads(items)["pickupItemList"]["refPath"]
+        props_set(item_list, {"itemListData": [{"itemDefinition": {"refPath": PISTOL}, "itemQuantity": 1}]})
+        back = json.loads(u.call("editor_toolset.toolsets.object.ObjectTools", "get_properties",
+                                 {"instance": ref(grant), "properties": list(settings)})["returnValue"])
+        wrong = {key: back.get(key) for key, want in settings.items() if back.get(key) != want}
+        if wrong:
+            sys.exit(f"{label} granter: settings not taken: {wrong}")
+        print(f"{label} granter + trigger placed ({vtag}: {', '.join(f'{k2} {v2}' for k2, v2 in settings.items())})")
+
+
+def project_name():
+    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
+    return next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
+
+
+def loadout_only():
+    """--loadout-only: replace just the loadout triggers and granters (LOADOUTS), leaving the penalty rigs alone."""
+    found = u.call(SCENE, "find_actors", {"tag": TAG, "collision_channels": []})
+    actors = found if isinstance(found, list) else found.get("returnValue", [])
+    old = [a for a in actors if isinstance(a, dict) and a.get("label", "").startswith("FNM_Rig_Loadout")]
+    for a in old:
+        u.call(SCENE, "remove_from_scene", {"actor": ref(a["actorPath"])})
+    print("removed", len(old), "old loadout actors")
+    loadout(project_name())
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--copies", type=int, default=4)
-    build(ap.parse_args().copies)
+    ap.add_argument("--loadout-only", action="store_true", help="replace only the loadout triggers + granters (LOADOUTS)")
+    args = ap.parse_args()
+    if args.loadout_only:
+        loadout_only()
+    else:
+        build(args.copies)

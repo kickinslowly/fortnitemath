@@ -567,3 +567,34 @@ Aaron: "take care of anything you can do without me" + the walls still read "rep
   with "GOLD needs 10/10 - you: 9/10", no false record, all 12 analytics events. Still unseen: the strike Freeze landing
   (the shield ate it) and its wide camera
 - Later (needs Aaron or kids): HEAT mode (a product call), host controls + misconception radar, accolades
+
+## G11 — Aaron's Xbox playtest of the private version (2026-10-16)
+Five findings, built the same night (headless proof in frames + the editor log; the Xbox itself is the real check):
+- [x] "Map should fully reset between runs, doors remained open": door props keep their open state for everyone and
+  nothing closed them. Built: a Key Lock device on every door (`build_course.py --locks-only`, 40 placed, each bound by
+  `lockableObject`, unlocked so E still opens), the director's `CloseAllDoors` at every run start (Pick, NEW RACE) and
+  `CloseDoors` for the station a player is sent on to (multiplayer: the doors ahead reset as you arrive). Seen in frames
+  (`DebugLockCycleSeconds`): door A shut with E OPEN, swung open by its lock, shut again; log `40 doors closed (new skill)` /
+  `(new run)`; `station N: 4 doors, 4 passages, 4 door locks`
+- [x] "Player had weapons from previous run on new run": the loadout granter was Keep All / Only if Not Owned. Built: a
+  second granter `fnm_loadout_reset` (Clear Inventory, Always; `build_rigs.py --loadout-only`) fired by `ResetLoadout` at
+  Pick, NEW RACE and boss mode Start; respawns keep the plain one (an eliminated player drops everything: island
+  `dropAllItemsOverride` ForceDrop). Log `inventory reset + loadout` at both. NOT seen: the bag itself emptying (the headless
+  run carried no extra item: the stage-2 pickup-pad drops granted nothing this time)
+- [x] "Chests in boss mode bugged, no weapon received (one worked)": two causes. A bag full of the last race's guns (above)
+  made the chest granter drop the weapon at the feet, or refuse an owned one, and `TakenLevels` blocked a knocked-out
+  fighter (who dropped the weapon) from taking it again. Built: the chest fires the level's granter every time ("Only if
+  Not Owned" keeps it to one copy); GET! fanfare + feed on the first grab, "{Weapon} already yours - restocked if you lost
+  it" after. Not re-seen in play (the chest needs a real E hold). Known edge: a flawless 5-level run holds pistol + 5 chest
+  weapons = 6 > 5 slots, so level 5's rocket launcher drops at the feet on the perch
+- [x] "Map creator name and code and version text colliding with the problem text" + the compact slate unreadable (arena,
+  retry hold): Island Settings > Island Code Display was Show With Watermark, which "causes your name and published island
+  code to appear in place of the compass" = top centre, right under both slates (the editor's own sessions never draw it,
+  so nobody here saw it). Built: `publishedIslandCodeDisplay` Off (`build_island.py --settings`, saved, read back; the
+  legacy `bShowIslandCodeWatermark` reads true whatever is written and writing it flips the enum back). UNVERIFIED on the
+  Xbox: that the compact slate reads once the watermark is gone (its sizes are unchanged: 30 px prompt, 26 px values)
+- [ ] "PLAYTEST (WARNING: UNMODERATED)" in yellow, partly over the problem text (Aaron: acceptable if it goes on publish): a
+  private-version label (an Epic forum thread reports the same text); where it sits is not known from here. A HUD
+  Controller probe with `showHUDInfoBox` HideElement did not hide the GAME MODE box in one editor session (probe removed,
+  not pursued). Wanted: one Xbox screenshot of a station with the slate up, to place the label and judge the compact slate
+- [ ] Xbox re-test of the four fixes on the next private version (Aaron's Launch Memory Calculation upload)

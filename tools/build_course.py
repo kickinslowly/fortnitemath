@@ -19,6 +19,7 @@ Idempotent: every actor this script creates is tagged TAG; a run first deletes e
                                                 # add --flat to check against the flat colours)
     python tools/build_course.py --doors-only   # swap the door props in place (DOOR_PROPS), no rebuild
     python tools/build_course.py --triggers-only  # refit the vestibule and arena pad triggers in place (trigger_fit)
+    python tools/build_course.py --locks-only   # replace the door locks (one Key Lock per door, bound to it; the director closes them)
     python tools/build_course.py --arena-pads   # move the arena's 4 pad tiles + triggers to PAD_SPOTS / RACE_PAD_SIZE in place, reads back
 
 After the last station's connector comes the BOSS ARENA (GOALS G6 item 3, maps/starter/LAYOUT.md "Boss arena"): four
@@ -311,6 +312,12 @@ def door_asset(name):
 
 
 @functools.lru_cache(maxsize=None)
+def project_name():
+    """The UEFN project's name (its Verse root folder), for Verse tag paths."""
+    root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
+    return next(e["name"] for e in root["returnValue"] if e["type"] == "Directory" and "(" not in e["name"]).strip("/")
+
+
 def project_mount():
     """The project's content mount (its plugin id), e.g. /c498eed2-...; FNM_Art lives under it."""
     root = u.call("ValkyrieToolset.VerseToolset", "ListFiles", {"path": "", "bRecursive": False})
@@ -423,7 +430,9 @@ def station(k, ox, oy, oz, hall, doors, project, door_assets):
         cx = ox + dx
         letter = LETTERS[i]
         asset, width = door_assets[i]
-        door_dress(prop(asset, f"{prefix}_Door{letter}", cx, door_y, oz, sx=DOOR_W / width), i)
+        door = prop(asset, f"{prefix}_Door{letter}", cx, door_y, oz, sx=DOOR_W / width)
+        door_dress(door, i)
+        door_lock(door, k, letter, cx, door_y, oz, project)
         inner = DOOR_W - t                  # vestibule width between dividers
         trig_depth = TRIGGER_DEPTH
         tz, tsx, tsy, tsz = trigger_fit(oz, inner, trig_depth, VEST_TRIGGER_H)
@@ -775,6 +784,49 @@ def find_doors():
                   key=lambda a: a["label"])
 
 
+# Door locks (door_lock, --locks-only). A door prop a player opened stays open for everyone until something closes it,
+# so a new run found the last run's doors standing open (Aaron 2026-10-16). The Key Lock device (Device_Keylock_V2, the
+# Verse lock_device: Open / Close / Lock / Unlock per agent) sits on each door, bound to it by its lockableObject, unlocked
+# (players still open doors with E) and invisible; the director's CloseDoors / CloseAllDoors shut them at a run start and
+# for the station a player is sent on to. (PID_CP_Devices_LockDevice is the Conditional Button, not a door lock.) The
+# device's settings as list_properties names them (spaces included).
+LOCK = "/CreativeCoreDevices/SetupAssets/PID_CP_Devices_KeyLock_V2.PID_CP_Devices_KeyLock_V2"
+LOCK_TAG = "fnm_door_locks"          # second actor tag, so --locks-only replaces the locks alone (TAG clears them too)
+LOCK_Z = 120                         # over the door's floor, about the knob
+LOCK_SETTINGS = {"initial Door Position": "Closed", "starts Locked": "Unlocked", "visible During Game": False}
+
+
+def door_lock(door, k, letter, x, y, z, project):
+    """Place station k's lock for door `letter` on door prop `door` (at the door's x, y, floor z), bind it, read it back."""
+    lock = device(LOCK, f"FNM_S{k:02d}_Lock{letter}", x, y, z + LOCK_Z)
+    u.call(ACTOR, "add_tag", {"actor": ref(lock), "tag": LOCK_TAG})
+    verse_tags(lock, project, [f"fnm_station_{k:02d}", f"fnm_door_{letter.lower()}"])
+    props(lock, {**LOCK_SETTINGS, "lockableObject": {"refPath": door}})
+    back = json.loads(u.call(OBJ, "get_properties", {"instance": ref(lock), "properties": list(LOCK_SETTINGS) + ["lockableObject"]})["returnValue"])
+    bound = (back.get("lockableObject") or {}).get("refPath", "") if isinstance(back.get("lockableObject"), dict) else back.get("lockableObject")
+    wrong = {key: back.get(key) for key, want in LOCK_SETTINGS.items() if back.get(key) != want}
+    if not bound or bound.rsplit(".", 1)[-1] != door.rsplit(".", 1)[-1]:
+        wrong["lockableObject"] = bound
+    if wrong:
+        sys.exit(f"FNM_S{k:02d}_Lock{letter}: settings not taken: {wrong}")
+    return lock
+
+
+def locks_only():
+    """Replace every door lock in place (LOCK_TAG actors go, one new lock per FNM_Sxx_DoorX at the door's spot), save."""
+    doors = find_doors()
+    if not doors:
+        sys.exit("no FNM_Sxx_DoorX actors: run the full build")
+    print("removed", clear(LOCK_TAG), "old door locks")
+    project = project_name()
+    for a in doors:
+        m = re.fullmatch(r"FNM_S(\d\d)_Door([A-D])", a["label"])
+        t = u.call(ACTOR, "get_actor_transform", {"actor": ref(a["actorPath"])})["returnValue"]
+        door_lock(a["actorPath"], int(m[1]), m[2], t["location"]["x"], t["location"]["y"], t["location"]["z"], project)
+    u.call(ASSETS, "save_assets", {"asset_paths": []})
+    print(f"{len(doors)} door locks placed (unlocked, closed at start, invisible), each bound to its door and read back")
+
+
 def door_paint():
     """Re-apply door_dress to every door prop already in the level (nothing is removed or placed), save, and read all of
     them back: the repair after a door face was replaced, and the check that the paint survives a save. Idempotent."""
@@ -980,6 +1032,7 @@ if __name__ == "__main__":
     ap.add_argument("--check-paint", action="store_true", help="read-only report of every door's and wall's / floor's paint")
     ap.add_argument("--ice-only", action="store_true", help="only re-apply the ice device's settings (ICE_*)")
     ap.add_argument("--triggers-only", action="store_true", help="only refit the vestibule and arena pad triggers in place (trigger_fit)")
+    ap.add_argument("--locks-only", action="store_true", help="only replace the door locks (one Key Lock per door, bound to it)")
     ap.add_argument("--arena-pads", action="store_true", help="only move the arena's pad tiles + triggers to PAD_SPOTS in place")
     ap.add_argument("--no-arena", action="store_true", help="build without the boss arena (the last connector leads to the finish)")
     ap.add_argument("--flat", action="store_true", help="with --paint-only / --check-paint / a build: the old flat WALL_COLOURS "
@@ -999,6 +1052,8 @@ if __name__ == "__main__":
         ice_only()
     elif a.triggers_only:
         triggers_only()
+    elif a.locks_only:
+        locks_only()
     elif a.arena_pads:
         arena_pads()
     else:

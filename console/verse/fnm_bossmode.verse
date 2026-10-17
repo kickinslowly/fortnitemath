@@ -511,7 +511,7 @@ fnm_boss_mode := class:
         if (Character := State.Player.GetFortCharacter[]):
             Character.ReleaseFromStasis()
         Director.SendTo(State.Player, Arena.Station.RetryTeleporter)
-        Director.GiveLoadout(State.Player)
+        Director.ResetLoadout(State.Player)
         # The boss bed (G9 D2, music_boss), whatever the level; it replaces the picker's.
         Director.SetMusic(State.Player, FnmBedBoss)
         State.Hud.FlashBig("STEP ON THE RIGHT ANSWER!", NamedColors.Gold, StartFlashSeconds)
@@ -828,22 +828,27 @@ fnm_boss_mode := class:
             if (not Taken?):
                 spawn{ ShowLine(State, "OPEN THE CHEST! (hold E)", NamedColors.Gold, 3.0) }
 
-    # Perch P's chest was opened (its button held) by State's player: when P is lit and they have not taken this level's
-    # weapon, the level's granter hands it over with its ammo (its hidden trigger, fired for them).
+    # Perch P's chest was opened (its button held) by State's player: when P is lit, the level's granter hands the weapon over
+    # with its ammo (its hidden trigger, fired for them). The granter is fired EVERY time (its "Only if Not Owned" gives out one
+    # copy): a fighter knocked out since they took it has dropped it (the island drops a player's items at elimination), and
+    # gating on TakenLevels left them with nothing (Aaron 2026-10-16: chests "bugged, no weapon received"). The GET! fanfare,
+    # the feed line and the taken mark are for the first grab only.
     OnChest(State:fnm_player_state, P:int):void =
         Print("FNM: boss mode chest {P} opened (level {Level})")
         if (State.Mode = fnm_mode.Boss, not State.Finished?, not State.Picking?, Level >= 1, IsLit(P)?):
             Taken := if (Got := State.TakenLevels[Level], Got?) then true else false
             Weapon := FnmBmWeaponName(Level)
-            if (Taken?):
-                spawn{ ShowLine(State, "You already have the {Weapon}!", NamedColors.Gold, 3.0) }
-            else if (MaybeTrigger := Arena.GrantTriggers[Level - 1], Trigger := MaybeTrigger?):
+            if (MaybeTrigger := Arena.GrantTriggers[Level - 1], Trigger := MaybeTrigger?):
                 Trigger.Trigger(State.Player)
-                if (set State.TakenLevels[Level] = true) {}
-                Director.Sound(State.Player, fnm_cue.BmWeapon)
-                State.Hud.FlashBig("{Weapon} GET!", NamedColors.Gold, WeaponGetSeconds)
-                Director.Broadcast(FnmFeedBmWeapon(State.Player, Weapon), "grabbed the {Weapon}!")
-                Print("FNM: boss mode weapon {Weapon} granted from chest {P} (level {Level})")
+                if (Taken?):
+                    spawn{ ShowLine(State, "{Weapon} already yours - restocked if you lost it", NamedColors.Gold, 3.0) }
+                    Print("FNM: boss mode chest {P} re-opened: {Weapon} granted again if lost (level {Level})")
+                else:
+                    if (set State.TakenLevels[Level] = true) {}
+                    Director.Sound(State.Player, fnm_cue.BmWeapon)
+                    State.Hud.FlashBig("{Weapon} GET!", NamedColors.Gold, WeaponGetSeconds)
+                    Director.Broadcast(FnmFeedBmWeapon(State.Player, Weapon), "grabbed the {Weapon}!")
+                    Print("FNM: boss mode weapon {Weapon} granted from chest {P} (level {Level})")
             else:
                 Print("FNM: boss mode chest {P}: no granter for level {Level}")
 
